@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2012/04/17 20:57:09 gls Exp $
+
+SHA1 (gajim-0.15.tar.bz2) = 68934aa40090d21b2937df551373e454f5aa6bb6
+RMD160 (gajim-0.15.tar.bz2) = d16345dc19bfa94d657f531af63600809c6fdeb5
+Size (gajim-0.15.tar.bz2) = 4332305 bytes
+SHA1 (patch-src_common_latex.py) = 52f4764f881bc5ed26b8262ebd92e5fc1e80e1a4

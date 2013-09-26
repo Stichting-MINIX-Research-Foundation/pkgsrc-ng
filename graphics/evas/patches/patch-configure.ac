@@ -1,0 +1,19 @@
+$NetBSD: patch-configure.ac,v 1.4 2013/06/16 18:56:05 sno Exp $
+
+Patch for solaris nice name
+
+--- configure.ac.orig	Thu Nov 17 03:25:24 2011
++++ configure.ac	Thu Sep 27 13:04:34 2012
+@@ -80,8 +80,11 @@
+    mingw32ce*)
+       MODULE_ARCH="$host_os-$host_cpu"
+       ;;
++   solaris*)
++      MODULE_ARCH="solaris-$host_cpu-v_maj.v_min.v_mic"
++      ;;
+    *)
+-      MODULE_ARCH="$host_os-$host_cpu-v_maj.v_min.v_mic"
++      MODULE_ARCH="${host_os%-gnu}-$host_cpu-v_maj.v_min.v_mic"
+       ;;
+ esac
+ AC_SUBST(MODULE_ARCH)

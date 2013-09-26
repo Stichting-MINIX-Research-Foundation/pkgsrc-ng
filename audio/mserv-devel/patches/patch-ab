@@ -1,0 +1,34 @@
+$NetBSD: patch-ab,v 1.2 2011/09/04 04:49:09 dholland Exp $
+
+- fix wrong include (?) (no history for first hunk)
+- fix mismatched return statements, which clang dislikes
+
+--- mserv/mserv.c.orig	2003-08-31 22:52:34.000000000 +0000
++++ mserv/mserv.c
+@@ -67,7 +67,7 @@ met:
+ #include "cmd.h"
+ #include "acl.h"
+ #include "mp3info.h"
+-#include "soundcard.h"
++#include "mservsoundcard.h"
+ #include "defconf.h"
+ #include "conf.h"
+ #include "opt.h"
+@@ -2910,7 +2910,7 @@ static t_author *mserv_authorlist(void)
+     if ((author->tracks = malloc(author->tracks_size * 
+                                  sizeof(t_track *))) == NULL) {
+       mserv_log("Out of memory creating author structure");
+-      return;
++      return NULL;
+     }
+     for (ui = 0; ui < author->tracks_size; ui++)
+       author->tracks[ui] = NULL;
+@@ -2923,7 +2923,7 @@ static t_author *mserv_authorlist(void)
+                                         (author->tracks_size + 64) *
+                                         sizeof(t_track *))) == NULL) {
+             mserv_log("Out of memory increasing size of author structure");
+-            return;
++            return NULL;
+           }
+           for (ui = author->tracks_size; ui < author->tracks_size + 64; ui++)
+             author->tracks[ui] = NULL;

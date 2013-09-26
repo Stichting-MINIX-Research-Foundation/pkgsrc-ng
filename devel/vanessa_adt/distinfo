@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2010/06/02 12:42:38 adam Exp $
+
+SHA1 (vanessa_adt-0.0.8.tar.bz2) = ddff47c3f6d57a7bc2efb926ef05af4adf7cdc9f
+RMD160 (vanessa_adt-0.0.8.tar.bz2) = 5508625aaea68ebd4ee56a8a0cf2f4e20197b115
+Size (vanessa_adt-0.0.8.tar.bz2) = 248516 bytes
+SHA1 (patch-aa) = 3db7d7c4449ecfadfcc4a9d9d2fb8b00f69bc476

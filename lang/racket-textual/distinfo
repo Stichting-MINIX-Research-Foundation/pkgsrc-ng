@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.10 2013/02/16 21:20:22 asau Exp $
+
+SHA1 (racket-textual-5.3.3-src-unix.tgz) = 1a590e2e0d72e507daafa16f96eb896933d8c0ec
+RMD160 (racket-textual-5.3.3-src-unix.tgz) = d9881dc632570c6c52d29b8cf63b269458346769
+Size (racket-textual-5.3.3-src-unix.tgz) = 6220717 bytes
+SHA1 (patch-collects_racket_draw_unsafe_png.rkt) = 7ec0c190e97ab653a01aec6cc4ea909ec7ce0ee2

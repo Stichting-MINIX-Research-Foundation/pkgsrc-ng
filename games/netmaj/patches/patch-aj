@@ -1,0 +1,13 @@
+$NetBSD: patch-aj,v 1.2 2013/02/26 10:29:34 joerg Exp $
+
+--- log.c.orig	1996-07-31 08:06:02.000000000 +0000
++++ log.c
+@@ -31,7 +31,7 @@ char *pai2str(n) pai_t n; {
+ 	return pai_strings[n];
+ }
+ 
+-char *attr2str(n) attr_t n; {
++char *attr2str(n) pai_attr_t n; {
+ 	static char buf[4];
+ 	buf[0] = F_CHARS[F_GET(n)>>F_SHFT];
+ 	buf[1] = T_CHARS[T_GET(n)>>T_SHFT];

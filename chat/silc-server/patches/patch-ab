@@ -1,0 +1,112 @@
+$NetBSD: patch-ab,v 1.9 2010/08/30 11:17:16 adam Exp $
+
+--- doc/example_silcd.conf.in.orig	2008-10-25 13:59:17.000000000 +0000
++++ doc/example_silcd.conf.in
+@@ -186,7 +186,7 @@ ServerInfo {
+ 	#
+ 	# Server name (FQDN)
+ 	#
+-	hostname = "lassi.kuo.fi.ssh.com";
++	hostname = "localhost";
+ 
+ 	#
+ 	# Primary listener.  Specify the IP address and the port to bind
+@@ -194,7 +194,7 @@ ServerInfo {
+ 	# if the server is behind NAT.
+ 	#
+ 	Primary {
+-		ip = "10.2.1.6";
++		ip = "127.0.0.1";
+ 		# public_ip = "11.1.1.1";
+ 		port = 706;
+ 	};
+@@ -203,8 +203,7 @@ ServerInfo {
+ 	# Secondary listener(s).  If you need to bind your server into
+ 	# several interfaces use the Secondary to specify the listener(s).
+ 	#
+-	#Secondary { ip = "10.2.1.60"; port = 706; };
+-	#Secondary { ip = "10.2.1.160"; port = 706; };
++	Secondary { ip = "::1"; port = 706; };
+ 
+ 	#
+ 	# ServerType field specifies the purpose of this server
+@@ -215,7 +214,7 @@ ServerInfo {
+ 	#
+ 	# Geographic location
+ 	#
+-	Location = "Kuopio, Finland";
++	Location = "Generic City, Generic Country";
+ 
+ 	#
+ 	# Full admin name
+@@ -231,8 +230,8 @@ ServerInfo {
+ 	# Run SILC server as specific user and group.  The server must be
+ 	# initially run as root.
+ 	#
+-	User = "nobody";
+-	Group = "nobody";
++	User = "silcd";
++	Group = "silcd";
+ 
+ 	#
+ 	# Public and private keys
+@@ -245,7 +244,7 @@ ServerInfo {
+ 	#
+ 	# Specifies the text file displayed on client connection
+ 	#
+-	#MotdFile = "@ETCDIR@/motd.txt";
++	MotdFile = "@ETCDIR@/motd.txt";
+ 
+ 	#
+ 	# Pid file
+@@ -278,7 +277,7 @@ Logging {
+ 	# reduces memory usage.  By default it is false and log files are
+ 	# written with FlushDelay timeout.
+ 	#
+-	#QuickLogs = true;
++	QuickLogs = true;
+ 
+ 	# FlushDelay tells log files update delay (seconds) in case you
+ 	# have chosen buffering output.  This setting has effect only if
+@@ -458,9 +457,9 @@ Client {
+ # required.
+ #
+ Admin {
+-	Host = "10.2.1.199";
+-	User = "priikone";
+-	Nick = "pekka";
++	Host = "127.0.0.1";
++	User = "admin";
++	Nick = "admin";
+ 	Passphrase = "verysecret";
+ 	# PublicKey = "/path/to/the/public.pub";
+ };
+@@ -520,17 +519,17 @@ ServerConnection {
+ # backup router is in our cell then set the "BackupLocal" option to true.
+ # If the backup router is in other cell then set it to false.
+ #
+-RouterConnection {
+-	Host = "10.2.1.100";
+-	Port = 706;
+-	Passphrase = "verysecret";
+-	#PublicKey = "/path/to/the/public.pub";
+-	Params = "normal";
+-	Initiator = true;
+-	#BackupHost = "10.2.1.6";
+-	#BackupPort = 706;
+-	#BackupLocal = true;
+-};
++#RouterConnection {
++#	Host = "10.2.1.100";
++#	Port = 706;
++#	Passphrase = "verysecret";
++#	#PublicKey = "/path/to/the/public.pub";
++#	Params = "normal";
++#	Initiator = true;
++#	#BackupHost = "10.2.1.6";
++#	#BackupPort = 706;
++#	#BackupLocal = true;
++#};
+ 
+ #
+ # Denied connections

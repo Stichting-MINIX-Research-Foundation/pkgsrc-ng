@@ -1,0 +1,23 @@
+$NetBSD: patch-aa,v 1.6 2013/05/23 19:45:50 adam Exp $
+
+--- doc/example-config/Makefile.in.orig	2013-05-19 23:04:29.000000000 +0000
++++ doc/example-config/Makefile.in
+@@ -299,7 +299,7 @@ top_srcdir = @top_srcdir@
+ SUBDIRS = conf.d
+ pkgsysconfdir = $(sysconfdir)/dovecot
+ nodist_pkgsysconf_DATA = README
+-exampledir = $(docdir)/example-config
++exampledir = $(datadir)/examples/dovecot
+ example_DATA = \
+ 	dovecot.conf \
+ 	dovecot-dict-auth.conf.ext \
+@@ -643,8 +643,7 @@ info: info-recursive
+ 
+ info-am:
+ 
+-install-data-am: install-data-local install-exampleDATA \
+-	install-nodist_pkgsysconfDATA
++install-data-am: install-data-local install-exampleDATA
+ 
+ install-dvi: install-dvi-recursive
+ 

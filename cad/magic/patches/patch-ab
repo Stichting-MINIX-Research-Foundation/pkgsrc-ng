@@ -1,0 +1,51 @@
+$NetBSD: patch-ab,v 1.11 2013/04/02 02:31:06 sbd Exp $
+
+--- scripts/configure.orig	2009-12-30 13:45:48.000000000 +0000
++++ scripts/configure
+@@ -8833,7 +8833,7 @@ fi
+ 
+ if test $usingTcl ; then
+   case $target in
+-    *-sunos4*|*-*-netbsd|NetBSD-*|FreeBSD-*|OpenBSD-*)
++    *-sunos4*|*-*-solaris2*|*-*-netbsd*|*-*-dragonfly|NetBSD-*|FreeBSD-*|OpenBSD-*|*-linux*)
+       TCL_LIB_NAME="tcl${TCL_MAJOR_VERSION}${TCL_MINOR_VERSION}"
+       TK_LIB_NAME="tk${TK_MAJOR_VERSION}${TK_MINOR_VERSION}"
+       ;;
+@@ -8843,7 +8843,7 @@ if test $usingTcl ; then
+       ;;
+   esac
+ 
+-  loclib=`echo ${TCL_LIB_SPEC} | cut -d ' ' -f 1 | sed -e 's/-L//'`
++  loclib=`echo ${TCL_LIB_SPEC} | sed -e 's/.*-L//' -e 's/ .*//'`
+ 
+   TCL_LIB_SPEC="-l${TCL_LIB_NAME}"
+   TK_LIB_SPEC="-l${TK_LIB_NAME}"
+@@ -9461,7 +9461,7 @@ else
+   use_system_readline=no
+ fi
+ 
+-    if test $use_system_readline == yes ; then
++    if test $use_system_readline = yes ; then
+ 	cat >>confdefs.h <<\_ACEOF
+ #define HAVE_READLINE 1
+ _ACEOF
+@@ -10586,8 +10586,8 @@ fi
+ 
+ 
+       if test "$test_ok" = yes; then
+-        SHLIB_CFLAGS="-fpic"
+-        LDDL_FLAGS="-Bshareable -x ${LIB_SPEC}"
++        SHLIB_CFLAGS="-fPIC"
++        LDDL_FLAGS="-shared ${LIB_SPEC}"
+       fi
+       ;;
+ 
+@@ -12141,7 +12143,7 @@ if test $usingTcl ; then
+ EOF
+       usingBLT=`cat temp.out`
+       rm -f temp.out
+-      if test "x${usingBLT}" == "xyes" ; then
++      if test "x${usingBLT}" = "xyes" ; then
+          echo "yes"
+       else
+          echo "no"

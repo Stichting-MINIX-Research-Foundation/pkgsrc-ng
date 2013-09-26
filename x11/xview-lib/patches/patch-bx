@@ -1,0 +1,12 @@
+$NetBSD: patch-bx,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/panel/p_gauge.c.orig	1993-06-29 05:17:04.000000000 +0000
++++ lib/libxview/panel/p_gauge.c
+@@ -47,6 +47,7 @@ static void	gauge_layout();
+ /* Local functions */
+ static void     paint_gauge();
+ static void     update_rects();
++static int	etoi();
+ 
+ static Panel_ops ops = {
+     panel_default_handle_event,		/* handle_event() */

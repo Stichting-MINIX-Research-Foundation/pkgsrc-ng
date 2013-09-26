@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2010/09/06 11:29:34 wiz Exp $
+
+SHA1 (RRDTool-OO-0.31.tar.gz) = 0b5610a3b786777dde76aadeba036e40b4ab4481
+RMD160 (RRDTool-OO-0.31.tar.gz) = 1945b3a6386b4bfd302bb5cea725c1316d5a9589
+Size (RRDTool-OO-0.31.tar.gz) = 40200 bytes

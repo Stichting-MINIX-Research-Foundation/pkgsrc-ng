@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2012/05/14 01:27:49 dholland Exp $
+bin/devkit
+include/DeviceKit/devkit-gobject/devkit-client.h
+include/DeviceKit/devkit-gobject/devkit-device.h
+include/DeviceKit/devkit-gobject/devkit-gobject.h
+include/DeviceKit/devkit-gobject/devkit-types.h
+lib/libdevkit-gobject.la
+lib/pkgconfig/devkit-gobject.pc
+man/man1/devkit.1
+man/man7/DeviceKit.7
+man/man8/devkit-daemon.8

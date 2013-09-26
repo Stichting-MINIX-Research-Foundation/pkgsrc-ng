@@ -1,0 +1,39 @@
+# $NetBSD: Makefile.common,v 1.14 2012/10/08 13:45:40 asau Exp $
+#
+# used by print/ja-vflib-lib/Makefile
+# used by print/ja-vflib-utils/Makefile
+
+DISTNAME=		VFlib2-${VFLIB_VERSION}
+CATEGORIES+=		japanese print
+MASTER_SITES+=		ftp://gull.se.hiroshima-u.ac.jp/pub/TypeHack/
+DISTFILES+=		${VFLIB_SRC}
+
+VFLIB_SRC=		${DISTNAME}${EXTRACT_SUFX}
+
+MAINTAINER=		tech-pkg-ja@jp.NetBSD.org
+HOMEPAGE=		http://www-masu.ist.osaka-u.ac.jp/~kakugawa/VFlib/
+
+CONFIGURE_ARGS+=	--without-x
+VFLIB_VERSION=		2.24.2
+PLIST_SUBST+=		VFLIB_VERSION=${VFLIB_VERSION:Q}
+PLIST_SUBST+=		VFLIB_SO_VERSION=${VFLIB_VERSION:C/^2.//}
+
+USE_LIBTOOL=		yes
+
+FT_LIB=			ttf -lintl
+FT_INCLUDEDIR=		${BUILDLINK_PREFIX.freetype}/include/freetype
+FT_LIBDIR=		${BUILDLINK_PREFIX.freetype}/lib
+
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-freetype=${FT_LIB:Q}
+CONFIGURE_ARGS+=	--with-freetype-includedir=${FT_INCLUDEDIR:Q}
+CONFIGURE_ARGS+=	--with-freetype-libdir=${FT_LIBDIR:Q}
+MAKE_ENV+=		LOCAL_LDFLAGS=${LDFLAGS:M*:Q}
+INSTALL_MAKE_FLAGS+=	prefix=${DESTDIR}${PREFIX}
+
+DISTINFO_FILE=		${.CURDIR}/../../print/ja-vflib-lib/distinfo
+PATCHDIR=		${.CURDIR}/../../print/ja-vflib-lib/patches
+
+EXTRACT_ONLY=		${VFLIB_SRC}
+
+.include "../../graphics/freetype-lib/buildlink3.mk"

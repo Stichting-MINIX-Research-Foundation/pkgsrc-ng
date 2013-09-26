@@ -1,0 +1,39 @@
+$NetBSD: patch-configure,v 1.2 2013/01/20 13:38:20 morr Exp $
+
+Don't use predefined CXXFLAGS.
+
+--- configure.orig	2012-12-27 10:57:25.000000000 +0000
++++ configure
+@@ -4474,32 +4474,6 @@ fi
+ LINKER=$LINKER
+ 
+ 
+-if test -z "$orig_CXXFLAGS"; then
+-  if test x$GCC = xyes && test "x$GXX" = xyes; then
+-    CXXFLAGS="-g -O3 -fno-rtti -fvisibility-inlines-hidden -fno-threadsafe-statics -fno-enforce-eh-specs"
+-    cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-int
+-main ()
+-{
+-
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_cxx_try_compile "$LINENO"; then :
+-
+-else
+-  CXXFLAGS="-g -O3"
+-fi
+-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-  else
+-    CXXFLAGS="-O"
+-  fi
+-  CFLAGS="$CXXFLAGS"
+-fi
+-
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for library containing setlocale" >&5
+ $as_echo_n "checking for library containing setlocale... " >&6; }
+ if ${ac_cv_search_setlocale+:} false; then :

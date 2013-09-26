@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:13:39 joerg Exp $
+bin/skey
+bin/skeyaudit
+bin/skeyinfo
+bin/skeyinit
+bin/skeyprune
+include/rmd160.h
+include/sha1.h
+include/skey.h
+lib/libskey.a
+man/man1/skey.1
+man/man1/skeyaudit.1
+man/man1/skeyinfo.1
+man/man1/skeyinit.1
+man/man8/skeyprune.8
+share/examples/skey/skeykeys

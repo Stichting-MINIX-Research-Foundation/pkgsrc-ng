@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:04:34 joerg Exp $
+bin/gld
+share/doc/gld/LICENCE
+share/doc/gld/README
+share/examples/gld/gld.conf
+share/examples/rc.d/gld
+share/gld/table-whitelist.sql
+share/gld/tables.mysql
+share/gld/tables.pgsql

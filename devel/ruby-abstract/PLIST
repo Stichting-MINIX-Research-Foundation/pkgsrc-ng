@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:48:15 joerg Exp $
+${GEM_HOME}/cache/abstract-${PKGVERSION}.gem
+${GEM_LIBDIR}/ChangeLog
+${GEM_LIBDIR}/README.txt
+${GEM_LIBDIR}/abstract.gemspec
+${GEM_LIBDIR}/lib/abstract.rb
+${GEM_LIBDIR}/setup.rb
+${GEM_LIBDIR}/test/test.rb
+${GEM_HOME}/specifications/abstract-${PKGVERSION}.gemspec

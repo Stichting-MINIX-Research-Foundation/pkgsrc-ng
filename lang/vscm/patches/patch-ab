@@ -1,0 +1,47 @@
+$NetBSD: patch-ab,v 1.4 2012/06/23 21:30:05 dholland Exp $
+
+ - Use pkgsrc compiler and CFLAGS
+ - get rid of strerr.c, it is a broken reimplementation of a standard function
+ - generate executable as "vscm" rather than plain "scheme"
+
+--- Makefile.orig	1999-02-09 05:24:08.000000000 +0000
++++ Makefile
+@@ -42,8 +42,8 @@
+ # ``-DNDEBUG'' etc.
+ 
+ 
+-                           CC = gcc
+-                     OPTFLAGS = -O2
++#                           CC = gcc
++#                     OPTFLAGS = -O2
+                     WARNFLAGS = -Wall -Wmissing-prototypes
+                    DEBUGFLAGS = -g
+                   EXTRACFLAGS = -DADJUSTABLE_SFIXNUM_RANGE -DVSCM_POSIX
+@@ -183,7 +183,7 @@ DDP = -DDEFAULT_DUMP_PREFIX='"\#!/home/b
+ .DEFAULT:
+ 	@echo I hope, making $< is not necessary...
+ 
+-CFLAGS  = $(A_OPTFLAGS) $(A_WARNFLAGS) $(A_DEBUGFLAGS) $(A_EXTRACFLAGS) $(DDP)
++CFLAGS  += $(A_OPTFLAGS) $(A_WARNFLAGS) $(A_DEBUGFLAGS) $(A_EXTRACFLAGS) $(DDP)
+ LDFLAGS = $(A_OPTFLAGS) $(A_DEBUGFLAGS) $(A_EXTRALDFLAGS)
+ CLFLAGS = $(CFLAGS) $(A_EXTRALDFLAGS)
+ LIBS    = -lm $(A_EXTRALIBS)
+@@ -340,8 +340,7 @@ vbis.sort:	vbis.tab
+ 
+ non-ansi-lib:	\
+ 	non-ansi-lib(fileno.o) \
+-	non-ansi-lib(realloc.o) \
+-	non-ansi-lib(strerr.o)
++	non-ansi-lib(realloc.o)
+ 	$(RANLIB) non-ansi-lib
+ 	@echo non-ansi-lib is now up to date
+ 
+@@ -351,7 +350,7 @@ non-ansi-lib:	\
+ 	$(FORCEDELETE) $*.o
+ 
+ scheme:	$(OBJECTS) $(TMPLIBS)
+-	$(CC) -o scheme $(LDFLAGS) $(OBJECTS) $(LIBS) -lc $(TMPLIBS)
++	$(CC) -o vscm $(LDFLAGS) $(OBJECTS) $(LIBS) -lc $(TMPLIBS)
+ 
+ .scheme-boot: compiler/O/repl.scb
+ 	cp compiler/O/repl.scb .scheme-boot

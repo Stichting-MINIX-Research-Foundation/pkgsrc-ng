@@ -1,0 +1,15 @@
+$NetBSD: patch-di,v 1.2 2009/12/10 20:35:58 abs Exp $
+
+--- lib/libxview/file_chooser/fc_layout.c.orig	1993-06-29 05:17:55.000000000 +0000
++++ lib/libxview/file_chooser/fc_layout.c
+@@ -464,8 +464,8 @@ file_chooser_position_objects( private )
+ 
+ 	new_height 
+ 	    = (* private->exten_func)( FC_PUBLIC(private),
+-				      private->rect,
+-				      exten_rect,
++				      &private->rect,
++				      &exten_rect,
+ 				      COLS(2),
+ 				      private->rect.r_width - COLS(2),
+ 				      max_height

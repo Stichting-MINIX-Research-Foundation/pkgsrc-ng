@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:13:41 joerg Exp $
+man/man5/tw.config.5
+man/man8/siggen.8
+man/man8/tripwire.8
+sbin/tripwire
+share/doc/tripwire/designdoc.ps
+share/examples/tripwire/tripwire.conf

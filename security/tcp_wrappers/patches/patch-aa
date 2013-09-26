@@ -1,0 +1,82 @@
+$NetBSD: patch-aa,v 1.11 2012/07/20 09:58:36 adam Exp $
+
+--- Makefile.orig	2003-04-16 14:25:03.000000000 +0000
++++ Makefile
+@@ -44,7 +44,7 @@ what:
+ #REAL_DAEMON_DIR=/usr/etc
+ #
+ # SysV.4 Solaris 2.x OSF AIX
+-#REAL_DAEMON_DIR=/usr/sbin
++REAL_DAEMON_DIR=/usr/sbin
+ #
+ # BSD 4.4
+ #REAL_DAEMON_DIR=/usr/libexec
+@@ -603,7 +603,7 @@ ACCESS	= -DHOSTS_ACCESS
+ # look for access control information. Watch out for the quotes and
+ # backslashes when you make changes.
+ 
+-TABLES	= -DHOSTS_DENY=\"/etc/hosts.deny\" -DHOSTS_ALLOW=\"/etc/hosts.allow\"
++TABLES	= -DHOSTS_DENY=\"${PKG_SYSCONFDIR}/hosts.deny\" -DHOSTS_ALLOW=\"${PKG_SYSCONFDIR}/hosts.allow\"
+ 
+ ####################################################
+ # Optional: dealing with host name/address conflicts
+@@ -670,9 +670,9 @@ HOSTNAME= -DALWAYS_HOSTNAME
+ # Protection against weird shells or weird make programs.
+ 
+ SHELL	= /bin/sh
+-.c.o:;	$(CC) $(CFLAGS) -c $*.c
++.c.o:;	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) $(CPPFLAGS) -c $*.c
+ 
+-CFLAGS	= -O -DFACILITY=$(FACILITY) $(ACCESS) $(PARANOID) $(NETGROUP) \
++CFLAGS+= -DFACILITY=$(FACILITY) $(ACCESS) $(PARANOID) $(NETGROUP) \
+ 	$(BUGS) $(SYSTYPE) $(AUTH) $(UMASK) \
+ 	-DREAL_DAEMON_DIR=\"$(REAL_DAEMON_DIR)\" $(STYLE) $(KILL_OPT) \
+ 	-DSEVERITY=$(SEVERITY) -DRFC931_TIMEOUT=$(RFC931_TIMEOUT) \
+@@ -697,7 +697,7 @@ KIT	= README miscd.c tcpd.c fromhost.c h
+ 	refuse.c tcpdchk.8 setenv.c inetcf.c inetcf.h scaffold.c \
+ 	scaffold.h tcpdmatch.8 README.NIS
+ 
+-LIB	= libwrap.a
++LIB	= libwrap.la
+ 
+ all other: config-check tcpd tcpdmatch try-from safe_finger tcpdchk
+ 
+@@ -714,31 +714,29 @@ config-check:
+ cflags: config-check
+ 
+ $(LIB):	$(LIB_OBJ)
+-	rm -f $(LIB)
+-	$(AR) $(ARFLAGS) $(LIB) $(LIB_OBJ)
+-	-$(RANLIB) $(LIB)
++	${LIBTOOL} --mode=link $(CC) $(LDFLAGS) -o $@ $(LIB_OBJ:.o=.lo) -rpath $(PREFIX)/lib -version-info 7:6
+ 
+ tcpd:	tcpd.o $(LIB)
+-	$(CC) $(CFLAGS) -o $@ tcpd.o $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ tcpd.o $(LIB) $(LIBS)
+ 
+ miscd:	miscd.o $(LIB)
+-	$(CC) $(CFLAGS) -o $@ miscd.o $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ miscd.o $(LIB) $(LIBS)
+ 
+ safe_finger: safe_finger.o $(LIB)
+-	$(CC) $(CFLAGS) -o $@ safe_finger.o $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ safe_finger.o $(LIBS)
+ 
+ TCPDMATCH_OBJ = tcpdmatch.o fakelog.o inetcf.o scaffold.o
+ 
+ tcpdmatch: $(TCPDMATCH_OBJ) $(LIB)
+-	$(CC) $(CFLAGS) -o $@ $(TCPDMATCH_OBJ) $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(TCPDMATCH_OBJ) $(LIB) $(LIBS)
+ 
+ try-from: try-from.o fakelog.o $(LIB)
+-	$(CC) $(CFLAGS) -o $@ try-from.o fakelog.o $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ try-from.o fakelog.o $(LIB) $(LIBS)
+ 
+ TCPDCHK_OBJ = tcpdchk.o fakelog.o inetcf.o scaffold.o
+ 
+ tcpdchk: $(TCPDCHK_OBJ) $(LIB)
+-	$(CC) $(CFLAGS) -o $@ $(TCPDCHK_OBJ) $(LIB) $(LIBS)
++	$(LIBTOOL) --mode=link $(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(TCPDCHK_OBJ) $(LIB) $(LIBS)
+ 
+ shar:	$(KIT)
+ 	@shar $(KIT)

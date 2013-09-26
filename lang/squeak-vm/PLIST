@@ -1,0 +1,27 @@
+@comment $NetBSD: PLIST,v 1.4 2012/10/29 07:33:40 asau Exp $
+bin/squeak
+bin/squeak.sh
+lib/squeak/${PKGVERSION}/ckformat
+lib/squeak/${PKGVERSION}/so.AioPlugin
+lib/squeak/${PKGVERSION}/so.B3DAcceleratorPlugin
+lib/squeak/${PKGVERSION}/so.ClipboardExtendedPlugin
+${PLIST.pulse}lib/squeak/${PKGVERSION}/so.DBusPlugin
+lib/squeak/${PKGVERSION}/so.FileCopyPlugin
+lib/squeak/${PKGVERSION}/so.HostWindowPlugin
+lib/squeak/${PKGVERSION}/so.Mpeg3Plugin
+lib/squeak/${PKGVERSION}/so.ScratchPlugin
+lib/squeak/${PKGVERSION}/so.Squeak3D
+lib/squeak/${PKGVERSION}/so.SqueakFFIPrims
+lib/squeak/${PKGVERSION}/so.UUIDPlugin
+lib/squeak/${PKGVERSION}/so.UnixOSProcessPlugin
+lib/squeak/${PKGVERSION}/so.XDisplayControlPlugin
+lib/squeak/${PKGVERSION}/so.vm-display-X11
+lib/squeak/${PKGVERSION}/so.vm-display-custom
+lib/squeak/${PKGVERSION}/so.vm-display-null
+${PLIST.nas}lib/squeak/${PKGVERSION}/so.vm-sound-NAS
+${PLIST.oss}lib/squeak/${PKGVERSION}/so.vm-sound-OSS
+lib/squeak/${PKGVERSION}/so.vm-sound-custom
+lib/squeak/${PKGVERSION}/so.vm-sound-null
+${PLIST.pulse}lib/squeak/${PKGVERSION}/so.vm-sound-pulse
+lib/squeak/${PKGVERSION}/squeakvm
+man/man1/squeak.1

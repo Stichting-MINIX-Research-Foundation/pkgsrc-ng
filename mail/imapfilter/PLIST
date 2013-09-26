@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:04:35 joerg Exp $
+bin/imapfilter
+man/man1/imapfilter.1
+man/man5/imapfilter_config.5
+share/examples/imapfilter/sample.config.lua
+share/examples/imapfilter/sample.extend.lua
+share/imapfilter/account.lua
+share/imapfilter/auxiliary.lua
+share/imapfilter/common.lua
+share/imapfilter/deprecated.lua
+share/imapfilter/mailbox.lua
+share/imapfilter/message.lua
+share/imapfilter/options.lua
+share/imapfilter/regex.lua
+share/imapfilter/set.lua

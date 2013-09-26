@@ -1,0 +1,19 @@
+$NetBSD: patch-ai,v 1.2 2009/05/29 09:27:45 wiz Exp $
+
+--- xcb.pc.in.orig	2009-05-29 06:20:17.000000000 +0000
++++ xcb.pc.in
+@@ -4,10 +4,12 @@ libdir=@libdir@
+ includedir=@includedir@
+ xcbproto_version=@XCBPROTO_VERSION@
+ 
++XTHREADLIB=@XTHREADLIB@
++
+ Name: XCB
+ Description: X-protocol C Binding
+ Version: @PACKAGE_VERSION@
+ Requires.private: @NEEDED@
+ Libs: -L${libdir} -lxcb
+-Libs.private: @LIBS@
+-Cflags: -I${includedir}
++Libs.private: @LIBS@ @XTHREADLIB@
++Cflags: -I${includedir} @XTHREAD_CPPFLAGS@

@@ -1,0 +1,63 @@
+$NetBSD: patch-aa,v 1.5 2012/04/07 13:22:31 bsiegert Exp $
+
+--- pppoe.c.orig	Fri Apr 21 03:58:10 2000
++++ pppoe.c
+@@ -5,6 +5,7 @@
+ #include <stdarg.h>
+ #include <unistd.h>
+ #include <signal.h>
++#include <sys/socket.h>
+ #include <net/if.h>
+ #include <termios.h>
+ #include <strings.h>
+@@ -13,8 +14,13 @@
+ #include <net/if_dl.h>
+ #include <sys/ioctl.h>
+ #include <sys/socket.h>
++#if defined(__DragonFly__) || defined(__FreeBSD__) || defined(__OpenBSD__)
++#include <netinet/in.h>
++#include <netinet/if_ether.h>
++#else
+ #include <net/if_ether.h>
+ #include <net/ethertypes.h>
++#endif
+ 
+ extern const char *__progname;
+ 
+@@ -677,7 +683,6 @@ static void fork_pppd(void)
+     *ap++ = "nodeflate";
+     *ap++ = "nodetach";
+     *ap++ = "noipdefault";
+-    *ap++ = "noipx";
+     *ap++ = "nopcomp";
+     *ap++ = "nopersist";
+     *ap++ = "nopredictor1";
+@@ -701,17 +706,17 @@ static void send_frame_to_pppd(const voi
+  const unsigned char *dp;
+  unsigned short int fcs;
+ 
+- static void addchar(unsigned char ch)
+-  { switch (ch)
+-     { case PPP_FLAG: case PPP_ESC: case 0x00 ... 0x1f: case 0x7f ... 0x9f:
+-	  *sp++ = PPP_ESC;
+-	  *sp++ = ch ^ PPP_MOD;
+-	  break;
+-       default:
+-	  *sp++ = ch;
+-	  break;
+-     }
+-    fcs = PPP_FCSCHAR(fcs,ch);
++#define addchar(ch) \
++  { switch (ch) \
++     { case PPP_FLAG: case PPP_ESC: case 0x00 ... 0x1f: case 0x7f ... 0x9f: \
++	  *sp++ = PPP_ESC; \
++	  *sp++ = ch ^ PPP_MOD; \
++	  break; \
++       default: \
++	  *sp++ = ch; \
++	  break; \
++     } \
++    fcs = PPP_FCSCHAR(fcs,ch); \
+   }
+ 
+  sp = &stuffup[0];

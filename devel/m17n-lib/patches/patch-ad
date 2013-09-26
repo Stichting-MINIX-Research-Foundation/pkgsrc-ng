@@ -1,0 +1,22 @@
+$NetBSD: patch-ad,v 1.4 2009/11/25 06:12:32 obache Exp $
+
+--- src/Makefile.in.orig	2009-07-29 08:16:35.000000000 +0000
++++ src/Makefile.in
+@@ -404,7 +404,7 @@ libm17n_core_la_SOURCES = \
+ 	textprop.h textprop.c \
+ 	mtext-lbrk.c mtext-wseg.c
+ 
+-libm17n_core_la_LIBADD = @XML2_LD_FLAGS@ @THAI_WORDSEG_LD_FLAGS@
++libm17n_core_la_LIBADD = @XML2_LD_FLAGS@ @THAI_WORDSEG_LD_FLAGS@ @INTLLIBS@
+ libm17n_core_la_LDFLAGS = -export-dynamic ${VINFO}
+ libm17n_la_SOURCES = \
+ 	charset.h charset.c \
+@@ -414,7 +414,7 @@ libm17n_la_SOURCES = \
+ 	mlocale.h locale.c \
+ 	m17n.h m17n.c
+ 
+-libm17n_la_LIBADD = ${top_builddir}/src/libm17n-core.la -ldl
++libm17n_la_LIBADD = ${top_builddir}/src/libm17n-core.la @INTLLIBS@
+ libm17n_la_LDFLAGS = -export-dynamic ${VINFO}
+ FLT_SOURCES = \
+ 	internal-flt.h \

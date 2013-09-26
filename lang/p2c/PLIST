@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2011/12/18 16:54:08 dholland Exp $
+bin/p2c
+include/p2c/p2c.h
+lib/libp2c.a
+libdata/p2c/loc.p2crc
+libdata/p2c/p2crc
+libdata/p2c/string.pas
+libdata/p2c/system.imp
+libdata/p2c/system.m2
+libdata/p2c/turbo.imp
+man/man1/p2c.1

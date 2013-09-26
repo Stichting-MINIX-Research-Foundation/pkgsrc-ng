@@ -1,0 +1,77 @@
+$NetBSD: patch-aa,v 1.4 2011/09/18 16:51:32 ryoon Exp $
+
+BSD-style Makefile (with libtool support)
+
+--- Makefile.orig	2011-09-18 15:50:11.000000000 +0000
++++ Makefile
+@@ -0,0 +1,70 @@
++LIBTOOL= libtool
++
++LIBDIR=	${PREFIX}/lib
++
++REXXLIBDIR= ${PREFIX}/lib
++REXXIMC= ${PREFIX}/lib
++
++RXDAY=		25
++RXMONTH=	2
++RXYEAR=		102
++
++DATE = -DDAY=$(RXDAY) -DMONTH=$(RXMONTH) -DYEAR=$(RXYEAR)
++
++CCFLAGS= -DHAS_TTYCOM -D_REQUIRED -DRENAME_UNDELETE -DHAS_GMTOFF
++
++FILEDEFS = -DREXXIMC=\"$(REXXIMC)\" -DREXXLIB=\"$(REXXLIBDIR)\"
++
++LIBFILES = rexx.o rxfn.o calc.o util.o shell.o interface.o globals.o
++
++LIBNAME= librexx.a
++
++
++all: ${LIBNAME} rexx rxque rxstack rxmathfn.rxfn
++
++${LIBNAME}: ${LIBFILES}
++	${LIBTOOL} --mode=link --tag=CC ${CC} -o ${.TARGET:.a=.la} ${LIBFILES:.o=.lo} -rpath ${PREFIX}/lib -version-info 1:7
++
++rexx: ${LIBNAME} main.o
++	${LIBTOOL} --mode=link ${CC} main.o ${LIBNAME:.a=.la} -L${LIBDIR} -o rexx
++
++rxque: ${LIBNAME} rxque.o
++	${LIBTOOL} --mode=link ${CC} rxque.o ${LIBNAME:.a=.la} -L${LIBDIR} -o rxque
++
++rxstack: ${LIBNAME} rxstack.o
++	${LIBTOOL} --mode=link ${CC} rxstack.o ${LIBNAME:.a=.la} -L${LIBDIR} -o rxstack
++
++rxmathfn.rxfn: rxmathfn.c const.h functions.h
++	${LIBTOOL} --mode=compile $(CC) $(OPTFLAG) $(CCFLAGS) ${DATE} ${FILEDEFS} -I. -c rxmathfn.c
++	${LIBTOOL} --mode=link \
++	    ${CC} -o rxmathfn.rxfn \
++		.libs/rxmathfn.o .libs/rxstack.o librexx.la \
++		-rpath ${PREFIX}/lib -lm
++
++.c.o:
++	${LIBTOOL} --mode=compile $(CC) $(OPTFLAG) $(CCFLAGS) ${DATE} ${FILEDEFS} -c $*.c
++
++INSTALL_DATA= ${BSD_INSTALL_DATA}
++INSTALL_SCRIPT= ${BSD_INSTALL_SCRIPT}
++INSTALL_PROGRAM= ${BSD_INSTALL_PROGRAM}
++INSTALL_MAN= ${BSD_INSTALL_MAN}
++INSTALL_DATA_DIR= ${BSD_INSTALL_DATA_DIR}
++
++install: ${LIBNAME} rexx rxque rxstack
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} rexx ${DESTDIR}${PREFIX}/bin
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} rxque ${DESTDIR}${PREFIX}/bin
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} rxstack ${DESTDIR}${PREFIX}/bin
++	${LIBTOOL} --mode=install ${INSTALL_PROGRAM} ${LIBNAME:.a=.la} ${DESTDIR}${PREFIX}/lib
++	sed -e 's|@REXXLIBDIR@|${REXXLIBDIR}|g' rexx.1.in > ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/rexx.1
++	${INSTALL_MAN} rxque.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
++	${INSTALL_MAN} rxstack.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
++	${INSTALL_DATA} rxmathfn.rxfn ${DESTDIR}${PREFIX}/lib
++	${INSTALL_MAN} rexxsaa.h ${DESTDIR}${PREFIX}/include
++	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/rexx-imc
++	for f in rexx.info rexx.ref rexx.summary rexx.tech; do		\
++		${INSTALL_MAN} $$f ${DESTDIR}${PREFIX}/share/doc/rexx-imc;	\
++	done
++	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/examples/rexx-imc
++	for f in box rexxcps.rexx rexxtest.rexx rxmathfn.rexx shell.rexx; do \
++		${INSTALL_SCRIPT} $$f ${DESTDIR}${PREFIX}/share/examples/rexx-imc;\
++	done

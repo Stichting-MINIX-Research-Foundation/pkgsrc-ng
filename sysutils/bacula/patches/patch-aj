@@ -1,0 +1,22 @@
+$NetBSD: patch-aj,v 1.6 2010/03/09 07:06:00 adam Exp $
+
+--- manpages/Makefile.in.orig	2010-02-24 15:33:48.000000000 +0000
++++ manpages/Makefile.in
+@@ -21,15 +21,11 @@ depend:
+ install:
+ 	$(MKDIR) $(DESTDIR)/$(mandir)/man8
+ 	for I in ${MAN8}; \
+-	  do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
+-	     $(INSTALL_DATA) $$I.gz $(DESTDIR)$(mandir)/man8/$$I.gz; \
+-	     rm -f $$I.gz); \
++	  do $(INSTALL_DATA) $$I $(DESTDIR)$(mandir)/man8/$$I; \
+ 	done
+ 	$(MKDIR) $(DESTDIR)/$(mandir)/man1
+ 	for I in ${MAN1}; \
+-	  do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
+-	     $(INSTALL_DATA) $$I.gz $(DESTDIR)$(mandir)/man1/$$I.gz; \
+-	     rm -f $$I.gz); \
++	  do $(INSTALL_DATA) $$I $(DESTDIR)$(mandir)/man1/$$I; \
+ 	done
+ 
+ uninstall:

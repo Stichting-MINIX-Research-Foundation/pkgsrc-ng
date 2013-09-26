@@ -1,0 +1,37 @@
+$NetBSD: patch-ao,v 1.3 2011/11/27 19:43:33 joerg Exp $
+
+--- cmn/game_style.cpp.orig	2003-03-22 20:47:42.000000000 +0000
++++ cmn/game_style.cpp
+@@ -29,19 +29,18 @@
+ 
+ // Include Files
+ #include "stdafx.h"
+-extern "C" {
+-#include <string.h>
+-}
++#include <cstring>
+ 
+ #if X11
+-#include <strstream.h>
++#include <strstream>
++using namespace std;
+ #endif
+ 
+ #if WIN32
+ #include <strstrea.h>
+ #endif
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ #include "utils.h"
+ #include "coord.h"
+ #include "world.h"
+@@ -2680,7 +2679,7 @@ int ZigZag::new_level_check(int,WorldP w
+     HumanP human = locator->get_human(n);
+     if (human) {
+       // previous depth
+-      int depthOld = (int)human->get_data();
++      int depthOld = (int)(intptr_t)human->get_data();
+       Id id = human->get_id();
+ 
+       // Get physical for intelligence

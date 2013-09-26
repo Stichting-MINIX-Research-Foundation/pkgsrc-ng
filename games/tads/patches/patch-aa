@@ -1,0 +1,61 @@
+$NetBSD: patch-aa,v 1.5 2010/05/29 14:31:23 dillo Exp $
+
+--- tads2/Makefile.orig	2004-11-05 13:34:49.000000000 +0000
++++ tads2/Makefile
+@@ -56,7 +56,7 @@
+ #
+ # DATADIR is where the TADS 2 development libraries (adv.t, std.t and
+ # gameinfo.t) will get installed.
+-PREFIX=/usr/local
++#PREFIX=/usr/local
+ BINDIR=$(PREFIX)/bin
+ DATADIR=$(PREFIX)/share/tads2
+ 
+@@ -278,16 +278,18 @@ MATT=Matt Herberg <meherberg@earthlink.n
+ # No testing has been done on pre 1.5 or a.out systems
+ # HAVE_TPARM is set in osunixt.h
+ #
+-#CC=gcc
+-#OPTIMIZE=
+-#UNIXFLAGS=-g -DOSANSI -DUNIX -DHAVE_STRCASECMP
+-#SYSFLAGS= -DOS_SYSTEM_NAME=\""NETBSD"\" -DSYSNAME=\""NetBSD"\" -DSYSPL=\"1\" -DPORTER=\""$(DOUGLAS)"\" -DSYSMAINTAINER=\""NetBSD port maintained by $(DOUGLAS)\n"\"
+-#CFLAGS= $(UNIXFLAGS) $(SYSFLAGS) -DNETBSD
+-#AFLAGS=
+-#OVLFLG=
+-#MACHDEP=
+-#LIBS=-L/usr/pkg/lib -Wl,-R/usr/pkg/lib -lncurses
+-#MAKEXEC=touch
++.if ${OPSYS} == "NetBSD"
++CC=gcc
++OPTIMIZE=
++UNIXFLAGS=-g -DOSANSI -DUNIX -DHAVE_STRCASECMP
++SYSFLAGS=-DOS_SYSTEM_NAME=\""NETBSD"\" -DSYSNAME=\""NetBSD"\" -DSYSPL=\"1\" -DPORTER=\""$(DOUGLAS)"\" -DSYSMAINTAINER=\""NetBSD port maintained by $(DOUGLAS)\n"\"
++CFLAGS+=$(UNIXFLAGS) $(SYSFLAGS) -DNETBSD
++AFLAGS=
++OVLFLG=
++MACHDEP=
++LIBS=$(LDFLAGS) -lncurses
++MAKEXEC=touch
++.endif
+ 
+ #
+ # i386+ running DOS/Windows, using DJGPP 2.X
+@@ -382,10 +384,14 @@ TDBOBJS= $(DBGOBJS) osgen.o osunixt.o tp
+ all: tadsr tadsc tdb
+ 
+ install: all
+-	install -d $(BINDIR)
+-	install -d $(DATADIR)
+-	install -s -m755 tadsc tadsr tdb $(BINDIR)
+-	install -m644 adv.t std.t gameinfo.t $(DATADIR)
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}$(BINDIR)
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}$(DATADIR)
++	${BSD_INSTALL_PROGRAM} tadsc ${DESTDIR}$(BINDIR)
++	${BSD_INSTALL_PROGRAM} tadsr ${DESTDIR}$(BINDIR)
++	${BSD_INSTALL_PROGRAM} tdb ${DESTDIR}$(BINDIR)
++	${BSD_INSTALL_DATA} adv.t ${DESTDIR}$(DATADIR)
++	${BSD_INSTALL_DATA} std.t ${DESTDIR}$(DATADIR)
++	${BSD_INSTALL_DATA} gameinfo.t ${DESTDIR}$(DATADIR)
+ 
+ tadsr: $(TROBJS)
+ 	$(CC) $(CFLAGS) $(TROBJS) -o tadsr $(LIBS)

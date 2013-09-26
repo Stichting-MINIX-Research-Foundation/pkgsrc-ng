@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:13:39 joerg Exp $
+bin/steghide
+man/man1/steghide.1
+share/doc/steghide/ABOUT-NLS
+share/doc/steghide/BUGS
+share/doc/steghide/COPYING
+share/doc/steghide/CREDITS
+share/doc/steghide/HISTORY
+share/doc/steghide/INSTALL
+share/doc/steghide/LEAME
+share/doc/steghide/README
+share/doc/steghide/TODO
+share/locale/de/LC_MESSAGES/steghide.mo
+share/locale/es/LC_MESSAGES/steghide.mo
+share/locale/fr/LC_MESSAGES/steghide.mo
+share/locale/ro/LC_MESSAGES/steghide.mo

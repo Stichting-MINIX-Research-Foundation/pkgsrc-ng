@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.9 2009/06/14 17:35:53 joerg Exp $
+bin/gerbv
+include/${PKGNAME_NOREV}/gerbv.h
+lib/libgerbv.la
+lib/pkgconfig/libgerbv.pc
+man/man1/gerbv.1
+share/applications/gerbv.desktop
+share/gerbv/scheme/gerb-debug.scm
+share/gerbv/scheme/gerb-ps.scm
+share/gerbv/gerbv_icon.ico
+share/gerbv/scheme/init.scm
+share/icons/hicolor/16x16/apps/gerbv-16.png
+share/icons/hicolor/22x22/apps/gerbv-22.png
+share/icons/hicolor/24x24/apps/gerbv-24.png
+share/icons/hicolor/32x32/apps/gerbv-32.png
+share/icons/hicolor/48x48/apps/gerbv-48.png
+share/icons/hicolor/scalable/apps/gerbv.svg

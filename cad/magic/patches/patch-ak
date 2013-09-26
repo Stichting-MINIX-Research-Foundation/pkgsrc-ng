@@ -1,0 +1,13 @@
+$NetBSD: patch-ak,v 1.2 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- resis/ResRex.c.orig	2009-08-03 13:43:58.000000000 +0000
++++ resis/ResRex.c
+@@ -12,7 +12,7 @@ static char rcsid[] __attribute__ ((unus
+ /* It is hard to get the value of MAXFLOAT in a portable manner. */
+ #if defined(ibm032)
+ #define MAXFLOAT        ((float)3.40282346638528860e+38)
+-#elif !defined(__NetBSD__) && !defined(__FreeBSD__) && !defined(CYGWIN) && !defined(macosx) 
++#elif !defined(__NetBSD__) && !defined(__FreeBSD__) && !defined(CYGWIN) && !defined(macosx) && !defined(__DragonFly__)
+ #include <values.h>
+ #endif
+ 

@@ -1,0 +1,24 @@
+$NetBSD: patch-bc,v 1.4 2012/01/12 22:59:58 adam Exp $
+
+Build shared libwebcore.
+
+--- src/3rdparty/webkit/Source/WebCore/WebCore.pri.orig	2012-01-09 07:28:46.000000000 +0000
++++ src/3rdparty/webkit/Source/WebCore/WebCore.pri
+@@ -272,6 +272,7 @@ contains(DEFINES, ENABLE_WEBGL=1)|contai
+ }
+ 
+ !CONFIG(webkit-debug):CONFIG(QTDIR_build) {
++    include($$QT_SOURCE_TREE/src/qbase.pri)
+     # Remove the following 2 lines if you want debug information in WebCore
+     CONFIG -= separate_debug_info
+     CONFIG += no_debug_info
+@@ -351,9 +351,7 @@ defineTest(prependWebCoreLib) {
+         QMAKE_LIBDIR += $$pathToWebCoreOutput
+         POST_TARGETDEPS += $${pathToWebCoreOutput}$${QMAKE_DIR_SEP}$${WEBCORE_TARGET}.lib
+     } else {
+-        QMAKE_LIBDIR = $$pathToWebCoreOutput $$QMAKE_LIBDIR
+         LIBS = -l$$WEBCORE_TARGET $$LIBS
+-        POST_TARGETDEPS += $${pathToWebCoreOutput}$${QMAKE_DIR_SEP}lib$${WEBCORE_TARGET}.a
+     }
+     
+     CONFIG -= explicitlib

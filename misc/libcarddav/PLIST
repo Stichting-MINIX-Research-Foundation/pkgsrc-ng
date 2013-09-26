@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2012/07/11 09:25:22 wiz Exp $
+include/libcarddav-0.6.1/carddav.h
+lib/libcarddav.la
+lib/pkgconfig/libcarddav.pc
+${PLIST.doc}man/man3/carddav.h.3
+${PLIST.doc}share/doc/libcarddav/libcarddav.pdf

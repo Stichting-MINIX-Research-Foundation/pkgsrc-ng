@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.9 2009/02/08 12:51:04 asau Exp $
+
+--- /dev/null	2009-02-08 02:30:41.000000000 +0300
++++ config/bsd/define.h.in	2009-02-08 03:08:28.000000000 +0300
+@@ -0,0 +1,10 @@
++/*
++ * Icon configuration file for BSD
++ */
++
++#define UNIX 1
++#define LoadFunc
++
++#define CComp "gcc"
++#define COpts "-O2 -I@X11BASE@/include"
++#define ICONC_XLIB "-Wl,-R@X11BASE@/lib -L@X11BASE@/lib -lX11"

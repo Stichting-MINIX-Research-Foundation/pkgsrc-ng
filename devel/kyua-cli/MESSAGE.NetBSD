@@ -1,0 +1,10 @@
+===========================================================================
+$NetBSD: MESSAGE.NetBSD,v 1.2 2012/07/13 01:37:11 jmmv Exp $
+
+You are encouraged to run the NetBSD system-wide test suite that lives in
+/usr/tests with Kyua (and report any regressions that you encounter).  To
+do so, please follow the instructions in:
+
+	http://wiki.NetBSD.org/kyua/
+
+===========================================================================

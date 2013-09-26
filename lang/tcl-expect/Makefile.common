@@ -1,0 +1,31 @@
+# $NetBSD: Makefile.common,v 1.9 2012/08/21 21:33:58 marino Exp $
+
+DISTNAME=	expect${EXPECT_FNAME}
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=expect/}
+HOMEPAGE=	http://expect.sourceforge.net/
+
+EXPECT_FNAME=	5.45
+EXPECT_VERSION=	5.45.0
+EXPECT_SONUM=	545
+
+GNU_CONFIGURE=		yes
+TEST_TARGET=		test
+
+PLIST_SUBST+=		SONUM=${EXPECT_SONUM}
+PLIST_SUBST+=		BASEVER=${EXPECT_FNAME}
+
+# NetBSD 5.99 strip complains it doesn't recognized the format of
+# the utility scripts and didn't install any of them as a result.
+# Just in case there are other platforms like this, don't install
+# stripped binaries on any platform.
+INSTALL_UNSTRIPPED=	yes
+
+.include "../../mk/bsd.prefs.mk"
+
+# on IRIX 5.3 inttypes.h and sys/types.h are known to conflict
+.if ${OPSYS} == "IRIX" && ${OS_VERSION} == 5.3
+CONFIGURE_ENV+=		ac_cv_header_inttypes_h="no"
+.endif
+
+DISTINFO_FILE=	${.CURDIR}/../../lang/tcl-expect/distinfo
+PATCHDIR=	${.CURDIR}/../../lang/tcl-expect/patches

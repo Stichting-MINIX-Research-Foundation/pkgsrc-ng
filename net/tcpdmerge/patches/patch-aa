@@ -1,0 +1,14 @@
+$NetBSD: patch-aa,v 1.2 2011/12/07 15:17:30 joerg Exp $
+
+--- tcpdmerge.c.orig	2011-12-07 13:44:48.000000000 +0000
++++ tcpdmerge.c
+@@ -45,7 +45,8 @@
+ #include <stdlib.h>
+ #include <sys/types.h>
+ #include <pcap.h>
+-#include <strings.h>
++#include <string.h>
++#include <unistd.h>
+ #ifdef __STDC__
+ #include <stdarg.h>
+ #else

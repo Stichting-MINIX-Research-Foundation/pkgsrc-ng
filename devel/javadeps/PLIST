@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:49 joerg Exp $
+bin/jdeps
+share/doc/jdeps/grammar-mods
+share/doc/jdeps/native.html
+share/doc/jdeps/usage.html
+share/doc/jdeps/welcome.html
+share/doc/jdeps/win95.html
+share/jdeps/jdeps.jar

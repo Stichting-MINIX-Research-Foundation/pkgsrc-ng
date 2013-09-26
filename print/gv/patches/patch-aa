@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.15 2010/07/24 08:22:02 obache Exp $
+
+--- src/main.c.orig	2010-06-04 17:34:53.000000000 +0000
++++ src/main.c
+@@ -467,7 +467,7 @@ int main(argc, argv)
+    }
+ 
+    /*### Manage GNU command line arguments ########################*/
+-   while ((c = getopt_long_only (argc, argv, "vhu", GNU_longOptions, NULL))
++   while ((c = getopt_long (argc, argv, "vhu", GNU_longOptions, NULL))
+ 	  != -1)
+      {
+ 

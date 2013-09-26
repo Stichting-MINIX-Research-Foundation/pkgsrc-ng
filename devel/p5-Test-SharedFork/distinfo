@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2013/05/04 11:18:40 hiramatsu Exp $
+
+SHA1 (Test-SharedFork-0.21.tar.gz) = 7f84af33eae2279f16dbec9329b59933615ebb13
+RMD160 (Test-SharedFork-0.21.tar.gz) = 495a2f4ade6bac44e6f888610f22bbc99b5904cb
+Size (Test-SharedFork-0.21.tar.gz) = 28865 bytes

@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.2 2013/02/25 21:26:55 ryoon Exp $
+
+* Pass pkgsrc environment variables
+
+--- Makefile.orig	2013-01-21 13:20:15.000000000 +0000
++++ Makefile
+@@ -5,7 +5,7 @@ CFLAGS?=-g -O2 -Wall 
+ CPPFLAGS+=-I. -DVERSION=\"$(VERSION)\"
+ LDLIBS+=-lz # += to allow solaris and friends add their libs like -lsocket
+ INSTALL = install
+-prefix?=/usr/local
++prefix?=${PREFIX}
+ target=$(DESTDIR)$(prefix)
+ 
+ OBJS= debug.o \
+@@ -51,9 +51,9 @@ pylint:
+ 
+ install: cvsps.1 all
+ 	$(INSTALL) -d "$(target)/bin"
+-	$(INSTALL) -d "$(target)/share/man/man1"
+-	$(INSTALL) cvsps "$(target)/bin"
+-	$(INSTALL) -m 644 cvsps.1 "$(target)/share/man/man1"
++	$(INSTALL) -d "$(target)/${PKGMANDIR}/man1"
++	$(INSTALL) cvsps "$(target)/bin/cvsps3"
++	$(INSTALL) -m 644 cvsps.1 "$(target)/${PKGMANDIR}/man1/cvsps3.1"
+ 
+ tags: *.c *.h
+ 	ctags *.c *.h

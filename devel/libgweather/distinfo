@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.14 2010/10/22 19:36:10 drochner Exp $
+
+SHA1 (libgweather-2.30.3.tar.bz2) = e89aadc89d3405d1a3de12005fa839d9da5adbc1
+RMD160 (libgweather-2.30.3.tar.bz2) = 84158a5099c41b028a5f8d15ce99534dbd992051
+Size (libgweather-2.30.3.tar.bz2) = 7449487 bytes

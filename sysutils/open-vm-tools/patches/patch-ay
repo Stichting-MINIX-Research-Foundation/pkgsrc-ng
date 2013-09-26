@@ -1,0 +1,13 @@
+$NetBSD: patch-ay,v 1.2 2008/08/31 06:36:48 scottr Exp $
+
+--- lib/include/vm_product.h.orig	2008-08-08 02:01:52.000000000 -0500
++++ lib/include/vm_product.h
+@@ -498,6 +498,8 @@
+ #  define PRODUCT_NAME_PLATFORM         PRODUCT_NAME " for Windows"
+ #elif defined(__FreeBSD__)
+ #  define PRODUCT_NAME_PLATFORM         PRODUCT_NAME " for FreeBSD"
++#elif defined(__NetBSD__)
++#  define PRODUCT_NAME_PLATFORM         PRODUCT_NAME " for NetBSD"
+ #elif defined(sun)
+ #  define PRODUCT_NAME_PLATFORM         PRODUCT_NAME " for Solaris"
+ #elif defined(__APPLE__)

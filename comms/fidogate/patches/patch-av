@@ -1,0 +1,22 @@
+$NetBSD: patch-av,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/common/areas.c.orig	2004-08-22 20:19:11.000000000 +0000
++++ src/common/areas.c
+@@ -369,7 +369,7 @@ static Area *area_build(Area *pa, char *
+ 	    if(areas_x_a[(unsigned char)*q])
+ 		*p = areas_x_a[(unsigned char)*q];
+ 	    else
+-		*p = tolower(*q);
++		*p = tolower((unsigned char)*q);
+ 	*p = 0;
+     }
+ 
+@@ -386,7 +386,7 @@ static Area *area_build(Area *pa, char *
+ 	    if(areas_x_g[(unsigned char)*q])
+ 		*p = areas_x_g[(unsigned char)*q];
+ 	    else
+-		*p = toupper(*q);
++		*p = toupper((unsigned char)*q);
+ 	*p = 0;
+     }
+     

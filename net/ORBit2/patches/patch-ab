@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.7 2008/10/09 20:22:23 wiz Exp $
+
+--- src/orb/orb-core/Makefile.in.orig	2008-09-16 13:11:18.000000000 +0000
++++ src/orb/orb-core/Makefile.in
+@@ -623,7 +623,7 @@ distclean-local:
+ 	-rm -rf .deps
+ $(OPS_IDLOUT_C): $(OPS_IDLOUT_H)
+ 
+-$(OPS_IDLOUT_H): corba-ops.idl $(IDL_COMPILER)
++$(OPS_IDLOUT_H): corba-ops.idl
+ 	-(rm -f $(OPS_IDLOUT_C) $(OPS_IDLOUT_H) || true) > /dev/null
+ 	$(IDL_COMPILER) $(IDL_FLAGS_CORBA_OPS) --deps .deps/corba-ops.idl.P $<
+ 	for I in $(OPS_IDLOUT_C) $(OPS_IDLOUT_H); do								\

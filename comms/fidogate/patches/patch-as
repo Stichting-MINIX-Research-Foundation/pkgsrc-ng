@@ -1,0 +1,20 @@
+$NetBSD: patch-as,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- scripts/maintenance/rc.fidogate.sh.orig	1998-11-08 18:27:57.000000000 +0000
++++ scripts/maintenance/rc.fidogate.sh
+@@ -5,9 +5,15 @@
+ # FIDOGATE boot cleanup
+ #
+ 
++case "$1" in
++start|restart)
++
+ # Remove lock files
+ rm -f <LOCKDIR>/*
+ 
+ # Remove .tmp files
+ rm -f <SPOOLDIR>/outpkt/*.tmp <SPOOLDIR>/outpkt/*/*.tmp
+ rm -f <SPOOLDIR>/toss/*/*.tmp
++
++;;
++esac

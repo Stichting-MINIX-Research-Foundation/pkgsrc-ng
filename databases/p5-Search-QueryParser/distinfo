@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2009/10/12 11:48:24 rhaen Exp $
+
+SHA1 (Search-QueryParser-0.94.tar.gz) = 56337b1df6de06b90d7e90498ccd599a5972bdb4
+RMD160 (Search-QueryParser-0.94.tar.gz) = 2521c03203461511af801baa45bf0bb959adcd52
+Size (Search-QueryParser-0.94.tar.gz) = 7133 bytes

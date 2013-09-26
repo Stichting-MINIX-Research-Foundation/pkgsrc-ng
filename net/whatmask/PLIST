@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2003/12/19 12:23:56 zuntum Exp $
+bin/whatmask
+man/man1/whatmask.1

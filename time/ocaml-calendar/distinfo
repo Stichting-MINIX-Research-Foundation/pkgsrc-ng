@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2012/08/12 17:40:59 wiz Exp $
+
+SHA1 (calendar-2.03.2.tar.gz) = 64336839fdc24e4bd99e08e01419b183b598831b
+RMD160 (calendar-2.03.2.tar.gz) = b065bb9dcd7a756fd7f77c5fca36b7e2c7e20902
+Size (calendar-2.03.2.tar.gz) = 270225 bytes
+SHA1 (patch-Makefile.in) = 886482162f242a25daf1be9483e9ca932aae7c01

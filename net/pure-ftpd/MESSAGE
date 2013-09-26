@@ -1,0 +1,30 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.5 2012/02/07 21:00:54 wiz Exp $
+
+To use pure-ftpd, you will need to perform the following steps:
+
+1. In case you don't have PKG_RCD_SCRIPTS set in your /etc/mk.conf, copy
+   ${PREFIX}/${RCD_SCRIPTS_EXAMPLEDIR}/pure_ftpd to /etc/rc.d/pure_ftpd and add
+
+	pure_ftpd=YES
+
+   to /etc/rc.conf. Other FTP servers should be disabled.
+
+2. Stop any other running FTP server. Now start pure-ftpd by issuing the
+   command
+
+	/etc/rc.d/pure_ftpd start
+
+3. If you want to use pure-uploadscript, you should copy pure_uploadscript to
+   /etc/rc.d, if you don't have it already, and need to add "-o" option to
+   pure_ftpd_flags, and set
+
+	 pure_uploadscript=YES
+	 pure_uploadscript_flags="-r /path/to/script"
+
+   Then you can start by
+
+	/etc/rc.d/pure_uploadscript start
+
+   For more details, read pure-uploadscript(8).
+===========================================================================

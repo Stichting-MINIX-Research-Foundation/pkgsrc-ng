@@ -1,0 +1,31 @@
+$NetBSD: patch-ab,v 1.20 2012/08/01 12:22:14 drochner Exp $
+
+--- configure.in.orig	2012-06-30 22:50:43.000000000 +0000
++++ configure.in
+@@ -1186,7 +1186,7 @@ AC_HEADER_DIRENT
+ AC_GETTIMEOFDAY_ARGS
+ AC_CHECK_FUNCS(select fcntl uname nice setpriority getcwd getwd putenv sbrk)
+ AC_CHECK_FUNCS(sigaction syslog realpath setrlimit)
+-AC_CHECK_FUNCS(setlocale)
++AC_CHECK_FUNCS(setlocale sqrtf)
+ AC_CHECK_ICMP
+ AC_CHECK_ICMPHDR
+ AC_CHECK_GETIFADDRS
+@@ -1233,7 +1233,7 @@ AC_DEFINE_UNQUOTED(PACKAGE, "$GETTEXT_PA
+ 		   generated code.])
+ AC_SUBST(GETTEXT_PACKAGE)
+ 
+-ALL_LINGUAS="ca da de es et fi fr hu it ja ko nb nl pl pt pt_BR ru sk sv vi wa zh_CN zh_TW"
++ALL_LINGUAS="da de es et fi fr hu it ja ko nb nl pl pt ru sk sv vi wa zh_CN zh_TW"
+ AM_GLIB_GNU_GETTEXT
+ MKINSTALLDIRS="$INSTALL_DIRS"
+ 
+@@ -2109,7 +2109,7 @@ if test "$enable_locking" = yes -a "$wit
+     # from Matt Knopp <mhat@infocalypse.netlag.com>
+     # (who got it from amu@mit.edu)
+ 
+-    PASSWD_LIBS="$PASSWD_LIBS -lkrb4 -ldes425 -lkrb5 -lk5crypto -lcom_err"
++    PASSWD_LIBS="$PASSWD_LIBS -lkrb5 -lasn1 -lkrb -lcrypto -lroken -lcom_err"
+ 
+     # jwz: MacOS X uses -lkrb5, but not -lcrypt
+     AC_CHECK_X_LIB(crypt, crypt, [PASSWD_LIBS="$PASSWD_LIBS -lcrypt"])

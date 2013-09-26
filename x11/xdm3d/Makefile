@@ -1,0 +1,81 @@
+# $NetBSD: Makefile,v 1.28 2013/06/16 17:32:06 dholland Exp $
+
+DISTNAME=		xdm3d-1.0
+PKGREVISION=		6
+CATEGORIES=		x11
+MASTER_SITES=		${MASTER_SITE_LOCAL}
+
+PATCHFILES=		xdm3d-jumbo-patch-20130616.gz
+PATCH_SITES=		http://www.NetBSD.org/~dholland/patchkits/xdm3d/
+PATCH_DIST_STRIP= -p1
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://www.hijinks.com/~spade/linux/XBanner/
+COMMENT=		Replacement for xdm with 3D effects
+
+WRKSRC=			${WRKDIR}/xdm
+NO_INSTALL_MANPAGES=	yes
+USE_IMAKE=		yes
+
+PLIST_SRC=		${WRKDIR}/PLIST-src
+INSTALLATION_DIRS=	bin
+
+.include "../../mk/bsd.prefs.mk"
+
+.if exists(${X11BASE}/lib/X11/xdm)
+XDMDIR=${X11BASE}/lib/X11/xdm
+.elif exists(/etc/X11/xdm)
+XDMDIR=/etc/X11/xdm
+.else
+PKG_FAIL_REASON+=	"Cannot find xdm directory."
+.endif
+
+# These hacks should probably be moved to the infrastructure
+.if ${OPSYS} == "NetBSD"
+.  if ${X11_TYPE} == "native"
+# wrong in 5.x's native X
+IMAKEOPTS+=-DHasSecureRPC=NO
+BUILDLINK_TRANSFORM+=	rm:-DSECURE_RPC
+.  endif
+IMAKEOPTS+=-DHasSetUserContext=YES
+.endif
+
+do-install:
+	${ECHO} "${X11BASE} ${XDMDIR}"
+	${INSTALL_PROGRAM} ${WRKSRC}/xdm ${DESTDIR}${PREFIX}/bin/xdm3d
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/xdm3d
+	${INSTALL_DATA} ${XDMDIR}/GiveConsole ${DESTDIR}${PREFIX}/share/xdm3d
+	${INSTALL_DATA} ${XDMDIR}/TakeConsole ${DESTDIR}${PREFIX}/share/xdm3d
+	${INSTALL_DATA} ${XDMDIR}/Xaccess ${DESTDIR}${PREFIX}/share/xdm3d
+	${INSTALL_DATA} ${XDMDIR}/Xservers ${DESTDIR}${PREFIX}/share/xdm3d
+	${INSTALL_DATA} ${XDMDIR}/Xsession ${DESTDIR}${PREFIX}/share/xdm3d
+	@if [ -r ${XDMDIR}/Xsetup ]; then			\
+		${INSTALL_DATA} ${XDMDIR}/Xsetup ${DESTDIR}${PREFIX}/share/xdm3d; \
+		sedexpr='-e s|^share/xdm3d/Xsetup_0$$|@comment\ &|';	\
+	elif [ -r ${XDMDIR}/Xsetup_0 ]; then		\
+		${INSTALL_DATA} ${XDMDIR}/Xsetup_0 ${DESTDIR}${PREFIX}/share/xdm3d; \
+		sedexpr='-e s|^share/xdm3d/Xsetup$$|@comment\ &|';	\
+	fi;								\
+	${SED} "$$sedexpr" ${PKGDIR}/PLIST > ${PLIST_SRC}
+	@if [ -r ${XDMDIR}/chooser ]; then				\
+		${INSTALL_PROGRAM} ${XDMDIR}/chooser ${DESTDIR}${PREFIX}/share/xdm3d;		\
+	elif [ -r ${X11BASE}/libexec/chooser ]; then			\
+		${INSTALL_PROGRAM} ${X11BASE}/libexec/chooser ${DESTDIR}${PREFIX}/share/xdm3d;	\
+	else								\
+		${INSTALL_PROGRAM} ${WRKSRC}/chooser ${DESTDIR}${PREFIX}/share/xdm3d;		\
+	fi
+	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/xdm3d/authdir
+	${CHMOD} 700 ${DESTDIR}${PREFIX}/share/xdm3d/authdir
+	${SED} -e 's@${XDMDIR}@${PREFIX}/share/xdm3d@' < \
+		${XDMDIR}/xdm-config > \
+		${DESTDIR}${PREFIX}/share/xdm3d/xdm-config
+	${INSTALL_DATA} ${WRKSRC}/Xresources.3D ${DESTDIR}${PREFIX}/share/xdm3d/Xresources
+	${ECHO} 'DisplayManager*loginmoveInterval:		10' >> \
+		${DESTDIR}${PREFIX}/share/xdm3d/xdm-config
+
+.include "../../x11/libXau/buildlink3.mk"
+.include "../../x11/libXdmcp/buildlink3.mk"
+.include "../../x11/libXmu/buildlink3.mk"
+.include "../../x11/libXt/buildlink3.mk"
+.include "../../mk/xaw.buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

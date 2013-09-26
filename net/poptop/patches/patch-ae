@@ -1,0 +1,44 @@
+$NetBSD: patch-ae,v 1.3 2011/02/12 16:47:44 asau Exp $
+
+--- Makefile.in.orig	2005-08-03 07:47:42.000000000 +0000
++++ Makefile.in
+@@ -37,7 +37,7 @@ NORMAL_UNINSTALL = :
+ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ EXTRA_PROGRAMS =
+-sbin_PROGRAMS = pptpd$(EXEEXT) pptpctrl$(EXEEXT) bcrelay$(EXEEXT)
++sbin_PROGRAMS = pptpd$(EXEEXT) pptpctrl$(EXEEXT)
+ subdir = .
+ DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
+ 	$(srcdir)/Makefile.in $(srcdir)/config.h.in \
+@@ -56,9 +56,6 @@ am__installdirs = "$(DESTDIR)$(sbindir)"
+ 	"$(DESTDIR)$(man8dir)"
+ sbinPROGRAMS_INSTALL = $(INSTALL_PROGRAM)
+ PROGRAMS = $(sbin_PROGRAMS)
+-am_bcrelay_OBJECTS = bcrelay.$(OBJEXT)
+-bcrelay_OBJECTS = $(am_bcrelay_OBJECTS)
+-bcrelay_LDADD = $(LDADD)
+ am_pptpctrl_OBJECTS = pqueue.$(OBJEXT) pptpctrl.$(OBJEXT) \
+ 	ctrlpacket.$(OBJEXT) inststr.$(OBJEXT) compat.$(OBJEXT) \
+ 	pptpgre.$(OBJEXT) ppphdlc.$(OBJEXT)
+@@ -77,8 +74,8 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUD
+ 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
+ CCLD = $(CC)
+ LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+-SOURCES = $(bcrelay_SOURCES) $(pptpctrl_SOURCES) $(pptpd_SOURCES)
+-DIST_SOURCES = $(bcrelay_SOURCES) $(pptpctrl_SOURCES) $(pptpd_SOURCES)
++SOURCES = $(pptpctrl_SOURCES) $(pptpd_SOURCES)
++DIST_SOURCES = $(pptpctrl_SOURCES) $(pptpd_SOURCES)
+ man5dir = $(mandir)/man5
+ man8dir = $(mandir)/man8
+ NROFF = nroff
+@@ -288,9 +285,6 @@ uninstall-sbinPROGRAMS:
+ 
+ clean-sbinPROGRAMS:
+ 	-test -z "$(sbin_PROGRAMS)" || rm -f $(sbin_PROGRAMS)
+-bcrelay$(EXEEXT): $(bcrelay_OBJECTS) $(bcrelay_DEPENDENCIES) 
+-	@rm -f bcrelay$(EXEEXT)
+-	$(LINK) $(bcrelay_LDFLAGS) $(bcrelay_OBJECTS) $(bcrelay_LDADD) $(LIBS)
+ pptpctrl$(EXEEXT): $(pptpctrl_OBJECTS) $(pptpctrl_DEPENDENCIES) 
+ 	@rm -f pptpctrl$(EXEEXT)
+ 	$(LINK) $(pptpctrl_LDFLAGS) $(pptpctrl_OBJECTS) $(pptpctrl_LDADD) $(LIBS)

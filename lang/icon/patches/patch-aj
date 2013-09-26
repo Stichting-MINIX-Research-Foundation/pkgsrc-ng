@@ -1,0 +1,48 @@
+$NetBSD: patch-aj,v 1.9 2011/03/01 10:08:26 wiz Exp $
+
+--- Makefile.orig	2005-11-09 00:24:34.000000000 +0100
++++ Makefile
+@@ -14,7 +14,7 @@ dest=/must/specify/dest/
+ #
+ # Default targets.
+ 
+-All:	Icont Ilib Ibin
++All:	Icont Iconc Ilib Ibin
+ 
+ config/$(name)/status src/h/define.h:
+ 	:
+@@ -95,18 +95,23 @@ Ibin:		bin/icont
+ 
+ # Installation:  "make Install dest=new-icon-directory"
+ 
+-D=$(dest)
+ Install:
+-		mkdir $D
+-		mkdir $D/bin $D/lib $D/doc $D/man $D/man/man1
+-		cp README $D
+-		cp bin/[cflpvwx]* $D/bin
+-		cp bin/icon[tx]* $D/bin
+-		rm -f $D/bin/libI*
+-		(cd $D/bin; ln -s icont icon)
+-		cp lib/*.* $D/lib
+-		cp doc/*.* $D/doc
+-		cp man/man1/*.* $D/man/man1
++		./bin/patchstr ./bin/icont $(PREFIX)/bin/iconx
++		./bin/patchstr ./bin/iconc $(PREFIX)/lib/icon/
++		cd bin; $(BSD_INSTALL_PROGRAM) icont iconx iconc	\
++			patchstr rtt $(DESTDIR)$(PREFIX)/bin
++		cd $(DESTDIR)$(PREFIX)/bin && ln -sf icont icon
++		$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/lib/icon
++		$(BSD_INSTALL_DATA) lib/icon/*.* $(DESTDIR)$(PREFIX)/lib/icon
++		$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/share/doc/icon
++		for f in colrbook colrpick fontpick palette vib	\
++		wevents xgamma; do					\
++		if [ -f bin/$$f ]; then					\
++			${BSD_INSTALL_SCRIPT} bin/$$f $(DESTDIR)$(PREFIX)/bin;	\
++		fi;							\
++		done
++		$(BSD_INSTALL_DATA) doc/*.* $(DESTDIR)$(PREFIX)/share/doc/icon
++		$(BSD_INSTALL_MAN) man/man1/* $(DESTDIR)$(PREFIX)/$(PKGMANDIR)/man1
+ 
+ 
+ # Bundle up for binary distribution.

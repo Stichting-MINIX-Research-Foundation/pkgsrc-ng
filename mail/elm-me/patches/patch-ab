@@ -1,0 +1,25 @@
+$NetBSD: patch-ab,v 1.2 2010/04/15 08:13:34 dholland Exp $
+
+use right gencat
+DESTDIR support
+
+--- nls/Makefile.orig	2001-06-19 17:03:18.000000000 +0000
++++ nls/Makefile
+@@ -3,7 +3,7 @@
+ #
+ LANGFILE=LANGS
+ CATNAME=elm2.4me+.cat
+-GENCAT=	nls/gencat
++GENCAT=	gencat
+ 
+ HDIR=	../hdrs
+ SDIR=	C/C/C
+@@ -41,7 +41,7 @@ nls-headers: clean $(HFILES)
+ all:
+ 
+ install:
+-	./Install $(LANGFILE) $(GENCAT) $(CATNAME)
++	DESTDIR=$(DESTDIR) ./Install $(LANGFILE) $(GENCAT) $(CATNAME)
+ 
+ $(HFILES): $(MFILES)
+ 	gencat/gencat $(MSGCAT) "$(SDIR)/`basename $@ .h`".m -h $@

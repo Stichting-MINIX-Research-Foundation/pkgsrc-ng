@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/06/16 08:50:42 pettai Exp $
+
+SHA1 (dpkt-1.8.tar.gz) = 4dd4d8b384177fcfbad3891798ff5779bb39ee2a
+RMD160 (dpkt-1.8.tar.gz) = 6c52dd753897ea10b15b9a67ef0303464bbfc7eb
+Size (dpkt-1.8.tar.gz) = 76311 bytes

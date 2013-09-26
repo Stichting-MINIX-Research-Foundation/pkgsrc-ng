@@ -1,0 +1,25 @@
+$NetBSD: patch-af,v 1.2 2013/01/23 17:26:27 wiz Exp $
+
+First chunk: automake-1.13 compat.
+
+--- configure.in.orig	2003-11-29 18:41:06.000000000 +0000
++++ configure.in
+@@ -12,7 +12,7 @@ dnl ************************************
+ 
+ AC_INIT(src/cal3d/cal3d.h)
+ 
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ 
+ AC_CANONICAL_SYSTEM
+ 
+@@ -29,6 +29,9 @@ AC_ARG_WITH(cc,[  --with-cc=CC          
+ ],)
+ 
+ 
++AC_SUBST([AM_LDFLAGS])
++AC_SUBST([all_libraries])
++
+ dnl ************************************************************************
+ 
+ CAL3D_CHECK_USER_CXX_FLAGS

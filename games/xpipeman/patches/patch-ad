@@ -1,0 +1,85 @@
+$NetBSD: patch-ad,v 1.3 2012/01/20 17:06:52 joerg Exp $
+
+--- main.c.orig	1991-09-13 20:32:10.000000000 +0000
++++ main.c
+@@ -52,6 +52,9 @@
+ #include <X11/Xaw/Box.h>
+ #endif
+ 
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
+ 
+ #include "xpipeman.h"
+ 
+@@ -138,9 +141,7 @@ static XtActionsRec actions[] = {
+   {"do_nothing",(XtActionProc)do_nothing_action},
+ };
+ 
+-Pixel fg, bg;
+-
+-XtTranslations translations;
++AppData app_data;
+ 
+ static XrmOptionDescRec options[] = {
+ 	{"-scorefile","scorefile",XrmoptionSepArg, NULL },
+@@ -148,19 +149,20 @@ static XrmOptionDescRec options[] = {
+ 
+ static XtResource application_resources[] = {
+   {"foreground", "Foreground", XtRPixel, sizeof(Pixel),
+-                (Cardinal)&fg, XtRString, (caddr_t) "Black"},
++                XtOffsetOf(AppData,fg), XtRString, (caddr_t) "Black"},
+   {"background", "Background", XtRPixel, sizeof(Pixel),
+-                (Cardinal)&bg, XtRString, (caddr_t) "White"},
++                XtOffsetOf(AppData,bg), XtRString, (caddr_t) "White"},
+   {"translations","Translations", XtRTranslationTable, sizeof(XtTranslations),
+-                (Cardinal)&translations, XtRString, (caddr_t)translations_str},
++                XtOffsetOf(AppData,translations), XtRString,(caddr_t)translations_str},
+   {"scorefile","Scorefile", XtRString, sizeof(String),
+-                (Cardinal)&score_filename, XtRString, (caddr_t)SCORE_FILE},
++                XtOffsetOf(AppData,score_filename), XtRString,(caddr_t)SCORE_FILE},
+ };
+ 
+ /*----------------------------------------------------------------------*/
+ 
++int
+ main(argc, argv)
+-  unsigned int argc;
++  int argc;
+   char **argv;
+ {
+   Arg args[1];
+@@ -177,7 +179,7 @@ main(argc, argv)
+ 
+   XtAddActions(actions,XtNumber(actions));
+ 
+-  XtGetApplicationResources(top_shell, 0, application_resources, 
++  XtGetApplicationResources(top_shell, &app_data, application_resources, 
+ 			XtNumber(application_resources), NULL, 0 );
+ 
+   top_widget = XtCreateManagedWidget(
+@@ -193,7 +195,7 @@ main(argc, argv)
+                                     arglistplayfield,
+                                     XtNumber(arglistplayfield));
+ 
+-  XtAugmentTranslations(playfield_widget,translations);
++  XtAugmentTranslations(playfield_widget,app_data.translations);
+ 
+   quit_command = XtCreateManagedWidget(
+                                     "quit_button",
+@@ -263,12 +265,12 @@ main(argc, argv)
+ 
+   display   = XtDisplay(playfield_widget);
+   playfield = XtWindow(playfield_widget);
+-  gcv.foreground = fg;
+-  gcv.background = bg;
++  gcv.foreground = app_data.fg;
++  gcv.background = app_data.bg;
+   gcv.function = GXcopy;
+   gc = XCreateGC(display, playfield, 
+  		GCForeground | GCBackground | GCFunction, &gcv);
+-  gcv.foreground = bg;
++  gcv.foreground = app_data.bg;
+   cleargc = XCreateGC(display, playfield,
+  		 GCForeground | GCBackground | GCFunction, &gcv);
+ 

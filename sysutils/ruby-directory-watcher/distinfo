@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2011/09/12 13:36:18 taca Exp $
+
+SHA1 (directory_watcher-1.4.1.gem) = acecc69d216f51c52995edbbbcf28db76264f8b4
+RMD160 (directory_watcher-1.4.1.gem) = e9df31a27948405585131dc95db22cec3cdffe37
+Size (directory_watcher-1.4.1.gem) = 15360 bytes

@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2013/03/14 16:36:48 kim Exp $
+
+SHA1 (ssync-1.9.1.tar.gz) = d292d4cf7678c64cb174ae098c5d59223c9492ed
+RMD160 (ssync-1.9.1.tar.gz) = 0d85e42dee4b34d087c30e1a80160ca4eccc187b
+Size (ssync-1.9.1.tar.gz) = 5458 bytes
+SHA1 (patch-aa) = 1e24690586544ba25fd683ca5e1f8dbfbf4f7170

@@ -1,0 +1,19 @@
+$NetBSD: patch-ad,v 1.15 2010/11/26 14:49:50 adam Exp $
+
+--- src/af/util/xp/ut_iconv.h.orig	2009-06-25 00:52:27.000000000 +0000
++++ src/af/util/xp/ut_iconv.h
+@@ -32,8 +32,14 @@
+ 
+ typedef void * UT_iconv_t;
+ 
++#if defined(__NetBSD__) && __NetBSD_Version__ >= 200000000
++struct __tag_iconv_t { }; /* XXX: for catch/throw (ISO C++ 15.1)*/
++#endif
++
+ #define UT_ICONV_INVALID ((UT_iconv_t)(-1))
+ 
++#include <sys/param.h>
++
+ #ifdef __cplusplus
+ 
+ 

@@ -1,0 +1,12 @@
+$NetBSD: patch-ad,v 1.4 2009/11/22 21:05:18 drochner Exp $
+
+--- dao/GenericMMC.cc.orig	2009-02-21 22:54:48.000000000 +0100
++++ dao/GenericMMC.cc
+@@ -2065,6 +2065,7 @@ CdRawToc *GenericMMC::getRawToc(int sess
+   }
+ 
+   dataLen = ((reqData[0] << 8) | reqData[1]) + 2;
++  dataLen = (dataLen + 1) & ~1;
+   
+   log_message(4, "Raw toc data len: %d", dataLen);
+ 

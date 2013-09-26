@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2011/08/16 23:05:28 wiz Exp $
+
+SHA1 (Perl-Version-1.011.tar.gz) = e06387cf775552924791399ab8940ae0fac1d952
+RMD160 (Perl-Version-1.011.tar.gz) = edfcbe77d03d68f369fa5597548d8c377fb96146
+Size (Perl-Version-1.011.tar.gz) = 23138 bytes

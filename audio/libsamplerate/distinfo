@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.9 2012/07/04 08:58:09 adam Exp $
+
+SHA1 (libsamplerate-0.1.8.tar.gz) = e5fe82c4786be2fa33ca6bd4897db4868347fe70
+RMD160 (libsamplerate-0.1.8.tar.gz) = 74fe910bbc47cafad391932763afac2a29282ac5
+Size (libsamplerate-0.1.8.tar.gz) = 4303330 bytes
+SHA1 (patch-examples_audio_out.c) = 7b6cbcdc31e8e7da1d3453f9a59ee910296e4109

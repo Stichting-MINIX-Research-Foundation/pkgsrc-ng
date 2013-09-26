@@ -1,0 +1,30 @@
+$NetBSD: patch-ac,v 1.4 2011/09/29 21:00:19 wiz Exp $
+
+--- get_uvmexp.c.orig	2001-02-19 14:23:55.000000000 +0000
++++ get_uvmexp.c
+@@ -20,6 +20,7 @@
+  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
+  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  */
++#include <err.h>
+ #include <stdio.h>
+ #include <sys/param.h>
+ #include <sys/sysctl.h>
+@@ -28,14 +29,14 @@
+ 
+ void get_uvmexp(uvmexp)
+ 
+-struct uvmexp *uvmexp;
++struct uvmexp_sysctl *uvmexp;
+ 
+ {
+   int mib[2];
+   size_t len;
+   mib[0] = CTL_VM;
+-  mib[1] = VM_UVMEXP;
++  mib[1] = VM_UVMEXP2;
+   len = sizeof(*uvmexp);
+   if (sysctl(mib, 2, uvmexp, &len, NULL, 0) < 0)
+-    err(1, "sysctl: CTL_VM.VM_UVMEXP");
++    err(1, "sysctl: CTL_VM.VM_UVMEXP2");
+ }

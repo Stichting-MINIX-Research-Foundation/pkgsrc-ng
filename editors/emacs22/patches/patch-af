@@ -1,0 +1,39 @@
+$NetBSD: patch-af,v 1.2 2011/01/14 11:06:52 tron Exp $
+
+Build fix for newer versions of "libpng".
+
+--- src/image.c.orig	2008-08-25 23:18:33.000000000 +0100
++++ src/image.c	2011-01-14 10:54:46.000000000 +0000
+@@ -6328,11 +6328,7 @@
+ 
+ #ifdef HAVE_PNG
+ 
+-#if defined HAVE_LIBPNG_PNG_H
+-# include <libpng/png.h>
+-#else
+ # include <png.h>
+-#endif
+ 
+ #ifdef HAVE_NTGUI
+ /* PNG library details.  */
+@@ -6427,7 +6423,11 @@
+ {
+   xassert (png_ptr != NULL);
+   image_error ("PNG error: %s", build_string (msg), Qnil);
++#if (PNG_LIBPNG_VER < 10500)
+   longjmp (png_ptr->jmpbuf, 1);
++#else
++  png_longjmp (png_ptr, 1);
++#endif
+ }
+ 
+ 
+@@ -6603,7 +6603,7 @@
+ 
+   /* Set error jump-back.  We come back here when the PNG library
+      detects an error.  */
+-  if (setjmp (png_ptr->jmpbuf))
++  if (setjmp (png_jmpbuf(png_ptr)))
+     {
+     error:
+       if (png_ptr)

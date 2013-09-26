@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.2 2009/12/23 19:22:28 abs Exp $
+
+--- wmavgload.c.orig	1998-09-28 22:04:06.000000000 +0000
++++ wmavgload.c
+@@ -519,7 +519,7 @@ void InitLoad()
+   loads_3 = 0.0;
+ 
+ #if !defined(linux) && \
+-  !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__OpenBSD__)
++  !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__OpenBSD__) && !defined(__DragonFly__)
+ #ifndef SVR4
+     if (gethostname(hostname, MAXHOSTNAMELEN) != 0) {
+         perror("gethostname");

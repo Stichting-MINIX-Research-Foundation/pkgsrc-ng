@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:09:46 joerg Exp $
+bin/https@
+bin/sslcat
+bin/sslclient
+bin/sslconnect
+bin/sslserver
+share/doc/ucspi-ssl/CHANGES
+share/doc/ucspi-ssl/TODO
+share/doc/ucspi-ssl/UCSPI-SSL

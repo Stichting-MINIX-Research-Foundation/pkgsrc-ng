@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.7 2009/06/14 17:37:46 joerg Exp $
+man/man8/ircd.8
+sbin/ircd
+bin/umkpasswd
+bin/uconvert-conf
+share/doc/ircd/README
+share/doc/ircd/RELEASE.NOTES
+share/doc/ircd/INSTALL
+share/doc/ircd/iso-time.html
+share/doc/ircd/p10.html
+share/doc/ircd/snomask.html
+share/doc/ircd/readme.asll
+share/doc/ircd/readme.chroot
+share/doc/ircd/readme.crules
+share/doc/ircd/readme.cvs
+share/doc/ircd/readme.features
+share/doc/ircd/readme.gline
+share/doc/ircd/readme.iauth
+share/doc/ircd/readme.indent
+share/doc/ircd/readme.jupe
+share/doc/ircd/readme.log
+share/doc/ircd/readme.who
+share/doc/ircd/readme.www
+share/examples/ircd/example.conf
+share/examples/rc.d/ircd

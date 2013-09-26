@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 22:00:36 joerg Exp $
+bin/swiftsurf
+share/doc/swiftsurf/changelog
+share/doc/swiftsurf/index-eng.html
+share/doc/swiftsurf/index.html
+share/doc/swiftsurf/l-en.jpg
+share/doc/swiftsurf/l-fr.jpg
+share/doc/swiftsurf/ocaml.jpg
+share/examples/swiftsurf/swiftsurf.conf
+share/examples/swiftsurf/swiftsurf.conf.school
+share/examples/swiftsurf/swiftsurf.forb

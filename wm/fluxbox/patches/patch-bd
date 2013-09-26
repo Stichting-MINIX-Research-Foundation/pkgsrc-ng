@@ -1,0 +1,15 @@
+$NetBSD: patch-bd,v 1.2 2012/04/17 20:08:06 bsiegert Exp $
+
+See patch-be and patch-bf.
+
+--- src/Screen.cc.orig	Sat Oct 29 13:45:51 2011
++++ src/Screen.cc
+@@ -945,7 +945,7 @@ void BScreen::addIcon(FluxboxWindow *w) 
+         return;
+ 
+     // make sure we have a unique list
+-    if (find(iconList().begin(), iconList().end(), w) != iconList().end())
++    if (std::find(iconList().begin(), iconList().end(), w) != iconList().end())
+         return;
+ 
+     iconList().push_back(w);

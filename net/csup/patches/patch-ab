@@ -1,0 +1,18 @@
+$NetBSD: patch-ab,v 1.5 2010/04/19 21:23:24 zafer Exp $
+
+--- Makefile.orig	2010-04-04 19:34:56.000000000 +0000
++++ Makefile
+@@ -30,9 +30,12 @@ SRCS=	attrstack.c \
+ 	updater.c
+ 
+ CFLAGS+= -I. -I${.CURDIR}
+-CFLAGS+= -DHAVE_FFLAGS -DNDEBUG
++CFLAGS+= -DNDEBUG
+ WARNS?=	1
+ 
++LDFLAGS+=	-pthread
++YHEADER=	yes
++
+ DPADD=	${LIBCRYPTO} ${LIBZ} ${LIBPTHREAD}
+ LDADD=	-lcrypto -lz -lpthread
+ 

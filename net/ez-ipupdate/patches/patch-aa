@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.2 2008/09/07 12:01:16 ghen Exp $
+
+--- ez-ipupdate.c.orig	2002-03-12 00:31:47.000000000 +0100
++++ ez-ipupdate.c
+@@ -165,7 +165,7 @@
+ #endif
+ 
+ 
+-#if __linux__ || __SVR4 || __OpenBSD__ || __FreeBSD__ || __NetBSD__
++#if __linux__ || __SVR4 || __OpenBSD__ || __FreeBSD__ || __NetBSD__ || __DragonFly__
+ #  define IF_LOOKUP 1
+ #  include <sys/ioctl.h>
+ #  include <net/if.h>
+@@ -798,7 +798,7 @@ void show_message(char *fmt, ...)
+     sprintf(buf, "message incomplete because your OS sucks: %s\n", fmt);
+ #endif
+ 
+-    syslog(LOG_NOTICE, buf);
++    syslog(LOG_NOTICE, "%s", buf);
+   }
+   else
+   {

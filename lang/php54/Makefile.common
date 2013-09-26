@@ -1,0 +1,17 @@
+# $NetBSD: Makefile.common,v 1.13.2.2 2013/08/25 17:26:38 tron Exp $
+# used by lang/php54/Makefile.php
+# used by lang/php/ext.mk
+# used by meta-pkgs/php54-extensions/Makefile
+
+PHP_VERSION_REQD=	54
+PHP_BASE_VERS=		${PHP54_VERSION}
+
+.include "../../lang/php/common.mk"
+
+CATEGORIES+=		www
+MAINTAINER?=		pkgsrc-users@NetBSD.org
+
+# needed due to (broken?) configure checks in php-xmlrpc and php5-dom
+CONFIGURE_ENV+=		PHP_LIBXML_SHARED="1"
+
+.include "../../mk/bsd.prefs.mk"

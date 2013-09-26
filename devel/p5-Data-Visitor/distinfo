@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2012/07/18 09:12:21 sno Exp $
+
+SHA1 (Data-Visitor-0.28.tar.gz) = 3164ba8620989b3f39fc19b260612c4b98aa2c4a
+RMD160 (Data-Visitor-0.28.tar.gz) = d8c89c5c65d7a3cfbf816df5a72e2dc0ae13a1df
+Size (Data-Visitor-0.28.tar.gz) = 23571 bytes

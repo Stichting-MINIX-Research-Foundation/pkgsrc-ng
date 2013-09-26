@@ -1,0 +1,111 @@
+$NetBSD: README.Solaris,v 1.14 2012/07/13 16:12:41 jperkin Exp $
+
+You will need a working C compiler. Any version of gcc >2.8 should
+work, 2.95.x and 3.x have been tested. SunPro 5 and 8 have been
+tested, but versions in between should work, too.
+
+The following packages are the minimum required on Solaris 8 to
+bootstrap and build packages.
+
+	- SUNWsprot
+	- SUNWarc
+	- SUNWbtool
+	- SUNWtoo
+	- SUNWscpu
+	- SUNWxcu4
+
+Realistically you will need more, such as SUNWlibm, and SUNWlibC for
+C++ packages if you are using SunPro.
+
+Please note the use of GNU binutils on Solaris is not supported.
+
+pkgsrc in Solaris Zones
+-----------------------
+
+If you are trying to bootstrap pkgsrc in a Solaris Zone then you will
+need to install the following packages (assuming you will bootstrap using
+Sun's gcc package):
+
+	- SUNWgccruntime
+	- SUNWgcc
+	- SUNWbinutils
+	- SUNWbtool
+	- SUNWggrp
+	- SUNWxcu4
+	- SUNWcs
+	- SUNWsprot
+	- SUNWlibm
+	- SUNWloc
+	- SUNWsndm
+
+Tested on OpenSolaris 5.11 snv_105 and pkgsrc bootstrap as at Jan 2009.
+
+If you are using gcc
+--------------------
+It makes life much simpler if you only use the same gcc consistently
+for building all packages.
+
+See http://www.NetBSD.org/docs/software/packages.html for
+binary kits and initial packages, including gcc.
+
+If the gcc installation is not in your $PATH you will need to pass
+additional flags to bootstrap, for example:
+
+	env CC=/opt/gcc-4.6.3/bin/gcc \
+	    GCCBASE=/opt/gcc-4.6.3 \
+	    ./bootstrap --abi=64
+
+It is recommended that an external gcc be used only for bootstrapping,
+and that you set USE_PKGSRC_GCC=yes in mk.conf so that the appropriate
+pkgsrc gcc is installed and used.
+
+Binary packages of gcc can be found through
+http://www.sunfreeware.com/
+
+If you are using Sun WorkShop
+-----------------------------
+You will need at least the following packages installed to build C and
+C++ packages.
+
+WorkShop 5.0:
+
+	SPROcc		Sun WorkShop Compiler C 5.0
+	SPROcpl		Sun WorkShop Compiler C++ 5.0
+	SPROild		Sun WorkShop Incremental Linker
+	SPROlang	Sun WorkShop Compilers common components
+
+Sun ONE Studio 8:
+
+	SPROcc		Sun ONE Studio 8 Compiler C
+	SPROcpl		Sun ONE Studio 8 Compiler C++
+	SPROdwrfb	DwarfSupportLibrary binaries
+	SPROild		Sun ONE Studio 8 Incremental Linker
+	SPROlang	Sun ONE Studio 8 Compilers Common Components
+	SPROsbld	Sun ONE Studio 8 Linker Stab Library
+	SPROscl		Sun ONE Studio 8 Standard Class Library for C++
+	SPROtlbn7	Sun ONE Studio 8 Tools.h++ 7.1 Class Library for C++
+	SPROutool	Sun ONE Studio 8 Common Tools
+
+The corresponding 64-bit packages are also required to build 64-bit
+binaries and libraries.
+
+To build 64-bit binaries, pass '--abi=64' to bootstrap, and also see the
+crle(1) man page to configure the runtime linking environment.
+
+pkgsrc defaults to finding the Sun compiler in /opt/SUNWspro.  If you use a
+different prefix, pass SUNWSPROBASE in the environment to bootstrap.  If 'cc'
+is not in your path, pass CC as well.  So, to build 64-bit Sun compiler
+bootstrap with a non-standard install:
+
+	env CC=/opt/studio12/SUNWspro/bin/cc \
+	    SUNWSPROBASE=/opt/studio12/SUNWspro \
+	    ./bootstrap --abi=64
+
+When bootstrap is finished your default mk.conf will contain ABI and
+SUNWSPROBASE so you will not need to set these variables again.
+
+Whichever compiler you use, please ensure the compiler tools and
+your $prefix are in your PATH. This includes /usr/ccs/{bin,lib}
+and eg. /usr/pkg/{bin,sbin}.
+
+bootstrap-pkgsrc has been tested on Solaris 2.6 -> 10.

@@ -1,0 +1,5 @@
+# $NetBSD: Setup.in,v 1.4 2011/11/03 12:21:41 obache Exp $
+#
+*shared*
+@GDBM_MODNAME@ @GDBM_MODNAME@module.c -I@LOCALBASE@/include -L@LOCALBASE@/lib \
+	-R@LOCALBASE@/lib -lgdbm

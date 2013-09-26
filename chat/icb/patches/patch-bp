@@ -1,0 +1,22 @@
+$NetBSD: patch-bp,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- tcl/tclBasic.c.orig	1995-02-24 16:19:53.000000000 -0500
++++ tcl/tclBasic.c	2008-12-16 20:18:01.000000000 -0500
+@@ -656,7 +656,7 @@
+ 			length = strlen(iPtr->result);
+ 			if ((limit - dst) < length) {
+ 			    char *newCopy;
+-			    int delta;
++			    long delta;
+ 
+ 			    copySize = length + 10 + dst - copy;
+ 			    newCopy = (char *) malloc((unsigned) copySize);
+@@ -869,7 +869,7 @@
+     
+ 	    if (dst >= limit) {
+ 		char *newCopy;
+-		int delta;
++		long delta;
+     
+ 		copySize *= 2;
+ 		newCopy = (char *) malloc((unsigned) copySize);

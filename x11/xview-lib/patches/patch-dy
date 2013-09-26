@@ -1,0 +1,17 @@
+$NetBSD: patch-dy,v 1.2 2009/12/10 20:35:58 abs Exp $
+
+--- lib/libolgx/ol_sb.c.orig	1993-06-29 05:18:29.000000000 +0000
++++ lib/libolgx/ol_sb.c
+@@ -11,7 +11,12 @@
+  */
+ 
+ #include <stdio.h>
++#include <sys/param.h>
++#if (defined(BSD) && (BSD >= 199103))
++#include <stdlib.h>
++#else
+ #include <malloc.h>
++#endif
+ #include <X11/Xlib.h>
+ #include <X11/Xutil.h>
+ #include "olgx_impl.h"

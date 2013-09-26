@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:13:31 joerg Exp $
+bin/bfspeed
+bin/bftest
+include/blowfish.h
+lib/libblowfish.a
+share/doc/blowfish/COPYRIGHT
+share/doc/blowfish/README
+share/doc/blowfish/VERSION
+share/doc/blowfish/blowfish.doc

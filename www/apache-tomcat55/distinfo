@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2012/04/04 11:34:27 obache Exp $
+
+SHA1 (apache-tomcat-5.5.35.tar.gz) = 84235e1bb66fe98512d74578e9b7c4c9d3dbc5d8
+RMD160 (apache-tomcat-5.5.35.tar.gz) = 7b3f8d38d4e25c3606b73730713a01274e0babc7
+Size (apache-tomcat-5.5.35.tar.gz) = 9050646 bytes

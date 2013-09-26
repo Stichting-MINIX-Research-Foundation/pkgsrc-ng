@@ -1,0 +1,33 @@
+$NetBSD: patch-ah,v 1.3 2011/01/29 19:39:14 spz Exp $
+
+avoid the wrapper + -C trap
+
+--- request-answer.orig	2000-01-07 11:10:18.000000000 +0000
++++ request-answer
+@@ -13,19 +13,24 @@
+ # PATH it is set in the wrapper, so there is no need to set it here.
+ #$ENV{'PATH'} = "/bin:/usr/bin:/usr/ucb";
+ 
+-# Read and execute the .cf file
+-$cf = $ENV{"MAJORDOMO_CF"} || "/etc/majordomo.cf";
++# Read and execute the .cf file. For security reasons, let the environment win
++$cf = "/etc/majordomo.cf";
+ if ($ARGV[0] eq "-C") {
+     $cf = $ARGV[1];
+     shift(@ARGV); 
+     shift(@ARGV); 
+ }
++if ($ENV{"MAJORDOMO_CF"}) {
++        $cf = $ENV{"MAJORDOMO_CF"};
++}
++
+ if (! -r $cf) {
+     die("$cf not readable; stopped");
+ }
+ require "$cf";
+ 
+ chdir($homedir) || die("Can't chdir(\"$homedir\"): $!");
++unshift(@INC, $bindir);
+ unshift(@INC, $homedir);
+ require "shlock.pl";
+ require "majordomo.pl";

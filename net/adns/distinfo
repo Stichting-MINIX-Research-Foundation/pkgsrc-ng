@@ -1,0 +1,11 @@
+$NetBSD: distinfo,v 1.15 2010/04/17 12:43:03 obache Exp $
+
+SHA1 (adns-1.4.tar.gz) = 87283c3bcd09ceb2e605e91abedfb537a18f1884
+RMD160 (adns-1.4.tar.gz) = ccff2111bfa3eb99e28d355d48e9e17333f34394
+Size (adns-1.4.tar.gz) = 252668 bytes
+SHA1 (patch-aa) = 398086c7f693f342b090e336b679bc16b80ba035
+SHA1 (patch-ab) = 83ed4406342a36ba9c3d282e2a5b0101f783bb16
+SHA1 (patch-ac) = 007669d4b6626e3f89f9e23067244084f05f3dfe
+SHA1 (patch-ad) = 1f2484f8087fcbf140d22aa00943974b93bd3fbc
+SHA1 (patch-af) = 9e3f58b2d0f576e07f5d025cb696a295013ef53a
+SHA1 (patch-ag) = 1d9f9a97a63ea5e073c189071fb6420543d3892d

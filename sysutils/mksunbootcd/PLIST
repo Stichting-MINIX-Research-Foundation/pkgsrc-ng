@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.3 2010/01/27 19:29:47 joerg Exp $
+bin/mksunbootcd
+man/man1/mksunbootcd.1

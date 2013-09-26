@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2011/05/07 09:59:16 cheusov Exp $
+
+SHA1 (Judy-1.0.5.tar.gz) = 3540f003509acac3b1260424380ddf97914f7745
+RMD160 (Judy-1.0.5.tar.gz) = 00cc2d28fd385e64c8fb9a564e186aee4bd52b4f
+Size (Judy-1.0.5.tar.gz) = 1147847 bytes

@@ -1,0 +1,48 @@
+$NetBSD: patch-aa,v 1.4 2011/11/29 17:49:57 hans Exp $
+
+--- Makefile.orig	2001-01-04 22:22:16.000000000 +0100
++++ Makefile
+@@ -1,13 +1,12 @@
+ PACKAGE=loco
+ VERSION=0.32
+-PREFIX=/usr/local
+-MANDIR=$(PREFIX)/man/man1
+-DOCDIR=$(PREFIX)/doc/$(PACKAGE)-$(VERSION)
++MANDIR=$(PREFIX)/$(PKGMANDIR)/man1
++DOCDIR=$(PREFIX)/share/doc/$(PACKAGE)
+ 
+ check:
+ 	perl -e 'eval "use Term::ANSIColor; 1" || die "Module not found!\n";'
+ 	pod2html $(PACKAGE) > $(PACKAGE).html
+-	pod2man  $(PACKAGE) | gzip - > $(PACKAGE).1.gz
++	pod2man  $(PACKAGE) > $(PACKAGE).1
+ 	#
+ 	# Checks finished. Everything looks fine
+ 	#
+@@ -15,18 +14,18 @@ check:
+ install: installdoc installman installprogram
+ 
+ installdoc:
+-	install -m 755 -d $(DOCDIR)
+-	install -m 644 $(PACKAGE).html $(DOCDIR)
+-	install -m 644 README $(DOCDIR)
+-	install -m 644 COPYRIGHT $(DOCDIR)
++	$(BSD_INSTALL_DATA_DIR) ${DESTDIR}$(DOCDIR)
++	$(BSD_INSTALL_DATA) $(PACKAGE).html ${DESTDIR}$(DOCDIR)
++	$(BSD_INSTALL_DATA) README ${DESTDIR}$(DOCDIR)
++	$(BSD_INSTALL_DATA) COPYRIGHT ${DESTDIR}$(DOCDIR)
+ 
+ installman:
+-	install -m 755 -d $(MANDIR)
+-	install -m 644 $(PACKAGE).1.gz $(MANDIR)
++	$(BSD_INSTALL_MAN_DIR) ${DESTDIR}$(MANDIR)
++	$(BSD_INSTALL_MAN) $(PACKAGE).1 ${DESTDIR}$(MANDIR)
+ 
+ installprogram:
+-	install -m 755 -d $(PREFIX)/bin
+-	install -m 755 $(PACKAGE) $(PREFIX)/bin
++	$(BSD_INSTALL_SCRIPT_DIR) ${DESTDIR}$(PREFIX)/bin
++	$(BSD_INSTALL_SCRIPT) $(PACKAGE) ${DESTDIR}$(PREFIX)/bin
+ 
+ clean:
+ 	rm -f *~ $(PACKAGE).1.gz $(PACKAGE).html pod2html-*

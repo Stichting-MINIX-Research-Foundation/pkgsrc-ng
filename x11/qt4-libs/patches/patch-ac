@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.4 2010/11/15 13:05:45 adam Exp $
+
+--- tools/designer/src/designer/designer.pro.orig	2010-09-10 09:04:49.000000000 +0000
++++ tools/designer/src/designer/designer.pro
+@@ -14,7 +14,7 @@ INCLUDEPATH += \
+     ../lib/uilib \
+     extra
+ 
+-QMAKE_LIBDIR += ../../lib ../../../../lib
++QMAKE_LIBDIR += ../../../../lib
+ LIBS += -lQtDesignerComponents -lQtDesigner
+ 
+ RESOURCES += designer.qrc

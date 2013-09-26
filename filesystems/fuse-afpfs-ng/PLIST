@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.3 2009/02/23 12:58:26 tron Exp $
+bin/afp_client
+bin/afpfs
+bin/afpfsd
+bin/afpcmd
+bin/afpgetstatus
+bin/mount_afp
+lib/libafpclient.la
+man/man1/afp_client.1
+man/man1/afpcmd.1
+man/man1/afpfsd.1
+man/man1/afpgetstatus.1
+man/man1/mount_afp.1

@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:32:15 joerg Exp $
+include/musepack/config_types.h
+include/musepack/mpc_dec.h
+include/musepack/mpc_math.h
+include/musepack/requant.h
+include/musepack/stdafx.h
+include/musepack/streaminfo.h
+lib/libmusepack.la

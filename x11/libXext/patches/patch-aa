@@ -1,0 +1,23 @@
+$NetBSD: patch-aa,v 1.5 2012/06/03 17:30:58 wiz Exp $
+
+--- include/X11/extensions/dpms.h.orig	2012-03-08 03:54:58.000000000 +0000
++++ include/X11/extensions/dpms.h
+@@ -29,10 +29,18 @@ Equipment Corporation.
+ #ifndef _X11_EXTENSIONS_DPMS_H
+ #define _X11_EXTENSIONS_DPMS_H 1
+ 
++#include <X11/Xfuncproto.h>
+ #include <X11/X.h>
+ #include <X11/Xmd.h>
+ #include <X11/extensions/dpmsconst.h>
+ 
++#ifndef Status
++/* XXX: this is a hack to let old xf86-video-* build. Does not belong here. */
++#define Bool int
++#define Status int
++typedef struct _XDisplay Display;
++#endif
++
+ #ifndef DPMS_SERVER
+ _XFUNCPROTOBEGIN
+ 

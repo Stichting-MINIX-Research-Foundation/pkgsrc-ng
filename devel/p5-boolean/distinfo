@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2011/12/09 02:08:33 hiramatsu Exp $
+
+SHA1 (boolean-0.28.tar.gz) = 2a4fbc78ebfa99cb7427ff7245f5d503877f092f
+RMD160 (boolean-0.28.tar.gz) = d8cbeee4fc27055d8491e11d0e0292f39b14f088
+Size (boolean-0.28.tar.gz) = 31810 bytes

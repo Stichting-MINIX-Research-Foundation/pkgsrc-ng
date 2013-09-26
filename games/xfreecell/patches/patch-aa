@@ -1,0 +1,33 @@
+$NetBSD: patch-aa,v 1.4 2008/05/24 15:59:27 obache Exp $
+
+--- makefile.orig	1999-04-03 13:42:49.000000000 +0000
++++ makefile
+@@ -1,10 +1,10 @@
+ OBJECTS=card.o freecell.o option.o stack.o subwindows.o undo.o util.o gnmanager.o random.o
+ CC=g++
+-CFLAGS=-g -Wall -DSHAPE -DBOGUSRANDOM
+-LIBS=-lm -L. -lns -L/usr/X11R6/lib -lXext -lX11
++CFLAGS=-Wall -DSHAPE -DBOGUSRANDOM -I${X11BASE}/include
++LIBS=-lm -L. -lns ${COMPILER_RPATH_FLAG}${X11BASE}/lib -L${X11BASE}/lib -lXext -lX11
+ STATICDIR=xfreecell-static
+ DOCS=README CHANGES mshuffle.txt xfreecell.6
+-LIBDIR=/usr/local/lib/xfreecell
++LIBDIR=${PREFIX}/lib/xfreecell
+ 
+ all: $(OBJECTS) lib
+ 	$(CC) -o xfreecell $(CFLAGS) $(OBJECTS) $(LIBS)
+@@ -30,8 +30,8 @@ clean:
+ lib:
+ 	make -C widget lib
+ 
+-install: all
+-	install xfreecell $(DESTDIR)/usr/local/bin
+-	install xfreecell.6 $(DESTDIR)/usr/local/man/man6
+-#	install -d $(LIBDIR)
+-#	install ms-compatible/MSNumbers $(DESTDIR)/usr/local/lib/xfreecell
+\ No newline at end of file
++install: xfreecell
++	${BSD_INSTALL_PROGRAM} xfreecell $(DESTDIR)${PREFIX}/bin
++	${BSD_INSTALL_MAN} xfreecell.6 $(DESTDIR)${PREFIX}/${PKGMANDIR}/man6
++#	install -d $(DESTDIR)$(LIBDIR)
++#	install ms-compatible/MSNumbers $(DESTDIR)$(LIBDIR)

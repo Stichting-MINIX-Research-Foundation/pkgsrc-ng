@@ -1,0 +1,19 @@
+$NetBSD: patch-ac,v 1.3 2011/03/18 10:39:08 adam Exp $
+
+--- lfd_legacy_encrypt.c.orig	2011-03-18 10:18:40.000000000 +0000
++++ lfd_legacy_encrypt.c
+@@ -49,14 +49,9 @@
+ 
+ #ifdef HAVE_SSL
+ 
+-#ifndef __APPLE_CC__
+ /* OpenSSL includes */
+ #include <openssl/md5.h>
+ #include <openssl/blowfish.h>
+-#else /* YAY - We're MAC OS */
+-#include <sys/md5.h>
+-#include <crypto/blowfish.h>
+-#endif  /* __APPLE_CC__ */
+ 
+ #define ENC_BUF_SIZE VTUN_FRAME_SIZE + 16 
+ #define ENC_KEY_SIZE 16

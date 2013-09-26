@@ -1,0 +1,30 @@
+$NetBSD: patch-aa,v 1.3 2012/07/30 02:04:23 dholland Exp $
+
+Configure for pkgsrc. Honor LDFLAGS so rpaths work.
+
+--- Makefile.orig	2002-11-20 11:20:49.000000000 +0100
++++ Makefile
+@@ -5,12 +5,9 @@
+ #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+ 
+ # Change this PREFIX to where you want docker to be installed
+-PREFIX=/usr/local
++#PREFIX=/usr/local
+ # Change this XLIBPATH to point to your X11 development package's installation
+-XLIBPATH=/usr/X11R6/lib
+-
+-# Sets some flags for stricter compiling
+-CFLAGS=-pedantic -Wall -W -O
++#XLIBPATH=/usr/X11R6/lib
+ 
+ #-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#-#
+ #                                                                 #
+@@ -30,7 +27,7 @@ all: $(target) $(sources) $(headers)
+ 	@echo Build Successful
+ 
+ $(target): $(sources:.c=.o)
+-	$(CC) $(CFLAGS) -L$(XLIBPATH) -lX11 \
++	$(CC) $(CFLAGS) $(LDFLAGS) -lX11 \
+ 		`pkg-config --libs glib-2.0` $^ -o $@
+ 
+ %.o: %.c

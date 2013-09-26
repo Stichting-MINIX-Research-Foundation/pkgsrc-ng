@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:09:29 joerg Exp $
+bin/gopher
+bin/gophfilt
+man/man1/gopher.1
+man/man1/gophfilt.1
+man/man5/gopherrc.5
+share/examples/gopher/gopher.hlp
+share/examples/gopher/gopher.rc
+share/examples/gopher/gopherremote.rc

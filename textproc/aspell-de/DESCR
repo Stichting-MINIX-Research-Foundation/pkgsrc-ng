@@ -1,0 +1,2 @@
+German language support for aspell, e.g. `aspell -d german -c $myfile'.
+Other sub-dictionary available in this package: swiss.

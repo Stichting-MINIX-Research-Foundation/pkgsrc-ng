@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:18:59 joerg Exp $
+bin/larsclock
+bin/larsmenu
+bin/larsremote
+bin/larswm
+${IMAKE_MAN_DIR}/larsclock.${IMAKE_MANNEWSUFFIX}
+${IMAKE_MAN_DIR}/larsmenu.${IMAKE_MANNEWSUFFIX}
+${IMAKE_MAN_DIR}/larsremote.${IMAKE_MANNEWSUFFIX}
+${IMAKE_MAN_DIR}/larswm.${IMAKE_MANNEWSUFFIX}
+share/doc/larswm/keyboard_refcard.pdf
+share/doc/larswm/mouse_refcard.pdf
+share/examples/larswm/sample.larswmrc
+share/examples/larswm/sample.xsession

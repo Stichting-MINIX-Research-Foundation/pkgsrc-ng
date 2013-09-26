@@ -1,0 +1,27 @@
+$NetBSD: patch-aw,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/toss/dbz.c.orig	2000-10-18 21:53:57.000000000 +0000
++++ src/toss/dbz.c
+@@ -46,6 +46,8 @@ if the incore facility is used.
+  * NOBUFFER	do not buffer hash-table i/o, B News locking is defective
+  */
+ 
++#include <stdlib.h>
++
+ #ifdef FUNNYSEEKS
+ #include <unistd.h>
+ #else
+@@ -299,13 +301,6 @@ static int debug;			/* controlled by dbz
+ #define	DEBUG(args)	;
+ #endif
+ 
+-/* externals used */
+-extern char *malloc();
+-extern char *calloc();
+-extern void free();		/* ANSI C; some old implementations say int */
+-extern int atoi();
+-extern long atol();
+-
+ /* misc. forwards */
+ static long hash();
+ static void crcinit();

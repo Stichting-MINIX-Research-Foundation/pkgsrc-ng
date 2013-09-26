@@ -1,0 +1,111 @@
+$NetBSD: patch-be,v 1.2 2012/12/20 21:50:47 joerg Exp $
+
+--- readwrite.c.orig	1998-07-06 15:31:15.000000000 +0000
++++ readwrite.c
+@@ -4,10 +4,21 @@
+ #include "kanjicode.h"
+ #include "ctrlcode.h"
+ 
++#ifndef STDIN_FILENO
++#define STDIN_FILENO	0
++#endif
++
++#ifndef STDOUT_FILENO
++#define STDOUT_FILENO	1
++#endif
++
+ #ifdef DEBUG
+ extern FILE *wrlog;
+ #endif
+ 
++static void convCode(unsigned char c1, unsigned char c2, unsigned char *obuf,
++    kanjicode ic, kanjicode oc);
++
+ kanjicode OutCode = NATIVECODE, WriteCode = NATIVECODE;
+ 
+ typedef struct KanjiStatus {
+@@ -29,22 +40,16 @@ struct code_mode codeMode[8] = {
+ 	SIC_B,SOC_B,"JIS",3,3,
+ };
+ 
+-extern int	tty;
+-
+ char read1()
+ {	char	c;
+ 
+-	if (read(tty,&c,1) != 0)
++	if (read(STDIN_FILENO,&c,1) != 0)
+ 		return c;
+ 	return EOF;
+ }
+ 
+-checkStatusAndConvCode(c,ic,oc,stat,ostat,optr,olen)
+-char c;
+-kanjicode ic,oc;
+-KanjiStatus stat,ostat;
+-char **optr;
+-int *olen;
++static void checkStatusAndConvCode(char c, kanjicode ic, kanjicode oc,
++    KanjiStatus stat, KanjiStatus ostat, char **optr, int *olen)
+ {
+ 	static char buf[6];
+ 
+@@ -201,10 +206,8 @@ int *olen;
+ 	}
+ }
+ 
+-syncStatus(ttyno,ic,oc,istatus,ostatus)
+-int ttyno;
+-kanjicode ic,oc;
+-KanjiStatus istatus,ostatus;
++static void syncStatus(int ttyno, kanjicode ic, kanjicode oc,
++    KanjiStatus istatus, KanjiStatus ostatus)
+ {
+ 	if (!isJIS(oc) || istatus->kanjiMode == ostatus->kanjiMode)
+ 			return;
+@@ -320,13 +323,13 @@ writes(s)
+ char    *s;
+ {       int    l = strlen(s);
+ 	
+-	writeTTYorg(tty,s,l,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
++	writeTTYorg(STDOUT_FILENO,s,l,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
+ }
+ 
+ write1(c)
+ char c;
+ {
+-	writeTTYorg(tty,&c,1,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
++	writeTTYorg(STDOUT_FILENO,&c,1,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
+ }
+ 
+ writeShTty(s,l)
+@@ -334,14 +337,14 @@ char	*s;
+ int	l;
+ {
+ 
+-	writeTTYorg(tty,s,l,WriteCode,OutCode,&From_SH_Stat,&To_TTY_Stat);
++	writeTTYorg(STDOUT_FILENO,s,l,WriteCode,OutCode,&From_SH_Stat,&To_TTY_Stat);
+ }
+ 
+ writeTty(s,l)
+ char	*s;
+ int	l;
+ {
+-	writeTTYorg(tty,s,l,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
++	writeTTYorg(STDOUT_FILENO,s,l,INTERNALCODE,OutCode,&TInter_Stat,&To_TTY_Stat);
+ }
+ 
+ 
+@@ -376,10 +379,8 @@ bell()
+ 	write1('\007');
+ }
+ 
+-convCode(c1,c2,obuf,ic,oc)
+-unsigned char c1,c2;
+-unsigned char *obuf;
+-kanjicode ic,oc;
++static void convCode(unsigned char c1, unsigned char c2, unsigned char *obuf,
++    kanjicode ic, kanjicode oc)
+ {
+ 	if (ic == oc || (isJIS(ic) && isJIS(oc)) ) {
+ 		obuf[0] = c1;

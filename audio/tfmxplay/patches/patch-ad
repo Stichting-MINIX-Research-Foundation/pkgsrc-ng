@@ -1,0 +1,28 @@
+$NetBSD: patch-ad,v 1.3 2012/01/11 20:49:05 hans Exp $
+
+- Support more OSes
+- use valid C
+
+--- audio.c.orig	2001-08-02 11:06:48.000000000 +0000
++++ audio.c
+@@ -5,8 +5,10 @@
+  */
+ 
+ 
+-#ifdef __NetBSD__
++#if defined(__NetBSD__) || defined(__OpenBSD__)
+ #include <soundcard.h>
++#elif defined(__FreeBSD__) || defined(__DragonFly__) || defined(__sun)
++#include <sys/soundcard.h>
+ #else
+ #include <linux/soundcard.h>
+ #endif
+@@ -545,7 +547,7 @@ int play_it()
+ }
+ 
+ #if 0
+-play_it()
++void play_it(void)
+ {
+ 	char c=0;
+ 	int i,j=0;

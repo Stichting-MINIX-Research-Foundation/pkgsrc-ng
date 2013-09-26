@@ -1,0 +1,39 @@
+# $NetBSD: Makefile,v 1.34 2013/05/04 22:38:14 prlw1 Exp $
+#
+
+DISTNAME=	telepathy-glib-0.20.2
+CATEGORIES=	chat
+MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-glib/
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://telepathy.freedesktop.org/wiki/Telepathy%20GLib
+COMMENT=	GObject-based C binding for the Telepathy D-Bus API
+LICENSE=	gnu-gpl-v2 AND modified-bsd
+
+BUILD_DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+= --enable-vala-bindings
+USE_LIBTOOL=	yes
+USE_TOOLS+=	gmake pkg-config
+
+PKGCONFIG_OVERRIDE+=	telepathy-glib/telepathy-glib.pc.in
+
+PYTHON_FOR_BUILD_ONLY=	yes
+CONFIGURE_ENV+=		ac_cv_prog_PYTHON=${PYTHONBIN}
+REPLACE_PYTHON+=	tests/all-errors-documented.py
+TEST_TARGET=		check
+
+BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.32.0
+.include "../../devel/glib2/buildlink3.mk"
+BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.30.0
+.include "../../devel/gobject-introspection/buildlink3.mk"
+.include "../../lang/python/application.mk"
+.include "../../lang/vala020/buildlink3.mk"
+BUILDLINK_API_DEPENDS.dbus-glib+=	dbus-glib>=0.90
+.include "../../sysutils/dbus-glib/buildlink3.mk"
+BUILDLINK_API_DEPENDS.dbus+=		dbus>=0.95
+.include "../../sysutils/dbus/buildlink3.mk"
+.include "../../textproc/gtk-doc/buildlink3.mk"
+.include "../../textproc/libxslt/buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

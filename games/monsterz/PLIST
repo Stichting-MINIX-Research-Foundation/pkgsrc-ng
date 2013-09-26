@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:56:51 joerg Exp $
+bin/monsterz
+share/games/monsterz/graphics/background.png
+share/games/monsterz/graphics/bigtiles.png
+share/games/monsterz/graphics/board.png
+share/games/monsterz/graphics/icon.png
+share/games/monsterz/graphics/logo.png
+share/games/monsterz/graphics/tiles.png
+share/games/monsterz/monsterz.py
+share/games/monsterz/sound/applause.wav
+share/games/monsterz/sound/boing.wav
+share/games/monsterz/sound/click.wav
+share/games/monsterz/sound/ding.wav
+share/games/monsterz/sound/duh.wav
+share/games/monsterz/sound/grunt.wav
+share/games/monsterz/sound/laugh.wav
+share/games/monsterz/sound/music.s3m
+share/games/monsterz/sound/pop.wav
+share/games/monsterz/sound/warning.wav
+share/games/monsterz/sound/whip.wav

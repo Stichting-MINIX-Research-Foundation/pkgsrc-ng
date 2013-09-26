@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2013/01/03 09:56:14 adam Exp $
+
+SHA1 (django-mptt-0.5.5.tar.gz) = fdc6d02e488d37cbf4d409ba7a4f4ada478bc561
+RMD160 (django-mptt-0.5.5.tar.gz) = 4b85b0489154a2a2166d69a2e5a60064f7327511
+Size (django-mptt-0.5.5.tar.gz) = 76638 bytes

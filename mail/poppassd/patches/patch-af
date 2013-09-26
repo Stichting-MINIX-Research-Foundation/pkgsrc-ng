@@ -1,0 +1,12 @@
+$NetBSD: patch-af,v 1.3 2012/03/22 14:15:32 taca Exp $
+
+--- configure.orig	2010-10-02 00:22:09.000000000 +0000
++++ configure
+@@ -11221,6 +11221,7 @@ gethostbyname \
+ gettimeofday \
+ getusershell \
+ mkdir \
++setlogin \
+ socket \
+ strdup \
+ strerror \

@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.4 2008/11/20 02:19:26 chuck Exp $
+
+--- Makefile.orig	2008-11-19 20:18:35.000000000 -0500
++++ Makefile	2008-11-19 20:19:26.000000000 -0500
+@@ -69,7 +69,7 @@
+ #
+ #DEFS	+= ${DEFS} -DNO_MALLOC_DECL
+ #
+-CFLAGS	= -O ${DEFS}
++#CFLAGS	= -O ${DEFS}
+ 
+ # Use your favorite lexical scanner
+ #
+@@ -80,7 +80,7 @@
+ 
+ # scanner library
+ #
+-LEXLIB	= -ll
++#LEXLIB	= -ll
+ #LEXLIB	= -lfl
+ 
+ LPR	= lpr -p

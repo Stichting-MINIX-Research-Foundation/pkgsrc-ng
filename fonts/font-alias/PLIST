@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2010/09/10 21:21:34 joerg Exp $
+share/fonts/X11/100dpi/fonts.alias
+share/fonts/X11/75dpi/fonts.alias
+share/fonts/X11/cyrillic/fonts.alias
+share/fonts/X11/misc/fonts.alias

@@ -1,0 +1,39 @@
+MKPATCHES(1)            NetBSD General Commands Manual            MKPATCHES(1)
+
+NNAAMMEE
+     mmkkppaattcchheess -- create patch files appropriate for pkgsrc
+
+SSYYNNOOPPSSIISS
+     mmkkppaattcchheess [--cc | --rr] [--hhvv]
+
+DDEESSCCRRIIPPTTIIOONN
+     mmkkppaattcchheess is a perl script that simplifies creating patches from a
+     changed work tree if for each changed file the original was kept with an
+     added extension ``.orig''.
+
+     mmkkppaattcchheess must be called from the package's main directory, that is
+     _$_{_P_K_G_S_R_C_}_/_c_a_t_e_g_o_r_y_/_p_r_o_g_r_a_m.  It then proceeds to find all files that
+     match the pattern ``*.orig''.  Each of these is then compared to the
+     changed file of the same name (with no ``.orig'' extension) using
+     pkgdiff(1).
+
+     The resulting patches are saved in the package's patches directory (usu-
+     ally _p_a_t_c_h_e_s_/) and can be easily compared to the currently existing set
+     using patchdiff(1) or ccvvss ddiiffff.
+
+     Supported options are:
+
+     --cc   Clean up backup patches of previous runs.  Use this after you're
+          finished working on the patch set and committed it.
+
+     --hh   Show a short usage.
+
+     --rr   Revert the changes.  Removes the new patches and puts the original
+          patches back.
+
+     --vv   More verbose output.
+
+SSEEEE AALLSSOO
+     cvs(1), patchdiff(1), pkgdiff(1)
+
+NetBSD 5.0                     January 31, 2011                     NetBSD 5.0

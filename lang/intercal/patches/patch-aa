@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.4 2010/11/30 20:13:30 drochner Exp $
+
+--- buildaux/Makefile.in.orig	2010-11-29 21:46:43.000000000 +0000
++++ buildaux/Makefile.in
+@@ -286,7 +286,7 @@ ickdatadir = $(datadir)/$(ICK_SPECIFIC_S
+ AM_CFLAGS = -DICKINCLUDEDIR=\"$(ickincludedir)\" \
+             -DICKDATADIR=\"$(ickdatadir)\" \
+             -DICKBINDIR=\"$(bindir)\" -DICKLIBDIR=\"$(libdir)\" \
+-            -DYYDEBUG -DICK_HAVE_STDINT_H=@HAVE_STDINT_H@
++            -DYYDEBUG -DICK_HAVE_STDINT_H=@HAVE_STDINT_H@ -D_POSIX_SOURCE -DUSG
+ 
+ AM_CPPFLAGS = -I$(srcdir)/src
+ ick_SOURCES = src/feh2.c src/dekludge.c src/ick_lose.c \

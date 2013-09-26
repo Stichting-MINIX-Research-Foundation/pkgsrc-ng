@@ -1,0 +1,196 @@
+$NetBSD: patch-ac,v 1.29 2013/05/05 14:57:27 joerg Exp $
+
+--- configure.orig	2012-06-14 22:05:51.000000000 +0000
++++ configure
+@@ -3976,7 +3976,7 @@ fi
+ 
+ 
+ if test "${want_R_shlib}" = yes; then
+-  LIBR="-L\$(R_HOME)/lib\$(R_ARCH) -lR"
++  LIBR="-Wl,-R${prefix}/lib/R/lib\$(R_ARCH) -L\$(R_HOME)/lib\$(R_ARCH) -lR"
+ else
+   LIBR=
+ fi
+@@ -4040,7 +4040,7 @@ fi
+ if test "x${want_lto}" != xno; then
+   LTO=-flto
+ fi
+-if test "x${want_lto}" == xyes; then
++if test "x${want_lto}" = xyes; then
+   LTOALL=-flto
+ fi
+ 
+@@ -22963,6 +22963,11 @@ fi
+ 	  done
+ 	  ;;
+ 	-[lLR]*)
++            case $ac_arg in
++            -R*)
++                ac_arg="${wl}$ac_arg"
++                ;;
++            esac
+ 	    ac_exists=false
+   for ac_i in $ac_cv_f77_libs; do
+     if test x"$ac_arg" = x"$ac_i"; then
+@@ -23928,6 +23933,9 @@ cat > conftest.c <<EOF
+ 
+ extern void F77_SYMBOL(cftest)(int *a, int *b, double *x, double *y);
+ 
++int MAIN_ () { return 0; }
++int MAIN__ () { return 0; }
++
+ int main () {
+   int a[3] = {17, 237, 2000000000}, b[2], res = 0;
+   double x[3] = {3.14159265, 123.456789, 2.3e34}, z[3];
+@@ -24023,6 +24031,9 @@ typedef struct {
+ 
+ extern void F77_SYMBOL(cftest)(Rcomplex *x);
+ 
++int MAIN_ () { return 0; }
++int MAIN__ () { return 0; }
++
+ int main () {
+     Rcomplex z[3];
+ 
+@@ -26224,12 +26235,12 @@ $as_echo "$as_me: WARNING: Use of flat n
+       SHLIB_LIBADD="-lcc_dynamic"
+     fi
+     ;;
+-  freebsd*)
+-    main_ldflags="-export-dynamic"
++  freebsd*|dragonfly*)
++    main_ldflags="${wl}-export-dynamic"
+     shlib_ldflags="-shared"
+     ;;
+   gnu*)				# GNU Hurd
+-    main_ldflags="-export-dynamic"
++    main_ldflags="${wl}-export-dynamic"
+     ;;
+   hpux*)
+     SHLIB_EXT=".sl"
+@@ -26312,8 +26323,15 @@ $as_echo "$as_me: WARNING: Use of flat n
+     fcpicflags=
+     ;;
+   netbsd*)
++     fpicflags="-fPIC"
++     case "${host_cpu}" in
++       powerpc*)
++        cpicflags="-fPIC"
++        ;;
++     esac
++
+     if ${CPP} - -dM < /dev/null | grep __ELF__ >/dev/null ; then
+-      main_ldflags="-export-dynamic"
++      main_ldflags="${wl}-export-dynamic"
+       shlib_ldflags="-shared"
+     else
+       shlib_ldflags="-Bshareable"
+@@ -26335,22 +26353,22 @@ $as_echo "$as_me: WARNING: Use of flat n
+   solaris*)
+ ## SPARC has only an 8k global object table, 1024 entries on 64-bit,
+ ## so need PIC not pic.  They are the same on other Solaris platforms.
+-    shlib_ldflags="-G"
+-    shlib_cxxldflags="-G"
+    if test "${GCC}" = yes; then
++      shlib_ldflags="-shared"
++      shlib_cxxldflags="-shared"
+       cpicflags="-fPIC"
+       ld=`${CC} -print-prog-name=ld`
+       ldoutput=`${ld} -v 2>&1 | grep GNU`
+       if test -n "${ldoutput}"; then
+ 	main_ldflags="-Wl,-export-dynamic"
+-	shlib_ldflags="-shared"
+-        shlib_cxxldflags="-shared"
+       else
+         ## it seems gcc c 4.6.2 needs this with Solaris linker
+ 	shlib_ldflags="-shared"
+         shlib_cxxldflags="-shared"
+       fi
+     else
++      shlib_ldflags="-G"
++      shlib_cxxldflags="-G"
+       cpicflags="-KPIC"
+       if test "`basename ${CXX}`" = "CC" ; then
+         ## Forte version 7 needs -lCstd: Forte 6 does not.
+@@ -26407,7 +26425,7 @@ fi
+ : ${CPICFLAGS="${cpicflags}"}
+ if test -z "${CPICFLAGS}"; then
+   case "${host_os}" in
+-    aix*|cygwin*|irix*|mingw*|osf*)
++    aix*|cygwin*|irix*|mingw*|osf*|darwin*)
+       ;;
+     *)
+       { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: I could not determine CPICFLAGS." >&5
+@@ -26916,6 +26934,14 @@ _ACEOF
+ ## Cygwin has rintl but not nearbyintl
+ for ac_func in expm1 hypot log1p log2 log10 nearbyint nearbyintl powl rint rintl
+ do
++case $ac_func in
++expm1|log1p|log2|log10|nearbyint|nearbyintl|rint|rintl)
++    args="x"
++    ;;
++hypot|powl)
++    args="x,x"
++    ;;
++esac
+ as_ac_Symbol=`$as_echo "ac_cv_have_decl_$ac_func" | $as_tr_sh`
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking whether $ac_func exists and is declared" >&5
+ $as_echo_n "checking whether $ac_func exists and is declared... " >&6; }
+@@ -26925,24 +26951,12 @@ else
+   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ #include <math.h>
++volatile long double x;
+ 
+-#ifdef F77_DUMMY_MAIN
+-
+-#  ifdef __cplusplus
+-     extern "C"
+-#  endif
+-   int F77_DUMMY_MAIN() { return 1; }
+-
+-#endif
+ int
+ main ()
+ {
+-#ifndef $ac_func
+-  char *p = (char *) $ac_func;
+-#endif
+-
+-  ;
+-  return 0;
++  return $ac_func($args);
+ }
+ _ACEOF
+ if ac_fn_c_try_link "$LINENO"; then :
+@@ -29539,6 +29553,15 @@ cat > conftest.c <<EOF
+ #endif
+ extern void F77_SYMBOL(test1)(int *iflag);
+ 
++#ifdef F77_DUMMY_MAIN
++
++#  ifdef __cplusplus
++     extern "C"
++#  endif
++   int F77_DUMMY_MAIN() { return 1; }
++
++#endif
++
+ int main () {
+   int iflag;
+   F77_SYMBOL(test1)(&iflag);
+@@ -29606,6 +29629,14 @@ else
+ #else
+ # define F77_SYMBOL(x)   x
+ #endif
++#ifdef F77_DUMMY_MAIN
++
++#  ifdef __cplusplus
++     extern "C"
++#  endif
++   int F77_DUMMY_MAIN() { return 1; }
++
++#endif
+ void F77_SYMBOL(xerbla)(char *srname, int *info)
+ {}
+ void blas_set () {

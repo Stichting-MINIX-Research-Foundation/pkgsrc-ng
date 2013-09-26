@@ -1,0 +1,13 @@
+$NetBSD: patch-am,v 1.2 2009/12/17 20:31:37 abs Exp $
+
+--- src/Patchwork/util.c.orig	2000-02-21 22:44:31.000000000 +0000
++++ src/Patchwork/util.c
+@@ -28,7 +28,7 @@
+ # include <math.h>
+ # include <stdio.h>
+ # include <string.h>
+-# include <malloc.h>
++# include <stdlib.h>
+ # include "fe.h"
+ # include "problem.h"
+ # include "objects.h"

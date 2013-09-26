@@ -1,0 +1,16 @@
+$NetBSD: patch-af,v 1.2 2012/06/09 11:51:36 adam Exp $
+
+--- libmail/mail.H.orig	2011-04-04 11:58:20.000000000 +0000
++++ libmail/mail.H
+@@ -10,10 +10,10 @@
+ #include <time.h>
+ #include <string>
+ 
++#include <sys/types.h>
+ #if HAVE_SYS_SELECT_H
+ #include <sys/select.h>
+ #endif
+-#include <sys/types.h>
+ #if TIME_WITH_SYS_TIME
+ # include <sys/time.h>
+ # include <time.h>

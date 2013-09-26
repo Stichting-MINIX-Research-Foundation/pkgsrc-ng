@@ -1,0 +1,12 @@
+$NetBSD: patch-lib_otp_Makefile.in,v 1.2 2012/02/27 12:39:12 asau Exp $
+
+--- lib/otp/Makefile.in.orig	2012-01-11 13:04:29.000000000 +0000
++++ lib/otp/Makefile.in
+@@ -50,7 +50,6 @@ check_PROGRAMS = otptest$(EXEEXT)
+ @HAVE_DB1_TRUE@am__append_1 = $(LIB_db_create)
+ @HAVE_DB1_FALSE@@HAVE_DB3_TRUE@am__append_2 = $(LIB_db_create)
+ @HAVE_DB1_FALSE@@HAVE_DB3_FALSE@am__append_3 = $(LIB_NDBM)
+-@versionscript_TRUE@am__append_4 = $(LDFLAGS_VERSION_SCRIPT)$(srcdir)/version-script.map
+ subdir = lib/otp
+ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
+ am__aclocal_m4_deps = $(top_srcdir)/cf/aix.m4 \

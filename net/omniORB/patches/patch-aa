@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2011/01/01 05:43:28 obache Exp $
+
+--- bin/scripts/omkdirhier.orig	2005-01-06 23:07:20.000000000 +0000
++++ bin/scripts/omkdirhier
+@@ -60,7 +60,7 @@ do
+ 				fi
+ 			done
+ 
+-			mkdir $paths || status=$?
++			mkdir -m 0755 $paths || status=$?
+ 
+ 			break
+ 		}

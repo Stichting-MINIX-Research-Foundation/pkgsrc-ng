@@ -1,0 +1,56 @@
+$NetBSD: patch-aa,v 1.7 2009/04/29 10:54:11 wiz Exp $
+
+--- Makefile.in.orig	2009-04-20 17:37:40.000000000 +0300
++++ Makefile.in
+@@ -846,14 +846,14 @@ uninstall-man8:
+ 	  rm -f "$(DESTDIR)$(man8dir)/$$inst"; \
+ 	done
+ install-sysconfDATA: $(sysconf_DATA)
+-	@$(NORMAL_INSTALL)
+-	test -z "$(sysconfdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfdir)"
+-	@list='$(sysconf_DATA)'; for p in $$list; do \
+-	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+-	  f=$(am__strip_dir) \
+-	  echo " $(sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(sysconfdir)/$$f'"; \
+-	  $(sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(sysconfdir)/$$f"; \
+-	done
++#	@$(NORMAL_INSTALL)
++#	test -z "$(sysconfdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfdir)"
++#	@list='$(sysconf_DATA)'; for p in $$list; do \
++#	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
++#	  f=$(am__strip_dir) \
++#	  echo " $(sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(sysconfdir)/$$f'"; \
++#	  $(sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(sysconfdir)/$$f"; \
++#	done
+ 
+ uninstall-sysconfDATA:
+ 	@$(NORMAL_UNINSTALL)
+@@ -1417,17 +1417,17 @@ rpm:	leafnode.spec
+ 	rpmbuild -ba leafnode.spec || rpm -ba leafnode.spec
+ 
+ install-data-hook: amiroot
+-	set -e ; for i in "" /leaf.node /failed.postings /interesting.groups \
+-		/out.going /message.id /temp.files ; do \
+-        mkdir -p $(DESTDIR)$(SPOOLDIR)$$i ; \
+-	if ./amiroot ; then \
+-	 chown @NEWS_USER@:@NEWS_GROUP@ $(DESTDIR)$(SPOOLDIR)/$$i ; \
+-	 chmod 2775      $(DESTDIR)$(SPOOLDIR)/$$i ; fi ; \
+-	done
+-	d="`dirname $(DESTDIR)@LOCKFILE@`" ; mkdir -p "$${d}" && \
+-	if ./amiroot ; then \
+-          chown @NEWS_USER@:@NEWS_GROUP@ "$${d}" ; \
+-	  chmod 2775 "$${d}" ; fi
++#	set -e ; for i in "" /leaf.node /failed.postings /interesting.groups \
++#		/out.going /message.id /temp.files ; do \
++#        mkdir -p $(DESTDIR)$(SPOOLDIR)$$i ; \
++#	if ./amiroot ; then \
++#	 chown @NEWS_USER@:@NEWS_GROUP@ $(DESTDIR)$(SPOOLDIR)/$$i ; \
++#	 chmod 2775      $(DESTDIR)$(SPOOLDIR)/$$i ; fi ; \
++#	done
++#	d="`dirname $(DESTDIR)@LOCKFILE@`" ; mkdir -p "$${d}" && \
++#	if ./amiroot ; then \
++#          chown @NEWS_USER@:@NEWS_GROUP@ "$${d}" ; \
++#	  chmod 2775 "$${d}" ; fi
+ 
+ uninstall-local:
+ 	rm -rf $(DESTDIR)$(SPOOLDIR) $(DESTDIR)@LOCKFILE@

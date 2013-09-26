@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.21 2011/07/08 17:20:05 drochner Exp $
+
+--- configure.orig	2011-06-15 23:32:10.000000000 +0000
++++ configure
+@@ -22771,7 +22771,7 @@ _ACEOF
+ if ac_fn_c_try_link "$LINENO"; then :
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+ $as_echo "no" >&6; }
+-       X_LIBS="$X_LIBS -R$x_libraries"
++       X_LIBS="$X_LIBS ${COMPILER_RPATH_FLAG}$x_libraries"
+ else
+   LIBS="$ac_xsave_LIBS -R $x_libraries"
+        cat confdefs.h - <<_ACEOF >conftest.$ac_ext

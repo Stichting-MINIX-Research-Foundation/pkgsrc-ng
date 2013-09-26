@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:28:18 joerg Exp $
+bin/xDir
+bin/xPK
+bin/xQuery
+bin/xType
+bin/xUp
+bin/xpk-config
+include/xpk/amigalibs.h
+include/xpk/xpk.h
+include/xpk/xpkLib.h
+include/xpk/xpkprefs.h
+include/xpk/xpksub.h
+lib/libxpkGZIP.la
+lib/libxpkNONE.la
+lib/libxpkRLEN.la
+lib/libxpkSQSH.la
+lib/libxpkmaster.la
+share/aclocal/xpk.m4

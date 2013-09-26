@@ -1,0 +1,32 @@
+$NetBSD: patch-au,v 1.2 2013/05/26 17:56:09 wiz Exp $
+
+--- Makefile.pre.in.orig	2013-05-15 16:32:57.000000000 +0000
++++ Makefile.pre.in
+@@ -81,7 +81,7 @@ PY_CFLAGS=	$(BASECFLAGS) $(OPT) $(CONFIG
+ # be able to build extension modules using the directories specified in the
+ # environment variables
+ PY_CPPFLAGS=	$(BASECPPFLAGS) -I. -IInclude -I$(srcdir)/Include $(CONFIGURE_CPPFLAGS) $(CPPFLAGS)
+-PY_LDFLAGS=	$(CONFIGURE_LDFLAGS) $(LDFLAGS)
++PY_LDFLAGS=	-L. $(CONFIGURE_LDFLAGS) $(LDFLAGS)
+ NO_AS_NEEDED=	@NO_AS_NEEDED@
+ LDLAST=		@LDLAST@
+ SGI_ABI=	@SGI_ABI@
+@@ -744,7 +744,7 @@ Objects/setobject.o: $(srcdir)/Objects/s
+ $(OPCODETARGETS_H): $(OPCODETARGETGEN_FILES)
+ 	$(OPCODETARGETGEN) $(OPCODETARGETS_H)
+ 
+-Python/ceval.o: $(OPCODETARGETS_H) $(srcdir)/Python/ceval_gil.h
++#Python/ceval.o: $(OPCODETARGETS_H) $(srcdir)/Python/ceval_gil.h
+ 
+ Python/formatter_unicode.o: $(srcdir)/Python/formatter_unicode.c \
+ 				$(BYTESTR_DEPS)
+@@ -957,7 +957,8 @@ altbininstall: $(BUILDPYTHON)
+ 		if test -n "$(PY3LIBRARY)"; then \
+ 			$(INSTALL_SHARED) $(PY3LIBRARY) $(DESTDIR)$(LIBDIR)/$(PY3LIBRARY); \
+ 		fi; \
+-	else	true; \
++	elif test -f $(INSTSONAME); then \
++		$(INSTALL_SHARED) $(INSTSONAME) $(DESTDIR)$(LIBDIR); \
+ 	fi
+ 
+ bininstall: altbininstall

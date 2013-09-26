@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:13:30 joerg Exp $
+bin/ike-scan
+bin/psk-crack
+man/man1/ike-scan.1
+man/man1/psk-crack.1
+share/doc/ike-scan/README
+share/ike-scan/ike-backoff-patterns
+share/ike-scan/ike-vendor-ids
+share/ike-scan/psk-crack-dictionary

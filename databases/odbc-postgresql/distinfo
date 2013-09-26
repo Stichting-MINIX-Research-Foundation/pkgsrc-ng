@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2010/12/25 08:37:31 adam Exp $
+
+SHA1 (psqlodbc-09.00.0200.tar.gz) = 97ea5394925c239dfb9a8f259e77df5879f26b15
+RMD160 (psqlodbc-09.00.0200.tar.gz) = f13d47e3ac70b090976981ceedb8d39cb266fa19
+Size (psqlodbc-09.00.0200.tar.gz) = 768547 bytes

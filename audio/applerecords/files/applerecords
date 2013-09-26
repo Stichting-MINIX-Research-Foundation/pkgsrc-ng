@@ -1,0 +1,5 @@
+#! @SH@
+
+ulimit -d 524288
+
+exec java -jar @PREFIX@/lib/applerecords/applerecords.jar

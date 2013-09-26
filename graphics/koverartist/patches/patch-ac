@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.3 2012/04/15 04:19:20 markd Exp $
+
+--- rendererbase.cpp.orig	2011-06-04 17:13:58.000000000 +0000
++++ rendererbase.cpp
+@@ -32,6 +32,10 @@
+ #include <math.h>
+ #include <iostream>
+ 
++#if defined(__NetBSD__) || defined(__DragonFly__)
++#define fmin(a,b) ((a)<(b)?(a):(b))
++#define fmax(a,b) ((a)>(b)?(a):(b))
++#endif
+ 
+ namespace KoverArtist
+ {

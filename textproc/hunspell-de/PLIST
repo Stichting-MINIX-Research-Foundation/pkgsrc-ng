@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 21:36:31 joerg Exp $
+share/hunspell/de_AT.aff
+share/hunspell/de_AT.dic
+share/hunspell/de_AT_small.aff
+share/hunspell/de_AT_small.dic
+share/hunspell/de_CH.aff
+share/hunspell/de_CH.dic
+share/hunspell/de_CH_small.aff
+share/hunspell/de_CH_small.dic
+share/hunspell/de_DE.aff
+share/hunspell/de_DE.dic
+share/hunspell/de_DE_small.aff
+share/hunspell/de_DE_small.dic

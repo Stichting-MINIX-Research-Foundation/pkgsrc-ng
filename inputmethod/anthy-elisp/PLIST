@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.8 2013/03/10 14:14:31 obache Exp $
+${EMACS_LISPPREFIX}/anthy/anthy-azik.el
+${EMACS_LISPPREFIX}/anthy/anthy-azik.elc
+${EMACS_LISPPREFIX}/anthy/anthy-conf.el
+${EMACS_LISPPREFIX}/anthy/anthy-conf.elc
+${EMACS_LISPPREFIX}/anthy/anthy-dic.el
+${EMACS_LISPPREFIX}/anthy/anthy-dic.elc
+${EMACS_LISPPREFIX}/anthy/anthy-isearch.el
+${EMACS_LISPPREFIX}/anthy/anthy-isearch.elc
+${EMACS_LISPPREFIX}/anthy/anthy-kyuri.el
+${EMACS_LISPPREFIX}/anthy/anthy-kyuri.elc
+${EMACS_LISPPREFIX}/anthy/anthy.el
+${EMACS_LISPPREFIX}/anthy/anthy.elc
+${EMACS_LISPPREFIX}/anthy/leim-list.el
+${FOR_emacs_no_byte_compile}${EMACS_LISPPREFIX}/anthy/leim-list.elc

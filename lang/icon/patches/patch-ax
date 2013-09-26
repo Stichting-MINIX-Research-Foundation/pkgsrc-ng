@@ -1,0 +1,21 @@
+$NetBSD: patch-ax,v 1.6 2009/02/08 12:51:05 asau Exp $
+
+--- src/runtime/Makefile.orig	2005-07-07 21:36:06.000000000 +0400
++++ src/runtime/Makefile	2009-02-08 01:43:04.000000000 +0300
+@@ -41,7 +41,6 @@
+ 	cd ../common; $(MAKE)
+ 	$(CC) $(RLINK) -o iconx  $(OBJS) $(XL) $(RLIBS) $(TL)
+ 	cp iconx ../../bin
+-	strip $(SFLAGS) ../../bin/iconx$(EXE)
+ 
+ xcnv.o: cnv.r $(HDRS)
+ 	../../bin/rtt -x cnv.r
+@@ -306,7 +305,7 @@
+ 	    ../common/long.o ../common/time.o\
+ 	    ../common/xwindow.o ../common/alloc.o
+ 	ranlib rt.a 2>/dev/null || :
+-	cp -p rt.a rt.db ../common/dlrgint.o ../../bin
++	cp -p rt.a rt.db ../common/dlrgint.o ../../lib/icon
+ 
+ cnv.o: cnv.r $(HDRS)
+ 	../../bin/rtt cnv.r

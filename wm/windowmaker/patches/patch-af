@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.6 2013/05/21 14:38:40 hans Exp $
+
+--- WindowMaker/Defaults/Makefile.in.orig	2013-01-09 21:43:07.000000000 +0000
++++ WindowMaker/Defaults/Makefile.in
+@@ -235,7 +235,7 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ wprefs_bindir = @wprefs_bindir@
+ wprefs_datadir = @wprefs_datadir@
+-defsdatadir = $(sysconfdir)/WindowMaker
++defsdatadir = $(datadir)/examples/WindowMaker
+ defsdata_DATA = WMRootMenu WMWindowAttributes WindowMaker WMState WMGLOBAL
+ wpexecbindir = @wprefs_bindir@
+ EXTRA_DIST = WMGLOBAL WMWindowAttributes.in WindowMaker.in WMState.in

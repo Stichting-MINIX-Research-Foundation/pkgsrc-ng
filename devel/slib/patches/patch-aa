@@ -1,0 +1,14 @@
+$NetBSD: patch-aa,v 1.6 2009/09/09 22:56:13 wiz Exp $
+
+--- guile.init.orig	2008-04-10 01:29:27.000000000 +0000
++++ guile.init
+@@ -133,7 +133,8 @@
+ 		   ((nosve) ".")
+ 		   ((macos thinkc) ":")
+ 		   ((ms-dos windows atarist os/2) "\\")
+-		   ((unix coherent plan9 amiga) "/"))))
++		   ((unix coherent plan9 amiga) "/")
++		   (else "/"))))
+ 	    (lambda (vic name)
+ 	      (string-append vic name *vicinity-suffix*))))))
+ ;@

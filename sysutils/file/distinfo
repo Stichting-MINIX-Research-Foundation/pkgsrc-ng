@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.14 2012/03/30 03:53:54 taca Exp $
+
+SHA1 (file-5.11.tar.gz) = df8ffe8759ec8cd85a98dc98e858563ea2555f64
+RMD160 (file-5.11.tar.gz) = 68885d838c1f3836e6fada4c4ea6c88c8699fdf2
+Size (file-5.11.tar.gz) = 610019 bytes
+SHA1 (patch-aa) = 6ec37d8666176693c5ead69333cf27f10664e630

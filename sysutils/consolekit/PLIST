@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.4 2010/04/18 19:51:47 jmmv Exp $
+bin/ck-history
+bin/ck-launch-session
+bin/ck-list-sessions
+include/ConsoleKit/ck-connector/ck-connector.h
+lib/ConsoleKit/scripts/ck-system-restart
+lib/ConsoleKit/scripts/ck-system-stop
+lib/libck-connector.la
+lib/pkgconfig/ck-connector.pc
+libexec/ck-collect-session-info
+libexec/ck-get-x11-display-device
+libexec/ck-get-x11-server-pid
+sbin/ck-log-system-restart
+sbin/ck-log-system-start
+sbin/ck-log-system-stop
+sbin/console-kit-daemon
+share/PolicyKit/policy/org.freedesktop.consolekit.policy
+share/dbus-1/interfaces/org.freedesktop.ConsoleKit.Manager.xml
+share/dbus-1/interfaces/org.freedesktop.ConsoleKit.Seat.xml
+share/dbus-1/interfaces/org.freedesktop.ConsoleKit.Session.xml
+share/dbus-1/system-services/org.freedesktop.ConsoleKit.service
+share/examples/consolekit/ConsoleKit.conf
+share/examples/consolekit/00-primary.seat
+@pkgdir lib/ConsoleKit/run-session.d

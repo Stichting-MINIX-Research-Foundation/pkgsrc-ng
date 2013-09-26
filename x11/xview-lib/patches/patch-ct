@@ -1,0 +1,13 @@
+$NetBSD: patch-ct,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/textsw/es_attr.c.orig	1993-06-29 05:17:31.000000000 +0000
++++ lib/libxview/textsw/es_attr.c
+@@ -22,7 +22,7 @@ static char     sccsid[] = "@(#)es_attr.
+ 
+ Pkg_private int
+ #ifdef ANSI_FUNC_PROTO
+-es_set(register Es_handle esh, ...)
++es_set(Es_handle esh, ...)
+ #else
+ es_set(esh, va_alist)
+     register Es_handle esh;

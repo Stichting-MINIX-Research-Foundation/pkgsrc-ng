@@ -1,0 +1,43 @@
+# $NetBSD: Makefile.common,v 1.40 2013/03/03 07:17:24 obache Exp $
+#
+# used by chat/finch/Makefile
+# used by chat/libpurple/Makefile
+# used by chat/pidgin/Makefile
+# used by chat/pidgin-sametime/Makefile
+# used by chat/pidgin-silc/Makefile
+
+PIDGIN_VERSION=	2.10.7
+DISTNAME=	pidgin-${PIDGIN_VERSION}
+CATEGORIES=	chat
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pidgin/}
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.pidgin.im/
+LICENSE=	gnu-gpl-v2
+
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		pkg-config gmake
+GNU_CONFIGURE=		yes
+
+PATCHDIR=		${.CURDIR}/../../chat/libpurple/patches
+DISTINFO_FILE?=		${.CURDIR}/../../chat/libpurple/distinfo
+
+CONFIGURE_ARGS+=	--disable-gevolution
+CONFIGURE_ARGS+=	--disable-gtkui
+CONFIGURE_ARGS+=	--disable-consoleui
+CONFIGURE_ARGS+=	--disable-meanwhile
+CONFIGURE_ARGS+=	--disable-farstream
+CONFIGURE_ARGS+=	--disable-gstreamer
+CONFIGURE_ARGS+=	--disable-avahi
+CONFIGURE_ARGS+=	--disable-perl
+CONFIGURE_ARGS+=	--disable-tcl
+CONFIGURE_ARGS+=	--disable-tk
+CONFIGURE_ARGS+=	--disable-gnutls
+CONFIGURE_ARGS+=	--disable-nss
+CONFIGURE_ARGS+=	--disable-dbus
+CONFIGURE_ARGS+=	--disable-cyrus-sasl
+CONFIGURE_ARGS+=	--disable-debug
+CONFIGURE_ARGS+=	--disable-nm
+CONFIGURE_ARGS+=	--disable-vv

@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2013/02/27 12:38:12 ryoon Exp $
+bin/cdb
+include/cdb.h
+lib/libcdb.la
+lib/libcdb_pic.la
+lib/pkgconfig/libcdb.pc
+man/man1/cdb.1
+man/man3/cdb.3
+man/man5/cdb.5

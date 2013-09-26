@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:39:11 joerg Exp $
+${RUBY_VENDORARCHLIB}/uconv.${RUBY_DLEXT}
+${RUBY_DOC}/uconv/README
+${RUBY_DOC}/uconv/README.ja

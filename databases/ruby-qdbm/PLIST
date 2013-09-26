@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:43:25 joerg Exp $
+${RUBY_VENDORARCHLIB}/mod_curia.${RUBY_DLEXT}
+${RUBY_VENDORARCHLIB}/mod_depot.${RUBY_DLEXT}
+${RUBY_VENDORARCHLIB}/mod_villa.${RUBY_DLEXT}
+${RUBY_VENDORLIB}/curia.rb
+${RUBY_VENDORLIB}/depot.rb
+${RUBY_VENDORLIB}/villa.rb
+bin/rbcrtest
+bin/rbdptest
+bin/rbvltest
+share/doc/qdbm/ruby/rbspex.html
+share/doc/qdbm/ruby/rbspex-ja.html
+share/doc/qdbm/ruby/rbapidoc/curia.rb.html
+share/doc/qdbm/ruby/rbapidoc/depot.rb.html
+share/doc/qdbm/ruby/rbapidoc/index.html
+share/doc/qdbm/ruby/rbapidoc/villa.rb.html

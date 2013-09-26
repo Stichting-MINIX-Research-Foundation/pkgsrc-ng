@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST-sj3,v 1.2 2009/06/14 18:01:31 joerg Exp $
+lib/X11/sj3def/sjhk
+lib/X11/sj3def/sjrc
+lib/X11/sj3def/sjrk
+lib/X11/sj3def/sjsb
+lib/X11/sj3def/sjzh

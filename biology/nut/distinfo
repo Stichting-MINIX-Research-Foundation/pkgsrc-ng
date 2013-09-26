@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.17 2010/09/19 07:52:19 obache Exp $
+
+SHA1 (nut-15.8.tar.gz) = 839bc808b09dba3f98b5d4aab4d3907e5ed13e06
+RMD160 (nut-15.8.tar.gz) = f52845c8bc93a3ccce4566ae683d3b6cd38f4536
+Size (nut-15.8.tar.gz) = 1182225 bytes
+SHA1 (patch-ab) = 8f4af599da76c6b1c21564408e939159198d3df3

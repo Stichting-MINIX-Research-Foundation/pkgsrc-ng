@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2012/04/26 12:57:51 obache Exp $
+${PYSITELIB}/_mssql.so
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/pymssql.py
+${PYSITELIB}/pymssql.pyc
+${PYSITELIB}/pymssql.pyo

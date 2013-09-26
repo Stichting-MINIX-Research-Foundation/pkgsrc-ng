@@ -1,0 +1,13 @@
+$NetBSD: patch-ae,v 1.7 2009/10/21 15:48:51 drochner Exp $
+
+--- defaults/Makefile.am.orig	2009-08-19 17:35:32.000000000 +0200
++++ defaults/Makefile.am
+@@ -25,7 +25,7 @@ gconf_defaults_mechanism_LDADD = \
+ BUILT_SOURCES = gconf-defaults-glue.h
+ 
+ dbus_servicesdir = $(datadir)/dbus-1/system-services
+-dbus_confdir = $(sysconfdir)/dbus-1/system.d
++dbus_confdir = $(PREFIX)/share/examples/GConf
+ polkitdir = $(datadir)/polkit-1/actions
+ 
+ dbus_services_in_files = org.gnome.GConf.Defaults.service.in

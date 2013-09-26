@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.2 2010/02/11 05:48:22 minskim Exp $
+man/man1/etex.1
+share/texmf-dist/doc/etex/base/NTS-FAQ
+share/texmf-dist/doc/etex/base/etex_gen.tex
+share/texmf-dist/doc/etex/base/etex_man.pdf
+share/texmf-dist/doc/etex/base/etex_man.sty
+share/texmf-dist/doc/etex/base/etex_man.tex
+share/texmf-dist/doc/etex/base/etex_ref.html
+share/texmf-dist/doc/etex/base/etex_src.html
+share/texmf-dist/doc/etex/base/legal.html
+share/texmf-dist/doc/etex/base/nts-group.html
+share/texmf-dist/doc/etex/base/webmerge.tex

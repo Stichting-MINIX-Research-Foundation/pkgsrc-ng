@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.15 2009/06/14 17:48:47 joerg Exp $
+bin/info
+bin/infokey
+bin/install-info
+bin/makeinfo
+bin/pdftexi2dvi
+bin/texi2dvi
+bin/texi2pdf
+bin/texindex
+info/info-stnd.info
+info/info.info
+info/texinfo
+man/man1/info.1
+man/man1/infokey.1
+man/man1/install-info.1
+man/man1/makeinfo.1
+man/man1/pdftexi2dvi.1
+man/man1/texi2dvi.1
+man/man1/texi2pdf.1
+man/man1/texindex.1
+man/man5/info.5
+man/man5/texinfo.5
+share/texinfo/texinfo.cat
+share/texinfo/texinfo.dtd
+share/texinfo/texinfo.xsl

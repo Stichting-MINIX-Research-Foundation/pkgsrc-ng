@@ -1,0 +1,71 @@
+$NetBSD: patch-aa,v 1.5 2013/04/24 12:22:38 jperkin Exp $
+
+Set pkgsrc standard paths.
+
+--- configure.orig	2013-03-30 14:46:50.000000000 +0000
++++ configure
+@@ -646,6 +646,7 @@ localstatelogdir
+ localstatelibdir
+ locallibdir
+ localdocdir
++localegdir
+ localdatadir
+ localconfdir
+ bug_uri
+@@ -18288,7 +18289,7 @@ fi
+ done
+ test -n "$CURL_CONFIG" || CURL_CONFIG="no"
+ 
+-    if test "$CURL_CONFIG" == "no"; then :
++    if test "$CURL_CONFIG" = "no"; then :
+ 
+       :
+ 
+@@ -18300,7 +18301,7 @@ $as_echo "$as_me: WARNING: You will be u
+ 
+ else
+ 
+-            if test x"" == x; then :
++            if test x"" = x; then :
+ 
+ 	CURL_CFLAGS="`$CURL_CONFIG $curl_config_args --cflags`"
+ 
+@@ -18310,7 +18311,7 @@ else
+ 
+ fi
+ 
+-            if test x"" == x; then :
++            if test x"" = x; then :
+ 
+ 	CURL_LIBS="`$CURL_CONFIG $curl_config_args --libs`"
+ 
+@@ -19116,13 +19117,15 @@ localdatadir=${datadir}/${package_identi
+ 
+ localdocdir=${datadir}/doc/${package_identifier}
+ 
++localegdir=@EGDIR@
++
+ locallibdir=${libdir}/${package_identifier}
+ 
+-localstatelibdir=${localstatedir}/lib/${package_identifier}
++localstatelibdir=${localstatedir}/db/${package_identifier}
+ 
+ localstatelogdir=${localstatedir}/log/${package_identifier}
+ 
+-localstaterundir=${localstatedir}/run/${package_identifier}
++localstaterundir=@RUNDIR@
+ 
+ 
+ # On Windows we install directly into our erlang distribution.
+@@ -19132,9 +19135,9 @@ if test x${IS_WINDOWS} = xTRUE; then
+     localerlanglibdir=${libdir}
+ 
+ else
+-    locallibbindir=${locallibdir}/bin
++    locallibbindir=${libexecdir}/${package_identifier}
+ 
+-    localerlanglibdir=${locallibdir}/erlang/lib
++    localerlanglibdir=@ERLANG_PREFIX@/lib/erlang/lib
+ 
+ fi
+ 

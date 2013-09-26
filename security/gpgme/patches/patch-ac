@@ -1,0 +1,39 @@
+$NetBSD: patch-ac,v 1.10 2013/05/03 16:36:04 drochner Exp $
+
+--- configure.orig	2013-05-01 12:18:09.000000000 +0000
++++ configure
+@@ -2729,6 +2729,7 @@ $as_echo "$as_me: creating cache $cache_
+ fi
+ 
+ as_fn_append ac_header_list " locale.h"
++as_fn_append ac_header_list " rfuncs.h"
+ as_fn_append ac_header_list " sys/select.h"
+ as_fn_append ac_header_list " sys/uio.h"
+ as_fn_append ac_header_list " argp.h"
+@@ -17173,7 +17174,7 @@ if ${ac_cv_lib_pthread_pthread_create+:}
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lpthread  $LIBS"
++LIBS="${PTHREAD_LDFLAGS} ${PTHREAD_LIBS} $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -17768,7 +17769,7 @@ main ()
+   return 0;
+ }
+ _ACEOF
+-if ac_fn_c_try_compile "$LINENO"; then :
++if ac_fn_c_try_link "$LINENO"; then :
+   gpgme_cv_tls_works=yes
+ else
+   gpgme_cv_tls_works=no
+@@ -18952,7 +18953,7 @@ IFS=$as_save_IFS
+ esac
+ fi
+ GPGSM=$ac_cv_path_GPGSM
+-if test -n "$GPGSM"; then
++if test "$GPGSM" != no; then
+   { $as_echo "$as_me:${as_lineno-$LINENO}: result: $GPGSM" >&5
+ $as_echo "$GPGSM" >&6; }
+ else

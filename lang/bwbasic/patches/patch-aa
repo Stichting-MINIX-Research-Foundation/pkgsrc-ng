@@ -1,0 +1,27 @@
+$NetBSD: patch-aa,v 1.4 2012/01/15 15:29:31 ryoon Exp $
+
+--- Makefile.in.orig	2009-06-04 12:50:16.000000000 +0000
++++ Makefile.in
+@@ -16,9 +16,10 @@ INSTALL_DATA = @INSTALL_DATA@
+ 
+ DEFS = @DEFS@
+ 
+-# Revised by JBV
+-#CFLAGS = -O
+-CFLAGS = -g -ansi
++# Re-revised by MJS
++CFLAGS ?= -O
++CFLAGS += -ansi
++#CFLAGS = -g -ansi
+ 
+ # Revised by JBV
+ #LDFLAGS = -s
+@@ -75,7 +76,7 @@ $(OFILES):      $(HFILES)
+ 	$(CC) -c $(CPPFLAGS) -I$(srcdir) $(DEFS) $(CFLAGS) $<
+ 
+ install: all
+-	$(INSTALL_PROGRAM) bwbasic $(bindir)/bwbasic
++	$(INSTALL_PROGRAM) bwbasic ${DESTDIR}$(bindir)/bwbasic
+ 
+ uninstall:
+ 	rm -f $(bindir)/bwbasic

@@ -1,0 +1,31 @@
+$NetBSD: patch-aw,v 1.2 2012/02/16 14:05:07 hans Exp $
+
+--- src/unix.c.orig	2005-12-13 17:46:52.000000000 +0000
++++ src/unix.c
+@@ -6,11 +6,13 @@
+ 
+ #include <sys/types.h>
+ #include <sys/param.h>
++#include <sys/ioctl.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+ #include <pwd.h>
+-#include <sys/dir.h>
++#include <dirent.h>
++#include <limits.h>
+ #include <time.h>
+ #include <unistd.h>
+ #include "icb.h"
+@@ -235,7 +237,11 @@ tildexpand (char *s)
+ 	struct passwd *pw;
+ 	char login[17];
+ 	char *p = login;
++#ifdef NAME_MAX
++	static char path[NAME_MAX + 1];
++#else
+ 	static char path[MAXNAMLEN+1];
++#endif
+ 
+ 	/* has to start with a tilde */
+ 	if (*s++ != '~')

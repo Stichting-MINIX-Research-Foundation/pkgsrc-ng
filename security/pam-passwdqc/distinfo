@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2009/11/18 16:59:30 drochner Exp $
+
+SHA1 (passwdqc-1.1.4.tar.gz) = 9c85dd42ae0b02e85f7034d012cdceceafc5d03b
+RMD160 (passwdqc-1.1.4.tar.gz) = 8194b9eebae2bfca659550afebd6c6f5b8e782ce
+Size (passwdqc-1.1.4.tar.gz) = 41760 bytes
+SHA1 (patch-aa) = 2a631c17278783cab5203199bff29ead3623a5f1

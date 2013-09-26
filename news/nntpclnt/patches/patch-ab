@@ -1,0 +1,77 @@
+$NetBSD: patch-ab,v 1.5 2012/11/19 03:00:14 joerg Exp $
+
+--- nntpclnt.c.orig	1994-08-11 21:37:51.000000000 +0000
++++ nntpclnt.c
+@@ -24,6 +24,11 @@ static char     *rcsid = "@(#)$Id: nntpc
+  * Include configuration parameters only if we're made in the nntp tree.
+  */
+ 
++#if defined(USG) || defined(MSDOS)
++#include <string.h>
++#else
++#include <strings.h>
++#endif
+ #ifdef NNTPSRC
+ #include "config.h"
+ #endif /* NNTPSRC */
+@@ -64,11 +69,6 @@ static char     *rcsid = "@(#)$Id: nntpc
+ #define net_read(a,b,c,d,e)        soread(a,b,c)
+ #define net_write(a,b,c,d)	   sowrite(a,b,c)
+ #endif
+-#if defined(USG) || defined(MSDOS)
+-#include <string.h>
+-#else
+-#include <strings.h>
+-#endif
+ #include "nntpclnt.h"
+ #ifdef NONETDB
+ # define        IPPORT_NNTP     ((unsigned short) 119)
+@@ -154,7 +154,9 @@ char    *file;
+ 	static char     buf[256];
+ 	char            *index();
+ 	char            *getenv();
++#ifndef strcpy
+ 	char            *strcpy();
++#endif
+ 
+ 	if (cp = getenv("NNTPSERVER")) {
+ 		(void) strcpy(buf, cp);
+@@ -199,7 +201,7 @@ char    *file;
+ server_init(machine)
+ char    *machine;
+ {
+-	int     sockt_rd, sockt_wr;
++	int     sockt_rd, sockt_wr, result[2];
+ 	char    line[256];
+ 	char    *index();
+ #if defined(DECNET) || defined(SGI4DDN)
+@@ -248,7 +250,13 @@ char    *machine;
+ 	/* Now get the server's signon message */
+ 
+ 	(void) get_server(line, sizeof(line));
+-	return (atoi(line));
++	result[0] = atoi(line);
++
++	put_server("MODE READER");
++	(void) get_server(line, sizeof(line));
++	result[1] = atoi(line);
++
++	return ((result[1] != ERR_COMMAND) ? result[1] : result[0]);
+ }
+ 
+ #ifdef DATAKIT
+@@ -296,6 +304,14 @@ char *machine;
+  *
+  *      Errors:         Printed via perror.
+  */
++#ifdef h_addr
++/* 
++ * would like to include <arpa/inet.h> for the inet_ntoa() prototype, 
++ * but we have our own version of inet_addr() that does not match
++ * the prototype in <arpa/inet.h>
++ */
++extern char *inet_ntoa(struct in_addr in);
++#endif
+ 
+ int
+ get_tcp_socket(machine)

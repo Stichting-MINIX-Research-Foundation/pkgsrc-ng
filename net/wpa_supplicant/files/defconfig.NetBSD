@@ -1,0 +1,2 @@
+# for NetBSD
+CONFIG_DRIVER_BSD=y

@@ -1,0 +1,13 @@
+$NetBSD: patch-ae,v 1.13 2013/05/26 09:22:14 adam Exp $
+
+--- doc/examples/Makefile.in.orig	2012-09-11 06:55:36.000000000 +0000
++++ doc/examples/Makefile.in
+@@ -844,7 +844,7 @@ uninstall-am:
+ 
+ install-data-local: 
+ 	$(MKDIR_P) $(DESTDIR)$(HTML_DIR)
+-	-$(INSTALL) -m 0644 $(srcdir)/*.html $(srcdir)/*.c $(srcdir)/*.xml $(srcdir)/*.xsl $(srcdir)/*.res $(DESTDIR)$(HTML_DIR)
++	-$(INSTALL) -m 0644 $(srcdir)/*.c $(srcdir)/*.xml $(srcdir)/*.xsl $(srcdir)/*.res $(DESTDIR)$(HTML_DIR)
+ 
+ clean-local:
+ 	test -f Makefile.am || rm -f test?.xml

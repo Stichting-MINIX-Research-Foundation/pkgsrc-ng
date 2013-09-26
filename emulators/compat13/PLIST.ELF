@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST.ELF,v 1.2 2009/06/14 17:51:02 joerg Exp $
+${EMULSUBDIRSLASH}usr/lib/libamu.so.0
+${EMULSUBDIRSLASH}usr/lib/libamu.so.0.0
+${EMULSUBDIRSLASH}usr/lib/libbfd.so.0
+${EMULSUBDIRSLASH}usr/lib/libbfd.so.0.0
+${EMULSUBDIRSLASH}usr/lib/libedit.so.1
+${EMULSUBDIRSLASH}usr/lib/libedit.so.1.0
+${EMULSUBDIRSLASH}usr/lib/libg++.so.4
+${EMULSUBDIRSLASH}usr/lib/libg++.so.4.0
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.0
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.0.1
+${EMULSUBDIRSLASH}usr/lib/libutil.so.4
+${EMULSUBDIRSLASH}usr/lib/libutil.so.4.2

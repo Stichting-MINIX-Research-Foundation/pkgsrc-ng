@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2010/04/27 01:14:32 obache Exp $
+
+--- configure.orig	2010-04-14 05:13:26.000000000 +0000
++++ configure
+@@ -18650,7 +18650,7 @@ $as_echo "yes" >&6; }
+ 	HAVE_WORDCUT=yes
+ fi
+ 
+-if test "x$HAVE_LIBTHAI" == "xyes"; then
++if test "x$HAVE_LIBTHAI" = "xyes"; then
+ 
+ 
+ $as_echo "#define HAVE_LIBTHAI 1" >>confdefs.h

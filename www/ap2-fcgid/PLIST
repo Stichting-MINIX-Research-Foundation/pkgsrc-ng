@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2010/02/15 11:38:44 fhajny Exp $
+lib/httpd/mod_fcgid.so
+share/httpd/manual/mod/mod_fcgid.html
+share/httpd/manual/mod/mod_fcgid.html.en
+share/httpd/manual/mod/mod_fcgid.xml
+share/httpd/manual/mod/mod_fcgid.xml.meta

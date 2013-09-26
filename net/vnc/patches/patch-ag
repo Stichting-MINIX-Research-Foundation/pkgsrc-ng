@@ -1,0 +1,15 @@
+$NetBSD: patch-ag,v 1.2 2009/04/04 20:44:58 joerg Exp $
+
+--- vncserver.orig	Thu Oct 26 16:16:37 2000
++++ vncserver
+@@ -146,8 +146,8 @@
+ 
+ # Add font path and color database stuff here, e.g.:
+ #
+-# $cmd .= " -fp /usr/lib/X11/fonts/misc/,/usr/lib/X11/fonts/75dpi/";
+-# $cmd .= " -co /usr/lib/X11/rgb";
++$cmd .= " -fp @X11BASE@/lib/X11/fonts/misc/,@X11BASE@/lib/X11/fonts/75dpi/";
++$cmd .= " -co @X11BASE@/lib/X11/rgb";
+ #
+ 
+ foreach $arg (@ARGV) {

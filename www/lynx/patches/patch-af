@@ -1,0 +1,16 @@
+$NetBSD: patch-af,v 1.6 2009/08/09 08:20:27 wiz Exp $
+
+--- po/makefile.inn.orig	2008-09-21 22:49:47.000000000 +0000
++++ po/makefile.inn
+@@ -80,6 +80,11 @@ INSTOBJEXT	= @INSTOBJEXT@
+ 	$(MSGFMT) -o $@ $<
+ 
+ .po.gmo:
++	@if [ `$(GMSGFMT) --version | head -1 | cut -d . -f 2` -lt 11 ]; then \
++		mv $< $<.bak; \
++		sed '/^msgstr/s/\([^\\]\)\(\\[^[:print:]]\)/\1\\\2/g' \
++			<$<.bak >$<; \
++	fi
+ 	file=$(srcdir)/`echo $* | sed 's,.*/,,'`.gmo \
+ 	  && rm -f $$file && $(GMSGFMT) -o $$file $<
+ 

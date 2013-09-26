@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:22 joerg Exp $
+bin/makeztxt
+share/doc/makeztxt/COPYING
+share/doc/makeztxt/ChangeLog
+share/doc/makeztxt/README

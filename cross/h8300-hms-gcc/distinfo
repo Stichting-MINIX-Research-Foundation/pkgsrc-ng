@@ -1,0 +1,22 @@
+$NetBSD: distinfo,v 1.8 2013/03/28 21:19:01 joerg Exp $
+
+SHA1 (gcc-core-3.1.tar.gz) = e93048803611b5c1e0dd745d81b43d6e34bca026
+RMD160 (gcc-core-3.1.tar.gz) = d6fe75142280778c952af0717acfa4a2cc500623
+Size (gcc-core-3.1.tar.gz) = 13381094 bytes
+SHA1 (gcc-g++-3.1.tar.gz) = 294cae404a8f66640c04668502778c3e321c9e82
+RMD160 (gcc-g++-3.1.tar.gz) = b4b45f76797bfa41544866c24dcd39dc84074193
+Size (gcc-g++-3.1.tar.gz) = 2461395 bytes
+SHA1 (newlib-1.10.0.tar.gz) = ca0747e49623cce37967243928d883247a389207
+RMD160 (newlib-1.10.0.tar.gz) = c5cd6ae5d8912848a6c3985fd74a78f4826c92a6
+Size (newlib-1.10.0.tar.gz) = 3647395 bytes
+SHA1 (h8300-hms-gcc-3.1-1.patch) = 6a5ad1f579ca71cfee114a02df26a58103cf4f04
+RMD160 (h8300-hms-gcc-3.1-1.patch) = ab3114544c8a6bcd531e4b5b7a4fed8aaf8e9150
+Size (h8300-hms-gcc-3.1-1.patch) = 61226 bytes
+SHA1 (patch-.._gcc-3.1_gcc_cp_cfns.h) = 60990c54e11caf5d7d8071ae1cab3612a6e6ae50
+SHA1 (patch-aa) = 10a9769d913c207469e891d1bd49ba492e37d226
+SHA1 (patch-ab) = c73ed16f2faf661e4f39a98f68c51c66e8101b19
+SHA1 (patch-ac) = c4db8deb5cebe30b2ca16f2c9b07287ea3323b2e
+SHA1 (patch-ad) = be068d27d2c17baf2343e46a7e1483ba20e91ec7
+SHA1 (patch-ae) = 23ca3e8b25c709e553dbf2db74a9a74f4419bc9e
+SHA1 (patch-af) = 36c1ccb1fc4c958d8f3e3386e071d2c8e3141730
+SHA1 (patch-ag) = 9192dde2e2a721ee2d054206ba4844cd4312c737

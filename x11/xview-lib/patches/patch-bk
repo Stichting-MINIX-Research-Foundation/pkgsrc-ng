@@ -1,0 +1,12 @@
+$NetBSD: patch-bk,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/menu/om_set.c.orig	1993-06-29 05:16:24.000000000 +0000
++++ lib/libxview/menu/om_set.c
+@@ -12,6 +12,7 @@ static char     sccsid[] = "@(#)om_set.c
+ 
+ /* --------------------------------------------------------------------- */
+ #include <sys/types.h>
++#include <ctype.h>
+ #include <xview_private/om_impl.h>
+ #include <xview_private/draw_impl.h>
+ #include <xview_private/fm_impl.h>

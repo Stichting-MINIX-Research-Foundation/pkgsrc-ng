@@ -1,0 +1,21 @@
+$NetBSD: patch-ac,v 1.12 2013/05/20 19:56:39 adam Exp $
+
+--- conf.d/Makefile.in.orig	2013-05-20 08:44:34.000000000 +0000
++++ conf.d/Makefile.in
+@@ -257,7 +257,7 @@ build_cpu = @build_cpu@
+ build_os = @build_os@
+ build_vendor = @build_vendor@
+ builddir = @builddir@
+-configdir = $(CONFIGDIR)
++configdir = $(prefix)/share/examples/fontconfig/conf.d
+ datadir = @datadir@
+ datarootdir = @datarootdir@
+ docdir = @docdir@
+@@ -600,6 +600,7 @@ README: $(srcdir)/README.in
+ 	sed "s|\@TEMPLATEDIR\@|$(templatedir)|" $< > $@
+ 
+ install-data-hook:
++xinstall-data-hook:
+ 	mkdir -p $(DESTDIR)$(configdir)
+ 	@(echo cd $(DESTDIR)$(configdir);			\
+ 	  cd $(DESTDIR)$(configdir);				\

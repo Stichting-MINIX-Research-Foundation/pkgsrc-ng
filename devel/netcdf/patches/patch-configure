@@ -1,0 +1,15 @@
+$NetBSD: patch-configure,v 1.2 2013/04/09 15:57:28 adam Exp $
+
+Adjust infodir.
+
+--- configure.orig	2012-03-07 14:46:36.000000000 +0000
++++ configure
+@@ -909,7 +909,7 @@ localstatedir='${prefix}/var'
+ includedir='${prefix}/include'
+ oldincludedir='/usr/include'
+ docdir='${datarootdir}/doc/${PACKAGE_TARNAME}'
+-infodir='${datarootdir}/info'
++infodir='${prefix}/info'
+ htmldir='${docdir}'
+ dvidir='${docdir}'
+ pdfdir='${docdir}'

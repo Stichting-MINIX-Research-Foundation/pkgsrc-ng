@@ -1,0 +1,36 @@
+$NetBSD: patch-aa,v 1.9 2011/12/06 13:22:17 cheusov Exp $
+
+--- makefile.orig	2011-01-16 10:51:17.000000000 +0300
++++ makefile	2011-03-30 20:38:01.000000000 +0400
+@@ -57,19 +58,23 @@
+ LIBTARGET = $(LIBPREFIX)tinyscheme.$(SOsuf)
+ STATICLIBTARGET = $(LIBPREFIX)tinyscheme.$(LIBsuf)
+ 
+-all: $(LIBTARGET) $(STATICLIBTARGET) scheme$(EXE_EXT)
++all: $(STATICLIBTARGET) scheme$(EXE_EXT)
+ 
+-%.$(Osuf): %.c
+-	$(CC) -I. -c $(DEBUG) $(FEATURES) $(DL_FLAGS) $<
+-
+-$(LIBTARGET): $(OBJS)
+-	$(LD) $(LDFLAGS) $(OUT) $(OBJS) $(SYS_LIBS)
++.c.$(Osuf):
++	$(LIBTOOL) --mode=compile $(CC) -I. -c $(DEBUG) $(FEATURES) $(DL_FLAGS) $<
+ 
+ scheme$(EXE_EXT): $(OBJS)
+-	$(CC) -o $@ $(DEBUG) $(OBJS) $(SYS_LIBS)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(DEBUG) $(OBJS) $(LIBS:.a=.la) $(SYS_LIBS)
+ 
+ $(STATICLIBTARGET): $(OBJS)
+-	$(AR) $@ $(OBJS)
++	$(LIBTOOL) --mode=link $(CC) -o $(.TARGET:.a=.la) $(OBJS:.o=.lo) -rpath $(PREFIX)/lib -version-info 1:40
++
++install: all
++	$(LIBTOOL) --mode=install $(BSD_INSTALL_LIB) $(STATICLIBTARGET:.a=.la) $(DESTDIR)$(PREFIX)/lib
++	$(LIBTOOL) --mode=install $(BSD_INSTALL_PROGRAM) scheme$(EXE_EXT) $(DESTDIR)$(PREFIX)/bin/tinyscheme
++	$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/share/tinyscheme
++	$(BSD_INSTALL_DATA) init.scm $(DESTDIR)$(PREFIX)/share/tinyscheme
++	$(BSD_INSTALL_DATA) scheme.h $(DESTDIR)$(PREFIX)/include/tinyscheme.h
+ 
+ $(OBJS): scheme.h scheme-private.h opdefines.h
+ dynload.$(Osuf): dynload.h

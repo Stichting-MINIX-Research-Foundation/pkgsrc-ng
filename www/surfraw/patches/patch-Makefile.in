@@ -1,0 +1,19 @@
+$NetBSD: patch-Makefile.in,v 1.1 2011/08/06 10:43:26 wiz Exp $
+
+To more easily install into share/examples.
+
+--- Makefile.in.orig	2011-07-12 00:35:20.000000000 +0000
++++ Makefile.in
+@@ -790,9 +790,9 @@ opensearch-genquery.1: opensearch-genque
+ 
+ install-data-hook: links
+ 	chmod -x surfraw.conf elvi.1sr surfraw.1
+-	mkdir -p $(DESTDIR)@sysconfdir@/xdg/surfraw
+-	cp surfraw.conf $(DESTDIR)@sysconfdir@/xdg/surfraw/conf
+-	cp $(top_srcdir)/surfraw.bookmarks $(DESTDIR)@sysconfdir@/xdg/surfraw/bookmarks
++	mkdir -p $(DESTDIR)${sysconfdir}/xdg/surfraw
++	cp surfraw.conf $(DESTDIR)${sysconfdir}/xdg/surfraw/conf
++	cp $(top_srcdir)/surfraw.bookmarks $(DESTDIR)${sysconfdir}/xdg/surfraw/bookmarks
+ 	while read target link ;\
+ 	do \
+ 		ln -sf $$target  $(DESTDIR)/$$link ;\

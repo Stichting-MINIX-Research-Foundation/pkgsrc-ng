@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:25:19 joerg Exp $
+bin/xvidcap
+man/man1/xvidcap.1
+share/doc/xvidcap_${PKGVERSION}/AUTHORS
+share/doc/xvidcap_${PKGVERSION}/ChangeLog
+share/doc/xvidcap_${PKGVERSION}/INSTALL
+share/doc/xvidcap_${PKGVERSION}/NEWS
+share/doc/xvidcap_${PKGVERSION}/README
+share/doc/xvidcap_${PKGVERSION}/TODO
+share/doc/xvidcap_${PKGVERSION}/XVidcap.ad

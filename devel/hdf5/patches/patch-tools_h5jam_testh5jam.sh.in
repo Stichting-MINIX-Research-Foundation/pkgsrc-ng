@@ -1,0 +1,18 @@
+$NetBSD: patch-tools_h5jam_testh5jam.sh.in,v 1.2 2012/12/09 00:07:39 adam Exp $
+
+Use portable "=" to test string equality.
+
+--- tools/h5jam/testh5jam.sh.in.orig	2012-05-09 15:06:08.000000000 +0000
++++ tools/h5jam/testh5jam.sh.in
+@@ -464,9 +464,9 @@ UNJAMTEST () {
+ #
+ 
+ TOOLTEST_OUTPUT() {
+-    if [ "$1" == "JAM" ]; then
++    if [ "$1" = "JAM" ]; then
+         TOOLCMD=$JAM_BIN/$JAM
+-    elif [ "$1" == "UNJAM" ]; then
++    elif [ "$1" = "UNJAM" ]; then
+         TOOLCMD=$JAM_BIN/$UNJAM
+     fi
+     shift

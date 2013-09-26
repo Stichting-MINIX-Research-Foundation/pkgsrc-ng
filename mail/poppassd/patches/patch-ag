@@ -1,0 +1,13 @@
+$NetBSD: patch-ag,v 1.2 2012/03/22 14:15:32 taca Exp $
+
+--- popper/popper.h.orig	2011-05-30 19:13:40.000000000 +0000
++++ popper/popper.h
+@@ -308,8 +308,6 @@ typedef struct _pop_sasl            pop_
+ #  define WILDCARD_SHELL    "/POPPER/ANY/SHELL/"
+ #endif /* CHECK_SHELL */
+ 
+-extern int              errno;
+-
+ #if !( defined(BSD) && (BSD >= 199306) ) && !defined(__USE_BSD)
+    extern int              sys_nerr;
+ #  ifndef FREEBSD

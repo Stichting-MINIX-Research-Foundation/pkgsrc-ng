@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.4 2011/04/12 13:44:03 adam Exp $
+
+--- src/common/init.cpp.orig	2011-04-11 19:03:33.000000000 +0000
++++ src/common/init.cpp
+@@ -34,7 +34,7 @@ QString user_name;
+ 
+ 
+ 
+-#if defined(Q_OS_WIN32) || defined(Q_OS_MACX)
++#if defined(Q_OS_WIN32)
+ extern void init_win();
+ void init(char * const*)
+ {

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/06/02 01:10:12 taca Exp $
+
+SHA1 (fastercsv-1.5.5.gem) = a94bf8e8d669f38c20af1bbed4a181443a1011b3
+RMD160 (fastercsv-1.5.5.gem) = 865cbcf024d5cc42b2199eb07c91124eeb42b1ce
+Size (fastercsv-1.5.5.gem) = 117248 bytes

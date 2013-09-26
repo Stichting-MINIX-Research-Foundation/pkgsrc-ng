@@ -1,0 +1,23 @@
+fml8 Features:
+ * fml8 configuration file format is changed to new Postfix style format
+   configuration files (.cf files).
+ * usage of CUI is almost same as fml4 (it is same as could as possible). You
+   can use CUI (makefml and fml command)
+     to create/remove an ML,
+     to add/remove/change an addresse of ML members,
+     to add/remove/change an address of remote administrators,
+     to see log and member list,
+     et.al.
+Makefml and fml are same programs except for argument order. See the Section
+called Difference Between fml4 And fml8: CUI in Chapter 8 on the CUI usage
+difference between fml4 and fml8.
+ * GUI (CGI) interface. The functions are a subset of CUI ones.
+     to create/remove an ML,
+     to add/remove/change an address of ML members,
+     to add/remove/change an address of remote administrators,
+     to see log and member list,
+     et.al.
+The configuration file editing is incomplete yet.
+ * article delivery, header rewriting and several filters ( corresponding with
+   fml4's envelope filter and content filter ).
+   ...and more!

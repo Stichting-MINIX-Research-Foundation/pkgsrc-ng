@@ -1,0 +1,31 @@
+$NetBSD: patch-ad,v 1.4 2013/06/11 19:34:14 asau Exp $
+
+--- doc/Mmakefile.orig	2013-05-28 04:00:38.000000000 +0000
++++ doc/Mmakefile
+@@ -239,7 +239,7 @@ mdb_command_test.inp: generate_mdb_comma
+ # Note that some modules are just implementation details of the library,
+ # so they are not documented.
+ 
+-library-menu.texi_pp: ../VERSION $(LIBRARY_DIR)/*.m
++library-menu.texi_pp: ../VERSION
+ 	{ 								\
+ 	echo "";							\
+ 	for filename in $(LIBRARY_DIR)/*.m; do				\
+@@ -293,7 +293,7 @@ library-menu.texi_pp: ../VERSION $(LIBRA
+ 	done;								\
+ 	} > library-menu.texi_pp
+ 
+-library-chapters.texi_pp: ../VERSION $(LIBRARY_DIR)/[a-z]*.m
++library-chapters.texi_pp: ../VERSION
+ 	for filename in $(LIBRARY_DIR)/[a-z]*.m; do 			\
+ 		case $$filename in					\
+ 			$(LIBRARY_DIR)/backjump.m)			\
+@@ -398,7 +398,7 @@ install_dirs:
+ 
+ .PHONY: install_info
+ install_info: $(INFOPAGES) install_dirs
+-	-cp *.info* $(INSTALL_INFO_DIR)
++	-cp *.info *.info-[0-9]* $(INSTALL_INFO_DIR)
+ 	# Update the .../info/dir file.
+ 	-if [ -x "$(INSTALL_INFO)" ]; then				\
+ 		$(INSTALL_INFO) $(INSTALL_INFO_DIR)/mercury.info;	\

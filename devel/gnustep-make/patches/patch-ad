@@ -1,0 +1,38 @@
+$NetBSD: patch-ad,v 1.11 2012/10/22 02:06:19 rh Exp $
+
+--- configure.orig	2011-05-03 15:28:07.000000000 +0000
++++ configure
+@@ -2918,13 +2918,13 @@ $as_echo "$ac_cv_prog_cc_g" >&6; }
+ if test "$ac_test_CFLAGS" = set; then
+   CFLAGS=$ac_save_CFLAGS
+ elif test $ac_cv_prog_cc_g = yes; then
+-  if test "$GCC" = yes; then
++  if test "X${GCC}" = "Xyes" ; then
+     CFLAGS="-g -O2"
+   else
+     CFLAGS="-g"
+   fi
+ else
+-  if test "$GCC" = yes; then
++  if test "X${GCC}" = "Xyes" ; then
+     CFLAGS="-O2"
+   else
+     CFLAGS=
+@@ -5484,7 +5484,7 @@ fi
+ 
+   fi
+   if test x"$objc_threaded" = x""; then
+-    LIBS="$OBJCRT $saved_LIBS -lthread "
++    LIBS="$OBJCRT $saved_LIBS ${OBJC_THREAD} "
+     if test "$cross_compiling" = yes; then :
+   objc_threaded=""
+ else
+@@ -5493,7 +5493,7 @@ else
+ #include "config_thread.m"
+ _ACEOF
+ if ac_fn_c_try_run "$LINENO"; then :
+-  objc_threaded="-lthread"
++  objc_threaded="${OBJC_THREAD}"
+ else
+   objc_threaded=""
+ fi

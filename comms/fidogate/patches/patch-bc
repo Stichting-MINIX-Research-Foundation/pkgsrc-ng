@@ -1,0 +1,22 @@
+$NetBSD: patch-bc,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/ffx/ffxqt.c.orig	2004-08-22 20:19:11.000000000 +0000
++++ src/ffx/ffxqt.c
+@@ -127,7 +127,7 @@ void parse_ffxcmd()
+ 	cmd  = xstrtok(NULL, "\n");
+ 	if(!name || !cmd)
+ 	    continue;
+-	while(isspace(*cmd))
++	while(isspace((unsigned char)*cmd))
+ 	    cmd++;
+ 	
+ 	debug(8, "config: FFXCommand %s %s", name, cmd);
+@@ -443,7 +443,7 @@ int exec_ffx(FFX *ffx)
+ 	return ERROR;
+     if(!args)
+ 	args = "";
+-    while(isspace(*args))
++    while(isspace((unsigned char)*args))
+ 	args++;
+ 
+     /* Find command and uncompressor */

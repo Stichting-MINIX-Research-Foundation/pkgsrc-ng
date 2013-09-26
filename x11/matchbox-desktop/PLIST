@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:25:00 joerg Exp $
+bin/matchbox-desktop
+include/matchbox-desktop/mbdesktop.h
+include/matchbox-desktop/mbdesktop_item.h
+include/matchbox-desktop/mbdesktop_module.h
+include/matchbox-desktop/mbdesktop_view.h
+lib/matchbox/desktop/dotdesktop.la
+lib/matchbox/desktop/simplefilebrowser.la
+lib/matchbox/desktop/tasks.la
+lib/pkgconfig/matchbox-desktop.pc
+share/applications/mb-show-desktop.desktop
+share/examples/matchbox-desktop/mbdesktop_modules
+share/pixmaps/mbdesktop.png

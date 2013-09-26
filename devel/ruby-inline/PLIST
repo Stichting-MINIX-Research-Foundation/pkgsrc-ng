@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.4 2011/06/17 15:35:49 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.gemtest
+${GEM_LIBDIR}/History.txt
+${GEM_LIBDIR}/Manifest.txt
+${GEM_LIBDIR}/README.txt
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/demo/fastmath.rb
+${GEM_LIBDIR}/demo/hello.rb
+${GEM_LIBDIR}/example.rb
+${GEM_LIBDIR}/example2.rb
+${GEM_LIBDIR}/lib/inline.rb
+${GEM_LIBDIR}/test/test_inline.rb
+${GEM_LIBDIR}/tutorial/example1.rb
+${GEM_LIBDIR}/tutorial/example2.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

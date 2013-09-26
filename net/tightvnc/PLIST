@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:09:45 joerg Exp $
+bin/Xvnc
+bin/vncconnect
+bin/vncpasswd
+bin/vncserver
+man/man1/Xvnc.1
+man/man1/vncconnect.1
+man/man1/vncpasswd.1
+man/man1/vncserver.1
+share/examples/tightvnc/tightvncserver.conf

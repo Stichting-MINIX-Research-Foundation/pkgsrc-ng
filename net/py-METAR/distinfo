@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.6 2011/11/01 12:09:29 obache Exp $
+
+SHA1 (pymetar-0.18.tar.gz) = 60c2f0e885dcf69e2b7bd579f945ae591937c75f
+RMD160 (pymetar-0.18.tar.gz) = d3a91fada0f8511993b33a0dcbb9d7cbfc63463f
+Size (pymetar-0.18.tar.gz) = 22135 bytes
+SHA1 (patch-aa) = 0ad8ebd3f0c9a0d9bbb73a631626a30222e3fd39

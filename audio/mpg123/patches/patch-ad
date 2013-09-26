@@ -1,0 +1,22 @@
+$NetBSD: patch-ad,v 1.4 2010/03/14 14:19:19 martin Exp $
+
+--- src/output/oss.c.orig	2009-12-05 21:26:23.000000000 +0100
++++ src/output/oss.c	2010-02-06 20:09:39.000000000 +0100
+@@ -167,7 +167,7 @@
+ 	if(!ao) return -1;
+ 	
+ 	if(!ao->device) {
+-		ao->device = "/dev/dsp";
++		ao->device = DEVOSSAUDIO;
+ 		usingdefdev = 1;
+ 	}
+ 	
+@@ -176,7 +176,7 @@
+ 	if(ao->fn < 0)
+ 	{
+ 		if(usingdefdev) {
+-			ao->device = "/dev/sound/dsp";
++			ao->device = DEVOSSSOUND;
+ 			ao->fn = open(ao->device,O_WRONLY);
+ 			if(ao->fn < 0) {
+ 				if(!AOQUIET) error("Can't open default sound device!");

@@ -1,0 +1,34 @@
+$NetBSD: patch-ac,v 1.2 2012/05/19 06:43:23 obache Exp $
+
+* fixes build with Imlib2 missing x11 support.
+* fixes `const char*' handling with modern C++.
+
+--- image.cpp.orig	2004-07-20 16:48:11.000000000 +0000
++++ image.cpp
+@@ -50,7 +50,6 @@ static void	get_new_image_size (ZphotoIm
+ 
+ #include <avifile.h>
+ #include <avm_output.h>
+-#include <X11/Xlib.h>
+ #include <Imlib2.h>
+ 
+ typedef struct {
+@@ -315,7 +314,6 @@ zphoto_image_get_bitmap (const char* fil
+  */
+ #ifdef HAVE_IMLIB2
+ 
+-#include <X11/Xlib.h>
+ #include <Imlib2.h>
+ 
+ static Imlib_Image
+@@ -554,8 +552,8 @@ restore_mtime (const char *file_name, ti
+ static int
+ convert_needed_p (const char *src, const char *dest)
+ {
+-    char *suffix1 = strrchr(src,  '.');
+-    char *suffix2 = strrchr(dest, '.');
++    const char *suffix1 = strrchr(src,  '.');
++    const char *suffix2 = strrchr(dest, '.');
+ 
+     return strcmp(suffix1, suffix2) != 0;
+ }

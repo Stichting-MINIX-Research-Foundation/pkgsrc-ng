@@ -1,0 +1,17 @@
+$NetBSD: patch-bw,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/panel/p_drop.c.orig	1993-06-29 05:17:04.000000000 +0000
++++ lib/libxview/panel/p_drop.c
+@@ -10,7 +10,12 @@ static char     sccsid[] = "@(#)p_drop.c
+  *	file for terms of the license.
+  */
+ 
++#include <sys/param.h>
++#if (defined(BSD) && (BSD >= 199103))
++#include <stdlib.h>
++#else
+ #include <malloc.h>
++#endif
+ #include <xview_private/draw_impl.h>
+ #include <xview_private/i18n_impl.h>
+ #include <xview_private/panel_impl.h>

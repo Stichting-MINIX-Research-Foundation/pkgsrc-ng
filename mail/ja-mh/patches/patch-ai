@@ -1,0 +1,28 @@
+$NetBSD: patch-ai,v 1.4 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare standard library functions but include proper header files.
+* Don't declare errno.
+
+--- sbr/ruserpass.c.orig	2006-04-11 13:37:37.000000000 +0000
++++ sbr/ruserpass.c
+@@ -25,9 +25,10 @@ static char sccsid[] = "@(#)ruserpass.c	
+ #include <ctype.h>
+ #include <pwd.h>
+ #include <errno.h>
++#include <string.h>
++#include <stdlib.h>
+ 
+-char	*malloc(), *index(), *getenv(), *getpass(), *getlogin();
+-char	*strcpy();
++char	*index(), *getpass(), *getlogin();
+ static	FILE *cfile;
+ 
+ #ifndef MAXHOSTNAMELEN
+@@ -66,7 +67,6 @@ ruserpass(host, aname, apass)
+ 	char myname[MAXHOSTNAMELEN], *mydomain;
+ 	int t, i, c, usedefault = 0;
+ 	struct stat stb;
+-	extern int errno;
+ 
+ 	hdir = getenv("HOME");
+ 	if (hdir == NULL)

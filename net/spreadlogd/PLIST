@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:09:44 joerg Exp $
+sbin/spreadlogd
+share/examples/rc.d/spreadlogd
+share/examples/spreadlogd/spreadlogd.conf.sample

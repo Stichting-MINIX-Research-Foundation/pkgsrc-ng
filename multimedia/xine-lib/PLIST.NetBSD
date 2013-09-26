@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST.NetBSD,v 1.10 2008/04/24 12:32:22 wiz Exp $
+lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_ao_out_oss.a
+lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_ao_out_oss.so
+lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_ao_out_sun.a
+lib/xine/plugins/${XINE_MOD_DIR_VER}/xineplug_ao_out_sun.so

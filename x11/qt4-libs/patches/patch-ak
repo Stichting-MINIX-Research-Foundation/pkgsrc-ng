@@ -1,0 +1,13 @@
+$NetBSD: patch-ak,v 1.8 2012/01/12 22:59:58 adam Exp $
+
+--- src/gui/kernel/qcursor_x11.cpp.orig	2010-09-10 09:05:24.000000000 +0000
++++ src/gui/kernel/qcursor_x11.cpp
+@@ -249,7 +249,7 @@ void QCursorData::update()
+         return;
+     }
+ 
+-    static const char *cursorNames[] = {
++    static char *cursorNames[] = {
+         "left_ptr",
+         "up_arrow",
+         "cross",

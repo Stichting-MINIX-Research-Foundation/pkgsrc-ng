@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:11:53 joerg Exp $
+bin/bg5ps
+bin/ttf2psm
+etc/bg5ps/bg5ps.conf

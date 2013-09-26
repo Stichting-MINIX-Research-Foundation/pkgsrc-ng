@@ -1,0 +1,16 @@
+$NetBSD: patch-ab,v 1.5 2008/07/22 21:25:00 tonio Exp $
+
+--- liblcdf/giftoc.c.orig	2003-08-29 05:58:00.000000000 +0200
++++ liblcdf/giftoc.c
+@@ -192,9 +192,9 @@ or:    giftoc -makename [OPTIONS] FILE [
+       sin = strrchr(file_name, PATHNAME_SEPARATOR) + 1;
+       if (!sin) sin = file_name;
+       sout = rec_name = (char *)fmalloc(strlen(sin) + 2);
+-      if (isdigit(*sin)) *sout++ = 'N';
++      if (isdigit((unsigned char)*sin)) *sout++ = 'N';
+       for (; *sin; sin++, sout++)
+-	if (isalnum(*sin))
++	if (isalnum((unsigned char)*sin))
+ 	  *sout = *sin;
+ 	else
+ 	  *sout = '_';

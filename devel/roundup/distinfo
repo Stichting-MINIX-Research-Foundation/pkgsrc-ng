@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.25 2011/07/17 02:24:13 dholland Exp $
+
+SHA1 (roundup-1.4.19.tar.gz) = 8c92ee6b644cacf6d1592caa847bab7696232850
+RMD160 (roundup-1.4.19.tar.gz) = f5ce2fab5d6e5a9abd6384d80610f21730beac1a
+Size (roundup-1.4.19.tar.gz) = 2505527 bytes
+SHA1 (patch-setup-py) = a5a84a6fc0e4a2e57a3ce71e3c4d78234b5fe686

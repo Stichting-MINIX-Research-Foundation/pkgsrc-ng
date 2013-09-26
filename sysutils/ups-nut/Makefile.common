@@ -1,0 +1,44 @@
+# $NetBSD: Makefile.common,v 1.5 2013/02/16 17:34:58 jdf Exp $
+# used by sysutils/ups-nut/Makefile
+# used by sysutils/ups-nut-cgi/Makefile
+# used by sysutils/ups-nut-snmp/Makefile
+# used by sysutils/ups-nut-usb/Makefile
+# used by sysutils/p5-UPS-Nut/Makefile
+
+DISTNAME=		nut-2.6.5
+CATEGORIES=		sysutils
+MASTER_SITES=		http://www.networkupstools.org/source/2.6/
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://www.networkupstools.org/
+
+LICENSE=		gnu-gpl-v2
+
+NUT_USER?=		nut
+NUT_GROUP?=		nut
+
+DISTINFO_FILE=		${.CURDIR}/../../sysutils/ups-nut/distinfo
+PATCHDIR=		${.CURDIR}/../../sysutils/ups-nut/patches
+
+USE_LIBTOOL=		yes
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--sysconfdir=${NUT_CONFDIR:Q}
+CONFIGURE_ARGS+=	--datadir=${NUT_DATADIR:Q}
+CONFIGURE_ARGS+=	--localstatedir=${NUT_STATEDIR:Q}
+CONFIGURE_ARGS+=	--with-statepath=${NUT_STATEDIR:Q}
+CONFIGURE_ARGS+=	--with-htmlpath=${PREFIX:Q}/share/nut/html
+CONFIGURE_ARGS+=	--with-user=${NUT_USER}
+CONFIGURE_ARGS+=	--with-group=${NUT_GROUP}
+
+CHECK_PORTABILITY_SKIP=	packaging/*
+
+.include "../../mk/bsd.prefs.mk"
+
+PKG_SYSCONFSUBDIR?=	nut
+NUT_CONFDIR=		${PKG_SYSCONFDIR}
+NUT_DATADIR=		${PREFIX}/share/nut
+NUT_DOCDIR=		${PREFIX}/share/doc/nut
+NUT_DRVDIR=		${PREFIX}/libexec/nut
+NUT_EGDIR=		${PREFIX}/share/examples/nut
+NUT_STATEDIR?=		${VARBASE}/db/nut
+NUT_CGIDIR=		${PREFIX}/libexec/cgi-bin

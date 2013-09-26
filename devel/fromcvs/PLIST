@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:44 joerg Exp $
+bin/togit
+bin/tohg
+share/fromcvs/commitset/commitset
+share/fromcvs/commitset/commitset.cgi
+share/fromcvs/commitset/commitset.rb
+share/fromcvs/fromcvs.rb
+share/fromcvs/tagexpander.rb
+share/fromcvs/todb.rb
+share/fromcvs/togit.rb
+share/fromcvs/tohg.py
+share/fromcvs/tohg.rb
+share/doc/fromcvs/README

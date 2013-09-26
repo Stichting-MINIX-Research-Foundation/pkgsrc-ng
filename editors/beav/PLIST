@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:50:21 joerg Exp $
+bin/beav
+man/man1/beav.1
+share/doc/beav/beav.txt

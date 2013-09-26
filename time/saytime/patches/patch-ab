@@ -1,0 +1,20 @@
+$NetBSD: patch-ab,v 1.2 2012/04/17 17:50:09 joerg Exp $
+
+--- saytime.c.orig	1995-11-11 01:04:52.000000000 +0000
++++ saytime.c
+@@ -495,12 +495,12 @@ saynumber( int n, int leadingzero )
+     }
+ 
+ 
+-main( int argc, char* argv )
++main( int argc, char** argv )
+     {
+-    long clock;
++    time_t clock;
+     struct tm* t;
+ 
+-    clock = time( (long*) 0 );
++    clock = time( 0 );
+     t = localtime( &clock );
+ 
+     sayphrase( PH_THE_TIME_IS );

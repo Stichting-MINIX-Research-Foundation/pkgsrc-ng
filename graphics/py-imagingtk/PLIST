@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.5 2009/12/11 21:40:30 drochner Exp $
+${PYSITELIB}/PIL/_imagingtk.so
+share/examples/${PYPKGPREFIX}-imaging/enhancer.py
+share/examples/${PYPKGPREFIX}-imaging/painter.py
+share/examples/${PYPKGPREFIX}-imaging/player.py
+share/examples/${PYPKGPREFIX}-imaging/thresholder.py
+share/examples/${PYPKGPREFIX}-imaging/viewer.py

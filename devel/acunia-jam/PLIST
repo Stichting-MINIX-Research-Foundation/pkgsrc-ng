@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:48:32 joerg Exp $
+bin/jam
+bin/mkjambase
+share/doc/acunia-jam/Porting
+share/doc/acunia-jam/README
+share/doc/acunia-jam/RELNOTES
+share/doc/html/acunia-jam/Jam.html
+share/doc/html/acunia-jam/Jambase.html
+share/doc/html/acunia-jam/Jamfile.html

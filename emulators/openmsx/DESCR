@@ -1,0 +1,7 @@
+MSX emulator that aims for perfection
+
+openMSX is an open source MSX emulator that uses a unique emulation model
+which tries to achieve the highest level of accuracy possible.  It allows
+emulating a large number of different MSX machines.  Using the included
+C-BIOS ROM files, you can run game ROMs without the need to acquire the
+non-free original MSX-BIOS ROM.

@@ -1,0 +1,47 @@
+$NetBSD: patch-af,v 1.8 2012/06/23 22:27:11 dholland Exp $
+
+- use strerror()
+- ...?
+
+--- compface/uncmain.c.orig	1991-10-24 02:28:07.000000000 +0000
++++ compface/uncmain.c
+@@ -18,6 +18,8 @@
+ #include <fcntl.h>
+ #include "compface.h"
+ 
++extern int xbitmap;
++
+ /* the buffer is longer than needed to handle sparse input formats */
+ #define FACEBUFLEN 2048
+ char fbuf[FACEBUFLEN];
+@@ -33,12 +35,13 @@ char *cmdname;
+ 
+ /* error handling definitions follow */
+ 
+-extern int errno, sys_nerr;
+-extern char *sys_errlist[];
++#include <errno.h>
++#include <stdio.h>
++#include <string.h>
+ 
+ extern void exit P((int)) ;
+ 
+-#define ERR ((errno < sys_nerr) ? sys_errlist[errno] : "")
++#define ERR strerror(errno)
+ #define INITERR(s) {(void)strcpy(fbuf, cmdname); (void)strcat(fbuf, ": ");\
+ 					(void)strcat(fbuf, (s));}
+ #define ADDERR(s) (void)strcat(fbuf, (s));
+@@ -60,6 +63,13 @@ char *argv[];
+     if (*((*argv)++) == '/')
+       cmdname = *argv;               /* find the command's basename */
+ 
++  if (argc > 1 && !strcmp(argv[1], "-X"))
++    {
++      xbitmap++;
++      argc--;
++      argv++;
++    }
++
+   if (argc > 3)
+     {
+       INITERR("usage: ")

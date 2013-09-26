@@ -1,0 +1,80 @@
+$NetBSD: patch-ak,v 1.6 2011/11/22 15:07:04 is Exp $
+
+- use standard includes
+- 64-bit time_t fixes
+- remove union wait
+- replace mktemp() by mkstemp()
+
+--- src/in.fingerd.c.orig	1999-03-29 06:05:30.000000000 +0000
++++ src/in.fingerd.c
+@@ -33,9 +33,7 @@ static char *rcsid = "$Id: in.fingerd.c,
+ #include <sys/types.h>
+ #include <fcntl.h>
+ #include <sys/file.h>
+-#ifndef X_OK
+ #include <unistd.h>
+-#endif
+ #include <sys/stat.h>
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+@@ -811,7 +809,7 @@ finger_users (user, options, stream)
+ 	  /* don't print trailing \n from ctime() */
+ 	  fprintf(stream, " seen at %s on %.24s",
+ 		   strip_hostname (upackets[i]->host),
+-		   ctime (&upackets[i]->idle_time));
++		   ctime32 (&upackets[i]->idle_time));
+ 
+ 	  if (*(upackets[i]->ttyloc))
+ 	    fprintf(stream, " from %s",
+@@ -897,7 +895,6 @@ finger_clients (user, options, stream)
+       else
+ 	{
+ 	  status = "";
+-	  idle_time = "";
+ 	}
+     
+ 
+@@ -1271,7 +1268,7 @@ show_unlogged_packet (packet, stream)
+ 
+   /* In SunOS4 getpwnam() seems to call ctime(), so we move this call down
+    * here to be sure the intended result doesn't get overwritten. */
+-  char *the_time = ctime(&packet->idle_time);
++  char *the_time = ctime32(&packet->idle_time);
+   the_time[strlen(the_time) - 1] = '\0';	/* delete newline */
+ 
+   if (*(packet->real_name))
+@@ -1415,14 +1412,7 @@ run_target_script(script, target, cd, in
+   char *arg;
+ {
+   int pid;
+-#ifdef SYSV
+   int status;
+-#else
+-#ifndef WEXITSTATUS
+-# define WEXITSTATUS(w) ((w).w_retcode)
+-#endif
+-  union wait status;
+-#endif
+ 
+   if (access (script, X_OK) >= 0)
+     {
+@@ -1537,6 +1527,7 @@ maybe_user_script (entry, stream, packet
+   FILE *long_output;
+   int result;
+   extern char *mktemp();
++  int temp_fd;
+ 
+ #ifndef FINGERRC
+   return (0);
+@@ -1580,8 +1571,9 @@ maybe_user_script (entry, stream, packet
+   /* Collect regular long finger output in file */
+   strcpy (temp_file, TEMPFILE);
+   
+-  if (!mktemp (temp_file) ||
+-      !(long_output = fopen (temp_file, "w+")))
++  temp_fd = mkstemp (temp_file);
++  if (temp_fd < 0 ||
++      !(long_output = fdopen (temp_fd, "w+")))
+     {
+       file_error (WARNING, temp_file);
+       free (user_script);

@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:59 joerg Exp $
+bin/ncc
+bin/nccar
+bin/nccc++
+bin/nccld
+bin/nccnav
+bin/nccnavi
+bin/nccstrip2.py
+man/man1/ncc.1
+share/doc/ncc/KEYS.txt
+share/doc/ncc/README
+share/doc/ncc/TROUBLES
+share/doc/ncc/hacking.BIND
+share/doc/ncc/hacking.GCC
+share/doc/ncc/hacking.GLIBC
+share/doc/ncc/hacking.LINUX-KERNEL
+share/doc/ncc/hacking.QEMU
+share/doc/ncc/hacking.README
+share/ncc/nognu

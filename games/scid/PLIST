@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:56:55 joerg Exp $
+bin/pgnfix
+bin/pgnscid
+bin/sc_addmove
+bin/sc_epgn
+bin/sc_spell
+bin/sc_eco
+bin/sc_import
+bin/sc_remote
+bin/sc_tree
+bin/scid
+bin/scidlet
+bin/scidpgn
+bin/scmerge
+bin/spliteco
+bin/tcscid
+bin/tkscid
+share/scid/scid.eco
+share/scid/spelling.ssp

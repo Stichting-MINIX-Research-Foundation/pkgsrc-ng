@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:34 joerg Exp $
+share/xml/xhtml/${PKGVERSION}/catalog
+share/xml/xhtml/${PKGVERSION}/xhtml-lat1.ent
+share/xml/xhtml/${PKGVERSION}/xhtml-special.ent
+share/xml/xhtml/${PKGVERSION}/xhtml-symbol.ent
+share/xml/xhtml/${PKGVERSION}/xhtml.soc
+share/xml/xhtml/${PKGVERSION}/xhtml1-frameset.dtd
+share/xml/xhtml/${PKGVERSION}/xhtml1-strict.dtd
+share/xml/xhtml/${PKGVERSION}/xhtml1-transitional.dtd
+share/xml/xhtml/${PKGVERSION}/xhtml1.dcl

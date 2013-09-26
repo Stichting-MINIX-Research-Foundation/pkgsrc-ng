@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:56:44 joerg Exp $
+bin/fkiss
+man/man6/fkiss.6
+share/doc/fkiss/fkiss.doc
+share/doc/fkiss/fkissex.doc
+share/doc/fkiss/fkissex1.doc
+share/doc/fkiss/fkissex2.doc
+share/doc/fkiss/fkissex3.doc
+share/doc/fkiss/kissgs.doc
+share/examples/fkiss/fkissrc
+share/examples/fkiss/frkismi4.lzh

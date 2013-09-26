@@ -1,0 +1,42 @@
+$NetBSD: patch-ab,v 1.4 2009/12/13 17:42:36 asau Exp $
+
+--- extras/Makefile.in.orig	2005-06-29 21:53:20.000000000 +0400
++++ extras/Makefile.in	2009-12-13 20:35:09.000000000 +0300
+@@ -35,7 +35,7 @@
+ CCOPT =		@V_CCOPT@
+ DEFS =		@DEFS@
+ INCLS =		-I..
+-CFLAGS =	$(CCOPT) $(DEFS) $(INCLS)
++CFLAGS +=	$(CCOPT) $(DEFS) $(INCLS)
+ STATICFLAG =	@V_STATICFLAG@
+ LDFLAGS =	@LDFLAGS@
+ LIBS =		@LIBS@
+@@ -66,18 +66,16 @@
+ 
+ 
+ install:	all
+-	rm -f $(BINDIR)/makeweb $(BINDIR)/htpasswd $(BINDIR)/syslogtocern
+-	cp makeweb $(BINDIR)/makeweb
+-	chgrp $(WEBGROUP) $(BINDIR)/makeweb
+-	chmod 2755 $(BINDIR)/makeweb
+-	cp htpasswd $(BINDIR)/htpasswd
+-	cp syslogtocern $(BINDIR)/syslogtocern
+-	rm -f $(MANDIR)/man1/makeweb.1
+-	cp makeweb.1 $(MANDIR)/man1/makeweb.1
+-	rm -f $(MANDIR)/man1/htpasswd.1
+-	cp htpasswd.1 $(MANDIR)/man1/htpasswd.1
+-	rm -f $(MANDIR)/man8/syslogtocern.8
+-	cp syslogtocern.8 $(MANDIR)/man8/syslogtocern.8
++	rm -f $(DESTDIR)$(BINDIR)/makeweb $(DESTDIR)$(BINDIR)/htpasswd $(DESTDIR)$(BINDIR)/syslogtocern
++	$(BSD_INSTALL_PROGRAM) makeweb $(DESTDIR)$(BINDIR)/makeweb
++	$(BSD_INSTALL_PROGRAM) htpasswd $(DESTDIR)$(BINDIR)/htpasswd
++	$(BSD_INSTALL_SCRIPT) syslogtocern $(DESTDIR)$(BINDIR)/syslogtocern
++	rm -f $(DESTDIR)$(MANDIR)/man1/makeweb.1
++	$(BSD_INSTALL_MAN) makeweb.1 $(DESTDIR)$(MANDIR)/man1/makeweb.1
++	rm -f $(DESTDIR)$(MANDIR)/man1/htpasswd.1
++	$(BSD_INSTALL_MAN) htpasswd.1 $(DESTDIR)$(MANDIR)/man1/htpasswd.1
++	rm -f $(DESTDIR)$(MANDIR)/man8/syslogtocern.8
++	$(BSD_INSTALL_MAN) syslogtocern.8 $(DESTDIR)$(MANDIR)/man8/syslogtocern.8
+ 
+ clean:
+ 	rm -f $(CLEANFILES)

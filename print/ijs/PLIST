@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:11:56 joerg Exp $
+bin/ijs-config
+include/ijs/ijs.h
+include/ijs/ijs_client.h
+include/ijs/ijs_server.h
+lib/libijs.la
+lib/pkgconfig/ijs.pc
+man/man1/ijs-config.1
+share/doc/ijs/ijs_spec.pdf

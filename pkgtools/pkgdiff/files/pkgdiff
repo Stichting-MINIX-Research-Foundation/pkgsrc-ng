@@ -1,0 +1,138 @@
+#!@SH@
+#
+# $NetBSD: pkgdiff,v 1.22 2012/09/16 18:09:53 dholland Exp $
+#
+# Usage: pkgdiff newfile
+#        pkgdiff oldfile newfile
+#
+# Will output a patch ready for the NetBSD Pkgs Collection (unified
+# diff, plus no RCS IDs if possible). If only newfile is given,
+# oldfile is assumed as newfile.orig.
+#
+
+#
+# Copyright (c) 2011 by Thomas Klausner <wiz@NetBSD.org>
+# All rights reserved.
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE AUTHOR
+# ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+
+#
+# Copyright (c) 2004-2011 The NetBSD Foundation, Inc.
+# All rights reserved.
+#
+# This code is derived from software contributed to The NetBSD Foundation
+# by Hubert Feyrer <hubertf@NetBSD.org>
+#
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions
+# are met:
+# 1. Redistributions of source code must retain the above copyright
+#    notice, this list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright
+#    notice, this list of conditions and the following disclaimer in the
+#    documentation and/or other materials provided with the distribution.
+#
+# THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+# ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+# TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+# PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+# BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+# CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+# SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+# INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+# CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+# ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+# POSSIBILITY OF SUCH DAMAGE.
+#
+
+# Ensure we always use the same timezone to avoid spurious metadata diffs
+export TZ=UTC
+
+if [ $# -le 1 ]
+then
+	if [ -f "$1.orig" ]; then 
+		old="$1.orig"
+		new="$1"
+	else
+		echo $0: need at least one argument >&2
+		exit 1;
+	fi
+else
+	old="$1"
+	new="$2"
+fi
+basename_new="`basename $new`"
+
+dodiff() {
+	case x"$basename_new" in
+		xconfigure)
+		@DIFF@ -I '\(echo .*as_me:[0-9][0-9]*:\|echo .*configure:[0-9][0-9]*:\|line [0-9][0-9]* "configure\)' -I '\(Avoid regenerating within pkgsrc\|exit 0\)' $*
+		;;
+                xMakefile*)
+                @DIFF@ -I '\(localedir.*=.*localedir\|localedir.*=.*share/locale\)' $*
+		;;
+		*)
+		@DIFF@ $*
+	esac
+}
+
+dogrep() {
+	egrep $* '\$(NetBSD|Author|Date|Header|Id|Locker|Log|Name|RCSfile|Revision|Source|State)(:.*)?\$'
+}
+
+case x"$PKGDIFF_FMT" in x)
+lines=3
+PKGDIFF_FMT="-p"
+while [ `dodiff "$PKGDIFF_FMT" -U $lines "$old" "$new" | dogrep -c`  !=  0 ]
+do
+	lines=`expr $lines - 1`
+	if [ $lines = 0x -a x"$PKGDIFF_FMT" = x-p ]; then
+		# Try without -p instead
+		lines=3
+		PKGDIFF_FMT=""
+		continue
+	fi
+	if [ $lines = 0 ]; then
+		echo "Cannot strip away RCS IDs, please handle manually!" >&2
+		echo "These are the matching lines:" >&2
+		dodiff "$PKGDIFF_FMT" -U $lines "$old" "$new" | dogrep |\
+		  sed -e 's/^/   /' >&2
+		echo "Setting PKGDIFF_FMT might help." >&2
+		echo "Otherwise you may need to run diff by hand." >&2
+		exit 1
+	fi
+done
+PKGDIFF_FMT="${PKGDIFF_FMT} -U $lines"
+;;
+esac # PKGDIFF_FMT unset or null
+
+if dodiff -q "$PKGDIFF_FMT" "$old" "$new" > /dev/null
+then
+	:
+else
+    echo '$'NetBSD'$'
+    echo ''
+    # Strip out the date on the +++ line to reduce needless
+    # differences in regenerated patches
+    dodiff "$PKGDIFF_FMT" "$old" "$new" | sed -e 's:^\(+++ [^	]*\)	.*:\1:'
+fi

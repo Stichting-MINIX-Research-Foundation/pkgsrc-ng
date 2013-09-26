@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:28:18 joerg Exp $
+bin/unarj
+share/doc/unarj/technote.txt
+share/doc/unarj/unarj.txt

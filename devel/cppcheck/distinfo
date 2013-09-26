@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2013/04/05 15:14:03 adam Exp $
+
+SHA1 (cppcheck-1.59.tar.bz2) = 686effdfa6f2ca3369d7d52e54c6fd2db2d06d97
+RMD160 (cppcheck-1.59.tar.bz2) = 2bc386692caf734493c7db1d2fa7638c98e28ba1
+Size (cppcheck-1.59.tar.bz2) = 1243616 bytes

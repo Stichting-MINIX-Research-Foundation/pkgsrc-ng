@@ -1,0 +1,7 @@
+Colortail works like the standard tail but it can optionally read
+a color config file, where expressions are specified for coloring
+the results.
+
+Thus it can be used to quickly get an overview of interesting
+activity by colorizing relevant lines brightred or some other color
+of your choice.

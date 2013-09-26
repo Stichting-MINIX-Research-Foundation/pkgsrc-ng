@@ -1,0 +1,113 @@
+$NetBSD: patch-bf,v 1.2 2012/12/20 21:50:47 joerg Exp $
+
+--- stty.c.orig	1998-09-22 16:22:53.000000000 +0000
++++ stty.c
+@@ -31,12 +31,15 @@
+ 
+ #endif
+ 
++#ifndef STDIN_FILENO
++#define STDIN_FILENO	0
++#endif
++
+ #ifndef NO_SUSPEND
+ SignalFunc suspend();
+ #endif
+ 
+ TERMPARAM	d_ioval;
+-int		tty;
+ #ifdef TIOCSWINSZ
+ struct winsize  d_winsize;
+ #endif /* TIOCSWINSZ */
+@@ -142,7 +145,7 @@ get_winsize()
+ #ifdef TIOCSWINSZ
+ 	extern int lines, columns;
+ 
+-	ioctl(tty, TIOCGWINSZ, &d_winsize);
++	ioctl(STDIN_FILENO, TIOCGWINSZ, &d_winsize);
+ 	if (d_winsize.ws_col == 0) {
+ 		d_winsize.ws_col = columns;
+ 	} else {
+@@ -153,7 +156,7 @@ get_winsize()
+ 	} else {
+ 		lines = d_winsize.ws_row;
+ 	}
+-	ioctl(tty, TIOCSWINSZ, &d_winsize);
++	ioctl(STDIN_FILENO, TIOCSWINSZ, &d_winsize);
+ #endif /* TIOCSWINSZ */
+ }
+ 
+@@ -161,7 +164,7 @@ set_tty()
+ {	int	er;
+ 	TERMPARAM ioval;
+ 
+-	GET_TTY(tty, &d_ioval);
++	GET_TTY(STDIN_FILENO, &d_ioval);
+ 	ioval = d_ioval;
+ 
+ #if defined TERMIOS || defined TERMIO
+@@ -195,7 +198,7 @@ set_tty()
+ 	ioval.m_ttyb.sg_flags = RAW;
+ #endif
+ 
+-	er = SET_TTY(tty, &ioval);
++	er = SET_TTY(STDIN_FILENO, &ioval);
+ 
+ 	initFep();
+ 
+@@ -208,14 +211,8 @@ set_tty()
+ 
+ reset_tty()
+ {
+-	reset_tty_without_close();
+-	close(tty);
+-}
+-
+-reset_tty_without_close()
+-{
+ 	termFep();
+-	SET_TTY(tty, &d_ioval);
++	SET_TTY(STDIN_FILENO, &d_ioval);
+ }
+ 
+ set_tty_sane(tty)
+@@ -258,12 +255,6 @@ int tty;
+ 	}
+ }
+ 
+-tty_ready()
+-{	char	*ttyname();
+-
+-	tty = open(ttyname(0),O_RDWR);
+-}
+-
+ SignalFunc
+ reset_exit()
+ {
+@@ -315,7 +306,7 @@ chld_changed()
+ 	union wait statusp;
+ #endif
+ 
+-#ifndef NO_SUSPEND
++#ifdef NO_SUSPEND
+ 	while ((cpid = wait((int *)&statusp)) != -1 && cpid != ShellPID)
+ 		;
+ #else
+@@ -385,7 +376,7 @@ term_exit()
+ SignalFunc
+ suspend()
+ {
+-	reset_tty_without_close();
++	reset_tty();
+ 	signal(SIGTSTP,SIG_DFL);
+ 	kill(0,SIGTSTP);
+ 
+@@ -467,6 +458,8 @@ set_int()
+ 	signal(SIGUSR2,sig_usr2);
+ }
+ 
++void closeSKK(Dictionary dic, char *dicname);
++
+ saveJisyo()
+ {
+ #ifdef USE_SERVER

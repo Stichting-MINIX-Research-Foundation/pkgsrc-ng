@@ -1,0 +1,123 @@
+$NetBSD: patch-aa,v 1.5 2010/05/01 16:56:41 tonnerre Exp $
+
+--- src/protocol_auth.c.orig	2010-04-03 08:46:07.000000000 +0000
++++ src/protocol_auth.c
+@@ -191,22 +191,28 @@ bool send_metakey(connection_t *c) {
+ }
+ 
+ bool metakey_h(connection_t *c) {
+-	char buffer[MAX_STRING_SIZE];
++	char *buffer, fmt[513];
+ 	int cipher, digest, maclength, compression;
+ 	int len;
+ 
+-	if(sscanf(c->buffer, "%*d %d %d %d %d " MAX_STRING, &cipher, &digest, &maclength, &compression, buffer) != 5) {
++	len = RSA_size(myself->connection->rsa_key);
++	buffer = xmalloc(2 * len + 1);
++	memset(buffer, 0, 2 * len + 1);
++
++	memset(fmt, 0, 513);
++	snprintf(fmt, 512, "%%*d %%d %%d %%d %%d %%%ds", 2 * len);
++	if(sscanf(c->buffer, fmt, &cipher, &digest, &maclength, &compression, buffer) != 5) {
+ 		logger(LOG_ERR, "Got bad %s from %s (%s)", "METAKEY", c->name,
+ 			   c->hostname);
++		free(buffer);
+ 		return false;
+ 	}
+ 
+-	len = RSA_size(myself->connection->rsa_key);
+-
+ 	/* Check if the length of the meta key is all right */
+ 
+ 	if(strlen(buffer) != len * 2) {
+ 		logger(LOG_ERR, "Possible intruder %s (%s): %s", c->name, c->hostname, "wrong keylength");
++		free(buffer);
+ 		return false;
+ 	}
+ 
+@@ -226,6 +232,7 @@ bool metakey_h(connection_t *c) {
+ 	if(RSA_private_decrypt(len, (unsigned char *)buffer, (unsigned char *)c->inkey, myself->connection->rsa_key, RSA_NO_PADDING) != len) {	/* See challenge() */
+ 		logger(LOG_ERR, "Error during decryption of meta key for %s (%s)",
+ 			   c->name, c->hostname);
++		free(buffer);
+ 		return false;
+ 	}
+ 
+@@ -244,6 +251,7 @@ bool metakey_h(connection_t *c) {
+ 		
+ 		if(!c->incipher) {
+ 			logger(LOG_ERR, "%s (%s) uses unknown cipher!", c->name, c->hostname);
++			free(buffer);
+ 			return false;
+ 		}
+ 
+@@ -253,6 +261,7 @@ bool metakey_h(connection_t *c) {
+ 					c->incipher->iv_len)) {
+ 			logger(LOG_ERR, "Error during initialisation of cipher from %s (%s): %s",
+ 					c->name, c->hostname, ERR_error_string(ERR_get_error(), NULL));
++			free(buffer);
+ 			return false;
+ 		}
+ 
+@@ -268,11 +277,13 @@ bool metakey_h(connection_t *c) {
+ 
+ 		if(!c->indigest) {
+ 			logger(LOG_ERR, "Node %s (%s) uses unknown digest!", c->name, c->hostname);
++			free(buffer);
+ 			return false;
+ 		}
+ 
+ 		if(c->inmaclength > c->indigest->md_size || c->inmaclength < 0) {
+ 			logger(LOG_ERR, "%s (%s) uses bogus MAC length!", c->name, c->hostname);
++			free(buffer);
+ 			return false;
+ 		}
+ 	} else {
+@@ -283,6 +294,7 @@ bool metakey_h(connection_t *c) {
+ 
+ 	c->allow_request = CHALLENGE;
+ 
++	free(buffer);
+ 	return send_challenge(c);
+ }
+ 
+@@ -315,22 +327,27 @@ bool send_challenge(connection_t *c) {
+ }
+ 
+ bool challenge_h(connection_t *c) {
+-	char buffer[MAX_STRING_SIZE];
+-	int len;
++	char *buffer, fmt[513];
++	int len = RSA_size(myself->connection->rsa_key);
++
++	buffer = xmalloc(2 * len + 1);
++	memset(fmt, 0, 513);
++	snprintf(fmt, 512, "%%*d %%%ds", 2*len);
+ 
+-	if(sscanf(c->buffer, "%*d " MAX_STRING, buffer) != 1) {
++	if(sscanf(c->buffer, fmt, buffer) != 1) {
+ 		logger(LOG_ERR, "Got bad %s from %s (%s)", "CHALLENGE", c->name,
+ 			   c->hostname);
++		free(buffer);
+ 		return false;
+ 	}
+ 
+-	len = RSA_size(myself->connection->rsa_key);
+ 
+ 	/* Check if the length of the challenge is all right */
+ 
+ 	if(strlen(buffer) != len * 2) {
+ 		logger(LOG_ERR, "Possible intruder %s (%s): %s", c->name,
+ 			   c->hostname, "wrong challenge length");
++		free(buffer);
+ 		return false;
+ 	}
+ 
+@@ -346,6 +363,7 @@ bool challenge_h(connection_t *c) {
+ 
+ 	/* Rest is done by send_chal_reply() */
+ 
++	free(buffer);
+ 	return send_chal_reply(c);
+ }
+ 

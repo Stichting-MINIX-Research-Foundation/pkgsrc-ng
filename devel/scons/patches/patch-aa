@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.4 2012/02/02 11:49:55 obache Exp $
+
+--- setup.py.orig	2010-07-25 23:15:11.000000000 +0000
++++ setup.py
+@@ -353,7 +353,7 @@ class install_data(_install_data):
+             if is_win32:
+                 dir = 'Doc'
+             else:
+-                dir = os.path.join('man', 'man1')
++                dir = os.path.join(os.getenv("PKGMANDIR"), 'man1')
+             self.data_files = [(dir, man_pages)]
+             man_dir = os.path.join(self.install_dir, dir)
+             msg = "Installed SCons man pages into %s" % man_dir

@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.9 2013/01/29 06:12:56 wiz Exp $
+
+SHA1 (diffpdf-2.1.2.tar.gz) = b01a2bfecf8dd2f04d0a799483e9b6e99adba317
+RMD160 (diffpdf-2.1.2.tar.gz) = 7ee8577f11a6bc2c778fc25df11a399544db14ab
+Size (diffpdf-2.1.2.tar.gz) = 86719 bytes
+SHA1 (patch-aa) = 022a47501dd7db183e0ad5c2ee75032ecf146473

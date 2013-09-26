@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:59:21 joerg Exp $
+include/ggi/internal/misc.h
+include/ggi/misc-defs.h
+include/ggi/misc.h
+lib/ggi/ggimisc/display/pseudo_stubs_ggimisc.la
+lib/libggimisc.la
+man/man3/ggiGetRayPos.3
+man/man3/ggiSetSplitline.3
+man/man3/ggiWaitRayPos.3
+man/man7/libggimisc.7
+share/examples/libggimisc/libggimisc.conf

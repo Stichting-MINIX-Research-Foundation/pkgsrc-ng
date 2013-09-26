@@ -1,0 +1,16 @@
+$NetBSD: patch-ab,v 1.2 2012/01/28 13:54:38 wiz Exp $
+
+Keep PATH for tools framework (PR#36129)
+
+--- configure.orig	2012-01-15 16:20:10.000000000 +0000
++++ configure
+@@ -16562,9 +16562,6 @@ fi
+     SDL_CONFIG="pkg-config sdl"
+   else
+     as_save_PATH="$PATH"
+-    if test "x$prefix" != xNONE && test "$cross_compiling" != yes; then
+-      PATH="$prefix/bin:$prefix/usr/bin:$PATH"
+-    fi
+     # Extract the first word of "sdl-config", so it can be a program name with args.
+ set dummy sdl-config; ac_word=$2
+ { echo "$as_me:$LINENO: checking for $ac_word" >&5

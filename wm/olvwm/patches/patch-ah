@@ -1,0 +1,95 @@
+$NetBSD: patch-ah,v 1.3 2013/03/28 21:40:10 joerg Exp $
+
+--- virtual.c.orig	2000-03-02 21:41:11.000000000 +0000
++++ virtual.c
+@@ -4,6 +4,7 @@
+  */
+ 
+ #include <sys/types.h>
++#include <limits.h>
+ #include <stdio.h>
+ #include <string.h>
+ #include <dirent.h>
+@@ -48,6 +49,8 @@ regexp *expbuf;
+ #ident "@(#)virtual.c	1.6 olvwm version 01/07/94"
+ #endif
+ 
++void PaintVirtualWindow(WinGenericFrame *win);
++
+ /* Class Function Vector; a virtual pane is the VDM window in which all
+  * the little virtual windows appear (and to which said windows are
+  * parented)
+@@ -69,6 +72,9 @@ extern Button	*MakeUpLeftButton(),*MakeL
+ 
+ extern char	*ExpandPath();
+ 
++static int	rexMatch();
++static int	rexInit();
++
+ /*
+  * Semantic action associated with each of the buttons above.  These must
+  * be in the same order as the button array; it would be better if the Button
+@@ -639,11 +645,8 @@ SemanticAction	action;
+  *
+  * Event functions for the VDM
+  */
+-static
+-vdmExpose(dpy, event, winInfo)
+-    Display	*dpy;
+-    XEvent	*event;
+-    WinGeneric	*winInfo;
++static void
++vdmExpose(Display *dpy, XEvent *event, WinGeneric *winInfo)
+ {
+ XEvent	dummy;
+ 
+@@ -1309,9 +1312,8 @@ int	length;
+ /*
+  * Refresh the window's virtual representation
+  */
+-int
+-PaintVirtualWindow(win)
+-    WinGenericFrame	*win;
++void
++PaintVirtualWindow(WinGenericFrame *win)
+ {
+ Client	*cli = win->core.client;
+ int	length;
+@@ -1969,21 +1971,19 @@ cmpButton(b1, b2)
+  *
+  */
+ /* ARGSUSED */
+-GenDirMenuFunc(dpy, menuInfo, bindex, cache, winInfo, depth)
+-    Display	*dpy;
+-    MenuInfo	*menuInfo;
+-    int		bindex;
+-    MenuCache	*cache;
+-    WinGeneric	*winInfo;
+-    int		depth;
+-
++void GenDirMenuFunc(Display *dpy, MenuInfo *menuInfo, int bindex, MenuCache *cache, WinGeneric *winInfo, int depth)
+ {
+ struct _menu	*menu;
+ DIR	*dir;
+ struct dirent	*ent;
+ Button	*b;
++#if defined(NAME_MAX)
++char	s[NAME_MAX], dirname[MAXPATHLEN - NAME_MAX], *newname, *ExpandPath();
++char	pattern[NAME_MAX];
++#else
+ char	s[MAXNAMLEN], dirname[MAXPATHLEN - MAXNAMLEN], *newname, *ExpandPath();
+ char	pattern[MAXNAMLEN];
++#endif
+ extern int AppMenuFunc();
+ MenuCache	*menuCache;
+ int		slot;
+@@ -2108,7 +2108,9 @@ int val;
+     }
+ }
+ 
++#ifndef REGEXP
+ static char expbuf[256];
++#endif
+ 
+ static
+ rexMatch(string)

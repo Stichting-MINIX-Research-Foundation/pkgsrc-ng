@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2013/06/17 15:07:54 ryoon Exp $
+
+SHA1 (apache-tomcat-7.0.41.tar.gz) = 87974fcc24711ea253fb43e3db450664e02e1adf
+RMD160 (apache-tomcat-7.0.41.tar.gz) = cfc76367c2019d0f6c73dbbb57ba0222753f2d28
+Size (apache-tomcat-7.0.41.tar.gz) = 7946142 bytes

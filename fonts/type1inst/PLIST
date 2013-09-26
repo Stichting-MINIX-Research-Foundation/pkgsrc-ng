@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:54:16 joerg Exp $
+bin/type1inst
+bin/t1embed
+man/man1/type1inst.1
+share/doc/type1inst/README

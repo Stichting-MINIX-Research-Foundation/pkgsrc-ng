@@ -1,0 +1,26 @@
+$NetBSD: patch-ac,v 1.3 2009/02/07 23:21:05 joerg Exp $
+
+--- Makefile.in.orig	2004-07-26 07:32:18.000000000 +0200
++++ Makefile.in
+@@ -50,9 +50,9 @@ install: ssmtp $(GEN_CONFIG)
+ 	$(INSTALL) -s -m 755 ssmtp $(bindir)/ssmtp
+ 	$(INSTALL) -d -m 755 $(mandir)
+ 	$(INSTALL) -m 644 $(srcdir)/ssmtp.8 $(mandir)/ssmtp.8
+-	$(INSTALL) -d -m 755 $(SSMTPCONFDIR)
+-	$(INSTALL) -m 644 $(srcdir)/revaliases $(INSTALLED_REVALIASES_FILE)
+-	$(GEN_CONFIG) $(INSTALLED_CONFIGURATION_FILE)
++#	$(INSTALL) -d -m 755 $(SSMTPCONFDIR)
++#	$(INSTALL) -m 644 $(srcdir)/revaliases $(INSTALLED_REVALIASES_FILE)
++#	$(GEN_CONFIG) $(INSTALLED_CONFIGURATION_FILE)
+ 
+ 
+ .PHONY: install-sendmail
+@@ -79,7 +79,7 @@ uninstall-sendmail: uninstall
+ 
+ # Binaries:
+ ssmtp: $(OBJS)
+-	$(CC) -o ssmtp $(OBJS) @LIBS@
++	$(CC) -o ssmtp $(OBJS) $(LDFLAGS) @LIBS@
+ 
+ .PHONY: clean
+ clean:

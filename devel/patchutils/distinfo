@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2008/11/09 05:19:57 bjs Exp $
+
+SHA1 (patchutils-0.3.0.tar.bz2) = 31363bf7f0cb17ddb1fd822767b9ad84c5b877f8
+RMD160 (patchutils-0.3.0.tar.bz2) = fc8e8c227c6a1bf5df4bedc6a95065b620a22dbe
+Size (patchutils-0.3.0.tar.bz2) = 149003 bytes

@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:09:29 joerg Exp $
+bin/check-files
+bin/mkcache
+man/man1/gofish.1
+man/man1/gopherd.1
+man/man1/mkcache.1
+man/man5/dotcache.5
+man/man5/gofish.5
+sbin/gofish
+sbin/gopherd
+share/doc/gofish/Configure_GoFish
+share/examples/gofish/gofish-www.conf
+share/examples/gofish/gofish.conf
+share/examples/rc.d/gopherd

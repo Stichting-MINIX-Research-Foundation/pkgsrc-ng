@@ -1,0 +1,4 @@
+Collect changesets from CVS repositories. This tool can be used
+either by humans to inspect changesets or as an exporter from CVS
+to other version control systems - it can be told to emit a
+fast-export stream to standard output.

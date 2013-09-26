@@ -1,0 +1,55 @@
+# $NetBSD: Makefile.common,v 1.9 2013/04/08 11:17:16 rodent Exp $
+#
+# used by mail/perdition-bdb/Makefile
+# used by mail/perdition-gdbm/Makefile
+# used by mail/perdition-ldap/Makefile
+# used by mail/perdition-mysql/Makefile
+# used by mail/perdition-odbc/Makefile
+# used by mail/perdition-postgresql/Makefile
+# used by mail/perdition/Makefile
+
+DISTNAME=	perdition-${PERDITION_VERSION}
+CATEGORIES=	mail
+MASTER_SITES=	http://www.vergenet.net/linux/perdition/download/${PERDITION_VERSION}/
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.vergenet.net/linux/perdition/
+COMMENT=	IMAP/POP3 proxy redirector (${PERDITION_COMMENT})
+
+PERDITION_VERSION=	1.18
+
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		gmake
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-daemon-map
+CONFIGURE_ARGS+=	--localstatedir=/var
+PKG_SYSCONFSUBDIR=	perdition
+
+EGDIR=			${PREFIX}/share/examples
+INSTALL_AM_MAKEFLAGS=	sysconfdir=${EGDIR}
+INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} AM_MAKEFLAGS=${INSTALL_AM_MAKEFLAGS:Q}
+
+.if defined(PERDITION_PKGNAME)
+PKGNAME=		${DISTNAME:S/-/-${PERDITION_PKGNAME}-/}
+DEPENDS+=		perdition-${PERDITION_VERSION}{,nb*}:../../mail/perdition
+BUILD_DIRS?=		perdition/db/${PERDITION_PKGNAME}
+.endif
+
+PERDITION_SKIP_DISABLE?=${PERDITION_PKGNAME}
+.for f in mysql odbc pg gdbm bdb ldap ldap-doc
+.  if empty(PERDITION_SKIP_DISABLE:M$f)
+CONFIGURE_ARGS+=	--disable-${f}
+.  endif
+.endfor
+
+DESCR_SRC=		${PKGDIR}/../perdition/DESCR
+DISTINFO_FILE=		${PKGDIR}/../perdition/distinfo
+PATCHDIR=		${PKGDIR}/../perdition/patches
+
+.include "../../devel/popt/buildlink3.mk"
+.include "../../devel/vanessa_adt/buildlink3.mk"
+.include "../../devel/vanessa_logger/buildlink3.mk"
+.include "../../devel/vanessa_socket/buildlink3.mk"
+.include "../../mk/dlopen.buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

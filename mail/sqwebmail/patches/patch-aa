@@ -1,0 +1,48 @@
+$NetBSD: patch-aa,v 1.11 2010/11/10 10:52:47 adam Exp $
+
+--- Makefile.in.orig	2010-11-07 18:41:57.000000000 +0000
++++ Makefile.in
+@@ -283,18 +283,19 @@ EXTRA_DIST = INSTALL.html README NEWS RE
+ 
+ scriptbindir = $(sbindir)
+ scriptbin_SCRIPTS = \
+-	sharedindexinstall sharedindexsplit
++	webmaild.rc
+ 
+-pkglibPROGRAMS = maildirmake deliverquota reformime makemime pcpd
++pkglibPROGRAMS = pcpd
++pkglibexecdir = $(libexecdir)/courier
+ pkglibexec_PROGRAMS = @pkglibPROGRAMS_exec@
+-libexec_SCRIPTS = sqwebmaild.rc
++libexec_SCRIPTS = 
+ CLEANFILES = $(pkgman1_DATA) $(pkgman8_DATA) $(sysconf_DATA) \
+ 	sharedindexinstall sharedindexsplit
+ 
+ pkgman8dir = @mandir@/man8
+-pkgman8_DATA = deliverquota.8
++pkgman8_DATA = 
+ pkgman1dir = @mandir@/man1
+-pkgman1_DATA = maildirmake.1
++pkgman1_DATA = 
+ @HAVE_HTMLPAGES_TRUE@NEWS_SOURCE = html/index2.html
+ all: config.h
+ 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
+@@ -976,6 +977,9 @@ uninstall-am: uninstall-libexecSCRIPTS u
+ sqwebmaild.dist: sqwebmail/sqwebmaild.dist
+ 	cp sqwebmail/sqwebmaild.dist .
+ 
++webmaild.rc: sqwebmaild.rc
++	cp sqwebmaild.rc webmaild.rc
++
+ pcpd: pcp/pcpd
+ 	cp pcp/pcpd .
+ 
+@@ -1011,7 +1015,7 @@ install-exec-local:
+ 	$(mkinstalldirs) $(DESTDIR)$(cgibindir)
+ 	test -w $(DESTDIR)$(cgibindir) || exit 0; \
+ 		$(INSTALL_PROGRAM) sqwebmail/sqwebmail \
+-			$(DESTDIR)$(cgibindir)/sqwebmail
++			$(DESTDIR)$(cgibindir)/webmail
+ 	$(mkinstalldirs) $(DESTDIR)$(pkglibexecdir)
+ 	$(INSTALL_PROGRAM) sqwebmail/sqwebmaild $(DESTDIR)$(pkglibexecdir)/sqwebmaild
+ 

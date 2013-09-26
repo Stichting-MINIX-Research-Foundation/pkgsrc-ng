@@ -1,0 +1,12 @@
+$NetBSD: patch-ag,v 1.3 2012/09/25 11:45:11 ryoon Exp $
+
+--- src/config_manager.cc.orig	2010-03-25 14:58:11.000000000 +0000
++++ src/config_manager.cc
+@@ -576,6 +576,7 @@ String ConfigManager::createDefaultConfi
+     Ref<Element> ext2mt(new Element(_("extension-mimetype")));
+     ext2mt->setAttribute(_("ignore-unknown"), _(DEFAULT_IGNORE_UNKNOWN_EXTENSIONS));
+     ext2mt->appendElementChild(map_from_to(_("mp3"), _("audio/mpeg")));
++    ext2mt->appendElementChild(map_from_to(_("mp4"), _("video/mp4")));
+     ext2mt->appendElementChild(map_from_to(_("ogx"), _("application/ogg")));
+     ext2mt->appendElementChild(map_from_to(_("ogv"), _("video/ogg")));
+     ext2mt->appendElementChild(map_from_to(_("oga"), _("audio/ogg")));

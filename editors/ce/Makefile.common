@@ -1,0 +1,21 @@
+# $NetBSD: Makefile.common,v 1.11 2013/06/12 12:35:35 wiz Exp $
+
+DISTNAME=		ce-${VERSION}
+VERSION=		4.6
+CATEGORIES=		editors
+MASTER_SITES=		ftp://ftp.cwru.edu/pub/chet/ \
+			http://tiswww.case.edu/php/chet/dist/
+
+MAINTAINER=		schmonz@NetBSD.org
+HOMEPAGE=		http://tiswww.case.edu/php/chet/
+COMMENT=		Chet's Emacs: small, fast emacs-like editor
+
+MAKE_JOBS_SAFE=		no
+
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--libdir=${PREFIX}/share/doc
+CONFIGURE_ARGS+=	--without-ce-malloc
+CONFIGURE_ARGS+=	--with-curses
+
+PATCHDIR=		${.CURDIR}/../ce/patches
+DISTINFO_FILE=		${.CURDIR}/../ce/distinfo

@@ -1,0 +1,13 @@
+$NetBSD: patch-an,v 1.2 2011/09/22 15:16:26 ryoon Exp $
+
+--- src/history.c.orig	2008-05-07 15:57:34.000000000 +0000
++++ src/history.c
+@@ -760,7 +760,7 @@ history_write (type, update_dir, revs, n
+     if (trace)
+ 	fprintf (stderr, "%s-> fopen(%s,a)\n",
+ 		 CLIENT_SERVER_STR, fname);
+-    if (noexec)
++    if (nolock)
+ 	goto out;
+ 
+     if (!history_lock (current_parsed_root->directory))

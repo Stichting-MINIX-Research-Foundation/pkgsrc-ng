@@ -1,0 +1,13 @@
+$NetBSD: patch-bd,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/gate/ftn2rfc.c.orig	2004-08-22 20:19:12.000000000 +0000
++++ src/gate/ftn2rfc.c
+@@ -272,7 +272,7 @@ int check_valid_domain(char *s)
+ 	return FALSE;
+     while(*s)
+     {
+-	if(!isalnum(*s) && *s!='-' && *s!='.')
++	if(!isalnum((unsigned char)*s) && *s!='-' && *s!='.')
+ 	    return FALSE;
+ 	s++;
+     }

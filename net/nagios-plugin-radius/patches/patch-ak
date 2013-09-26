@@ -1,0 +1,70 @@
+$NetBSD: patch-ak,v 1.3 2011/04/08 22:49:49 morr Exp $
+
+--- gl/mountlist.c.orig	2010-07-27 20:47:15.000000000 +0000
++++ gl/mountlist.c
+@@ -52,7 +52,11 @@
+ # if HAVE_STRUCT_FSSTAT_F_FSTYPENAME
+ #  define FS_TYPE(Ent) ((Ent).f_fstypename)
+ # else
+-#  define FS_TYPE(Ent) mnt_names[(Ent).f_type]
++#  ifdef STAT_STATVFS
++#   define FS_TYPE(Ent) mnt_names[(Ent).f_fsid]
++#  else
++#   define FS_TYPE(Ent) mnt_names[(Ent).f_type]
++#  endif
+ # endif
+ #endif /* MOUNTED_GETFSSTAT */
+ 
+@@ -99,6 +103,10 @@
+ # include <sys/statfs.h>
+ #endif
+ 
++#ifdef HAVE_SYS_STATVFS_H
++#include <sys/statvfs.h>
++#endif
++
+ #ifdef MOUNTED_LISTMNTENT
+ # include <mntent.h>
+ #endif
+@@ -169,7 +177,7 @@
+ 
+ #if MOUNTED_GETMNTINFO
+ 
+-# if ! HAVE_STRUCT_STATFS_F_FSTYPENAME
++# if ! HAVE_STRUCT_STATFS_F_FSTYPENAME && ! STAT_STATVFS
+ static char *
+ fstype_to_string (short int t)
+ {
+@@ -266,9 +274,13 @@ fstype_to_string (short int t)
+ # endif
+ 
+ static char *
++#ifdef STAT_STATVFS
++fsp_to_string (const struct statvfs *fsp)
++#else
+ fsp_to_string (const struct statfs *fsp)
++#endif
+ {
+-# if HAVE_STRUCT_STATFS_F_FSTYPENAME
++# if defined HAVE_STRUCT_STATFS_F_FSTYPENAME || defined STAT_STATVFS
+   return (char *) (fsp->f_fstypename);
+ # else
+   return fstype_to_string (fsp->f_type);
+@@ -592,9 +604,17 @@ read_file_system_list (bool need_fs_type
+   {
+     int numsys, counter;
+     size_t bufsize;
++#ifdef STAT_STATVFS
++    struct statvfs *stats;
++#else
+     struct statfs *stats;
++#endif
+ 
++#ifdef STAT_STATVFS
++    numsys = getfsstat ((struct statvfs *)0, 0L, MNT_NOWAIT);
++#else
+     numsys = getfsstat ((struct statfs *)0, 0L, MNT_NOWAIT);
++#endif
+     if (numsys < 0)
+       return (NULL);
+     if (SIZE_MAX / sizeof *stats <= numsys)

@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:49:06 joerg Exp $
+bin/qconf
+share/doc/qconf/README
+share/examples/qconf/sample.qc
+share/examples/qconf/samplecustom.qc
+share/examples/qconf/sampledeps.qc
+share/examples/qconf/samplelib.qc
+share/qconf/conf/conf.cpp
+share/qconf/conf/conf.pro
+share/qconf/conf/conf4.cpp
+share/qconf/conf/conf4.h
+share/qconf/conf/conf4.pro
+share/qconf/modules/qt31.qcm
+share/qconf/modules/qt41.qcm

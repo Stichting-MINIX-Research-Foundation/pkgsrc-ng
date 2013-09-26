@@ -1,0 +1,16 @@
+# $NetBSD: Makefile.common,v 1.10 2013/03/06 11:06:55 obache Exp $
+#
+# used by inputmethod/uim/Makefile
+# used by inputmethod/uim-elisp/Makefile
+
+UIM_VERSION=		1.8.4
+DISTNAME=		uim-${UIM_VERSION}
+CATEGORIES=		inputmethod
+MASTER_SITES=		http://uim.googlecode.com/files/
+EXTRACT_SUFX=		.tar.bz2
+
+MAINTAINER=		VEG03617@nifty.com
+HOMEPAGE=		http://code.google.com/p/uim/
+
+DISTINFO_FILE=		${.CURDIR}/../../inputmethod/uim/distinfo
+PATCHDIR=		${.CURDIR}/../../inputmethod/uim/patches

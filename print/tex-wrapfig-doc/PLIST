@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2011/11/10 21:18:38 minskim Exp $
+share/texmf-dist/doc/latex/wrapfig/multiple-span.txt
+share/texmf-dist/doc/latex/wrapfig/wrapfig-doc.pdf
+share/texmf-dist/doc/latex/wrapfig/wrapfig-doc.tex

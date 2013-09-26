@@ -1,0 +1,23 @@
+$NetBSD: patch-av,v 1.5 2012/06/23 22:27:11 dholland Exp $
+
+- use strerror()
+
+--- compface/cmain.c.orig	1991-10-24 02:28:07.000000000 +0000
++++ compface/cmain.c
+@@ -33,12 +33,13 @@ char *cmdname;
+ 
+ /* error handling definitions follow */
+ 
+-extern int errno, sys_nerr;
+-extern char *sys_errlist[];
++#include <errno.h>
++#include <stdio.h>
++#include <string.h>
+ 
+ extern void exit P((int)) ;
+ 
+-#define ERR ((errno < sys_nerr) ? sys_errlist[errno] : "")
++#define ERR strerror(errno)
+ #define INITERR(s) {(void)strcpy(fbuf, cmdname); (void)strcat(fbuf, ": ");\
+ 					(void)strcat(fbuf, (s));}
+ #define ADDERR(s) (void)strcat(fbuf, (s));

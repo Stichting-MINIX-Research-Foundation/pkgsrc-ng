@@ -1,0 +1,20 @@
+# $NetBSD: Makefile.common,v 1.4 2012/10/31 11:17:32 asau Exp $
+# Included by:
+# net/netbsd-iscsi-target/Makefile
+# net/netbsd-iscsi-initiator/Makefile
+
+DISTNAME=	netbsd-iscsi-20111006
+MASTER_SITES=	${MASTER_SITE_BACKUP}
+
+MAINTAINER=	sborrill@NetBSD.org
+HOMEPAGE=	http://www.alistaircrooks.co.uk/software.html
+LICENSE=	modified-bsd
+
+GNU_CONFIGURE=	yes
+
+AUTO_MKDIRS=		yes
+
+# ISCSI_INITIATOR_MAX_TARGETS can be overridden in your mk.conf file
+ISCSI_INITIATOR_MAX_TARGETS?=	16
+MESSAGE_SUBST+=		MAX_TARGETS=${ISCSI_INITIATOR_MAX_TARGETS:Q}
+CFLAGS+=	-DCONFIG_INITIATOR_NUM_TARGETS=${ISCSI_INITIATOR_MAX_TARGETS}

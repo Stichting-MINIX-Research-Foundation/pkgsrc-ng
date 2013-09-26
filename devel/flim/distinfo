@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.10 2008/11/26 13:17:15 obache Exp $
+
+SHA1 (flim-1.14.9.tar.gz) = fc3f1ecfa757d83b10693dc74d890a1ad7db7abd
+RMD160 (flim-1.14.9.tar.gz) = d7fb99ffabe477afd958589e8e386b7d4e628822
+Size (flim-1.14.9.tar.gz) = 182065 bytes
+SHA1 (patch-ab) = 3818258269cb432cb95fe02e22ed03f98400e31f
+SHA1 (patch-ac) = 62c3df484e393f798f16200a0970e7d7ea37b308

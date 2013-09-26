@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2010/11/02 19:25:04 drochner Exp $
+
+SHA1 (numexpr-1.4.1.tar.gz) = ad4e3117f1fb2a3a2ca7e785fba1c33abd0da3b7
+RMD160 (numexpr-1.4.1.tar.gz) = fc390e0a0e361f3f01d3c41e179c31f7759a9b28
+Size (numexpr-1.4.1.tar.gz) = 63109 bytes
+SHA1 (patch-aa) = 6bcf00bc0150597e60f03dfe83c508e831fd2c5d
+SHA1 (patch-ab) = 8d7c58654228b9961169bde5c74cc9bd22ed7fa4

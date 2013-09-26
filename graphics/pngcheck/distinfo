@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2011/03/23 10:56:55 adam Exp $
+
+SHA1 (pngcheck-2.3.0.tar.gz) = e7f1535abbf2f809e036a9a43c759eeac5e39350
+RMD160 (pngcheck-2.3.0.tar.gz) = 6a132516eeaf787eefa4d02eaecb06834fe9d2be
+Size (pngcheck-2.3.0.tar.gz) = 59864 bytes

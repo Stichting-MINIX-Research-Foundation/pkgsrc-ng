@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:37:49 joerg Exp $
+bin/roxirc
+share/doc/roxirc/help
+share/examples/roxirc/bindings
+share/examples/roxirc/config
+share/examples/roxirc/menus
+share/examples/roxirc/prefs-initial
+share/examples/roxirc/startup

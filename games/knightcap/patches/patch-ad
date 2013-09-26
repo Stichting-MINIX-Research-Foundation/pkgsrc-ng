@@ -1,0 +1,78 @@
+$NetBSD: patch-ad,v 1.3 2010/10/03 08:53:00 obache Exp $
+
+--- knightcap.h.orig	1998-05-18 02:09:21 +0300
++++ knightcap.h	2009-08-01 07:33:40 +0300
+@@ -92,7 +92,22 @@ typedef short etype;
+ #define USE_PBRAIN 1
+ #endif
+ 
+-#define BRAIN_FILE "brain.dat"
++/*
++ * Support finding brain.dat in another directory (BRAIN_DIR) determined
++ * at compile-time.
++ */
++#ifndef BRAIN_DIR
++#define BRAIN_DIR "./"
++#endif
++#define BRAIN_FILE BRAIN_DIR "brain.dat"
++
++/*
++ * Support finding endgame tables in another direcotry (TB_DIR) determined
++ * at compile-time.
++ */
++#ifndef TB_DIR
++#define TB_DIR "../EGTB"
++#endif
+ 
+ #ifndef RESIGN_VALUE
+ #define RESIGN_VALUE (ROOK_VALUE)
+@@ -296,10 +311,19 @@ typedef short etype;
+ 
+ #define INITIAL_MATERIAL (KING_VALUE + QUEEN_VALUE + 2*ROOK_VALUE + 2*BISHOP_VALUE + 2*KNIGHT_VALUE + 8*PAWN_VALUE)
+ 
++#if defined(__NetBSD__)
++#include <machine/types.h>
++
++typedef int16_t int16;
++typedef u_int16_t uint16;
++typedef u_int32_t uint32;
++typedef u_int64_t uint64;
++#else
+ typedef short int16;
+ typedef unsigned short uint16;
+ typedef unsigned uint32;
+ typedef unsigned long long uint64;
++#endif
+ 
+ typedef enum {B_KING = -6,B_QUEEN = -5,B_ROOK = -4,B_BISHOP = -3,
+ 	      B_KNIGHT = -2,B_PAWN = -1,
+@@ -632,6 +656,11 @@ static inline int imax(int i1, int i2)
+ 	return i1 > i2? i1 : i2;
+ }
+ 
++#if defined(__DragonFly__) || defined(__NetBSD__)
++#include <sys/param.h>
++#endif
++
++#if !(defined(__DragonFly__) && __DragonFly_version >= 200204) && !(defined(__NetBSD__) && (__NetBSD_Version__ >= 599002100 || (__NetBSD_Version__ >= 501000000 && __NetBSD_Version__ < 599000000)))
+ static inline float fmin(float i1, float i2)
+ {
+ 	return i1 > i2? i2 : i1;
+@@ -641,6 +670,7 @@ static inline float fmax(float i1, float
+ {
+ 	return i1 > i2? i1 : i2;
+ }
++#endif
+ 
+ static inline etype emin(etype i1, etype i2)
+ {
+@@ -884,4 +914,8 @@ static inline int pop_count32(uint32 x)
+ 	return pop_count16((x) & 0xFFFF) + pop_count16((x) >> 16);
+ }
+ 
+-
++/*
++ * Make window_size global so that the GL board can be displayed at
++ * correct initial size.  window_size is defined in knightcap.c.
++ */
++extern int window_size;

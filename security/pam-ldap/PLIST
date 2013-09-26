@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.6 2010/11/03 11:39:08 adam Exp $
+lib/security/pam_ldap.la
+man/man5/pam_ldap.5
+share/examples/pam-ldap/ldap.conf
+share/examples/pam-ldap/ldapns.schema
+share/examples/pam-ldap/ns-pwd-policy.schema

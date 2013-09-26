@@ -1,0 +1,12 @@
+$NetBSD: patch-bb,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/frame/fm_get.c.orig	1993-06-29 05:16:10.000000000 +0000
++++ lib/libxview/frame/fm_get.c
+@@ -10,6 +10,7 @@ static char     sccsid[] = "@(#)fm_get.c
+  *	file for terms of the license.
+  */
+ 
++#include <ctype.h>
+ #include <xview_private/fm_impl.h>
+ #include <xview_private/draw_impl.h>
+ #include <xview/server.h>

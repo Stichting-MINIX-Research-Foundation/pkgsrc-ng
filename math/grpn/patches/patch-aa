@@ -1,0 +1,47 @@
+$NetBSD: patch-aa,v 1.5 2011/06/09 17:01:39 drochner Exp $
+
+--- Makefile.orig	2011-05-10 16:58:46.000000000 +0000
++++ Makefile
+@@ -3,10 +3,10 @@
+ # Please read the next few lines and enter the correct values.
+ 
+ # where to install GRPN
+-PREFIX = /usr/local/
++#PREFIX = /usr/local/
+ 
+ # What compiler should be used
+-CC = gcc 
++#CC = gcc 
+ 
+ # NOTE:
+ #
+@@ -15,9 +15,10 @@ CC = gcc 
+ # add -DUSE_GNOME if you want to make grpn GNOME compliant.
+ 
+ 
+-CFLAGS = -g -O2 -I/usr/X11/include  `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
++#CFLAGS = -g -O2 -I/usr/X11/include  `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
++CFLAGS+= `pkg-config --cflags gtk+-2.0` -DGTK_VER_1_1
+ 
+-DFLAGS =  -L/usr/X11/lib 
++#DFLAGS =  -L/usr/X11/lib 
+ 
+ # end of user configurable section
+ 
+@@ -39,12 +40,10 @@ pure:	$(OBJS)
+ 	$(PURIFY) $(CC) $(DFLAGS) -o $@ $(OBJS) $(LIBS) 
+ 
+ install:	grpn
+-	mkdirhier $(PREFIX)/bin
+-	cp grpn $(PREFIX)/bin
+-	chmod 755 $(PREFIX)/bin/grpn
+-	mkdirhier $(PREFIX)/man/man1
+-	cp grpn.1 $(PREFIX)/man/man1
+-	chmod 644 $(PREFIX)/man/man1/grpn.1
++	$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/bin
++	$(BSD_INSTALL_PROGRAM) grpn $(DESTDIR)$(PREFIX)/bin
++	$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(PREFIX)/man/man1
++	$(BSD_INSTALL_DATA) grpn.1 $(DESTDIR)$(PREFIX)/man/man1
+ 
+ .c.o:
+ 	$(CC) -c -o $@ $(CFLAGS) $*.c

@@ -1,0 +1,111 @@
+$NetBSD: patch-ad,v 1.4 2008/08/04 08:04:30 obache Exp $
+
+--- ia64sim.c.orig	2000-02-28 01:20:26.000000000 +0000
++++ ia64sim.c
+@@ -99,7 +99,7 @@ void assign(void) {
+          stop(); /* Clear pending register hazzards */
+       }
+       else {
+-         i1 = strtoll(first+1, &junk, 0);
++         i1 = strtoq(first+1, &junk, 0);
+          if(*junk) {
+             printf("3syntax error\n");
+             return;
+@@ -139,7 +139,7 @@ void assign(void) {
+       }
+    }
+    else {
+-      i1 = strtoll(first, &junk, 0);
++      i1 = strtoq(first, &junk, 0);
+       if(*junk) {
+          printf("6syntax error\n");
+          return;
+@@ -160,7 +160,7 @@ void assign(void) {
+          size2 = sizeof(uint64);
+       }
+       else {
+-         i2 = strtoll(second+1, &junk, 0);
++         i2 = strtoq(second+1, &junk, 0);
+          if(*junk) {
+             printf("7syntax error\n");
+             return;
+@@ -201,7 +201,7 @@ void assign(void) {
+       }
+    }
+    else {
+-      i2 = strtoll(second, &junk, 0);
++      i2 = strtoq(second, &junk, 0);
+       if(*junk) {
+          printf("Asyntax error\n");
+          return;
+@@ -350,7 +350,7 @@ void showmem(void) {
+ 
+    base = strtok(NULL, tokens);
+    if(base) {
+-      temp = strtoll(base, &junk, 0);
++      temp = strtoq(base, &junk, 0);
+       if(*junk) {
+          printf("2syntax error\n");
+          return;
+@@ -459,7 +459,7 @@ void compile(void)  {
+    }
+    if(!second) base = 0;
+    else {
+-   base = strtoll(second, &junk, 0) & ~15;
++   base = strtoq(second, &junk, 0) & ~15;
+    if(*junk) {
+       printf("Invalid base address\n");
+       return;
+@@ -534,7 +534,7 @@ void load(void)  {
+    }
+    if(!second) base = 0;
+    else {
+-   base = strtoll(second, &junk, 0) & ~15;
++   base = strtoq(second, &junk, 0) & ~15;
+    if(*junk) {
+       printf("Invalid base address\n");
+       return;
+@@ -590,13 +590,13 @@ void save(void)  {
+       return;
+    }
+ 
+-   base = strtoll(second, &junk, 0) & ~15;
++   base = strtoq(second, &junk, 0) & ~15;
+    if(*junk) {
+       printf("Invalid base address\n");
+       return;
+    }
+ 
+-   module_size = strtoll(third, &junk, 0) & ~15;
++   module_size = strtoq(third, &junk, 0) & ~15;
+    if(*junk) {
+       printf("Invalid length\n");
+       return;
+@@ -748,7 +748,7 @@ void setbp(void) {
+      printf("Break point address is required\n"); 
+      return;
+    }
+-   break_address = strtoll(first,&junk,0) & ~15;
++   break_address = strtoq(first,&junk,0) & ~15;
+    if(*junk) {
+      printf("Invalid break point address\n");
+      return;
+@@ -779,7 +779,7 @@ int main(int argc, char **argv) {
+ 
+    uint32 i;
+ 
+-   printf("\nIA64 ISA simulator, version 0.4\n");
++   printf("\nIA64 ISA simulator, version 0.5\n");
+    printf("Memory limits: 0x%08x-0x%08x\n", 0, MEMSIZE-1);
+    printf("Try 'h' for help\n\n");
+ 
+@@ -811,6 +811,9 @@ int main(int argc, char **argv) {
+       printf("IA64sim>> ");
+       fgets(cmd,sizeof(cmd),stdin);
+ 
++      if (feof(stdin))
++         return 0;
++
+       nextchar = cmd;
+       while(*nextchar) *nextchar++ = tolower(*nextchar);
+ 

@@ -1,0 +1,13 @@
+$NetBSD: patch-ae,v 1.4 2012/07/02 18:53:03 drochner Exp $
+
+--- guile/src/core.c.orig	2012-04-12 20:05:11.000000000 +0000
++++ guile/src/core.c
+@@ -28,7 +28,7 @@
+ #include <gnutls/openpgp.h>
+ #include <libguile.h>
+ 
+-#include <alloca.h>
++#include <stdlib.h>
+ 
+ #include "enums.h"
+ #include "smobs.h"

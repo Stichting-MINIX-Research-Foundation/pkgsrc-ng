@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:32:26 joerg Exp $
+lib/xmms/Input/libmpc.la

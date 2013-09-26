@@ -1,0 +1,12 @@
+$NetBSD: patch-ab,v 1.10 2010/09/07 19:12:03 adam Exp $
+
+--- src/threads.h.orig	2009-08-30 09:03:26.000000000 +0000
++++ src/threads.h
+@@ -23,6 +23,7 @@
+ #define __THREADS_H__
+ 
+ #include <unistd.h>
++#include <pthread.h>
+ 
+ /* FIXME: mailbox_lock is really an internal libbalsa mutex. */
+ extern pthread_mutex_t mailbox_lock;

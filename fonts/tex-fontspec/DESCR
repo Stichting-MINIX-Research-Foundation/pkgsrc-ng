@@ -1,0 +1,4 @@
+Fontspec is a package for XeLaTeX and LuaLaTeX. It provides an
+automatic and unified interface to feature-rich AAT and
+OpenType fonts through the NFSS in LaTeX running on XeTeX or
+LuaTeX engines.

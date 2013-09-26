@@ -1,0 +1,67 @@
+$NetBSD: patch-aa,v 1.4 2013/04/13 19:06:13 dholland Exp $
+
+- configure for pkgsrc
+- avoid unnecessary gmake syntax
+
+--- src/Makefiles/Makefile.unix.orig	2002-03-26 16:50:55.000000000 +0000
++++ src/Makefiles/Makefile.unix
+@@ -1,24 +1,15 @@
+-CC = gcc
+-LD = gcc 
++#LD = g++
+ NASM = nasm
+ 
+ ### Include and lib stuff ####
+-STDINCLUDE = /usr/include
+-STDLIB     = /usr/lib 
+-SDLINCLUDE = /usr/local/include/SDL
+-SDLLIB	   = /usr/local/lib
+-
+-CFLAGS = -O1 -DUNIX -DTARGET_UNIX -DGCC -DUSES_16BIT_ONLY -D__SDL__ -fomit-frame-pointer -march=pentium \
+-         -mpentium -finline-functions -fexpensive-optimizations -funroll-loops -funroll-all-loops -pipe \
+-         -fschedule-insns2 -fstrength-reduce -malign-double -mfancy-math-387 -ffast-math -fforce-addr \
+-         -fforce-mem `sdl-config --cflags` \
+-         -L$(STDLIB) -L$(SDLLIB) -I$(STDINCLUDE) -I$(SDLINCLUDE)
+ 
+-LDFLAGS = $(CFLAGS)
++CFLAGS += -DUNIX -DTARGET_UNIX -DGCC -DUSES_16BIT_ONLY -D__SDL__
++
++LDFLAGS += `sdl-config --libs`
+ 
+ TARGET = cygne
+ 
+-OBJ = ddrawsdl.o filessdl.o gfx.o nec.o tcache.o memory.o mainsdl.o zlib/unzip.o
++OBJ = ddrawsdl.o filessdl.o gfx.o nec.o tcache.o memory.o mainsdl.o unzip.o
+ 
+ LIBS = `sdl-config --libs` -lz
+ 
+@@ -28,17 +19,22 @@ INCS = -I. `sdl-config --cflags`
+ 
+ THECC = $(CC) $(CFLAGS) $(INCS)
+ 
+-%.o: %.asm
++.SUFFIXES: .asm
++
++.asm.o:
+ 	$(NASM) -f elf -o $@ $<
+ 
+-%.o: %.c
+-	$(THECC) -c $< -o $@
++.c.o:
++	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
++
++.cpp.o:
++	$(CXX) $(CFLAGS) $(INCS) -c $< -o $@
+ 
+-%.o: %.cpp
+-	$(THECC) -c $< -o $@
++unzip.o:
++	$(CC) $(CFLAGS) $(INCS) -c zlib/unzip.c -o $@
+ 
+-cygne: $(OBJ) Makefile
+-	$(LD) $(LDFLAGS) -o $@ $(OBJ) $(LIBS)
++cygne: $(OBJ)
++	$(CXX) $(LDFLAGS) -o $@ $(OBJ) $(LIBS)
+ 	 
+ clean:
+ 	rm -f cygne *.o zlib/*.o

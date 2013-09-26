@@ -1,0 +1,19 @@
+$NetBSD: patch-ad,v 1.2 2012/02/16 17:54:26 hans Exp $
+
+--- lib/rrac.c.orig	2004-08-01 20:02:51.000000000 +0200
++++ lib/rrac.c
+@@ -9,10 +9,12 @@
+ #include <sys/param.h>
+ #include <rapi.h>
+ 
++#ifdef __sun
++#include <sys/sysmacros.h>
++#endif
++
+ #define LETOH16(x)  x = letoh16(x)
+ #define LETOH32(x)  x = letoh32(x)
+-#define HTOLE16(x)  x = htole16(x)
+-#define HTOLE32(x)  x = htole32(x)
+ 
+ #define LE16(p)    letoh16(*(uint16_t*)p)
+ #define LE32(p)    letoh32(*(uint32_t*)p)

@@ -1,0 +1,26 @@
+# $NetBSD: Makefile.common,v 1.26.2.2 2013/08/25 16:56:44 tron Exp $
+# used by lang/php53/Makefile.php
+# used by lang/php/ext.mk
+# used by meta-pkgs/php53-extensions/Makefile
+
+#
+# NOTE:
+# The suhosin option includes a patch from http://www.hardened-php.net/
+# Which tracks with the exact version number of PHP.  There may be a delay
+# in the patch which can leave the option broken until an updated patch
+# is released.  When updating PHP please don't forget to update the
+# distnfo with the details of the suhosin patch as well.
+
+PHP_VERSION_REQD=	53
+PHP_BASE_VERS=		${PHP53_VERSION}
+PHP_CHECK_INSTALLED=	No
+
+.include "../../lang/php/common.mk"
+
+CATEGORIES+=		www
+MAINTAINER?=		pkgsrc-users@NetBSD.org
+
+# needed due to (broken?) configure checks in php-xmlrpc and php5-dom
+CONFIGURE_ENV+=		PHP_LIBXML_SHARED="1"
+
+.include "../../mk/bsd.prefs.mk"

@@ -1,0 +1,22 @@
+$NetBSD: patch-an,v 1.2 2012/09/26 12:55:12 jperkin Exp $
+
+--- configure.orig	Sat Oct 22 10:45:08 2005
++++ configure	Wed Sep 26 12:31:51 2012
+@@ -28454,7 +28454,7 @@
+ done
+ 
+ 
+-for ac_func in getmntinfo
++for ac_func in statvfs getmntinfo
+ do
+ as_ac_var=`echo "ac_cv_func_$ac_func" | $as_tr_sh`
+ echo "$as_me:$LINENO: checking for $ac_func" >&5
+@@ -28804,7 +28804,7 @@
+     i386-*-* | i486-*-* | i586-*-* | i686-*-* | i86pc-*-*)
+         arch_type=ix86
+         case "$host" in
+-            *-*-netbsd* | *-*openbsd*)
++            *-*-netbsd* | *-*openbsd* | *-solaris*)
+             ;;
+             *)
+                 ARCH_DEFINES="-DI386_ASSEM"

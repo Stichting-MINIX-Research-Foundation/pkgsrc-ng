@@ -1,0 +1,18 @@
+$NetBSD: patch-aa,v 1.4 2012/05/10 20:54:54 dholland Exp $
+
+- add missing toplevel makefile
+
+--- /dev/null	Wed Mar 25 14:28:24 1998
++++ Makefile	Wed Mar 25 14:41:41 1998
+@@ -0,0 +1,11 @@
++#
++# simple makefile for uemacs 
++#
++
++all:
++	(cd netbsd; make emacs)
++
++install:	all
++	${BSD_INSTALL_PROGRAM} netbsd/emacs ${DESTDIR}${PREFIX}/bin/uemacs
++	${BSD_INSTALL_DATA} cmd/* ${DESTDIR}${PREFIX}/share/uemacs
++	mv ${DESTDIR}${PREFIX}/share/uemacs/emacs.rc ${DESTDIR}${PREFIX}/share/uemacs/.emacsrc

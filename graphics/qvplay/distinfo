@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.6 2013/03/03 10:53:31 shattered Exp $
+
+SHA1 (qvplay-0.95.tar.gz) = 3b185c456b14da355ca53418276773617a505d0f
+RMD160 (qvplay-0.95.tar.gz) = a4a42e004f7edd2c786f6f5174630945decf3db9
+Size (qvplay-0.95.tar.gz) = 112802 bytes
+SHA1 (patch-aa) = 16bf970bf3cfb4e3d6a62cf733f8c52a713a01c4
+SHA1 (patch-command.c) = 33a957ed06c20d815ba34a1dc0b4469f0076ac45
+SHA1 (patch-qvrec.c) = 7afa5a31c1a9a107c205d7ea58fdcd8740f24478

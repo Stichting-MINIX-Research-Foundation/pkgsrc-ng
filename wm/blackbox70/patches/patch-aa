@@ -1,0 +1,57 @@
+$NetBSD: patch-aa,v 1.2 2011/11/22 20:02:48 joerg Exp $
+
+Sunpro cannot resolve sqrt(int) to either sqrt(double) or
+sqrt(long double).
+
+--- lib/Image.cc.orig	2005-04-08 15:41:09.000000000 +0000
++++ lib/Image.cc
+@@ -44,6 +44,7 @@
+ #include <math.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ 
+ // #define COLORTABLE_DEBUG
+ // #define MITSHM_DEBUG
+@@ -1694,14 +1695,14 @@ void bt::Image::egradient(const Color &f
+     for (y = 0; y < height; ++y) {
+       for (x = 0; x < width; ++x, ++p) {
+         p->red   = static_cast<unsigned char>
+-                   (tr - (rsign * static_cast<int>(sqrt(xt[0][x] +
+-                                                        yt[0][y]))));
++                   (tr - (rsign * static_cast<int>(sqrt(double(xt[0][x] +
++                                                        yt[0][y])))));
+         p->green = static_cast<unsigned char>
+-                   (tg - (gsign * static_cast<int>(sqrt(xt[1][x] +
+-                                                        yt[1][y]))));
++                   (tg - (gsign * static_cast<int>(sqrt(double(xt[1][x] +
++                                                        yt[1][y])))));
+         p->blue  = static_cast<unsigned char>
+-                   (tb - (bsign * static_cast<int>(sqrt(xt[2][x] +
+-                                                        yt[2][y]))));
++                   (tb - (bsign * static_cast<int>(sqrt(double(xt[2][x] +
++                                                        yt[2][y])))));
+       }
+     }
+   } else {
+@@ -1709,14 +1710,14 @@ void bt::Image::egradient(const Color &f
+     for (y = 0; y < height; ++y) {
+       for (x = 0; x < width; ++x, ++p) {
+         p->red   = static_cast<unsigned char>
+-                   (tr - (rsign * static_cast<int>(sqrt(xt[0][x]
+-                                                        + yt[0][y]))));
++                   (tr - (rsign * static_cast<int>(sqrt(double(xt[0][x]
++                                                        + yt[0][y])))));
+         p->green = static_cast<unsigned char>
+-                   (tg - (gsign * static_cast<int>(sqrt(xt[1][x]
+-                                                        + yt[1][y]))));
++                   (tg - (gsign * static_cast<int>(sqrt(double(xt[1][x]
++                                                        + yt[1][y])))));
+         p->blue  = static_cast<unsigned char>
+-                   (tb - (bsign * static_cast<int>(sqrt(xt[2][x]
+-                                                        + yt[2][y]))));
++                   (tb - (bsign * static_cast<int>(sqrt(double(xt[2][x]
++                                                        + yt[2][y])))));
+ 
+         if (y & 1) {
+           p->red   = (p->red   >> 1) + (p->red   >> 2);

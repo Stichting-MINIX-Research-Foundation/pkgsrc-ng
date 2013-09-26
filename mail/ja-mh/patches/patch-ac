@@ -1,0 +1,49 @@
+$NetBSD: patch-ac,v 1.5 2012/09/24 16:12:15 taca Exp $
+
+* Add Dragonfly sport.
+* Care for ELF shared library.
+* Check terminfo for NetBSD 6.0 and later.
+
+--- configure.orig	2001-06-14 16:41:51.000000000 +0000
++++ configure
+@@ -1393,18 +1393,10 @@ case "$host_os" in
+     SOLARIS=`echo "$host_os" | $AWK -F. '{printf "SOLARIS=2%02d%02d",$2,$3}'`
+     SETEUID=`echo "$host_os" | $AWK -F. '$2>=3{printf "SETEUID"}'`
+     ;;
+-  freebsd* | netbsd*)
++  freebsd* | netbsd* | dragonfly*)
+     if test "$use_sharedlib" != no
+     then
+       sharedlib=fbsd
+-      if test -x /usr/bin/objformat
+-      then
+-	if test x`/usr/bin/objformat` = xelf
+-	then
+-	  sharedlib=gnuelf
+-	  make_mhconfig='CFLAGS="-O -DMHSLIB_NOMINVER"'
+-	fi
+-      fi
+       echo __ELF__ | $CC -E - | grep -q __ELF__ || sharedlib=gnuelf
+       slflags="-fpic"
+       slibdir=$libdir
+@@ -3797,6 +3789,12 @@ then
+   fi
+ fi
+ 
++TERMINFO=
++if test -f /usr/share/misc/terminfo.db -o -f /usr/share/misc/terminfo.cdb
++then
++  TERMINFO=TERMINFO
++fi
++
+ if test "$ac_cv_func_lockf" = yes -a x"$BSD44" = x
+ then
+   LOCKF=LOCKF
+@@ -4410,6 +4408,7 @@ s%@mailspool@%$mailspool%g
+ s%@mailgroup@%$mailgroup%g
+ s%@DBMPWD@%$DBMPWD%g
+ s%@SETMG@%$SETMG%g
++s%@TERMINFO@%$TERMINFO%g
+ s%@JAPAN@%$JAPAN%g
+ 
+ CEOF

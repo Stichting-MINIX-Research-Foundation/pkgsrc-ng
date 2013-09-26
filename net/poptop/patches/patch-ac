@@ -1,0 +1,30 @@
+$NetBSD: patch-ac,v 1.6 2012/12/20 21:42:06 joerg Exp $
+
+--- pptpctrl.c.orig	2006-12-08 00:01:40.000000000 +0000
++++ pptpctrl.c
+@@ -32,10 +32,15 @@
+ #include <netinet/in.h>
+ #include <arpa/inet.h>
+ #ifdef HAVE_OPENPTY
++#if defined(__DragonFly__)
++#include <libutil.h>
++#else
++#include <util.h>
++#endif
+ #ifdef HAVE_PTY_H
+ #include <pty.h>
+-#include <termios.h>
+ #endif
++#include <termios.h>
+ #ifdef HAVE_LIBUTIL_H
+ #include <libutil.h>
+ #endif
+@@ -773,7 +778,7 @@ static void launch_pppd(char **pppaddrs,
+ 
+         if (pptp_logwtmp) {
+                  pppd_argv[an++] = "plugin";
+-                 pppd_argv[an++] = "/usr/lib/pptpd/pptpd-logwtmp.so";
++                 pppd_argv[an++] = "@@PREFIX@@/lib/pptpd/pptpd-logwtmp.so";
+                  pppd_argv[an++] = "pptpd-original-ip";
+                  pppd_argv[an++] = inet_ntoa(inetaddrs[1]);
+         }

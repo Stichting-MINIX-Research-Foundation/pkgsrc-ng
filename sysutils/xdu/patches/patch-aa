@@ -1,0 +1,61 @@
+$NetBSD: patch-aa,v 1.6 2013/01/11 23:32:39 joerg Exp $
+
+--- xdu.c.orig	2013-01-11 14:30:40.000000000 +0000
++++ xdu.c
+@@ -19,18 +19,19 @@
+  * limitation a license to do the foregoing actions under any patents of
+  * the party supplying this software to the X Consortium.
+  */
++#include <assert.h>
+ #include <stdio.h>
++#include <string.h>
+ #include "version.h"
+ 
+-extern char *malloc(), *calloc();
+-
+-#define	MAXDEPTH	80	/* max elements in a path */
+-#define	MAXNAME		1024	/* max pathname element length */
++#define	MAXDEPTH	1024	/* max elements in a path */
++#define	MAXNAME		4096	/* max pathname element length */
+ #define	MAXPATH		4096	/* max total pathname length */
+ #define	NCOLS		5	/* default number of columns in display */
+ 
+ /* What we IMPORT from xwin.c */
+-extern int xsetup(), xmainloop(), xdrawrect(), xrepaint();
++extern int xsetup(), xmainloop(), xrepaint();
++void xdrawrect(char *name, int size, int x, int y, int width, int height);
+ 
+ /* What we EXPORT to xwin.c */
+ extern int press(), reset(), repaint(), setorder(), reorder();
+@@ -96,6 +97,10 @@ int size;
+ 	struct	node	*np;
+ 
+ 	np = (struct node *)calloc(1,sizeof(struct node));
++	if (np == NULL) {
++		fprintf(stderr, "Out of memory! (#1)\n");
++		exit(1);
++	}
+ 	np->name = strdup(name);
+ 	np->size = size;
+ 	np->num = nnodes;
+@@ -610,20 +615,6 @@ pwd()
+ 		100.0*topp->size/rootp->size);
+ }
+ 
+-char *
+-strdup(s)
+-char *s;
+-{
+-	int	n;
+-	char	*cp;
+-
+-	n = strlen(s);
+-	cp = malloc(n+1);
+-	strcpy(cp,s);
+-
+-	return	cp;
+-}
+-
+ /**************** External Entry Points ****************/
+ 
+ int

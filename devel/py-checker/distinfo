@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2012/06/03 22:32:59 wiz Exp $
+
+SHA1 (pychecker-0.8.19.tar.gz) = acbc469b4ecde0182e9be42dceeae5375a923ff3
+RMD160 (pychecker-0.8.19.tar.gz) = 7c401f3d2025dec1438c623b161359ef9721d0bf
+Size (pychecker-0.8.19.tar.gz) = 99783 bytes

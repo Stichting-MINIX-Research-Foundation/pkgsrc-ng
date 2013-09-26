@@ -1,0 +1,33 @@
+$NetBSD: patch-ak,v 1.3 2012/07/16 19:12:33 adam Exp $
+
+Don't build kadm5_hook and avoid libtool problem.
+No idea why... copied from previous instance of this package.
+
+--- Makefile.in.orig	2012-05-31 23:49:44.000000000 +0000
++++ Makefile.in
+@@ -9,7 +9,6 @@ mydir=.
+ #	plugins/authdata/greet
+ SUBDIRS=util include lib \
+ 	@sam2_plugin@ \
+-	plugins/kadm5_hook/test \
+ 	plugins/kdb/db2 \
+ 	@ldap_plugin_dir@ \
+ 	plugins/preauth/pkinit \
+@@ -64,7 +63,7 @@ INSTALLMKDIRS = $(KRB5ROOT) $(KRB5MANROO
+ install-strip:
+ 	$(MAKE) install INSTALL_STRIP=-s
+ 
+-install-recurse: install-mkdirs
++install-recurse:
+ 
+ install-mkdirs:
+ 	@for i in $(INSTALLMKDIRS); do \
+@@ -75,7 +74,7 @@ install-headers-mkdirs:
+ 	$(srcdir)/config/mkinstalldirs $(DESTDIR)$(KRB5_INCDIR)
+ 	$(srcdir)/config/mkinstalldirs $(DESTDIR)$(KRB5_INCDIR)/gssapi
+ 	$(srcdir)/config/mkinstalldirs $(DESTDIR)$(KRB5_INCDIR)/gssrpc
+-install-headers-prerecurse: install-headers-mkdirs
++install-headers-prerecurse:
+ 
+ # install::
+ #	$(MAKE) $(MFLAGS) install.man

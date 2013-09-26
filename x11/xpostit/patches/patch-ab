@@ -1,0 +1,20 @@
+$NetBSD: patch-ab,v 1.2 2012/01/20 16:53:00 joerg Exp $
+
+--- xpostit.c.orig	1992-12-10 16:40:27.000000000 +0000
++++ xpostit.c
+@@ -114,14 +114,13 @@ Screen	*screen;		/* pointer to the scree
+ Display	*display;		/* pointer to the display we're on	*/
+ XtAppContext appcontext;	/* application context			*/
+ 
+-void
++int
+ main(argc, argv)
+ char **argv;
+ int argc;
+ {
+ 	Arg args[4];
+ 	char *appname;
+-	char *rindex();
+ 	Atom protos[2];
+ 	register int nargs;
+ 	Boolean setsigs = False;

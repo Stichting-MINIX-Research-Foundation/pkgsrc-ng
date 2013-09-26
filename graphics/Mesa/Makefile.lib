@@ -1,0 +1,44 @@
+# $NetBSD: Makefile.lib,v 1.15 2013/05/16 05:04:56 richard Exp $
+#
+# This Makefile fragment is included by all packages that build libraries
+# from the Mesa sources.
+#
+# used by graphics/glu/Makefile
+# used by graphics/glut/Makefile
+# used by graphics/MesaDemos/Makefile
+# used by graphics/MesaLib/Makefile
+
+.include "../../graphics/Mesa/Makefile.common"
+
+DISTFILES+=	MesaLib-${MESA_VERSION}${EXTRACT_SUFX}
+DISTFILES+=	MesaGLUT-${MESA_VERSION}${EXTRACT_SUFX}
+#DISTFILES+=	MesaDemos-${MESA_VERSION}${EXTRACT_SUFX}
+
+PKG_INSTALLATION_TYPES=	overwrite pkgviews
+
+GNU_CONFIGURE=		yes
+USE_LANGUAGES=		c99 c++
+USE_TOOLS+=		automake bison flex gmake pkg-config makedepend
+
+PYTHON_FOR_BUILD_ONLY=  yes
+.include "../../lang/python/tool.mk"
+BUILDLINK_DEPMETHOD.libxml2?=   build
+.include "../../textproc/libxml2/buildlink3.mk"
+
+PATCHDIR=		${.CURDIR}/../MesaLib/patches
+DISTINFO_FILE=		${.CURDIR}/../MesaLib/distinfo
+
+MAKE_ENV+=		MAKE=${GMAKE:Q}
+
+CONFIGURE_ARGS+=        --with-gallium-drivers=""
+CONFIGURE_ARGS+=        --disable-gallium-llvm
+CONFIGURE_ARGS+=        --disable-egl
+
+.include "../../mk/compiler.mk"
+
+.if !empty(PKGSRC_COMPILER:Mccc)
+CFLAGS+=	-D__FUNCTION__=__FILE__
+.endif
+
+pre-configure:
+	cd ${WRKSRC} && ${MAKE} configure

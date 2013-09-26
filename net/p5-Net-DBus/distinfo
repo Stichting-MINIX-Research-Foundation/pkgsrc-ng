@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/02/14 12:53:06 sno Exp $
+
+SHA1 (Net-DBus-1.0.0.tar.gz) = 87afae86669f0a7963d7b5542afbd0ac767bc7ab
+RMD160 (Net-DBus-1.0.0.tar.gz) = f2fe3de8bd5b3db3a460655108e8283384b2296a
+Size (Net-DBus-1.0.0.tar.gz) = 100667 bytes

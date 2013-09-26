@@ -1,0 +1,24 @@
+$NetBSD: patch-CMakeLists.txt,v 1.2 2013/04/03 10:52:21 markd Exp $
+
+Retain the python version number in sip install directory
+
+--- CMakeLists.txt.orig	2013-03-01 06:38:30.000000000 +0000
++++ CMakeLists.txt
+@@ -20,6 +20,8 @@ option(PYKDEUIC4_ALTINSTALL "Enable para
+ 
+ set(CMAKE_MODULE_PATH ${pykde4_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
+ 
++add_definitions(${KDE4_ENABLE_EXCEPTIONS})
++
+ find_package(PythonLibrary)
+ 
+ set_package_properties(KDE4 PROPERTIES DESCRIPTION "The KDE libraries"
+@@ -241,7 +243,7 @@ endforeach (_X ${SIP_DISABLE_FEATURES})
+ 
+ get_filename_component(LIB_DIR ${KDE4_LIB_DIR} NAME)
+ 
+-set (SIP_FILES_INSTALL_DIR ${SHARE_INSTALL_PREFIX}/sip)
++set (SIP_FILES_INSTALL_DIR ${SIP_DEFAULT_SIP_DIR})
+ 
+ set(SIP_CONFIGURATION "
+ kde_version_parts = '${KDE_VERSION}'.split('.')

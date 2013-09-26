@@ -1,0 +1,16 @@
+$NetBSD: patch-ap,v 1.2 2009/10/11 09:14:52 adam Exp $
+
+--- config.tests/unix/iconv/iconv.cpp.orig	2009-09-29 13:01:31.000000000 +0200
++++ config.tests/unix/iconv/iconv.cpp
+@@ -48,7 +48,11 @@ int main(int, char **)
+ {
+     iconv_t x = iconv_open("", "");
+ 
++#if defined(__NetBSD__)
++    const char *inp;
++#else
+     char *inp;
++#endif
+     char *outp;
+     size_t inbytes, outbytes;
+     iconv(x, &inp, &inbytes, &outp, &outbytes);

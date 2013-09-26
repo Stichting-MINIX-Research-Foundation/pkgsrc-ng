@@ -1,0 +1,34 @@
+$NetBSD: patch-aa,v 1.20 2008/11/06 15:27:00 tron Exp $
+
+--- Makefile.orig	2008-06-04 19:43:35.000000000 +0100
++++ Makefile	2008-11-06 11:43:50.000000000 +0000
+@@ -577,9 +577,6 @@
+ 	@echo + In order to rectify this problem, you MUST build with:
+ 	@echo ++ SSLTYPE=$(SSLTYPE).nopwd
+ 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-	@echo
+-	@echo Do you want to continue this build anyway?  Type y or n please:
+-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nounenc;exit 1);; esac'
+ 
+ nounenc:
+ 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ -600,9 +597,6 @@
+ 	@echo ++ SSLTYPE=nopwd
+ 	@echo + You must also have OpenSSL or equivalent installed.
+ 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-	@echo
+-	@echo Do you want to continue this build anyway?  Type y or n please:
+-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make nonossl;exit 1);; esac'
+ 
+ nonossl:
+ 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+@@ -636,9 +630,6 @@
+ 	@echo + cancelled and you must rebuild.  If you did not specify IPv6
+ 	@echo + yourself, try adding IP6=4 to the make command line.
+ 	@echo +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-	@echo
+-	@echo Do you want to build with IPv6 anyway?  Type y or n please:
+-	@$(SH) -c 'read x; case "$$x" in y) exit 0;; *) (make noip6;exit 1);; esac'
+ 	@echo OK, I will remember that you really want to build with IPv6.
+ 	@echo You will not see this message again.
+ 	@$(TOUCH) ip6

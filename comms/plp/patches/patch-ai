@@ -1,0 +1,32 @@
+$NetBSD: patch-ai,v 1.3 2011/12/19 13:44:07 wiz Exp $
+
+--- utils/ppsocket.cc.orig	1999-04-12 21:17:08.000000000 +0000
++++ utils/ppsocket.cc
+@@ -24,7 +24,8 @@
+ #include <string.h>
+ #include <stdlib.h>
+ #include <stdarg.h>
+-#include <iostream.h>
++#include <iostream>
++using namespace std;
+ #include <fcntl.h>
+ #include <unistd.h>
+ #include <sys/time.h>
+@@ -198,7 +199,7 @@ bool ppsocket::listen(char* Host, int Po
+ 
+ ppsocket* ppsocket::accept(char* Peer, int MaxLen)
+ { 
+-  int len;
++  unsigned int len;
+   ppsocket* accepted;
+   char* peer;
+ 
+@@ -421,7 +422,7 @@ bool ppsocket::sputc(char c)
+ { 
+   int i;
+ 
+-  cout << hex << (int)c << endl;
++  cout << std::hex << (int)c << endl;
+   
+   i = writeTimeout(&c, 1, 0);
+     

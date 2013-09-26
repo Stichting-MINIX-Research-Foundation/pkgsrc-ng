@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2012/02/17 18:32:57 drochner Exp $
+
+SHA1 (Pyro4-4.12.tar.gz) = f24d9a72acadbd9c7a88d95da4384872759af0c9
+RMD160 (Pyro4-4.12.tar.gz) = c7aa27de1df635d192a6c96ed7d89140c9ae9a8e
+Size (Pyro4-4.12.tar.gz) = 264398 bytes
+SHA1 (patch-ab) = 6f0e0a83926e3a849a2021999eada2207387e660

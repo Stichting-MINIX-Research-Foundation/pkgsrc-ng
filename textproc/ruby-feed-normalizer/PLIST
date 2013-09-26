@@ -1,0 +1,21 @@
+@comment $NetBSD: PLIST,v 1.4 2010/09/10 08:09:41 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/History.txt
+${GEM_LIBDIR}/License.txt
+${GEM_LIBDIR}/Manifest.txt
+${GEM_LIBDIR}/README.txt
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/lib/feed-normalizer.rb
+${GEM_LIBDIR}/lib/html-cleaner.rb
+${GEM_LIBDIR}/lib/parsers/rss.rb
+${GEM_LIBDIR}/lib/parsers/simple-rss.rb
+${GEM_LIBDIR}/lib/structures.rb
+${GEM_LIBDIR}/test/data/atom03.xml
+${GEM_LIBDIR}/test/data/atom10.xml
+${GEM_LIBDIR}/test/data/rdf10.xml
+${GEM_LIBDIR}/test/data/rss20.xml
+${GEM_LIBDIR}/test/data/rss20diff.xml
+${GEM_LIBDIR}/test/data/rss20diff_short.xml
+${GEM_LIBDIR}/test/test_feednormalizer.rb
+${GEM_LIBDIR}/test/test_htmlcleaner.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

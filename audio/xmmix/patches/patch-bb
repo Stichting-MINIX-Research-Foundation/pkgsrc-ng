@@ -1,0 +1,43 @@
+$NetBSD: patch-bb,v 1.3 2011/09/04 22:25:36 dholland Exp $
+
+- initialize errfp (but why twice?)
+- fix void main
+- pass the XtAppContext to widget.c, which now needs it
+
+--- main.c.orig	1996-11-07 16:01:43.000000000 +0000
++++ main.c
+@@ -33,7 +33,7 @@ static char *_main_c_ident_ = "@(#)main.
+ bool_t			exit_flag;	/* Flag indicating end of application */
+ appdata_t		app_data;	/* Options data */
+ widgets_t		widgets;	/* Holder of all widgets */
+-FILE			*errfp = stderr;/* Error message stream */
++FILE			*errfp;/* Error message stream */
+ 
+ 
+ /***********************
+@@ -95,7 +95,7 @@ usage(int argc, char **argv)
+  * main
+  *	The main function
+  */
+-void
++int
+ main(int argc, char **argv)
+ {
+ 	XtAppContext	app;
+@@ -103,6 +103,7 @@ main(int argc, char **argv)
+ 
+ 	/* Initialize variables */
+ 	exit_flag = FALSE;
++	errfp = stderr;
+ 
+ 	/* Handle some signals */
+ 	signal(SIGINT, onsig);
+@@ -159,7 +160,7 @@ main(int argc, char **argv)
+ 	post_realize_config(&widgets);
+ 
+ 	/* Register callback routines */
+-	register_callbacks(&widgets);
++	register_callbacks(&widgets, app);
+ 
+ 	/* Initialize screen controls */
+ 	mx_start(&widgets);

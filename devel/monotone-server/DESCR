@@ -1,0 +1,13 @@
+Monotone is a free distributed version control system.  It provides a
+simple, single-file transactional version store, with fully disconnected
+operation and an efficient peer-to-peer synchronization protocol.  It
+understands history-sensitive merging, lightweight branches, integrated
+code review and 3rd party testing.  It uses cryptographic version naming
+and client-side RSA certificates.  It has good internationalization
+support, has no external dependencies, runs on NetBSD, Linux, Solaris,
+OSX and Windows (among others), and is licensed under the GNU GPL.
+
+This package provides the necessary stuff to configure a dedicated Monotone
+server.  The package will create a dedicated user/group account to run the
+server, will install a set of configuration files and will guide you, through
+an rc.d script, to initialize the database and populate it.

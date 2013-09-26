@@ -1,0 +1,58 @@
+$NetBSD: patch-an,v 1.6 2012/06/23 22:27:11 dholland Exp $
+
+- use standard headers
+- ...?
+
+--- main.c.orig	1991-11-19 04:00:47.000000000 +0000
++++ main.c
+@@ -25,7 +25,7 @@
+ #include <sys/param.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+-#if !defined(mips) || defined(ultrix)
++#if !defined(mips) || defined(ultrix) || (defined(BSD) && BSD >= 199306) || defined(__sgi)
+ #include <netdb.h>
+ #else
+ #ifdef SYSTYPE_BSD43
+@@ -36,6 +36,11 @@
+ #endif
+ #include <ctype.h>
+ 
++#include <string.h>
++
++/* for calloc(), malloc(), realloc() */
++#include <stdlib.h>
++
+ #ifdef DNSLOOKUP
+ #include <sys/socket.h>
+ #endif /*DNSLOOKUP*/
+@@ -63,6 +68,7 @@ char *resources[] = {      /* Faces X re
+   "period",                /* Integer: period in seconds between checks. */
+   "bell",                  /* Integer: number of beeps for new arrival. */
+   "flash",                 /* Integer: number of flashes for new arrival. */
++  "borderWidth",           /* Integer: border width of window. */
+   "lower",                 /* Boolean: lower window if no mail. */
+   "raise",                 /* Boolean: raise window on update? */
+   "button1clear",          /* Boolean: mouse button 1 clear window? */
+@@ -150,6 +156,7 @@ int dontshowuser = 0 ;  /* Set if userna
+ int facetype ;          /* Type of face file found. */
+ int firsttime = 1 ;     /* Zeroised after first mail/printer check. */
+ int flashes = 0 ;       /* Number of flashes for arrival of new mail. */
++int border_width = 2 ;	/* Border width of window. */
+ int fromc_found = 0 ;   /* Set if "From:" line found during processing. */
+ int froms_found = 0 ;   /* Set if "From " line found during processing. */
+ int height ;            /* Height in pixels of faces display. */
+@@ -743,9 +750,10 @@ read_resources()            /* Read all 
+   if (get_str_resource(R_FONT,      str))      read_str(&fontname,      str) ;
+   if (get_str_resource(R_BGICON,    str))      read_str(&bgicon,        str) ;
+ 
+-  if (get_int_resource(R_PERIOD,    &intval))  period       = intval ;
+-  if (get_int_resource(R_BELL,      &intval))  beeps        = intval ;
+-  if (get_int_resource(R_FLASH,     &intval))  flashes      = intval ;
++  if (get_int_resource(R_PERIOD,     &intval)) period       = intval ;
++  if (get_int_resource(R_BELL,       &intval)) beeps        = intval ;
++  if (get_int_resource(R_FLASH,      &intval)) flashes      = intval ;
++  if (get_int_resource(R_BORDERWIDTH,&intval)) border_width = intval ;
+ 
+   if (get_bool_resource(R_LOWER,    &boolval)) lowerwindow  = boolval ;
+   if (get_bool_resource(R_RAISE,    &boolval)) raisewindow  = boolval ;

@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.9 2013/05/09 15:07:59 joerg Exp $
+
+SHA1 (mecab-0.996.tar.gz) = 15baca0983a61c1a49cffd4a919463a0a39ef127
+RMD160 (mecab-0.996.tar.gz) = a06fa0c0eb44eef8c45171b769b43c655971ac4a
+Size (mecab-0.996.tar.gz) = 1398663 bytes
+SHA1 (patch-aa) = 063e3eea0530c0ea66761f8357fc1c4de4ab31fd
+SHA1 (patch-ab) = 801df711f04aff5ea1ef1280f7642b36733df8ec

@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 18:05:41 joerg Exp $
+bin/aribas
+man/man1/aribas.1
+share/doc/aribas/aribas.doc
+share/doc/aribas/aribas.man
+share/doc/aribas/aribas.tut
+share/emacs/site-lisp/aribas.el
+share/examples/aribas/README
+share/examples/aribas/factor.ari
+share/examples/aribas/pi.ari
+share/examples/aribas/queens.ari

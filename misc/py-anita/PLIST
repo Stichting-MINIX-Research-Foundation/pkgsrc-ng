@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2012/04/08 20:21:52 wiz Exp $
+bin/anita
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/anita.py
+${PYSITELIB}/anita.pyc
+${PYSITELIB}/anita.pyo
+man/man1/anita.1

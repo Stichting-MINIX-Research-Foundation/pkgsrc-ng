@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2012/09/13 22:29:10 asau Exp $
+
+SHA1 (teapot-2.3.0.tar.gz) = cac70c7967ba72166cdbd1806b674cd8299399e7
+RMD160 (teapot-2.3.0.tar.gz) = 5848a39bfcd4ebc942ed3f5f354ecb367b068dab
+Size (teapot-2.3.0.tar.gz) = 113647 bytes
+SHA1 (patch-CMakeLists.txt) = ac06834092bfc397f7c1c323c7a6990d0d03f9a4

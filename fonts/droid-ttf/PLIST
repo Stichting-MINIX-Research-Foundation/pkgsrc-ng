@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.3 2011/11/17 19:16:08 ryoon Exp $
+lib/X11/fonts/TTF/DroidKufi-Bold.ttf
+lib/X11/fonts/TTF/DroidKufi-Regular.ttf
+lib/X11/fonts/TTF/DroidNaskh-Bold.ttf
+lib/X11/fonts/TTF/DroidNaskh-Regular.ttf
+lib/X11/fonts/TTF/DroidSans-Bold.ttf
+lib/X11/fonts/TTF/DroidSans.ttf
+lib/X11/fonts/TTF/DroidSansArmenian.ttf
+lib/X11/fonts/TTF/DroidSansEthiopic-Bold.ttf
+lib/X11/fonts/TTF/DroidSansEthiopic-Regular.ttf
+lib/X11/fonts/TTF/DroidSansFallback.ttf
+lib/X11/fonts/TTF/DroidSansFallbackFull.ttf
+lib/X11/fonts/TTF/DroidSansFallbackLegacy.ttf
+lib/X11/fonts/TTF/DroidSansGeorgian.ttf
+lib/X11/fonts/TTF/DroidSansHebrew-Bold.ttf
+lib/X11/fonts/TTF/DroidSansHebrew-Regular.ttf
+lib/X11/fonts/TTF/DroidSansJapanese.ttf
+lib/X11/fonts/TTF/DroidSansMono.ttf
+lib/X11/fonts/TTF/DroidSansThai.ttf
+lib/X11/fonts/TTF/DroidSerif-Bold.ttf
+lib/X11/fonts/TTF/DroidSerif-BoldItalic.ttf
+lib/X11/fonts/TTF/DroidSerif-Italic.ttf
+lib/X11/fonts/TTF/DroidSerif-Regular.ttf
+share/doc/droid-ttf/NOTICE

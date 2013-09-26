@@ -1,0 +1,14 @@
+$NetBSD: patch-ac,v 1.12 2013/03/17 00:15:29 gdt Exp $
+
+--- agent/mibgroup/if-mib/data_access/interface.h.orig	2012-10-09 22:28:58.000000000 +0000
++++ agent/mibgroup/if-mib/data_access/interface.h
+@@ -38,7 +38,8 @@ config_exclude(mibII/interfaces)
+ 
+ #   elif defined( openbsd3 ) || \
+          defined( freebsd4 ) || defined( freebsd5 ) || defined( freebsd6 ) || \
+-         defined( darwin )   || defined( dragonfly ) || defined( netbsd1 )
++         defined( darwin )   || defined( dragonfly ) || defined( netbsd1 ) || \
++         defined(netbsd) || defined(netbsdelf) || defined(netbsdelf2) || defined(netbsdelf3)
+ 
+     config_require(if-mib/data_access/interface_sysctl)
+ 

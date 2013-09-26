@@ -1,0 +1,33 @@
+$NetBSD: patch-ad,v 1.4 2012/04/16 03:50:38 dholland Exp $
+
+- use standard headers
+- don't declare own errno
+
+--- util.c.orig	2012-04-16 03:53:49.000000000 +0000
++++ util.c
+@@ -1,4 +1,7 @@
+ #include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <errno.h>
+ #ifdef SDBM
+ #include "sdbm.h"
+ #else
+@@ -10,15 +13,13 @@ oops(s1, s2)
+ register char *s1;
+ register char *s2;
+ {
+-	extern int errno, sys_nerr;
+-	extern char *sys_errlist[];
+ 	extern char *progname;
+ 
+ 	if (progname)
+ 		fprintf(stderr, "%s: ", progname);
+ 	fprintf(stderr, s1, s2);
+-	if (errno > 0 && errno < sys_nerr)
+-		fprintf(stderr, " (%s)", sys_errlist[errno]);
++	if (errno > 0)
++		fprintf(stderr, " (%s)", strerror(errno));
+ 	fprintf(stderr, "\n");
+ 	exit(1);
+ }

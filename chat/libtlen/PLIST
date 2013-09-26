@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:37:47 joerg Exp $
+include/libtlen/asciitab.h
+include/libtlen/hashtable.h
+include/libtlen/iasciitab.h
+include/libtlen/latin1tab.h
+include/libtlen/libtlen.h
+include/libtlen/nametab.h
+include/libtlen/pool.h
+include/libtlen/str.h
+include/libtlen/utf8tab.h
+include/libtlen/xmldef.h
+include/libtlen/xmlparse.h
+include/libtlen/xmlrole.h
+include/libtlen/xmltok.h
+include/libtlen/xmltok_impl.h
+lib/libtlen.la

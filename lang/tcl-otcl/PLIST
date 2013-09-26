@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 20:34:16 joerg Exp $
+bin/otclsh
+bin/owish
+include/otcl.h
+lib/libotcl.la
+share/doc/tcl/otcl/CHANGES.html
+share/doc/tcl/otcl/autoload.html
+share/doc/tcl/otcl/capi.html
+share/doc/tcl/otcl/class.html
+share/doc/tcl/otcl/object.html
+share/doc/tcl/otcl/tutorial.html
+share/doc/tcl/otcl/otcl-paper.ps.gz

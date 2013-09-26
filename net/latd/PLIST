@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:09:32 joerg Exp $
+bin/llogin
+man/man1/llogin.1
+man/man5/latd.conf.5
+man/man8/latcp.8
+man/man8/latd.8
+man/man8/moprc.8
+sbin/latcp
+sbin/latd
+sbin/moprc
+share/examples/latd/latd.conf

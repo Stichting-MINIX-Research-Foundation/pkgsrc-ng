@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2003/03/03 03:23:24 jschauma Exp $
+bin/polclock
+${IMAKE_MAN_DIR}/polclock.${IMAKE_MANNEWSUFFIX}

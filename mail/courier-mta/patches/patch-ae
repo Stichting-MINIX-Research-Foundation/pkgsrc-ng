@@ -1,0 +1,15 @@
+$NetBSD: patch-ae,v 1.3 2012/06/09 11:45:38 adam Exp $
+
+--- courier/filters/filterctl.in.orig	2004-01-31 23:46:27.000000000 -0500
++++ courier/filters/filterctl.in
+@@ -10,8 +10,9 @@ libexecdir="@libexecdir@"
+ sysconfdir="@sysconfdir@"
+ localstatedir="@localstatedir@"
+ piddir="@piddir@"
++pkglibexecdir="@libexecdir@/courier"
+ 
+-filterbindir="${libexecdir}/filters"
++filterbindir="${pkglibexecdir}/filters"
+ filteractivedir="${sysconfdir}/filters/active"
+ pidfile="${piddir}/courierfilter.pid"
+ 

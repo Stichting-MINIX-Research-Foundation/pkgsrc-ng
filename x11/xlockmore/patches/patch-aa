@@ -1,0 +1,17 @@
+$NetBSD: patch-aa,v 1.6 2008/10/06 22:40:12 hubertf Exp $
+
+--- xlock/XLock.ad.orig	2008-10-05 02:51:17.000000000 +0200
++++ xlock/XLock.ad
+@@ -62,9 +62,9 @@ XLock.left3d: Red
+ XLock.both3d: Magenta
+ 
+ ! For marquee & nose modes
+-!XLock.program: fortune -o
+-XLock.program: fortune -s
+-!XLock.program: fortune
++!XLock.program:  /usr/games/fortune -o
++XLock.program:  /usr/games/fortune -s
++!XLock.program:  /usr/games/fortune
+ !XLock.program: /usr/games/fortune -o
+ !XLock.program: /usr/games/fortune -s
+ !XLock.program: /usr/games/fortune

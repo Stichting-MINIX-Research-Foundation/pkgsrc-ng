@@ -1,0 +1,56 @@
+$NetBSD: patch-tools_Makefile.shared,v 1.1 2012/10/08 15:05:33 jaapb Exp $
+
+Use BSD_INSTALL_* instead of mkdir and cp
+--- tools/Makefile.shared.orig	2012-05-31 12:41:49.000000000 +0000
++++ tools/Makefile.shared
+@@ -53,9 +53,9 @@ clean::
+ 	rm -f ocamldep.opt
+ 
+ install::
+-	cp ocamldep $(BINDIR)/ocamldep$(EXE)
++	$(BSD_INSTALL_SCRIPT) ocamldep $(BINDIR)/ocamldep$(EXE)
+ 	if test -f ocamldep.opt; \
+-	  then cp ocamldep.opt $(BINDIR)/ocamldep.opt$(EXE); else :; fi
++	  then $(BSD_INSTALL_PROGRAM) ocamldep.opt $(BINDIR)/ocamldep.opt$(EXE); else :; fi
+ 
+ # The profiler
+ 
+@@ -77,13 +77,13 @@ ocamloptp: ocamloptp.cmo
+ opt:: profiling.cmx
+ 
+ install::
+-	cp ocamlprof $(BINDIR)/ocamlprof$(EXE)
+-	cp ocamlcp $(BINDIR)/ocamlcp$(EXE)
+-	cp ocamloptp $(BINDIR)/ocamloptp$(EXE)
+-	cp profiling.cmi profiling.cmo $(LIBDIR)
++	$(BSD_INSTALL_SCRIPT) ocamlprof $(BINDIR)/ocamlprof$(EXE)
++	$(BSD_INSTALL_SCRIPT) ocamlcp $(BINDIR)/ocamlcp$(EXE)
++	$(BSD_INSTALL_SCRIPT) ocamloptp $(BINDIR)/ocamloptp$(EXE)
++	$(BSD_INSTALL_DATA) profiling.cmi profiling.cmo $(LIBDIR)
+ 
+ installopt::
+-	cp profiling.cmx profiling.o $(LIBDIR)
++	$(BSD_INSTALL_DATA) profiling.cmx profiling.o $(LIBDIR)
+ 
+ clean::
+ 	rm -f ocamlprof ocamlcp ocamloptp
+@@ -104,7 +104,7 @@ myocamlbuild_config.ml: ../config/Makefi
+ 	cp ../myocamlbuild_config.ml .
+ 
+ install::
+-	cp ocamlmklib $(BINDIR)/ocamlmklib$(EXE)
++	$(BSD_INSTALL_SCRIPT) ocamlmklib $(BINDIR)/ocamlmklib$(EXE)
+ 
+ clean::
+ 	rm -f ocamlmklib
+@@ -280,8 +280,8 @@ objinfo: objinfo_helper$(EXE) $(OBJINFO)
+ 	$(CAMLC) -o objinfo $(OBJINFO)
+ 
+ install::
+-	cp objinfo $(BINDIR)/ocamlobjinfo$(EXE)
+-	cp objinfo_helper$(EXE) $(LIBDIR)/objinfo_helper$(EXE)
++	$(BSD_INSTALL_SCRIPT) objinfo $(BINDIR)/ocamlobjinfo$(EXE)
++	$(BSD_INSTALL_SCRIPT) objinfo_helper$(EXE) $(LIBDIR)/objinfo_helper$(EXE)
+ 
+ clean::
+ 	rm -f objinfo objinfo_helper$(EXE)

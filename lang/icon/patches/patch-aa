@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.8 2009/02/08 12:51:04 asau Exp $
+
+--- config/setup.sh.orig
++++ config/setup.sh
+@@ -12,7 +12,7 @@
+ 
+ # check parameters
+ case "$GPX" in
+-   Graphics)	XL='-L../../bin -lIgpx $(XLIBS)';;
++   Graphics)	XL='-L../../lib/icon -lIgpx $(XLIBS)';;
+    NoGraphics)	XL= ;;
+    *)		echo "$USAGE" 1>&2; exit 1;;
+ esac

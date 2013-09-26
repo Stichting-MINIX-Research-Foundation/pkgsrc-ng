@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.5 2010/06/02 12:43:37 adam Exp $
+
+SHA1 (vanessa_socket-0.0.10.tar.bz2) = e2b87e0062e5897f2c35651595a3ab54623ce5b6
+RMD160 (vanessa_socket-0.0.10.tar.bz2) = 2b922a50af32b9ea459f94a1288a73971ee8beee
+Size (vanessa_socket-0.0.10.tar.bz2) = 252953 bytes
+SHA1 (patch-aa) = 04186ec604d570f23984885f5dda5697db4dc4d8
+SHA1 (patch-ab) = f273ade17cea1a2949edec494a96eb175287c308

@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.8 2009/06/14 18:17:23 joerg Exp $
+info/ndtpd-ja.info
+info/ndtpd.info
+libexec/ndtpstat
+share/examples/ndtpd/ndtpd.conf.default
+sbin/ndtpd
+sbin/ndtpcheck
+sbin/ndtpcontrol
+sbin/ndtpdaily
+sbin/ndtpupgrade
+share/examples/rc.d/ndtpd

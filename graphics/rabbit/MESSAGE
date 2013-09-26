@@ -1,0 +1,9 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.7 2013/01/26 11:07:29 obache Exp $
+You can install the following packages for feature improvement.
+	www/mimetex:			for writing TeX in RD
+	print/ghostscript:		for reading EPS
+	graphics/py-aafigure		for writing ASCII art
+	graphics/py-blockdiag		for writing Block Diagram
+	chat/ruby-net-irc		for using rabbirc tool
+===========================================================================

@@ -1,0 +1,31 @@
+$NetBSD: patch-aa,v 1.8 2011/12/16 10:58:14 drochner Exp $
+
+--- configure.orig	2011-11-13 22:58:22.000000000 +0000
++++ configure
+@@ -5567,7 +5567,7 @@ $as_echo "$EXZ" >&6; }
+ 
+ LIBXZ_LDADD=
+ LIBXZ_CFLAGS=
+-if test "X$EXZ" == "Xyes"; then
++if test "X$EXZ" = "Xyes"; then
+ 	have_liblzma=no
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+@@ -5714,7 +5714,7 @@ fi
+ $as_echo "$FASTTREE" >&6; }
+ 
+ FASTTREE_CFLAGS=
+-if test "X$FASTTREE" == "Xno"; then
++if test "X$FASTTREE" = "Xno"; then
+ 	FASTTREE_CFLAGS='-DWAVE_DISABLE_FAST_TREE'
+ fi
+ 
+@@ -5741,7 +5741,7 @@ $as_echo "$EJUDY" >&6; }
+ 
+ LIBJUDY_LDADD=
+ LIBJUDY_CFLAGS=
+-if test "X$EJUDY" == "Xyes"; then
++if test "X$EJUDY" = "Xyes"; then
+ 	have_libjudy=no
+ 	cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */

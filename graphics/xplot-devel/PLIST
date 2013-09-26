@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:59:32 joerg Exp $
+bin/tcpdump2xplot
+bin/xplot
+man/man1/tcpdump2xplot.1
+man/man1/xplot.1
+share/doc/xplot/ANNOUNCE
+share/doc/xplot/README
+share/doc/xplot/README.tcp_plots
+share/doc/xplot/demo.0
+share/doc/xplot/demo.1
+share/doc/xplot/demo.2
+share/doc/xplot/demo.3
+share/doc/xplot/demo.4
+share/doc/xplot/demo.5
+share/doc/xplot/demo.6
+share/doc/xplot/demo.7

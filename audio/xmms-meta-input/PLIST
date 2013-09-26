@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:32:26 joerg Exp $
+lib/xmms/Input/libmetainput.la
+share/doc/xmms-input/README
+share/examples/xmms-meta-input/dsp_input
+share/examples/xmms-meta-input/esound_link
+share/examples/xmms-meta-input/midi
+share/examples/xmms-meta-input/modules
+share/examples/xmms-meta-input/mp3
+share/examples/xmms-meta-input/spc
+share/examples/xmms-meta-input/vorbis

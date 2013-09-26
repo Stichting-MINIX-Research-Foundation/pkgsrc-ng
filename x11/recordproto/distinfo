@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2012/06/03 19:49:38 wiz Exp $
+
+SHA1 (recordproto-1.14.2.tar.bz2) = 1f48c4b0004d8b133efd0498e8d88d68d3b9199c
+RMD160 (recordproto-1.14.2.tar.bz2) = 7cf5ab53e3c06fcb917d67fdbfe235be5b019b23
+Size (recordproto-1.14.2.tar.bz2) = 123033 bytes

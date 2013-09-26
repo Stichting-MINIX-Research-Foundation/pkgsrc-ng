@@ -1,0 +1,40 @@
+# $NetBSD: Makefile.common,v 1.10 2012/10/31 11:16:53 asau Exp $
+# used by devel/distcc-pump/Makefile
+# used by devel/distccmon-gnome/Makefile
+# used by devel/distccmon-gtk/Makefile
+
+DISTCC_VERSION=		3.1
+
+DISTNAME=		distcc-${DISTCC_VERSION}
+CATEGORIES=		devel
+MASTER_SITES=		http://distcc.googlecode.com/files/
+EXTRACT_SUFX=		.tar.bz2
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://distcc.org/
+
+DISTINFO_FILE=		${.CURDIR}/../../devel/distcc/distinfo
+PATCHDIR=		${.CURDIR}/../../devel/distcc/patches
+
+USE_TOOLS+=		gmake
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-Werror
+CONFIGURE_ARGS+=	--enable-rfc2553
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+#CONFIGURE_ENV+=	ac_cv_path_PYTHON=/dev/null
+
+CHECK_PORTABILITY_SKIP+=	contrib/redhat/*
+
+SUBST_CLASSES+=		doc
+SUBST_STAGE.doc=	post-patch
+SUBST_FILES.doc=	src/distcc.c src/hosts.c
+SUBST_SED.doc=		-e "s|%s/distcc/hosts|%s/hosts|g"
+SUBST_MESSAGE.doc=	Fixing paths.
+
+.if empty(PKGNAME:Mdistcc-[0-9]*)
+DEPENDS+=		distcc>=${DISTCC_VERSION}:../../devel/distcc
+.endif
+
+INSTALLATION_DIRS+=	bin
+
+.include "../../devel/popt/buildlink3.mk"

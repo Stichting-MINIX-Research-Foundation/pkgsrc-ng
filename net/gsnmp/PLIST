@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:09:29 joerg Exp $
+bin/gsnmp-get
+include/gsnmp/ber.h
+include/gsnmp/dispatch.h
+include/gsnmp/gsnmp.h
+include/gsnmp/message.h
+include/gsnmp/pdu.h
+include/gsnmp/security.h
+include/gsnmp/session.h
+include/gsnmp/transport.h
+include/gsnmp/utils.h
+lib/libgsnmp.la
+lib/pkgconfig/gsnmp.pc
+man/man1/gsnmp-get.1
+share/aclocal/gsnmp.m4

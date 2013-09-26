@@ -1,0 +1,24 @@
+$NetBSD: patch-af,v 1.3 2012/12/25 21:14:17 joerg Exp $
+
+--- src/fasthenry/fillM.c.orig	2004-08-03 22:17:11.000000000 +0000
++++ src/fasthenry/fillM.c
+@@ -34,6 +34,7 @@ operation of Software or Licensed Progra
+  
+ *//* this is the new fillM    10/92 */
+ 
++#include <string.h>
+ #include "induct.h"
+ 
+ /* this fills the kircoff's voltage law matrix (Mesh matrix) */
+@@ -573,10 +574,7 @@ SPATH *path;
+ 
+ }
+ 
+-makegrids(indsys, Im, column, freq_num)
+-SYS *indsys;
+-CX *Im;
+-int column;
++void makegrids(SYS *indsys, CX *Im, int column, int freq_num)
+ {
+   static CX *Ib = NULL, current;
+   int fils, meshes;

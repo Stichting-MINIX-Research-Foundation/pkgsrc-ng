@@ -1,0 +1,15 @@
+$NetBSD: patch-doc_Makefile.in,v 1.1 2013/01/20 13:40:54 morr Exp $
+
+Undo upstream revision 1.45, which was done in the name of simplification.
+
+--- doc/Makefile.in.orig	2012-11-06 20:54:10.000000000 +0000
++++ doc/Makefile.in
+@@ -96,7 +96,7 @@ install: all
+ 	$(INSTALL_DATA) rxvtc.1.man $(DESTDIR)$(man1dir)/$(RXVTNAME)c.$(man1ext)
+ 	$(INSTALL_DATA) rxvtd.1.man $(DESTDIR)$(man1dir)/$(RXVTNAME)d.$(man1ext)
+ 	$(INSTALL_DATA) rxvt.7.man  $(DESTDIR)$(man7dir)/$(RXVTNAME).$(man7ext)
+-	@TIC@ $(srcdir)/etc/rxvt-unicode.terminfo
++	if test -x "@TIC@"; then if test -n "@TIC@"; then @TIC@ $(srcdir)/etc/rxvt-unicode.terminfo; fi; fi
+ 
+ distdepend: alldoc
+ 

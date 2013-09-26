@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.4 2012/01/25 09:56:08 he Exp $
+
+Adapt for build with pkgsrc.
+
+--- Makefile.orig	1994-10-07 01:41:10.000000000 +0100
++++ Makefile
+@@ -2,10 +2,11 @@
+ 
+ SRCS=	tftpd.c tftpsubs.c tftpyale.c config.c
+ PROG=	tftpd
+-MAN8=	tftpd.8
++MAN=	tftpd.8
+ 
+-ETCDIR?=${DESTDIR}/etc
+-BINDIR?=${DESTDIR}/usr/libexec
++ETCDIR=${PKG_SYSCONFDIR}
++BINDIR=${PREFIX}/libexec
++MANDIR=${PREFIX}/${PKGMANDIR}
+ 
+ CFLAGS+=-DCONFIGFILE='"${ETCDIR}/tftpd.conf"'
+ 

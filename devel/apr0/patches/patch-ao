@@ -1,0 +1,13 @@
+$NetBSD: patch-ao,v 1.2 2010/11/01 18:03:04 adam Exp $
+
+--- apr/configure.orig	2010-10-14 18:00:18.000000000 +0000
++++ apr/configure
+@@ -40982,7 +40982,7 @@ fi
+   if test "$apr_devrandom" = "yes"; then
+     # /dev/random on OpenBSD doesn't provide random data, so
+     # prefer /dev/arandom, which does; see random(4).
+-    for f in /dev/arandom /dev/random /dev/urandom; do
++    for f in /dev/arandom /dev/urandom /dev/random; do
+       if test -r $f; then
+         apr_devrandom=$f
+         rand=1

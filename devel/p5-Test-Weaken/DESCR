@@ -1,0 +1,21 @@
+Test::Weaken helps detect unfreed Perl data in arrays, hashes, scalars,
+objects, etc, by descending recursively through structures and watching
+that everything is freed. Unfreed data is a useless overhead and may
+cause an application to abend due to lack of memory.
+
+Normally if the last reference to something is discarded then it and
+anything in it is freed automatically. But this might not occur due to
+circular references, unexpected global variables or closures, or reference
+counting mistakes in XSUBs.
+
+Test::Weaken is named for the strategy used to detect leaks. References
+are taken to the test objects and all their contents, then those
+references are weakened and expected to be then freed.
+
+There's options to ignore intentional globals, or include extra associated
+data held elsewhere, or invoke an explicit destructor. Unfreed parts are
+reported and can be passed to other modules such as Devel::FindRef to try
+to discover why they weren't freed.
+
+Test::Weaken examines structures to an unlimited depth and is safe on
+circular structures.

@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST.nfprofile,v 1.2 2012/07/25 21:19:30 tez Exp $
+bin/nfprofile

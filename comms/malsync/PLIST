@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:38:40 joerg Exp $
+bin/malsync
+share/doc/malsync/README_avantgo
+share/doc/malsync/README_malsync

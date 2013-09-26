@@ -1,0 +1,21 @@
+$NetBSD: patch-aj,v 1.2 2011/11/27 19:43:33 joerg Exp $
+
+--- cmn/game.cpp.orig	2003-03-22 22:20:00.000000000 +0000
++++ cmn/game.cpp
+@@ -34,13 +34,14 @@ extern "C" {
+ }
+ 
+ #if X11
+-#include <strstream.h>
++#include <strstream>
++using namespace std;
+ #endif
+ #if WIN32
+ #include <strstrea.h>
+ #endif
+ 
+-#include <iomanip.h>
++#include <iomanip>
+ 
+ #include "utils.h"
+ #include "coord.h"

@@ -1,0 +1,49 @@
+# $NetBSD: Makefile.common,v 1.19 2013/04/13 07:55:04 ghen Exp $
+#
+# used by net/mydns-mysql/Makefile
+# used by net/mydns-pgsql/Makefile
+
+DISTNAME=		mydns-1.1.0
+CATEGORIES=		net
+MASTER_SITES=		http://mydns.bboy.net/download/
+EXTRACT_SUFX=		.tar.bz2
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://mydns.bboy.net/
+
+GNU_CONFIGURE=		YES
+USE_TOOLS+=		makeinfo
+USE_PKGLOCALEDIR=	YES
+
+CONFIGURE_ARGS+=	--with-confdir=${PKG_SYSCONFDIR:Q}
+
+MYDNS_USER?=		mydns
+MYDNS_GROUP?=		mydns
+MYDNS_PERMS=		${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 600
+
+PKG_GROUPS_VARS+=	MYDNS_GROUP
+PKG_USERS_VARS+=	MYDNS_USER
+
+SUBST_CLASSES+=		user
+SUBST_STAGE.user=	pre-build
+SUBST_FILES.user=	src/mydns/conf.c
+SUBST_SED.user=		-e 's/%%MYDNS_USER%%/${MYDNS_USER}/'
+SUBST_SED.user+=	-e 's/%%MYDNS_GROUP%%/${MYDNS_GROUP}/'
+
+EGDIR=			${PREFIX}/share/examples/${PKGBASE}
+CONF_FILES_PERMS=	${EGDIR}/mydns.conf ${PKG_SYSCONFDIR}/mydns.conf ${MYDNS_PERMS}
+RCD_SCRIPTS=		mydns
+
+PKG_GROUPS=		${MYDNS_GROUP}
+PKG_USERS=		${MYDNS_USER}:${MYDNS_GROUP}
+
+INSTALLATION_DIRS+=	${EGDIR}
+
+USERGROUP_PHASE+=	pre-install
+
+post-install:
+	${WRKSRC}/src/mydns/mydns --dump-config > ${DESTDIR}${EGDIR}/mydns.conf
+
+.include "../../security/openssl/buildlink3.mk"
+.include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

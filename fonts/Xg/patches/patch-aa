@@ -1,0 +1,20 @@
+$NetBSD: patch-aa,v 1.4 2012/02/21 06:39:54 sbd Exp $
+
+--- Makefile.orig	2009-12-17 17:28:59.000000000 +0000
++++ Makefile
+@@ -0,0 +1,15 @@
++ 
++FONTDIR=$(DESTDIR)$(PREFIX)/lib/X11/fonts/Xg
++ 
++all:
++	@echo nothing to be done for \`$@\'
++	@echo this is an install-only target.
++ 
++install:
++	[ -d $(FONTDIR) ] || mkdir -p $(FONTDIR)
++	for i in Xg/bdf/*.bdf; do b=$$(basename $$i .bdf); \
++	  rm -f $(FONTDIR)/$$b.pcf.Z; \
++	  bdftopcf -o $(FONTDIR)/$$b.pcf $$i; \
++	  gzip $(FONTDIR)/$$b.pcf; \
++	  done; mkfontdir $(FONTDIR); \
++	  cp Xg/matty/unicode.9.font $(FONTDIR)

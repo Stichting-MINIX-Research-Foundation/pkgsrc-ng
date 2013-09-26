@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.7 2013/04/10 10:46:24 wiz Exp $
+
+SHA1 (tree-1.6.0.tgz) = 350f851f68859a011668362dd0e7ee81fd1b713a
+RMD160 (tree-1.6.0.tgz) = d0e89f49fa902c7a72056d1a4ef826ddfee6be15
+Size (tree-1.6.0.tgz) = 42706 bytes
+SHA1 (patch-Makefile) = b2b29766bfa46ff7e061bcd7bcd0fc88f954d236

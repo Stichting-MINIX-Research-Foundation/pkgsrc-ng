@@ -1,0 +1,80 @@
+$NetBSD: patch-ac,v 1.4 2013/01/11 13:24:32 joerg Exp $
+
+--- icb/c_log.c.orig	1995-02-24 21:20:18.000000000 +0000
++++ icb/c_log.c
+@@ -6,6 +6,7 @@
+ #include "icb.h"
+ #include "externs.h"
+ #include <time.h>
++#include <errno.h>
+ 
+ FILE *logfp = NULL;
+ 
+@@ -45,8 +46,6 @@ char *path;
+ 	time_t time();
+ 	struct tm *t, *localtime();
+ 	time_t clock;
+-	extern int errno, sys_nerr;
+-	extern char *sys_errlist[];
+ 
+ 	/* determine pathname to use */
+ 	if (path == NULL || *path == '\0')
+@@ -64,23 +63,15 @@ char *path;
+ 	
+ 	/* open the session log */
+ 	if ((logfp = fopen(path, "a")) == NULL) {
+-		if (errno > sys_nerr)
+-		   sprintf(TRET,
+-		    "c_log: can't open \"%s\": errno %d", path, errno);
+-		else
+-		   sprintf(TRET,
+-		    "c_log: can't open \"%s\": %s", path, sys_errlist[errno]);
++		sprintf(TRET,
++		 "c_log: can't open \"%s\": %s", path, strerror(errno));
+ 		return(-1);
+ 	}
+ 
+ 	/* protect the logfile against others */
+ 	if (fchmod((int)(fileno(logfp)), 0600) != 0) {
+-		if (errno > sys_nerr)
+-		   sprintf(TRET,
+-		    "c_log: can't fchmod \"%s\": errno %d", path, errno);
+-		else
+-		   sprintf(TRET,
+-		    "c_log: can't fchmod \"%s\": %s", path, sys_errlist[errno]);
++		sprintf(TRET,
++		 "c_log: can't fchmod \"%s\": %s", path, strerror(errno));
+ 		fclose(logfp);
+ 		logfp = NULL;
+ 		return(-1);
+@@ -97,8 +88,8 @@ char *path;
+ 		aptr++;
+ 	
+ 	/* timestamp it */
+-	sprintf(mbuf, "Session log \"%s\" started at %d/%02d/%-2d %s.",
+-	  path, t->tm_mon+1, t->tm_mday, t->tm_year, aptr);
++	sprintf(mbuf, "Session log \"%s\" started at %d/%02d/%-4d %s.",
++	  path, t->tm_mon+1, t->tm_mday, 1900+t->tm_year, aptr);
+ 	putl(mbuf, PL_SCR | PL_LOG);
+ 
+ 	return(0);
+@@ -107,7 +98,7 @@ char *path;
+ 
+ /* close the logfile */
+ 
+-closesessionlog()
++void closesessionlog(void)
+ {
+ 	char *aptr, *ampm();
+ 	time_t time();
+@@ -126,8 +117,8 @@ closesessionlog()
+ 		aptr++;
+ 	
+ 	/* timestamp it */
+-	sprintf(mbuf, "Session log closed at %d/%02d/%-2d %s.",
+-	  t->tm_mon+1, t->tm_mday, t->tm_year, aptr);
++	sprintf(mbuf, "Session log closed at %d/%02d/%-4d %s.",
++	  t->tm_mon+1, t->tm_mday, 1900+t->tm_year, aptr);
+ 	putl(mbuf, PL_SCR | PL_LOG);
+ 
+ 	/* close it */

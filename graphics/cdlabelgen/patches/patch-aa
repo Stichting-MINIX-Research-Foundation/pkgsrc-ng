@@ -1,0 +1,12 @@
+$NetBSD: patch-aa,v 1.6 2011/11/29 17:47:41 hans Exp $
+
+--- cdlabelgen.orig	2005-08-23 08:22:44.000000000 -0700
++++ cdlabelgen
+@@ -101,6 +101,7 @@ my @where_is_the_template;
+ if ($^O !~ /^MSWin32/) { # not windows...
+   # Unix section -----------------------------------------------------
+   @where_is_the_template = (
++    '@PREFIX@/share/cdlabelgen/',
+     '/usr/local/lib/cdlabelgen/',
+     '/usr/share/cdlabelgen/',
+     '/opt/lib/cdlabelgen/',

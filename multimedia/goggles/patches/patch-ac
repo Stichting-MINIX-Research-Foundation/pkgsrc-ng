@@ -1,0 +1,22 @@
+$NetBSD: patch-ac,v 1.2 2010/01/04 15:20:45 joerg Exp $
+
+--- build/config.hpux.orig	2006-11-26 22:19:18.000000000 +0000
++++ build/config.hpux
+@@ -24,16 +24,13 @@ export PICFLAG=""                     # 
+ if [ $DEFS == "-DDEBUG" ] ; then
+   export CFLAGS="${CFLAGS:--Wall -g -pipe }"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -g -pipe}"
+-	export LDFLAGS=""
+ elif [ $DEFS == "-DNDEBUG" ] ; then
+ 	export CFLAGS="${CFLAGS:--Wall -O3 -pipe}"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -O3 -pipe}"
+-	export LDFLAGS="-s"
+ else
+ 	export CFLAGS="${CFLAGS:--Wall -pipe}"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -pipe}"
+-	export LDFLAGS=""
+-	fi
++fi
+ 
+ export CPPFLAGS="-I./include ${CPPFLAGS}"
+ export LIBS=""

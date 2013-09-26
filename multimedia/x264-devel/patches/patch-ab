@@ -1,0 +1,110 @@
+$NetBSD: patch-ab,v 1.17 2012/11/08 20:28:09 adam Exp $
+
+--- Makefile.orig	2012-11-07 21:45:03.000000000 +0000
++++ Makefile
+@@ -99,9 +99,9 @@ endif
+ ifdef ARCH_X86
+ ASFLAGS += -I$(SRCPATH)/common/x86/
+ SRCS   += common/x86/mc-c.c common/x86/predict-c.c
+-OBJASM  = $(ASMSRC:%.asm=%.o)
++OBJASM  = $(ASMSRC:%.asm=%.lo)
+ $(OBJASM): common/x86/x86inc.asm common/x86/x86util.asm
+-OBJCHK += tools/checkasm-a.o
++OBJCHK += tools/checkasm-a.lo
+ endif
+ endif
+ 
+@@ -121,7 +121,7 @@ ASMSRC += common/arm/cpu-a.S common/arm/
+           common/arm/dct-a.S common/arm/quant-a.S common/arm/deblock-a.S \
+           common/arm/predict-a.S
+ SRCS   += common/arm/mc-c.c common/arm/predict-c.c
+-OBJASM  = $(ASMSRC:%.S=%.o)
++OBJASM  = $(ASMSRC:%.S=%.lo)
+ endif
+ endif
+ 
+@@ -129,7 +129,7 @@ endif
+ ifeq ($(ARCH),UltraSPARC)
+ ifeq ($(findstring HIGH_BIT_DEPTH, $(CONFIG)),)
+ ASMSRC += common/sparc/pixel.asm
+-OBJASM  = $(ASMSRC:%.asm=%.o)
++OBJASM  = $(ASMSRC:%.asm=%.lo)
+ endif
+ endif
+ 
+@@ -145,20 +145,23 @@ OBJSO  += $(if $(RC), x264res.dll.o)
+ endif
+ endif
+ 
+-OBJS   += $(SRCS:%.c=%.o)
+-OBJCLI += $(SRCCLI:%.c=%.o)
++OBJS   += $(SRCS:%.c=%.lo)
++OBJCLI += $(SRCCLI:%.c=%.lo)
+ OBJSO  += $(SRCSO:%.c=%.o)
+ 
+ .PHONY: all default fprofiled clean distclean install uninstall lib-static lib-shared cli install-lib-dev install-lib-static install-lib-shared install-cli
+ 
++%.lo: %.c
++	${LIBTOOL} --mode=compile ${CC} -c ${CFLAGS} ${PICFLAGS} -o $@ $<
++
+ cli: x264$(EXE)
+-lib-static: $(LIBX264)
++lib-static: libx264.la
+ lib-shared: $(SONAME)
+ 
+-$(LIBX264): .depend $(OBJS) $(OBJASM)
+-	rm -f $(LIBX264)
+-	$(AR)$@ $(OBJS) $(OBJASM)
+-	$(if $(RANLIB), $(RANLIB) $@)
++libx264.la: .depend $(OBJS) $(OBJASM)
++	${LIBTOOL} --mode=link \
++	${CC} -o libx264.la -rpath ${PREFIX}/lib -version-info 0 \
++	$(OBJS) $(OBJASM) ${LDFLAGS}
+ 
+ $(SONAME): .depend $(OBJS) $(OBJASM) $(OBJSO)
+ 	$(LD)$@ $(OBJS) $(OBJASM) $(OBJSO) $(SOFLAGS) $(LDFLAGS)
+@@ -169,17 +172,17 @@ x264: x264$(EXE)
+ checkasm: checkasm$(EXE)
+ endif
+ 
+-x264$(EXE): .depend $(OBJCLI) $(CLI_LIBX264)
+-	$(LD)$@ $(OBJCLI) $(CLI_LIBX264) $(LDFLAGSCLI) $(LDFLAGS)
++x264$(EXE): .depend $(OBJCLI) libx264.la
++	${LIBTOOL} --mode=link $(LD)$@ $(OBJCLI) libx264.la $(LDFLAGSCLI) $(LDFLAGS)
+ 
+-checkasm$(EXE): .depend $(OBJCHK) $(LIBX264)
+-	$(LD)$@ $(OBJCHK) $(LIBX264) $(LDFLAGS)
++checkasm$(EXE): .depend $(OBJCHK) libx264.la
++	${LIBTOOL} --mode=link $(LD)$@ $+ $(LDFLAGS)
+ 
+ $(OBJS) $(OBJASM) $(OBJSO) $(OBJCLI) $(OBJCHK): .depend
+ 
+-%.o: %.asm
+-	$(AS) $(ASFLAGS) -o $@ $<
+-	-@ $(if $(STRIP), $(STRIP) -x $@) # delete local/anonymous symbols, so they don't show up in oprofile
++%.lo: %.asm
++	${LIBTOOL} --mode=compile --tag=CC \
++		./strip_fopt.sh $(AS) $(ASFLAGS) -o $@ $<
+ 
+ %.o: %.S
+ 	$(AS) $(ASFLAGS) -o $@ $<
+@@ -238,8 +241,7 @@ distclean: clean
+ 	rm -f config.mak x264_config.h config.h config.log x264.pc x264.def
+ 
+ install-cli: cli
+-	install -d $(DESTDIR)$(bindir)
+-	install x264$(EXE) $(DESTDIR)$(bindir)
++	${LIBTOOL} --mode=install ${BSD_INSTALL_PROGRAM} x264 $(DESTDIR)$(bindir)/x264
+ 
+ install-lib-dev:
+ 	install -d $(DESTDIR)$(includedir)
+@@ -250,8 +252,7 @@ install-lib-dev:
+ 	install -m 644 x264.pc $(DESTDIR)$(libdir)/pkgconfig
+ 
+ install-lib-static: lib-static install-lib-dev
+-	install -m 644 $(LIBX264) $(DESTDIR)$(libdir)
+-	$(if $(RANLIB), $(RANLIB) $(DESTDIR)$(libdir)/$(LIBX264))
++	${LIBTOOL} --mode=install ${BSD_INSTALL_LIB} libx264.la $(DESTDIR)$(libdir)
+ 
+ install-lib-shared: lib-shared install-lib-dev
+ ifneq ($(IMPLIBNAME),)

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2010/05/08 13:26:23 obache Exp $
+
+SHA1 (kasumi-2.5.tar.gz) = 38155494d684f61e74ed1498ec90cc0fc68d791a
+RMD160 (kasumi-2.5.tar.gz) = b609988d585b387acf83f5e7f6f58d6b10c80dd3
+Size (kasumi-2.5.tar.gz) = 279587 bytes

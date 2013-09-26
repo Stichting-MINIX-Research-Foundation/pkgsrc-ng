@@ -1,0 +1,55 @@
+$NetBSD: patch-ac,v 1.4 2012/06/22 16:24:56 adam Exp $
+
+configure for pkgsrc
+INLINE should/must be blank based on how it's (inappropriately) used
+
+--- Makefile.orig	2003-03-02 07:07:02.000000000 +0000
++++ Makefile
+@@ -1,5 +1,5 @@
+ 
+-CC = gcc
++#CC = gcc
+ 
+ c_sources = \
+ 	common.c \
+@@ -28,16 +28,16 @@ OBJ = $(c_sources:.c=.o)
+ 
+ #Uncomment this if you want to do some profiling/debugging
+ #PG = -g -pg
+-PG = -fomit-frame-pointer
++#PG = -fomit-frame-pointer
+ 
+ # Optimize flag. 3 is about as high as you can sanely go with GCC3.2.
+-OPTIM = -O3
++OPTIM = $(CFLAGS)
+ 
+ # These flags are pretty much mandatory
+-REQUIRED = -DNDEBUG -DINLINE=inline
++REQUIRED = -DNDEBUG -DINLINE=
+ 
+ #pick your architecture
+-ARCH = -march=pentium
++#ARCH = -march=pentium
+ #Possible x86 architectures
+ #gcc3.2 => i386, i486, i586, i686, pentium, pentium-mmx
+ #          pentiumpro, pentium2, pentium3, pentium4, k6, k6-2, k6-3,
+@@ -51,8 +51,8 @@ ARCH = -march=pentium
+ #	-fschedule-insns2 -fno-strength-reduce
+ 
+ #Set a stack of warnings to overcome my atrocious coding style . MFC.
+-WARNINGS = -Wall
+-WARNINGS2 = -Wstrict-prototypes -Wmissing-prototypes -Wunused -Wunused-function -Wunused-label -Wunused-parameter -Wunused-variable -Wunused-value -Wredundant-decls
++#WARNINGS = -Wall
++#WARNINGS2 = -Wstrict-prototypes -Wmissing-prototypes -Wunused -Wunused-function -Wunused-label -Wunused-parameter -Wunused-variable -Wunused-value -Wredundant-decls
+ 
+ NEW_02L_FIXES = -DNEWENCODE -DNEWATAN
+ 
+@@ -75,7 +75,7 @@ endif
+ 	$(CC) $(CC_SWITCHES) -c $< -o $@
+ 
+ $(PGM):	$(OBJ) Makefile
+-	$(CC) $(PG) -o $(PGM) $(OBJ) $(LIBS)
++	$(CC) $(PG) -o $(PGM) $(OBJ) $(LDFLAGS) $(LIBS)
+ 
+ clean:
+ 	-rm $(OBJ) $(DEP)

@@ -1,0 +1,17 @@
+$NetBSD: patch-aa,v 1.9 2011/12/07 16:19:33 drochner Exp $
+
+--- Makefile.orig	2011-07-25 18:26:24.000000000 +0000
++++ Makefile
+@@ -34,9 +34,9 @@ endif
+ # some systems now use just /usr/X11 (not /usr/X11R6)
+ CC = gcc
+ CLDFLAGS = -g
+-CFLAGS = $(LIBINC) $(CLDFLAGS) -O2 -Wall -I$(MOTIFI) -I/usr/X11R6/include
+-LDFLAGS = $(LIBLNK) $(CLDFLAGS) -L$(MOTIFL) -L/usr/X11R6/lib
+-XLIBS = $(MOTIFL)/libXm.a -lXp -lXt -lXext -lXmu -lX11
++CFLAGS = $(LIBINC) $(CLDFLAGS) -O2 -Wall -I/usr/X11R6/include
++LDFLAGS = $(LIBLNK) $(CLDFLAGS) $(X11_LDFLAGS)
++XLIBS = $(MOTIFLIB) -lXt -lXext -lXmu -lX11
+ LIBS = $(XLIBS) $(LIBLIB) -lm
+ 
+ # for ppc Apple OS X to make universal (i386 and ppc binary), requires

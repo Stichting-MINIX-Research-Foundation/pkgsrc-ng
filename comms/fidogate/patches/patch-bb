@@ -1,0 +1,13 @@
+$NetBSD: patch-bb,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/charset/charsetc.c.orig	2004-08-22 20:19:10.000000000 +0000
++++ src/charset/charsetc.c
+@@ -79,7 +79,7 @@ int charset_parse_c(char *s)
+ 	    s++;
+ 	    while(is_xdigit(s[0]) && n<2)
+ 	    {
+-		s[0] = toupper(s[0]);
++		s[0] = toupper((unsigned char)s[0]);
+ 		val = val * 16 + s[0] - (s[0]>'9' ? 'A'-10 : '0');
+ 		s++;
+ 		n++;

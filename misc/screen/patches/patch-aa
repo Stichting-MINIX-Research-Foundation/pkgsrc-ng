@@ -1,0 +1,59 @@
+$NetBSD: patch-aa,v 1.11 2012/09/15 09:14:53 apb Exp $
+
+--- pty.c.orig	2003-09-08 14:26:18.000000000 +0000
++++ pty.c
+@@ -34,7 +34,7 @@
+ #endif
+ 
+ /* for solaris 2.1, Unixware (SVR4.2) and possibly others */
+-#ifdef HAVE_SVR4_PTYS
++#ifdef HAVE_SYS_STROPTS_H
+ # include <sys/stropts.h>
+ #endif
+ 
+@@ -313,6 +313,45 @@ char **ttyn;
+ 
+ /***************************************************************/
+ 
++#if defined(__NetBSD__) && !defined(PTY_DONE)
++#define PTY_DONE
++
++#include <sys/param.h>
++#include <string.h>
++
++int
++OpenPTY(ttyn)
++char **ttyn;
++{
++  int m, s, f;
++  char *t;
++
++  do
++    {
++      if (openpty(&m, &s, TtyName, NULL, NULL) < 0)
++        return -1;
++      close(m);
++      close(s);
++
++      strcpy(PtyName, TtyName);
++      t = strrchr(PtyName, '/');
++      if ((t == NULL ) || (*++t != 't'))
++        return -1;
++      *t = 'p';
++
++      f = open(PtyName, O_RDWR | O_NOCTTY);
++    }
++  while (f < 0);
++
++  initmaster(f);
++  *ttyn = TtyName;
++
++  return f;
++}
++#endif
++
++/***************************************************************/
++
+ #if defined(HAVE_OPENPTY) && !defined(PTY_DONE)
+ #define PTY_DONE
+ int

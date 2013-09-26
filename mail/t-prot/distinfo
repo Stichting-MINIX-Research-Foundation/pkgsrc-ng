@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2010/02/16 14:37:11 wiz Exp $
+
+SHA1 (t-prot-2.15.tar.gz) = 46b675b92bbfd75546de93fd5a783625acd3ea85
+RMD160 (t-prot-2.15.tar.gz) = 288a1bf6c6e7b282941da36f6ac7acde9f1ad231
+Size (t-prot-2.15.tar.gz) = 46612 bytes

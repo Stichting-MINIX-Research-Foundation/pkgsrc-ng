@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:07:22 joerg Exp $
+bin/dawndusk
+bin/heyu
+bin/heyuhelper
+bin/makesched
+man/man1/heyu.1
+man/man1/heyuhelper.1
+man/man5/x10config.5
+man/man5/x10sched.5
+share/examples/heyu/x10config

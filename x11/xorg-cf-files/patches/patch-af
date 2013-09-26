@@ -1,0 +1,72 @@
+$NetBSD: patch-af,v 1.4 2012/07/02 15:55:03 jperkin Exp $
+
+Run-time path fix for Solaris for the X client libraries.  Without this
+patch, libraries such as libXext.so will not contain a run-time link path
+to /usr/pkg/xorg/lib, causing run time link failures or possibly linking
+with other (non-Pkgsrc) X libraries on the system!
+
+Disable Solaris64bitSubdir, at least until multi-arch is supported.
+
+Use pkgsrc CC, CXX, CFLAGS and INSTALL.
+
+--- sun.cf.orig	Fri Oct 16 21:45:42 2009
++++ sun.cf	Tue Jun 26 09:27:13 2012
+@@ -430,7 +430,7 @@
+ #  endif
+ # endif
+ # if OSMinorVersion > 3
+-#  define InstallCmd	    /usr/ucb/install
++#  define InstallCmd	    @@INSTALL@@
+ # endif
+ #ifndef LargefileDefines
+ # if (OSMajorVersion > 5) || (OSMajorVersion == 5 && OSMinorVersion >= 6)
+@@ -669,19 +669,19 @@
+ # endif
+ # if HasGcc2
+ #  ifndef CcCmd
+-#   define CcCmd gcc
++#   define CcCmd @@PKGSRC_CC@@
+ #  endif
++#  ifndef CppCmd
++#   define CppCmd @@PKGSRC_CPP@@
++#  endif
++#  ifndef CplusplusCmd
++#   define CplusplusCmd @@PKGSRC_CXX@@
++#  endif
+ #  ifndef AsCmd
+ #   define AsCmd CcCmd -c -x assembler
+ #  endif
+ #  ifndef OptimizedCDebugFlags
+-#   ifdef i386Architecture
+-#    define OptimizedCDebugFlags DefaultGcc2i386Opt
+-#   elif defined(AMD64Architecture)
+-#    define OptimizedCDebugFlags DefaultGcc2AMD64Opt
+-#   else
+-#    define OptimizedCDebugFlags -O2
+-#   endif
++#   define OptimizedCDebugFlags @@PKGSRC_CFLAGS@@
+ #  endif
+ #  if !defined(SharedLibraryLoadFlags) && !defined(SharedLibraryLdCmd)
+ #   if OSMajorVersion == 5 && OSMinorVersion > 6 && defined(i386Architecture)
+@@ -688,10 +688,10 @@
+     /* This is to work around what appears to be a PIC bug in some gcc/egcs
+        versions that shows up with the Solaris 7/x86 <ctype.h>. */
+ #    define SharedLibraryLdCmd $(LD)
+-#    define SharedLibraryLoadFlags -G -z textwarn
++#    define SharedLibraryLoadFlags -G -z textwarn LibraryRpathLoadFlags
+ #   else
+ #    define SharedLibraryLdCmd $(CC)
+-#    define SharedLibraryLoadFlags -shared -z text
++#    define SharedLibraryLoadFlags -shared -z text LibraryRpathLoadFlags
+ #   endif
+ #  endif
+ # else
+@@ -840,7 +840,7 @@
+ # endif
+ #endif
+ 
+-#ifdef Solaris64bitSubdir
++#ifdef NotYetSolaris64bitSubdir
+ # define LibDirName Concat3(lib,/,Solaris64bitSubdir)
+ #endif
+ 

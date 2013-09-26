@@ -1,0 +1,60 @@
+$NetBSD: patch-aj,v 1.8 2011/08/01 14:54:51 bouyer Exp $
+
+--- configure.orig	2010-09-02 16:23:39.000000000 +0200
++++ configure	2011-08-01 15:50:48.000000000 +0200
+@@ -1542,9 +1542,6 @@
+       sysconfdir='/etc/apcupsd'
+    fi
+ 
+-   if test x$sbindir = x'${exec_prefix}/sbin' ; then
+-      sbindir='/sbin'
+-   fi
+ fi
+ 
+ # Make sure we can run config.sub.
+@@ -3416,7 +3413,7 @@
+ 
+ 
+ APCACCESS=apcaccess
+-SMTP=smtp
++SMTP=
+ APCTEST=apctest
+ 
+ 
+@@ -10575,7 +10572,7 @@
+             echo "$as_me:$LINENO: result: Using Linux USB driver." >&5
+ echo "${ECHO_T}Using Linux USB driver." >&6
+             ;;
+-         *-*-freebsd* | *-*-openbsd* | *-*-netbsd*)
++         *-*-freebsd* | *-*-openbsd* | *-*-netbsd* | *-*-dragonfly*)
+             LIBUSBHIDINC="-I\$(topdir)/src/libusbhid"
+             LIBUSBHID=libusbhid
+             APCDRVLIBS="$APCDRVLIBS \$(topdir)/src/libusbhid/libusbhid.a"
+@@ -12200,7 +12197,7 @@
+ elif test $HAVE_UNAME=yes -a x`uname -s` = xFreeBSD
+ then
+    DISTNAME=freebsd
+-elif test $HAVE_UNAME=yes -a x`uname -s` = xNetBSD
++elif test $HAVE_UNAME=yes -a x`uname -s` = xNetBSD || test $HAVE_UNAME=yes -a x`uname -s` = xDragonFly
+ then
+    DISTNAME=netbsd
+ elif test $HAVE_UNAME=yes -a x`uname -s` = xOpenBSD
+@@ -12331,7 +12328,7 @@
+       platforms/debian/apcupsd \
+       platforms/debian/ups-monitor"
+    ;;
+-freebsd)
++freebsd|dragonfly)
+    DISTVER=`uname -a |awk '{print $3}'`
+    SERIALDEV=/dev/cuaa0
+    nologdir=/var/run
+@@ -12365,7 +12362,8 @@
+    PTHREAD_LFLAGS=""
+    LDFLAGS="$LDFLAGS -pthread"
+    DFILES="\
+-      platforms/netbsd/apcupsd"
++      platforms/netbsd/apcupsd \
++      platforms/netbsd/apccontrol"
+    ;;
+ openbsd)
+    DISTVER=`uname -a |awk '{print $3}'`

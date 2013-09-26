@@ -1,0 +1,34 @@
+$NetBSD: patch-ae,v 1.7 2012/12/14 15:54:30 is Exp $
+
+--- modes/Makefile.in.orig	2008-10-05 02:50:23.000000000 +0200
++++ modes/Makefile.in
+@@ -588,19 +588,20 @@ install : install-program install-man in
+ 	@ $(ECHO) ""
+ 
+ install-program : xlock
+-	$(top_srcdir)/mkinstalldirs $(bindir)
+-	$(INSTALL_PROGRAM) $(INSTPGMFLAGS) $(UTILOBJDIR)xlock$(E) $(bindir)
+-	@MODULES@mkdir -p $(DEF_MODULEPATH)
+-	@MODULES@cp *.xlk $(DEF_MODULEPATH)
+-	@MODULES@cp glx/*.xlk $(DEF_MODULEPATH)
++	$(top_srcdir)/mkinstalldirs ${DESTDIR}$(bindir)
++	$(INSTALL_PROGRAM) $(UTILOBJDIR)xlock$(E) ${DESTDIR}$(bindir)
++	@MODULES@mkdir -p ${DESTDIR}$(DEF_MODULEPATH)
++	@MODULES@cp *.xlk ${DESTDIR}$(DEF_MODULEPATH)
++	@MODULES@cp glx/*.xlk ${DESTDIR}$(DEF_MODULEPATH)
+ 
+ install-man :
+-	$(top_srcdir)/mkinstalldirs $(mandir)
+-	$(INSTALL_DATA) $(UTILDIR)xlock.man $(mandir)/xlock.1
++	$(top_srcdir)/mkinstalldirs ${DESTDIR}$(mandir)
++	$(INSTALL_DATA) $(UTILDIR)xlock.man ${DESTDIR}$(mandir)/xlock.1
+ 
+ install-ad :
+-	$(top_srcdir)/mkinstalldirs $(xapploaddir)
+-	$(INSTALL_DATA) $(UTILDIR)XLock.ad $(xapploaddir)/XLock
++	$(top_srcdir)/mkinstalldirs ${DESTDIR}$(xapploaddir)
++	$(top_srcdir)/mkinstalldirs        ${DESTDIR}${datarootdir}/examples/xlock/app-defaults
++	$(INSTALL_DATA) $(UTILDIR)XLock.ad ${DESTDIR}${datarootdir}/examples/xlock/app-defaults/XLock
+ 
+ uninstall : uninstall-program uninstall-man uninstall-ad
+ 

@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.5 2010/02/13 06:28:21 obache Exp $
+
+--- Makefile.in.orig	2009-06-25 16:00:55.000000000 +0000
++++ Makefile.in
+@@ -10248,7 +10248,7 @@ $(DESTDIR)$(datadir)/cshrc: lib/cshrc li
+ 
+ $(DESTDIR)$(sysconfdir)/profile.d/aegis.csh: $(DESTDIR)$(datadir)/cshrc
+ 	-@mkdir -p $(DESTDIR)$(sysconfdir)/profile.d
+-	-ln -s $(datadir)/cshrc $@
++	-ln -s $(DESTDIR)$(datadir)/cshrc $@
+ 
+ $(DESTDIR)$(datadir)/db_forced.sh: lib/db_forced.sh lib/.mkdir.datadir
+ 	$(INSTALL_SCRIPT) lib/db_forced.sh $@
+@@ -14300,7 +14300,7 @@ $(DESTDIR)$(datadir)/profile: lib/profil
+ 
+ $(DESTDIR)$(sysconfdir)/profile.d/aegis.sh: $(DESTDIR)$(datadir)/profile
+ 	-@mkdir -p $(DESTDIR)$(sysconfdir)/profile.d
+-	-ln -s $(datadir)/profile $@
++	-ln -s $(DESTDIR)$(datadir)/profile $@
+ 
+ lib/pt_BR/LC_MESSAGES/aegis.mo: etc/msgfmt.sh \
+ 		lib/pt_BR/LC_MESSAGES/aegis.po

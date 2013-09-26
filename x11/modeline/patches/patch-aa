@@ -1,0 +1,46 @@
+$NetBSD: patch-aa,v 1.2 2012/08/10 18:00:14 joerg Exp $
+
+Check that the proper arguments are given.
+
+--- modeline_vfr.c.orig	2012-08-10 12:53:32.000000000 +0000
++++ modeline_vfr.c
+@@ -6,7 +6,7 @@
+ *
+ * Use on your own risk.
+ *
+-* Input:  Resolution and  Vertical Frequence
++* Input:  Resolution and  Vertical Frequency
+ * Output: Modeline
+ *
+ * Example use:
+@@ -20,7 +20,7 @@
+ #include<stdlib.h>
+ 
+ int
+-main( char argc, char** argv )
++main( int argc, char** argv )
+ {
+ 	float		hr,vr;
+ 	float		dcf;
+@@ -44,6 +44,12 @@ main( char argc, char** argv )
+ 	float	step =10;
+ 	float 	s_rr;
+ 
++	if (argc != 4) {
++		(void) fprintf(stderr, "Usage: %s <horizontal resolution> <vertical resolution> <vertical freq in Hertz>\n", *argv);
++		(void) fprintf(stderr, "e.g. %s 640 480 75\n", *argv);
++		exit(1);
++	}
++
+         sscanf(argv[1],"%f",&hr);
+         sscanf(argv[2],"%f",&vr);
+         sscanf(argv[3],"%f",&s_rr);
+@@ -88,7 +94,7 @@ do{
+ 	printf("  Vertical Resolution:     %4.0f \n",vr);
+ 	printf("  Vertical Refresh Rate:   %4.2f Hz \n",rr);
+ 	printf("  Horizontal Refresh Rate: %4.2f KHz \n",hsf);
+-	printf("  Dot Clock Frequence:     %4.2f MHz \n",dcf);
++	printf("  Dot Clock Frequency:     %4.2f MHz \n",dcf);
+ 	printf("\n");
+ 	printf(" # V-freq: %4.2f Hz  // h-freq: %4.2f KHz\n Modeline \"%dx%d\" %4.2f  %4d %4d %4d %4d  %4d %4d %4d %4d \n",rr,hsf,(int)(hr),(int)(vr),(dcf),(int)(hr),(int)(hfront),(int)(hsync),(int)(hfl),(int)(vr),(int)(vfront),(int)(vsync),(int)(vfl));
+ 	

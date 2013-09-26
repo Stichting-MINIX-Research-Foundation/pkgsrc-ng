@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2008/12/19 10:19:12 adam Exp $
+
+SHA1 (cstream-2.7.5.tar.gz) = 8071730c1ae322cffb844945a268b95b7e57c3ca
+RMD160 (cstream-2.7.5.tar.gz) = 10275b5a6e93f93b27f8822c6427c5382b493d3a
+Size (cstream-2.7.5.tar.gz) = 102269 bytes

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.4 2009/12/17 21:49:22 abs Exp $
+
+--- network.c.orig	2005-11-07 00:38:22.000000000 +0000
++++ network.c
+@@ -89,7 +89,7 @@ char *IFAddr(char *IFName, int dest)
+  #define AddrOpen   popen("/usr/ucb/netstat -nr", "r")
+  #define AddrScanf  sscanf(routeLine, "%*s %*s %*s %*s %*s %s", IF)
+  #define AddrClose  while (fgets(routeLine,128,infofp) != NULL); pclose(infofp)
+-#elif defined(SUNOS5x) || defined(__FreeBSD__)
++#elif defined(SUNOS5x) || defined(__FreeBSD__) || defined(__DragonFly__)
+  #define AddrOpen   popen("/usr/bin/netstat -nr", "r")
+  #define AddrScanf  sscanf(routeLine, "%*s %*s %*s %*s %*s %s", IF)
+  #define AddrClose  while (fgets(routeLine,128,infofp) != NULL); pclose(infofp)

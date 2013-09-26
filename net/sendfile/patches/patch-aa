@@ -1,0 +1,38 @@
+$NetBSD: patch-aa,v 1.8 2011/07/07 01:44:11 mspo Exp $
+
+--- makeconfig.orig	2011-07-07 01:05:11.000000000 +0000
++++ makeconfig
+@@ -10,17 +10,18 @@
+ # or simply call: makeconfig CC=gcc ...
+ 
+ # default compiling settings
+-CC=gcc
+-CFLAGS=-O2
+-LDFLAGS=-s
++#CC=gcc
++#CFLAGS=-O2
++#LDFLAGS=-s
+ 
+ # default installation settings
+ PREFIX=/usr/local
+ SPOOL=/var/spool/sendfile
+-BINDIR=$PREFIX/bin
+-MANDIR=$PREFIX/man
+-CONFIG=$PREFIX/etc
+-SERVERDIR=$PREFIX/sbin
++BINDIR=${LOCALBASE}/bin
++MANDIR=${LOCALBASE}/man
++CONFIG=${LOCALBASE}/etc
++EGDIR=${LOCALBASE}/share/examples/sendfile
++SERVERDIR=${LOCALBASE}/sbin
+ INETDCONF=/etc/inetd.conf # xinetd will be automaticly recognized
+ SERVICES=/etc/services
+ 
+@@ -145,6 +146,7 @@ cat <<EOD>globals.h
+ #define MANDIR		"$MANDIR"
+ #define SERVERDIR	"$SERVERDIR"
+ 
++#define EGDIR		"$EGDIR"
+ #define CONFIG		"$CONFIG/sendfile.cf"
+ #define ALIASES		"$CONFIG/sendfile.aliases"
+ #define ALLOW		"$CONFIG/sendfile.allow"

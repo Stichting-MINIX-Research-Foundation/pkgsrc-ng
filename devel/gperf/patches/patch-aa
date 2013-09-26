@@ -1,0 +1,32 @@
+$NetBSD: patch-aa,v 1.7 2009/02/27 20:29:20 wiz Exp $
+
+--- doc/Makefile.in.orig	2008-08-23 19:05:33.000000000 +0000
++++ doc/Makefile.in
+@@ -48,7 +48,6 @@ TEX = tex
+ TEXI2DVI = texi2dvi
+ DVIPS = dvips -D600
+ TEXI2PDF = texi2pdf
+-MAKEINFO = LANG= LC_MESSAGES= LC_ALL= LANGUAGE= makeinfo
+ TEXI2HTML = perl $(srcdir)/texi2html
+ 
+ # Programs used by "make install":
+@@ -115,8 +114,8 @@ install : all force
+ #	$(INSTALL_DATA) $(srcdir)/gperf.ps $(DESTDIR)$(psdir)/gperf.ps
+ #	$(MKINSTALLDIRS) $(DESTDIR)$(pdfdir)
+ #	$(INSTALL_DATA) $(srcdir)/gperf.pdf $(DESTDIR)$(pdfdir)/gperf.pdf
+-	$(MKINSTALLDIRS) $(DESTDIR)$(htmldir)
+-	$(INSTALL_DATA) $(srcdir)/gperf.html $(DESTDIR)$(htmldir)/gperf.html
++#	$(MKINSTALLDIRS) $(DESTDIR)$(htmldir)
++#	$(INSTALL_DATA) $(srcdir)/gperf.html $(DESTDIR)$(htmldir)/gperf.html
+ 
+ installdirs : force
+ 	$(MKINSTALLDIRS) $(DESTDIR)$(infodir)
+@@ -124,7 +123,7 @@ installdirs : force
+ #	$(MKINSTALLDIRS) $(DESTDIR)$(dvidir)
+ #	$(MKINSTALLDIRS) $(DESTDIR)$(psdir)
+ #	$(MKINSTALLDIRS) $(DESTDIR)$(pdfdir)
+-	$(MKINSTALLDIRS) $(DESTDIR)$(htmldir)
++#	$(MKINSTALLDIRS) $(DESTDIR)$(htmldir)
+ 
+ uninstall : force
+ 	$(RM) $(DESTDIR)$(infodir)/gperf.info

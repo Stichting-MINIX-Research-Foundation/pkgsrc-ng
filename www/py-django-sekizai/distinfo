@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2013/03/13 07:08:34 adam Exp $
+
+SHA1 (django-sekizai-0.7.tar.gz) = cb660cc542c4b3af4a6398e61702253dd05cdad4
+RMD160 (django-sekizai-0.7.tar.gz) = 5948a67cc6957a63231bab255886919d17cfd902
+Size (django-sekizai-0.7.tar.gz) = 108418 bytes

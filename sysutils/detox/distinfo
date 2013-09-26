@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2008/06/11 13:56:29 obache Exp $
+
+SHA1 (detox-1.2.0.tar.bz2) = cfb88a1adefaf4ee3933baf9a6530c102baa47ce
+RMD160 (detox-1.2.0.tar.bz2) = 02eb1a5ebc28f6f6e024d58b998758d156002a70
+Size (detox-1.2.0.tar.bz2) = 86118 bytes
+SHA1 (patch-aa) = 31eca361d838b78642873c380ebf497483790cdb

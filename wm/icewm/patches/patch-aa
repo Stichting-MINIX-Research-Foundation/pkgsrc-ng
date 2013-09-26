@@ -1,0 +1,14 @@
+$NetBSD: patch-aa,v 1.10 2008/06/16 10:17:56 hauke Exp $
+
+--- src/ylocale.cc.orig	2007-12-27 19:16:17.000000000 +0100
++++ src/ylocale.cc	2008-06-08 15:43:51.000000000 +0200
+@@ -153,5 +153,9 @@
+     size_t inlen(lLen), outlen(4 * lLen);
+ 
++#if defined(__NetBSD__) || defined(__sun)
++    if (0 > (int) iconv(instance->toUnicode, const_cast<const char **>(&inbuf), &inlen, &outbuf, &outlen))
++#else
+     if (0 > (int) iconv(instance->toUnicode, &inbuf, &inlen, &outbuf, &outlen))
++#endif
+         warn(_("Invalid multibyte string \"%s\": %s"), lStr, strerror(errno));
+ 

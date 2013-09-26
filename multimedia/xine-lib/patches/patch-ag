@@ -1,0 +1,43 @@
+$NetBSD: patch-ag,v 1.26 2012/09/20 15:33:40 jperkin Exp $
+
+--- configure.ac.orig	2012-06-09 17:30:18.000000000 +0000
++++ configure.ac	2012-09-20 14:41:33.687892237 +0000
+@@ -9,7 +9,7 @@
+ 
+ dnl Initialize autoconf, autoheader, and automake
+ AC_INIT([xine-lib], XINE_VERSION_SPEC, [xine-bugs@lists.sourceforge.net])
+-AM_INIT_AUTOMAKE
++AM_INIT_AUTOMAKE([subdir-objects])
+ AC_CONFIG_SRCDIR([src/xine-engine/xine.c])
+ AC_CONFIG_MACRO_DIR([m4])
+ AC_CONFIG_LIBOBJ_DIR([lib])
+@@ -272,6 +272,10 @@
+ AC_CHECK_LIB([resolv], [hstrerror],     [NET_LIBS="-lresolv $NET_LIBS"])
+ AC_SUBST(NET_LIBS)
+ 
++WINE_LIBS=""
++AC_CHECK_LIB(i386, i386_set_ldt, WINE_LIBS="-li386 $WINE_LIBS",)
++AC_SUBST(WINE_LIBS)
++
+ AC_CHECK_LIB([rt], [clock_getres],
+              [RT_LIBS="-lrt"
+               AC_DEFINE(HAVE_POSIX_TIMERS, 1, [Define this if you have POSIX timers.])], 
+@@ -361,6 +365,10 @@
+ esac
+ AC_CHECK_HEADERS([sys/dvdio.h sys/cdio.h sys/scsiio.h])
+ 
++dnl ----------------------------------------------
++dnl Check for NetBSD DTV headers
++dnl ----------------------------------------------
++AC_CHECK_HEADERS([dev/dtv/dtvio.h])
+ 
+ dnl ----------------
+ dnl checks for types
+@@ -905,6 +913,7 @@
+ 
+ AC_FUNC_FSEEKO
+ 
++AC_LIBOBJ(dummy)
+ AC_REPLACE_FUNCS([asprintf basename gettimeofday setenv strcasestr strndup strpbrk strsep strtok_r timegm unsetenv memmem])
+ 
+ AC_LIBSOURCE([hstrerror.c])

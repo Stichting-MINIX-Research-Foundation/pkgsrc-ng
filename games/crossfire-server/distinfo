@@ -1,0 +1,19 @@
+$NetBSD: distinfo,v 1.6 2011/11/11 00:21:17 joerg Exp $
+
+SHA1 (crossfire-1.11.0.arch.tar.gz) = 29a3ea7cfd5df4dc5a375f5b4302aebb4d609964
+RMD160 (crossfire-1.11.0.arch.tar.gz) = 8fa48ef33a83f1ed158a957db664a9deed96e1fc
+Size (crossfire-1.11.0.arch.tar.gz) = 3306459 bytes
+SHA1 (crossfire-1.11.0.maps.tar.bz2) = 21c376d4d570b341f4554b35ea0904157aca8c30
+RMD160 (crossfire-1.11.0.maps.tar.bz2) = fc582ccca34f2d0b5ee868b145ae59694ddf2847
+Size (crossfire-1.11.0.maps.tar.bz2) = 16707137 bytes
+SHA1 (crossfire-1.11.0.tar.gz) = 5ba3f6e8ac39f7d02cf2d133ed6069c789502c25
+RMD160 (crossfire-1.11.0.tar.gz) = c71c429896ccfecc98b5f52559377bb01b33c1c0
+Size (crossfire-1.11.0.tar.gz) = 6302656 bytes
+SHA1 (patch-aa) = b4a855a8aee117b42d6edbb7c6fd2819b6b33180
+SHA1 (patch-ab) = 2cf11e9901f72cf018f162e4bf4d2980257a0bbf
+SHA1 (patch-ae) = 1c9d973c932d5c6ee6ee642611d64850e05e3985
+SHA1 (patch-crossedit_png.c) = 4802c077285b47c7afc5acc7128020d6f54087ab
+SHA1 (patch-server-c_misc.c) = 203ef2baf2ef37406b6f88093646a8f69212892b
+SHA1 (patch-server-c_wiz.c) = 1f44d16218c842cc3f51213841e9276ca0b76715
+SHA1 (patch-server-plugins.c) = 4225fa60b44dff86e993315e85385c6c9102e81c
+SHA1 (patch-socket-metaserver.c) = f08f319322455d5f1309eb4e87741fa99bda5acb

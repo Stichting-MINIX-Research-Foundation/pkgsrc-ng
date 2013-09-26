@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 21:16:21 joerg Exp $
+share/cups/drivers/ADFONTS.MFM
+share/cups/drivers/ADOBEPS4.DRV
+share/cups/drivers/ADOBEPS4.HLP
+share/cups/drivers/ADOBEPS5.DLL
+share/cups/drivers/ADOBEPSU.DLL
+share/cups/drivers/ADOBEPSU.HLP
+share/cups/drivers/DEFPRTR2.PPD
+share/cups/drivers/ICONLIB.DLL
+share/cups/drivers/PSMON.DLL

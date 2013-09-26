@@ -1,0 +1,7 @@
+Reposurgeon enables risky operations that version-control systems
+don't want to let you do, such as editing past comments and metadata
+and removing commits. It works with any version control system that
+can export and import git fast-import streams, including git, hg,
+bzr, CVS, and RCS. It can also read Subversion dump files directly
+and can thus be used to script production of very high-quality
+conversions from Subversion to any supported DVCS.

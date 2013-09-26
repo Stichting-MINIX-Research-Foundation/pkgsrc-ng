@@ -1,0 +1,17 @@
+$NetBSD: patch-aa,v 1.4 2012/02/24 16:29:43 adam Exp $
+
+From p5-Math-GMP/patches/patch-aa:
+
+Trick perl into emitting use of -lgmp.  Actual library
+location will be handled via buildlink / wrapper.
+
+--- Makefile.PL.orig	2011-09-04 14:31:50.000000000 +0000
++++ Makefile.PL
+@@ -28,6 +28,6 @@ WriteMakefile
+                            Math::BigInt => 1.997,
+                            XSLoader => 0.02,
+                           },
+-   'LIBS'              => ['-lgmp'],
++   'LIBS'              => ["-L$ENV{PREFIX}/lib -lgmp"],
+    'SIGN' => 1,
+   );

@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.3 2011/03/11 14:49:03 drochner Exp $
+
+--- sorcerer/makefile.orig	2001-04-13 00:43:59.000000000 +0000
++++ sorcerer/makefile
+@@ -9,8 +9,8 @@ DLG = $(BIN)/dlg
+ PCCTS_H = $(PCCTS)/h
+ SET = $(PCCTS)/support/set
+ 
+-CC=cc
+-COPT=-g
++#CC=cc
++#COPT=-g
+ CFLAGS = $(COPT) -Ih -I. -I$(PCCTS_H) -I$(SET) -DZZLEXBUFSIZE=32000
+ AFLAGS = -gh -k 2 -gt
+ DFLAGS = -C2

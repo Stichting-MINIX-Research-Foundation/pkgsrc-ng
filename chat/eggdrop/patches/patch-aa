@@ -1,0 +1,32 @@
+$NetBSD: patch-aa,v 1.6 2012/03/31 21:52:57 shattered Exp $
+
+--- configure.orig	2011-10-26 02:00:10.000000000 +0000
++++ configure
+@@ -5248,7 +5248,7 @@ $as_echo "#define DLOPEN_1 1" >>confdefs
+ 
+       fi
+     ;;
+-    *BSD)
++    *BSD | DragonFly)
+       # FreeBSD/OpenBSD/NetBSD all support dlopen() and have had plenty of
+       # testing with Eggdrop.
+       WEIRD_OS="no"
+@@ -5525,10 +5525,16 @@ $as_echo "#define STOP_UAC 1" >>confdefs
+         SHLIB_CC="$CC -PIC"
+       fi
+     ;;
+-    *BSD)
++    *BSD | DragonFly)
+       # FreeBSD/OpenBSD/NetBSD
+       SHLIB_CC="$CC -fPIC"
+-      SHLIB_LD="ld -Bshareable -x"
++      if [ `echo __ELF__ | $CC -E - | grep -v '#'` = 1 ]; then
++        SHLIB_LD="ld -shared -x"
++        BEL_MOD_LD="$CC -Wl,-E $LDFLAGS"
++      else
++        SHLIB_LD="ld -Bshareable -x"
++        BEL_MOD_LD="$CC $LDFLAGS"
++      fi
+     ;;
+     Darwin)
+       # Mac OS X

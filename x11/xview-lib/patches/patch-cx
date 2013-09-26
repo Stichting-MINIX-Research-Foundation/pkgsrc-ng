@@ -1,0 +1,40 @@
+$NetBSD: patch-cx,v 1.3 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/textsw/txt_e_menu.c.orig	1993-06-29 05:17:42.000000000 +0000
++++ lib/libxview/textsw/txt_e_menu.c
+@@ -45,13 +45,16 @@ static char     sccsid[] = "@(#)txt_e_me
+  * Declare errno. Some BSD systems do not have errno declared in
+  * <errno.h>
+  */
+-extern int errno;
+ 
+ #define	ERROR	-1
+ 
+ #define	MAX_FILES	40
++#ifndef MAXPATHLEN
+ #define MAXPATHLEN	1024
++#endif
++#ifndef EXTRASMENU
+ #define	EXTRASMENU	"text_extras_menu"
++#endif
+ #define	MAXSTRLEN	256
+ #define	MAXARGS		20
+ 
+@@ -78,6 +81,8 @@ static	char	*check_filename_locale();
+ 
+ extern int      EXTRASMENU_FILENAME_KEY;
+ 
++static any_shell_meta();
++
+ Pkg_private char *
+ textsw_get_extras_filename(mi)
+     Menu_item       mi;
+@@ -136,7 +141,7 @@ textsw_get_extras_filename(mi)
+ 	            goto found;
+ 	}
+ 
+-#ifdef notdef
++#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__DragonFly__)
+ 	/* Gee, still?... We will try the old fashioned way */
+         (void) sprintf(tmp, "%s/lib/.%s",
+ 		       filename, EXTRASMENU);

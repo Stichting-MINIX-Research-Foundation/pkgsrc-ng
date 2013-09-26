@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2010/09/14 00:24:40 minskim Exp $
+share/texmf-dist/doc/latex/mfnfss/changes.txt
+share/texmf-dist/doc/latex/mfnfss/manifest.txt
+share/texmf-dist/doc/latex/mfnfss/oldgerm.pdf
+share/texmf-dist/doc/latex/mfnfss/readme.txt

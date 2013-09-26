@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2013/01/27 10:25:29 rhaen Exp $
+
+SHA1 (TAP-Formatter-HTML-0.11.tar.gz) = 80ceeb3d4e23616456743be4bbdfc8acc6d43df2
+RMD160 (TAP-Formatter-HTML-0.11.tar.gz) = ba0b46d3bd78816ba730f56d9f0055a891cc2ab7
+Size (TAP-Formatter-HTML-0.11.tar.gz) = 103183 bytes

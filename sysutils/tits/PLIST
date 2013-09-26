@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.4 2011/01/10 12:22:53 obache Exp $
+man/cat8/tits.0
+man/man8/tits.8
+sbin/tits
+share/examples/rc.d/tits
+share/examples/tits.conf

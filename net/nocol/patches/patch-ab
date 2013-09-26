@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.5 2012/09/09 19:49:45 dholland Exp $
+
+Don't use curses internals.
+
+--- netconsole/fill_window.c.orig	Thu Jul 13 11:15:34 2000
++++ netconsole/fill_window.c	Thu Jul 13 11:15:51 2000
+@@ -38,7 +38,7 @@
+ 
+ #include	"netconsole.h"
+ 
+-#define WFULL(w)  	(w->_cury == (w->_maxy - 1)) ? 1:0
++#define WFULL(w)        (getcury(w) == (getmaxy(w) - 1)) ? 1:0
+ 
+ fill_window(win, dirp, dir, pcurfd, dpy_func)
+      WINDOW *win;			/* Window to be filled		*/

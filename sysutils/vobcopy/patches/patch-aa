@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.8 2010/09/16 12:02:16 wiz Exp $
+
+--- vobcopy.c.orig	2009-06-08 20:15:34.000000000 +0000
++++ vobcopy.c
+@@ -52,7 +52,6 @@
+ 
+ #include "vobcopy.h"
+ 
+-extern int errno;
+ char              name[300];
+ bool              overwrite_flag = FALSE;
+ bool              overwrite_all_flag = FALSE;
+@@ -2308,7 +2307,7 @@ char *safestrncpy(char *dest, const char
+   return strncpy(dest, src, n-1);
+ }
+ 
+-#if defined(__APPLE__) && defined(__GNUC__) || defined(OpenBSD)
++#if defined(__APPLE__) && defined(__GNUC__) || defined(OpenBSD) || defined(__DragonFly__)
+ int fdatasync( int value )
+ {
+   return 0;

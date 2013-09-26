@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.12 2011/08/30 12:01:03 dmcmahill Exp $
+@comment bin/nghelp
+bin/ngmakeidx
+bin/ngmultidec
+bin/ngnutmeg
+bin/ngproc2mod
+bin/ngsconvert
+bin/ngspice
+man/man1/ngmultidec.1
+man/man1/ngnutmeg.1
+man/man1/ngsconvert.1
+man/man1/ngspice.1
+share/ngspice/helpdir/ngspice.idx
+share/ngspice/helpdir/ngspice.txt
+share/ngspice/scripts/setplot
+share/ngspice/scripts/spectrum
+share/ngspice/scripts/spinit

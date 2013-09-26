@@ -1,0 +1,115 @@
+$NetBSD: patch-aa,v 1.4 2011/03/11 11:56:06 wiz Exp $
+
+Use libtool.
+
+--- Makefile.in.orig	2011-01-10 17:04:46.000000000 +0000
++++ Makefile.in
+@@ -29,11 +29,12 @@ INSTALL_DIRS	= $(DESTDIR)@INSTALL_ROOT@ 
+ 
+ SHELL =		/bin/sh
+ RANLIB =	@RANLIB@
+-CC =		@CC@
++CC =		${LIBTOOL} --mode=compile @CC@
++LD =		${LIBTOOL} --mode=link @CC@
+ CFLAGS =	@CFLAGS@
+ FC =		@FC@
+ LDFLAGS =	$(CFLAGS)
+-DEFS =		@DEFS@
++DEFS =		@DEFS@ -Dunix
+ LIBS =		@LIBS@
+ FLEX =		flex
+ BISON =		bison
+@@ -81,53 +82,47 @@ all:
+ all-nofitsio:
+ 		${MAKE} stand_alone "FITSIO_SRC="
+ 
+-stand_alone:	libcfitsio.a
++stand_alone:	libcfitsio.la
+ 
+-libcfitsio.a:	${OBJECTS}
+-		ar rv libcfitsio.a ${OBJECTS}; \
+-		${RANLIB} libcfitsio.a;
++libcfitsio.la:	${OBJECTS}
++		${LIBTOOL} --mode=link @CC@ -o $@ ${OBJECTS:.o=.lo} -rpath ${PREFIX}/lib -version-info 3:0
+ 
+ shared: libcfitsio${SHLIB_SUFFIX}
+ 
+ libcfitsio${SHLIB_SUFFIX}: ${OBJECTS}
+ 		${SHLIB_LD} ${LDFLAGS} -o $@ ${OBJECTS}
+ 
+-install:	libcfitsio.a $(INSTALL_DIRS)
+-		@if [ -f libcfitsio.a ]; then \
+-			/bin/mv libcfitsio.a ${CFITSIO_LIB}; \
+-		fi; \
+-		if [ -f libcfitsio${SHLIB_SUFFIX} ]; then \
+-			/bin/mv libcfitsio${SHLIB_SUFFIX} ${CFITSIO_LIB}; \
+-		fi; \
+-		/bin/cp fitsio.h fitsio2.h longnam.h drvrsmem.h ${CFITSIO_INCLUDE}/; \
+-		/bin/cp cfitsio.pc ${CFITSIO_LIB}/pkgconfig
+-
+-smem:		smem.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o smem smem.o -L. -lcfitsio -lm
+-
+-testprog:	testprog.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o testprog testprog.o -L. -lcfitsio -lm ${LIBS}
+-
+-fpack:		fpack.o fpackutil.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o fpack fpack.o fpackutil.o libcfitsio.a -lm ${LIBS}
+-
+-funpack:	funpack.o fpackutil.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o funpack funpack.o fpackutil.o libcfitsio.a -lm ${LIBS}
+-
+-fitscopy:	fitscopy.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o fitscopy fitscopy.o -L. -lcfitsio -lm ${LIBS}
+-
+-speed:		speed.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o speed speed.o -L. -lcfitsio -lm ${LIBS}
++install:	libcfitsio.la $(INSTALL_DIRS)
++		${LIBTOOL} --mode=install ${BSD_INSTALL_LIB} libcfitsio.la ${CFITSIO_LIB}
++		${BSD_INSTALL_DATA} fitsio.h fitsio2.h longnam.h drvrsmem.h ${CFITSIO_INCLUDE}/
++		${BSD_INSTALL_DATA} cfitsio.pc ${CFITSIO_LIB}/pkgconfig
+ 
+-imcopy:		imcopy.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o imcopy imcopy.o -L. -lcfitsio -lm ${LIBS}
++smem:		smem.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o smem smem.o -L. -lcfitsio -lm
+ 
+-listhead:	listhead.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o listhead listhead.o -L. -lcfitsio -lm ${LIBS}
++testprog:	testprog.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o testprog testprog.o -L. -lcfitsio -lm ${LIBS}
+ 
+-cookbook:	cookbook.o libcfitsio.a ${OBJECTS}
+-		${CC} $(CFLAGS) $(DEFS) -o cookbook cookbook.o -L. -lcfitsio -lm ${LIBS}
++fpack:		fpack.o fpackutil.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o fpack fpack.o fpackutil.o -L. -lcfitsio -lm ${LIBS}
++
++funpack:	funpack.o fpackutil.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o funpack funpack.o fpackutil.o -L. -lcfitsio -lm ${LIBS}
++
++fitscopy:	fitscopy.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o fitscopy fitscopy.o -L. -lcfitsio -lm ${LIBS}
++
++speed:		speed.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o speed speed.o -L. -lcfitsio -lm ${LIBS}
++
++imcopy:		imcopy.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o imcopy imcopy.o -L. -lcfitsio -lm ${LIBS}
++
++listhead:	listhead.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o listhead listhead.o -L. -lcfitsio -lm ${LIBS}
++
++cookbook:	cookbook.o libcfitsio.la ${OBJECTS}
++		${LD} $(CFLAGS) $(DEFS) -o cookbook cookbook.o -L. -lcfitsio -lm ${LIBS}
+ 
+ eval:		# Rebuild eval_* files from flex/bison source
+ 		$(FLEX) -t eval.l > eval_l.c1
+@@ -139,7 +134,7 @@ eval:		# Rebuild eval_* files from flex/
+ 		/bin/rm -f y.tab.c y.tab.h
+ 
+ clean:
+-	-	/bin/rm -f *.o libcfitsio.a libcfitsio${SHLIB_SUFFIX} \
++	-	/bin/rm -f *.o libcfitsio.la libcfitsio${SHLIB_SUFFIX} \
+ 			smem testprog y.output
+ 
+ distclean:	clean

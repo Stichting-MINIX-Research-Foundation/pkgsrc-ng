@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2011/11/17 14:13:39 hiramatsu Exp $
+
+SHA1 (MooseX-Params-Validate-0.16.tar.gz) = 23325d65b3f2c34bf14c83145c4ab20029e164b9
+RMD160 (MooseX-Params-Validate-0.16.tar.gz) = 9130b8e637cc9d10585aa9732735dee9df5091b0
+Size (MooseX-Params-Validate-0.16.tar.gz) = 20254 bytes

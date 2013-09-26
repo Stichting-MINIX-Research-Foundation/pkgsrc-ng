@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:32:02 joerg Exp $
+bin/bladeenc
+man/man1/bladeenc.1
+share/doc/html/bladeenc/bladeenc.html

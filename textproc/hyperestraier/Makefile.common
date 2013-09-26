@@ -1,0 +1,19 @@
+# $NetBSD: Makefile.common,v 1.8 2009/05/25 09:47:32 obache Exp $
+#
+# used by textproc/java-native-hyperestraier/Makefile
+# used by textproc/java-pure-hyperestraier/Makefile
+# used by textproc/p5-native-hyperestraier/Makefile
+# used by textproc/ruby-native-hyperestraier/Makefile
+# used by textproc/ruby-pure-hyperestraier/Makefile
+
+DISTNAME=	hyperestraier-${HYPERESTRAIER_VERSION}
+CATEGORIES=	japanese textproc www
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hyperestraier/}		\
+		http://hyperestraier.sourceforge.net/
+HYPERESTRAIER_VERSION=1.4.13
+
+MAINTAINER=	obache@NetBSD.org
+HOMEPAGE=	http://hyperestraier.sourceforge.net/
+
+DISTINFO_FILE=	${.CURDIR}/../../textproc/hyperestraier/distinfo
+PATCHDIR=	${.CURDIR}/../../textproc/hyperestraier/patches

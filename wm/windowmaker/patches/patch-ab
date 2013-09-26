@@ -1,0 +1,16 @@
+$NetBSD: patch-ab,v 1.14 2013/05/21 14:38:40 hans Exp $
+
+--- configure.orig	2013-01-09 21:43:05.000000000 +0000
++++ configure
+@@ -11613,9 +11613,9 @@ test "x$exec_prefix" = xNONE && exec_pre
+ _bindir=`eval echo $bindir`
+ _bindir=`eval echo $_bindir`
+ 
+-lib_search_path='-L${libdir}'
++lib_search_path="-L${BUILDLINK_DIR}/lib -L${BUILDLINK_X11_DIR}/lib"
+ 
+-inc_search_path='-I${includedir}'
++inc_search_path="-I${BUILDLINK_DIR}/include -I${BUILDLINK_X11_DIR}/include"
+ 
+ 
+ # Check whether --with-libs-from was given.

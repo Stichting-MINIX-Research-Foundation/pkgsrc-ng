@@ -1,0 +1,75 @@
+$NetBSD: patch-aa,v 1.4 2011/08/29 13:11:39 joerg Exp $
+
+--- Makefile.orig	2001-07-29 05:43:49.000000000 +0000
++++ Makefile
+@@ -4,25 +4,25 @@
+ #  Set these variables
+ #
+ #  initial_directory is now set in the config file
+-mpg123_location   := "mpg123"
+-ogg123_location   := "ogg123"
+-install_directory := "$(HOME)/bin"
++mpg123_location   := "$(LOCALBASE)/bin/mpg123"
++ogg123_location   := "$(LOCALBASE)/bin/ogg123"
++install_directory := "$(PREFIX)/bin"
+ 
+ #
+ #  Location of config file - Please edit this file before installing
+ #
+-config_file       := "$(HOME)/.cmp3rc"
++#config_file       := "$(HOME)/.cmp3rc"
+ 
+ #
+ #  Uncomment and set if desired
+ #
+ 
+ ## An ass repository is a nice thing to have. See README
+-ass_repository := "$(HOME)/.cmp3ass"
++#ass_repository := "$(HOME)/.cmp3ass"
+ 
+ ## Define this for bufferring or add other parameters to mpg123 and ogg123
+-mpg123_params := -b 320
+-ogg123_params := -d oss
++#mpg123_params := -b 320
++#ogg123_params := -d oss
+ 
+ # You need debugging info? Uncomment this and check /tmp/cmp3log
+ #debugging := 1
+@@ -36,15 +36,15 @@ ogg123_params := -d oss
+ 
+ VERSION="2.0pre6"
+ WKGDIR=cmp3-kenrevs
+-PARAMS= -DCMP3_VER="\$(VERSION)\" -DEXEC_LOC="\$(mpg123_location)\" \
+-    -DCMP3_CONFIG="\$(config_file)\" -DOGG_LOC="\$(ogg123_location)\"
++PARAMS= -DCMP3_VER=\"$(VERSION)\" -DEXEC_LOC=\"$(mpg123_location)\" \
++    -DCMP3_CONFIG=\"$(config_file)\" -DOGG_LOC=\"$(ogg123_location)\"
+ RNMP3PARAMS= -DVERSION="\$(VERSION)\"
+ # Something for me and my cd changer, you definately don't want it as it
+ # stands. Change the code to do something else you want it to do...
+ #PARAMS +=-DMY_CD
+-LIBS= -lform -lncurses
+-CFLAGS= -g -O -Inevlib
+-CC= gcc
++LIBS= $(LDFLAGS) -lform -lncurses
++CFLAGS+= -Inevlib
++CC?= clang
+ OBJS= cmp3common.o cmp3fileio.o cmp3manager.o cmp3curses.o \
+       cmp3llist.o cmp3main.o cmp3listfiles.o cmp3playlist.o cmp3volume.o \
+       cmp3general.o cmp3id3.o
+@@ -60,6 +60,7 @@ PARAMS += -DEXEC_PARAMS="$(foreach token
+ PARAMS += -DOGG_PARAMS="$(foreach token, $(ogg123_params),\"$(token)\",)"
+ else
+ PARAMS += -DEXEC_PARAMS=\"\",
++PARAMS += -DOGG_PARAMS=\"\",
+ endif
+ ifdef filespacing
+ RNMP3PARAMS += -DSPACEIT
+@@ -87,7 +88,7 @@ cmp3: lib $(OBJS)
+ 	$(CC) $(CFLAGS) $(OBJS) nevlib/libnev.a $(LIBS) -o cmp3
+ 
+ lib:
+-	@$(MAKE) -C nevlib lib
++	@$(MAKE) CC="$(CC)" CFLAGS="$(CFLAGS)" -C nevlib lib 
+ 
+ cleanlib:
+ 	@$(MAKE) -C nevlib clean

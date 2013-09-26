@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.7 2012/04/25 15:22:47 drochner Exp $
+bin/agrep
+include/tre/regex.h
+include/tre/tre-config.h
+include/tre/tre.h
+lib/libtre.la
+lib/pkgconfig/tre.pc
+man/man1/agrep.1
+share/doc/tre/tre-api.html
+share/doc/tre/tre-syntax.html
+share/locale/fi/LC_MESSAGES/tre.mo
+share/locale/sv/LC_MESSAGES/tre.mo

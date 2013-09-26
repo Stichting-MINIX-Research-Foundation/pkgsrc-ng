@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:15 joerg Exp $
+man/man8/tob.8
+sbin/tob
+share/examples/tob/example.exclude
+share/examples/tob/example.startdir
+share/examples/tob/tob.rc
+@unexec ${RMDIR} /var/tob

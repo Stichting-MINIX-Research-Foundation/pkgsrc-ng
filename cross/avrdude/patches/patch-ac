@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.5 2010/01/26 02:01:47 jakllsch Exp $
+
+the builtin [ on at least solaris doesn't understand -e
+
+--- doc/Makefile.am.orig	2009-03-06 20:09:08.000000000 +0000
++++ doc/Makefile.am
+@@ -33,7 +33,7 @@ html: avrdude-html/avrdude.html
+ 
+ avrdude-html/avrdude.html: $(srcdir)/$(info_TEXINFOS)
+ 	texi2html -split_node $(srcdir)/$(info_TEXINFOS)
+-	if [ -e ./avrdude.html -o -e ./avrdude_1.html ]; then \
++	if [ -f ./avrdude.html -o -f ./avrdude_1.html ]; then \
+ 	 mkdir -p avrdude-html ; \
+ 	 mv -f *.html avrdude-html ; \
+ 	else \

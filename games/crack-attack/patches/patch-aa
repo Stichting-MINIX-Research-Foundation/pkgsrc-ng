@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.4 2008/06/09 05:57:35 snj Exp $
+
+--- configure.orig	2005-05-13 22:29:09 +0300
++++ configure	2008-06-03 15:42:38 +0300
+@@ -5088,7 +5088,7 @@ if test "${ac_cv_lib_SDL_mixer_Mix_OpenA
+   echo $ECHO_N "(cached) $ECHO_C" >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lSDL_mixer  $LIBS"
++LIBS="-lSDL_mixer $SDL_LIBS $LIBS"
+ cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+@@ -5248,12 +5248,12 @@ rm -f conftest.err conftest.$ac_objext \
+   rm -f conf.sdltest
+ 
+ 
+-  if test "$enable_sound" == "yes" -a "$found_sound" == "no"; then
++  if test "$enable_sound" = "yes" -a "$found_sound" = "no"; then
+     { { echo "$as_me:$LINENO: error: libSDL and SDL_mixer are required for sound" >&5
+ echo "$as_me: error: libSDL and SDL_mixer are required for sound" >&2;}
+    { (exit 1); exit 1; }; }
+   fi
+-  if test "$found_sound" == "yes"; then
++  if test "$found_sound" = "yes"; then
+     AUDIO_CFLAGS="$SDL_CFLAGS"
+     AUDIO_LIBS="$SDL_LIBS -lSDL_mixer"
+ 

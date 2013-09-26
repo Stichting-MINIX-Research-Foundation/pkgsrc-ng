@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:03:29 joerg Exp $
+lib/classpath/libgtkpeer.la

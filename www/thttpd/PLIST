@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 22:00:37 joerg Exp $
+libexec/cgi-bin/phf
+libexec/cgi-bin/redirect
+libexec/cgi-bin/ssi
+man/man1/makeweb.1
+man/man1/thtpasswd.1
+man/man8/redirect.8
+man/man8/ssi.8
+man/man8/syslogtocern.8
+man/man8/thttpd.8
+sbin/makeweb
+sbin/syslogtocern
+sbin/thtpasswd
+sbin/thttpd
+share/examples/rc.d/thttpd
+share/examples/thttpd.conf
+share/thttpd/index.html
+share/thttpd/sitedrivenby.gif

@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.3 2010/03/13 04:40:12 obache Exp $
+
+--- src/Makefile.in.orig	2007-06-04 20:14:58.000000000 +0000
++++ src/Makefile.in
+@@ -1164,10 +1164,6 @@ depend:
+ 
+ # This is GNU make specific
+ 
+-%.x: % $(srcdir)/scm/gaba.scm $(srcdir)/scm/compiler.scm
+-	$(SCHEME) -e main -l $(srcdir)/scm/compiler.scm \
+-		  -s $(srcdir)/scm/gaba.scm <$< >$@T
+-	test -s $@T && mv -f $@T $@
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:

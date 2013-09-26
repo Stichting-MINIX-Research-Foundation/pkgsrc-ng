@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.16 2012/10/22 02:17:16 rh Exp $
+
+--- configure.orig	2012-01-29 16:57:06.000000000 +0000
++++ configure
+@@ -5641,6 +5641,7 @@ $as_echo "$as_me: error: The command 'gn
+    { (exit 1); exit 1; }; }
+   exit 1
+ fi
++LIBOBJC="$LIBOBJC @PTHREAD_LIBS@"
+ 
+ #--------------------------------------------------------------------
+ # Miscellaneous flags
+@@ -6463,7 +6464,7 @@ cat >>confdefs.h <<\_ACEOF
+ _ACEOF
+ 
+   fi
+-  LIBS="-lobjc_gc -ldl"
++  LIBS="-lobjc_gc -ldl @PTHREAD_LIBS@"
+   { $as_echo "$as_me:$LINENO: checking for class_ivar_set_gcinvisible" >&5
+ $as_echo_n "checking for class_ivar_set_gcinvisible... " >&6; }
+ if test "${ac_cv_func_class_ivar_set_gcinvisible+set}" = set; then

@@ -1,0 +1,13 @@
+$NetBSD: patch-ad,v 1.6 2012/02/02 18:54:35 bouyer Exp $
+
+--- bin/tSmoke.orig	2012-02-02 15:16:10.000000000 +0100
++++ bin/tSmoke	2012-02-02 15:16:31.000000000 +0100
+@@ -63,7 +63,7 @@
+ use RRDs;
+ 
+ # Point to your Smokeping config file
+-my $cfgfile = "etc/config.dist";
++my $cfgfile = "@PKG_SYSCONFDIR@/config.dist";
+ 
+ # global variables
+ my $cfg;

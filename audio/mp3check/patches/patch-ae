@@ -1,0 +1,23 @@
+$NetBSD: patch-ae,v 1.4 2013/04/10 16:20:21 drochner Exp $
+
+--- tstring.cc.orig	2006-09-21 23:17:07.000000000 +0200
++++ tstring.cc
+@@ -716,12 +717,12 @@ void tstring::truncate(size_t max) {
+ 
+ void tstring::replaceUnprintable(bool only_ascii) {
+    for(size_t i = 0; i < rep->len; i++) {
+-      unsigned char& c = (unsigned char &)(*rep)[i];
+-      if(!isprint(c)) {
+-	 if(c < ' ') {
+-	    c = '!';
+-	 } else if(only_ascii || (c < 0xa0)) {
+-	    c = '?';
++      unsigned char *c = (unsigned char *)&(*rep)[i];
++      if(!isprint(*c)) {
++	 if(*c < ' ') {
++	    *c = '!';
++	 } else if(only_ascii || (*c < 0xa0)) {
++	    *c = '?';
+ 	 }
+       }
+    }

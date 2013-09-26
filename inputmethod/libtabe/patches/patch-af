@@ -1,0 +1,15 @@
+$NetBSD: patch-af,v 1.2 2009/11/24 11:15:14 obache Exp $
+
+--- src/tabe_tsiyindbint.c.orig	2004-01-24 20:14:55.000000000 +0000
++++ src/tabe_tsiyindbint.c
+@@ -275,7 +275,9 @@ tabeTsiYinDBRecordNumber(struct TsiYinDB
+   switch(tsiyindb->type) {
+   case DB_TYPE_DB:
+     dbp = (DB *)tsiyindb->dbp;
+-#if DB_VERSION >= 303011
++#if DB_VERSION >= 403000
++    errno = dbp->stat(dbp, NULL, &sp, 0);
++#elif DB_VERSION >= 303011
+     errno = dbp->stat(dbp, &sp, 0);
+ #else
+     errno = dbp->stat(dbp, &sp, NULL, 0);

@@ -1,0 +1,13 @@
+$NetBSD: patch-aw,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- malloc/xmalloc.c.orig	1995-02-24 16:20:43.000000000 -0500
++++ malloc/xmalloc.c	2008-12-16 20:18:01.000000000 -0500
+@@ -20,6 +20,8 @@
+    Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA. */
+ 
+ #include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
+ 
+ static void memory_error_and_abort ();
+ 

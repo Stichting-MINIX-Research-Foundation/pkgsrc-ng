@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.20 2011/06/09 06:21:58 schmonz Exp $
+
+SHA1 (rss2email-2.71.zip) = aa0123a02139415acdcb765bdcafe4c568d5c16b
+RMD160 (rss2email-2.71.zip) = 2c2e81b6d4e2101ca7e82d524b6222aa44056e95
+Size (rss2email-2.71.zip) = 63612 bytes
+SHA1 (patch-aa) = 5c35ae987257ed8fbe2efae11f144e37b1236d45
+SHA1 (patch-ab) = a53ac7577f897750d51f0db17be5b28480278097
+SHA1 (patch-ad) = 2dd7fe698eae415085fe62f3df16337cc95481c3

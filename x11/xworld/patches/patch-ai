@@ -1,0 +1,18 @@
+$NetBSD: patch-ai,v 1.2 2012/07/30 04:23:23 dholland Exp $
+
+IRIX 5 hack.
+
+--- xworld.c.orig	2006-02-19 02:25:25.000000000 +0100
++++ xworld.c	2006-02-19 02:26:37.000000000 +0100
+@@ -56,6 +56,11 @@
+ #define MAP_FILE 0x0
+ #endif
+ 
++/* IRIX 5 hack: */
++#ifndef MAP_FAILED
++#define MAP_FAILED	((void *) -1)
++#endif
++
+ #define SIZE       150
+ #define MIN_SIZE    50
+ #define X_POS       +0

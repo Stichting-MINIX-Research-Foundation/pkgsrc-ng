@@ -1,0 +1,12 @@
+$NetBSD: patch-ac,v 1.2 2012/04/22 16:00:38 wiz Exp $
+
+--- lib/libpci.pc.in.orig	2011-10-02 09:52:11.000000000 +0000
++++ lib/libpci.pc.in
+@@ -6,6 +6,6 @@ idsdir=@IDSDIR@
+ Name: libpci
+ Description: libpci
+ Version: @VERSION@
+-Libs: -L${libdir} -lpci
++Libs: -L${libdir} -l@PCIUTILS_LIBNAME@
+ Libs.private: @LDLIBS@
+ Cflags: -I${includedir}

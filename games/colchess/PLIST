@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:56:41 joerg Exp $
+bin/colchess
+share/colchess/chessdat.dat
+share/colchess/tests/bk.epd
+share/colchess/tests/bwtc.epd
+share/colchess/tests/wac.epd
+share/colchess/tests/wcsac.epd
+share/doc/colchess/README

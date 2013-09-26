@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:50 joerg Exp $
+bin/lcc
+libexec/bprint
+libexec/cpp
+libexec/lburg
+libexec/rcc
+man/man1/bprint.1
+man/man1/lcc.1
+share/lcc/include/stdarg.h
+share/lcc/include/sys/cdefs.h

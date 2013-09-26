@@ -1,0 +1,1177 @@
+@comment $NetBSD: PLIST,v 1.17 2011/12/09 12:42:09 dmcmahill Exp $
+bin/MergePCBPS
+bin/Merge_dimPCBPS
+bin/pcb
+include/gts.h
+info/pcb.info
+lib/libgts.a
+man/man1/pcb.1
+share/applications/pcb.desktop
+share/doc/pcb/examples/LED.net
+share/doc/pcb/examples/LED.pcb
+share/doc/pcb/examples/LED2.pcb
+share/doc/pcb/examples/libraries/example.inc
+share/doc/pcb/examples/libraries/example.list
+share/doc/pcb/examples/libraries/example.m4
+share/doc/pcb/gcode.png
+share/doc/pcb/gcode_control_img.png
+share/doc/pcb/gcode_tool_path.png
+share/doc/pcb/pad.png
+share/doc/pcb/pcb.html
+share/doc/pcb/pcb.pdf
+share/doc/pcb/puller.png
+share/doc/pcb/refcard.pdf
+share/doc/pcb/thermal.png
+share/doc/pcb/tutorial/tut1.pcb
+share/gEDA/scheme/gnet-pcbfwd.scm
+share/icons/hicolor/16x16/mimetypes/application-x-excellon-16.png
+share/icons/hicolor/16x16/mimetypes/application-x-gerber-16.png
+share/icons/hicolor/16x16/mimetypes/application-x-pcb-footprint-16.png
+share/icons/hicolor/16x16/mimetypes/application-x-pcb-layout-16.png
+share/icons/hicolor/16x16/mimetypes/application-x-pcb-netlist-16.png
+share/icons/hicolor/22x22/mimetypes/application-x-excellon-22.png
+share/icons/hicolor/22x22/mimetypes/application-x-gerber-22.png
+share/icons/hicolor/22x22/mimetypes/application-x-pcb-footprint-22.png
+share/icons/hicolor/22x22/mimetypes/application-x-pcb-layout-22.png
+share/icons/hicolor/22x22/mimetypes/application-x-pcb-netlist-22.png
+share/icons/hicolor/24x24/mimetypes/application-x-excellon-24.png
+share/icons/hicolor/24x24/mimetypes/application-x-gerber-24.png
+share/icons/hicolor/24x24/mimetypes/application-x-pcb-footprint-24.png
+share/icons/hicolor/24x24/mimetypes/application-x-pcb-layout-24.png
+share/icons/hicolor/24x24/mimetypes/application-x-pcb-netlist-24.png
+share/icons/hicolor/32x32/mimetypes/application-x-excellon-32.png
+share/icons/hicolor/32x32/mimetypes/application-x-gerber-32.png
+share/icons/hicolor/32x32/mimetypes/application-x-pcb-footprint-32.png
+share/icons/hicolor/32x32/mimetypes/application-x-pcb-layout-32.png
+share/icons/hicolor/32x32/mimetypes/application-x-pcb-netlist-32.png
+share/icons/hicolor/48x48/apps/pcb-48.png
+share/icons/hicolor/48x48/mimetypes/application-x-excellon-48.png
+share/icons/hicolor/48x48/mimetypes/application-x-gerber-48.png
+share/icons/hicolor/48x48/mimetypes/application-x-pcb-footprint-48.png
+share/icons/hicolor/48x48/mimetypes/application-x-pcb-layout-48.png
+share/icons/hicolor/48x48/mimetypes/application-x-pcb-netlist-48.png
+share/icons/hicolor/scalable/apps/pcb.svg
+share/icons/hicolor/scalable/mimetypes/application-x-excellon.svg
+share/icons/hicolor/scalable/mimetypes/application-x-gerber.svg
+share/icons/hicolor/scalable/mimetypes/application-x-pcb-footprint.svg
+share/icons/hicolor/scalable/mimetypes/application-x-pcb-layout.svg
+share/icons/hicolor/scalable/mimetypes/application-x-pcb-netlist.svg
+${PKGLOCALEDIR}/locale/fr/LC_MESSAGES/pcb.mo
+${PKGLOCALEDIR}/locale/nl/LC_MESSAGES/pcb.mo
+${PKGLOCALEDIR}/locale/ru/LC_MESSAGES/pcb.mo
+share/mime/packages/pcb.xml
+share/mimelnk/application/x-excellon.desktop
+share/mimelnk/application/x-gerber.desktop
+share/mimelnk/application/x-pcb-footprint.desktop
+share/mimelnk/application/x-pcb-layout.desktop
+share/mimelnk/application/x-pcb-netlist.desktop
+share/pcb/CreateLibrary.sh
+share/pcb/CreateLibraryContents.sh
+share/pcb/ListLibraryContents.sh
+share/pcb/QueryLibrary.sh
+share/pcb/default_font
+share/pcb/gpcb-menu.res
+share/pcb/m4/TTL_74xx_DIL.m4
+share/pcb/m4/amp.inc
+share/pcb/m4/amp.list
+share/pcb/m4/amp.m4
+share/pcb/m4/amphenol.inc
+share/pcb/m4/amphenol.list
+share/pcb/m4/amphenol.m4
+share/pcb/m4/bga.inc
+share/pcb/m4/bourns.inc
+share/pcb/m4/bourns.list
+share/pcb/m4/bourns.m4
+share/pcb/m4/candk.inc
+share/pcb/m4/candk.list
+share/pcb/m4/candk.m4
+share/pcb/m4/common.m4
+share/pcb/m4/connector.inc
+share/pcb/m4/connector.list
+share/pcb/m4/connector.m4
+share/pcb/m4/crystal.list
+share/pcb/m4/crystal.m4
+share/pcb/m4/cts.inc
+share/pcb/m4/cts.list
+share/pcb/m4/cts.m4
+share/pcb/m4/dil.inc
+share/pcb/m4/geda.inc
+share/pcb/m4/geda.list
+share/pcb/m4/geda.m4
+share/pcb/m4/generic.list
+share/pcb/m4/generic.m4
+share/pcb/m4/gtag.list
+share/pcb/m4/gtag.m4
+share/pcb/m4/jerry.m4
+share/pcb/m4/johnstech.inc
+share/pcb/m4/johnstech.list
+share/pcb/m4/johnstech.m4
+share/pcb/m4/linear.m4
+share/pcb/m4/logic.m4
+share/pcb/m4/lsi.m4
+share/pcb/m4/memory.m4
+share/pcb/m4/minicircuits.inc
+share/pcb/m4/minicircuits.list
+share/pcb/m4/minicircuits.m4
+share/pcb/m4/misc.inc
+share/pcb/m4/nichicon.inc
+share/pcb/m4/nichicon.list
+share/pcb/m4/nichicon.m4
+share/pcb/m4/optek.inc
+share/pcb/m4/optek.list
+share/pcb/m4/optek.m4
+share/pcb/m4/optical.list
+share/pcb/m4/optical.m4
+share/pcb/m4/panasonic.inc
+share/pcb/m4/panasonic.list
+share/pcb/m4/panasonic.m4
+share/pcb/m4/pci.inc
+share/pcb/m4/pci.list
+share/pcb/m4/pci.m4
+share/pcb/m4/plcc.inc
+share/pcb/m4/qfn.inc
+share/pcb/m4/qfp.inc
+share/pcb/m4/qfp2.inc
+share/pcb/m4/qfpdj.inc
+share/pcb/m4/resistor_0.25W.m4
+share/pcb/m4/resistor_adjust.inc
+share/pcb/m4/resistor_adjust.m4
+share/pcb/m4/resistor_array.m4
+share/pcb/m4/rules.inc
+share/pcb/m4/smt.inc
+share/pcb/m4/texas_inst_amplifier.m4
+share/pcb/m4/texas_inst_voltage_reg.m4
+share/pcb/m4/to.inc
+share/pcb/m4/transistor.m4
+share/pcb/m4/zif.inc
+share/pcb/newlib/2_pin_thru-hole_packages/0.125W_Carbon_Resistor
+share/pcb/newlib/2_pin_thru-hole_packages/1W_Carbon_Resistor
+share/pcb/newlib/2_pin_thru-hole_packages/CK05_type_Capacitor
+share/pcb/newlib/2_pin_thru-hole_packages/CK06_type_capacitor
+share/pcb/newlib/2_pin_thru-hole_packages/IRU1015-33CT_3.3V_reg_TO220
+share/pcb/newlib/2_pin_thru-hole_packages/RN55_type_0.1W_Resistor
+share/pcb/newlib/2_pin_thru-hole_packages/T1.75_LED
+share/pcb/newlib/connectors/100_Pin_jack
+share/pcb/newlib/connectors/16x1_SMD_jack
+share/pcb/newlib/connectors/3terminal_screw_block
+share/pcb/newlib/connectors/72pin45degreeSIMMconnector
+share/pcb/newlib/connectors/MOLEX_miniFitJr-12pin
+share/pcb/newlib/connectors/Power_Jack
+share/pcb/newlib/connectors/RightAngleSMA
+share/pcb/newlib/connectors/SJ-3523-SMT_3.5mm_stereo_jack
+share/pcb/newlib/crystal/CTX169_oscillator
+share/pcb/newlib/electro-optics/IRF_optical_switch
+share/pcb/newlib/headers/0.1_inch_10pin
+share/pcb/newlib/headers/0.1_inch_2pin
+share/pcb/newlib/headers/2mm_8pin_header
+share/pcb/newlib/keystone/KEYSTONE_1062.fp
+share/pcb/newlib/msp430/MSP430F1121
+share/pcb/newlib/msp430/MSP430F1121+jtag
+share/pcb/newlib/not_vetted_ingo/pc104+.ele
+share/pcb/newlib/not_vetted_ingo/pc104.ele
+share/pcb/newlib/not_vetted_ingo/pq100.ele
+share/pcb/newlib/not_vetted_ingo/pq128.ele
+share/pcb/newlib/not_vetted_ingo/pq144.ele
+share/pcb/newlib/not_vetted_ingo/pq160.ele
+share/pcb/newlib/not_vetted_ingo/pq208.ele
+share/pcb/newlib/not_vetted_ingo/pq240.ele
+share/pcb/newlib/not_vetted_ingo/pq304.ele
+share/pcb/newlib/not_vetted_ingo/pq32.ele
+share/pcb/newlib/not_vetted_ingo/pq44.ele
+share/pcb/newlib/not_vetted_ingo/smt0402.ele
+share/pcb/newlib/not_vetted_ingo/smt0603.ele
+share/pcb/newlib/not_vetted_ingo/smt0805.ele
+share/pcb/newlib/not_vetted_ingo/smt1206.ele
+share/pcb/newlib/not_vetted_ingo/smt1210.ele
+share/pcb/newlib/not_vetted_ingo/smt1913.ele
+share/pcb/newlib/not_vetted_ingo/smt2416.ele
+share/pcb/newlib/tests/14DIP_oval_pad
+share/pcb/newlib/tests/Generic_TSOP48_Flash
+share/pcb/newlib/tests/MONOBLOCK_large
+share/pcb/newlib/tests/StrongARM_CPU
+share/pcb/newlib/tests/TK11950
+share/pcb/newlib/tests/TO99fromLED
+share/pcb/newlib/tests/UART
+share/pcb/newlib/tests/monoblock_small
+share/pcb/pcb-menu.res
+share/pcb/pcblib
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_1.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_2.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_3.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_4.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_5.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_6.fp
+share/pcb/pcblib-newlib/amp/AMP_MICTOR_767054_7.fp
+share/pcb/pcblib-newlib/amp/index.html
+share/pcb/pcblib-newlib/amphenol/AMPHENOL_ARFX1229.fp
+share/pcb/pcblib-newlib/amphenol/AMPHENOL_ARFX1230.fp
+share/pcb/pcblib-newlib/amphenol/AMPHENOL_ARFX1231.fp
+share/pcb/pcblib-newlib/amphenol/AMPHENOL_ARFX1232.fp
+share/pcb/pcblib-newlib/amphenol/index.html
+share/pcb/pcblib-newlib/bourns/BOURNS_3224G.fp
+share/pcb/pcblib-newlib/bourns/BOURNS_3224J.fp
+share/pcb/pcblib-newlib/bourns/BOURNS_3224W.fp
+share/pcb/pcblib-newlib/bourns/BOURNS_3224X.fp
+share/pcb/pcblib-newlib/bourns/index.html
+share/pcb/pcblib-newlib/broken.html
+share/pcb/pcblib-newlib/candk/CANDK_ES01MSABE.fp
+share/pcb/pcblib-newlib/candk/CANDK_ES02MSABE.fp
+share/pcb/pcblib-newlib/candk/CANDK_ES03MSABE.fp
+share/pcb/pcblib-newlib/candk/index.html
+share/pcb/pcblib-newlib/connector/BNC_LAY.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 1 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 10 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 2 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 25 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 3 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 4 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 4 3.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 5 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 5 3.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 6 3.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 7 2.fp
+share/pcb/pcblib-newlib/connector/CONNECTOR 8 2.fp
+share/pcb/pcblib-newlib/connector/DIN41_612FEMALE ab.fp
+share/pcb/pcblib-newlib/connector/DIN41_612FEMALE abc.fp
+share/pcb/pcblib-newlib/connector/DIN41_612FEMALE ac.fp
+share/pcb/pcblib-newlib/connector/DIN41_612FEMALE_SMALL.fp
+share/pcb/pcblib-newlib/connector/DIN41_612MALE ab.fp
+share/pcb/pcblib-newlib/connector/DIN41_612MALE abc.fp
+share/pcb/pcblib-newlib/connector/DIN41_612MALE ac.fp
+share/pcb/pcblib-newlib/connector/DIN41_612MALE_SMALL.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 10.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 14.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 16.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 18.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 20.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 22.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 24.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 26.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 34.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 40.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 50.fp
+share/pcb/pcblib-newlib/connector/DIN41_651LAY 64.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 10.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 14.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 16.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 18.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 20.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 22.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 24.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 26.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 34.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 40.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 50.fp
+share/pcb/pcblib-newlib/connector/DIN41_651STAND 64.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 100.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 120.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 140.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 160.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 180.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 20.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 200.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 240.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 30.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 40.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 50.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 60.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 68.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 70.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 80.fp
+share/pcb/pcblib-newlib/connector/MOLEX_025 90.fp
+share/pcb/pcblib-newlib/connector/MTA_156 2.fp
+share/pcb/pcblib-newlib/connector/NANOENGINE.fp
+share/pcb/pcblib-newlib/connector/SMA_VERT.fp
+share/pcb/pcblib-newlib/connector/SUBD_FEMALE_LAY 15.fp
+share/pcb/pcblib-newlib/connector/SUBD_FEMALE_LAY 25.fp
+share/pcb/pcblib-newlib/connector/SUBD_FEMALE_LAY 9.fp
+share/pcb/pcblib-newlib/connector/SUBD_MALE_LAY 15.fp
+share/pcb/pcblib-newlib/connector/SUBD_MALE_LAY 25.fp
+share/pcb/pcblib-newlib/connector/SUBD_MALE_LAY 9.fp
+share/pcb/pcblib-newlib/connector/index.html
+share/pcb/pcblib-newlib/crystal/CRYSTAL 300.fp
+share/pcb/pcblib-newlib/crystal/index.html
+share/pcb/pcblib-newlib/cts/CTS_742C_04.fp
+share/pcb/pcblib-newlib/cts/CTS_742C_08.fp
+share/pcb/pcblib-newlib/cts/CTS_742C_16.fp
+share/pcb/pcblib-newlib/cts/CTS_742X_08.fp
+share/pcb/pcblib-newlib/cts/CTS_743C_04.fp
+share/pcb/pcblib-newlib/cts/CTS_743C_08.fp
+share/pcb/pcblib-newlib/cts/CTS_744C_04.fp
+share/pcb/pcblib-newlib/cts/CTS_744C_08.fp
+share/pcb/pcblib-newlib/cts/CTS_745C_10.fp
+share/pcb/pcblib-newlib/cts/CTS_745X_10.fp
+share/pcb/pcblib-newlib/cts/CTS_746X_10.fp
+share/pcb/pcblib-newlib/cts/index.html
+share/pcb/pcblib-newlib/geda/01005.fp
+share/pcb/pcblib-newlib/geda/0201.fp
+share/pcb/pcblib-newlib/geda/0402.fp
+share/pcb/pcblib-newlib/geda/0603.fp
+share/pcb/pcblib-newlib/geda/0805.fp
+share/pcb/pcblib-newlib/geda/1008.fp
+share/pcb/pcblib-newlib/geda/1206.fp
+share/pcb/pcblib-newlib/geda/1210.fp
+share/pcb/pcblib-newlib/geda/1806.fp
+share/pcb/pcblib-newlib/geda/1825.fp
+share/pcb/pcblib-newlib/geda/2706.fp
+share/pcb/pcblib-newlib/geda/ACY100.fp
+share/pcb/pcblib-newlib/geda/ACY1000.fp
+share/pcb/pcblib-newlib/geda/ACY1000P.fp
+share/pcb/pcblib-newlib/geda/ACY100P.fp
+share/pcb/pcblib-newlib/geda/ACY1100.fp
+share/pcb/pcblib-newlib/geda/ACY1100P.fp
+share/pcb/pcblib-newlib/geda/ACY1200.fp
+share/pcb/pcblib-newlib/geda/ACY1200P.fp
+share/pcb/pcblib-newlib/geda/ACY1300.fp
+share/pcb/pcblib-newlib/geda/ACY1300P.fp
+share/pcb/pcblib-newlib/geda/ACY1400.fp
+share/pcb/pcblib-newlib/geda/ACY1400P.fp
+share/pcb/pcblib-newlib/geda/ACY150.fp
+share/pcb/pcblib-newlib/geda/ACY1500.fp
+share/pcb/pcblib-newlib/geda/ACY1500P.fp
+share/pcb/pcblib-newlib/geda/ACY150P.fp
+share/pcb/pcblib-newlib/geda/ACY1600.fp
+share/pcb/pcblib-newlib/geda/ACY1600P.fp
+share/pcb/pcblib-newlib/geda/ACY200.fp
+share/pcb/pcblib-newlib/geda/ACY200P.fp
+share/pcb/pcblib-newlib/geda/ACY300.fp
+share/pcb/pcblib-newlib/geda/ACY300P.fp
+share/pcb/pcblib-newlib/geda/ACY400.fp
+share/pcb/pcblib-newlib/geda/ACY400P.fp
+share/pcb/pcblib-newlib/geda/ACY500.fp
+share/pcb/pcblib-newlib/geda/ACY500P.fp
+share/pcb/pcblib-newlib/geda/ACY600.fp
+share/pcb/pcblib-newlib/geda/ACY600P.fp
+share/pcb/pcblib-newlib/geda/ACY700.fp
+share/pcb/pcblib-newlib/geda/ACY700P.fp
+share/pcb/pcblib-newlib/geda/ACY800.fp
+share/pcb/pcblib-newlib/geda/ACY800P.fp
+share/pcb/pcblib-newlib/geda/ACY900.fp
+share/pcb/pcblib-newlib/geda/ACY900P.fp
+share/pcb/pcblib-newlib/geda/ALF1000.fp
+share/pcb/pcblib-newlib/geda/ALF300.fp
+share/pcb/pcblib-newlib/geda/ALF400.fp
+share/pcb/pcblib-newlib/geda/ALF500.fp
+share/pcb/pcblib-newlib/geda/ALF600.fp
+share/pcb/pcblib-newlib/geda/ALF700.fp
+share/pcb/pcblib-newlib/geda/ALF800.fp
+share/pcb/pcblib-newlib/geda/ALF900.fp
+share/pcb/pcblib-newlib/geda/CAPC0402L.fp
+share/pcb/pcblib-newlib/geda/CAPC0402M.fp
+share/pcb/pcblib-newlib/geda/CAPC0402N.fp
+share/pcb/pcblib-newlib/geda/CAPC0603L.fp
+share/pcb/pcblib-newlib/geda/CAPC0603M.fp
+share/pcb/pcblib-newlib/geda/CAPC0603N.fp
+share/pcb/pcblib-newlib/geda/CAPC1005L.fp
+share/pcb/pcblib-newlib/geda/CAPC1005M.fp
+share/pcb/pcblib-newlib/geda/CAPC1005N.fp
+share/pcb/pcblib-newlib/geda/CAPC1608L.fp
+share/pcb/pcblib-newlib/geda/CAPC1608M.fp
+share/pcb/pcblib-newlib/geda/CAPC1608N.fp
+share/pcb/pcblib-newlib/geda/CAPC2012L.fp
+share/pcb/pcblib-newlib/geda/CAPC2012M.fp
+share/pcb/pcblib-newlib/geda/CAPC2012N.fp
+share/pcb/pcblib-newlib/geda/CAPC3216L.fp
+share/pcb/pcblib-newlib/geda/CAPC3216M.fp
+share/pcb/pcblib-newlib/geda/CAPC3216N.fp
+share/pcb/pcblib-newlib/geda/CAPC3225L.fp
+share/pcb/pcblib-newlib/geda/CAPC3225M.fp
+share/pcb/pcblib-newlib/geda/CAPC3225N.fp
+share/pcb/pcblib-newlib/geda/CAPC4532L.fp
+share/pcb/pcblib-newlib/geda/CAPC4532M.fp
+share/pcb/pcblib-newlib/geda/CAPC4532N.fp
+share/pcb/pcblib-newlib/geda/CAPC4564L.fp
+share/pcb/pcblib-newlib/geda/CAPC4564M.fp
+share/pcb/pcblib-newlib/geda/CAPC4564N.fp
+share/pcb/pcblib-newlib/geda/DB15F.fp
+share/pcb/pcblib-newlib/geda/DB15M.fp
+share/pcb/pcblib-newlib/geda/DB25F.fp
+share/pcb/pcblib-newlib/geda/DB25M.fp
+share/pcb/pcblib-newlib/geda/DB37F.fp
+share/pcb/pcblib-newlib/geda/DB37M.fp
+share/pcb/pcblib-newlib/geda/DB9F.fp
+share/pcb/pcblib-newlib/geda/DB9M.fp
+share/pcb/pcblib-newlib/geda/DIN41612C64F.fp
+share/pcb/pcblib-newlib/geda/DIN41612C64FS.fp
+share/pcb/pcblib-newlib/geda/DIN41612C64M.fp
+share/pcb/pcblib-newlib/geda/DIN41612C64MS.fp
+share/pcb/pcblib-newlib/geda/DIN41612C96F.fp
+share/pcb/pcblib-newlib/geda/DIN41612C96FS.fp
+share/pcb/pcblib-newlib/geda/DIN41612C96M.fp
+share/pcb/pcblib-newlib/geda/DIN41612C96MS.fp
+share/pcb/pcblib-newlib/geda/DIN41651_10.fp
+share/pcb/pcblib-newlib/geda/DIN41651_10S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_14.fp
+share/pcb/pcblib-newlib/geda/DIN41651_14S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_16.fp
+share/pcb/pcblib-newlib/geda/DIN41651_16S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_20.fp
+share/pcb/pcblib-newlib/geda/DIN41651_20S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_26.fp
+share/pcb/pcblib-newlib/geda/DIN41651_26S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_34.fp
+share/pcb/pcblib-newlib/geda/DIN41651_34S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_40.fp
+share/pcb/pcblib-newlib/geda/DIN41651_40S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_50.fp
+share/pcb/pcblib-newlib/geda/DIN41651_50S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_60.fp
+share/pcb/pcblib-newlib/geda/DIN41651_60S.fp
+share/pcb/pcblib-newlib/geda/DIN41651_64.fp
+share/pcb/pcblib-newlib/geda/DIN41651_64S.fp
+share/pcb/pcblib-newlib/geda/DIP14.fp
+share/pcb/pcblib-newlib/geda/DIP14M.fp
+share/pcb/pcblib-newlib/geda/DIP16.fp
+share/pcb/pcblib-newlib/geda/DIP16M.fp
+share/pcb/pcblib-newlib/geda/DIP18.fp
+share/pcb/pcblib-newlib/geda/DIP18M.fp
+share/pcb/pcblib-newlib/geda/DIP20.fp
+share/pcb/pcblib-newlib/geda/DIP20M.fp
+share/pcb/pcblib-newlib/geda/DIP22.fp
+share/pcb/pcblib-newlib/geda/DIP22M.fp
+share/pcb/pcblib-newlib/geda/DIP24.fp
+share/pcb/pcblib-newlib/geda/DIP24M.fp
+share/pcb/pcblib-newlib/geda/DIP24N.fp
+share/pcb/pcblib-newlib/geda/DIP28.fp
+share/pcb/pcblib-newlib/geda/DIP28M.fp
+share/pcb/pcblib-newlib/geda/DIP28N.fp
+share/pcb/pcblib-newlib/geda/DIP32.fp
+share/pcb/pcblib-newlib/geda/DIP36.fp
+share/pcb/pcblib-newlib/geda/DIP40.fp
+share/pcb/pcblib-newlib/geda/DIP42.fp
+share/pcb/pcblib-newlib/geda/DIP44.fp
+share/pcb/pcblib-newlib/geda/DIP48.fp
+share/pcb/pcblib-newlib/geda/DIP6.fp
+share/pcb/pcblib-newlib/geda/DIP64.fp
+share/pcb/pcblib-newlib/geda/DIP8.fp
+share/pcb/pcblib-newlib/geda/DIP8M.fp
+share/pcb/pcblib-newlib/geda/DO214.fp
+share/pcb/pcblib-newlib/geda/DO214AB.fp
+share/pcb/pcblib-newlib/geda/EIA3216.fp
+share/pcb/pcblib-newlib/geda/EIA3528.fp
+share/pcb/pcblib-newlib/geda/EIA6032.fp
+share/pcb/pcblib-newlib/geda/EIA7343.fp
+share/pcb/pcblib-newlib/geda/EMI0603.fp
+share/pcb/pcblib-newlib/geda/EMI0805.fp
+share/pcb/pcblib-newlib/geda/EMI1206.fp
+share/pcb/pcblib-newlib/geda/EMI1806.fp
+share/pcb/pcblib-newlib/geda/HC49.fp
+share/pcb/pcblib-newlib/geda/HC49U.fp
+share/pcb/pcblib-newlib/geda/HC49UH.fp
+share/pcb/pcblib-newlib/geda/HC49U_3.fp
+share/pcb/pcblib-newlib/geda/HC49U_3H.fp
+share/pcb/pcblib-newlib/geda/HC51U.fp
+share/pcb/pcblib-newlib/geda/HC51UH.fp
+share/pcb/pcblib-newlib/geda/HEADER10_1.fp
+share/pcb/pcblib-newlib/geda/HEADER10_2.fp
+share/pcb/pcblib-newlib/geda/HEADER12_1.fp
+share/pcb/pcblib-newlib/geda/HEADER12_2.fp
+share/pcb/pcblib-newlib/geda/HEADER14_1.fp
+share/pcb/pcblib-newlib/geda/HEADER14_2.fp
+share/pcb/pcblib-newlib/geda/HEADER16_1.fp
+share/pcb/pcblib-newlib/geda/HEADER16_2.fp
+share/pcb/pcblib-newlib/geda/HEADER18_1.fp
+share/pcb/pcblib-newlib/geda/HEADER18_2.fp
+share/pcb/pcblib-newlib/geda/HEADER20_1.fp
+share/pcb/pcblib-newlib/geda/HEADER20_2.fp
+share/pcb/pcblib-newlib/geda/HEADER22_1.fp
+share/pcb/pcblib-newlib/geda/HEADER22_2.fp
+share/pcb/pcblib-newlib/geda/HEADER24_1.fp
+share/pcb/pcblib-newlib/geda/HEADER24_2.fp
+share/pcb/pcblib-newlib/geda/HEADER26_1.fp
+share/pcb/pcblib-newlib/geda/HEADER26_2.fp
+share/pcb/pcblib-newlib/geda/HEADER28_1.fp
+share/pcb/pcblib-newlib/geda/HEADER28_2.fp
+share/pcb/pcblib-newlib/geda/HEADER2_1.fp
+share/pcb/pcblib-newlib/geda/HEADER2_2.fp
+share/pcb/pcblib-newlib/geda/HEADER30_1.fp
+share/pcb/pcblib-newlib/geda/HEADER30_2.fp
+share/pcb/pcblib-newlib/geda/HEADER32_1.fp
+share/pcb/pcblib-newlib/geda/HEADER32_2.fp
+share/pcb/pcblib-newlib/geda/HEADER34_1.fp
+share/pcb/pcblib-newlib/geda/HEADER34_2.fp
+share/pcb/pcblib-newlib/geda/HEADER36_1.fp
+share/pcb/pcblib-newlib/geda/HEADER36_2.fp
+share/pcb/pcblib-newlib/geda/HEADER38_1.fp
+share/pcb/pcblib-newlib/geda/HEADER38_2.fp
+share/pcb/pcblib-newlib/geda/HEADER40_1.fp
+share/pcb/pcblib-newlib/geda/HEADER40_2.fp
+share/pcb/pcblib-newlib/geda/HEADER42_1.fp
+share/pcb/pcblib-newlib/geda/HEADER42_2.fp
+share/pcb/pcblib-newlib/geda/HEADER44_1.fp
+share/pcb/pcblib-newlib/geda/HEADER44_2.fp
+share/pcb/pcblib-newlib/geda/HEADER46_1.fp
+share/pcb/pcblib-newlib/geda/HEADER46_2.fp
+share/pcb/pcblib-newlib/geda/HEADER48_1.fp
+share/pcb/pcblib-newlib/geda/HEADER48_2.fp
+share/pcb/pcblib-newlib/geda/HEADER4_1.fp
+share/pcb/pcblib-newlib/geda/HEADER4_2.fp
+share/pcb/pcblib-newlib/geda/HEADER50_1.fp
+share/pcb/pcblib-newlib/geda/HEADER50_2.fp
+share/pcb/pcblib-newlib/geda/HEADER52_1.fp
+share/pcb/pcblib-newlib/geda/HEADER52_2.fp
+share/pcb/pcblib-newlib/geda/HEADER54_1.fp
+share/pcb/pcblib-newlib/geda/HEADER54_2.fp
+share/pcb/pcblib-newlib/geda/HEADER56_1.fp
+share/pcb/pcblib-newlib/geda/HEADER56_2.fp
+share/pcb/pcblib-newlib/geda/HEADER58_1.fp
+share/pcb/pcblib-newlib/geda/HEADER58_2.fp
+share/pcb/pcblib-newlib/geda/HEADER60_1.fp
+share/pcb/pcblib-newlib/geda/HEADER60_2.fp
+share/pcb/pcblib-newlib/geda/HEADER62_1.fp
+share/pcb/pcblib-newlib/geda/HEADER62_2.fp
+share/pcb/pcblib-newlib/geda/HEADER64_1.fp
+share/pcb/pcblib-newlib/geda/HEADER64_2.fp
+share/pcb/pcblib-newlib/geda/HEADER6_1.fp
+share/pcb/pcblib-newlib/geda/HEADER6_2.fp
+share/pcb/pcblib-newlib/geda/HEADER80_1.fp
+share/pcb/pcblib-newlib/geda/HEADER80_2.fp
+share/pcb/pcblib-newlib/geda/HEADER8_1.fp
+share/pcb/pcblib-newlib/geda/HEADER8_2.fp
+share/pcb/pcblib-newlib/geda/HEPTAWATT.fp
+share/pcb/pcblib-newlib/geda/INDC0402L.fp
+share/pcb/pcblib-newlib/geda/INDC0402M.fp
+share/pcb/pcblib-newlib/geda/INDC0402N.fp
+share/pcb/pcblib-newlib/geda/INDC1005L.fp
+share/pcb/pcblib-newlib/geda/INDC1005M.fp
+share/pcb/pcblib-newlib/geda/INDC1005N.fp
+share/pcb/pcblib-newlib/geda/INDC1608L.fp
+share/pcb/pcblib-newlib/geda/INDC1608M.fp
+share/pcb/pcblib-newlib/geda/INDC1608N.fp
+share/pcb/pcblib-newlib/geda/INDC2012L.fp
+share/pcb/pcblib-newlib/geda/INDC2012M.fp
+share/pcb/pcblib-newlib/geda/INDC2012N.fp
+share/pcb/pcblib-newlib/geda/INDC2520L.fp
+share/pcb/pcblib-newlib/geda/INDC2520M.fp
+share/pcb/pcblib-newlib/geda/INDC2520N.fp
+share/pcb/pcblib-newlib/geda/INDC3216L.fp
+share/pcb/pcblib-newlib/geda/INDC3216M.fp
+share/pcb/pcblib-newlib/geda/INDC3216N.fp
+share/pcb/pcblib-newlib/geda/INDC3225L.fp
+share/pcb/pcblib-newlib/geda/INDC3225M.fp
+share/pcb/pcblib-newlib/geda/INDC3225N.fp
+share/pcb/pcblib-newlib/geda/INDC4509L.fp
+share/pcb/pcblib-newlib/geda/INDC4509M.fp
+share/pcb/pcblib-newlib/geda/INDC4509N.fp
+share/pcb/pcblib-newlib/geda/INDC4532L.fp
+share/pcb/pcblib-newlib/geda/INDC4532M.fp
+share/pcb/pcblib-newlib/geda/INDC4532N.fp
+share/pcb/pcblib-newlib/geda/JUMPER1.fp
+share/pcb/pcblib-newlib/geda/JUMPER10.fp
+share/pcb/pcblib-newlib/geda/JUMPER11.fp
+share/pcb/pcblib-newlib/geda/JUMPER12.fp
+share/pcb/pcblib-newlib/geda/JUMPER13.fp
+share/pcb/pcblib-newlib/geda/JUMPER14.fp
+share/pcb/pcblib-newlib/geda/JUMPER15.fp
+share/pcb/pcblib-newlib/geda/JUMPER16.fp
+share/pcb/pcblib-newlib/geda/JUMPER17.fp
+share/pcb/pcblib-newlib/geda/JUMPER18.fp
+share/pcb/pcblib-newlib/geda/JUMPER19.fp
+share/pcb/pcblib-newlib/geda/JUMPER2.fp
+share/pcb/pcblib-newlib/geda/JUMPER20.fp
+share/pcb/pcblib-newlib/geda/JUMPER21.fp
+share/pcb/pcblib-newlib/geda/JUMPER22.fp
+share/pcb/pcblib-newlib/geda/JUMPER23.fp
+share/pcb/pcblib-newlib/geda/JUMPER24.fp
+share/pcb/pcblib-newlib/geda/JUMPER25.fp
+share/pcb/pcblib-newlib/geda/JUMPER26.fp
+share/pcb/pcblib-newlib/geda/JUMPER3.fp
+share/pcb/pcblib-newlib/geda/JUMPER4.fp
+share/pcb/pcblib-newlib/geda/JUMPER5.fp
+share/pcb/pcblib-newlib/geda/JUMPER6.fp
+share/pcb/pcblib-newlib/geda/JUMPER7.fp
+share/pcb/pcblib-newlib/geda/JUMPER8.fp
+share/pcb/pcblib-newlib/geda/JUMPER9.fp
+share/pcb/pcblib-newlib/geda/LED3.fp
+share/pcb/pcblib-newlib/geda/LED5.fp
+share/pcb/pcblib-newlib/geda/LQFP100_10.fp
+share/pcb/pcblib-newlib/geda/LQFP100_14.fp
+share/pcb/pcblib-newlib/geda/LQFP112_20.fp
+share/pcb/pcblib-newlib/geda/LQFP120_16.fp
+share/pcb/pcblib-newlib/geda/LQFP128_14.fp
+share/pcb/pcblib-newlib/geda/LQFP128_14_EP.fp
+share/pcb/pcblib-newlib/geda/LQFP128_R.fp
+share/pcb/pcblib-newlib/geda/LQFP144_20.fp
+share/pcb/pcblib-newlib/geda/LQFP160_24.fp
+share/pcb/pcblib-newlib/geda/LQFP176_24.fp
+share/pcb/pcblib-newlib/geda/LQFP24_4.fp
+share/pcb/pcblib-newlib/geda/LQFP32_5.fp
+share/pcb/pcblib-newlib/geda/LQFP32_7.fp
+share/pcb/pcblib-newlib/geda/LQFP44_10.fp
+share/pcb/pcblib-newlib/geda/LQFP48_12.fp
+share/pcb/pcblib-newlib/geda/LQFP48_7.fp
+share/pcb/pcblib-newlib/geda/LQFP52_10.fp
+share/pcb/pcblib-newlib/geda/LQFP64_10.fp
+share/pcb/pcblib-newlib/geda/LQFP64_14.fp
+share/pcb/pcblib-newlib/geda/LQFP64_7.fp
+share/pcb/pcblib-newlib/geda/LQFP72_10.fp
+share/pcb/pcblib-newlib/geda/LQFP80_12.fp
+share/pcb/pcblib-newlib/geda/LQFP80_14.fp
+share/pcb/pcblib-newlib/geda/MPAK.fp
+share/pcb/pcblib-newlib/geda/MSOP10.fp
+share/pcb/pcblib-newlib/geda/MSOP8.fp
+share/pcb/pcblib-newlib/geda/MTA100_10.fp
+share/pcb/pcblib-newlib/geda/MTA100_11.fp
+share/pcb/pcblib-newlib/geda/MTA100_12.fp
+share/pcb/pcblib-newlib/geda/MTA100_13.fp
+share/pcb/pcblib-newlib/geda/MTA100_14.fp
+share/pcb/pcblib-newlib/geda/MTA100_15.fp
+share/pcb/pcblib-newlib/geda/MTA100_2.fp
+share/pcb/pcblib-newlib/geda/MTA100_3.fp
+share/pcb/pcblib-newlib/geda/MTA100_4.fp
+share/pcb/pcblib-newlib/geda/MTA100_5.fp
+share/pcb/pcblib-newlib/geda/MTA100_6.fp
+share/pcb/pcblib-newlib/geda/MTA100_7.fp
+share/pcb/pcblib-newlib/geda/MTA100_8.fp
+share/pcb/pcblib-newlib/geda/MTA100_9.fp
+share/pcb/pcblib-newlib/geda/MULTIWATT11.fp
+share/pcb/pcblib-newlib/geda/MULTIWATT15.fp
+share/pcb/pcblib-newlib/geda/MULTIWATT8.fp
+share/pcb/pcblib-newlib/geda/OSC14.fp
+share/pcb/pcblib-newlib/geda/PENTAWATT.fp
+share/pcb/pcblib-newlib/geda/PLCC20.fp
+share/pcb/pcblib-newlib/geda/PLCC20X.fp
+share/pcb/pcblib-newlib/geda/PLCC28.fp
+share/pcb/pcblib-newlib/geda/PLCC28X.fp
+share/pcb/pcblib-newlib/geda/PLCC32.fp
+share/pcb/pcblib-newlib/geda/PLCC32X.fp
+share/pcb/pcblib-newlib/geda/PLCC44.fp
+share/pcb/pcblib-newlib/geda/PLCC44X.fp
+share/pcb/pcblib-newlib/geda/PLCC52.fp
+share/pcb/pcblib-newlib/geda/PLCC52X.fp
+share/pcb/pcblib-newlib/geda/PLCC68.fp
+share/pcb/pcblib-newlib/geda/PLCC68X.fp
+share/pcb/pcblib-newlib/geda/PLCC84.fp
+share/pcb/pcblib-newlib/geda/PLCC84X.fp
+share/pcb/pcblib-newlib/geda/QFN12_4.fp
+share/pcb/pcblib-newlib/geda/QFN12_4_EP.fp
+share/pcb/pcblib-newlib/geda/QFN16_3.fp
+share/pcb/pcblib-newlib/geda/QFN16_3_EP.fp
+share/pcb/pcblib-newlib/geda/QFN16_4.fp
+share/pcb/pcblib-newlib/geda/QFN16_4_EP.fp
+share/pcb/pcblib-newlib/geda/QFN16_5.fp
+share/pcb/pcblib-newlib/geda/QFN16_5_EP.fp
+share/pcb/pcblib-newlib/geda/QFN20_4.fp
+share/pcb/pcblib-newlib/geda/QFN20_4_EP.fp
+share/pcb/pcblib-newlib/geda/QFN20_5.fp
+share/pcb/pcblib-newlib/geda/QFN20_5_EP.fp
+share/pcb/pcblib-newlib/geda/QFN24_4.fp
+share/pcb/pcblib-newlib/geda/QFN24_4_EP.fp
+share/pcb/pcblib-newlib/geda/QFN28_5.fp
+share/pcb/pcblib-newlib/geda/QFN28_5_EP.fp
+share/pcb/pcblib-newlib/geda/QFN32_5.fp
+share/pcb/pcblib-newlib/geda/QFN32_5_EP.fp
+share/pcb/pcblib-newlib/geda/QFN32_7.fp
+share/pcb/pcblib-newlib/geda/QFN32_7_EP.fp
+share/pcb/pcblib-newlib/geda/QFN36_6.fp
+share/pcb/pcblib-newlib/geda/QFN36_6_EP.fp
+share/pcb/pcblib-newlib/geda/QFN40_6.fp
+share/pcb/pcblib-newlib/geda/QFN40_6_EP.fp
+share/pcb/pcblib-newlib/geda/QFN44_7.fp
+share/pcb/pcblib-newlib/geda/QFN44_7_EP.fp
+share/pcb/pcblib-newlib/geda/QFN48_7.fp
+share/pcb/pcblib-newlib/geda/QFN48_7_EP.fp
+share/pcb/pcblib-newlib/geda/QFN56_8.fp
+share/pcb/pcblib-newlib/geda/QFN56_8_EP.fp
+share/pcb/pcblib-newlib/geda/QFN68_10.fp
+share/pcb/pcblib-newlib/geda/QFN68_10_EP.fp
+share/pcb/pcblib-newlib/geda/QFP100_14.fp
+share/pcb/pcblib-newlib/geda/QFP100_R.fp
+share/pcb/pcblib-newlib/geda/QFP120_28.fp
+share/pcb/pcblib-newlib/geda/QFP128_28.fp
+share/pcb/pcblib-newlib/geda/QFP128_R.fp
+share/pcb/pcblib-newlib/geda/QFP144_28.fp
+share/pcb/pcblib-newlib/geda/QFP160_28.fp
+share/pcb/pcblib-newlib/geda/QFP208_28.fp
+share/pcb/pcblib-newlib/geda/QFP240_32.fp
+share/pcb/pcblib-newlib/geda/QFP304_40.fp
+share/pcb/pcblib-newlib/geda/QFP32_7.fp
+share/pcb/pcblib-newlib/geda/QFP44_10.fp
+share/pcb/pcblib-newlib/geda/QFP52_10.fp
+share/pcb/pcblib-newlib/geda/QFP64_14.fp
+share/pcb/pcblib-newlib/geda/QFP64_R.fp
+share/pcb/pcblib-newlib/geda/QFP80_14.fp
+share/pcb/pcblib-newlib/geda/QFP80_R.fp
+share/pcb/pcblib-newlib/geda/QSOP16.fp
+share/pcb/pcblib-newlib/geda/QSOP20.fp
+share/pcb/pcblib-newlib/geda/QSOP24.fp
+share/pcb/pcblib-newlib/geda/QSOP28.fp
+share/pcb/pcblib-newlib/geda/RCY100.fp
+share/pcb/pcblib-newlib/geda/RCY1000.fp
+share/pcb/pcblib-newlib/geda/RCY1000P.fp
+share/pcb/pcblib-newlib/geda/RCY100P.fp
+share/pcb/pcblib-newlib/geda/RCY1100.fp
+share/pcb/pcblib-newlib/geda/RCY1100P.fp
+share/pcb/pcblib-newlib/geda/RCY1200.fp
+share/pcb/pcblib-newlib/geda/RCY1200P.fp
+share/pcb/pcblib-newlib/geda/RCY150.fp
+share/pcb/pcblib-newlib/geda/RCY150P.fp
+share/pcb/pcblib-newlib/geda/RCY200.fp
+share/pcb/pcblib-newlib/geda/RCY200P.fp
+share/pcb/pcblib-newlib/geda/RCY250.fp
+share/pcb/pcblib-newlib/geda/RCY250P.fp
+share/pcb/pcblib-newlib/geda/RCY300.fp
+share/pcb/pcblib-newlib/geda/RCY300P.fp
+share/pcb/pcblib-newlib/geda/RCY350.fp
+share/pcb/pcblib-newlib/geda/RCY350P.fp
+share/pcb/pcblib-newlib/geda/RCY400.fp
+share/pcb/pcblib-newlib/geda/RCY400P.fp
+share/pcb/pcblib-newlib/geda/RCY500.fp
+share/pcb/pcblib-newlib/geda/RCY500P.fp
+share/pcb/pcblib-newlib/geda/RCY600.fp
+share/pcb/pcblib-newlib/geda/RCY600P.fp
+share/pcb/pcblib-newlib/geda/RCY700.fp
+share/pcb/pcblib-newlib/geda/RCY700P.fp
+share/pcb/pcblib-newlib/geda/RCY800.fp
+share/pcb/pcblib-newlib/geda/RCY800P.fp
+share/pcb/pcblib-newlib/geda/RCY900.fp
+share/pcb/pcblib-newlib/geda/RCY900P.fp
+share/pcb/pcblib-newlib/geda/RESC0402L.fp
+share/pcb/pcblib-newlib/geda/RESC0402M.fp
+share/pcb/pcblib-newlib/geda/RESC0402N.fp
+share/pcb/pcblib-newlib/geda/RESC0603L.fp
+share/pcb/pcblib-newlib/geda/RESC0603M.fp
+share/pcb/pcblib-newlib/geda/RESC0603N.fp
+share/pcb/pcblib-newlib/geda/RESC1005L.fp
+share/pcb/pcblib-newlib/geda/RESC1005M.fp
+share/pcb/pcblib-newlib/geda/RESC1005N.fp
+share/pcb/pcblib-newlib/geda/RESC1608L.fp
+share/pcb/pcblib-newlib/geda/RESC1608M.fp
+share/pcb/pcblib-newlib/geda/RESC1608N.fp
+share/pcb/pcblib-newlib/geda/RESC2012L.fp
+share/pcb/pcblib-newlib/geda/RESC2012M.fp
+share/pcb/pcblib-newlib/geda/RESC2012N.fp
+share/pcb/pcblib-newlib/geda/RESC3216L.fp
+share/pcb/pcblib-newlib/geda/RESC3216M.fp
+share/pcb/pcblib-newlib/geda/RESC3216N.fp
+share/pcb/pcblib-newlib/geda/RESC3225L.fp
+share/pcb/pcblib-newlib/geda/RESC3225M.fp
+share/pcb/pcblib-newlib/geda/RESC3225N.fp
+share/pcb/pcblib-newlib/geda/RESC4532L.fp
+share/pcb/pcblib-newlib/geda/RESC4532M.fp
+share/pcb/pcblib-newlib/geda/RESC4532N.fp
+share/pcb/pcblib-newlib/geda/RESC4564L.fp
+share/pcb/pcblib-newlib/geda/RESC4564M.fp
+share/pcb/pcblib-newlib/geda/RESC4564N.fp
+share/pcb/pcblib-newlib/geda/SC70_3.fp
+share/pcb/pcblib-newlib/geda/SC70_4.fp
+share/pcb/pcblib-newlib/geda/SC70_5.fp
+share/pcb/pcblib-newlib/geda/SC70_6.fp
+share/pcb/pcblib-newlib/geda/SC90.fp
+share/pcb/pcblib-newlib/geda/SDIP18.fp
+share/pcb/pcblib-newlib/geda/SDIP20.fp
+share/pcb/pcblib-newlib/geda/SDIP22.fp
+share/pcb/pcblib-newlib/geda/SDIP24.fp
+share/pcb/pcblib-newlib/geda/SDIP30.fp
+share/pcb/pcblib-newlib/geda/SDIP32.fp
+share/pcb/pcblib-newlib/geda/SDIP42.fp
+share/pcb/pcblib-newlib/geda/SIP1.fp
+share/pcb/pcblib-newlib/geda/SIP10.fp
+share/pcb/pcblib-newlib/geda/SIP11.fp
+share/pcb/pcblib-newlib/geda/SIP12.fp
+share/pcb/pcblib-newlib/geda/SIP13.fp
+share/pcb/pcblib-newlib/geda/SIP2.fp
+share/pcb/pcblib-newlib/geda/SIP3.fp
+share/pcb/pcblib-newlib/geda/SIP4.fp
+share/pcb/pcblib-newlib/geda/SIP5.fp
+share/pcb/pcblib-newlib/geda/SIP6.fp
+share/pcb/pcblib-newlib/geda/SIP7.fp
+share/pcb/pcblib-newlib/geda/SIP8.fp
+share/pcb/pcblib-newlib/geda/SIP9.fp
+share/pcb/pcblib-newlib/geda/SME10.fp
+share/pcb/pcblib-newlib/geda/SME3.fp
+share/pcb/pcblib-newlib/geda/SME4.fp
+share/pcb/pcblib-newlib/geda/SME5.fp
+share/pcb/pcblib-newlib/geda/SME6.fp
+share/pcb/pcblib-newlib/geda/SME8.fp
+share/pcb/pcblib-newlib/geda/SO14.fp
+share/pcb/pcblib-newlib/geda/SO14W.fp
+share/pcb/pcblib-newlib/geda/SO16.fp
+share/pcb/pcblib-newlib/geda/SO16W.fp
+share/pcb/pcblib-newlib/geda/SO18M.fp
+share/pcb/pcblib-newlib/geda/SO18N.fp
+share/pcb/pcblib-newlib/geda/SO18W.fp
+share/pcb/pcblib-newlib/geda/SO20M.fp
+share/pcb/pcblib-newlib/geda/SO20N.fp
+share/pcb/pcblib-newlib/geda/SO20W.fp
+share/pcb/pcblib-newlib/geda/SO22M.fp
+share/pcb/pcblib-newlib/geda/SO24M.fp
+share/pcb/pcblib-newlib/geda/SO24W.fp
+share/pcb/pcblib-newlib/geda/SO28.fp
+share/pcb/pcblib-newlib/geda/SO28W.fp
+share/pcb/pcblib-newlib/geda/SO32.fp
+share/pcb/pcblib-newlib/geda/SO32W.fp
+share/pcb/pcblib-newlib/geda/SO44.fp
+share/pcb/pcblib-newlib/geda/SO8.fp
+share/pcb/pcblib-newlib/geda/SO8M.fp
+share/pcb/pcblib-newlib/geda/SO8W.fp
+share/pcb/pcblib-newlib/geda/SOD106A.fp
+share/pcb/pcblib-newlib/geda/SOD110.fp
+share/pcb/pcblib-newlib/geda/SOD123.fp
+share/pcb/pcblib-newlib/geda/SOD323.fp
+share/pcb/pcblib-newlib/geda/SOD80.fp
+share/pcb/pcblib-newlib/geda/SOD87.fp
+share/pcb/pcblib-newlib/geda/SOJ14_300.fp
+share/pcb/pcblib-newlib/geda/SOJ14_350.fp
+share/pcb/pcblib-newlib/geda/SOJ14_400.fp
+share/pcb/pcblib-newlib/geda/SOJ14_450.fp
+share/pcb/pcblib-newlib/geda/SOJ16_300.fp
+share/pcb/pcblib-newlib/geda/SOJ16_350.fp
+share/pcb/pcblib-newlib/geda/SOJ16_400.fp
+share/pcb/pcblib-newlib/geda/SOJ16_450.fp
+share/pcb/pcblib-newlib/geda/SOJ18_300.fp
+share/pcb/pcblib-newlib/geda/SOJ18_350.fp
+share/pcb/pcblib-newlib/geda/SOJ18_400.fp
+share/pcb/pcblib-newlib/geda/SOJ18_450.fp
+share/pcb/pcblib-newlib/geda/SOJ20_300.fp
+share/pcb/pcblib-newlib/geda/SOJ20_350.fp
+share/pcb/pcblib-newlib/geda/SOJ20_400.fp
+share/pcb/pcblib-newlib/geda/SOJ20_450.fp
+share/pcb/pcblib-newlib/geda/SOJ22_300.fp
+share/pcb/pcblib-newlib/geda/SOJ22_350.fp
+share/pcb/pcblib-newlib/geda/SOJ22_400.fp
+share/pcb/pcblib-newlib/geda/SOJ22_450.fp
+share/pcb/pcblib-newlib/geda/SOJ24_300.fp
+share/pcb/pcblib-newlib/geda/SOJ24_350.fp
+share/pcb/pcblib-newlib/geda/SOJ24_400.fp
+share/pcb/pcblib-newlib/geda/SOJ24_450.fp
+share/pcb/pcblib-newlib/geda/SOJ26_300.fp
+share/pcb/pcblib-newlib/geda/SOJ26_350.fp
+share/pcb/pcblib-newlib/geda/SOJ26_400.fp
+share/pcb/pcblib-newlib/geda/SOJ26_450.fp
+share/pcb/pcblib-newlib/geda/SOJ28_300.fp
+share/pcb/pcblib-newlib/geda/SOJ28_350.fp
+share/pcb/pcblib-newlib/geda/SOJ28_400.fp
+share/pcb/pcblib-newlib/geda/SOJ28_450.fp
+share/pcb/pcblib-newlib/geda/SOJ30_300.fp
+share/pcb/pcblib-newlib/geda/SOJ30_350.fp
+share/pcb/pcblib-newlib/geda/SOJ30_400.fp
+share/pcb/pcblib-newlib/geda/SOJ30_450.fp
+share/pcb/pcblib-newlib/geda/SOJ32_300.fp
+share/pcb/pcblib-newlib/geda/SOJ32_350.fp
+share/pcb/pcblib-newlib/geda/SOJ32_400.fp
+share/pcb/pcblib-newlib/geda/SOJ32_450.fp
+share/pcb/pcblib-newlib/geda/SOJ34_300.fp
+share/pcb/pcblib-newlib/geda/SOJ34_350.fp
+share/pcb/pcblib-newlib/geda/SOJ34_400.fp
+share/pcb/pcblib-newlib/geda/SOJ34_450.fp
+share/pcb/pcblib-newlib/geda/SOJ36_300.fp
+share/pcb/pcblib-newlib/geda/SOJ36_350.fp
+share/pcb/pcblib-newlib/geda/SOJ36_400.fp
+share/pcb/pcblib-newlib/geda/SOJ36_450.fp
+share/pcb/pcblib-newlib/geda/SOJ38_300.fp
+share/pcb/pcblib-newlib/geda/SOJ38_350.fp
+share/pcb/pcblib-newlib/geda/SOJ38_400.fp
+share/pcb/pcblib-newlib/geda/SOJ38_450.fp
+share/pcb/pcblib-newlib/geda/SOJ40_300.fp
+share/pcb/pcblib-newlib/geda/SOJ40_350.fp
+share/pcb/pcblib-newlib/geda/SOJ40_400.fp
+share/pcb/pcblib-newlib/geda/SOJ40_450.fp
+share/pcb/pcblib-newlib/geda/SOJ42_300.fp
+share/pcb/pcblib-newlib/geda/SOJ42_350.fp
+share/pcb/pcblib-newlib/geda/SOJ42_400.fp
+share/pcb/pcblib-newlib/geda/SOJ42_450.fp
+share/pcb/pcblib-newlib/geda/SOJ44_300.fp
+share/pcb/pcblib-newlib/geda/SOJ44_350.fp
+share/pcb/pcblib-newlib/geda/SOJ44_400.fp
+share/pcb/pcblib-newlib/geda/SOJ44_450.fp
+share/pcb/pcblib-newlib/geda/SOT143.fp
+share/pcb/pcblib-newlib/geda/SOT223.fp
+share/pcb/pcblib-newlib/geda/SOT23.fp
+share/pcb/pcblib-newlib/geda/SOT23D.fp
+share/pcb/pcblib-newlib/geda/SOT25.fp
+share/pcb/pcblib-newlib/geda/SOT26.fp
+share/pcb/pcblib-newlib/geda/SOT323.fp
+share/pcb/pcblib-newlib/geda/SOT323D.fp
+share/pcb/pcblib-newlib/geda/SOT325.fp
+share/pcb/pcblib-newlib/geda/SOT326.fp
+share/pcb/pcblib-newlib/geda/SOT89.fp
+share/pcb/pcblib-newlib/geda/SSOP14.fp
+share/pcb/pcblib-newlib/geda/SSOP16.fp
+share/pcb/pcblib-newlib/geda/SSOP20.fp
+share/pcb/pcblib-newlib/geda/SSOP24.fp
+share/pcb/pcblib-newlib/geda/SSOP28.fp
+share/pcb/pcblib-newlib/geda/SSOP48W.fp
+share/pcb/pcblib-newlib/geda/SSOP56W.fp
+share/pcb/pcblib-newlib/geda/SSOP64W.fp
+share/pcb/pcblib-newlib/geda/SSOP8.fp
+share/pcb/pcblib-newlib/geda/TANT_A.fp
+share/pcb/pcblib-newlib/geda/TANT_B.fp
+share/pcb/pcblib-newlib/geda/TANT_C.fp
+share/pcb/pcblib-newlib/geda/TANT_D.fp
+share/pcb/pcblib-newlib/geda/TO126.fp
+share/pcb/pcblib-newlib/geda/TO126S.fp
+share/pcb/pcblib-newlib/geda/TO126SW.fp
+share/pcb/pcblib-newlib/geda/TO126W.fp
+share/pcb/pcblib-newlib/geda/TO18.fp
+share/pcb/pcblib-newlib/geda/TO218.fp
+share/pcb/pcblib-newlib/geda/TO220.fp
+share/pcb/pcblib-newlib/geda/TO220ACS.fp
+share/pcb/pcblib-newlib/geda/TO220ACSTAND.fp
+share/pcb/pcblib-newlib/geda/TO220S.fp
+share/pcb/pcblib-newlib/geda/TO220SW.fp
+share/pcb/pcblib-newlib/geda/TO220W.fp
+share/pcb/pcblib-newlib/geda/TO247.fp
+share/pcb/pcblib-newlib/geda/TO247_2.fp
+share/pcb/pcblib-newlib/geda/TO251.fp
+share/pcb/pcblib-newlib/geda/TO264.fp
+share/pcb/pcblib-newlib/geda/TO39.fp
+share/pcb/pcblib-newlib/geda/TO92.fp
+share/pcb/pcblib-newlib/geda/TQFN12_4.fp
+share/pcb/pcblib-newlib/geda/TQFN12_4_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN16_3.fp
+share/pcb/pcblib-newlib/geda/TQFN16_3_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN16_4.fp
+share/pcb/pcblib-newlib/geda/TQFN16_4_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN16_5.fp
+share/pcb/pcblib-newlib/geda/TQFN16_5_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN20_4.fp
+share/pcb/pcblib-newlib/geda/TQFN20_4_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN20_5.fp
+share/pcb/pcblib-newlib/geda/TQFN20_5_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN24_4.fp
+share/pcb/pcblib-newlib/geda/TQFN24_4_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN28_5.fp
+share/pcb/pcblib-newlib/geda/TQFN28_5_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN32_5.fp
+share/pcb/pcblib-newlib/geda/TQFN32_5_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN32_7.fp
+share/pcb/pcblib-newlib/geda/TQFN32_7_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN36_6.fp
+share/pcb/pcblib-newlib/geda/TQFN36_6_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN40_6.fp
+share/pcb/pcblib-newlib/geda/TQFN40_6_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN44_7.fp
+share/pcb/pcblib-newlib/geda/TQFN44_7_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN48_7.fp
+share/pcb/pcblib-newlib/geda/TQFN48_7_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN56_8.fp
+share/pcb/pcblib-newlib/geda/TQFN56_8_EP.fp
+share/pcb/pcblib-newlib/geda/TQFN68_10.fp
+share/pcb/pcblib-newlib/geda/TQFN68_10_EP.fp
+share/pcb/pcblib-newlib/geda/TQFP100_12.fp
+share/pcb/pcblib-newlib/geda/TQFP100_14.fp
+share/pcb/pcblib-newlib/geda/TQFP120_28.fp
+share/pcb/pcblib-newlib/geda/TQFP128_14.fp
+share/pcb/pcblib-newlib/geda/TQFP128_14_EP.fp
+share/pcb/pcblib-newlib/geda/TQFP128_28.fp
+share/pcb/pcblib-newlib/geda/TQFP144_28.fp
+share/pcb/pcblib-newlib/geda/TQFP160_28.fp
+share/pcb/pcblib-newlib/geda/TQFP208_28.fp
+share/pcb/pcblib-newlib/geda/TQFP240_32.fp
+share/pcb/pcblib-newlib/geda/TQFP304_40.fp
+share/pcb/pcblib-newlib/geda/TQFP32_7.fp
+share/pcb/pcblib-newlib/geda/TQFP44_10.fp
+share/pcb/pcblib-newlib/geda/TQFP52_10.fp
+share/pcb/pcblib-newlib/geda/TQFP64_10.fp
+share/pcb/pcblib-newlib/geda/TQFP64_14.fp
+share/pcb/pcblib-newlib/geda/TQFP80_12.fp
+share/pcb/pcblib-newlib/geda/TQFP80_14.fp
+share/pcb/pcblib-newlib/geda/TSOP28.fp
+share/pcb/pcblib-newlib/geda/TSOP32A.fp
+share/pcb/pcblib-newlib/geda/TSOP32B.fp
+share/pcb/pcblib-newlib/geda/TSSOP10.fp
+share/pcb/pcblib-newlib/geda/TSSOP14.fp
+share/pcb/pcblib-newlib/geda/TSSOP16.fp
+share/pcb/pcblib-newlib/geda/TSSOP20.fp
+share/pcb/pcblib-newlib/geda/TSSOP24.fp
+share/pcb/pcblib-newlib/geda/TSSOP28.fp
+share/pcb/pcblib-newlib/geda/TSSOP32.fp
+share/pcb/pcblib-newlib/geda/TSSOP38N.fp
+share/pcb/pcblib-newlib/geda/TSSOP48.fp
+share/pcb/pcblib-newlib/geda/TSSOP48N.fp
+share/pcb/pcblib-newlib/geda/TSSOP56.fp
+share/pcb/pcblib-newlib/geda/TSSOP56N.fp
+share/pcb/pcblib-newlib/geda/TSSOP64.fp
+share/pcb/pcblib-newlib/geda/TSSOP8.fp
+share/pcb/pcblib-newlib/geda/TSSOP80.fp
+share/pcb/pcblib-newlib/geda/TSSOP8W.fp
+share/pcb/pcblib-newlib/geda/UM1.fp
+share/pcb/pcblib-newlib/geda/UM1H.fp
+share/pcb/pcblib-newlib/geda/UM1_3.fp
+share/pcb/pcblib-newlib/geda/UM1_3H.fp
+share/pcb/pcblib-newlib/geda/US14.fp
+share/pcb/pcblib-newlib/geda/US16.fp
+share/pcb/pcblib-newlib/geda/US8.fp
+share/pcb/pcblib-newlib/geda/ZIP12.fp
+share/pcb/pcblib-newlib/geda/ZIP16.fp
+share/pcb/pcblib-newlib/geda/ZIP18.fp
+share/pcb/pcblib-newlib/geda/ZIP20.fp
+share/pcb/pcblib-newlib/geda/ZIP24.fp
+share/pcb/pcblib-newlib/geda/ZIP28.fp
+share/pcb/pcblib-newlib/geda/ZIP40.fp
+share/pcb/pcblib-newlib/geda/ZIP9.fp
+share/pcb/pcblib-newlib/geda/index.html
+share/pcb/pcblib-newlib/generic/208_LQFP.fp
+share/pcb/pcblib-newlib/generic/AXIAL_LAY 300.fp
+share/pcb/pcblib-newlib/generic/AXIAL_LAY 400.fp
+share/pcb/pcblib-newlib/generic/AXIAL_LAY 500.fp
+share/pcb/pcblib-newlib/generic/AXIAL_LAY 600.fp
+share/pcb/pcblib-newlib/generic/AXIAL_LAY 800.fp
+share/pcb/pcblib-newlib/generic/D 14.fp
+share/pcb/pcblib-newlib/generic/D 16.fp
+share/pcb/pcblib-newlib/generic/D 18.fp
+share/pcb/pcblib-newlib/generic/D 20.fp
+share/pcb/pcblib-newlib/generic/D 24.fp
+share/pcb/pcblib-newlib/generic/D 28.fp
+share/pcb/pcblib-newlib/generic/D 8.fp
+share/pcb/pcblib-newlib/generic/DIL 14 300.fp
+share/pcb/pcblib-newlib/generic/DIL 16 300.fp
+share/pcb/pcblib-newlib/generic/DIL 18 300.fp
+share/pcb/pcblib-newlib/generic/DIL 20 300.fp
+share/pcb/pcblib-newlib/generic/DIL 24 300.fp
+share/pcb/pcblib-newlib/generic/DIL 24 600.fp
+share/pcb/pcblib-newlib/generic/DIL 28 300.fp
+share/pcb/pcblib-newlib/generic/DIL 28 600.fp
+share/pcb/pcblib-newlib/generic/DIL 32 600.fp
+share/pcb/pcblib-newlib/generic/DIL 40 600.fp
+share/pcb/pcblib-newlib/generic/DIL 64 900.fp
+share/pcb/pcblib-newlib/generic/DIL 8 300.fp
+share/pcb/pcblib-newlib/generic/DIODE_LAY 300.fp
+share/pcb/pcblib-newlib/generic/DIODE_LAY 400.fp
+share/pcb/pcblib-newlib/generic/DIODE_LAY 500.fp
+share/pcb/pcblib-newlib/generic/DIODE_LAY 600.fp
+share/pcb/pcblib-newlib/generic/DIODE_LAY 800.fp
+share/pcb/pcblib-newlib/generic/DW 24.fp
+share/pcb/pcblib-newlib/generic/DW 28.fp
+share/pcb/pcblib-newlib/generic/ISA8.fp
+share/pcb/pcblib-newlib/generic/N 14 300.fp
+share/pcb/pcblib-newlib/generic/N 16 300.fp
+share/pcb/pcblib-newlib/generic/N 18 300.fp
+share/pcb/pcblib-newlib/generic/N 20 300.fp
+share/pcb/pcblib-newlib/generic/N 24 300.fp
+share/pcb/pcblib-newlib/generic/N 24 600.fp
+share/pcb/pcblib-newlib/generic/N 28 300.fp
+share/pcb/pcblib-newlib/generic/N 28 600.fp
+share/pcb/pcblib-newlib/generic/N 32 600.fp
+share/pcb/pcblib-newlib/generic/N 40 600.fp
+share/pcb/pcblib-newlib/generic/N 64 900.fp
+share/pcb/pcblib-newlib/generic/N 8 300.fp
+share/pcb/pcblib-newlib/generic/NEC19.fp
+share/pcb/pcblib-newlib/generic/OLD_QFP 44 150.fp
+share/pcb/pcblib-newlib/generic/OSC 1.fp
+share/pcb/pcblib-newlib/generic/OSC 10.fp
+share/pcb/pcblib-newlib/generic/OSC 12.fp
+share/pcb/pcblib-newlib/generic/OSC 16.fp
+share/pcb/pcblib-newlib/generic/OSC 2.fp
+share/pcb/pcblib-newlib/generic/OSC 20.fp
+share/pcb/pcblib-newlib/generic/OSC 24.fp
+share/pcb/pcblib-newlib/generic/OSC 32.fp
+share/pcb/pcblib-newlib/generic/OSC 4.fp
+share/pcb/pcblib-newlib/generic/OSC 5.fp
+share/pcb/pcblib-newlib/generic/OSC 8.fp
+share/pcb/pcblib-newlib/generic/OVEN_OSC 5.fp
+share/pcb/pcblib-newlib/generic/PLCC 44 150.fp
+share/pcb/pcblib-newlib/generic/PLCC 52 150.fp
+share/pcb/pcblib-newlib/generic/PLCC 68 150.fp
+share/pcb/pcblib-newlib/generic/PLCC 84 150.fp
+share/pcb/pcblib-newlib/generic/PLCC_SOCKET 44 150.fp
+share/pcb/pcblib-newlib/generic/PLCC_SOCKET 52 150.fp
+share/pcb/pcblib-newlib/generic/PLCC_SOCKET 68 150.fp
+share/pcb/pcblib-newlib/generic/PLCC_SOCKET 84 150.fp
+share/pcb/pcblib-newlib/generic/QFP 44 150.fp
+share/pcb/pcblib-newlib/generic/QFP2 80 150.fp
+share/pcb/pcblib-newlib/generic/R025.fp
+share/pcb/pcblib-newlib/generic/RADIAL_CAN 200.fp
+share/pcb/pcblib-newlib/generic/RADIAL_CAN 300.fp
+share/pcb/pcblib-newlib/generic/RADIAL_CAN 400.fp
+share/pcb/pcblib-newlib/generic/RADIAL_CAN 500.fp
+share/pcb/pcblib-newlib/generic/RADIAL_CAN 600.fp
+share/pcb/pcblib-newlib/generic/SD 20.fp
+share/pcb/pcblib-newlib/generic/SD 24.fp
+share/pcb/pcblib-newlib/generic/SD 28.fp
+share/pcb/pcblib-newlib/generic/SD 40.fp
+share/pcb/pcblib-newlib/generic/SMD_CHIP 1206.fp
+share/pcb/pcblib-newlib/generic/SMD_CHIP 1210.fp
+share/pcb/pcblib-newlib/generic/SMD_CHIP 402.fp
+share/pcb/pcblib-newlib/generic/SMD_CHIP 603.fp
+share/pcb/pcblib-newlib/generic/SMD_CHIP 805.fp
+share/pcb/pcblib-newlib/generic/SMD_DIODE 120 60.fp
+share/pcb/pcblib-newlib/generic/SMD_DIODE 60 30.fp
+share/pcb/pcblib-newlib/generic/SMD_DIODE 80 50.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 120 50.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 120 60.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 140 90.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 240 90.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 280 100.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 60 30.fp
+share/pcb/pcblib-newlib/generic/SMD_POLAR 80 50.fp
+share/pcb/pcblib-newlib/generic/SMD_SIMPLE 120 60.fp
+share/pcb/pcblib-newlib/generic/SMD_SIMPLE 60 30.fp
+share/pcb/pcblib-newlib/generic/SMD_SIMPLE 80 50.fp
+share/pcb/pcblib-newlib/generic/SOT23.fp
+share/pcb/pcblib-newlib/generic/SOT323.fp
+share/pcb/pcblib-newlib/generic/ZIF 16.fp
+share/pcb/pcblib-newlib/generic/ZIF 20.fp
+share/pcb/pcblib-newlib/generic/index.html
+share/pcb/pcblib-newlib/gtag/CONN_JTAG.fp
+share/pcb/pcblib-newlib/gtag/CONN_USB.fp
+share/pcb/pcblib-newlib/gtag/PQFP52_10X10 52.fp
+share/pcb/pcblib-newlib/gtag/SM0805.fp
+share/pcb/pcblib-newlib/gtag/SM1206.fp
+share/pcb/pcblib-newlib/gtag/index.html
+share/pcb/pcblib-newlib/index.html
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN12_4.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN16_4.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN16_5.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN20_4.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN20_5.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN24_4.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN28_5.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN32_5.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN32_7.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN36_6.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN40_6.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN44_7.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN48_7.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN56_8.fp
+share/pcb/pcblib-newlib/johnstech/JOHNSTECH_QFN68_10.fp
+share/pcb/pcblib-newlib/johnstech/index.html
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CA531.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CB518.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CB539.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CD541.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CD542.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CD636.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_CD637.fp
+share/pcb/pcblib-newlib/minicircuits/MINICIRCUITS_KK81.fp
+share/pcb/pcblib-newlib/minicircuits/index.html
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_10_10.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_3_5p4.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_4_5p4.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_5_5p4.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_6p3_5p4.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_6p3_5p8.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_6p3_7p7.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_8_10.fp
+share/pcb/pcblib-newlib/nichicon/NICHICON_WT_CAP_8_5p4.fp
+share/pcb/pcblib-newlib/nichicon/index.html
+share/pcb/pcblib-newlib/optek/OPTEK_OVSRWACR6.fp
+share/pcb/pcblib-newlib/optek/index.html
+share/pcb/pcblib-newlib/optical/LED 100.fp
+share/pcb/pcblib-newlib/optical/LED 60.fp
+share/pcb/pcblib-newlib/optical/N 8 300.fp
+share/pcb/pcblib-newlib/optical/index.html
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB14V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB24V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB28V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB2HV.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB34V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXB38V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXBS8V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXBV4V.fp
+share/pcb/pcblib-newlib/panasonic/PANASONIC_EXBV8V.fp
+share/pcb/pcblib-newlib/panasonic/index.html
+share/pcb/pcblib-newlib/pci/PCI5V_AVE_HEIGHT.fp
+share/pcb/pcblib-newlib/pci/PCI5V_MAX_HEIGHT.fp
+share/pcb/pcblib-newlib/pci/PCI5V_MIN_HEIGHT.fp
+share/pcb/pcblib-newlib/pci/PCI5V_SMALL_HEIGHT.fp
+share/pcb/pcblib-newlib/pci/index.html
+share/pcb/pcblib.contents
+share/pcb/qfp-ui
+share/pcb/qfp.dat
+share/pcb/tools/MergePCBPS
+share/pcb/tools/Merge_dimPCBPS
+share/pcb/tools/apctools.zip
+share/pcb/tools/gerbertotk.c
+share/pcb/tools/pcb2ncap.tgz

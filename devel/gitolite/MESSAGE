@@ -1,0 +1,46 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.3 2013/01/31 11:12:51 ryoon Exp $
+
+To use gitolite, you will need to perform the following steps.
+
+1. Create a new user/group, for example, git/git.
+
+   On server,
+	# groupadd git
+	# useradd -m -g git git
+
+2. login with new user git, create ssh public key, and copy public key
+   file to user git's home directory on server.
+
+	On server
+	$ mkdir ~/.ssh
+	$ chmod 700 ~/.ssh
+
+	On client
+	$ ssh-keygen -t rsa -f git
+	$ scp ~/git.pub gitserver:~/
+
+	On server
+	$ chmod 600 ~/git.pub
+
+3. Setup gitolite.
+
+   On server,
+	$ gitolite setup -pk git.pub
+
+   And edit config file.
+
+4. Setup ~/.ssh/config on client.
+   Add the following lines.
+
+	host gitserver
+	    user git
+	    hostname RealGitServerName
+	    port 22
+	    identityfile ~/.ssh/git
+
+5. For administrative setting, please clone gitolite-admin repository.
+
+	On client,
+	$ git clone gitserver:gitolite-admin
+===========================================================================

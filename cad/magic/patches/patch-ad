@@ -1,0 +1,13 @@
+$NetBSD: patch-ad,v 1.2 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- scripts/defs.mak.in.orig	2006-04-10 22:03:14.000000000 +0000
++++ scripts/defs.mak.in
+@@ -77,7 +77,7 @@ EXEEXT		       = @EXEEXT@
+ 
+ GR_CFLAGS              = @X_CFLAGS@ @gr_cflags@
+ GR_DFLAGS	       = @gr_dflags@ -DNDEBUG
+-GR_LIBS                = @gr_libs@ @X_LIBS@
++GR_LIBS                = @gr_libs@ ${X11_LDFLAGS} @X_LIBS@
+ GR_SRCS                = @gr_srcs@
+ GR_HELPER_SRCS         = @gr_hsrcs@
+ GR_HELPER_PROG         = @gr_hprog@

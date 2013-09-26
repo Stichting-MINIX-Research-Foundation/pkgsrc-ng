@@ -1,0 +1,40 @@
+$NetBSD: patch-aa,v 1.6 2009/08/22 09:30:38 obache Exp $
+
+--- Makefile.orig	2002-01-03 21:54:43.000000000 -0800
++++ Makefile
+@@ -9,14 +9,14 @@
+ # http://www.openssl.org/  Make sure the SSL_TREE definition points to the
+ # tree with your OpenSSL installation - depending on how you installed it,
+ # it may be in /usr/local instead of /usr/local/ssl.
+-#SSL_TREE =	/usr/local/ssl
+-#SSL_DEFS =	-DUSE_SSL
+-#SSL_INC =	-I$(SSL_TREE)/include
+-#SSL_LIBS =	-L$(SSL_TREE)/lib -lssl -lcrypto
++SSL_TREE =	${SSLBASE}
++SSL_DEFS =	-DUSE_SSL
++SSL_INC =	-I$(SSL_TREE)/include
++SSL_LIBS =	-L$(SSL_TREE)/lib -Wl,-R$(SSL_TREE)/lib -lssl -lcrypto
+ 
+ 
+-BINDIR =	/usr/local/bin
+-MANDIR =	/usr/local/man/man1
++BINDIR =	$(PREFIX)/bin
++MANDIR =	$(PREFIX)/$(PKGMANDIR)/man1
+ CC =		gcc -Wall
+ CFLAGS =	-O $(SRANDOM_DEFS) $(SSL_DEFS) $(SSL_INC)
+ #CFLAGS =	-g $(SRANDOM_DEFS) $(SSL_DEFS) $(SSL_INC)
+@@ -35,10 +35,10 @@ timers.o:	timers.c timers.h
+ 	$(CC) $(CFLAGS) -c timers.c
+ 
+ install:	all
+-	rm -f $(BINDIR)/http_load
+-	cp http_load $(BINDIR)
+-	rm -f $(MANDIR)/http_load.1
+-	cp http_load.1 $(MANDIR)
++	$(BSD_INSTALL_PROGRAM_DIR) ${DESTDIR}$(BINDIR)
++	$(BSD_INSTALL_MAN_DIR) ${DESTDIR}$(MANDIR)
++	$(BSD_INSTALL_PROGRAM) http_load ${DESTDIR}$(BINDIR)/http_load
++	$(BSD_INSTALL_MAN) http_load.1 ${DESTDIR}$(MANDIR)/http_load.1
+ 
+ clean:
+ 	rm -f http_load *.o core core.* *.core

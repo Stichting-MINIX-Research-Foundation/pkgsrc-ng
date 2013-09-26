@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:51:07 joerg Exp $
+bin/p11
+${PLIST.bpf}libexec/p11/epp_bpf
+libexec/p11/epp_fifo
+${PLIST.tap}libexec/p11/epp_tap
+${PLIST.tun}libexec/p11/epp_tun
+libexec/p11/fmt
+libexec/p11/lp_file
+libexec/p11/tty_fifo
+libexec/p11/tty_file
+libexec/p11/tty_net
+libexec/p11/tty_pty
+libexec/p11/tty_tty
+libexec/p11/tty_xterm
+share/p11/COPYRIGHT
+share/p11/boot.rom
+share/p11/mon.help
+share/p11/p11conf

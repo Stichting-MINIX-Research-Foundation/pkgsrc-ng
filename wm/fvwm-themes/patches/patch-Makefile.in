@@ -1,0 +1,29 @@
+$NetBSD: patch-Makefile.in,v 1.2 2011/12/13 04:56:10 dholland Exp $
+
+- Use destdir fake version at install target.
+- Fix missing DESTDIR in mkinstalldirs invocation.
+
+--- Makefile.in.orig	2002-12-06 02:59:28.000000000 +0000
++++ Makefile.in
+@@ -357,7 +357,7 @@ install-data-local:
+ 	RUN_UPDATEMENU=@RUN_UPDATEMENU@
+ 	UPDATE_MENU=@UPDATE_MENU@
+ 
+-	$(mkinstalldirs) $(FT_DATADIR)
++	$(mkinstalldirs) $(DESTDIR)$(FT_DATADIR)
+ 	for dir in $(FT_DATA_SUBDIRS); do \
+ 		chmod -R o-w,go+rX $$dir 2>/dev/null || true; \
+ 		rm -rf "$(DESTDIR)$(FT_DATADIR)/$$dir"; \
+@@ -372,10 +372,10 @@ install-data-local:
+ 	mv -f $(DESTDIR)$(SETTINGS_FILE).tmp $(DESTDIR)$(SETTINGS_FILE)
+ 
+ 	PATH="$(DESTDIR)$(bindir):$(FVWM_BINDIR):$$PATH"; \
+-	$(DESTDIR)$(bindir)/fvwm-themes-config --site --reset
++	$(DESTDIR)$(bindir)/fvwm-themes-config-destdir --site --reset
+ 
+ 	if test "$(BUILD_MENUS)" = "yes"; then \
+-		$(DESTDIR)$(bindir)/fvwm-themes-menuapp --site --build-menus --remove-popup; \
++		$(DESTDIR)$(bindir)/fvwm-themes-menuapp-destdir --site --build-menus --remove-popup; \
+ 	fi
+ 
+ 	if test "$(GNOME_ICONS)" = "yes"; then \

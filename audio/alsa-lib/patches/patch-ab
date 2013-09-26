@@ -1,0 +1,31 @@
+$NetBSD: patch-ab,v 1.4 2008/12/30 14:40:29 hasso Exp $
+
+--- configure.orig	2008-10-29 08:46:35.000000000 -0400
++++ configure	2008-12-19 00:09:49.000000000 -0500
+@@ -20983,6 +20983,14 @@
+ echo "${ECHO_T}no" >&6; }
+ fi
+ 
++case $host_os in
++  netbsd*|dragonfly*)
++    HAVE_LIBDL=yes
++cat >>confdefs.h <<\_ACEOF
++#define HAVE_LIBDL 1
++_ACEOF
++    ;;
++esac
+ 
+ if test "$HAVE_LIBDL"="yes"; then
+   BUILD_MODULES_TRUE=
+@@ -22342,6 +22350,11 @@
+ test "x$exec_prefix" = xNONE && exec_prefix='${prefix}'
+ 
+ DEFS=-DHAVE_CONFIG_H
++case $host_os in
++  netbsd*|dragonfly*)
++    DEFS="$DEFS -Dbswap_32=bswap32 -Dbswap_16=bswap16 -Dbswap_64=bswap64"
++    ;;
++esac
+ 
+ ac_libobjs=
+ ac_ltlibobjs=

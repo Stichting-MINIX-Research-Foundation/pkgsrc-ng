@@ -1,0 +1,41 @@
+$NetBSD: patch-aa,v 1.5 2012/01/29 08:26:32 sbd Exp $
+
+--- Makefile.orig	2001-08-30 16:03:17.000000000 +0000
++++ Makefile
+@@ -1,7 +1,7 @@
+ # Makefile - makefile for lbrate
+ 
+ CC=gcc
+-CFLAGS=-O2 -Wall
++#CFLAGS=-O2 -Wall
+ 
+ # Set BINDIR to directory for binary,
+ # MANDIR to directory for man page.
+@@ -9,7 +9,7 @@ CFLAGS=-O2 -Wall
+ #
+ PREFIX=/usr/local
+ BINDIR=$(PREFIX)/bin
+-MANDIR=$(PREFIX)/man/man1
++MANDIR=$(PREFIX)/$(PKGMANDIR)/man1
+ 
+ # You shouldn't need to edit below this line.
+ #--------------------------------------------------------
+@@ -19,14 +19,14 @@ OBJ=main.o readrle.o readhuff.o readlzw.
+ all: lbrate
+ 
+ lbrate: $(OBJ)
+-	$(CC) $(CFLAGS) -o lbrate $(OBJ)
++	$(CC) $(CFLAGS) -o lbrate $(OBJ) $(LDFLAGS)
+ 
+ installdirs:
+-	/bin/sh ./mkinstalldirs $(BINDIR) $(MANDIR)
++	/bin/sh ./mkinstalldirs ${DESTDIR}$(BINDIR) ${DESTDIR}$(MANDIR)
+ 
+ install: lbrate installdirs
+-	install -m 755 lbrate $(BINDIR)
+-	install -m 644 lbrate.1 $(MANDIR)
++	$(BSD_INSTALL_PROGRAM) lbrate ${DESTDIR}$(BINDIR)
++	$(BSD_INSTALL_MAN) lbrate.1 ${DESTDIR}$(MANDIR)
+ 
+ uninstall:
+ 	$(RM) $(BINDIR)/lbrate $(MANDIR)/lbrate.1

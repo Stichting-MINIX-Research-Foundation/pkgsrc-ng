@@ -1,0 +1,13 @@
+$NetBSD: patch-ad,v 1.2 2008/11/10 17:46:31 wiz Exp $
+
+--- scripts/cm2rem.tcl.orig	2007-08-08 16:04:05.000000000 +0000
++++ scripts/cm2rem.tcl
+@@ -14,7 +14,7 @@
+ #--------------------------------------------------------------
+ 
+ # the next line restarts using tclsh \
+-exec tclsh "$0" "$@"
++exec @TCLSH@ "$0" "$@"
+ 
+ set i 0
+ foreach month {January February March April May June

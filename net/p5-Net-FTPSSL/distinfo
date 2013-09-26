@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2010/03/10 17:06:16 sno Exp $
+
+SHA1 (Net-FTPSSL-0.14.tar.gz) = 3847f539af9c2646e9e45f47c3a8eed4ef66756e
+RMD160 (Net-FTPSSL-0.14.tar.gz) = 5a0c5b55002ad5c34ed4397eace5c8c14e4b778a
+Size (Net-FTPSSL-0.14.tar.gz) = 42387 bytes

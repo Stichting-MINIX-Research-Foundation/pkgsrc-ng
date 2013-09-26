@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:59:30 joerg Exp $
+bin/viewfax
+libdata/viewfax/viewfax.tif
+${IMAKE_MAN_DIR}/viewfax.${IMAKE_MAN_SUFFIX}

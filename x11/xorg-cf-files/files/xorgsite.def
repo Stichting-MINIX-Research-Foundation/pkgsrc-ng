@@ -1,0 +1,25 @@
+/*
+ * $NetBSD: xorgsite.def,v 1.3 2009/02/07 21:30:34 joerg Exp $
+ *
+ * X.org packages for pkgsrc system 
+ *  
+ */ 
+
+#ifndef BuildAoutLibraries
+#define BuildAoutLibraries NO
+#endif
+#ifndef InstallXdmConfig
+#define InstallXdmConfig YES
+#endif
+#ifndef InstallXinitConfig
+#define InstallXinitConfig YES
+#endif
+#ifndef InstallAppDefFiles
+#define InstallAppDefFiles YES
+#endif
+#define HasXdmAuth YES
+#define BuildXF86Setup NO
+#define NothingOutsideProjectRoot YES
+
+#define	BuildDPSLibrary	YES
+#define	UseGccMakeDepend NO

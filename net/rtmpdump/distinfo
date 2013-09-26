@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.5 2013/03/26 08:17:22 sbd Exp $
+
+SHA1 (rtmpdump-2.4.tar.gz) = 975f8c79788d1f9fcc66f572509f0203982b17ac
+RMD160 (rtmpdump-2.4.tar.gz) = a8cf22e88e544061f15769e758754b028f1be7ff
+Size (rtmpdump-2.4.tar.gz) = 134558 bytes
+SHA1 (patch-Makefile) = db528f2b97bf7f4500cce26c34e5b3929019fd9a
+SHA1 (patch-librtmp_Makefile) = 23fea1ed2b7cd5be7406687c6c4cc34b40de5de5

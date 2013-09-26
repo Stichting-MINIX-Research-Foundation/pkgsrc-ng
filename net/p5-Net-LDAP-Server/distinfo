@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/01/26 20:30:34 rhaen Exp $
+
+SHA1 (Net-LDAP-Server-0.43.tar.gz) = ece1e6612b8d76298dcb8be75ab5251bd7268022
+RMD160 (Net-LDAP-Server-0.43.tar.gz) = 707a82a7e503759b073c123088a6ac5680ad4bb5
+Size (Net-LDAP-Server-0.43.tar.gz) = 6707 bytes

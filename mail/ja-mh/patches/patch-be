@@ -1,0 +1,16 @@
+$NetBSD: patch-be,v 1.2 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare errno.
+
+--- uip/refile.c.orig	2006-04-11 14:45:44.000000000 +0000
++++ uip/refile.c
+@@ -47,9 +47,6 @@ static struct swit switches[] = {
+ 
+ /*  */
+ 
+-extern int  errno;
+-
+-
+ static char maildir[BUFSIZ];
+ 
+ 

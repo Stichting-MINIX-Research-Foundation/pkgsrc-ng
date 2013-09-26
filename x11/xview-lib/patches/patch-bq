@@ -1,0 +1,12 @@
+$NetBSD: patch-bq,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/notice/notice_pt.c.orig	1993-06-29 05:16:40.000000000 +0000
++++ lib/libxview/notice/notice_pt.c
+@@ -58,6 +58,7 @@ static notice_buttons_handle notice_butt
+ static void     notice_copy_event();
+ static Xv_window	notice_get_focus_win();
+ static int	notice_show_focus_win();
++static int	notice_quadrant();
+ 
+ /*
+  * --------------------------- STATICS ------------------------------

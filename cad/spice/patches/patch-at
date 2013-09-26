@@ -1,0 +1,23 @@
+$NetBSD: patch-at,v 1.4 2013/05/22 07:44:04 sbd Exp $
+
+--- src/lib/mfb/mfbgnc.c.orig	1991-04-10 02:08:26.000000000 +0000
++++ src/lib/mfb/mfbgnc.c
+@@ -24,7 +24,7 @@ Author: -C- 1982 Giles C. Billingsley
+ #include "suffix.h"
+ 
+ /* Library routines */
+-#ifdef HAS_FTIME
++#if defined(HAS_FTIME) && !(defined(__DragonFly__) || defined(__sun) || defined(__linux__))
+ extern void ftime();
+ #endif
+ 
+@@ -100,8 +100,7 @@ extern void ftime();
+  * all other characters are ``self-inserting''.
+  */
+ 
+-MFBGenCode(PM)
+-    char *PM;
++void MFBGenCode(char *PM)
+     {
+ #ifdef HAS_FTIME
+     struct timeb time1, time2;

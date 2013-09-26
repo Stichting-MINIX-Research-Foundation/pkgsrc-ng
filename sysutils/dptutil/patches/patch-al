@@ -1,0 +1,15 @@
+$NetBSD: patch-al,v 1.2 2011/05/22 19:11:42 dholland Exp $
+
+- Fix shmget?
+
+--- dpteng/sharmem.c.orig	Fri Dec 13 14:15:20 2002
++++ dpteng/sharmem.c	Fri Dec 13 14:15:29 2002
+@@ -82,7 +82,7 @@
+   /* Get The Shared Memory Segment */
+ 
+     BufferID = shmget(IPC_PRIVATE,(int)TotalSize,
+-                       SHM_ALLRD | SHM_ALLWR | IPC_CREAT);
++                       SHM_URD | SHM_UWR | IPC_CREAT);
+ 
+   /* If We Got The Segment, Try To Attach To It */
+ 

@@ -1,0 +1,19 @@
+$NetBSD: patch-ab,v 1.5 2013/01/15 16:21:34 morr Exp $
+
+--- src/Velvet/Makefile.orig	2000-02-21 22:44:51.000000000 +0000
++++ src/Velvet/Makefile
+@@ -18,7 +18,7 @@
+ CFLAGS	= $(CCOPTS) -I$(X11INC) -I$(TOPDIR)/include
+ LDFLAGS	= $(LDOPTS) -L$(X11LIB)
+ LIBS	= $(LIBWIDGETS) $(LIBGEN) $(LIBFELT) $(LIBELT) $(LIBMTX)\
+-	  -lXaw3d -lXmu -lXt -lSM -lICE -lXext -lX11 -lm
++	  -lXaw -lXmu -lXt -lSM -lICE -lXext -lX11 -lm
+ #	  /usr/X11R6/lib/libXaw3d.a /usr/X11R6/lib/libXmu.so.6.0 \
+ #	  /usr/X11R6/lib/libXt.so.6.0 /usr/X11R6/lib/libSM.so.6.0 \
+ #	  /usr/X11R6/lib/libICE.so.6.0 /usr/X11R6/lib/libXext.so.6.0 \
+@@ -40,4 +40,4 @@ include $(TOPDIR)/etc/Makefile.bin
+ 
+ velvet.o:	velvet.ad.h interface.h
+ 
+-install::;	@$(INSTALL) -m 0644 Velvet.ad $(X11DEF) 2> /dev/null || true
++install::;	@$(INSTALL) -m 0644 Velvet.ad $(DESTDIR)$(X11DEF)/Velvet 2> /dev/null || true

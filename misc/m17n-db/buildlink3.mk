@@ -1,0 +1,12 @@
+# $NetBSD: buildlink3.mk,v 1.2 2009/03/20 19:25:00 joerg Exp $
+
+BUILDLINK_TREE+=	m17n-db
+
+.if !defined(M17N_DB_BUILDLINK3_MK)
+M17N_DB_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.m17n-db+=	m17n-db>=1.5.1
+BUILDLINK_PKGSRCDIR.m17n-db?=	../../misc/m17n-db
+.endif # M17N_DB_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-m17n-db

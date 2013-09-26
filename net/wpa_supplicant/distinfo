@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.6 2013/03/24 14:17:30 rodent Exp $
+
+SHA1 (wpa_supplicant-2.0.tar.gz) = 78a456ff3c4af4b9bae2e0908a40f48755ffc59c
+RMD160 (wpa_supplicant-2.0.tar.gz) = f9e4729de5c6bee0142986b114fdc3fffb7a28f2
+Size (wpa_supplicant-2.0.tar.gz) = 2044281 bytes
+SHA1 (patch-aa) = 998ba9cc4ef9ebd0b629a6368957da0f1159dda0

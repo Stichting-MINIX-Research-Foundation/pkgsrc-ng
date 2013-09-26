@@ -1,0 +1,38 @@
+$NetBSD: README,v 1.4 2009/05/26 14:19:29 taca Exp $
+
+1. First, create a database for Geeklog.
+
+	# mysqladmin -p -u <administrator> create <dbname>.
+
+2. Next, create a user for accessing that database.
+
+	# mysql -p -u <administrator> <dbname>
+	mysql> grant select, insert, update, delete, create, drop,
+	       index, alter, create temporary tables, lock tables on
+	       <dbname>.* to '<dbuser>'@'localhost'
+	       identified by '<dbpass>' ;
+
+
+3. You will need to make Geeklog accessible through your HTTP server.
+   If you are running Apache then you may add the following lines to
+   httpd.conf:
+
+	Include @PKG_SYSCONFDIR@/geeklog.conf
+
+   This geeklog.conf assumes that Geeklog would be accessed with
+   "/geeklog" sub directory.
+
+   Since you had better limit the access until complete Geeklog setup,
+   geeklog.conf limit access to "localhost".  After complete your setup,
+   please relax this access restriction.
+
+4. Complete install or upgrade, access below URL and follow the
+   instruction.
+
+	http://localhost/geeklog/admin/install/
+
+5. Last, you should remove whole @PREFIX@/@GEEKLOG_PUB@/admin directory.
+
+You can read documentation for install Geeklog:
+
+	http://localhost/geeklog/docs/install.html

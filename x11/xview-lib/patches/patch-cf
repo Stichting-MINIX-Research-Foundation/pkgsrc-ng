@@ -1,0 +1,13 @@
+$NetBSD: patch-cf,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/panel/p_mlinetxt.c.orig	1993-06-29 05:17:05.000000000 +0000
++++ lib/libxview/panel/p_mlinetxt.c
+@@ -449,7 +449,7 @@ panel_mltxt_get_attr(item_public, status
+ 	return (Xv_opaque) dp->rows_displayed;
+ 
+       case PANEL_ITEM_NTH_WINDOW:
+-	switch (*(int *) valist) {
++	switch (va_arg(valist, int)) {
+ 	  case 0:
+ 	    return dp->view;
+ 	  case 1:

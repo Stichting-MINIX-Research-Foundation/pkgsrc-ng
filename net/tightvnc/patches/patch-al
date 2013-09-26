@@ -1,0 +1,13 @@
+$NetBSD: patch-al,v 1.4 2009/06/08 15:23:26 tnn Exp $
+
+--- vncserver.orig	2009-02-12 05:27:18.000000000 +0100
++++ vncserver
+@@ -34,7 +34,7 @@ $depth = 24;
+ $desktopName = "X";
+ $vncClasses = "/usr/local/vnc/classes";
+ $vncUserDir = "$ENV{HOME}/.vnc";
+-$fontPath = "unix/:7100";
++#$fontPath = "unix/:7100";
+ $authType = "-rfbauth $vncUserDir/passwd";
+ 
+ # Read configuration from the system-wide and user files if present.

@@ -1,0 +1,69 @@
+$NetBSD: patch-am,v 1.4 2011/08/27 15:47:43 schnoebe Exp $
+
+bring up to perl 5.14 standard (this is old code)
+
+--- approve.orig	1997-04-05 19:18:36.000000000 +0000
++++ approve
+@@ -70,9 +70,9 @@ die "Couldn't find a sendmail to invoke,
+     if !$MAILER;
+ 
+ 
+-require "getopts.pl";
++use Getopt::Std;
+ 
+-&Getopts("df:") ||
++getopts("df:") ||
+     die("USAGE: approve [-f <config-file>] [-d] [<file> ...]\nStopped");
+ 
+ if (!defined($opt_f)) {
+@@ -137,6 +137,7 @@ sub process_file {
+ 
+ sub process_approve {
+     local($FILE) = shift;
++    my @words;
+     while (<$FILE>) {
+ 	if ((/^\tsubscribe\s/) || (/^\tunsubscribe\s/)) {
+ 	    if (!defined($reply_to)) {
+@@ -144,8 +145,8 @@ sub process_approve {
+ 		exit(1);
+ 	    }
+ 	    s/^\t//;
+-	    split;
+-	    $list = $_[1];
++	    @words = split;
++	    $list = $words[1];
+ 	    $list =~ tr/A-Z/a-z/;
+ 	    $passwd = $passwd{"$list\@$reply_to"};
+ 	    if (! $passwd) {
+@@ -214,6 +215,11 @@ sub process_bounce {
+ 	    $from_skipped = 1;
+ 	    next;
+ 	}
++	if (/^delivered-to: $post_to/i) {
++		# Remove Delivered-To: lines that point to the list, since they
++		# will cause postfix to think that the message is looping.
++		next;
++	}
+ 	s/^~/~~/;
+ 	print MAIL $_;
+     }
+@@ -231,12 +237,13 @@ sub read_config {
+ 	s/\n$//;
+ 	s/#.*//;
+ 	if (/^$/) { next; }
+-	split;
+-	$l = $_[0];	$l =~ tr/A-Z/a-z/;	# list
+-	$p = $_[1];				# password
+-	$m = $_[2];	$m =~ tr/A-Z/a-z/;	# majordomo@site
+-	split(/\@/, $m);
+-	$s = $_[1];	$s =~ tr/A-Z/a-z/;	# site
++	my @words = split;
++
++	$l = $words[0];	$l =~ tr/A-Z/a-z/;	# list
++	$p = $words[1];				# password
++	$m = $words[2];	$m =~ tr/A-Z/a-z/;	# majordomo@site
++	@words = split(/\@/, $m);
++	$s = $words[1];	$s =~ tr/A-Z/a-z/;	# site
+ 
+ 	$passwd{$l} = $p;
+ 	$passwd{"$l\@$m"} = $p;

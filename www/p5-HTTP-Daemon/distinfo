@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/04/22 12:46:31 wiz Exp $
+
+SHA1 (HTTP-Daemon-6.01.tar.gz) = d3b7614d4b3be4b61d26011efe90026c955102a4
+RMD160 (HTTP-Daemon-6.01.tar.gz) = 426d00f81025ed56e861384a8722163589814a66
+Size (HTTP-Daemon-6.01.tar.gz) = 18628 bytes

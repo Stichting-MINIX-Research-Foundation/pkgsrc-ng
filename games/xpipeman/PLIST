@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:57:00 joerg Exp $
+bin/xpipeman
+man/man6/xpipeman.6
+share/xpipeman/xpipescores

@@ -1,0 +1,42 @@
+$NetBSD: patch-aa,v 1.4 2011/10/01 22:32:11 dholland Exp $
+--- Makefile.orig	2003-12-31 09:51:40.000000000 -0500
++++ Makefile	2006-12-03 23:40:16.000000000 -0500
+@@ -1,7 +1,5 @@
+-OBJECTS	= i810switch.o
+-
+-%.o: %.c
+-	$(CC) $(CFLAGS) -c -o $@ $<
++OBJECTS	= i810switch.o getline.o
++MANMODE?=644
+ 
+ all: i810switch
+ 
+@@ -9,16 +7,20 @@
+ 	$(CC) $(CFLAGS) -o $@ $(OBJECTS)
+ 
+ install: i810switch
+-	install -d $(DESTDIR)/usr/bin
+-	install -d $(DESTDIR)/usr/share/man/man1
+-	install i810switch i810rotate $(DESTDIR)/usr/bin
+-	install i810switch.1.gz i810rotate.1.gz $(DESTDIR)/usr/share/man/man1
++	install -d ${DESTDIR}$(PREFIX)/bin
++	install -d ${DESTDIR}$(PREFIX)/sbin
++	install -d ${DESTDIR}$(PREFIX)/man/man1
++	install i810switch ${DESTDIR}$(PREFIX)/sbin
++	ln -s i810switch ${DESTDIR}$(PREFIX)/sbin/i810rotate
++	install -m $(MANMODE) i810switch.1.gz i810rotate.1.gz ${DESTDIR}$(PREFIX)/man/man1
++	gunzip ${DESTDIR}$(PREFIX)/${PKGMANDIR}/man1/i810switch.1.gz
++	gunzip ${DESTDIR}$(PREFIX)/${PKGMANDIR}/man1/i810rotate.1.gz
+ 
+ uninstall:
+-	rm -f $(DESTDIR)/usr/bin/i810switch
+-	rm -f $(DESTDIR)/usr/bin/i810rotate
+-	rm -f $(DESTDIR)/usr/share/man/man1/i810switch.1.gz
+-	rm -f $(DESTDIR)/usr/share/man/man1/i810rotate.1.gz
++	rm -f ${DESTDIR}$(PREFIX)/i810switch
++	rm -f ${DESTDIR}$(PREFIX)/i810rotate
++	rm -f ${DESTDIR}$(PREFIX)/${PKGMANDIR}/man1/i810switch.1.gz
++	rm -f ${DESTDIR}$(PREFIX)/${PKGMANDIR}/man1/i810rotate.1.gz
+ 
+ clean:
+ 	@rm -f $(OBJECTS) i810switch

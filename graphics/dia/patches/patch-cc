@@ -1,0 +1,13 @@
+$NetBSD: patch-cc,v 1.2 2009/12/09 10:22:04 drochner Exp $
+
+--- doc/pl/Makefile.in.orig	2009-05-03 20:12:41.000000000 +0200
++++ doc/pl/Makefile.in
+@@ -326,7 +326,7 @@ DOCUMENT_ENCODING = ISO-8859-2
+ ENCODING = utf8
+ UNICODE = 1
+ LATEX_CLASS_OPTIONS = -P 'latex.class.options=oneside' -P 'latex.babel.use=0'
+-@HAVE_GNOME_FALSE@helpdocdir = $(datadir)/$(docname)/help/$(lang)
++@HAVE_GNOME_FALSE@helpdocdir = $(datadir)/dia/help/$(lang)
+ 
+ # **********  Begin of section some packagers may need to modify  **********
+ # This variable (helpdocdir) specifies where the documents should be installed.

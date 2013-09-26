@@ -1,0 +1,33 @@
+$NetBSD: patch-aa,v 1.2 2011/03/15 20:36:03 bouyer Exp $
+
+--- netdisco.conf.orig	2009-06-11 23:44:23.000000000 +0200
++++ netdisco.conf	2011-03-14 17:03:43.000000000 +0100
+@@ -61,7 +61,7 @@
+ 
+ # ---- Admin Panel Daemon Settings ----
+ daemon_bg       = true
+-daemon_pid      = netdisco_daemon.pid
++daemon_pid      = @VARBASE@/netdisco/netdisco.pid
+ daemon_poll     = 2
+ 
+ # ---- Port Control Settings ---
+@@ -76,7 +76,7 @@
+ # Data Archiving and Logging
+ compresslogs    = true
+ compress        = /usr/bin/gzip -f
+-datadir         = data
++datadir         = @VARBASE@/netdisco
+ logextension    = txt
+ #nmis_dump       = netdisco_nmis
+ 
+@@ -188,8 +188,8 @@
+ graph_y         = 30
+ 
+ node_fillcolor  = dimgrey
+-node_font       = lucon
+-node_fontsize   = 46.0
++node_font       = arial
++node_fontsize   = 10.0
+ node_fontcolor  = white
+ node_problem    = red
+ node_shape      = box

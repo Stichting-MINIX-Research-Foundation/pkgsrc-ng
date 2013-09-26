@@ -1,0 +1,14 @@
+$NetBSD: patch-ab,v 1.5 2010/08/04 02:46:03 dmcmahill Exp $
+
+--- src/Makefile.orig	2010-07-05 19:20:28.000000000 +0000
++++ src/Makefile
+@@ -61,7 +61,7 @@ clean: 
+ INSTALL_PROGRAM?= install
+ 
+ install: all
+-	$(INSTALL_PROGRAM) nelma-cap $(PREFIX)/bin
+-	$(INSTALL_PROGRAM) nelma-drc $(PREFIX)/bin
++	$(INSTALL_PROGRAM) nelma-cap $(DESTDIR)$(PREFIX)/bin
++	$(INSTALL_PROGRAM) nelma-drc $(DESTDIR)$(PREFIX)/bin
+ 
+ .PHONY:	all clean install

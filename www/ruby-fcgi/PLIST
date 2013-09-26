@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4.34.1 2013/07/16 17:00:51 tron Exp $
+${GEM_HOME}/build_info/${GEM_NAME}.info
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/ChangeLog
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/README.signals
+${GEM_LIBDIR}/ext/fcgi/MANIFEST
+${GEM_LIBDIR}/ext/fcgi/extconf.rb
+${GEM_LIBDIR}/ext/fcgi/fcgi.c
+${GEM_LIBDIR}/lib/fcgi.rb
+${GEM_LIBDIR}/lib/fcgi.${RUBY_DLEXT}
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

@@ -1,0 +1,27 @@
+@comment $NetBSD: PLIST,v 1.7 2011/12/15 15:08:08 taca Exp $
+bin/parse_tree_abc
+bin/parse_tree_audit
+bin/parse_tree_deps
+bin/parse_tree_show
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.autotest
+${GEM_LIBDIR}/.gemtest
+${GEM_LIBDIR}/History.txt
+${GEM_LIBDIR}/Manifest.txt
+${GEM_LIBDIR}/README.txt
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/bin/parse_tree_abc
+${GEM_LIBDIR}/bin/parse_tree_audit
+${GEM_LIBDIR}/bin/parse_tree_deps
+${GEM_LIBDIR}/bin/parse_tree_show
+${GEM_LIBDIR}/demo/printer.rb
+${GEM_LIBDIR}/lib/gauntlet_parsetree.rb
+${GEM_LIBDIR}/lib/parse_tree.rb
+${GEM_LIBDIR}/lib/parse_tree_extensions.rb
+${GEM_LIBDIR}/lib/unified_ruby.rb
+${GEM_LIBDIR}/test/something.rb
+${GEM_LIBDIR}/test/test_parse_tree.rb
+${GEM_LIBDIR}/test/test_parse_tree_extensions.rb
+${GEM_LIBDIR}/test/test_unified_ruby.rb
+${GEM_LIBDIR}/validate.sh
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

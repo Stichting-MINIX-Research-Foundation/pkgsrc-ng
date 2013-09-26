@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:13:26 joerg Exp $
+bin/avcheck
+bin/uchroot
+man/man1/avcheck.1
+share/doc/avcheck/README.AVP
+share/doc/avcheck/README.DrWeb
+share/doc/avcheck/README.Exim
+share/doc/avcheck/README.Postfix
+share/doc/avcheck/README.Sendmail
+share/examples/avcheck/infected.ex1
+share/examples/avcheck/infected.ex2

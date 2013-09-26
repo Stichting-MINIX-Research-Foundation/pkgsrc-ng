@@ -1,0 +1,175 @@
+#! /bin/sh
+#
+# $NetBSD: INSTALL,v 1.2 2011/04/22 14:52:18 spz Exp $
+#
+
+# xymons user/group
+
+XYMONUSER=xymon
+XYMONGROUP=xymon
+
+EXAMPLEDIR=@EXAMPLEDIR@
+XYMONHOME=@XYMONHOME@
+XYMONVAR=@XYMONVAR@
+XYMONLOGDIR=@XYMONLOGDIR@
+
+XYBINDIR=@XYBINDIR@
+XYETCDIR=@XYETCDIR@
+XYEXTDIR=@XYEXTDIR@
+XYTMPDIR=@XYTMPDIR@
+XYWEBDIR=@XYWEBDIR@
+XYWWWDIR=@XYWWWDIR@
+
+case ${STAGE} in
+POST-INSTALL)
+
+	GIFS="README arrow.gif bkg-blue.gif bkg-clear.gif		\
+		bkg-green.gif bkg-purple.gif bkg-red.gif bkg-yellow.gif	\
+		blue-ack.gif blue-recent.gif blue.gif clear-recent.gif	\
+		clear.gif favicon-blue.ico favicon-clear.ico		\
+		favicon-green.ico favicon-purple.ico favicon-red.ico	\
+		favicon-unknown.ico favicon-yellow.ico green-recent.gif	\
+		green.gif purple-ack.gif purple-recent.gif purple.gif	\
+		red-ack.gif red-recent.gif red.gif unknown-recent.gif	\
+		unknown.gif xymonbody.css yellow-ack.gif		\
+		yellow-recent.gif yellow.gif zoom.gif"
+	for file in ${GIFS}; do
+		${CP} ${EXAMPLEDIR}/www/gifs/${file} ${XYWWWDIR}/gifs/${file}
+		${CHMOD} 0444 ${XYWWWDIR}/gifs/${file}
+	done
+
+	MENUFILES="b2t-blue.gif b2t-grey.gif t2b-blue.gif t2b-grey.gif	\
+			xymonmenu-blue.css xymonmenu-grey.css"
+	for file in ${MENUFILES}; do
+		${CP} ${EXAMPLEDIR}/www/menu/${file} ${XYWWWDIR}/menu/${file}
+		${CHMOD} 0444 ${XYWWWDIR}/menu/${file}
+	done
+
+	DOCFILES="Renaming-430.txt about.html bb-to-xymon.html		\
+			clonewarn.jpg configure.txt			\
+			criticalsystems.html critview-detail-acked.jpg	\
+			critview-detail-ackform.jpg			\
+			critview-detail.jpg critview-disk.jpg		\
+			critview-green.jpg editor-clonemaster.jpg	\
+			editor-diskchanged.jpg editor-disksetup.jpg	\
+			editor-main.jpg editor-makeclone.jpg		\
+			editor-nohost.jpg editor-showclone.jpg		\
+			howtograph.html install.html known-issues.html	\
+			mainview-acked.jpg mainview.jpg			\
+			manpages/index.html				\
+			manpages/man1/ackinfo.cgi.1.html		\
+			manpages/man1/acknowledge.cgi.1.html		\
+			manpages/man1/clientupdate.1.html		\
+			manpages/man1/combostatus.1.html		\
+			manpages/man1/confreport.cgi.1.html		\
+			manpages/man1/criticaleditor.cgi.1.html		\
+			manpages/man1/criticalview.cgi.1.html		\
+			manpages/man1/csvinfo.cgi.1.html		\
+			manpages/man1/datepage.cgi.1.html		\
+			manpages/man1/eventlog.cgi.1.html		\
+			manpages/man1/findhost.cgi.1.html		\
+			manpages/man1/ghostlist.cgi.1.html		\
+			manpages/man1/history.cgi.1.html		\
+			manpages/man1/hostgraphs.cgi.1.html		\
+			manpages/man1/logfetch.1.html			\
+			manpages/man1/orcaxymon.1.html			\
+			manpages/man1/report.cgi.1.html			\
+			manpages/man1/reportlog.cgi.1.html		\
+			manpages/man1/showgraph.cgi.1.html		\
+			manpages/man1/snapshot.cgi.1.html		\
+			manpages/man1/statusreport.cgi.1.html		\
+			manpages/man1/svcstatus.cgi.1.html		\
+			manpages/man1/xymon.1.html			\
+			manpages/man1/xymoncfg.1.html			\
+			manpages/man1/xymoncmd.1.html			\
+			manpages/man1/xymondigest.1.html		\
+			manpages/man1/xymongen.1.html			\
+			manpages/man1/xymongrep.1.html			\
+			manpages/man1/xymonnet-again.sh.1.html		\
+			manpages/man1/xymonnet.1.html			\
+			manpages/man1/xymonpage.cgi.1.html		\
+			manpages/man1/xymonping.1.html			\
+			manpages/man5/alerts.cfg.5.html			\
+			manpages/man5/analysis.cfg.5.html		\
+			manpages/man5/cgioptions.cfg.5.html		\
+			manpages/man5/client-local.cfg.5.html		\
+			manpages/man5/clientlaunch.cfg.5.html		\
+			manpages/man5/combo.cfg.5.html			\
+			manpages/man5/critical.cfg.5.html		\
+			manpages/man5/graphs.cfg.5.html			\
+			manpages/man5/hosts.cfg.5.html			\
+			manpages/man5/protocols.cfg.5.html		\
+			manpages/man5/tasks.cfg.5.html			\
+			manpages/man5/xymon-xmh.5.html			\
+			manpages/man5/xymonclient.cfg.5.html		\
+			manpages/man5/xymonserver.cfg.5.html		\
+			manpages/man5/xymonweb.5.html			\
+			manpages/man7/xymon.7.html			\
+			manpages/man8/enadis.cgi.8.html			\
+			manpages/man8/msgcache.8.html			\
+			manpages/man8/trimhistory.8.html		\
+			manpages/man8/xymon-mailack.8.html		\
+			manpages/man8/xymoncgimsg.cgi.8.html		\
+			manpages/man8/xymond.8.html			\
+			manpages/man8/xymond_alert.8.html		\
+			manpages/man8/xymond_capture.8.html		\
+			manpages/man8/xymond_channel.8.html		\
+			manpages/man8/xymond_client.8.html		\
+			manpages/man8/xymond_filestore.8.html		\
+			manpages/man8/xymond_history.8.html		\
+			manpages/man8/xymond_hostdata.8.html		\
+			manpages/man8/xymond_rrd.8.html			\
+			manpages/man8/xymond_sample.8.html		\
+			manpages/man8/xymonfetch.8.html			\
+			manpages/man8/xymonlaunch.8.html		\
+			manpages/man8/xymonproxy.8.html			\
+			stdview-detail-acked.jpg			\
+			upgrade-to-430.txt				\
+			xymon-alerts.html				\
+			xymon-apacheconf.txt				\
+			xymon-clients.png				\
+			xymon-config.html				\
+			xymon-hosts.png					\
+			xymon-mrtg.html					\
+			xymon-tips.html					\
+			xymonmain.png					\
+			xymonprocs.png					\
+		"
+	DOCDIRS="manpages manpages/man1 manpages/man5		\
+			manpages/man7 manpages/man8"
+	for dir in ${DOCDIRS}; do
+		${MKDIR} ${XYWWWDIR}/help/${dir}
+		${CHMOD} 0755 ${XYWWWDIR}/help/${dir}
+	done
+	for file in ${DOCFILES}; do
+		${CP} ${EXAMPLEDIR}/www/help/${file} ${XYWWWDIR}/help/${file}
+		${CHMOD} 0444 ${XYWWWDIR}/help/${file}
+	done
+
+	if [ ! -h ${XYMONHOME}/bin ]; then
+		${LN} -s ${XYBINDIR} ${XYMONHOME}/bin
+	fi
+	if [ ! -h ${XYMONHOME}/etc ]; then
+		${LN} -s ${XYETCDIR} ${XYMONHOME}/etc
+	fi
+	if [ ! -h ${XYMONHOME}/ext ]; then
+		${LN} -s ${XYEXTDIR} ${XYMONHOME}/ext
+	fi
+	if [ ! -h ${XYMONHOME}/tmp ]; then
+		${LN} -s ${XYTMPDIR} ${XYMONHOME}/tmp
+	fi
+	if [ ! -h ${XYMONHOME}/web ]; then
+		${LN} -s ${XYWEBDIR} ${XYMONHOME}/web
+	fi
+	if [ ! -h ${XYMONHOME}/www ]; then
+		${LN} -s ${XYWWWDIR} ${XYMONHOME}/www
+	fi
+	if [ ! -h ${XYMONHOME}/download ]; then
+		${LN} -s ${XYMONVAR}/download ${XYMONHOME}/download
+	fi
+	if [ ! -h ${XYMONHOME}/logs ]; then
+		${LN} -s ${XYMONLOGDIR} ${XYMONHOME}/logs
+	fi
+
+	;;
+esac

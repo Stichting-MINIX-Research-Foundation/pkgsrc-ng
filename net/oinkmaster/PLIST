@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:09:37 joerg Exp $
+bin/oinkmaster
+man/man1/oinkmaster.1
+share/doc/oinkmaster/FAQ
+share/doc/oinkmaster/INSTALL
+share/doc/oinkmaster/LICENSE
+share/doc/oinkmaster/README
+share/doc/oinkmaster/README.templates
+share/doc/oinkmaster/UPGRADING
+share/examples/oinkmaster/oinkmaster.conf
+share/examples/oinkmaster/template-examples.conf
+share/snort/rules/classification.config
+share/snort/rules/gen-msg.map
+share/snort/rules/reference.config
+share/snort/rules/sid-msg.map
+share/snort/rules/unicode.map

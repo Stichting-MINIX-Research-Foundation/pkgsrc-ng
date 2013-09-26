@@ -1,0 +1,122 @@
+$NetBSD: patch-aa,v 1.4 2012/12/20 22:00:06 joerg Exp $
+
+Don't overwrite read-only strings, so they can be placed in the text
+segment by a decent optimising compiler.
+
+Honour the VISUAL and EDITOR settings in the environment before
+using ed(1)
+
+Use c89 function defs
+Use correct header files
+
+--- idiff.c.orig	1998-09-16 19:58:16.000000000 +0000
++++ idiff.c
+@@ -1,16 +1,26 @@
+ /* idiff:  interactive diff */
+ 
+-#include <stdio.h>
++#include <sys/param.h>
++
+ #include <ctype.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <string.h>
++#include <unistd.h>
+ char	*progname;
+-#define	HUGE	10000	/* large number of lines */
++#define	HUGE	100000	/* large number of lines */
++
++void parse(char *s, int *pfrom1, int *pto1, int *pcmd, int *pfrom2, int *pto2);
++void nskip(FILE *fin, int n);
++void ncopy(FILE *fin, int n, FILE *fout);
++void idiff(FILE *f1, FILE *f2, FILE *fin, FILE *fout);
+ 
+-main(argc, argv)
+-	int argc;
+-	char *argv[];
++int
++main(int argc, char **argv)
+ {
+ 	FILE *fin, *fout, *f1, *f2, *efopen();
+ 	char buf[BUFSIZ], *mktemp();
++	char	realdiffname[MAXPATHLEN];
+ 	char *diffout = "idiff.XXXXXX";
+ 
+ 	progname = argv[0];
+@@ -21,6 +31,8 @@ main(argc, argv)
+ 	f1 = efopen(argv[1], "r");
+ 	f2 = efopen(argv[2], "r");
+ 	fout = efopen("idiff.out", "w");
++	(void) strcpy(realdiffname, diffout);
++	diffout = realdiffname;
+ 	mktemp(diffout);
+ 	sprintf(buf,"diff %s %s >%s",argv[1],argv[2],diffout);
+ 	system(buf);
+@@ -31,14 +43,18 @@ main(argc, argv)
+ 	exit(0);
+ }
+ 
+-idiff(f1, f2, fin, fout)	/* process diffs */
+-	FILE *f1, *f2, *fin, *fout;
++void
++idiff(FILE *f1, FILE *f2, FILE *fin, FILE *fout)	/* process diffs */
+ {
++	char	realtempfile[MAXPATHLEN];
+ 	char *tempfile = "idiff.XXXXXX";
+ 	char buf[BUFSIZ], buf2[BUFSIZ], *mktemp();
+ 	FILE *ft, *efopen();
+ 	int cmd, n, from1, to1, from2, to2, nf1, nf2;
++	char *ed;
+ 
++	(void) strcpy(realtempfile, tempfile);
++	tempfile = realtempfile;
+ 	mktemp(tempfile);
+ 	nf1 = nf2 = 0;
+ 	while (fgets(buf, sizeof buf, fin) != NULL) {
+@@ -76,7 +92,11 @@ idiff(f1, f2, fin, fout)	/* process diff
+ 				fprintf(ft, "---\n");
+ 				ncopy(f2, to2+1-from2, ft);
+ 				fclose(ft);
+-				sprintf(buf2, "ed %s", tempfile);	
++				if ((ed = getenv("VISUAL")) == NULL &&
++				    (ed = getenv("EDITOR")) == NULL) {
++					ed = "/bin/ed";
++				}
++				snprintf(buf2, sizeof(buf2), "%s %s", ed, tempfile);	
+ 				system(buf2);
+ 				ft = efopen(tempfile, "r");
+ 				ncopy(ft, HUGE, fout);
+@@ -98,9 +118,8 @@ idiff(f1, f2, fin, fout)	/* process diff
+ 	unlink(tempfile);
+ }
+ 
+-parse(s, pfrom1, pto1, pcmd, pfrom2, pto2)
+-	char *s;
+-	int *pcmd, *pfrom1, *pto1, *pfrom2, *pto2;
++void
++parse(char *s, int *pfrom1, int *pto1, int *pcmd, int *pfrom2, int *pto2)
+ {
+ #define a2i(p) while (isdigit(*s)) p = 10*(p) + *s++ - '0'
+ 
+@@ -120,8 +139,8 @@ parse(s, pfrom1, pto1, pcmd, pfrom2, pto
+ 		*pto2 = *pfrom2;
+ }
+ 
+-nskip(fin, n)	/* skip n lines of file fin */
+-	FILE *fin;
++void
++nskip(FILE *fin, int n)	/* skip n lines of file fin */
+ {
+ 	char buf[BUFSIZ];
+ 
+@@ -129,8 +148,8 @@ nskip(fin, n)	/* skip n lines of file fi
+ 		fgets(buf, sizeof buf, fin);
+ }
+ 
+-ncopy(fin, n, fout)	/* copy n lines from fin to fout */
+-	FILE *fin, *fout;
++void
++ncopy(FILE *fin, int n, FILE *fout)	/* copy n lines from fin to fout */
+ {
+ 	char buf[BUFSIZ];
+ 

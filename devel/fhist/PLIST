@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:43 joerg Exp $
+bin/fcomp
+bin/fhist
+bin/fmerge
+man/man1/fcomp.1
+man/man1/fhist.1
+man/man1/fhist_lic.1
+man/man1/fmerge.1
+share/doc/fhist/en/building.dvi
+share/doc/fhist/en/building.ps
+share/doc/fhist/en/building.txt
+share/doc/fhist/en/man1/fcomp.1
+share/doc/fhist/en/man1/fhist.1
+share/doc/fhist/en/man1/fhist_lic.1
+share/doc/fhist/en/man1/fmerge.1
+share/doc/fhist/en/readme.dvi
+share/doc/fhist/en/readme.ps
+share/doc/fhist/en/readme.txt
+share/doc/fhist/en/reference.dvi
+share/doc/fhist/en/reference.ps
+share/doc/fhist/en/reference.txt
+share/locale/en/LC_MESSAGES/fcomp.mo
+share/locale/en/LC_MESSAGES/fhist.mo
+share/locale/en/LC_MESSAGES/fmerge.mo

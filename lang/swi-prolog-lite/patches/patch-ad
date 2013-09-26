@@ -1,0 +1,25 @@
+$NetBSD: patch-ad,v 1.4 2010/05/16 18:46:10 asau Exp $
+
+Fix path to include files.
+Split install target.
+
+--- packages/Makefile.in.orig	2010-02-24 01:25:23.000000000 +0300
++++ packages/Makefile.in	2010-02-25 02:00:09.000000000 +0300
+@@ -34,7 +34,7 @@
+ PLARCH=@ARCH@
+ PLLDFLAGS=@LDFLAGS@
+ PLDIR=$(shell dirname `pwd`)
+-PLINCL=$(PLDIR)/include
++PLINCL=$(PLDIR)/src
+ LIBDIR=$(PLDIR)/lib/$(PLARCH)
+ PLSHARED=@PLSHARED@
+ PLTHREADS=@PLTHREADS@
+@@ -82,6 +82,8 @@
+ 	for p in $(PKG); do \
+ 	    if [ -r $$p/Makefile ]; then ( cd $$p && $(MAKE) $@ ) || exit 1; fi; \
+         done
++
++post-install::
+ 	@echo "*** Forcing update of library index ***"
+ 	rm -f $(DESTDIR)$(PLLIB)/INDEX.pl
+ 	./swipl.sh -f none -g "make_library_index('$(DESTDIR)$(PLLIB)')" -t halt

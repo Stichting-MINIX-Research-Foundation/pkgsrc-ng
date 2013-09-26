@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.3 2013/05/18 20:50:36 shattered Exp $
+bin/epstool
+man/man1/epstool.1
+share/doc/epstool/LICENCE
+share/doc/epstool/epstool.htm
+share/doc/epstool/gsview.css

@@ -1,0 +1,14 @@
+$NetBSD: patch-ag,v 1.4 2011/08/11 11:15:00 adam Exp $
+
+--- config.h.in.orig	2010-01-11 11:06:53.000000000 +0000
++++ config.h.in
+@@ -76,6 +76,9 @@
+ /* Define if we have pthread. */
+ #undef HAVE_PTHREAD
+ 
++/* Define to 1 if you have the <rfuncs.h> header file. */
++#undef HAVE_RFUNCS_H
++
+ /* Define to 1 if you have the `setenv' function. */
+ #undef HAVE_SETENV
+ 

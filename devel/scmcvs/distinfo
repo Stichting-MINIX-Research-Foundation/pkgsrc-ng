@@ -1,0 +1,33 @@
+$NetBSD: distinfo,v 1.7 2011/09/27 12:43:20 ryoon Exp $
+
+SHA1 (cvs-1.11.23.tar.bz2) = a51c531eebaff2dfdcc0fb6d94c8c6e509e06d7d
+RMD160 (cvs-1.11.23.tar.bz2) = ff8c5c6777f1c12ee9134a3cf59e00c2ebaad279
+Size (cvs-1.11.23.tar.bz2) = 2942652 bytes
+SHA1 (patch-aa) = 948f78730d1e7755371838e7915d2706def3b539
+SHA1 (patch-ab) = 2864d35dfcdea456537d296a8efb4ade006913cf
+SHA1 (patch-ac) = 6a93eec69346691e7a442407a906aac30c7c3341
+SHA1 (patch-ad) = 984dc49845ee6d43dead1c54ae1f8371844fa6eb
+SHA1 (patch-ae) = 0e763fe3f62714f094a35482f5e99477adf83784
+SHA1 (patch-af) = 1ea3769fc5c93ad2c8126aea5c68b98c5174e36b
+SHA1 (patch-ag) = 7821cee0571c9fb5a35b92bfdb7f65a86f8ce87d
+SHA1 (patch-ah) = 6153bc9bd46ef7632afb2665e2c21a21baa50556
+SHA1 (patch-ai) = d34d353860bffe774fcae87f8f93b4e125d78ccd
+SHA1 (patch-ak) = 471c3a057263e94e372811b1f9d05a7ab8174842
+SHA1 (patch-al) = 36429c9a80bee21cc797ceb49e1a15caae925c3c
+SHA1 (patch-am) = 35df79307083caf3c77fcc58144cd4b34ee18db0
+SHA1 (patch-an) = 2e927f99e27d09e3e9ab8aacce93e251862e436e
+SHA1 (patch-ao) = 70f8db86bafeb1102c634e11046c1823ac78eefd
+SHA1 (patch-ap) = 2b8892118b768f677071194494d6bb0a0e8925d0
+SHA1 (patch-aq) = add508a6cf8dd6aea8137f74da13576996c4f49d
+SHA1 (patch-ar) = 7d71ba10285ccaa58b0a2c55a21bd8716fa58ad5
+SHA1 (patch-at) = 1f77fd66babb386d6cbddc6cb34074f7ac7f07bb
+SHA1 (patch-au) = 137b12b879522ce64ecd506a8fbe8d344ef72d52
+SHA1 (patch-av) = f638f5bf5489c35c493885af5f7dfd7708660199
+SHA1 (patch-ay) = ec49abaa286e6be440a0efd910cf26c86835fe20
+SHA1 (patch-az) = 8000247fb946b4ac07261b1dedae4581a29476d7
+SHA1 (patch-ba) = 7153e12e5da86effd4285e147f9f534011982e07
+SHA1 (patch-config.h.in) = 5a9ba2d2ec2eac8e1a1b4480d5ebe62d72987559
+SHA1 (patch-configure) = a264244219f583e072a3ec7c04945eb3b8cc5221
+SHA1 (patch-lib_getline.c) = e1bb8ac852abd8a25ea3b84455d09e1b4ba728e5
+SHA1 (patch-lib_getline.h) = 1d91f3f22e4e5aad9f8941f88855d4f41ba25dfe
+SHA1 (patch-lib_xsize.h) = d16bd33322fb7e3750f425d5ea58fbc3413b910b

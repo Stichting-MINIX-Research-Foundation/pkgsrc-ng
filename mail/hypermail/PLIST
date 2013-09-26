@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 20:45:11 joerg Exp $
+bin/hypermail
+bin/msg2archive
+bin/rdmsg
+man/man1/hypermail.1
+man/man4/hmrc.4
+share/doc/html/hypermail/archive_search.html
+share/doc/html/hypermail/customizing.html
+share/doc/html/hypermail/hmrc.html
+share/doc/html/hypermail/hr.yellow.png
+share/doc/html/hypermail/hypermail-faq.html
+share/doc/html/hypermail/hypermail.html
+share/doc/html/hypermail/hypermail.png
+share/doc/html/hypermail/stars.png
+@pkgdir share/doc/html/hypermail/images

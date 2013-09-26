@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/02/11 08:06:17 obache Exp $
+man/man8/hping.8
+man/man8/hping2.8
+sbin/hping
+sbin/hping2

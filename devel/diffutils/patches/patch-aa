@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2012/04/07 16:30:05 schwarz Exp $
+
+--- src/Makefile.in.orig	2012-04-07 01:21:43.000000000 +0200
++++ src/Makefile.in	2012-04-07 01:22:34.000000000 +0200
+@@ -1034,7 +1034,7 @@
+ 
+ noinst_HEADERS = diff.h system.h
+ MOSTLYCLEANFILES = paths.h paths.ht
+-gdiff = `echo diff|sed '$(transform)'`
++gdiff = "%DEFAULT_DIFF_PROGRAM%"
+ BUILT_SOURCES = paths.h version.c version.h
+ noinst_LIBRARIES = libver.a
+ nodist_libver_a_SOURCES = version.c version.h

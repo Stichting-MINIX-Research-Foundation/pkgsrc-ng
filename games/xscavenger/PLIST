@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:57:01 joerg Exp $
+bin/scavenger
+man/man6/scavenger.6
+share/doc/scavenger/DOC
+share/scavenger/badguy.lbm
+share/scavenger/brownblue.lbm
+share/scavenger/death.raw
+share/scavenger/dig.raw
+share/scavenger/fall.raw
+share/scavenger/levels.scl
+share/scavenger/microman.lbm
+share/scavenger/pop.raw
+share/scavenger/redbrick.lbm
+share/scavenger/reddevil.lbm
+share/scavenger/regularguy.lbm
+share/scavenger/spiralthing.lbm
+share/scavenger/victory.raw

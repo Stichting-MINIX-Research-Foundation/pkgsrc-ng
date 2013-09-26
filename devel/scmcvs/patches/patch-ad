@@ -1,0 +1,16 @@
+$NetBSD: patch-ad,v 1.2 2011/09/22 15:16:26 ryoon Exp $
+
+--- lib/sighandle.c.orig	2005-04-04 20:46:06.000000000 +0000
++++ lib/sighandle.c
+@@ -155,8 +155,10 @@ int			sig;
+ 	this = SIG_handlers[sig];
+ 	while (this != (struct SIG_hlist *) NULL)
+ 	{
+-		(*this->handler)(sig);
++		/* handler may free this (and thus clobber this->next) */
++		struct SIG_hlist *current = this;
+ 		this = this->next;
++		(*current->handler)(sig);
+ 	}
+ 
+ 	return;

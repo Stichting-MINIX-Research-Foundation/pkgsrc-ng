@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.6 2009/02/22 22:07:52 gdt Exp $
+
+Remove empty install target, to let the standard rules install the
+library.
+
+If NEEDS_STRLCPY is defined in the make environment, as it will be on
+at least Linux, compile and link with the provided version of strlcpy.
+
+As of 2009-02-22 neither patch has been sent upstream.
+
+--- lib/Makefile.orig	2009-01-13 20:50:30.000000000 +0100
++++ lib/Makefile
+@@ -11,6 +11,8 @@ NOLINT=		yes
+ SRCS=		gps1.c gps2.c gpsdisplay.c gpsprod.c gpscap.c gpsdump.c \
+ 		gpsprint.c gpsversion.c gpsformat.c gpsload.c gpsfloat.c
+ 
+-install:
++.if defined(NEEDS_STRLCPY)
++SRCS+=		strlcpy.c
++.endif
+ 
+ .include <bsd.lib.mk>

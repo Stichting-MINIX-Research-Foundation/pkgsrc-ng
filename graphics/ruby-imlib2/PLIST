@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.4 2010/09/10 06:49:22 taca Exp $
+${GEM_HOME}/cache/imlib2-ruby-${PKGVERSION}.gem
+${GEM_LIBDIR}/AUTHORS
+${GEM_LIBDIR}/COPYING
+${GEM_LIBDIR}/ChangeLog
+${GEM_LIBDIR}/MANIFEST
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/TODO
+${GEM_LIBDIR}/depend
+${GEM_LIBDIR}/examples/checkerboard.rb
+${GEM_LIBDIR}/examples/fonts/yudit.ttf
+${GEM_LIBDIR}/examples/images/bill_gates.jpg
+${GEM_LIBDIR}/examples/images/clown.jpg
+${GEM_LIBDIR}/examples/oo-board.rb
+${GEM_LIBDIR}/examples/test_attach.rb
+${GEM_LIBDIR}/examples/test_font.rb
+${GEM_LIBDIR}/examples/test_imlib2.rb
+${GEM_LIBDIR}/examples/test_poly.rb
+${GEM_LIBDIR}/extconf.rb
+${GEM_LIBDIR}/imlib2.c
+${GEM_LIBDIR}/imlib2.gemspec
+${GEM_LIBDIR}/lib/imlib2.${RUBY_DLEXT}
+${GEM_HOME}/specifications/imlib2-ruby-${PKGVERSION}.gemspec

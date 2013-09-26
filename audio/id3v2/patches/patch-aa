@@ -1,0 +1,20 @@
+$NetBSD: patch-aa,v 1.6 2010/04/26 01:54:27 schnoebe Exp $
+
+--- Makefile.orig	2010-03-26 23:28:34.000000000 +0000
++++ Makefile
+@@ -2,12 +2,12 @@ all: id3v2
+ 
+ VERSION=0.1.12
+ 
+-PREFIX=	/opt/local
++PREFIX?=	/opt/local
+-CXXFLAGS+=	-Wall -I${PREFIX}/include/ -DVERSION="\"${VERSION}\"" #-DSORT_RUNTIME
++CXXFLAGS+=	-I${PREFIX}/include/ -DVERSION="\"${VERSION}\"" #-DSORT_RUNTIME
+ LDFLAGS+=	-L${PREFIX}/lib/ 
+ 
+ id3v2:	convert.o list.o id3v2.o genre.o
+-	${CXX} ${LDFLAGS} -pedantic -Wall -g -o $@ $^ -lz -lid3
++	${CXX} ${LDFLAGS} -pedantic -Wall -g -o $@ $^ -lz -lid3 -liconv
+ 
+ create_map: create_map.o
+ 	${CXX} -Wall -g -o $@ $^

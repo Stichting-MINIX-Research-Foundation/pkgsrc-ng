@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.4 2012/11/28 13:54:55 wiz Exp $
+
+Use pkgsrc framework for installing config files.
+Use pkgsrc framework for setuid permissions.
+
+--- Makefile.in.orig	2012-11-27 00:19:34.000000000 +0000
++++ Makefile.in
+@@ -672,7 +672,7 @@ info-am:
+ 
+ install-data-am: install-man
+ 
+-install-exec-am: install-binPROGRAMS install-dist_sysconfDATA \
++install-exec-am: install-binPROGRAMS \
+ 	install-libexecPROGRAMS
+ 	@$(NORMAL_INSTALL)
+ 	$(MAKE) $(AM_MAKEFLAGS) install-exec-hook
+@@ -730,7 +730,6 @@ uninstall-man: uninstall-man1 uninstall-
+ 	$(CC) -c $(DEFS) $(ourdefs) $(AM_CFLAGS) $(CPPFLAGS) $(LDFLAGS) $<
+ 
+ install-exec-hook:
+-	chmod u+s $(libexecdir)/rssh_chroot_helper
+ 
+ rpm:	dist
+ 	rpmbuild -ta --sign $(base).tar.gz

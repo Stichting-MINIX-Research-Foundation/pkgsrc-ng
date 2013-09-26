@@ -1,0 +1,29 @@
+$NetBSD: patch-ab,v 1.2 2010/01/04 15:20:45 joerg Exp $
+
+--- build/config.generic.orig	2006-11-26 22:19:17.000000000 +0000
++++ build/config.generic
+@@ -13,7 +13,7 @@ export CXX="g++"                      # 
+ export LINK=$CXX                      # Executable Linker
+ export DLLLINK="$CXX -shared"         # Dynamic Library Linker
+ export LIBLINK="ar cru"               # Static Library Linker
+-export DLLRPATH="-Wl,-rpath "         # Search Path for Dynamic Libs
++export DLLRPATH="-Wl,-rpath,"         # Search Path for Dynamic Libs
+ 
+ # Compiler and Linker Flags
+ export OUTPUTOBJ="-o"                 # Compiler flag to specify output object filename
+@@ -23,15 +23,12 @@ export PICFLAG=""                     # 
+ if [ $DEFS == "-DDEBUG" ] ; then
+   export CFLAGS="${CFLAGS:--Wall -g -pipe }"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -g -pipe}"
+-	export LDFLAGS=""
+ elif [ $DEFS == "-DNDEBUG" ] ; then
+ 	export CFLAGS="${CFLAGS:--Wall -O3 -pipe}"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -O3 -pipe}"
+-	export LDFLAGS="-s"
+ else
+ 	export CFLAGS="${CFLAGS:--Wall -pipe}"
+ 	export CXXFLAGS="${CXXFLAGS:--Wall -pipe}"
+-	export LDFLAGS=""
+ fi
+ 
+ export CPPFLAGS="-I./include ${CPPFLAGS}"

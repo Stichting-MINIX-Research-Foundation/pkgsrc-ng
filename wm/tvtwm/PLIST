@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2003/03/03 03:32:35 jschauma Exp $
+bin/tvtwm
+bin/ssetroot
+lib/X11/twm/system.tvtwmrc
+${IMAKE_MAN_DIR}/tvtwm.${IMAKE_MANNEWSUFFIX}

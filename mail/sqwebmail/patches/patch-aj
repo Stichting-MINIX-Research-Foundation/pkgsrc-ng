@@ -1,0 +1,13 @@
+$NetBSD: patch-aj,v 1.8 2010/06/15 23:18:13 pettai Exp $
+
+--- INSTALL.html.orig	Mon Sep  3 16:05:20 2007
++++ INSTALL.html
+@@ -820,7 +820,7 @@ BrowserMatch "MSIE" nokeepalive downgrad
+   configuration files are installed in
+   <code>/usr/lib/sqwebmail</code> (the default).</p>
+ 
+-  <p><code>/usr/lib/sqwebmail/etc/hostname</code> - when SqWebMail
++  <p><code>/usr/lib/sqwebmail/etc/defaultdomain</code> - when SqWebMail
+   is installed with a basic configuration for a single domain,
+   SqWebMail sets the domain in the return address for outgoing
+   messages to the defined system hostname. If this file exists it

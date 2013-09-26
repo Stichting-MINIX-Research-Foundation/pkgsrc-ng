@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:03:28 joerg Exp $
+bin/bacc
+bin/badis
+bin/bainterp
+bin/bapas
+share/doc/baci/cmimi.ps
+share/doc/baci/cmimi.tex
+share/doc/baci/disasm.ps
+share/doc/baci/disasm.tex
+share/doc/baci/guidepas.ps
+share/doc/baci/guidepas.tex

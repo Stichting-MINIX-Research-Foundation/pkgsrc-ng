@@ -1,0 +1,39 @@
+$NetBSD: patch-ab,v 1.4 2012/08/21 19:50:54 drochner Exp $
+
+Handle the various operating systems in the same way avoiding hardcoding.
+
+--- Makerules.orig	2012-08-16 13:55:20.000000000 +0000
++++ Makerules
+@@ -23,32 +23,8 @@ else
+ $(error unknown build setting: '$(build)')
+ endif
+ 
+-ifeq "$(OS)" "Linux"
+ SYS_FREETYPE_INC := `pkg-config --cflags freetype2`
+ X11_LIBS := -lX11 -lXext
+-endif
+-
+-ifeq "$(OS)" "FreeBSD"
+-SYS_FREETYPE_INC := `pkg-config --cflags freetype2`
+-LDFLAGS += -L/usr/local/lib
+-X11_LIBS := -lX11 -lXext
+-endif
+-
+-# Mac OS X build depends on some thirdparty libs
+-ifeq "$(OS)" "Darwin"
+-SYS_FREETYPE_INC := -I/usr/X11R6/include/freetype2
+-CFLAGS += -I/usr/X11R6/include
+-LDFLAGS += -L/usr/X11R6/lib
+-RANLIB_CMD = ranlib $@
+-X11_LIBS := -lX11 -lXext
+-ifeq "$(arch)" "amd64"
+-CFLAGS += -m64
+-LDFLAGS += -m64
+-else
+-CFLAGS += -m32
+-LDFLAGS += -m32
+-endif
+-endif
+ 
+ # The following section is an example of how to simply do cross-compilation
+ # using these Makefiles. It builds for a beagleboard running ARM linux,

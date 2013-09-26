@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:11:58 joerg Exp $
+bin/calibrate_ppa
+bin/pnm2ppa
+man/man1/pnm2ppa.1
+share/doc/pnm2ppa/CALIBRATION.txt
+share/doc/pnm2ppa/COLOR.txt
+share/examples/pnm2ppa/pnm2ppa.conf

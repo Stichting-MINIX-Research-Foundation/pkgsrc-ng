@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.9 2009/06/14 18:19:01 joerg Exp $
+bin/ratpoison
+bin/rpws
+info/ratpoison.info
+man/man1/ratpoison.1
+share/doc/ratpoison/AUTHORS
+share/doc/ratpoison/COPYING
+share/doc/ratpoison/ChangeLog
+share/doc/ratpoison/NEWS
+share/doc/ratpoison/README
+share/ratpoison/allwindows.sh
+share/ratpoison/clickframe.pl
+share/ratpoison/genrpbindings
+share/ratpoison/ratpoison.el
+share/ratpoison/rpshowall.sh
+share/ratpoison/rpws
+share/ratpoison/sloppy.c
+share/ratpoison/split.sh
+share/ratpoison/unrat.c

@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.4 2013/06/16 21:12:26 wiz Exp $
+include/libmms/mms.h
+include/libmms/mms_config.h
+include/libmms/mmsh.h
+include/libmms/mmsio.h
+include/libmms/mmsx.h
+lib/libmms.la
+lib/pkgconfig/libmms.pc

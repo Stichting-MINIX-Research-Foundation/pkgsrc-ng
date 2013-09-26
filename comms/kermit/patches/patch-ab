@@ -1,0 +1,20 @@
+$NetBSD: patch-ab,v 1.6 2011/08/25 14:54:06 hans Exp $
+
+--- ck_ssl.c.orig	2011-07-06 15:03:32.000000000 +0200
++++ ck_ssl.c	2011-08-23 10:29:50.031163553 +0200
+@@ -2877,6 +2877,7 @@ show_hostname_warning(char *s1, char *s2
+ #ifndef OpenBSD
+ #ifndef FREEBSD4
+ #ifndef NETBSD15
++#ifndef __DragonFly__
+ #ifndef LINUX
+ #ifndef AIX41
+ #ifndef UW7
+@@ -2919,6 +2920,7 @@ inet_aton(char * ipaddress, struct in_ad
+ #endif /* UW7 */
+ #endif /* AIX41 */
+ #endif /* LINUX */
++#endif /* __DragonFly__ */
+ #endif /* NETBSD15 */
+ #endif /* FREEBSD4 */
+ #endif /* OpenBSD */

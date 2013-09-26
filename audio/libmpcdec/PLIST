@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:32:15 joerg Exp $
+include/mpcdec/config_types.h
+include/mpcdec/decoder.h
+include/mpcdec/huffman.h
+include/mpcdec/math.h
+include/mpcdec/mpcdec.h
+include/mpcdec/reader.h
+include/mpcdec/requant.h
+include/mpcdec/streaminfo.h
+lib/libmpcdec.la

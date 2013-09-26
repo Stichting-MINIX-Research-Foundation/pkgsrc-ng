@@ -1,0 +1,23 @@
+$NetBSD: patch-ae,v 1.2 2013/06/15 06:09:37 obache Exp $
+
+--- agent/filter/misc.c.orig	2001-03-17 18:31:21.000000000 +0000
++++ agent/filter/misc.c
+@@ -36,14 +36,16 @@
+  *
+  */
+ 
++#include <stdlib.h>
++#include <stdio.h>
++#include <string.h>
++
+ #include "config.h"
+ #include "portable.h"
+ #include <ctype.h>
+ #include "sysexits.h"
+ #include "confmagic.h"
+ 
+-extern char *malloc();				/* Memory allocation */
+-
+ public char *strsave(string)
+ char *string;
+ {

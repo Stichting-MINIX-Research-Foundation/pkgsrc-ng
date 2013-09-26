@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.4 2012/04/08 20:21:47 wiz Exp $
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/unittest.py
+${PYSITELIB}/unittest.pyc
+${PYSITELIB}/unittest.pyo

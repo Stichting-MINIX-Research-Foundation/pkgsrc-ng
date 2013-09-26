@@ -1,0 +1,18 @@
+$NetBSD: patch-ag,v 1.5 2012/12/12 12:35:21 wiz Exp $
+
+Use NAME_MAX, if defined, instead of MAXNAMLEN.
+
+--- src/getsdir.c.orig	2011-02-14 10:07:00.000000000 +0000
++++ src/getsdir.c
+@@ -232,7 +232,11 @@ int getsdir(const char *dirpath, const c
+             }
+ 
+           /* copy the filename */
++#ifdef NAME_MAX
++          strncpy((*datptr)[cnt].fname, dp->d_name, NAME_MAX);
++#else
+           strncpy((*datptr)[cnt].fname, dp->d_name, MAXNAMLEN);
++#endif
+ 
+           /* get information about the directory entry */
+           snprintf(fpath, sizeof(fpath), "%s/%s", dirpath, dp->d_name);

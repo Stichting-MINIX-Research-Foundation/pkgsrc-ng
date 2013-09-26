@@ -1,0 +1,19 @@
+$NetBSD: patch-aa,v 1.4 2010/09/12 12:59:47 wiz Exp $
+
+--- Tk/MMutil.pm.orig	2010-05-12 23:29:42.000000000 +0000
++++ Tk/MMutil.pm
+@@ -313,10 +313,13 @@ sub const_config
+ #   }
+    $self->{'LDFLAGS'} =~ s/-flat_namespace//;
+    $self->{'LDFLAGS'} =~ s/-undefined\s+suppress//;
+-  } elsif ($^O =~ /(openbsd)/i)
++  } elsif ($^O =~ /(.*bsd)/i)
+   {
+    # -Bforcearchive is bad news for Tk - we don't want all of libpTk.a in all .so-s.
+    $self->{'LDDLFLAGS'} =~ s/-Bforcearchive\s*//g;
++  } elsif ($^O =~ /(.*dragonfly)/i) {
++   # -Bforcearchive is bad news for Tk - we don't want all of libpTk.a in all .so-s.
++   $self->{'LDDLFLAGS'} =~ s/-Bforcearchive\s*//g;
+   }
+  return $self->MM::const_config;
+ }

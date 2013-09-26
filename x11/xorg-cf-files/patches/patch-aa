@@ -1,0 +1,81 @@
+$NetBSD: patch-aa,v 1.3 2012/01/15 14:01:59 shattered Exp $
+
+--- NetBSD.cf.orig	2009-10-16 21:45:42.000000000 +0000
++++ NetBSD.cf
+@@ -126,7 +126,7 @@
+ # if ((OSMajorVersion == 2 && OSMinorVersion == 99 && OSTeenyVersion < 11) || \
+       (OSMajorVersion == 2 && OSMinorVersion < 99) || \
+       (OSMajorVersion < 2))
+-#  define LibraryMTDefines	-DUSE_NBSD_THREADLIB
++#  define LibraryMTDefines	@@NETBSD_THREADLIB@@
+ # endif
+ # define SystemMTDefines	-D_REENTRANT
+ # define MTSafeAPIDefines	-DXUSE_MTSAFE_API -DXNO_MTSAFE_PWDAPI
+@@ -150,7 +150,7 @@
+ #define MkdirHierCmd		mkdir -p
+ 
+ #undef CcCmd
+-#define CcCmd 			gcc
++#define CcCmd 			@@PKGSRC_CC@@
+ #ifndef DefaultCCOptions
+ #if defined(UseInstalled)
+ #define DefaultCCOptions 	/**/
+@@ -166,7 +166,7 @@
+ #endif
+ #endif
+ 
+-#define CppCmd			cpp
++#define CppCmd			@@PKGSRC_CPP@@
+ #define StandardCppOptions	-traditional
+ #define StandardCppDefines	/**/
+ #define PreProcessCmd   	CcCmd -E
+@@ -199,6 +199,8 @@
+ #  ifndef DoLoadableServer
+ #  define DoLoadableServer	YES
+ #  endif
++#elif defined(ia64Architecture) || defined(AMD64Architecture)
++#define ServerExtraDefines GccGasOption XFree86ServerDefines -D_XSERVER64
+ #else
+ #  ifndef DoLoadableServer
+ #  define DoLoadableServer	NO
+@@ -344,6 +346,10 @@
+ #define HasPerl			NO
+ #endif
+ 
++#if defined(AMD64Architecture)
++# define HasMTRRBuiltin                YES
++#endif
++
+ /*
+  * NetBSD doesn't have gperf in default system
+  * you may override this in host.def if you installed perl from the packages
+@@ -596,10 +602,6 @@
+ # define BuildXInputLib          YES
+ #endif
+ 
+-#if defined(i386Architecture) || defined(Arm32Architecture) || defined(AlphaArchitecture) || defined(PpcArchitecture) || defined(AMD64Architecture)
+-# include <xorg.cf>
+-#endif
+-
+ /*
+  * Definitions for the SUN server on NetBSD/sparc
+  */
+@@ -629,7 +631,6 @@
+ #define BuildXF86VidModeExt	NO
+ #define BuildXF86DGA		NO
+ #define BuildXInputExt		NO
+-#include <xorg.cf>
+ #endif
+ 
+ /*
+@@ -696,3 +697,10 @@
+ #define HasDevRandom		YES
+ #define RandomDeviceFile	/dev/urandom
+ #endif
++
++/*
++ * Always include xorg.cf for GccAliasingArgs,
++ * regardless of server support on this plattform
++ */
++#include <xorg.cf>
++

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/09/16 06:47:39 taca Exp $
+
+SHA1 (transaction-simple-1.4.0.2.gem) = 73783842fdcaea2a7bd61f2981c8372a45048136
+RMD160 (transaction-simple-1.4.0.2.gem) = 18cef0f36100fc4a45960e57540c78366a4d0609
+Size (transaction-simple-1.4.0.2.gem) = 17408 bytes

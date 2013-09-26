@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.5 2011/02/20 22:19:52 wiz Exp $
+bin/ckmame
+bin/detective
+bin/dumpgame
+bin/mkmamedb
+man/man1/ckmame.1
+man/man1/detective.1
+man/man1/dumpgame.1
+man/man1/mkmamedb.1
+share/doc/ckmame/mame-0.96.dtd
+share/doc/ckmame/mess-0.97.dtd

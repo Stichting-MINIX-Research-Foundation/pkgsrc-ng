@@ -1,0 +1,27 @@
+$NetBSD: patch-aa,v 1.3 2012/06/18 03:51:25 dholland Exp $
+
+- use pkgsrc LDFLAGS
+- DESTDIR support
+
+--- Makefile.orig	2004-03-19 14:26:46.000000000 +0000
++++ Makefile
+@@ -1,13 +1,14 @@
+ 
+-LDFLAGS = -lncurses
++LIBS+=-lncurses
+ 
+ aop: aop.c
++	${CC} ${LDFLAGS} aop.c ${LIBS} -o aop
+ 
+ install: aop
+-	install -d /usr/local/bin
+-	install -d /usr/local/share/aop
+-	install -m 755 aop /usr/local/bin/aop
+-	install -m 644 aop-level-*.txt /usr/local/share/aop/
++	${BSD_INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/bin
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/aop
++	${BSD_INSTALL_PROGRAM} aop ${DESTDIR}${PREFIX}/bin/aop
++	${BSD_INSTALL_DATA} aop-level-*.txt ${DESTDIR}${PREFIX}/share/aop/
+ 
+ clean:
+ 	rm -f aop core* *~

@@ -1,0 +1,22 @@
+$NetBSD: patch-al,v 1.6 2012/07/16 19:12:33 adam Exp $
+
+Add DragonFly support. Fallback to LINE_MAX if BUFSIZ is not defined.
+
+--- lib/gssapi/krb5/import_name.c.orig	Sat Dec 11 20:12:52 2010
++++ lib/gssapi/krb5/import_name.c	Sat Dec 11 20:13:40 2010
+@@ -28,10 +28,15 @@
+ #include "gssapiP_krb5.h"
+ 
+ #ifndef NO_PASSWORD
++#include <limits.h>
+ #include <pwd.h>
+ #include <stdio.h>
+ #endif
+ 
++#ifndef BUFSIZ
++#define BUFSIZ LINE_MAX
++#endif
++
+ #ifdef HAVE_STRING_H
+ #include <string.h>
+ #else

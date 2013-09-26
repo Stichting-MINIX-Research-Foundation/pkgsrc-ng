@@ -1,0 +1,21 @@
+$NetBSD: patch-al,v 1.5 2011/09/22 15:16:26 ryoon Exp $
+
+--- src/client.c.orig	2008-05-07 15:57:34.000000000 +0000
++++ src/client.c
+@@ -4510,6 +4510,16 @@ start_server ()
+ 		error (1, 0,
+ 		       "This server does not support the global -n option.");
+ 	}
++	if (nolock && !noexec)
++	{
++	    if (have_global)
++	    {
++		send_to_server ("Global_option -u\012", 0);
++	    }
++	    else
++		error (1, 0,
++		       "This server does not support the global -u option.");
++	}
+ 	if (quiet)
+ 	{
+ 	    if (have_global)

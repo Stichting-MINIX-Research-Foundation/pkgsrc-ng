@@ -1,0 +1,12 @@
+# $NetBSD: texmf-deinstall.tmpl,v 1.2 2009/06/14 18:22:06 minskim Exp $
+#
+# Rebuild ls-R databases.
+#
+
+case ${STAGE} in
+POST-DEINSTALL)
+	@MKTEXLSR@ @TEXMF_DIRS@
+        ;;
+*)
+	;;
+esac

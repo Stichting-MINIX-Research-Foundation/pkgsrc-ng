@@ -1,0 +1,16 @@
+$NetBSD: patch-bj,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/menu/om_render.c.orig	1993-06-29 05:16:26.000000000 +0000
++++ lib/libxview/menu/om_render.c
+@@ -470,9 +470,9 @@ menu_render(menu, group, parent)
+      * Define the menu and shadow window dimensions.  Note: shadow rect width &
+      * height = menu rect width & height
+      */
+-    xv_set(m->window, XV_RECT, m->fs_menurect, 0);
++    xv_set(m->window, XV_RECT, &m->fs_menurect, 0);
+     if (!m->group_info->three_d)
+-	xv_set(m->shadow_window, XV_RECT, shadowrect, 0);
++	xv_set(m->shadow_window, XV_RECT, &shadowrect, 0);
+ 
+     XFlush(XV_DISPLAY_FROM_WINDOW(m->window));
+ 

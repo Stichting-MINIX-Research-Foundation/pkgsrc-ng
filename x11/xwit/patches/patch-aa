@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.2 2012/11/19 23:12:02 joerg Exp $
+
+--- xwit.c.orig	1997-10-21 01:32:54.000000000 +0000
++++ xwit.c
+@@ -131,10 +131,14 @@ static
+ mssleep(ms)
+ int ms;
+ {
++#ifdef __NetBSD__
++  usleep((useconds_t) ms*1000);
++#else
+     struct timeval tv;
+     tv.tv_sec = ms/1000;
+     tv.tv_usec = (ms%1000)*1000;
+     select(0,(int*)0,(int*)0,(int*)0,&tv);
++#endif
+ }
+ 
+ /*
+@@ -299,7 +303,7 @@ domove(window, x, y, right, bottom)
+ /*
+  * set window size
+  */
+-static
++static void
+ doresize(window, w, h)
+     Window window;
+     int w, h;

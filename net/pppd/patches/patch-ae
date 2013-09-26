@@ -1,0 +1,29 @@
+$NetBSD: patch-ae,v 1.3 2008/12/30 12:03:02 hasso Exp $
+
+--- configure.orig	2004-11-06 03:36:54 -0800
++++ configure	2008-12-10 03:05:00 -0800
+@@ -3,6 +3,6 @@
+ 
+ # Where to install stuff by default
+-DESTDIR=/usr/local
+-SYSCONF=/etc
++DESTDIR=${PREFIX}
++SYSCONF=${PKGSYSCONFDIR}
+ 
+ #  if [ -d /NextApps ]; then
+@@ -50,7 +50,14 @@
+     else
+       echo "C compiler not found; hoping for the best."
+     fi;;
+-  NetBSD|FreeBSD|ULTRIX|OSF1|NeXTStep|SINIX-?|UNIX_SV|UNIX_System_V)
++  NetBSD)
++    case $release in
++      [01].*)  state="notincluded";;
++      *)       state="known"; ksrc="netbsd"; makext="netbsd";;
++    esac;;
++  DragonFly)
++      state="known"; ksrc="netbsd"; makext="netbsd";;
++  FreeBSD|ULTRIX|OSF1|NeXTStep|SINIX-?|UNIX_SV|UNIX_System_V)
+     state="notincluded";;
+ #    NetBSD)
+ #      makext="bsd";

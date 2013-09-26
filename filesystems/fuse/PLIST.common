@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST.common,v 1.1 2010/08/25 08:02:21 manu Exp $
+include/fuse.h
+include/fuse/fuse.h
+include/fuse/fuse_common.h
+include/fuse/fuse_common_compat.h
+include/fuse/fuse_compat.h
+include/fuse/fuse_lowlevel.h
+include/fuse/fuse_lowlevel_compat.h
+include/fuse/fuse_opt.h
+include/fuse/cuse_lowlevel.h
+include/ulockmgr.h
+lib/libfuse.la
+lib/libulockmgr.la
+lib/pkgconfig/fuse.pc

@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.3 2009/08/19 09:50:59 ghen Exp $
+bin/ixpc
+include/ixp.h
+include/ixp_fcall.h
+lib/libixp.a
+lib/libixp_pthread.a
+man/man1/ixpc.1

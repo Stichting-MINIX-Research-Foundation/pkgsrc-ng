@@ -1,0 +1,46 @@
+$NetBSD: patch-ca,v 1.7 2012/07/27 19:29:02 drochner Exp $
+
+install config files into share/examples
+
+--- Makefile.in.orig	2012-06-11 04:14:07.000000000 +0000
++++ Makefile.in
+@@ -644,6 +644,7 @@ sharedstatedir = @sharedstatedir@
+ smtpservers = @smtpservers@
+ srcdir = @srcdir@
+ sysconfdir = @sysconfdir@
++egdir = @prefix@/share/examples/nmh
+ target_alias = @target_alias@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+@@ -3569,12 +3570,12 @@ uninstall-dist_docDATA:
+ 	done
+ install-dist_sysconfDATA: $(dist_sysconf_DATA)
+ 	@$(NORMAL_INSTALL)
+-	test -z "$(sysconfdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfdir)"
++	test -z "$(egdir)" || $(MKDIR_P) "$(DESTDIR)$(egdir)"
+ 	@list='$(dist_sysconf_DATA)'; for p in $$list; do \
+ 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+ 	  f=$(am__strip_dir) \
+-	  echo " $(dist_sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(sysconfdir)/$$f'"; \
+-	  $(dist_sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(sysconfdir)/$$f"; \
++	  echo " $(dist_sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(egdir)/$$f'"; \
++	  $(dist_sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(egdir)/$$f"; \
+ 	done
+ 
+ uninstall-dist_sysconfDATA:
+@@ -3586,12 +3587,12 @@ uninstall-dist_sysconfDATA:
+ 	done
+ install-sysconfDATA: $(sysconf_DATA)
+ 	@$(NORMAL_INSTALL)
+-	test -z "$(sysconfdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfdir)"
++	test -z "$(egdir)" || $(MKDIR_P) "$(DESTDIR)$(egdir)"
+ 	@list='$(sysconf_DATA)'; for p in $$list; do \
+ 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+ 	  f=$(am__strip_dir) \
+-	  echo " $(sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(sysconfdir)/$$f'"; \
+-	  $(sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(sysconfdir)/$$f"; \
++	  echo " $(sysconfDATA_INSTALL) '$$d$$p' '$(DESTDIR)$(egdir)/$$f'"; \
++	  $(sysconfDATA_INSTALL) "$$d$$p" "$(DESTDIR)$(egdir)/$$f"; \
+ 	done
+ 
+ uninstall-sysconfDATA:

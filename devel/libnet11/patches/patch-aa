@@ -1,0 +1,61 @@
+$NetBSD: patch-aa,v 1.2 2012/05/04 16:11:02 joerg Exp $
+
+libnet_getgre_length is used by different TUs, so it certainly is not inline.
+void foo() is different from void foo(void), at least in C.
+
+--- include/libnet/libnet-functions.h.orig	2004-03-25 18:50:48.000000000 +0000
++++ include/libnet/libnet-functions.h
+@@ -1429,7 +1429,7 @@ libnet_t *l, libnet_ptag_t ptag);
+  * @param ptag protocol tag to modify an existing header, 0 to build a new one
+  * @return protocol tag value on success, -1 on error
+  */
+-inline u_int32_t
++u_int32_t
+ libnet_getgre_length(u_int16_t fv);
+ 
+ /**
+@@ -1837,7 +1837,7 @@ libnet_cq_find_by_label(char *label);
+  * member context.
+  */
+ void
+-libnet_cq_destroy();
++libnet_cq_destroy(void);
+ 
+ /**
+  * [Context Queue] 
+@@ -1859,7 +1859,7 @@ libnet_cq_destroy();
+  * @return the head of the context queue
+  */
+ libnet_t *
+-libnet_cq_head();
++libnet_cq_head(void);
+ 
+ /**
+  * [Context Queue] 
+@@ -1867,7 +1867,7 @@ libnet_cq_head();
+  * @return 1 if at the end of the context queue, 0 otherwise
+  */
+ int
+-libnet_cq_last();
++libnet_cq_last(void);
+ 
+ /**
+  * [Context Queue] 
+@@ -1875,7 +1875,7 @@ libnet_cq_last();
+  * @reutrn the next context from the context queue
+  */
+ libnet_t *
+-libnet_cq_next();
++libnet_cq_next(void);
+ 
+ /**
+  * [Context Queue] 
+@@ -1883,7 +1883,7 @@ libnet_cq_next();
+  * @return the number of libnet contexts currently in the queue
+  */
+ u_int32_t
+-libnet_cq_size();
++libnet_cq_size(void);
+ 
+ /**
+  * [Diagnostic] 

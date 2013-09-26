@@ -1,0 +1,17 @@
+$NetBSD: patch-ab,v 1.5 2012/06/10 11:54:44 obache Exp $
+
+* Use own optimization flags.
+
+--- configure.in.orig	2012-04-01 14:21:02.000000000 +0000
++++ configure.in
+@@ -90,8 +90,8 @@ dnl
+ dnl check gcc
+ dnl
+ if test -n "$GCC"; then
+-   CFLAGS="-O3 -Wall "
+-   CXXFLAGS="-O3 -Wall "
++   CFLAGS="${CFLAGS} -Wall "
++   CXXFLAGS="${CXXFLAGS} -Wall "
+ fi
+ 
+ dnl

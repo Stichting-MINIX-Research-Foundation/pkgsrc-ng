@@ -1,0 +1,32 @@
+$NetBSD: patch-af,v 1.2 2008/07/21 02:55:34 dholland Exp $
+
+--- src/process_scan_bsd.cc~	2003-11-30 20:04:48.000000000 -0500
++++ src/process_scan_bsd.cc	2008-07-20 21:50:04.000000000 -0400
+@@ -56,7 +56,13 @@ extern "C" {
+ #include <sys/param.h>
+ #include <sys/sysctl.h> // KERN_PROC_ALL
+ #include <sys/types.h>
++#ifdef __DragonFly__
++#define template
++#endif
+ #include <sys/user.h>
++#ifdef __DragonFly__
++#undef template
++#endif
+ #include <fcntl.h>
+ #include <kvm.h>
+ #include <unistd.h>
+@@ -226,6 +232,13 @@ int process_scan_bsd::extract_uid() { re
+ int process_scan_bsd::extract_nice() { return int(cur_kp_->kp_proc.p_nice); }
+ int process_scan_bsd::extract_utime_msec() { return time_value_t_to_msec(kur_kp_->times.user_time) + time_value_t_to_msec(cur_kp_->tasks_info.user_time); }
+ int process_scan_bsd::extract_stime_msec() { return time_value_t_to_msec(kur_kp_->times.system _time) + time_value_t_to_msec(cur_kp_->tasks_info.system_time); }
++#elif defined(__DragonFly__)
++char *process_scan_bsd::extract_cmd() { return cur_kp_->kp_proc.p_comm; }
++int process_scan_bsd::extract_pid() { return int(cur_kp_->kp_proc.p_pid); }
++int process_scan_bsd::extract_uid() { return int(cur_kp_->kp_eproc.e_pcred.cr_ruid); }
++int process_scan_bsd::extract_nice() { return int(cur_kp_->kp_proc.p_nice); }
++int process_scan_bsd::extract_utime_msec() { return ticks_to_msec(cur_kp_->kp_eproc.e_uticks); }
++int process_scan_bsd::extract_stime_msec() { return ticks_to_msec(cur_kp_->kp_eproc.e_sticks); }
+ #else
+ #error unknown bsd variant
+ #endif

@@ -1,0 +1,29 @@
+$NetBSD: patch-aa,v 1.3 2012/05/12 23:10:30 dholland Exp $
+
+- need unistd.h for some things, so test for it (just in case it's not there, I guess)
+- check for statvfs.h for netbsd-3 and up 
+- add support for netbsd-6 and up quotas
+
+--- extconf.rb.orig	2002-03-20 18:09:14.000000000 +0000
++++ extconf.rb
+@@ -7,6 +7,8 @@
+ 
+ require "mkmf"
+ 
++have_header("unistd.h")
++
+ have_header("linux/quota.h")       # for linux
+ have_header("linux/types.h")
+ have_header("sys/quota.h")
+@@ -14,7 +16,10 @@ have_header("sys/types.h")
+ 
+ have_header("sys/fs/ufs_quota.h")  # for solaris
+ 
+-have_header("ufs/ufs/quota.h")     # for *bsd
++have_header("quota.h")             # for netbsd-6 and up
++
++have_header("ufs/ufs/quota.h")     # for traditional *bsd
+ have_header("sys/ucred.h")         # required by FreeBSD and NetBSD
++have_header("sys/statvfs.h")       # required by NetBSD
+ 
+ create_makefile("quota")

@@ -1,0 +1,33 @@
+$NetBSD: patch-ad,v 1.3 2012/10/11 18:42:20 spz Exp $
+
+allow setting the path to wc and df via environment variable WC and DF,
+respectively
+
+--- build/bb-commands.sh.orig	2011-03-08 17:20:28.000000000 +0000
++++ build/bb-commands.sh
+@@ -9,6 +9,11 @@
+ 
+ findbin() {
+ 	MYP="`echo ${PATH} | sed -e 's/:/ /g'`"
++	eval _var=\"\${${ENVNAME}}\"
++	if test -n "$_var"; then
++		echo "$_var"
++		return
++	fi
+ 
+ 	for D in $MYP
+ 	do
+@@ -31,11 +36,13 @@ do
+ done
+ 
+ # WC is special
++ENVNAME=WC
+ PGM=`findbin wc | head -n 1`
+ echo "WC=\"${PGM} -l\""
+ echo "WCC=\"${PGM}\""
+ 
+ # DFCMD is an alias for DF
++ENVNAME=DF
+ PGM=`findbin df | head -n 1`
+ echo "# DF,DFCMD and PS are for compatibility only, NOT USED by the Xymon client"
+ echo "DF=\"${PGM} -Pk\""

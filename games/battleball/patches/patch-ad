@@ -1,0 +1,26 @@
+$NetBSD: patch-ad,v 1.4 2011/11/25 21:50:31 joerg Exp $
+
+--- lib3d/xform.h.orig	1999-09-03 02:25:19.000000000 +0000
++++ lib3d/xform.h
+@@ -7,11 +7,12 @@
+ #define TRANSFORM_h
+ 
+ 
+-#include <iostream.h>
++#include <iostream>
+ #include "general.h"
+ #include "pt3d.h"
+ #include "ang3d.h"
+ 
++using namespace std;
+ 
+ //==========================================================================
+ // Transformation matrix classes
+@@ -64,6 +65,7 @@ class tcomp {
+ 
+ //===========================================================================
+ class tmtrx {
++  friend struct player;
+   typedef double fourby3[4][3];
+   fourby3 m;
+ 

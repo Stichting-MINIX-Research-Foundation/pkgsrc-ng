@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 21:00:04 joerg Exp $
+bin/nsca
+bin/send_nsca
+share/examples/nagios/nsca.cfg

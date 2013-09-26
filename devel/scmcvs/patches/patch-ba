@@ -1,0 +1,21 @@
+$NetBSD: patch-ba,v 1.2 2011/09/22 15:16:26 ryoon Exp $
+
+--- src/cvsbug.in.orig	2005-04-04 20:46:07.000000000 +0000
++++ src/cvsbug.in
+@@ -109,14 +109,14 @@ elif [ -f /bin/domainname ]; then
+     /usr/bin/ypcat passwd 2>/dev/null | cat - /etc/passwd | grep "^$LOGNAME:" |
+       cut -f5 -d':' | sed -e 's/,.*//' > $TEMP
+     ORIGINATOR="`cat $TEMP`"
+-    rm -f $TEMP
++    > $TEMP
+   fi
+ fi
+ 
+ if [ "$ORIGINATOR" = "" ]; then
+   grep "^$LOGNAME:" /etc/passwd | cut -f5 -d':' | sed -e 's/,.*//' > $TEMP
+   ORIGINATOR="`cat $TEMP`"
+-  rm -f $TEMP
++  > $TEMP
+ fi
+ 
+ if [ -n "$ORGANIZATION" ]; then

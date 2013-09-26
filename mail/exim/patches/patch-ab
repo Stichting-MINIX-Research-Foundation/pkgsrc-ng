@@ -1,0 +1,22 @@
+$NetBSD: patch-ab,v 1.16 2012/06/11 11:41:25 adam Exp $
+
+--- OS/Makefile-Default.orig	2012-05-31 00:40:15.000000000 +0000
++++ OS/Makefile-Default
+@@ -71,7 +71,7 @@ PERL_COMMAND=/usr/bin/perl
+ 
+ # CC contains the name of the C compiler to be used.
+ 
+-CC=gcc
++# CC=gcc
+ 
+ 
+ # CFLAGS contains flags to be passed to the compiler. Nothing is defaulted
+@@ -84,7 +84,7 @@ CC=gcc
+ # here; instead each OS-dependent Makefile contains a default setting if one
+ # is needed.
+ 
+-# LFLAGS=
++LFLAGS=$(LDFLAGS)
+ 
+ 
+ # PCRE_LIBS contains the library to be linked for PCRE

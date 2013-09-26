@@ -1,0 +1,31 @@
+$NetBSD: patch-aa,v 1.4 2012/12/24 21:16:40 joerg Exp $
+
+--- xmove/Imakefile.orig	1997-05-24 04:22:14.000000000 +0000
++++ xmove/Imakefile
+@@ -18,7 +18,7 @@
+ # compile it and if you have compiler complaints about the function
+ # dlopen() (among many other things) then change the line to NO.
+ 
+-#define XMOVE_USE_DLLIBS	NO
++#define XMOVE_USE_DLLIBS	YES
+ 
+ 
+ # Use ATOM_MAPPING_LIBRARY_PATH if XMOVE_USE_DLLIBS is set to YES.
+@@ -28,7 +28,7 @@
+ # need a separate subdirectory just for xmove's libraries. This variable
+ # should be set to the directory where those libraries will be placed.
+ 
+-ATOM_MAPPING_LIBRARY_PATH=\"/home/ethan/release/xmove/lib\"
++ATOM_MAPPING_LIBRARY_PATH=\"/usr/pkg/lib\"
+ 
+ 
+ ## Standard parameters
+@@ -36,7 +36,7 @@ ATOM_MAPPING_LIBRARY_PATH=\"/home/ethan/
+ #if XMOVE_USE_DLLIBS
+ DLLIBSRC =
+ DLLIBOBJ =
+-DLLIB    = -ldl
++DLLIB    = 
+ DLDEFINE = -DDL_WOUT_PRAGMA
+ #else
+ DLLIBSRC = libatommap.c

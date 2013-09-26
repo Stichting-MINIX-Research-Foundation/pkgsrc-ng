@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:49:17 joerg Exp $
+bin/uno
+bin/uno_global
+bin/uno_local
+man/man1/uno.1
+share/doc/uno/uno_long.pdf
+share/doc/uno/uno_man.pdf
+share/doc/uno/uno_manpage.pdf
+share/doc/uno/uno_short.pdf

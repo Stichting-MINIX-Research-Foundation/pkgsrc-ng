@@ -1,0 +1,15 @@
+$NetBSD: patch-cm,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/ttysw/ttyansi.c.orig	1993-06-29 05:17:21.000000000 +0000
++++ lib/libxview/ttysw/ttyansi.c
+@@ -31,6 +31,10 @@ static char     sccsid[] = "@(#)ttyansi.
+ 
+ #include <xview/sel_attrs.h>
+ 
++static int	send_input_to_textsw();
++static int	ansi_lf();
++static int	ansi_char();
++
+ char           *strncpy();
+ char           *textsw_checkpoint_undo();
+ Textsw_index    textsw_replace_i18n(), textsw_erase_i18n();

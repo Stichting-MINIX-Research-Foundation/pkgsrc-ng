@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/01/20 15:05:06 wiz Exp $
+
+SHA1 (dccserver-0.5.tar.bz2) = dc0e21d4b251aa925e39df9605151e699ceaebc8
+RMD160 (dccserver-0.5.tar.bz2) = 597e25bd658190501b96cf8de9a64eaa07e03de3
+Size (dccserver-0.5.tar.bz2) = 114498 bytes

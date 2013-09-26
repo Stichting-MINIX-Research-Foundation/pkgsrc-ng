@@ -1,0 +1,30 @@
+$NetBSD: patch-aa,v 1.2 2009/12/17 20:00:48 abs Exp $
+
+--- Makefile.orig	1994-01-05 01:47:50.000000000 +0000
++++ Makefile
+@@ -1,10 +1,21 @@
+ ALL : musicin musicout
+ 
+-CFLAGS =  -O2
+-LDFLAGS= 
++CFLAGS += -DPREFIX=\"${PREFIX}\"
++
++all: musicin musicout
+ 
+ musicin: musicin.o common.o encode.o subs.o psy.o tonal.o
+-	cc $(LDFLAGS) -o musicin musicin.o common.o encode.o subs.o psy.o tonal.o -lm
++	${CC} -o musicin musicin.o common.o encode.o subs.o psy.o tonal.o -lm
+ 
+ musicout: musicout.o common.o decode.o subs.o
+-	cc $(LDFLAGS)  musicout.o common.o decode.o subs.o -o musicout -lm
++	${CC} musicout.o common.o decode.o subs.o -o musicout -lm
++
++clean:
++	rm -f *.core *.o musicin musicout
++
++install:
++	${BSD_INSTALL_PROGRAM} musicin ${DESTDIR}${PREFIX}/bin/mpeg_musicin
++	${BSD_INSTALL_PROGRAM} musicout ${DESTDIR}${PREFIX}/bin/mpeg_musicout
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/lib/mpegaudio/tables
++	${BSD_INSTALL_DATA} tables/* ${DESTDIR}${PREFIX}/lib/mpegaudio/tables/
++	

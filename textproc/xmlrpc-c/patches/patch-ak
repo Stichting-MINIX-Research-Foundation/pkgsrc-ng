@@ -1,0 +1,13 @@
+$NetBSD: patch-ak,v 1.2 2011/04/06 07:45:48 adam Exp $
+
+--- tools/xml-rpc-api2cpp/Makefile.orig	2011-03-25 16:58:35.000000000 +0000
++++ tools/xml-rpc-api2cpp/Makefile
+@@ -44,7 +44,7 @@ xml-rpc-api2cpp: \
+   $(LIBXMLRPC) \
+   $(LIBXMLRPC_XML) \
+   $(LIBXMLRPC_UTIL)
+-	$(CXXLD) -o $@ $(LDFLAGS) $(OBJECTS) $(LDLIBS)
++	libtool --mode=link $(CXXLD) -o $@ $(LDFLAGS) $(OBJECTS) $(LDLIBS)
+ 
+ %.o:%.cpp
+ 	$(CXX) -c $(CXXFLAGS) $<

@@ -1,0 +1,12 @@
+# $NetBSD: buildlink3.mk,v 1.4 2009/03/20 19:24:50 joerg Exp $
+
+BUILDLINK_TREE+=	hugs98
+
+.if !defined(HUGS98_BUILDLINK3_MK)
+HUGS98_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.hugs98+=	hugs98>=200609
+BUILDLINK_PKGSRCDIR.hugs98?=	../../lang/hugs
+.endif # HUGS98_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-hugs98

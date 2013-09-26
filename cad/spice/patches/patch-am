@@ -1,0 +1,165 @@
+$NetBSD: patch-am,v 1.3 2013/03/02 17:51:49 joerg Exp $
+
+--- src/lib/fte/x11.c.orig	1993-04-14 19:44:56.000000000 +0000
++++ src/lib/fte/x11.c
+@@ -12,6 +12,7 @@ Author: 1988 Jeffrey M. Hsu
+ #ifdef HAS_X11
+ 
+ #  include <sys/time.h>
++#  include <sys/select.h>
+ 
+ #  include "util.h"
+ 
+@@ -39,7 +40,7 @@ extern int _Xdebug;
+ /* forward declarations */
+ extern void handlebuttonev(), handlekeypressed(), killwin(), hardcopy(),
+ 	    redraw(), resize();
+-int errorhandler();
++static void errorhandler(Display *display, XErrorEvent *errorev);
+ 
+ #define RAD_TO_DEG	(180.0 / M_PI)
+ 
+@@ -62,6 +63,12 @@ typedef struct x11info {
+ #define DEVDEP(g) (*((X11devdep *) (g)->devdep))
+ 
+ static void linear_arc( );
++static void initlinestyles( );
++static void initcolors( );
++static void X_ScreentoData( );
++
++static void slopelocation(GRAPH *graph, int x0, int y0);
++
+ static Display *display;
+ static GC xorgc;
+ static char *xlinestyles[NUMLINESTYLES] = {	/* test patterns XXX */
+@@ -145,10 +152,8 @@ X11_Init()
+ 
+ }
+ 
+-int
+-errorhandler(display, errorev)
+-Display *display;
+-XErrorEvent *errorev;
++static void
++errorhandler(Display *display, XErrorEvent *errorev)
+ {
+ 	XGetErrorText(display, errorev->error_code, ErrorMessage, 1024);
+ 	externalerror(ErrorMessage);
+@@ -302,7 +307,7 @@ GRAPH *graph;
+ 	return (0);
+ }
+ 
+-static
++static void
+ initlinestyles()
+ {
+ 
+@@ -318,7 +323,7 @@ initlinestyles()
+ 	return;
+ }
+ 
+-static
++static void
+ initcolors(graph)
+     GRAPH *graph;
+ {
+@@ -405,9 +410,7 @@ int x1, y1, x2, y2;
+ }
+ 
+ /*ARGSUSED*/
+-X11_Arc(x0, y0, radius, theta1, theta2)
+-int x0, y0, radius;
+-double theta1, theta2;
++void X11_Arc(int x0, int y0, int radius, double theta1, double theta2)
+ {
+ 
+     int	t1, t2;
+@@ -612,9 +615,7 @@ caddr_t clientdata, calldata;
+ }
+ #  endif
+ 
+-slopelocation(graph, x0, y0)
+-GRAPH *graph;
+-int x0, y0;         /* initial position of mouse */
++static void slopelocation(GRAPH *graph, int x0, int y0)
+ {
+ 
+ 	int x1, y1;
+@@ -773,12 +774,15 @@ GRAPH *graph;
+ 	        graph->commandline, fx0, fx1, fy0, fy1);
+ 	}
+ 
++/* don't use the following if using GNU Readline - AV */
++#ifndef HAS_GNUREADLINE
+ 	/* hack for Gordon Jacobs */
+ 	/* add to history list if plothistory is set */
+ 	if (cp_getvar("plothistory", VT_BOOL, (char *) &dummy)) {
+ 	  wl = cp_parse(buf);
+ 	  (void) cp_addhistent(cp_event++, wl);
+ 	}
++#endif /* HAS_GNUREADLINE */
+ 
+ 	(void) cp_evloop(buf);
+ 
+@@ -915,13 +919,12 @@ static int inchar(fp)
+ }
+ #  endif
+ 
+-X11_Input(request, response)
+-    REQUEST *request;
+-    RESPONSE *response;
++void X11_Input(REQUEST *request, RESPONSE *response)
+ {
+ 
+ 	XEvent ev;
+-	int nfds, readfds;
++	int nfds;
++	fd_set readfds;
+ 
+ 	switch (request->option) {
+ 	  case char_option:
+@@ -938,14 +941,15 @@ X11_Input(request, response)
+ 	        XtDispatchEvent(&ev);
+ 	      }
+ 
+-	      readfds = 1 << fileno(request->fp) |
+-	            1 << ConnectionNumber(display);
++              FD_ZERO(&readfds);
++	      FD_SET(fileno(request->fp), &readfds);
++	      FD_SET(ConnectionNumber(display), &readfds);
+ 
+ 	      /* block on ConnectionNumber and request->fp */
+-	      select(nfds + 1, &readfds, (int *) NULL, (int *) NULL, NULL);
++	      select(nfds + 1, &readfds, NULL, NULL, NULL);
+ 
+ 	      /* handle X events first */
+-	      if (readfds & (1 << ConnectionNumber(display))) {
++	      if (FD_ISSET(ConnectionNumber(display),&readfds)) {
+ 		    /* handle ALL X events */
+ 		    while (XtPending()) {
+ 			  XtNextEvent(&ev);
+@@ -953,7 +957,7 @@ X11_Input(request, response)
+ 		    }
+ 	      }
+ 
+-	      if (readfds & (1 << fileno(request->fp))) {
++	      if (FD_ISSET(fileno(request->fp), &readfds)) {
+ 		    response->reply.ch = inchar(request->fp);
+ 		    goto out;
+ 	      }
+@@ -995,10 +999,11 @@ out:
+ 
+ }
+ 
+-static X_ScreentoData(graph, x, y, fx, fy)
+-GRAPH *graph;
+-int x,y;
+-double *fx, *fy;
++static void
++X_ScreentoData(graph, x, y, fx, fy)
++    GRAPH *graph;
++    int x,y;
++    double *fx, *fy;
+ {
+ 	double	lmin, lmax;
+ 

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.8 2012/05/29 14:51:42 wiz Exp $
+
+SHA1 (eigen2/2.0.17.tar.bz2) = 461546be98b964d8d5d2adb0f1c31ba0e42efc38
+RMD160 (eigen2/2.0.17.tar.bz2) = 183c8f7ee3c85ccb447fdcefa3a366f06cca351b
+Size (eigen2/2.0.17.tar.bz2) = 367890 bytes

@@ -1,0 +1,57 @@
+$NetBSD: patch-ae,v 1.2 2011/10/01 21:42:16 dholland Exp $
+
+- avoid symbol name conflict on "sr"
+
+--- fed/select.c.orig	1995-10-07 21:44:51.000000000 +0000
++++ fed/select.c
+@@ -46,9 +46,8 @@
+ 
+ #include "fed.h"
+ 
+-int sc, sr, scurchar;
+-
+-int edit();
++/* "sr" is defined in <curses.h> for some terminal capability?!? */
++int sc, fed_sr, scurchar;
+ 
+ void sel_mode(void)
+ {
+@@ -153,12 +152,12 @@ int selectc()
+ 			case 'g':
+ 			case 'G':
+ 				dis_cmd("   Exchange: select Destination, then press RETURN or any other Key to ABORT");
+-				sr = r;
++				fed_sr = r;
+ 				sc = c;
+ 				scurchar = curchar;
+ 				if((curchar = sel_dest()) == -1)
+ 				{ /* failsafe */
+-					r = sr;
++					r = fed_sr;
+ 					c = sc;
+ 					curchar = scurchar;
+ 				}
+@@ -174,12 +173,12 @@ int selectc()
+ 			case 'm':
+ 			case 'M':
+ 				dis_cmd("   Move: select Destination, then press RETURN or any other Key to ABORT");
+-				sr = r;
++				fed_sr = r;
+ 				sc = c;
+ 				scurchar = curchar;
+ 				if((curchar = sel_dest()) == -1)
+ 				{ /* failsafe */
+-					r = sr;
++					r = fed_sr;
+ 					c = sc;
+ 					curchar = scurchar;
+ 				}
+@@ -320,7 +319,7 @@ void normal_uset(int r, int c)
+ 	mvwprintw(set_win,(r+1),((c*2)+1),"%c%c",h,l);
+ 	wmove(set_win,(r+1),((c*2)+1));
+ 
+-	if((r==sr) && (c==sc))
++	if((r==fed_sr) && (c==sc))
+ 	{
+ 		wattron(set_win,A_REVERSE);
+ 		mvwprintw(set_win,(r+1),((c*2)+1),"%c%c",h,l);

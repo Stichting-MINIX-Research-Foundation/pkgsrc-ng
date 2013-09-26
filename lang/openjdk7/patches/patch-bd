@@ -1,0 +1,15 @@
+$NetBSD: patch-bd,v 1.4 2013/06/15 09:31:05 jperkin Exp $
+
+Support __progname and environ.
+
+--- jdk/make/com/sun/java/pack/mapfile-vers.orig	2012-08-10 17:21:30.000000000 +0000
++++ jdk/make/com/sun/java/pack/mapfile-vers
+@@ -28,6 +28,8 @@
+ 
+ SUNWprivate_1.1 {
+ 	global:
++            __progname;
++            environ;
+ 	    Java_com_sun_java_util_jar_pack_NativeUnpack_finish;
+ 	    Java_com_sun_java_util_jar_pack_NativeUnpack_getNextFile;
+ 	    Java_com_sun_java_util_jar_pack_NativeUnpack_getOption;

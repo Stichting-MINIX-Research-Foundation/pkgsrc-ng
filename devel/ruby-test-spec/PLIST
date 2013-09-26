@@ -1,0 +1,26 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:49:12 joerg Exp $
+bin/specrb
+${GEM_HOME}/cache/test-spec-${PKGVERSION}.gem
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/ROADMAP
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/SPECS
+${GEM_LIBDIR}/TODO
+${GEM_LIBDIR}/bin/specrb
+${GEM_LIBDIR}/examples/stack.rb
+${GEM_LIBDIR}/examples/stack_spec.rb
+${GEM_LIBDIR}/lib/test/spec.rb
+${GEM_LIBDIR}/lib/test/spec/dox.rb
+${GEM_LIBDIR}/lib/test/spec/rdox.rb
+${GEM_LIBDIR}/lib/test/spec/should-output.rb
+${GEM_LIBDIR}/lib/test/spec/version.rb
+${GEM_LIBDIR}/test/spec_dox.rb
+${GEM_LIBDIR}/test/spec_flexmock.rb
+${GEM_LIBDIR}/test/spec_mocha.rb
+${GEM_LIBDIR}/test/spec_nestedcontexts.rb
+${GEM_LIBDIR}/test/spec_new_style.rb
+${GEM_LIBDIR}/test/spec_should-output.rb
+${GEM_LIBDIR}/test/spec_testspec.rb
+${GEM_LIBDIR}/test/spec_testspec_order.rb
+${GEM_LIBDIR}/test/test_testunit.rb
+${GEM_HOME}/specifications/test-spec-${PKGVERSION}.gemspec

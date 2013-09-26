@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:12 joerg Exp $
+bin/bibdup
+bin/biblex
+bin/bibparse
+bin/bibunlex
+man/man1/bibdup.1
+man/man1/biblex.1
+man/man1/bibparse.1
+man/man1/bibunlex.1
+share/lib/bibdup/bibdup.awk

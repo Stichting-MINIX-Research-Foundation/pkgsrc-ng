@@ -1,0 +1,84 @@
+$NetBSD: patch-aa,v 1.10 2011/12/12 19:08:34 joerg Exp $
+
+--- makefile.orig	2008-10-13 21:35:17.000000000 +0000
++++ makefile
+@@ -269,11 +269,11 @@ TRACING =
+ # DEBUGGING = 1
+ # TRACING = -g
+ 
+-PREFIX	= /home/jeff
++PREFIX	= ${DESTDIR}@PREFIX@
+ BINDIR	= $(PREFIX)/bin
+-LOUTLIBDIR	= $(PREFIX)/lout.lib
+-LOUTDOCDIR	= $(PREFIX)/lout.doc
+-MANDIR	= $(PREFIX)/lout.man
++LOUTLIBDIR	= $(PREFIX)/share/lout
++LOUTDOCDIR	= $(PREFIX)/share/doc/lout
++MANDIR	= $(PREFIX)/${PKGMANDIR}/man1
+ 
+ LIBFONT = font
+ LIBMAPS = maps
+@@ -291,17 +291,16 @@ LOC_DE	= de
+ 
+ COLLATE	= 1
+ 
+-PDF_COMPRESSION	= 0
+-ZLIB		=
++PDF_COMPRESSION	= 1
++ZLIB		= -lz
+ ZLIBPATH	=
+ 
+-CC	= gcc
+ 
+ RCOPY	= cp -r
+ 
+-COPTS	= -ansi -pedantic -Wall -O3
++COPTS	= -ansi -pedantic -Wall
+ 
+-CFLAGS	= -DOS_UNIX=$(OSUNIX)					\
++CFLAGS	+= -DOS_UNIX=$(OSUNIX)					\
+ 	  -DOS_DOS=$(OSDOS)					\
+ 	  -DOS_MAC=$(OSMAC)					\
+ 	  -DDB_FIX=$(DBFIX)					\
+@@ -333,7 +332,7 @@ OBJS	= z01.o z02.o z03.o z04.o z05.o z06
+ 	  z49.o z50.o z51.o z52.o
+ 
+ lout:	$(OBJS)
+-	$(CC) -o lout $(OBJS) $(ZLIB) -lm
++	$(CC) $(CFLAGS) $(LDFLAGS) -o lout $(OBJS) $(ZLIB) -lm
+ 	chmod a+x lout
+ 
+ $(OBJS): externs.h
+@@ -341,7 +340,7 @@ $(OBJS): externs.h
+ externs.h:
+ 
+ prg2lout:	prg2lout.c
+-	$(CC) $(COPTS) -o prg2lout prg2lout.c
++	$(CC) $(CFLAGS) $(LDFLAGS) -o prg2lout prg2lout.c
+ 	chmod a+x prg2lout
+ 
+ all:	lout prg2lout
+@@ -387,7 +386,7 @@ install: lout prg2lout
+ 	chmod 755 $(LOUTLIBDIR)/$(LIBLOCA)
+ 	@echo ""
+ 	@echo "(c) Initializing run (should be silent, no errors expected)"
+-	$(BINDIR)/lout -x -s $(LOUTLIBDIR)/$(LIBINCL)/init
++	$(BINDIR)/lout -D $(LOUTLIBDIR)/$(LIBDATA) -H $(LOUTLIBDIR)/$(LIBHYPH) -I $(LOUTLIBDIR)/$(LIBINCL) -x -s $(LOUTLIBDIR)/$(LIBINCL)/init
+ 	@echo ""
+ 	@echo "(d) Changing mode of files just created by initializing run"
+ 	chmod 644 $(LOUTLIBDIR)/$(LIBDATA)/*
+@@ -406,6 +405,7 @@ installman:
+ installdoc:
+ 	@echo ""
+ 	@echo "Creating LOUTDOCDIR $(LOUTDOCDIR) and copying documentation into it"
++	mkdir $(LOUTDOCDIR)
+ 	$(RCOPY) doc/* $(LOUTDOCDIR)
+ 	chmod 755 $(LOUTDOCDIR)
+ 	chmod 755 $(LOUTDOCDIR)/*
+@@ -447,3 +447,6 @@ clean:	
+ 	-rm -f lout prg2lout *.o
+ 
+ restart:	clean uninstall
++
++all: lout prg2lout
++allinstall: install installman installdoc

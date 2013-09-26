@@ -1,0 +1,21 @@
+@comment $NetBSD: PLIST,v 1.9 2009/06/14 18:03:40 joerg Exp $
+bin/sablevm-java
+java/sablevm/bin/jar-sablevm
+java/sablevm/bin/java-sablevm
+java/sablevm/bin/javac-sablevm
+java/sablevm/bin/sablevm
+java/sablevm/include/jni.h
+java/sablevm/include/jni_system_specific.h
+java/sablevm/lib/libsablevm.la
+java/sablevm/lib/sablevm/bin/jar
+java/sablevm/lib/sablevm/bin/java
+java/sablevm/lib/sablevm/bin/javac
+java/sablevm/lib/sablevm/bin/jdb
+java/sablevm/lib/sablevm/include/jni.h
+java/sablevm/lib/sablevm/include/jni_system_specific.h
+java/sablevm/lib/sablevm/jre/bin
+java/sablevm/share/sablevm/AUTHORS
+java/sablevm/share/sablevm/LGPL-2.1
+java/sablevm/share/sablevm/LICENSE
+man/man1/java-sablevm.1
+man/man1/sablevm.1

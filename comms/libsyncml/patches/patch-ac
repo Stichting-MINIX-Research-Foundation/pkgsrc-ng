@@ -1,0 +1,16 @@
+$NetBSD: patch-ac,v 1.2 2013/03/15 08:25:15 plunky Exp $
+
+Regen for patch-aa.
+
+--- config.h.in.orig	2007-10-16 13:55:20.000000000 +0000
++++ config.h.in
+@@ -15,6 +15,9 @@
+ /* Defined if the correct libwbxml2 version exists. */
+ #undef ENABLE_WBXML
+ 
++/* Define to 1 if you have the <bluetooth/bluetooth.h> header file. */
++#undef HAVE_BLUETOOTH_BLUETOOTH_H
++
+ /* Define to 1 if you have the <dlfcn.h> header file. */
+ #undef HAVE_DLFCN_H
+ 

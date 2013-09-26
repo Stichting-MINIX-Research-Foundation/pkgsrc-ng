@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.4 2010/09/19 02:18:42 obache Exp $
+
+--- po/Makefile.orig	2007-07-11 12:58:05.000000000 +0000
++++ po/Makefile
+@@ -27,8 +27,8 @@ endif
+ install: 
+ 	$(MAKE) all
+ 	for f in $(FILES_MO) ; do \
+-		mkdir -p $(DESTDIR)$(LOCALEDIR)/`basename $$f .mo`/LC_MESSAGES ; \
+-		install -m 644 $$f $(DESTDIR)$(LOCALEDIR)/`basename $$f .mo`/LC_MESSAGES/$(PACKAGE).mo ; \
++		$(BSD_INSTALL_DATA_DIR) $(DESTDIR)$(LOCALEDIR)/`basename $$f .mo`/LC_MESSAGES ; \
++		$(BSD_INSTALL_DATA) $$f $(DESTDIR)$(LOCALEDIR)/`basename $$f .mo`/LC_MESSAGES/$(PACKAGE).mo ; \
+ 	done
+ 
+ uninstall:

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2012/05/31 09:07:07 sno Exp $
+
+SHA1 (Net-SNMP-v6.0.1.tar.gz) = 492073bcf5206b56783e07c0603ff3b1f12707fa
+RMD160 (Net-SNMP-v6.0.1.tar.gz) = 86ed463c87c694a06dabbb6a86234f0e44249a56
+Size (Net-SNMP-v6.0.1.tar.gz) = 94664 bytes

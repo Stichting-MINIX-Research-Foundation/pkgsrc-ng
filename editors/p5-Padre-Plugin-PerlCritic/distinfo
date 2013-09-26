@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/09/13 16:19:01 sno Exp $
+
+SHA1 (Padre-Plugin-PerlCritic-0.12.tar.gz) = cc8c8a49c0646f14c47b628c81d3f287524db46c
+RMD160 (Padre-Plugin-PerlCritic-0.12.tar.gz) = 00eea9f20c4ffe0e4085e314a89d5f2ced5477bc
+Size (Padre-Plugin-PerlCritic-0.12.tar.gz) = 15677 bytes

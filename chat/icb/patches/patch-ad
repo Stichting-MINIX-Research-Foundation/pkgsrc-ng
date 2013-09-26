@@ -1,0 +1,21 @@
+$NetBSD: patch-ad,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- icb/c_shell.c.orig	1995-02-24 16:20:19.000000000 -0500
++++ icb/c_shell.c	2008-12-16 20:21:00.000000000 -0500
+@@ -5,6 +5,7 @@
+ 
+ #include "icb.h"
+ #include "externs.h"
++#include <unistd.h>
+ #include <sys/wait.h>
+ #include <signal.h>
+ 
+@@ -14,7 +15,7 @@
+ 	static char *usage = "usage: c_shell [command]";
+ 	int w, pid;
+ 	int shellout = 0;
+-	union wait status;
++	int status;
+ 	char *shell, *getenv();
+ 	
+ 	/* disallow use if restricted mode set */

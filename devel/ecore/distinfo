@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2013/06/16 18:56:04 sno Exp $
+
+SHA1 (ecore-1.7.7.tar.bz2) = a5baeedf9dcec78b4bf0023d2d6da3fe61ab859b
+RMD160 (ecore-1.7.7.tar.bz2) = 287c09b9a8bf680edfe1f8f71057ae42d4d6bb5a
+Size (ecore-1.7.7.tar.bz2) = 3460946 bytes
+SHA1 (patch-src_lib_ecore_Ecore.h) = 26b030d863d601db8287c02d1ec2dd193f73929c

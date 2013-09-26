@@ -1,0 +1,16 @@
+$NetBSD: patch-dw,v 1.2 2009/12/10 20:35:58 abs Exp $
+
+--- lib/libxview/notify/ndisdispch.c.orig	1993-06-29 05:18:06.000000000 +0000
++++ lib/libxview/notify/ndisdispch.c
+@@ -30,8 +30,9 @@ int             dtablesize_cache = 0;
+ #define GETDTABLESIZE() \
+ (dtablesize_cache?dtablesize_cache:(dtablesize_cache=(int)sysconf(_SC_OPEN_MAX)))
+ #else
+-#define GETDTABLESIZE() \
+- (dtablesize_cache?dtablesize_cache:(dtablesize_cache=getdtablesize()))
++#define GETDTABLESIZE()						\
++    (dtablesize_cache ? dtablesize_cache :			\
++    (dtablesize_cache = MIN(getdtablesize(), FD_SETSIZE)))
+ #endif SVR4
+ 
+ pkg_private_data u_int ndis_flags = 0;

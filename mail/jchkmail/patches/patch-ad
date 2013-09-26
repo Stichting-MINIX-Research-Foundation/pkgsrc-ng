@@ -1,0 +1,12 @@
+$NetBSD: patch-ad,v 1.2 2010/02/11 19:53:03 joerg Exp $
+
+--- Makefile.in.orig	2003-07-03 11:54:07.000000000 +0000
++++ Makefile.in
+@@ -398,7 +398,6 @@ info-am:
+ 
+ install-data-am:
+ 	@$(NORMAL_INSTALL)
+-	$(MAKE) $(AM_MAKEFLAGS) install-data-hook
+ 
+ install-exec-am:
+ 

@@ -1,0 +1,18 @@
+# $NetBSD: Makefile.common,v 1.12 2012/08/26 14:06:29 wiz Exp $
+# used by chat/irssi-icb/Makefile
+# used by chat/irssi-xmpp/Makefile
+
+# Specific distribution information.
+IRSSI_VERSION=		0.8.15
+IRSSI_DISTNAME=		irssi-${IRSSI_VERSION}
+IRSSI_EXTRACT_SUFX=	.tar.bz2
+IRSSI_DISTFILE=		${IRSSI_DISTNAME}${IRSSI_EXTRACT_SUFX}
+
+# These files are generated during Irssi's build, but are required by
+# plugins to compile properly.
+IRSSI_CONFIG=		${PREFIX}/share/irssi/irssi-config
+IRSSI_CONFIG_H=		${PREFIX}/include/irssi/irssi-config.h
+
+.if ${OPSYS} == "Darwin"
+INSTALL_UNSTRIPPED=YES
+.endif

@@ -1,0 +1,16 @@
+$NetBSD: patch-az,v 1.2 2009/12/18 01:09:23 abs Exp $
+
+--- src/common/msgid.c.orig	2004-08-22 20:19:11.000000000 +0000
++++ src/common/msgid.c
+@@ -320,9 +320,9 @@ char *s_msgid_rfc_to_fido(int *origid_fl
+ 	 */
+ 	node.domain[0] = 0;
+ 	p = id;
+-	hexflag = isxdigit(*p) && *p!='0';
++	hexflag = isxdigit((unsigned char)*p) && *p!='0';
+ 	for(p++, i=0; i<7 && *p && *p!='%'; i++, p++)
+-	    if(!isxdigit(*p))
++	    if(!isxdigit((unsigned char)*p))
+ 		hexflag = FALSE;
+ 	if(hexflag && *p=='%')		/* Domain part follows */
+ 	{

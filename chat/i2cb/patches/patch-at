@@ -1,0 +1,31 @@
+$NetBSD: patch-at,v 1.2 2010/03/04 21:40:29 spz Exp $
+
+--- src/getline.c.orig	2000-03-15 22:13:28.000000000 +0000
++++ src/getline.c
+@@ -5,7 +5,7 @@
+ #include "icb.h"
+ #include "externs.h"
+ 
+-char	*getline (char *prompt, int expand);
++char	*i2cb_getline (char *prompt, int expand);
+ void	handletab (int count, char c);
+ 
+ /* get a line from the user, with input processing */
+@@ -15,7 +15,7 @@ void	handletab (int count, char c);
+ static char *line_read = (char *)NULL;
+ 
+ char *
+-getline (char *prompt, int expand)
++i2cb_getline (char *prompt, int expand)
+ {
+ 	linenumber = 0;
+        /* If the buffer has already been allocated, return the memory
+@@ -96,7 +96,7 @@ handletab (int count, char c)
+ 		words++;
+ 		for (i=0; i<rl_end; ++i)
+ 		{
+-			if (isspace(rl_line_buffer[i]))
++			if (isspace((unsigned char)rl_line_buffer[i]))
+ 			{
+ 				term++;
+ 				if (words==2)

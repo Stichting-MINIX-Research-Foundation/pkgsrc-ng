@@ -1,0 +1,12 @@
+# FreeBSD/NetBSD config exception file
+# $NetBSD: NetBSD,v 1.7 2011/05/14 18:45:54 hans Exp $
+
+
+MAKE		= @MAKE_PROGRAM@
+INTERFACE_OPTS  = -DWANT_X11
+CC              = gcc
+CC_OPT          = -O2 -pipe -I@WRKSRC@/src/include @CFLAGS@
+CC_OPT_SAFE     = -O2 -fno-strength-reduce -pipe -I@WRKSRC@/src/include @CFLAGS@
+#LDFLAGS	= @LDFLAGS@ -lreadline -lm -ltermcap
+LDFLAGS		= @LDFLAGS@ -lm -ltermcap
+ASM_HACK	= < /dev/null

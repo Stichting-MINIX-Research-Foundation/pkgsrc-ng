@@ -1,0 +1,34 @@
+$NetBSD: patch-dg,v 1.3 2009/12/10 20:37:38 abs Exp $
+
+--- olwmslave/Imakefile.orig	1993-06-29 05:12:14.000000000 +0000
++++ olwmslave/Imakefile
+@@ -12,6 +12,7 @@ SYS_LIBRARIES = $(SYSV_CLIENT_LIB)
+ DEPLIBS = 
+ LOCAL_LIBRARIES = XViewClientLibs
+ 
++EXTRA_LDOPTIONS = ${LINKER_RPATH_FLAG}${PREFIX}/lib
+ 
+ HFILES.olwmslave.3 = 
+ HFILES.olwmslave.4 =  i18n.h
+@@ -38,18 +39,18 @@ SRCS = 	\
+         mem.c \
+         olwmslave.c \
+         propsrecv.c \
+-        propswin.c
++        propswin.c ${GETTEXT.C}
+ 
+ 
+ OBJS = 	\
+         cmdstream.o \
+         help_file.o \
+-        helprecv.o \ 
++        helprecv.o \
+         helpwin.o \
+         mem.o \
+         olwmslave.o \
+         propsrecv.o \
+-        propswin.o
++        propswin.o ${GETTEXT.O}
+ 
+ 
+ ALLFILES = \

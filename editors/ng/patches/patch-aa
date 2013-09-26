@@ -1,0 +1,27 @@
+$NetBSD: patch-aa,v 1.7 2012/12/12 12:04:51 wiz Exp $
+
+Adapt canna flags for pkgsrc.
+
+--- sys/bsd/Makefile.orig	2000-09-30 15:59:42.000000000 +0000
++++ sys/bsd/Makefile
+@@ -13,12 +13,15 @@
+ SYS	= bsd
+ 
+ # Canna configurations (ex. for NetBSD)
+-#CANNADEF = -DCANNA
+-#CANNALIB = -L/usr/pkg/lib -lcanna
+-#CANNAINC = -I/usr/pkg/include
++.if ${USE_CANNA} == "YES"
++CANNADEF = -DCANNA
++CANNALIB = ${LDFLAGS} -lcanna
++CANNAINC = ${CPPFLAGS}
++.else
+ CANNADEF =
+-CANNALIB =
+-CANNAINC =
++CANNALIB = ${LDFLAGS}
++CANNAINC = ${CPPFLAGS}
++.endif
+ 
+ # CDEFS gets defines, and gets passed to lint. CFLAGS gets flags, and doesn't
+ # get passed to lint.

@@ -1,0 +1,80 @@
+$NetBSD: patch-ax,v 1.8 2011/11/27 00:28:29 marino Exp $
+
+--- lib/pvmgetarch.orig	2007-11-29 21:17:02.000000000 +0000
++++ lib/pvmgetarch
+@@ -78,6 +78,8 @@ if [ -f /bin/uname -o -f /usr/bin/uname
+ 	Linux,m68k )            ARCH=LINUXATARI ;;
+ 	BSD/OS,i[3456]86 )      ARCH=BSD386 ;;
+ 	FreeBSD,i[3456]86 )     ARCH=FREEBSD ;;
++	DragonFly,i[3456]86 )   ARCH=DRAGONFLY ;;
++	DragonFly,x86_64 )	ARCH=DRAGONFLY ;;
+ 	FreeBSD,alpha )         ARCH=FREEBSD ;;
+ 	SUPER-UX,SX-3 )         ARCH=SX3 ;;
+ 	uts,* )                 ARCH=UTS2 ;;
+@@ -87,6 +89,37 @@ if [ -f /bin/uname -o -f /usr/bin/uname
+ 	CYGWIN*,i[3456]86 )     ARCH=CYGWIN ;;
+ 	Darwin,* )              ARCH=DARWIN ;;
+ 	Rhapsody,"Power Macintosh" )    ARCH=MACOSX ;;
++	NetBSD,*) 
++		# amiga)  ARCH=NETBSDAMIGA ;;  --> NETBSDM68K
++		# hp300)  ARCH=NETBSDHP300 ;;  --> NETBSDM68K
++		# mac68k) ARCH=NETBSDMAC68K ;;  --> NETBSDM68K
++		# pmax)   ARCH=NETBSDPMAX ;;  --> NETBSDMIPSEL
++		# sun3)   ARCH=NETBSDSUN3 ;;  --> NETBSDM68K
++		case "`/usr/bin/uname -p`" in
++		alpha)   ARCH=NETBSDALPHA ;;
++		arm)     ARCH=NETBSDARM ;;
++		arm32)   ARCH=NETBSDARM32 ;;
++		armeb)   ARCH=NETBSDARMEB ;;
++		hppa)    ARCH=NETBSDHPPA ;;
++		i386)    ARCH=NETBSDI386 ;;
++		m68000)  ARCH=NETBSDM68000 ;;
++		m68k)    ARCH=NETBSDM68K ;;
++		mipseb)  ARCH=NETBSDMIPSEB ;;
++		mipsel)  ARCH=NETBSDMIPSEL ;;
++		ns32k)   ARCH=NETBSDNS32K ;;
++		pdp10)   ARCH=NETBSDPDP10 ;;
++		powerpc) ARCH=NETBSDPOWERPC ;;
++		sh3)     ARCH=NETBSDSH3 ;;
++		sh3eb)   ARCH=NETBSDSH3EB ;;
++		sh3el)   ARCH=NETBSDSH3EL ;;
++		sh5eb)   ARCH=NETBSDSH5EB ;;
++		sh5el)   ARCH=NETBSDSH5EL ;;
++		sparc)   ARCH=NETBSDSPARC ;;
++		sparc64) ARCH=NETBSDSPARC64 ;;
++		vax)     ARCH=NETBSDVAX ;;
++		x86_64)  ARCH=NETBSDX86_64 ;;
++		esac
++		;;
+ 	esac
+ fi
+ 
+@@ -135,27 +168,7 @@ if [ "$ARCH" = UNKNOWN ]; then
+ 	if [ -f /dynix ]; then ARCH=SYMM; fi
+ 	if [ -f /bin/titan ]; then ARCH=TITN; fi
+ 
+-	if [ -f /netbsd ]; then
+-		# amiga)  ARCH=NETBSDAMIGA ;;  --> NETBSDM68K
+-		# hp300)  ARCH=NETBSDHP300 ;;  --> NETBSDM68K
+-		# mac68k) ARCH=NETBSDMAC68K ;;  --> NETBSDM68K
+-		# pmax)   ARCH=NETBSDPMAX ;;  --> NETBSDMIPSEL
+-		# sun3)   ARCH=NETBSDSUN3 ;;  --> NETBSDM68K
+-		case "`/usr/bin/uname -p`" in
+-		alpha)   ARCH=NETBSDALPHA ;;
+-		arm32)   ARCH=NETBSDARM32 ;;
+-		i386)    ARCH=NETBSDI386 ;;
+-		m68k)    ARCH=NETBSDM68K ;;
+-		mipseb)  ARCH=NETBSDMIPSEB ;;
+-		mipsel)  ARCH=NETBSDMIPSEL ;;
+-		ns32k)   ARCH=NETBSDNS32K ;;
+-		powerpc) ARCH=NETBSDPOWERPC ;;
+-		sh3)     ARCH=NETBSDSH3 ;;
+-		sparc)   ARCH=NETBSDSPARC ;;
+-		sparc64) ARCH=NETBSDSPARC64 ;;
+-		vax)     ARCH=NETBSDVAX ;;
+-		esac
+-	elif [ -f /usr/bin/machine ]; then
++	if [ -f /usr/bin/machine ]; then
+ 		case "`/usr/bin/machine`" in
+ 		i386 ) ARCH=BSD386 ;;
+ 		esac

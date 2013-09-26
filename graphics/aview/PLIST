@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:59:06 joerg Exp $
+bin/asciiview
+bin/aview
+man/man1/asciiview.1
+man/man1/aview.1
+share/doc/aview/AUTHORS
+share/doc/aview/COPYING
+share/doc/aview/ChangeLog
+share/doc/aview/NEWS
+share/doc/aview/README
+share/doc/aview/README.flip
+share/doc/aview/TODO

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2013/03/02 12:05:14 jkunz Exp $
+
+SHA1 (libftdi-0.20.tar.gz) = 4bc6ce70c98a170ada303fbd00b8428d8a2c1aa2
+RMD160 (libftdi-0.20.tar.gz) = 7406f831a6d7b3ccf8e246504f7275a5208f94e9
+Size (libftdi-0.20.tar.gz) = 423570 bytes

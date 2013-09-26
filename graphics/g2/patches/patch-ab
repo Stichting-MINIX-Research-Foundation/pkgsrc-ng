@@ -1,0 +1,68 @@
+$NetBSD: patch-ab,v 1.4 2010/02/03 23:21:08 joerg Exp $
+
+--- Makefile.in.orig	2004-02-29 23:47:46.000000000 +0000
++++ Makefile.in
+@@ -9,8 +9,8 @@ G2_VERSION = 0.50
+ #
+ # g2 installation directories
+ #
+-LIBDIR = @prefix@/lib
+-INCDIR = @prefix@/include
++LIBDIR = ${DESTDIR}@prefix@/lib
++INCDIR = ${DESTDIR}@prefix@/include
+ 
+ #LIBDIR = $(HOME)/local/lib
+ #INCDIR = $(HOME)/local/include
+@@ -66,30 +66,22 @@ OBJ = $(SRC:.c=.o)
+ INS =  $(BASE_INS) $(PS_INS) $(X11_INS) $(WIN32_INS) $(GD_INS)
+ 
+ .c.o:  
+-	$(CC) $(CFLAGS) -c $< -o $@
++	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) -c $< -o $@
+ 
+ 
+-all: libg2.a
++all: libg2.la
+ 	test -d ./include || mkdir ./include
+ 	cp $(INS) ./include/
+ 
+-shared: libg2.@LD_SHARED_EXT@
+-	@echo
+-
+-
+-libg2.a: $(OBJ)
+-	$(AR) $(ARFLAGS) libg2.a $(OBJ)
+-	test ! -n "$(RANLIB)" || $(RANLIB) $@
+-	test ! -f ./libg2.$(G2_VERSION).a || rm ./libg2.$(G2_VERSION).a
+-	ln -s libg2.a libg2.$(G2_VERSION).a
++libg2.la: $(OBJ)
++	$(LIBTOOL) --mode=link $(CC) -o $@ $(OBJ:.o=.lo)	\
++		-Wl,-R$(X11BASE)/lib -L$(X11BASE)/lib -lX11 -lm	\
++		--version-info 0:0 -rpath $(LIBDIR)
+ 
+-libg2.@LD_SHARED_EXT@: $(OBJ)
+-	@LD_SHARED@ @LD_SHARED_FLAGS@ -o $@ $(OBJ) @LD_SHARED_OPT@
+-
+-install: libg2.a
++install: libg2.la
+ 	test -d $(LIBDIR) || mkdir -p $(LIBDIR)
+ 	test -d $(INCDIR) || mkdir -p $(INCDIR)
+-	$(INSTALL_DATA) libg2.a $(LIBDIR)
++	$(LIBTOOL) --mode=install $(INSTALL_DATA) libg2.la $(LIBDIR)
+ 	for IFILE in $(INS); do \
+ 		$(INSTALL_DATA) $$IFILE  $(INCDIR); \
+ 	done
+@@ -106,7 +98,7 @@ clean:
+ 	-rm -f libg2.$(G2_VERSION).a
+ 	-rm -f a.out
+ 
+-demo:	libg2.a
++demo:	libg2.la
+ 	(cd ./demo ; make)
+ 
+ depend:
+@@ -117,4 +109,3 @@ depend:
+ 
+ 
+ # DO NOT DELETE THIS LINE -- make  depend  depends  on it.
+-

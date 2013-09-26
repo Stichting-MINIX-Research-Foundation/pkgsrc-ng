@@ -1,0 +1,22 @@
+$NetBSD: patch-ae,v 1.18 2008/11/06 15:27:00 tron Exp $
+
+--- src/tmail/Makefile.orig	2008-06-04 19:18:34.000000000 +0100
++++ src/tmail/Makefile	2008-11-06 13:32:39.000000000 +0000
+@@ -26,7 +26,7 @@
+ 
+ 
+ C = ../c-client
+-CCLIENTLIB = $C/c-client.a
++CCLIENTLIB = $C/libc-client.la
+ SHELL = /bin/sh
+ 
+ # Get local definitions from c-client directory
+@@ -36,7 +36,7 @@
+ LDFLAGS = $(CCLIENTLIB) `cat $C/LDFLAGS`
+ 
+ tmail: $(CCLIENTLIB) tmail.o tquota.o
+-	$(CC) $(CFLAGS) -o tmail tmail.o tquota.o $(LDFLAGS)
++	$(LTLINK) $(CC) $(CFLAGS) -o tmail tmail.o tquota.o $(LDFLAGS)
+ 
+ tmail.o: $C/mail.h $C/misc.h $C/osdep.h tquota.h
+ 

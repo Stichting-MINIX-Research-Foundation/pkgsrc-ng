@@ -1,0 +1,59 @@
+# $NetBSD: Makefile.common,v 1.9 2012/10/31 11:19:25 asau Exp $
+#
+# used by devel/poco/Makefile
+# used by databases/poco-data/Makefile
+# used by databases/poco-data-sqlite/Makefile
+# used by databases/poco-data-mysql/Makefile
+# used by databases/poco-data-odbc/Makefile
+
+POCO_VERSION=1.4.2p1
+
+DISTNAME=	poco-${POCO_VERSION}-all
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=poco/}
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.pocoproject.org/
+
+LICENSE=		boost-license
+
+PATCHDIR=	${.CURDIR}/../../devel/poco/patches
+DISTINFO_FILE=	${.CURDIR}/../../devel/poco/distinfo
+
+HAS_CONFIGURE=	yes
+USE_LANGUAGES=	c c++
+USE_TOOLS+=	gmake
+
+CONFIGURE_ARGS+=	--prefix=${PREFIX} --omit=Data
+# don't use the bundled versions of SQLite, zlib, etc..
+CONFIGURE_ARGS+=	--unbundled
+
+.include "../../mk/bsd.prefs.mk"
+
+.if !empty(OPSYS:M*BSD) || ${OPSYS} == "DragonFly"
+CONFIGURE_ARGS+=	--config=FreeBSD
+.endif
+
+.if ${OPSYS} == "NetBSD"
+# NetBSD doesn't have fenv.h. We should add one.
+CONFIGURE_ARGS+=	--no-fpenvironment
+CONFIGURE_ARGS+=	--no-sharedmemory
+.endif
+
+.if ${OPSYS} == "SunOS"
+.include "../../mk/compiler.mk"
+. if ${PKGSRC_COMPILER} == "sunpro"
+CONFIGURE_ARGS+=	--config=SunOS-SunStudio
+. elif ${PKGSRC_COMPILER} == "gcc"
+CONFIGURE_ARGS+=	--config=SunOS-GCC
+# GCC 4.6 and newer forces c99 for C++, need _XOPEN_SOURCE=600
+.  if !empty(CC_VERSION:Mgcc-4.[6-9].*)
+MAKE_ENV+=		XOPEN_SOURCE=600
+.  else
+MAKE_ENV+=		XOPEN_SOURCE=500
+.  endif
+. else
+CONFIGURE_ARGS+=	--config=SunOS
+. endif
+.endif
+
+MAKE_FLAGS+=		POCO_BASE=${WRKSRC}

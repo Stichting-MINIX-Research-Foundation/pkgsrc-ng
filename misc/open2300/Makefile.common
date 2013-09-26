@@ -1,0 +1,15 @@
+# $NetBSD: Makefile.common,v 1.7 2010/02/05 15:26:15 martin Exp $
+#
+# used by misc/open2300-mysql/Makefile
+
+DISTNAME=		open2300-1.10
+CATEGORIES=		misc
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=open2300/}
+
+MAINTAINER=		martin@NetBSD.org
+HOMEPAGE=		http://www.lavrsen.dk/twiki/bin/view/Open2300/WebHome
+
+PATCHDIR=		${.CURDIR}/../open2300/patches
+DISTINFO_FILE=		${.CURDIR}/../open2300/distinfo
+
+.include "../../mk/bsd.pkg.mk"

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2010/02/07 19:30:35 snj Exp $
+bin/qiv
+man/man1/qiv.1
+share/examples/qiv/qiv-command.example

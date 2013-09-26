@@ -1,0 +1,9 @@
+$NetBSD: distinfo,v 1.4 2012/11/10 18:53:59 pettai Exp $
+
+SHA1 (tacacs+-F4.0.4.26.tar.gz) = f10630b9d7af06c858eca4371d2623bbba389a38
+RMD160 (tacacs+-F4.0.4.26.tar.gz) = c9636a4265cab40e55f9fe38b126c2f9bbb643e4
+Size (tacacs+-F4.0.4.26.tar.gz) = 519796 bytes
+SHA1 (patch-ag) = 3ddc4916cfd85b0d501be8957c1e6dcc42cf523a
+SHA1 (patch-ah) = 43698e384eba7fe091a155fc005c21a077aa0cf3
+SHA1 (patch-aj) = 9da6c0e2bb520d776accb16acf9674e259a743ed
+SHA1 (patch-ak) = dae79bec642dc1b3b14a6d61d64cb424dc3b84dd

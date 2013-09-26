@@ -1,0 +1,12 @@
+$NetBSD: patch-ag,v 1.2 2010/10/29 13:47:12 adam Exp $
+
+--- config.h.in.orig	2009-11-06 10:28:08.000000000 +0000
++++ config.h.in
+@@ -345,3 +345,7 @@
+ 
+ /* Version number of package */
+ #undef VERSION
++
++#ifdef __NetBSD__
++#include "netbsd.h"
++#endif

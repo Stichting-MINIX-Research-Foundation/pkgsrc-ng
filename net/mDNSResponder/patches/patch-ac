@@ -1,0 +1,38 @@
+$NetBSD: patch-ac,v 1.9 2011/01/12 08:53:52 adam Exp $
+
+* Fix build on FreeBSD and DragonFly, as shown in recent bulk builds and
+  PR 34022.
+* Don't try to include nonexistant ipv6 header on Solaris.
+  From Volker Stolz in PR pkg/34883.
+
+--- mDNSPosix/mDNSUNP.c.orig	2009-01-13 00:31:35.000000000 -0500
++++ mDNSPosix/mDNSUNP.c	2010-12-04 19:25:49.000000000 -0500
+@@ -54,8 +54,10 @@ First checkin
+     #include <net/if_dl.h>
+ #endif
+ 
+-#if defined(AF_INET6) && HAVE_IPV6 && !HAVE_LINUX
++#if defined(AF_INET6) && HAVE_IPV6 && !HAVE_LINUX && !defined(sun)
++#if !defined(__NetBSD__)
+ #include <net/if_var.h>
++#endif
+ #include <netinet/in_var.h>
+ // Note: netinet/in_var.h implicitly includes netinet6/in6_var.h for us
+ #endif
+@@ -105,6 +107,8 @@ struct ifi_info *get_ifi_info_linuxv6(in
+ 					  addr[4],addr[5],addr[6],addr[7],
+ 					  &index, &plen, &scope, &flags, ifname) != EOF) {
+ 
++			char ipv6addr[INET6_ADDRSTRLEN];
++
+ 			myflags = 0;
+ 			if (strncmp(lastname, ifname, IFNAMSIZ) == 0) {
+ 				if (doaliases == 0)
+@@ -139,7 +143,6 @@ struct ifi_info *get_ifi_info_linuxv6(in
+ 			memcpy(ifi->ifi_addr, res0->ai_addr, sizeof(struct sockaddr_in6));
+ 
+ 			/* Add netmask of the interface */
+-			char ipv6addr[INET6_ADDRSTRLEN];
+ 			plen_to_mask(plen, ipv6addr);
+ 			ifi->ifi_netmask = calloc(1, sizeof(struct sockaddr_in6));
+ 			if (ifi->ifi_addr == NULL) {

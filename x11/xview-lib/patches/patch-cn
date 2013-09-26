@@ -1,0 +1,22 @@
+$NetBSD: patch-cn,v 1.3 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/ttysw/ttyselect.c.orig	1994-06-26 01:05:23.000000000 +0000
++++ lib/libxview/ttysw/ttyselect.c
+@@ -75,6 +75,8 @@ static Seln_result ttysel_copy_in(),
+ #endif
+                 ttysel_reply();
+ 
++static ttysel_resynch();
++
+ static struct ttyselection *
+                 ttysel_from_rank();
+ 
+@@ -1774,7 +1776,7 @@ ttysel_copy_out(ttysel, context, max_len
+ 	max_length--;
+     }
+     /* round up to word boundary  */
+-    while ((unsigned) dest % 4 != 0) {
++    while ((uintptr_t) dest % 4 != 0) {
+ 	*dest++ = '\0';
+     }
+ 

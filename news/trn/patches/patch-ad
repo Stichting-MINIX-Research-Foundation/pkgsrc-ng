@@ -1,0 +1,18 @@
+$NetBSD: patch-ad,v 1.2 2013/02/09 18:30:14 christos Exp $
+
+--- Pnews.SH.orig	2000-10-31 22:43:16.000000000 +0000
++++ Pnews.SH
+@@ -911,7 +911,12 @@ usg)
+ esac
+ 
+ case $orgname in
+-/*) orgname=`$cat $orgname` ;;
++/*) if $test -r $orgname; then
++	orgname=`$cat $orgname`
++    else
++	orgname=""
++    fi
++    ;;
+ esac
+ 
+ $sed -e '/^Reply-To: $/d' > $tmpart <<EOHeader

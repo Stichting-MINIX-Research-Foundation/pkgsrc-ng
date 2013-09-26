@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2008/12/01 22:19:42 tonnerre Exp $
+
+SHA1 (Term-ReadPassword-0.11.tar.gz) = d68542a617f3fa8aa26c3c081302cdc4e0cd6b42
+RMD160 (Term-ReadPassword-0.11.tar.gz) = 48a1164958db3b4bb869f3fd1ebf67a5327e0819
+Size (Term-ReadPassword-0.11.tar.gz) = 7056 bytes

@@ -1,0 +1,13 @@
+$NetBSD: patch-ak,v 1.2 2011/09/22 15:16:26 ryoon Exp $
+
+--- src/checkout.c.orig	2005-09-26 23:13:24.000000000 +0000
++++ src/checkout.c
+@@ -194,7 +194,7 @@ checkout (argc, argv)
+ 	    case 'p':
+ 		pipeout = 1;
+ 		run_module_prog = 0;	/* don't run module prog when piping */
+-		noexec = 1;		/* so no locks will be created */
++		noexec = nolock = 1;	/* so no locks will be created */
+ 		break;
+ 	    case 'c':
+ 		cat = 1;

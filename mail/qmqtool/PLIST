@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:04:41 joerg Exp $
+sbin/qmqtool
+share/doc/qmqtool/Artistic
+share/doc/qmqtool/ChangeLog
+share/doc/qmqtool/FAQ
+share/doc/qmqtool/README
+share/examples/qmqtool/contrib/argus/README
+share/examples/qmqtool/contrib/argus/config
+share/examples/qmqtool/contrib/cricket/Defaults
+share/examples/qmqtool/contrib/cricket/README
+share/examples/qmqtool/contrib/cricket/Targets

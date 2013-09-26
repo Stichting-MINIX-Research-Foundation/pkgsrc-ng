@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:03:42 joerg Exp $
+bin/stalin
+lib/stalin/QobiScheme.sc
+lib/stalin/Scheme-to-C-compatibility.sc
+lib/stalin/Tmk.sc
+lib/stalin/gl.sc
+lib/stalin/libstalin.a
+lib/stalin/parallel-QobiScheme.sc
+lib/stalin/stalin
+lib/stalin/xlib-original.sc
+lib/stalin/xlib.sc
+man/man1/stalin.1
+share/doc/stalin/ANNOUNCEMENT
+share/doc/stalin/COPYING
+share/doc/stalin/README
+share/doc/stalin/stalin.el

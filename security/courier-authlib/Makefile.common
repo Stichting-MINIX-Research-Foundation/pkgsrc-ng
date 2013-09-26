@@ -1,0 +1,26 @@
+# $NetBSD: Makefile.common,v 1.13 2012/03/09 15:15:30 fhajny Exp $
+#
+# used by mail/courier-mta/Makefile.common
+
+COURIER_USER?=		courier
+COURIER_GROUP?=		mail
+FILES_SUBST+=		COURIER_USER=${COURIER_USER}
+FILES_SUBST+=		COURIER_GROUP=${COURIER_GROUP}
+MESSAGE_SUBST+=		COURIER_USER=${COURIER_USER}
+MESSAGE_SUBST+=		COURIER_GROUP=${COURIER_GROUP}
+
+PKG_GROUPS=		${COURIER_GROUP}
+PKG_USERS=		${COURIER_USER}:${COURIER_GROUP}
+
+PKG_GROUPS_VARS+=	COURIER_GROUP
+PKG_USERS_VARS+=	COURIER_USER
+
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--with-mailuser=${COURIER_USER}
+CONFIGURE_ARGS+=	--with-mailgroup=${COURIER_GROUP}
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=	--with-waitfunc=wait3
+.endif

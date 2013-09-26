@@ -1,0 +1,14 @@
+$NetBSD: patch-aa,v 1.2 2008/05/10 16:19:16 obache Exp $
+
+--- src/FbTk/Font.cc.orig	2006-03-25 11:51:33.000000000 +0000
++++ src/FbTk/Font.cc
+@@ -180,7 +180,9 @@ bool Font::s_utf8mode = false;
+ 
+ void Font::init() {
+     // must be set before the first XFontSet is created
++#ifdef HAVE_SETLOCALE
+     setlocale(LC_CTYPE, "");
++#endif //HAVE_SETLOCALE
+ }
+ 
+ void Font::shutdown() {

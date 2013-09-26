@@ -1,0 +1,37 @@
+$NetBSD: patch-aw,v 1.6 2009/02/08 12:51:05 asau Exp $
+
+--- src/common/Makefile.orig	2003-07-05 21:30:35.000000000 +0400
++++ src/common/Makefile	2009-02-08 01:41:40.000000000 +0300
+@@ -5,7 +5,7 @@
+ 	munix.o literals.o rswitch.o alloc.o long.o getopt.o time.o\
+ 	xwindow.o dlrgint.o ipp.o
+ 
+-common:		doincl $(OBJS) gpxmaybe
++common:		doincl patchstr $(OBJS) fixheaders gpxmaybe
+ 
+ doincl:		doincl.c ../h/arch.h
+ 		$(CC) $(CFLAGS) -o doincl doincl.c
+@@ -13,13 +13,22 @@
+ 
+ patchstr:	patchstr.c
+ 		$(CC) $(CFLAGS) -o patchstr patchstr.c
++		cp patchstr ../../bin
++
++fixheaders:
++		cd ../h; for f in *.h; do							\
++		sed -e 's:../h/::g;s:../xpm/::g' $$f > ../../lib/icon/$$f;			\
++		done
+ 
+ gpxmaybe:
+ 		-if [ "x$(XL)" != "x" ]; then $(MAKE) $(GDIR); fi
+ 
+ xpm:
+ 		cd ../xpm; $(MAKE) libXpm.a
+-		cp -p ../xpm/libXpm.a ../../bin/libIgpx.a
++		cp -p ../xpm/libXpm.a ../../lib/icon/libIgpx.a
++		cd ../xpm; for f in *.h; do							\
++		sed -e 's:../h/::g;s:../xpm/::g' $$f >	../../lib/icon/$$f;			\
++		done
+ 
+ wincap:		
+ 		cd ../wincap; $(MAKE) libWincap.a

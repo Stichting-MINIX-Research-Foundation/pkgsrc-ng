@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.2 2010/03/27 18:20:10 tron Exp $
+lib/httpd/mod_php${PKG_PHP_MAJOR_VERS}.so

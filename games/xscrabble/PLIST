@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:57:01 joerg Exp $
+bin/xscrab
+bin/xscrabble
+lib/X11/app-defaults/XScrabble
+share/games/xscrabble/OSPD3.gz
+share/games/xscrabble/scrabble_permutations
+share/games/xscrabble/xscrabble.scores.dist

@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.10 2012/11/07 13:45:35 gdt Exp $
+info/guile-pg.info
+lib/guile-pg/postgres.la
+share/guile/site/database/postgres
+share/guile/site/database/postgres-col-defs
+share/guile/site/database/postgres-gxrepl
+share/guile/site/database/postgres-meta
+share/guile/site/database/postgres-qcons
+share/guile/site/database/postgres-resdisp
+share/guile/site/database/postgres-resx
+share/guile/site/database/postgres-table
+share/guile/site/database/postgres-types

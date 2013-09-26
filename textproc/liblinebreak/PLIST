@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:21 joerg Exp $
+include/linebreak.h
+include/linebreakdef.h
+lib/liblinebreak.la
+share/doc/liblinebreak/README

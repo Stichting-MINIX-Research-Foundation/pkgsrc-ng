@@ -1,0 +1,13 @@
+$NetBSD: patch-co,v 1.3 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/ttysw/tty_mapkey.c.orig	1993-06-29 05:17:20.000000000 +0000
++++ lib/libxview/ttysw/tty_mapkey.c
+@@ -500,7 +500,7 @@ ttysw_remove_caps(label, label_ptr)
+  * have more time.
+  */
+ 
+-#ifdef i386
++#if defined(i386) && !defined (__FreeBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
+ static void
+ ttysw_arrow_keys_to_string(xv_id, str)
+     unsigned        xv_id;

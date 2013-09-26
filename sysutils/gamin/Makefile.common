@@ -1,0 +1,44 @@
+# $NetBSD: Makefile.common,v 1.7 2012/10/23 19:51:02 asau Exp $
+#
+# used by sysutils/gamin/Makefile
+# used by sysutils/libgamin/Makefile
+
+DISTNAME=	gamin-0.1.10
+CATEGORIES=	sysutils
+MASTER_SITES=	http://www.gnome.org/~veillard/gamin/sources/
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.gnome.org/~veillard/gamin/
+COMMENT=	File alteration monitor
+LICENSE=	gnu-lgpl-v2
+
+CONFLICTS=	fam-[0-9]*
+
+MAKE_JOBS_SAFE=		no
+
+USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--disable-debug
+CONFIGURE_ARGS+=	--disable-debug-api
+CONFIGURE_ARGS+=	--disable-gtk-doc
+CONFIGURE_ARGS+=	--without-threads
+CONFIGURE_ARGS+=	--with-html-dir=${DOCDIR:Q}
+CONFIGURE_ARGS+=	--without-python
+CONFIGURE_ARGS+=	--disable-libgamin
+CONFIGURE_ARGS+=	--disable-server
+CONFIGURE_ARGS+=	CPPFLAGS="-D_NETBSD_SOURCE"
+
+PKG_SYSCONFSUBDIR=	gamin
+DOCDIR=			${PREFIX}/share/doc/gamin
+
+SUBST_CLASSES+=		sysconfdir
+SUBST_MESSAGE.sysconfdir=fixing up sysconfdir
+SUBST_STAGE.sysconfdir=	pre-configure
+SUBST_FILES.sysconfdir=	doc/config.html doc/gamin.html server/gam_conf.c
+SUBST_SED.sysconfdir=	-e "s,/etc/gamin/,${PKG_SYSCONFDIR}/,"
+
+DISTINFO_FILE=	${.CURDIR}/../../sysutils/gamin/distinfo
+PATCHDIR=	${.CURDIR}/../../sysutils/gamin/patches
+
+LIBS.SunOS+=	-lsocket

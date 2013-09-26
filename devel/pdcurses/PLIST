@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:49:02 joerg Exp $
+bin/xcurses-config
+include/xcurses.h
+include/xcurses/curses.h
+include/xcurses/curspriv.h
+include/xcurses/panel.h
+include/xcurses/term.h
+include/xpanel.h
+lib/libXCurses.la
+share/doc/pdcurses/PDCurses.txt

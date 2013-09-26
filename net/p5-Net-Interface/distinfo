@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2010/03/10 08:55:29 sno Exp $
+
+SHA1 (Net-Interface-1.012.tar.gz) = 2567ccd68128b851e4fe7b186a5a4308f47646a5
+RMD160 (Net-Interface-1.012.tar.gz) = 39171b79699db38db2ad75f3740c0150022bc679
+Size (Net-Interface-1.012.tar.gz) = 173350 bytes

@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:07:20 joerg Exp $
+bin/easymenu
+share/easymenu/CHANGES
+share/easymenu/README
+share/easymenu/easymenu-demo-bash.sh
+share/easymenu/easymenu-demo.sh
+share/easymenu/etc/easymenu.conf-minimode
+share/easymenu/etc/easymenu.conf-sample
+share/easymenu/etc/menus-sample/demo
+share/easymenu/etc/menus-sample/demo.1
+share/easymenu/etc/menus-sample/demo.2
+share/easymenu/etc/menus-sample/demo.3
+share/easymenu/etc/menus-sample/main
+share/easymenu/etc/menus-sample/post-demo
+share/easymenu/etc/menus-sample/pre-demo

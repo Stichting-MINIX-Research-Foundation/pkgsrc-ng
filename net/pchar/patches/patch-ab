@@ -1,0 +1,21 @@
+$NetBSD: patch-ab,v 1.2 2013/03/03 01:06:51 joerg Exp $
+
+--- GetIfInfo.h.orig	2013-03-02 23:47:03.000000000 +0000
++++ GetIfInfo.h
+@@ -5,6 +5,7 @@
+ #ifndef GETIFINFO_H
+ #define GETIFINFO_H
+ 
++#include <inttypes.h>
+ #include "Pctest.h"
+ 
+ class GetIfInfo
+@@ -18,7 +18,7 @@ public:
+   bool	IsValid(void);
+ 
+   const char *	GetDescription(void) const;
+-  const char *	GetIfInfo::GetName(void) const;
++  const char *	GetName(void) const;
+   const char *	GetContact(void) const;
+   const char *	GetLocation(void) const;
+   const char *	GetIfDescription(void) const;

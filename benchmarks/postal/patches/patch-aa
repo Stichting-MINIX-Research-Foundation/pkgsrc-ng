@@ -1,0 +1,37 @@
+$NetBSD: patch-aa,v 1.3 2013/05/23 14:59:13 joerg Exp $
+
+--- postal.cpp.orig	2007-01-14 04:40:23.000000000 +0000
++++ postal.cpp
+@@ -10,12 +10,22 @@
+ #include <stdio.h>
+ #include "postal.h"
+ #include "logit.h"
++#include <cstdlib>
+ #ifdef USE_GNUTLS
+ #include <errno.h>
+ #include <gcrypt.h>
+ GCRY_THREAD_OPTION_PTHREAD_IMPL;
+ #endif
+ 
++#ifdef __NetBSD__
++# include <sys/param.h>
++# if __NetBSD_Version__ >= 200000000
++#  define HAVE_STRUCT_SIGACTION_SA_SIGACTION
++# endif
++#else
++# define HAVE_STRUCT_SIGACTION_SA_SIGACTION
++#endif
++
+ void usage()
+ {
+   printf("Usage: postal [-m maximum-message-size] [-M minimum-message-size] [-t threads]\n"
+@@ -152,7 +162,9 @@ int main(int argc, char **argv)
+   struct sigaction sa;
+   sa.sa_sigaction = NULL;
+   sa.sa_handler = SIG_IGN;
++#ifdef HAVE_STRUCT_SIGACTION_SA_SIGACTION
+   sa.sa_flags = 0;
++#endif
+   if(sigaction(SIGPIPE, &sa, NULL))
+   {
+     printf("Can't block SIGPIPE.\n");

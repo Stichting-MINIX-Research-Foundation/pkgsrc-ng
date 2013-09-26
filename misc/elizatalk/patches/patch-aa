@@ -1,0 +1,38 @@
+$NetBSD: patch-aa,v 1.2 2010/02/11 19:18:55 joerg Exp $
+
+--- Makefile.orig	Mon Oct 23 03:27:20 2000
++++ Makefile
+@@ -1,10 +1,11 @@
+-CXXFLAGS=-O2 # flags for compiler
+-LDFLAGS=-Xlinker -R/usr/ucblib:/usr/local/lib # linker flags
+-LDLIBS=-L/usr/local/lib -Itbcc # linker libraries
+-CXX=gcc # C compiler
+-CC=gcc # linker
+-INSTALLDIR=/usr/bin# installation dir of Elizatalk (be sure there is no space between the dir and the #)
+-INSTALLDIRDICT=/usr/share/elizatalk# installation dir of the dictionaries (be sure there is no space between the dir and the #)
++#CXXFLAGS=-O2 # flags for compiler
++#LDFLAGS=-Xlinker -R/usr/ucblib:/usr/local/lib # linker flags
++#LDLIBS=-L/usr/local/lib -Itbcc # linker libraries
++#CXX=gcc # C compiler
++#CC=gcc # linker
++CFLAGS+=-DELIZADIR=\"${PREFIX}/share/elizatalk\"
++INSTALLDIR=${DESTDIR}${PREFIX}/bin# installation dir of Elizatalk (be sure there is no space between the dir and the #)
++INSTALLDIRDICT=${DESTDIR}${PREFIX}/share/elizatalk# installation dir of the dictionaries (be sure there is no space between the dir and the #)
+ 
+ SOURCES=elizatalk.c \
+         splotch.c
+@@ -20,10 +21,10 @@ make.depend:$(SOURCES)
+ 	$(CC) -M $^ >$@
+ 
+ install:all
+-	install -m 775 -s elizatalk $(INSTALLDIR)
+-	install -d $(INSTALLDIRDICT)/words
+-	install -m 666 main.dict syn.dict $(INSTALLDIRDICT)
+-	install -m 666 words/* $(INSTALLDIRDICT)/words
++	${BSD_INSTALL_PROGRAM} elizatalk $(INSTALLDIR)
++	${BSD_INSTALL_DATA_DIR} $(INSTALLDIRDICT)/words
++	${BSD_INSTALL_DATA} main.dict syn.dict $(INSTALLDIRDICT)
++	${BSD_INSTALL_DATA} words/* $(INSTALLDIRDICT)/words
+ 
+ uninstall: clean
+ 	rm -f $(INSTALLDIR)/elizatalk

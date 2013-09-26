@@ -1,0 +1,25 @@
+$NetBSD: patch-aa,v 1.2 2010/12/31 14:36:07 obache Exp $
+
+--- configure.orig	2009-03-05 01:37:31.000000000 +0000
++++ configure
+@@ -25135,9 +25135,9 @@ case $use_libtool in
+ 		O=lo
+ 		A=la
+ 		LIBTOOL_MKDEP_SED='s;\.o;\.lo;'
+-		LIBTOOL_MODE_COMPILE='--mode=compile'
++		LIBTOOL_MODE_COMPILE='--mode=compile --tag=CC'
+ 		LIBTOOL_MODE_INSTALL='--mode=install'
+-		LIBTOOL_MODE_LINK='--mode=link'
++		LIBTOOL_MODE_LINK='--mode=link --tag=CC'
+ 		;;
+ 	*)
+ 		O=o
+@@ -25928,7 +25928,7 @@ case "$host" in
+ 			PORT_NONBLOCK="#define PORT_NONBLOCK O_NDELAY"
+ 			PORT_DIR="port/cygwin";;
+ 	*-darwin*)	PORT_DIR="port/darwin";;
+-	*-dragonfly*)	PORT_DIR="port/dragonfly";;
++	*-dragonfly*)	PORT_DIR="port/freebsd";;
+ 	*-osf*)		PORT_DIR="port/decunix";;
+ 	*-freebsd*)	PORT_DIR="port/freebsd";;
+ 	*-hpux9*)	PORT_DIR="port/hpux9";;

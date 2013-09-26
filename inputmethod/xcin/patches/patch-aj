@@ -1,0 +1,30 @@
+$NetBSD: patch-aj,v 1.2 2013/04/30 22:23:07 joerg Exp $
+
+for process jyutping.cin.
+
+--- src/util/cin2tab/cin2tab.c.orig	2001-10-04 16:39:49.000000000 +0000
++++ src/util/cin2tab/cin2tab.c
+@@ -74,12 +74,12 @@ static struct cin cinfunc[] = {
+ int
+ cmd_arg(char *cmd, int cmdlen, ...)
+ {
+-    char line[256], *s=line, *arg;
++    char line[512], *s=line, *arg;
+     int arglen, n_read=1;
+     va_list list;
+ 
+     va_start(list, cmdlen);
+-    if (! get_line(line, 256, cintab.fr, &(cintab.lineno), "#\n"))
++    if (! get_line(line, 512, cintab.fr, &(cintab.lineno), "#\n"))
+ 	return 0;
+ 
+     cmd[0] = '\0';
+@@ -233,7 +233,7 @@ print_usage(void)
+ }
+ 
+ static void
+-cin2tab_setlocale(locale_t *locale)
++cin2tab_setlocale(xcin_locale_t *locale)
+ {
+     char loc_return[128], enc_return[128];
+     int ret;

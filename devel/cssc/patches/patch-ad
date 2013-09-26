@@ -1,0 +1,29 @@
+$NetBSD: patch-ad,v 1.4 2011/02/02 11:29:07 ryoon Exp $
+
+--- bsd/sccs.c.orig	2010-05-16 17:31:33.000000000 +0000
++++ bsd/sccs.c
+@@ -1964,8 +1964,6 @@ unedit (const char *fn)
+    */
+   if (delete)
+     {
+-      extern int errno;
+-
+       cp = tail (pfn);
+       if ('p' == cp[0] && '.' == cp[1])
+ 	{
+@@ -2059,7 +2057,6 @@ dodiff (char * getv[], const char *gfile
+   int rval;
+   register int pid;
+   auto int st;
+-  extern int errno;
+ 
+   printf ("\n------- %s -------\n", gfile);
+   fflush (stdout);
+@@ -2278,7 +2275,6 @@ usrerr (const char *fmt,...)
+ void
+ syserr (const char *fmt,...)
+ {
+-  extern int errno;
+   va_list ap;
+ 
+   fprintf (stderr, "\n%s SYSERR: ", program_name);

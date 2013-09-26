@@ -1,0 +1,61 @@
+$NetBSD: patch-aa,v 1.3 2012/08/21 21:37:56 marino Exp $
+
+--- config.h.orig	2002-02-11 19:31:49.000000000 +0000
++++ config.h
+@@ -41,7 +41,7 @@
+ /*
+   Tcl/Tk Version numbers to use.
+ */
+-#define TKGATE_TCLTK_VERSIONS		"8.4 8.3 8.2 8.1 8.0"
++#define TKGATE_TCLTK_VERSIONS		"8.5 8.4 8.3 8.2 8.1 8.0"
+ 
+ /*
+   Japanese Tcl/Tk Version numbers to use.
+@@ -54,13 +54,13 @@
+   double quotes and should be all one one line.  This list is used to
+   find X11, tcl and tk.
+ */
+-#define TKGATE_INCDIRS		"/usr/X11R6/include /usr/X11/include /usr/local/include /usr/openwin/include /usr/X/include /usr/include"
++#define TKGATE_INCDIRS		"@X11BASE@/include @LOCALBASE@/include"
+ 
+ /*
+   List of directories to search for tcl library.  The list must be in 
+   double quotes and should be all one one line.
+ */
+-#define TKGATE_LIBDIRS		"/usr/X11R6/lib /usr/X11/lib /usr/local/lib /usr/lib"
++#define TKGATE_LIBDIRS		"@X11BASE@/lib @LOCALBASE@/lib"
+ 
+ /*
+   Required libraries.  TkGate will not compile unless these libraries are found.
+@@ -80,19 +80,19 @@
+   version number to this path.  You can override the default by
+   uncommenting the defintion of TKGATE_HOMEDIR below.
+  */
+-#define TKGATE_HOMEDIRBASE	"/usr/X11R6/lib"
++#define TKGATE_HOMEDIRBASE	"@PREFIX@/share"
+ 
+ /*
+   The location of the tkgate and gmac executables.  If you change this, you will
+   need to run the configure script again.
+  */
+-#define TKGATE_BINDIR		/usr/X11R6/bin
++#define TKGATE_BINDIR		@PREFIX@/bin
+ 
+ /*
+   The location of the tkgate and gmac man pages.  If you change this, you will
+   need to run the configure script again.
+  */
+-#define TKGATE_MANDIR		/usr/X11R6/man/man1
++#define TKGATE_MANDIR		@PREFIX@/man/man1
+ 
+ /*
+   Digital circuit editor and simulator.
+@@ -102,7 +102,7 @@
+ /*
+   URL for local documentation
+  */
+-#define TKGATE_LOCALDOC		"file:/usr/X11R6/lib/tkgate-" TKGATE_VERSION "/doc/index.html"
++#define TKGATE_LOCALDOC		"file:@PREFIX@/share/tkgate-" TKGATE_VERSION "/doc/index.html"
+ 
+ /*
+   The TkGate Copyright message.

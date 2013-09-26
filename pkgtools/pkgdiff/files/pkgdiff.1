@@ -1,0 +1,75 @@
+.\"	$NetBSD: pkgdiff.1,v 1.6 2011/02/16 11:58:30 wiz Exp $
+.\"
+.\" Copyright (c) 2000-2011 The NetBSD Foundation, Inc.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to The NetBSD Foundation
+.\" by Hubert Feyrer <hubertf@NetBSD.org>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+.\" ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+.\" TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+.\" PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+.\" BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+.\" CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+.\" SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+.\" CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+.\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+.\" POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd June 14, 2003
+.Dt PKGDIFF 1
+.Os
+.Sh NAME
+.Nm pkgdiff
+.Nd diff files in a way appropriate for pkgsrc
+.Sh SYNOPSIS
+.Nm
+.Op Ar options
+.Ar oldfile
+.Ar newfile
+.Sh DESCRIPTION
+The
+.Nm
+utility runs
+.Xr diff 1
+on the named files, and generates output on stdout that is appropriate
+to be put as patch file into pkgsrc.
+An empty
+.Nx
+RCS ID is output
+first, and some effort is made to ensure that the generated patch does
+not include any RCS IDs.
+.Pp
+.Ar options
+can be any options that are allowed for
+.Xr diff 1 .
+.Sh ENVIRONMENT
+.Ss PKGDIFF_FMT
+The flags passed to
+.Xr diff 1
+when generating patches.
+If not set, the flags
+.Fl u
+and
+.Fl p
+are used.
+Though only unified format patches are used in pkgsrc as proper
+patches, sometimes it can be useful to have context or plain diffs
+available.
+.Sh SEE ALSO
+.Xr cvs 1 ,
+.Xr diff 1 ,
+.Xr mkpatches 1 ,
+.Xr patch 1 ,
+.Xr pkgvi 1

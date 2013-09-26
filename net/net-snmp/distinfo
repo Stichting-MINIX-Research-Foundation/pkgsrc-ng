@@ -1,0 +1,27 @@
+$NetBSD: distinfo,v 1.77 2013/04/14 19:45:30 joerg Exp $
+
+SHA1 (net-snmp-5.7.2.tar.gz) = c493027907f32400648244d81117a126aecd27ee
+RMD160 (net-snmp-5.7.2.tar.gz) = 392d643e9f2f42ee4fa688b4702329ad005ee12e
+Size (net-snmp-5.7.2.tar.gz) = 6281352 bytes
+SHA1 (patch-ac) = 59987ecb9467b1cead9af3d4432a4dd69be93480
+SHA1 (patch-af) = 4fb96b79f9126dedb8a132d44894ea23c9e8c101
+SHA1 (patch-ag) = d9595eceeb5ee986ab4365f62e3c3ab339e605aa
+SHA1 (patch-agent_mibgroup_hardware_cpu_cpu__sysctl.c) = 346bb4cb0e905821aa3bbdda4ae0fd8526d35854
+SHA1 (patch-agent_mibgroup_hardware_fsys_fsys_getfsstats.c) = 7fc48c58c8f5bc73caaf3990ef61a94fb856e208
+SHA1 (patch-agent_mibgroup_hardware_memory_memory__netbsd.c) = f04d66f823bf2b49401e6d9a62db4b39ed679907
+SHA1 (patch-agent_mibgroup_host_data__access_swrun__kinfo.c) = 054866e7c3ac90f183fd4a6d53763a5bba50572c
+SHA1 (patch-agent_mibgroup_mibII_ipAddr.c) = cd3345a4b30fe2280d0555ee38feb5f957a55b1e
+SHA1 (patch-ai) = 04c2a487bad8705c9725ef4a62016051d3898970
+SHA1 (patch-aj) = d110e996d0538d17251d39a5eed46df6944ba0fa
+SHA1 (patch-ak) = 50ac67db8a9ffc16d983b4192e74db25ef439321
+SHA1 (patch-am) = 52858b71d4e75d813f134c2d006819108430c766
+SHA1 (patch-ap) = 44a4ce6302457094ba2b200e4c47ff6c2a425746
+SHA1 (patch-aq) = a8fe703d8902c2847ca6692af4400ddbf9cbe74b
+SHA1 (patch-da) = 40e8d78bad93ca12f4c08c43b86e7f13edafc299
+SHA1 (patch-db) = 281be9a88860987880c71770f4050fd965dd8ed9
+SHA1 (patch-dl) = 92563fd6be6f27be5b348cdc8bc02061374026b0
+SHA1 (patch-dt) = 452fee78b37f8ce0eb30049f9f18b04cff9b6e6e
+SHA1 (patch-du) = 89a77e82d881207500fb45c422b66710e44c0eb4
+SHA1 (patch-el) = b85dbef28e14fe29c9fb944508a08e7423a37152
+SHA1 (patch-es) = 7336d905bac315f344f93664e4118332f88fb6ee
+SHA1 (patch-include_net-snmp_system_netbsd.h) = 7880fded678147b2cc75e035234b89727e213d00

@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.9 2009/06/14 18:17:34 joerg Exp $
+bin/xmlcatmgr
+man/man1/xmlcatmgr.1
+share/doc/xmlcatmgr/AUTHORS
+share/doc/xmlcatmgr/COPYING
+share/doc/xmlcatmgr/NEWS
+share/doc/xmlcatmgr/README
+share/doc/xmlcatmgr/TODO
+share/examples/xmlcatmgr/catalog.etc.sgml
+share/examples/xmlcatmgr/catalog.etc.xml
+share/examples/xmlcatmgr/catalog.share.sgml
+share/examples/xmlcatmgr/catalog.share.xml

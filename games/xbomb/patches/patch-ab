@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.2 2008/11/21 16:48:33 adam Exp $
+
+--- hiscore.c.orig	2008-01-05 20:23:07.000000000 +0100
++++ hiscore.c
+@@ -50,7 +50,7 @@ extern int widths[NLEVELS],     /*+ widt
+            nbombs[NLEVELS];     /*+ number of bombs. +*/
+ 
+ /*+ The names of the high score tables. +*/
+-static char *filenames[NTYPES]={"/var/tmp/xbomb6.hi","/var/tmp/xbomb4.hi","/var/tmp/xbomb3.hi"};
++static char *filenames[NTYPES]={SCORE_PATH"/xbomb6.hi",SCORE_PATH"/xbomb4.hi",SCORE_PATH"/xbomb3.hi"};
+ 
+ /*+ The names of the positions in the high score tables. +*/
+ static char pos[11][5]={"Top","2nd","3rd","4th","5th","6th","7th","8th","9th","10th","Lost"};

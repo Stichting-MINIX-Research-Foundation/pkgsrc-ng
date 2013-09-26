@@ -1,0 +1,26 @@
+$NetBSD: patch-aa,v 1.3 2011/12/14 03:14:13 sbd Exp $
+
+--- Makefile.in.orig	2003-10-31 03:53:26.000000000 +0000
++++ Makefile.in
+@@ -517,16 +517,13 @@ uninstall-info: uninstall-info-recursive
+ 
+ 
+ install-data-local:
+-	$(mkinstalldirs) $(prefix)/etc
+-	$(mkinstalldirs) $(prefix)/include
+-	$(mkinstalldirs) $(prefix)/log
+-	$(mkinstalldirs) $(prefix)/tmp
+-	$(mkinstalldirs) $(prefix)/var
++	$(mkinstalldirs) ${DESTDIR}$(prefix)/include
++	$(mkinstalldirs) ${DESTDIR}$(datadir)/examples/ubs
+ 
+-	$(INSTALL_DATA) config/help.conf $(prefix)/etc
+-	$(INSTALL_DATA) config/ubs.conf.default $(prefix)/etc
++	$(INSTALL_DATA) config/help.conf ${DESTDIR}$(datadir)/examples/ubs
++	$(INSTALL_DATA) config/ubs.conf.default ${DESTDIR}$(datadir)/examples/ubs
+ 
+-	$(INSTALL_DATA) include/*.h $(prefix)/include
++	$(INSTALL_DATA) include/*.h ${DESTDIR}$(prefix)/include
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:

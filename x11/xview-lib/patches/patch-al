@@ -1,0 +1,34 @@
+$NetBSD: patch-al,v 1.3 2009/12/10 20:35:56 abs Exp $
+
+--- lib/libxview/font/font_get.c.orig	1993-06-29 05:15:00.000000000 +0000
++++ lib/libxview/font/font_get.c
+@@ -43,7 +43,6 @@ font_get_attr(font_public, status, attr,
+     XFontStruct		*x_font_info = (XFontStruct *)font->x_font_info;
+     Xv_opaque       v;
+     int             attr_is_char_width = 0;
+-    Attr_avlist     avlist = (Attr_avlist) args;
+ 
+ #ifdef OW_I18N
+     if (font->type == FONT_TYPE_TEXT)  {
+@@ -138,8 +137,8 @@ font_get_attr(font_public, status, attr,
+ 	}
+ 
+       case FONT_STRING_DIMS:{
+-	    char           *string = (char *) avlist[0];
+-	    Font_string_dims *size = (Font_string_dims *) avlist[1];
++	    char *string = (char *)va_arg(args, Attr_attribute);
++	    Font_string_dims *size = (Font_string_dims *)va_arg(args, Attr_attribute);
+ 	    struct pr_size  my_pf_size;
+ 	    if (string) {
+ 		my_pf_size = xv_pf_textwidth(strlen(string), font_public, string);
+@@ -264,8 +263,8 @@ font_get_attr(font_public, status, attr,
+ 
+ #ifdef OW_I18N
+       case FONT_STRING_DIMS_WC:{
+-            wchar_t             *ws = (wchar_t *) avlist[0];
+-            Font_string_dims    *size = (Font_string_dims *) avlist[1];
++            wchar_t *ws = (wchar_t *) va_arg(args, Attr_attribute);
++            Font_string_dims *size = (Font_string_dims *) va_arg(args, Attr_attribute);
+             struct pr_size      my_pf_size;
+ 
+             if (ws) {

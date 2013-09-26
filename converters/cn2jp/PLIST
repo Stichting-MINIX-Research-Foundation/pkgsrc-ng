@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:39:09 joerg Exp $
+bin/b2g
+bin/b2j
+bin/g2b
+bin/g2j
+bin/j2b
+bin/j2g
+include/jp-util.h
+include/lang-util.h
+lib/libcn2jp.la
+share/doc/cn2jp/README

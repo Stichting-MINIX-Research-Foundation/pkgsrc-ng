@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2012/12/17 12:49:41 drochner Exp $
+
+SHA1 (gummi-0.6.5.tar.gz) = dc7cc00518f925629574990d13982ae050515e0b
+RMD160 (gummi-0.6.5.tar.gz) = d07077e7c3c2eff9732cb3fa41c94131681357ea
+Size (gummi-0.6.5.tar.gz) = 520902 bytes
+SHA1 (patch-src_update.c) = 389544fbacf4206337128f41d36ec8c057982b36

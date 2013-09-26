@@ -1,0 +1,12 @@
+Provides classes to deal with creation and manipulation of mime messages:
+It allows people to create e-mail messages consisting of:
+
+* Text Parts
+* HTML Parts
+* Inline HTML Images
+* Attachments
+* Attached messages
+
+It supports big messages, base64 and quoted-printable encodings and
+non-ASCII characters in filenames, subjects, recipients, etc. encoded
+using RFC2047 and/or RFC2231.

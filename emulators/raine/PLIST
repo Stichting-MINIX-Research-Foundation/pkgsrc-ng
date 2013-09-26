@@ -1,0 +1,33 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:54:52 joerg Exp $
+bin/raine
+share/applications/raine.desktop
+share/pixmaps/raine.png
+share/raine/cheats.cfg
+share/raine/hiscore.dat
+share/raine/languages/brasil.cfg
+share/raine/languages/catala.cfg
+share/raine/languages/czech.cfg
+share/raine/languages/dansk.cfg
+share/raine/languages/dutch.cfg
+share/raine/languages/english.cfg
+share/raine/languages/espanol.cfg
+share/raine/languages/euskera.cfg
+share/raine/languages/finnish.cfg
+share/raine/languages/french.cfg
+share/raine/languages/french2.cfg
+share/raine/languages/galego.cfg
+share/raine/languages/german.cfg
+share/raine/languages/german2.cfg
+share/raine/languages/italian.cfg
+share/raine/languages/japanese.cfg
+share/raine/languages/polish.cfg
+share/raine/languages/portugal.cfg
+share/raine/languages/spanish.cfg
+share/raine/languages/svenska.cfg
+share/raine/languages/template.cfg
+share/raine/languages/turkish.cfg
+share/raine/raine
+share/raine/raine.dat
+@pkgdir share/raine/roms
+@pkgdir share/raine/emudx
+@pkgdir share/raine/artwork

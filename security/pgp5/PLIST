@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:13:35 joerg Exp $
+bin/pgp5
+bin/pgp_old
+bin/pgpe
+bin/pgpk
+bin/pgps
+bin/pgpv
+lib/libbn.a
+lib/libpgp.a
+lib/libpgptty.a
+lib/libsimple.a
+man/man1/pgp5.1
+man/man1/pgpe.1
+man/man1/pgpk.1
+man/man1/pgps.1
+man/man1/pgpv.1
+man/man5/pgp.cfg.5
+man/man7/pgp-integration.7
+man/man7/pgp-intro.7
+share/pgp5/language50.txt

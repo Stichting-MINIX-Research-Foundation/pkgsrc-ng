@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2003/03/03 04:17:28 jschauma Exp $
+bin/xtoolwait
+${IMAKE_MAN_DIR}/xtoolwait.${IMAKE_MANNEWSUFFIX}

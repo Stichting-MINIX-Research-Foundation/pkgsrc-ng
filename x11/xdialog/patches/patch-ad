@@ -1,0 +1,27 @@
+$NetBSD: patch-ad,v 1.3 2012/07/30 02:21:31 dholland Exp $
+
+Don't install docs; that's handled by the package makefile instead.
+
+--- doc/Makefile.in.orig	2008-08-29 15:26:07.000000000 +0100
++++ doc/Makefile.in	2008-08-29 15:26:31.000000000 +0100
+@@ -164,9 +164,9 @@
+ sysconfdir = @sysconfdir@
+ target_alias = @target_alias@
+ AUTOMAKE_OPTIONS = foreign no-dependencies
+-docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
++docdir =
+ CLEANFILES = index.html compatibility.html changelog.html license.html Xdialog.1
+-doc_DATA = index.html compatibility.html changelog.html license.html $(srcdir)/*.html $(srcdir)/*.png
++doc_DATA = index.html compatibility.html changelog.html license.html
+ man_MANS = Xdialog.1
+ all: all-am
+ 
+@@ -347,7 +347,7 @@
+ 
+ info-am:
+ 
+-install-data-am: install-docDATA install-man
++install-data-am: install-man
+ 
+ install-exec-am:
+ 

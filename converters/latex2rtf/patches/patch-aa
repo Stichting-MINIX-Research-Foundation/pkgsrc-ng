@@ -1,0 +1,53 @@
+$NetBSD: patch-aa,v 1.7 2012/10/16 17:23:33 shattered Exp $
+
+--- Makefile.orig	2007-11-18 06:10:57.000000000 +0000
++++ Makefile
+@@ -2,3 +2,3 @@
+ 
+-CC=gcc
++CC?=gcc
+ MKDIR=mkdir -p
+@@ -25,3 +25,3 @@ LINK_FLAGS = -lm
+ #Base directory - adapt as needed
+-PREFIX=$(PREFIX_DRIVE)/usr/local
++PREFIX?=$(PREFIX_DRIVE)/usr/local
+ 
+@@ -32,3 +32,3 @@ BINARY_NAME=latex2rtf$(EXE_SUFFIX)
+ BIN_INSTALL=$(PREFIX)/bin
+-MAN_INSTALL=$(PREFIX)/man/man1
++MAN_INSTALL=$(PREFIX)/$(PKGMANDIR)/man1
+ INFO_INSTALL=$(PREFIX)/info
+@@ -205,13 +205,13 @@ install: latex2rtf doc/latex2rtf.1 $(CFG
+ 	cd doc && $(MAKE)
+-	$(MKDIR) $(BIN_INSTALL)
+-	$(MKDIR) $(MAN_INSTALL)
+-	$(MKDIR) $(CFG_INSTALL)
+-	cp $(BINARY_NAME)     $(BIN_INSTALL)
+-	cp scripts/latex2png  $(BIN_INSTALL)
+-	cp doc/latex2rtf.1    $(MAN_INSTALL)
+-	cp doc/latex2png.1    $(MAN_INSTALL)
+-	cp $(CFGS)            $(CFG_INSTALL)
+-	cp doc/latex2rtf.html $(SUPPORT_INSTALL)
+-	cp doc/latex2rtf.pdf  $(SUPPORT_INSTALL)
+-	cp doc/latex2rtf.txt  $(SUPPORT_INSTALL)
++	$(MKDIR) $(DESTDIR)$(BIN_INSTALL)
++	$(MKDIR) $(DESTDIR)$(MAN_INSTALL)
++	$(MKDIR) $(DESTDIR)$(CFG_INSTALL)
++	cp $(BINARY_NAME)     $(DESTDIR)$(BIN_INSTALL)
++	cp scripts/latex2png  $(DESTDIR)$(BIN_INSTALL)
++	cp doc/latex2rtf.1    $(DESTDIR)$(MAN_INSTALL)
++	cp doc/latex2png.1    $(DESTDIR)$(MAN_INSTALL)
++	cp $(CFGS)            $(DESTDIR)$(CFG_INSTALL)
++	cp doc/latex2rtf.html $(DESTDIR)$(PREFIX)/share/doc/latex2rtf
++	cp doc/latex2rtf.pdf  $(DESTDIR)$(PREFIX)/share/doc/latex2rtf
++#	cp doc/latex2rtf.txt  $(DESTDIR)$(SUPPORT_INSTALL)
+ 	@echo "******************************************************************"
+@@ -232,5 +232,5 @@ install: latex2rtf doc/latex2rtf.1 $(CFG
+ install-info: doc/latex2rtf.info
+-	$(MKDIR) $(INFO_INSTALL)
+-	cp doc/latex2rtf.info $(INFO_INSTALL)
+-	install-info --info-dir=$(INFO_INSTALL) doc/latex2rtf.info
++	$(MKDIR) $(DESTDIR)$(INFO_INSTALL)
++	cp doc/latex2rtf.info $(DESTDIR)$(INFO_INSTALL)
++	install-info --info-dir=$(DESTDIR)$(INFO_INSTALL) doc/latex2rtf.info
+ 

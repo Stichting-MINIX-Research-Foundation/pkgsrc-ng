@@ -1,0 +1,75 @@
+$NetBSD: patch-aa,v 1.8 2011/08/31 12:13:30 obache Exp $
+
+--- Makefile.orig	1999-06-26 14:37:17.000000000 +0000
++++ Makefile
+@@ -3,16 +3,16 @@
+ 
+ # ---- FILE LOCATIONS ----
+ 
+-PREFIX		= /usr/local
++#PREFIX		= /usr/local
+ BINDIR		= ${PREFIX}/bin
+ MANDIR		= ${PREFIX}/man/man6
+-SCOREFILE	= /var/games/zombies_score
+-BINOWN		= games
+-BINGRP		= games
+-BINMODE		= 2555
+-MANOWN		= root
+-MANGRP		= wheel
+-MANMODE		= 444
++SCOREFILE	?= ${VARBASE}/games/zombies_score
++#BINOWN		= games
++#BINGRP		= games
++#BINMODE		= 2555
++#MANOWN		= root
++#MANGRP		= wheel
++#MANMODE		= 444
+ SCOREMODE	= 664
+ 
+ # ---- COMPILER OPTIONS ----
+@@ -39,9 +39,9 @@ SIG		= -DSIGTYPE=void
+ # ---- LIBRARIES ----
+ 
+ # Older BSDs need -ltermcap
+-LIBS		= -lcurses -ltermcap
++#LIBS		= -lcurses -ltermcap
+ # Newer BSDs and SysV use just curses
+-#LIBS		= -lcurses
++LIBS		= -lcurses
+ # ncurses need -DUSE_NCURSES as well
+ #LIBS		= -lncurses
+ #DEFS		= -DUSE_NCURSES
+@@ -49,9 +49,9 @@ LIBS		= -lcurses -ltermcap
+ # ---- INSTALLATION PROGRAMS ----
+ 
+ # BSDish
+-INSTALL_PROG	= install -c -s -o ${BINOWN} -g ${BINGRP} -m ${BINMODE}
+-INSTALL_MAN	= install -c -o ${MANOWN} -g ${MANGRP} -m ${MANMODE}
+-INSTALL_SCORE	= install -c -o ${BINOWN} -g ${BINGRP} -m ${SCOREMODE}
++INSTALL_PROG	= ${BSD_INSTALL_GAME}
++INSTALL_MAN	= ${BSD_INSTALL_MAN}
++INSTALL_SCORE	?= ${BSD_INSTALL_GAME_DATA}
+ 
+ # SysVish
+ #INSTALL_PROG	= install -u ${BINOWN} -g ${BINGRP} -m ${BINMODE}
+@@ -65,7 +65,7 @@ SRCS		= level.c main.c misc.c move.c sco
+ HDRS		= zombies.h
+ MAN		= zombies.6
+ OBJS		= ${SRCS:.c=.o}
+-CFLAGS		= $(FLAGS) $(DEFS) -DSCORE_FILE=\"${SCOREFILE}\"
++CFLAGS		+= $(DEFS) -DSCORE_FILE=\"${SCOREFILE}\"
+ 
+ all:		$(PROG)
+ 
+@@ -75,8 +75,9 @@ zombies:	${OBJS}
+ ${OBJS}:	${HDRS}
+ 
+ install:	${PROG}
+-		${INSTALL_PROG} ${PROG} ${BINDIR}
+-		${INSTALL_MAN} ${MAN} ${MANDIR}
++		${INSTALL_PROG} ${PROG} ${DESTDIR}${BINDIR}
++		${INSTALL_MAN} ${MAN} ${DESTDIR}${MANDIR}
++		${INSTALL_SCORE} /dev/null ${DESTDIR}${PREFIX}/share/games/zombies_score.dist
+ 		if [ ! -f ${SCOREFILE} ]; then \
+ 			${INSTALL_SCORE} /dev/null ${SCOREFILE} ; \
+ 		fi

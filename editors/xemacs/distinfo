@@ -1,0 +1,19 @@
+$NetBSD: distinfo,v 1.18 2012/12/24 21:08:06 joerg Exp $
+
+SHA1 (xemacs/xemacs-21.4.22.tar.gz) = 24ed9b13d80c53c06bba60c7bb68387f692b7373
+RMD160 (xemacs/xemacs-21.4.22.tar.gz) = f7d71d3607c3301760df8f7ae5a93d1d37df56ba
+Size (xemacs/xemacs-21.4.22.tar.gz) = 8357931 bytes
+SHA1 (patch-aa) = 933c2522fce7877d73c57cf0e153afcce78bdf7e
+SHA1 (patch-ab) = 1487edf8addea7971f4fcbcf57818090f32edef5
+SHA1 (patch-ac) = effbc40595b0c3b6e443588528113d907a6056c1
+SHA1 (patch-ad) = e2a70a64f0659ffda6dd27b37512e4dc5bd4ecf4
+SHA1 (patch-ae) = c3ad7249bb7eb51c509546fc88fe3efc5b70a6d7
+SHA1 (patch-af) = 97cd3d340f349a645a7be9a683879528d9f4c5f2
+SHA1 (patch-ag) = 0ccbead4be5da92e73a15432ff1b063da13cf0b4
+SHA1 (patch-ah) = 9a02b989a6d45cdfead22ea703acceca722cf313
+SHA1 (patch-ai) = ea752473a56d20907201763966ecdeaaeffac84a
+SHA1 (patch-ak) = bfbd285a1cc7d4e93a2fc884e03492dec9302e55
+SHA1 (patch-al) = 247826009110453a868525e711e084b7dee49664
+SHA1 (patch-src_config.h.in) = 2fd4ca6966f0d2b56ba92fa31a99ebce31c2c2b7
+SHA1 (patch-src_glyphs-eimage.c) = f013013d467d32dfac63287dd5a565153855a751
+SHA1 (patch-src_lisp.h) = 7b4c7984cfbfe1e3a30aac2009f777b8d95c013c

@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.11 2009/06/14 18:17:18 joerg Exp $
+bin/intltool-extract
+bin/intltool-merge
+bin/intltool-prepare
+bin/intltool-update
+bin/intltoolize
+man/man8/intltool-extract.8
+man/man8/intltool-merge.8
+man/man8/intltool-prepare.8
+man/man8/intltool-update.8
+man/man8/intltoolize.8
+share/aclocal/intltool.m4
+share/intltool/Makefile.in.in

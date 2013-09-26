@@ -1,0 +1,24 @@
+$NetBSD: patch-al,v 1.2 2011/08/25 14:54:06 hans Exp $
+
+--- ckuath.c.orig	2011-06-13 19:26:54.000000000 +0200
++++ ckuath.c	2011-08-23 10:36:18.019522988 +0200
+@@ -117,19 +117,6 @@ int accept_complete = 0;
+ #include <time.h>
+ #include <fcntl.h>
+ #include <errno.h>
+-#ifndef malloc
+-#ifndef VMS
+-#ifndef FREEBSD4
+-#ifndef OpenBSD
+-#ifdef MACOSX
+-#include <sys/malloc.h>
+-#else /* MACOSX */
+-#include <malloc.h>
+-#endif /* MACOSX */
+-#endif /* OpenBSD */
+-#endif /* FREEBSD4 */
+-#endif /* VMS */
+-#endif /* malloc */
+ #ifdef OS2
+ #include <io.h>
+ #endif /* OS2 */

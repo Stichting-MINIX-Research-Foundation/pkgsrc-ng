@@ -1,0 +1,25 @@
+$NetBSD: patch-aa,v 1.3 2013/01/26 22:16:18 wiz Exp $
+
+First chunk: automake-1.13 compat.
+Rest: ?
+
+--- configure.ac.orig	2004-08-28 18:54:44.000000000 +0000
++++ configure.ac
+@@ -73,7 +73,7 @@ dnl -- Build system init --
+ 
+ AM_INIT_AUTOMAKE([1.6 foreign])
+ AM_MAINTAINER_MODE
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AC_PROG_LIBTOOL
+ AC_SUBST(LIBTOOL_DEPS)
+ 
+@@ -367,7 +367,7 @@ then
+     LDFLAGS="$LDFLAGS -L$with_flac/lib"
+   fi
+ 
+-  AC_CHECK_HEADER(faad.h, have_flac="maybe")
++  AC_CHECK_HEADER(FLAC/stream_decoder.h, have_flac="maybe")
+   if test "$have_flac" != "no"
+   then
+     AC_CHECK_LIB(FLAC, FLAC__stream_decoder_new, [

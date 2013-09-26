@@ -1,0 +1,31 @@
+$NetBSD: patch-ab,v 1.6 2013/05/19 08:14:05 shattered Exp $
+
+--- src/Makefile.in.orig	2010-04-21 17:26:56.000000000 +0000
++++ src/Makefile.in
+@@ -15,10 +15,11 @@ VERSION=@VERSION@
+ 
+ INSTALL=@INSTALL@
+ INSTALL_PROGRAM=@INSTALL_PROGRAM@
++INSTALL_SCRIPT=@INSTALL_SCRIPT@
+ INSTALL_DATA=@INSTALL_DATA@
+ 
+ PROGS=		remind rem2ps
+-SCRIPTS=	$(srcdir)/../scripts/tkremind $(srcdir)/../scripts/cm2rem.tcl
++SCRIPTS=	$(srcdir)/../scripts/tkremind $(srcdir)/../scripts/cm2rem
+ 
+ MANS=		$(srcdir)/../man/rem2ps.1 $(srcdir)/../man/remind.1 \
+ 		$(srcdir)/../man/tkremind.1 $(srcdir)/../man/cm2rem.1 \
+@@ -51,9 +52,12 @@ remind: $(REMINDOBJS)
+ 
+ install-nostripped: all
+ 	-mkdir -p $(DESTDIR)$(bindir) || true
+-	for prog in $(PROGS) $(SCRIPTS) ; do \
++	for prog in $(PROGS) ; do \
+ 		$(INSTALL_PROGRAM) $$prog $(DESTDIR)$(bindir) || exit 1; \
+ 	done
++	for prog in $(SCRIPTS) ; do \
++		$(INSTALL_SCRIPT) $$prog $(DESTDIR)$(bindir) || exit 1; \
++	done
+ 	rm -f $(DESTDIR)$(bindir)/rem > /dev/null 2>&1 || true
+ 	ln -s remind $(DESTDIR)$(bindir)/rem
+ 	-mkdir -p $(DESTDIR)$(mandir)/man1 || true

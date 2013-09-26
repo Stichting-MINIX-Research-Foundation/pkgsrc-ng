@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 21:28:47 joerg Exp $
+bin/bbsload
+man/man1/bbsload.1
+share/bbtools/README.bbsload
+share/bbtools/bbsload.bb
+share/bbtools/bbsload.nobb

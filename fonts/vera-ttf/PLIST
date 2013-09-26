@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:54:16 joerg Exp $
+lib/X11/fonts/TTF/Vera.ttf
+lib/X11/fonts/TTF/VeraBI.ttf
+lib/X11/fonts/TTF/VeraBd.ttf
+lib/X11/fonts/TTF/VeraIt.ttf
+lib/X11/fonts/TTF/VeraMoBI.ttf
+lib/X11/fonts/TTF/VeraMoBd.ttf
+lib/X11/fonts/TTF/VeraMoIt.ttf
+lib/X11/fonts/TTF/VeraMono.ttf
+lib/X11/fonts/TTF/VeraSe.ttf
+lib/X11/fonts/TTF/VeraSeBd.ttf
+share/doc/vera-ttf/COPYRIGHT.TXT
+share/doc/vera-ttf/README.TXT
+share/doc/vera-ttf/RELEASENOTES.TXT
+share/examples/vera-ttf/local.conf

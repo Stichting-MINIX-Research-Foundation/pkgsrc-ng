@@ -1,0 +1,17 @@
+$NetBSD: patch-aa,v 1.8 2009/11/22 21:05:17 drochner Exp $
+
+--- dao/ScsiIf-lib.cc.orig	2009-02-22 11:40:11.000000000 +0100
++++ dao/ScsiIf-lib.cc
+@@ -288,6 +288,12 @@ int ScsiIf::inquiry()
+     revision_[i] = 0;
+   }
+ 
++  if (vendor_[0] == 0)
++    strncpy(vendor_, "UNKNOWN", 8);
++
++  if (product_[0] == 0)
++    strncpy(product_, "UNKNOWN", 8);
++
+   return 0;
+ }
+ 

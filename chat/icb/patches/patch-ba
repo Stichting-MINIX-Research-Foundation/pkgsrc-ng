@@ -1,0 +1,12 @@
+$NetBSD: patch-ba,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- murgil/getaddr.c.orig	1995-02-24 16:19:40.000000000 -0500
++++ murgil/getaddr.c	2008-12-16 20:29:02.000000000 -0500
+@@ -14,6 +14,7 @@
+ */
+ 
+ #include <stdio.h>
++#include <string.h>
+ #include <sys/types.h>
+ #include <netinet/in.h>
+ #include <netdb.h>

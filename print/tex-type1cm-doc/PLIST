@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2011/06/17 19:46:34 minskim Exp $
+share/texmf-dist/doc/latex/type1cm/type1cm-doc.pdf
+share/texmf-dist/doc/latex/type1cm/type1cm-doc.tex
+share/texmf-dist/doc/latex/type1cm/type1cm.txt

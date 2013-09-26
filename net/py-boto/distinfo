@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2012/11/08 19:27:12 jakllsch Exp $
+
+SHA1 (boto-2.6.0.tar.gz) = 38b6f630d585168527bc49568d9d68b504e410f0
+RMD160 (boto-2.6.0.tar.gz) = 07f614c199efece4e6f3315b3b527be94fe362de
+Size (boto-2.6.0.tar.gz) = 640220 bytes

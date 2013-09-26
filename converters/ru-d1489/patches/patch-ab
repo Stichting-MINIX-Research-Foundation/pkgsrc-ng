@@ -1,0 +1,34 @@
+$NetBSD: patch-ab,v 1.3 2012/07/24 17:17:30 mishka Exp $
+
+Adopt to pkgsrc framework.
+
+--- Makefile.orig	2005-10-16 22:08:22.000000000 +0000
++++ Makefile
+@@ -23,7 +23,7 @@
+ # OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ # SUCH DAMAGE.
+ 
+-PREFIX=/usr/local
++PREFIX?=/usr/local
+ LOCAL_CFLAGS=-O
+ #LOCAL_CFLAGS=-O -DNO_RENAME
+ LOCAL_LDFLAGS=-s
+@@ -39,12 +39,12 @@ a2kfcnv:  a2kfcnv.c koi82alt.h
+ 		a2kfcnv.c -o $@
+ 
+ install: todos a2kfcnv
+-	cp todos ${PREFIX}/bin
+-	-rm -f ${PREFIX}/bin/fromdos ${PREFIX}/bin/fromwin ${PREFIX}/bin/towin
+-	ln ${PREFIX}/bin/todos ${PREFIX}/bin/fromdos
+-	ln ${PREFIX}/bin/todos ${PREFIX}/bin/fromwin
+-	ln ${PREFIX}/bin/todos ${PREFIX}/bin/towin
+-	cp a2kfcnv ${PREFIX}/bin
++	${BSD_INSTALL_PROGRAM} todos ${DESTDIR}${PREFIX}/bin
++	-rm -f ${DESTDIR}${PREFIX}/bin/fromdos ${DESTDIR}${PREFIX}/bin/fromwin ${DESTDIR}${PREFIX}/bin/towin
++	ln ${DESTDIR}${PREFIX}/bin/todos ${DESTDIR}${PREFIX}/bin/fromdos
++	ln ${DESTDIR}${PREFIX}/bin/todos ${DESTDIR}${PREFIX}/bin/fromwin
++	ln ${DESTDIR}${PREFIX}/bin/todos ${DESTDIR}${PREFIX}/bin/towin
++	${BSD_INSTALL_PROGRAM} a2kfcnv ${DESTDIR}${PREFIX}/bin
+ 
+ clean:
+ 	-rm -f todos a2kfcnv

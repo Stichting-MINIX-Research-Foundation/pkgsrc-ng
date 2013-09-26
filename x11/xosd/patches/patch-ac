@@ -1,0 +1,16 @@
+$NetBSD: patch-ac,v 1.4 2012/01/09 17:57:34 wiz Exp $
+
+Separate build of xmms plugin from the rest, so it can be split in two packages.
+
+--- src/Makefile.in.orig	2004-11-17 19:30:22.000000000 +0000
++++ src/Makefile.in
+@@ -231,7 +231,8 @@ osd_cat_LDADD = libxosd/libxosd.la
+ testprog_LDADD = libxosd/libxosd.la
+ include_HEADERS = xosd.h
+ AM_CFLAGS = ${GTK_CFLAGS}
+-SUBDIRS = libxosd xmms_plugin bmp_plugin
++@BUILD_NEW_PLUGIN_TRUE@SUBDIRS = libxosd xmms_plugin
++@BUILD_NEW_PLUGIN_FALSE@SUBDIRS = libxosd
+ all: all-recursive
+ 
+ .SUFFIXES:

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 22:06:43 joerg Exp $
+bin/xvidtune
+lib/X11/app-defaults/Xvidtune
+man/man1/xvidtune.1

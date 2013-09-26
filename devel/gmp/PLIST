@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.13 2009/01/20 17:51:12 sketch Exp $
+include/gmp.h
+${PLIST.cxx}include/gmpxx.h
+info/gmp.info
+lib/libgmp.la
+${PLIST.cxx}lib/libgmpxx.la

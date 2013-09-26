@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2011/10/21 21:09:43 hiramatsu Exp $
+
+SHA1 (Authen-Htpasswd-0.171.tar.gz) = eeefb422803f4cb0fb16544e9c3d9b776c0d18fd
+RMD160 (Authen-Htpasswd-0.171.tar.gz) = 87e38f794b26d7bbbf1dd5b522af40e3c1922943
+Size (Authen-Htpasswd-0.171.tar.gz) = 8342 bytes

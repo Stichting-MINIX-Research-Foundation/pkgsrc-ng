@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2003/03/03 04:17:30 jschauma Exp $
+bin/xpaste
+${IMAKE_MAN_DIR}/xpaste.${IMAKE_MANNEWSUFFIX}

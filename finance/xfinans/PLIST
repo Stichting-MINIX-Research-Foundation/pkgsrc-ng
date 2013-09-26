@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:53:35 joerg Exp $
+bin/xfinans
+lib/X11/app-defaults/XFinans/XFinans.defaults
+share/doc/Xfinans/INSTALL
+share/doc/Xfinans/README
+share/doc/Xfinans/xfin.ps
+share/examples/Xfinans/categories
+share/examples/Xfinans/category_engine
+share/examples/Xfinans/check.acc
+share/examples/Xfinans/finans.bkd
+share/examples/Xfinans/giro.acc
+share/examples/Xfinans/hyperhelp
+share/examples/Xfinans/hyperhelp.index
+share/examples/Xfinans/savings.acc
+share/examples/Xfinans/variables

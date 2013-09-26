@@ -1,0 +1,305 @@
+$NetBSD: patch-ab,v 1.2 2013/01/11 23:35:12 joerg Exp $
+--- tclexpat.c.orig	1998-08-22 07:35:44.000000000 +0000
++++ tclexpat.c
+@@ -19,7 +19,8 @@
+  */
+ 
+ #include <tcl.h>
+-#include "xmlparse.h"
++#include <expat.h>
++#include <string.h>
+ 
+ /*
+  * The structure below is used to refer to an expat parser object.
+@@ -814,12 +814,12 @@ TclExpatElementStartHandler(userData, na
+      */
+ 
+     expat->continueCount++;
+-    return;
++    return NULL;
+   }
+ 
+   if (expat->elementstartcommand == NULL || 
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -847,18 +847,18 @@ TclExpatElementStartHandler(userData, na
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -894,13 +894,13 @@ TclExpatElementEndHandler(userData, name
+ 
+     if (!--(expat->continueCount)) {
+       expat->status = TCL_OK;
+-      return;
++      return NULL;
+     }
+   }
+ 
+   if (expat->elementendcommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -917,18 +917,18 @@ TclExpatElementEndHandler(userData, name
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -959,7 +959,7 @@ TclExpatCharacterDataHandler(userData, s
+ 
+   if (expat->datacommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -976,18 +976,18 @@ TclExpatCharacterDataHandler(userData, s
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -1018,7 +1018,7 @@ TclExpatProcessingInstructionHandler(use
+ 
+   if (expat->picommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -1036,18 +1036,18 @@ TclExpatProcessingInstructionHandler(use
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -1078,7 +1078,7 @@ TclExpatDefaultHandler(userData, s, len)
+ 
+   if (expat->defaultcommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -1095,18 +1095,18 @@ TclExpatDefaultHandler(userData, s, len)
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -1140,7 +1140,7 @@ TclExpatUnparsedDeclHandler(userData, en
+ 
+   if (expat->unparsedcommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -1169,18 +1169,18 @@ TclExpatUnparsedDeclHandler(userData, en
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -1213,7 +1213,7 @@ TclExpatNotationDeclHandler(userData, no
+ 
+   if (expat->notationcommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -1241,18 +1241,18 @@ TclExpatNotationDeclHandler(userData, no
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*
+@@ -1287,7 +1287,7 @@ TclExpatUnknownEncodingHandler(encodingH
+ 
+   if (expat->unknownencodingcommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return 0;
+   }
+ 
+   /*
+@@ -1306,18 +1306,18 @@ TclExpatUnknownEncodingHandler(encodingH
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return 0;
+ }
+ 
+ /*
+@@ -1350,7 +1350,7 @@ TclExpatExternalEntityRefHandler(parser,
+ 
+   if (expat->externalentitycommand == NULL ||
+       expat->status != TCL_OK) {
+-    return;
++    return NULL;
+   }
+ 
+   /*
+@@ -1370,18 +1370,18 @@ TclExpatExternalEntityRefHandler(parser,
+    * It would be desirable to be able to terminate parsing
+    * if the return result is TCL_ERROR or TCL_BREAK.
+    */
+-#if (TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION == 0)
++#if (TCL_MAJOR_VERSION == 8)
+   result = Tcl_GlobalEvalObj(expat->interp, cmdPtr);
+ #else
+   result = Tcl_EvalObj(expat->interp, cmdPtr, TCL_EVAL_GLOBAL);
+-#endif /* if TCL_MAJOR_VERSION == 8 && TCL_MINOR_VERSION */
++#endif /* if TCL_MAJOR_VERSION == 8 */
+ 
+   Tcl_DecrRefCount(cmdPtr);
+   Tcl_Release((ClientData) expat->interp);
+ 
+   TclExpatHandlerResult(expat, result);
+ 
+-  return;
++  return NULL;
+ }
+ 
+ /*

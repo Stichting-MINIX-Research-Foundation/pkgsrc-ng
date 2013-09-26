@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:05 joerg Exp $
+bin/ftwin
+man/man8/ftwin.8
+share/doc/ftwin/EXAMPLES
+share/doc/ftwin/KNOWN_BUGS
+share/doc/ftwin/LICENSE
+share/doc/ftwin/README

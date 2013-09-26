@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.4 2010/06/25 22:12:31 joerg Exp $
+bin/moria
+man/man6/moria.6
+share/doc/moria/ERRORS
+share/doc/moria/FEATURES.NEW
+share/doc/moria/dragon.inf
+share/doc/moria/exp.doc
+share/doc/moria/faq
+share/doc/moria/history
+share/doc/moria/moria.ms
+share/doc/moria/moria.txt
+share/doc/moria/pronounc
+share/doc/moria/spells.doc
+share/doc/moria/where.inf
+share/games/moria/hours
+share/games/moria/news
+share/games/moria/origcmds.hlp
+share/games/moria/owizcmds.hlp
+share/games/moria/roglcmds.hlp
+share/games/moria/rwizcmds.hlp
+share/games/moria/version.hlp
+share/games/moria/welcome.hlp

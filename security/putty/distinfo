@@ -1,0 +1,13 @@
+$NetBSD: distinfo,v 1.13.6.1 2013/08/21 19:40:13 tron Exp $
+
+SHA1 (putty-0.63.tar.gz) = 195c0603ef61082b91276faa8d4246ea472bba3b
+RMD160 (putty-0.63.tar.gz) = cf28d88a5f0e1db6c21bb0308bd59ed4d6399e5f
+Size (putty-0.63.tar.gz) = 1887913 bytes
+SHA1 (patch-import.c) = da6a34ec3412985858babb28821296c40e30d96b
+SHA1 (patch-ldisc.c) = e4dd89bfb2ddcb47aad46cc7c311f424aa6ab6be
+SHA1 (patch-timing.c) = 9dd79fde390878960e97c456628bbd5dcbcd07f9
+SHA1 (patch-unix_Makefile.gtk) = 0ad8226e2ad8e6e40d3eb9ddef4b22e7d07b7895
+SHA1 (patch-unix_gtkwin.c) = ccabdde03fda8bbc24d659a440fe48f96ab5d867
+SHA1 (patch-unix_uxnet.c) = 2d1c2939721993fe5616c2fe3f1935c03a31bb35
+SHA1 (patch-unix_uxucs.c) = a2a5021b515c3bade1126ed062bdc1eece1ca0f9
+SHA1 (patch-windows_window.c) = e851bad963967429131286c18e39d1ac4add4ae7

@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.16 2009/06/14 18:31:59 joerg Exp $
+bin/adr2vcf
+bin/apoconv
+bin/scmxx
+bin/smi
+man/de/man1/scmxx.1
+man/it/man1/scmxx.1
+man/man1/scmxx.1
+man/ru/man1/scmxx.1
+share/doc/scmxx/doc_sources.txt
+share/doc/scmxx/gsmcharset.txt
+share/examples/scmxx/debian_with_scmxx.bmp
+share/examples/scmxx/sms.txt
+share/examples/scmxx/vCalendar.vcs
+share/examples/scmxx/vCard.vcf
+share/locale/de/LC_MESSAGES/scmxx.mo
+share/locale/fr/LC_MESSAGES/scmxx.mo
+share/locale/it/LC_MESSAGES/scmxx.mo
+share/locale/ru/LC_MESSAGES/scmxx.mo

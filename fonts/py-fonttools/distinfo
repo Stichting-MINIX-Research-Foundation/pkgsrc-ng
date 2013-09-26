@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2011/10/29 11:40:27 obache Exp $
+
+SHA1 (fonttools-2.3.tar.gz) = 3d434d6192a1feb6605d67975c1e973e084e86d7
+RMD160 (fonttools-2.3.tar.gz) = df5021ea53b8a7fa016dfd3ff763b1dfaf0d7c4b
+Size (fonttools-2.3.tar.gz) = 348810 bytes

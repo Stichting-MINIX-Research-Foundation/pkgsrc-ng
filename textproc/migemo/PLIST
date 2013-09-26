@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:17:22 joerg Exp $
+bin/migemo
+bin/migemo-client
+bin/migemo-grep
+bin/migemo-server
+${RUBY_VENDORLIB}/migemo-cache.rb
+${RUBY_VENDORLIB}/migemo-convert.rb
+${RUBY_VENDORLIB}/migemo-dict.rb
+${RUBY_VENDORLIB}/migemo-index.rb
+${RUBY_VENDORLIB}/migemo-regex.rb
+${RUBY_VENDORLIB}/migemo.rb
+share/migemo/migemo-dict
+share/migemo/migemo-dict.cache
+share/migemo/migemo-dict.cache.idx
+share/migemo/migemo-dict.idx
+share/migemo/migemo.ja.rd
+share/migemo/regex-dict.sample
+share/migemo/user-dict.sample

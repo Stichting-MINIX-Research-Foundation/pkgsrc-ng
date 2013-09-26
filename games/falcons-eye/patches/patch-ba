@@ -1,0 +1,42 @@
+$NetBSD: patch-ba,v 1.2 2012/05/16 22:53:15 marino Exp $
+
+--- sys/unix/Makefile.src.orig	2001-06-24 16:57:24.000000000 +0000
++++ sys/unix/Makefile.src
+@@ -146,7 +146,7 @@ GNOMEINC=-I/usr/lib/glib/include -I/usr/
+ # directories. You should have sdl-config in your path; it gives the 
+ # necessary compile and link flags. 
+ #
+-JTPINC=$(shell sdl-config --cflags)
++JTPINC!=sdl-config --cflags
+ 
+ # flags for debugging:
+ # CFLAGS = -g -I../include
+@@ -218,8 +218,8 @@ WINBEOBJ =
+ 
+ #
+ #
+-WINSRC = $(WINTTYSRC) $(WINJTPSRC)
+-WINOBJ = $(WINTTYOBJ) $(WINJTPOBJ)
++WINSRC = $(WINJTPSRC)
++WINOBJ = $(WINJTPOBJ)
+ 
+ # on some systems the termcap library is in -ltermcap or -lcurses
+ # on 386 Xenix, the -ltermlib tputs() seems not to work; use -lcurses instead
+@@ -239,7 +239,7 @@ WINTTYLIB = -lncurses
+ #
+ 
+ # SDL libraries for Falcon's Eye
+-WINJTPLIB = $(shell sdl-config --libs)
++WINJTPLIB!=sdl-config --libs
+ 
+ #
+ # libraries for X11
+@@ -264,7 +264,7 @@ WINGEMLIB = -le_gem -lgem
+ # libraries for BeOS 
+ WINBELIB = -lbe
+ 
+-WINLIB = $(WINTTYLIB) $(WINJTPLIB)
++WINLIB = $(WINJTPLIB) -lm
+ 
+ # any other strange libraries your system needs (for Sysunix only -- the more
+ # specialized targets should already be right)

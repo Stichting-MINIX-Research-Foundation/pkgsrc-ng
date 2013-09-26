@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:07:30 joerg Exp $
+bin/gpgen
+${GEM_HOME}/cache/gem_plugin-${PKGVERSION}.gem
+${GEM_LIBDIR}/CHANGELOG
+${GEM_LIBDIR}/COPYING
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/Manifest
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/bin/gpgen
+${GEM_LIBDIR}/gem_plugin.gemspec
+${GEM_LIBDIR}/lib/gem_plugin.rb
+${GEM_LIBDIR}/resources/COPYING
+${GEM_LIBDIR}/resources/LICENSE
+${GEM_LIBDIR}/resources/README
+${GEM_LIBDIR}/resources/Rakefile
+${GEM_LIBDIR}/resources/lib/project/init.rb
+${GEM_LIBDIR}/resources/resources/defaults.yaml
+${GEM_LIBDIR}/setup.rb
+${GEM_LIBDIR}/test/test_plugins.rb
+${GEM_HOME}/specifications/gem_plugin-${PKGVERSION}.gemspec

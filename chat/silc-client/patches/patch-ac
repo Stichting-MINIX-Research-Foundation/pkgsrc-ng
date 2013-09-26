@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.10 2008/07/13 12:04:11 tonnerre Exp $
+
+--- apps/irssi/src/perl/Makefile.in.orig	2007-11-06 15:45:06.000000000 +0100
++++ apps/irssi/src/perl/Makefile.in	2007-12-07 16:08:08.000000000 +0100
+@@ -291,7 +291,7 @@
+ moduledir = @SILC_IRSSIDIR@
+ @SILCPLUGIN_FALSE@perl_dirs = common ui textui silc
+ @SILCPLUGIN_TRUE@perl_dirs = silc
+-@SILCPLUGIN_FALSE@SCRIPTDIR = "$(datadir)/silc/scripts"
++@SILCPLUGIN_FALSE@SCRIPTDIR = "$(prefix)/libexec/silc-client/scripts"
+ @SILCPLUGIN_TRUE@SCRIPTDIR = "$(datadir)/irssi/scripts"
+ module_LTLIBRARIES = $(perl_module_lib) $(perl_module_fe_lib)
+ noinst_LTLIBRARIES = $(perl_static_lib) $(perl_static_fe_lib)

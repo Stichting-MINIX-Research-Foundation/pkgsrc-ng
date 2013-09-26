@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2013/03/14 16:36:48 kim Exp $
+man/man8/ssync.8
+sbin/ssync
+share/examples/ssync/ssync.conf

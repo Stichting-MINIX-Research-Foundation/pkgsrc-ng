@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2013/05/26 01:52:40 ryoon Exp $
+
+SHA1 (cvs-fast-export-0.4.tar.gz) = 528fa1881996c93b4afb3652b8445d2ec6bfd09e
+RMD160 (cvs-fast-export-0.4.tar.gz) = 7fdd19bfd050bac1a6f46fee6245922b2314553e
+Size (cvs-fast-export-0.4.tar.gz) = 83390 bytes
+SHA1 (patch-Makefile) = abbc0f75ba1276630588d3787805888f471633bf

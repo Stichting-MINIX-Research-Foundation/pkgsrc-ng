@@ -1,0 +1,5 @@
+include Makefile.defs.default
+
+EMACS=	 	${DESTDIR}@EMACS@
+PREFIX=		${DESTDIR}@PREFIX@
+ELISPDIR=	${DESTDIR}@LISPDIR@/muse

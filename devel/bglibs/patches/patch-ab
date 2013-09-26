@@ -1,0 +1,33 @@
+$NetBSD: patch-ab,v 1.6 2009/04/07 02:59:04 schmonz Exp $
+
+--- Makefile.orig	2009-02-19 12:11:51.000000000 -0500
++++ Makefile
+@@ -69,7 +69,7 @@ adt/hashb.lo adt/hashb.o: ltcompile adt/
+ adt/hashs.lo adt/hashs.o: ltcompile adt/hashs.c adt/common.h
+ 	./ltcompile adt/hashs.c
+ 
+-all: dotlibs sysdeps.h libraries bg-installer cli-generate selftests
++all: dotlibs sysdeps.h libraries bg-installer cli-generate
+ 
+ base64/asc2bin.lo base64/asc2bin.o: ltcompile base64/asc2bin.c base64/base64.h str/str.h
+ 	./ltcompile base64/asc2bin.c
+@@ -632,7 +632,7 @@ makeshlib: conf-ld conf-lib LIBVERSION M
+ 	  echo '#!/bin/sh'; \
+ 	  echo 'lib="$$1"; shift';\
+ 	  echo 'rm -f "$$lib"';\
+-	  echo libtool --mode=link --silent $$tag `head -n 1 conf-ld` '-o "$$lib" -rpath' `head -n 1 conf-lib` -version-info `head -n 1 LIBVERSION` '$${1+"$$@"}';\
++	  echo libtool --mode=link --silent $$tag `head -n 1 conf-ld` '-o "$$lib" -rpath' `head -n 1 conf-lib` -version-info `head -n 1 LIBVERSION` '$${1+"$$@"}' `cat socket.lib`;\
+ 	) >makeshlib
+ 	chmod 755 makeshlib
+ 
+@@ -876,9 +876,7 @@ path/mktemp.lo path/mktemp.o: ltcompile 
+ 	./ltcompile path/mktemp.c
+ 
+ perl-head.pl: 
+-	( set -e; PATH="/bin:/usr/bin:/usr/local/bin:$$PATH"; export PATH; \
+-	  perl=`which perl`; \
+-	  echo "#! $$perl"; \
++	( echo "#! ${PERL5}"; \
+ 	  echo "# WARNING: This file was auto-generated. Do not edit!"; \
+ 	  echo ) >perl-head.pl
+ 

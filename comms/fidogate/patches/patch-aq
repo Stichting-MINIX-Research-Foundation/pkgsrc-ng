@@ -1,0 +1,33 @@
+$NetBSD: patch-aq,v 1.4 2009/12/18 01:09:23 abs Exp $
+
+--- src/toss/history.c.orig	2004-08-22 20:19:14.000000000 +0000
++++ src/toss/history.c
+@@ -151,8 +151,8 @@ static int hi_write_t(time_t t, time_t m
+     }
+ 
+     /* Write MSGID line to history text file */
+-    debug(7, "history: offset=%ld: %s %ld", offset, msgid, t);
+-    ret = fprintf(hi_file, "%s\t%ld\n", msgid, t);
++    debug(7, "history: offset=%ld: %s %ld", offset, msgid, (long)t);
++    ret = fprintf(hi_file, "%s\t%ld\n", msgid, (long)t);
+     if (ret == ERROR || fflush(hi_file) == ERROR)
+     {
+ 	logit("$ERROR: write to MSGID history failed");
+@@ -280,7 +280,7 @@ int main(int argc, char *argv[])
+ 	    {
+ 		if(t)
+ 		{
+-		    debug(2, "new: %s (time=%ld)", m, t);
++		    debug(2, "new: %s (time=%ld)", m, (long)t);
+ 		    hi_write_t(t, 0, m);
+ 		}
+ 		else
+@@ -305,7 +305,7 @@ int main(int argc, char *argv[])
+ 	    {
+ 		if(t)
+ 		{
+-		    debug(2, "new: %s (time=%ld)", m, t);
++		    debug(2, "new: %s (time=%ld)", m, (long)t);
+ 		    hi_write_t(t, 0, m);
+ 		}
+ 		else

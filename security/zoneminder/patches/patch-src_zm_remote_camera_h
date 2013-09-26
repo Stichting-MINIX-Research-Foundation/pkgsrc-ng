@@ -1,0 +1,18 @@
+$NetBSD: patch-src_zm_remote_camera_h,v 1.3 2013/04/29 21:31:13 joerg Exp $
+
+Declare sockaddr_in.
+
+--- src/zm_remote_camera.h.orig	2009-06-02 07:59:26.000000000 +0000
++++ src/zm_remote_camera.h
+@@ -22,8 +22,11 @@
+ 
+ #include "zm_camera.h"
+ 
++#include <netinet/in.h>
++
+ #include <string>
+ #include <netdb.h>
++#include <time.h>
+ 
+ //
+ // Class representing 'remote' cameras, i.e. those which are

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:43:27 joerg Exp $
+bin/yasql
+man/man1/yasql.1
+share/examples/yasql/yasql.conf

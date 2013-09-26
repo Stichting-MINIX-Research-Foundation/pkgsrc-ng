@@ -1,0 +1,13 @@
+$NetBSD: patch-ae,v 1.2 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- utils/magic.h.orig	2006-10-04 17:30:19.000000000 +0000
++++ utils/magic.h
+@@ -280,7 +280,7 @@ extern char AbortMessage[];
+ #ifdef CYGWIN
+ #include <errno.h>
+ #define sys_errlist _sys_errlist
+-#elif !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(macosx)
++#elif !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__) && !defined(macosx)
+ extern int errno;
+ /* extern char *sys_errlist[]; */
+ #elif defined(macosx)

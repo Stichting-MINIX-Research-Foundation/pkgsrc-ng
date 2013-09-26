@@ -1,0 +1,18 @@
+$NetBSD: patch-aa,v 1.2 2010/01/29 17:53:16 joerg Exp $
+
+--- Makefile.orig	2006-04-26 02:54:39.000000000 +0900
++++ Makefile	2008-01-19 19:40:19.000000000 +0900
+@@ -4,11 +4,11 @@
+ 
+ .SUFFIXES:
+ 
+-INSTALLPATH := /usr/local
++INSTALLPATH = ${DESTDIR}${PREFIX}
+ INCDIR := $(INSTALLPATH)/include/cut-2
+ BINDIR := $(INSTALLPATH)/bin
+ 
+-bin/cutgen:
++all:
+ 	(cd src; make posix)
+ 	mv src/cutgen bin
+ 

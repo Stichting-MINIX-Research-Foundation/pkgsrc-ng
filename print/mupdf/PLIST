@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.5 2012/08/21 19:50:53 drochner Exp $
+bin/mubusy
+bin/mudraw
+bin/mupdf
+include/fitz.h
+include/memento.h
+include/mucbz.h
+include/mupdf.h
+include/muxps.h
+lib/libfitz.la
+lib/pkgconfig/mupdf.pc
+man/man1/mubusy.1
+man/man1/mudraw.1
+man/man1/mupdf.1

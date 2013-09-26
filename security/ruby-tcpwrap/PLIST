@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 18:13:38 joerg Exp $
+${RUBY_VENDORARCHLIB}/tcpwrap.${RUBY_DLEXT}
+${RUBY_DOC}/tcpwrap/README.en
+${RUBY_DOC}/tcpwrap/tcpwrap.html.en
+${RUBY_DOC}/tcpwrap/ja/README.ja
+${RUBY_DOC}/tcpwrap/ja/tcpwrap.html.ja
+${RUBY_EG}/tcpwrap/echod.rb

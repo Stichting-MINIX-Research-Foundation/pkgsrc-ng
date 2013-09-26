@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2010/09/10 06:02:31 schnoebe Exp $
+
+SHA1 (SNMP_Session-1.13.tar.gz) = 7f4de0a9104ad6a0fb71af23ce83c71609c7e674
+RMD160 (SNMP_Session-1.13.tar.gz) = dee9008a0f378dc89ea7d89fe90b463b19826b42
+Size (SNMP_Session-1.13.tar.gz) = 65738 bytes

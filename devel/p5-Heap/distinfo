@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2008/07/20 21:53:32 he Exp $
+
+SHA1 (Heap-0.80.tar.gz) = 32f86fc3c557e42734f35281b7ed647eb2c7fcfb
+RMD160 (Heap-0.80.tar.gz) = 873da6e20cd490e851912bba3f8a08069b376715
+Size (Heap-0.80.tar.gz) = 15673 bytes

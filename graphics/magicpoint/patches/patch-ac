@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.4 2010/12/15 19:08:22 chuck Exp $
+
+--- Imakefile.in.orig	2007-12-03 18:08:40.000000000 +0900
++++ Imakefile.in
+@@ -22,8 +22,9 @@ LEX=	@LEX@
+ OPTFLAGS=	@OPTFLAGS@ ${CPPFLAGS}
+ DEFS=	@DEFS@ -DMGPLIBDIR=\"$(LIBDIR)/mgp\"
+ #DEFS+=	-DGLYPHEDGE
++DEPENDFLAGS=	$(DEFS) @OPTFLAGS@
+ 
+-SYS_LIBRARIES=	-L$(srcdir)/image -lmgpimage @LIBS@
++SYS_LIBRARIES=	-L$(srcdir)/image -lmgpimage @LDFLAGS@ @LIBS@
+ EXTRA_DEPLIBS=	@DEPLIBS@
+ 
+ #undef DefaultCDebugFlags

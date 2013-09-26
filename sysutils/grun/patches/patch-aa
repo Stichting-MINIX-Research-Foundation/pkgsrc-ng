@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.2 2009/08/26 15:55:14 snj Exp $
+
+--- Makefile.in.orig	2008-01-13 22:18:12.000000000 -0800
++++ Makefile.in	2009-08-26 08:30:31.000000000 -0700
+@@ -718,7 +718,7 @@ install-data: install-data-recursive
+ uninstall: uninstall-recursive
+ 
+ install-am: all-am
+-	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am install-data-am
++	@$(MAKE) $(AM_MAKEFLAGS) install-exec-am
+ 
+ installcheck: installcheck-recursive
+ install-strip:
+@@ -760,7 +760,7 @@ install-data-am: install-man
+ 
+ install-dvi: install-dvi-recursive
+ 
+-install-exec-am: install-binPROGRAMS install-dist_sysconfDATA
++install-exec-am: install-binPROGRAMS
+ 
+ install-html: install-html-recursive
+ 

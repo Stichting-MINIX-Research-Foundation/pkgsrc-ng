@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.9 2009/04/25 11:25:42 tnn Exp $
+
+SHA1 (mined-2000.15.tar.gz) = e1f0c5f40d7ced648892929daa88e68a2389d167
+RMD160 (mined-2000.15.tar.gz) = f791e07dde8b08d0ccaba22fa0776af4815ce28e
+Size (mined-2000.15.tar.gz) = 4238603 bytes
+SHA1 (patch-ac) = a9eef90ff05b633129aacf5b58fa75b9c785ceeb
+SHA1 (patch-ad) = 64ba3427ea49a2ab78c4651650b59a8b11b5b6ca
+SHA1 (patch-ae) = d842d09a248557dda9a5976b40e0adaae631fcb8

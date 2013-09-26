@@ -1,0 +1,36 @@
+$NetBSD: patch-ae,v 1.3 2012/10/24 15:38:00 joerg Exp $
+
+--- meter_rd.c.orig	2004-07-27 02:27:32.000000000 +0000
++++ meter_rd.c
+@@ -1,10 +1,8 @@
+-extern main();
+-extern flag_data_return[];
+-extern outport();
++#include "yaesu.h"
+ 
+ int meter_rd(int fdSer) {
+   int opcode, tx_status, n;
+-  char meter_value[5];
++  char meter_value[6];
+  
+    opcode = 250;
+    rd_flags(fdSer);
+@@ -13,7 +11,7 @@ int meter_rd(int fdSer) {
+  
+    if (tx_status != 1 && tx_status != 0) {
+       printf("The tx_status bit value is incorrect.  Serious program error!!!\n");
+-      return;
++      return -1;
+    } else {
+      opcode = 0x0f7; 
+    }
+@@ -33,7 +31,8 @@ int meter_rd(int fdSer) {
+     n = n +1;
+   } 
+   if (meter_value[5] != 0x0f7) {
+-     printf("The dummy byte returned to the meter_rd function is incorrect, possible serial port noise?\n");
++     printf("The dummy byte returned to the meter_rd function is incorrect, possible "
++            "serial port noise?\n");
+      } else {
+      printf("\nCurrent meter value is [33m[01m%x. [00mRange is 0..0ffh.\n", meter_value[3]);
+   }

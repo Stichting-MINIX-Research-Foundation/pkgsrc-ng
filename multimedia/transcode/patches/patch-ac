@@ -1,0 +1,31 @@
+$NetBSD: patch-ac,v 1.6 2012/10/10 13:37:25 drochner Exp $
+
+--- configure.orig	2011-11-19 16:50:37.000000000 +0000
++++ configure
+@@ -5096,7 +5096,7 @@ case "${target_os}" in
+ $as_echo "#define OS_LINUX 1" >>confdefs.h
+ 
+     ;;
+-  freebsd*|openbsd*|netbsd*|bsdi*|darwin*|rhapsody*)
++  freebsd*|openbsd*|netbsd*|bsdi*|darwin*|rhapsody*|dragonfly*)
+     is_bsd=yes
+ 
+ $as_echo "#define OS_BSD 1" >>confdefs.h
+@@ -19431,7 +19431,7 @@ case "$host" in
+ esac
+ # let user override
+ if test -n "$PTHREAD_LIBS" ; then
+-  pthread_libs="$PTHREAD_LIBS"
++  pthread_libs="$PTHREAD_LIBS $PTHREAD_LDFLAGS"
+ fi
+ if test -n "$PTHREAD_CFLAGS" ; then
+   pthread_cflags="$PTHREAD_CFLAGS"
+@@ -29507,7 +29507,7 @@ if test "${enable_nuv+set}" = set; then 
+     yes) if test yes != "$have_lzo"; then
+            as_fn_error $? "liblzo2 is required for NuppelVideo support, try --enable-lzo" "$LINENO" 5
+          fi
+-    	 if test true == "$have_x86_64cpu"; then
++    	 if test true = "$have_x86_64cpu"; then
+            { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: NuppelVideo support on x86_64 platform is ***EXPERIMENTAL***" >&5
+ $as_echo "$as_me: WARNING: NuppelVideo support on x86_64 platform is ***EXPERIMENTAL***" >&2;}
+          elif test true != "$have_x86cpu"; then

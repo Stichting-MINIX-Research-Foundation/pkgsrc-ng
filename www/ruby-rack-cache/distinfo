@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/03/05 12:58:01 taca Exp $
+
+SHA1 (rack-cache-1.2.gem) = 524314d06117a933819a0e3a6d781520e914760a
+RMD160 (rack-cache-1.2.gem) = 2decf8c3c2beef36e96d8c7ce0ae2d38ced15231
+Size (rack-cache-1.2.gem) = 261632 bytes

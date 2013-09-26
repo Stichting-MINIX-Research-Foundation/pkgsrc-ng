@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2011/12/14 17:04:15 taca Exp $
+
+SHA1 (gemcutter-0.7.1.gem) = 87175c487b3d166912c5efbacfa6bcea59aa3147
+RMD160 (gemcutter-0.7.1.gem) = ce20f8e6bd48ef870deb74640c5fdfa4c8932dab
+Size (gemcutter-0.7.1.gem) = 9728 bytes

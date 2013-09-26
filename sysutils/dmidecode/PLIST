@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:16:03 joerg Exp $
+man/man8/biosdecode.8
+man/man8/dmidecode.8
+man/man8/ownership.8
+man/man8/vpddecode.8
+sbin/biosdecode
+sbin/dmidecode
+sbin/ownership
+sbin/vpddecode
+share/doc/dmidecode/AUTHORS
+share/doc/dmidecode/CHANGELOG
+share/doc/dmidecode/README

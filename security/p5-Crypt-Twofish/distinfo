@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2013/06/01 02:25:59 obache Exp $
+
+SHA1 (Crypt-Twofish-2.17.tar.gz) = f2659d7b9e7d7daadb3b2414174bd6ec8ac68eda
+RMD160 (Crypt-Twofish-2.17.tar.gz) = e170199a685f68b3761e9af274790ca422c9f015
+Size (Crypt-Twofish-2.17.tar.gz) = 13851 bytes

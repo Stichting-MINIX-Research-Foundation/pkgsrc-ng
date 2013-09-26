@@ -1,0 +1,18 @@
+This plugin uses libarchive to extend claws-mail's features to include
+archiving of IMAP, LOCAL, and POP accounts as well as calendar accounts.
+
+Archives are created with the following option:
+
+    format
+        - TAR
+        - PAX
+        - SHAR
+        - CPIO
+
+    compression:
+        - GZIP/ZIP
+        - BZIP2
+        - None
+
+    recursive
+        - Yes/No

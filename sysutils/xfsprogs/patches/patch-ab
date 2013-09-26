@@ -1,0 +1,16 @@
+$NetBSD: patch-ab,v 1.2 2012/10/26 20:32:56 joerg Exp $
+
+--- include/builddefs.in.orig	2005-10-07 16:51:34.000000000 +0000
++++ include/builddefs.in
+@@ -116,6 +116,11 @@ ifeq ($(PKG_PLATFORM),freebsd)
+ PLDLIBS = -L/usr/local/lib -lintl
+ PCFLAGS = -I/usr/local/include
+ endif
++ifeq ($(PKG_PLATFORM),netbsd)
++PLDLIBS = -L${PREFIX}/lib -Wl,-R${PREFIX}/lib -lintl
++PCFLAGS = -I${PREFIX}/include
++endif
++
+ 
+ GCFLAGS = -O1 $(OPTIMIZER) $(DEBUG) -funsigned-char -fno-strict-aliasing -Wall \
+ 	  -DVERSION=\"$(PKG_VERSION)\" -DLOCALEDIR=\"$(PKG_LOCALE_DIR)\"  \

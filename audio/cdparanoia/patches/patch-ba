@@ -1,0 +1,50 @@
+$NetBSD: patch-ba,v 1.4 2009/08/09 16:00:53 drochner Exp $
+
+--- paranoia/Makefile.in.orig	2008-09-04 21:02:47.000000000 +0200
++++ paranoia/Makefile.in
+@@ -21,10 +21,9 @@ CPPFLAGS+=-D_REENTRANT
+ OFILES = paranoia.o p_block.o overlap.o gap.o isort.o 
+ #TFILES = isort.t gap.t p_block.t paranoia.t
+ 
+-LIBS = ../interface/libcdda_interface.a -lm
+-export VERSION
++LIBS = ../interface/libcdda_interface.la -lm
+ 
+-all: lib slib
++all: slib
+ 
+ debug: 
+ 	$(MAKE) libcdda_paranoia.a CFLAGS="$(DEBUG)"
+@@ -33,23 +32,21 @@ lib:	
+ 	$(MAKE) libcdda_paranoia.a CFLAGS="$(OPT)" 
+ 
+ slib:	
+-	$(MAKE) lessmessy
+-	$(MAKE) libcdda_paranoia.so CFLAGS="$(OPT) -fpic" 
++	$(MAKE) libcdda_paranoia.so VERSION=$(VERSION) CFLAGS="$(OPT)" 
+ 
+ #test:	$(TFILES)
+ #
+ 
+-libcdda_paranoia.a: 	$(OFILES)	
+-	$(AR) -r libcdda_paranoia.a $(OFILES)
+-	$(RANLIB) libcdda_paranoia.a
+-
+-libcdda_paranoia.so: 	$(OFILES)	
+-	$(CC) -fpic -shared -o libcdda_paranoia.so.0.$(VERSION) -Wl,-soname -Wl,libcdda_paranoia.so.0 $(OFILES) -L ../interface -lcdda_interface
+-	[ -e libcdda_paranoia.so.0 ] || ln -s libcdda_paranoia.so.0.$(VERSION) libcdda_paranoia.so.0
+-	[ -e libcdda_paranoia.so ] || ln -s libcdda_paranoia.so.0.$(VERSION) libcdda_paranoia.so
++libcdda_paranoia.la: 	$(OFILES)
++	$(LIBTOOL) --mode=link $(CC) -o libcdda_paranoia.la $(OFILES:.o=.lo) \
++	    -version-info 1:0 -rpath $(PREFIX)/lib $(LIBS)	
++
++libcdda_paranoia.a:	libcdda_paranoia.la
++
++libcdda_paranoia.so:	libcdda_paranoia.la
+ 
+ .c.o:
+-	$(CC) $(CFLAGS) -c $<
++	$(LIBTOOL) --mode=compile $(CC) $(CFLAGS) -c $<
+ 
+ .c.t:
+ 	$(CC) -g -DTEST $(DEBUG) -o $@ $< $(LIBS)

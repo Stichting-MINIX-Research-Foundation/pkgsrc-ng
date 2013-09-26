@@ -1,0 +1,13 @@
+# $NetBSD: buildlink3.mk,v 1.7 2009/03/20 19:24:30 joerg Exp $
+
+BUILDLINK_TREE+=	ucl
+
+.if !defined(UCL_BUILDLINK3_MK)
+UCL_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.ucl+=	ucl>=1.02
+BUILDLINK_ABI_DEPENDS.ucl+=	ucl>=1.02nb2
+BUILDLINK_PKGSRCDIR.ucl?=	../../devel/ucl
+.endif # UCL_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-ucl

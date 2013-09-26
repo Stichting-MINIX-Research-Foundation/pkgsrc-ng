@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.3 2009/08/25 11:56:35 wiz Exp $
+bin/newspipe
+share/doc/newspipe/README
+share/doc/newspipe/manual.html
+share/examples/newspipe/newspipe.ini
+share/examples/newspipe/test.opml
+share/newspipe/cache.py
+share/newspipe/newspipe.py
+share/newspipe/opml.py

@@ -1,0 +1,30 @@
+$NetBSD: patch-ab,v 1.4 2008/10/02 13:35:02 joerg Exp $
+
+--- configure.orig	2005-05-24 18:36:28.000000000 +0200
++++ configure
+@@ -267,7 +267,7 @@ echo "ERROR: ${CPP} cannot parse sources
+ 
+ 
+ printf "checking for POSIX threads... "
+-if [ "${TARGET_OS}" = "freebsd" ]; then
++if [ "${TARGET_OS}" = "freebsd" -o "${TARGET_OS}" = "dragonfly" ]; then
+ PTHREAD_LIBS=-pthread ; else
+ PTHREAD_LIBS=-lpthread ; fi
+ echo '#include <pthread.h>' > test.c
+@@ -339,6 +339,7 @@ if [ "$USE_GTK" = 0 ]; then GTK_LDFLAGS=
+ if [ "$USE_GTK" = 0 ]; then GTK_CFLAGS="" ; fi
+ if [ "$USE_GTK" = 0 ]; then GTK_LDFLAGS="" ; fi
+ if [ "${TARGET_OS}" = "netbsd" ]; then OS_OK="1" ; fi ;
++if [ "${TARGET_OS}" = "dragonfly" ]; then OS_OK="1" ; fi ;
+ if [ "${TARGET_OS}" = "freebsd" ]; then OS_OK="1" ; fi ;
+ if [ "${TARGET_OS}" = "openbsd" ]; then OS_OK="1" ; fi ;
+ 
+@@ -396,7 +397,7 @@ rm -f test.c a.out
+ echo "done"
+ echo ""
+ echo "Final report:"
+-for A in  PREFIX USE_GTK HAVE_PTHREAD HAVE_LIB_PCAP USE_BEEP CFLAGS ; do
++for A in  PREFIX USE_GTK HAVE_PTHREAD HAVE_LIB_PCAP USE_BEEP CFLAGS PKGMANDIR; do
+   eval "VAL=\$${A}"
+   if [ -z "${VAL}" ]; then VAL="(null)"; fi
+   echo " - ${A} = ${VAL}"

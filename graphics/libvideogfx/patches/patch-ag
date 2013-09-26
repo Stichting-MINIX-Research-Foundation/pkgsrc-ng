@@ -1,0 +1,24 @@
+$NetBSD: patch-ag,v 1.2 2011/08/05 18:21:13 wiz Exp $
+
+Try to fix stricter GCC 3.4 template handling.
+
+--- libvideogfx/graphics/datatypes/primitives.hh.orig	2006-01-15 20:26:10.000000000 +0000
++++ libvideogfx/graphics/datatypes/primitives.hh
+@@ -35,6 +35,8 @@
+ #ifndef LIBVIDEOGFX_GRAPHICS_DATATYPES_PRIMITIVES_HH
+ #define LIBVIDEOGFX_GRAPHICS_DATATYPES_PRIMITIVES_HH
+ 
++#include <cmath>
++
+ namespace videogfx {
+ 
+   template <class T> struct Point2D
+@@ -52,7 +54,7 @@ namespace videogfx {
+ 
+     T x,y;
+ 
+-    T Length() const { return (T)sqrt((double)(x*x+y*y)); }
++    T Length() const { return (T)std::sqrt((double)(x*x+y*y)); }
+   };
+ 
+   template <class T> struct Rect2D

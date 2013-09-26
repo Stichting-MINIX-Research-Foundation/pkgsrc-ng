@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2013/01/27 10:03:42 rhaen Exp $
+
+SHA1 (Catalyst-Plugin-Session-Store-DBIC-0.12.tar.gz) = 82bedba1abb24d1b11a9f629cc181930ad332bcd
+RMD160 (Catalyst-Plugin-Session-Store-DBIC-0.12.tar.gz) = 670db971c318631e4dc79b113cabe040f0afd6be
+Size (Catalyst-Plugin-Session-Store-DBIC-0.12.tar.gz) = 7939 bytes

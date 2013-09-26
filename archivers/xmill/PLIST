@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:28:18 joerg Exp $
+bin/xcmill
+bin/xdemill
+bin/xmillexample
+bin/xmillinspect
+bin/xmilltest
+share/doc/xmill/COPYRIGHT.txt
+share/doc/xmill/LICENSE.txt
+share/doc/xmill/MANUAL.txt
+share/doc/xmill/README.txt
+share/doc/xmill/xmill-09-doc.txt
+share/doc/xmill/xmill.ps.gz

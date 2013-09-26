@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.8 2011/11/05 23:25:35 dholland Exp $
+bin/prcs
+bin/prcs-callback
+bin/prcs-ediff
+bin/prcs-emerge
+info/prcs.info
+man/man1/prcs-callback.1
+man/man1/prcs-ediff.1
+man/man1/prcs-emerge.1
+man/man1/prcs.1
+share/examples/prcs/prcs-ediff.el
+share/examples/prcs/prcs-ediff.elc
+share/examples/prcs/prcs-hooks.el
+share/examples/prcs/prcs-hooks.elc
+share/examples/prcs/prcs.el
+share/examples/prcs/prcs.elc

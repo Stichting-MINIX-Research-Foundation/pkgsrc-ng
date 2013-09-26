@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2010/02/16 18:28:01 wiz Exp $
+
+--- configure.orig	2008-10-29 08:48:06.000000000 -0400
++++ configure
+@@ -6430,7 +6430,7 @@ if test "$alsa_prefix" != "" ; then
+ 	LDFLAGS="$LDFLAGS $ALSA_LIBS"
+ fi
+ 
+-ALSA_LIBS="$ALSA_LIBS -lasound -lm -ldl -lpthread"
++ALSA_LIBS="$(pkg-config --libs alsa)"
+ LIBS="$ALSA_LIBS $LIBS"
+ { echo "$as_me:$LINENO: result: $ALSA_LIBS" >&5
+ echo "${ECHO_T}$ALSA_LIBS" >&6; }

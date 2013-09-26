@@ -1,0 +1,232 @@
+$NetBSD: patch-ac,v 1.8 2012/03/05 12:16:00 obache Exp $
+
+--- fep_com.c.orig	1991-05-29 01:31:09.000000000 -0400
++++ fep_com.c	2005-12-10 16:59:27.000000000 -0500
+@@ -6,11 +6,25 @@
+-#endif lint
++#endif /* lint */
+ 
+ #include <stdio.h>
++#include <sys/ioctl.h>
++#ifdef TERMIOS
++#include <termios.h>
++#ifdef __linux__
++#ifndef _POSIX_VDISABLE
++#define _POSIX_VDISABLE '\0'
++#endif
++#endif
++#else
+ #include <sgtty.h>
++#endif
+ #include <ctype.h>
++#include <inttypes.h>
++#include <stdlib.h>
+ #include <sys/param.h>
+ #include <sys/file.h>
+ #include <sys/stat.h>
++#include <sys/types.h>
++#include <fcntl.h>
+ #include <sys/ioctl.h>
+ #include "fep_defs.h"
+ #include "fep_glob.h"
+@@ -31,7 +45,7 @@ executeBuiltInFunction (comline, more)
+     char *comline, **more;
+ {
+     register FunctionTableEnt *ftp;
+-    char linebuf[MAXCOMLEN], *line;
++    char linebuf[MAXCMDLEN], *line;
+     char *search_string();
+     int argc;
+ 
+@@ -93,7 +107,7 @@ is_same_command (a, b)
+ 
+     while (*a && *b && *a == *b)
+ 	++a, ++b;
+-    if ((*a == NULL || isspace (*a)) && (*b == NULL || isspace (*b)))
++    if ((*a == '\0' || isspace ((unsigned char)*a)) && (*b == '\0' || isspace ((unsigned char)*b)))
+ 	return 1;
+     else
+ 	return 0;
+@@ -295,7 +309,7 @@ unalias (comline)
+ set (comline)
+     char *comline;
+ {
+-    char line[MAXCOMLEN];
++    char line[MAXCMDLEN];
+     char *cp, *index();
+     char *argv[MAXARGS];
+     int argc;
+@@ -352,8 +366,13 @@ unset(comline)
+ 
+ extern	int Transparency;
+ extern	int Through;
+-extern	struct sgttyb slave_ttymode;
+-extern	struct sgttyb master_ttymode;
++#ifdef TERMIOS
++#define ttystruct termios
++#elif defined(TIOCSETN)
++#define ttystruct sgttyb
++#endif
++struct	ttystruct master_ttymode;		/* master tty mode */
++struct	ttystruct slave_ttymode;		/* slave tty mode */
+ extern	int master, slave;
+ extern	char slave_tty[];
+ 
+@@ -368,7 +387,11 @@ toggle_through()
+ {
+     int r;
+     int slave_fd;
++#ifdef TERMIOS
++    struct termios s;
++#else
+     struct sgttyb s;
++#endif
+ 
+     if (Through == OFF) {
+ 
+@@ -378,15 +401,26 @@ toggle_through()
+ 	    return;
+ 	}
+ 
++#ifdef TERMIOS
++	r = tcgetattr(slave_fd, &s);
++#else
+ 	r = ioctl (slave_fd, TIOCGETP, (char *) &s);
++#endif
+ 	if (r < 0) {
+ 	    perror (slave_tty);
+ 	    (void) close (slave_fd);
+ 	    return;
+ 	}
+ 
++#ifdef TERMIOS
++	s.c_lflag &= ~(ICANON);
++	s.c_cc[VMIN] = 1;
++	s.c_cc[VTIME] = 0;
++	r = tcsetattr(0, TCSANOW, &s);
++#else
+ 	s.sg_flags |= CBREAK;
+ 	r = ioctl (0, TIOCSETN, (char *) & s);
++#endif
+ 	if (r < 0) {
+ 	    perror (slave_tty);
+ 	    (void) close (slave_fd);
+@@ -394,7 +428,11 @@ toggle_through()
+ 	(void) close (slave_fd);
+     }
+     else
++#ifdef TERMIOS
++	r = tcsetattr(0, TCSANOW, & master_ttymode);
++#else
+ 	r = ioctl (0, TIOCSETN, (char *) & master_ttymode);
++#endif
+ 
+     if (r < 0) {
+ 	printf ("Can't change pty mode.\n");
+@@ -410,7 +448,11 @@ toggle_through()
+ fix_transparency()
+ {
+     int r;
++#ifdef TERMIOS
++    struct termios s;
++#else
+     struct sgttyb s;
++#endif
+ 
+     if (Through)
+ 	return;
+@@ -418,11 +460,17 @@ fix_transparency()
+     if (slave < 0)
+ 	return;
+ 
++#ifdef TERMIOS
++    r = tcgetattr(slave, &s);
++    s.c_iflag |= ICRNL;
++    s.c_oflag |= ONLCR;
++#else
+     r = ioctl (slave, TIOCGETP, (char *) &s);
+     /*
+      * slave CRMOD is off, but master should be.
+      */
+     s.sg_flags |= CRMOD;
++#endif
+     if (r < 0) {
+ 	perror (slave_tty);
+ 	return;
+@@ -432,9 +480,19 @@ fix_transparency()
+      * If find slave tty mode is cbreak or raw, fix tty mode of stdout to
+      * same mode as slave and set Transparency ON.
+      */
+-    if (s.sg_flags & (CBREAK|RAW)) {
++
++#ifdef TERMIOS
++    if ((s.c_lflag & ICANON) == 0)
++#else
++    if (s.sg_flags & (CBREAK|RAW))
++#endif
++    {
+ 	if (Transparency == OFF) {
++#ifdef TERMIOS
++	    r = tcsetattr(0, TCSANOW, & s);
++#else
+ 	    r = ioctl (0, TIOCSETN, (char *) & s);
++#endif
+ 	    if (r < 0) {
+ 		perror ("stdout");
+ 		return;
+@@ -445,7 +503,11 @@ fix_transparency()
+     }
+     else {
+ 	if (Transparency == ON) {
+-	    r = ioctl (0, TIOCSETN, (char *) &master_ttymode);
++#ifdef TERMIOS
++	    r = tcsetattr(0, TCSANOW, & master_ttymode);
++#else
++	    r = ioctl (0, TIOCSETN, (char *) & master_ttymode);
++#endif
+ 	    if (r < 0) {
+ 		perror ("stdout");
+ 		return;
+@@ -623,10 +685,10 @@ MORE *create_more(maxline)
+ {
+     MORE *mp;
+ 
+-    mp = (MORE *) malloc (sizeof (MORE));
++    mp = malloc (sizeof (MORE));
+ 
+     if (mp == 0)
+-	return ((MORE*)0);
++	return (NULL);
+     else {
+ 	mp->cur_line = 0;
+ 	mp->max_line = maxline;
+@@ -738,9 +800,9 @@ char *line;
+ fep_pwd (line)
+     char *line;
+ {
+-    char cwd[MAXPATHLEN], *getwd();
++    char cwd[MAXPATHLEN];
+ 
+-    (void) getwd (cwd);
++    (void) getcwd (cwd, sizeof(cwd));
+     printf ("%s\n", cwd);
+ }
+ 
+@@ -755,7 +817,7 @@ fep_echo (comline)
+     argc = mkargv (comline, argv, MAXARGS);
+     
+     argp = &argv[1];
+-    if (*argp && strcmp (*argp, "-n") == NULL) {
++    if (*argp && strcmp (*argp, "-n") == 0) {
+ 	putnewline = 0;
+ 	++argp;
+     }
+@@ -791,7 +853,7 @@ fep_command (comline)
+     int argc;
+     int i;
+     char **argp;
+-    char *buf[256];
++    char buf[256];
+ 
+     argc = mkargv (comline, argv, MAXARGS);
+ 

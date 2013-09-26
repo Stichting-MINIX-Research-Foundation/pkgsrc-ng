@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.17 2011/11/19 18:59:20 marino Exp $
+
+SHA1 (sharutils-4.11.1.tar.gz) = e73d15384e5bd688a12ff0b48a605170ea13f4d5
+RMD160 (sharutils-4.11.1.tar.gz) = 79b57b8c139cd7845de2c0778f5230261c5331b2
+Size (sharutils-4.11.1.tar.gz) = 1297757 bytes

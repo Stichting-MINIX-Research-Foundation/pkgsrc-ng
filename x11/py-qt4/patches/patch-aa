@@ -1,0 +1,36 @@
+$NetBSD: patch-aa,v 1.8 2013/05/03 15:48:21 drochner Exp $
+
+--- configure.py.orig	2013-04-21 12:01:57.000000000 +0000
++++ configure.py
+@@ -345,7 +345,7 @@ class ConfigurePyQt4:
+         pyqt_modules.append("QtCore")
+ 
+         check_module("QtGui", "qwidget.h", "new QWidget()")
+-        check_module("QtHelp", "qhelpengine.h", "new QHelpEngine(\"foo\")")
++        check_module("QtHelp", "qhelpengine.h", "new QHelpEngine(\"foo\")", extra_libs=["QtCore"])
+         check_module("QtMultimedia", "QAudioDeviceInfo",
+                 "new QAudioDeviceInfo()")
+         check_module("QtNetwork", "qhostaddress.h", "new QHostAddress()")
+@@ -369,8 +369,8 @@ class ConfigurePyQt4:
+         check_module("QtWebKit", "qwebpage.h", "new QWebPage()")
+         check_module("QtXml", "qdom.h", "new QDomDocument()")
+         check_module("QtXmlPatterns", "qxmlname.h", "new QXmlName()")
+-        check_module("phonon", "phonon/videowidget.h",
+-                "new Phonon::VideoWidget()")
++#        check_module("phonon", "phonon/videowidget.h",
++#                "new Phonon::VideoWidget()")
+         check_module("QtAssistant", "qassistantclient.h",
+                 "new QAssistantClient(\"foo\")", extra_lib_dirs=ass_lib_dirs,
+                 extra_libs=ass_libs)
+@@ -2093,11 +2093,7 @@ int main(int argc, char **argv)
+ 
+     out << QLibraryInfo::licensee() << '\\n';
+ 
+-#if defined(QT_SHARED) || defined(QT_DLL)
+     out << "shared\\n";
+-#else
+-    out << "\\n";
+-#endif
+ 
+     // Determine which features should be disabled.
+ 

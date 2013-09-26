@@ -1,0 +1,47 @@
+# $NetBSD: Makefile.extension,v 1.18 2013/01/17 11:09:44 mishka Exp $
+#
+# This Makefile fragment is included by packages for R library packages.
+#
+# To use this Makefile fragment, simply:
+#
+# (1) define R_PKGNAME and R_PKGVER to the R package name and version
+#     for the package desired.
+# (2) Include this Makefile fragment in the package Makefile,
+
+DISTNAME?=		${R_PKGNAME}_${R_PKGVER}
+PKGNAME?=		R-${R_PKGNAME}-${R_PKGVER:S/-/./}
+MASTER_SITES?=		${MASTER_SITE_R_CRAN:=contrib/}
+DIST_SUBDIR?=		R
+CATEGORIES+=		math
+
+PKG_INSTALLATION_TYPES=	overwrite pkgviews
+
+WRKSRC=		${WRKDIR}/${R_PKGNAME}
+
+INSTALLATION_DIRS=	${R_LIB}
+
+INSTALL_ENV+=	R_LIBS=
+
+do-build:
+
+do-install:
+	${PKGSRC_SETENV} ${INSTALL_ENV} ${MAKE_ENV} ${LOCALBASE}/bin/R \
+		CMD INSTALL ${R_PKG_INSTALL_ARGS} ${WRKDIR}/${R_PKGNAME}
+
+R_LIB=			lib/R/library
+R_INST_DIRS?=		${R_PKGNAME}
+R_HOMEPAGE_BASE=	http://cran.r-project.org/web/packages
+R_PKG_INSTALL_ARGS=	-l ${DESTDIR}${PREFIX}/${R_LIB}
+
+.if defined(CONFIGURE_ARGS)
+R_PKG_INSTALL_ARGS+=	--configure-args='${CONFIGURE_ARGS}'
+.endif
+
+GENERATE_PLIST+=	( cd ${DESTDIR}${PREFIX}; for dir in ${R_INST_DIRS}; do \
+	${FIND} ${R_LIB}/$${dir} \( -type f -o -type l \) -print; done ) | ${SORT} -u;
+
+INSTALL_TEMPLATES+=	../../math/R/files/pkg-index.tmpl
+DEINSTALL_TEMPLATES+=	../../math/R/files/pkg-index.tmpl
+CHECK_FILES_SKIP+=	${PREFIX}/${R_LIB}/R.css
+
+.include "../../math/R/buildlink3.mk"

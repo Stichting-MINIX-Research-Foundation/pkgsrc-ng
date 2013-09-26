@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:09:43 joerg Exp $
+bin/slurm
+man/man1/slurm.1
+share/slurm/black.theme
+share/slurm/blue.theme
+share/slurm/cyan.theme
+share/slurm/foo.theme

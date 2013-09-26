@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:32:12 joerg Exp $
+bin/id3v2
+man/man1/id3v2.1
+share/doc/id3v2/README

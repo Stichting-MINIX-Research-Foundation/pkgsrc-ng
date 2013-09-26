@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.7 2011/03/11 14:49:03 drochner Exp $
+
+SHA1 (pccts-1.33.33/pccts133mr33.zip) = 5b3417efd5f537434b568114bcda853b4975d851
+RMD160 (pccts-1.33.33/pccts133mr33.zip) = 46a0955aedb263d196dae0054f6249d42b2ac835
+Size (pccts-1.33.33/pccts133mr33.zip) = 738635 bytes
+SHA1 (patch-aa) = 8100e31c4a504efbb27fda047cf4345fcf88df4d
+SHA1 (patch-ab) = 2244e82c6915c2abbb55bbcbafc8df6e835f7e6c
+SHA1 (patch-ac) = 393d5af26e911a845f8f323722e9b70b8f059848
+SHA1 (patch-ad) = 7df54b2b9810ff3c50300b4caf09e43a9f5403fe
+SHA1 (patch-ae) = bdfbc276cbf7217bdf48bb1b6df787d61f1d6267
+SHA1 (patch-af) = 5910279eb5d9d216c1051c48038792fc3841c568
+SHA1 (patch-ag) = 6637240de0c79b4f41f34d658ed99001adeab539

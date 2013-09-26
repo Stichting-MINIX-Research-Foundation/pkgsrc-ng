@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.8 2012/05/10 17:46:34 dholland Exp $
+
+SHA1 (f-spot-0.8.2.tar.bz2) = 258e30a11ac24f963a47ead19c3d14bf755816e5
+RMD160 (f-spot-0.8.2.tar.bz2) = 658f437cb336fc29a718cf021ba54ee62dbee757
+Size (f-spot-0.8.2.tar.bz2) = 3222712 bytes
+SHA1 (patch-Makefile_in) = 313c3ad5fb9859a2891c38d49776347747949162

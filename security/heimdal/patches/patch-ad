@@ -1,0 +1,29 @@
+$NetBSD: patch-ad,v 1.11 2012/08/07 13:54:22 obache Exp $
+
+* Not using lib${ABI} in pkgsrc.
+* improve detection of __sync_add_and_fetch, avoid compiler optimization.
+
+--- configure.orig	2012-01-11 13:04:10.000000000 +0000
++++ configure
+@@ -12702,7 +12702,11 @@ fi #if test -n "$GCC"; then
+ esac
+ 
+ CC="$CC $abi"
+-libdir="$libdir$abilibdirext"
++#
++# Comment out the following line for pkgsrc as pkgsrc always installs
++# libraries into .../lib, not .../lib{32,64}.
++#
++#libdir="$libdir$abilibdirext"
+ 
+ 
+ { $as_echo "$as_me:${as_lineno-$LINENO}: checking for __attribute__" >&5
+@@ -26547,7 +26551,7 @@ cat confdefs.h - <<_ACEOF >conftest.$ac_
+ int
+ main ()
+ {
+-unsigned int foo; __sync_add_and_fetch(&foo, 1);
++unsigned int foo, bar; bar = __sync_add_and_fetch(&foo, 1);
+   ;
+   return 0;
+ }

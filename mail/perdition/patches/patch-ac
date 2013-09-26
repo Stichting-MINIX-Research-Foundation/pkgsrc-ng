@@ -1,0 +1,21 @@
+$NetBSD: patch-ac,v 1.2 2010/06/02 12:50:03 adam Exp $
+
+--- perdition/pam.c.orig	2009-11-26 05:05:32.000000000 +0000
++++ perdition/pam.c
+@@ -32,6 +32,7 @@
+ #include "config.h"
+ #endif
+ 
++#include <errno.h>
+ 
+ #include "pam.h"
+ 
+@@ -53,8 +54,6 @@ int perdition_conv(
+ ){
+   char *pass;
+ 
+-  extern int errno;
+-
+   if((
+     *response=(struct pam_response *)malloc(sizeof(struct pam_response))
+   )==NULL){

@@ -1,0 +1,223 @@
+$NetBSD: patch-aa,v 1.6 2011/01/29 17:16:33 spz Exp $
+
+warp the Makefile template to fit into pkgsrc
+
+--- Makefile.orig	2000-01-18 14:01:17.000000000 +0000
++++ Makefile
+@@ -13,27 +13,29 @@
+ #
+  
+ # Put the location of your Perl binary here:
+-PERL = /bin/perl
++PERL = @PERL@
+ 
+ # What do you call your C compiler?
+ CC = cc
+  
+ # Where do you want Majordomo to be installed?  This CANNOT be the
+ # current directory (where you unpacked the distribution)
+-W_HOME = /usr/test/majordomo-$(VERSION)
++W_HOME = @PREFIX@/libexec/majordomo
++HOME = @HOME@
+  
+ # Where do you want man pages to be installed?
+-MAN = $(W_HOME)/man
++MAN = @PREFIX@/man
+  
+ # You need to have or create a user and group which majordomo will run as.
+ # Enter the numeric UID and GID (not their names!) here:
+-W_USER = 123
+-W_GROUP = 45
++W_USER = @UID@
++W_GROUP = @GID@
+ 
+ # These set the permissions for all installed files and executables (except
+ # the wrapper), respectively.  Some sites may wish to make these more
+ # lenient, or more restrictive.
+-FILE_MODE = 644
++CF_MODE = 664
++MAN_MODE = 444
+ EXEC_MODE = 755
+ HOME_MODE = 751
+ 
+@@ -41,8 +43,8 @@ HOME_MODE = 751
+ # BSDI or other 4.4-based BSD, Linux) use the following four lines.  Do not
+ # change these values!
+ WRAPPER_OWNER = root
+-WRAPPER_GROUP = $(W_GROUP)
+-WRAPPER_MODE = 4755
++WRAPPER_GROUP = $(W_MAJORDOMO_GROUP)
++WRAPPER_MODE = 4555
+ POSIX = -DPOSIX_UID=$(W_USER) -DPOSIX_GID=$(W_GROUP)
+ # Otherwise, if your system is NOT POSIX (e.g. SunOS 4.x, SGI Irix 4,
+ # HP DomainOS) then comment out the above four lines and uncomment
+@@ -62,11 +64,14 @@ POSIX = -DPOSIX_UID=$(W_USER) -DPOSIX_GI
+ # parent process, and without the leading "W_" in the variable names) gets
+ # passed to processes run by "wrapper"
+ W_SHELL = /bin/sh
+-W_PATH = /bin:/usr/bin:/usr/ucb
+-W_MAJORDOMO_CF = $(W_HOME)/majordomo.cf
++W_PATH = /bin:/usr/bin
++W_MAJORDOMO_CF = @MAJORDOMO_CF@
++
++W_MAJORDOMO_USER = @MAJORDOMO_USER@
++W_MAJORDOMO_GROUP = @MAJORDOMO_GROUP@
+ 
+ # A directory for temp files..
+-TMPDIR = /usr/tmp
++TMPDIR = @TMPDIR@
+ 
+ #--------YOU SHOULDN'T HAVE TO CHANGE ANYTHING BELOW THIS LINE.-------------
+ 
+@@ -76,8 +81,9 @@ VERSION =	1.94.5
+ SHELL = /bin/sh
+ 
+ WRAPPER_FLAGS = -DBIN=\"$(W_HOME)\" -DPATH=\"PATH=$(W_PATH)\" \
+-	-DHOME=\"HOME=$(W_HOME)\" -DSHELL=\"SHELL=$(W_SHELL)\" \
++	-DHOME=\"HOME=$(HOME)\" -DSHELL=\"SHELL=$(W_SHELL)\" \
+ 	-DMAJORDOMO_CF=\"MAJORDOMO_CF=$(W_MAJORDOMO_CF)\"      \
++	-DMAJORDOMO_USER=\"$(W_MAJORDOMO_USER)\"      \
+ 	$(POSIX)
+ 
+ INSTALL = ./install.sh
+@@ -94,7 +100,7 @@ BIN = 		bounce-remind config_parse.pl ma
+ 		majordomo_version.pl request-answer resend \
+ 		shlock.pl config-test archive2.pl digest
+ 
+-INSTALL_FLAGS = -O $(W_USER) -g $(W_GROUP)
++INSTALL_FLAGS = -O root -g $(W_MAJORDOMO_GROUP)
+ 
+ default: 
+ 	@echo "make what?"
+@@ -118,12 +124,12 @@ install: wrapper install-scripts install
+ 
+ install-wrapper: wrapper
+ 	$(INSTALL) -o $(WRAPPER_OWNER) -g $(WRAPPER_GROUP) \
+-		-m $(WRAPPER_MODE) wrapper $(W_HOME)/wrapper
++		-m $(WRAPPER_MODE) wrapper $(DESTDIR)$(W_HOME)/wrapper
+ 	@echo ""
+ 	@echo "To verify that all the permissions and etc are correct,"
+ 	@echo "run the command"
+ 	@echo ""
+-	@echo "	     cd $(W_HOME); ./wrapper config-test"
++	@echo "	     cd $(DESTDIR)$(W_HOME); ./wrapper config-test"
+ 
+ # fix where perl lives.
+ # Create a tmp directory to stuff all the files in, so we 
+@@ -143,30 +149,29 @@ config-scripts:
+ 
+ 
+ install-scripts: config-scripts
+-	$(INSTALL) -m $(HOME_MODE) $(INSTALL_FLAGS) . $(W_HOME)
+-	$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) . $(W_HOME)/bin
++	$(INSTALL) -m $(HOME_MODE) $(INSTALL_FLAGS) . $(DESTDIR)$(W_HOME)
+ 
+-	@echo "Copying tools to $(W_HOME)/bin"
++	@echo "Copying tools to $(DESTDIR)@PREFIX@/bin"
+ 
+ 	@for file in $(BINBIN); do \
+ 		$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-			$(TMP)/$$file $(W_HOME)/bin/$$file; \
++			$(TMP)/$$file $(DESTDIR)@PREFIX@/bin/$$file; \
+ 	done
+ 
+-	@echo "Copying Majordomo files to $(W_HOME)"
++	@echo "Copying Majordomo files to $(DESTDIR)$(W_HOME)"
+ 
+ 	@for file in $(BIN); do \
+ 		$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-			$(TMP)/$$file $(W_HOME)/$$file; \
++			$(TMP)/$$file $(DESTDIR)$(W_HOME)/$$file; \
+ 	done
+ 
+-	@echo "Copying archiving and other tools to $(W_HOME)/Tools"
++	@echo "Copying archiving and other tools to $(DESTDIR)$(W_HOME)/Tools"
+ 
+-	$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) . $(W_HOME)/Tools
++	$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) . $(DESTDIR)$(W_HOME)/Tools
+ 
+ 	@for file in $(TOOLS); do \
+ 		$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-			$(TMP)/$$file $(W_HOME)/Tools/$$file; \
++			$(TMP)/$$file $(DESTDIR)$(W_HOME)/Tools/$$file; \
+ 	done
+ 
+ 	@rm -rf $(TMP)	
+@@ -177,46 +182,40 @@ install-scripts: config-scripts
+ # all cases, the sample.cf file must be installed so that config-test will
+ # be able to check for new variables.
+ install-cf:
+-	@if [ ! -f $(W_HOME)/majordomo.cf ]; \
+-	  then \
+-	    if [ -f majordomo.cf ]; \
+-	      then \
+-		echo "Using majordomo.cf"; \
+-	  	$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-			majordomo.cf $(W_HOME)/majordomo.cf; \
+-	      else \
+-		echo "Using sample.cf"; \
+-		$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-			sample.cf $(W_HOME)/majordomo.cf; \
+-	    fi; \
+-	else \
+-	   echo "Using installed majordomo.cf"; \
+-	fi;
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		sample.cf $(W_HOME)
++	# @if [ ! -f $(W_MAJORDOMO_CF) ]; \
++	#   then \
++	#     if [ -f majordomo.cf ]; \
++	#       then \
++	# 	echo "Using majordomo.cf"; \
++	#   	$(INSTALL) -m $(CF_MODE) $(INSTALL_FLAGS) \
++	# 		majordomo.cf $(DESTDIR)$(W_MAJORDOMO_CF); \
++	#       else \
++	# 	echo "Using sample.cf"; \
++	# 	$(INSTALL) -m $(CF_MODE) $(INSTALL_FLAGS) \
++	# 		sample.cf $(DESTDIR)$(W_MAJORDOMO_CF); \
++	#     fi; \
++	# else \
++	#    echo "Using installed majordomo.cf"; \
++	# fi;
++	@$(INSTALL) -m $(CF_MODE) $(INSTALL_FLAGS) \
++		sample.cf $(DESTDIR)$(W_HOME)
+ 
+ install-man:
+ 	@echo "Installing manual pages in $(MAN)"
+-	@$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-		. $(MAN)
+-	@$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-		. $(MAN)/man1
+-	@$(INSTALL) -m $(EXEC_MODE) $(INSTALL_FLAGS) \
+-		. $(MAN)/man8
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/approve.1 $(MAN)/man1/approve.1
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/digest.1 $(MAN)/man1/digest.1
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/bounce.1 $(MAN)/man1/bounce.1
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/bounce-remind.1 $(MAN)/man1/bounce-remind.1
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/resend.1 $(MAN)/man1/resend.1
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/majordomo.8 $(MAN)/man8/majordomo.8
+-	@$(INSTALL) -m $(FILE_MODE) $(INSTALL_FLAGS) \
+-		Doc/man/resend.1 $(MAN)/man1/resend.1
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/approve.1 $(DESTDIR)$(MAN)/man1/approve.1
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/digest.1 $(DESTDIR)$(MAN)/man8/digest.8
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/bounce.1 $(DESTDIR)$(MAN)/man1/bounce.1
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/bounce-remind.1 $(DESTDIR)$(MAN)/man1/bounce-remind.1
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/resend.1 $(DESTDIR)$(MAN)/man1/resend.1
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/majordomo.8 $(DESTDIR)$(MAN)/man8/majordomo.8
++	@$(INSTALL) -m $(MAN_MODE) $(INSTALL_FLAGS) \
++		Doc/man/resend.1 $(DESTDIR)$(MAN)/man1/resend.1
+ 
+ wrapper: wrapper.c
+ 	$(CC)  $(WRAPPER_FLAGS) -o wrapper wrapper.c

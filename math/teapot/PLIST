@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2012/09/13 22:29:09 asau Exp $
+bin/teapot
+man/man1/teapot.1
+share/doc/teapot/COPYING
+share/doc/teapot/README

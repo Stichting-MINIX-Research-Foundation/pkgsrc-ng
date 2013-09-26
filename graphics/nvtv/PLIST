@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:59:23 joerg Exp $
+bin/nvtv
+bin/nvtvd
+man/man1/nvtv.1
+man/man8/nvtvd.8
+share/doc/nvtv/FAQ
+share/doc/nvtv/README
+share/doc/nvtv/USAGE
+share/doc/nvtv/chips.txt
+share/doc/nvtv/overview.txt
+share/doc/nvtv/timing.txt
+share/examples/rc.d/nvtvd

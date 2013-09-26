@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2011/11/25 05:54:24 hiramatsu Exp $
+
+SHA1 (FCGI-ProcManager-0.24.tar.gz) = 3037648fbe76ca9a58c9e6fce68a6b661b8bba93
+RMD160 (FCGI-ProcManager-0.24.tar.gz) = e6d1892ad642fb1d73aa35baf6afdd3013cbdd93
+Size (FCGI-ProcManager-0.24.tar.gz) = 21564 bytes

@@ -1,0 +1,28 @@
+$NetBSD: patch-bm,v 1.3 2008/12/17 02:19:59 christos Exp $
+
+--- tcl/stdlib.h.orig	1995-02-24 16:19:50.000000000 -0500
++++ tcl/stdlib.h	2008-12-16 20:30:23.000000000 -0500
+@@ -41,10 +41,10 @@
+  *------------------
+  */
+ 
+-extern char *	alloca();
+-extern char *	calloc();
+-extern char *	malloc();
+-extern char *	realloc();
++extern void *	alloca();
++extern void *	calloc();
++extern void *	malloc();
++extern void *	realloc();
+ extern void	Mem_Bin();
+ extern char *	Mem_CallerPC();
+ extern void	Mem_DumpTrace();
+@@ -142,7 +142,7 @@
+ extern void	abort();
+ extern int	atexit();
+ extern char *   bsearch();
+-extern 		exit();
++extern void 	exit();
+ extern char *	getenv();
+ extern void	qsort();
+ extern int	rand();

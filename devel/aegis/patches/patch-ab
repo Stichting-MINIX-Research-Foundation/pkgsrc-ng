@@ -1,0 +1,32 @@
+$NetBSD: patch-ab,v 1.5 2013/05/04 12:59:46 joerg Exp $
+
+Avoid compiler noise when storing an integer in a pointer.
+
+(This code will break on 32-bit platforms after 2038, but that's
+somebody else's problem.)
+
+--- libaegis/project/history/change/change2time.cc.orig	2009-06-25 16:00:55.000000000 +0000
++++ libaegis/project/history/change/change2time.cc
+@@ -22,19 +22,19 @@
+ #include <libaegis/change.h>
+ #include <libaegis/change/branch.h>
+ #include <libaegis/project.h>
+-
++#include <cinttypes>
+ 
+ time_t
+ project_ty::change_completion_timestamp(long change_number)
+ {
+     assert(change2time_stp);
+-    time_t result = (time_t)itab_query(change2time_stp, change_number);
++    time_t result = (time_t)(intptr_t)itab_query(change2time_stp, change_number);
+     if (!result)
+     {
+         change::pointer cp = change_alloc(this, change_number);
+         change_bind_existing(cp);
+         result = ::change_completion_timestamp(cp);
+-        itab_assign (change2time_stp, cp->number, (void*)result);
++        itab_assign (change2time_stp, cp->number, (void*)(intptr_t)result);
+         change_free(cp);
+     }
+ 

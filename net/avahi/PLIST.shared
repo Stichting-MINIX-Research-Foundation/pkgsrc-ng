@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST.shared,v 1.3 2009/06/14 21:00:03 joerg Exp $
+@unexec ${RMDIR} %D/etc/avahi/services 2>/dev/null || ${TRUE}
+@unexec ${RMDIR} %D/etc/avahi 2>/dev/null || ${TRUE}

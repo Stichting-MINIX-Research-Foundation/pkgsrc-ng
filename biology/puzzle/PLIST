@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2010/09/19 08:38:14 obache Exp $
+bin/ppuzzle
+bin/puzzle
+share/doc/puzzle/tree-puzzle.pdf
+share/examples/puzzle/EF.3trees
+share/examples/puzzle/EF.phy
+share/examples/puzzle/atp6.a
+share/examples/puzzle/globin.a
+share/examples/puzzle/marswolf.n
+share/examples/puzzle/primates.b

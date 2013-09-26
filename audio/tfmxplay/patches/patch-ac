@@ -1,0 +1,66 @@
+$NetBSD: patch-ac,v 1.5 2011/09/12 06:42:12 dholland Exp $
+
+- needs stdlib.h
+- use valid C (string constants cannot span lines)
+- fix mismatched return statements, which clang dislikes
+
+--- tfmx.c.orig	2001-08-02 18:49:40.000000000 +0000
++++ tfmx.c
+@@ -9,6 +9,7 @@
+ #endif
+ #include <stdio.h>
+ #include <unistd.h>
++#include <stdlib.h>
+ #include <string.h>
+ #include "tfmxsong.h"
+ #include "player.h"
+@@ -46,24 +47,22 @@ extern int blend,filt,over;
+ 
+ usage(char *x)
+ {
+-	fprintf(stderr,"tfmxplay v0.6 by Jon Pickard <marxmarv@antigates.com>,
+-Neochrome <David.Banz@smail.inf.fh-rhein-sieg.de> and others.
+-Copyright 1996-2001, see accompanying README for details.
+-
+-This release is dedicated to the memory of Martin Requart.
+-
+-Usage: %s [options] mdat-file [smpl-file]
+-where options is one or more of:
+--b mode		set stereo mode (0=mono, default 1=headphone, 2=stereo)
+--8		generate 8-bit output
+--p num		subsong to play (default 0)
+--f freq		suggest playback rate in samples/sec (default 44100)
+--o file		write audio output to file (default /dev/dsp)
+--i		print info about the module (text, subsong, etc.)
+--w num		set low-pass filter frequency (0=none, 3=lowest, default 0)
+--l num		set number of loops through (default 0=infinite, 1=no repeat)
+--v              disable oversampling (=linear interpolation)
+-",x
++	fprintf(stderr,"tfmxplay v0.6 by Jon Pickard <marxmarv@antigates.com>,\n"
++"Neochrome <David.Banz@smail.inf.fh-rhein-sieg.de> and others.\n"
++"Copyright 1996-2001, see accompanying README for details.\n\n"
++"This release is dedicated to the memory of Martin Requart.\n\n"
++"Usage: %s [options] mdat-file [smpl-file]\n"
++"where options is one or more of:\n"
++"-b mode		set stereo mode (0=mono, default 1=headphone, 2=stereo)\n"
++"-8		generate 8-bit output\n"
++"-p num		subsong to play (default 0)\n"
++"-f freq		suggest playback rate in samples/sec (default 44100)\n"
++"-o file		write audio output to file (default /dev/dsp)\n"
++"-i		print info about the module (text, subsong, etc.)\n"
++"-w num		set low-pass filter frequency (0=none, 3=lowest, default 0)\n"
++"-l num		set number of loops through (default 0=infinite, 1=no repeat)\n"
++"-v              disable oversampling (=linear interpolation)\n"
++,x
+ );
+ 
+ }
+@@ -348,7 +347,7 @@ dump_pattern(int x)
+ 	}
+ }
+ 
+-do_debug()
++void do_debug()
+ {
+ 	char in[81];
+ 	int x,y;

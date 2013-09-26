@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/07 18:34:54 wiz Exp $
+bin/xkeystone
+bin/xrandr
+man/man1/xrandr.1

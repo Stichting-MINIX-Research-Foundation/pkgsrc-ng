@@ -1,0 +1,19 @@
+$NetBSD: patch-ab,v 1.8 2009/05/24 12:42:45 obache Exp $
+
+Avoid to break pkgsrc's tools.
+
+--- configure.orig	2009-05-11 01:33:19.000000000 +0000
++++ configure
+@@ -1850,12 +1850,9 @@ MYLDLIBPATHENV="LD_LIBRARY_PATH"
+ MYPOSTCMD="true"
+ 
+ # Building paths
+-PATH="$PATH:$HOME/bin:/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"
+-PATH="$PATH:/opt/SUNWspro/bin:/usr/ccs/bin:/usr/xpg4/bin:/usr/xpg6/bin:/usr/ucb"
+ CPATH="$HOME/include:/usr/local/include:$CPATH"
+ LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LIBRARY_PATH"
+ LD_LIBRARY_PATH="$HOME/lib:/usr/local/lib:$LD_LIBRARY_PATH"
+-PKG_CONFIG_PATH="$HOME/lib/pkgconfig:/usr/local/lib/pkgconfig:$PKG_CONFIG_PATH"
+ export PATH CPATH LIBRARY_PATH LD_LIBRARY_PATH PKG_CONFIG_PATH
+ if type pkg-config > /dev/null 2>&1
+ then

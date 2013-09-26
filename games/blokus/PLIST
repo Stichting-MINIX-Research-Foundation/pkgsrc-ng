@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.4 2010/01/06 08:04:51 obache Exp $
+bin/blokus
+bin/blokus_client
+bin/blokus_dedicated
+share/blokus/field.bmp
+share/blokus/font.bmp
+share/blokus/ground.bmp
+share/blokus/wall.bmp

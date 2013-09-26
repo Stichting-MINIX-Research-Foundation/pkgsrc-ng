@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:51:04 joerg Exp $
+bin/xgnuboy
+share/doc/gnuboy/CHANGES
+share/doc/gnuboy/CONFIG
+share/doc/gnuboy/CREDITS
+share/doc/gnuboy/FAQ
+share/doc/gnuboy/HACKING
+share/doc/gnuboy/LIBERTY
+share/doc/gnuboy/README
+share/doc/gnuboy/README.old
+share/doc/gnuboy/WHATSNEW
+share/examples/gnuboy/sample.rc

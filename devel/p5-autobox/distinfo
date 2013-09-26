@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2013/05/02 01:52:10 wen Exp $
+
+SHA1 (autobox-2.79.tar.gz) = 626107a6f9ccffb9f88b81ea1c6804de4e82bddd
+RMD160 (autobox-2.79.tar.gz) = 07961576215edf9a8b7569e26aa31d24c956a1d6
+Size (autobox-2.79.tar.gz) = 75169 bytes

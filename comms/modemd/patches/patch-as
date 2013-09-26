@@ -1,0 +1,30 @@
+$NetBSD: patch-as,v 1.2 2011/11/25 21:34:34 joerg Exp $
+
+--- outgoing/mpoold.c.orig	1996-04-30 07:02:48.000000000 +0000
++++ outgoing/mpoold.c
+@@ -50,11 +50,16 @@ static char copyright[] =
+ #include <syslog.h>
+ #include <pwd.h>
+ #include <netdb.h>
++#include <arpa/inet.h>
+ #include <netinet/in.h>
+ #include <sys/socket.h>
++#include <stdio.h>
++#include <stdlib.h>
+ 
+ static void usage PROTO ((void));
+ 
++void telnet(char *, int, int);
++
+ char **Argv;
+ 
+ int main (argc, argv, envp)
+@@ -220,7 +225,7 @@ int modemConnect(lastmodem)
+ 
+ /* Clean up loose ends before exiting... */
+ 
+-void cleanup ()
++void cleanup (void)
+ {
+   ttunlock ();
+ }

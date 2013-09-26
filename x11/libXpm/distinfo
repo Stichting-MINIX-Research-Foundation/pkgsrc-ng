@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.5 2012/06/03 17:35:38 wiz Exp $
+
+SHA1 (libXpm-3.5.10.tar.bz2) = eca9dbfa6253f7d6cc7d593dc83110c6c4876d7c
+RMD160 (libXpm-3.5.10.tar.bz2) = bc6c0911fb2117ab2a168fafa584a6cb34cdc1ef
+Size (libXpm-3.5.10.tar.bz2) = 431310 bytes
+SHA1 (patch-aa) = c3def60e8162eb5d48056cd27154648eb6ba5e02
+SHA1 (patch-ab) = faaefb61693805272bd4cccc1301c6e3edd14919
+SHA1 (patch-ac) = 9226dce77b0a7d9c792d9465727423581db7f01e

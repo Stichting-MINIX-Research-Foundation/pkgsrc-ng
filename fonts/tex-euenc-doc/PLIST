@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2010/05/24 03:35:09 minskim Exp $
+share/texmf-dist/doc/latex/euenc/README
+share/texmf-dist/doc/latex/euenc/euenc.pdf
+share/texmf-dist/doc/latex/euenc/test-euxlm.ltx

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.3 2012/02/28 21:55:28 cheusov Exp $
+
+--- build/install.sh.orig	2011-08-05 11:59:45.000000000 +0000
++++ build/install.sh
+@@ -157,6 +157,8 @@ else
+ 	cd doc/en/examples
+ fi
+ 
++exit 0
++
+ # $RPM_BUILD_ROOT was added at the request of one of my users
+ if [ ! -f $RPM_BUILD_ROOT/etc/mararc ] ; then
+ 	cp example_mararc $RPM_BUILD_ROOT/etc/mararc

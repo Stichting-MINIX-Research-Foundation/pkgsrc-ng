@@ -1,0 +1,88 @@
+$NetBSD: patch-Makefile.Linux,v 1.6 2012/10/30 16:09:54 tsutsui Exp $
+
+- use appropriate pkg-config metainfo for INCS and LIBS definitions
+- disable avifile (that is not in pkgsrc) support
+- replace tools definitions with pkgsrc ones
+- make optional PDA options configurable
+
+--- Makefile.Linux.orig	2012-10-19 17:34:31.000000000 +0000
++++ Makefile.Linux
+@@ -18,8 +18,8 @@ EXT_OBJS = 
+ 
+ # mandatory: SDL, SDL_ttf, SDL_image, SDL_mixer, bzip2, libjpeg
+ DEFS = -DLINUX
+-INCS = `sdl-config --cflags`
+-LIBS = `sdl-config --libs` -lSDL_ttf -lSDL_image -lSDL_mixer -lbz2 -ljpeg -lm
++INCS = `sdl-config --cflags` `pkg-config --cflags SDL_ttf` `pkg-config --cflags SDL_image` `pkg-config --cflags SDL_mixer`
++LIBS = `sdl-config --libs` `pkg-config --libs SDL_ttf` `pkg-config --libs SDL_image` `pkg-config --libs SDL_mixer` -lbz2 -ljpeg -lm
+ 
+ # recommended: smpeg
+ DEFS += -DUSE_SMPEG
+@@ -28,11 +28,13 @@ LIBS += `smpeg-config --libs`
+ 
+ # recommended: fontconfig (to get default font)
+ DEFS += -DUSE_FONTCONFIG
+-LIBS += -lfontconfig
++INCS += `pkg-config --cflags fontconfig`
++LIBS += `pkg-config --libs fontconfig`
+ 
+ # recommended: OggVorbis 
+ DEFS += -DUSE_OGG_VORBIS
+-LIBS += -logg -lvorbis -lvorbisfile
++INCS += `pkg-config --cflags ogg` `pkg-config --cflags vorbis` `pkg-config --cflags vorbisfile`
++LIBS += `pkg-config --libs ogg` `pkg-config --libs vorbis` `pkg-config --libs vorbisfile`
+ 
+ # optional: Integer OggVorbis
+ #DEFS += -DUSE_OGG_VORBIS -DINTEGER_OGG_VORBIS
+@@ -42,31 +44,33 @@ LIBS += -logg -lvorbis -lvorbisfile
+ DEFS += -DUSE_CDROM
+ 
+ # optional: avifile
+-DEFS += -DUSE_AVIFILE
+-INCS += `avifile-config --cflags`
+-LIBS += `avifile-config --libs`
+-TARGET += simple_aviplay$(EXESUFFIX)
+-EXT_OBJS += AVIWrapper$(OBJSUFFIX)
++#DEFS += -DUSE_AVIFILE
++#INCS += `avifile-config --cflags`
++#LIBS += `avifile-config --libs`
++#TARGET += simple_aviplay$(EXESUFFIX)
++#EXT_OBJS += AVIWrapper$(OBJSUFFIX)
+ 
+ # optional: lua
+ DEFS += -DUSE_LUA
+-INCS += -I/usr/include/lua5.1
+-LIBS += -llua5.1
++INCS += `pkg-config --cflags lua`
++LIBS += `pkg-config --libs lua`
+ EXT_OBJS += LUAHandler$(OBJSUFFIX)
+ 
+ # optional: force screen width for PDA
+ #DEFS += -DPDA_WIDTH=640
++#DEFS += -DPDA_AUTOSIZE
++DEFS += @PDA_DEFS@
+ 
+ # optional: enable English mode
+ #DEFS += -DENABLE_1BYTE_CHAR -DFORCE_1BYTE_CHAR
+ 
+ 
+ # for GNU g++
+-CC = g++ 
+-LD = g++ -o
++CC = @CXX@
++LD = @CXX@ -o
+ 
+ #CFLAGS = -g -Wall -pipe -c $(INCS) $(DEFS)
+-CFLAGS = -O3 -Wall -fomit-frame-pointer -pipe -c $(INCS) $(DEFS)
++CFLAGS = -Wall @CXXFLAGS@ -c $(INCS) $(DEFS)
+ 
+ # for GCC on PowerPC specfied
+ #CC = powerpc-unknown-linux-gnu-g++
+@@ -80,6 +84,6 @@ CFLAGS = -O3 -Wall -fomit-frame-pointer 
+ 
+ #CFLAGS = -O3 -tpp6 -xK -c $(INCS) $(DEFS)
+ 
+-RM = rm -f
++RM = @RM@
+ 
+ include Makefile.onscripter

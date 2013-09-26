@@ -1,0 +1,59 @@
+$NetBSD: patch-ac,v 1.2 2010/12/01 21:00:51 bouyer Exp $
+
+--- Makefile.PL.orig	2010-10-12 20:02:52.000000000 +0200
++++ Makefile.PL	2010-12-01 18:23:35.000000000 +0100
+@@ -1,21 +1,6 @@
+ 
+ use inc::Module::Install;
+ 
+-# Hack to be able to run a post install script
+-sub MY::postamble
+-{
+-
+-	my $re;
+-
+-	$re = '
+-install :: all pure_install doc_install
+-	$(NOECHO) $(NOOP)';
+-
+-	$re .= "\n\t[ ! -f run-postinst ] || $^X postinst.pl\n";
+-
+-    return $re;
+-}
+-
+ require 'lib/Ocsinventory/Agent/Config.pm';
+ use Config;
+ 
+@@ -42,6 +27,8 @@
+ 
+ install_script  'ocsinventory-agent';
+ 
++installdirs 'vendor';
++
+ 
+ # We want a release bundled with the needed dependency to be able to
+ # prepare a standalone binary with PAR::Packer 
+@@ -54,14 +41,6 @@
+ 
+ 
+ 
+-if (defined ($ENV{PERL_AUTOINSTALL}) || defined ($ENV{PERL_AUTOINSTALL})) {
+-    unlink 'run-postinst';
+-} else {
+-    open POSTINST, '>run-postinst' or die $!;
+-    close POSTINST;
+-}
+-
+-
+ if (!can_use('Compress::Zlib')) {
+     print "Please install Compress::Zlib if you use an OCS server prior 1.02.\n";
+ }
+@@ -99,7 +78,7 @@
+     $archname = $t[0];
+ };
+ if ($^O =~ /(linux|bsd)/i && (!$archname ||$archname =~ /(i[3456x]86|x86_64|amd64)/i)) {
+-    foreach (qw/dmidecode lspci/) {
++    foreach (qw/dmidecode pcictl/) {
+         if (!can_run($_)) {
+             print "\n";
+             print "[WARNING] $_ is needed if you want a complete inventory on x86 and AMD64/x86_64.\n";

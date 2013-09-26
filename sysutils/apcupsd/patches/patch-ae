@@ -1,0 +1,54 @@
+$NetBSD: patch-ae,v 1.7 2011/08/01 14:54:51 bouyer Exp $
+
+--- autoconf/configure.in.orig	2010-09-02 16:23:39.000000000 +0200
++++ autoconf/configure.in	2011-08-01 15:40:05.000000000 +0200
+@@ -89,12 +89,6 @@
+       sysconfdir='/etc/apcupsd'
+    fi
+ 
+-dnl
+-dnl If the user has not set -sbindir, we set our default as /sbin
+-dnl
+-   if test x$sbindir = x'${exec_prefix}/sbin' ; then
+-      sbindir='/sbin'
+-   fi
+ fi
+ 
+ dnl
+@@ -146,7 +140,7 @@
+ AC_SUBST(PTHREAD_LFLAGS)
+ 
+ APCACCESS=apcaccess
+-SMTP=smtp
++SMTP=
+ APCTEST=apctest
+ AC_SUBST(APCACCESS)
+ AC_SUBST(SMTP)
+@@ -989,7 +983,7 @@
+ elif test $HAVE_UNAME=yes -a x`uname -s` = xFreeBSD
+ then
+    DISTNAME=freebsd
+-elif test $HAVE_UNAME=yes -a x`uname -s` = xNetBSD
++elif test $HAVE_UNAME=yes -a x`uname -s` = xNetBSD || test $HAVE_UNAME=yes -a x`uname -s` = xDragonFly
+ then
+    DISTNAME=netbsd
+ elif test $HAVE_UNAME=yes -a x`uname -s` = xOpenBSD
+@@ -1130,7 +1124,7 @@
+       platforms/debian/apcupsd \
+       platforms/debian/ups-monitor"
+    ;;
+-freebsd)
++freebsd|dragonfly)
+    DISTVER=`uname -a |awk '{print $3}'`
+    SERIALDEV=/dev/cuaa0
+    nologdir=/var/run
+@@ -1164,7 +1158,8 @@
+    PTHREAD_LFLAGS=""
+    LDFLAGS="$LDFLAGS -pthread"
+    DFILES="\
+-      platforms/netbsd/apcupsd"
++      platforms/netbsd/apcupsd \
++      platforms/netbsd/apccontrol"
+    ;;
+ openbsd)
+    DISTVER=`uname -a |awk '{print $3}'`

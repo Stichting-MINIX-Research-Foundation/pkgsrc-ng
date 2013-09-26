@@ -1,0 +1,50 @@
+$NetBSD: patch-aa,v 1.9 2009/12/10 23:49:03 abs Exp $
+
+--- Makefile.orig	1993-06-10 02:51:22.000000000 +0000
++++ Makefile
+@@ -15,17 +15,30 @@ OBJ	= fep_main.o fep_edit.o fep_hist.o f
+ DISTRIBUTION\
+ 	= Makefile fep.1 $(HEADER) $(SRC) feprc.sample README
+ 
+-INSTDIR	= /usr/local/bin
++INSTDIR	= ${PREFIX}/bin
+ 
+ #STAT	= -DSTAT#		Delete # for statistic info
+ #KANJI	= -DKANJI#		Delete # for KANJI handling
+-CONFIG	= $(STAT) $(KANJI)
++CONFIG	= $(STAT) $(KANJI) -DTERMIOS
+ 
+ #DEBUG	= -g
+-DEBUG	= -O
++#DEBUG	= -O
+ 
+-CFLAGS	= $(DEBUG) $(CONFIG)
++CFLAGS	+= $(DEBUG) $(CONFIG)
++.if exists(/dev/ptmx)
++CFLAGS	+= -DHAVE_PTMX
++.endif
++.if exists(/usr/lib/libtermcap.a)
++.if exists(/usr/lib/libcompat.a)
++LDFLAGS = -ltermcap -lcompat
++.else
+ LDFLAGS = -ltermcap
++.endif
++.elif exists(/usr/lib/libncurses.a)
++LDFLAGS = -lncurses
++.else
++LDFLAGS = -lcurses
++.endif
+ 
+ all: $(TARGET)
+ 
+@@ -36,8 +49,8 @@ argv: fep_com.c
+ 	$(CC) -o argv -DMKARGDEBUG fep_util.c
+ 
+ install: $(TARGET)
+-	install -s $(TARGET) $(INSTDIR)
+-	install -c fep.1 /usr/man/manl/fep.l
++	install -s $(TARGET) $(DESTDIR)$(INSTDIR)
++	gzip -9n -c fep.1 > $(DESTDIR)${PREFIX}/man/man1/fep.1.gz
+ 
+ fep.1: fep.jman
+ 	sed -e '/^\.EG/d' -e '/^\.JP/,/^\.EJ/d' -e '/^\.\\"KS/,/^\.\\"KE/d' \

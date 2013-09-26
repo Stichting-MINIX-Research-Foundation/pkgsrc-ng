@@ -1,0 +1,63 @@
+$NetBSD: patch-ds,v 1.5 2012/11/16 00:29:40 joerg Exp $
+
+- Needs sys/param.h to define BSD if it's going to test it. I'm not
+sure if this is actually failing at the moment but it could start
+without notice.
+
+- remove union wait.
+
+- hack sigisempty().
+
+--- lib/libxview/notify/ntfy.h.orig	1993-06-29 05:18:14.000000000 +0000
++++ lib/libxview/notify/ntfy.h
+@@ -16,12 +16,17 @@
+ #define	NTFY_DEFINED
+ 
+ #include <sys/types.h>
++#include <sys/param.h>
+ #include <xview_private/ultrix_cpt.h>
+ #include <sys/time.h>
+ #ifdef SVR4
+ #include <sys/rusage.h>
+ #endif
+ #include <sys/resource.h>
++#if (defined(BSD) && (BSD >= 199103))
++#include <sys/wait.h>
++#include <sys/signal.h>
++#endif
+ #include <xview/notify.h>
+ 
+ /*
+@@ -149,7 +154,7 @@ typedef struct ntfy_condition {
+  */
+ typedef	struct ntfy_wait3_data {
+ 	int	pid;			/* Process waiting for */
+-#ifndef SVR4
++#if !defined(SVR4) && !(defined(BSD) && (BSD >= 199103))
+ 	union	wait status;		/* Return value from wait3 */
+ #else SVR4
+ 	int 	status;		/* Return value from wait3 */
+@@ -184,9 +189,12 @@ extern	int ntfy_nodes_avail;	/* count of
+ extern	sigset_t ntfy_sigs_delayed;/* Bit mask of signals received while in
+ 				      critical section */
+ 
+-#ifdef SVR4
++#if defined(SVR4)
+ #define sigisempty(s)   (!(((s)->__sigbits[0]) | ((s)->__sigbits[1])   \
+                         | ((s)->__sigbits[2]) | ((s)->__sigbits[3])))
++#elif (defined(__NetBSD__) && (__NetBSD_Version__ > 103080000)) || defined(__DragonFly__)
++#define sigisempty(s)   (!(((s)->__bits[0]) | ((s)->__bits[1])   \
++                        | ((s)->__bits[2]) | ((s)->__bits[3])))
+ #else
+ #define sigisempty(s)   (!(*(s)))
+ #endif
+@@ -492,6 +500,9 @@ void	ntfy_assert_debug();
+ 
+ void	ntfy_fatal_error();
+ 
++void ntfy_add_to_table(NTFY_CLIENT *, NTFY_CONDITION *, int);
++void ntfy_remove_from_table(NTFY_CLIENT *, NTFY_CONDITION *);
++
+ #define	pkg_private	extern
+ #define	pkg_private_data
+ 

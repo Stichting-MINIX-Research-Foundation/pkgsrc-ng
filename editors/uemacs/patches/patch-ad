@@ -1,0 +1,52 @@
+$NetBSD: patch-ad,v 1.3 2012/05/10 20:53:30 dholland Exp $
+
+- use standard includes
+- don't use sys_errlist
+- declare void functions void
+
+--- src/lock.c.orig	1995-11-19 08:09:22.000000000 +0000
++++ src/lock.c
+@@ -10,17 +10,9 @@
+ 
+ #if	FILOCK
+ 
+-#if	BSD || FREEBSD || WMCS || SUN || XENIX || HPUX8 || HPUX9 || AVIION || USG || AIX || AUX
+-#include <sys/errno.h>
+-extern int sys_nerr;		/* number of system error messages defined */
+-extern char *sys_errlist[];	/* list of message texts */
+-#endif
+-
+-#if	MSC
++#include <string.h>
+ #include <errno.h>
+-#else
+-extern int errno;		/* current error */
+-#endif
++
+ 
+ char *lname[NLOCKS];	/* names of all locked files */
+ int numlocks;		/* # of current locks active */
+@@ -158,21 +150,12 @@ char *errstr;		/* lock error string to p
+ 
+ 	strcpy(obuf, errstr);
+ 	strcat(obuf, " - ");
+-#if	BSD || FREEBSD || WMCS || SUN || XENIX || HPUX8 || HPUX9 || AVIION || USG || AIX || AUX
+-	if (errno < sys_nerr)
+-		strcat(obuf, sys_errlist[errno]);
+-	else
+-		strcat(obuf, TEXT178);
+-/*                           "[can not get system error message]" */
+-#else
+-	strcat(obuf, "Error # ");
+-	strcat(obuf, int_asc(errno));
+-#endif
++	strcat(obuf, strerror(errno));
+ 	mlwrite(obuf);
+ 	update(TRUE);
+ }
+ #else
+-lckhello()	/* dummy function */
++VOID lckhello()	/* dummy function */
+ {
+ }
+ #endif

@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.4 2010/09/10 08:40:15 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/install.rb
+${GEM_LIBDIR}/lib/simple-rss.rb
+${GEM_LIBDIR}/simple-rss.gemspec
+${GEM_LIBDIR}/test/base/base_test.rb
+${GEM_LIBDIR}/test/data/atom.xml
+${GEM_LIBDIR}/test/data/not-rss.xml
+${GEM_LIBDIR}/test/data/rss09.rdf
+${GEM_LIBDIR}/test/data/rss20.xml
+${GEM_LIBDIR}/test/test_helper.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

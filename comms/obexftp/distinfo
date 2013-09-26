@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2013/03/15 08:18:43 plunky Exp $
+
+SHA1 (obexftp-0.24-Source.tar.gz) = c82260d7f44519a1b0aaa0eae3ff0809f321f486
+RMD160 (obexftp-0.24-Source.tar.gz) = 99fb5fac2460398cd3ab377426fe7b1050b0a6ea
+Size (obexftp-0.24-Source.tar.gz) = 88154 bytes

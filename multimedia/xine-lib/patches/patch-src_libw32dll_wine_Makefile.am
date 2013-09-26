@@ -1,0 +1,13 @@
+$NetBSD: patch-src_libw32dll_wine_Makefile.am,v 1.2 2012/03/21 16:37:15 drochner Exp $
+
+--- src/libw32dll/wine/Makefile.am.orig	2012-02-04 00:41:43.000000000 +0000
++++ src/libw32dll/wine/Makefile.am
+@@ -51,6 +51,8 @@ noinst_HEADERS = \
+ 
+ noinst_LTLIBRARIES = libwine.la
+ 
++libwine_la_LIBADD = ${WINE_LIBS}
++
+ libwine_la_SOURCES = \
+ 	afl.c \
+ 	driver.c \

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2012/06/03 17:51:53 wiz Exp $
+bin/xkbcomp
+lib/pkgconfig/xkbcomp.pc
+man/man1/xkbcomp.1

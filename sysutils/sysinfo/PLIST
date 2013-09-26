@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.3 2012/05/13 15:59:33 hans Exp $
+bin/sysinfo
+man/man1/sysinfo.1
+man/man5/sysinfo.cf.5
+libdata/sysinfo/conf/aix.cf
+libdata/sysinfo/conf/bsd.cf
+libdata/sysinfo/conf/bsdos.cf
+libdata/sysinfo/conf/dospart.cf
+libdata/sysinfo/conf/eisa.cf
+libdata/sysinfo/conf/freebsd.cf
+libdata/sysinfo/conf/hp-ux-com.cf
+libdata/sysinfo/conf/hp-ux.cf
+libdata/sysinfo/conf/irix.cf
+libdata/sysinfo/conf/irix64.cf
+libdata/sysinfo/conf/linux.cf
+libdata/sysinfo/conf/pci.cf
+libdata/sysinfo/conf/scsi.cf
+libdata/sysinfo/conf/sunos.cf
+libdata/sysinfo/conf/sunos_4.cf
+libdata/sysinfo/conf/sunos_5.cf
+libdata/sysinfo/conf/sunos_5.ddb
+sysinfo/libexec/${MACHINE_ARCH}-sunos-${OS_VERSION}/sysinfo

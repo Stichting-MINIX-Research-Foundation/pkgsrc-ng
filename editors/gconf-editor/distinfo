@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.22 2010/11/29 18:30:10 drochner Exp $
+
+SHA1 (gconf-editor-2.32.0.tar.bz2) = 62a31ed551345fa3340334a828bd22502eb60911
+RMD160 (gconf-editor-2.32.0.tar.bz2) = ee86d8495ab4d9616252a74513cd55bdb43bace6
+Size (gconf-editor-2.32.0.tar.bz2) = 1397117 bytes

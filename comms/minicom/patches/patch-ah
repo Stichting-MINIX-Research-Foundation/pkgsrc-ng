@@ -1,0 +1,21 @@
+$NetBSD: patch-ah,v 1.4 2012/12/12 12:35:21 wiz Exp $
+
+Needs limits.h and NAME_MAX defined, if it's not already.
+
+--- src/getsdir.h.orig	2009-12-12 15:47:47.000000000 +0000
++++ src/getsdir.h
+@@ -23,9 +23,14 @@
+  */
+ 
+ #include <dirent.h>
++#include <limits.h>
+ 
+ typedef struct dirEntry {		/* structure of data item */
++#ifdef NAME_MAX
++  char fname[NAME_MAX + 1];
++#else
+   char fname[MAXNAMLEN + 1];		/* filename + terminating null */
++#endif
+   time_t time;				/* last modification date */
+   mode_t mode;				/* file mode (dir? etc.) */
+   ushort cflags;			/* caller field for convenience */

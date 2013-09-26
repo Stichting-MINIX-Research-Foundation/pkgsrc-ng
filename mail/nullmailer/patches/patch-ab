@@ -1,0 +1,25 @@
+$NetBSD: patch-ab,v 1.7 2009/10/11 10:25:24 plunky Exp $
+
+--- doc/nullmailer-send.8.orig	2007-10-09 17:35:44.000000000 +0100
++++ doc/nullmailer-send.8
+@@ -94,16 +94,16 @@ If this is set to
+ will wait forever for messages to complete sending.
+ .SH FILES
+ .TP
+-.B /var/nullmailer/queue
++.B @VARBASE@/spool/nullmailer/queue
+ The message queue.
+ .TP
+-.B /var/nullmailer/trigger
++.B @VARBASE@/spool/nullmailer/trigger
+ A trigger file to cause immediate delivery.
+ .TP
+-.B /usr/local/etc/nullmailer
++.B @PKG_SYSCONFDIR@/nullmailer
+ The configuration directory.
+ .TP
+-.B /usr/local/libexec/nullmailer
++.B @PREFIX@/libexec/nullmailer
+ The protocol program directory.
+ .SH SEE ALSO
+ nullmailer-queue(8),

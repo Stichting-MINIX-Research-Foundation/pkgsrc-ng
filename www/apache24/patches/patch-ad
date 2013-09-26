@@ -1,0 +1,34 @@
+$NetBSD: patch-ad,v 1.2 2013/02/25 21:16:38 ryoon Exp $
+
+--- config.layout.orig	2012-04-17 14:01:41.000000000 +0000
++++ config.layout
+@@ -347,6 +347,29 @@
+     proxycachedir: ${localstatedir}/proxy
+ </Layout>
+ 
++#   NetBSD (pkgsrc) layout
++<Layout NetBSD>
++    prefix:        @PREFIX@
++    exec_prefix:   ${prefix}
++    bindir:        ${exec_prefix}/bin
++    sbindir:       ${exec_prefix}/sbin
++    libexecdir:    ${exec_prefix}/lib/httpd
++    mandir:        ${prefix}/man
++    sysconfdir:    @SYSCONFDIR@
++    datadir:       ${prefix}/share/httpd
++    installbuilddir: ${datadir}/build
++    errordir:      ${datadir}/error
++    iconsdir:      ${datadir}/icons
++    htdocsdir:     ${datadir}/htdocs
++    manualdir:     ${datadir}/manual
++    cgidir:        ${exec_prefix}/libexec/cgi-bin
++    includedir:    ${prefix}/include/httpd
++    localstatedir: @VARBASE@
++    runtimedir:    ${localstatedir}/run
++    logfiledir:    ${localstatedir}/log/httpd
++    proxycachedir: ${localstatedir}/db/httpd/proxy
++</Layout>
++
+ # FHS layout
+ <Layout Slackware-FHS>
+     prefix:          /usr

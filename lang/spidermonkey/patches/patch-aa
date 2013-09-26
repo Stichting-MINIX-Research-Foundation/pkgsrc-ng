@@ -1,0 +1,43 @@
+$NetBSD: patch-aa,v 1.5 2010/12/23 12:36:02 fhajny Exp $
+
+--- config.mk.orig	2008-03-12 14:36:06.000000000 +0000
++++ config.mk
+@@ -100,10 +100,26 @@ else
+ ifeq ($(OS_ARCH),Darwin)
+ OS_CONFIG      := Darwin
+ else
++ifeq ($(OS_ARCH), NetBSD)
++OS_CONFIG	:= pkgsrc
++else
++ifeq ($(OS_ARCH), FreeBSD)
++OS_CONFIG	:= pkgsrc
++else
++ifeq ($(OS_ARCH), DragonFly)
++OS_CONFIG	:= pkgsrc
++else
++ifeq ($(OS_ARCH), OpenBSD)
++OS_CONFIG	:= pkgsrc
++else
+ OS_CONFIG       := $(OS_ARCH)$(OS_OBJTYPE)$(OS_RELEASE)
+ endif
+ endif
+ endif
++endif
++endif
++endif
++endif
+ 
+ ASFLAGS         =
+ DEFINES         =
+@@ -139,7 +155,11 @@ DEFINES    += -DDEBUG -DDEBUG_$(USER)
+ OBJDIR_TAG = _DBG
+ endif
+ 
++ifeq ($(OS_ARCH),Darwin)
++SO_SUFFIX = dylib
++else
+ SO_SUFFIX = so
++endif
+ 
+ NS_USE_NATIVE = 1
+ 

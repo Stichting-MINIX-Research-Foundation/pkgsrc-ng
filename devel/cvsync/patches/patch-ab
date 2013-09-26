@@ -1,0 +1,33 @@
+$NetBSD: patch-ab,v 1.4 2012/02/16 18:35:02 hans Exp $
+
+--- mk/base.mk.orig	2006-11-03 15:57:04.000000000 +0000
++++ mk/base.mk
+@@ -38,7 +38,6 @@ ifeq (${HOST_OS}, AIX)
+ _OSVER := $(shell /usr/bin/uname -v)
+ OSVER  ?= ${_OSVER}
+ BINGRP	= system
+-INSTALL	= /usr/ucb/install
+ endif # AIX
+ 
+ ifeq (${HOST_OS}, CYGWIN)
+@@ -87,19 +86,17 @@ ifeq (${HOST_OS}, SunOS)
+ _OSVER := $(shell /bin/uname -r)
+ OSVER  ?= ${_OSVER}
+ BINGRP	= root
+-INSTALL	= /usr/ucb/install
+ endif # SunOS
+ 
+ PREFIX ?= /usr/local
+ BINDIR ?= ${PREFIX}/bin
+-MANDIR ?= ${PREFIX}/man
++MANDIR ?= ${PREFIX}/${PKGMANDIR}
+ 
+ BINOWN ?= root
+ BINGRP ?= wheel
+ BINMODE?= 755
+ MANMODE?= 644
+ 
+-INSTALL		?= /usr/bin/install
+ INSTALL_BIN_OPTS?= -c -o ${BINOWN} -g ${BINGRP} -m ${BINMODE}
+ INSTALL_MAN_OPTS?= -c -o ${BINOWN} -g ${BINGRP} -m ${MANMODE}
+ 

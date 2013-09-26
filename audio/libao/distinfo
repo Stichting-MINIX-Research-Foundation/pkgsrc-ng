@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.22 2011/04/09 13:20:20 shattered Exp $
+
+SHA1 (libao-1.1.0.tar.gz) = 9301bc4886f170c7122ab62677fb71cf001c04fd
+RMD160 (libao-1.1.0.tar.gz) = 374078af926bb0744fb2301e128a1c5276fdf4ee
+Size (libao-1.1.0.tar.gz) = 397102 bytes
+SHA1 (patch-ab) = dbab16863b62b1df33444ceb518d3c5a11b590fd
+SHA1 (patch-ae) = 55f13b97d76f605cd99d948e3e85ffff44e5546a
+SHA1 (patch-af) = 33165ac460863f6fa673cde651fbda1f4a83857c

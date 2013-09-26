@@ -1,0 +1,92 @@
+$NetBSD: patch-aa,v 1.4 2013/01/09 10:34:03 martin Exp $
+
+Do not allow access to _res on NetBSD.
+
+--- configure.in.orig	2012-03-06 15:45:23.000000000 +0100
++++ configure.in	2013-01-08 16:00:11.000000000 +0100
+@@ -1858,7 +1858,7 @@
+     fi
+     ;;
+ 
+-*-freebsd*)
++*-freebsd* | *-dragonfly*)
+     if test `test -x /usr/bin/objformat && /usr/bin/objformat || echo elf` != "elf"; then
+ 	DLL_SUFFIX=".so.1.0"
+ 	DSO_LDOPTS="-shared"
+@@ -1872,6 +1872,9 @@
+ #	MKSHLIB_FORCE_ALL='-Wl,-Bforcearchive'
+ #	MKSHLIB_UNFORCE_ALL=''
+ #    fi
++    if test "$LIBRUNPATH"; then
++       DSO_LDOPTS="-Wl,-R$LIBRUNPATH $DSO_LDOPTS"
++    fi
+     ;; 
+ 
+ *-hpux*)
+@@ -2939,6 +2942,9 @@
+   AC_CACHE_CHECK(for visibility(hidden) attribute,
+                  ac_cv_visibility_hidden,
+                  [cat > conftest.c <<EOF
++#ifdef __clang__
++#error Not supported by old Mozilla
++#endif
+                   int foo __attribute__ ((visibility ("hidden"))) = 1;
+ EOF
+                   ac_cv_visibility_hidden=no
+@@ -3110,6 +3116,9 @@
+ case $target in
+ *-hpux11.*)
+ 	;;
++*-dragonfly*)
++	AC_CHECK_LIB(c, gethostbyname_r)
++	;;
+ *)
+ 	AC_CHECK_LIB(c_r, gethostbyname_r)
+ 	;;
+@@ -3556,7 +3565,11 @@
+         #endif
+         #include <resolv.h>
+         ],
+-        [int foo = res_ninit(&_res);],
++        [
++	#ifdef __NetBSD__
++	#error "_res is not usable in threaded programs"
++	#endif
++	int foo = res_ninit(&_res);],
+         [ac_cv_func_res_ninit=yes],
+         [ac_cv_func_res_ninit=no])
+     ])
+@@ -4326,6 +4339,14 @@
+    fi
+ fi
+ 
++if test -n "${LIBXUL_SDK_DIR}"; then
++    AC_MSG_WARN([pkgsrc: LIBXUL_SDK_DIR is set; assuming we want nss and nspr from xulrunner.])
++    NSPR_CFLAGS="-I${prefix}/include/xulrunner192/unstable `pkg-config --cflags mozilla-nspr`"
++    NSPR_LIBS="`pkg-config --libs mozilla-nspr`"
++    NSS_CFLAGS="`pkg-config --cflags mozilla-nss`"
++    NSS_LIBS="`pkg-config --libs mozilla-nss`"
++fi
++
+ if test -z "$SKIP_LIBRARY_CHECKS"; then
+ dnl system JPEG support
+ dnl ========================================================
+@@ -8630,7 +8651,8 @@
+ mv confdefs.h confdefs.h.save
+ egrep -v "$_EGREP_PATTERN" confdefs.h.save > confdefs.h
+ AC_OUTPUT_MAKE_DEFS()
+-MOZ_DEFINES=$DEFS
++# nbsed broken. PR bin/42261
++MOZ_DEFINES="$DEFS`awk 'BEGIN {while(x<1000){printf " ";x++}}'`"
+ AC_SUBST(MOZ_DEFINES)
+ rm -f confdefs.h
+ mv confdefs.h.save confdefs.h
+@@ -8721,6 +8743,8 @@
+     AC_MSG_WARN([Recreating autoconf.mk with updated nspr-config output])
+     if test "$OS_ARCH" != "WINNT" && test "$OS_ARCH" != "WINCE"; then
+        NSPR_LIBS=`./nsprpub/config/nspr-config --prefix=$LIBXUL_DIST --exec-prefix=$MOZ_BUILD_ROOT/dist --libdir=$LIBXUL_DIST/lib --libs`
++       AC_MSG_WARN([pkgsrc: adding run path to NSPR_LIBS for bundled NSPR.])
++       NSPR_LIBS="-Wl,-R${prefix}/lib/\${MOZILLA_PKG_NAME} ${NSPR_LIBS}"
+        $PERL -pi.bak -e "s '^NSPR_LIBS\\s*=.*'NSPR_LIBS = $NSPR_LIBS'" config/autoconf.mk
+        NSPR_CFLAGS=`./nsprpub/config/nspr-config --prefix=$LIBXUL_DIST --exec-prefix=$MOZ_BUILD_ROOT/dist --includedir=$LIBXUL_DIST/include/nspr --cflags`
+        $PERL -pi.bak -e "s '^NSPR_CFLAGS\\s*=.*'NSPR_CFLAGS = $NSPR_CFLAGS'" config/autoconf.mk

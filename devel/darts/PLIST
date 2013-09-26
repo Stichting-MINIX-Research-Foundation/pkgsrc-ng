@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:48:40 joerg Exp $
+include/darts.h
+libexec/darts/darts
+libexec/darts/mkdarts
+share/doc/darts/AUTHORS
+share/doc/darts/ChangeLog
+share/doc/darts/README
+share/doc/html/darts/darts.css
+share/doc/html/darts/index.html
+share/examples/darts/darts.cpp
+share/examples/darts/mkdarts.cpp

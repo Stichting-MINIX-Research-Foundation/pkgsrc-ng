@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.5 2009/09/21 06:43:59 obache Exp $
+bin/libast-config
+include/libast.h
+include/libast/array.h
+include/libast/avl_tree.h
+include/libast/dlinked_list.h
+include/libast/iterator_if.h
+include/libast/linked_list.h
+include/libast/list_if.h
+include/libast/map_if.h
+include/libast/mbuff.h
+include/libast/obj.h
+include/libast/objpair.h
+include/libast/regexp.h
+include/libast/socket.h
+include/libast/str.h
+include/libast/sysdefs.h
+include/libast/tok.h
+include/libast/types.h
+include/libast/url.h
+include/libast/vector_if.h
+lib/libast.la
+share/aclocal/libast.m4

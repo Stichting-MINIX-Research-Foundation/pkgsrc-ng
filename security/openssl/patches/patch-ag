@@ -1,0 +1,67 @@
+$NetBSD: patch-ag,v 1.12 2013/02/06 21:40:34 jperkin Exp $
+
+--- Makefile.shared.orig	2010-08-21 11:37:17.000000000 +0000
++++ Makefile.shared
+@@ -315,6 +315,11 @@ link_o.alpha-osf1:
+ 	@ if $(DETECT_GNU_LD); then \
+ 		$(DO_GNU_SO); \
+ 	else \
++		if ($(CC) -v 2>&1 | grep gcc) > /dev/null; then \
++			WL="-Wl,"; DELIM=","; \
++		else \
++			WL=""; DELIM=" "; \
++		fi; \
+ 		SHLIB=lib$(LIBNAME).so; \
+ 		SHLIB_SUFFIX=; \
+ 		SHLIB_HIST=`echo "$(LIBCOMPATVERSIONS)" | cut -d';' -f2 | sed -e 's/ */:/'`; \
+@@ -324,11 +329,11 @@ link_o.alpha-osf1:
+ 			SHLIB_HIST="$(LIBVERSION)"; \
+ 		fi; \
+ 		SHLIB_SOVER=; \
+-		ALLSYMSFLAGS='-all'; \
+-		NOALLSYMSFLAGS='-none'; \
++		ALLSYMSFLAGS="$${WL}-all"; \
++		NOALLSYMSFLAGS="$${WL}-none"; \
+ 		SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared -Wl,-B,symbolic"; \
+ 		if [ -n "$$SHLIB_HIST" ]; then \
+-			SHAREDFLAGS="$$SHAREDFLAGS -set_version $$SHLIB_HIST"; \
++			SHAREDFLAGS="$$SHAREDFLAGS $${WL}-set_version$${DELIM}$$SHLIB_HIST"; \
+ 		fi; \
+ 	fi; \
+ 	$(LINK_SO_O)
+@@ -336,6 +341,11 @@ link_a.alpha-osf1:
+ 	@ if $(DETECT_GNU_LD); then \
+ 		$(DO_GNU_SO); \
+ 	else \
++		if ($(CC) -v 2>&1 | grep gcc) > /dev/null; then \
++			WL="-Wl,"; DELIM=","; \
++		else \
++			WL=""; DELIM=" "; \
++		fi; \
+ 		SHLIB=lib$(LIBNAME).so; \
+ 		SHLIB_SUFFIX=; \
+ 		SHLIB_HIST=`echo "$(LIBCOMPATVERSIONS)" | cut -d';' -f2 | sed -e 's/ */:/'`; \
+@@ -345,11 +355,11 @@ link_a.alpha-osf1:
+ 			SHLIB_HIST="$(LIBVERSION)"; \
+ 		fi; \
+ 		SHLIB_SOVER=; \
+-		ALLSYMSFLAGS='-all'; \
+-		NOALLSYMSFLAGS='-none'; \
++		ALLSYMSFLAGS="$${WL}-all"; \
++		NOALLSYMSFLAGS="$${WL}-none"; \
+ 		SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared -Wl,-B,symbolic"; \
+ 		if [ -n "$$SHLIB_HIST" ]; then \
+-			SHAREDFLAGS="$$SHAREDFLAGS -set_version $$SHLIB_HIST"; \
++			SHAREDFLAGS="$$SHAREDFLAGS $${WL}-set_version$${DELIM}$$SHLIB_HIST"; \
+ 		fi; \
+ 	fi; \
+ 	$(LINK_SO_A)
+@@ -484,7 +494,7 @@ link_a.irix:
+ 		($(CC) -v 2>&1 | grep gcc) > /dev/null && MINUSWL="-Wl,"; \
+ 		ALLSYMSFLAGS="$${MINUSWL}-all"; \
+ 		NOALLSYMSFLAGS="$${MINUSWL}-none"; \
+-		SHAREDFLAGS="$(CFLAGS) $(SHARED_LDFLAGS) -shared -Wl,-soname,$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX,-B,symbolic"; \
++		SHAREDFLAGS="$(CFLAGS) -Wl,-rpath,$(LIBRPATH) $(SHARED_LDFLAGS) -shared -Wl,-soname,$$SHLIB$$SHLIB_SOVER$$SHLIB_SUFFIX,-B,symbolic"; \
+ 	fi; \
+ 	$(LINK_SO_A)
+ link_app.irix:

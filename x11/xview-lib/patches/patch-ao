@@ -1,0 +1,28 @@
+$NetBSD: patch-ao,v 1.4 2009/12/10 20:35:56 abs Exp $
+
+--- lib/libxview/io_stream/str_strms.c.orig	1993-06-29 05:15:06.000000000 +0000
++++ lib/libxview/io_stream/str_strms.c
+@@ -17,7 +17,11 @@ static char     sccsid[] = "@(#)str_strm
+ 
+ #define GetSISData struct string_input_stream_data	*data = (struct string_input_stream_data*) in->client_data
+ 
++#if !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
+ static struct string_input_stream_data {
++#else
++struct string_input_stream_data {
++#endif
+     char           *string;
+     int             charpos;
+ };
+@@ -148,7 +152,11 @@ string_input_stream(s, in)
+ 
+ #define GetSOSData struct string_output_stream_data *data = (struct string_output_stream_data*) out->client_data
+ 
++#if !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(__DragonFly__)
+ static struct string_output_stream_data {
++#else
++struct string_output_stream_data {
++#endif
+     char           *string;
+     int             charpos;
+ };

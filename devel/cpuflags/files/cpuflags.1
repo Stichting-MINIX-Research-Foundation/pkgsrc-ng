@@ -1,0 +1,121 @@
+.\"	$NetBSD: cpuflags.1,v 1.21 2008/07/21 10:46:16 abs Exp $
+.\"
+.\" Copyright (c) 2008 The NetBSD Foundation, Inc.
+.\" All rights reserved.
+.\"
+.\" This code is derived from software contributed to The NetBSD Foundation
+.\" by David Brownlee <abs@NetBSD.org>
+.\"
+.\" Redistribution and use in source and binary forms, with or without
+.\" modification, are permitted provided that the following conditions
+.\" are met:
+.\" 1. Redistributions of source code must retain the above copyright
+.\"    notice, this list of conditions and the following disclaimer.
+.\" 2. Redistributions in binary form must reproduce the above copyright
+.\"    notice, this list of conditions and the following disclaimer in the
+.\"    documentation and/or other materials provided with the distribution.
+.\"
+.\" THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
+.\" ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
+.\" TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
+.\" PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
+.\" BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+.\" CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+.\" SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+.\" INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+.\" CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+.\" ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+.\" POSSIBILITY OF SUCH DAMAGE.
+.\"
+.Dd May 31, 2001
+.Dt CPUFLAGS 1
+.Os
+.Sh NAME
+.Nm cpuflags
+.Nd determine compiler flags to best target current CPU
+.Sh SYNOPSIS
+.Nm
+.Op cc_pathname
+.Sh DESCRIPTION
+.Nm
+determines the current CPU type and gcc version, then outputs appropriate
+compiler options to best target code for that CPU.
+If no options exist to target the current CPU then nothing is output.
+.Pp
+In the event of the CPU not being recognised, a warning is sent to stderr.
+.Pp
+If
+.Pa cc_pathname
+is not specified it defaults to the first
+.Pa cc
+found in the path.
+.Sh ENVIRONMENT
+The BSD makefile fragment
+.Pa @PREFIX@/share/mk/cpuflags.mk
+will set the following
+.Xr make 1
+variables, plus add CPU_FLAGS and CPU_DIR to .MAKEFLAGS for sub-makes.
+.Pp
+.Bl -tag -width CPU_FLAGS -compact
+.It CPU_FLAGS
+The output of cpuflags
+.It CPU_DIR
+CPU_FLAGS with spaces stripped (eg: for use in PACKAGES)
+.It CFLAGS
+Has CPU_FLAGS appended
+.It CXXFLAGS
+Has CPU_FLAGS appended
+.El
+.Sh FILES
+.Bl -tag -width @PREFIX@/share/mk/optimize_gcc.mk -compact
+.It @PREFIX@/share/mk/cpuflags.mk
+Set appropriate compiler flags based on the output from
+.Nm .
+Suitable for inclusion in /etc/mk.conf
+.It @PREFIX@/share/mk/optimize_gcc.mk
+Attempt to set additional -mXXX gcc flags based on gcc version and packages
+being compiled.
+Note: This is experimental and not supported.
+.El
+.Sh EXAMPLES
+.Nm
+can be used to set default flags for building entries from pkgsrc
+and recompiling the
+.Nx
+kernel or userland by adding the following to
+.Pa /etc/mk.conf :
+.Bd -literal -offset indent
+ .sinclude "@PREFIX@/share/mk/cpuflags.mk"
+.Ed
+.Pp
+To experiment with optimisations that can break generated code there is
+optimize_gcc.mk.
+This is unsupported, but for full effect add the following to
+.Pa /etc/mk.conf :
+.Bd -literal -offset indent
+ .sinclude "@PREFIX@/share/mk/cpuflags.mk"
+ .sinclude "@PREFIX@/share/mk/optimize_gcc.mk"
+.Ed
+.Pp
+On all except low memory machines compilation can be speeded up by adding the
+following to /etc/mk.conf.
+(Note this will not affect the binaries produced)
+.Bd -literal -offset indent
+COPTS?= -pipe ${DEFCOPTS}
+CFLAGS+=-pipe
+.Ed
+.Sh BUGS
+.Nm
+still needs to learn about more CPU types - updates welcomed
+to
+.Aq abs@NetBSD.org .
+Also the Makefile fragments and examples are BSD make
+specific - gmake examples welcomed.
+.Pp
+Currently
+.Nm
+is also gcc specific.
+.Sh NOTES
+.Nm
+is based on input from many sources.
+I would like to thank them all, in particular Yakovetsky Vladimir.

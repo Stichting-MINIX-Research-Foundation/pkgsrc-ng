@@ -1,0 +1,15 @@
+$NetBSD: patch-ad,v 1.2 2013/04/27 11:19:39 adam Exp $
+
+Fix ampersand encoding that breaks XHTML output, ID 1824230.
+
+--- wwwroot/cgi-bin/lib/search_engines.pm.orig	2008-11-15 14:58:02.000000000 +0000
++++ wwwroot/cgi-bin/lib/search_engines.pm
+@@ -914,7 +914,7 @@
+ 'excite','<a href="http://www.excite.com/" title="Search Engine Home Page [new window]" target="_blank">Excite</a>',
+ # Minor international search engines
+ 'google4counter','<a href="http://www.4-counter.com/" title="Search Engine Home Page [new window]" target="_blank">4-counter (Google)</a>',
+-'att','<a href="http://www.att.net/" title="Search Engine Home Page [new window]" target="_blank">AT&T search (powered by Google)</a>',
++'att','<a href="http://www.att.net/" title="Search Engine Home Page [new window]" target="_blank">AT&amp;T search (powered by Google)</a>',
+ 'bungeebonesdotcom','<a href="http://BungeeBones.com/search.php/" title="Search Engine Home Page [new window]" target="_blank">BungeeBones</a>',
+ 'go','Go.com',
+ 'askde','<a href="http://de.ask.com/" title="Search Engine Home Page [new window]" target="_blank">Ask Deutschland</a>',

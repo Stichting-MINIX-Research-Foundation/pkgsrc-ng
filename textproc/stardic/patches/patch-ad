@@ -1,0 +1,15 @@
+$NetBSD: patch-ad,v 1.2 2011/12/06 19:46:09 joerg Exp $
+
+--- trans.h.orig	2000-01-29 03:34:32.000000000 +0000
++++ trans.h
+@@ -42,8 +42,8 @@
+ #include <Xm/PushB.h>
+ #include <Xm/DrawnB.h>
+ #include <Xm/ArrowB.h>
+-#include <strstream.h>
+-#include <fstream.h>
++#include <sstream>
++#include <fstream>
+ 
+ #include "regdef.h"
+ 

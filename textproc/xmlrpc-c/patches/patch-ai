@@ -1,0 +1,13 @@
+$NetBSD: patch-ai,v 1.2 2011/04/06 07:45:48 adam Exp $
+
+--- tools/xmlrpc/Makefile.orig	2011-03-25 16:58:35.000000000 +0000
++++ tools/xmlrpc/Makefile
+@@ -45,7 +45,7 @@ LIBS = $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) 
+ XMLRPC_OBJS = xmlrpc.o $(DUMPVALUE)
+ 
+ xmlrpc: $(XMLRPC_OBJS) $(LIBS) $(UTILS)
+-	$(CCLD) -o $@ $(LDFLAGS) $(XMLRPC_OBJS) $(UTILS) $(CLIENT_LDLIBS)
++	libtool --mode=link $(CCLD) -o $@ $(LDFLAGS) $(XMLRPC_OBJS) $(UTILS) $(CLIENT_LDLIBS)
+ 
+ %.o:%.c $(BLDDIR)/include/xmlrpc-c/config.h
+ 	$(CC) -c $(CFLAGS) $<

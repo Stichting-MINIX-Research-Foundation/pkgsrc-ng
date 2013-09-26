@@ -1,0 +1,29 @@
+$NetBSD: distinfo,v 1.46 2013/03/28 21:43:07 joerg Exp $
+
+SHA1 (inkscape-0.48.4.tar.bz2) = 5f26f6ad191d1e7c2a9fb69a438722beb172224c
+RMD160 (inkscape-0.48.4.tar.bz2) = b089ced7694a9803fac8588d93e7e6239c71d3e8
+Size (inkscape-0.48.4.tar.bz2) = 19712522 bytes
+SHA1 (patch-aa) = d946236902fc6cf0d2ddcbb9dd667b4d9c6f99d4
+SHA1 (patch-ab) = b70ffa613c054c26185d4728da4133aed6d88e63
+SHA1 (patch-ac) = 01caeac029e0ce7e4c4e2b6a9a80b76d9f9b495e
+SHA1 (patch-ad) = 3136850b7d34370feb951fc8fdde8cda78d54d60
+SHA1 (patch-ae) = 2b3f06a545d3cf27f59d41619528c59ac142c758
+SHA1 (patch-af) = 5f9317fcb7a798afc569aada9683fb1c7f6ba4c7
+SHA1 (patch-ag) = 6b6000f3940ec6db9404a206f9757928c1d5740b
+SHA1 (patch-ah) = 6da5e0651b583f925debed97faaf6800f88463da
+SHA1 (patch-ai) = 1cd8e744848d6b52ffb4f07922e09689b5e43f61
+SHA1 (patch-aj) = 8564ee2d4e884dc31e4ad4232267f6fad09f71ee
+SHA1 (patch-ap) = cd29bd178dc2c6c9456bc09d6663d6a25acc7da1
+SHA1 (patch-aq) = dd307f598741cd5f0ff35eb06dff7c685752a979
+SHA1 (patch-src_2geom_basic-intersection.cpp) = 743b13293191a74d4c0c22231e5ed7866219dfee
+SHA1 (patch-src_2geom_solve-bezier-parametric.cpp) = 71cca994451b1e7d5aba625600089d1e4a47888e
+SHA1 (patch-src_color-profile.cpp) = 14932b25ed333925518d5140b3691a29e155cd9a
+SHA1 (patch-src_display_nr-filter-gaussian.cpp) = 344109eb4360560bfe8481b25588ef37e5140135
+SHA1 (patch-src_dom_io_domstream.cpp) = 6b525b8e730e4497afdf1da0ae27f0dc69bfad40
+SHA1 (patch-src_dom_io_domstream.h) = 9325fc9d211eb3349628a736283ed0c475399a8b
+SHA1 (patch-src_extension_internal_pdfinput_pdf-parser.cpp) = 02742a022a8a55852d7f0a39969153bf7f24f17e
+SHA1 (patch-src_extension_internal_pdfinput_pdf-parser.h) = 9e9e76049b9fdcc5192e225b4b477a104902894b
+SHA1 (patch-src_libvpsc_csolve__VPSC.h) = 33aa27678fa9e802af6ab95b9ea28b69d822c4cb
+SHA1 (patch-src_ui_dialog_inkscape-preferences.cpp) = f95af6d326ddf7512b67f68efe0b23bc3ebe651e
+SHA1 (patch-src_ui_widget_registered-widget.h) = a5c16bcd28a015959121ed8b92423762f182a71b
+SHA1 (patch-src_widgets_desktop-widget.h) = 6528b3105590bfa8b5d33d428aa8c9cbc3561225

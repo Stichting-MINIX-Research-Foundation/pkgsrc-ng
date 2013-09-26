@@ -1,0 +1,25 @@
+$NetBSD: patch-am,v 1.3 2013/03/28 21:17:57 joerg Exp $
+
+--- mgetty.c.orig	2009-03-19 15:14:28.000000000 +0000
++++ mgetty.c
+@@ -38,6 +38,10 @@
+ #include "config.h"
+ #include "conf_mg.h"
+ 
++#ifdef __NetBSD__
++#include <utmpx.h>
++#endif
++
+ #ifdef VOICE
+ #include "voice/include/voice.h"
+ #endif
+@@ -527,7 +531,8 @@ int main _P2((argc, argv), int argc, cha
+ 
+     rmlocks();	
+ 
+-#if ( defined(linux) && defined(NO_SYSVINIT) ) || defined(sysV68)
++#if ( defined(linux) && defined(NO_SYSVINIT) ) || defined(sysV68) \
++ || defined(NETBSD_UTMPX)
+     /* on linux, "simple init" does not make a wtmp entry when you
+      * log so we have to do it here (otherwise, "who" won't work) */
+     make_utmp_wtmp( Device, UT_INIT, "uugetty", NULL );

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 21:00:04 joerg Exp $
+lib/giFT/libOpenFT.la
+share/giFT/OpenFT/OpenFT.conf.template
+share/giFT/OpenFT/nodes

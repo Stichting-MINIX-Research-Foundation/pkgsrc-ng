@@ -1,0 +1,12 @@
+$NetBSD: patch-ag,v 1.2 2010/06/02 12:50:03 adam Exp $
+
+--- perdition/Makefile.in.orig	2009-11-27 00:10:39.000000000 +0000
++++ perdition/Makefile.in
+@@ -366,7 +366,6 @@ LDADD = \
+ @ssl_lib@ \
+ @dmalloc_lib@
+ 
+-perdition_LDFLAGS = -rdynamic
+ all: all-recursive
+ 
+ .SUFFIXES:

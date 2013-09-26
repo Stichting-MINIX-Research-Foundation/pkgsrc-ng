@@ -1,0 +1,41 @@
+$NetBSD: RESPONSIBLE,v 1.21 2012/03/06 22:03:26 bsiegert Exp $
+
+List of sections of the system, and who is responsible for them (or
+at least considered an expert on them).
+
+Warning: this list is not considered definitive, and is necessarily
+incomplete!
+
+
+pkgsrc Infrastructure:
+
+Part of the infrastructure	People
+---------------------------------------------------------------------------
+README.html generation		dmcmahill
+bootstrap			joerg
+bsd.options.mk			dillo
+buildlink3			-
+bulk build			hubertf, dmcmahill, rillig
+destdir				joerg
+mk/check			rillig
+mk/wrapper			rillig
+pkg_install			agc
+pkgviews			-
+unprivileged builds		rillig
+
+pkgsrc platforms:
+
+MACHINE_PLATFORM		People
+---------------------------------------------------------------------------
+IRIX-6.5-mipseb			jschauma
+
+BSD/OS				reed
+Darwin				schmonz
+DragonFly			-
+FreeBSD				-
+HP-UX				tnn
+Interix				-
+Linux				jschauma, reed
+MirBSD				bsiegert
+OSF/1				tnn
+Solaris				-

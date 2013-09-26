@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:58 joerg Exp $
+bin/dbd
+bin/j2d
+bin/jday
+include/jday.h
+lib/libjday.a
+man/man1/jday.1
+share/jday/CalDate.inc
+share/jday/CalDate.pm
+share/jday/J2D.pl
+share/jday/Jday.php
+share/jday/Jday.pl
+share/jday/dbd.awk
+share/jday/jday.awk

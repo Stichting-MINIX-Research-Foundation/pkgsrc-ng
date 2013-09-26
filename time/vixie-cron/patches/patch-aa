@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.2 2008/06/16 16:12:50 joerg Exp $
+
+--- Makefile.orig	2008-06-16 17:35:00.000000000 +0200
++++ Makefile
+@@ -51,10 +51,10 @@
+ 
+ #################################### begin configurable stuff
+ #<<DESTROOT is assumed to have ./etc, ./bin, and ./man subdirectories>>
+-DESTROOT	=	$(DESTDIR)/usr
++DESTROOT	=	$(DESTDIR)/$(PREFIX)
+ DESTSBIN	=	$(DESTROOT)/sbin
+ DESTBIN		=	$(DESTROOT)/bin
+-DESTMAN		=	$(DESTROOT)/share/man
++DESTMAN		=	$(DESTROOT)/$(PKGMANDIR)
+ #<<need bitstring.h>>
+ INCLUDE		=	-I.
+ #INCLUDE	=
+@@ -110,8 +110,8 @@ crontab		:	$(CRONTAB_OBJ)
+ 			$(CC) $(LDFLAGS) -o crontab $(CRONTAB_OBJ) $(LIBS)
+ 
+ install		:	all
+-			$(INSTALL) -c -m  111 -o root -s cron    $(DESTSBIN)/
+-			$(INSTALL) -c -m 4111 -o root -s crontab $(DESTBIN)/
++			$(BSD_INSTALL_PROGRAM) cron $(DESTSBIN)/
++			$(BSD_INSTALL_PROGRAM) crontab $(DESTBIN)/
+ #			$(INSTALL) -c -m  111 -o root -g crontab -s cron $(DESTSBIN)/
+ #			$(INSTALL) -c -m 2111 -o root -g crontab -s crontab $(DESTBIN)/
+ 			sh putman.sh crontab.1 $(DESTMAN)

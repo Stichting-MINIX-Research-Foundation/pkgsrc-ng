@@ -1,0 +1,34 @@
+$NetBSD: patch-aa,v 1.18 2010/06/16 08:30:09 adam Exp $
+
+--- makefile.machine.orig	2010-05-30 08:33:48.000000000 +0000
++++ makefile.machine
+@@ -2,21 +2,21 @@
+ # makefile for Linux (x86, PPC, alpha ...)
+ #
+ 
+-OPTFLAGS=-O
++OPTFLAGS=
+ 
+-ALLFLAGS=${OPTFLAGS} -pipe -s \
++ALLFLAGS=${OPTFLAGS} -Wall \
+     	-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE \
+ 	-DNDEBUG -D_REENTRANT -DENV_UNIX \
+ 	-D_7ZIP_LARGE_PAGES \
+ 	$(LOCAL_FLAGS)
+ 
+-CXX=g++ $(ALLFLAGS)
+-CC=gcc $(ALLFLAGS)
+-CC_SHARED=-fPIC
+-LINK_SHARED=-fPIC -shared
++CXX+=$(ALLFLAGS)
++CC+=$(ALLFLAGS)
++CC_SHARED=
++LINK_SHARED=-shared
+ 
+-LOCAL_LIBS=-lpthread
+-LOCAL_LIBS_DLL=$(LOCAL_LIBS) -ldl
++LOCAL_LIBS=${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}
++LOCAL_LIBS_DLL=$(LOCAL_LIBS)
+ 
+ OBJ_CRC32=$(OBJ_CRC32_C)
+ 

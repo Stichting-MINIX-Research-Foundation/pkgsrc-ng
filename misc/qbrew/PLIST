@@ -1,0 +1,24 @@
+@comment $NetBSD: PLIST,v 1.4 2013/06/11 16:28:54 ryoon Exp $
+bin/qbrew
+share/doc/qbrew/LICENSE
+share/doc/qbrew/README
+share/doc/qbrew/handbook-configuration.html
+share/doc/qbrew/handbook-copyright.html
+share/doc/qbrew/handbook-credits.html
+share/doc/qbrew/handbook-faq.html
+share/doc/qbrew/handbook-hop.html
+share/doc/qbrew/handbook-index.html
+share/doc/qbrew/handbook-intro.html
+share/doc/qbrew/handbook-misc.html
+share/doc/qbrew/handbook-notes.html
+share/doc/qbrew/handbook-reference.html
+share/doc/qbrew/handbook-using.html
+share/doc/qbrew/primer-design.html
+share/doc/qbrew/primer-equipment.html
+share/doc/qbrew/primer-firstbrew.html
+share/doc/qbrew/primer-glossary.html
+share/doc/qbrew/primer-mashing.html
+share/doc/qbrew/primer-recipes.html
+share/doc/qbrew/primer.html
+share/qbrew/qbrewdata
+share/qbrew/splash.png

@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.4 2011/03/19 09:18:02 obache Exp $
+bin/pgpsplit
+bin/pks-mail.sh
+bin/pks-queue-run.sh
+bin/pksclient
+bin/pksd
+bin/pksdctl
+man/man5/pksd.conf.5
+man/man8/pks-intro.8
+man/man8/pksclient.8
+man/man8/pksd.8
+man/man8/pksdctl.8
+share/examples/pks-commands.html
+share/examples/pksd.conf
+share/examples/rc.d/pksd
+share/pks/mail_intro
+share/pks/pks_help.en

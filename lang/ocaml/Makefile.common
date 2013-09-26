@@ -1,0 +1,55 @@
+# $NetBSD: Makefile.common,v 1.37 2013/03/14 14:44:58 wiz Exp $
+
+# used by x11/labltk/Makefile
+# used by x11/ocaml-graphics/Makefile
+DISTNAME=	ocaml-4.00.1
+CATEGORIES=	lang
+MASTER_SITES=	http://caml.inria.fr/pub/distrib/ocaml-4.00/
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	jaapb@NetBSD.org
+HOMEPAGE=	http://caml.inria.fr/ocaml/
+COMMENT=	The latest implementation of the Caml dialect of ML
+LICENSE=	gnu-gpl-v2
+
+USE_TOOLS+=		gmake
+HAS_CONFIGURE=		yes
+CONFIGURE_ENV+=		BDB_LIBS=${BDB_LINK:Q}
+CONFIGURE_ENV+=		BDB_BUILTIN=${USE_BUILTIN.${BDB_TYPE}:Q}
+CONFIGURE_ARGS+=	-prefix ${PREFIX}
+CONFIGURE_ARGS+=	-libs ${LDFLAGS:Q}
+CONFIGURE_ARGS+=	-with-pthread
+CONFIGURE_ARGS+=	-host ${MACHINE_GNU_PLATFORM:Q}
+CONFIGURE_ARGS+=	-mandir ${PREFIX}/${PKGMANDIR}
+CPPFLAGS+=		-DDB_DBM_HSEARCH
+
+INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR}${PREFIX} \
+			MANDIR=${DESTDIR}${PREFIX}/${PKGMANDIR}
+DISTINFO_FILE= ${.CURDIR}/../../lang/ocaml/distinfo
+PATCHDIR= ${.CURDIR}/../../lang/ocaml/patches
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin" || ${OPSYS} == "Linux"
+INSTALL_UNSTRIPPED=	yes
+.endif
+
+.include "../../mk/bdb.buildlink3.mk"
+
+BDB_LINK=	${BDB_LIBS}
+.if empty(BDBBASE:M/usr)
+BDB_LINK+=	-L${BDBBASE}/lib ${COMPILER_RPATH_FLAG}${BDBBASE}/lib
+.endif
+
+post-extract: cp-power-bsd cp-gnu-config
+
+.PHONY: cp-power-bsd
+cp-power-bsd:
+	${CP} ${WRKSRC}/asmrun/power-elf.S ${WRKSRC}/asmrun/power-bsd.S
+
+.PHONY: cp-gnu-config
+cp-gnu-config:
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/config/gnu/
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.sub ${WRKSRC}/config/gnu/
+
+.include "../../mk/pthread.buildlink3.mk"

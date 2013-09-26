@@ -1,0 +1,69 @@
+$NetBSD: patch-configure.ac,v 1.1 2013/05/01 19:58:26 imil Exp $
+
+Various fixes regarding portability
+
+--- configure.ac.orig	2013-03-20 01:55:15.000000000 +0000
++++ configure.ac
+@@ -241,6 +241,9 @@ AC_ARG_WITH([rpath],
+ 	]
+ )
+ 
++# pkgsrc handles any rpath settings this package needs
++need_dash_r=
++
+ # Allow user to specify flags
+ AC_ARG_WITH([cflags],
+ 	[  --with-cflags           Specify additional flags to pass to compiler],
+@@ -309,6 +312,7 @@ AC_CHECK_HEADERS([ \
+ 	maillock.h \
+ 	ndir.h \
+ 	net/if_tun.h \
++	net/tun/if_tun.h \
+ 	netdb.h \
+ 	netgroup.h \
+ 	pam/pam_appl.h \
+@@ -603,6 +607,15 @@ main() { if (NSVersionOfRunTimeLibrary("
+ 		;;
+ 	esac
+ 	;;
++*-*-interix*)
++        AC_DEFINE(HAVE_INTERIX)
++        AC_DEFINE(DISABLE_FD_PASSING)
++        AC_DEFINE(DISABLE_SHADOW)
++        AC_DEFINE(IP_TOS_IS_BROKEN)
++        AC_DEFINE(MISSING_HOWMANY)
++        AC_DEFINE(NO_IPPORT_RESERVED_CONCEPT)
++        AC_DEFINE(USE_PIPES)
++        ;;
+ *-*-irix5*)
+ 	PATH="$PATH:/usr/etc"
+ 	AC_DEFINE([BROKEN_INET_NTOA], [1],
+@@ -4460,9 +4473,17 @@ AC_COMPILE_IFELSE([AC_LANG_PROGRAM([[
+ ])
+ if test -z "$conf_wtmpx_location"; then
+ 	if test x"$system_wtmpx_path" = x"no" ; then
+-		AC_DEFINE([DISABLE_WTMPX])
++		for f in /var/log/wtmpx; do
++			if test -f $f ; then
++				conf_wtmpx_location=$f
++			fi
++		done
++		if test -z "$conf_wtmpx_location"; then
++			AC_DEFINE(DISABLE_WTMPX)
++		fi
+ 	fi
+-else
++fi
++if test -n "$conf_wtmpx_location"; then
+ 	AC_DEFINE_UNQUOTED([CONF_WTMPX_FILE], ["$conf_wtmpx_location"],
+ 		[Define if you want to specify the path to your wtmpx file])
+ fi
+@@ -4547,7 +4568,7 @@ echo "OpenSSH has been configured with t
+ echo "                     User binaries: $B"
+ echo "                   System binaries: $C"
+ echo "               Configuration files: $D"
+-echo "                   Askpass program: $E"
++echo "                   Askpass program: ${ASKPASS_PROGRAM}"
+ echo "                      Manual pages: $F"
+ echo "                          PID file: $G"
+ echo "  Privilege separation chroot path: $H"

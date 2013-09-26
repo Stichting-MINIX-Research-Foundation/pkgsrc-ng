@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.5 2013/02/11 09:09:53 wiz Exp $
+bin/xsm
+lib/X11/app-defaults/XSm
+man/man1/xsm.1
+share/examples/xsm/system.xsm

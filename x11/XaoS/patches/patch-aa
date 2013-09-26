@@ -1,0 +1,36 @@
+$NetBSD: patch-aa,v 1.4 2012/07/30 01:19:16 dholland Exp $
+
+Rip out the 16 bit i387 specific code.
+
+--- src/engine/fractal.c.orig	2009-07-17 23:50:31.000000000 +0000
++++ src/engine/fractal.c
+@@ -49,13 +49,6 @@
+ #include <complex.h>
+ #include <plane.h>
+ #include "../include/timers.h"
+-#ifdef __GNUC__
+-#ifdef __i386__
+-#ifndef PC_64
+-#include <i386/ctrl87.h>
+-#endif
+-#endif
+-#endif
+ #ifdef __alpha__
+ #ifdef __linux__
+ #include <asm/fpu.h>
+@@ -357,15 +350,6 @@ fractal_context *make_fractalc(CONST int
+ {
+     fractal_context *new_ctxt;
+ 
+-#ifndef __BEOS__
+-#ifdef __GNUC__
+-#ifdef __i386__
+-#ifndef NOASSEMBLY
+-    _control87(PC_64 | MCW_EM | MCW_RC, MCW_PC | MCW_EM | MCW_RC);
+-#endif
+-#endif
+-#endif
+-#endif
+ #ifdef __alpha__
+ #ifdef __linux__
+     extern void ieee_set_fp_control(unsigned long);

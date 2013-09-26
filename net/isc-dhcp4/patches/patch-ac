@@ -1,0 +1,29 @@
+$NetBSD: patch-ac,v 1.2 2011/04/08 14:09:24 taca Exp $
+
+* Honor PKG_SYSCONFDIR and PREFIX.
+
+--- includes/dhcpd.h.orig	2010-12-03 20:32:14.000000000 +0000
++++ includes/dhcpd.h
+@@ -1386,7 +1386,7 @@ typedef unsigned char option_mask [16];
+ #else /* !DEBUG */
+ 
+ #ifndef _PATH_DHCPD_CONF
+-#define _PATH_DHCPD_CONF	"/etc/dhcpd.conf"
++#define _PATH_DHCPD_CONF	"@@PKG_SYSCONFDIR@@/dhcpd.conf"
+ #endif /* DEBUG */
+ 
+ #ifndef _PATH_DHCPD_DB
+@@ -1408,11 +1408,11 @@ typedef unsigned char option_mask [16];
+ #endif /* DEBUG */
+ 
+ #ifndef _PATH_DHCLIENT_CONF
+-#define _PATH_DHCLIENT_CONF	"/etc/dhclient.conf"
++#define _PATH_DHCLIENT_CONF	"@@PKG_SYSCONFDIR@@/dhclient.conf"
+ #endif
+ 
+ #ifndef _PATH_DHCLIENT_SCRIPT
+-#define _PATH_DHCLIENT_SCRIPT	"/sbin/dhclient-script"
++#define _PATH_DHCLIENT_SCRIPT	"@@PREFIX@@/sbin/dhclient-script"
+ #endif
+ 
+ #ifndef _PATH_DHCLIENT_PID

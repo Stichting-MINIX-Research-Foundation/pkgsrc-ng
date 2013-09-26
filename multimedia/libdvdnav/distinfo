@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2012/01/20 18:13:58 drochner Exp $
+
+SHA1 (libdvdnav-4.2.0.tar.bz2) = ded45d985576169ae3630d8be7179a2323bc0f6f
+RMD160 (libdvdnav-4.2.0.tar.bz2) = 1e957554173feae3bdf1fdd6a83c2a64a2550683
+Size (libdvdnav-4.2.0.tar.bz2) = 111575 bytes

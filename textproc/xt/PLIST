@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 21:36:33 joerg Exp $
+lib/java/sax.jar
+lib/java/xt.jar
+share/doc/java/xt/copying.txt
+share/doc/java/xt/xt.htm
+share/examples/java/xt/DOMDemo.java
+share/examples/java/xt/date.xsl
+share/examples/java/xt/multiout.xsl
+share/examples/java/xt/nxml.xsl
+share/examples/java/xt/out.xml
+share/examples/java/xt/out1.xml
+share/examples/java/xt/out2.xml
+share/examples/java/xt/slides.xml
+share/examples/java/xt/slides.xsl
+share/examples/java/xt/sort-uniq.xml
+share/examples/java/xt/sort-uniq.xsl
+share/examples/java/xt/split.xml
+share/examples/java/xt/split.xsl
+share/examples/java/xt/textfile.xml
+share/examples/java/xt/textfile.xsl

@@ -1,0 +1,113 @@
+$NetBSD: patch-af,v 1.4 2013/03/02 18:29:48 joerg Exp $
+
+--- rftp/ftp.c.orig	1995-09-07 02:24:03.000000000 +0000
++++ rftp/ftp.c
+@@ -74,7 +74,7 @@ static char sccsid[] = "@(#)ftp.c	5.38 (
+ #include <netdb.h>
+ #include <fcntl.h>
+ #include <pwd.h>
+-#include <varargs.h>
++#include <stdarg.h>
+ 
+ #ifdef FASCIST
+ #include <syslog.h>
+@@ -107,12 +107,12 @@ unsigned long socks_bind_remoteAddr;		/*
+ int	pasvmode = 0;
+ 
+ extern char *strerror();
+-extern int connected, errno;
++extern int connected;
+ 
+ FILE	*cin, *cout;
+ FILE	*dataconn();
+ 
+-#if !defined(SVR3) && !defined(BIND_RESOLVER) && !defined(LINUX)
++#if !defined(SVR3) && !defined(BIND_RESOLVER) && !defined(LINUX) && !defined(SOLARIS)
+ 
+ /* >>> YDL */
+ #if	!defined(BSD) || (BSD - 43 <= 0)
+@@ -158,6 +158,9 @@ herror(s)
+ 
+ #endif /* !defined(SVR3) && !defined(BIND_RESOLVER) && !defined(LINUX) */
+ 
++int command(char *fmt, ...);
++void proxtrans(char *cmd, char *local, char *remote);
++
+ 
+ char *
+ hookup(host, port)
+@@ -358,11 +361,10 @@ cmdabort()
+ }
+ 
+ /*VARARGS*/
+-command(va_alist)
+-va_dcl
++int
++command(char *fmt, ...)
+ {
+ 	va_list ap;
+-	char *fmt;
+ 	int r;
+ 	sig_t oldintr;
+ 	void cmdabort();
+@@ -370,8 +372,7 @@ va_dcl
+ 	abrtflag = 0;
+ 	if (debug) {
+ 		printf("---> ");
+-		va_start(ap);
+-		fmt = va_arg(ap, char *);
++		va_start(ap, fmt);
+ 		if (strncmp("PASS ", fmt, 5) == 0)
+ 			printf("PASS XXXX");
+ 		else 
+@@ -386,8 +387,7 @@ va_dcl
+ 		return (0);
+ 	}
+ 	oldintr = signal(SIGINT, cmdabort);
+-	va_start(ap);
+-	fmt = va_arg(ap, char *);
++	va_start(ap, fmt);
+ 	vfprintf(cout, fmt, ap);
+ 	va_end(ap);
+ 	fprintf(cout, "\r\n");
+@@ -533,9 +533,7 @@ abortsend()
+ 
+ #define HASHBYTES 1024
+ 
+-sendrequest(cmd, local, remote, printnames)
+-	char *cmd, *local, *remote;
+-	int printnames;
++void sendrequest(char *cmd, char *local, char *remote, int printnames)
+ {
+ 	struct stat st;
+ 	struct timeval start, stop;
+@@ -792,8 +790,7 @@ abortrecv()
+ 	longjmp(recvabort, 1);
+ }
+ 
+-recvrequest(cmd, local, remote, lmode, printnames)
+-	char *cmd, *local, *remote, *lmode;
++void recvrequest(char *cmd, char *local, char *remote, char *lmode, char *printnames)
+ {
+ 	FILE *fout, *din = 0, *popen();
+ 	int (*closefunc)(), pclose(), fclose();
+@@ -1320,8 +1317,7 @@ psabort()
+ 	abrtflag++;
+ }
+ 
+-pswitch(flag)
+-	int flag;
++void pswitch(int flag)
+ {
+ 	extern int proxy, abrtflag;
+ 	sig_t oldintr;
+@@ -1427,8 +1423,7 @@ abortpt()
+ 	longjmp(ptabort, 1);
+ }
+ 
+-proxtrans(cmd, local, remote)
+-	char *cmd, *local, *remote;
++void proxtrans(char *cmd, char *local, char *remote)
+ {
+ 	sig_t oldintr;
+ 	int secndflag = 0, prox_type, nfnd;

@@ -1,0 +1,13 @@
+$NetBSD: patch-av,v 1.2 2008/05/13 15:15:51 obache Exp $
+
+--- src/hooks/abstracthook.cc.orig	2008-04-08 17:51:09.000000000 +0000
++++ src/hooks/abstracthook.cc
+@@ -758,7 +758,7 @@ string abstracthook::getTimezoneIDtoStri
+     if(id > 24 || id < -24) {
+ 	return "Unspecified";
+     } else {
+-	char buf[32];
++	static char buf[32];
+ 	snprintf(buf, sizeof(buf), "GMT %s%d:%s", id > 0 ? "-" : "+", abs(id/2), id % 2 == 0 ? "00" : "30");
+ 	return buf;
+     }

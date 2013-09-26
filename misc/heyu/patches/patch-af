@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.3 2009/12/11 00:11:11 abs Exp $
+
+--- xwrite.c.orig	2003-03-30 20:30:31.000000000 +0000
++++ xwrite.c
+@@ -48,7 +48,7 @@
+ #include <sys/ioctl.h>
+ #endif
+ 
+-#ifdef OSF
++#if (defined(OSF) || defined(NETBSD))
+ #include <sys/ioctl.h>
+ #endif
+ 

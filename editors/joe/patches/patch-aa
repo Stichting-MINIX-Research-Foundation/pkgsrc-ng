@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.11 2010/06/23 12:52:43 adam Exp $
+
+--- b.c.orig	2008-11-02 20:59:06.000000000 +0000
++++ b.c
+@@ -19,8 +19,6 @@
+ #endif
+ #endif
+ 
+-extern int errno;
+-
+ #ifdef WITH_SELINUX
+ #include <selinux/selinux.h>
+ static int selinux_enabled = -1;

@@ -1,0 +1,31 @@
+$NetBSD: patch-ae,v 1.2 2010/05/21 22:09:43 schwarz Exp $
+
+--- DragonFly.cf.orig	2010-05-16 12:38:48.000000000 +0200
++++ DragonFly.cf	2010-05-16 12:41:18.000000000 +0200
+@@ -96,12 +96,12 @@
+ #define HasFlex                  YES
+ 
+ #ifndef CcCmd
+-# define CcCmd                   cc
++# define CcCmd                   @@PKGSRC_CC@@
+ #endif
+ #ifndef CplusplusCmd
+-# define CplusplusCmd            c++
++# define CplusplusCmd            @@PKGSRC_CXX@@
+ #endif
+-#define CppCmd                   /usr/bin/cpp
++#define CppCmd                   @@PKGSRC_CPP@@
+ #define PreProcessCmd            CppCmd
+ #define StandardCppOptions       -traditional
+ #define StandardCppDefines       /**/
+@@ -152,6 +152,10 @@
+ #define BuildDmx		YES
+ #endif
+ 
++#ifndef BuildDmx
++#define BuildDmx		YES
++#endif
++
+ #ifndef UseRpath
+ # define UseRpath               YES
+ #endif

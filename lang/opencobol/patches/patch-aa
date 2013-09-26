@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.5 2012/03/23 23:19:37 hans Exp $
+
+--- configure.orig	2012-03-23 22:06:12.000000000 +0000
++++ configure
+@@ -24810,7 +24810,7 @@ echo "$as_me: error: Include file db.h i
+ 
+ 
+ 
+-for ac_header in db.h db_185.h db3/db_185.h db4/db_185.h db4.1/db_185.h db4.2/db_185.h db4.3/db_185.h db4.4/db_185.h db4.5/db_185.h
++for ac_header in db.h db_185.h db3/db_185.h db4/db_185.h db5/db_185.h
+ do
+ as_ac_Header=`echo "ac_cv_header_$ac_header" | $as_tr_sh`
+ if eval "test \"\${$as_ac_Header+set}\" = set"; then
+@@ -26532,7 +26532,7 @@ then
+   COB_CFLAGS="$COB_CFLAGS $CPPFLAGS"
+ fi
+ 
+-COB_LIBS="-L$libdir -lcob ${LIBCOB_LIBS}"
++COB_LIBS="-L$libdir -Wl,-R$libdir -lcob ${LIBCOB_LIBS}"
+ COB_LDFLAGS=""
+ if test "x$LDFLAGS" != "x"
+ then

@@ -1,0 +1,18 @@
+$NetBSD: patch-configure,v 1.1 2012/08/28 05:59:39 morr Exp $
+
+use the right shell and avoid a non-portable construct
+Needed to configure on SunOS-5.9/sparc.
+
+--- src/configure.orig	2010-08-15 13:02:25.000000000 +0000
++++ src/configure
+@@ -1,7 +1,8 @@
+ #! /bin/sh
+ # run the automatically generated configure script
+-CONFIG_STATUS=auto/config.status \
+-	auto/configure "$@" --srcdir="${srcdir:-.}" --cache-file=auto/config.cache
++CONFIG_STATUS=auto/config.status
++export CONFIG_STATUS
++$CONFIG_SHELL auto/configure "$@" --srcdir="${srcdir:-.}" --cache-file=auto/config.cache
+ result=$?
+ 
+ # Stupid autoconf 2.5x causes this file to be left behind.

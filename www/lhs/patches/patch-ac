@@ -1,0 +1,25 @@
+$NetBSD: patch-ac,v 1.2 2012/12/26 17:12:57 ryoon Exp $
+
+* Include sys/filio.h for FIONBIO etc.
+
+--- lhs.c.orig	2001-02-27 17:37:10.000000000 +0000
++++ lhs.c
+@@ -25,6 +25,9 @@
+ #include <openssl/err.h>
+ #endif
+ #include "lhs.h"
++#if defined (__sun)
++#include <sys/filio.h>
++#endif
+ 
+ #define debug(x...) { if (verbose) printf(x); }
+ 
+@@ -592,7 +595,7 @@ void usage(char *a0)
+ "  -s version   set SSL protocol version (default: SSLv2)\n"
+ "  -c filename  load certificate file (default: lhs.pem)\n"
+ #endif
+-"  -r path      set server's root directory (default: /home/httpd/html)\n"
++"  -r path      set server's root directory (default: " DEFAULT_ROOT_DIR ")\n"
+ "  -u user      switch to other user after startup\n"
+ "  -g group     change gid to other than user's\n"
+ "  -m socks     set number of sockets (default: 50, min: 3)\n"

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2009/02/24 21:22:41 cube Exp $
+
+--- configure.orig	2005-08-03 07:47:32.000000000 +0000
++++ configure
+@@ -5846,7 +5846,7 @@ fi
+ if test "$ac_cv_header_libintl_h" = yes; then
+   if test "$ac_cv_lib_c_gettext" = no; then
+     if test "$ac_cv_lib_intl_gettext" = yes; then
+-      XTRALIBS_MGR = "$XTRALIBS_MGR -lintl"
++      XTRALIBS_MGR="$XTRALIBS_MGR -lintl"
+     else
+       echo "Have libintl.h but no usable gettext!" 1>&2
+       exit 1

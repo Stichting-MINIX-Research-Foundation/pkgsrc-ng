@@ -1,0 +1,14 @@
+$NetBSD: patch-aa,v 1.8 2012/07/07 15:49:00 adam Exp $
+
+Avoid CPU flags
+
+--- configure.orig	2011-05-21 12:45:05.000000000 +0000
++++ configure
+@@ -18418,7 +18418,6 @@ if test x$have_x86cpu = xtrue -o x$have_
+ $as_echo_n "checking sub-architecture settings... " >&6; }
+     if test x$have_x86cpu = xtrue; then
+        host_mod_cpu=`echo $host_cpu | tr _ -`
+-       ARCHFLAGS="-march=$host_mod_cpu -mcpu=$host_mod_cpu"
+     fi
+   else
+     if test ! -r $srcdir/cpuinfo.sh; then

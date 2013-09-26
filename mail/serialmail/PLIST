@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.3 2012/04/07 13:17:10 joerg Exp $
+bin/maildirqmtp
+bin/maildirserial
+bin/maildirsmtp
+bin/serialqmtp
+bin/serialsmtp
+man/man1/maildirqmtp.1
+man/man1/maildirserial.1
+man/man1/maildirsmtp.1
+man/man1/serialqmtp.1
+man/man1/serialsmtp.1
+share/doc/serialmail/AUTOTURN
+share/doc/serialmail/FROMISP
+share/doc/serialmail/TOISP

@@ -1,0 +1,51 @@
+$NetBSD: patch-ac,v 1.5 2012/12/24 03:11:25 dholland Exp $
+
+- don't use "restrict" as an identifier, it's a keyword now
+- ...? (XXX)
+
+--- src/externs.h.orig	2000-03-15 22:28:13.000000000 +0000
++++ src/externs.h
+@@ -1,6 +1,8 @@
+ /* Copyright (c) 1989 by Carrick Sean Casey. All rights reserved. */
+ /* For copying and distribution information, see the file "copyright.h." */
+ 
++#include <sys/types.h>		/* for time_t etc. */
++
+ /* external definitions for "icb" global variables */
+ 
+ /* defined in port.c */
+@@ -25,6 +27,7 @@ extern char *mygroup;		/* requested grou
+ extern char *myserver;		/* server name */
+ extern char *myhost;		/* server host */
+ extern int myport;		/* server port */
++extern char *mylhost;		/* local address */
+ extern char *mbuf;		/* message buffer */
+ extern char *mbuf2;		/* message buffer */
+ extern int connected;		/* whether we are validated or not */
+@@ -69,7 +72,7 @@ void	clearargs (int argc, char **argv);
+ int	clientserve (void);
+ void	closesessionlog (void);
+ void	cmdoutmsg (char *pkt);
+-int	connecttoport (char *host_name, int port_number);
++int	connecttoport (char *host_name, int port_number, char *lhost_name);
+ void	copenmsg (char *pkt);
+ void	cpersonalmsg (char *pkt);
+ void	csendopen (char *txt);
+@@ -79,7 +82,7 @@ void	echo (void);
+ void	errormsg (char *pkt);
+ void	exitmsg (void);
+ char	*findspace (char *s);
+-char	*getline (char *prompt, int expand);
++char	*i2cb_getline (char *prompt, int expand);
+ char	*getloginid (void);
+ char	*getswitch (int argc, char **argv, char **switchv);
+ void	getterm (void);
+@@ -115,7 +118,7 @@ void	quoteify (char *a, char *b);
+ void	readlineinit (void);
+ void	regnick (char *password);
+ void	restoreterm (void);
+-void	restrict (void);
++void	setrestricted (void);
+ int	s_admin (TARGLIST);
+ int	s_beep (TARGLIST);
+ int	s_bump (TARGLIST);

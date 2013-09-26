@@ -1,0 +1,13 @@
+$NetBSD: patch-ae,v 1.5 2009/12/10 20:35:56 abs Exp $
+
+--- lib/libxview/base/Imakefile.orig	1993-06-29 05:14:40.000000000 +0000
++++ lib/libxview/base/Imakefile
+@@ -37,7 +37,7 @@ TEXT_OBJS=\
+ 	drawable.o\
+ 	xv_debug.o\
+ 	xv_parse.o\
+-	xv_list.o\ 
++	xv_list.o\
+ 	xv_error.o
+ 
+ SRCS=\

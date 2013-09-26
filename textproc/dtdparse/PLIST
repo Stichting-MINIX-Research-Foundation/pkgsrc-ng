@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:17:15 joerg Exp $
+bin/contentmodel
+bin/dtdflatten
+bin/dtdformat
+bin/dtdparse
+bin/dtdstats
+bin/elements
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/Catalog.pm
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/ContentModel.pm
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/DTD.pm
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/Tokenizer.pm
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/html.pl
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/plain.pl
+${PERL5_SUB_INSTALLVENDORLIB}/XML/DTDParse/refentry.pl
+share/doc/dtdparse/README
+share/doc/dtdparse/WhatsNew
+share/examples/dtdparse/sample.dtd
+share/examples/dtdparse/sample.mod
+share/examples/dtdparse/simple-inline.mod
+share/examples/dtdparse/simple.dtd
+share/xml/dtdparse/catalog
+share/xml/dtdparse/dtd.dtd

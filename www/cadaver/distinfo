@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.9 2010/06/16 16:53:56 drochner Exp $
+
+SHA1 (cadaver-0.23.3.tar.gz) = 4ad8ea2341b77e7dee26b46e4a8a496f1a2962cd
+RMD160 (cadaver-0.23.3.tar.gz) = 104f687cfd121b091ba2f509b37574509b4ffabd
+Size (cadaver-0.23.3.tar.gz) = 831884 bytes
+SHA1 (patch-aa) = 6b8391e825d8bc4131fdab4aee7214a0181a9b69

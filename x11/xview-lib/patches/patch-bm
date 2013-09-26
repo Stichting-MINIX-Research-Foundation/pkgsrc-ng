@@ -1,0 +1,12 @@
+$NetBSD: patch-bm,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/misc/getlogindr.c.orig	1993-06-29 05:16:30.000000000 +0000
++++ lib/libxview/misc/getlogindr.c
+@@ -17,6 +17,7 @@ static char     sccsid[] = "@(#)getlogin
+ 
+ #include <stdio.h>
+ #include <pwd.h>
++#include <sys/param.h>
+ #include <xview_private/i18n_impl.h>
+ #include <xview/xv_error.h>
+ 

@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.4 2009/01/05 16:08:20 shattered Exp $
+
+--- config.mk.orig	2007-08-12 10:14:42.000000000 +0000
++++ config.mk
+@@ -6,8 +6,8 @@
+ # Set the C compiler to use, and options for it.
+ # This is likely to be what you'll want for most systems:
+ #
+-CC=gcc
+-CFLAGS=-O2 -Wall
++#CC=gcc
++#CFLAGS=-O2 -Wall
+ 
+ # Set the awk interpreter to use for a script used while compiling.
+ # (This should be a `new' awk, such as gawk or mawk.)
+@@ -24,7 +24,7 @@ AWK=awk
+ # MANDIR to directory for man page.
+ # Usually it will be simpler to just set PREFIX.
+ #
+-PREFIX=/usr/local
++#PREFIX=/usr/local
+ BINDIR=$(PREFIX)/bin
+ INFODIR=$(PREFIX)/share/info
+ MANDIR=$(PREFIX)/share/man/man1

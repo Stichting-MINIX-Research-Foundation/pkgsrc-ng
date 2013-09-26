@@ -1,0 +1,42 @@
+$NetBSD: patch-aa,v 1.12 2010/08/30 11:17:16 adam Exp $
+
+--- apps/silcd/Makefile.in.orig	2009-09-26 20:34:14.000000000 +0000
++++ apps/silcd/Makefile.in
+@@ -580,13 +580,10 @@ uninstall-am: uninstall-sbinPROGRAMS
+ 
+ install-dirs-server:
+ 	-mkdir -p $(docdir)
+-	-mkdir -p $(etcdir)
+-	-mkdir -p $(logsdir)
+ 	-mkdir -p $(mandir)/man5
+ 	-mkdir -p $(mandir)/man8
+ 
+ doc-install-server:
+-	-$(INSTALL_DATA) $(top_srcdir)/doc/example_silcd.conf $(docdir)/
+ 	-@if test -f $(top_srcdir)/doc/silcd.8 ; then \
+ 	 $(INSTALL_DATA) $(top_srcdir)/doc/silcd.8 $(mandir)/man8; \
+ 	fi
+@@ -604,8 +601,10 @@ etc-install-server:
+ 	fi
+ 
+ examples-install:
+-	-mkdir -p $(docdir)/examples/
+-	-$(INSTALL_DATA) $(top_srcdir)/doc/examples/* $(docdir)/examples/
++	-mkdir -p ${DESTDIR}$(examplesdir)
++	-$(INSTALL_DATA) $(top_srcdir)/doc/examples/* ${DESTDIR}$(examplesdir)/
++	-$(INSTALL_DATA) $(top_srcdir)/doc/example_silcd.conf ${DESTDIR}$(examplesdir)/silcd.conf.default
++	-$(INSTALL_DATA) $(top_srcdir)/doc/silcalgs.conf ${DESTDIR}$(examplesdir)/silcalgs.conf.default
+ 
+ generate-server-key:
+ 	-@if test '!' -f $(etcdir)/silcd.pub ; then \
+@@ -615,9 +614,7 @@ generate-server-key:
+ install-data-hook: 		\
+ 	install-dirs-server 	\
+ 	doc-install-server	\
+-	etc-install-server 	\
+-	examples-install 	\
+-	generate-server-key
++	examples-install
+ 
+ @INCLUDE_DEFINES_INT@
+ 

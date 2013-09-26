@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.5 2010/03/03 15:44:55 taca Exp $
+
+--- Makefile.orig	2003-09-10 02:54:10.000000000 +0000
++++ Makefile
+@@ -20,9 +20,9 @@ GZIP_SUFFIX	= gz
+ DESTDIR		=
+ X11BINDIR	= /usr/X11R6/bin
+ X11FONTDIR	= $(DESTDIR)/usr/X11R6/lib/X11/fonts/local
+-BDFTOPCF	= $(X11BINDIR)/bdftopcf
+-MKDIRHIER	= $(X11BINDIR)/mkdirhier	# 'mkdir -p' may also work.
+-MKFONTDIR	= $(X11BINDIR)/mkfontdir
++BDFTOPCF	= bdftopcf
++MKDIRHIER	= mkdirhier	# 'mkdir -p' may also work.
++MKFONTDIR	= mkfontdir
+ 
+ MY_RPM_ROOT	= /tmp/rpm-root
+ 
+@@ -30,8 +30,8 @@ MY_RPM_ROOT	= /tmp/rpm-root
+ 
+ BIT2BDF	= $(PERL_CMD) tools/bit2bdf
+ BDFMERGE= $(PERL_CMD) tools/bdfmerge
+-MKBOLD	= $(PERL_CMD) tools/mkbold -V
+-MKITALIC= $(PERL_CMD) tools/mkitalic -V
++MKBOLD	= $(PERL_CMD) tools/mkbold
++MKITALIC= $(PERL_CMD) tools/mkitalic
+ ADJUST	= $(PERL_CMD) tools/adjust
+ JIS2UNICODE= $(PERL_CMD) ttftools/jis2unicode -b
+ MKISO8859= $(SED_CMD) 's/@@REGISTRY@@/ISO8859/g;s/@@ENCODING@@/1/g;'

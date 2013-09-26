@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.19 2010/05/10 03:42:18 mrg Exp $
+
+--- auth-bozo.c.orig	2010-05-09 19:51:28.000000000 -0700
++++ auth-bozo.c	2010-05-09 20:13:45.000000000 -0700
+@@ -38,6 +38,10 @@
+ #include <stdlib.h>
+ #include <unistd.h>
+ 
++#ifndef NO_SSL_SUPPORT
++#include <openssl/des.h>
++#endif
++
+ #include "bozohttpd.h"
+ 
+ #ifndef AUTH_FILE
+@@ -99,7 +103,7 @@
+ 			    request->hr_authpass));
+ 			if (strcmp(request->hr_authuser, user) != 0)
+ 				continue;
+-			if (strcmp(crypt(request->hr_authpass, pass),
++			if (strcmp(DES_crypt(request->hr_authpass, pass),
+ 					pass) != 0)
+ 				break;
+ 			fclose(fp);

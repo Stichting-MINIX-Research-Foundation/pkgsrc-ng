@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2011/09/28 13:17:28 obache Exp $
+
+SHA1 (FCGI-0.74.tar.gz) = a0bf4d6537ffc7141b4b0148f7fdbc7354d5d642
+RMD160 (FCGI-0.74.tar.gz) = e7aa0c8d29f873d1b9aeaeb8fa82fb652ba8dfeb
+Size (FCGI-0.74.tar.gz) = 97599 bytes

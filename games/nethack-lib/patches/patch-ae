@@ -1,0 +1,32 @@
+$NetBSD: patch-ae,v 1.6 2011/06/01 11:20:29 wiz Exp $
+
+Make configurable.
+
+--- sys/unix/Makefile.doc.orig	2003-12-07 23:39:13.000000000 +0000
++++ sys/unix/Makefile.doc
+@@ -41,7 +41,7 @@ Guidebook.dvi:	Guidebook.tex
+ 
+ 
+ GAME	= nethack
+-MANDIR	= /usr/man/man6
++MANDIR	= $(PREFIX)/$(PKGMANDIR)/man6
+ MANEXT	= 6
+ 
+ # manual installation for most BSD-style systems
+@@ -58,11 +58,11 @@ DLBMANCREATE = cp dlb.6
+ # DLBMANCREATE = nroff -man dlb.6 >
+ 
+ manpages:
+-	-$(GAMEMANCREATE) $(MANDIR)/$(GAME).$(MANEXT)
+-	-$(LEVMANCREATE) $(MANDIR)/lev_comp.$(MANEXT)
+-	-$(DGNMANCREATE) $(MANDIR)/dgn_comp.$(MANEXT)
+-	-$(RCVRMANCREATE) $(MANDIR)/recover.$(MANEXT)
+-	-$(DLBMANCREATE) $(MANDIR)/dlb.$(MANEXT)
++	-$(GAMEMANCREATE) $(DESTDIR)$(MANDIR)/$(GAME).$(MANEXT)
++	-$(LEVMANCREATE) $(DESTDIR)$(MANDIR)/lev_comp.$(MANEXT)
++	-$(DGNMANCREATE) $(DESTDIR)$(MANDIR)/dgn_comp.$(MANEXT)
++	-$(RCVRMANCREATE) $(DESTDIR)$(MANDIR)/recover.$(MANEXT)
++	-$(DLBMANCREATE) $(DESTDIR)$(MANDIR)/dlb.$(MANEXT)
+ 
+ # manual creation for distribution
+ DISTRIB = Guidebook.txt nethack.txt lev_comp.txt dgn_comp.txt recover.txt dlb.txt

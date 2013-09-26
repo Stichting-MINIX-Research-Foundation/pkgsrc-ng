@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2010/01/25 13:55:36 sno Exp $
+
+SHA1 (Proc-PID-File-1.27.tar.gz) = 465992b19740d43f4c9e512a372aa2c9cd20b484
+RMD160 (Proc-PID-File-1.27.tar.gz) = d484c4baa6db868aecd03d00a52e68297630d734
+Size (Proc-PID-File-1.27.tar.gz) = 14586 bytes

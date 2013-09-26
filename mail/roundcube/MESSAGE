@@ -1,0 +1,30 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.9 2013/06/15 16:08:09 taca Exp $
+
+Please refer to the following file on how to setup your RoundCube
+installation.
+
+	${DOCDIR}/INSTALL
+
+Please refer to the following file on how to upgrade your RoundCube
+from older version and make sure to remember the version of current
+installed Round cube with "pkg_info -I roundcube".
+
+	${DOCDIR}/UPGRADING
+
+For pkgsrc installations the RoundCube package is installed in
+these locations.
+
+	Log files:		${VARBASE}/log/roundcube/
+	Document root:		${PREFIX}/share/roundcube/
+
+You will also need to make RoundCube accessible through your HTTP server.
+If you are running Apache and ap-php, then you can add the following lines
+to httpd.conf:
+
+	Include ${PKG_SYSCONFDIR}/roundcube.conf
+
+Make sure to enable access_compat_module if you are using Apache 2.3 or
+later.
+
+===========================================================================

@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.4 2009/11/24 17:20:40 jakllsch Exp $
+
+--- Makefile.orig	2009-09-22 00:35:46.000000000 +0000
++++ Makefile
+@@ -6,7 +6,7 @@
+ #
+ # Path for the floppy disk device
+ #
+-FDISK=/dev/fd0
++FDISK=/dev/fd0a
+ 
+ AS=as -32
+ CC=gcc
+@@ -61,7 +61,6 @@ asm:
+ iso:
+ 	make all
+ 	./makeiso.sh
+-	rm -f *.o *.s memtest.bin memtest memtest_shared memtest_shared.bin
+ 
+ install: all
+ 	dd <memtest.bin >$(FDISK) bs=8192

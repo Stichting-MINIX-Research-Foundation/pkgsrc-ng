@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:08:04 joerg Exp $
+bin/gopchop
+bin/gtkspu
+bin/mpegcat
+man/man1/gopchop.1
+man/man1/gtkspu.1
+man/man1/mpegcat.1
+share/applications/gopchop.desktop
+share/pixmaps/gopchop.png
+share/pixmaps/gopchop/about.xpm
+share/pixmaps/gopchop/error.xpm
+share/pixmaps/gopchop/menu_about.png

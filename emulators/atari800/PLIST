@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:51:01 joerg Exp $
+bin/atari800
+man/man1/atari800.1
+share/atari800/atari800.cfg
+share/atari800/ataribas.rom
+share/atari800/atariosb.rom
+share/atari800/atarixl.rom
+share/atari800/demos1.xfd
+share/atari800/demos2.xfd
+share/atari800/dos25.xfd
+share/atari800/mydos45d.atr
+share/doc/atari800/COPYING
+share/doc/atari800/INSTALL
+share/doc/atari800/NEWS
+share/doc/atari800/README
+share/doc/atari800/README.1ST
+share/doc/atari800/USAGE

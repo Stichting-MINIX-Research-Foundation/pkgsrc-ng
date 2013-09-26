@@ -1,0 +1,30 @@
+# $NetBSD: Makefile,v 1.34 2011/04/22 13:43:17 obache Exp $
+
+PKGNAME=	${DISTNAME}
+PKGREVISION=	1
+COMMENT=	Tool for distributed C/C++ compiling
+
+.include "Makefile.common"
+
+PKG_SYSCONFSUBDIR=	distcc
+RCD_SCRIPTS=		distccd
+
+.include "../../mk/bsd.prefs.mk"
+
+DISTCC_USER?=		distcc
+DISTCC_GROUP?=		distcc
+PKG_GROUPS=		${DISTCC_GROUP}
+PKG_USERS=		${DISTCC_USER}:${DISTCC_GROUP}
+PKG_GROUPS_VARS+=	DISTCC_GROUP
+PKG_USERS_VARS+=	DISTCC_USER
+
+DISTCC_PIDDIR?=		${VARBASE}/run/distccd
+OWN_DIRS_PERMS=		${DISTCC_PIDDIR} ${DISTCC_USER} ${DISTCC_GROUP} 0750
+
+FILES_SUBST+=		DISTCC_PIDDIR=${DISTCC_PIDDIR}
+FILES_SUBST+=		DISTCC_USER=${DISTCC_USER}
+FILES_SUBST+=		DISTCC_GROUP=${DISTCC_GROUP}
+
+INSTALLATION_DIRS+=	share/distcc
+
+.include "../../mk/bsd.pkg.mk"

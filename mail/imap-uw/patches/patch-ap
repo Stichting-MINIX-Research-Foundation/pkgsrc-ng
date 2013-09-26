@@ -1,0 +1,14 @@
+$NetBSD: patch-ap,v 1.4 2009/06/11 08:13:05 wiz Exp $
+
+--- src/osdep/unix/unix.c.orig	2008-06-04 13:39:54.000000000 -0500
++++ src/osdep/unix/unix.c
+@@ -40,8 +40,8 @@
+ #include <stdio.h>
+ #include <ctype.h>
+ #include <errno.h>
+-extern int errno;		/* just in case */
+ #include <signal.h>
++#include <utime.h>	/* need this to get __utime50() prototype on NetBSD */
+ #include "mail.h"
+ #include "osdep.h"
+ #include <time.h>

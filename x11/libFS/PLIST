@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.4 2011/10/25 08:08:09 mef Exp $
+include/X11/fonts/FSlib.h
+lib/libFS.la
+lib/pkgconfig/libfs.pc
+share/doc/libFS/FSlib.txt

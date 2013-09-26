@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST.common,v 1.2 2012/03/12 21:52:07 joerg Exp $
+bin/ezmlm-list
+bin/ezmlm-make
+bin/ezmlm-manage
+bin/ezmlm-reject
+bin/ezmlm-return
+bin/ezmlm-send
+bin/ezmlm-sub
+bin/ezmlm-unsub
+bin/ezmlm-warn
+bin/ezmlm-weed
+man/man1/ezmlm-list.1
+man/man1/ezmlm-make.1
+man/man1/ezmlm-manage.1
+man/man1/ezmlm-reject.1
+man/man1/ezmlm-return.1
+man/man1/ezmlm-send.1
+man/man1/ezmlm-sub.1
+man/man1/ezmlm-unsub.1
+man/man1/ezmlm-warn.1
+man/man1/ezmlm-weed.1
+man/man5/ezmlm.5

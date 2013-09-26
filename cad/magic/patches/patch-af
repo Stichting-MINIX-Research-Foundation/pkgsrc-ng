@@ -1,0 +1,14 @@
+$NetBSD: patch-af,v 1.2 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- drc/DRCmain.c.orig	2009-09-11 15:47:14.000000000 +0000
++++ drc/DRCmain.c
+@@ -37,9 +37,6 @@ static char rcsid[] __attribute__ ((unus
+ #include "drc/drc.h"
+ #include "utils/undo.h"
+ 
+-extern void TxPrintf(char *, ...);
+-extern void TxError(char *, ...);
+-
+ /* The global variables defined below are parameters between
+  * the DRC error routines (drcPaintError and drcPrintError)
+  * and the higher-level routines that start up DRC error checks.

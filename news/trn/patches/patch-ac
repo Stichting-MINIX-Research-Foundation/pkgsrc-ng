@@ -1,0 +1,184 @@
+$NetBSD: patch-ac,v 1.7 2013/02/09 18:30:14 christos Exp $
+
+--- Configure.orig	2001-02-22 14:17:39.000000000 -0500
++++ Configure	2013-02-09 13:06:33.000000000 -0500
+@@ -1507,7 +1507,7 @@
+ myuname=`( ($uname -a) 2>/dev/null || hostname) 2>&1`
+ # tr '[A-Z]' '[a-z]' would not work in EBCDIC
+ # because the A-Z/a-z are not consecutive.
+-myuname=`echo $myuname | $sed -e 's/^[^=]*=//' -e 's/\///g' | \
++myuname=`echo $myuname | $sed -e 's/^[^=]*=//' -e "s/['/]//g" | \
+ 	./tr '[A-Z]' '[a-z]' | tr $trnl ' '`
+ newmyuname="$myuname"
+ dflt=n
+@@ -2540,7 +2540,7 @@
+     esac
+     ;;
+ *)  case "$d_inews" in
+-    '') dflt="$prefix/bin";;
++    '') dflt=none;;
+     "$define")
+ 	set dflt installinews bin
+ 	eval $prefixit
+@@ -4412,6 +4412,9 @@
+ 			nm_so_opt='--dynamic'
+ 		fi
+ 		;;
++	*dragonfly*)
++		nm_so_opt='-D'
++		;;
+ 	esac
+ 	;;
+ esac
+@@ -4882,6 +4885,25 @@
+ esac
+ case "$xxx" in
+ x)
++	xxx=`./loc libcurses$_a x $libpth`
++	case "$xxx" in
++	/usr/lib*|/lib*)
++		termlib='-lcurses'
++		d_havetlib="$define"
++		echo "Termlib library found." >&4
++		;;
++	/*)
++		termlib="$xxx"
++		d_havetlib="$define"
++		echo "Termlib library found." >&4
++		;;
++	*)
++		xxx=x
++	esac
++	;;
++esac
++case "$xxx" in
++x)
+ 	xxx=`./loc libtermlib$_a x $libpth`
+ 	case "$xxx" in
+ 	/usr/lib*|/lib*)
+@@ -4939,6 +4961,26 @@
+ esac
+ case "$xxx" in
+ x)
++	xxx=`./loc libcurses.$so'*' x $libpth`
++	case "$xxx" in
++	/usr/lib*|/lib*)
++		termlib='-lcurses'
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	/*)
++		xxx=`dirname "$xxx"`
++		termlib="$xxx"
++		d_havetlib="$define"
++		echo "Terminfo library found." >&4
++		;;
++	*)
++		xxx=x
++	esac
++	;;
++esac
++case "$xxx" in
++x)
+ 	xxx=`./loc libtermlib.$so'*' x $libpth`
+ 	case "$xxx" in
+ 	/usr/lib*|/lib*)
+@@ -6223,14 +6265,14 @@
+ acttimes='$acttimes'
+ aphostcmd='$aphostcmd'
+ archobjs='$archobjs'
+-awk='$awk'
+-basename='$basename'
++awk='$TOOLS_AWK'
++basename='$TOOLS_BASENAME'
+ bash='$bash'
+ bin='$bin'
+ binexp='$binexp'
+ byacc='$byacc'
+ c='$c'
+-cat='$cat'
++cat='$TOOLS_CAT'
+ cc='$cc'
+ ccflags='$ccflags'
+ cf_by='$cf_by'
+@@ -6240,7 +6282,7 @@
+ comm='$comm'
+ contains='$contains'
+ contdist='$contdist'
+-cp='$cp'
++cp='$TOOLS_CP'
+ cpp='$cpp'
+ cppflags='$cppflags'
+ cpplast='$cpplast'
+@@ -6305,21 +6347,21 @@
+ d_xthread='$d_xthread'
+ date='$date'
+ defeditor='$defeditor'
+-diff='$diff'
++diff='$TOOLS_DIFF'
+ direntrytype='$direntrytype'
+-echo='$echo'
++echo='$TOOLS_ECHO'
+ ed='$ed'
+-egrep='$egrep'
++egrep='$TOOLS_EGREP'
+ eunicefix='$eunicefix'
+ exe_ext='$exe_ext'
+-expr='$expr'
++expr='$TOOLS_EXPR'
+ extrainews='$extrainews'
+ filexp='$filexp'
+ find='$find'
+ firstmakefile='$firstmakefile'
+ gccversion='$gccversion'
+ glibpth='$glibpth'
+-grep='$grep'
++grep='$TOOLS_GREP'
+ groupdesc='$groupdesc'
+ hint='$hint'
+ hostbits='$hostbits'
+@@ -6376,10 +6418,10 @@
+ mimecap='$mimecap'
+ mips='$mips'
+ mips_type='$mips_type'
+-mkdir='$mkdir'
++mkdir='$TOOLS_MKDIR'
+ more='$more'
+ multistatedist='$multistatedist'
+-mv='$mv'
++mv='$TOOLS_MV'
+ myactive='$myactive'
+ myuname='$myuname'
+ n='$n'
+@@ -6417,11 +6459,11 @@
+ prefshell='$prefshell'
+ privlib='$privlib'
+ privlibexp='$privlibexp'
+-rm='$rm'
++rm='$TOOLS_RM'
+ rmail='$rmail'
+ rootid='$rootid'
+ runnm='$runnm'
+-sed='$sed'
++sed='$TOOLS_SED'
+ sendmail='$sendmail'
+ servername='$servername'
+ sharpbang='$sharpbang'
+@@ -6442,7 +6484,7 @@
+ strn='$strn'
+ subscriptions='$subscriptions'
+ sysman='$sysman'
+-tail='$tail'
++tail='$TOOLS_TAIL'
+ tee='$tee'
+ termlib='$termlib'
+ test='$test'
+@@ -6450,7 +6492,7 @@
+ tk='$tk'
+ tkinc='$tkinc'
+ tklibs='$tklibs'
+-tr='$tr'
++tr='$TOOLS_TR'
+ trn_init='$trn_init'
+ trn_select='$trn_select'
+ trnl='$trnl'

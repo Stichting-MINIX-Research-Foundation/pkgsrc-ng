@@ -1,0 +1,43 @@
+$NetBSD: patch-ag,v 1.4 2011/05/12 12:54:17 adam Exp $
+
+--- egg/egg-asn1x.c.orig	2010-10-19 02:11:38.000000000 +0000
++++ egg/egg-asn1x.c
+@@ -1988,8 +1988,8 @@ anode_write_integer_ulong (gulong value,
+ 	guchar buf[sizeof (gulong)];
+ 	gint bytes, i, off;
+ 
+-	for (i = 0; i < sizeof (ulong); ++i) {
+-		off = sizeof (ulong) - (i + 1);
++	for (i = 0; i < sizeof (gulong); ++i) {
++		off = sizeof (gulong) - (i + 1);
+ 		buf[i] = (value >> (off * 8)) & 0xFF;
+ 	}
+ 
+@@ -3746,11 +3746,11 @@ egg_asn1x_destroy (gpointer data)
+  * TIME PARSING
+  */
+ 
+-glong
++time_t
+ egg_asn1x_parse_time_general (const gchar *time, gssize n_time)
+ {
+ 	gboolean ret;
+-	glong value;
++	time_t value;
+ 	struct tm when;
+ 	gint offset = 0;
+ 
+@@ -3777,11 +3777,11 @@ egg_asn1x_parse_time_general (const gcha
+ 	return value;
+ }
+ 
+-glong
++time_t
+ egg_asn1x_parse_time_utc (const gchar *time, gssize n_time)
+ {
+ 	gboolean ret;
+-	glong value;
++	time_t value;
+ 	struct tm when;
+ 	gint offset = 0;
+ 

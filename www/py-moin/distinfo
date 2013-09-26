@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2013/01/03 18:54:38 gls Exp $
+
+SHA1 (moin-1.9.6.tar.gz) = 9dd10fb5a095c1783f0d3e6c04568e9910380608
+RMD160 (moin-1.9.6.tar.gz) = 83512fabf9cd47dca9da33babf365e336fdb5106
+Size (moin-1.9.6.tar.gz) = 36754215 bytes

@@ -1,0 +1,20 @@
+$NetBSD: patch-aa,v 1.8 2010/12/13 10:32:35 wiz Exp $
+
+--- src/Makefile.orig	2010-06-13 21:12:37.000000000 +0000
++++ src/Makefile
+@@ -19,11 +19,11 @@ OMPFLAGS =
+ #OMPFLAGS = -fopenmp
+ # Sun Studio with OpenMP (set the OMP_NUM_THREADS env var at runtime)
+ #OMPFLAGS = -xopenmp
+-CFLAGS = -c -Wall -O2 -fomit-frame-pointer $(OMPFLAGS)
++CFLAGS = -c $(OMPFLAGS)
+ ASFLAGS = -c $(OMPFLAGS)
+-LDFLAGS = -s $(OMPFLAGS)
+-OPT_NORMAL = -funroll-loops
+-OPT_INLINE = -finline-functions
++LDFLAGS += -s $(OMPFLAGS)
++OPT_NORMAL =
++OPT_INLINE =
+ 
+ JOHN_OBJS = \
+ 	DES_fmt.o DES_std.o DES_bs.o DES_bs_b.o \

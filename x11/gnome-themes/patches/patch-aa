@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.6 2012/11/05 16:27:38 jperkin Exp $
+
+http://bugzilla.gnome.org/show_bug.cgi?id=583283
+
+--- common/mkiconlinks.sh.orig	2008-09-22 15:09:10.000000000 +0000
++++ common/mkiconlinks.sh
+@@ -16,7 +16,7 @@ read NEXTLINE 
+ while [ ! -z "$NEXTLINE" ] ; do
+ 
+ 	# Skip lines beginning with '#'
+-	if [ ! "${NEXTLINE:0:1}" == '#' ]; then
++	if [ ! X"`echo ${NEXTLINE} | cut -c 1`" = X'#' ]; then
+ 		#Extract first field, minus its trailing colon
+ 		ORIG_FILE=`echo $NEXTLINE | awk '/:/{print $1}' | sed -e 's/://'`
+ 

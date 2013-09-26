@@ -1,0 +1,4 @@
+swatch (The Simple WATCHdog) started out as the "simple watchdog"
+for actively monitoring log files produced by UNIX' syslog facility.
+It has since been evolving into a utility that can monitor just
+about any type of log.

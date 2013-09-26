@@ -1,0 +1,98 @@
+$NetBSD: README.MacOSX,v 1.14 2013/02/06 15:25:24 schmonz Exp $
+
+
+Mac OS X Snow Leopard 32/64 (i386/x86_64) ABI issue:
+
+Mac OS X Snow Leopard (10.6) supports 64-bit binaries on most Intel
+Macs and builds those by default on such machine.  This causes
+problems with a lot of packages which get confused because
+"MACHINE_ARCH" is set to "i386" (on a 64-bit system!).  There are also
+packages that don't support 64-bit under Mac OS X at all.  Because of
+this, the default for pkgsrc is use use the 32-bit ABI, which results
+in packages being compiled and run in i386 mode.  For a longer
+discussion, see:
+http://mail-index.NetBSD.org/pkgsrc-users/2009/09/24/msg010817.html
+
+
+Developer tools:
+
+If you haven't already, you will need to install the Mac OS X Developer
+Tools package. Depending on the version of OS X you are running, you
+may have this on CD. If not, you can download it from Apple's
+Developer Connection. (You will need to register for a free ADC
+account.) See http://developer.apple.com/macosx/ for details.
+(If you don't want or need the full Xcode GUI, download and install
+Command Line Tools for Xcode.)
+
+Then start Xcode, go to "Preferences" - "Downloads" and install
+the "Command Line Tools".
+
+If you plan to build packages that use the X11 Window System, you
+will also need to make sure you have an Xserver installed. Download
+XQuartz from http://xquartz.macosforge.org/landing/
+
+Experimental support for IBM's XL C/C++ compiler is present (tested
+with version 6.0). To use it, set:
+
+PKGSRC_COMPILER=xlc
+
+in mk.conf. XL C uses the Apple provided libtool to create shared
+libraries, however, we must force it to call libtool with the full
+path to avoid calling the pkgsrc provided GNU libtool with arguments
+that it does not understand.
+
+edit the template configuration file /opt/ibmcmp/vac/6.0/etc/vac.base.cfg
+and set:
+
+libtool = /usr/bin/libtool
+
+then run:
+
+/opt/ibmcmp/vacpp/6.0/bin/vacpp_configure -gcc /usr -install -force
+
+as root to install the configuration.
+
+to bootstrap with xlc, you need to make sure CFLAGS contains "-ma":
+
+env CC=/opt/ibmcmp/vacpp/6.0/bin/xlc CFLAGS=-ma ./bootstrap
+
+
+Mac OS X Versions
+
+pkgsrc is a volunteer project, and individuals support/fix packages
+and platforms as they choose.  However, pkgsrc contributors as a group
+share both a bugtracker and norms about what is ok to break and what
+is not.  To describe these norms, we define levels of concern, keeping
+in mind that there are no guarantees:
+
+  SUPPORTED doesn't mean that anyone is required to fix your problem; it
+  means that we agree that it is broadly desireable that such problems
+  be fixed and that we therefore allow them to be listed in our issue
+  tracker.
+
+  DEPRECATED means that individual problems are not of interest, but
+  pkgsrc overall working is of enough interest to be allowed to be
+  listed in the issue tracker.
+
+  IGNORED means we are not willing to expend issue tracker resources
+  (clutter for those reviewing the db) at all.
+
+Given the above definitions, the pkgsrc developers label versions of
+Mac OS X as follows:
+
+  10.8: current, PRs may be filed.  Structurally breaking pkgsrc on 10.8
+	is considered not ok.  [SUPPORTED]
+
+  10.7: old, but PRs may still be filed.  Structurally breaking pkgsrc on
+	10.7 is considered not ok. [SUPPORTED]
+
+  10.6: very old, and individual pkg PRs may be bounced to authors to
+	retest with newer versions, and closed if that doesn't happen
+	in 14 days.  We will for now consider structurally breaking
+	pkgsrc on 10.6 to be undesirable.  If keeping support for 10.6
+	causes excessive work for maintainers it may be moved to
+	IGNORED state any time, without warning. [DEPRECATED]
+
+  10.5 and below: ancient, and PRs will be summarily closed.  It is
+	acceptable to give zero consideration to causing structural
+	problems on 10.5 and below. [IGNORED]

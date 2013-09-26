@@ -1,0 +1,16 @@
+$NetBSD: patch-ag,v 1.2 2008/09/10 13:32:47 taca Exp $
+
+--- image/new.c.orig	2004-09-01 12:50:32.000000000 +0900
++++ image/new.c
+@@ -11,11 +11,7 @@
+ #include "copyright.h"
+ #include "image.h"
+ 
+-#ifdef __APPLE__
+ #include <stdlib.h>
+-#else
+-#include <malloc.h>
+-#endif
+ 
+ extern int _Xdebug;
+ extern void memoryExhausted(void);

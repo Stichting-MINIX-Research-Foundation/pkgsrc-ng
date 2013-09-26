@@ -1,0 +1,15 @@
+# $NetBSD: buildlink3.mk,v 1.2 2009/03/20 19:25:38 joerg Exp $
+#
+
+BUILDLINK_TREE+=	w3
+
+.if !defined(W3_BUILDLINK3_MK)
+W3_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.w3+=	${EMACS_PKGNAME_PREFIX}w3>=3.99	# 4.0betaX
+BUILDLINK_PKGSRCDIR.w3?=	../../www/w3
+
+BUILDLINK_CONTENTS_FILTER.w3=	${EGREP} '.*\.el$$|.*\.elc$$'
+.endif # W3_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-w3

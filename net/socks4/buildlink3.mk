@@ -1,0 +1,14 @@
+# $NetBSD: buildlink3.mk,v 1.9 2009/03/20 19:25:12 joerg Exp $
+
+BUILDLINK_TREE+=	socks4
+
+.if !defined(SOCKS4_BUILDLINK3_MK)
+SOCKS4_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.socks4+=	socks4>=2.2
+BUILDLINK_PKGSRCDIR.socks4?=	../../net/socks4
+
+BUILDLINK_TRANSFORM+=	l:socks:socks4
+.endif # SOCKS4_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-socks4

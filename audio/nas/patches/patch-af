@@ -1,0 +1,15 @@
+$NetBSD: patch-af,v 1.3 2013/01/05 12:57:22 mef Exp $
+
+Don't build/install auscope. 
+
+--- clients/audio/Imakefile.orig	2007-03-25 00:47:25.000000000 +1200
++++ clients/audio/Imakefile
+@@ -29,7 +29,7 @@
+ 
+ SUBDIRS = widgets \
+           auconvert auctl audemo audial auedit auinfo aupanel auplay \
+-	  aurecord autool auwave auphone auscope \
++	  aurecord autool auwave auphone \
+ 	  util examples
+ 
+ MakeSubdirs($(SUBDIRS))

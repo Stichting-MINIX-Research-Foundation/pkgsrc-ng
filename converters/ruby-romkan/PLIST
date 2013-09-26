@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:39:11 joerg Exp $
+${RUBY_VENDORLIB}/romkan.rb
+${RUBY_DOC}/romkan/romkan.html
+${RUBY_DOC}/romkan/romkan.html.ja
+${RUBY_DOC}/romkan/romkan.ja.rd
+${RUBY_DOC}/romkan/romkan.en.rd

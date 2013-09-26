@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.3 2012/03/19 12:34:19 joerg Exp $
+bin/xbattbar
+${IMAKE_MAN_DIR}/xbattbar.${IMAKE_MAN_SUFFIX}

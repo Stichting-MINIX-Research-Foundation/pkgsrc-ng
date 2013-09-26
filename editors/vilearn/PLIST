@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:50:27 joerg Exp $
+bin/vilearn
+man/man1/vilearn.1
+share/vilearn/1basics
+share/vilearn/2moving
+share/vilearn/3cutpaste
+share/vilearn/3temp
+share/vilearn/4inserting
+share/vilearn/5tricks

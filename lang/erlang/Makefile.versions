@@ -1,0 +1,80 @@
+# $NetBSD: Makefile.versions,v 1.16 2013/06/08 06:48:24 asau Exp $
+
+ERLANG_VERSION=			16.1
+DIST_VERSION_MAJOR=		R16B
+#DIST_VERSION_MINOR=		1
+
+_VERSIONS=					\
+	appmon			2.1.14.2	\
+	asn1			2.0.1		\
+	common_test		1.7.1		\
+	compiler		4.9.1		\
+	cosEvent		2.1.13		\
+	cosEventDomain		1.1.13		\
+	cosFileTransfer		1.1.14		\
+	cosNotification		1.1.19		\
+	cosProperty		1.1.16		\
+	cosTime			1.1.13		\
+	cosTransactions		1.2.13		\
+	crypto			2.3		\
+	debugger		3.2.10		\
+	dialyzer		2.6		\
+	diameter		1.4.1		\
+	docbuilder		0.9.8.10	\
+	edoc			0.7.12		\
+	eldap			1.0.1		\
+	erl_docgen		0.3.4		\
+	erl_interface		3.7.11		\
+	erts			5.10.1		\
+	et			1.4.4.3		\
+	eunit			2.2.4		\
+	gs			1.5.15.2	\
+	hipe			3.10.1		\
+	ic			4.3.1		\
+	inets			5.9.4		\
+	jinterface		1.5.8		\
+	kernel			2.16.1		\
+	megaco			3.16.0.3	\
+	mnesia			4.8		\
+	observer		1.3		\
+	odbc			2.10.15		\
+	orber			3.6.25		\
+	os_mon			2.2.11		\
+	otp_mibs		1.0.8		\
+	parsetools		2.0.9		\
+	percept			0.8.8		\
+	pman			2.7.1.4		\
+	public_key		0.18		\
+	reltool			0.6.3		\
+	runtime_tools		1.8.10		\
+	sasl			2.3.1		\
+	snmp			4.23.1		\
+	ssh			2.1.4		\
+	ssl			5.2.1		\
+	stdlib			1.19.1		\
+	syntax_tools		1.6.11		\
+	test_server		3.6.1		\
+	toolbar			1.4.2.3		\
+	tools			2.6.10		\
+	tv			2.1.4.10	\
+	typer			0.9.5		\
+	webtool			0.8.9.2		\
+	wx			1.0		\
+	xmerl			1.3.3
+
+PLIST_SUBST+=	VERSION=${DIST_VERSION_MAJOR}
+
+.for name version in ${_VERSIONS}
+VERSION.${name}=${version}
+PLIST_SUBST+=	VERSION.${name}=${version}
+.endfor
+
+# Generate PLIST
+.for _pkg_ _version_ in $(_VERSIONS)
+PRINT_PLIST_AWK+=	{if ($$0 ~ /\/$(_pkg_)-$(_version_)\//) {sub(/\/$(_pkg_)-$(_version_)\//,"/$(_pkg_)-$${VERSION.$(_pkg_)}/", $$0);}}
+# documentation:
+PRINT_PLIST_AWK+=	{gsub(/\/$(_pkg_)-$(_version_)\.pdf/,"/$(_pkg_)-$${VERSION.$(_pkg_)}.pdf", $$0);}
+.endfor
+PRINT_PLIST_AWK+=	{if ($$0 ~ /\/releases\/${DIST_VERSION_MAJOR}\//) {sub(/\/releases\/${DIST_VERSION_MAJOR}\//,"/releases/$${VERSION}/", $$0);}}
+# documentation:
+PRINT_PLIST_AWK+=	{gsub(/\/otp-system-documentation-$(VERSION.erts)\.pdf/,"/otp-system-documentation-$${VERSION.erts}.pdf", $$0);}

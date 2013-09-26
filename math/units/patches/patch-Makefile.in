@@ -1,0 +1,22 @@
+$NetBSD: patch-Makefile.in,v 1.2 2012/10/27 11:50:42 wen Exp $
+
+Comment: replace INSTALL_PROGRAM with INSTALL_SCRIPT
+--- Makefile.in.orig	2012-10-27 08:12:36.000000000 +0000
++++ Makefile.in
+@@ -31,6 +31,7 @@ CC = @CC@
+ INSTALL = @INSTALL@
+ INSTALL_DATA = @INSTALL_DATA@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
++INSTALL_SCRIPT = @INSTALL_SCRIPT@
+ MAKEINFO = makeinfo
+ TEXI2DVI = texi2dvi
+ TEXI2PDF = texi2pdf
+@@ -88,7 +89,7 @@ install-support: definitions.units curre
+ 	$(INSTALL_DATA) $(srcdir)/definitions.units $(DESTDIR)@UDAT@definitions.units
+ 	$(INSTALL_DATA) $(srcdir)/currency.units $(DESTDIR)@UDAT@currency.units
+ 	$(INSTALL_DATA) $(srcdir)/locale.map $(DESTDIR)@UDAT@locale.map
+-	$(INSTALL_PROGRAM) units_cur_inst $(DESTDIR)$(bindir)/`echo units_cur|sed '$(transform)'`
++	$(INSTALL_SCRIPT) units_cur_inst $(DESTDIR)$(bindir)/`echo units_cur|sed '$(transform)'`
+ 
+ install: units@EXEEXT@ install-doc install-support
+ 	$(srcdir)/mkinstalldirs $(DESTDIR)$(bindir) 

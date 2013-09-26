@@ -1,0 +1,58 @@
+$NetBSD: patch-aa,v 1.13 2012/10/23 20:49:38 shattered Exp $
+
+--- example/jwhois.conf.orig	2007-03-26 09:12:08.000000000 +0000
++++ example/jwhois.conf
+@@ -94,6 +96,7 @@ whois-servers {
+ 	"\\.no\\.com$" = "whois.centralnic.net";
+ 	"\\.qc\\.com$" = "whois.centralnic.net";
+ 	"\\.ru\\.com$" = "whois.centralnic.net";
++	"\\.ru\\.net$" = "whois.relcom.ru";
+ 	"\\.sa\\.com$" = "whois.centralnic.net";
+ 	"\\.se\\.com$" = "whois.centralnic.net";
+ 	"\\.se\\.net$" = "whois.centralnic.net";
+@@ -244,6 +256,9 @@ whois-servers {
+ 	"\\.pw$" = "whois.nic.pw";
+ 	"\\.re$" = "whois.nic.re";
+ 	"\\.ro$" = "whois.rotld.ro";
++	"\\.int.ru$" = "whois.int.ru";
++	"\\.msk.ru$" = "whois.relcom.ru";
++	"\\.spb.ru$" = "whois.relcom.ru";
+ 	"\\.ru$" = "whois.ripn.net";
+ 	"\\.rw$" = "www.nic.rw";
+ 	"\\.sa$" = "saudinic.net.sa";
+@@ -256,6 +271,8 @@ whois-servers {
+ 	"\\.sm$" = "whois.ripe.net";
+ 	"\\.sr$" = "whois.register.sr";
+ 	"\\.st$" = "whois.nic.st";
++	"\\.msk.su$" = "whois.relcom.ru";
++	"\\.spb.su$" = "whois.relcom.ru";
+ 	"\\.su$" = "whois.ripn.net";
+ 	"\\.tc$" = "whois.adamsnames.tc";
+ 	"\\.tf$" = "whois.afnic.fr";
+@@ -490,6 +507,8 @@ cidr-blocks {
+ 	"158.190.0.0/15" = "whois.ripe.net";
+ 	"158.192.0.0/14" = "whois.ripe.net";
+ 	"158.196.0.0/15" = "whois.ripe.net";
++ 	"158.248.0.0/15" = "whois.ripe.net";
++ 	"158.250.0.0/16" = "whois.ripe.net";
+ 	"159.147.0.0/16" = "whois.ripe.net";
+ 	"159.148.0.0/15" = "whois.ripe.net";
+ 	"160.216.0.0/14" = "whois.ripe.net";
+@@ -947,7 +970,7 @@ server-options {
+ # By default, the location of the database is /usr/local/var/jwhois.db and the
+ # default expire time is 7 days, but you can change those below.
+ #
+-#cachefile = "/var/lib/jwhois.db";
++#cachefile = "/var/db/jwhois.db";
+ 
+ #
+ # This is the time after which an entry expires from the cache in hours.
+@@ -963,7 +986,7 @@ server-options {
+ #
+ # Path to the browser to use for HTTP servers.
+ #
+-browser-pathname = "/usr/bin/lynx";
++browser-pathname = "@PREFIX@/bin/lynx";
+ 
+ #
+ # Command line argument to browser to get output on stdout.

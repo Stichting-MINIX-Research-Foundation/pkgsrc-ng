@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:49:03 joerg Exp $
+bin/picprg
+share/doc/picprg/README
+share/doc/picprg/README.BAJ

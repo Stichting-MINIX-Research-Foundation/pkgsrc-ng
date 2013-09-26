@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.2 2009/06/29 22:40:28 joerg Exp $
+
+--- Makefile.orig	Wed Dec  1 20:53:49 1999
++++ Makefile	Sat Jan 29 15:21:49 2000
+@@ -74,13 +74,12 @@
+ #DELHOME = /usr/deliver
+ #HDEFS	= -DDELHOME=\"$(DELHOME)\"
+ UDEFS	=
+-OSHEADER = os-dummy.h
++OSHEADER = os-netbsd.h
+ DEFS	= -Iconf -DOSINCLUDE=\"$(OSHEADER)\" $(HDEFS) $(UDEFS)
+-CFLAGS	= -O $(DEFS)
+-LDFLAGS	=
++CFLAGS	+= $(DEFS)
+ LIBS	=
+ LINT	= lint -x
+-BIN	= /usr/bin
++BIN	= ${PREFIX}/bin
+ #BIN	= $(DELHOME)/bin
+ GROUP	= root
+ 

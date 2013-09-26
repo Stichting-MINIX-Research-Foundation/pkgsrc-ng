@@ -1,0 +1,14 @@
+$NetBSD: patch-ay,v 1.2 2010/06/15 23:01:23 pettai Exp $
+
+--- webadmin/Makefile.in.orig	2007-11-17 19:53:34.000000000 -0500
++++ webadmin/Makefile.in
+@@ -679,9 +679,6 @@ uninstall-am: uninstall-webadminDATA uni
+ 
+ 
+ install-exec-hook:
+-	-$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/webadmin/added
+-	-$(mkinstalldirs) $(DESTDIR)$(sysconfdir)/webadmin/removed
+-	chmod 700 $(DESTDIR)$(sysconfdir)/webadmin
+ 	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin
+ 	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin/added
+ 	-chown @mailuser@ $(DESTDIR)$(sysconfdir)/webadmin/removed

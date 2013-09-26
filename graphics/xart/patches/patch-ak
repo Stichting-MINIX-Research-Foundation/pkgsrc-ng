@@ -1,0 +1,22 @@
+$NetBSD: patch-ak,v 1.2 2011/12/05 22:48:59 joerg Exp $
+
+--- xpaint.h.orig	1998-04-13 04:27:17.000000000 +0000
++++ xpaint.h
+@@ -19,6 +19,8 @@
+ #include <sys/param.h>
+ #endif
+ 
++#include <stdio.h>
++
+ #ifndef MIN
+ #define MIN(a,b)	(((a) < (b)) ? (a) : (b))
+ #endif
+@@ -45,8 +47,6 @@
+ #define NULL 0
+ #endif				/* AIXV3 */
+ 
+-extern int nib;
+-
+ extern struct Global_s {
+     struct {
+ 	void *image;

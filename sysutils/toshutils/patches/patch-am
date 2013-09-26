@@ -1,0 +1,31 @@
+$NetBSD: patch-am,v 1.2 2009/09/18 09:37:01 obache Exp $
+
+--- doc/Makefile.in.orig	1999-12-17 13:07:03.000000000 +0000
++++ doc/Makefile.in
+@@ -26,7 +26,7 @@
+ INSTALL = @INSTALL@
+ MANINSTALL = @INSTALL_DATA@
+ prefix = @prefix@
+-MANDESTDIR = @mandir@
++MANDESTDIR = $(DESTDIR)@mandir@
+ 
+ PDF = /usr/bin/pdflatex
+ 
+@@ -36,7 +36,7 @@ PDF = /usr/bin/pdflatex
+ .tex.pdf:
+ 	$(PDF) $<
+ 
+-all: hci sci toshiba
++all: #HF# hci sci toshiba
+ 
+ hci: hci.pdf
+ 
+@@ -48,7 +48,7 @@ toshiba: toshiba.pdf
+ install:
+ 	$(MANINSTALL) fan.1 $(MANDESTDIR)/man1/fan.1
+ 	$(MANINSTALL) svpw.1 $(MANDESTDIR)/man1/svpw.1
+-	$(MANINSTALL) hotkey.1x $(MANDESTDIR)/man1/hotkey.1x
++	$(MANINSTALL) hotkey.1x $(MANDESTDIR)/man1/hotkey.1
+ 	$(MANINSTALL) tpasswd.1 $(MANDESTDIR)/man1/tpasswd.1
+ 	$(MANINSTALL) alarm.1 $(MANDESTDIR)/man1/alarm.1
+ 	$(MANINSTALL) tdocked.1 $(MANDESTDIR)/man1/tdocked.1

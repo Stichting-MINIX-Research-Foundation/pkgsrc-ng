@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.2 2010/04/17 12:43:03 obache Exp $
+
+--- src/internal.h.orig	2006-04-08 14:36:57.000000000 +0000
++++ src/internal.h
+@@ -185,7 +185,7 @@ union maxalign {
+   void *p;
+   void (*fp)(void);
+   union maxalign *up;
+-} data;
++};
+ 
+ typedef struct {
+   void *ext;

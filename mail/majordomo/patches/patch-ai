@@ -1,0 +1,66 @@
+$NetBSD: patch-ai,v 1.5 2011/10/28 06:16:12 spz Exp $
+
+Quite messages from perl 5.14.1, this is very old code.
+
+--- resend.orig	2000-01-07 15:32:39.000000000 +0000
++++ resend
+@@ -71,15 +71,15 @@ if ($ARGV[0] =~ /^\@/) {
+ # getopts.pl was place where it's supposed to be.  This changes previous
+ # behavior which allowed getopts.pl to be in the same place as
+ # majordomo.cf.
+-require "getopts.pl";
+-&Getopts("C:c:Aa:df:h:I:l:M:p:Rr:s") || die("resend: Getopts() failed: $!");
++use Getopt::Std;
++getopts("C:c:Aa:df:h:I:l:M:p:Rr:s") || die("resend: Getopts() failed: $!");
+ 
+ if (! defined($opt_l)) {
+   die("resend: must specify '-l list'");
+ }
+     
+-# Read and execute the .cf file
+-$cf = $opt_C || $opt_c || $ENV{"MAJORDOMO_CF"} || "/etc/majordomo.cf";
++# Read and execute the .cf file. For security reasons, let the environment win
++$cf = $ENV{"MAJORDOMO_CF"} || $opt_C || $opt_c || "/etc/majordomo.cf";
+ 
+ # Despite not having a place to send the remains of the body,
+ # it would be nice to send a message to root or postmaster, at least...
+@@ -92,8 +92,8 @@ require "$cf";
+ 
+ chdir($homedir) || die("Can't chdir(\"$homedir\"): $!");
+ 
++unshift(@INC, $bindir);
+ unshift(@INC, $homedir);
+-require "ctime.pl";  # For logging purposes
+ require "majordomo.pl";
+ require "majordomo_version.pl";
+ require "config_parse.pl";
+@@ -316,7 +316,7 @@ $is_admin_header .= "\$taboo = \"\";\n};
+ if (! defined($admin_body)) {
+     &bitch("resend:  \$admin_body not defined in $cf !!\n" .
+ 	   "Majordomo will only catch \"subscribe\" and \"unsubscribe\" in\n" .
+-	   "the body.\nLook at $homedir/sample.cf for a good definition.");
++	   "the body.\nLook at $bindir/sample.cf for a good definition.");
+     @admin_body = ('/^subject:\s*subscribe\b/i' ,
+ 		      '/^subject:\s*unsubscribe\b/i');
+ } else {
+@@ -747,12 +747,20 @@ sub parse_header {
+ 
+     # add new header fields
+     print OUT "Sender: $sender\n";
++    print OUT "List-Id: ".$opt_l.".".$whereami."\n";
++
+     if (defined($opt_p)) {
+ 	print OUT "Precedence: $opt_p\n";
+     }
+ 
+     if (defined($opt_r)) {
+ 	print OUT "Reply-To: ", &config'substitute_values($opt_r), "\n";   #';
++	if (defined $reply_to) {
++	    print OUT "Mail-Reply-To: $reply_to\n";   #';
++	} else {
++	    print OUT "Mail-Reply-To: $from\n";   #';
++	}
++	print OUT "Mail-Followup-To: ", &config'substitute_values($opt_r), "\n";   #';
+     }
+     
+     # print out per-list additonal headers

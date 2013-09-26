@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2009/11/26 20:11:13 imil Exp $
+
+SHA1 (ccsm-0.8.4.tar.gz) = be7b6788373cf40e15bf91eafc69b9742dd81acc
+RMD160 (ccsm-0.8.4.tar.gz) = d2d17d7eb627c5142b33f6a1d04557beabdb4665
+Size (ccsm-0.8.4.tar.gz) = 635866 bytes
+SHA1 (patch-aa) = 83439bdc7c716fe5e94eef90c22d2975ca7f2357

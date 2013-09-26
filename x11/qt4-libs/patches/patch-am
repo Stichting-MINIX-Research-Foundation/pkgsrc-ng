@@ -1,0 +1,13 @@
+$NetBSD: patch-am,v 1.6 2012/01/12 22:59:58 adam Exp $
+
+--- tools/designer/src/uitools/uitools.pro.orig	2011-12-08 05:06:02.000000000 +0000
++++ tools/designer/src/uitools/uitools.pro
+@@ -1,7 +1,7 @@
+ TEMPLATE = lib
+ TARGET = QtUiTools
+ QT += xml
+-CONFIG += qt staticlib
++CONFIG += qt dll
+ DESTDIR = ../../../../lib
+ DLLDESTDIR = ../../../../bin
+ 

@@ -1,0 +1,87 @@
+$NetBSD: patch-ci,v 1.9 2010/12/16 04:55:46 chuck Exp $
+
+--- interface/interface.c.orig	2008-09-11 06:43:52.000000000 -0400
++++ interface/interface.c	2010-12-15 23:41:29.000000000 -0500
+@@ -35,6 +35,10 @@
+ 
+     _clean_messages(d);
+     if(d->cdda_device_name)free(d->cdda_device_name);
++#if !defined(__FreeBSD__)
++#if defined(__APPLE__) && defined(__MACH__)
++    if(d->fd != -1) close(d->fd);
++#else
+     if(d->ioctl_device_name)free(d->ioctl_device_name);
+     if(d->drive_model)free(d->drive_model);
+     if(d->cdda_fd!=-1)close(d->cdda_fd);
+@@ -43,6 +47,19 @@
+       if(d->private->sg_hd)free(d->private->sg_hd);
+       free(d->private);
+     }
++#endif
++#else
++    if(d->drive_model)
++	  free(d->drive_model);
++    if(d->ccb)
++	  cam_freeccb(d->ccb);
++    if(d->dev)
++	  cam_close_device(d->dev);
++    if(d->private->sg_buffer)
++	  free(d->private->sg_buffer);
++    if(d->ioctl_fd != -1)
++	  close(d->ioctl_fd);
++#endif
+ 
+     free(d);
+   }
+@@ -55,22 +72,31 @@
+   if(d->opened)return(0);
+ 
+   switch(d->interface){
++#if defined(__APPLE__) && defined(__MACH__)
++  case OSX_IOKIT:
++    if((ret=osx_open_device(d)))
++      return ret;
++    break;
++#else
+   case SGIO_SCSI_BUGGY1:  
+   case SGIO_SCSI:  
+   case GENERIC_SCSI:  
+     if((ret=scsi_init_drive(d)))
+       return(ret);
+     break;
++#ifndef __NetBSD__
+   case COOKED_IOCTL:  
+     if((ret=cooked_init_drive(d)))
+       return(ret);
+     break;
++#endif
+ #ifdef CDDA_TEST
+   case TEST_INTERFACE:  
+     if((ret=test_init_drive(d)))
+       return(ret);
+     break;
+ #endif
++#endif
+   default:
+     cderror(d,"100: Interface not supported\n");
+     return(-100);
+@@ -113,7 +139,7 @@
+     if(sectors>0){
+       sectors=d->read_audio(d,buffer,beginsector,sectors);
+ 
+-      if(sectors>0){
++      if(sectors>0 && buffer != NULL){
+ 	/* byteswap? */
+ 	if(d->bigendianp==-1) /* not determined yet */
+ 	  d->bigendianp=data_bigendianp(d);
+@@ -127,7 +153,9 @@
+ 	}
+       }	
+     }
+-    if(ms)*ms=d->private->last_milliseconds;
++    if(ms) {
++      *ms = (d->private == NULL) ? 0 : d->private->last_milliseconds;
++    }
+     return(sectors);
+   }
+   

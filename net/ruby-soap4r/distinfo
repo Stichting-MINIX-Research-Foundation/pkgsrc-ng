@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/04/29 14:16:17 taca Exp $
+
+SHA1 (soap4r-ruby1.9-2.0.5.gem) = 0e185104f2e4ac49e20991733f9dd6c01370b2e1
+RMD160 (soap4r-ruby1.9-2.0.5.gem) = db355ac33f1bc19d3ce69e00d2a727c28f82823f
+Size (soap4r-ruby1.9-2.0.5.gem) = 442368 bytes

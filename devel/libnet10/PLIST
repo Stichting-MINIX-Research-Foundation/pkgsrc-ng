@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:48:54 joerg Exp $
+bin/libnet10-config
+include/libnet10/libnet.h
+include/libnet10/libnet/libnet-asn1.h
+include/libnet10/libnet/libnet-functions.h
+include/libnet10/libnet/libnet-headers.h
+include/libnet10/libnet/libnet-macros.h
+include/libnet10/libnet/libnet-ospf.h
+include/libnet10/libnet/libnet-structures.h
+lib/libnet10/libnet.la
+man/man3/libnet10.3

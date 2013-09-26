@@ -1,0 +1,14 @@
+$NetBSD: patch-ad,v 1.2 2010/03/03 08:44:39 obache Exp $
+
+--- encodedv/dvconnect.c.orig	2004-05-31 02:05:23.000000000 +0000
++++ encodedv/dvconnect.c
+@@ -29,6 +29,9 @@
+ 
+ #define _FILE_OFFSET_BITS 64
+ 
++#if defined(__DragonFly__)
++#include <sys/types.h>
++#endif
+ #include <stdio.h>
+ #include <sys/ioctl.h>
+ #include <sys/mman.h>

@@ -1,0 +1,47 @@
+$NetBSD: patch-ab,v 1.3 2009/07/07 18:53:17 joerg Exp $
+
+--- Makefile.in.orig	2000-04-20 17:21:24.000000000 +0200
++++ Makefile.in
+@@ -58,13 +58,13 @@ datadir = $(prefix)/lib
+ 
+ mandir 	= $(prefix)/man
+ man1dir = $(mandir)/man1
+-man3dir = $(mandir)/man3
++man3dir = $(mandir)/mann
+ docdir = $(datadir)/doc
+ 
+ # utility script directories - arch-independent and arch-non-
+ # independent.
+-SCRIPTDIR	= $(datadir)/cgi$(SHORT_VERSION)
+-EXECSCRIPTDIR	= $(execdatadir)/cgi$(SHORT_VERSION)
++SCRIPTDIR	= $(datadir)/tcl/cgi$(SHORT_VERSION)
++EXECSCRIPTDIR	= $(execdatadir)/tcl/cgi$(SHORT_VERSION)
+ 
+ INSTALL = @INSTALL@
+ INSTALL_PROGRAM = @INSTALL_PROGRAM@
+@@ -93,19 +93,20 @@ dvi:
+ # (but not the noninstalled files such as `make all' creates)
+ uninstall:
+ 	-rm -f $(SCRIPTDIR)/cgi.tcl
+-	-rm -f $(man3dir)/cgi.tcl.3
++	-rm -f $(man3dir)/cgi.tcl.n
+ 	-rm -f $(SCRIPTDIR)/pkgIndex.tcl
+ 
+ .PHONY: install-info install info
+ install-info:
+ 
+ install: all
+-	${srcdir}/mkinstalldirs $(man3dir) $(SCRIPTDIR) $(exampledir) $(exampledir)/data
++	${srcdir}/mkinstalldirs ${DESTDIR}$(man3dir) \
++	    ${DESTDIR}$(SCRIPTDIR) ${DESTDIR}$(exampledir) ${DESTDIR}$(exampledir)/data
+ # install scripts
+-	$(INSTALL_DATA) cgi.tcl $(SCRIPTDIR)
++	$(INSTALL_DATA) cgi.tcl ${DESTDIR}$(SCRIPTDIR)
+ # install library man page
+-	$(INSTALL_DATA) cgi.tcl.man $(man3dir)/cgi.tcl.3
+-	$(INSTALL_DATA) pkgIndex.tcl $(SCRIPTDIR)
++	$(INSTALL_DATA) cgi.tcl.man ${DESTDIR}$(man3dir)/cgi.tcl.n
++	$(INSTALL_DATA) pkgIndex.tcl ${DESTDIR}$(SCRIPTDIR)
+ 
+ examples:
+ 	for i in $(EXAMPLES) ; do \

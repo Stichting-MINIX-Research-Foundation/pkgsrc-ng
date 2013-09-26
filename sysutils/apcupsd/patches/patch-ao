@@ -1,0 +1,19 @@
+$NetBSD: patch-ao,v 1.7 2011/08/01 14:54:51 bouyer Exp $
+
+--- platforms/Makefile.orig	2011-08-01 15:55:53.000000000 +0200
++++ platforms/Makefile	2011-08-01 15:56:26.000000000 +0200
+@@ -9,14 +9,6 @@
+ all-uninstall: uninstall-platform
+ 
+ install-platform:
+-	$(call MKDIR,$(sysconfdir))
+-	$(if $(wildcard ./$(DISTNAME)/apccontrol), \
+-      $(call INSTORIG,744,$(DISTNAME)/apccontrol,$(sysconfdir)), \
+-      $(call INSTORIG,744,apccontrol,$(sysconfdir)))
+-	$(if $(HALPOLICYDIR),$(call MKDIR,$(HALPOLICYDIR)))
+-	$(if $(HALPOLICYDIR),$(call INSTDATA,644,80-apcupsd-ups-policy.fdi,$(HALPOLICYDIR)))
+ 
+ uninstall-platform:
+-	$(call UNINST,$(sysconfdir)/apccontrol)
+-	$(if $(HALPOLICYDIR),$(call UNINST,$(HALPOLICYDIR)/80-apcupsd-ups-policy.fdi))
+ 

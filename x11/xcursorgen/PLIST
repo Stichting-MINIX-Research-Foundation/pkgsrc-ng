@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.3 2012/08/24 15:20:18 wiz Exp $
+bin/xcursorgen
+man/man1/xcursorgen.1

@@ -1,0 +1,33 @@
+$NetBSD: patch-ay,v 1.8 2010/11/15 13:05:45 adam Exp $
+
+--- src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h.orig	2010-09-10 09:05:23.000000000 +0000
++++ src/3rdparty/javascriptcore/JavaScriptCore/wtf/Platform.h
+@@ -399,7 +399,7 @@
+ 
+ /* OS(NETBSD) - NetBSD */
+ #if defined(__NetBSD__)
+-#define WTF_PLATFORM_NETBSD 1
++#define WTF_OS_NETBSD 1
+ #endif
+ 
+ /* OS(OPENBSD) - OpenBSD */
+@@ -407,6 +407,11 @@
+ #define WTF_OS_OPENBSD 1
+ #endif
+ 
++/* OS(DRAGONFLY) - DragonFly */
++#ifdef __DragonFly__
++#define WTF_OS_DRAGONFLY 1
++#endif
++
+ /* OS(QNX) - QNX */
+ #if defined(__QNXNTO__)
+ #define WTF_OS_QNX 1
+@@ -440,6 +445,7 @@
+     || OS(ANDROID)          \
+     || OS(DARWIN)           \
+     || OS(FREEBSD)          \
++    || OS(DRAGONFLY)        \
+     || OS(HAIKU)            \
+     || OS(HPUX)             \
+     || OS(LINUX)            \

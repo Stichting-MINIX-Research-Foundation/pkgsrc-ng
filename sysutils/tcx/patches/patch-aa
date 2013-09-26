@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.2 2010/01/27 20:19:36 joerg Exp $
+
+--- Makefile	2003/05/19 15:39:04	1.1
++++ Makefile	2003/05/19 16:01:40
+@@ -6,11 +6,11 @@
+ 
+ # C compiler of your choice.  Should be ansi'ish
+ #CC = cc			# IRIX, ULTRIX
+-CC = gcc		# SUNOS, LINUX
++#CC = gcc		# SUNOS, LINUX
+ #CC = c++			# try & see? 		
+ 
+ # Cflags of choice.
+-CFLAGS = -s -O6 -Wall
++#CFLAGS = -s -O6 -Wall
+ 
+ 
+ # Any libraries
+@@ -29,4 +29,8 @@
+ 	shar -c -l 45 -o tcx README VERSION COPYING Makefile tcx.1 untcx.1 tcx.c config.h untcx.c
+ 
+ clean:
+-	/bin/rm -f *.o tcx untcx
++	rm -f *.o tcx untcx
++
++install:
++	${BSD_INSTALL_PROGRAM} tcx ${DESTDIR}${PREFIX}/bin
++	${BSD_INSTALL_PROGRAM} untcx ${DESTDIR}${PREFIX}/bin

@@ -1,0 +1,22 @@
+PATCHDIFF(1)            NetBSD General Commands Manual            PATCHDIFF(1)
+
+NNAAMMEE
+     ppaattcchhddiiffff -- compare sets of patches
+
+SSYYNNOOPPSSIISS
+     ppaattcchhddiiffff
+
+DDEESSCCRRIIPPTTIIOONN
+     ppaattcchhddiiffff is a perl script that simplifies comparing a set of previously
+     existing patches with a new one created with mkpatches(1).
+
+     ppaattcchhddiiffff must be called from the package's main directory, that is
+     _$_{_P_K_G_S_R_C_}_/_c_a_t_e_g_o_r_y_/_p_r_o_g_r_a_m.  For each patch existing in either the
+     _p_a_t_c_h_e_s directory, it is compared with its backup file (_p_a_t_c_h_-_f_o_o_._o_r_i_g)
+     using diff(1).  If no relevant differences are found, the original patch
+     is restored.
+
+SSEEEE AALLSSOO
+     diff(1), patchdiff(1), pkgdiff(1)
+
+NetBSD 5.0                     January 31, 2011                     NetBSD 5.0

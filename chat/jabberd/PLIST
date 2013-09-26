@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 17:37:46 joerg Exp $
+include/jabberd/jabberd.h
+include/jabberd/lib/lib.h
+include/jabberd/lib/xmlparse.h
+lib/jabberd/dialback.so
+lib/jabberd/dnsrv.so
+lib/jabberd/jsm.so
+lib/jabberd/pthsock_client.so
+lib/jabberd/xdb_file.so
+sbin/jabberd
+share/examples/jabberd/jabber.xml
+share/examples/jabberd/platform-settings
+share/examples/rc.d/jabberd

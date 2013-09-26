@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.2 2010/11/08 17:10:55 abs Exp $
+
+Use PKG_SYSCONFDIR instead of hardcoding /etc
+
+--- defs.h.orig	2010-08-06 00:43:50.000000000 +0000
++++ defs.h
+@@ -1,7 +1,7 @@
+ #ifndef VSF_DEFS_H
+ #define VSF_DEFS_H
+ 
+-#define VSFTP_DEFAULT_CONFIG    "/etc/vsftpd.conf"
++#define VSFTP_DEFAULT_CONFIG    PKG_SYSCONFDIR"/vsftpd.conf"
+ 
+ #define VSFTP_COMMAND_FD        0
+ 

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.2 2009/05/06 03:44:02 snj Exp $
+
+--- nslint.c.orig	2009-05-05 20:26:49.000000000 -0700
++++ nslint.c	2009-05-05 20:27:43.000000000 -0700
+@@ -139,7 +139,7 @@ int	strsize;		/* size of space left in p
+ 
+ int	debug;
+ int	errors;
+-#ifdef __FreeBSD__
++#if defined(__FreeBSD__) || defined(__NetBSD__)
+ char	*bootfile = "/etc/namedb/named.boot";
+ char	*conffile = "/etc/namedb/named.conf";
+ #else

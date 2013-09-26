@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.9 2013/01/29 06:11:30 wiz Exp $
+
+SHA1 (t1utils-1.37.tar.gz) = 6d06a0e739d94eea6cd4a31e9a87f773c4054a3f
+RMD160 (t1utils-1.37.tar.gz) = da4a88c0d1b06b1d334525c56750c4743b5d678c
+Size (t1utils-1.37.tar.gz) = 169956 bytes

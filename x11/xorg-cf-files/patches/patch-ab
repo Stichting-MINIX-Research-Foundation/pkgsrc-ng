@@ -1,0 +1,38 @@
+$NetBSD: patch-ab,v 1.2 2010/05/21 22:09:43 schwarz Exp $
+
+--- FreeBSD.cf.orig	2010-05-16 12:24:16.000000000 +0200
++++ FreeBSD.cf	2010-05-16 12:24:38.000000000 +0200
+@@ -173,12 +173,12 @@
+ #endif
+ 
+ #ifndef CcCmd
+-#define CcCmd			cc
++#define CcCmd			@@PKGSRC_CC@@
+ #endif
+ #ifndef CplusplusCmd
+-#define CplusplusCmd		c++
++#define CplusplusCmd		@@PKGSRC_CXX@@
+ #endif
+-#define CppCmd			/usr/bin/cpp
++#define CppCmd			@@PKGSRC_CPP@@
+ #define PreProcessCmd		CppCmd
+ #define StandardCppOptions	-traditional
+ #define StandardCppDefines	/**/
+@@ -470,7 +470,7 @@
+ /* The GCC strength-reduce bug is fixed for FreeBSD 2.1.5 and later */
+ #ifndef DefaultGcc2i386Opt
+ #if OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion > 1) || (OSMajorVersion == 2 && OSMinorVersion == 1 && OSTeenyVersion >= 5)
+-#define DefaultGcc2i386Opt -O2 GccAliasingArgs
++#define DefaultGcc2i386Opt @@PKGSRC_CFLAGS@@
+ #endif
+ #endif
+ 
+@@ -504,7 +504,7 @@
+  * Compress manual pages
+  */
+ #ifndef CompressManPages
+-# define CompressManPages	YES
++# define CompressManPages	NO
+ #endif
+ 
+ #if OSMajorVersion > 2 || (OSMajorVersion == 2 && OSMinorVersion >= 1)

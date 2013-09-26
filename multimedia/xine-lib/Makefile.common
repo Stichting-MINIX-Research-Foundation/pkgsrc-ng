@@ -1,0 +1,81 @@
+# $NetBSD: Makefile.common,v 1.79 2012/09/29 20:10:35 dholland Exp $
+#
+# used by audio/xine-alsa/Makefile
+# used by audio/xine-esound/Makefile
+# used by audio/xine-pulse/Makefile
+# used by multimedia/xine-v4l/Makefile
+# used by multimedia/xine-v4l2/Makefile
+
+DISTNAME=		xine-lib-1.2.2
+XINE_PKGNAME=		xine-lib-1.2.2
+PKGNAME?=		${XINE_PKGNAME}
+CATEGORIES?=		multimedia
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=xine/}
+EXTRACT_SUFX=		.tar.xz
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://xinehq.de/
+
+MAKE_JOBS_SAFE=		no
+
+XINE_MOD_DIR_VER=	2.2
+PLIST_SUBST+=		XINE_MOD_DIR_VER=${XINE_MOD_DIR_VER:Q}
+
+DISTINFO_FILE=		${.CURDIR}/../../multimedia/xine-lib/distinfo
+PATCHDIR=		${.CURDIR}/../../multimedia/xine-lib/patches
+
+GNU_CONFIGURE=		YES
+USE_PKGLOCALEDIR=	YES
+USE_LIBTOOL=		YES
+LIBTOOL_OVERRIDE=	libtool libtool-nofpic
+PKGCONFIG_OVERRIDE=	misc/libxine.pc.in
+USE_TOOLS+=		autoconf automake gmake msgfmt pkg-config xmkmf perl
+
+CONFIGURE_ARGS+=	--with-w32-path='${PREFIX}/lib/win32'
+#CONFIGURE_ARGS+=	--without-external-ffmpeg --disable-ffmpegtest
+CONFIGURE_ENV+=		have_libpng="yes"
+CONFIGURE_ENV+=		PNG_CFLAGS="-I${PREFIX}/include"
+CONFIGURE_ENV+=		PNG_LIBS="-L${PREFIX}/lib -Wl,-R${PREFIX}/lib -lpng"
+# XXX broken configure check in 1.2.1
+CONFIGURE_ENV+= cc_cv_cflags__Werror_implicit_function_declaration="no"
+PKGSRC_MAKE_ENV+=	"mkdir_p"="mkdir -p"
+
+.include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=		xv xvmc
+.include "../../x11/libXv/buildlink3.mk"
+.include "../../x11/libXvMC/buildlink3.mk"
+
+.if ${X11_TYPE} == "modular"
+PLIST.xv=		yes
+PLIST.xvmc=		yes
+.else
+.if exists(${X11BASE}/lib/libXv.so)
+CONFIGURE_ARGS+=	--with-xv-path='${X11BASE}/lib'
+PLIST.xv=		yes
+.endif
+.if exists(${X11BASE}/lib/libXvMC.so)
+CONFIGURE_ARGS+=	--with-xvmc-path='${X11BASE}/lib'
+CONFIGURE_ARGS+=	--with-xxmc-path='${X11BASE}/lib'
+PLIST.xvmc=		yes
+.endif
+.endif # X11_TYPE
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[1-4].*)
+# --no-undefined causes errors if shlibs are not linked against libc
+BUILDLINK_TRANSFORM+=	"rm:-Wl,--no-undefined"
+.endif
+
+pre-configure:
+	${TOUCH} ${WRKSRC}/lib/dummy.c
+	cd ${WRKSRC} && aclocal -I m4
+	cd ${WRKSRC} && automake -Wnone
+	cd ${WRKSRC} && autoheader
+	cd ${WRKSRC} && autoconf
+
+.include "../../converters/libiconv/buildlink3.mk"
+.include "../../graphics/freetype2/buildlink3.mk"
+.include "../../multimedia/ffmpeg/buildlink3.mk"
+.include "../../mk/oss.buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"

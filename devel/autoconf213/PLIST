@@ -1,0 +1,23 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:48:09 joerg Exp $
+bin/autoconf-2.13
+bin/autoheader-2.13
+bin/autoreconf-2.13
+bin/autoscan-2.13
+bin/autoupdate-2.13
+bin/ifnames-2.13
+info/autoconf213.info
+share/autoconf/acconfig.h
+share/autoconf/acfunctions
+share/autoconf/acgeneral.m4
+share/autoconf/acheaders
+share/autoconf/acidentifiers
+share/autoconf/acmakevars
+share/autoconf/acoldnames.m4
+share/autoconf/acprograms
+share/autoconf/acspecific.m4
+share/autoconf/autoconf.m4
+share/autoconf/autoconf.m4f
+share/autoconf/autoheader.m4
+share/autoconf/autoheader.m4f
+share/autoconf/config.guess
+share/autoconf/config.sub

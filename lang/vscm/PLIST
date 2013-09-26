@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:03:44 joerg Exp $
+bin/vscm
+lib/vscm/vscm-boot
+share/doc/vscm/DESCRIPTION
+share/doc/vscm/INSTALL
+share/doc/vscm/README

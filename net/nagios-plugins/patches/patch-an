@@ -1,0 +1,13 @@
+$NetBSD: patch-an,v 1.4 2011/04/08 22:56:12 morr Exp $
+
+--- lib/Makefile.in.orig	2010-07-27 20:48:09.000000000 +0000
++++ lib/Makefile.in
+@@ -146,7 +146,7 @@ DEFAULT_INCLUDES = -I. -I$(top_builddir)
+ depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
+ am__depfiles_maybe = depfiles
+ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
+-	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
++	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) $(CPPFLAGS_LFS)
+ LTCOMPILE = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+ 	--mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) \
+ 	$(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)

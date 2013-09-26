@@ -1,0 +1,12 @@
+$NetBSD: patch-br,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/notice/notice_get.c.orig	1993-06-29 05:16:39.000000000 +0000
++++ lib/libxview/notice/notice_get.c
+@@ -29,7 +29,6 @@ Notice_attribute	attr;
+ va_list			valist;
+ {
+     Notice_info	*notice = NOTICE_PRIVATE(notice_public);
+-    Attr_avlist     avlist = (Attr_avlist) valist;
+     Xv_opaque	v = (Xv_opaque)NULL;
+ 
+     switch (attr)  {

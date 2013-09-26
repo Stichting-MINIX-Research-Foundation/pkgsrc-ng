@@ -1,0 +1,21 @@
+$NetBSD: patch-ap,v 1.2 2009/12/17 20:31:37 abs Exp $
+
+Makes analysis.c consistent with Analysis.h.
+
+--- src/Velvet/analysis.c.orig	2000-02-21 22:44:28.000000000 +0000
++++ src/Velvet/analysis.c
+@@ -964,7 +964,13 @@ static void ExternalCallback (w, client_
+  ************************************************************************/
+ 
+ # if defined(__STDC__)
+-void AnalysisDialogUpdate (AnalysisDialog analysisd, int force)
++void AnalysisDialogUpdate (AnalysisDialog analysisd,
++#  if NeedWidePrototypes
++			   int force
++#  else
++			   Boolean force
++#  endif
++			   )
+ # else
+ void AnalysisDialogUpdate (analysisd,force)
+     AnalysisDialog	analysisd;

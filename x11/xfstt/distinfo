@@ -1,0 +1,23 @@
+$NetBSD: distinfo,v 1.11 2012/06/13 08:15:13 mef Exp $
+
+SHA1 (xfstt-1.9.tar.gz) = 0bc390a4908ca530b7cb4b67faad3f3abeba7a65
+RMD160 (xfstt-1.9.tar.gz) = 6463f2b81846708d9f101fc384419be8cf37fbbe
+Size (xfstt-1.9.tar.gz) = 286939 bytes
+SHA1 (patch-aa) = bd4f364d42acd1d0a734b12f140c5a07004c09cb
+SHA1 (patch-ab) = 78dc21537e86e5533e747e7bab3e5280087fa43b
+SHA1 (patch-ac) = 18b4593735ce1e80c55c54a89293e672d22fceac
+SHA1 (patch-af) = e742a5461925c72e5647b8cfa8e83d1de77ac231
+SHA1 (patch-ag) = 270ba4fcaecc289c8b170792481f8353d54498e2
+SHA1 (patch-ah) = f563d157e5f23c3badb4e10de77e4db633b072ca
+SHA1 (patch-ai) = 04f35f960614df376960d1ff1e1d410120c0598e
+SHA1 (patch-aj) = 5afb7cacfdfa542701ca29ee2d78fa98050c6df8
+SHA1 (patch-ak) = 72cf7c168e9684aabb0ff95b9bff752c888151fb
+SHA1 (patch-al) = 7e766d1a52b7c5c2183d67db1da759b170007c66
+SHA1 (patch-am) = 4424107b9c2b8c9167560733ef1ce89d2e86fa09
+SHA1 (patch-an) = 1936547506bb83e50d9cbf7579df2f18e695ac29
+SHA1 (patch-ao) = 8be98e207b5e709dea51d33b26595dafc508c1df
+SHA1 (patch-ap) = 83d5c81bfe6fb7e78794792cf37b7a63575cef22
+SHA1 (patch-aq) = 71b49c068ce83706f5cbcda8adfa8df6b3d24e06
+SHA1 (patch-ar) = b909ab488f71045eb1b60fba33297c8245441d60
+SHA1 (patch-as) = fac3a5e2664b55289ffeb2947bf1c6d4a6afb2dc
+SHA1 (patch-at) = 4a8416c983d25f4ef118bf073c035626ee28b8c5

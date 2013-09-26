@@ -1,0 +1,14 @@
+$NetBSD: patch-ac,v 1.13 2013/06/08 13:39:39 ryoon Exp $
+
+* Add non-execinfo.h platform support
+
+--- zfuncs.h.orig	2013-06-05 08:02:57.000000000 +0000
++++ zfuncs.h
+@@ -40,6 +40,7 @@
+ #include <execinfo.h>
+ #include <locale.h>
+ #include <gtk/gtk.h>
++#include <sys/wait.h>
+ 
+ #define VERTICAL GTK_ORIENTATION_VERTICAL                                  //  GTK shortcuts
+ #define HORIZONTAL GTK_ORIENTATION_HORIZONTAL

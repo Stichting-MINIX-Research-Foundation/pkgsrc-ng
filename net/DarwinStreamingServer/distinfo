@@ -1,0 +1,34 @@
+$NetBSD: distinfo,v 1.4 2013/03/24 16:51:07 joerg Exp $
+
+SHA1 (DarwinStreamingSrvr5.5.5-Source.tar.gz) = ba8419be20e1911f7167dbd48722b2ba5e6f1fe1
+RMD160 (DarwinStreamingSrvr5.5.5-Source.tar.gz) = 62996496da51971e384fc26dd336ef2785c2dca7
+Size (DarwinStreamingSrvr5.5.5-Source.tar.gz) = 21468268 bytes
+SHA1 (patch-APIModules_QTSSAdminModule_AdminElementNode.cpp) = 3138cf323890d3c1789467f29efcc65f6489d5eb
+SHA1 (patch-APIModules_QTSSMP3StreamingModule_QTSSMP3StreamingModule.cpp) = 0461ce97cdf2e7dd062d75b0139ee4c29e347218
+SHA1 (patch-APIModules_QTSSReflectorModule_QTSSReflectorModule.cpp) = 52238d46381f3cfe8f0425e4d5e93e8ce8959179
+SHA1 (patch-CommonUtilitiesLib_EventContext.h) = e6d8f19e54670141e35a811df64366ad9983fbd7
+SHA1 (patch-CommonUtilitiesLib_Task.cpp) = 5274c99a1f9239ef5a2096a48e3925a024868615
+SHA1 (patch-CommonUtilitiesLib_Task.h) = 7b231d0f84548c7b11fd392ebad9b96b6764428b
+SHA1 (patch-QTFileTools_QTBroadcaster.tproj_QTBroadcaster.cpp) = 2c3efe74e286e3d2cb66448461f0b7b8d278705c
+SHA1 (patch-Server.tproj_main.cpp) = d50e581a54609dab6a8146a39faf036de9c39ebf
+SHA1 (patch-aa) = 2fc84964264f9b6529d031801b36bcca89f591a6
+SHA1 (patch-ab) = cbd5aee473fcdd474fbdb13c0f9a769b544f250c
+SHA1 (patch-ac) = a9d9ae530402c0976bcb93386b7d202aea633fab
+SHA1 (patch-ad) = c3364ac4f520bae65ef8f63081cd8878c027bd08
+SHA1 (patch-ae) = a0b7cc02576b8488702a4fc280a1a6aa17313974
+SHA1 (patch-af) = 2e96215958104910c17b0abb149fb99551bfd5e8
+SHA1 (patch-ag) = 1d0457166760a3dace57934418912cf82f7f9793
+SHA1 (patch-ah) = fc7cf868dc5c9a01e703532ef81f02d70e07e1da
+SHA1 (patch-ai) = 8d48abfe3c8def3de806d05f15a685b79acde3b9
+SHA1 (patch-aj) = c430e97b3c99c31722474801cb3dfa31f8332413
+SHA1 (patch-ak) = d573cee55a6097caf36de30cf95ea542c1f7a24f
+SHA1 (patch-al) = e8aa206cca186c568569da743344225efbef4c44
+SHA1 (patch-am) = 69f6c214a5922a7803708b35525d212b4bd3cff9
+SHA1 (patch-an) = a87b660201f7c5674634966fab232aabd7467276
+SHA1 (patch-ap) = 6fa5a543b0e20fb94e1695bd422600ade3612ce5
+SHA1 (patch-aq) = ce5e88b4454139c0f7f7b3ae19b9d02e088a3cf4
+SHA1 (patch-ar) = 31681ff6208969a1a44b7161187868b367ea4140
+SHA1 (patch-as) = a149fedb77925063c64cef500e57e7e2fca90622
+SHA1 (patch-at) = ce7db215f0650c1ee558b9c494aa14c30e8fda89
+SHA1 (patch-au) = e8a060399da968e078ec38ff35de9c8928b0ef46
+SHA1 (patch-av) = 9336a4a15f5af43d3b404ade340f7f571782a14a

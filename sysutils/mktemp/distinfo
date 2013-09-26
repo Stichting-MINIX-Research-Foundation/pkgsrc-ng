@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2011/03/23 10:16:23 wiz Exp $
+
+SHA1 (mktemp-1.7.tar.gz) = 6a4098623cd65b9037b301b8f71c62454ccab2d9
+RMD160 (mktemp-1.7.tar.gz) = c6ad39326af4585a36e1846a6a6a8ce56d24265d
+Size (mktemp-1.7.tar.gz) = 78792 bytes

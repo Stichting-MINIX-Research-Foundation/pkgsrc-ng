@@ -1,0 +1,17 @@
+$NetBSD: patch-df,v 1.2 2009/12/10 20:37:38 abs Exp $
+
+--- olwm/openwin-menu-programs.orig	1993-06-29 05:12:07.000000000 +0000
++++ olwm/openwin-menu-programs
+@@ -6,5 +6,10 @@
+ 
+ "Programs" TITLE PIN
+ 
+-"Command Tool..." 		exec $OPENWINHOME/bin/cmdtool
+-"Clock..."			exec $OPENWINHOME/bin/clock
++"Command Tool..." 		exec @PREFIX@/bin/cmdtool
++"Xterm..."			exec @X11BASE@/bin/xterm
++
++SEPARATOR
++
++"Clock..."			exec @PREFIX@/bin/clock
++

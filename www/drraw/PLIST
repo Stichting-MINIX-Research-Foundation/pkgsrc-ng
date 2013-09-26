@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 22:00:20 joerg Exp $
+libexec/cgi-bin/drraw.cgi
+share/doc/drraw/CHANGES
+share/doc/drraw/INSTALL
+share/doc/drraw/LICENSE
+share/doc/drraw/README.EVENTS
+share/examples/drraw/drraw.conf
+share/examples/drraw/icons/bomb.gif
+share/examples/drraw/icons/folder.gif
+share/examples/drraw/icons/folder.open.gif
+share/examples/drraw/icons/generic.gif
+share/examples/drraw/icons/link.gif
+share/examples/drraw/icons/text.gif
+share/examples/drraw/icons/unknown.gif

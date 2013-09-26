@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:33:12 joerg Exp $
+bin/xengine
+${IMAKE_MAN_DIR}/xengine.${IMAKE_MANNEWSUFFIX}
+share/doc/xengine/README

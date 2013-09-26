@@ -1,0 +1,20 @@
+$NetBSD: patch-ac,v 1.2 2012/09/08 22:35:13 cheusov Exp $
+
+--- src/statist.h.orig	2009-03-11 14:17:03 +0200
++++ src/statist.h		2009-03-11 14:17:45 +0200
+@@ -13,6 +13,7 @@
+ ***************************************************************/
+ 
+ #include <stdio.h>
++#include <errno.h>
+ 
+ #include "gettext.h"
+ #include "memory_handling.h"
+@@ -240,7 +241,6 @@ typedef struct {
+ } SORTREC;
+ 
+ 
+-extern int errno;
+ extern void mywait();
+ extern BOOLEAN myexist(char *name);
+ #ifdef STATIST_X

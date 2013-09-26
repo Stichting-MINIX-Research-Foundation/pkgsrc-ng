@@ -1,0 +1,20 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.4 2013/03/15 16:14:55 bsiegert Exp $
+
+Execute this command to extract and rehash all CA root certificates
+distributed by the Mozilla Project, so that they can be used by third
+party applications using OpenSSL. It also creates a single file
+certificate bundle in PEM format which can be used by applications using
+GnuTLS.
+
+	# mozilla-rootcerts install
+
+To mark these certificates as trusted for users of gnupg2, do
+the following (assuming default PKG_SYSCONFBASE and a Bourne shell):
+
+	# mkdir /usr/pkg/etc/gnupg
+	# cd /usr/pkg/etc/gnupg
+	# for c in /etc/openssl/certs/*.pem; do
+	> openssl x509 -in $c -noout -fingerprint|sed 's|^.*=\(.*\)|\1 S|'
+	> done > trustlist.txt
+===========================================================================

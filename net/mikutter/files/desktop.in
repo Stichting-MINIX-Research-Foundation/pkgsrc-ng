@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=Mikutter
+GenericName=Twitter Client
+GenericName[ja]=ツイッター・クライアント
+Comment=Simple, powerful, and moeful twitter client
+Comment[ja]=全てのミク廃、そしてツイッター中毒に贈る 至高のTwitterクライアント
+Exec=@PREFIX@/share/mikutter/mikutter.rb %u
+Icon=@PREFIX@/share/mikutter/core/skin/data/icon.png
+StartupNotify=false
+Terminal=false
+Type=Application
+Categories=Application;Network;

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:48:41 joerg Exp $
+bin/distccmon-gtk
+share/distcc/distccmon-gtk-icon.png
+share/distcc/distccmon-gtk.desktop

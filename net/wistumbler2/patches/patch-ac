@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.4 2011/01/03 07:38:59 obache Exp $
+
+--- src/stumbler.h.orig	2006-01-08 21:09:38.000000000 +0000
++++ src/stumbler.h
+@@ -54,6 +54,10 @@
+ #include <net80211/ieee80211.h>
+ #include <net/ethernet.h>
+ #include <dev/wi/if_wavelan_ieee.h>
++#elif defined(__DragonFly__)
++#include <netproto/802_11/ieee80211.h>
++#include <net/ethernet.h>
++#include <dev/netif/wi/if_wavelan_ieee.h>
+ #elif defined(__OpenBSD__)
+ #include "cdefs.h"
+ #include <sys/socket.h>

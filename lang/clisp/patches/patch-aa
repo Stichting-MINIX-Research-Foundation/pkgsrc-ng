@@ -1,0 +1,83 @@
+$NetBSD: patch-aa,v 1.18 2010/07/09 18:08:05 asau Exp $
+
+Override library subdirectory name for consistency.
+Don't use cache file to avoid trailing space problem.
+Support staged installation of modules.
+
+--- src/makemake.in.orig	2010-07-07 19:15:35.000000000 +0400
++++ src/makemake.in	2010-07-08 01:39:27.000000000 +0400
+@@ -1416,42 +1416,42 @@
+       XCC_PICFLAG=''
+       ;;
+   esac
+-  XCC_CREATESHARED='create-shared-lib -o $lib $libs' # dummy command
++  XCC_CREATESHARED='create-shared-lib -o "${DESTDIR}$lib" $libs' # dummy command
+   case "$host_os" in
+     freebsd2.2*)
+-      XCC_CREATESHARED='ld -Bshareable -o $lib $libs /usr/lib/c++rt0.o'
++      XCC_CREATESHARED='ld -Bshareable -o "${DESTDIR}$lib" $libs /usr/lib/c++rt0.o'
+       ;;
+     freebsd2* | netbsd* | openbsd*)
+-      XCC_CREATESHARED='ld -Bshareable -o $lib $libs'
++      XCC_CREATESHARED='ld -Bshareable -o "${DESTDIR}$lib" $libs'
+       ;;
+     freebsd3* | gnu* | linux* | cygwin* | mingw* | k*bsd* | dragonfly*)
+-      XCC_CREATESHARED='${CC} ${CFLAGS} ${CLFLAGS} -shared -o $lib $libs'
++      XCC_CREATESHARED='${CC} ${CFLAGS} ${CLFLAGS} -shared -o "${DESTDIR}$lib" $libs'
+       ;;
+     hpux9* | hpux10*)
+-      XCC_CREATESHARED='ld -b +s -o $lib $libs'
++      XCC_CREATESHARED='ld -b +s -o "${DESTDIR}$lib" $libs'
+       ;;
+     irix5* | irix6*)
+       case " $CC $CFLAGS " in
+-        *" -32 "*)  XCC_CREATESHARED='ld -32 -shared -o $lib $libs' ;;
+-        *" -n32 "*) XCC_CREATESHARED='ld -n32 -shared -o $lib $libs' ;;
+-        *" -64 "*)  XCC_CREATESHARED='ld -64 -shared -o $lib $libs' ;;
+-        *)          XCC_CREATESHARED='ld -shared -o $lib $libs' ;;
++        *" -32 "*)  XCC_CREATESHARED='ld -32 -shared -o "${DESTDIR}$lib" $libs' ;;
++        *" -n32 "*) XCC_CREATESHARED='ld -n32 -shared -o "${DESTDIR}$lib" $libs' ;;
++        *" -64 "*)  XCC_CREATESHARED='ld -64 -shared -o "${DESTDIR}$lib" $libs' ;;
++        *)          XCC_CREATESHARED='ld -shared -o "${DESTDIR}$lib" $libs' ;;
+       esac
+       ;;
+     osf3* | osf4*)
+-      XCC_CREATESHARED='ld -shared -expect_unresolved -o $lib $libs -lc'
++      XCC_CREATESHARED='ld -shared -expect_unresolved -o "${DESTDIR}$lib" $libs -lc'
+       ;;
+     sco3.2v5*)
+-      XCC_CREATESHARED='ld -G -o $lib $libs'
++      XCC_CREATESHARED='ld -G -o "${DESTDIR}$lib" $libs'
+       ;;
+     solaris2*)
+-      XCC_CREATESHARED='ld -G -z text -o $lib $libs'
++      XCC_CREATESHARED='ld -G -z text -o "${DESTDIR}$lib" $libs'
+       ;;
+     sunos4*)
+-      XCC_CREATESHARED='ld -assert pure-text -Bstatic -o $lib $libs'
++      XCC_CREATESHARED='ld -assert pure-text -Bstatic -o "${DESTDIR}$lib" $libs'
+       ;;
+     darwin*)
+-      XCC_CREATESHARED='${CC} -bundle -flat_namespace -undefined suppress -o $lib $libs'
++      XCC_CREATESHARED='${CC} -bundle -flat_namespace -undefined suppress -o "${DESTDIR}$lib" $libs'
+       ;;
+     *) echo "$0: how do you create a shared library on ${host_os}?" >&2;
+       ;;
+@@ -1917,7 +1917,7 @@
+ echol "psdir   = ${PSDIR}"
+ echol "pdfdir  = ${PDFDIR}"
+ echol "libdir  = ${LIBDIR}"
+-echol "lisplibdir = \$(libdir)${NEXT_}\$(TOPDIR)"
++echol "lisplibdir = \$(libdir)${NEXT_}clisp"
+ test -n "$USE_GETTEXT" && echol "localedir = ${LOCALEDIR}"
+ echol "elispdir = ${ELISPDIR}"
+ echol "vimdir = ${VIMDIR}"
+@@ -3315,7 +3315,7 @@
+ done
+ # we must use $(SHELL) for sub-configures because when the top CONFIG_SHELL
+ # is bash, config.cache may be unparsable with sh on Solaris
+-echotab "      \$(SHELL) \$\$m/configure --with-clisp=\"${HEREP}/clisp -K boot ${someflags}\" --cache-file=\$\${cache} --srcdir=\$\$m \$(MODULE_CONFIGURE_FLAGS);\\"
++echotab "      \$(SHELL) \$\$m/configure --with-clisp=\"${HEREP}/clisp -K boot ${someflags}\" --srcdir=\$\$m \$(MODULE_CONFIGURE_FLAGS);\\"
+ echotab "    else \\"
+ echotab "      \$(SHELL) \$\$m/configure --srcdir=\$\$m \$(MODULE_CONFIGURE_FLAGS); \\"
+ echotab "    fi ) ;\\"

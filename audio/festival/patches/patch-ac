@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.5 2011/11/21 01:35:29 marino Exp $
+
+--- festival/examples/Makefile.orig	2008-11-23 21:07:52.000000000 +0000
++++ festival/examples/Makefile
+@@ -55,7 +55,7 @@ include $(TOP)/config/common_make_rules
+ $(ALL) : % : %.sh
+ 	rm -f $@
+ 	@echo "#!/bin/sh" >$@
+-	@echo "\"true\" ; exec "$(FESTIVAL_HOME)/bin/festival --script '$$0 $$*' >>$@
++	@echo "\"true\" ; exec "$(PREFIX)/bin/festival --script '$$0 $$*' >>$@
+ 	cat $< >>$@
+ 	chmod +x $@
+ 

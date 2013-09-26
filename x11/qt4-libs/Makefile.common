@@ -1,0 +1,163 @@
+# $NetBSD: Makefile.common,v 1.35 2013/01/11 00:15:40 joerg Exp $
+# used by x11/qt4-docs/Makefile
+# used by x11/qt4-libs/Makefile
+# used by x11/qt4-mng/Makefile
+# used by x11/qt4-mysql/Makefile
+# used by x11/qt4-pgsql/Makefile
+# used by x11/qt4-qdbus/Makefile
+# used by x11/qt4-sqlite3/Makefile
+# used by x11/qt4-tiff/Makefile
+
+DISTNAME=	qt-everywhere-opensource-src-${QTVERSION}
+CATEGORIES=	x11
+MASTER_SITES=	http://releases.qt-project.org/qt4/source/
+EXTRACT_USING=	bsdtar
+
+.include "../../x11/qt4/Makefile.common"
+
+DISTINFO_FILE=	${.CURDIR}/../../x11/qt4-libs/distinfo
+FILESDIR=	${.CURDIR}/../../x11/qt4-libs/files
+PATCHDIR=	${.CURDIR}/../../x11/qt4-libs/patches
+
+HAS_CONFIGURE=		yes
+USE_LANGUAGES=		c c++
+USE_LIBTOOL=		yes
+USE_TOOLS+=		gmake
+
+.if empty(PKGNAME:U:Mqt4-libs-*)
+BUILDLINK_API_DEPENDS.qt4-libs+=	qt4-libs>=${QTVERSION}
+.endif
+
+QTPREFIX=		${PREFIX}/qt4
+
+# libphonon is available in multimedia/phonon
+CONFIGURE_ARGS+=	-no-phonon
+CONFIGURE_ARGS+=	-no-phonon-backend
+CONFIGURE_ARGS+=	-optimized-qmake
+CONFIGURE_ARGS+=	-prefix "${QTPREFIX}"
+CONFIGURE_ARGS+=	${CFLAGS:M-I*} ${LDFLAGS:M-L*} ${LDFLAGS:M-l*}
+CONFIGURE_ARGS+=	-opensource -confirm-license
+OPSYSVARS+=		CONFIGURE_ARGS
+
+.include "../../mk/bsd.prefs.mk"
+
+.if !empty(MAKE_JOBS)
+CONFIGURE_ENV+=		MAKE_FLAGS=-j${MAKE_JOBS:Q}
+.endif
+
+LIBQT?=			-lQtCore -lQtGui
+
+MAKE_ENV+=		QTPREFIX=${QTPREFIX:Q}
+MAKE_ENV+=		QTDIR=${WRKSRC}
+PLIST_VARS+=		mac unix
+.if ${OPSYS} == "Darwin"
+PLIST.mac=		yes
+QMAKE_CONF=		qmake.conf.mac
+QMAKE_RANLIB=		${RANLIB}
+.else
+PLIST.unix=		yes
+QMAKE_CONF=		qmake.conf
+QMAKE_RANLIB=		${TRUE}
+.endif
+
+# avoid creating a .qt directory in the users home directory
+SCRIPTS_ENV+=		HOME=${WRKDIR}
+
+.include "../../mk/compiler.mk"
+
+.if ${OPSYS} == "SunOS"
+.  if !empty(CC_VERSION:Mgcc*)
+.    if ${ABI:U} == "64"
+CONFIGURE_ARGS+=	-platform solaris-g++-64
+.    else
+CONFIGURE_ARGS+=	-platform solaris-g++
+.    endif
+.  else
+.    if ${ABI:U} == "64"
+CONFIGURE_ARGS+=	-platform solaris-cc-64
+.    else
+CONFIGURE_ARGS+=	-platform solaris-cc
+.    endif
+.  endif
+SYS_LIBS=		-lresolv -lsocket -lnsl -lrt
+BUILDLINK_TRANSFORM+=	rm:-Wl,--gc-sections
+.elif ${OPSYS} == "Interix"
+CONFIGURE_ARGS+=	-platform interix-g++
+CFLAGS+=		-I/usr/local/include/bind
+LDFLAGS+=		-L/usr/local/lib/bind -lbind
+BUILDLINK_PASSTHRU_DIRS+=/usr/local/include/bind /usr/local/lib/bind
+SYS_LIBS=		-lbind -ldb -ldl
+.elif ${OPSYS} == "DragonFly"
+CONFIGURE_ARGS+=	-platform freebsd-g++
+.elif ${OPSYS} == "Darwin"
+CONFIGURE_ARGS+=	-platform macx-g++
+CONFIGURE_ARGS+=	-no-dwarf2
+CONFIGURE_ARGS+=	-no-framework
+.  if exists(/usr/lib/libresolv.dylib)
+LDFLAGS+=		-lresolv
+.  endif
+.elif ${OPSYS} == "Linux"
+LDFLAGS+=		-ldl
+.endif
+
+.if ${OPSYS} != "Darwin" && ${X11_TYPE} != "native"
+.include "../../x11/libXinerama/buildlink3.mk"
+.elif !exists(${X11BASE}/lib/libXinerama.so) && \
+	!exists(${X11BASE}/lib/libXinerama.dylib)
+CONFIGURE_ARGS+=	-no-xinerama
+.endif
+
+SUBST_CLASSES+=		dnr
+SUBST_MESSAGE.dnr=	Disabling debug_and_release.
+SUBST_STAGE.dnr=	pre-configure
+SUBST_FILES.dnr=	mkspecs/features/debug_and_release.prf
+SUBST_SED.dnr=		-e 's,^,\#\#\#,'
+
+SUBST_CLASSES+=		nib
+SUBST_MESSAGE.nib=	Fixing nib loading on Mac OS X.
+SUBST_STAGE.nib=	pre-configure
+SUBST_FILES.nib=	src/gui/kernel/qapplication_mac.mm
+SUBST_VARS.nib=		QTPREFIX
+
+SUBST_CLASSES+=		lt
+SUBST_MESSAGE.lt=	Enabling libtool.
+SUBST_STAGE.lt=		pre-configure
+SUBST_FILES.lt=		src/gui/gui.pro
+SUBST_SED.lt=		-e 's,$$$$QMAKE_CXX -c -W,$${LIBTOOL} --mode=compile &,'
+SUBST_SED.lt+=		-e 's,$$$${first(QMAKE_EXT_OBJ)},.lo,'
+
+.include "options.mk"
+
+# Reverse the change to how templates are handled made between 3.0.4
+# and 3.0.5 for older toolchains. Removing inline for newer toolchains
+# produces smaller code. Removing inline for older toolchains prod-
+# uces buggy code.
+.if !empty(CC_VERSION:Mgcc-2.8*)
+CXXFLAGS+=		-DQ_INLINE_TEMPLATES=inline
+.endif
+
+pre-configure:
+	sed	-e 's:@LOCALBASE@:${LOCALBASE}:g' \
+		-e 's:@X11BASE@:${X11BASE}:g' \
+		-e 's:@X11PREFIX@:${X11PREFIX}:g' \
+		-e 's:@LIBTOOL@:${LIBTOOL:Q}:g' \
+		-e 's:@CC@:${CC:Q}:g' \
+		-e 's:@CXX@:${CXX:Q}:g' \
+		-e 's:@LDFLAGS@:${LDFLAGS:Q}:g' \
+		-e 's:@CFLAGS@:${CFLAGS:Q}:g' \
+		-e 's:@CXXFLAGS@:${CXXFLAGS:Q}:g' \
+		-e 's:@SYS_LIBS@:${SYS_LIBS:Q}:g' \
+		-e 's:@LEX@:${LEX}:g' \
+		-e 's:@YACC@:${TOOLS_CMDLINE_YACC:Q}:g' \
+		-e 's:@AR@:${AR:Q}:g' \
+		-e 's:@MKDIR@:${MKDIR}:g' \
+		-e 's:@LIBQT@:${LIBQT:Q}:g' \
+		-e 's:@PTHREAD_LDFLAGS@:${PTHREAD_LDFLAGS:Q}:g' \
+		-e 's:@PTHREAD_LIBS@:${PTHREAD_LIBS:Q}:g' \
+		-e 's:@COMPILER_RPATH_FLAG@:${COMPILER_RPATH_FLAG}:g' \
+		-e 's:@QMAKE_RANLIB@:${QMAKE_RANLIB:Q}:g' \
+		${FILESDIR}/${QMAKE_CONF} > ${WRKSRC}/qmake.conf
+	for dir in ${WRKSRC}/mkspecs/*; do \
+		cp ${WRKSRC}/qmake.conf $${dir}; \
+		rm -f $${dir}/*.orig; \
+	done

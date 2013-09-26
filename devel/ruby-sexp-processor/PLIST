@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.3 2011/08/17 13:24:39 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.gemtest
+${GEM_LIBDIR}/History.txt
+${GEM_LIBDIR}/Manifest.txt
+${GEM_LIBDIR}/README.txt
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/lib/composite_sexp_processor.rb
+${GEM_LIBDIR}/lib/pt_testcase.rb
+${GEM_LIBDIR}/lib/sexp.rb
+${GEM_LIBDIR}/lib/sexp_processor.rb
+${GEM_LIBDIR}/lib/unique.rb
+${GEM_LIBDIR}/test/test_composite_sexp_processor.rb
+${GEM_LIBDIR}/test/test_environment.rb
+${GEM_LIBDIR}/test/test_sexp.rb
+${GEM_LIBDIR}/test/test_sexp_processor.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

@@ -1,0 +1,75 @@
+$NetBSD: patch-ac,v 1.12 2012/07/10 03:03:01 mef Exp $
+
+See patch-aa.
+
+--- configure.orig	2012-06-02 15:37:31.000000000 +0900
++++ configure	2012-06-28 19:20:03.000000000 +0900
+@@ -19942,43 +19942,18 @@
+ 	;;
+ esac
+ 
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_self in -lc" >&5
+-$as_echo_n "checking for pthread_self in -lc... " >&6; }
+-if ${ac_cv_lib_c_pthread_self+:} false; then :
+-  $as_echo_n "(cached) " >&6
++ac_fn_c_check_decl "$LINENO" "pthread_self" "ac_cv_have_decl_pthread_self" "#include <pthread.h>
++"
++if test "x$ac_cv_have_decl_pthread_self" = xyes; then :
++  ac_have_decl=1
+ else
+-  ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lc  $LIBS"
+-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
++  ac_have_decl=0
++fi
+ 
+-/* Override any GCC internal prototype to avoid an error.
+-   Use char because int might match the return type of a GCC
+-   builtin and then its argument prototype would still apply.  */
+-#ifdef __cplusplus
+-extern "C"
+-#endif
+-char pthread_self ();
+-int
+-main ()
+-{
+-return pthread_self ();
+-  ;
+-  return 0;
+-}
++cat >>confdefs.h <<_ACEOF
++#define HAVE_DECL_PTHREAD_SELF $ac_have_decl
+ _ACEOF
+-if ac_fn_c_try_link "$LINENO"; then :
+-  ac_cv_lib_c_pthread_self=yes
+-else
+-  ac_cv_lib_c_pthread_self=no
+-fi
+-rm -f core conftest.err conftest.$ac_objext \
+-    conftest$ac_exeext conftest.$ac_ext
+-LIBS=$ac_check_lib_save_LIBS
+-fi
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_c_pthread_self" >&5
+-$as_echo "$ac_cv_lib_c_pthread_self" >&6; }
+-if test "x$ac_cv_lib_c_pthread_self" = xyes; then :
++if test $ac_have_decl = 1; then :
+   thrstubs="no"
+ else
+   thrstubs="yes"
+@@ -19999,12 +19974,12 @@
+     linux*|gnu*|k*bsd*-gnu)
+         XTHREADLIB=-lpthread ;;
+     netbsd*)
+-	XTHREAD_CFLAGS="-D_POSIX_THREAD_SAFE_FUNCTIONS"
+-	XTHREADLIB="-lpthread" ;;
++	XTHREAD_CFLAGS="-D_REENTRANT"
++	XTHREADLIB="-pthread" ;;
+     freebsd*)
+         XTHREAD_CFLAGS="-D_THREAD_SAFE"
+         XTHREADLIB="-pthread" ;;
+-    dragonfly*|openbsd*)
++    dragonfly*|openbsd*|mirbsd*)
+         XTHREADLIB="-pthread" ;;
+     solaris*)
+ 	XTHREAD_CFLAGS="-D_REENTRANT -D_POSIX_PTHREAD_SEMANTICS" ;;

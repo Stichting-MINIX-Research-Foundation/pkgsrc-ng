@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:39:11 joerg Exp $
+include/uudeview.h
+lib/libuu.la
+man/man3/uulib.3
+share/doc/uulib/HISTORY
+share/doc/uulib/Makefile
+share/doc/uulib/README
+share/doc/uulib/binhex.fig
+share/doc/uulib/library.ltx
+share/doc/uulib/structure.fig
+share/doc/uulib/td-v1.c
+share/doc/uulib/td-v2.c
+share/doc/uulib/td-v3.c
+share/doc/uulib/test.txt

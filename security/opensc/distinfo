@@ -1,0 +1,12 @@
+$NetBSD: distinfo,v 1.10 2012/11/30 14:44:34 gdt Exp $
+
+SHA1 (opensc-0.12.2.tar.gz) = 8c34be52eb94025eb181c02b466223901bef744c
+RMD160 (opensc-0.12.2.tar.gz) = 45504135db05fd404a357ebd8bea047c5c8604dc
+Size (opensc-0.12.2.tar.gz) = 1738553 bytes
+SHA1 (patch-aa) = f7993647c19d3cca3b976d66a97ee18fca12f8b2
+SHA1 (patch-ab) = 4d19b0990b227aceb3ab4bf8c1f222f337ee1ff7
+SHA1 (patch-configure) = fcd938ec3f269642fbd577868768c8ac67270be6
+SHA1 (patch-src_common_compat__getopt.c) = a1a473a6d2690dacb968be7991e6218233b20e7f
+SHA1 (patch-src_common_compat__getopt.h) = cdd04e708f249a3969a47c4ed458d6b86a11d2f1
+SHA1 (patch-src_common_compat__getopt__main.c) = 0a9a608434ec8f274627b2f65f5c53a6ceb79f2a
+SHA1 (patch-src_pkcs11_pkcs11-global.c) = 5d0d23706f932f10a63d8da82ab34d3c00e470f5

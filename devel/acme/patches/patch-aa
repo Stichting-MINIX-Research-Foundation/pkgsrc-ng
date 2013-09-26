@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.2 2012/12/12 10:12:16 wiz Exp $
+
+--- src/Makefile.orig	2006-03-26 18:10:54.000000000 +0300
++++ src/Makefile	2011-03-17 10:54:04.000000000 +0200
+@@ -1,12 +1,12 @@
+-CFLAGS		= -O3 -Wall
++CFLAGS+=	-DDEFAULT_ACME_LIB=\"${ACME_LIB}/\"
+ #LIBS		= -lm
+-CC		= gcc
+-RM		= rm
++#CC		= gcc
++#RM		= rm
+ 
+ #SRC		=
+ 
+ PROGS		= acme
+-BINDIR		= /usr/local/bin
++BINDIR		= $(PREFIX)/bin
+ USERBIN		= $(HOME)/bin
+ 
+ all: $(PROGS)

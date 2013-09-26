@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/07/11 15:42:39 wiz Exp $
+
+SHA1 (ipa_sdb-1.1.1.tar.bz2) = e29058887f1a8a43dba44a325d589553e882ee35
+RMD160 (ipa_sdb-1.1.1.tar.bz2) = 44a64cc5b1424f171595e436bbecfaaf20e8b81f
+Size (ipa_sdb-1.1.1.tar.bz2) = 273207 bytes

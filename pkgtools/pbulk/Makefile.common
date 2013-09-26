@@ -1,0 +1,12 @@
+# $NetBSD: Makefile.common,v 1.2 2011/11/27 19:53:30 joerg Exp $
+
+CATEGORIES=	pkgtools
+MASTER_SITES=	# empty
+DISTFILES=	# empty
+
+MAINTAINER=	joerg@NetBSD.org
+HOMEPAGE=	ftp://ftp.NetBSD.org/pub/NetBSD/packages/pkgsrc/doc/pkgsrc.html
+
+FILESDIR=	${.CURDIR}/../../pkgtools/pbulk/files
+
+WRKSRC=		${WRKDIR}/pbulk

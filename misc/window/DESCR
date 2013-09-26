@@ -1,0 +1,5 @@
+window(1) implements a windowing environment on ASCII terminals.
+It is similar to tmux and GNU screen.
+
+window(1) was previously shipped with NetBSD, up to and including
+NetBSD 6.x.  Then it was replaced by tmux.

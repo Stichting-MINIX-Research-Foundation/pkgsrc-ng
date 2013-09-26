@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 22:00:29 joerg Exp $
+bin/plugger-4.0
+${NS_PLUGINS_DIR}/plugger.so
+man/man7/plugger.7
+share/doc/plugger/README
+share/doc/plugger/COPYING

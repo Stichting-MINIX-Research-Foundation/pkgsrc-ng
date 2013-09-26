@@ -1,0 +1,15 @@
+$NetBSD: patch-lib_Makefile,v 1.5 2012/05/21 07:01:32 plunky Exp $
+
+--- lib/Makefile.orig	2012-05-21 06:50:14.000000000 +0000
++++ lib/Makefile
+@@ -0,0 +1,10 @@
++# this file conflicts with parser/hci.c so just rename it
++
++all: hci_lib.c
++
++hci_lib.c: hci.c
++	cp hci.c hci_lib.c
++
++${TARGETS}:	# ensure existence of default targets
++
++.include <bsd.own.mk>

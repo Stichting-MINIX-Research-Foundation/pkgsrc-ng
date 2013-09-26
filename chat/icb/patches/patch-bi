@@ -1,0 +1,40 @@
+$NetBSD: patch-bi,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- tcl/tclProc.c.orig	1995-02-24 16:19:56.000000000 -0500
++++ tcl/tclProc.c	2008-12-16 20:18:00.000000000 -0500
+@@ -690,7 +690,7 @@
+     char **argv;		/* Argument values. */
+ {
+     char **args;
+-    register Var *formalPtr, *argPtr;
++    register Var *formalPtr, *argPtr, *nextPtr;
+     register Interp *iPtr = (Interp *) interp;
+     CallFrame frame;
+     char *value, *end;
+@@ -700,6 +700,7 @@
+      * Set up a call frame for the new procedure invocation.
+      */
+ 
++    memset(&frame, 0, sizeof(frame));
+     iPtr = procPtr->iPtr;
+     frame.varPtr = NULL;
+     if (iPtr->varFramePtr != NULL) {
+@@ -793,7 +794,8 @@
+      */
+ 
+     procDone:
+-    for (argPtr = frame.varPtr; argPtr != NULL; argPtr = argPtr->nextPtr) {
++    for (argPtr = frame.varPtr; argPtr != NULL; argPtr = nextPtr) {
++	nextPtr = argPtr->nextPtr;
+ 	if (argPtr->flags & VAR_DYNAMIC) {
+ 	    free(argPtr->value);
+ 	}
+@@ -919,7 +921,7 @@
+     if (valueLength < 20) {
+ 	valueLength = 20;
+     }
+-    varPtr = (Var *) malloc(VAR_SIZE(nameLength, valueLength));
++    varPtr = (Var *) calloc(1, VAR_SIZE(nameLength, valueLength));
+     strcpy(varPtr->name, name);
+     varPtr->value = varPtr->name + nameLength + 1;
+     strcpy(varPtr->value, value);

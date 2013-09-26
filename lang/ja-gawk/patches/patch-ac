@@ -1,0 +1,43 @@
+$NetBSD: patch-ac,v 1.4 2010/02/20 08:14:44 obache Exp $
+
+--- doc/Makefile.in.orig	2000-06-07 08:48:18.000000000 +0000
++++ doc/Makefile.in
+@@ -31,13 +31,13 @@ INSTALL_DATA = @INSTALL_DATA@
+ prefix = @prefix@
+ exec_prefix = @exec_prefix@
+ binprefix =
+-manprefix =
++manprefix = j
+ 
+ bindir = @bindir@
+ libdir = @libdir@
+-mandir = @mandir@/man1
++mandir = $(DESTDIR)@mandir@/man1
+ manext = .1
+-infodir = @infodir@
++infodir = $(DESTDIR)@infodir@
+ datadir = @datadir@/awk
+ 
+ TEXI2DVI = texi2dvi
+@@ -80,18 +80,15 @@ $(infodir)/gawk.info::
+ 		exit 0; \
+ 	fi; \
+ 	$(INSTALL_DATA) $$d/gawk.info $(infodir)/gawk.info ; \
+-	if $(SHELL) -c 'install-info --version' > /dev/null 2>&1 ; \
+-	then install-info --info-dir=$(infodir) gawk.info ; \
+-	else true ; fi; exit 0
+ 
+ $(mandir)/gawk$(manext):: gawk.1
+-	$(INSTALL_DATA) $(srcdir)/gawk.1 $(mandir)/gawk$(manext)
++	$(INSTALL_DATA) $(srcdir)/gawk.1 $(mandir)/$(manprefix)gawk$(manext)
+ 
+ $(mandir)/igawk$(manext):: igawk.1
+-	$(INSTALL_DATA) $(srcdir)/igawk.1 $(mandir)/igawk$(manext)
++	$(INSTALL_DATA) $(srcdir)/igawk.1 $(mandir)/$(manprefix)igawk$(manext)
+ 
+ uninstall:
+-	rm -f $(mandir)/gawk$(manext) $(mandir)/igawk$(manext) $(infodir)/gawk.info*
++	rm -f $(mandir)/$(manprefix)gawk$(manext) $(mandir)/$(manprefix)igawk$(manext) $(infodir)/gawk.info*
+ 
+ dvi:	gawk.dvi
+ 

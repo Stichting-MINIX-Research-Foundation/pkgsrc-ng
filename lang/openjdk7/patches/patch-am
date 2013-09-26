@@ -1,0 +1,15 @@
+$NetBSD: patch-am,v 1.4 2013/06/15 09:31:05 jperkin Exp $
+
+Set username to pkgsrc.
+
+--- jdk/make/common/shared/Defs.gmk.orig	2013-05-29 03:57:57.000000000 +0000
++++ jdk/make/common/shared/Defs.gmk
+@@ -303,7 +303,7 @@ else
+   BUILD_NUMBER = b00
+   ifndef USER_RELEASE_SUFFIX
+     BUILD_DATE := $(shell $(DATE) '+%Y_%m_%d_%H_%M')
+-    CLEAN_USERNAME := $(shell $(ECHO) "$(USER)" | $(TR) -d -c '[:alnum:]')
++    CLEAN_USERNAME := pkgsrc
+     USER_RELEASE_SUFFIX := $(shell $(ECHO) "$(CLEAN_USERNAME)_$(BUILD_DATE)" | $(TR) '[:upper:]' '[:lower:]' )
+   endif
+   export USER_RELEASE_SUFFIX

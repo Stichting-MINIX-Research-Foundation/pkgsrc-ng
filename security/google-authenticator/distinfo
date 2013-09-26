@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/08/11 17:09:43 jmmv Exp $
+
+SHA1 (libpam-google-authenticator-1.0-source.tar.bz2) = 017b7d89989f1624e360abe02d6b27a6298d285d
+RMD160 (libpam-google-authenticator-1.0-source.tar.bz2) = ce26a2f805f36a82a7ab3d930116a73fb444e037
+Size (libpam-google-authenticator-1.0-source.tar.bz2) = 32708 bytes

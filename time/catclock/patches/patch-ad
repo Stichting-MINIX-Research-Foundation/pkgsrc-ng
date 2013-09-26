@@ -1,0 +1,56 @@
+$NetBSD: patch-ad,v 1.3 2009/10/21 18:08:10 drochner Exp $
+
+--- alarm.c.orig	1995-05-21 16:07:00.000000000 +0200
++++ alarm.c
+@@ -1,7 +1,5 @@
+ #include <stdio.h>
+-#ifndef VMS
+-#include <malloc.h>
+-#endif
++#include <stdlib.h>
+ 
+ #include <signal.h>
+ #ifndef VMS
+@@ -11,6 +9,7 @@
+ #endif
+ #include <ctype.h>
+ #include <sys/time.h>
++#include <time.h>
+ 
+ #ifdef VMS
+ #include "unix_time.h"
+@@ -92,7 +91,9 @@ extern GC 	gc;
+ 
+ static XmFontList xmFontList;
+ 
+-
++static void HideBell(void);
++static void TextScroll(void);
++static void Set_Alarm(void);
+ 
+ void InitBellAlarm(win, width, height, fontInfo, fontList, fg, bg, state, on)
+     Window 	win;
+@@ -159,7 +160,6 @@ void DrawBell(flash)
+ 		   bell_width, bell_height,
+ 		   bellX, bellY, 0x1);
+     } else {
+-	extern void HideBell();
+ 	
+ 	HideBell();
+     }
+@@ -181,7 +181,6 @@ static void AlarmAnnounce()
+     int 		i, w;
+     char 		buf[BUFSIZ];
+     struct itimerval 	tv;
+-    extern void		TextScroll();
+     
+     strcpy(buf, nextAlarm.alarmAnnounce ? nextAlarm.alarmAnnounce : "alarm");
+     strcat(buf, " ... ");
+@@ -442,7 +441,6 @@ void SetAlarm(file)
+ 
+ static void ResetAlarm()
+ {
+-    extern void Set_Alarm();
+     
+     if (!*alarmFile) {
+ 	return;

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.13 2012/02/07 20:40:39 morr Exp $
+
+SHA1 (pure-ftpd-1.0.35.tar.bz2) = e470bd886af68903ffba61832002fe90611f5756
+RMD160 (pure-ftpd-1.0.35.tar.bz2) = 525ae8c4564b7a8f29ec09b882eacaa7a025a911
+Size (pure-ftpd-1.0.35.tar.bz2) = 482387 bytes

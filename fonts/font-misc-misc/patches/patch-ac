@@ -1,0 +1,19 @@
+$NetBSD: patch-ac,v 1.2 2012/06/12 02:10:25 mef Exp $
+
+Patches remove the reference to bdftruncate (never used) and mkfontscale
+(bitmap fonts only). Perl is not needed any longer as site effect and
+should have never been checked for in first place.
+
+--- Makefile.in.orig	2010-11-16 07:54:03.000000000 +0900
++++ Makefile.in	2011-10-29 01:33:38.000000000 +0900
+@@ -750,10 +750,6 @@
+ 	@rm -f $@
+ 	$(AM_V_GEN)$(BDFTOPCF) -t $< | $(COMPRESS) > $@
+ 
+-.bdft.bdf:
+-	@rm -f $@
+-	$(BDFTRUNCATE) 0x3200 < $< > $@
+-
+ .bdf-ISO8859-1.bdf:
+ 	@rm -f $@
+ 	$(AM_V_GEN)$(UCS2ANY) $< $(UTIL_DIR)/map-ISO8859-1 ISO8859-1

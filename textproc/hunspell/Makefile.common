@@ -1,0 +1,54 @@
+# $NetBSD: Makefile.common,v 1.4 2012/10/25 06:55:54 asau Exp $
+# used by textproc/hunspell-af_ZA/Makefile
+# used by textproc/hunspell-bg_BG/Makefile
+# used by textproc/hunspell-ca_ES/Makefile
+# used by textproc/hunspell-cs_CZ/Makefile
+# used by textproc/hunspell-da_DK/Makefile
+# used by textproc/hunspell-es_ES/Makefile
+# used by textproc/hunspell-es_MX/Makefile
+# used by textproc/hunspell-fo_FO/Makefile
+# used by textproc/hunspell-ga_IE/Makefile
+# used by textproc/hunspell-he_IL/Makefile
+# used by textproc/hunspell-hr_HR/Makefile
+# used by textproc/hunspell-id_ID/Makefile
+# used by textproc/hunspell-lt_LT/Makefile
+# used by textproc/hunspell-mg_MG/Makefile
+# used by textproc/hunspell-ms_MY/Makefile
+# used by textproc/hunspell-nl_NL/Makefile
+# used by textproc/hunspell-ny_MW/Makefile
+# used by textproc/hunspell-ru_RU/Makefile
+#
+# Hunspell dictionary template for fetching from OpenOffice.org
+
+PKGNAME=	hunspell-${DISTNAME}-${VERSION}
+CATEGORIES=	textproc
+MASTER_SITES=	http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/
+HOMEPAGE=	http://wiki.services.openoffice.org/wiki/Dictionaries
+
+# Whether to install readme files for dict
+HUNDICT_INSTALL_README?=	yes
+PLIST_VARS=	readme
+
+EXTRACT_SUFX=	.zip
+USE_LANGUAGES=	# none
+NO_BUILD=	yes
+
+WRKSRC=			${WRKDIR}
+DIST_SUBDIR=		hunspell-dictionaries/${DISTNAME}-${VERSION}
+
+PLIST_SRC=		../../textproc/hunspell/PLIST.common
+PLIST_SUBST+=		DISTNAME=${DISTNAME}
+
+.if ${HUNDICT_INSTALL_README} == "yes"
+PLIST.readme=		yes
+.endif
+
+INSTALLATION_DIRS=	share/hunspell share/doc/hunspell-${DISTNAME}
+
+do-install:
+	${INSTALL_DATA} ${WRKSRC}/${DISTNAME}.aff ${DESTDIR}${PREFIX}/share/hunspell
+	${INSTALL_DATA} ${WRKSRC}/${DISTNAME}.dic ${DESTDIR}${PREFIX}/share/hunspell
+.if ${HUNDICT_INSTALL_README} == "yes"
+	${INSTALL_DATA} ${WRKSRC}/README_${DISTNAME}.txt \
+	${DESTDIR}${PREFIX}/share/doc/hunspell-${DISTNAME}
+.endif

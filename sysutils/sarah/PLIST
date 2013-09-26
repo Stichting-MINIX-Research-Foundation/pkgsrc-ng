@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:14 joerg Exp $
+bin/sarah
+man/man1/sarah.1
+share/doc/sarah/README
+share/examples/sarah/sarah.conf.sample

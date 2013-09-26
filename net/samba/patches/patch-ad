@@ -1,0 +1,13 @@
+$NetBSD: patch-ad,v 1.18.14.1 2013/08/12 12:20:19 tron Exp $
+
+--- VERSION.orig	2013-07-29 18:55:18.000000000 +0000
++++ VERSION
+@@ -84,7 +84,7 @@ SAMBA_VERSION_IS_GIT_SNAPSHOT=no
+ #       SAMBA_VERSION_VENDOR_FUNCTION                  #
+ #                                                      #
+ ########################################################
+-SAMBA_VERSION_VENDOR_SUFFIX=
++SAMBA_VERSION_VENDOR_SUFFIX="pkgsrc"
+ SAMBA_VERSION_VENDOR_PATCH=
+ 
+ ########################################################

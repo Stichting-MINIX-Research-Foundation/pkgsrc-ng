@@ -1,0 +1,12 @@
+$NetBSD: patch-aa,v 1.6 2008/07/21 02:55:34 dholland Exp $
+
+--- src/process_view.cc~	2008-07-20 21:38:23.000000000 -0400
++++ src/process_view.cc	2008-07-20 21:39:06.000000000 -0400
+@@ -27,6 +27,7 @@
+ #include <sstream>
+ 
+ #include <math.h>
++#include <assert.h>
+ 
+ #include "main.hh"
+ #include "process_view.hh"

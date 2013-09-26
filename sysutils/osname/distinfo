@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.6 2013/03/14 13:03:47 kim Exp $
+
+SHA1 (osname-2.0.tar.gz) = cb0058cfd388d3fad226ec04a4e1b332b766e417
+RMD160 (osname-2.0.tar.gz) = 0c44a8c0830f297af511287a879d1bbed4587f6e
+Size (osname-2.0.tar.gz) = 6174 bytes
+SHA1 (patch-aa) = b7e40efef7a5704c68ef3cd941642711893551dc

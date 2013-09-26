@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:32:09 joerg Exp $
+include/goom/goom.h
+include/goom/goom_config.h
+include/goom/goom_config_param.h
+include/goom/goom_filters.h
+include/goom/goom_graphic.h
+include/goom/goom_plugin_info.h
+include/goom/goom_tools.h
+include/goom/goom_typedefs.h
+include/goom/goom_visual_fx.h
+include/goom/goomsl.h
+include/goom/goomsl_hash.h
+include/goom/goomsl_heap.h
+lib/libgoom2.la
+lib/pkgconfig/libgoom2.pc

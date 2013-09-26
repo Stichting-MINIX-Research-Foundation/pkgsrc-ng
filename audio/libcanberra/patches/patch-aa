@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2010/11/28 21:12:54 adam Exp $
+
+--- src/oss.c.orig	2010-02-19 23:39:40.000000000 +0000
++++ src/oss.c
+@@ -243,7 +243,7 @@ static int open_oss(ca_context *c, struc
+ 
+         p = PRIVATE(c);
+ 
+-        if ((out->pcm = open(c->device ? c->device : "/dev/dsp", O_WRONLY | O_NONBLOCK, 0)) < 0)
++        if ((out->pcm = open(c->device ? c->device : DEVOSSAUDIO, O_WRONLY | O_NONBLOCK, 0)) < 0)
+                 goto finish_errno;
+ 
+         if ((mode = fcntl(out->pcm, F_GETFL)) < 0)

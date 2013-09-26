@@ -1,0 +1,64 @@
+$NetBSD: patch-cc,v 1.8 2010/03/26 16:38:32 jdc Exp $
+
+--- interface/utils.h.orig	2008-08-14 13:56:20.000000000 +0000
++++ interface/utils.h	2010-03-24 10:55:09.000000000 +0000
+@@ -1,4 +1,23 @@
++#ifdef __linux__
+ #include <endian.h>
++#endif
++#ifdef __NetBSD__
++#include <sys/param.h>
++#if __NetBSD_Version__ >= 104010000
++#include <sys/endian.h>
++#else
++#include <machine/endian.h>
++#include <machine/bswap.h>
++#endif
++#include <err.h>	/* XXX */
++#elif defined(__FreeBSD__) || defined(__DragonFly__)
++#include <machine/endian.h>
++#endif
++#if defined(__APPLE__) && defined(__MACH__)
++#include <stdint.h>
++#include <machine/endian.h>
++#define STDERR_FILENO 2
++#endif
+ #include <stdio.h>
+ #include <errno.h>
+ #include <string.h>
+@@ -14,15 +33,35 @@
+ }
+ 
+ static inline int32_t swap32(int32_t x){
++#ifdef __NetBSD__  
++  return bswap32(x);
++#else 
++#if defined(__APPLE__) && defined(__MACH__)
++  return((((uint32_t)x & 0x000000ffU) << 24) | 
++	 (((uint32_t)x & 0x0000ff00U) <<  8) | 
++	 (((uint32_t)x & 0x00ff0000U) >>  8) | 
++	 (((uint32_t)x & 0xff000000U) >> 24));
++#else
+   return((((u_int32_t)x & 0x000000ffU) << 24) | 
+ 	 (((u_int32_t)x & 0x0000ff00U) <<  8) | 
+ 	 (((u_int32_t)x & 0x00ff0000U) >>  8) | 
+ 	 (((u_int32_t)x & 0xff000000U) >> 24));
++#endif
++#endif
+ }
+ 
+ static inline int16_t swap16(int16_t x){
++#ifdef __NetBSD__
++  return bswap16(x);
++#else
++#if defined(__APPLE__) && defined(__MACH__)
++  return((((uint16_t)x & 0x00ffU) <<  8) | 
++	 (((uint16_t)x & 0xff00U) >>  8));
++#else
+   return((((u_int16_t)x & 0x00ffU) <<  8) | 
+ 	 (((u_int16_t)x & 0xff00U) >>  8));
++#endif
++#endif
+ }
+ 
+ #if BYTE_ORDER == LITTLE_ENDIAN

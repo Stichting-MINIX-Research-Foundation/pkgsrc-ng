@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.22 2012/07/22 15:32:50 cheusov Exp $
+
+SHA1 (dictd-1.12.1.tar.gz) = 5870cc0f727f89091d0ae8a054b37e891f4cf145
+RMD160 (dictd-1.12.1.tar.gz) = 6c8b2ea5a8afa26fde019dea686d52ab5007ea17
+Size (dictd-1.12.1.tar.gz) = 423870 bytes

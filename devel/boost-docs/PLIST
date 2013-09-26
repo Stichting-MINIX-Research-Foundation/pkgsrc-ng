@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.14 2010/11/26 21:07:00 adam Exp $
+@pkgdir share/doc/boost/libs/utility/enable_if
+@pkgdir share/doc/boost/libs/utility/swap

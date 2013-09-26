@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2011/10/17 08:52:31 hiramatsu Exp $
+
+SHA1 (Sys-SigAction-0.15.tar.gz) = 448b9bdbb71b5f3e245eb14b4bf9c3a62ada4859
+RMD160 (Sys-SigAction-0.15.tar.gz) = 32ecd58e2bf9ab1ba84f7535bb88a28d0283eecf
+Size (Sys-SigAction-0.15.tar.gz) = 19264 bytes

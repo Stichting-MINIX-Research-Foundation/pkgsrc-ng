@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/04/10 21:06:02 tonnerre Exp $
+
+SHA1 (hiera-1.1.2.gem) = f46dd9b3f17d658b62ecab1a4cc05de2107c3c83
+RMD160 (hiera-1.1.2.gem) = 9096246eac1e4fdb638585b828dc810cf0b0db02
+Size (hiera-1.1.2.gem) = 22528 bytes

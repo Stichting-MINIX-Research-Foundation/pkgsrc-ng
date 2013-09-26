@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:56:39 joerg Exp $
+bin/BlinkenPlayer
+bin/LostPixels
+bin/blpmatrix
+bin/blpviewer
+bin/bmfcompress
+bin/bmfdecompress
+bin/bxxviewer
+bin/mcufviewer
+share/blinkensisters/Gaposis Outline (BRK).ttf
+share/blinkensisters/Gas Huffer Phat.ttf
+share/blinkensisters/Georgia.ttf
+share/blinkensisters/Ghostmeat.ttf
+share/blinkensisters/basedata.bmf
+share/blinkensisters/splash.jpg
+share/doc/blinkensisters/AUTHORS
+share/doc/blinkensisters/HOWTOPLAY
+share/doc/blinkensisters/INSTALL
+share/doc/blinkensisters/LICENSE
+share/doc/blinkensisters/README

@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.7 2009/06/14 17:48:38 joerg Exp $
+bin/sccs
+info/cssc.info
+libexec/cssc/admin
+libexec/cssc/cdc
+libexec/cssc/delta
+libexec/cssc/get
+libexec/cssc/prs
+libexec/cssc/prt
+libexec/cssc/rmdel
+libexec/cssc/sact
+libexec/cssc/sccsdiff
+libexec/cssc/unget
+libexec/cssc/val
+libexec/cssc/what
+man/man1/sccs.1

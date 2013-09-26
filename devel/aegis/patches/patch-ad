@@ -1,0 +1,12 @@
+$NetBSD: patch-ad,v 1.2 2010/02/13 06:28:21 obache Exp $
+
+--- common/safe_strsig.cc.orig	2009-06-25 16:00:55.000000000 +0000
++++ common/safe_strsig.cc
+@@ -19,6 +19,7 @@
+ #include <common/ac/stdio.h>
+ #include <common/ac/stdlib.h>
+ #include <common/ac/string.h>
++#include <common/ac/unistd.h>
+ 
+ #include <common/safe_strsig.h>
+ 

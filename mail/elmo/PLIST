@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:04:32 joerg Exp $
+bin/elmo
+bin/elmoconf.pl
+man/man1/elmo.1
+man/man1/elmoconf.pl.1
+share/elmo/template
+share/elmo/themes/80x25
+share/elmo/themes/README
+share/elmo/themes/outlook
+share/elmo/tutorial
+share/locale/de/LC_MESSAGES/elmo.mo
+share/locale/pl/LC_MESSAGES/elmo.mo

@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST.powerpc,v 1.2 2009/06/14 17:51:02 joerg Exp $
+${EMULSUBDIRSLASH}usr/X11R6/lib/libPEX5.so.6
+${EMULSUBDIRSLASH}usr/X11R6/lib/libPEX5.so.6.0
+${EMULSUBDIRSLASH}usr/X11R6/lib/libXIE.so.6
+${EMULSUBDIRSLASH}usr/X11R6/lib/libXIE.so.6.0
+${EMULSUBDIRSLASH}usr/lib/libg2c.so.0
+${EMULSUBDIRSLASH}usr/lib/libg2c.so.0.0
+${EMULSUBDIRSLASH}usr/lib/libobjc.so.0
+${EMULSUBDIRSLASH}usr/lib/libobjc.so.0.0
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.2
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.2.0
+${EMULSUBDIRSLASH}usr/lib/libutil.so.5.2.1

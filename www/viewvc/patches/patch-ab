@@ -1,0 +1,52 @@
+$NetBSD: patch-ab,v 1.3 2011/11/01 21:08:55 scottr Exp $
+
+--- conf/viewvc.conf.dist.orig	2011-04-20 09:56:39.000000000 -0500
++++ conf/viewvc.conf.dist	2011-10-31 21:43:19.000000000 -0500
+@@ -186,6 +186,7 @@
+ ##                    /usr/local/apache2/conf/mime.types
+ ##
+ #mime_types_files = mimetypes.conf
++#mime_types_file = @PREFIX@/etc/httpd/mime.types
+ 
+ ## address: The address of the local repository maintainer.  (This
+ ## option is provided only as a convenience for ViewVC installations
+@@ -280,6 +281,7 @@
+ ## rcs_dir = /usr/bin/
+ ##
+ #rcs_dir =
++rcs_dir = @RCS_PREFIX@/bin/
+ 
+ ## cvsnt: Location of cvsnt program.  ViewVC can use CVSNT (www.cvsnt.org)
+ ## instead of the RCS utilities to retrieve information from CVS
+@@ -302,6 +304,7 @@
+ ## svn = /usr/bin/svn
+ ##
+ #svn =
++svn = @PREFIX@/bin/
+ 
+ ## diff: Location of the GNU diff program, used for showing file
+ ## version differences.
+@@ -317,7 +320,7 @@
+ ## Example:
+ ## cvsgraph = /usr/local/bin/cvsgraph
+ ##
+-#cvsgraph =
++cvsgraph = @PREFIX@/bin/
+ 
+ 
+ ##---------------------------------------------------------------------------
+@@ -622,12 +625,14 @@
+ ## use_cvsgraph: Use CvsGraph to offer visual graphs of CVS revision history.
+ ##
+ #use_cvsgraph = 0
++use_cvsgraph = @CVSGRAPH_OPT@
+ 
+ ## cvsgraph_conf: Location of the customized cvsgraph configuration file.
+ ## May be specified as an absolute path or as a path relative to this
+ ## configuration file.
+ ##
+ #cvsgraph_conf = cvsgraph.conf
++cvsgraph_conf = @PREFIX@/@VIEWVCDIR@/cvsgraph.conf
+ 
+ ## use_re_search: Enable regular expression search of files in a directory.
+ ##

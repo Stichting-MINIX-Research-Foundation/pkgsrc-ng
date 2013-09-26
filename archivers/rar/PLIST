@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2012/04/04 21:22:19 ryoon Exp $
+bin/rar
+lib/default.sfx
+share/doc/rar/license.txt
+share/doc/rar/rar.txt
+share/doc/rar/rarfiles.lst
+share/doc/rar/readme.txt
+share/doc/rar/technote.txt
+share/doc/rar/whatsnew.txt

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2012/06/16 21:59:41 pettai Exp $
+lib/security/pam_tacplus.so
+share/doc/pam_tacplus/README
+share/examples/pam_tacplus/sample.pam

@@ -1,0 +1,381 @@
+$NetBSD: patch-ac,v 1.10 2012/03/22 14:15:32 taca Exp $
+
+--- password/poppassd.c.orig	2011-05-30 19:13:39.000000000 +0000
++++ password/poppassd.c
+@@ -171,14 +171,20 @@
+ /* LANMAN allows up to 14 char passwords (truncates if longer), but tacacs
+    only seems to allow 11. */
+ 
++#ifndef PASSWD_BINARY
+ #define PASSWD_BINARY "/usr/bin/passwd"         /* TBD: config.h */
+-#define SMBPASSWD_BINARY "/usr/bin/smbpasswd"   /* TBD: config.h */
++#endif
++
++#ifndef SMBPASSWD_BINARY
++#define SMBPASSWD_BINARY "@PREFIX@/bin/smbpasswd"   /* TBD: config.h */
++#endif
+ 
+ #include "config.h"
+ 
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <sys/wait.h>
++#include <signal.h>
+ 
+ #if HAVE_SYS_NETINET_IN_H
+ #  include <sys/netinet/in.h>
+@@ -251,7 +257,7 @@ int     dochild (int master, char *slave
+ int     findpty (char **slave);
+ void    writestring (int fd, char *s);
+ int     talktochild (int master, char *user, char *oldpass, char *newpass,
+-                 char *emess, int asroot);
++                 char *emess);
+ int     match (char *str, char *pat);
+ int     expect (int master, char **expected, char *buf);
+ void    getemess (int master, char **expected, char *buf);
+@@ -268,6 +274,7 @@ void    get_client_info ( POP *p, BOOL n
+ char   *sock_ntop ( struct sockaddr *p, int salen );
+ int     sock_port ( struct sockaddr *p, int salen );
+ char   *debug_str ( char *p, int inLen, int order );
++void	reapchild (int);
+ 
+ 
+ /*
+@@ -289,6 +296,8 @@ pop_result auth_user ( POP *p, char *pas
+ 
+ static char *P1[] =
+    {
++     "changing local password for *\nold password: ",  /* BSD */
++     "old password: ",				 /* NetBSD>=3.0 */
+      "changing password for *\nold password: ",  /* shadow */
+      "enter login password: ",                   /* Solaris */
+      "old smb password: ",                       /* smb */
+@@ -318,6 +327,7 @@ static char *P4[] =
+    {
+      "password changed. ", /* shadow */
+      "password changed ",  /* smb */
++     "password changed for user *\n",  /* smb */
+      ""
+    };
+ 
+@@ -332,6 +342,8 @@ char           msg_buf [ 2048 ]     = ""
+ char          *pwd_binary           = PASSWD_BINARY;
+ char          *smb_binary           = SMBPASSWD_BINARY;
+ 
++int child_pid;
++int child_status;
+ 
+ /*
+  * Be careful using TRACE in an 'if' statement!
+@@ -348,11 +360,13 @@ int main ( int argc, char *argv[] )
+     char           oldpass [BUFSIZE]   = "";
+     char           newpass [BUFSIZE]   = "";
+     int            nopt                = -1;
+-    static char    options []          = "dl:p:Rs:t:vy:?";
++    static char    options []          = "dhl:oPp:RSs:t:vy:";
+     int            mode                = 0;
+     char          *ptr                 = NULL;
+     POP            p;
+     BOOL           no_rev_lookup       = FALSE;
++    int		   compat_mode	       = 0;
++    BOOL	   bad_user	       = FALSE;
+ 
+ #ifdef HAS_SHADOW
+     struct spwd *spwd;
+@@ -370,8 +384,6 @@ int main ( int argc, char *argv[] )
+             pname = ptr + 1;
+     }
+ 
+-    openlog ( pname, POP_LOGOPTS, LOG_LOCAL2 );
+-
+     /*
+      * Set up some stuff in -p- so we can call Qpopper routines
+      */
+@@ -379,6 +391,17 @@ int main ( int argc, char *argv[] )
+     p.AuthType            = noauth;
+     p.myname              = pname;
+ 
++#ifndef   POP_FACILITY
++#  if defined(OSF1) || defined(LINUX)
++#    define POP_FACILITY    LOG_MAIL
++#  else
++#    define POP_FACILITY    LOG_LOCAL0
++#  endif /* OSF1 or Linux */
++#endif /* POP_FACILITY not defined */
++
++    p.log_facility        = (log_facility_type) POP_FACILITY;
++    openlog ( pname, POP_LOGOPTS, p.log_facility );
++
+     /*
+      * Handle command-line options
+      */
+@@ -387,9 +410,9 @@ int main ( int argc, char *argv[] )
+     {
+         switch (nopt)
+         {
+-            case '?':
+-                fprintf ( stderr, "%s [-?] [-d] [-l 0|1|2] [-p [passd-path]] "
+-                                  "[-R] [-s [smbpasswd-path]]\n\t"
++            case 'h':
++                fprintf ( stderr, "%s [-h] [-d] [-l 0|1|2] [-p [passd-path]] "
++                                  "[-P] [-R] [-S] [-s [smbpasswd-path]]\n\t"
+                                   "[-t trace-file] [-v] [-y log-facility]\n",
+                           pname );
+                 exit (1);
+@@ -406,6 +429,13 @@ int main ( int argc, char *argv[] )
+                 verbose = TRUE;
+                 break;
+ 
++           case 'S':
++                mode |= RUN_SMBPASSWD;
++                TRACE ( trace_file, POP_DEBUG, HERE,
++			"Changing SMB password enabled" );
++                break;
++
++
+            case 's':
+                 mode |= RUN_SMBPASSWD;
+                 if ( optarg != NULL && *optarg != '\0' )
+@@ -414,6 +444,13 @@ int main ( int argc, char *argv[] )
+                         "Changing SMB passwords using %s", smb_binary );
+                 break;
+ 
++           case 'P':
++                mode |= RUN_PASSWD;
++                TRACE ( trace_file, POP_DEBUG, HERE,
++			"Changing standard password enabled" );
++                break;
++
++
+            case 'p':
+                 mode |= RUN_PASSWD;
+                 if ( optarg != NULL && *optarg != '\0' )
+@@ -470,6 +507,10 @@ int main ( int argc, char *argv[] )
+                         "Avoiding reverse lookups (-R)" );
+                 break;
+ 
++	    case 'o':		/* compatibility mode */
++		compat_mode = 1;
++		break;
++
+             case 'y': /* log facility */
+                 if ( optarg == NULL || *optarg == '\0' ) {
+                     err_msg ( HERE, "-y value expected" );
+@@ -557,44 +598,51 @@ int main ( int argc, char *argv[] )
+         return 1;
+     }
+ 
+-    WriteToClient ( "200 your new password please." );
+-    ReadFromClient ( line );
+-    sscanf ( line, "newpass %s", newpass );
+-     
+-    /* new pass required */
+-    if ( strlen (newpass) == 0 )
+-    {
+-        WriteToClient ("500 New password required.");
+-        return 1;
+-    }
+-
+     pw = getpwnam ( userid );
+     if ( pw == NULL )
+     {
+-        WriteToClient ( "500 Invalid user or password" );
+-        return 1;
+-    }
++	bad_user = TRUE;
++    } else {
+ 
+ #ifdef HAS_SHADOW
+-    if ((spwd = getspnam(userid)) == NULL)
+-          pw->pw_passwd = "";
+-    else
+           pw->pw_passwd = spwd->sp_pwdp;
++	if ((spwd = getspnam(userid)) == NULL)
++	    pw->pw_passwd = "";
++	else
++	    pw->pw_passwd = spwd->sp_pwdp;
+ #endif
+ 
++	if ( chkPass ( userid, oldpass, pw, &p ) == FAILURE )
++	{
++	    syslog ( LOG_ERR, "password failure for %s", userid );
++	    bad_user = TRUE;
++	}
++
++	if ( pw->pw_uid <= BLOCK_UID )
++	{
++	    syslog( LOG_ERR, "someone tried to change %s's password", userid );
++	    bad_user = TRUE;
++	}
++    }
++    if (compat_mode && bad_user) {
++	sleep(1);		/* XXX */
++	WriteToClient ( "500 Invalid user or password" );
++	return 1;
++    }
+ 
+-    if ( chkPass ( userid, oldpass, pw, &p ) == FAILURE )
+-    {
+-        syslog ( LOG_ERR, "password failure for %s", userid );
+-        WriteToClient ( "500 Invalid user or password" );
+-        return 1;
++    WriteToClient ( "200 your new password please." );
++    ReadFromClient ( line );
++    sscanf ( line, "newpass %s", newpass );
++     
++    if (bad_user) {
++	WriteToClient ( "500 Invalid user or password" );
++	return 1;
+     }
+ 
+-    if ( pw->pw_uid <= BLOCK_UID )
+- 
+-    {
+-        syslog ( LOG_ERR, "someone tried to change %s's password", userid );
+-        WriteToClient ( "500 Not a user account." );
++    /* new pass required */
++    if ( strlen (newpass) == 0 )
++   {
++        WriteToClient ("500 New password required.");
+         return 1;
+     }
+ 
+@@ -627,6 +675,20 @@ int main ( int argc, char *argv[] )
+     return 0;
+ }
+ 
++/* catch child */
++void
++reapchild(sig)
++	int sig;
++{
++    int status;
++    int pid;
++
++    while ((pid = wait3(&status, WNOHANG, NULL)) > 0) {
++	child_pid = pid;
++	child_status = status;
++    }
++}
++
+ 
+ /* Run a child process to do the password change */
+ 
+@@ -647,6 +709,10 @@ void runchild ( char *userid, char *oldp
+         exit ( 1 );
+     }
+ 
++  signal(SIGCHLD, reapchild);
++  child_pid = 0;
++  child_status = -1;
++
+   /* fork child process to talk to password program */
+ 
+   pid = fork();
+@@ -659,7 +725,7 @@ void runchild ( char *userid, char *oldp
+ 
+   if ( pid > 0 )   /* Parent */
+   {
+-    if (talktochild (master, userid, oldpass, newpass, emess, smb) == FAILURE)
++    if (talktochild (master, userid, oldpass, newpass, emess) == FAILURE)
+     {
+       logit ( trace_file, LOG_ERR, HERE, 
+               "%s failed for %s", smb ? "smbpasswd" : "passwd", userid );
+@@ -671,10 +737,16 @@ void runchild ( char *userid, char *oldp
+     wpid = waitpid ( pid, &wstat, 0 );
+     if ( wpid < 0 )
+     {
+-      logit ( trace_file, LOG_ERR, HERE, "wait for child failed" );
+-      WriteToClient ("500 Server error (wait failed), get help!");
+-      exit(1);
++      if (child_pid > 0) {
++	wpid = child_pid;
++	wstat = child_status;
++      } else {
++	logit ( trace_file, LOG_ERR, HERE, "wait for child failed" );
++	WriteToClient ("500 Server error (wait failed), get help!");
++	exit(1);
++      }
+     }
++    signal(SIGCHLD, SIG_DFL);
+ 
+     if ( pid != wpid )
+     {
+@@ -778,6 +850,13 @@ int dochild (int master, char *slavedev,
+    chdir ("/");
+    umask (0);
+ 
++#ifdef HAVE_SETLOGIN
++   if (setlogin(userid) < 0) {
++      err_msg ( HERE, "setlogin failed: %m" );
++      return(0);
++   }
++#endif
++
+ /*
+  * Become the user and run passwd. Linux shadowed passwd doesn't need
+  * to be run as root with the username passed on the command line.
+@@ -877,20 +956,19 @@ void writestring (int fd, char *s)
+  * that the password wasn't changed).
+  */
+ int talktochild (int master, char *userid, char *oldpass, char *newpass,
+-                 char *emess, int asroot)
++                 char *emess)
+ {
++     int n;
+      char buf[BUFSIZE];
+      char pswd[BUFSIZE+1];
+ 
+      *emess = 0;
+ 
+      TRACE ( trace_file, POP_DEBUG, HERE,
+-             "talktochild; master=%d; userid=%s; asroot=%d",
+-             master, userid, asroot );
++             "talktochild; master=%d; userid=%s", master, userid);
+ 
+      /* only get current password if not root */
+-     if (!asroot)
+-     {
++     if (geteuid() == 0) {
+        /* wait for current password prompt */
+        if (!expect(master, P1, buf)) return FAILURE;
+ 
+@@ -920,6 +998,10 @@ int talktochild (int master, char *useri
+      if ( !expect(master, P4, buf) )
+         TRACE ( trace_file, POP_DEBUG, HERE, "no response -- assuming OK" );
+ 
++     while ((n = read(master, buf, sizeof buf)) > 0) {
++        TRACE ( trace_file, POP_DEBUG, HERE, "reading remained output" );
++	;
++     }
+      return SUCCESS;
+ }
+ 
+@@ -949,8 +1031,12 @@ int match (char *str, char *pat)
+            strlen(pat), debug_str(pat, strlen(pat), 1) );
+ 
+    while (*str && *pat) {
+-     if (*pat == '*')
+-       break;
++     if (*pat == '*') {
++       pat++;
++       while (*str != '\0' && *str != '\n')
++	 *str++;
++       continue;
++     }
+ 
+      /* ignore multiple space sequences */
+      if (*pat == ' ' && isspace (*str)) {
+@@ -1049,7 +1135,11 @@ int expect (int master, char **expected,
+         if ( m < 0 ) {
+            err_msg ( HERE, "read error from child" );
+            return FAILURE;
+-        }
++        } else if (m == 0) {
++	   TRACE ( trace_file, POP_DEBUG, HERE, "no data from child");
++	   return FAILURE;
++	}
++
+         buf [ n + m ] = '\0';
+ 
+         TRACE ( trace_file, POP_DEBUG, HERE, "...read: (%d) '%.128s'",

@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2010/03/14 10:59:14 pettai Exp $
+
+--- Net-Multicast-Beacon/Makefile.in.orig	2005-08-26 22:22:45.000000000 +0200
++++ Net-Multicast-Beacon/Makefile.in	2010-03-14 00:37:02.000000000 +0100
+@@ -318,7 +318,7 @@
+ 
+ #install-data-local: install-perl
+ install-data-local:
+-	$(MAKE) -f $(PERL_MAKEFILE) install
++	$(MAKE) -f $(PERL_MAKEFILE) INSTALLDIRS=vendor install
+ 
+ clean-local:
+ 	rm -rf blib build-perl-stamp $(PERL_MAKEFILE) $(PERL_CRUFT)

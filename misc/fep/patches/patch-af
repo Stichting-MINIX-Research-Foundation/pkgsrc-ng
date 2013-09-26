@@ -1,0 +1,31 @@
+$NetBSD: patch-af,v 1.8 2012/03/05 12:16:00 obache Exp $
+
+--- fep_funcs.c.orig	1991-05-29 01:31:18.000000000 -0400
++++ fep_funcs.c	2005-12-10 16:59:27.000000000 -0500
+@@ -6,6 +6,7 @@
+-#endif lint
++#endif /* lint */
+ 
+ #include <stdio.h>
++#include "fep_defs.h"
+ #include "fep_funcs.h"
+ 
+ /*
+@@ -94,7 +95,7 @@ FunctionTableEnt FunctionNameTable[] = {
+ 	 "Expand file name"},
+ 	{list_file_name,		"list-file-name",
+ 	 "List file name"},
+-	{terminate,			"terminate",
++	{(FUNC)terminate,			"terminate",
+ 	 "Terminate fep"},
+ 	{suspend,			"suspend",
+ 	 "Suspend fep"},
+@@ -193,7 +194,7 @@ FunctionTableEnt BuiltinFuncTable[] = {
+ 	 "Operation \"else\""},
+ 	{fep_endif,			"fep-endif",
+ 	 "Operation \"endif\""},
+-	{terminate,			"fep-exit",
++	{(FUNC)terminate,			"fep-exit",
+ 	 "Terminate fep"},
+ 	{suspend,			"fep-suspend",
+ 	 "Suspend fep"},

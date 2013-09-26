@@ -1,0 +1,15 @@
+$NetBSD: patch-ad,v 1.3 2011/03/15 20:36:03 bouyer Exp $
+
+--- netdisco_apache.conf.orig	2009-06-03 01:27:02.000000000 +0200
++++ netdisco_apache.conf	2011-03-14 17:00:47.000000000 +0100
+@@ -12,8 +12,10 @@
+ 
+ # Pool Database Connections
+ PerlModule Apache::DBI
++@APACHE2@PerlModule CGI
++@APACHE2@PerlModule Apache2::Request
+ 
+ <Directory /usr/local/netdisco/html>
+ 	order allow,deny
+ 	allow from all
+ </Directory>

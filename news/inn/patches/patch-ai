@@ -1,0 +1,13 @@
+$NetBSD: patch-ai,v 1.7 2009/12/16 22:10:25 spz Exp $
+
+--- include/inn/dbz.h.orig	2009-05-21 20:08:33.000000000 +0000
++++ include/inn/dbz.h
+@@ -38,7 +38,7 @@ typedef struct {
+     bool             nonblock;
+ } dbzoptions;
+ 
+-#ifdef __GNUC__
++#if defined(__GNUC__) && !defined(PACKED)
+ #define PACKED __attribute__ ((packed))
+ #else
+ #if !defined(PACKED)

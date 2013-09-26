@@ -1,0 +1,42 @@
+#!@SH@
+# $NetBSD: bulkbuild-restart,v 1.3 2008/10/08 16:43:34 joerg Exp $
+
+. @PBULK_CONFIG@
+
+set -e
+
+if [ "${config_version}" != "@PBULK_CONFIG_VERSION@" ]; then
+	echo "Your configuration has version ${config_version}."
+	echo "This version of pbulk expects version @PBULK_CONFIG_VERSION@."
+	exit 1
+fi
+
+check_list() {
+	@AWK@ -v presolve=${loc}/presolve 'BEGIN { 
+		while (getline < presolve) {
+			if ($0 ~ "^PKGNAME=") {
+				cur = substr($0, 9)
+				pkg[cur] = 1
+			}
+		}
+	}
+	{ if (!pkg[$0]) exit(1) }' "$1" || return 1
+	return 0
+}
+
+if [ ! -e ${loc}/success -o ! -e ${loc}/error ]; then
+	restart_build=no
+elif ! check_list ${loc}/success; then
+	restart_build=no
+elif ! check_list ${loc}/error; then
+	restart_build=no
+else
+	restart_build=yes
+fi
+if [ "$restart_build" = "no" ]; then
+	${script_phase_pre_build}
+	${script_phase_scan}
+fi
+${script_phase_build}
+${script_phase_report}
+${script_phase_upload}

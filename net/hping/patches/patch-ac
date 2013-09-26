@@ -1,0 +1,15 @@
+$NetBSD: patch-ac,v 1.2 2009/02/11 08:06:17 obache Exp $
+
+--- configure.orig	2002-12-13 16:19:30.000000000 +0000
++++ configure
+@@ -66,8 +66,8 @@ if [ "$CONFIGOSTYPE" = "LINUX" ]; then
+ 	PCAP=""
+ 	PCAP_INCLUDE=""
+ else
+-	PCAP="PCAP=-lpcap"
+-	PCAP_INCLUDE=""
++	PCAP="PCAP=-L$PCAPLIBDIR -lpcap"
++	PCAP_INCLUDE="-I$PCAPINCDIR"
+ fi
+ 
+ for ARG in $*; do

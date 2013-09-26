@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.14 2013/06/09 14:35:12 ryoon Exp $
+
+SHA1 (cpio-2.11.tar.gz) = 2c44a44195edf157060cb0b335a01ee0ece3169a
+RMD160 (cpio-2.11.tar.gz) = 1442c8dcf07d8ef9fcda0b7727aab52fe84161ba
+Size (cpio-2.11.tar.gz) = 1428330 bytes

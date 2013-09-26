@@ -1,0 +1,40 @@
+@comment $NetBSD: PLIST,v 1.6 2012/05/23 05:03:26 dholland Exp $
+bin/aranym
+${PLIST.aratapif}bin/aratapif
+man/man1/aranym-jit.1
+man/man1/aranym-mmu.1
+man/man1/aranym.1
+${PLIST.aratapif}man/man1/aratapif.1
+share/aranym/arabridge
+share/aranym/atari/hostfs/README
+share/aranym/atari/hostfs/bdconfig.sys
+share/aranym/atari/mmusetup.cnf
+share/aranym/atari/network/README
+share/aranym/atari/network/eth0-config.sh
+share/aranym/atari/newdesk.inf
+share/aranym/atari/sound/README
+share/aranym/atari/tools/README
+share/aranym/atari/tools/pc101us.kbd.bz2
+share/aranym/etos512k.img
+share/aranym/floppy.sh
+share/aranym/logo.png
+share/aranym/wm_icon.bmp
+share/doc/aranym/AUTHORS
+share/doc/aranym/BUGS
+share/doc/aranym/COPYING
+share/doc/aranym/FAQ
+share/doc/aranym/INSTALL
+share/doc/aranym/NEWS
+share/doc/aranym/README
+share/doc/aranym/TODO
+share/doc/aranym/changelog
+share/doc/aranym/config
+share/doc/aranym/emutos/announce.txt
+share/doc/aranym/emutos/authors.txt
+share/doc/aranym/emutos/changelog.txt
+share/doc/aranym/emutos/license.txt
+share/doc/aranym/emutos/readme.txt
+share/doc/aranym/emutos/status.txt
+@pkgdir share/aranym/atari/nfosmesa
+@pkgdir share/aranym/atari/nfjpeg
+@pkgdir share/aranym/atari/nfcdrom

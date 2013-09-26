@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 17:32:13 joerg Exp $
+bin/a52dec
+bin/extract_a52
+include/a52dec/a52.h
+include/a52dec/attributes.h
+include/a52dec/audio_out.h
+include/a52dec/mm_accel.h
+lib/liba52.la
+man/man1/a52dec.1
+man/man1/extract_a52.1

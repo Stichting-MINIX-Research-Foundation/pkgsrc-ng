@@ -1,0 +1,66 @@
+$NetBSD: patch-aa,v 1.7 2013/04/14 02:00:15 dholland Exp $
+
+- XXX: some unexplained/undocumented libtool fix
+- fix printf formats
+- explicitly ignore the variable "rc" in tme_module_close() as the
+Sun compiler is objecting to it being assigned and not used.
+
+--- libtme/module.c.orig	2010-06-05 19:04:42.000000000 +0000
++++ libtme/module.c
+@@ -62,11 +62,13 @@ _TME_RCSID("$Id: module.c,v 1.10 2010/06
+ #endif /* !lt_ptr_t */
+ #endif /* !lt_ptr */
+ 
++#if 0	/* XXX: we always use pkgsrc/devel/libltdl */
+ /* similarly, the installed libltdl may be so recent that its ltdl.h
+    renames lt_preloaded_symbols with a macro, to a name different from
+    what our libtool script makes.  it's possible that the renaming
+    macro is meant to be undefined to handle this problem: */
+ #undef lt_preloaded_symbols
++#endif
+ 
+ /* types: */
+ struct tme_module {
+@@ -248,7 +250,7 @@ tme_module_open(const char *module_fake_
+   /* if there were no slashes in the fake module pathname, there is no
+      top name, which is incorrect: */
+   if (first_slash == NULL) {
+-    tme_output_append_error(_output, module_fake_pathname);
++    tme_output_append_error(_output, "%s", module_fake_pathname);
+     tme_free(module_raw_name);
+     return (EINVAL);
+   }
+@@ -258,7 +260,7 @@ tme_module_open(const char *module_fake_
+ 				    (first_slash - module_raw_name),
+ 				    &modules_dir);
+   if (modules_index == NULL) {
+-    tme_output_append_error(_output, module_fake_pathname);
++    tme_output_append_error(_output, "%s", module_fake_pathname);
+     tme_free(module_raw_name);
+     return (ENOENT);
+   }
+@@ -300,7 +302,7 @@ tme_module_open(const char *module_fake_
+ 
+   /* if we didn't find the module in the index: */
+   if (tokens_count == 0) {
+-    tme_output_append_error(_output, module_fake_pathname);
++    tme_output_append_error(_output, "%s", module_fake_pathname);
+     tme_free(modules_dir);
+     return (ENOENT);
+   }
+@@ -325,7 +327,7 @@ tme_module_open(const char *module_fake_
+   tme_mutex_unlock(&_tme_module_mutex);
+   tme_free(module_pathname);
+   if (handle == NULL) {
+-    tme_output_append_error(_output, module_fake_pathname);
++    tme_output_append_error(_output, "%s", module_fake_pathname);
+     tme_free_string_array(tokens, -1);
+     return (ENOENT);
+   }
+@@ -400,5 +402,6 @@ tme_module_close(void *_module)
+   tme_free(module);
+ 
+   /* XXX assume success: */
++  (void)rc;
+   return (TME_OK);
+ }

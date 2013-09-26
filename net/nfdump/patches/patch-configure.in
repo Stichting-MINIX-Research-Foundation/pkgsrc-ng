@@ -1,0 +1,25 @@
+$NetBSD: patch-configure.in,v 1.1 2012/07/25 21:19:30 tez Exp $
+
+patch-configure does the real changes since configure is not
+regenerated... this patch just for completeness.
+
+find ftlib.h where the net/flow-tools package puts it
+
+--- configure.in.orig	2012-07-25 20:10:30.489044500 +0000
++++ configure.in
+@@ -107,13 +107,13 @@ AC_CHECK_LIB(z, zlibVersion,,
+ AC_MSG_ERROR(Link with "-lz" failed! (Need zlib >= 1.0.2))
+ )
+ if test -d "$WHERE_FTPATH"; then
+-	if test ! -f "$WHERE_FTPATH/include/ftlib.h"; then
++	if test ! -f "$WHERE_FTPATH/include/flow-tools/ftlib.h"; then
+ 		AC_MSG_ERROR(ftlib.h file not found in flow-tools directory '$WHERE_FTPATH'. Use --with-ftpath=PATH)
+ 	fi
+ 	if test ! -f "$WHERE_FTPATH/lib/libft.a"; then
+ 		AC_MSG_ERROR(libft.a not found in flow-tools directory '$WHERE_FTPATH'. Build flow tools first)
+ 	fi
+-	FT_INCLUDES="-I$WHERE_FTPATH/include -I$WHERE_FTPATH/lib"
++	FT_INCLUDES="-I$WHERE_FTPATH/include/flow-tools"
+ 	FT_LDFLAGS="-L$WHERE_FTPATH/lib"
+ else
+ 	AC_MSG_ERROR(flow-tools directory '$WHERE_FTPATH' does not exists. Use --with-ftpath=PATH)

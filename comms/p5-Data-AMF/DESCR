@@ -1,0 +1,4 @@
+Data::AMF::Packet can serialise/deserialise AMF Packets.
+
+AMF Packet is an extended format of AMF, and is used for Flash's HTTP based
+Remote Procedure Call (known as Flash Remoting).

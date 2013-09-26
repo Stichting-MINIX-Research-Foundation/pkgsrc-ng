@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:09:24 joerg Exp $
+sbin/delegated
+share/doc/delegate/manual.html
+share/doc/delegate/tutorial-en.html
+share/doc/delegate/tutorial-jp.html
+share/examples/rc.d/delegated

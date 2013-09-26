@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.2 2012/12/26 17:12:57 ryoon Exp $
+
+--- Makefile.in.orig	2001-02-25 14:42:39.000000000 +0000
++++ Makefile.in
+@@ -1,7 +1,7 @@
+-CC = gcc -O2 -Wall
+-LIBS = #LIBS#
++CC = gcc -O2 -Wall -DDEFAULT_ROOT_DIR='"${DEFAULT_ROOT_DIR}"'
++LIBS = -L${OPENSSL_ROOT}/lib -Wl,-R${OPENSSL_ROOT}/lib #LIBS#
+ 
+-default:	lhs
++default all:	lhs
+ 
+ lhs:	lhs.c lhs.h content-type.h icons.h
+ 	$(CC) lhs.c -o lhs $(LIBS)

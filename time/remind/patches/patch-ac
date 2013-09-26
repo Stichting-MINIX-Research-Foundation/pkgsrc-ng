@@ -1,0 +1,45 @@
+$NetBSD: patch-ac,v 1.7 2010/09/09 11:39:58 obache Exp $
+
+--- src/files.c.orig	2010-04-25 14:06:54.000000000 +0000
++++ src/files.c
+@@ -19,6 +19,7 @@
+ #include <string.h>
+ #include <errno.h>
+ #include <ctype.h>
++#include <glob.h>
+ #include <sys/stat.h>
+ 
+ #ifdef TM_IN_SYS_TIME
+@@ -511,16 +512,28 @@ int DoInclude(ParsePtr p)
+ {
+     DynamicBuffer buf;
+     int r, e;
++    glob_t g;
++    char **gp;
+ 
+     DBufInit(&buf);
++    memset(&g, 0, sizeof(g));
++
+     if ( (r=ParseToken(p, &buf)) ) return r;
+     e = VerifyEoln(p);
+     if (e) Eprint("%s", ErrMsg[e]);
+-    if ( (r=IncludeFile(DBufValue(&buf))) ) {
+-	DBufFree(&buf);
+-	return r;
+-    }
++
++    glob(DBufValue(&buf), GLOB_NOCHECK|GLOB_BRACE|GLOB_TILDE, NULL, &g);
+     DBufFree(&buf);
++
++    for (gp = g.gl_pathv; gp && *gp; gp++) {
++	if ( (r=IncludeFile(*gp)) ) {
++	    globfree(&g);
++	    return r;
++	}
++    }
++
++    globfree(&g);
++
+     NumIfs = 0;
+     IfFlags = 0;
+     return OK;

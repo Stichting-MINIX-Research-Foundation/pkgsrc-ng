@@ -1,0 +1,3 @@
+Don't use this Perl 5 module (ex::lib). It's just a compatibility
+wrapper for lib::abs. But if you want, see the docs for lib::abs
+(devel/p5-lib-abs package). Interface is the same.

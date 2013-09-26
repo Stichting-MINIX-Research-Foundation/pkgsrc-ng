@@ -1,0 +1,29 @@
+$NetBSD: patch-de,v 1.3 2009/12/10 20:37:38 abs Exp $
+
+--- olwm/Imakefile.orig	1993-06-29 05:11:41.000000000 +0000
++++ olwm/Imakefile
+@@ -9,6 +9,7 @@ INCLUDES = -I$(HEADER_DEST) -I$(TOP) $(X
+ SYS_LIBRARIES = $(SYSV_CLIENT_LIB)
+ DEPLIBS = 
+ LOCAL_LIBRARIES = $(OLGXLIB) $(XLIB) $(XVCLIENTMISCLIB)
++EXTRA_LDOPTIONS = ${LINKER_RPATH_FLAG}${PREFIX}/lib
+ 
+ CFILES.misc.3          =
+ CFILES.misc.4          = fontset.c
+@@ -39,7 +40,7 @@ INFOFILES = olwm.info
+ MANPAGES = olwm.man
+ BITMAPS = iconbitmap.h
+ SCRIPTS = 
+-MISC 	= openwin-menu
++MISC 	= openwin-menu openwin-menu-programs openwin-menu-demo
+ 
+ 
+ SRCS	= atom.c client.c cmdstream.c \
+@@ -72,6 +73,6 @@ ALLFILES = \
+ 
+ ComplexProgramTarget(olwm)
+ 
+-InstallNonExecList($(MISC),$(LIBRARY_DEST))
++InstallNonExecList($(MISC),$(DESTDIR)$(LIBRARY_DEST))
+ 
+ #include <XView.prog>

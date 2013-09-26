@@ -1,0 +1,44 @@
+$NetBSD: patch-ab,v 1.14 2010/02/02 23:36:16 joerg Exp $
+
+--- apps/irssi/Makefile.in.orig	2007-11-06 15:45:06.000000000 +0100
++++ apps/irssi/Makefile.in	2007-12-07 17:25:54.000000000 +0100
+@@ -291,7 +291,7 @@
+ #confdir = $(sysconfdir)
+ confdir = $(silc_etcdir)
+ conffile = silc.conf
+-@SILCPLUGIN_FALSE@themedir = $(datadir)/silc/themes
++@SILCPLUGIN_FALSE@themedir = $(datadir)/silc-client/themes
+ @SILCPLUGIN_TRUE@themedir = $(datadir)/irssi/themes
+ @SILCPLUGIN_FALSE@theme_DATA = default.theme plugin.theme
+ @SILCPLUGIN_TRUE@theme_DATA = plugin.theme
+@@ -815,7 +815,8 @@
+ 	-mkdir -p $(mandir)/man1
+ 
+ doc-install-client:
+-	$(INSTALL_DATA) $(silc_top_srcdir)/apps/irssi/silc.conf $(docdir)/example_silc.conf
++	$(INSTALL) -d ${DESTDIR}$(examplesdir)/
++	$(INSTALL_DATA) $(silc_top_srcdir)/apps/irssi/silc.conf ${DESTDIR}$(examplesdir)/silc.conf.default
+ 	-@if test -f $(silc_top_srcdir)/doc/silc.1 ; then \
+ 	 $(INSTALL_DATA) $(silc_top_srcdir)/doc/silc.1 $(mandir)/man1; \
+ 	fi
+@@ -823,16 +824,16 @@
+ etc-install-client:
+ 	-@if test -d $(silc_top_srcdir)/apps/irssi ; then \
+ 	  mkdir -p $(etcdir) ; \
+-	  if test '!' -f $(etcdir)/silc.conf ; then \
++	  if test '!' -f ${DESTDIR}$(examplesdir)/silc.conf.default ; then \
+ 	    $(INSTALL_DATA) $(silc_top_srcdir)/apps/irssi/silc.conf \
+-	    	$(etcdir)/silc.conf; \
++	    	${DESTDIR}$(examplesdir)/silc.conf.default; \
+ 	  fi; \
+ 	fi
+ 
+ install-data-hook: 		\
+ 	install-dirs-client	\
+-	doc-install-client	\
+-	$(ETCINSTALL)
++	doc-install-client
++
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:

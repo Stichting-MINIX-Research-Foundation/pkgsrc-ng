@@ -1,0 +1,18 @@
+$NetBSD: patch-aa,v 1.4 2011/12/06 11:41:02 obache Exp $
+
+Handled by pkgsrc package install script.
+
+--- src/Makefile.in.orig	2011-11-20 04:29:32.000000000 +0000
++++ src/Makefile.in
+@@ -662,9 +662,9 @@ uninstall-am: uninstall-gtk2moduleLTLIBR
+ 
+ # Running this if cross compiling or if DESTDIR is set is going to
+ # not work at all, so skip it.
+-install-data-hook: update-modules
++install-data-hook:
+ 
+-uninstall-hook: update-modules
++uninstall-hook:
+ 
+ update-modules:
+ 	@if test -z "$(DESTDIR)" ; then \

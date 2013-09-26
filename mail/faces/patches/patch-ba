@@ -1,0 +1,15 @@
+$NetBSD: patch-ba,v 1.2 2012/06/23 22:27:11 dholland Exp $
+
+Use standard headers.
+
+--- rec.c.orig	1991-10-24 02:24:19.000000000 +0000
++++ rec.c
+@@ -20,6 +20,8 @@
+ #else
+ #include <strings.h>
+ #endif /* SYSV32 || hpux */
++/* for calloc(), malloc(), realloc() */
++#include <stdlib.h>
+ #include "faces.h"
+ #include "extern.h"
+ 

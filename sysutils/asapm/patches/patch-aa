@@ -1,0 +1,32 @@
+$NetBSD: patch-aa,v 1.4 2011/03/02 13:15:23 obache Exp $
+
+--- autoconf/Makefile.common.in.orig	1999-03-09 10:35:24.000000000 +0000
++++ autoconf/Makefile.common.in
+@@ -10,14 +10,14 @@ install:	install.bin install.man
+ 
+ install.bin:	$(PROG)
+ 		$(STRIP) $(PROG)
+-		$(INSTALL_PROGRAM) $(PROG) $(AFTER_BIN_DIR)
++		$(INSTALL_PROGRAM) $(PROG) $(DESTDIR)$(AFTER_BIN_DIR)
+ 
+ install.man:
+-		$(INSTALL_DATA) $(PROG).man $(AFTER_MAN_DIR)/$(PROG).1x
++		$(INSTALL_DATA) $(PROG).man $(DESTDIR)$(AFTER_MAN_DIR)/$(PROG).1
+ 
+ uninstall:
+-		$(RMF) $(AFTER_BIN_DIR)/$(PROG)
+-		$(RMF) $(AFTER_MAN_DIR)/$(PROG).1x
++		$(RMF) $(DESTDIR)$(AFTER_BIN_DIR)/$(PROG)
++		$(RMF) $(DESTDIR)$(AFTER_MAN_DIR)/$(PROG).1
+ 
+ clean:
+ 		$(RMF) $(PROG) *.o *~ *% *.bak \#* core
+@@ -34,7 +34,7 @@ indent:
+ 		done
+ 
+ $(PROG):        $(OBJS)
+-		$(CC) $(OBJS) $(LIBRARIES) $(EXTRA_LIBRARIES) -o $(@)
++		$(CC) $(LDFLAGS) $(OBJS) $(LIBRARIES) $(EXTRA_LIBRARIES) -o $(@)
+ 
+ .c.o:
+ 		$(CC) $(CCFLAGS) $(EXTRA_DEFINES) $(INCLUDES) $(EXTRA_INCLUDES) -c $*.c

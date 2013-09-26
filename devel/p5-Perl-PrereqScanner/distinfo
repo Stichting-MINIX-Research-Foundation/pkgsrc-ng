@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/09/10 14:28:37 sno Exp $
+
+SHA1 (Perl-PrereqScanner-1.014.tar.gz) = 6a52584440bcda31dc43c46be24179193bf7cb7d
+RMD160 (Perl-PrereqScanner-1.014.tar.gz) = 23566d19c65b380899c4a10dbd4bcbc2e266e5c0
+Size (Perl-PrereqScanner-1.014.tar.gz) = 21579 bytes

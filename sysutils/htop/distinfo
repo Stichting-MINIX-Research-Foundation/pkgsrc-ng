@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.4 2012/03/21 18:28:40 drochner Exp $
+
+SHA1 (htop-1.0.1.tar.gz) = bad226ec887a2b7ea5042879ed18e067812d030e
+RMD160 (htop-1.0.1.tar.gz) = c13d438438c5ab8c15c056f7064ae6edb26ec8d9
+Size (htop-1.0.1.tar.gz) = 384683 bytes
+SHA1 (patch-CRT.c) = 6e139b71c64b8ef9b7ef53a08863cd814eb0657e
+SHA1 (patch-Makefile.am) = eec58f8097488b6aeafabdba5bbc4bb478ffacc8

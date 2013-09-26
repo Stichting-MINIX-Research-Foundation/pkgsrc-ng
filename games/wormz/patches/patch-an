@@ -1,0 +1,20 @@
+$NetBSD: patch-an,v 1.2 2013/01/11 13:26:20 joerg Exp $
+
+--- Runner/Runner.cc.orig	1997-09-11 16:19:12.000000000 +0000
++++ Runner/Runner.cc
+@@ -2,13 +2,14 @@
+ #include <X11/Xutil.h>
+ #include <stdio.h> // can't use Utils.hh
+ #include <unistd.h>
++#include <stdlib.h>
+ #include "PathConfig.hh"
+ 
+ #define client_path ClientBinInstallPath
+ 
+ #define XMVI(bpp, colormodel) XMatchVisualInfo(dp, screen, bpp, colormodel, &vinfo_return)
+ 
+-int main(char **argv, int argc)
++int main(int argc, char **argv)
+ {
+   printf("Wormz\n");
+   Display * dp;

@@ -1,0 +1,98 @@
+$NetBSD: patch-af,v 1.7 2011/08/27 15:47:43 schnoebe Exp $
+
+avoid the wrapper + -C trap
+update to be more friendly to perl 5.14
+
+--- majordomo.orig	2000-01-13 17:29:31.000000000 +0000
++++ majordomo
+@@ -24,8 +24,11 @@
+ # The mj_ prefix is reserved for tools that are part of majordomo proper.
+ $main'program_name = 'mj_majordomo';#';
+ 
+-# Read and execute the .cf file
+-$cf = $ENV{"MAJORDOMO_CF"} || "/etc/majordomo.cf"; 
++# Read and execute the .cf file. For security reasons, make the env value win
++# (the wrapper will set the env value and setuid to majordomo. If you want
++# to test a config and are properly authorized, su to the majordomo user
++# and don't use the wrapper
++$cf = "/etc/majordomo.cf"; 
+ 
+ while ($ARGV[0]) {	# parse for config file or default list
+     if ($ARGV[0] =~ /^-C$/i) {	# sendmail v8 clobbers case
+@@ -40,6 +43,11 @@ while ($ARGV[0]) {	# parse for config fi
+ 	die "Unknown argument $ARGV[0]\n";
+     }
+ }
++
++if ($ENV{"MAJORDOMO_CF"}) {
++	$cf = $ENV{"MAJORDOMO_CF"}; 
++}
++
+ if (! -r $cf) {
+     die("$cf not readable; stopped");
+ }
+@@ -58,8 +66,9 @@ if (! -t STDERR) {
+ print STDERR "$0: starting\n" if $DEBUG;
+ 
+ # All these should be in the standard PERL library
++unshift(@INC, $bindir);
+ unshift(@INC, $homedir);
+-require "ctime.pl";		# To get MoY definitions for month abbrevs
++use POSIX qw(ctime);
+ require "majordomo_version.pl";	# What version of Majordomo is this?
+ require "majordomo.pl";		# all sorts of general-purpose Majordomo subs
+ require "shlock.pl";		# NNTP-style file locking
+@@ -750,7 +759,7 @@ sub do_info {
+ 	    while (<INFO>) {
+ 		print REPLY $_;
+ 	    }
+-	    print REPLY "\n[Last updated ", &chop_nl(&ctime((stat(INFO))[9])),
++	    print REPLY "\n[Last updated ", &chop_nl(ctime((stat(INFO))[9])),
+ 		"]\n" if !&cf_ck_bool($clean_list,"date_info");
+ 	    &lclose(INFO);
+ 	} else {
+@@ -778,7 +787,7 @@ sub do_newinfo {
+ 		(stat("$listdir/$clean_list.info"))[2,4,5];
+ 	    $mode = (0664) if !$mode;
+ 	    if (&lopen(INFO, ">", "$listdir/$clean_list.info")) {
+-	        print INFO "[Last updated on: ", &chop_nl(&ctime(time())),
++	        print INFO "[Last updated on: ", &chop_nl(ctime(time())),
+ 			 "]\n" if &cf_ck_bool($clean_list,"date_info");
+ 		while (<>) {
+ 		    $_ = &chop_nl($_);
+@@ -848,7 +857,7 @@ sub do_intro {
+ 	    while (<INFO>) {
+ 		print REPLY $_;
+ 	    }
+-	    print REPLY "\n[Last updated ", &chop_nl(&ctime((stat(INFO))[9])),
++	    print REPLY "\n[Last updated ", &chop_nl(ctime((stat(INFO))[9])),
+ 		"]\n" if !&cf_ck_bool($clean_list,"date_intro");
+ 	    &lclose(INFO);
+ 	} else {
+@@ -872,7 +881,7 @@ sub do_newintro {
+ 	if (&valid_passwd($listdir, $clean_list, $passwd)) {
+ 	    # The password is valid, so write the new intro
+ 	    if (&lopen(INFO, ">", "$listdir/$clean_list.intro")) {
+-	        print INFO "[Last updated on: ", &chop_nl(&ctime(time())),
++	        print INFO "[Last updated on: ", &chop_nl(ctime(time())),
+ 			 "]\n" if &cf_ck_bool($clean_list,"date_intro");
+ 		while (<>) {
+ 		    $_ = &chop_nl($_);
+@@ -936,7 +945,7 @@ sub do_config {
+ 		print REPLY $_;
+ 	    }
+ 	    print REPLY "\n#[Last updated ", 
+-			&chop_nl(&ctime((stat(LCONFIG))[9])), "]\n";
++			&chop_nl(ctime((stat(LCONFIG))[9])), "]\n";
+ 	    close(LCONFIG) ||
+ 		print REPLY "Error writing config for $clean_list: $!";
+ 	   
+@@ -1095,7 +1104,7 @@ sub do_mkdigest { 
+ 	# The password is valid, so run digest
+ 
+     	    open(DIGEST, 
+-		"$homedir/digest -m -C -l $list $list_outgoing 2>&1 |");
++		"$bindir/digest -m -C -l $list $list_outgoing 2>&1 |");
+ 	    @digest_errors = <DIGEST>;
+ 	    close(DIGEST);
+ 

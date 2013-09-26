@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.6 2009/06/14 17:48:57 joerg Exp $
+bin/maketool
+libexec/maketool/extract_targets
+libexec/maketool/maketool_client
+share/locale/cs/LC_MESSAGES/maketool.mo
+share/locale/ja/LC_MESSAGES/maketool.mo
+share/maketool/autoconf-dist.mk
+share/maketool/autoconf-maint.mk
+share/maketool/automake.mk
+share/maketool/imake.mk

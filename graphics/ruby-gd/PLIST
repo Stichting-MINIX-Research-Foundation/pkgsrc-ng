@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.8.34.1 2013/07/16 17:00:50 tron Exp $
+${GEM_HOME}/build_info/${GEM_NAME}.info
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/Changes
+${GEM_LIBDIR}/GD.c
+${GEM_LIBDIR}/doc/INSTALL.en
+${GEM_LIBDIR}/doc/INSTALL.ja
+${GEM_LIBDIR}/doc/manual.html
+${GEM_LIBDIR}/doc/manual.rd
+${GEM_LIBDIR}/doc/manual_index.html
+${GEM_LIBDIR}/extconf.rb
+${GEM_LIBDIR}/lib/GD.${RUBY_DLEXT}
+${GEM_LIBDIR}/readme.en
+${GEM_LIBDIR}/readme.ja
+${GEM_LIBDIR}/sample/example.rb
+${GEM_LIBDIR}/sample/gdtestttf.png
+${GEM_LIBDIR}/sample/gdtestttf.rb
+${GEM_LIBDIR}/sample/webpng.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

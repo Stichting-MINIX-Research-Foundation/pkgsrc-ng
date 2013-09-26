@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.2 2009/11/17 12:23:01 tron Exp $
+
+--- Makefile	2008/07/31 09:38:52	1.1
++++ Makefile	2008/07/31 09:37:43
+@@ -4,8 +4,8 @@
+ #
+ #
+ 
+-BIN     = $(DESTDIR)/usr/bin
+-MAN     = $(DESTDIR)/usr/share/man/man1
++BIN     = $(DESTDIR)${PREFIX}/bin
++MAN     = $(DESTDIR)${PREFIX}/${PKGMANDIR}/man1
+ 
+ all: man-page
+ 	

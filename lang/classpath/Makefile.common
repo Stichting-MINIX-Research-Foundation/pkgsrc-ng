@@ -1,0 +1,28 @@
+# $NetBSD: Makefile.common,v 1.15 2012/10/02 20:11:37 asau Exp $
+#
+# used by lang/classpath/Makefile
+# used by lang/classpath-gui/Makefile
+
+DISTNAME=		classpath-0.93
+CATEGORIES=		devel
+MASTER_SITES=		ftp://ftp.gnu.org/gnu/classpath/
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://www.gnu.org/software/classpath/
+COMMENT=		Class libraries for Java VM
+
+BUILD_DEPENDS+=		jikes>=1.18:../../lang/jikes
+
+DISTINFO_FILE=		${.CURDIR}/../../lang/classpath/distinfo
+
+GNU_CONFIGURE=		yes
+USE_TOOLS+=		gmake
+USE_LIBTOOL=		yes
+UNLIMIT_RESOURCES+=	datasize
+
+# XXX this must be fixed as an optional build flag
+CONFIGURE_ARGS+=	--disable-gconf-peer
+CONFIGURE_ARGS+=	--disable-plugin
+CONFIGURE_ARGS+=	--with-jikes
+
+.include "../../devel/glib2/buildlink3.mk"

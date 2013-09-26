@@ -1,0 +1,12 @@
+$NetBSD: patch-ef,v 1.2 2009/12/10 20:35:58 abs Exp $
+
+--- lib/libxview/win/win_cntral.c.orig	1993-06-29 05:15:42.000000000 +0000
++++ lib/libxview/win/win_cntral.c
+@@ -25,7 +25,6 @@ static char     sccsid[] = "@(#)win_cntr
+ 
+ static Notify_error win_send();
+ 
+-extern int      errno;
+ extern Event    xv_last_event;
+ 
+ void            notify_perror();

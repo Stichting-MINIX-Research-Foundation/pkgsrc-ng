@@ -1,0 +1,22 @@
+$NetBSD: patch-al,v 1.4 2011/10/27 02:35:41 tez Exp $
+
+--- xpdf/GlobalParams.cc.orig	2011-08-15 16:08:53.000000000 -0500
++++ xpdf/GlobalParams.cc	2011-10-26 20:15:39.959345400 -0500
+@@ -110,11 +110,13 @@
+ };
+ #else
+ static const char *displayFontDirs[] = {
+-  "/usr/share/ghostscript/fonts",
++  PREFIX"/share/ghostscript/fonts",
+   "/usr/local/share/ghostscript/fonts",
+-  "/usr/share/fonts/default/Type1",
+-  "/usr/share/fonts/default/ghostscript",
+-  "/usr/share/fonts/type1/gsfonts",
++  PREFIX"/share/fonts/X11/Type1",
++  "/usr/X11R6/lib/X11/fonts/Type1",
++  "/usr/X11R7/lib/X11/fonts/Type1",
++  PREFIX"/xorg/lib/X11/fonts/Type1",
++  PREFIX"/share/fonts/urw",
+   NULL
+ };
+ #endif

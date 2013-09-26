@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 17:48:42 joerg Exp $
+bin/elfsh
+include/libelfsh.h
+lib/elfsh/modremap.so
+lib/elfsh/modtest.so
+lib/libelfsh.a
+lib/libelfsh.so
+share/doc/elfsh/elfsh-ref.txt
+share/doc/elfsh/libelfsh-ref.txt

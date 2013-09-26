@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:07:23 joerg Exp $
+share/doc/kanjidic2/kanjidic2_ov.html
+share/doc/kanjidic2/kanjidic_doc.html
+share/kanjidic2/kanjidic2.dtd
+share/kanjidic2/kanjidic2.xml
+share/kanjidic2/kanjidic2.xsd

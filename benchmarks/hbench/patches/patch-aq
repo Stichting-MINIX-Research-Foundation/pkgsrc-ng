@@ -1,0 +1,39 @@
+$NetBSD: patch-aq,v 1.6 2012/05/23 04:34:06 dholland Exp $
+
+- fix parallel build
+- solaris runs not only on sparc
+- work around RMS's ego in config.guess output
+
+--- src/Makefile.orig	2012-05-23 04:39:22.000000000 +0000
++++ src/Makefile
+@@ -71,9 +71,9 @@ SHELL=/bin/sh
+ 
+ CC=gcc
+ PLATFORM=`$(SHELL) ../scripts/config.guess`
+-ARCH=`$(SHELL) ../scripts/config.guess | sed 's/-.*-.*$$//'`
+-OS=`$(SHELL) ../scripts/config.guess | sed 's/^.*-.*-//'`
+-OSROOT=`$(SHELL) ../scripts/config.guess | sed 's/^.*-.*-//' | sed 's/[0-9].*$$//'`
++ARCH=`$(SHELL) ../scripts/config.guess | sed 's/-gnu$$//;s/-.*-.*$$//'`
++OS=`$(SHELL) ../scripts/config.guess | sed 's/-gnu$$//;s/^.*-.*-//'`
++OSROOT=`$(SHELL) ../scripts/config.guess | sed 's/-gnu$$//;s/^.*-.*-//' | sed 's/[0-9].*$$//'`
+ 
+ all:
+ 	@$(MAKE) BINDIR=../bin/$(OS)-$(ARCH) $(OSROOT)
+@@ -121,7 +121,7 @@ bsdi:
+ 	@$(MAKE) LDLIBS="-lrpc" binaries
+ 
+ solaris:
+-	@$(MAKE) CC=gcc LDLIBS="-lnsl -lsocket -lcpc" SYS5=-DSYS5 CFLAGS="-Wa,-xarch=v8plusa $(CFLAGS_SPARC)" CPPFLAGS="-Wa,-xarch=v8plusa" binaries 
++	@$(MAKE) CC=gcc LDLIBS="-lnsl -lsocket -lcpc" SYS5=-DSYS5 CFLAGS="$(CFLAGS_SPARC)" binaries 
+ 
+ # HPUX needs gcc; their C compiler screws up mhz.c.
+ hpux:
+@@ -170,7 +170,7 @@ EXES=	$(BINDIR)/bw_bzero $(BINDIR)/bw_fi
+ 	$(BINDIR)/mhz $(BINDIR)/mhz-counter
+ #	$(BINDIR)/lmdd $(BINDIR)/lat_pagefault
+ 
+-binaries: setupdirs $(EXES)
++binaries: setupdirs .WAIT $(EXES)
+ 
+ clean:
+ 	@echo rm -rf ../bin/$(OS)-$(ARCH)*

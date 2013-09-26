@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:51:04 joerg Exp $
+bin/fceu
+man/man6/fceu.6
+share/doc/fceu/cheat.html
+share/doc/fceu/faq.html
+share/doc/fceu/fceultra.html
+share/doc/fceu/fcm.txt
+share/doc/fceu/fcs.txt
+share/doc/fceu/protocol.txt

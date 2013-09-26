@@ -1,0 +1,22 @@
+$NetBSD: patch-ad,v 1.2 2009/01/29 17:53:49 abs Exp $
+
+--- ifo.h.orig	2007-01-09 07:09:52.000000000 +0000
++++ ifo.h
+@@ -193,7 +193,7 @@ typedef struct {
+ 	u_char *data[10];
+ 	
+ 	int fd;		// file descriptor
+-	__off64_t pos;	// offset of ifo file on device 
++	off_t pos;	// offset of ifo file on device 
+ } ifo_t;
+ 
+ 
+@@ -221,7 +221,7 @@ typedef struct {
+  * Prototypes
+  */
+ 
+-ifo_t *ifoOpen (int fd, __off64_t pos);
++ifo_t *ifoOpen (int fd, off_t pos);
+ int ifoClose (ifo_t *ifo);
+ 
+ u_int ifoGetVOBStart	(ifo_t *ifo);

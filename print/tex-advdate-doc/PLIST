@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2011/01/19 18:27:42 minskim Exp $
+share/texmf-dist/doc/latex/advdate/advdate.pdf
+share/texmf-dist/doc/latex/advdate/advdate.tex
+share/texmf-dist/doc/latex/advdate/manifest.txt

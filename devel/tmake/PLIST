@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:49:16 joerg Exp $
+bin/progen
+bin/tmake
+lib/tmake/netbsd-g++/app.t
+lib/tmake/netbsd-g++/lib.t
+lib/tmake/netbsd-g++/subdirs.t
+lib/tmake/netbsd-g++/tmake.conf
+lib/tmake/unix/app.t
+lib/tmake/unix/generic.t
+lib/tmake/unix/lib.t
+lib/tmake/unix/subdirs.t
+share/doc/tmake/m-linux-gcc.html
+share/doc/tmake/m-win32-msvc.html
+share/doc/tmake/tmake.html
+share/doc/tmake/tmake_ref.html
+share/examples/tmake/hello.cpp
+share/examples/tmake/hello.h
+share/examples/tmake/hello.pro
+share/examples/tmake/main.cpp
+share/examples/tmake/wc.t

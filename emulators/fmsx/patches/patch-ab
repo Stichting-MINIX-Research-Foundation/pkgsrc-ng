@@ -1,0 +1,34 @@
+$NetBSD: patch-ab,v 1.5 2010/01/07 08:38:43 obache Exp $
+
+--- EMULib/SndUnix.c.orig	2007-12-30 16:01:34.000000000 +0000
++++ EMULib/SndUnix.c
+@@ -30,7 +30,9 @@
+ 
+ #include <sys/audioio.h>
+ #include <sys/conf.h>
++#ifndef __NetBSD__
+ #include <stropts.h>
++#endif
+ 
+ #define AUDIO_CONV(A) (ULAW[0xFF&(128+(A))])
+ 
+@@ -84,6 +86,10 @@ static const unsigned char ULAW[256] =
+ #include <sys/soundcard.h>
+ #endif
+ 
++#ifdef __DragonFly__
++#include <sys/soundcard.h>
++#endif
++
+ #define AUDIO_CONV(A) (128+(A))
+ 
+ #endif /* !SUN_AUDIO */
+@@ -224,7 +230,7 @@ void TrashAudio(void)
+   if(SoundFD>=0)
+   {
+ #ifndef SUN_AUDIO
+-    ioctl(SoundFD,SNDCTL_DSP_RESET);
++    ioctl(SoundFD,SNDCTL_DSP_RESET, 1);
+ #endif
+     close(SoundFD);
+   }  

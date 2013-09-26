@@ -1,0 +1,37 @@
+$NetBSD: patch-Makefile.in,v 1.2 2012/08/11 13:51:20 obache Exp $
+
+(1) exactly specify KANJI code for ruby-1.9
+(2) fix copy&paste&modify error?
+(3) $(quickmlstatedir) will be handled by pkgsrc framework.
+
+--- Makefile.in.orig	2004-06-07 10:21:36.000000000 +0000
++++ Makefile.in
+@@ -605,7 +605,7 @@ uninstall-info: uninstall-info-recursive
+ 
+ quickml: quickml.in
+ 	for i in $(MESSAGES); do\
+-	  $(RUBY) lib/quickml/gettext.rb $$i quickml.in lib/quickml/*.rb;\
++	  $(RUBY) -Ke lib/quickml/gettext.rb $$i quickml.in lib/quickml/*.rb;\
+ 	done
+ 	rm -f quickml
+ 	sed -e 's!%RUBY%!$(RUBY)!g' \
+@@ -626,7 +626,7 @@ quickml-ctl: quickml-ctl.in Makefile
+ 		-e 's!%PIDFILE%!$(PIDFILE)!g' \
+ 		quickml-ctl.in > quickml-ctl
+ 	chmod +x quickml-ctl
+-	chmod -w quickml-analog
++	chmod -w quickml-ctl
+ 
+ quickmlrc.sample: quickmlrc.sample.in Makefile
+ 	rm -f quickmlrc.sample
+@@ -639,10 +639,6 @@ quickmlrc.sample: quickmlrc.sample.in Ma
+ 		quickmlrc.sample.in > quickmlrc.sample
+ 
+ install-data-local:
+-	mkdir -p $(quickmlstatedir)
+-	chown -R $(USER)  $(quickmlstatedir)
+-	chgrp -R $(GROUP) $(quickmlstatedir)
+-	chmod 750 $(quickmlstatedir)
+ 
+ quickml.ja.html: quickml.ja.rd
+ 	rd2 $(RDOPT) \

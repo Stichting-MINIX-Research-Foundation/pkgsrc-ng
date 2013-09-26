@@ -1,0 +1,13 @@
+$NetBSD: patch-am,v 1.2 2008/09/10 13:32:47 taca Exp $
+
+--- image/path.c.orig	2004-07-29 00:47:31.000000000 +0900
++++ image/path.c
+@@ -27,8 +27,6 @@
+ /* SUPPRESS 530 */
+ /* SUPPRESS 560 */
+ 
+-extern int errno;
+-
+ /*static*/ unsigned int  NumPaths= 0;
+ static unsigned int  NumExts= 0;
+ /*static*/ char         *Paths[BUFSIZ];

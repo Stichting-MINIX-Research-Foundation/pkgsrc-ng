@@ -1,0 +1,18 @@
+$NetBSD: patch-ab,v 1.3 2011/09/18 16:51:32 ryoon Exp $
+
+Generalise for all *BSD (well, anything with Torek stdio, really)
+
+--- rxfn.c.orig	2000-11-01 18:04:28.000000000 +0000
++++ rxfn.c
+@@ -40,8 +40,10 @@
+ #ifndef _CNT
+ # ifdef linux
+ #  define _CNT(fp) ((fp)->_IO_read_end - (fp)->_IO_read_ptr)
++# elif defined(__DragonFly__)
++#   define _CNT(fp) (((struct __FILE_public *)fp)->_r)
+ # else
+-#  ifdef __FreeBSD__
++#  if (defined(BSD) && BSD >= 199306)
+ #   define _CNT(fp) ((fp)->_r)
+ #  else
+ #   define _CNT(fp) ((fp)->_cnt)

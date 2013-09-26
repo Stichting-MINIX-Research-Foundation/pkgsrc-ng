@@ -1,0 +1,19 @@
+$NetBSD: distinfo,v 1.13 2013/04/30 22:24:15 joerg Exp $
+
+SHA1 (gcc-4.6.3.tar.bz2) = ce317ca5c8185b58bc9300182b534608c578637f
+RMD160 (gcc-4.6.3.tar.bz2) = 9abb2f940d08fc84f2d91b6a6ce8d662ca889269
+Size (gcc-4.6.3.tar.bz2) = 71999439 bytes
+SHA1 (patch-aa) = e68232cd14d6be31dd2c45aefb454dde75d0bbba
+SHA1 (patch-ab) = 419dbd3e80b960ac391dba123d8de68abdd35355
+SHA1 (patch-ac) = 0f708412670eca90c2c8e3fa675cffb14be768cd
+SHA1 (patch-ad) = b5e17219e7b7ba158b9f3e1a67e155fb158b4484
+SHA1 (patch-af) = e4e194ef29924eb986536972c5f5e9f37d98eba3
+SHA1 (patch-ag) = 1753d08075de8527d8f14afc3df4afeacb10d507
+SHA1 (patch-ah) = 8df9292331e68a69481aaabc894f285199a7eb05
+SHA1 (patch-ak) = 377d6ab5d454f0af2709680dd656f0449228aca9
+SHA1 (patch-al) = 20d16fba8c1b9e578c9df6523397e29a94409990
+SHA1 (patch-gcc_config_arm_elf.h) = 28c67bb698ebe9a3aa45c4cff29f028c82cc7606
+SHA1 (patch-gcc_config_arm_t-netbsd) = a1682f4f8dc7e393446f19f615737ddfc98fcb7f
+SHA1 (patch-libstdc++-v3_config_os_bsd_netbsd_ctype__base.h) = 7e8413cf45d49890ad7634f9276188413c8ed30a
+SHA1 (patch-libstdc++-v3_config_os_bsd_netbsd_ctype__inline.h) = 830038744cbbb713ecc3f960a9509bef16176db9
+SHA1 (patch-libstdc++-v3_config_os_bsd_netbsd_ctype__noninline.h) = ce481809b051cb281772a0ad4d561241731f7556

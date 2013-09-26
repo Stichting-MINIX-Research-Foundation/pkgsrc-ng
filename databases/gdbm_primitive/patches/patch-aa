@@ -1,0 +1,45 @@
+$NetBSD: patch-aa,v 1.4 2010/05/06 09:15:55 sbd Exp $
+
+--- Makefile.orig	2000-11-30 06:44:57.000000000 +0000
++++ Makefile
+@@ -9,17 +9,19 @@
+ # Copyright (c) 2000 Jonathan B. Leffert <jonathan@leffert.net>
+ # All rights reserved.
+ 
++prefix = ${PREFIX}
++
+ VERSION=1.15
+ PKG=gdbm_primitive
+ 
+ CC = gcc
+-CFLAGS = -O2 -pedantic -Wall -I/opt/include -DVERSION=$(VERSION)
++CFLAGS = -O2 -pedantic -Wall -DVERSION=$(VERSION) ${BUILDLINK_CPPFLAGS}
+ 
+ PROGS = gdbm-clear gdbm-create gdbm-dump gdbm-exists gdbm-keys gdbm-load \
+ 	gdbm-get gdbm-put gdbm-remove gdbm-revget
+-LIBS = -L/opt/lib -lgdbm
++LIBS = ${BUILDLINK_LDFLAGS} -lgdbm
+ 
+-INSTALL_PREFIX=/opt/pkgs/gdbm_primitive-$(VERSION)
++INSTALL_PREFIX=${DESTDIR}${prefix}
+ 
+ .c.o:
+ 	$(CC) $(CFLAGS) -c $<
+@@ -33,13 +35,13 @@ clean:
+ 
+ install: all
+ 	mkdir -p $(INSTALL_PREFIX)/bin
+-	mkdir -p $(INSTALL_PREFIX)/man/man1
++	mkdir -p $(INSTALL_PREFIX)/$(PKGMANDIR)/man1
+ 	strip $(PROGS)
+ 	cp $(PROGS) $(INSTALL_PREFIX)/bin
+-	cp doc/gdbm_primitive.1 $(INSTALL_PREFIX)/man/man1
++	cp doc/gdbm_primitive.1 $(INSTALL_PREFIX)/$(PKGMANDIR)/man1
+ 	for file in $(PROGS);\
+-		do ln -sf $(INSTALL_PREFIX)/man/man1/gdbm_primitive.1\
+-			$(INSTALL_PREFIX)/man/man1/$${file}.1;\
++		do ln -sf $(INSTALL_PREFIX)/$(PKGMANDIR)/man1/gdbm_primitive.1\
++			$(INSTALL_PREFIX)/$(PKGMANDIR)/man1/$${file}.1;\
+ 	done
+ 
+ gdbm-clear: gdbm-clear.o db.o

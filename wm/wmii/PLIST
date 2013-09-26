@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.7 2009/06/14 18:19:03 joerg Exp $
+bin/wmii
+bin/wmii9menu
+bin/wmii9rc
+bin/wmiiloop
+bin/wmiir
+bin/wmiistartrc
+man/man1/wmii.1
+man/man1/wmiiloop.1
+man/man1/wmiir.1
+share/examples/wmii-${CONFVERSION}/rc.wmii
+share/examples/wmii-${CONFVERSION}/welcome
+share/examples/wmii-${CONFVERSION}/wmiirc

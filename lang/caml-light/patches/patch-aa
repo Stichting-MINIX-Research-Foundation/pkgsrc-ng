@@ -1,0 +1,78 @@
+$NetBSD: patch-aa,v 1.5 2011/11/02 15:04:17 dholland Exp $
+
+Config fixes.
+Destdir support.
+
+--- Makefile.orig	1997-04-24 10:51:03.000000000 -0400
++++ Makefile	2008-09-04 21:28:01.000000000 -0400
+@@ -7,7 +7,7 @@ CC=gcc
+ # Additional options to $(CC).
+ # If you are using gcc, add -fno-defer-pop.
+ # This option circumvents a gcc bug on some platforms (680x0, 80386).
+-OPTS=-fno-defer-pop
++OPTS= -Dunix -fno-defer-pop
+ 
+ # Extra libraries that have to be linked with the runtime system.
+ # The math library "-lm" is linked by default.
+@@ -24,19 +24,19 @@ LIBS=
+ # not all Unix C preprocessors define it.
+ # If your cpp is too fussy, make tools/clprepro and use this:
+ # CPP=../../src/tools/clprepro -Dunix
+-CPP=/lib/cpp -P -Dunix
++CPP=cpp -P -C -Dunix
+ 
+ # The directory where public executables will be installed
+-BINDIR=/usr/local/bin
++BINDIR=${PREFIX}/bin
+ 
+ # The directory where the Caml Light standard library will be installed
+-LIBDIR=/usr/local/lib/caml-light
++LIBDIR=${PREFIX}/lib/caml-light
+ 
+ # The manual section where the manual pages will be installed
+ MANEXT=1
+ 
+ # The directory where the manual pages will be installed
+-MANDIR=/usr/local/man/man$(MANEXT)
++MANDIR=${PREFIX}/${PKGMANDIR}/man$(MANEXT)
+ 
+ # Some "make"s need this to ensure that they call the Bourne shell,
+ # not the C shell. Seems harmless on most other "make"s.
+@@ -49,7 +49,7 @@ SUBDIRS=runtime launch lib compiler link
+ 
+ # Configure the system
+ configure:
+-	cd ../config; sh autoconf "$(CC) $(OPTS) $(LIBS)"
++	cd ../config; sh ./autoconf "$(CC) $(OPTS) $(LIBS)"
+ 
+ # Build the system for the first time
+ world:
+@@ -118,8 +118,8 @@ compile:
+ 
+ # Install the Caml Light system
+ install:
+-	if test -d $(BINDIR); then : ; else mkdir $(BINDIR); fi
+-	if test -d $(LIBDIR); then : ; else mkdir $(LIBDIR); fi
++	if test -d $(DESTDIR)$(BINDIR); then : ; else mkdir $(DESTDIR)$(BINDIR); fi
++	if test -d $(DESTDIR)$(LIBDIR); then : ; else mkdir $(DESTDIR)$(LIBDIR); fi
+ 	cd runtime; make BINDIR=$(BINDIR) LIBDIR=$(LIBDIR) install
+ 	cd launch; make BINDIR=$(BINDIR) LIBDIR=$(LIBDIR) install
+ 	cd lib; make BINDIR=$(BINDIR) LIBDIR=$(LIBDIR) install
+@@ -130,13 +130,13 @@ install:
+ 	cd lex; make BINDIR=$(BINDIR) LIBDIR=$(LIBDIR) install
+ 	cd yacc; make BINDIR=$(BINDIR) LIBDIR=$(LIBDIR) install
+ 	cd man; make MANDIR=$(MANDIR) MANEXT=$(MANEXT) install
+-	cp camlmsgs.txt $(LIBDIR)
++	cp camlmsgs.txt $(DESTDIR)$(LIBDIR)
+ 
+ # Remove the Caml Light system after installation
+ uninstall:
+-	rm -rf $(LIBDIR)
+-	rm -f $(BINDIR)/camlrun $(BINDIR)/camlc $(BINDIR)/camllight
+-	rm -f $(BINDIR)/camlyacc $(BINDIR)/camllex $(BINDIR)/camlmktop
++	rm -rf $(DESTDIR)$(LIBDIR)
++	rm -f $(DESTDIR)$(BINDIR)/camlrun $(DESTDIR)$(BINDIR)/camlc $(DESTDIR)$(BINDIR)/camllight
++	rm -f $(DESTDIR)$(BINDIR)/camlyacc $(DESTDIR)$(BINDIR)/camllex $(DESTDIR)$(BINDIR)/camlmktop
+ 
+ # Remove all generated files
+ clean:

@@ -1,0 +1,16 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:02 joerg Exp $
+man/man1/cdappend.1
+man/man1/cdbkup.1
+man/man1/cdcat.1
+man/man1/cdrstr.1
+man/man1/cdsplit.1
+sbin/cdappend
+sbin/cdbkup
+sbin/cdcat
+sbin/cdrstr
+sbin/cdsplit
+share/doc/cdbkup/COMPLIANCE
+share/doc/cdbkup/README
+share/doc/cdbkup/TODO
+@exec ${INSTALL} -d -m 750 -o root -g ${CDBKUP_DUMPGRP} ${CDBKUP_SNARDIR}
+@unexec ${RMDIR} ${CDBKUP_SNARDIR} 2>/dev/null || ${TRUE}

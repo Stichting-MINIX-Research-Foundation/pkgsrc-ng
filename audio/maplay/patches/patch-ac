@@ -1,0 +1,27 @@
+$NetBSD: patch-ac,v 1.6 2012/02/05 20:53:12 sbd Exp $
+
+--- configuration.sh.orig	1994-06-23 12:14:46.000000000 +0000
++++ configuration.sh
+@@ -72,9 +72,21 @@ case `uname -sr` in
+      INCLUDEDIRS=
+      LIBRARIES=
+      AUDIO_INCLUDES='#include <sys/audioio.h>' ;;
++  NetBSD*)
++     COMPILER=g++
++     COMPILERFLAGS='-O2 -DNETBSD'
++     INCLUDEDIRS=
++     LIBRARIES= 
++     AUDIO_INCLUDES='#include <sys/audioio.h>' ;;
++  FreeBSD*|DragonFly*)
++     COMPILER=g++
++     COMPILERFLAGS='-O2 -DLINUX -DDAMN_INTEL_BYTE_ORDER'
++     INCLUDEDIRS=
++     LIBRARIES= 
++     AUDIO_INCLUDES='#include <machine/soundcard.h>' ;;
+   Linux*)
+      COMPILER=g++
+-     COMPILERFLAGS='-O2 -m486 -funroll-loops -DLINUX -DDAMN_INTEL_BYTE_ORDER'
++     COMPILERFLAGS='-O2 -funroll-loops -DLINUX -DDAMN_INTEL_BYTE_ORDER'
+      INCLUDEDIRS=
+      LIBRARIES= 
+      AUDIO_INCLUDES='#include <sys/soundcard.h>' ;;

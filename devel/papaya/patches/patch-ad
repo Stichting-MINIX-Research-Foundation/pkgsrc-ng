@@ -1,0 +1,26 @@
+$NetBSD: patch-ad,v 1.4 2011/07/06 13:17:46 obache Exp $
+
+* always use texi2html
+* default output directory changes for recent texi2html
+
+--- src/texi2html-wrapper.in.orig	2002-06-25 14:25:17.000000000 +0000
++++ src/texi2html-wrapper.in
+@@ -14,7 +14,8 @@
+ this="texi2html-wrapper" ;
+ 
+ texi2html_command=@texi2html_command@
+-makeinfo_command=@makeinfo_command@
++# makeinfo is not used since we always have texi2html.
++makeinfo_command=
+ 
+ html_sed1='s!<BODY>!<BODY BGCOLOR=white TEXT=black LINK=blue VLINK=green>!' ;
+ html_sed2='s!<BODY>!<BODY BGCOLOR=white TEXT=black LINK=blue VLINK=green>!' ;
+@@ -30,7 +31,7 @@ if [ ! -d ./html ] ; then
+ fi
+ 
+ if [ ! -z $texi2html_command  ] && [ -x $texi2html_command ] ; then
+-	COMMAND="$texi2html_command -menu -split_chapter" ;
++	COMMAND="$texi2html_command -menu -split_chapter --output=./" ;
+ elif [ ! -z $makeinfo_command ] && [ -x $makeinfo_command ] ; then
+ 	COMMAND="$makeinfo_command --html" ;
+ else

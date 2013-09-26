@@ -1,0 +1,37 @@
+$NetBSD: patch-ad,v 1.4 2012/04/07 09:23:11 obache Exp $
+
+--- Makefile.in.orig	1997-04-18 09:33:57.000000000 +0000
++++ Makefile.in
+@@ -11,17 +11,16 @@ LIBS       = @LIBS@
+ DEFS	   = @DEFS@
+ OS_OPT     = @OS_OPT@
+ OBJ_FLAG   = -w -O2 -c
+-OBJ_OPT    = -I./libpcap-0.3 -L./libpcap-0.3
++OBJ_OPT    = 
+ EXE_FLAG   = -w -O2 -o sniffit
+-EXE_OPT    = -I./libpcap-0.3 -L./libpcap-0.3 -lpcap
++EXE_OPT    = -lpcap $(LDFLAGS)
+ EXE_OBJ    = sn_packets.o sn_generation.o sn_interface.o sn_cfgfile.o \
+              sn_logfile.o
+-DEP_FILES  = sn_config.h pcap.h sn_data.h sn_defines.h sn_plugins.h \
++DEP_FILES  = sn_config.h sn_data.h sn_defines.h sn_plugins.h \
+              sn_packets.o \
+              sn_generation.o sn_interface.o sn_cfgfile.o sn_logfile.o
+ 
+ sniffit: $(SNIFFIT) $(DEP_FILES)
+-	cd libpcap-0.3; make; cd ..
+ 	$(CC) $(EXE_FLAG) $(SNIFFIT) $(EXE_OBJ) $(EXE_OPT) $(LIBS) $(DEFS) $(OS_OPT) 
+ 	strip sniffit
+ 
+@@ -44,11 +43,7 @@ sn_generation.o: sn_generation.h sn_gene
+ 
+ #Clean up everthing...
+ clean:
+-	cd libpcap-0.3; make clean; rm -f config.cache; cd ..
+ 	rm -f config.cache
+ 	rm -f config.status
+ 	rm -f config.log
+-	rm -f ./libpcap-0.3/config.cache
+-	rm -f ./libpcap-0.3/config.status
+-	rm -f ./libpcap-0.3/config.log
+ 	rm -f *.o sniffit

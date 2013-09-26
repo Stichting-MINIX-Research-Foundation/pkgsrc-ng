@@ -1,0 +1,40 @@
+$NetBSD: patch-aa,v 1.4 2010/05/18 20:03:04 drochner Exp $
+
+--- configure.orig	2010-03-30 17:14:06.000000000 +0000
++++ configure
+@@ -19320,7 +19320,7 @@ fi
+ 
+ # Find the GStreamer elements we use, and warn if they are not present.
+ 
+-  if test "x$GST_INSPECT" == "x"; then
++  if test "x$GST_INSPECT" = "x"; then
+     # Extract the first word of "gst-inspect-0.10", so it can be a program name with args.
+ set dummy gst-inspect-0.10; ac_word=$2
+ { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+@@ -19376,7 +19376,7 @@ $as_echo "$as_me: WARNING: The 'vorbisen
+   fi
+ 
+ 
+-  if test "x$GST_INSPECT" == "x"; then
++  if test "x$GST_INSPECT" = "x"; then
+     # Extract the first word of "gst-inspect-0.10", so it can be a program name with args.
+ set dummy gst-inspect-0.10; ac_word=$2
+ { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+@@ -19432,7 +19432,7 @@ $as_echo "$as_me: WARNING: The 'flacenc'
+   fi
+ 
+ 
+-  if test "x$GST_INSPECT" == "x"; then
++  if test "x$GST_INSPECT" = "x"; then
+     # Extract the first word of "gst-inspect-0.10", so it can be a program name with args.
+ set dummy gst-inspect-0.10; ac_word=$2
+ { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
+@@ -19488,7 +19488,7 @@ $as_echo "$as_me: WARNING: The 'wavenc' 
+   fi
+ 
+ 
+-  if test "x$GST_INSPECT" == "x"; then
++  if test "x$GST_INSPECT" = "x"; then
+     # Extract the first word of "gst-inspect-0.10", so it can be a program name with args.
+ set dummy gst-inspect-0.10; ac_word=$2
+ { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5

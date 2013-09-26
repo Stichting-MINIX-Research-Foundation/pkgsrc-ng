@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:56:50 joerg Exp $
+bin/kclever-ai
+bin/kmoron-ai
+bin/koth
+bin/koths
+man/man6/kclever-ai.6
+man/man6/kmoron-ai.6
+man/man6/koth.6
+man/man6/koths.6
+share/doc/koth/README
+share/examples/koth/koth.cfg

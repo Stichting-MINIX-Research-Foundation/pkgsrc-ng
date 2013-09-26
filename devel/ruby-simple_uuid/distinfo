@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/12/17 12:17:56 taca Exp $
+
+SHA1 (simple_uuid-0.3.0.gem) = 9e2aa8c359f9c6ad4d04b44406c4eaad93484d83
+RMD160 (simple_uuid-0.3.0.gem) = 209f2e2352cc6e600813a6c7b700372b69eac6df
+Size (simple_uuid-0.3.0.gem) = 6656 bytes

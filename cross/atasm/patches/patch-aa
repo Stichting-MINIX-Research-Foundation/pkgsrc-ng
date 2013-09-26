@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.2 2011/11/29 06:11:53 sbd Exp $
+
+Honor CC, CFLAGS and LDFLAGS from pkgsrc.
+
+--- Makefile.orig	2003-08-23 00:53:29.000000000 +0000
++++ Makefile
+@@ -16,10 +16,10 @@ ZLIB    = -lz
+ UNIX    = -DUNIX
+ 
+ # Compiler flags, if you are using egcs, pgcs, or gcc >2.8.1 use:
+-CFLAGS  = -Wall $(USEZ) $(DOS) $(UNIX) -O3 -fomit-frame-pointer -march=pentiumpro 
++CFLAGS  += $(USEZ) $(DOS) $(UNIX)
+ 
+ L       =  $(ZLIB) 
+-CC      = gcc
++#CC      = gcc
+ DESTDIR	= /usr/local/bin
+ MANDIR	= /usr/local/man/man1
+ DOCDIR	= /usr/local/doc/atasm
+@@ -37,7 +37,7 @@ setparse.o: symbol.h
+ inc_path.o: inc_path.h inc_path.c
+ 
+ prog : $(OBJS)
+-	$(CC) -o atasm $(OBJS) $(L)
++	$(CC) $(LDFLAGS) -o atasm $(OBJS) $(L)
+   
+ clean:  
+ 	rm -f *.rej *.o *~ atasm atasm.1 atasm.exe

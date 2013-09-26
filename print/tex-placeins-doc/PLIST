@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2010/09/24 16:39:59 minskim Exp $
+share/texmf-dist/doc/latex/placeins/placeins-doc.pdf
+share/texmf-dist/doc/latex/placeins/placeins-doc.tex
+share/texmf-dist/doc/latex/placeins/placeins.txt

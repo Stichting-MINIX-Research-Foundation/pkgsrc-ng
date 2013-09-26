@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2012/04/08 20:21:43 wiz Exp $
+${PYINC}/pyogg/pyogg.h
+${PYSITELIB}/ogg/__init__.py
+${PYSITELIB}/ogg/__init__.pyc
+${PYSITELIB}/ogg/__init__.pyo
+${PYSITELIB}/ogg/_ogg.so
+${PYSITELIB}/${EGG_FILE}

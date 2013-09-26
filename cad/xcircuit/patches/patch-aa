@@ -1,0 +1,37 @@
+$NetBSD: patch-aa,v 1.10 2013/06/11 13:31:58 ryoon Exp $
+
+--- configure.in.orig	2012-08-15 11:45:19.000000000 +0000
++++ configure.in
+@@ -164,7 +164,7 @@ AC_ARG_WITH(opengl,
+ dnl Graphics double-buffering? Enabled by default unless OpenGL used.
+ AC_ARG_ENABLE(double-buffer,
+ [  --disable-double-buffer disable graphics double-buffering], , [
+-  if test "x$xc_with_GL" == "x" ; then
++  if test "x$xc_with_GL" = "x" ; then
+     AC_DEFINE(DOUBLEBUFFER)
+   else
+     AC_MSG_WARN(Double-buffering option not applicable to OpenGL version.)
+@@ -303,7 +303,7 @@ xc_with_tk_libraries=""
+ AC_ARG_WITH(tcl,
+ [  --with-tcl=DIR          Find tclConfig.sh in DIR], [
+   xc_with_tcl=$withval
+-  if test "$withval" == "no" -o "$withval" == "NO"; then
++  if test "$withval" = "no" -o "$withval" = "NO"; then
+       xc_with_tcl=""
+   fi
+ ], ) 
+@@ -585,12 +585,12 @@ if test "x$xc_with_tcl" != "x" ; then
+   if test "x${xc_with_tcl_includes}" != "x" ; then
+     if test -r "${xc_with_tcl_includes}/tcl.h" ; then
+       TCL_INC_DIR=${xc_with_tcl_includes}
+-    elif test "x${TCL_INCLUDE_SPEC}" == "x" ; then
++    elif test "x${TCL_INCLUDE_SPEC}" = "x" ; then
+       echo "Can't find tcl.h in \"${xc_with_tcl_includes}\""
+       echo "Reverting to non-Tcl compilation"
+       xc_with_tcl=""
+     fi
+-  elif test "x${TCL_INCLUDE_SPEC}" == "x" ; then
++  elif test "x${TCL_INCLUDE_SPEC}" = "x" ; then
+     for dir in \
+      ${TCL_PREFIX}/include/tcl${TCL_MAJOR_VERSION}.${TCL_MINOR_VERSION} \
+      ${TCL_PREFIX}/include \

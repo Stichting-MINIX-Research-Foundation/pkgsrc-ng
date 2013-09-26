@@ -1,0 +1,72 @@
+$NetBSD: patch-ab,v 1.6.2.1 2013/07/15 22:32:24 tron Exp $
+
+--- configure.orig	2013-07-11 17:08:25.000000000 +0000
++++ configure
+@@ -14121,7 +14121,7 @@ EOF
+   PHP_VAR_SUBST="$PHP_VAR_SUBST SAPI_CGI_PATH"
+ 
+ 
+-        INSTALL_IT="@echo \"Installing PHP CGI binary: \$(INSTALL_ROOT)\$(bindir)/\"; \$(INSTALL) -m 0755 \$(SAPI_CGI_PATH) \$(INSTALL_ROOT)\$(bindir)/\$(program_prefix)php-cgi\$(program_suffix)\$(EXEEXT)"
++        INSTALL_IT="@echo \"Installing PHP CGI binary: \$(INSTALL_ROOT)@CGIDIR@\"; \$(INSTALL) -m 0755 \$(SAPI_CGI_PATH) \$(INSTALL_ROOT)@CGIDIR@/php"
+     
+   if test "$PHP_SAPI" != "default"; then
+ { echo "configure: error: 
+@@ -23465,7 +23465,7 @@ fi
+     if test "$found_openssl" = "no"; then
+   
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -25456,7 +25456,7 @@ echo "configure:25433: checking bundled 
+     PHP_SQLITE3_CFLAGS="-I@ext_srcdir@/libsqlite $other_flags $threadsafe_flags $debug_flags"
+     
+   
+-    for header_file in ext/sqlite3/libsqlite/sqlite3.h; do
++    for header_file; do
+       
+   
+   unique=`echo $header_file|$SED 's/[^a-zA-Z0-9]/_/g'`
+@@ -36318,7 +36318,7 @@ fi
+     if test "$found_openssl" = "no"; then
+   
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -50659,7 +50659,7 @@ fi
+     if test "$found_openssl" = "no"; then
+   
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -84777,7 +84777,7 @@ fi
+     if test "$found_openssl" = "no"; then
+   
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -107940,12 +107940,7 @@ old_CC=$CC
+ if test "$PHP_THREAD_SAFETY" = "yes" && test -n "$ac_cv_pthreads_cflags"; then
+   CXXFLAGS="$CXXFLAGS $ac_cv_pthreads_cflags"
+   INLINE_CFLAGS="$INLINE_CFLAGS $ac_cv_pthreads_cflags"
+-  cat >meta_ccld<<EOF
+-#! /bin/sh
+-exec $CC $ac_cv_pthreads_cflags \$@
+-EOF
+-  CC="$abs_builddir/meta_ccld"
+-  chmod +x meta_ccld
++  CPPFLAGS="$CPPFLAGS $ac_cv_pthreads_cflags"
+ fi
+ 
+ if test "$PHP_THREAD_SAFETY" = "yes" && test "$PHP_MYSQL" = "yes"; then

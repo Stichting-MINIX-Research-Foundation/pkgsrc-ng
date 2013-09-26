@@ -1,0 +1,18 @@
+$NetBSD: patch-ac,v 1.3 2008/07/22 21:25:00 tonio Exp $
+
+SunPro sees an overloading ambiguity between operator bool() and
+operator const char *(). ISO C++ and gcc 4.2 agree.
+
+--- liblcdf/permstr.cc.orig	2004-11-21 20:01:59.000000000 +0100
++++ liblcdf/permstr.cc
+@@ -160,8 +160,8 @@ PermString::PermString(char c)
+ bool
+ operator==(PermString a, const char *b)
+ {
+-    if (!a || !b)
+-	return !a && !b;
++  if (operator==(a, false) || !b)
++    return (operator==(a, false)) && !b;
+     int l = strlen(b);
+     return a.length() == l && memcmp(a.c_str(), b, l) == 0;
+ }

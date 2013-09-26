@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/03/09 00:23:26 tonnerre Exp $
+
+SHA1 (clib-0.3.tar.bz2) = 38a02ee7623c991cfe31336da3cf8d65801304d3
+RMD160 (clib-0.3.tar.bz2) = e341cf14a2b302b28c1678d644a8b088dd2ae80a
+Size (clib-0.3.tar.bz2) = 269607 bytes

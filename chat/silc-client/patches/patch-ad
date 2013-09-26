@@ -1,0 +1,13 @@
+$NetBSD: patch-ad,v 1.5 2008/07/13 12:04:11 tonnerre Exp $
+
+--- apps/irssi/scripts/Makefile.in.orig	2008-03-20 06:47:18.000000000 +0000
++++ apps/irssi/scripts/Makefile.in
+@@ -211,7 +211,7 @@ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ SUBDIRS = examples
+ PLUGIN_SCR = silc.pl
+-@SILCPLUGIN_FALSE@scriptdir = $(datadir)/silc/scripts
++@SILCPLUGIN_FALSE@scriptdir = $(prefix)/libexec/silc-client/scripts
+ @SILCPLUGIN_TRUE@scriptdir = $(datadir)/irssi/scripts
+ @SILCPLUGIN_FALSE@IRSSI_SCR = \
+ @SILCPLUGIN_FALSE@	autoop.pl \

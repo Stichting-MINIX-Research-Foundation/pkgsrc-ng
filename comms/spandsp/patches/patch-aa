@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.2 2013/06/09 22:36:12 rodent Exp $
+
+Fix portability failure.
+
+--- configure.orig	2011-02-06 01:41:29.000000000 +0000
++++ configure
+@@ -26914,7 +26914,7 @@ fi
+ 
+ done
+ 
+-if test "${build}" == "${host}"
++if test "${build}" = "${host}"
+ then
+ 
+ for ac_header in X11/X.h
+@@ -28544,7 +28544,7 @@ ac_link='$CC -o conftest$ac_exeext $CFLA
+ ac_compiler_gnu=$ac_cv_c_compiler_gnu
+ 
+ 
+-if test "${build}" == "${host}"
++if test "${build}" = "${host}"
+ then
+     case "${host}" in
+     x86_64-*)

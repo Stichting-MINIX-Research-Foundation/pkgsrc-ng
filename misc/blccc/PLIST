@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:07:18 joerg Exp $
+bin/blccc
+lib/blccc/modules/libtest.la
+share/blccc/playlist.dtd
+share/examples/blccc/config.xml
+share/examples/blccc/loveletters.xml
+share/examples/blccc/movies/bushfire-test.gif
+share/examples/blccc/movies/bushfire_60frames.gif
+share/examples/blccc/movies/camel.blm
+share/examples/blccc/movies/the_fly.blm
+share/examples/blccc/on-demand/4467.blm
+share/examples/blccc/playlist.default.xml

@@ -1,0 +1,33 @@
+$NetBSD: patch-ac,v 1.3 2012/07/30 02:21:31 dholland Exp $
+
+Configure paths for pkgsrc.
+
+--- doc/Xdialog.man.orig	2008-08-29 15:18:19.000000000 +0100
++++ doc/Xdialog.man	2008-08-29 15:20:05.000000000 +0100
+@@ -268,11 +268,11 @@
+ .br 
+ \fI%%datadir%%/locale/*/LC_MESSAGES/Xdialog.mo\fP 
+ .br 
+-\fI%%mandir%%/man1/Xdialog.1*\fP
++\fI%%mandir%%/man1/Xdialog.1\fP
+ .br 
+-\fI%%datadir%%/doc/Xdialog\-%%version%%/*\fP
++\fI%%datadir%%/doc/xdialog/*\fP
+ .br 
+-\fI%%datadir%%/doc/Xdialog\-%%version%%/samples/*\fP
++\fI%%datadir%%/examples/xdialog/*\fP
+ .SH "ENVIRONMENT VARIABLES"
+ .LP 
+ \fIXDIALOG_HIGH_DIALOG_COMPAT\fR
+@@ -306,9 +306,9 @@
+ Setting this variable to 1 will prevent the Gdk, GLib and Gtk library from emitting messages via g_log().
+ .SH "EXAMPLES"
+ .LP 
+-Sample scripts are available in the \fI%%datadir%%/doc/Xdialog\-%%version%%/samples/\fR directory.
++Sample scripts are available in the \fI%%datadir%%/examples/xdialog\fR directory.
+ .br 
+-Full HTML doc with screen shots, examples and FAQ is available in the \fI%%datadir%%/doc/Xdialog\-%%version%%/\fR directory.
++Full HTML doc with screen shots, examples and FAQ is available in the \fI%%datadir%%/doc/xdialog\fR directory.
+ .SH "AUTHORS"
+ .LP 
+ Thierry Godefroy <xdialog@free.fr> (from v1.1.0 onwards)

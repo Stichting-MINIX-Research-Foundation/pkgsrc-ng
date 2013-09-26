@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2010/07/23 13:22:12 adam Exp $
+include/SDL/SDL_ttf.h
+lib/libSDL_ttf.la
+lib/pkgconfig/SDL_ttf.pc

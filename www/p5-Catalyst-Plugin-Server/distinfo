@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2011/11/25 08:14:37 hiramatsu Exp $
+
+SHA1 (Catalyst-Plugin-Server-0.28.tar.gz) = 4faf9e0d1560027168337b7d31d4522cabdb0408
+RMD160 (Catalyst-Plugin-Server-0.28.tar.gz) = 50f687aefca8869ce8441be31ebbbbea2ec418d2
+Size (Catalyst-Plugin-Server-0.28.tar.gz) = 21461 bytes

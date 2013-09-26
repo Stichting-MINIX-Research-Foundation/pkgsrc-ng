@@ -1,0 +1,18 @@
+$NetBSD: patch-ae,v 1.3 2012/07/30 02:21:31 dholland Exp $
+
+Don't install docs; that's handled by the package makefile instead.
+
+--- Makefile.in.orig	2008-08-29 16:27:35.000000000 +0100
++++ Makefile.in	2008-08-29 16:27:52.000000000 +0100
+@@ -186,9 +186,9 @@
+ target_alias = @target_alias@
+ AUTOMAKE_OPTIONS = foreign no-dependencies
+ SUBDIRS = m4 lib src po doc
+-docdir = $(datadir)/doc/$(PACKAGE)-$(VERSION)
++docdir =
+ CONFIG_CLEAN_FILES = ltmain.sh ltconfig autom4te.cache/*
+-doc_DATA = $(srcdir)/samples/*
++doc_DATA =
+ ACLOCAL_AMFLAGS = -I m4
+ EXTRA_DIST = config.rpath
+ all: config.h

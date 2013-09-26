@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.8 2008/11/08 18:50:56 heinz Exp $
+bin/xdelta
+bin/xdelta-config
+include/edsio.h
+include/edsio_edsio.h
+include/xd_edsio.h
+include/xdelta.h
+lib/libedsio.la
+lib/libxdelta.la
+man/man1/xdelta.1
+share/aclocal/xdelta.m4

@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# $NetBSD: DEINSTALL,v 1.10 2013/03/13 03:31:40 obache Exp $
+
+SASLDB=@PKG_SYSCONFDIR@/sasldb@DBEXT@
+
+case ${STAGE} in
+POST-DEINSTALL)
+	if ${TEST} -f ${SASLDB}; then
+		${CAT} << EOF
+===========================================================================
+You may want to remove the SASL password data file:
+
+	${SASLDB}
+===========================================================================
+EOF
+	fi
+	;;
+esac

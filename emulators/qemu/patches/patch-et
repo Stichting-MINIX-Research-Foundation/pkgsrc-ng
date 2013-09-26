@@ -1,0 +1,16 @@
+$NetBSD: patch-et,v 1.7 2013/06/16 18:27:25 tsutsui Exp $
+
+--- Makefile.orig	2013-05-24 13:37:57.000000000 +0000
++++ Makefile
+@@ -297,8 +297,9 @@ install-datadir:
+ install-confdir:
+ 	$(INSTALL_DIR) "$(DESTDIR)$(qemu_confdir)"
+ 
+-install-sysconfig: install-datadir install-confdir
+-	$(INSTALL_DATA) $(SRC_PATH)/sysconfigs/target/target-x86_64.conf "$(DESTDIR)$(qemu_confdir)"
++install-sysconfig:
++	$(INSTALL_DIR) "$(DESTDIR)$(egdir)"
++	$(INSTALL_DATA) $(SRC_PATH)/sysconfigs/target/target-x86_64.conf "$(DESTDIR)$(egdir)"
+ 
+ install: all $(if $(BUILD_DOCS),install-doc) install-sysconfig install-datadir
+ 	$(INSTALL_DIR) "$(DESTDIR)$(bindir)"

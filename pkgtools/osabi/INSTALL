@@ -1,0 +1,38 @@
+# $NetBSD: INSTALL,v 1.3 2013/02/23 05:47:59 obache Exp $
+
+UNAME="@UNAME@"
+case ${STAGE} in
+PRE-INSTALL)
+	OS_VERSION=`${UNAME} -r`
+	PKG_VERSION="${PKGNAME##*-}"
+	case `${UNAME} -s` in
+	AIX)
+		if ${TEST} -f /usr/bin/oslevel ;then
+			OS_VERSION=`/usr/bin/oslevel | \
+					sed -e's/\([0-9]*\.[0-9]*\).*/\1/'`
+		else
+			OS_VERSION="`${UNAME} -v`.`${UNAME} -r`"
+			OS_VERSION=`echo "${OS_VERSION}" | \
+					sed -e's/\([0-9]*\.[0-9]*\).*/\1/'`
+		fi
+		;;
+	DragonFly|FreeBSD|Linux)
+		OS_VERSION=`echo "${OS_VERSION}" | sed -e's/-.*$//'`
+		;;
+	OSF1)
+		OS_VERSION=`echo "${OS_VERSION}" | sed -e's/^V//'`
+		;;
+	HPUX)
+		OS_VERSION=`echo "${OS_VERSION}" | sed -e's/^B.//'`
+		;;
+	CYGWIN_*)
+		OS_VERSION=`echo "${OS_VERSION}" | sed -e's/(.*)//'`
+		;;
+	esac
+
+	if ${TEST} "${OS_VERSION}" != "${PKG_VERSION}" ;then 
+		echo "The Operating System version (${OS_VERSION}) does not match ${PKG_VERSION}"
+		exit 1
+	fi
+	;;
+esac

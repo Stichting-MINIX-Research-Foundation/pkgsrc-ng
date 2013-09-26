@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2012/10/28 11:17:33 shattered Exp $
+
+SHA1 (Pound-2.6.tgz) = 91ba84c6db579b06dc82fceb790e55e344b1dc40
+RMD160 (Pound-2.6.tgz) = c957127350d067b685009ba4f4c52cbcacae8477
+Size (Pound-2.6.tgz) = 180595 bytes
+SHA1 (patch-aa) = 91bb385899b8b9efde765bf938998efc7a84ccc0

@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.5 2012/04/13 13:19:15 obache Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.gemtest
+${GEM_LIBDIR}/.gitignore
+${GEM_LIBDIR}/.rspec
+${GEM_LIBDIR}/Gemfile
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/README.markdown
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/VERSION
+${GEM_LIBDIR}/examples/reader.rb
+${GEM_LIBDIR}/fixtures/twitter/tweets.txt
+${GEM_LIBDIR}/lib/twitter/json_stream.rb
+${GEM_LIBDIR}/spec/spec_helper.rb
+${GEM_LIBDIR}/spec/twitter/json_stream_spec.rb
+${GEM_LIBDIR}/twitter-stream.gemspec
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2012/07/08 09:51:31 wiz Exp $
+bin/timidity
+${PLIST.x11}lib/X11/app-defaults/TiMidity
+${PLIST.x11}lib/X11/ja_JP.eucJP/app-defaults/TiMidity
+man/man1/timidity.1
+man/man5/timidity.cfg.5
+share/examples/timidity/timidity.cfg

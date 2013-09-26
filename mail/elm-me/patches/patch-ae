@@ -1,0 +1,35 @@
+$NetBSD: patch-ae,v 1.2 2012/06/23 21:57:21 dholland Exp $
+
+- don't misuse $(MAKEFLAGES)
+- don't try to explicitly set $(MAKE), make does that
+
+--- Makefile.SH.orig	2001-06-19 17:03:16.000000000 +0000
++++ Makefile.SH
+@@ -34,7 +34,7 @@ cat >Makefile <<!GROK!THIS!
+ CAT		=	$cat
+ GREP		=	$grep
+ ECHO		=	$echo
+-MAKE		=	$make
++#MAKE		=	$make
+ PR		=	$pr
+ SHAR		=	$shar -s 60000
+ SLEEP		=	$sleep
+@@ -54,12 +54,12 @@ default_target:	all
+ 
+ #	Targets that are simply executed in each subordinate makefile as is
+ all install uninstall lint clean: config.h config.sh Makefile
+-		cd lib; $(MAKE) $(MJ) -$(MAKEFLAGS) $@
+-		cd melib; $(MAKE) $(MJ) -$(MAKEFLAGS) $@
+-		cd shared_libs; $(MAKE) $(MJ) -$(MAKEFLAGS) $@	
+-		cd src; $(MAKE) $(MJ) -$(MAKEFLAGS) $@
+-		cd utils; $(MAKE) $(MJ) -$(MAKEFLAGS) $@
+-		cd doc; $(MAKE) $(MJ) -$(MAKEFLAGS) $@
++		cd lib; $(MAKE) $(MJ) $@
++		cd melib; $(MAKE) $(MJ) $@
++		cd shared_libs; $(MAKE) $(MJ) $@	
++		cd src; $(MAKE) $(MJ) $@
++		cd utils; $(MAKE) $(MJ) $@
++		cd doc; $(MAKE) $(MJ) $@
+ 
+ # Check that config.h is up of date
+ config.h: config.h.SH config.sh

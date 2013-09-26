@@ -1,0 +1,22 @@
+$NetBSD: patch-ag,v 1.9 2012/03/22 14:13:29 taca Exp $
+
+--- man/popper.8.orig	2011-05-30 19:13:39.000000000 +0000
++++ man/popper.8
+@@ -19,7 +19,7 @@
+ .SH NAME
+ qpopper \-\- POP3 server (v4.1)
+ .SH SYNOPSIS
+-.B /usr/local/lib/popper
++.B @PREFIX@/libexec/qpopper
+ [
+ .I [ address ]
+ .I [ ":" ]
+@@ -829,7 +829,7 @@ Connection closed by foreign host.
+ .PP
+ The server implements several extended commands.
+ .PP
+-XTND XMIT: Sends a mail message using /usr/lib/sendmail.
++XTND XMIT: Sends a mail message using /usr/sbin/sendmail.
+ .PP
+ XTND XLIST header [num]: Extracts and returns the specified header line
+ for the specified message number. If the "num" parameter is missing, 

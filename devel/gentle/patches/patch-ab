@@ -1,0 +1,26 @@
+$NetBSD: patch-ab,v 1.2 2012/12/21 01:16:51 dholland Exp $
+
+- use libtool
+- honor pkgsrc's CC
+
+--- lib/build.orig	1998-08-20 13:56:12.000000000 +0000
++++ lib/build
+@@ -5,10 +5,12 @@ set -x
+ 
+ GENTLE=../gentle/gentle
+ GRTS=../gentle/grts.o
+-CC=cc
++#CC=cc
+ 
+-$CC -c main.c
+-$CC -c errmsg.c
+-$CC -c strings.c
+-$CC -c idents.c
+-$CC -c output.c
++${LIBTOOL} --mode=compile $CC -c main.c
++${LIBTOOL} --mode=compile $CC -c errmsg.c
++${LIBTOOL} --mode=compile $CC -c strings.c
++${LIBTOOL} --mode=compile $CC -c idents.c
++${LIBTOOL} --mode=compile $CC -c output.c
++
++${LIBTOOL} --mode=link ${CC} -o libgentle.la main.lo errmsg.lo strings.lo idents.lo output.lo -rpath ${PREFIX}/lib -version-info 0:0:0

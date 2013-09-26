@@ -1,0 +1,22 @@
+@comment $NetBSD: PLIST,v 1.3 2013/06/16 15:30:18 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/LICENSE.txt
+${GEM_LIBDIR}/README.markdown
+${GEM_LIBDIR}/daemon_controller.gemspec
+${GEM_LIBDIR}/debian.template/changelog
+${GEM_LIBDIR}/debian.template/compat
+${GEM_LIBDIR}/debian.template/control.template
+${GEM_LIBDIR}/debian.template/copyright
+${GEM_LIBDIR}/debian.template/rules
+${GEM_LIBDIR}/debian.template/source/format
+${GEM_LIBDIR}/lib/daemon_controller.rb
+${GEM_LIBDIR}/lib/daemon_controller/lock_file.rb
+${GEM_LIBDIR}/lib/daemon_controller/packaging.rb
+${GEM_LIBDIR}/lib/daemon_controller/spawn.rb
+${GEM_LIBDIR}/lib/daemon_controller/version.rb
+${GEM_LIBDIR}/spec/daemon_controller_spec.rb
+${GEM_LIBDIR}/spec/echo_server.rb
+${GEM_LIBDIR}/spec/run_echo_server
+${GEM_LIBDIR}/spec/test_helper.rb
+${GEM_LIBDIR}/spec/unresponsive_daemon.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

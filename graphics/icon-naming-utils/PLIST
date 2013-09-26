@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:59:18 joerg Exp $
+libexec/icon-name-mapping
+share/dtds/legacy-icon-mapping.dtd
+share/icon-naming-utils/legacy-icon-mapping.xml
+share/pkgconfig/icon-naming-utils.pc

@@ -1,0 +1,18 @@
+$NetBSD: patch-ai,v 1.3 2013/04/21 00:58:47 rodent Exp $
+
+Check lower bounds on port.
+
+--- avahi-core/server.c.orig	2010-06-29 18:51:53.000000000 +0000
++++ avahi-core/server.c
+@@ -903,6 +903,11 @@ static void dispatch_packet(AvahiServer 
+         return;
+     }
+ 
++    if (port <= 0) {
++        avahi_log_warn("Received packet from invalid source port.");
++        return;
++    }
++
+     if (avahi_address_is_ipv4_in_ipv6(src_address))
+         /* This is an IPv4 address encapsulated in IPv6, so let's ignore it. */
+         return;

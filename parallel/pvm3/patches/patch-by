@@ -1,0 +1,26 @@
+$NetBSD: patch-by,v 1.2 2009/05/19 23:44:55 asau Exp $
+
+--- examples/mhf_tickle.c.orig	2009-01-23 04:12:52.000000000 +0300
++++ examples/mhf_tickle.c	2009-05-19 17:09:43.000000000 +0400
+@@ -52,11 +52,7 @@
+ #ifdef HASSTDLIB
+ #include <stdlib.h>
+ #endif
+-#ifndef WIN32
+-#include <sys/errno.h>
+-#else
+ #include <errno.h>
+-#endif
+ #include "pvm3.h"
+ 
+ /* #define NOISE1 1	 sets level of program noise  - minimum noise */
+@@ -92,9 +88,6 @@
+ #endif
+ #define FAILED -1
+ 
+-extern int errno;
+-
+-
+ /***************************************************************/
+ 
+ void eat_line( c )

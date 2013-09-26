@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.4 2012/02/17 13:23:28 obache Exp $
+
+SHA1 (clex-4.6.4.tar.gz) = 601091677349dbd8613f185a594361a8d78c65ab
+RMD160 (clex-4.6.4.tar.gz) = 6f1ea4a1ca1c4b26f34c429ef458a04491950695
+Size (clex-4.6.4.tar.gz) = 243297 bytes
+SHA1 (patch-src_cfg-clex) = 4fb8995131195b4f54a53c72eac85da2cd6f14a2
+SHA1 (patch-src_clexheaders.h) = d60ec230f3b2656063c1f51257fc4e29267cf8b7

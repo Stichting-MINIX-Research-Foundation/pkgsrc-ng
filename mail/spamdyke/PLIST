@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.7 2010/07/04 14:37:13 schmonz Exp $
+bin/spamdyke
+share/doc/spamdyke/Changelog.txt
+share/doc/spamdyke/FAQ.html
+share/doc/spamdyke/GNUGPL.txt
+share/doc/spamdyke/INSTALL.txt
+share/doc/spamdyke/README.html
+share/doc/spamdyke/README_ip_file_format.html
+share/doc/spamdyke/README_rdns_directory_format.html
+share/doc/spamdyke/README_rdns_file_format.html
+share/doc/spamdyke/UPGRADING.txt
+share/doc/spamdyke/UPGRADING_version_3_to_version_4.txt
+share/examples/spamdyke/spamdyke.conf.example

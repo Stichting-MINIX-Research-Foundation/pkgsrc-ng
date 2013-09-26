@@ -1,0 +1,39 @@
+$NetBSD: patch-ab,v 1.4 2011/11/29 01:33:37 cheusov Exp $
+
+--- random/rndunix.c.orig	2011-02-04 19:16:03.000000000 +0000
++++ random/rndunix.c
+@@ -87,6 +87,7 @@
+ #include <stdlib.h>
+ #include <stdio.h>
+ #include <string.h>
++#include <assert.h>
+ 
+ /* OS-specific includes */
+ 
+@@ -737,6 +738,15 @@ start_gatherer( int pipefd )
+ 	    if( i != n1 && i != n2 && i != pipefd )
+ 		close(i);
+ 	}
++
++	/* Reopen standard files (only if needed) so that NetBSD does not
++	   complain about executing set[ug]id programs with descriptors 0
++	   and/or 1 closed.  At this point, 2 is still open. */
++	if ((i = open("/dev/null", O_RDONLY)) != STDIN_FILENO)
++		close(i);
++	if ((i = open("/dev/null", O_WRONLY)) != STDOUT_FILENO)
++		close(i);
++
+ 	errno = 0;
+     }
+ 
+@@ -764,6 +774,10 @@ start_gatherer( int pipefd )
+ #endif
+ 
+     fclose(stderr);		/* Arrghh!!  It's Stuart code!! */
++    {
++	int i = open("/dev/null", O_WRONLY);
++	assert(i == STDERR_FILENO);
++    }
+ 
+     for(;;) {
+ 	GATHER_MSG msg;

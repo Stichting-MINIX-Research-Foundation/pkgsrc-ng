@@ -1,0 +1,85 @@
+$NetBSD: patch-ab,v 1.27 2013/05/26 09:22:14 adam Exp $
+
+--- configure.orig	2013-04-19 07:36:11.000000000 +0000
++++ configure
+@@ -13948,7 +13948,7 @@ fi
+ fi
+ 
+ 
+-XML_LIBDIR='-L${libdir}'
++XML_LIBDIR='-Wl,-R${libdir} -L${libdir}'
+ XML_INCLUDEDIR='-I${includedir}/libxml2'
+ 
+ XML_CFLAGS=""
+@@ -14417,13 +14417,13 @@ else
+         if test "$with_threads" = "pthread" || test "$with_threads" = "" || test "$with_threads" = "yes" ; then
+             ac_fn_c_check_header_mongrel "$LINENO" "pthread.h" "ac_cv_header_pthread_h" "$ac_includes_default"
+ if test "x$ac_cv_header_pthread_h" = xyes; then :
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_join in -lpthread" >&5
+-$as_echo_n "checking for pthread_join in -lpthread... " >&6; }
++  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_join in ${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}" >&5
++$as_echo_n "checking for pthread_join in ${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}... " >&6; }
+ if ${ac_cv_lib_pthread_pthread_join+:} false; then :
+   $as_echo_n "(cached) " >&6
+ else
+   ac_check_lib_save_LIBS=$LIBS
+-LIBS="-lpthread  $LIBS"
++LIBS="${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}  $LIBS"
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+ /* end confdefs.h.  */
+ 
+@@ -14455,7 +14455,7 @@ fi
+ $as_echo "$ac_cv_lib_pthread_pthread_join" >&6; }
+ if test "x$ac_cv_lib_pthread_pthread_join" = xyes; then :
+ 
+-                THREAD_LIBS="-lpthread"
++                THREAD_LIBS="${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}"
+ 
+ $as_echo "#define HAVE_LIBPTHREAD /**/" >>confdefs.h
+ 
+@@ -14477,12 +14477,12 @@ fi
+        *beos*) WITH_THREADS="1"
+ 	   THREAD_CFLAGS="$THREAD_CFLAGS -DHAVE_BEOS_THREADS"
+        ;;
+-       *linux*)
++       *linux* | *openbsd* | *mirbsd*)
+            if test "${GCC}" = "yes" ; then
+ 	       GCC_VERSION=`${CC} --version | head -1 | awk '{print $3}'`
+ 	       GCC_MAJOR=`echo ${GCC_VERSION} | sed 's+\..*++'`
+ 	       GCC_MEDIUM=`echo ${GCC_VERSION} | sed 's+[0-9]*\.++' | sed 's+\..*++'`
+-	       if test "${THREAD_LIBS}" = "-lpthread" ; then
++	       if test "${THREAD_LIBS}" = "${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}" ; then
+ 	           if expr ${GCC_MEDIUM} \> 2 \& ${GCC_MAJOR} = 3 > /dev/null
+ 		   then
+ 		       THREAD_LIBS=""
+@@ -14499,6 +14499,10 @@ fi
+ 	       fi
+ 	   fi
+        ;;
++       *freebsd* | *netbsd* | *dragonfly*)
++	   THREAD_LIBS=""
++	   BASE_THREAD_LIBS="${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}"
++       ;;
+     esac
+     if test "$WITH_THREADS" = "1" ; then
+ 	THREAD_CFLAGS="$THREAD_CFLAGS -D_REENTRANT"
+@@ -14769,7 +14773,7 @@ else
+     TEST_SAX=SAXtests
+ fi
+ 
+- if test "${WITH_TRIO}" = "1"; then
++ if test "${WITH_SAX1}" = "1"; then
+   WITH_SAX1_SOURCES_TRUE=
+   WITH_SAX1_SOURCES_FALSE='#'
+ else
+@@ -15191,10 +15195,6 @@ case "$host" in
+ 
+ $as_echo "#define _WINSOCKAPI_ 1" >>confdefs.h
+ 
+- if test "${PYTHON}" != ""
+- then
+-   WIN32_EXTRA_PYTHON_LIBADD="-L${pythondir}/../../libs -lpython$(echo ${PYTHON_VERSION} | tr -d .)"
+- fi
+  ;;
+  *-*-cygwin*)
+  CYGWIN_EXTRA_LDFLAGS="-no-undefined"

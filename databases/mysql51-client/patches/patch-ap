@@ -1,0 +1,18 @@
+$NetBSD: patch-ap,v 1.3 2010/09/21 15:57:30 taca Exp $
+
+* Tweak installig manual pages for client package.
+
+--- man/Makefile.in.orig	2010-07-09 12:38:13.000000000 +0000
++++ man/Makefile.in
+@@ -381,8 +381,9 @@ yassl_libs = @yassl_libs@
+ yassl_taocrypt_extra_cxxflags = @yassl_taocrypt_extra_cxxflags@
+ yassl_thread_cxxflags = @yassl_thread_cxxflags@
+ zlib_dir = @zlib_dir@
+-man1_MANS = @man1_files@
+-man8_MANS = @man8_files@
++man1_MANS = mysql.1 mysql_zap.1 mysqlaccess.1 mysqladmin.1 \
++	mysqldump.1 mysqlshow.1 mysql_fix_privilege_tables.1
++man8_MANS = 
+ EXTRA_DIST = $(man1_MANS) $(man8_MANS)
+ all: all-am
+ 

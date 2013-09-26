@@ -1,0 +1,56 @@
+$NetBSD: patch-ab,v 1.3 2009/02/07 22:06:06 joerg Exp $
+
+--- Imakefile.orig	2001-02-12 17:33:01.000000000 +0100
++++ Imakefile
+@@ -26,7 +26,7 @@ NETWORKCFLAGS = -DNO_NETWORK
+ #ifdef NO_TERMIO
+ TERMIOCFLAGS = -DNO_TERMIO
+ #else
+-#if defined(USE_TERMIOS) || defined(__FreeBSD__)
++#if defined(USE_TERMIOS) || defined(__FreeBSD__) || defined (NetBSDArchitecture) || defined(DragonFlyArchitecture)
+ TERMIOCFLAGS = -DUSE_TERMIOS
+ #endif
+ #endif
+@@ -71,7 +71,7 @@ SYSLOGCFLAGS= -DUSE_SYSLOG
+ #ifdef NO_TVR
+   TVRCFLAGS= -DNO_TVR
+ #else
+-    JPEGLIB= -ljpeg
++    JPEGLIB= -L${LOCALBASE}/lib -Wl,-R${LOCALBASE}/lib -ljpeg
+ #endif
+ 
+ #ifdef WINDAUBE
+@@ -103,7 +103,7 @@ CONF_DEFINES  = '-DFICHIER_DEFINITION_LI
+ 
+ TELE_DEFINES  = '-DXTERM_PATH="$(BINDIR)/xterm"'
+ 
+-XTELD_DEFINES = '-DFICHIER_LOG="$(LIBDIR)/xtel/xtel.log"' \
++XTELD_DEFINES = '-DFICHIER_LOG="/var/log/xtel.log"' \
+ 		  '-DXTEL_LIBDIR="$(LIBDIR)/xtel"'
+ 
+ 
+@@ -241,19 +241,12 @@ clean::
+ InstallManPage(xteld,$(MANDIR))
+ 
+ #ifdef INSTALLDEMON
+-InstallProgram(xteld, $(BINDIR))
+-InstallProgramWithFlags(mdmdetect, $(BINDIR), $(INSTUIDFLAGS))
++InstallProgram(xteld,$(BINDIR))
++InstallProgramWithFlags(mdmdetect,$(BINDIR),$(INSTUIDFLAGS))
+ InstallNamedProg(make_xtel_lignes.sh,make_xtel_lignes,$(BINDIR))
+-
+-install::
+-	@if [ -r $(LIBDIR)/xtel/$(XTELLIGNES) ]; then \
+-	cp $(LIBDIR)/xtel/$(XTELLIGNES) $(LIBDIR)/xtel/$(XTELLIGNES).old; fi
+-	@if [ -r $(LIBDIR)/xtel/$(XTELSERVICES) ]; then \
+-	cp $(LIBDIR)/xtel/$(XTELSERVICES) $(LIBDIR)/xtel/$(XTELSERVICES).old; fi
+-
+-InstallNonExecFile($(XTELLIGNES), $(LIBDIR)/xtel)
+-InstallNonExecFile($(XTELSERVICES), $(LIBDIR)/xtel)
+-InstallNonExecFile(modem.list, $(LIBDIR)/xtel)
++InstallNonExecFile($(XTELLIGNES),$(LIBDIR)/xtel)
++InstallNonExecFile($(XTELSERVICES),$(LIBDIR)/xtel)
++InstallNonExecFile(modem.list,$(LIBDIR)/xtel)
+ #endif
+ 
+ SpecialObjectRule(teleinfo.o, teleinfo.c, $(TELE_DEFINES))

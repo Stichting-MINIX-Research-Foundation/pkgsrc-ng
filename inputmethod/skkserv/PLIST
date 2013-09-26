@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2010/07/17 08:57:18 obache Exp $
+libexec/skkserv
+share/examples/rc.d/skkserv
+share/skk/README.skkserv

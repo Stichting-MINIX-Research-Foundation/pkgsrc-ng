@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.6 2009/10/12 03:09:31 obache Exp $
+lib/pkgconfig/ruby-atk.pc
+${RUBY_VENDORLIB}/atk.rb
+${RUBY_VENDORARCHLIB}/atk.${RUBY_DLEXT}
+${RUBY_VENDORARCHLIB}/rbatk.h
+${RUBY_VENDORARCHLIB}/rbatkversion.h

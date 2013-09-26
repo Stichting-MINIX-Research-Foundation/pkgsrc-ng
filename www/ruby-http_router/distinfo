@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/06/16 09:36:23 obache Exp $
+
+SHA1 (http_router-0.11.0.gem) = 7ae03fe05247a1a86267d98eef68f033d75e117e
+RMD160 (http_router-0.11.0.gem) = e5b22deaa315ac6dc7ddb8604cdd0e29c022d664
+Size (http_router-0.11.0.gem) = 155648 bytes

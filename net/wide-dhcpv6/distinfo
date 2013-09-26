@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2009/07/17 01:10:07 jakllsch Exp $
+
+SHA1 (wide-dhcpv6-20080615.tar.gz) = 8829c4c871a74dccc0335839ff0a4e763b6b4f24
+RMD160 (wide-dhcpv6-20080615.tar.gz) = 4b7d8115de6c90b8f4878a2bf25a5fd6aceea13a
+Size (wide-dhcpv6-20080615.tar.gz) = 215354 bytes

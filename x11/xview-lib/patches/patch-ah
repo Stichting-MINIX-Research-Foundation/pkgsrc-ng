@@ -1,0 +1,26 @@
+$NetBSD: patch-ah,v 1.4 2009/12/10 20:35:56 abs Exp $
+
+--- lib/libxview/base/xv_error.c.orig	1993-06-29 05:14:42.000000000 +0000
++++ lib/libxview/base/xv_error.c
+@@ -11,15 +11,20 @@ static char     sccsid[] = "@(#)xv_error
+  */
+ 
+ #include <stdio.h>
++#include <sys/param.h>
+ #include <xview/pkg_public.h>
+ #include <X11/Xlib.h>
+ #include <xview_private/i18n_impl.h>
+ #include <xview_private/portable.h>
+ 
+ /* Unix system error variables */
++#if (defined(BSD) && (BSD >= 199306))
++#include <errno.h>
++#else
+ extern int      sys_nerr;
+-extern char    *sys_errlist[];
+ extern int      errno;
++extern char    *sys_errlist[];
++#endif
+ 
+ Xv_private_data char *xv_app_name;
+ Xv_private int (*xv_error_proc) ();

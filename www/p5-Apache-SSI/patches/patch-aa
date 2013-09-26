@@ -1,0 +1,18 @@
+$NetBSD: patch-aa,v 1.2 2008/08/04 21:02:44 he Exp $
+
+--- Makefile.PL.orig	2005-01-27 05:03:09.000000000 +0100
++++ Makefile.PL
+@@ -2,13 +2,6 @@ use ExtUtils::MakeMaker;
+ use lib 't/lib';
+ use Apache::test;
+ 
+-my %params = Apache::test->get_test_params();
+-chomp (my $cwd = `pwd`);
+-Apache::test->write_httpd_conf
+-    (%params, 
+-     include => do {local $/; open FH, 't/config.incl' or die $!; <FH>});
+-*MY::test = sub { Apache::test->MM_test(%params) };
+-
+ 
+ my $module = 'Apache::SSI';
+ my ($name, $dir);

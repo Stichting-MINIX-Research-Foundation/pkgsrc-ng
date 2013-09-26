@@ -1,0 +1,22 @@
+$NetBSD: patch-af,v 1.5 2011/04/08 22:56:12 morr Exp $
+
+--- plugins/Makefile.in.orig	2010-07-27 20:48:10.000000000 +0000
++++ plugins/Makefile.in
+@@ -31,7 +31,7 @@ PRE_UNINSTALL = :
+ POST_UNINSTALL = :
+ build_triplet = @build@
+ host_triplet = @host@
+-libexec_PROGRAMS = check_apt$(EXEEXT) check_cluster$(EXEEXT) \
++libexec_PROGRAMS = \
+ 	check_disk$(EXEEXT) check_dummy$(EXEEXT) check_http$(EXEEXT) \
+ 	check_load$(EXEEXT) check_mrtg$(EXEEXT) \
+ 	check_mrtgtraf$(EXEEXT) check_ntp$(EXEEXT) \
+@@ -1778,7 +1778,7 @@ $(check_tcp_programs): check_tcp
+ install-exec-hook:
+ 	cd $(DESTDIR)$(libexecdir) && \
+ 	for i in $(check_tcp_programs) ; do rm -f $$i; ln -s check_tcp $$i ; done ;\
+-	if [ -x check_ldap ] ; then rm -f check_ldaps ; ln -s check_ldap check_ldaps ; fi
++#	if [ -x check_ldap ] ; then rm -f check_ldaps ; ln -s check_ldap check_ldaps ; fi
+ 
+ clean-local:
+ 	rm -f $(check_tcp_programs)

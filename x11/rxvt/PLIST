@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2012/06/16 03:15:31 dholland Exp $
+bin/rxvt
+lib/X11/app-defaults/Rxvt
+man/man1/rxvt.1

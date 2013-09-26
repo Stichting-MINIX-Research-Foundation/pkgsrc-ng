@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/04/25 15:22:47 drochner Exp $
+
+SHA1 (tre-0.8.0.tar.gz) = 8818058785923c32f5e1f48feeb2851507c0e61c
+RMD160 (tre-0.8.0.tar.gz) = 8af2cbecdd51dfed30cbf567652b459712e2542a
+Size (tre-0.8.0.tar.gz) = 481286 bytes

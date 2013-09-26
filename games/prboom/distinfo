@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.15 2009/01/07 16:38:11 drochner Exp $
+
+SHA1 (prboom-2.5.0.tar.gz) = f17dc6ed4e72d07b85429177b00b8709ea36f5a0
+RMD160 (prboom-2.5.0.tar.gz) = cc695ca0ceb9f9b9ca2ace7267a064799c61ffba
+Size (prboom-2.5.0.tar.gz) = 1049505 bytes

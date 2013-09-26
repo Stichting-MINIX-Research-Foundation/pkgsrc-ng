@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.13 2011/11/05 13:30:44 hiramatsu Exp $
+
+SHA1 (local-lib-1.008004.tar.gz) = 21e5e32774b0704dd22fb81af5989fbf2098f651
+RMD160 (local-lib-1.008004.tar.gz) = 50e7153041e723cb6197cc1c7a724b04e4b5d8d5
+Size (local-lib-1.008004.tar.gz) = 53977 bytes
+SHA1 (patch-aa) = 68232a7b89bdf1209d7c788a4afb2a2056bca85c

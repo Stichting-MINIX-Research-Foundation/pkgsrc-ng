@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.10 2013/05/02 06:50:42 wen Exp $
+
+SHA1 (namespace-clean-0.24.tar.gz) = 6fd1541dee6e0b3a52f86dbdbc7fabd4f175a087
+RMD160 (namespace-clean-0.24.tar.gz) = 9fd825db8b651ee1e741dc6f6e077610c191233a
+Size (namespace-clean-0.24.tar.gz) = 12659 bytes

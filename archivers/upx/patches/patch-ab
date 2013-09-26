@@ -1,0 +1,12 @@
+$NetBSD: patch-ab,v 1.4 2012/05/02 06:45:14 adam Exp $
+
+--- src/miniacc.h.orig	2012-05-02 06:06:11.000000000 +0000
++++ src/miniacc.h
+@@ -1944,7 +1944,6 @@ extern "C" {
+ #define HAVE_FCNTL_H 1
+ #define HAVE_FLOAT_H 1
+ #define HAVE_LIMITS_H 1
+-#define HAVE_MALLOC_H 1
+ #define HAVE_MEMORY_H 1
+ #define HAVE_SETJMP_H 1
+ #define HAVE_SIGNAL_H 1

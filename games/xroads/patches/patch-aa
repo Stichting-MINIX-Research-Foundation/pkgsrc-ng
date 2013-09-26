@@ -1,0 +1,50 @@
+$NetBSD: patch-aa,v 1.3 2009/07/08 17:19:05 joerg Exp $
+
+--- Makefile.orig	1999-06-30 20:25:02.000000000 +0200
++++ Makefile
+@@ -5,8 +5,8 @@ VERSION = v0.5
+ # it's data, and BINPATH is where it puts the executable
+ ###########################################################################
+ 
+-DATAPATH = /usr/games/xroads/
+-BINPATH = /usr/X11R6/bin/
++DATAPATH = ${PREFIX}/share/xroads/
++BINPATH = ${PREFIX}/bin/
+ # I imagine you would use this BINPATH for Solaris:
+ #BINPATH = /usr/openwin/bin/
+ 
+@@ -15,7 +15,7 @@ BINPATH = /usr/X11R6/bin/
+ # optimizations. Check the manual for your compiler.
+ ###########################################################################
+ 
+-CFLAGS = -fomit-frame-pointer -O2 -Wall -DXRMPATH=\"$(DATAPATH)\"
++CFLAGS = -O2 -Wall -DXRMPATH=\"$(DATAPATH)\" -I${X11BASE}/include -I${X11BASE}/include/X11
+ #CFLAGS = -O6 -mpentium -g -Wall -DXRMPATH=\"$(DATAPATH)\"
+ 
+ ###########################################################################
+@@ -33,7 +33,7 @@ CFLAGS = -fomit-frame-pointer -O2 -Wall 
+ ###########################################################################
+ 
+ ### Linux machines use this line:
+-LINK = -L/usr/X11R6/lib -I/usr/X11R6/include -lX11 -lm
++LINK = -Wl,-R${X11BASE}/lib -L${X11BASE}/lib -I${X11BASE}/include -lX11 -lm
+ 
+ ### I'm told this line works fine on Solaris 2.5.1 with X11R5:
+ #LINK = -L/usr/openwin/lib -I/usr/openwin/include -lX11 -lm
+@@ -73,11 +73,11 @@ all: $(OBJECTS)
+ 	$(CC) $(FLAGS) $(LINK) -o xroads $(OBJECTS)
+ 
+ install: all
+-	rm -fr $(DATAPATH)
+-	mkdir $(DATAPATH)
+-	cp -f *.xrm $(DATAPATH)
+-	cp -f README $(DATAPATH)
+-	cp -f xroads $(BINPATH)
++	rm -fr ${DESTDIR}$(DATAPATH)
++	mkdir ${DESTDIR}$(DATAPATH)
++	${BSD_INSTALL_DATA} *.xrm ${DESTDIR}$(DATAPATH)
++	${BSD_INSTALL_DATA} README ${DESTDIR}$(DATAPATH)
++	${BSD_INSTALL_PROGRAM} xroads ${DESTDIR}$(BINPATH)
+ 
+ uninstall:
+ 	rm -fr $(DATAPATH)

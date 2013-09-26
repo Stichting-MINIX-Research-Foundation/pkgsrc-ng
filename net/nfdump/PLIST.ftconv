@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST.ftconv,v 1.2 2012/07/25 21:19:30 tez Exp $
+bin/ft2nfdump

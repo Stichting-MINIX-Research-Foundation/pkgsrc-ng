@@ -1,0 +1,26 @@
+$NetBSD: patch-ac,v 1.6 2010/04/15 06:50:46 dholland Exp $
+
+--- nls/Makefile.orig	2005-08-18 12:49:24.000000000 +0000
++++ nls/Makefile
+@@ -1,6 +1,6 @@
+ LANGFILE=LANGS
+ CATNAME=elm2.5.cat
+-GENCAT=	gencat/gencat
++GENCAT=	./gencat/gencat
+ 
+ HDIR=	../hdrs
+ SDIR=	C/C/C
+@@ -35,8 +35,11 @@ nls-headers: clean $(HFILES)
+ # same basename, so wait until install to put them somewhere.
+ all:
+ 
+-install:
+-	./Install $(LANGFILE) $(GENCAT) $(CATNAME)
++install: $(GENCAT)
++	DESTDIR=$(DESTDIR) ./Install $(LANGFILE) $(GENCAT) $(CATNAME)
++
++$(GENCAT):
++	cd gencat && $(MAKE) $(MFLAGS) $(MJ)
+ 
+ $(HFILES): $(MFILES)
+ 	gencat/gencat $(MSGCAT) "$(SDIR)/`basename $@ .h`".m -h $@

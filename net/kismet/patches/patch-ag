@@ -1,0 +1,35 @@
+$NetBSD: patch-ag,v 1.3 2009/01/13 14:08:07 obache Exp $
+
+--- pcapsource.h.orig	2008-05-19 09:51:54.000000000 +0000
++++ pcapsource.h
+@@ -34,8 +34,11 @@
+ 
+ extern "C" {
+ #ifndef HAVE_PCAPPCAP_H
++#ifdef HAVE_NET_BPF_H
++#include <net/bpf.h>
++#define PCAP_DONT_INCLUDE_PCAP_BPF_H
++#endif
+ #include <pcap.h>
+-//#include <net/bpf.h>
+ #else
+ #include <pcap/pcap.h>
+ #include <pcap/net/bpf.h>
+@@ -395,7 +398,7 @@ public:
+ };
+ #endif
+ 
+-#if (defined(HAVE_RADIOTAP) && (defined(SYS_NETBSD) || defined(SYS_OPENBSD) || defined(SYS_FREEBSD)))
++#if (defined(HAVE_RADIOTAP) && (defined(SYS_NETBSD) || defined(SYS_OPENBSD) || defined(SYS_FREEBSD) || defined(__DragonFly__)))
+ class RadiotapBSD {
+ public:
+     RadiotapBSD(const char *ifname);
+@@ -584,7 +587,7 @@ int chancontrol_openbsd_prism2(const cha
+                                void *in_ext);
+ #endif
+ 
+-#if (defined(HAVE_RADIOTAP) && (defined(SYS_NETBSD) || defined(SYS_OPENBSD) || defined(SYS_FREEBSD)))
++#if (defined(HAVE_RADIOTAP) && (defined(SYS_NETBSD) || defined(SYS_OPENBSD) || defined(SYS_FREEBSD) || defined(__DragonFly__)))
+ int monitor_bsd(const char *in_dev, int initch, char *in_err, void **in_if, void *in_ext);
+ int unmonitor_bsd(const char *in_dev, int initch, char *in_err, void **in_if, void *in_ext);
+ int chancontrol_bsd(const char *in_dev, int in_ch, char *in_err, void *in_ext);

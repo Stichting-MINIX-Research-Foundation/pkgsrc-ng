@@ -1,0 +1,106 @@
+$NetBSD: patch-bi,v 1.3 2009/08/06 15:41:54 dsainty Exp $
+
+--- pppdump/pppdump.c.orig	2004-02-01 19:36:46 -0800
++++ pppdump/pppdump.c	2008-12-10 03:22:59 -0800
+@@ -38,8 +38,21 @@
+ #include <stdlib.h>
+ #include <time.h>
+ #include <sys/types.h>
++#include "pppdump.h"
++#ifdef __DragonFly__
++#include <net/ppp_layer/ppp_defs.h>
++#else
++#ifdef __NetBSD__
++#include <net/ppp_defs.h>
++#else
+ #include "ppp_defs.h"
++#endif
++#endif
++#ifdef __NetBSD__
++#include <net/ppp-comp.h>
++#else
+ #include "ppp-comp.h"
++#endif
+ 
+ int hexmode;
+ int pppmode;
+@@ -51,6 +64,15 @@
+ int start_time_tenths;
+ int tot_sent, tot_rcvd;
+ 
++struct pkt {
++   int	cnt;
++   int	esc;
++   int	flags;
++   struct compressor *comp;
++   void *state;
++   unsigned char buf[8192];
++} spkt, rpkt;
++
+ extern int optind;
+ extern char *optarg;
+ 
+@@ -191,7 +213,7 @@
+ 	    show_time(f, c);
+ 	    break;
+ 	default:
+-	    printf("?%.2x\n");
++	    printf("?%.2x\n", c);
+ 	}
+     }
+ }
+@@ -234,15 +256,6 @@
+ 	0x7bc7,	0x6a4e,	0x58d5,	0x495c,	0x3de3,	0x2c6a,	0x1ef1,	0x0f78
+ };
+ 
+-struct pkt {
+-    int	cnt;
+-    int	esc;
+-    int	flags;
+-    struct compressor *comp;
+-    void *state;
+-    unsigned char buf[8192];
+-} spkt, rpkt;
+-
+ /* Values for flags */
+ #define CCP_ISUP	1
+ #define CCP_ERROR	2
+@@ -321,7 +334,7 @@
+ 			++r;
+ 			if (endp - r > mru)
+ 			    printf("     ERROR: length (%d) > MRU (%d)\n",
+-				   endp - r, mru);
++				   (int)(endp - r), mru);
+ 			if (decompress && fcs == PPP_GOODFCS) {
+ 			    /* See if this is a CCP or compressed packet */
+ 			    d = dbuf;
+@@ -340,8 +353,15 @@
+ 				    && (pkt->flags & CCP_DECOMP_RUN)
+ 				    && pkt->state
+ 				    && (pkt->flags & CCP_ERR) == 0) {
+-				    rv = pkt->comp->decompress(pkt->state, r,
+-							endp - r, d, &dn);
++				    struct packet in, out, *outp;
++				    in.buf = r;
++				    in.len = endp - r;
++				    out.buf = d;
++				    outp = &out;
++				    rv = pkt->comp->decompress(pkt->state, &in,
++					&outp);
++				    dn = outp->len;
++				    d = outp->buf;
+ 				    switch (rv) {
+ 				    case DECOMP_OK:
+ 					p = dbuf;
+@@ -364,7 +384,10 @@
+ 				}
+ 			    } else if (pkt->state
+ 				       && (pkt->flags & CCP_DECOMP_RUN)) {
+-				pkt->comp->incomp(pkt->state, r, endp - r);
++				struct packet in;
++				in.buf = r;
++				in.len = endp - r;
++				pkt->comp->incomp(pkt->state, &in);
+ 			    }
+ 			}
+ 			do {

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.2 2011/08/13 04:43:51 cheusov Exp $
+
+--- Makefile.in.orig	2004-04-22 14:52:29.000000000 +0000
++++ Makefile.in
+@@ -84,7 +84,7 @@ CXXFLAGS := $(CFLAGS)
+ %.so : CXXFLAGS += -fPIC
+ 
+ # libraries
+-LDLIBS  := @LDLIBS@
++LDLIBS  := @LDLIBS@ @LDFLAGS@
+ 
+ 
+ #########################################################

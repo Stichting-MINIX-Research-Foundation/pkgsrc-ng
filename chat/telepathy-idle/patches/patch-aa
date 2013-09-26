@@ -1,0 +1,27 @@
+$NetBSD: patch-aa,v 1.3 2009/08/16 19:22:49 wiz Exp $
+
+http://bugs.freedesktop.org/show_bug.cgi?id=23351
+
+--- src/idle-parser.c.orig	2009-02-17 23:00:28.000000000 +0000
++++ src/idle-parser.c
+@@ -196,6 +196,20 @@ static void _parse_message(IdleParser *p
+ static void _parse_and_forward_one(IdleParser *parser, gchar **tokens, IdleParserMessageCode code, const gchar *format);
+ static gboolean _parse_atom(IdleParser *parser, GValueArray *arr, char atom, const gchar *token, TpHandleSet *contact_reffed, TpHandleSet *room_reffed);
+ 
++#ifndef strnlen
++size_t
++strnlen(const char *msg, size_t maxlen)
++{
++	size_t i;
++
++	for (i=0; i<maxlen; i++)
++		if (msg[i] == '\0')
++			break;
++
++	return i;
++}
++#endif
++
+ void idle_parser_receive(IdleParser *parser, const gchar *msg) {
+ 	IdleParserPrivate *priv = IDLE_PARSER_GET_PRIVATE(parser);
+ 	guint i;

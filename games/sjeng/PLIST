@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:56:56 joerg Exp $
+bin/sjeng
+lib/sjeng/bug.opn
+lib/sjeng/losers.opn
+lib/sjeng/suicide.opn
+share/doc/sjeng/README
+share/examples/sjeng/sample.sjengrc

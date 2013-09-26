@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2013/05/16 06:14:34 richard Exp $
+
+SHA1 (xf86-video-i740-1.3.4.tar.bz2) = 5444fdb1af76dde8323ea86ca19517f27b60a2e3
+RMD160 (xf86-video-i740-1.3.4.tar.bz2) = 593fe6e1db1397240c9c0df66ff772c3d5fe3961
+Size (xf86-video-i740-1.3.4.tar.bz2) = 316654 bytes

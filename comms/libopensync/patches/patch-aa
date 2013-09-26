@@ -1,0 +1,85 @@
+$NetBSD: patch-aa,v 1.3 2011/07/21 15:35:55 joerg Exp $
+
+--- formats/vformats-xml/vformat.c.orig	2007-03-27 20:49:27.000000000 +0900
++++ formats/vformats-xml/vformat.c
+@@ -236,7 +236,7 @@ static void _read_attribute_value_add (V
+ 	if (charset) {
+ 
+ 		cd = iconv_open("UTF-8", charset->str);
+-#ifdef SOLARIS
++#if defined(SOLARIS) || defined(__NetBSD__) || defined(__APPLE__)
+                 if (iconv(cd, (const char**)&inbuf, &inbytesleft, &p, &outbytesleft) != (size_t)(-1)) {
+ #else
+                 if (iconv(cd, &inbuf, &inbytesleft, &p, &outbytesleft) != (size_t)(-1)) {
+@@ -264,7 +264,7 @@ static void _read_attribute_value_add (V
+ 
+ 			/* because inbuf is not UTF-8, we think it is ISO-8859-1 */
+                         cd = iconv_open("UTF-8", "ISO-8859-1");
+-#ifdef SOLARIS
++#if defined(SOLARIS) || defined(__NetBSD__) || defined(__APPLE__)
+                         if (iconv(cd, (const char**)&inbuf, &inbytesleft, &p, &outbytesleft) != (size_t)(-1)) {
+ #else
+                         if (iconv(cd, &inbuf, &inbytesleft, &p, &outbytesleft) != (size_t)(-1)) {
+@@ -302,8 +302,8 @@ static void _read_attribute_value (VForm
+ 			if ((a = *(++lp)) == '\0') break;
+ 			if ((b = *(++lp)) == '\0') break;
+ 			
+-			if (isalnum(a)) {
+-				if (isalnum(b)) {
++			if (isalnum((unsigned char)a)) {
++				if (isalnum((unsigned char)b)) {
+ 					/* e.g. ...N=C3=BCrnberg\r\n
+ 					 *          ^^^
+ 			       		 */
+@@ -317,7 +317,7 @@ static void _read_attribute_value (VForm
+ 					 * ^
+ 					 */
+ 					char *tmplp = lp;
+-					if (*(++tmplp) == '\r' && *(++tmplp) == '\n' && isalnum(*(++tmplp))) {
++					if (*(++tmplp) == '\r' && *(++tmplp) == '\n' && isalnum((unsigned char)*(++tmplp))) {
+ 						x1 = a;
+ 						x2 = *tmplp;
+ 						lp = tmplp;	
+@@ -336,7 +336,7 @@ static void _read_attribute_value (VForm
+ 				c = *(++tmplp);
+ 				d = *(++tmplp);
+ 				e = *(++tmplp);
+-				if (b == '\r' && c == '\n' && isalnum(d) && isalnum(e)) {
++				if (b == '\r' && c == '\n' && isalnum((unsigned char)d) && isalnum((unsigned char)e)) {
+ 					x1 = d;
+ 					x2 = e;
+ 					lp = tmplp;
+@@ -357,8 +357,8 @@ static void _read_attribute_value (VForm
+ 			if (x1 && x2) {
+ 				char c;
+ 
+-				a = tolower (x1);
+-				b = tolower (x2);
++				a = tolower ((unsigned char)x1);
++				b = tolower ((unsigned char)x2);
+ 
+ 				c = (((a>='a'?a-'a'+10:a-'0')&0x0f) << 4)
+ 					| ((b>='a'?b-'a'+10:b-'0')&0x0f);
+@@ -1751,11 +1751,11 @@ static const char *base64_alphabet = "AB
+ 
+ //static unsigned char _evc_base64_rank[256];
+ 
+-static void base64_init(char *rank)
++static void base64_init(char *rank, size_t len)
+ {
+ 	int i;
+ 
+-	memset(rank, 0xff, sizeof(rank));
++	memset(rank, 0xff, len);
+ 	for (i=0;i<64;i++) {
+ 		rank[(unsigned int)base64_alphabet[i]] = i;
+ 	}
+@@ -1880,7 +1880,7 @@ static size_t base64_encode_step(unsigne
+ static size_t base64_decode_step(unsigned char *in, size_t len, unsigned char *out, int *state, unsigned int *save)
+ {
+ 	unsigned char base64_rank[256];
+-	base64_init((char*)base64_rank);
++	base64_init((char*)base64_rank, sizeof(base64_rank));
+ 	
+ 	register unsigned char *inptr, *outptr;
+ 	unsigned char *inend, c;

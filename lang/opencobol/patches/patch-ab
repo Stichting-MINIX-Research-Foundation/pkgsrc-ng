@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2012/03/23 23:19:37 hans Exp $
+
+--- libcob/fileio.c.orig	2012-03-23 22:08:24.000000000 +0000
++++ libcob/fileio.c
+@@ -87,6 +87,8 @@
+ #include <db4.4/db_185.h>
+ #elif HAVE_DB4_5_DB_185_H
+ #include <db4.5/db_185.h>
++#elif HAVE_DB5_DB_185_H
++#include <db5/db_185.h>
+ #elif HAVE_DB_H
+ #include <db.h>
+ #endif

@@ -1,0 +1,2 @@
+@comment $NetBSD: PLIST,v 1.4 2010/05/19 18:18:48 drochner Exp $
+lib/ao/plugins-4/libarts.la

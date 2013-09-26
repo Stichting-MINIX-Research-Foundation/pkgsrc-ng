@@ -1,0 +1,40 @@
+$NetBSD: patch-ai,v 1.2 2012/07/10 22:32:13 minskim Exp $
+
+--- mktexmf.orig	2012-05-22 16:05:18.000000000 +0000
++++ mktexmf
+@@ -15,8 +15,8 @@ Makes the Metafont source file for FONT,
+ \`ecr12' or \`cmr11'."
+ 
+ # Common code for all scripts.
+-: ${MT_TEXMFMAIN=`kpsewhich --expand-path='$TEXMFMAIN'`}
+-: ${MT_MKTEX_OPT=`kpsewhich --format='web2c files' mktex.opt`}
++: ${MT_TEXMFMAIN=`@KPSEWHICH@ --expand-path='$TEXMFMAIN'`}
++: ${MT_MKTEX_OPT=`@KPSEWHICH@ --format='web2c files' mktex.opt`}
+ test -n "$MT_MKTEX_OPT" || MT_MKTEX_OPT="$MT_TEXMFMAIN/web2c/mktex.opt"
+ if test ! -f "$MT_MKTEX_OPT"; then
+   echo "$progname: Cannot find mktex.opt; check your installation." >&2
+@@ -31,7 +31,7 @@ name="`echo $1 | sed 's%.*/%%; s%\.mf$%%
+ rootname=`echo "$name" | sed 's/[0-9]*$//'`
+ pointsize=`echo "$name" | sed "s/^$rootname//"`
+ 
+-sauterroot=`kpsewhich b-$rootname.mf 2>/dev/null`
++sauterroot=`@KPSEWHICH@ b-$rootname.mf 2>/dev/null`
+ if test -n "$sauterroot"; then
+   rootfile=$sauterroot
+   rootname=b-$rootname
+@@ -43,12 +43,12 @@ else
+     *)
+       case $rootname in
+         cs*|lcsss*|icscsc*|icstt*|ilcsss*)
+-          rootfile=`kpsewhich cscode.mf`;;
++          rootfile=`@KPSEWHICH@ cscode.mf`;;
+         wn[bcdfirstuv]*|rx[bcdfiorstuvx][bcfhilmostx]|l[abcdhl][bcdfiorstuvx]*)
+           lhprefix=`echo "$name" | sed 's/^\(..\).*/\1/'`
+-          rootfile=`kpsewhich ${lhprefix}codes.mf 2>/dev/null`;;
++          rootfile=`@KPSEWHICH@ ${lhprefix}codes.mf 2>/dev/null`;;
+         *)
+-          rootfile=`kpsewhich $rootname.mf 2>/dev/null`;;
++          rootfile=`@KPSEWHICH@ $rootname.mf 2>/dev/null`;;
+       esac;;
+   esac
+ fi

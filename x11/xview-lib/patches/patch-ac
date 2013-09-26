@@ -1,0 +1,20 @@
+$NetBSD: patch-ac,v 1.4 2009/12/10 20:35:56 abs Exp $
+
+--- images/Imakefile.orig	1993-06-29 05:18:41.000000000 +0000
++++ images/Imakefile
+@@ -99,12 +99,12 @@ SRCS =  \
+ 
+ ALLFILES = $(BITMAPS) $(ICONS) $(PIXRECTS) $(CURSORS) $(IMAGES)
+ 
+-all: $(SRCS)
++all:: $(SRCS)
+ 
+-BuildIncludes($(INCLUDES_SRCS),$(IMAGE_INCDIR),/**/)
++BuildIncludes($(INCLUDES_SRCS),$(IMAGE_INCDIR),.)
+ 
+ install:: $(SRCS)
+-	$(MKDIRHIER) $(HEADER_DEST)/$(IMAGEINC)
++	$(MKDIRHIER) $(DESTDIR)$(HEADER_DEST)/$(IMAGEINC)
+ 	
+ InstallMultiple($(SRCS),$(HEADER_DEST)/$(IMAGEINC))
+ 

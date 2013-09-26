@@ -1,0 +1,16 @@
+$NetBSD: patch-ae,v 1.4 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare errno.
+
+--- sbr/m_draft.c.orig	2006-04-11 13:13:52.000000000 +0000
++++ sbr/m_draft.c
+@@ -10,9 +10,6 @@ static char ident[] = "@(#)$Id: m_draft.
+ #include <sys/stat.h>
+ 
+ 
+-extern int errno;
+-
+-
+ char   *m_draft (folder, msg, use, isdf)
+ register char  *folder,
+                *msg;

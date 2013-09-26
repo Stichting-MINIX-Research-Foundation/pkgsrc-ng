@@ -1,0 +1,39 @@
+$NetBSD: patch-ad,v 1.7 2010/02/03 21:14:22 is Exp $
+
+--- main.cc.orig	1996-07-22 20:12:22.000000000 +0000
++++ main.cc
+@@ -177,7 +177,7 @@ public:
+ 		else {
+ 			Tk_Window tk = t.tkmain();
+ 			Tk_Uid uid = Tk_GetUid((char*)argv[1]);
+-			XFontStruct* p = Tk_GetFontStruct(t.interp(), tk, uid);
++			Tk_Font p = Tk_GetFont(t.interp(), tk, uid);
+ 			t.result(p != 0 ? "1" : "0");
+ 		}
+ 		return (TCL_OK);
+@@ -391,7 +391,7 @@ void loadbitmaps(Tcl_Interp* tcl)
+ 	Tk_DefineBitmap(tcl, Tk_GetUid("fwd"), fwd, 7, 10);
+ }
+ 
+-extern "C" int Tk_StripchartCmd(ClientData, Tcl_Interp*, int ac, char** av);
++extern "C" int Tk_StripchartCmd(ClientData, Tcl_Interp*, int ac, const char** av);
+ #ifdef WIN32
+ extern "C" int WinPutsCmd(ClientData, Tcl_Interp*, int ac, char** av);
+ extern "C" int WinGetUserName(ClientData, Tcl_Interp*, int ac, char** av);
+@@ -421,10 +421,13 @@ main(int argc, const char** argv)
+ 	srandom(heuristic_random());
+ 
+ #ifdef SIGHUP
+-	signal(SIGHUP, ciao);
++	signal(SIGHUP, (void (*)(int))ciao);
++#endif
++	signal(SIGINT, (void (*)(int))ciao);
++	signal(SIGTERM, (void (*)(int))ciao);
++#ifdef __FreeBSD__
++	signal(SIGSYS, (sig_t)noXShm);
+ #endif
+-	signal(SIGINT, ciao);
+-	signal(SIGTERM, ciao);
+ 
+ #ifdef WIN32
+ 	TkSetPlatformInit(TkPlatformInit);

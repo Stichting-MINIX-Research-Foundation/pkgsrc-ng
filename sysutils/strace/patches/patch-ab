@@ -1,0 +1,44 @@
+$NetBSD: patch-ab,v 1.5 2009/12/07 05:06:37 dholland Exp $
+
+--- /dev/null	2007-04-26 23:20:40.000000000 -0400
++++ netbsd/Makefile	2007-04-27 15:14:51.000000000 -0400
+@@ -0,0 +1,39 @@
++all:;
++
++.include <bsd.own.mk>
++
++arch != uname -p
++NETBSDSRCDIR?= /usr/src
++
++DEP=	syscallent.h ioctlent.h errnoent.h signalent.h
++ALL=	${DEP}
++ALL+=	syscall.h ${arch}/errnoent1.h ${arch}/ioctlent1.h ${arch}/syscallent1.h ${arch}/signalent1.h
++
++all: ${ALL}
++
++syscallent.h: syscalls.pl syscalls.print syscalls.cat ${NETBSDSRCDIR}/sys/kern/syscalls.master
++	@chmod +x syscalls.pl
++	./syscalls.pl ${NETBSDSRCDIR}/sys/kern/syscalls.master syscalls.print syscalls.cat > $@
++
++syscall.h: syscallent.h
++
++signalent.h: mksignal ${NETBSDSRCDIR}/sys/sys/signal.h
++	@chmod +x mksignal
++	./mksignal ${NETBSDSRCDIR}/sys/sys/signal.h > $@
++
++errnoent.h: mkerrno ${NETBSDSRCDIR}/sys/sys/errno.h
++	@chmod +x mkerrno
++	./mkerrno ${NETBSDSRCDIR}/sys/sys/errno.h > $@
++
++ioctlent.h: ioctlent.sh
++	@chmod +x ioctlent.sh
++	./ioctlent.sh > $@
++
++.for i in ${DEP}
++${arch}/${i:R}1.h:
++	@mkdir -p ${arch}
++	echo '#include "../$i"' > $@
++.endfor
++
++clean:
++	rm -f ${ALL} ioctlent.c ioctlent

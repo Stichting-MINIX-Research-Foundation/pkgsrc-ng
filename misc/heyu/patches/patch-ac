@@ -1,0 +1,17 @@
+$NetBSD: patch-ac,v 1.4 2009/12/11 00:11:11 abs Exp $
+
+--- tty.c.orig	2003-03-30 20:57:59.000000000 +0000
++++ tty.c
+@@ -93,7 +93,12 @@ struct sgttyb oldsb, newsb;
+ #endif
+ struct termio oldsb, newsb;
+ #else
++#ifdef NETBSD
++  #include <sys/termios.h>
++  #define NCC NCCS
++#else
+ #include <termios.h>
++#endif
+ struct termios oldsb, newsb;
+ #endif
+ 

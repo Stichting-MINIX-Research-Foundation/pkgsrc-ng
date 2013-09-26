@@ -1,0 +1,58 @@
+$NetBSD: patch-ag,v 1.4 2011/04/26 21:23:26 mjl Exp $
+
+--- jbsockets.c.orig	2010-07-26 13:30:09.000000000 +0200
++++ jbsockets.c	2011-04-26 19:47:46.000000000 +0200
+@@ -1112,6 +1112,13 @@
+ {
+    struct sockaddr_in inaddr;
+    struct hostent *hostp;
++#if defined(__NetBSD__)
++   struct hostent result;
++   struct sockaddr_in raddr;
++   struct sockaddr_in *rlist[2];
++
++   memset(&result, '\0', sizeof(struct hostent));
++#endif
+ #if defined(HAVE_GETHOSTBYNAME_R_6_ARGS) || defined(HAVE_GETHOSTBYNAME_R_5_ARGS) || defined(HAVE_GETHOSTBYNAME_R_3_ARGS)
+    struct hostent result;
+ #if defined(HAVE_GETHOSTBYNAME_R_6_ARGS) || defined(HAVE_GETHOSTBYNAME_R_5_ARGS)
+@@ -1163,6 +1170,39 @@
+       {
+          hostp = NULL;
+       }
++#elif defined(__NetBSD__)
++	/* mjl */
++	{
++	struct addrinfo *resp = NULL;
++	struct addrinfo hints;
++
++	hostp = NULL;
++	memset(&hints, '\0', sizeof(struct addrinfo));
++	hints.ai_family = AF_INET;
++
++   while (getaddrinfo(host, NULL, &hints, &resp) == EAI_AGAIN
++          && (dns_retries++ < MAX_DNS_RETRIES))
++      {   
++         log_error(LOG_LEVEL_ERROR,
++            "Timeout #%u while trying to resolve %s. Trying again.",
++            dns_retries, host);
++      }
++
++	if(resp) 
++		{
++		result.h_addrtype = resp->ai_family;
++		memcpy(&raddr, &((struct sockaddr_in *) resp->ai_addr)
++								->sin_addr, sizeof(struct sockaddr_in));
++		/* set up fake hostent */
++		rlist[0] = &raddr;
++		rlist[1] = NULL;
++		result.h_addr_list = (char **)rlist;
++		hostp = &result;
++
++		freeaddrinfo(resp);
++		}
++	}
++
+ #elif defined(MUTEX_LOCKS_AVAILABLE)
+       privoxy_mutex_lock(&resolver_mutex);
+       while (NULL == (hostp = gethostbyname(host))

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2011/11/25 05:53:12 hiramatsu Exp $
+
+SHA1 (Curses-UI-0.9609.tar.gz) = a875fc8c9532f1159a2036e6c5b3a9754dbc8ffa
+RMD160 (Curses-UI-0.9609.tar.gz) = 1daf767ca5103048f86b9b6d350815205ba421a1
+Size (Curses-UI-0.9609.tar.gz) = 155842 bytes

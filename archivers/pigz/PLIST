@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2012/08/05 00:47:45 wen Exp $
+bin/pigz
+man/man1/pigz.1
+share/doc/pigz/README

@@ -1,0 +1,55 @@
+$NetBSD: patch-aj,v 1.4 2009/07/20 03:47:20 hasso Exp $
+
+Tags: not-for-upstream
+
+We don't want xview at all. An additional problem is that on Solaris 10,
+there is -lxview, but <xview/xview.h> is missing.
+
+--- configure.orig	2001-07-11 22:58:54 +0200
++++ configure	2009-07-19 21:48:11 +0300
+@@ -1634,7 +1634,7 @@ int main() {
+ xv_main_loop()
+ ; return 0; }
+ EOF
+-if { (eval echo configure:1638: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
++if false && { (eval echo configure:1638: \"$ac_link\") 1>&5; (eval $ac_link) 2>&5; } && test -s conftest${ac_exeext}; then
+   rm -rf conftest*
+   eval "ac_cv_lib_$ac_lib_var=yes"
+ else
+@@ -1946,11 +1946,28 @@ case "$host_os" in
+     OS_LDFLAGS='-L/usr/local/lib'
+     OS_LIBCQCAM_OBJS=''
+   ;;
++  dragonfly*)
++    OS_CFLAGS='-O2 -DFREEBSD'
++    OS_LDFLAGS=''
++    OS_LIBCQCAM_OBJS=''
++  ;;
+   bsdi*)
+     OS_CFLAGS='-O2 -I/usr/local/include -DBSDI'
+     OS_LDFLAGS='-L/usr/local/lib'
+     OS_LIBCQCAM_OBJS=''
+   ;;
++  netbsd*)
++    OS_CFLAGS="-DNETBSD"
++    OS_LIBCQCAM_OBJS=""
++    case "$host_cpu" in
++    i386)
++	OS_LDFLAGS="-li386"
++	;;
++    x86_64)
++	OS_LDFLAGS="-lx86_64"
++	;;
++    esac
++  ;;
+   openbsd*)
+     OS_CFLAGS='-O2 -DOPENBSD'
+     OS_LDFLAGS='-L/usr/local/lib'
+@@ -1981,6 +1998,7 @@ esac
+ if test "$no_asm" = "yes"; then
+   OS_CFLAGS=$OS_CFLAGS' -DNO_ASM'
+ fi
++OS_LDFLAGS="$OS_LDFLAGS $LDFLAGS"
+ 
+ 
+ 

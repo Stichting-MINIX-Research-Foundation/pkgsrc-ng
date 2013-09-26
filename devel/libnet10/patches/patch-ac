@@ -1,0 +1,81 @@
+$NetBSD: patch-ac,v 1.2 2013/02/22 21:12:25 jperkin Exp $
+
+Look for dlpi before bpf, SunOS has both but this package assumes
+bpf is only on BSD systems and tries to use sysctl etc.
+
+--- configure.orig	2001-01-17 20:59:33.000000000 +0000
++++ configure
+@@ -506,7 +506,7 @@ fi
+ 
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
+-ac_cpp='$CPP $CPPFLAGS'
++ac_cpp='${CC-cc} -E $CPPFLAGS'
+ ac_compile='${CC-cc} -c $CFLAGS $CPPFLAGS conftest.$ac_ext 1>&5'
+ ac_link='${CC-cc} -o conftest${ac_exeext} $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
+ cross_compiling=$ac_cv_prog_cc_cross
+@@ -778,7 +778,7 @@ echo "configure:778: checking whether th
+ 
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
+-ac_cpp='$CPP $CPPFLAGS'
++ac_cpp='${CC-cc} -E $CPPFLAGS'
+ ac_compile='${CC-cc} -c $CFLAGS $CPPFLAGS conftest.$ac_ext 1>&5'
+ ac_link='${CC-cc} -o conftest${ac_exeext} $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
+ cross_compiling=$ac_cv_prog_cc_cross
+@@ -806,7 +806,7 @@ fi
+ rm -fr conftest*
+ ac_ext=c
+ # CFLAGS is not in ac_cpp because -g, -O, etc. are not valid cpp options.
+-ac_cpp='$CPP $CPPFLAGS'
++ac_cpp='${CC-cc} -E $CPPFLAGS'
+ ac_compile='${CC-cc} -c $CFLAGS $CPPFLAGS conftest.$ac_ext 1>&5'
+ ac_link='${CC-cc} -o conftest${ac_exeext} $CFLAGS $CPPFLAGS $LDFLAGS conftest.$ac_ext $LIBS 1>&5'
+ cross_compiling=$ac_cv_prog_cc_cross
+@@ -1284,7 +1284,13 @@ fi
+ echo $ac_n "checking low-level packet interface type""... $ac_c" 1>&6
+ echo "configure:1286: checking low-level packet interface type" >&5
+ 
+-if test -r /dev/bpf0 ; then
++if test -r /usr/include/sys/dlpi.h ; then
++    LL_INT_TYPE=dlpi
++    echo "$ac_t""found dlpi" 1>&6
++    cat >> confdefs.h <<\EOF
++#define HAVE_DLPI 1
++EOF
++elif test -r /dev/bpf0 -o -r /dev/bpf -o -r /usr/include/net/bpf.h ; then
+     LL_INT_TYPE=bpf
+     echo "$ac_t""found bpf" 1>&6
+ elif test -r /usr/include/net/pfilt.h ; then
+@@ -1299,13 +1305,6 @@ elif test -r /usr/include/sys/net/nit.h
+ elif test -r /usr/include/net/raw.h ; then
+     LL_INT_TYPE=snoop
+     echo "$ac_t""found snoop" 1>&6
+-elif test -r /usr/include/sys/dlpi.h ; then
+-    LL_INT_TYPE=dlpi
+-    echo "$ac_t""found dlpi" 1>&6
+-    cat >> confdefs.h <<\EOF
+-#define HAVE_DLPI 1
+-EOF
+-
+ elif test -r /usr/include/linux/socket.h ; then
+     LL_INT_TYPE=sockpacket
+     echo "$ac_t""found SOCK_PACKET" 1>&6
+@@ -1416,7 +1415,7 @@ fi
+ 
+ 
+     fi
+-elif test -c /dev/bpf0 ; then           # check again in case not readable
++elif test -c /dev/bpf0 -o -c /dev/bpf ; then           # check again in case not readable
+     LL_INT_TYPE=bpf
+     echo "$ac_t""found bpf" 1>&6
+ elif test -c /dev/enet ; then           # check again in case not readable
+@@ -1577,7 +1576,7 @@ done
+     BIN_PREFIX="$prefix/bin/"
+     ;;
+ 
+-*freebsd*)
++*freebsd* | *dragonfly*)
+     cat >> confdefs.h <<\EOF
+ #define LIBNET_BSDISH_OS 1
+ EOF

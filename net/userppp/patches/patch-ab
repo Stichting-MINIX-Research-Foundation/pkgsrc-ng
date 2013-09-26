@@ -1,0 +1,38 @@
+$NetBSD: patch-ab,v 1.6 2008/12/18 13:55:24 joerg Exp $
+
+--- ppp/Makefile.orig	2000-11-07 06:45:44.000000000 +0100
++++ ppp/Makefile
+@@ -23,13 +23,6 @@ LDADD+= -lcrypto -lutil -lz
+ .endif
+ .endif
+ DPADD+=	${LIBCRYPT} ${LIBMD} ${LIBUTIL} ${LIBZ}
+-.if defined(NOSUID) || defined(PPP_NOSUID)
+-BINMODE=554
+-.else
+-BINMODE=4554
+-BINOWN=	root
+-.endif
+-BINGRP=	network
+ OS!=	uname -s
+ .if ${OS} == FreeBSD
+ MAN8=	ppp.8
+@@ -90,7 +83,7 @@ CFLAGS+=-DNORADIUS
+ .else
+ .if !defined(RELEASE_CRUNCH)
+ SRCS+=	radius.c
+-LDADD+=	-lradius
++LDADD+=	-lradius -lssl
+ DPADD+= ${LIBRADIUS}
+ .endif
+ .endif
+@@ -121,9 +114,8 @@ chap_ms.o mppe.o id.o nat_cmd.o radius.o
+ 
+ # To cope with uucplock changes:
+ # Note, uucplock.c and libutil.h do not really belong here !
+-CFLAGS+=-I. -I../libhack
++CFLAGS+=-D_PATH_PPP=\"${PKG_SYSCONFDIR}\" -I. -I../libhack
+ SRCS+=uucplock.c
+-BINDIR=/usr/sbin
+ 
+ .PATH: ${.CURDIR}/../libhack
+ 

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2010/04/16 13:43:36 tnn Exp $
+
+--- xf86drm.c.orig	2010-03-05 23:21:13.000000000 +0000
++++ xf86drm.c
+@@ -64,7 +64,7 @@
+ #endif
+ 
+ #ifdef __NetBSD__
+-#define DRM_MAJOR 34
++#define DRM_MAJOR 180
+ #endif
+ 
+ # ifdef __OpenBSD__

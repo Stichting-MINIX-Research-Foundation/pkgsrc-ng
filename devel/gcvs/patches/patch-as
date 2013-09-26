@@ -1,0 +1,24 @@
+$NetBSD: patch-as,v 1.2 2011/11/25 21:42:44 joerg Exp $
+
+This may or may not work, but appears to be the best possible
+approach; the code is doing gross marshalling/closure stuff.
+
+--- rf/uevent.cpp.orig	2011-11-25 17:58:42.000000000 +0000
++++ rf/uevent.cpp
+@@ -34,6 +34,7 @@
+ #  include <time.h>
+ # endif
+ #endif
++#include <inttypes.h>
+ 
+ #include "umain.h"
+ #include "uconsole.h"
+@@ -375,7 +376,7 @@ dispatch:
+ 		(this->*mmf.pfnV_ii)(ULOWORD(arg1), UHIWORD(arg1));
+ 		break;
+ 	case epV_iii:
+-		(this->*mmf.pfnV_iii)(ULOWORD(arg1), UHIWORD(arg1), (int)arg2);
++		(this->*mmf.pfnV_iii)(ULOWORD(arg1), UHIWORD(arg1), (int)(intptr_t)arg2);
+ 		break;
+ 	case epV_iiVP:
+ 		(this->*mmf.pfnV_iiVP)(ULOWORD(arg1), UHIWORD(arg1), arg2);

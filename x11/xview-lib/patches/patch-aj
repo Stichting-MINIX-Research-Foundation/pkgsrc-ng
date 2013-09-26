@@ -1,0 +1,33 @@
+$NetBSD: patch-aj,v 1.4 2009/12/10 20:35:56 abs Exp $
+
+--- lib/libxview/filter/filter.c.orig	1993-06-29 05:14:57.000000000 +0000
++++ lib/libxview/filter/filter.c
+@@ -39,11 +39,12 @@ static char     sccsid[] = "@(#)filter.c
+ 
+ char           *stream_fgets();
+ 
+-enum CharClass
++static enum CharClass
+                 breakProc();
+-struct CharAction
++static struct CharAction
+                 digits();
+-
++static
++		any_shell_meta();
+ 
+ struct filter_rec **
+ xv_parse_filter_table(in, filename)
+@@ -203,10 +204,10 @@ xv_free_filter_table(table)
+ {
+     int             i;
+     for (i = 0; table[i] != NULL; i++) {
+-	cfree((char *) table[i]->call);
++	free((char *) table[i]->call);
+ 	free((char *) table[i]);
+     }
+-    cfree((char *) table);
++    free((char *) table);
+ }
+ 
+ static struct CharAction

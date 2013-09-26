@@ -1,0 +1,25 @@
+$NetBSD: patch-ah,v 1.2 2010/01/10 05:39:30 obache Exp $
+
+--- dao/ScsiIf-freebsd-cam.cc.orig	2007-12-29 12:26:33.000000000 +0000
++++ dao/ScsiIf-freebsd-cam.cc
+@@ -32,6 +32,7 @@
+ 
+ #include "ScsiIf.h"
+ #include "log.h"
++#include "util.h"
+ 
+ #define DEF_RETRY_COUNT 1
+ 
+@@ -220,6 +221,12 @@ int ScsiIf::inquiry()
+ 	for (i = 3; i >= 0 && revision_[i] == ' '; i--)
+ 		revision_[i] = 0;
+ 
++	if (vendor_[0] == 0)
++		strncpy(vendor_, "UNKNOWN", 8);
++
++	if (product_[0] == 0)
++		strncpy(product_, "UNKNOWN", 8);
++
+ 	return 0;
+ }
+ 

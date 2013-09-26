@@ -1,0 +1,24 @@
+$NetBSD: patch-ay,v 1.2 2012/06/02 23:34:56 dholland Exp $
+
+- add explicit netbsd support
+- honor NASD_RPCGEN_ARGS, introduced/used by patch-al
+
+--- include/nasd/Imakefile.orig	2005-03-21 08:52:02.000000000 +0000
++++ include/nasd/Imakefile
+@@ -33,6 +33,7 @@ SUBDIRS = \
+ 	generic \
+ 	irix \
+ 	linux \
++	netbsd \
+ 	solaris \
+ 	video \
+ 	vxworks
+@@ -206,7 +207,7 @@ NASD_RPCGenClientHeader(nasd_cheops_mgr.
+ nasd_rpcgen_glob_param.h:: $(RPCGEN_FILES) $(NASD_RPCGEN_BIN)
+ 	@echo Generating $@
+ 	@$(RM) -f tmp.$@ $@
+-	$(NASD_RPCGEN_BIN) ${NASD_RPCGEN_INCLUDES} -S_t -P nasd_ -g tmp.$@ ${RPCGEN_FILES}
++	$(NASD_RPCGEN_BIN) ${NASD_RPCGEN_ARGS} ${NASD_RPCGEN_INCLUDES} -S_t -P nasd_ -g tmp.$@ ${RPCGEN_FILES}
+ 	$(MV) tmp.$@ $@
+ 	@echo Generated $@
+ 

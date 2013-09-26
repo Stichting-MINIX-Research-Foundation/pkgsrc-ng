@@ -1,0 +1,48 @@
+$NetBSD: patch-aa,v 1.6 2010/01/29 23:24:15 joerg Exp $
+
+--- source/Makefile.orig	Thu Feb 22 17:01:18 1996
++++ source/Makefile
+@@ -10,7 +10,7 @@
+ ##
+ 
+ #DEFINES=
+-BINDIR=..
++BINDIR=${DESTDIR}$(PREFIX)/bin
+ COPT=-O
+ #CC=
+ 
+@@ -119,6 +119,14 @@
+ 	  SYSDEFS='-DDONT_DECLARE_ERRLIST -DSOUND -DJOYSTICK' \
+ 	  all
+ 
++netbsd:
++	$(MAKE) \
++	  GRAF=MOTIF \
++	  GRAFLIBS='$$(MOTIFLIBS)' \
++	  GRAFINCLUDES='$$(MOTIFINCLUDES)' \
++	  SYSDEFS='-DDONT_DECLARE_ERRLIST -DSOUND -DJOYSTICK -DDEFAULT_SOUND_DIR="$$(PREFIX)/share/imaze/sound"' \
++	  all
++
+ irix:
+ 	$(MAKE) \
+ 	  GRAF=MOTIF \
+@@ -138,7 +146,7 @@
+ ###########################################################################
+ 
+ LD=$(CC)
+-INSTALL=install -s -m 755
++INSTALL=${BSD_INSTALL_PROGRAM}
+ 
+ XVLIBS=-L$(OPENWINHOME)/lib -lxview -lolgx -lX11
+ XVINCLUDES=-I$(OPENWINHOME)/include
+@@ -152,8 +160,8 @@
+ 
+ GRAF=NONE
+ 
+-LDFLAGS=
+-CFLAGS=$(GRAFINCLUDES) $(COPT) $(DEFINES) $(SYSDEFS)
++#LDFLAGS=
++CFLAGS+=$(GRAFINCLUDES) $(COPT) $(DEFINES) $(SYSDEFS)
+ 
+ # bis hier Optionen eintragen
+ ###########################################################################

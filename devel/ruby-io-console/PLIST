@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2013/06/16 15:10:41 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.RUBYLIBDIR.-.console.time
+${GEM_LIBDIR}/console.c
+${GEM_LIBDIR}/extconf.rb
+${GEM_LIBDIR}/io/console.${RUBY_DLEXT}
+${GEM_LIBDIR}/io/console/size.rb
+${GEM_LIBDIR}/lib/console/size.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

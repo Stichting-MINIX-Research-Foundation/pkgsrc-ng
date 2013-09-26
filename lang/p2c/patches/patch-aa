@@ -1,0 +1,119 @@
+$NetBSD: patch-aa,v 1.3 2013/04/28 03:38:25 dholland Exp $
+
+ - configure for pkgsrc
+ - use ranlib properly
+ - fix install permissions
+ - honor PKGMANDIR
+ - support MAKE_JOBS
+
+--- Makefile.orig	1991-04-24 20:30:37.000000000 +0000
++++ Makefile
+@@ -18,13 +18,13 @@
+ 
+ 
+ # Directories (private version)
+-HOMEDIR = ../home
+-INCDIR = ../home/p2c
+-BINDIR = ..
+-LIBDIR = ../home
+-MANDIR = ../home
+-MANFILE = p2c.cat          # human-readable manual (for cat.1)
+-#MANFILE = p2c.man.inst    # uncompressed nroff source (for man.1)
++HOMEDIR = ${PREFIX}/libdata/p2c
++INCDIR = ${PREFIX}/include/p2c
++BINDIR = ${PREFIX}/bin
++LIBDIR = ${PREFIX}/lib
++MANDIR = ${PREFIX}/${PKGMANDIR}/man1
++#MANFILE = p2c.cat          # human-readable manual (for cat.1)
++MANFILE = p2c.man.inst    # uncompressed nroff source (for man.1)
+ #MANFILE = p2c.man.Z       # compressed nroff source (for man.1.Z)
+ 
+ # Directories (public version)
+@@ -39,7 +39,7 @@ MANFILE = p2c.cat          # human-reada
+ CC = cc                    # you may wish to use gcc here instead
+ OPT = # -O		   # uncomment this for optimization
+ DEB = # -g		   # uncomment this for debugging
+-DEFS =			   # place other -D types of things here
++DEFS = -Dunix		   # place other -D types of things here
+ CFLAGS = $(OPT) $(DEB) $(DEFS)
+ LFLAGS =
+ 
+@@ -63,9 +63,9 @@ LIBSRCS = p2clib.c loc.p2clib.c
+ LIBOBJS = p2clib.o loc.p2clib.o
+ OTHERLIBOBJS =
+ 
+-ABSHOMEDIR = `cd $(HOMEDIR); pwd`
+-ABSINCDIR = `cd $(INCDIR); pwd`
+-ABSLIBDIR = `cd $(LIBDIR); pwd`
++ABSHOMEDIR = ${PREFIX}/libdata/p2c
++ABSINCDIR = ${PREFIX}/include/p2c
++ABSLIBDIR = ${PREFIX}/lib/p2c
+ 
+ MISCSRCS = makeproto.c
+ PROTOS = p2c.proto p2c.hdrs
+@@ -73,7 +73,7 @@ HDRS = trans.h p2c.h
+ 
+ 
+ # Top-level targets
+-all: proto p2c libp2c.a p2c.cat
++all: proto .WAIT p2c libp2c.a p2c.cat
+ proto: $(PROTOS)
+ 
+ 
+@@ -129,7 +129,8 @@ p2c.cat: p2c.man.inst
+ #  Third, execute "make install" to compile and set things up.
+ # (You may need to have a system operator do these steps for you.)
+ 
+-COPY = cp
++COPYDATA = ${INSTALL} -c -m 644
++COPYBIN = ${INSTALL} -c -m 755
+ 
+ newhome:
+ 	rm -f trans.o     # force trans.c to be recompiled (if HOMEDIR changes)
+@@ -156,35 +157,35 @@ makedirs:
+ 	if [ ! -d $(INCDIR) ]; then mkdir $(INCDIR); fi
+ 
+ $(BINDIR)/p2c: p2c
+-	$(COPY)  p2c          $(BINDIR)/p2c
++	$(COPYBIN)  p2c          $(BINDIR)/p2c
+ 
+ $(LIBDIR)/libp2c.a: libp2c.a
+-	$(COPY)  libp2c.a     $(LIBDIR)/libp2c.a
+-	if [ -f /usr/bin/ranlib -o -f /bin/ranlib ]; then ranlib $(LIBDIR)/libp2c.a; fi
++	$(COPYDATA)  libp2c.a     $(LIBDIR)/libp2c.a
++	ranlib $(LIBDIR)/libp2c.a || true
+ 
+ $(MANDIR)/p2c.1: $(MANFILE)
+-	$(COPY)  $(MANFILE)   $(MANDIR)/p2c.1
++	$(COPYDATA)  $(MANFILE)   $(MANDIR)/p2c.1
+ 
+ $(INCDIR)/p2c.h: p2c.h
+-	$(COPY)  p2c.h        $(INCDIR)/p2c.h
++	$(COPYDATA)  p2c.h        $(INCDIR)/p2c.h
+ 
+ $(HOMEDIR)/p2crc: sys.p2crc
+-	$(COPY)  sys.p2crc    $(HOMEDIR)/p2crc
++	$(COPYDATA)  sys.p2crc    $(HOMEDIR)/p2crc
+ 
+ $(HOMEDIR)/loc.p2crc: loc.p2crc
+-	$(COPY)  loc.p2crc    $(HOMEDIR)/loc.p2crc
++	$(COPYDATA)  loc.p2crc    $(HOMEDIR)/loc.p2crc
+ 
+ $(HOMEDIR)/system.imp: system.imp
+-	$(COPY)  system.imp   $(HOMEDIR)/system.imp
++	$(COPYDATA)  system.imp   $(HOMEDIR)/system.imp
+ 
+ $(HOMEDIR)/system.m2: system.m2
+-	$(COPY)  system.m2    $(HOMEDIR)/system.m2
++	$(COPYDATA)  system.m2    $(HOMEDIR)/system.m2
+ 
+ $(HOMEDIR)/turbo.imp: turbo.imp
+-	$(COPY)  turbo.imp    $(HOMEDIR)/turbo.imp
++	$(COPYDATA)  turbo.imp    $(HOMEDIR)/turbo.imp
+ 
+ $(HOMEDIR)/string.pas: string.pas
+-	$(COPY)  string.pas   $(HOMEDIR)/string.pas
++	$(COPYDATA)  string.pas   $(HOMEDIR)/string.pas
+ 
+ 
+ 

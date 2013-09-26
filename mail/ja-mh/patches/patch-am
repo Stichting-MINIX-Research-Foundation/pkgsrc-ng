@@ -1,0 +1,27 @@
+$NetBSD: patch-am,v 1.5 2013/03/28 21:31:25 joerg Exp $
+
+* Don't declare errno but include <errno.h>.
+
+--- conf/config/mts.c.orig	2006-04-11 13:46:53.000000000 +0000
++++ conf/config/mts.c
+@@ -33,10 +33,7 @@ static char ident[] = "@(#)$Id: mts.c,v 
+ 
+ #define	NULLCP	((char *) 0)
+ 
+-#ifdef __CYGWIN32__
+ #include <errno.h>
+-#endif
+-extern int  errno;
+ 
+ static char   *tailor_value ();
+ 
+@@ -256,8 +253,7 @@ static  struct bind {
+ 
+ /* ARGSUSED */
+ 
+-mts_init (name)
+-char    *name;
++void mts_init (char *name)
+ {
+     register char  *bp,
+                    *cp;

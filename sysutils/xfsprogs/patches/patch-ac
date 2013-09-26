@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.2 2012/10/26 20:32:56 joerg Exp $
+
+--- include/platform_defs.h.in.orig	2005-10-07 16:51:34.000000000 +0000
++++ include/platform_defs.h.in
+@@ -50,6 +50,8 @@
+ #include <xfs/linux.h>
+ #elif defined(__FreeBSD__)
+ #include <xfs/freebsd.h>
++#elif defined(__NetBSD__)
++#include <xfs/netbsd.h>
+ #elif defined(__APPLE__)
+ #include <xfs/darwin.h>
+ #elif defined(__sgi__) || defined(___sgi)

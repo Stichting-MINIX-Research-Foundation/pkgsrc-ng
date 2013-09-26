@@ -1,0 +1,28 @@
+$NetBSD: patch-ai,v 1.1 2011/06/01 11:20:29 wiz Exp $
+
+Fix header file and image file.
+
+--- win/Qt/qt_win.cpp.orig	2003-12-07 23:39:13.000000000 +0000
++++ win/Qt/qt_win.cpp
+@@ -102,11 +102,7 @@ extern "C" {
+ #include "qt_xpms.h"
+ 
+ #include <dirent.h>
+-#ifdef Q_WS_MACX
+-#  include <sys/malloc.h>
+-#else
+-#  include <malloc.h>
+-#endif
++#include <stdlib.h>
+ 
+ #ifdef _WS_X11_
+ // For userid control
+@@ -4278,7 +4274,7 @@ void NetHackQtYnDialog::done(int i)
+ 
+ NetHackQtGlyphs::NetHackQtGlyphs()
+ {
+-    const char* tile_file = "nhtiles.bmp";
++    const char* tile_file = "tiles.xpm";
+     if ( iflags.wc_tile_file )
+ 	tile_file = iflags.wc_tile_file;
+ 

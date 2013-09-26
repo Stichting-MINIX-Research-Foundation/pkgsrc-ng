@@ -1,0 +1,17 @@
+Libmpeg3 decodes
+                    MPEG-1 Layer II Audio
+                    MPEG-1 Layer III Audio
+                    MPEG-2 Layer III Audio
+                    MPEG-1 program streams
+                    MPEG-2 program streams
+                    MPEG-2 transport streams
+                    AC3 Audio
+                    MPEG-2 Video
+                    MPEG-1 Video
+                    IFO files
+                    VOB files
+
+This package provides tools to concatenate video files, split
+elementary streams into chunks of bytes, dump information or extract
+audio to a 24 bit pcm file, and create a table of contents for a
+DVD or mpeg stream.

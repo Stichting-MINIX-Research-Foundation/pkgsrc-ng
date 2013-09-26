@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.2 2012/05/05 22:44:19 schwarz Exp $
+
+--- traceroute.c.orig	2012-05-06 00:38:52.000000000 +0200
++++ traceroute.c	2012-05-06 00:39:12.000000000 +0200
+@@ -758,17 +758,6 @@
+ #undef IP_HDRINCL
+ #endif
+ 
+-#ifndef vms
+-extern  int errno;
+-#endif
+-
+-extern  char *inet_ntoa();
+-extern  u_long inet_addr();
+-
+-#ifndef ULTRIX43
+-char *index(const char *string, int character);
+-#endif
+-
+ #ifdef V630
+ #ifndef __linux__
+ void halt();	/* signal handler */

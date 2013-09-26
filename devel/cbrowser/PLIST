@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:36 joerg Exp $
+bin/cbrowser
+share/cbrowser/builder.tcl
+share/cbrowser/calltree.tcl
+share/cbrowser/ftcllib.tcl
+share/cbrowser/hierarchy.tcl
+share/cbrowser/tclIndex
+share/cbrowser/widget.tcl

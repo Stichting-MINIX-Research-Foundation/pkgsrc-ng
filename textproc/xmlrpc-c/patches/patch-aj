@@ -1,0 +1,13 @@
+$NetBSD: patch-aj,v 1.2 2011/04/06 07:45:48 adam Exp $
+
+--- tools/xmlrpc_transport/Makefile.orig	2011-03-25 16:58:35.000000000 +0000
++++ tools/xmlrpc_transport/Makefile
+@@ -45,7 +45,7 @@ UTILS = $(UTIL_OBJS:%=$(UTIL_DIR)/%)
+ LIBS = $(LIBXMLRPC_CLIENT) $(LIBXMLRPC) $(LIBXMLRPC_XML) $(LIBXMLRPC_UTIL)
+ 
+ xmlrpc_transport:%:%.o $(LIBS) $(UTILS)
+-	$(CCLD) -o $@ $(LDFLAGS) $< $(CLIENT_LDLIBS) $(UTILS)
++	libtool --mode=link $(CCLD) -o $@ $(LDFLAGS) $< $(CLIENT_LDLIBS) $(UTILS)
+ 
+ %.o:%.c
+ 	$(CC) -c $(CFLAGS) $<

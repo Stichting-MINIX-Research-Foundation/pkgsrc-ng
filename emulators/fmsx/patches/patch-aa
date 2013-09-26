@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.5 2010/01/07 08:38:43 obache Exp $
+
+--- fMSX/Unix/Makefile.orig	2008-01-28 19:29:59.000000000 +0000
++++ fMSX/Unix/Makefile
+@@ -1,6 +1,6 @@
+ include ../../EMULib/Rules.Unix
+ 
+-DEFINES+= -DFMSX -DLSB_FIRST -DBPP16 -DCONDEBUG -DDEBUG
++DEFINES+= -DFMSX -DBPP16 -DCONDEBUG -DDEBUG $(DEFS)
+ CFLAGS += -I$(LIBZ80)
+ OBJECTS+= $(EMUUNIX) $(FLOPPY) $(FDIDISK) \
+ 	  $(Z80) $(I8255) $(YM2413) $(AY8910) $(SCC) $(WD1793) \
+@@ -10,7 +10,7 @@ OBJECTS+= $(EMUUNIX) $(FLOPPY) $(FDIDISK
+ all:    fmsx
+ 
+ fmsx:	Makefile $(OBJECTS)
+-	$(CC) -o $@ $(CFLAGS) $(OBJECTS) $(LIBS)
++	$(CC) -o $@ $(LDFLAGS) $(OBJECTS) $(LIBS)
+ 
+ clean:
+ 	rm -f $(OBJECTS)

@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:18:00 joerg Exp $
+bin/cm2rem
+bin/rem
+bin/rem2html
+bin/rem2ps
+bin/remind
+bin/tkremind
+man/man1/cm2rem.1
+man/man1/rem.1
+man/man1/rem2ps.1
+man/man1/remind.1
+man/man1/tkremind.1
+share/doc/remind/COPYRIGHT
+share/doc/remind/README.UNIX
+share/doc/remind/WHATSNEW
+share/examples/remind/defs.rem
+share/examples/remind/remind.vim

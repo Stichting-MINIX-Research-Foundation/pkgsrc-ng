@@ -1,0 +1,11 @@
+# $NetBSD: Makefile.common,v 1.4 2011/09/09 11:01:16 obache Exp $
+# used by converters/nkf/Makefile
+# used by converters/p5-nkf/Makefile
+
+DISTNAME=	nkf-2.1.2
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=nkf/53171/}
+
+HOMEPAGE=	http://sourceforge.jp/projects/nkf/
+
+DISTINFO_FILE=	${.CURDIR}/../../converters/nkf/distinfo
+PATCHDIR=	${.CURDIR}/../../converters/nkf/patches

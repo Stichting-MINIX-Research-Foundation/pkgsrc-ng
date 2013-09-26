@@ -1,0 +1,13 @@
+# $NetBSD: buildlink3.mk,v 1.8 2009/03/20 19:23:54 joerg Exp $
+
+BUILDLINK_TREE+=	liba52
+
+.if !defined(LIBA52_BUILDLINK3_MK)
+LIBA52_BUILDLINK3_MK:=
+
+BUILDLINK_API_DEPENDS.liba52+=	liba52>=0.7.4
+BUILDLINK_ABI_DEPENDS.liba52+=	liba52>=0.7.4nb3
+BUILDLINK_PKGSRCDIR.liba52?=	../../audio/liba52
+.endif # LIBA52_BUILDLINK3_MK
+
+BUILDLINK_TREE+=	-liba52

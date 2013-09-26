@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2009/11/21 15:03:05 sno Exp $
+
+SHA1 (LWP-Authen-Negotiate-0.08.tar.gz) = a3730764a56e764783ad7d5e6dc1808399bb8050
+RMD160 (LWP-Authen-Negotiate-0.08.tar.gz) = 0d0224e1331d5808e368ab51e9b58cd546d2e88f
+Size (LWP-Authen-Negotiate-0.08.tar.gz) = 4921 bytes
+SHA1 (patch-aa) = 555448adef31ac665bf34525a00699967b7b0ada

@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2013/06/28 08:30:19 rodent Exp $
+
+SHA1 (ispell-sk-0.3.2.tar.gz) = c2a4788acfcb6c087ad80bbf8f44f458ad73ed79
+RMD160 (ispell-sk-0.3.2.tar.gz) = e559beaf4639a2fb70b48bc6eb5081ab92b3803c
+Size (ispell-sk-0.3.2.tar.gz) = 618244 bytes
+SHA1 (patch-aa) = 97df68dd50e6f531c8bf42011c29aba94d91a36c

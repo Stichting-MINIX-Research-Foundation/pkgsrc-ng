@@ -1,0 +1,56 @@
+$NetBSD: patch-ab,v 1.4 2011/08/27 15:47:43 schnoebe Exp $
+
+avoid the wrapper + -C trap
+Update to silence perl 5.12+ complaints.
+
+--- archive2.pl.orig	2000-01-07 11:00:49.000000000 +0000
++++ archive2.pl
+@@ -47,21 +47,24 @@
+ # Change directory to our home
+ chdir($ENV{'HOME'}) if $ENV{'HOME'};
+  
+-# Read and execute the .cf file
+-$cf = $ENV{"MAJORDOMO_CF"} || "/etc/majordomo.cf";
++# Read and execute the .cf file. For security reasons, let the environment win
++$cf = "/etc/majordomo.cf";
+ if ($ARGV[0] eq "-C") {
+     $cf = $ARGV[1];
+     shift(@ARGV); 
+     shift(@ARGV); 
+ }
++if ($ENV{"MAJORDOMO_CF"}) {
++	$cf = $ENV{"MAJORDOMO_CF"};
++}
+ if (! -r $cf) {
+     die("$cf not readable; stopped");
+ }
+ require "$cf";
+ 
+ # All these should be in the standard PERL library
++unshift(@INC, $bindir);
+ unshift(@INC, $homedir);
+-require "ctime.pl";		# To get MoY definitions for month abbrevs
+ require "majordomo_version.pl";	# What version of Majordomo is this?
+ require "majordomo.pl";		# all sorts of general-purpose Majordomo subs
+ require "shlock.pl";		# NNTP-style file locking
+@@ -72,16 +75,17 @@ $hostname = &chop_nl(`hostname`);
+ 
+ # Here's where the fun begins...
+ 
+-require "getopts.pl";
++use Getopt::Std;
+ 
+ $m = 1;
+-foreach (@ctime'MoY) {
++foreach ('Jan','Feb','Mar','Apr','May','Jun',
++	    'Jul','Aug','Sep','Oct','Nov','Dec') {
+     $MoY{$_} = $m++;
+ }
+ 
+ $usage = "Usage: $0 -f <file> {-u|-a} [-d|-D|-m|-M|-y|-Y] [file ...]";
+ 
+-&Getopts("f:uadDmMyY") || die("$usage\nStopped");
++&getopts("f:uadDmMyY") || die("$usage\nStopped");
+ 
+ if (!defined($opt_f)) {
+     print STDERR "'-f <list>' required\n$usage\n";

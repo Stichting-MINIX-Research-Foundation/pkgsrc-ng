@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.4 2013/01/23 17:27:32 wiz Exp $
+
+First part of diff: automake-1.13 compat.
+
+--- configure.in.orig	2002-01-14 12:09:15.000000000 +0000
++++ configure.in
+@@ -33,12 +33,12 @@ AC_SUBST(LT_CURRENT)
+ AC_SUBST(LT_REVISION)
+ AC_SUBST(LT_AGE)
+ 
+-AM_CONFIG_HEADER(config.h)
++AC_CONFIG_HEADERS(config.h)
+ AM_INIT_AUTOMAKE(lib3ds, $LIB3DS_VERSION)
+ 
+ dnl Checks for programs.
+ AC_PROG_CC
+-AC_PROG_RANLIB
++AC_PROG_LIBTOOL
+ CONFIGURE_GLUT(,)
+ 
+ AC_MSG_CHECKING([for debugging mode])

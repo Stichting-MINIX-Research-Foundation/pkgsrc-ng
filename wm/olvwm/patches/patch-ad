@@ -1,0 +1,64 @@
+$NetBSD: patch-ad,v 1.2 2013/03/28 21:40:10 joerg Exp $
+
+--- olvwmrc.y.orig	2000-03-02 21:39:55.000000000 +0000
++++ olvwmrc.y
+@@ -37,7 +37,7 @@ extern CheckForKeyProg();
+ char	*LookupToken();
+ char	*FindOlvwmRC();
+ void	resetKeys();
+-char	*strexpand();
++static char	*strexpand();
+ 
+ typedef struct progscreen {
+     char        *target;
+@@ -527,7 +527,6 @@ String :    WORD
+ 	    }
+ %%
+ /* Programs */
+-#define YYDEBUG 1
+ #include "parse.c"
+ 
+ extern List	*ActiveClientList;
+@@ -773,10 +772,7 @@ static void clientSaveFocus();
+ static void clientRestoreFocus();
+ 
+ static int
+-applyAction(p, cli)
+-    ProgKeyNode	*p;
+-    Client	*cli;
+-
++applyAction(ProgKeyNode *p, Client *cli)
+ {
+ Client	*c;
+ char	*s, *t;
+@@ -1160,7 +1156,7 @@ struct stat statbuf;
+ 	    for (c = ListEnum(&l); c != NULL; c = ListEnum(&l)) {
+ 		if (findClient(c, ie->identifier)) {
+ 		    ListApply(ie->doIf, applyAction, c);
+-		    return;
++		    return False;
+ 		}
+ 	    }
+ 	    ListApply(ie->doElse, applyAction, cli);
+@@ -1251,10 +1247,7 @@ struct stat	tmp;
+ static struct stat olvwmBuf;
+ static struct stat olvwmOldBuf;
+ 
+-InitOlvwmRC(ldpy, path)
+-    Display	*ldpy;
+-    char	*path;
+-
++void InitOlvwmRC(Display *ldpy, char *path)
+ {
+ 
+     if (path == NULL)
+@@ -1276,8 +1269,7 @@ InitOlvwmRC(ldpy, path)
+ /*
+  * Check to see if olvwmrc has been changed since we last read it
+  */
+-CheckOlvwmRC(dpy)
+-    Display *dpy;
++void CheckOlvwmRC(Display *dpy)
+ {
+ char *p = FindOlvwmRC(&olvwmBuf);
+ extern XrmDatabase OlwmDB;

@@ -1,0 +1,12 @@
+$NetBSD: patch-al,v 1.5 2010/12/30 09:02:52 obache Exp $
+
+--- incoming/modemd.c.orig	1996-09-10 00:34:58.000000000 +0000
++++ incoming/modemd.c
+@@ -48,6 +48,7 @@ static char copyright[] =
+ #include <syslog.h>
+ #include <pwd.h>
+ #include <stdio.h>
++#include <stdlib.h>
+ 
+ static char *ttyName;
+ static char progName [1024];

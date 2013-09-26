@@ -1,0 +1,96 @@
+$NetBSD: patch-ac,v 1.6 2013/05/28 19:03:49 joerg Exp $
+
+Config for pkgsrc.
+DESTDIR support.
+Make the SYMLINK relative.
+
+--- unix/tfconfig.orig	2013-05-28 16:51:21.000000000 +0000
++++ unix/tfconfig
+@@ -35,7 +35,7 @@ echo "Configuring $TFVERSION"; echo
+ 
+ ### Initialize variables, just in case they're already defined.
+ 
+-AOUT=tfconfig.out
++AOUT=`pwd`/tfconfig.out
+ BINDIR=''
+ # CC=''		;# Use the value from the environment if there is one.
+ CCFLAGS=${TFDEV_CCFLAGS-'-O'}
+@@ -168,18 +168,18 @@ fi
+ # The cd;pwd is needed to normalize the directory name in case of links, etc.
+ 
+ DIR1=`echo $TF      | sed 's;/[^/]*$;;'`
+-DIR1=`cd $DIR1 && pwd`
++#DIR1=`cd $DIR1 && pwd`
+ DIR2=`echo $LIBDIR  | sed 's;/[^/]*$;;'`
+-DIR2=`cd $DIR2 && pwd`
++#DIR2=`cd $DIR2 && pwd`
+ DIR3=`echo $SYMLINK | sed 's;/[^/]*$;;'`
+-DIR3=`cd $DIR3 && pwd`
++#DIR3=`cd $DIR3 && pwd`
+ 
+ if [ -z "$DIR1" ] || [ -z "$DIR2" ] || [ -z "$DIR3" ]; then
+     echo "Error in directory."
+     exit 1;
+ fi
+ 
+-DIR1=`cd $DIR1 && pwd || { echo "Error in directory $DIR1."; false; }`
++#DIR1=`cd $DIR1 && pwd || { echo "Error in directory $DIR1."; false; }`
+ 
+ BUILDTREE=`cd .. && pwd`
+ if echo "${DIR1}/" | egrep "^${BUILDTREE}/" >/dev/null 2>&1 ||
+@@ -223,17 +223,17 @@ fi
+ echo
+ 
+ echo 'To change these locations type "n" now and edit the unix/Config file.'
+-while [ -z "$ans" ]; do
+-    echo 'Continue? (y/n)'
+-    read ans;
+-    case "$ans" in
+-    y|Y)  break ;;
+-    n|N)  exit 1 ;;
+-    *)    ans=
+-          echo 'Please answer "y" or "n".'
+-          ;;
+-    esac
+-done
++# while [ -z "$ans" ]; do
++#    echo 'Continue? (y/n)'
++#    read ans;
++#    case "$ans" in
++#    y|Y)  break ;;
++#    n|N)  exit 1 ;;
++#    *)    ans=
++#          echo 'Please answer "y" or "n".'
++#          ;;
++#    esac
++# done
+ echo; echo
+ 
+ rm -f ../src/Makefile ${AOUT}
+@@ -246,8 +246,10 @@ else
+ fi
+ 
+ echo "MAKE       = ${MAKE}" >&5
++echo "DESTDIR    = ${DESTDIR}" >&5
+ echo "TF         = ${TF}" >&5
+ echo "SYMLINK    = ${SYMLINK}" >&5
++echo "SYMLINKTARGET    = ${SYMLINKTARGET}" >&5
+ echo "LIBDIR     = ${LIBDIR}" >&5
+ echo "MAILDIR    = ${MAILDIR}" >&5
+ echo "MANPAGE    = ${MANPAGE}" >&5
+@@ -654,11 +656,13 @@ echo "Testing type of signal handlers...
+ cat >test.c <<EOF
+ #include <sys/types.h>
+ #include <signal.h>
++#include <stdlib.h>
+ #undef signal
+-extern void (*signal())();
++typedef void (*my_sighandler_t)(int);
++extern my_sighandler_t signal(int, my_sighandler_t);
+ main() { exit(0); }
+ EOF
+-if ${CC} ${CCFLAGS} -c test.c -o ${AOUT}>/dev/null 2>&1; then
++if ${CC} ${CCFLAGS} -c test.c -o ${AOUT}; then
+     echo "Signal handlers return void, as they should."
+     echo '#define RETSIG void' >&4
+ else

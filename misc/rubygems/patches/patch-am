@@ -1,0 +1,54 @@
+$NetBSD: patch-am,v 1.5 2013/06/15 02:12:48 taca Exp $
+
+Make sure to setup under DESTDIR.
+
+--- lib/rubygems/commands/setup_command.rb.orig	2013-03-11 20:40:09.000000000 +0000
++++ lib/rubygems/commands/setup_command.rb
+@@ -145,7 +145,7 @@ By default, this RubyGems will install g
+ 
+     uninstall_old_gemcutter
+ 
+-    documentation_success = install_rdoc
++    documentation_success = install_rdoc install_destdir
+ 
+     say
+     if @verbose then
+@@ -162,7 +162,11 @@ By default, this RubyGems will install g
+     release_notes = File.join Dir.pwd, 'History.txt'
+ 
+     release_notes = if File.exist? release_notes then
+-                      history = File.read release_notes
++                      if RUBY_VERSION != "1.8.7"
++                        history = File.read release_notes, :encoding => 'utf-8'
++                      else
++                        history = File.read release_notes
++                      end
+                       history = history.sub(/^# coding:.*?^=/m, '')
+ 
+                       text = history.split(HISTORY_HEADER)
+@@ -306,11 +310,15 @@ TEXT
+     end
+   end
+ 
+-  def install_rdoc
++  def install_rdoc(install_destdir)
+     gem_doc_dir = File.join Gem.dir, 'doc'
+     rubygems_name = "rubygems-#{Gem::VERSION}"
+     rubygems_doc_dir = File.join gem_doc_dir, rubygems_name
+ 
++    unless install_destdir.empty?
++      FileUtils.mkdir_p gem_doc_dir unless File.exist?(gem_doc_dir)
++    end
++
+     begin
+       Gem.ensure_gem_subdirectories Gem.dir
+     rescue SystemCallError
+@@ -321,7 +329,7 @@ TEXT
+        (not File.exist? rubygems_doc_dir or
+         File.writable? rubygems_doc_dir) then
+       say "Removing old RubyGems RDoc and ri" if @verbose
+-      Dir[File.join(Gem.dir, 'doc', 'rubygems-[0-9]*')].each do |dir|
++      Dir[File.join(gem_doc_dir, 'rubygems-[0-9]*')].each do |dir|
+         rm_rf dir
+       end
+ 

@@ -1,0 +1,61 @@
+$NetBSD: patch-aa,v 1.10 2012/07/10 22:32:13 minskim Exp $
+
+Set paths to texmf trees for pkgsrc.
+
+--- texmf.cnf.orig	2012-05-12 23:34:52.000000000 +0000
++++ texmf.cnf
+@@ -51,7 +51,7 @@
+ % Redistributors will probably want $SELFAUTODIR/share, i.e., /usr/share.
+ % Kpathsea sets SELFAUTOLOC (the directory with the binary),
+ % SELFAUTODIR (its parent), and SELFAUTOPARENT (its grandparent).
+-TEXMFROOT = $SELFAUTOPARENT
++TEXMFROOT = $SELFAUTODIR/share
+ 
+ % The tree containing runtime files related to the specific
+ % distribution and version.
+@@ -61,13 +61,13 @@ TEXMFMAIN = $TEXMFROOT/texmf
+ TEXMFDIST = $TEXMFROOT/texmf-dist
+ 
+ % Local additions to the distribution trees.
+-TEXMFLOCAL = $TEXMFROOT/../texmf-local
++TEXMFLOCAL = @TEXMFLOCAL@
+ 
+ % TEXMFSYSVAR, where *-sys store cached runtime data.
+-TEXMFSYSVAR = $TEXMFROOT/texmf-var
++TEXMFSYSVAR = @VARBASE@/lib/texmf
+ 
+ % TEXMFSYSCONFIG, where *-sys store configuration data.
+-TEXMFSYSCONFIG = $TEXMFROOT/texmf-config
++TEXMFSYSCONFIG = @PKG_SYSCONFDIR@
+ 
+ % Per-user texmf tree(s) -- organized per the TDS, as usual.  To define
+ % more than one per-user tree, set this to a list of directories in
+@@ -113,7 +113,7 @@ SYSTEXMF = $TEXMFSYSVAR;$TEXMFMAIN;$TEXM
+ % Where generated fonts may be written.  This tree is used when the sources
+ % were found in a system tree and either that tree wasn't writable, or the
+ % varfonts feature was enabled in MT_FEATURES in mktex.cnf.
+-VARTEXFONTS = $TEXMFVAR/fonts
++VARTEXFONTS = $TEXMFSYSVAR/fonts
+ 
+ % On some systems, there will be a system tree which contains all the font
+ % files that may be created as well as the formats.  For example
+@@ -481,18 +481,7 @@ RUBYINPUTS   = .;$TEXMF/scripts/{$progna
+ % explicitly list every directory.  Arguably more understandable this
+ % way anyway.
+ %
+-TEXMFCNF = {\
+-$SELFAUTOLOC,\
+-$SELFAUTOLOC/share/texmf-local/web2c,$SELFAUTOLOC/share/texmf/web2c,\
+-$SELFAUTOLOC/texmf-local/web2c,$SELFAUTOLOC/texmf/web2c,\
+-$SELFAUTODIR,\
+-$SELFAUTODIR/share/texmf-local/web2c,$SELFAUTODIR/share/texmf/web2c,\
+-$SELFAUTODIR/texmf-local/web2c,$SELFAUTODIR/texmf/web2c,\
+-$SELFAUTOPARENT/../texmf-local/web2c,\
+-$SELFAUTOPARENT,\
+-$SELFAUTOPARENT/share/texmf-local/web2c,$SELFAUTOPARENT/share/texmf/web2c,\
+-$SELFAUTOPARENT/texmf-local/web2c,$SELFAUTOPARENT/texmf/web2c\
+-}
++TEXMFCNF = @PKG_SYSCONFDIR@
+ %
+ % For reference, here is the old brace-using definition:
+ %TEXMFCNF = {$SELFAUTOLOC,$SELFAUTODIR,$SELFAUTOPARENT}{,{/share,}/texmf{-local,}/web2c}

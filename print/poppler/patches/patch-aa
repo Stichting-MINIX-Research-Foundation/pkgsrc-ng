@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.12 2013/03/24 07:09:24 spz Exp $
+
+--- glib/Makefile.in.orig	2013-02-10 10:48:37.000000000 +0000
++++ glib/Makefile.in
+@@ -107,7 +107,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" 
+ LTLIBRARIES = $(lib_LTLIBRARIES)
+ am__DEPENDENCIES_1 =
+ libpoppler_glib_la_DEPENDENCIES =  \
+-	$(top_builddir)/poppler/libpoppler.la \
++	$(prefix)/lib/libpoppler.la \
+ 	$(top_builddir)/poppler/libpoppler-cairo.la \
+ 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
+ am__objects_1 = poppler-enums.lo
+@@ -475,7 +475,7 @@ libpoppler_glib_la_SOURCES = \
+ 	poppler-private.h
+ 
+ libpoppler_glib_la_LIBADD = \
+-	$(top_builddir)/poppler/libpoppler.la		\
++	$(prefix)/lib/libpoppler.la		\
+ 	$(top_builddir)/poppler/libpoppler-cairo.la	\
+ 	$(POPPLER_GLIB_LIBS)				\
+ 	$(FREETYPE_LIBS)

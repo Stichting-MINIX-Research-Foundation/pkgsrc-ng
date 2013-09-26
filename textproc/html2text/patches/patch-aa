@@ -1,0 +1,37 @@
+$NetBSD: patch-aa,v 1.4 2011/01/31 10:36:21 adam Exp $
+
+--- configure.orig	2004-01-12 15:47:18.000000000 +0000
++++ configure
+@@ -19,7 +19,7 @@
+ # Tue Nov 11 21:30:26 CET 2003
+ 
+ 
+-echo='/bin/echo -e'
++echo="${ECHO}"
+ 
+ rm -rf configure-tmp || exit 1;
+ mkdir configure-tmp || exit 1;
+@@ -38,13 +38,7 @@ int main(int, char **) {
+   return 0;
+ }
+ EOF
+-CXX=unknown;
+-for i in "CC" "g++" "cc" "$CC"; do
+-  if $i -c $tmp_file.C 2>/dev/null; then
+-    CXX="$i";
+-    break;
+-  fi;
+-done;
++CXX="${CXX}";
+ if test "$CXX" = unknown; then
+   $echo "Error: Could not find a working C++ compiler.";
+   exit 1;
+@@ -287,7 +281,7 @@ for i in \
+   MAKEDEPEND_INCLUDES; \
+ do cmd="$cmd -e \"s|@$i@|\$$i|g\""; done;
+ for dir in $makedirs; do
+-  $echo "Creating \"$dir/Makefile\" from \"$dir/Makefile.in\"... \\c";
++  $echo "Creating \"$dir/Makefile\" from \"$dir/Makefile.in\"... ";
+   cat <<EOF >$dir/Makefile;
+ 
+ #

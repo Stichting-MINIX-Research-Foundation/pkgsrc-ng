@@ -1,0 +1,33 @@
+$NetBSD: patch-ak,v 1.2 2009/12/10 20:37:36 abs Exp $
+
+--- olwm/defaults.c.orig	1993-06-29 05:11:43.000000000 +0000
++++ olwm/defaults.c
+@@ -1,4 +1,3 @@
+-#ident  "@(#)defaults.c	26.22    93/06/28 SMI"
+ 
+ /*
+  *      (c) Copyright 1989 Sun Microsystems, Inc.
+@@ -25,9 +24,9 @@
+ #include <X11/Xutil.h>
+ #include <X11/Xatom.h>
+ #include <X11/Xresource.h>
+-#ifdef OW_I18N_L4
++/* #ifdef OW_I18N_L4 */
+ #include <sys/param.h>
+-#endif
++/* #endif */
+ 
+ #include "i18n.h"
+ #include "ollocale.h"
+@@ -80,7 +79,11 @@ GetUserDefaults(dpy)
+ 	if (homedir != NULL) {
+ 	    (void) strcpy(filename, homedir);
+ 	    (void) strcat(filename, "/.Xdefaults-");
++#if (defined(BSD) && (BSD >= 199103))
++	    if (0 == gethostname(hostname, sizeof(hostname))) {
++#else
+ 	    if (0 == gethostname(hostname, sizeof(hostname), &namelen)) {
++#endif
+ 		(void) strcat(filename, hostname);
+ 		fileDB = XrmGetFileDatabase(filename);
+ 	    }

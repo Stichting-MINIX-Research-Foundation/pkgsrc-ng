@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.16 2013/06/09 15:26:45 ryoon Exp $
+
+SHA1 (ctwm-3.8.1.tar.gz) = 4844b352457d4f7ffda7c5b80ae744c30a46806a
+RMD160 (ctwm-3.8.1.tar.gz) = 5990ed604fadaa6ad484f6b3221278a4f6fcb34e
+Size (ctwm-3.8.1.tar.gz) = 737958 bytes
+SHA1 (patch-aa) = 5f6d7f7d5552815cd40a2d2d1a43a9a22a202037
+SHA1 (patch-ac) = bb4cbcb8e4a68d1f2844aa16e85918aa5368a869

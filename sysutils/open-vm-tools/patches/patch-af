@@ -1,0 +1,22 @@
+$NetBSD: patch-af,v 1.2 2008/08/31 06:36:47 scottr Exp $
+
+--- lib/dnd/dndLinux.c.orig	2008-08-08 02:01:53.000000000 -0500
++++ lib/dnd/dndLinux.c
+@@ -39,7 +39,7 @@
+ #include "util.h"
+ #include "escape.h"
+ #include "su.h"
+-#if defined(linux) || defined(sun) || defined(__FreeBSD__)
++#if defined(linux) || defined(sun) || defined(__FreeBSD__) || defined(__NetBSD__)
+ #include "vmblock.h"
+ #include "mntinfo.h"
+ #endif
+@@ -288,7 +288,7 @@ DnD_UriListGetNextFile(char const *uriLi
+ 
+ 
+ /* We need to make this suck less. */
+-#if defined(linux) || defined(sun) || defined(__FreeBSD__)
++#if defined(linux) || defined(sun) || defined(__FreeBSD__) || defined(__NetBSD__)
+ /*
+  *----------------------------------------------------------------------------
+  *

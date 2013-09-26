@@ -1,0 +1,24 @@
+$NetBSD: patch-ah,v 1.4 2011/04/30 11:46:15 asau Exp $
+
+Link against pthreads.
+
+--- Makefile.in.orig	2011-03-21 21:12:57.000000000 +0300
++++ Makefile.in	2011-04-28 21:10:54.000000000 +0400
+@@ -525,14 +525,14 @@
+ 	-DCMD_XZIP="\"$(XZIP)\"" -DCMD_INSTALL="\"$(INSTALL)\"" \
+ 	-DCMD_LN_S="\"$(LN_S)\"" $(RELOC_CPPFLAGS) $(am__append_4)
+ gst_SOURCES = main.c
+-gst_LDADD = libgst/libgst.la lib-src/library.la @ICON@ $(am__append_2)
++gst_LDADD = libgst/libgst.la lib-src/library.la $(PTHREAD_LDADD) $(PTHREAD_LIBS) @ICON@ $(am__append_2)
+ gst_DEPENDENCIES = libgst/libgst.la lib-src/library.la @ICON@ \
+ 	$(am__append_3)
+-gst_LDFLAGS = -export-dynamic $(RELOC_LDFLAGS) $(LIBFFI_EXECUTABLE_LDFLAGS)
++gst_LDFLAGS = -export-dynamic $(RELOC_LDFLAGS) $(LIBFFI_EXECUTABLE_LDFLAGS) $(PTHREAD_LDFLAGS)
+ gst_tool_SOURCES = gst-tool.c
+ gst_tool_LDADD = libgst/libgst.la lib-src/library.la @ICON@
+ gst_tool_DEPENDENCIES = libgst/libgst.la lib-src/library.la @ICON@
+-gst_tool_LDFLAGS = -export-dynamic $(RELOC_LDFLAGS) $(LIBFFI_EXECUTABLE_LDFLAGS)
++gst_tool_LDFLAGS = -export-dynamic $(RELOC_LDFLAGS) $(LIBFFI_EXECUTABLE_LDFLAGS) $(PTHREAD_LDFLAGS)
+ winewrapper_SOURCES = winewrapper.c
+ GST_EXTRA_TOOLS = gst-reload gst-sunit gst-blox gst-package gst-convert \
+ 	gst-doc gst-remote gst-profile gst-browser

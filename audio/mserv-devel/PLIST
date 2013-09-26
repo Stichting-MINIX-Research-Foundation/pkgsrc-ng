@@ -1,0 +1,18 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:32:18 joerg Exp $
+bin/mserv
+bin/mservcmd
+bin/mservedit
+include/mservcli.h
+lib/libmservcli.la
+man/man1/mserv.1
+man/man1/mservcmd.1
+share/doc/mserv/INSTALL
+share/doc/mserv/LICENSE
+share/mserv/english.lang
+share/mserv/webclient/README
+share/mserv/webclient/back.gif
+share/mserv/webclient/index.html
+share/mserv/webclient/main.cgi
+share/mserv/webclient/margin.cgi
+share/mserv/webclient/mserv.cgi
+share/mserv/webclient/mserv7.gif

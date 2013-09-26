@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:32:24 joerg Exp $
+bin/wavpack
+bin/wvgain
+bin/wvunpack
+include/wavpack/wavpack.h
+lib/libwavpack.la
+lib/pkgconfig/wavpack.pc

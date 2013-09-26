@@ -1,0 +1,19 @@
+$NetBSD: patch-ah,v 1.2 2008/10/28 11:06:38 adam Exp $
+
+--- configure.in.orig	2008-05-12 22:14:14.000000000 +0200
++++ configure.in
+@@ -269,12 +269,12 @@ AC_CHECK_LIB([uClibc++], [main], 
+ 			 foundcxxl="uclibc" LIBS="$LIBS -luClibc++")
+ 
+ # Do we use uclibc++?
+-if test "$foundcxxl"x == "x"; then
++if test "$foundcxxl"x = "x"; then
+ 	AC_CHECK_LIB([stdc++], [main], 
+ 				 foundcxxl="stdc++" LIBS="$LIBS -lstdc++ -lm",,"-lm")
+ fi
+ 
+-if test "$foundcxxl"x == "x"; then
++if test "$foundcxxl"x = "x"; then
+ 	AC_MSG_ERROR(Neither uclibc uClibc++ or standard gcc stdc++ libraries found.)
+ fi
+ 

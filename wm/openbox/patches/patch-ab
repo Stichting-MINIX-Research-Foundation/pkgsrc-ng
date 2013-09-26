@@ -1,0 +1,19 @@
+$NetBSD: patch-ab,v 1.5 2011/08/06 17:09:04 wiz Exp $
+
+Attempt to fix two problems seen with the installation of translation files:
+ - Don't be explicit about using a shell interpreter for install_sh.
+ - use $(mkinstalldirs) as the "mkdir -p" replacement.
+
+--- po/Makefile.in.in.orig	2007-07-13 16:21:27.000000000 +0200
++++ po/Makefile.in.in
+@@ -30,8 +30,8 @@ gettextsrcdir = $(datadir)/gettext/po
+ 
+ INSTALL = @INSTALL@
+ INSTALL_DATA = @INSTALL_DATA@
+-mkinstalldirs = $(SHELL) @install_sh@ -d
+-mkdir_p = @mkdir_p@
++mkinstalldirs = @install_sh@ -d
++mkdir_p = $(mkinstalldirs)
+ 
+ GMSGFMT_ = @GMSGFMT@
+ GMSGFMT_no = @GMSGFMT@

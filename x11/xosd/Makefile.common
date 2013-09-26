@@ -1,0 +1,31 @@
+# $NetBSD: Makefile.common,v 1.27 2012/10/23 10:24:22 wiz Exp $
+#
+# used by x11/xmms-osd/Makefile
+
+DISTNAME=	xosd-2.2.14
+CATEGORIES=	x11
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libxosd/}
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://sourceforge.net/projects/libxosd/
+LICENSE=	gnu-gpl-v2
+
+DISTINFO_FILE=		${.CURDIR}/../../x11/xosd/distinfo
+PATCHDIR=		${.CURDIR}/../../x11/xosd/patches
+
+GNU_CONFIGURE=		yes
+USE_LIBTOOL=		yes
+
+SHLIBTOOL_OVERRIDE=	libtool-disable-static
+
+SUBST_CLASSES+=		fixme
+SUBST_STAGE.fixme=	post-patch
+SUBST_FILES.fixme=	configure
+SUBST_SED.fixme=	-e "s|-lpthread|"${PTHREAD_LIBS:M*:Q}"|g"
+
+PTHREAD_AUTO_VARS=	yes
+
+.include "../../mk/pthread.buildlink3.mk"
+.include "../../x11/libX11/buildlink3.mk"
+.include "../../x11/libXext/buildlink3.mk"
+.include "../../x11/libXinerama/buildlink3.mk"

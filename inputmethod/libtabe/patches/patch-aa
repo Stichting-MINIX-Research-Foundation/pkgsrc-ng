@@ -1,0 +1,24 @@
+$NetBSD: patch-aa,v 1.5 2010/06/02 12:34:02 adam Exp $
+
+--- configure.orig	2004-09-20 06:16:48.000000000 +0000
++++ configure
+@@ -18905,7 +18905,7 @@ OLD_LIBS=$LIBS
+ CPPFLAGS="$OLD_CPPFLAGS $with_db_inc"
+ LDFLAGS="$OLD_LDFLAGS $test_db_lib"
+ 
+-for dbname in $with_db_name db db2 db3 db4
++for dbname in $with_db_name db db2 db3 db4 db5
+ do
+   as_ac_Lib=`echo "ac_cv_lib_$dbname''_db_open" | $as_tr_sh`
+ echo "$as_me:$LINENO: checking for db_open in -l$dbname" >&5
+@@ -19253,7 +19253,9 @@ errno = db_open("foo.db", DB_BTREE, DB_C
+ #endif
+ if(errno) return errno;
+ 
+-#if DB_VERSION >= 303011
++#if DB_VERSION >= 403000
++errno = dbp->stat(dbp, NULL, &sp, 0);
++#elif DB_VERSION >= 303011
+ errno = dbp->stat(dbp, &sp, 0);
+ #else
+ errno = dbp->stat(dbp, &sp, NULL, 0);

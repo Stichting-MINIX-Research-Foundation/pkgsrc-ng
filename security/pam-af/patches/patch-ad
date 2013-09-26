@@ -1,0 +1,22 @@
+$NetBSD: patch-ad,v 1.3 2011/10/17 08:47:52 obache Exp $
+
+* Remove needless assignment, it break strict-aliasing
+
+--- common/subr.c.orig	2011-08-24 07:53:32.000000000 +0000
++++ common/subr.c
+@@ -181,7 +181,6 @@ my_getnameinfo(addr, addrlen, buf, bufle
+ 
+ 		sockaddr = (struct sockaddr *)&sa;
+ 		salen = sizeof(sa);
+-		sockaddr->sa_family = PF_INET;
+ 		break;
+ 
+ 	case IPV6SZ:
+@@ -192,7 +191,6 @@ my_getnameinfo(addr, addrlen, buf, bufle
+ 		
+ 		sockaddr = (struct sockaddr *)&sa6;
+ 		salen = sizeof(sa6);
+-		sockaddr->sa_family = PF_INET6;
+ 		break;
+ 
+ 	default:

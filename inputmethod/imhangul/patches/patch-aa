@@ -1,0 +1,37 @@
+$NetBSD: patch-aa,v 1.6 2011/11/10 10:51:34 obache Exp $
+
+--- Makefile.in.orig	2011-05-22 08:20:36.000000000 +0000
++++ Makefile.in
+@@ -940,19 +940,19 @@ uninstall-am: uninstall-moduleLTLIBRARIE
+ 
+ 
+ install-data-hook:
+-	if test -z "$(DESTDIR)" ; then \
+-		GTK_IM_MODULE_FILE=$(GTK_IM_MODULE_FILE) ; \
+-		GTK_QUERY_IM_MODULE=`which gtk-query-immodules-2.0` ; \
+-		GTK_IM_MODULE_FILE_DIR=`dirname $$GTK_IM_MODULE_FILE` ; \
+-		if test ! -d $$GTK_IM_MODULE_FILE_DIR ; then \
+-			$(mkinstalldirs) $$GTK_IM_MODULE_FILE_DIR; \
+-		fi; \
+-		if test -x $$GTK_QUERY_IM_MODULE; then \
+-			if test -w $$GTK_IM_MODULE_FILE_DIR; then \
+-				$$GTK_QUERY_IM_MODULE > $$GTK_IM_MODULE_FILE ; \
+-			fi; \
+-		fi; \
+-	fi
++#	if test -z "$(DESTDIR)" ; then \
++#		GTK_IM_MODULE_FILE=$(GTK_IM_MODULE_FILE) ; \
++#		GTK_QUERY_IM_MODULE=`which gtk-query-immodules-2.0` ; \
++#		GTK_IM_MODULE_FILE_DIR=`dirname $$GTK_IM_MODULE_FILE` ; \
++#		if test ! -d $$GTK_IM_MODULE_FILE_DIR ; then \
++#			$(mkinstalldirs) $$GTK_IM_MODULE_FILE_DIR; \
++#		fi; \
++#		if test -x $$GTK_QUERY_IM_MODULE; then \
++#			if test -w $$GTK_IM_MODULE_FILE_DIR; then \
++#				$$GTK_QUERY_IM_MODULE > $$GTK_IM_MODULE_FILE ; \
++#			fi; \
++#		fi; \
++#	fi
+ 
+ uninstall-hook:
+ 	if test -z "$(DESTDIR)" ; then \

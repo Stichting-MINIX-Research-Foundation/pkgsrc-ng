@@ -1,0 +1,15 @@
+$NetBSD: patch-ad,v 1.4 2010/09/27 12:01:49 taca Exp $
+
+* Add DragonFly support.
+
+--- sbr/discard.c.orig	2006-04-11 13:20:41.000000000 +0000
++++ sbr/discard.c
+@@ -61,7 +61,7 @@ FILE   *io;
+ #endif	/* SYS5 */
+ #endif	/* POSIX */
+ 
+-#ifdef _FSTDIO
++#if defined(_FSTDIO) || defined(__DragonFly__)
+     fpurge (io);
+ #else
+ #ifdef _STDIO_USES_IOSTREAM

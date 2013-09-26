@@ -1,0 +1,10 @@
+$NetBSD: patch-aa,v 1.10 2013/01/04 13:33:43 jperkin Exp $
+
+--- src/sqliteInt.h.orig	2005-02-14 01:22:06.000000000 +0100
++++ src/sqliteInt.h
+@@ -15,4 +15,5 @@
+ */
+ #include "config.h"
++#include "os.h"
+ #include "sqlite.h"
+ #include "hash.h"

@@ -1,0 +1,43 @@
+$NetBSD: patch-ab,v 1.7 2008/05/19 13:47:45 tnn Exp $
+
+--- src/glitzint.h.orig	2006-03-13 14:43:57.000000000 +0100
++++ src/glitzint.h
+@@ -49,14 +49,18 @@
+   typedef __int64 int64_t;
+   typedef unsigned __int64 uint64_t;
+ #else
+-#  if defined(__OpenBSD__)
++#  if defined(__OpenBSD__) || defined(__sgi)
+ #    include <inttypes.h>
++#  elif defined(__INTERIX)
++#    include <sys/types.h>
++#    undef uint64_t
++#    define uint64_t u_int64_t /* not typedef in case it does exist already */
+ #  else
+ #    include <stdint.h>
+ #  endif
+ #endif
+ 
+-#if defined(__APPLE__) || defined(__sun__)
++#if defined(__APPLE__) || defined(__sun)
+ # define floorf(a)    floor (a)
+ # define ceilf(a)     ceil (a)
+ # define sinf(a)      sin (a)
+@@ -69,7 +73,7 @@
+ # define sqrtf(a)     sqrt (a)
+ #endif
+ 
+-#if __GNUC__ >= 3 && defined(__ELF__)
++#if __GNUC__ >= 3 && defined(__ELF__) && !defined(__sun)
+ # define slim_hidden_proto(name)	slim_hidden_proto1(name, INT_##name)
+ # define slim_hidden_def(name)		slim_hidden_def1(name, INT_##name)
+ # define slim_hidden_proto1(name, internal)				\
+@@ -89,7 +93,7 @@
+ # define slim_hidden_def(name)
+ #endif
+ 
+-#if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)) && defined(__ELF__)
++#if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 3)) && defined(__ELF__) && !defined(__sun)
+ #define __internal_linkage	__attribute__((__visibility__("hidden")))
+ #else
+ #define __internal_linkage

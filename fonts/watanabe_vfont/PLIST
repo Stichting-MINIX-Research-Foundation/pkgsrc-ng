@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 19:01:14 joerg Exp $
+share/fonts/watanabe_font/README
+share/fonts/watanabe_font/dviprt.vfn
+share/fonts/watanabe_font/mincho.vf1
+share/fonts/watanabe_font/mincho.vf2

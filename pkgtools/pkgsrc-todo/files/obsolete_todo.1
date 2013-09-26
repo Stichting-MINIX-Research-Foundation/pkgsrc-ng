@@ -1,0 +1,68 @@
+.\"	$NetBSD: obsolete_todo.1,v 1.3 2012/03/14 14:34:39 wiz Exp $
+.\"
+.Dd March 8, 2012
+.Dt OBSOLETE_TODO 1
+.Sh NAME
+.Nm obsolete_todo
+.Nd remove obsolete entries from pkgsrc/doc/TODO
+.Sh SYNOPSIS
+.Nm
+.Sh DESCRIPTION
+.Nm
+removes obsoleted entries from
+.Pa pkgsrc/doc/TODO ,
+i.e., entries for packages that already exist
+in pkgsrc in either the version from the entry or a higher one.
+It does this by checking the entries in
+.Pa pkgsrc/doc/TODO
+against the entries in the various
+.Pa pkgsrc/doc/CHANGES-*
+files.
+.Pp
+.Nm
+assumes that the contents of
+.Pa pkgsrc/doc
+are up-to-date.
+The
+.Pa TODO
+file needs to be committed manually afterwards, but read
+.Sx BUGS
+first.
+.Sh FILES
+.Bl -tag -width 20n
+.It Pa pkgsrc/doc/TODO
+.Nm
+removes entries to this file.
+.It Pa pkgsrc/doc/CHANGES-*
+.Nm
+compares against these files for finding entries to remove.
+.El
+.Sh AUTHORS
+.An Thomas Klausner Aq wiz@NetBSD.org
+.Sh BUGS
+.Nm
+removes too many entries, so please don't directly commit the result
+of
+.Nm !
+Currently, the following entries are removed even though they
+shouldn't be:
+.Bl -tag
+.It lapack-3.4.0
+.It ldapsdk-6.0.7
+.It libixp-0.5
+.It libssh-0.5.2
+.It lmbench-2.5
+.It oto-0.5
+.It zenicb-1.31
+.El
+.Pp
+There are three reasons:
+.Bl -enum
+.It
+matching errors (bonnie vs. bonnie++)
+.It
+downgraded packages (libixp, oto)
+.It
+changes in versioning schemes (lapack, ldapsdk, libssh,
+lmbench, zenicb)
+.El

@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:08 joerg Exp $
+bin/delete-account
+bin/extract-account
+bin/install-account
+bin/sudo-add
+share/doc/ir-account/README

@@ -1,0 +1,15 @@
+$NetBSD: patch-aq,v 1.4 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare errno.
+
+--- uip/inc.c.orig	2006-04-11 14:22:52.000000000 +0000
++++ uip/inc.c
+@@ -142,8 +142,6 @@ static struct swit  switches[] = {
+ 
+ /*  */
+ 
+-extern int  errno;
+-
+ #ifdef	POP
+ int  snoop = 0;
+ extern char response[];

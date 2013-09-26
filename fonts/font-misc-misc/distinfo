@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2012/06/12 02:10:25 mef Exp $
+
+SHA1 (font-misc-misc-1.1.2.tar.bz2) = c6d28c56880807963175cbbd682fb6f75a35f77d
+RMD160 (font-misc-misc-1.1.2.tar.bz2) = e0c949b8a39102ef5073a5bb5c76bd4f6cf2f196
+Size (font-misc-misc-1.1.2.tar.bz2) = 1933789 bytes
+SHA1 (patch-aa) = 9e384cbaa6d9bfaeafce9b06b42093b080cec5fb
+SHA1 (patch-ac) = 6b4fc215a5ac7e8c792f7b0211f1be315a4d9e52

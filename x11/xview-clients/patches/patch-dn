@@ -1,0 +1,13 @@
+$NetBSD: patch-dn,v 1.2 2009/12/10 20:37:38 abs Exp $
+
+--- olwmslave/helprecv.c.orig	1993-06-29 05:12:11.000000000 +0000
++++ olwmslave/helprecv.c
+@@ -15,7 +15,7 @@ static	char	sccsid[] = "@(#) helprecv.c 
+ #include "helpcmd.h"
+ 
+ extern	int	ShowHelpWindow();
+-	void	ReceiveHelpCmd();
++static	void	ReceiveHelpCmd();
+ 
+ /* ----------------------------------------------------------------------
+  *	RegisterHelpWindow

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 20:45:11 joerg Exp $
+bin/bbmail
+man/man1/bbmail.1
+share/bbtools/bbmail.bb

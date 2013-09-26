@@ -1,0 +1,13 @@
+$NetBSD: patch-ac,v 1.2 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- utils/signals.c.orig	2006-09-13 21:02:54.000000000 +0000
++++ utils/signals.c
+@@ -669,7 +669,7 @@ SigInit()
+ void
+ sigSetAction(int signo, sigRetVal (*handler)(int))
+ {
+-#if defined(SYSV) || defined(CYGWIN)
++#if defined(SYSV) || defined(CYGWIN) || defined(__NetBSD__)
+   struct sigaction sa;
+ 
+   sa.sa_handler = handler;

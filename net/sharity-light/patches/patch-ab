@@ -1,0 +1,45 @@
+$NetBSD: patch-ab,v 1.5 2011/04/03 09:18:45 obache Exp $
+
+--- nfs/syscalls.c.orig	1998-06-30 12:24:56.000000000 +0000
++++ nfs/syscalls.c
+@@ -19,6 +19,13 @@
+ #include <arpa/inet.h>
+ #include "my_defines.h"
+ 
++#ifdef __NetBSD__
++#include <nfs/nfsmount.h>
++#if __NetBSD_Version__ >= 299000900
++#define statfs statvfs
++#endif
++#endif
++
+ /* --------------------------- general constants --------------------------- */
+ 
+ #define NFS_TIMEOUT_SECONDS		10	/* nfs timeout in seconds */
+@@ -62,7 +69,7 @@ int	syscall_mount(char *dir, void *root_
+ 									struct sockaddr_in *socket, char *mntfrom)
+ {
+ struct nfs_args		nfs_args;
+-#ifdef __FreeBSD__
++#if defined(__FreeBSD__) || defined(__DragonFly__)
+ #	ifdef _NEW_VFSCONF
+ 		struct vfsconf vfc;
+ 		int error;
+@@ -93,7 +100,7 @@ struct nfs_args		nfs_args;
+ #else
+ #	define NFSNAME MOUNT_NFS
+ #endif
+-#ifdef __FreeBSD__
++#if defined(__FreeBSD__) || defined(__DragonFly__)
+ #	ifdef _NEW_VFSCONF
+ #		define GETVFSBYNAME	error = getvfsbyname("nfs", &vfc)
+ #		define VFCERROR		error
+@@ -113,6 +120,8 @@ struct nfs_args		nfs_args;
+ 	if (VFCERROR)
+ 		return -1;
+ 	return mount(VFCNFSNAME, dir, 0, &nfs_args);
++#elif defined(__NetBSD__) && __NetBSD_Version__ >=499002400
++	return mount(NFSNAME, dir, 0, &nfs_args, sizeof(nfs_args));
+ #else	/* __FreeBSD__ */
+ 	return mount(NFSNAME, dir, 0, &nfs_args);
+ #endif	/* __FreeBSD__ */

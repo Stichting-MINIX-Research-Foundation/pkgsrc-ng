@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.4 2011/11/08 15:37:33 taca Exp $
+${GEM_HOME}/cache/metaid-${PKGVERSION}.gem
+${GEM_LIBDIR}/metaid.rb
+${GEM_HOME}/specifications/metaid-${PKGVERSION}.gemspec

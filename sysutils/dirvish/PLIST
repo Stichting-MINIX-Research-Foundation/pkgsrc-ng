@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:03 joerg Exp $
+sbin/dirvish
+sbin/dirvish-runall
+sbin/dirvish-expire
+sbin/dirvish-locate
+man/man5/dirvish.conf.5
+man/man8/dirvish.8
+man/man8/dirvish-runall.8
+man/man8/dirvish-expire.8
+man/man8/dirvish-locate.8
+share/doc/dirvish/COPYING
+share/doc/dirvish/FAQ.html
+share/doc/dirvish/INSTALL
+share/doc/dirvish/RELEASE.html
+share/doc/dirvish/TODO.html

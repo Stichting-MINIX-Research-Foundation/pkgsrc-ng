@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.4 2011/12/18 18:18:50 dholland Exp $
+
+- fix inverted logic
+
+--- src/scrn.c.orig	1998-08-12 14:32:02.000000000 +0000
++++ src/scrn.c
+@@ -33,7 +33,7 @@ hdl_sigwinch(sig)
+ #ifdef TIOCGWINSZ
+ 			struct winsize win;
+ 
+-			if (ioctl(STDERR_FILENO, TIOCGWINSZ, &win) == -1) {
++			if (ioctl(STDERR_FILENO, TIOCGWINSZ, &win) != -1) {
+ 				rows = win.ws_row;
+ 				cols = win.ws_col;
+ 			}

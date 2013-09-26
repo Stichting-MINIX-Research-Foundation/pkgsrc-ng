@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2010/05/27 10:49:07 adam Exp $
+
+SHA1 (sysbench-0.4.12.tar.gz) = 3f346e8b29b738711546970b027bbb7359d4672a
+RMD160 (sysbench-0.4.12.tar.gz) = b77c8bf31d84f075ec69ef3972afb8baed02e6bc
+Size (sysbench-0.4.12.tar.gz) = 421932 bytes
+SHA1 (patch-aa) = ffaa80909d0d2dc3200fc4ad2911573ef3396d86

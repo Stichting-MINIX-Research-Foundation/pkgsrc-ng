@@ -1,0 +1,138 @@
+# $NetBSD: Makefile,v 1.16 2012/10/23 17:19:21 asau Exp $
+#
+
+DISTNAME=		xymon-4.3.10
+PKGNAME=		xymonclient-4.3.10
+CATEGORIES=		net
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=xymon/}
+
+MAINTAINER=		spz@NetBSD.org
+HOMEPAGE=		http://xymon.sourceforge.net/
+COMMENT=		Network services monitor a la Big Brother
+
+LICENSE=		gnu-gpl-v2
+
+MAKE_JOBS_SAFE=		NO
+
+CONFLICTS+=		hobbitmon-[0-9]*
+CONFLICTS+=		hobbitclient-[0-9]*
+
+HAS_CONFIGURE=		YES
+USE_TOOLS+=		gmake
+
+.include "../../mk/bsd.prefs.mk"
+
+# xymons user/group
+
+XYMONUSER?=		xymon
+XYMONGROUP?=		xymon
+
+PKG_GROUPS=		${XYMONGROUP}
+PKG_USERS=		${XYMONUSER:Q}:${XYMONGROUP:Q}
+
+PKG_GECOS.${XYMONUSER}=	Xymon monitor
+PKG_HOME.${XYMONUSER}=	${XYMONHOME}
+
+PKG_GROUPS_VARS+=	XYMONGROUP
+PKG_USERS_VARS+=	XYMONUSER
+
+# startup and config
+
+RCD_SCRIPTS+=		xymonclient
+PKG_SYSCONFDIR.xymon=	${PREFIX}/etc/xymon
+EXAMPLEDIR=		${PREFIX}/share/examples/xymon
+
+XYMONHOME?=		${PREFIX}/share/xymon/xymonhome
+XYMONTOPDIR?=		${PREFIX}/libexec/xymon
+
+XYMONSERVERNAME?=	"`uname -n`"
+XYMONSERVERIP?=		127.0.0.1
+
+XYMONLOGDIR?=		${VARBASE}/log/xymon
+XYMONVAR?=		${VARBASE}/xymon
+
+XYBINDIR?=		${XYMONTOPDIR}
+XYETCDIR?=		${PKG_SYSCONFDIR.xymon}
+XYEXTDIR?=		${XYMONTOPDIR}/ext
+XYTMPDIR?=		${VARBASE}/xymon/tmp
+
+BUILD_DEFS+=		VARBASE
+BUILD_DEFS+=		XYMONSERVERNAME
+BUILD_DEFS+=		XYMONSERVERIP
+
+FILES_SUBST+=		XYMONHOME=${XYMONHOME:Q}
+FILES_SUBST+=		XYMONLOGDIR=${XYMONLOGDIR}
+FILES_SUBST+=		XYMONVAR=${XYMONVAR:Q}
+FILES_SUBST+=		XYBINDIR=${XYBINDIR}
+FILES_SUBST+=		XYETCDIR=${XYETCDIR}
+FILES_SUBST+=		XYEXTDIR=${XYEXTDIR}
+FILES_SUBST+=		XYTMPDIR=${XYTMPDIR}
+
+CONFIGURE_ARGS+=	"--client"
+
+CONFIGURE_ENV+=		CONFTYPE="server"
+CONFIGURE_ENV+=		PKGBUILD=y
+CONFIGURE_ENV+=		XYMONHOSTNAME=${XYMONSERVERNAME:Q}
+CONFIGURE_ENV+=		XYMONHOSTIP=${XYMONSERVERIP:Q}
+CONFIGURE_ENV+=		XYMONUSER=${XYMONUSER:Q}
+CONFIGURE_ENV+=		XYMONHOME=${XYMONHOME:Q}
+CONFIGURE_ENV+=		XYMONTOPDIR=${XYMONTOPDIR}
+CONFIGURE_ENV+=		XYMONLOGDIR=${XYMONLOGDIR}
+CONFIGURE_ENV+=		XYMONVAR=${XYMONVAR:Q}
+CONFIGURE_ENV+=		INSTALLROOT=${DESTDIR}
+CONFIGURE_ENV+=		INSTALLBINDIR=${XYBINDIR}
+CONFIGURE_ENV+=		INSTALLETCDIR=${XYETCDIR}
+CONFIGURE_ENV+=		INSTALLEXADIR=${EXAMPLEDIR}
+CONFIGURE_ENV+=		INSTALLEXTDIR=${XYEXTDIR}
+CONFIGURE_ENV+=		INSTALLTMPDIR=${XYTMPDIR}
+CONFIGURE_ENV+=		MANROOT=${PREFIX}/${PKGMANDIR}/
+
+USE_TOOLS+=	awk:run		cat:run		cp:run
+USE_TOOLS+=	cut:run		date:run	egrep:run
+USE_TOOLS+=	expr:run	find:run	grep:run
+USE_TOOLS+=	head:run	id:run		ls:run
+USE_TOOLS+=	mv:run		rm:run		sed
+USE_TOOLS+=	sort:run	tail:run	touch:run
+USE_TOOLS+=	tr:run		wc:run
+
+
+OWN_DIRS+=		${XYMONTOPDIR}
+MAKE_DIRS+=		${XYMONTOPDIR}/client
+OWN_DIRS+=		${EXAMPLEDIR}
+OWN_DIRS+=		${PKG_SYSCONFDIR.xymon}
+OWN_DIRS+=		${XYMONHOME}
+MAKE_DIRS+=		${XYMONHOME}/client
+
+OWN_DIRS_PERMS+=	${XYEXTDIR}/client ${XYMONUSER} ${XYMONGROUP} 0755
+OWN_DIRS_PERMS+=	${XYMONLOGDIR} ${XYMONUSER} ${XYMONGROUP} 0755
+OWN_DIRS_PERMS+=	${XYTMPDIR} ${XYMONUSER} ${XYMONGROUP} 0755
+OWN_DIRS_PERMS+=	${XYTMPDIR}/client ${XYMONUSER} ${XYMONGROUP} 0755
+
+OWN_DIRS_PERMS+=	${XYMONVAR} ${XYMONUSER} ${XYMONGROUP} 0755
+OWN_DIRS_PERMS+=	${XYMONVAR}/data ${XYMONUSER} ${XYMONGROUP} 0755
+
+CFILES+=		clientlaunch.cfg localclient.cfg xymonclient.cfg
+.for file in ${CFILES}
+CONF_FILES_PERMS+=	${EXAMPLEDIR}/${file} ${PKG_SYSCONFDIR.xymon}/${file} ${XYMONUSER} ${XYMONGROUP} 0644
+.endfor
+
+MAKE_ENV+=		MAKE=${MAKE_PROGRAM:Q}
+MAKE_ENV+=		PKGDIR=${PREFIX}
+MAKE_ENV+=		INSTALLROOT=${DESTDIR}
+MAKE_ENV+=		PKGBUILD=y
+MAKE_ENV+=		${TOOLS_ENV}
+
+PLIST_VARS+=		meminfo
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "FreeBSD"
+PLIST.meminfo=		yes
+.endif
+
+post-patch:
+	${CP} ${WRKSRC}/build/Makefile.FreeBSD \
+	      ${WRKSRC}/build/Makefile.DragonFly
+	# Add dragonfly-meminfo support later (placeholder)
+	${SED} -e 's|freebsd-meminfo|dragonfly-meminfo|' \
+	      ${WRKSRC}/client/xymonclient-freebsd.sh > \
+	      ${WRKSRC}/client/xymonclient-dragonfly.sh
+
+.include "../../mk/bsd.pkg.mk"

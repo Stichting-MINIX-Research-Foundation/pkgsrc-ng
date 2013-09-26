@@ -1,0 +1,17 @@
+$NetBSD: distinfo,v 1.4 2013/04/13 17:51:57 riz Exp $
+
+SHA1 (ansible-1.1.tar.gz) = fa1009e80b624945675bbaba690b895a1ff050fd
+RMD160 (ansible-1.1.tar.gz) = 220dd91db3ab0d6df5dec456448e22d436077f3d
+Size (ansible-1.1.tar.gz) = 302115 bytes
+SHA1 (patch-docs_man_man1_ansible-playbook.1) = 33ce57bccb6cb29e978871a868bf26ca17d87660
+SHA1 (patch-docs_man_man1_ansible.1) = 266a520f8f227686cc84b8a3e9b6fac8e20e1247
+SHA1 (patch-examples_ansible.cfg) = 631236fadaadfd28d71b7bc7cce33e62691ee407
+SHA1 (patch-lib_ansible_callbacks.py) = 607809cf64a676ef91a70b915e97ac87b8ddd31b
+SHA1 (patch-lib_ansible_constants.py) = 51171c84680b18a2d1ff2401cc1fd08e009aa83c
+SHA1 (patch-library_mysql_db) = 45e782d41c3e2bc9e462441205f894e7089d798a
+SHA1 (patch-library_ping) = 6bb9b946df3a44ac938eee7e752bf2149936b8e6
+SHA1 (patch-library_pkgin) = 4b57890efa9145c0b2b68c2c75c990618488d824
+SHA1 (patch-library_raw) = 897aa5b8e5abadd23adc6de178cbec417c43e540
+SHA1 (patch-library_setup) = 7489a5c905916cc1559db15b730a1a93cb782971
+SHA1 (patch-library_slurp) = 54a021519554c3eb95daf9396c32d6ec559ddab8
+SHA1 (patch-library_virt) = b01c7b2d7cd49ad7720d3a1430d7bba41673d2a6

@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:13:35 joerg Exp $
+bin/pgp
+man/man1/pgp.1
+share/pgp/config.txt
+share/pgp/de.hlp
+share/pgp/en.hlp
+share/pgp/es.hlp
+share/pgp/fr.hlp
+share/pgp/language.txt
+share/pgp/pgp.hlp
+share/pgp/pgpdoc1.txt
+share/pgp/pgpdoc2.txt

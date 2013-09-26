@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.7 2009/12/17 21:27:32 abs Exp $
+
+--- configure.orig	2003-04-01 03:19:35.000000000 +0000
++++ configure
+@@ -5816,6 +5816,7 @@ case $host_os in
+     if test -n "$GCC"; then
+       OPT="-O2";
+     fi;;
++  netbsd*) ;;
+   next*)
+     OPT="-O2";;
+ 
+@@ -5931,7 +5932,7 @@ else
+ fi
+ 
+ 
+-CFLAGS="-DUNIX \$(OPT) $OS_FLAGS $PROTOFLAG \$(OPTIONS)"
++CFLAGS="$CFLAGS -DUNIX \$(OPT) $OS_FLAGS $PROTOFLAG \$(OPTIONS)"
+ echo "$as_me:$LINENO: result: Compile command is $CC $CFLAGS" >&5
+ echo "${ECHO_T}Compile command is $CC $CFLAGS" >&6
+ echo "$as_me:$LINENO: result: \$(OPT) is $OPT" >&5

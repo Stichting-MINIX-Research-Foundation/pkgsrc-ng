@@ -1,0 +1,43 @@
+$NetBSD: patch-aa,v 1.2 2011/12/17 10:16:25 sbd Exp $
+
+--- Makefile.config.in.orig	2005-07-20 15:28:53.000000000 +0000
++++ Makefile.config.in
+@@ -157,7 +157,7 @@
+ # Your favorite C compiler..
+ #
+ 
+-CC = @CC@
++#CC = @CC@
+ 
+ #------------------------------------------------
+ # Optimization level.
+@@ -165,11 +165,11 @@ CC = @CC@
+ 
+ #OPT=-g
+ #OPT=-g -Wunused -W
+-OPT=@OPT@ -Wall
++OPT= ${CFLAGS}
+ #------------------------------------------------
+ # The ranlib command on your system.  Systems without it should still survive
+ 
+-RANLIB = @RANLIB@
++#RANLIB = @RANLIB@
+ 
+ #------------------------------------------------
+ # The install command on your system.  cp works in most cases...
+@@ -181,7 +181,7 @@ PREFIX          = @prefix@
+ prefix		= @prefix@
+ SYSCONFDIR	= @sysconfdir@
+ CLIENTDIR	= $(PREFIX)/bin
+-CLIENTLIB       = $(DESTDIR)/$(SYSCONFDIR)/gopher
++CLIENTLIB       = $(DESTDIR)/$(SYSCONFDIR)
+ SERVERDIR	= $(PREFIX)/sbin
+ 
+ # On SCO manuals are in /usr/man but its easiest to do a 
+@@ -292,5 +292,5 @@ OTHERINCLUDES	= -I@top_srcdir@
+ WAISINCLUDES	= -I@top_srcdir@/wais -I../ui
+ INCLUDES	= -I@top_srcdir@ -I@top_srcdir@/object 
+ 
+-LDFLAGS		= -L../object
++LDFLAGS		+= -L../object
+ SHELL		= /bin/sh

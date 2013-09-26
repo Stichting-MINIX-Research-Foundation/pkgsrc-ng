@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2013/04/21 11:36:38 ryoon Exp $
+
+SHA1 (Mozilla-CA-20130114.tar.gz) = 6ea49b4e29655f629212caa3f9d5a4d3a9733e0b
+RMD160 (Mozilla-CA-20130114.tar.gz) = d8e836ed3dfec92559e5263f4c9e3b2c48c8821c
+Size (Mozilla-CA-20130114.tar.gz) = 139200 bytes

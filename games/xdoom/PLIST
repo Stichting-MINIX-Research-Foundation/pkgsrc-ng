@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.5 2010/02/23 06:11:34 wiz Exp $
+bin/xdoom
+bin/sndserver

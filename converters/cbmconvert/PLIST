@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:39:09 joerg Exp $
+bin/cbmconvert
+bin/disk2zip
+bin/zip2disk
+man/man1/cbmconvert.1
+man/man1/disk2zip.1
+man/man1/zip2disk.1
+share/doc/cbmconvert/cbmconvert.html

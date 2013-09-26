@@ -1,0 +1,84 @@
+$NetBSD: patch-ae,v 1.14 2009/02/23 13:24:31 wiz Exp $
+
+--- mpeg3io.c.orig	2008-07-05 00:47:42 +0000
++++ mpeg3io.c
+@@ -1,10 +1,43 @@
+ #include "mpeg3private.h"
+ #include "mpeg3protos.h"
+ 
+-#include <mntent.h>
+ #include <stdint.h>
+ #include <stdlib.h>
+ #include <string.h>
++
++#if defined(__NetBSD__)
++
++# include <sys/mount.h>
++# define fopen64 fopen
++# define fseeko64 fseek
++# define stat64 stat
++# if __NetBSD_Version__ >= 299000900 /* 2.99.9 */
++#  define statfs statvfs
++# endif
++
++#elif defined(__DragonFly__)
++
++# include <sys/param.h>
++# include <sys/mount.h>
++# include <sys/types.h>
++# define fopen64 fopen
++# define fseeko64 fseek
++# define stat64 stat
++
++#elif defined(__APPLE__) && defined(__MACH__)
++
++# include <sys/param.h>
++# include <sys/mount.h>
++# include <sys/cdefs.h>
++# include <sys/types.h>
++# if !defined(__DARWIN_64_BIT_INO_T /* MacOSX < 10.5 */)
++#   define stat64 stat
++# endif
++# define fopen64 fopen
++# define fseeko64 fseek
++
++#endif
++
+ #include <sys/stat.h>
+ 
+ mpeg3_fs_t* mpeg3_new_fs(char *path)
+@@ -215,16 +248,26 @@ void mpeg3io_complete_path(char *complet
+ 
+ int mpeg3io_device(char *path, char *device)
+ {
++#if defined(__NetBSD__) || defined(__DragonFly__) || (defined(__APPLE__) && defined(__MACH__))
++	struct statfs file_st;
++
++	if (statfs(path, &file_st) < 0)
++#else
++
+ 	struct stat64 file_st, device_st;
+     struct mntent *mnt;
+ 	FILE *fp;
+ 
+ 	if(stat64(path, &file_st) < 0)
++#endif
+ 	{
+ 		perror("mpeg3io_device");
+ 		return 1;
+ 	}
+ 
++#if defined(__NetBSD__) || defined(__DragonFly__) || (defined(__APPLE__) && defined(__MACH__))
++	strncpy(device, file_st.f_mntfromname, MPEG3_STRLEN);
++#else
+ 	fp = setmntent(MOUNTED, "r");
+     while(fp && (mnt = getmntent(fp)))
+ 	{
+@@ -236,6 +279,7 @@ int mpeg3io_device(char *path, char *dev
+ 		}
+ 	}
+ 	endmntent(fp);
++#endif
+ 
+ 	return 0;
+ }

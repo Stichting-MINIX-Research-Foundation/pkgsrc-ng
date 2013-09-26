@@ -1,0 +1,15 @@
+# $NetBSD: Makefile.common,v 1.13 2008/04/25 20:39:10 joerg Exp $
+#
+
+DISTNAME=		BitTornado-0.3.18
+CATEGORIES=		net
+MASTER_SITES=		http://download2.bittornado.com/download/
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE=		http://www.bittornado.com/
+COMMENT=		Experimental bittorrent client
+
+DISTINFO_FILE=		${.CURDIR}/../../net/bittornado/distinfo
+PATCHDIR=		${.CURDIR}/../../net/bittornado/patches
+
+WRKSRC=			${WRKDIR}/BitTornado-CVS

@@ -1,0 +1,14 @@
+$NetBSD: patch-config_system-headers,v 1.2 2013/04/09 19:07:04 ryoon Exp $
+
+--- config/system-headers.orig	2013-03-28 18:07:40.000000000 +0000
++++ config/system-headers
+@@ -1065,5 +1065,9 @@ gst/gst.h
+ gst/app/gstappsink.h
+ gst/app/gstappsrc.h
+ gst/video/video.h
++sys/thr.h
++sys/user.h
++kvm.h
++spawn.h
+ sys/msg.h
+ sys/ipc.h

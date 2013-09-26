@@ -1,0 +1,85 @@
+$NetBSD: patch-aa,v 1.17 2013/04/06 12:41:23 obache Exp $
+
+Extend which ports we accept to deal with.
+
+Disable multilib directories.
+
+--- configure.orig	2013-03-17 22:36:19.000000000 +0000
++++ configure
+@@ -13331,7 +13331,7 @@ case "$host" in
+ 	TARGET=FRV; TARGETDIR=frv
+ 	;;
+ 
+-  hppa*-*-linux* | parisc*-*-linux* | hppa*-*-openbsd*)
++  hppa*-*-linux* | hppa*-*-netbsd* | parisc*-*-linux* | hppa*-*-openbsd*)
+ 	TARGET=PA_LINUX; TARGETDIR=pa
+ 	;;
+   hppa*64-*-hpux*)
+@@ -13428,7 +13428,7 @@ case "$host" in
+   mips-sgi-irix5.* | mips-sgi-irix6.* | mips*-*-rtems*)
+ 	TARGET=MIPS; TARGETDIR=mips
+ 	;;
+-  mips*-*-linux* | mips*-*-openbsd*)
++  mips*-*-linux* | mips*-*-netbsd* | mips*-*-openbsd*)
+ 	# Support 128-bit long double for NewABI.
+ 	HAVE_LONG_DOUBLE='defined(__mips64)'
+ 	TARGET=MIPS; TARGETDIR=mips
+@@ -13449,7 +13449,7 @@ case "$host" in
+   powerpc-*-aix* | rs6000-*-aix*)
+ 	TARGET=POWERPC_AIX; TARGETDIR=powerpc
+ 	;;
+-  powerpc-*-freebsd* | powerpc-*-openbsd*)
++  powerpc-*-freebsd* | powerpc-*-netbsd* | powerpc-*-openbsd*)
+ 	TARGET=POWERPC_FREEBSD; TARGETDIR=powerpc
+ 	;;
+   powerpc64-*-freebsd*)
+@@ -13463,7 +13463,7 @@ case "$host" in
+ 	TARGET=S390; TARGETDIR=s390
+ 	;;
+ 
+-  sh-*-* | sh[34]*-*-*)
++  sh-*-* | shle-*-* | sh[34]*-*-*)
+ 	TARGET=SH; TARGETDIR=sh
+ 	;;
+   sh64-*-* | sh5*-*-*)
+@@ -14661,7 +14661,7 @@ case "$target" in
+ $as_echo "#define FFI_EXEC_TRAMPOLINE_TABLE 1" >>confdefs.h
+ 
+      ;;
+-     *-apple-darwin1* | *-*-freebsd* | *-*-kfreebsd* | *-*-openbsd* | *-pc-solaris*)
++     *-apple-darwin1* | *-*-freebsd* | *-*-kfreebsd* | *-*-netbsd* | *-*-openbsd* | *-pc-solaris*)
+ 
+ $as_echo "#define FFI_MMAP_EXEC_WRIT 1" >>confdefs.h
+ 
+@@ -14840,11 +14840,6 @@ if test "x$GCC" = "xyes"; then
+     toolexecdir='$(libdir)/gcc-lib/$(target_alias)'
+     toolexeclibdir='$(libdir)'
+   fi
+-  multi_os_directory=`$CC -print-multi-os-directory`
+-  case $multi_os_directory in
+-    .) ;; # Avoid trailing /.
+-    ../*) toolexeclibdir=$toolexeclibdir/$multi_os_directory ;;
+-  esac
+ 
+ else
+   toolexeclibdir='$(libdir)'
+@@ -16734,13 +16729,13 @@ s/ [a-zA-Z0-9-]*-all [a-zA-Z0-9-]*-all-a
+ /-all-all/d
+ a\\
+ 	@ HOST="\$(HOST)\" \\\\\\
+-	; test ".\$\$HOST" = "." && HOST=$x sh $ax_enable_builddir_auxdir/config.guess $x \\\\\\
+-	; BUILD=$x grep "^#### \$\$HOST " Makefile | sed -e 's/.*|//' $x \\\\\\
+-	; use=$x basename "\$\@" -all $x; n=$x echo \$\$BUILD | wc -w $x \\\\\\
+-	; echo "MAKE \$\$HOST : \$\$n * \$\@"; if test "\$\$n" -eq "0" ; then : \\\\\\
+-	; BUILD=$x grep "^####.*|" Makefile |tail -1| sed -e 's/.*|//' $x ; fi \\\\\\
++	; test ".\$\$HOST" = "." && HOST="$x sh $ax_enable_builddir_auxdir/config.guess $x" \\\\\\
++	; BUILD="$x grep "^#### \$\$HOST " Makefile | sed -e 's/.*|//' $x" \\\\\\
++	; use="$x basename "\$\@" -all $x"; n="$x echo \$\$BUILD | wc -w $x" \\\\\\
++	; echo "MAKE \$\$HOST : \$\$n * \$\@"; if test \$\$n = "0" ; then : \\\\\\
++	; BUILD="$x grep "^####.*|" Makefile |tail -1| sed -e 's/.*|//' $x" ; fi \\\\\\
+ 	; test ".\$\$BUILD" = "." && BUILD="." \\\\\\
+-	; test "\$\$use" = "\$\@" && BUILD=$x echo "\$\$BUILD" | tail -1 $x \\\\\\
++	; test "\$\$use" = "\$\@" && BUILD="$x echo "\$\$BUILD" | tail -1 $x" \\\\\\
+ 	; for i in \$\$BUILD ; do test ".\$\$i" = "." && continue \\\\\\
+ 	; (cd "\$\$i" && test ! -f configure && \$(MAKE) \$\$use) || exit; done
+ /dist-all *:/a\\

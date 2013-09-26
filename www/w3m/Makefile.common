@@ -1,0 +1,88 @@
+# $NetBSD: Makefile.common,v 1.60 2013/02/01 08:02:38 wiz Exp $
+#
+# used by www/w3m/Makefile
+# used by www/w3m-img/Makefile
+
+DISTNAME=	w3m-${W3M_VERS}
+CATEGORIES=	www
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=w3m/}
+
+MAINTAINER=	uebayasi@NetBSD.org
+HOMEPAGE=	http://w3m.sourceforge.net/
+
+PKG_INSTALLATION_TYPES=	overwrite pkgviews
+
+MAKE_JOBS_SAFE=		no
+
+GNU_CONFIGURE=	yes
+USE_LANGUAGES=	c c++
+USE_TOOLS+=	gmake	# Needed for some combinations of options...
+USE_TOOLS+=	msgfmt
+USE_PKGLOCALEDIR=	yes
+
+W3M_VERS=	0.5.3
+
+# For w3mman, xface2xpm, cgi scripts.
+USE_TOOLS+=	perl:run pax
+
+DOCDIR=		share/doc/w3m
+
+_W3M_USE_IMAGE?=	NO
+
+.include "options.mk"
+
+.include "../../mk/bsd.prefs.mk"
+
+# Configurable by environment variables at run-time.
+CONFIGURE_ARGS+=	--with-charset=US-ASCII
+
+# This *should* be set at run-time.
+CONFIGURE_ARGS+=	--disable-messagel10n
+
+CONFIGURE_ARGS+=	--disable-help_cgi
+CONFIGURE_ARGS+=	--enable-color
+CONFIGURE_ARGS+=	--enable-cookie
+CONFIGURE_ARGS+=	--enable-m17n
+CONFIGURE_ARGS+=	--enable-mouse
+CONFIGURE_ARGS+=	--enable-unicode
+CONFIGURE_ARGS+=	--with-browser=
+CONFIGURE_ARGS+=	--with-termlib
+CONFIGURE_ARGS+=	--with-editor=vi
+CONFIGURE_ARGS+=	--with-gc=${BUILDLINK_PREFIX.boehm-gc}
+CONFIGURE_ARGS+=	--with-mailer=${MAIL_CMD:Q}
+CONFIGURE_ARGS+=	--with-ssl=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+
+SUBST_CLASSES+=		man-ja
+SUBST_MESSAGE.man-ja=	Fixing the path to Japanese manual pages.
+SUBST_STAGE.man-ja=	post-patch
+SUBST_FILES.man-ja=	Makefile.in config.h.dist
+SUBST_SED.man-ja=	-e 's|/ja/|/ja_JP.eucJP/|g'
+
+SUBST_CLASSES+=		fh
+SUBST_MESSAGE.fh=	Rename file_handle.
+SUBST_STAGE.fh=		post-patch
+SUBST_FILES.fh=		istream.*
+SUBST_SED.fh=		-e 's/file_handle/file_handle_rofl/g'
+
+post-extract:
+	cd ${WRKSRC}/doc && ${RM} -fr CVS
+	cd ${WRKSRC}/doc-jp && ${RM} -fr CVS
+	cd ${WRKSRC} && ${RM} -fr gc
+
+INSTALLATION_DIRS+=	${DOCDIR}
+
+INSTALL_TARGET=		install install-helpfile
+
+post-install:
+	# Use pax to discard uid/gid.  Exclude manuals (*.1).
+	set -e; cd ${WRKSRC}; pax -w -s ',.*\.1$$,,' doc doc-jp | \
+	    ( cd ${DESTDIR}${PREFIX}/${DOCDIR}; pax -r )
+
+BUILDLINK_API_DEPENDS.boehm-gc+=	boehm-gc>=7.2
+.include "../../devel/boehm-gc/buildlink3.mk"
+.include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

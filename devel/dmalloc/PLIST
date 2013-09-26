@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.8 2010/02/11 18:35:07 drochner Exp $
+bin/dmalloc
+include/dmalloc.h
+lib/libdmalloc.a
+lib/libdmalloc.so
+lib/libdmallocth.a
+lib/libdmallocth.so
+lib/libdmallocthcxx.a
+lib/libdmallocthcxx.so
+lib/libdmallocxx.a
+lib/libdmallocxx.so

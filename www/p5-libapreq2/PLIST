@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 22:00:30 joerg Exp $
+bin/apreq2-config
+include/apreq2/apreq.h
+include/apreq2/apreq_cookie.h
+include/apreq2/apreq_error.h
+include/apreq2/apreq_module.h
+include/apreq2/apreq_param.h
+include/apreq2/apreq_parser.h
+include/apreq2/apreq_util.h
+include/apreq2/apreq_version.h
+include/httpd/apreq2/apreq_module_apache2.h
+lib/httpd/mod_apreq2.la
+lib/libapreq2.la

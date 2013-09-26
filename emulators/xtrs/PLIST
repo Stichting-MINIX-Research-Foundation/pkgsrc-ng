@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.4 2013/01/13 20:54:30 is Exp $
+bin/cassette
+bin/cmddump
+bin/hex2cmd
+bin/mkdisk
+bin/xtrs
+lib/xtrs/romimage.m4p
+man/man1/cassette.1
+man/man1/cmddump.1
+man/man1/hex2cmd.1
+man/man1/mkdisk.1
+man/man1/xtrs.1
+share/doc/xtrs/xtrsrom4p.README
+share/xtrs/cpmutil.dsk
+share/xtrs/utility.dsk

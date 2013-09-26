@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2009/08/13 15:20:33 abs Exp $
+
+SHA1 (imapsync-1.286.tgz) = a98ab539270a811554e4bab476d815695be0e96b
+RMD160 (imapsync-1.286.tgz) = 4e0cdbef137e743af5433c64859239cb5886decb
+Size (imapsync-1.286.tgz) = 740139 bytes

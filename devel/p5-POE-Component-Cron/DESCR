@@ -1,0 +1,4 @@
+Schedule POE Events using a cron spec - This component encapsulates
+a session that sends events to client sessions on a schedule as
+defined by a DateTime::Set iterator. The implementation is straight
+forward if a little limited.

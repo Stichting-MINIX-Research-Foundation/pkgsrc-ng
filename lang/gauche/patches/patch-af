@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.5 2009/11/27 09:26:07 enami Exp $
+
+--- ext/dbm/Makefile.in.orig	2009-04-06 11:47:55.000000000 +0900
++++ ext/dbm/Makefile.in	2009-11-23 09:12:23.000000000 +0900
+@@ -15,6 +15,8 @@
+               dbm--odbm.c odbm.sci \
+               ndbm-makedb ndbm-suffixes.h
+ 
++XLDFLAGS = $(GDBM_LDFLAGS)
++
+ all : $(LIBFILES)
+ 
+ gdbm_OBJECTS   = dbm--gdbm.$(OBJEXT)

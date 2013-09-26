@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.3 2009/07/16 22:12:20 obache Exp $
+include/swill/swill.h
+lib/libswill.a
+lib/libswill.so

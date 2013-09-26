@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2012/10/25 10:27:11 drochner Exp $
+
+SHA1 (libdlna-0.2.4.tar.bz2) = 5e86f4443eeb9e7194c808301efeb78611a9e8b3
+RMD160 (libdlna-0.2.4.tar.bz2) = 6083bdcb7b5bc048f5b81373ef452145ba913861
+Size (libdlna-0.2.4.tar.bz2) = 37579 bytes
+SHA1 (patch-af) = b34c260bf86062d268a8f113df17e285ed6ecdb7

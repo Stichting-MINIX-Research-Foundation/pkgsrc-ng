@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:39 joerg Exp $
+bin/cxref
+bin/cxref-cc
+bin/cxref-cpp
+bin/cxref-cpp-configure
+bin/cxref-query
+man/man1/cxref-cpp-configure.1
+man/man1/cxref-cpp.1
+man/man1/cxref-query.1
+man/man1/cxref.1
+share/cxref/cxref-cpp.defines

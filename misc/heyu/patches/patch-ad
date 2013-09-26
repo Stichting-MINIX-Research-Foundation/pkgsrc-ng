@@ -1,0 +1,31 @@
+$NetBSD: patch-ad,v 1.4 2009/12/11 00:11:11 abs Exp $
+
+--- xread.c.orig	2003-03-17 23:23:30.000000000 +0000
++++ xread.c
+@@ -24,7 +24,7 @@
+ #include <stdio.h>
+ #include <signal.h>
+ #include <setjmp.h>
+-#if	(defined(SCO) || defined (SOLARIS))
++#if	(defined(SCO) || defined (SOLARIS) || defined(NETBSD))
+ #include <errno.h>
+ #else
+ #include <sys/errno.h>
+@@ -32,7 +32,7 @@
+ #include <syslog.h>
+ #include <unistd.h>
+ #include "x10.h"
+-#if (defined(LINUX) || defined(SOLARIS) || defined(FREEBSD))
++#if (defined(LINUX) || defined(SOLARIS) || defined(FREEBSD) || defined(NETBSD))
+ #include <string.h>    /* char *strerror(); */
+ #endif
+  
+@@ -130,7 +130,7 @@ unsigned char *buf;
+ 	       if( (i < 0) && (i_am_relay == 1) )
+ 	       {
+ 	           syslog(LOG_ERR,"Relay Xread read error");
+-	           syslog(LOG_ERR, strerror(errno));
++	           syslog(LOG_ERR, "%s", strerror(errno));
+ 	       }
+ 	    (void) alarm(0);
+ 	    (void) signal(SIGALRM, SIG_IGN);

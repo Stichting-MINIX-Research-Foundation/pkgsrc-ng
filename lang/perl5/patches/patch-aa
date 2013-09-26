@@ -1,0 +1,34 @@
+$NetBSD: patch-aa,v 1.35 2012/10/03 19:59:47 adam Exp $
+
+- $Is{NetBSD} and $Is{Interix} are unified into $Is{BSD}.
+- Ignore installed packlist when creating new packlist.
+
+--- cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm.orig	2012-04-25 00:18:31.000000000 +0000
++++ cpan/ExtUtils-MakeMaker/lib/ExtUtils/MM_Unix.pm
+@@ -29,8 +29,6 @@ BEGIN { 
+     $Is{VMS}     = $^O eq 'VMS';
+     $Is{OSF}     = $^O eq 'dec_osf';
+     $Is{IRIX}    = $^O eq 'irix';
+-    $Is{NetBSD}  = $^O eq 'netbsd';
+-    $Is{Interix} = $^O eq 'interix';
+     $Is{SunOS4}  = $^O eq 'sunos';
+     $Is{Solaris} = $^O eq 'solaris';
+     $Is{SunOS}   = $Is{SunOS4} || $Is{Solaris};
+@@ -932,7 +930,7 @@ $(INST_DYNAMIC): $(OBJECT) $(MYEXTLIB) $
+ 
+     my $libs = '$(LDLOADLIBS)';
+ 
+-    if (($Is{NetBSD} || $Is{Interix}) && $Config{'useshrplib'} eq 'true') {
++    if ($Is{BSD} && $Config{'useshrplib'} eq 'true') {
+ 	# Use nothing on static perl platforms, and to the flags needed
+ 	# to link against the shared libperl library on shared perl
+ 	# platforms.  We peek at lddlflags to see if we need -Wl,-R
+@@ -2079,7 +2077,7 @@ pure_site_install :: all
+ 
+ pure_vendor_install :: all
+ 	$(NOECHO) $(MOD_INSTALL) \
+-		read }.$self->catfile('$(VENDORARCHEXP)','auto','$(FULLEXT)','.packlist').q{ \
++		read "" \
+ 		write }.$self->catfile('$(DESTINSTALLVENDORARCH)','auto','$(FULLEXT)','.packlist').q{ \
+ 		$(INST_LIB) $(DESTINSTALLVENDORLIB) \
+ 		$(INST_ARCHLIB) $(DESTINSTALLVENDORARCH) \

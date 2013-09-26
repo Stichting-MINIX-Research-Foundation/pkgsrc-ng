@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.2 2008/08/22 07:42:52 obache Exp $
+
+--- Makefile.in.orig	2008-08-08 14:15:11.000000000 +0000
++++ Makefile.in
+@@ -65,7 +65,7 @@ all depends: $(config_files) $(config_he
+ clean:
+ 	$(make_subdirs)
+ 
+-install: $(config_files) install-doc install-catdoc
++install: $(config_files) install-doc
+ 	$(make_subdirs)
+ 
+ 

@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.4 2009/01/17 13:27:48 adam Exp $
+
+--- src/sendfile.c.orig	2008-06-20 17:26:04.000000000 +0200
++++ src/sendfile.c
+@@ -82,7 +82,7 @@
+  **/
+ 
+ 
+-#if defined(__FreeBSD__)
++#if defined(__FreeBSD__) || (__DragonFly__)
+ static ssize_t sys_sendfile(int ofd, int ifd, off_t *offset, size_t size)
+ {
+     off_t sent_bytes;

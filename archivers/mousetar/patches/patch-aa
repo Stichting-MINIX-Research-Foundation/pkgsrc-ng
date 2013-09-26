@@ -1,0 +1,42 @@
+$NetBSD: patch-aa,v 1.4 2012/03/09 06:14:39 sbd Exp $
+
+--- tar.c.orig	2012-03-09 06:07:25.071601044 +0000
++++ tar.c
+@@ -235,6 +235,9 @@ standards: gwoods sez IEEE Std 1003.1-19
+ 
+ #include <stdio.h>
+ /* #include <time.h> grrr... */
++#ifdef __linux__
++#include <time.h>
++#endif
+ #include <errno.h>
+ #include <ctype.h>
+ #include <setjmp.h>
+@@ -247,8 +250,17 @@ standards: gwoods sez IEEE Std 1003.1-19
+ #include <sys/file.h>
+ #include <sys/stat.h>
+ #include <sys/time.h>
++#if defined(__linux__)
+ #include <sys/dir.h>
++#else
++#include <sys/dirent.h>
++#endif
++#include <dirent.h>
+ #include <unistd.h>
++#include <fcntl.h>
++#ifdef __sun
++#include <sys/mkdev.h>
++#endif
+ 
+ /* If none of the TAR_MAP_* symbols are defined, guess */
+ #if !defined(TAR_MAP_SUN) &&	\
+@@ -471,8 +483,8 @@ extern char *valloc();
+ /* NetBSD: fix up itoo/itod and the fs_q?mask fields, and BIG* */
+ #ifdef TAR_INODE_NETBSD
+ #include <sys/param.h>
+-#include <ufs/ffs/fs.h>
+ #include <ufs/ufs/dinode.h>
++#include <ufs/ffs/fs.h>
+ #define rawi_direct direct
+ #define itoo(sb,i) ino_to_fsbo(sb,i)
+ #define itod(sb,i) ino_to_fsba(sb,i)

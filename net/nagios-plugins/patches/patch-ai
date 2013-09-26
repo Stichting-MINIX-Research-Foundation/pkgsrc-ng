@@ -1,0 +1,21 @@
+$NetBSD: patch-ai,v 1.2 2011/04/08 22:56:12 morr Exp $
+
+--- plugins-scripts/subst.in.orig	2010-07-27 20:47:16.000000000 +0000
++++ plugins-scripts/subst.in
+@@ -9,13 +9,14 @@ function which(c,path) {
+ 
+ 	sub(/\/.*\//,"",c);
+   for (dir in path) {
++	        if (match(path[dir], /.tools/ ) != 0 ) {
++		    continue;
++		}
+ 			cmd = "test -x " path[dir] "/" c;
+ 			if (system(cmd)==0) {
+ 					return path[dir] "/" c;
+ 			} 
+ 	}
+-
+-
+ 	return c;
+ }
+ 

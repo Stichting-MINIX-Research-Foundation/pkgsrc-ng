@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:16:15 joerg Exp $
+bin/tpb
+man/man1/tpb.1
+share/doc/tpb/callback_example.sh
+share/doc/tpb/nvram.txt
+share/examples/tpb/tpbrc
+share/locale/da/LC_MESSAGES/tpb.mo
+share/locale/de/LC_MESSAGES/tpb.mo
+share/locale/ru/LC_MESSAGES/tpb.mo

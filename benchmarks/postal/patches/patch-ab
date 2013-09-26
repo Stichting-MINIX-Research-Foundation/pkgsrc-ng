@@ -1,0 +1,30 @@
+$NetBSD: patch-ab,v 1.3 2013/05/23 14:59:13 joerg Exp $
+
+--- rabid.cpp.orig	2008-05-26 11:40:30.000000000 +0200
++++ rabid.cpp	2011-11-24 01:18:38.758256000 +0100
+@@ -18,6 +18,15 @@
+ GCRY_THREAD_OPTION_PTHREAD_IMPL;
+ #endif
+ 
++#ifdef __NetBSD__
++# include <sys/param.h>
++# if __NetBSD_Version__ >= 200000000
++#  define HAVE_STRUCT_SIGACTION_SA_SIGACTION
++# endif
++#else
++# define HAVE_STRUCT_SIGACTION_SA_SIGACTION
++#endif
++
+ void usage()
+ {
+   printf("Usage: rabid [-r max-connections-per-minute] [-p processes] [-l local-address]\n"
+@@ -138,7 +147,9 @@
+   UserList ul(argv[optind + 1], true, strip_domain);
+ 
+   struct sigaction sa;
++#ifdef HAVE_STRUCT_SIGACTION_SA_SIGACTION
+   sa.sa_sigaction = NULL;
++#endif
+   sa.sa_handler = SIG_IGN;
+   sa.sa_flags = 0;
+   if(sigaction(SIGPIPE, &sa, NULL))

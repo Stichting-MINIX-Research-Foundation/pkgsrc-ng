@@ -1,0 +1,15 @@
+# $NetBSD: xorg.expat,v 1.4 2013/01/11 10:37:58 ryoon Exp $
+#
+include/expat.h
+include/expat_external.h
+lib/libexpat.1.5.0.dylib
+lib/libexpat.1.dylib
+lib/libexpat.a
+lib/libexpat.dylib
+lib/libexpat.la
+lib/libexpat.so.1
+lib/libexpat.so.1.5.2
+lib/libexpat.so.2
+lib/libexpat.so.2.0
+lib/libexpat.so.10.0
+lib/libexpat.so

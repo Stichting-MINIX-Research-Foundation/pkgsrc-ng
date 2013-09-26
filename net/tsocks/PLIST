@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:09:46 joerg Exp $
+bin/tsocks
+lib/libtsocks.la
+man/man1/tsocks.1
+man/man5/tsocks.conf.5
+man/man8/tsocks.8
+share/examples/tsocks/tsocks.conf.complex
+share/examples/tsocks/tsocks.conf.simple

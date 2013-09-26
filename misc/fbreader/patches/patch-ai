@@ -1,0 +1,16 @@
+$NetBSD: patch-ai,v 1.4 2013/06/27 14:21:09 ryoon Exp $
+
+* Pass DO_ICONV_CAST
+
+--- makefiles/arch/desktop.mk.orig	2012-11-30 12:41:25.000000000 +0000
++++ makefiles/arch/desktop.mk
+@@ -12,8 +12,7 @@ CC = $(CCACHE) gcc
+ AR = ar rsu
+ LD = g++
+ 
+-CFLAGS = -pipe -fno-exceptions -Wall -Wno-ctor-dtor-privacy -W -DLIBICONV_PLUG
+-LDFLAGS =
++CFLAGS = -pipe -fno-exceptions -Wall -Wno-ctor-dtor-privacy -W -DLIBICONV_PLUG ${CPPFLAGS}
+ EXTERNAL_INCLUDE = $(shell pkg-config --cflags fribidi) 
+ 
+ ifeq "$(UI_TYPE)" "qt"

@@ -1,0 +1,13 @@
+$NetBSD: patch-aj,v 1.4 2010/03/03 03:40:00 dmcmahill Exp $
+
+--- plot/plotInt.h.orig	2008-11-16 22:06:54.000000000 +0000
++++ plot/plotInt.h
+@@ -28,7 +28,7 @@
+ #define VERSATEC		/* Add this for HP plotter support */
+ 
+ /* system V machines lack vfont.h, so include the defs below. */
+-#if  !defined(SYSV) && !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(CYGWIN) && !defined(macosx)
++#if  !defined(SYSV) && !defined(__FreeBSD__) && !defined(__NetBSD__) && !defined(CYGWIN) && !defined(macosx) && !defined(__DragonFly__)
+ #include <vfont.h>
+ #else
+ struct header {

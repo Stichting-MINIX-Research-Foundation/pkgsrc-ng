@@ -1,0 +1,54 @@
+$NetBSD: patch-ad,v 1.4 2012/03/07 15:08:40 hans Exp $
+
+--- src/uartctrl.cpp	2003/08/14 08:54:51	1.1
++++ src/uartctrl.cpp	2003/08/14 09:15:14
+@@ -35,11 +35,41 @@
+ 
+ #define MODULE_NAME "UARTCTRL"
+ 
++#ifdef __sun
++static int getpt(void)
++{
++	return open("/dev/ptmx", O_RDWR|O_NOCTTY);
++}
++#endif
++
+ ///////////////////////////////////////////////////////////////////////////////
+ // ~CUARTCtrl - 
+ //
+ int CUARTCtrl::GetPty()
+ {
++#if defined(__NetBSD__) || defined(__DragonFly__)
++#include <sys/param.h>
++	// masterpty = fd of master pty
++	const char	*letters = "pqrstuvwxyzPQRST";
++	const char	*numbers = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
++	const char	*let;
++	const char	*num;
++	char		 ptyname[MAXPATHLEN];
++	int		 cc;
++
++	cc = strlcpy(ptyname, "/dev/pty", sizeof(ptyname));
++	ptyname[cc + 2] = 0x0;
++	for (let = letters ; *let ; let++) {
++		ptyname[cc] = *let;
++		for (num = numbers ; *num ; num++) {
++			ptyname[cc + 1] = *num;
++		}
++		if ((masterpty = open(ptyname, O_RDWR | O_NONBLOCK, 0666)) >= 0) {
++			return 0;
++		}
++	}
++	return -1;
++#else
+ 	char *namepty;
+ 	struct termios tiopty;
+ 	int curFlags;
+@@ -102,6 +132,7 @@ int CUARTCtrl::GetPty()
+ 		getchar();
+ 	}
+ 	return 0;
++#endif
+ }
+ 
+ ///////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.4 2010/04/17 12:43:03 obache Exp $
+bin/adnsheloex
+bin/adnshost
+bin/adnslogres
+bin/adnsresfilter
+include/adns.h
+lib/libadns.la

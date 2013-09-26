@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.5 2010/03/10 13:43:38 martti Exp $
+
+Make this pkgsrc friendly.
+
+--- src/Makefile.in.orig	2005-10-17 14:07:30.000000000 +0100
++++ src/Makefile.in
+@@ -373,7 +373,7 @@ DIST_SUBDIRS = . \
+ pkgconfigdir = $(libdir)/pkgconfig
+ pkgconfig_DATA = dspam.pc
+ etcdir = $(sysconfdir)
+-etc_SCRIPTS = dspam_conf
++etc_SCRIPTS =
+ libversion = 7:0:0
+ 
+ # Defaults from dspam.conf

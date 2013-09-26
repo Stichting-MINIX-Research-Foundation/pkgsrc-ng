@@ -1,0 +1,29 @@
+$NetBSD: patch-ab,v 1.2 2009/12/10 20:59:22 abs Exp $
+
+--- main.c.orig	1999-06-26 13:48:39.000000000 +0000
++++ main.c
+@@ -212,21 +212,11 @@ quit(int ignored)
+ #ifndef	_putchar
+ 	extern	int _putchar();
+ #endif
+-	extern	char *CE;
+ 
+ 	mvcur(0, COLS - 1, LINES - 1, 0);
+-#ifndef SYSV
+-	if (CE) {	/* try to clear to end of line */
+-		_puts(CE);
+-		endwin();
+-	}
+-	else {		/* otherwise move done a line */
+-#endif
+-		endwin();
+-		putchar('\n');
+-#ifndef SYSV
+-	}
+-#endif
++	clrtoeol();
++	endwin();
++	putchar('\n');
+ 	exit(0);
+ 	/* NOTREACHED */
+ }

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.4 2012/06/04 11:46:01 obache Exp $
+
+SHA1 (pear/Auth_SASL-1.0.6.tgz) = 81473b16de0a8fd10eafc3cceaaf9fa3979ec292
+RMD160 (pear/Auth_SASL-1.0.6.tgz) = 55c26d68c79e0b344c1f8d20c43e3144426af547
+Size (pear/Auth_SASL-1.0.6.tgz) = 9119 bytes

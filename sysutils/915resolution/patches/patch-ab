@@ -1,0 +1,23 @@
+$NetBSD: patch-ab,v 1.3 2008/08/25 15:11:47 joerg Exp $
+
+--- Makefile.orig	2006-02-02 23:01:38.000000000 +0900
++++ Makefile
+@@ -1,9 +1,10 @@
+ PRG=915resolution
+ 
++PREFIX?=/usr
+ SRCS=915resolution.c 
+ OBJS=${SRCS:.c=.o}
+ 
+-CFLAGS:=-s -Wall -ggdb 
++all: ${PRG}
+ 
+ ${PRG}: ${OBJS}
+ 
+@@ -11,5 +12,5 @@ clean:
+ 	rm -f ${OBJS} ${PRG} *~ 
+ 
+ install: ${PRG}
+-	cp ${PRG} /usr/sbin
++	${BSD_INSTALL_PROGRAM} ${PRG} ${DESTDIR}${PREFIX}/sbin
+ 

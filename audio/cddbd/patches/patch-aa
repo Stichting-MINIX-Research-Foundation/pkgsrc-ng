@@ -1,0 +1,147 @@
+$NetBSD: patch-aa,v 1.6 2011/08/28 22:30:17 dholland Exp $
+
+- avoid interactive install
+- configure for pkgsrc
+
+--- install.sh.orig	1996-12-22 03:49:54.000000000 +0000
++++ install.sh
+@@ -37,11 +37,25 @@ id=`id`
+ # Set up access defaults.
+ DIRPERM=755
+ FILEPERM=644
+-BINPERM=6711
++if [ -z "$BINPERM" ]
++then
++	BINPERM=6711
++fi
+ UMASK=022
+ OWNER=`expr "$id" : '.*uid=.*(\(.*\)).*gid'`
+ GROUP=`expr "$id" : '.*gid=[0-9]*(\([a-zA-Z0-9_]*\))'`
+-BINOWNER=$OWNER
++if [ -z "$BINOWNER" ]
++then
++	BINOWNER=$OWNER
++fi
++if [ -z "$BINGROUP" ]
++then
++	BINGROUP=$GROUP
++fi
++if [ -z "$INSTALL" ]
++then
++	INSTALL=/usr/bin/install
++fi
+ 
+ USERS=100
+ LINES=1024
+@@ -94,7 +108,7 @@ logerr()
+ getstr()
+ {
+ 	$ECHO "$* \c"
+-	read ANS
++	ANS=
+ 	if [ -n "$ANS" ]
+ 	then
+ 		return 0
+@@ -113,7 +127,7 @@ getyn()
+ 	while :
+ 	do
+ 		$ECHO "$*? [${YNDEF}] \c"
+-		read ANS
++		ANS=
+ 		if [ -n "$ANS" ]
+ 		then
+ 			case $ANS in
+@@ -202,28 +216,12 @@ instfile()
+ 			rm -f $2
+ 		fi
+ 
+-		cp $1 $2
++		$INSTALL -c -m $3 -o $4 -g $5 $1 $2
+ 		if [ $? != 0 ]
+ 		then
+ 			logerr -n "Cannot install $2: file copy error."
+ 			return 1
+ 		fi
+-
+-		if [ -f $2 ]
+-		then
+-			if [ $3 != default ]
+-			then
+-				chmod $3 $2 2>/dev/null
+-			fi
+-			if [ $4 != default ]
+-			then
+-				chown $4 $2 2>/dev/null
+-			fi
+-			if [ $5 != default ]
+-			then
+-				chgrp $5 $2 2>/dev/null
+-			fi
+-		fi
+ 		return 0
+ 	else
+ 		$ECHO "\t$2 NOT installed"
+@@ -271,23 +269,6 @@ then
+ 	doexit 1
+ fi
+ 
+-# Check privilege
+-if [ "$OWNER" != "root" ]
+-then
+-	$ECHO "You are not the super-user. You should be sure to specify"
+-	$ECHO "install directories that you have the proper write permissions"
+-	$ECHO "for.\n"
+-
+-	YNDEF=n
+-	getyn "Proceed anyway"
+-	if [ $? -ne 0 ]
+-	then
+-		logerr -p "Not super user: installation aborted by user"
+-		doexit 1
+-	fi
+-fi
+-
+-
+ $ECHO "\nInstalling \"cddbd\" CDDB Protocol Server $CDDBD_VER by Steve Scherf"
+ 
+ 
+@@ -330,7 +311,7 @@ done
+ 
+ # Find other directories
+ 
+-BASEDIR=`cat .accessfile`
++BASEDIR=${DESTDIR}`cat .accessfile`
+ WORKDIR=${BASEDIR}
+ CDDBDIR=`dirname ${BASEDIR}`
+ 
+@@ -588,7 +569,7 @@ fi
+ 
+ $ECHO "permissions:  default connect nopost noupdate noget" >> access
+ 
+-YNDEF=y
++YNDEF=n
+ if getyn "Do you want to create the motd file now"
+ then
+ 	if [ "$EDITOR" = "" ]
+@@ -624,10 +605,10 @@ makedir $WORKDIR $DPERM $OWNID $GRPID
+ $ECHO "\nInstalling cddbd files..."
+ 
+ # Binaries
+-instfile cddbd ${BINDIR}/cddbd $BINPERM $BINOWNER $GROUP
++instfile cddbd ${BINDIR}/cddbd $BINPERM $BINOWNER $BINGROUP
+ 
+ # Configuration files
+-instfile access `cat .accessfile`/access $FPERM $OWNID $GRPID
++instfile access ${BASEDIR}/access $FPERM $OWNID $GRPID
+ instfile sites $SITE $FPERM $OWNID $GRPID
+ 
+ if [ -f motd ]
+@@ -635,7 +616,7 @@ then
+ 	instfile motd $MOTD $FPERM $OWNID $GRPID
+ fi
+ 
+-YNDEF=y
++YNDEF=n
+ if getyn "\nDo you want to create the fuzzy matching hash file now"
+ then
+ 	$ECHO "\nPlease wait while the hash file is created."

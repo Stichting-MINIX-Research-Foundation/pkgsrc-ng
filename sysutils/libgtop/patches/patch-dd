@@ -1,0 +1,13 @@
+$NetBSD: patch-dd,v 1.2 2012/01/19 19:43:57 drochner Exp $
+
+--- sysdeps/freebsd/open.c.orig	2011-07-24 19:13:56.000000000 +0000
++++ sysdeps/freebsd/open.c
+@@ -45,6 +45,8 @@ glibtop_open_s (glibtop *server, const c
+ 
+ #if defined(__FreeBSD_kernel__)
+ 	server->os_version_code = __FreeBSD_kernel_version;
++#elif defined(__DragonFly__)
++	server->os_version_code = __DragonFly_version;
+ #else
+ 	server->os_version_code = __FreeBSD_version;
+ #endif

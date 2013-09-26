@@ -1,0 +1,38 @@
+# $NetBSD: Makefile.common,v 1.14 2010/03/15 12:34:32 wiz Exp $
+# used by comms/p5-pilot-link/Makefile
+# used by comms/pilot-link/Makefile
+# used by comms/pilot-link-libs/Makefile
+
+DISTNAME=		pilot-link-${PILOT_LINK_VERS}
+CATEGORIES=		comms
+MASTER_SITES=		http://downloads.pilot-link.org/
+EXTRACT_SUFX=		.tar.bz2
+
+PILOT_LINK_VERS=	0.12.5
+
+MAINTAINER=		pkgsrc-users@NetBSD.org
+HOMEPAGE?=		http://www.pilot-link.org/
+LICENSE=		gnu-gpl-v2 AND gnu-lgpl-v2
+
+USE_LANGUAGES=		c
+USE_LIBTOOL=		yes
+GNU_CONFIGURE=		yes
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=	--without-libiconv
+.else
+CONFIGURE_ARGS+=	--with-libiconv
+.endif
+CONFIGURE_ARGS+=	--with-cpp
+
+CONFIGURE_ARGS+=	--without-java
+CONFIGURE_ARGS+=	--without-itcl
+CONFIGURE_ARGS+=	--without-perl5
+CONFIGURE_ARGS+=	--without-python
+CONFIGURE_ARGS+=	--without-tcl
+CONFIGURE_ARGS+=	--without-tk
+
+DISTINFO_FILE=		${.CURDIR}/../../comms/pilot-link/distinfo
+PATCHDIR=		${.CURDIR}/../../comms/pilot-link/patches

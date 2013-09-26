@@ -1,0 +1,22 @@
+$NetBSD: patch-aa,v 1.6 2009/04/17 18:19:28 drochner Exp $
+
+--- configure.orig	2009-03-14 15:01:50.000000000 -0400
++++ configure
+@@ -20402,7 +20402,7 @@ $as_echo_n "checking for python librarie
+ 
+ link_pymodules_libpython=false;
+ py_enable_shared=`$PYTHON -c "from distutils.sysconfig import get_config_var; print repr(get_config_var('Py_ENABLE_SHARED'))"`
+-if test $py_enable_shared == 1 ; then
++if test $py_enable_shared = 1 ; then
+   if test x`uname -s` != xDarwin; then
+       PYTHON_LDFLAGS="-no-undefined"
+       link_pymodules_libpython=true;
+@@ -20417,7 +20417,7 @@ PYTHON_LIBPL=`$PYTHON -c "from distutils
+ save_CC="$CC"
+ save_LIBS="$LIBS"
+ 
+-PYTHON_EMBED_LIBS="-L${PYTHON_LIBDIR} ${PYTHON_LIB_DEPS} -lpython${PYTHON_VERSION}"
++PYTHON_EMBED_LIBS="-L${PYTHON_LIBDIR} ${PYTHON_LIB_DEPS} -lpython${PYTHON_VERSION} ${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}"
+ 
+ CC="$PYTHON_CC"
+ LIBS="$LIBS $PYTHON_EMBED_LIBS"

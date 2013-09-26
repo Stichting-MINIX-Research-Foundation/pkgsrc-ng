@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.10 2010/04/13 21:18:00 spz Exp $
+
+--- scripts/news.daily.in.orig	2009-05-21 22:08:33.000000000 +0200
++++ scripts/news.daily.in
+@@ -256,6 +256,10 @@ fi
+ 
+ cd ${PATHETC}
+ 
++## Unlimit
++ulimit -d `ulimit -H -d`
++ulimit -n `ulimit -H -n`
++
+ ##  Show the status of the news system.
+ ${DOSTAT} && {
+     ${INNSTAT}

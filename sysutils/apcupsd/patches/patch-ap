@@ -1,0 +1,13 @@
+$NetBSD: patch-ap,v 1.4 2012/02/19 18:21:58 bouyer Exp $
+
+--- platforms/sun/Makefile.orig	2008-06-01 23:57:56.000000000 +0200
++++ platforms/sun/Makefile	2012-02-19 19:20:10.000000000 +0100
+@@ -12,7 +12,7 @@
+ 	$(call MKDIR,/etc/rc1.d)
+ 	$(call MKDIR,/etc/rc2.d)
+ 	$(call MKDIR,/etc/init.d)
+-	$(call INSTPROG,744,apcupsd,/etc/init.d/apcupsd)
++	$(call INSTSCRIPT,744,apcupsd,/etc/init.d/apcupsd)
+ 	$(call SYMLINK,../init.d/apcupsd,/etc/rc0.d/K21apcupsd)
+ 	$(call SYMLINK,../init.d/apcupsd,/etc/rc1.d/S89apcupsd)
+ 	$(call SYMLINK,../init.d/apcupsd,/etc/rc2.d/S89apcupsd)

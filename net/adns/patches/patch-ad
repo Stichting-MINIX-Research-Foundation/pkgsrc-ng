@@ -1,0 +1,27 @@
+$NetBSD: patch-ad,v 1.2 2010/04/17 12:43:03 obache Exp $
+
+--- client/adnstest.c.orig	2006-04-08 14:36:57.000000000 +0000
++++ client/adnstest.c
+@@ -58,7 +58,7 @@ static void quitnow(int rc) {
+   exit(rc);
+ }
+ 
+-#ifndef HAVE_POLL
++#if 0
+ #undef poll
+ int poll(struct pollfd *ufds, int nfds, int timeout) {
+   fputs("poll(2) not supported on this system\n",stderr);
+@@ -302,9 +302,12 @@ int main(int argc, char *const *argv) {
+       mc= 0;
+     }
+ 
++#ifdef HAVE_POLL
+     if (strchr(owninitflags,'p')) {
+       r= adns_wait_poll(ads,&qu,&ans,&mcr);
+-    } else {
++    } else
++#endif
++    {
+       r= adns_wait(ads,&qu,&ans,&mcr);
+     }
+     if (r) failure_errno("wait/check",r);

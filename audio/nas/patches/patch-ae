@@ -1,0 +1,14 @@
+$NetBSD: patch-ae,v 1.4 2013/01/05 12:57:22 mef Exp $
+
+Honor ${PKG_SYSCONFDIR}, see SUBST in Makefile.
+
+--- config/NetAudio.def.orig	Sun Feb 24 17:39:08 2002
++++ config/NetAudio.def
+@@ -8,6 +8,6 @@
+ 
+ XCOMM Directory where NAS will look for it's config file(s)
+ #ifndef NasConfigSearchPath
+-#define NasConfigSearchPath /etc/nas/
++#define NasConfigSearchPath @PKG_SYSCONFDIR@/
+ #endif
+ 

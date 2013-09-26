@@ -1,0 +1,13 @@
+$NetBSD: patch-dc,v 1.3 2009/12/10 20:35:58 abs Exp $
+
+--- lib/libxview/textsw/txt_putkey.c.orig	1993-06-29 05:17:41.000000000 +0000
++++ lib/libxview/textsw/txt_putkey.c
+@@ -19,7 +19,7 @@ static char     sccsid[] = "@(#)txt_putk
+ #include <xview_private/ev_impl.h>
+ #include <errno.h>
+ 
+-extern int      errno;
++static int	textsw_do_put();
+ 
+ Pkg_private Ev_finger_handle ev_add_finger();
+ Pkg_private int      ev_get_selection();

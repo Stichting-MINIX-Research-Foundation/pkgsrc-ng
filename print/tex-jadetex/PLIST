@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.10 2011/03/18 23:26:58 minskim Exp $
+bin/jadetex
+bin/pdfjadetex
+share/texmf-dist/tex/jadetex/base/dsssl.def
+share/texmf-dist/tex/jadetex/base/jadetex.ini
+share/texmf-dist/tex/jadetex/base/jadetex.ltx
+share/texmf-dist/tex/jadetex/base/pdfjadetex.ini
+share/texmf-dist/tex/jadetex/base/uentities.sty
+share/texmf-dist/tex/jadetex/base/ut1omlgc.fd

@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.14 2011/11/30 21:07:20 wiz Exp $
+
+SHA1 (pstoedit-3.60.tar.gz) = 649ade3d873429548eb6dd9f3e13cb79a8d6a1a2
+RMD160 (pstoedit-3.60.tar.gz) = 5e1e40b5d8ea1cee045ce19b5c6322e35f108690
+Size (pstoedit-3.60.tar.gz) = 988351 bytes
+SHA1 (patch-aa) = 7b6f650e502727b680fd91923f05a5188e91bfa6
+SHA1 (patch-ab) = 02f7955e508cdc3b52985ac35d8f91c621e43290
+SHA1 (patch-ac) = aa0c53f93c6f256c72f60f11363f372dfc949c40

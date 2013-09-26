@@ -1,0 +1,121 @@
+$NetBSD: patch-aa,v 1.5 2009/09/23 13:34:33 tnn Exp $
+
+--- Makefile.orig	2001-05-17 21:27:07.000000000 +0200
++++ Makefile
+@@ -5,30 +5,30 @@
+ ######################################################################
+ # Change the following to suit your needs
+ 
+-SHELL=/bin/bash
++SHELL=${SH}
+ 
+ # The directory root of your installation
+ # If you make a personal installation, change it to your home directory
+ # Default: /usr
+ # uncomment the following line to install to the default directories...
+-TREE=/usr
++TREE=${PREFIX}
+ # ...or the following line to install into your home directory:
+ # TREE=$(HOME)
+ 
+ # if you don't have the gd graphic library installed, you have to comment out or
+ # delete the following line. However, gp_map is such a nice program, so you
+ # better go to www.boutell.com and download the gd library.
+-GDPROGRAMS=gp_map
++# GDPROGRAMS=gp_map
+ 
+ # Directory to install the programs themselves. 
+ # Default: /usr/local/bin
+ BINDIR=$(TREE)/bin
+ 
+ # directory to install the manual pages
+-MANDIR=$(TREE)/man
++MANDIR=$(TREE)/$(PKGMANDIR)
+ 
+ #directory to install the data directory
+-DATADIR=$(TREE)/lib
++DATADIR=$(TREE)/share/examples
+ 
+ # documentation. 
+ # If you want to install documents automagically, type:
+@@ -67,18 +67,18 @@ clean:
+ 	-cd src/ ; rm $(PROGRAMS) core
+ 
+ install: all 
+-	@if [ ! -O "$(BINDIR)" ] ; then \
+-	echo "File $(BINDIR) doesn't belong to you!" ;  exit 1 ; fi 
+-	@cd src ; cp $(PROGRAMS) $(BINDIR)
+-
+-	@if [ ! -O "$(MANDIR)" ] ; then \
+-	echo "File $(MANDIR) doesn't belong to you!" ;  exit 1 ; fi 
+-	@cd man1 ; cp $(MANUALS) $(MANDIR)/man1
+-
+-	@if [ ! -O "$(DATADIR)" ] ; then \
+-	echo "File $(DATADIR) doesn't belong to you!" ;  exit 1 ; fi 
+-	-cd $(DATADIR) ; mkdir genpak ; 
+-	@cd data ; cp -i $(DATAFILES) $(DATADIR)/genpak
++#	@if [ ! -O "$(BINDIR)" ] ; then \
++#	echo "File $(BINDIR) doesn't belong to you!" ;  exit 1 ; fi 
++	@cd src ; ${BSD_INSTALL_PROGRAM} $(PROGRAMS) ${DESTDIR}$(BINDIR)
++
++#	@if [ ! -O "$(MANDIR)" ] ; then \
++#	echo "File $(MANDIR) doesn't belong to you!" ;  exit 1 ; fi 
++	@cd man1 ; ${BSD_INSTALL_MAN} $(MANUALS) ${DESTDIR}$(MANDIR)/man1
++
++#	@if [ ! -O "$(DATADIR)" ] ; then \
++#	echo "File $(DATADIR) doesn't belong to you!" ;  exit 1 ; fi 
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}$(DATADIR)/genpak ; 
++	@cd data ; ${BSD_INSTALL_DATA} $(DATAFILES) ${DESTDIR}$(DATADIR)/genpak
+ 
+ 	@echo
+ 	@echo Installation is now complete. Type 
+@@ -99,26 +99,26 @@ filelist:
+ 		echo "$(DATADIR)/genpak/"$$i >> FILES.TXT ; done
+ 
+ docs:
+-	@if [ ! -O "$(TREE)" ] ; \
+-	then echo "File $(TREE) doesn't belong to you!" ; exit 1 ; fi ; \
+-	if [ ! -e $(DOCDIR) ] ; \
++#	@if [ ! -O "$(TREE)" ] ; \
++#	then echo "File $(TREE) doesn't belong to you!" ; exit 1 ; fi ; \
++	if [ ! -d $(DOCDIR) ] ; \
+ 		then mkdir $(DOCDIR) ; fi ; \
+-	if [ ! -e $(DOCDIR)/gp ] ; then \
++	if [ ! -d $(DOCDIR)/gp ] ; then \
+ 		mkdir $(DOCDIR)/gp ; fi ; \
+ 	cp -r html README.TXT LICENSE.TXT CHANGES.TXT Makefile INSTALL.TXT  \
+ 		$(DOCDIR)/gp ;
+ 
+ uninstall:
+ 
+-	@if [ ! -O "$(BINDIR)" ] ; \
+-		then echo "Directory $(BINDIR) doesn't belong to you!" ; \
+-		exit 1 ; fi
++#	@if [ ! -O "$(BINDIR)" ] ; \
++#		then echo "Directory $(BINDIR) doesn't belong to you!" ; \
++#		exit 1 ; fi
+ 	@echo Removing programs...
+ 	@cd $(BINDIR) ; rm -f $(PROGRAMS)
+ 
+-	@if [ ! -O "$(MANDIR)" ] ; \
+-		then echo "Directory $(MANDIR) doesn't belong to you!" ;  \
+-		exit 1 ; fi
++#	@if [ ! -O "$(MANDIR)" ] ; \
++#		then echo "Directory $(MANDIR) doesn't belong to you!" ;  \
++#		exit 1 ; fi
+ 	
+ 	@echo Removing manuals...
+ 	@cd $(MANDIR)/man1 ; rm -f $(MANUALS) 
+@@ -127,9 +127,9 @@ uninstall:
+ 	@echo Are you sure you really want to remove this data? '(yes/no) '
+ 	@read ANSWER ; if [ $ANSWER != "yes" ] ; then \
+ 		echo OK, leaving $(DATADIR)/genpak untouched ; else \
+-	if [ ! -O "$(DATADIR)" ] ; \
+-		then echo "Directory $(DATADIR) doesn\'t belong to you!" ; \
+-	exit 1 ; fi ; \
++#	if [ ! -O "$(DATADIR)" ] ; \
++#		then echo "Directory $(DATADIR) doesn\'t belong to you!" ; \
++#	exit 1 ; fi ; \
+ 	cd $(DATADIR)/genpak ; rm -f $(DATAFILES) ; fi
+ 	-cd $(DATADIR) ; rmdir genpak
+ 	@echo

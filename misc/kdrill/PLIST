@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.7 2009/06/14 20:52:13 joerg Exp $
+bin/kdrill
+lib/X11/app-defaults/KDrill
+${IMAKE_MAN_DIR}/kdrill.${IMAKE_MANNEWSUFFIX}
+share/kdrill/edict.gz
+share/kdrill/fullkatahira.edic.gz
+share/kdrill/hira.edic.gz
+share/kdrill/hiraplus.edic.gz
+share/kdrill/kanjidic.gz
+share/kdrill/kata.edic.gz
+share/kdrill/kataplus.edic.gz

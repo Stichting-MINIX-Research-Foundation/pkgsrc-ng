@@ -1,0 +1,23 @@
+$NetBSD: patch-aa,v 1.4 2012/07/03 17:32:00 joerg Exp $
+
+--- Makefile.in.orig	2002-01-27 20:56:56.000000000 +0000
++++ Makefile.in
+@@ -51,7 +51,8 @@ RELEASE_PATH=${HOME}/release
+ 
+ CC=@CC@
+ CXX=@CXX@
+-CFLAGS=@CFLAGS@ @DEFS@
++CFLAGS+=@CPPFLAGS@ @CFLAGS@ @DEFS@
++CFLAGS_I=$(CFLAGS)
+ #CFLAGS_O=-O2
+ #CFLAGS_O=-O2 -fomit-frame-pointer
+ #CFLAGS_P=$(CFLAGS) -pg
+@@ -196,7 +197,7 @@ debclean: distclean
+ 		.version_patch`  > .version
+ 
+ _version.h: .version
+-	@/bin/echo -e \#define SZ_VERSION \"`cat .version`\"  > _version.h
++	@/bin/echo '#define SZ_VERSION '\"`cat .version`\"  > _version.h
+ 
+ .PHONY: transmit
+ transmit: # distribution-archive

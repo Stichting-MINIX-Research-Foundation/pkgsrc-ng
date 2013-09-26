@@ -1,0 +1,25 @@
+$NetBSD: patch-ag,v 1.2 2011/10/01 21:42:16 dholland Exp $
+
+- void main
+- fix printf format gcc objects to
+
+--- fed/fed.c.orig	1995-10-07 21:44:47.000000000 +0000
++++ fed/fed.c
+@@ -48,7 +48,7 @@
+ 
+ #include "fed.h"
+ 
+-void main(int argc, char *argv[])
++int main(int argc, char *argv[])
+ {
+ 	int i;
+ 	int row, col;
+@@ -142,7 +142,7 @@ void main(int argc, char *argv[])
+ 
+ 	for(i=0; i<256; i++)
+ 	{
+-		mvwprintw(set_win,row+1,col+1,"%02.2X",i);
++		mvwprintw(set_win,row+1,col+1,"%2.2X",i);
+ 		if(++row > 15)
+ 		{
+ 			row = 0;

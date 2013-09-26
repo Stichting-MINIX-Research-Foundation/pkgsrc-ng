@@ -1,0 +1,15 @@
+$NetBSD: patch-aj,v 1.4 2013/06/12 20:28:41 asau Exp $
+
+Don't attempt to strip scripts, it doesn't work.
+
+--- packages/http/Makefile.in.orig	2012-07-07 02:14:37.000000000 +0200
++++ packages/http/Makefile.in	2013-03-07 12:27:41.027386177 +0100
+@@ -60,7 +60,7 @@
+ 		mkdir -p $(DESTDIR)$(EXDIR)/pwp
+ 		(cd $(srcdir)/examples && $(INSTALL_DATA) $(EXAMPLES) $(DESTDIR)$(EXDIR))
+ 		(cd $(srcdir)/examples/pwp && $(INSTALL_DATA) *.pwp *.pl $(DESTDIR)$(EXDIR)/pwp)
+-		(cd $(srcdir)/examples && $(INSTALL_PROGRAM) $(EXAMPLEEXE) $(DESTDIR)$(EXDIR))
++		(cd $(srcdir)/examples && $(INSTALL_SCRIPT) $(EXAMPLEEXE) $(DESTDIR)$(EXDIR))
+ 
+ uninstall::
+ 		(cd $(LIBDIR) && rm -f $(LIBPL))

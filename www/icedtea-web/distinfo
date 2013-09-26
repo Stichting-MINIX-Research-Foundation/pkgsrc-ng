@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2013/06/02 06:15:44 ryoon Exp $
+
+SHA1 (icedtea-web-9e1f7dc48c20.tar.bz2) = e213b628eef92ddd2fe11267e6159e0d7409e548
+RMD160 (icedtea-web-9e1f7dc48c20.tar.bz2) = c5d36a058072ec485903804dfe2928a12ecca909
+Size (icedtea-web-9e1f7dc48c20.tar.bz2) = 978193 bytes
+SHA1 (patch-Makefile.am) = f7554d80efe54e362f8ababc4614700f47a67b3b

@@ -1,0 +1,26 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 19:10:36 joerg Exp $
+bin/expack
+bin/exult
+bin/shp2pcx
+bin/splitshp
+bin/textpack
+bin/ucc
+bin/ucxt
+man/man1/expack.1
+man/man1/ipack.1
+man/man1/shp2pcx.1
+man/man1/splitshp.1
+man/man1/textpack.1
+man/man6/exult.6
+share/applications/exult.desktop
+share/exult/exult.flx
+share/exult/exult_bg.flx
+share/exult/exult_si.flx
+share/exult/exultmsg.txt
+share/exult/midisfx.flx
+share/exult/u7bgintrinsics.data
+share/exult/u7misc.data
+share/exult/u7opcodes.data
+share/exult/u7siintrinsics.data
+share/icons/exult.png
+@pkgdir share/exult/estudio/new

@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.2 2010/03/03 08:44:39 obache Exp $
+
+--- libdv/Makefile.in.orig	2006-09-25 20:11:48.000000000 +0000
++++ libdv/Makefile.in
+@@ -61,7 +61,7 @@ am__strip_dir = `echo $$p | sed -e 's|^.
+ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(pkgincludedir)"
+ libLTLIBRARIES_INSTALL = $(INSTALL)
+ LTLIBRARIES = $(lib_LTLIBRARIES)
+-libdv_la_LIBADD =
++libdv_la_LIBADD = $(PTHREAD_LIBS)
+ am__libdv_la_SOURCES_DIST = dv.c dct.c idct_248.c weighting.c quant.c \
+ 	vlc.c place.c parse.c bitstream.c YUY2.c YV12.c rgb.c audio.c \
+ 	util.c encode.c headers.c enc_input.c enc_audio_input.c \

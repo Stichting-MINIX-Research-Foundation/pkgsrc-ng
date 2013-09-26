@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:25:13 joerg Exp $
+${PLIST.XvMC}lib/libchromeXvMC.la
+${PLIST.XvMC}lib/libchromeXvMCPro.la
+lib/xorg/modules/drivers/openchrome_drv.la
+man/man4/openchrome.4

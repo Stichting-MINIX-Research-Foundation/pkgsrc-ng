@@ -1,0 +1,16 @@
+$NetBSD: patch-ad,v 1.8 2012/06/03 21:44:59 wiz Exp $
+
+--- drivers/drv_sun.c.orig	2012-03-14 17:02:59.000000000 +0000
++++ drivers/drv_sun.c
+@@ -79,9 +79,9 @@ extern int fputs(const char *, FILE *);
+ #endif
+ 
+ /* Sound device to open */
+-#ifdef SUNOS4
++#ifndef SOLARIS /* SunOS, NetBSD */
+ #define SOUNDDEVICE "/dev/sound"
+-#else /* Solaris, *BSD */
++#else /* Solaris */
+ #define SOUNDDEVICE "/dev/audio"
+ #endif
+ 

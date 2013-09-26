@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.16 2013/06/30 11:47:44 ryoon Exp $
+
+SHA1 (mantisbt-1.2.15.tar.gz) = 24bb24cb5ece5054c7c1638b040118fc60927a87
+RMD160 (mantisbt-1.2.15.tar.gz) = 8c257614ff234c120ff2063defd824c9a014b8b2
+Size (mantisbt-1.2.15.tar.gz) = 3577359 bytes

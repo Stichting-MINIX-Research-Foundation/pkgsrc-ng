@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.5 2009/12/10 20:35:56 abs Exp $
+
+--- doc/Imakefile.orig	1993-06-29 05:13:15.000000000 +0000
++++ doc/Imakefile
+@@ -17,7 +17,7 @@ DOCFILES = xview-info olgx_api.txt olgx_
+ ALLFILES = $(DOCFILES)
+ 
+ install::
+-        $(MKDIRHIER) $(DOC_DEST)
++	$(MKDIRHIER) $(DESTDIR)$(DOC_DEST)
+ 
+ InstallNonExecList($(DOCFILES),$(DOC_DEST))
+ PopulateSCCSTree(h,$(ALLFILES) README)

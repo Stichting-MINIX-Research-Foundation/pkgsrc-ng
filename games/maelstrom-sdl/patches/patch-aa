@@ -1,0 +1,36 @@
+$NetBSD: patch-aa,v 1.4 2011/05/06 05:28:39 dholland Exp $
+
+DESTDIR support.
+Install the docs.
+Use $(CP).
+Don't install default scores file mode 666.
+
+--- Makefile.am.orig	2001-07-23 03:45:05.000000000 +0000
++++ Makefile.am
+@@ -65,21 +65,22 @@ DIST_SUBDIRS = $(SUBDIRS) Images Docs
+ 
+ # Special install rule for the game
+ install:
+-	make install_gamedata target=@GAME_INSTALLDIR@
++	make install_gamedata target=${DESTDIR}@GAME_INSTALLDIR@
++	make install_gamedocs target=${DESTDIR}$(prefix)/share/doc/Maelstrom
+ 
+ install_gamedata:
+ 	sh mkinstalldirs $(target)/
+-	cp -rv Images			\
++	$(CP) -R Images			\
+ 	       Maelstrom_Fonts		\
+ 	       Maelstrom_Sounds		\
+ 	       Maelstrom_Sprites	\
+ 	       Maelstrom-Scores		\
+ 	       icon.bmp icon.xpm	$(target)/
+-	chmod 666 $(target)/Maelstrom-Scores
++	chmod 644 $(target)/Maelstrom-Scores
+ 
+ install_gamedocs:
+ 	sh mkinstalldirs $(target)/
+-	cp -rv README* COPYING* Docs*	$(target)/
++	$(CP) -R README* COPYING* Docs*	$(target)/
+ 
+ # Rule to build tar-gzipped distribution package
+ $(PACKAGE)-$(VERSION).tar.gz: dist

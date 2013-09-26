@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.21 2013/06/12 20:31:51 wiz Exp $
+
+SHA1 (flac-1.3.0.tar.xz) = a136e5748f8fb1e6c524c75000a765fc63bb7b1b
+RMD160 (flac-1.3.0.tar.xz) = 6ced4a7ab2f1b0e583830b0ddc37a842703ee4c9
+Size (flac-1.3.0.tar.xz) = 1084256 bytes
+SHA1 (patch-af) = a91054ce5d37ac2dc88725fa68c59413b5f52067

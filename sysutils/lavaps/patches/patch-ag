@@ -1,0 +1,21 @@
+$NetBSD: patch-ag,v 1.2 2011/11/25 22:18:54 joerg Exp $
+
+--- src/blob.cc.orig	2004-12-16 05:12:38.000000000 +0000
++++ src/blob.cc
+@@ -21,6 +21,7 @@
+ 
+ #include "config.h"
+ 
++#include <inttypes.h>
+ #include <stdlib.h>  // atoi
+ 
+ #include <iostream>
+@@ -503,7 +504,7 @@ void
+ blob::print()
+ {
+ 	ENTRY_TRACE(__FILE__,__LINE__);
+-	cout << O_("blob: ") << (unsigned)this << O_(" x=") << x_ << O_(" step=") << x_step_ << O_(" num=") << num_ << O_(":");
++	cout << O_("blob: ") << (uintptr_t)this << O_(" x=") << x_ << O_(" step=") << x_step_ << O_(" num=") << num_ << O_(":");
+ 	for (int i = 0; i < num_; i++) {
+ 		cout << O_(" ") << y_lows_[i] << O_("-") << y_highs_[i];
+ 	};

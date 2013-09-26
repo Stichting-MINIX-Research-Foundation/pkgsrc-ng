@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.5 2012/01/17 15:44:43 adam Exp $
+
+--- src/Makefile.in.orig	2006-11-30 11:57:14.000000000 +0000
++++ src/Makefile.in
+@@ -1344,7 +1344,7 @@ info: info-am
+ 
+ info-am:
+ 
+-install-data-am: install-dist_lispDATA
++install-data-am:
+ 
+ install-dvi: install-dvi-am
+ 

@@ -1,0 +1,39 @@
+$NetBSD: patch-af,v 1.4 2011/05/22 19:11:42 dholland Exp $
+
+- config for netbsd
+- fix shmget?
+- use intptr_t
+
+--- dptutil/engcalls.c.orig	2002-08-13 15:02:24.000000000 +0000
++++ dptutil/engcalls.c
+@@ -118,6 +118,12 @@ char *EnginePathNameDefault = "/opt/SUNW
+ char *CommEnginePathNameDefault = "/opt/SUNWhwrdg/dptcom";
+ char *DefaultPathName = "/opt/SUNWhwrdg/";
+ 
++#elif defined (__NetBSD__)
++
++char *EnginePathNameDefault = _NBSD_LIBEXEC "/dpteng &";
++char *CommEnginePathNameDefault = _NBSD_LIBEXEC "/dptcom &";
++char *DefaultPathName = _NBSD_LIBEXEC;
++
+ #else
+ 
+ char *EnginePathNameDefault = "/usr/dpt/dpteng &";
+@@ -954,7 +960,7 @@ char *AllocBuffers(uLONG toEngSize, uLON
+   /* Get The Shared Memory Segment */
+ 
+     BufferID = shmget(IPC_PRIVATE,(int)(toEngTotalSize + fromEngTotalSize),
+-                      SHM_ALLRD | SHM_ALLWR | IPC_CREAT);
++                      SHM_URD | SHM_UWR | IPC_CREAT);
+ 
+   /* If We Got The Segment, Try To Attach To It */
+ 
+@@ -965,7 +971,7 @@ char *AllocBuffers(uLONG toEngSize, uLON
+ 
+   /* The Attach Failed, So DeAllocate The Shared Memory */
+ 
+-        if((int)SharedMemoryPtr == -1)
++        if((intptr_t)SharedMemoryPtr == -1)
+           {
+             shmctl(BufferID,IPC_RMID,&shm_buff);
+             SharedMemoryPtr = NULL;

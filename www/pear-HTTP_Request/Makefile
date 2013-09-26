@@ -1,0 +1,15 @@
+# $NetBSD: Makefile,v 1.13 2012/10/28 06:30:57 asau Exp $
+
+DISTNAME=	HTTP_Request-1.4.4
+#CATEGORIES+=	www
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+COMMENT=	PHP classes to provides an easy way to perform HTTP requests
+
+CONFLICTS=	php-pear-HTTP_Request-[0-9]*
+
+DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_URL>=1.0.12:../../net/pear-Net_URL
+DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_Socket>=1.0.7:../../net/pear-Net_Socket
+
+.include "../../lang/php/pear.mk"
+.include "../../mk/bsd.pkg.mk"

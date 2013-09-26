@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.7 2012/09/29 06:43:57 dholland Exp $
+lib/tcl8.5/pdflib/pdflib_tcl.la
+lib/tcl8.5/pdflib/pkgIndex.tcl

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:25:16 joerg Exp $
+share/doc/xjman/COPYRIGHT
+share/doc/xjman/COPYRIGHT.XJDP
+share/doc/xjman/README

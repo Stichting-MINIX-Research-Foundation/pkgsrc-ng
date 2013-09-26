@@ -1,0 +1,66 @@
+$NetBSD: patch-aa,v 1.5 2011/12/21 08:36:01 dholland Exp $
+
+- configure for pkgsrc
+- fix deps of a2crd
+
+--- Makefile.orig	1995-04-25 07:04:52.000000000 +0000
++++ Makefile
+@@ -8,15 +8,15 @@ PAPERSIZE = US
+ #GETOPT = getopt.o
+ 
+ # Use a ansi or K&R compiler
+-CC = cc 
+-CFLAGS = -D$(PAPERSIZE) -g
++#CC = cc 
++#CFLAGS = -D$(PAPERSIZE) -g
+ 
+ # where to put the resulting program
+-BINDIR = /usr/local/bin
++BINDIR = ${PREFIX}/bin
+ 
+ # where to put the man page
+-MANDIR = /usr/man
+-MANEXT = l
++MANDIR = ${PREFIX}/${PKGMANDIR}
++MANEXT = 1
+ 
+ # You should not have to change anything below this line
+ 
+@@ -35,9 +35,9 @@ all: $(PROGRAMS)
+ chord : $(OBJ) Makefile
+ 	$(CC) $(CFLAGS) -o $@ $(OBJ)
+ 
+-a2crd: a2crd.o Makefile
++a2crd: a2crd.o common.o Makefile
+ 	$(CC) $(CFLAGS) -o $@ a2crd.o common.o
+-	
++
+ chord.o    : chord.h
+ common.o   : chord.h
+ grid.o     : chord.h
+@@ -46,13 +46,12 @@ getopt.o   : getopt.h
+ toc.o	   : chord.h
+ 
+ install : all
+-	cp $(PROGRAMS) $(BINDIR)
+-	rm -f $(MANDIR)/cat$(MANEXT)/chord.$(MANEXT)
+-	cp chord.man $(MANDIR)/man$(MANEXT)/chord.$(MANEXT)
+-	chmod 666 $(MANDIR)/man$(MANEXT)/chord.$(MANEXT)
+-	Cp a2crd.man $(MANDIR)/man$(MANEXT)/a2crd.$(MANEXT)
+-	chmod 666 $(MANDIR)/man$(MANEXT)/a2crd.$(MANEXT)
+-	
++	for prog in $(PROGRAMS); do \
++		${BSD_INSTALL_PROGRAM} $$prog ${DESTDIR}$(BINDIR)/$$prog; \
++	done
++	${BSD_INSTALL_MAN} chord.man ${DESTDIR}$(MANDIR)/man$(MANEXT)/chord.$(MANEXT)
++	${BSD_INSTALL_MAN} a2crd.man ${DESTDIR}$(MANDIR)/man$(MANEXT)/a2crd.$(MANEXT)
++
+ shar : $(SRC)
+ 	rm -f $(RELNAME).part*
+ 	shar -F -L 60 -o $(RELNAME).part $(SRC) $(INCL) $(SONGS) $(DOCS)
+@@ -67,5 +66,3 @@ lint : $(SRC)
+ 
+ clean:
+ 	rm -f core *.o chord 
+-
+-	

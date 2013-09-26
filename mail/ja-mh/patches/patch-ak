@@ -1,0 +1,14 @@
+$NetBSD: patch-ak,v 1.4 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare errno.
+
+--- uip/annosbr.c.orig	2006-04-11 13:45:01.000000000 +0000
++++ uip/annosbr.c
+@@ -11,7 +11,6 @@ static char ident[] = "@(#)$Id: annosbr.
+ #include <sys/stat.h>
+ 
+ 
+-extern int  errno;
+ off_t lseek ();
+ static annosbr();
+ 

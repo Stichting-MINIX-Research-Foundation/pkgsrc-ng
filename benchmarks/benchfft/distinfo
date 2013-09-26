@@ -1,0 +1,22 @@
+$NetBSD: distinfo,v 1.12 2012/07/03 18:19:17 joerg Exp $
+
+SHA1 (benchfft-2.0.tar.gz) = b49cbad9d390e54d3afe661d51d3dce7b3d6435e
+RMD160 (benchfft-2.0.tar.gz) = bd9ef45e633b8384c836e32e1e1cee877495bb26
+Size (benchfft-2.0.tar.gz) = 585518 bytes
+SHA1 (fftw-2.0.1.tar.gz) = b6b9d44a1204eb82d1651824941d3ed49d5f9282
+RMD160 (fftw-2.0.1.tar.gz) = ad28a3fd1e17de6d5158f50ad286887c5f886492
+Size (fftw-2.0.1.tar.gz) = 894543 bytes
+SHA1 (patch-aa) = 11c7d759af18a51da99231c964a079147656c9cc
+SHA1 (patch-ab) = 1c1be2e043ea9280f70dddd8082d20e929ea9d49
+SHA1 (patch-ac) = 24a1f01426f7e905f5033202b075786f2a632aa4
+SHA1 (patch-ad) = bb9d22c526a5f9ef4c187893a964ae2d0d71ea80
+SHA1 (patch-ae) = afe38ba1f8d8d3497e5d6a8c722f4ab11b6f1c3a
+SHA1 (patch-af) = b301bdb6707f448fae83d1f0659ae966e3869027
+SHA1 (patch-ag) = a08153a6a8800184e7d186bf44a36f11372e853c
+SHA1 (patch-ah) = f03ce90b929b8a460157aff96facb3163d4e401c
+SHA1 (patch-c__source_bitrev_c) = a5ba61121c0a0950278cbe04f6638afd091d106c
+SHA1 (patch-c__source_dint_c) = 5f86bea25e7a290f5f02b5423602fa2db87a588d
+SHA1 (patch-c__source_dintime.c) = ef966866c209ee9fc482b4af77d759b23752d32b
+SHA1 (patch-c__source_fft__duhamel.c) = de1168a0d0be44eceeb4808f953894746194dcca
+SHA1 (patch-c__source_idint.c) = 6434f2180c23e909ca099bd6e9f10757710b25a3
+SHA1 (patch-c__source_idintime.c) = 8cff726b52c5964fa6da1a011834f7637f24bb8d

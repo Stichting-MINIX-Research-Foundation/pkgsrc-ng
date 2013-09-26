@@ -1,0 +1,161 @@
+# $NetBSD: transform-gcc,v 1.28 2012/07/23 11:58:41 jperkin Exp $
+#
+# This file handles the transformations needed for gcc that can be done
+# looking at only one argument at a time.
+#
+
+transform_setname "transform-gcc"
+
+case $arg in
+
+# Standard options.
+-[EcgOos]		|\
+-[DILlU]?*		|\
+-O[01]			) transform_pass ;;
+
+# Needed for the GNU configure scripts:
+-V			|\
+-v			|\
+--version		) transform_pass ;;
+
+# We occasionally override specs to force particular options.
+-specs=*		|\
+-specs			) transform_pass ;;
+
+# GCC extensions.
+-			|\
+-dynamic		|\
+-export-dynamic		|\
+-falign-functions=*	|\
+-falign-loops=*		|\
+-falign-jumps=*		|\
+-fexpensive-optimizations |\
+-ffast-math		|\
+-ffloat-store		|\
+-fhonour-copts		|\
+-finline-functions	|\
+-fno-align-*		|\
+-fno-builtin*		|\
+-fno-common		|\
+-fno-implicit-templates	|\
+-fno-inline-functions	|\
+-fno-strict-aliasing	|\
+-fomit-frame-pointer	|\
+-fPIC			|\
+-fpic			|\
+-fpcc-struct-return	|\
+-freg-struct-return	|\
+-frename-registers	|\
+-fsigned-char		|\
+-funroll-loops		|\
+-funsigned-char		|\
+-fweb			|\
+-fwrapv			|\
+-ggdb			|\
+-M			|\
+-M[DFMPT]		|\
+-MMD			|\
+-m32			|\
+-m64			|\
+-mabi=*			|\
+-march=*		|\
+-mcpu=*			|\
+-momit-leaf-frame-pointer |\
+-mpreferred-stack-boundary=* |\
+-mpush-args		|\
+-mschedule=*		|\
+-mieee-fp		|\
+-O[23s]			|\
+-pedantic		|\
+-pedantic-errors	|\
+-pipe			|\
+-pthread		|\
+-print-prog-name=*	|\
+-print-search-dirs	|\
+-S			|\
+-shared			|\
+-static			|\
+-std=c99		|\
+-std=gnu89		|\
+-std=gnu99		|\
+-W			|\
+-W[cLlS],*		|\
+-Wall			|\
+-Wbounded		|\
+-Wcast-align		|\
+-Wcast-qual		|\
+-Wchar-subscripts	|\
+-Wconversion		|\
+-Wextra			|\
+-Werror			|\
+-Werror-implicit-function-declaration |\
+-Wformat*		|\
+-Wmissing-declarations	|\
+-Wmissing-format-attribute |\
+-Wmissing-prototypes	|\
+-Wnested-externs	|\
+-Wno-error		|\
+-Wno-format-y2k		|\
+-Wno-format-zero-length	|\
+-Wno-implicit-int	|\
+-Wno-import		|\
+-Wno-inline		|\
+-Wno-long-long		|\
+-Wno-sign-compare	|\
+-Wno-traditional	|\
+-Wno-undef		|\
+-Wno-uninitialized	|\
+-Wno-unused		|\
+-Wno-unused-parameter	|\
+-Wno-write-strings	|\
+-Wparentheses		|\
+-Wpointer-arith		|\
+-Wreturn-type		|\
+-Wshadow		|\
+-Wsign-compare		|\
+-Wstrict-aliasing	|\
+-Wstrict-prototypes	|\
+-Wswitch		|\
+-Wunused		|\
+-Wundef			|\
+-Wwrite-strings		) transform_pass ;;
+
+# There are some packages suppressing all warnings. We don't want that.
+-w			) transform_discard ;;
+
+# Options specific to g++.
+-fexceptions		|\
+-fmessage-length=*	|\
+-fno-check-new		|\
+-fno-exceptions		|\
+-fno-rtti		|\
+-Wno-non-virtual-dtor	|\
+-ftemplate-depth=*	) transform_pass ;;
+
+# Options specific to Objective C
+-fgnu-runtime		|\
+-fconstant-string-class=* ) transform_pass ;;
+
+# Old-style rpath specifier, may come from autoconf's AC_PATH_XTRA.
+# Our gcc re-orders -R args relative to -Wl,-R specifiers (puts -R
+# args at the front of the "ld" invocation), which messes up the relative
+# search order.  Fix this by rewriting -R to -Wl,-R.
+-R*			) transform_to "-Wl,$arg" ;;
+
+# Other compiler's options that have corresponding GCC options.
+-Kpic			|\
+-kpic			|\
+-KPIC			|\
+-kPIC			) transform_to "-fPIC" ;;
+-mt			) transform_to "-threads" ;;
+-64			) transform_to "-m64" ;;
+
+# Ignore SunPRO flags to prevent it from being recognized as a entry point
+# option for `ld'.
+-errwarn=*		|\
+-errwarn		) transform_discard_with_warning ;;
+
+# Unknown options.
+-*			) transform_pass_with_warning ;;
+
+esac

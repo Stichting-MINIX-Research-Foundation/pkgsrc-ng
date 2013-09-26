@@ -1,0 +1,287 @@
+$NetBSD: patch-ab,v 1.4 2012/07/03 17:29:20 joerg Exp $
+
+--- xclock.c.orig	1995-05-22 13:47:42.000000000 +0000
++++ xclock.c
+@@ -17,9 +17,7 @@
+  *      1990
+  */
+ #include <stdio.h>
+-#ifndef VMS
+-#include <malloc.h>
+-#endif
++#include <stdlib.h>
+ #include <math.h>
+ #include <pwd.h>
+ #include <unistd.h>
+@@ -264,10 +262,29 @@ static Boolean	showSecondHand = False;	 
+ 
+ static Boolean	iconified = False;	   /*  Clock iconified?		*/
+ 
+-
+-
+-
+-
++static void ParseGeometry(Widget, int, int, int);
++static int Round(double);
++static void DigitalString(char *);
++static void Syntax(char *);
++static void InitializeCat(Pixel, Pixel, Pixel);
++static GC CreateTailGC(void);
++static GC CreateEyeGC(void);
++static Pixmap CreateTailPixmap(double);
++static Pixmap CreateEyePixmap(double);
++static void EraseHands(Widget, struct tm *);
++static void HandleExpose(Widget, XtPointer, XmDrawingAreaCallbackStruct *);
++static void HandleInput(Widget, XtPointer, XmDrawingAreaCallbackStruct *);
++static void HandleResize(Widget, XtPointer, XmDrawingAreaCallbackStruct *);
++static void Tick(Widget, int);
++static void AlarmSetCallback(Widget, XtPointer, XmToggleButtonCallbackStruct *);
++static void AlarmBellCallback(Widget, XtPointer, XmToggleButtonCallbackStruct *);
++static void ChimeCallback(Widget, XtPointer, XmToggleButtonCallbackStruct *);
++static void AckAlarmCallback(Widget, XtPointer, XmPushButtonCallbackStruct *);
++static void RereadAlarmCallback(Widget, Widget, XmPushButtonCallbackStruct *);
++static void EditAlarmCallback(Widget, Widget, XmPushButtonCallbackStruct *);
++static void ExitCallback(Widget, XtPointer, XmPushButtonCallbackStruct *);
++static void MapCallback(Widget, XtPointer, XEvent *);
++static void SetSeg(int, int, int, int);
+ 
+ main(argc, argv)
+     int 	argc;
+@@ -281,7 +298,6 @@ main(argc, argv)
+     XGCValues	gcv;
+     u_long 	valueMask;
+     XmFontList	fontList = (XmFontList)NULL;
+-    extern void	ParseGeometry();
+ 
+     
+     static XtResource	resources[] = {
+@@ -351,7 +367,7 @@ main(argc, argv)
+ 
+ 	{ "mode", "Mode", XtRString, sizeof(char *),
+ 	    XtOffset(ApplicationDataPtr, modeString),
+-	    XtRImmediate, (XtPointer)"analog"},
++	    XtRImmediate, (XtPointer)"cat"},
+ 
+ 	{ "help", "Help", XtRBoolean, sizeof(Boolean),
+ 	    XtOffset(ApplicationDataPtr, help),
+@@ -391,7 +407,6 @@ main(argc, argv)
+ 	{ "-help",        "*help",         XrmoptionNoArg,  (XtPointer)"on" },
+     };
+     
+-    extern XtEventHandler	MapCallback();
+     
+ 
+     /* 
+@@ -403,7 +418,7 @@ main(argc, argv)
+     /*
+      *  Open up the system
+      */
+-    topLevel = XtAppInitialize(&appContext, "XClock",
++    topLevel = XtAppInitialize(&appContext, "Catclock",
+ 			       (XrmOptionDescList)(&options[0]),
+ 			       XtNumber(options),
+ 			       (unsigned int *)&argc, argv, NULL,
+@@ -418,7 +433,6 @@ main(argc, argv)
+      *  Print help message and exit if asked
+      */
+     if (appData.help) {
+-	extern void Syntax();
+ 
+ 	Syntax(argv[0]);
+     }
+@@ -568,7 +582,6 @@ main(argc, argv)
+ 	    time_t	timeValue;
+ 	    int		stringDir;
+ 	    XCharStruct	xCharStr;
+-	    extern void	DigitalString();
+ 
+ 	    /*
+ 	     *  Padding is around time text
+@@ -794,7 +807,6 @@ main(argc, argv)
+      *  Create cat pixmaps, etc. if in CAT_CLOCK mode
+      */
+     if (clockMode == CAT_CLOCK) {
+-	extern void InitializeCat();
+ 	
+ 	InitializeCat(appData.catColor,
+ 		      appData.detailColor,
+@@ -806,9 +818,6 @@ main(argc, argv)
+      *  Finally, install necessary callbacks
+      */
+     {
+-	extern XtCallbackProc 	HandleExpose(),
+-				HandleResize(),
+-				HandleInput();
+ 	
+ 	XtAddCallback(canvas, XmNexposeCallback, HandleExpose, NULL);
+ 	XtAddCallback(canvas, XmNresizeCallback, HandleResize, NULL);
+@@ -1191,7 +1200,6 @@ static void DrawLine(blankLength, length
+     double 	fractionOfACircle;
+ {
+     double 		angle, cosAngle, sinAngle;
+-    extern void		SetSeg();
+ 
+     /*
+      *  A full circle is 2 M_PI radians.
+@@ -1288,7 +1296,6 @@ static void DrawSecond(length, width, of
+     double 	ms, mc, ws, wc;
+     int 	mid;
+     int 	x, y;
+-    extern void		SetSeg();
+     
+     /*
+      *  A full circle is 2 PI radians.
+@@ -1477,8 +1484,6 @@ static void InitializeCat(catColor, deta
+     XGCValues 		gcv;
+     unsigned long 	valueMask;
+     GC			gc1, gc2;
+-    extern GC		CreateTailGC();
+-    extern GC		CreateEyeGC();
+ 
+ 
+     catPix = XCreatePixmap(dpy, root, winWidth, winHeight,
+@@ -1562,8 +1567,6 @@ static void InitializeCat(catColor, deta
+     eyePixmap  = (Pixmap *)malloc((appData.nTails + 1) * sizeof(Pixmap));
+ 
+     for (i = 0; i <= appData.nTails; i++) {
+-	static Pixmap CreateTailPixmap();
+-	static Pixmap CreateEyePixmap();
+ 
+ 	tailPixmap[i] = CreateTailPixmap(i * M_PI/(appData.nTails));
+ 	eyePixmap[i]  = CreateEyePixmap(i * M_PI/(appData.nTails));
+@@ -1929,12 +1932,11 @@ static Widget  CreatePushButton(label, p
+ 
+ 
+ 
+-static XtCallbackProc HandleExpose(w, clientData, callData)
++static void HandleExpose(w, clientData, callData)
+     Widget			w;
+     XtPointer			clientData;
+     XmDrawingAreaCallbackStruct	*callData;
+ {
+-    extern XtTimerCallbackProc 	Tick();	
+ 
+     /*
+      *  Ignore if more expose events for this window in the queue
+@@ -1979,7 +1981,7 @@ static XtCallbackProc HandleExpose(w, cl
+ 
+ 
+     
+-static XtTimerCallbackProc Tick(w, add)
++static void Tick(w, add)
+     Widget	w;
+     int		add;
+ {
+@@ -2168,7 +2170,7 @@ static XtTimerCallbackProc Tick(w, add)
+ 
+ 
+ 
+-static XtCallbackProc HandleInput(w, clientData, callData)
++static void HandleInput(w, clientData, callData)
+     Widget			w;
+     XtPointer			clientData;
+     XmDrawingAreaCallbackStruct	*callData;
+@@ -2180,13 +2182,6 @@ static XtCallbackProc HandleInput(w, cli
+     			ackW, rereadW, editW, exitW;
+     static Widget	sepW1, sepW2;
+ 
+-    extern XtCallbackProc	AlarmSetCallback(),
+-				AlarmBellCallback(),
+-				ChimeCallback(),
+-				AckAlarmCallback(),
+-				RereadAlarmCallback(),
+-    				EditAlarmCallback(),
+-				ExitCallback();
+     
+     if (callData->event->type != ButtonPress) {
+ 	return;
+@@ -2262,7 +2257,7 @@ static XtCallbackProc HandleInput(w, cli
+ 
+ 
+ 
+-static XtCallbackProc AlarmSetCallback(w, clientData, callData)
++static void AlarmSetCallback(w, clientData, callData)
+     Widget				w;
+     XtPointer				clientData;
+     XmToggleButtonCallbackStruct	*callData;
+@@ -2280,7 +2275,7 @@ static XtCallbackProc AlarmSetCallback(w
+ 
+ 
+ 
+-static XtCallbackProc AlarmBellCallback(w, clientData, callData)
++static void AlarmBellCallback(w, clientData, callData)
+     Widget				w;
+     XtPointer				clientData;
+     XmToggleButtonCallbackStruct	*callData;
+@@ -2291,7 +2286,7 @@ static XtCallbackProc AlarmBellCallback(
+ 
+ 
+ 
+-static XtCallbackProc ChimeCallback(w, clientData, callData)
++static void ChimeCallback(w, clientData, callData)
+     Widget				w;
+     XtPointer				clientData;
+     XmToggleButtonCallbackStruct	*callData;
+@@ -2301,7 +2296,7 @@ static XtCallbackProc ChimeCallback(w, c
+ 
+ 
+ 
+-static XtCallbackProc AckAlarmCallback(w, clientData, callData)
++static void AckAlarmCallback(w, clientData, callData)
+     Widget			w;
+     XtPointer			clientData;
+     XmPushButtonCallbackStruct	*callData;
+@@ -2315,7 +2310,7 @@ static XtCallbackProc AckAlarmCallback(w
+ 
+ 
+ 
+-static XtCallbackProc RereadAlarmCallback(w, setW, callData)
++static void RereadAlarmCallback(w, setW, callData)
+     Widget			w;
+     Widget			setW;
+     XmPushButtonCallbackStruct	*callData;
+@@ -2340,7 +2335,7 @@ static XtCallbackProc RereadAlarmCallbac
+ 
+ 
+ 
+-static XtCallbackProc EditAlarmCallback(w, setW, callData)
++static void EditAlarmCallback(w, setW, callData)
+     Widget			w;
+     Widget			setW;
+     XmPushButtonCallbackStruct	*callData;
+@@ -2383,7 +2378,7 @@ static XtCallbackProc EditAlarmCallback(
+ 
+ 
+ 
+-static XtCallbackProc ExitCallback(w, clientData, callData)
++static void ExitCallback(w, clientData, callData)
+     Widget			w;
+     XtPointer			clientData;
+     XmPushButtonCallbackStruct	*callData;
+@@ -2394,7 +2389,7 @@ static XtCallbackProc ExitCallback(w, cl
+     
+ 
+ 
+-static XtCallbackProc HandleResize(w, clientData, callData)
++static void HandleResize(w, clientData, callData)
+     Widget			w;
+     XtPointer			clientData;
+     XmDrawingAreaCallbackStruct	*callData;
+@@ -2527,7 +2522,7 @@ static void EraseHands(w, tm)
+ }
+ 
+ 
+-static XtEventHandler PropertyChangeCallback(w, clientData,
++static void PropertyChangeCallback(w, clientData,
+ 					     event, continueToDispatch)
+     Widget		w;
+     XtPointer		clientData;
+@@ -2583,7 +2578,7 @@ static XtEventHandler PropertyChangeCall
+ }
+ 
+ 
+-static XtEventHandler MapCallback(w, clientData, event)
++static void MapCallback(w, clientData, event)
+     Widget	w;
+     XtPointer	clientData;
+     XEvent	*event;

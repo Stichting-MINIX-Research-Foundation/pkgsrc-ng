@@ -1,0 +1,31 @@
+$NetBSD: distinfo,v 1.84 2013/05/01 19:58:25 imil Exp $
+
+SHA1 (openssh-6.2p1-hpn13v14.diff) = 71bbd99961b8b7665a481cf0a4bc9604e55d75b3
+RMD160 (openssh-6.2p1-hpn13v14.diff) = b859fbdf4395534621cc5ffae0cce39621582927
+Size (openssh-6.2p1-hpn13v14.diff) = 61437 bytes
+SHA1 (openssh-6.2p1.tar.gz) = 8824708c617cc781b2bb29fa20bd905fd3d2a43d
+RMD160 (openssh-6.2p1.tar.gz) = 3651a43c8d466646e760cb1cbc9097dbba5151ca
+Size (openssh-6.2p1.tar.gz) = 1182181 bytes
+SHA1 (patch-Makefile.in) = 514edd12500e89059d3bda7f5ac8c651001fd7c6
+SHA1 (patch-atomicio.c) = 6bb3c3ca1491693918ce1ac7481e0852c90e0b4e
+SHA1 (patch-auth-passwd.c) = de9f5487fe1f5848cc702e549bce949fd75d70cd
+SHA1 (patch-auth-rhosts.c) = ab8dd3e375accc5bed3e15b158a85a1b1f9a2e3e
+SHA1 (patch-auth.c) = ee757e5c80a14398c4835a1c1502cdaa03ca8655
+SHA1 (patch-auth1.c) = 97693bbd970cf036892099493f0f64e59a252a35
+SHA1 (patch-auth2.c) = bb638fda90e80cd2f74702e01dc3320da01e4e80
+SHA1 (patch-config.h.in) = 805a5ba9be430a7123dc958d43c401d6f57d0bf5
+SHA1 (patch-configure) = d8977e444ffd2217229726161ebf0b5868d9f650
+SHA1 (patch-configure.ac) = b981b8b2e28edc4fa461c9c487f3f7e82412b826
+SHA1 (patch-defines.h) = e2aebe7dcf0927d8afcca7a96c4001a6e0130cc2
+SHA1 (patch-includes.h) = f7fad7b3599d677a5991b140c66e3a67bedbe13b
+SHA1 (patch-loginrec.c) = 0305a5b552c88ac99d8f894d3cda9686e0b0ccdd
+SHA1 (patch-openbsd-compat_bsd-openpty.c) = a1318cf691f0ad844a8761a77e3bb32a9e20c695
+SHA1 (patch-openbsd-compat_openbsd-compat.h) = 17690feb6962bd27fef96bd6fb1acfa60e9af9dc
+SHA1 (patch-openbsd-compat_port-tun.c) = 8288e2b9336ea1fcc1129d8a2ab5e55816b2ccbf
+SHA1 (patch-platform.c) = fcb85cca516d992ec50dfb259b9cc8ddbb032b5c
+SHA1 (patch-scp.c) = 0460cee3ad2626c71ce0a6e484fb4ed9ae559d1f
+SHA1 (patch-session.c) = aba585358f22db8b37b6673526af96765c65dc49
+SHA1 (patch-ssh.c) = eecce1698455567f9e48b498fe937d235890c315
+SHA1 (patch-sshd.c) = faf9ff468a0938e20f7cf18192c47dec46763e8c
+SHA1 (patch-sshpty.c) = 9f08f899919d05567998087a060b90800c2c7b11
+SHA1 (patch-uidswap.c) = 4c7c4e1621dc54a180bcba9a81d58f114a819eb0

@@ -1,0 +1,25 @@
+@comment $NetBSD: PLIST,v 1.9 2013/03/15 18:43:16 drochner Exp $
+bin/feh
+bin/feh-cam
+bin/gen-cam-menu
+man/man1/feh-cam.1
+man/man1/feh.1
+man/man1/gen-cam-menu.1
+share/applications/feh.desktop
+share/doc/feh/AUTHORS
+share/doc/feh/ChangeLog
+share/doc/feh/README
+share/doc/feh/TODO
+share/doc/feh/examples/buttons
+share/doc/feh/examples/keys
+share/doc/feh/examples/themes
+share/feh/fonts/black.style
+share/feh/fonts/menu.style
+share/feh/fonts/yudit.ttf
+share/feh/images/logo.svg
+share/feh/images/menubg_aluminium.png
+share/feh/images/menubg_aqua.png
+share/feh/images/menubg_black.png
+share/feh/images/menubg_brushed.png
+share/feh/images/menubg_default.png
+share/feh/images/menubg_sky.png

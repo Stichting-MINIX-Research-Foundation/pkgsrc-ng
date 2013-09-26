@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2011/05/26 23:50:43 minskim Exp $
+
+SHA1 (tex-musixtex-22568/musixtex.tar.xz) = ca64deee85df2a383a0e28726aac263f2b053a33
+RMD160 (tex-musixtex-22568/musixtex.tar.xz) = 4bbb836ed31df3957372714c7959499f43ca072e
+Size (tex-musixtex-22568/musixtex.tar.xz) = 4569560 bytes
+SHA1 (patch-bin_musixtex) = 2e1945bd850d01796e1e2f3da2f17626dce4bb91

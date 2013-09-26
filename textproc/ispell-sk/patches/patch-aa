@@ -1,0 +1,27 @@
+$NetBSD: patch-aa,v 1.2 2013/06/28 08:30:19 rodent Exp $
+
+Don't hardcode ${DESTDIR} nor ${PREFIX}, and install correctly.
+
+--- Makefile.orig	2006-07-16 13:39:05.000000000 +0000
++++ Makefile
+@@ -1,14 +1,15 @@
+-DESTDIR=/usr/lib/ispell
++INSTALLDIR=${PREFIX}/lib
++BUILDHASH=${PREFIX}/bin/buildhash
+ 
+ all: slovak.hash
+ 
+ install: slovak.hash slovak.aff
+-	mkdir -p $(DESTDIR)
+-	install -o root -g bin -m 0444 slovak.hash $(DESTDIR)
+-	install -o root -g bin -m 0444 slovak.aff $(DESTDIR)
++	${BSD_INSTALL_DATA_DIR} ${DESTDIR}$(INSTALLDIR)
++	${BSD_INSTALL_DATA} slovak.hash ${DESTDIR}$(INSTALLDIR)
++	${BSD_INSTALL_DATA} slovak.aff ${DESTDIR}$(INSTALLDIR)
+ 
+ slovak.hash: slovak.aff slovak.words
+-	buildhash slovak.words slovak.aff slovak.hash
++	$(BUILDHASH) slovak.words slovak.aff slovak.hash
+ 
+ clean:
+ 	rm -f slovak.stat slovak.hash *~ slovak.words.cnt slovak.words.stat

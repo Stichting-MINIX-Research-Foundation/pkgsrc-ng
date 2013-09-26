@@ -1,0 +1,18 @@
+$NetBSD: patch-ab,v 1.5 2011/11/25 22:19:24 joerg Exp $
+
+--- src/todoterm.cc.orig	2007-06-28 13:04:36.000000000 +0000
++++ src/todoterm.cc
+@@ -4,9 +4,11 @@
+ #ifdef USETERMCAP
+ #include <iostream>
+ #include <string>
++#include <cstdlib>
+ #include <stdexcept>
+-#include <curses.h>
+-#include <term.h>
++
++extern "C" int tgetent(char *, const char *);
++extern "C" int tgetnum(const char *);
+ 
+ static char info[2048];
+ static bool term_initialized;

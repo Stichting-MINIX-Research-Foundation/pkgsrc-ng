@@ -1,0 +1,21 @@
+$NetBSD: patch-ab,v 1.3 2011/11/29 06:19:44 sbd Exp $
+
+--- Makefile.orig	2007-08-20 06:42:05.000000000 +0000
++++ Makefile
+@@ -14,6 +14,8 @@ lib += -L/usr/pkg/lib/mysql
+ # os x
+ lib += -L/usr/local/mysql
+ 
++inc  = ${CPPFLAGS}
++lib  = ${LDFLAGS}
+ 
+ CC       := gcc
+ CPPFLAGS := -O $(inc)
+@@ -23,6 +25,7 @@ LDLIBS    = $(lib) -lmysqlclient -lz
+ 
+ ifeq "${OS_NAME}" "sunos"
+ LDLIBS   += -lsocket -lnsl -lm
++CPPFLAGS += -DMSG_NOSIGNAL=0
+ endif
+ 
+ .c.o:

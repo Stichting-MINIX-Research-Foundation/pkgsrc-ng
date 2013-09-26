@@ -1,0 +1,33 @@
+$NetBSD: patch-ab,v 1.4 2008/06/20 01:09:08 joerg Exp $
+
+--- Makefile.in.orig	2002-10-13 20:26:36.000000000 +0000
++++ Makefile.in
+@@ -27,20 +27,20 @@ ZCAVOBJS=$(ZCAVSRC:.cpp=.o)
+ ALLOBJS=$(BONOBJS) $(ZCAVOBJS)
+ 
+ bonnie++: bonnie++.cpp $(BONOBJS)
+-	$(CXX) bonnie++.cpp -o bonnie++ $(BONOBJS) $(LFLAGS)
++	$(CXX) bonnie++.cpp -o bonnie++ $(BONOBJS) $(LDFLAGS)
+ 
+ zcav: zcav.cpp $(ZCAVOBJS)
+-	$(CXX) zcav.cpp -o zcav $(ZCAVOBJS) $(LFLAGS)
++	$(CXX) zcav.cpp -o zcav $(ZCAVOBJS) $(LDFLAGS)
+ 
+ install-bin: $(EXES)
+-	mkdir -p $(eprefix)/bin $(eprefix)/sbin
+-	@INSTALL_PROGRAM@ @stripping@ $(EXES) $(eprefix)/sbin
+-	@INSTALL_SCRIPT@ $(SCRIPTS) $(eprefix)/bin
++	mkdir -p $(eprefix)/bin ${DESTDIR}$(eprefix)/sbin
++	@INSTALL_PROGRAM@ @stripping@ $(EXES) ${DESTDIR}$(eprefix)/sbin
++	@INSTALL_SCRIPT@ $(SCRIPTS) ${DESTDIR}$(eprefix)/bin
+ 
+ install: install-bin
+-	mkdir -p @mandir@/man1 @mandir@/man8
+-	@INSTALL_DATA@ $(MAN1) @mandir@/man1
+-	@INSTALL_DATA@ $(MAN8) @mandir@/man8
++	mkdir -p @mandir@/man1 ${DESTDIR}@mandir@/man8
++	@INSTALL_DATA@ $(MAN1) ${DESTDIR}@mandir@/man1
++	@INSTALL_DATA@ $(MAN8) ${DESTDIR}@mandir@/man8
+ 
+ %.o: %.cpp %.h bonnie.h port.h
+ 	$(CXX) -c $<

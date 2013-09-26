@@ -1,0 +1,28 @@
+$NetBSD: patch-ab,v 1.4 2009/12/17 22:08:09 abs Exp $
+
+--- configure.orig	1994-11-08 13:32:08.000000000 +0000
++++ configure
+@@ -1329,9 +1329,10 @@ cat > conftest.$ac_ext <<EOF
+ #line 1330 "configure"
+ #include "confdefs.h"
+ 
++double val;
+ int main() { return 0; }
+ int t() {
+-atan()
++atan(val)
+ ; return 0; }
+ EOF
+ if eval $ac_link; then
+@@ -1368,9 +1369,10 @@ cat > conftest.$ac_ext <<EOF
+ #line 1369 "configure"
+ #include "confdefs.h"
+ 
++double val;
+ int main() { return 0; }
+ int t() {
+-atan()
++atan(val)
+ ; return 0; }
+ EOF
+ if eval $ac_link; then

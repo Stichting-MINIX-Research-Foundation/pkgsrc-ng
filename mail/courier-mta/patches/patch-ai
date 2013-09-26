@@ -1,0 +1,13 @@
+$NetBSD: patch-ai,v 1.5 2012/06/09 11:45:38 adam Exp $
+
+--- courier/module.local/local.c.orig	2007-10-16 22:04:01.000000000 -0400
++++ courier/module.local/local.c
+@@ -746,6 +746,8 @@ const char *quota;
+ 					strlen(argv[7])), "SENDER="),
+ 					argv[7]));
+ 
++		putenv(strcpy(courier_malloc(sizeof("COURIER_MTA=")),
++			"COURIER_MTA="));
+ 		putenv(strcat(strcpy(courier_malloc(sizeof("HOME=")+
+ 			strlen(homedir)), "HOME="), homedir));
+ 		putenv(strcat(strcpy(courier_malloc(sizeof("DEFAULT=")+

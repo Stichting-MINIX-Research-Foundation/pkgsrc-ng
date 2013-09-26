@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.5 2011/10/06 15:13:13 hiramatsu Exp $
+
+SHA1 (MooseX-NonMoose-0.22.tar.gz) = e33cf0a128ddb4fd0619dd2ea058cc9f5f0de89f
+RMD160 (MooseX-NonMoose-0.22.tar.gz) = 081eb118808d2147348f7410c7d930e9e8001a2c
+Size (MooseX-NonMoose-0.22.tar.gz) = 23807 bytes

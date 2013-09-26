@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.9 2008/07/22 21:25:00 tonio Exp $
+
+SHA1 (xmahjongg-3.7.tar.gz) = 2693a0a90d9cb127f7b98cbeca9a2b832b3bb718
+RMD160 (xmahjongg-3.7.tar.gz) = 41b584ca39dcb80f96ea19b4a29c237f3919f785
+Size (xmahjongg-3.7.tar.gz) = 551834 bytes
+SHA1 (patch-ab) = f014d6c399092f5b2910e690b296678cc4797ad3
+SHA1 (patch-ac) = 18262594c57f068478480183a6c84e29ab1f599c

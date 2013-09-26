@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:16:01 joerg Exp $
+sbin/atitvout
+share/doc/atitvout/README
+share/doc/atitvout/test.sh

@@ -1,0 +1,26 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:10:29 joerg Exp $
+include/libsidplay2/sidplay/Buffer.h
+include/libsidplay2/sidplay/SidTune.h
+include/libsidplay2/sidplay/SmartPtr.h
+include/libsidplay2/sidplay/builders/resid.h
+include/libsidplay2/sidplay/c64env.h
+include/libsidplay2/sidplay/component.h
+include/libsidplay2/sidplay/event.h
+include/libsidplay2/sidplay/sid2types.h
+include/libsidplay2/sidplay/sidbuilder.h
+include/libsidplay2/sidplay/sidconfig.h
+include/libsidplay2/sidplay/sidendian.h
+include/libsidplay2/sidplay/sidint.h
+include/libsidplay2/sidplay/sidplay2.h
+include/libsidplay2/sidplay/sidtypes.h
+include/libsidplay2/sidplay/sidusage.h
+include/libsidplay2/sidplay/utils/SidDatabase.h
+include/libsidplay2/sidplay/utils/SidFilter.h
+include/libsidplay2/sidplay/utils/SidTuneMod.h
+include/libsidplay2/sidplay/utils/SidUsage.h
+include/libsidplay2/sidplay/utils/libini.h
+lib/libsidplay2.la
+lib/libsidutils.la
+lib/pkgconfig/libsidplay2.pc
+lib/pkgconfig/libsidutils.pc
+lib/sidplay/builders/libresid-builder.la

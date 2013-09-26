@@ -1,0 +1,34 @@
+#!@SH@
+# $NetBSD: client-clean,v 1.9 2008/09/16 18:21:30 joerg Exp $
+
+. @PBULK_CONFIG@
+
+set -e
+
+if [ "${config_version}" != "@PBULK_CONFIG_VERSION@" ]; then
+	echo "Your configuration has version ${config_version}."
+	echo "This version of pbulk expects version @PBULK_CONFIG_VERSION@."
+	exit 1
+fi
+
+if [ "$cross_compile" != "no" ]; then
+	cur_destdir=${target_destdir}
+else
+	cur_destdir=
+fi
+
+# Clean build system first
+rm -rf ${cur_destdir}${prefix} ${cur_destdir}${pkgdb} 2> /dev/null || true
+rm -rf ${cur_destdir}${varbase}/qmail 2> /dev/null || true
+# Note: It is not an error if ${prefix} still exists at this point,
+# because it might be a mount point.
+
+# Install fresh bootstrap state
+if [ -f "${bootstrapkit}" ]; then
+	${tar} -xzf ${bootstrapkit} -C ${cur_destdir}/
+elif [ -d "${bootstrapkit}" ]; then
+	[ -d ${prefix} ] || mkdir ${cur_destdir}${prefix}
+	cp -R ${bootstrapkit}/* ${cur_destdir}${prefix}
+else
+	: "Do nothing"
+fi

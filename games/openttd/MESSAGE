@@ -1,0 +1,17 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.4 2010/12/08 17:47:50 adam Exp $
+
+To run openttd you need data files provided by the original Transport
+Tycoon Deluxe, or free data files avaialable in games/openttd-data package.
+
+In order to play, the following files should be copied from the original TTD
+to ${PREFIX}/share/openttd/data:
+	sample.cat
+	trg1r.grf, trgcr.grf, trghr.grf, trgir.grf, trgtr.grf
+All *.gm files should be copied to ${PREFIX}/share/openttd/gm
+in order to play original MIDI music.
+
+Note: On NetBSD playing MIDI music is not supported now. Probably in a
+future version.
+
+===========================================================================

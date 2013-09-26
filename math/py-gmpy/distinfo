@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2012/06/02 13:52:06 obache Exp $
+
+SHA1 (gmpy-1.15.zip) = 59147d4307fddceae0b63ca0f8677dc73fa03fb8
+RMD160 (gmpy-1.15.zip) = a0fcf5639ad66f1b88c937fbef5893d9ed25b079
+Size (gmpy-1.15.zip) = 143563 bytes

@@ -1,0 +1,26 @@
+$NetBSD: patch-ai,v 1.2 2008/08/17 23:50:06 dholland Exp $
+
+--- cmn/xetp.cpp.orig	2000-01-19 12:54:30.000000000 -0500
++++ cmn/xetp.cpp	2008-08-17 19:12:24.000000000 -0400
+@@ -29,9 +29,10 @@
+ 
+ #include "stdafx.h"
+ 
+-#include <iostream.h>
++#include <iostream>
+ #if X11
+-#include <strstream.h>
++#include <strstream>
++using namespace std;
+ #endif
+ #if WIN32
+ #include <strstrea.h>
+@@ -159,7 +160,7 @@ void XETP::send_objects(OutStreamP out,c
+   for (n = 0; n < physicals.length(); n++) {
+     PhysicalP p = (PhysicalP)physicals.get(n);
+     // computing object_length twice, but who cares.
+-    _send_object(out,p,turn,(TickType)tickTypes.get(n),
++    _send_object(out,p,turn,(TickType)(intptr_t)tickTypes.get(n),
+                  compute_object_length(p));
+   }
+   

@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:33 joerg Exp $
+bin/trang
+libexec/trang/trang.jar
+share/doc/trang/copying.txt
+share/doc/trang/trang-manual.html

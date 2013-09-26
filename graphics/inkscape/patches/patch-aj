@@ -1,0 +1,15 @@
+$NetBSD: patch-aj,v 1.2 2009/11/29 20:51:51 tnn Exp $
+
+--- src/live_effects/lpe-dynastroke.cpp.orig	2009-11-16 18:29:33.000000000 +0100
++++ src/live_effects/lpe-dynastroke.cpp
+@@ -25,6 +25,10 @@
+ #include <2geom/sbasis-math.h>
+ #include <2geom/piecewise.h>
+ 
++/* xxx should test if this is needed  */
++#define fmin(a,b) ((a)<(b)?(a):(b))
++#define fmax(a,b) ((a)>(b)?(a):(b))
++
+ namespace Inkscape {
+ namespace LivePathEffect {
+ 

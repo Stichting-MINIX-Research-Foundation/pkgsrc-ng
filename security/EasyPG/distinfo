@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.6 2008/11/13 08:15:34 minskim Exp $
+
+SHA1 (epg-0.0.16.tar.gz) = 37ccd3019b98ce8cccc72d969910d112013be8b8
+RMD160 (epg-0.0.16.tar.gz) = e34eb706b7af989405fff7b314e03e1eb1e45826
+Size (epg-0.0.16.tar.gz) = 203261 bytes

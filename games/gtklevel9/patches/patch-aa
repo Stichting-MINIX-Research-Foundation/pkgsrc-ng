@@ -1,0 +1,31 @@
+$NetBSD: patch-aa,v 1.2 2012/01/29 21:03:37 marino Exp $
+
+--- Makefile.orig	2005-07-26 12:03:48.000000000 +0200
++++ Makefile
+@@ -18,7 +18,7 @@
+ ########################################################################
+ 
+ # OPTIMIZE_CFLAGS = -g
+-OPTIMIZE_CFLAGS = -O2 -DG_DISABLE_ASSERT
++OPTIMIZE_CFLAGS = -DG_DISABLE_ASSERT
+ 
+ # EXTRA_CFLAGS = -DGTK_DISABLE_DEPRECATED -DG_DISABLE_DEPRECATED -DPANGO_DISABLE_DEPRECATED
+ EXTRA_CFLAGS =
+@@ -27,7 +27,7 @@ LEVEL9 = ..
+ 
+ #######################################################################
+ 
+-CC = gcc
++#CC = gcc
+ 
+ OBJS = level9.o main.o config.o gui.o text.o graphics.o util.o
+ 
+@@ -40,7 +40,7 @@ GTK_LIBS = `pkg-config --libs gtk+-2.0`
+ 
+ #######################################################################
+ 
+-LIBS = $(GTK_LIBS)
++LIBS = $(GTK_LIBS) -lm
+ 
+ gtklevel9: $(OBJS)
+ 	$(CC) -o gtklevel9 $(OBJS) $(LIBS)

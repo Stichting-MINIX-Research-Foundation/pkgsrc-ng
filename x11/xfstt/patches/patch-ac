@@ -1,0 +1,17 @@
+$NetBSD: patch-ac,v 1.6 2012/06/13 08:15:14 mef Exp $
+
+Adjust fontdir and cachedir to pkgsrc style.
+
+--- src/Makefile.in.orig	2010-11-09 13:29:50.000000000 +0900
++++ src/Makefile.in	2011-10-17 11:57:56.000000000 +0900
+@@ -244,8 +244,8 @@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-fontdir = $(datadir)/fonts/truetype
+-cachedir = $(localstatedir)/cache/xfstt
++fontdir = $(prefix)/lib/X11/fonts/TTF
++cachedir = $(prefix)/lib/X11/fonts/TTF
+ pidfile = $(localstatedir)/run/xfstt.pid
+ LDADD = @LIBINTL@ -L$(top_builddir)/libfstt -lfstt
+ AM_CPPFLAGS = -DLOCALEDIR=\""$(localedir)\"" -DFONTDIR=\""$(fontdir)\"" \

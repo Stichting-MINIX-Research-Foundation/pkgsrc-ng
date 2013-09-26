@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.4 2010/03/08 12:35:54 adam Exp $
+bin/ocrad
+include/ocradlib.h
+info/ocrad.info
+lib/libocrad.a
+man/man1/ocrad.1

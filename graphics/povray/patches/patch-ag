@@ -1,0 +1,26 @@
+$NetBSD: patch-ag,v 1.2 2011/07/31 17:58:09 jakllsch Exp $
+
+SunPro is a little picky about the places in which the "const" qualifier
+is significant, so make sure that the function prototypes match their
+declarations in the header file.
+
+--- unix/unix.cpp.orig	2004-08-02 23:14:17.000000000 +0000
++++ unix/unix.cpp
+@@ -1892,7 +1892,7 @@ static bool unix_subdir (const char *Fil
+ *
+ ******************************************************************************/
+ 
+-int UNIX_allow_file_read (const char *Filename, const unsigned int FileType)
++int UNIX_allow_file_read (const char *Filename, unsigned int FileType)
+ {
+   char       *filename;
+   const char *errormsg;
+@@ -1966,7 +1966,7 @@ int UNIX_allow_file_read (const char *Fi
+ *
+ ******************************************************************************/
+ 
+-int UNIX_allow_file_write (const char *Filename, const unsigned int FileType)
++int UNIX_allow_file_write (const char *Filename, unsigned int FileType)
+ {
+   char       *filename;
+   const char *errormsg;

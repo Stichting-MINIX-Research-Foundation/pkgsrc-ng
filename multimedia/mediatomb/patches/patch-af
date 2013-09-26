@@ -1,0 +1,12 @@
+$NetBSD: patch-af,v 1.2 2012/09/25 11:45:11 ryoon Exp $
+
+--- config/mappings.xml.orig	2010-03-22 10:39:50.000000000 +0000
++++ config/mappings.xml
+@@ -13,6 +13,7 @@
+         <map from="m3u" to="audio/x-mpegurl"/>
+         <map from="pls" to="audio/x-scpls"/>
+         <map from="flv" to="video/x-flv"/>
++        <map from="mp4" to="video/mp4"/>
+     </extension-mimetype>
+     <mimetype-upnpclass>
+         <map from="audio/*" to="object.item.audioItem.musicTrack"/>

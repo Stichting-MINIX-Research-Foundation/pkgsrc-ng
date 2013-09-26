@@ -1,0 +1,13 @@
+$NetBSD: patch-aj,v 1.6 2009/12/18 01:09:23 abs Exp $
+
+--- src/toss/rununpack.pl.orig	1999-05-15 20:54:44.000000000 +0000
++++ src/toss/rununpack.pl
+@@ -31,7 +31,7 @@ my %arc_l;
+ my %arc_x;
+ # Archiver programs configuration
+ # %X is replaced with settings from toss.conf
+-@arc_bindirs    = ( "/bin", "/usr/bin", "/usr/local/bin", "%N");
++@arc_bindirs    = split(/:/, $ENV{'PATH'});
+ # %a is replaced with archive file name
+ $arc_l{"ARJ"}   = "unarj l    %a";
+ $arc_x{"ARJ"}   = "unarj e    %a";

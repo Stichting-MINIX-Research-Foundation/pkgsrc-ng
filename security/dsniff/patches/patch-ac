@@ -1,0 +1,21 @@
+$NetBSD: patch-ac,v 1.2 2008/10/01 08:43:09 apb Exp $
+
+--- arp.c.orig	2000-11-14 17:51:03.000000000 +0200
++++ arp.c
+@@ -17,7 +17,7 @@
+ #include <sys/sysctl.h>
+ #include <net/if_dl.h>
+ #include <net/route.h>
+-#ifdef __FreeBSD__	/* XXX */
++#if defined(__FreeBSD__) || defined(__DragonFly__)	/* XXX */
+ #define ether_addr_octet octet
+ #endif
+ #else /* !BSD */
+@@ -32,6 +32,7 @@
+ #include <netinet/if_ether.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <string.h>
+ #include <unistd.h>
+ 
+ #ifdef BSD

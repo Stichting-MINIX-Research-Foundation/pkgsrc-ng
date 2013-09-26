@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:51:00 joerg Exp $
+bin/BasiliskII
+man/man1/BasiliskII.1
+share/BasiliskII/fbdevices
+share/BasiliskII/keycodes
+share/BasiliskII/tunconfig
+share/doc/BasiliskII/README
+share/doc/BasiliskII/TECH
+share/doc/BasiliskII/TODO

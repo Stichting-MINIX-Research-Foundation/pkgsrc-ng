@@ -1,0 +1,13 @@
+$NetBSD: patch-ah,v 1.6.14.1 2013/08/12 12:20:19 tron Exp $
+
+--- libsmb/cliconnect.c.orig	2013-07-29 18:55:18.000000000 +0000
++++ libsmb/cliconnect.c
+@@ -3538,7 +3538,7 @@ struct cli_state *get_ipc_connect_master
+         if (!NT_STATUS_IS_OK(status)) {
+                 DEBUG(99, ("No master browsers responded: %s\n",
+ 			   nt_errstr(status)));
+-                return False;
++                return NULL;
+         }
+ 
+ 	for (i = 0; i < count; i++) {

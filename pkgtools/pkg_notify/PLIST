@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:11:02 joerg Exp $
+bin/pkg_notify
+share/examples/pkg_notify/pkg_notify.list
+man/man1/pkg_notify.1

@@ -1,0 +1,97 @@
+$NetBSD: patch-bb,v 1.6 2011/12/05 22:44:47 joerg Exp $
+
+--- src_sound/dsp_mixxer.c.orig	1998-06-22 10:41:31.000000000 +0000
++++ src_sound/dsp_mixxer.c
+@@ -15,14 +15,14 @@
+ ***************************************************************************/
+ #include <stdio.h>
+ #include <math.h>
+-#include <malloc.h>
++#include <stdlib.h>
+ #include <unistd.h>
+ #include <fcntl.h>
+ #include <sys/ioctl.h>
+-#ifdef Linux
++#if defined(Linux) || defined(__FreeBSD__) || defined(__DragonFly__)
+  #include <sys/soundcard.h>
+-#elif FreeBSD
+- #include <machine/soundcard.h>
++#elif defined(__NetBSD__)
++ #include <soundcard.h>
+ #endif
+ #include "funktracker_defs.h"
+ #include "funktracker.h"
+@@ -91,7 +91,7 @@ void init_dsp_buffers(void)
+   register int x;
+ 
+   calc_mix_buffer(funk_info.bpm_rate);
+-  ioctl(dsp_fp,SNDCTL_DSP_RESET);
++  ioctl(dsp_fp,SNDCTL_DSP_RESET, 0);
+   for(x = 0;x < mix_buffer_size;x++)
+   {
+     *(left_mix_buffer + x) = 0;
+@@ -187,7 +187,7 @@ void close_dsp(void)
+ {
+   if(dsp_fp != -1)
+   {
+-    ioctl(dsp_fp,SNDCTL_DSP_RESET);
++    ioctl(dsp_fp,SNDCTL_DSP_RESET, 0);
+     close(dsp_fp);
+   }
+ }
+@@ -247,12 +247,12 @@ int open_dsp(int srate,int prec,int st)
+   if(dsp_alloc_bufs())
+   {
+     printf("Allocated dsp buffers..\n");
+-    dsp_fp = open("/dev/dsp",O_WRONLY,0);
++    dsp_fp = open(DEVOSSAUDIO,O_WRONLY,0);
+     if(dsp_fp != -1)
+     {
+       int frag;
+ 
+-      printf("Opened /dev/dsp: %d bit %s, %d Hz (%d frames @ %d bytes)\n",
++      printf("Opened " DEVOSSAUDIO ": %d bit %s, %d Hz (%d frames @ %d bytes)\n",
+         funk_info.precision,
+         funk_info.stereo == 8 ? "mono" : "stereo",
+         funk_info.sampling_rate,
+@@ -265,7 +265,7 @@ int open_dsp(int srate,int prec,int st)
+       return 1;
+     }
+     else
+-      printf("Error: Couldn't open /dev/dsp. Program aborted.\n");
++      printf("Error: Couldn't open " DEVOSSAUDIO". Program aborted.\n");
+     dsp_dealloc_bufs();
+   }
+   else
+@@ -301,13 +301,13 @@ void DAC0816_channel_mixxer(int chan_no,
+ 
+   for(sample_no = 0;sample_no < mix_buffer_size;sample_no++)
+   {
+-    if(chmix[chan_no].funkctrl & 0x2)
+ #pragma pack(1)
++    if(chmix[chan_no].funkctrl & 0x2)
+       sam = *((sDB *)chmix[chan_no].sample_addr +
+             (unsigned long)chmix[chan_no].sample_ptr);
+-#pragma pack()
+     else
+       sam = 0;
++#pragma pack()
+ 
+ #ifdef DIGITAL_ECHOING
+     sam_reverb = *(chmix[chan_no].echo_buffer +
+@@ -363,13 +363,13 @@ void DAC1616_channel_mixxer(int chan_no,
+   shift_t = 8 + shift_table[funk_info.no_active_channels];
+   for(sample_no = 0;sample_no < mix_buffer_size;sample_no++)
+   {
+-    if(chmix[chan_no].funkctrl & 0x2)
+ #pragma pack(1)
++    if(chmix[chan_no].funkctrl & 0x2)
+       sam = *((sDW *)chmix[chan_no].sample_addr +
+             (unsigned long)chmix[chan_no].sample_ptr);
+-#pragma pack()
+     else
+       sam = 0;
++#pragma pack()
+ #ifdef DIGITAL_ECHOING
+     sam_reverb = *(chmix[chan_no].echo_buffer +
+                  ((chmix[chan_no].echo_ptr - echo_rpos) & echo_mask));

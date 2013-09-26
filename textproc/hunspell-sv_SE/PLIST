@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 21:36:32 joerg Exp $
+share/doc/hunspell-${DICTNAME}/README_${DICTNAME}.txt
+share/hunspell/${DICTNAME}.aff
+share/hunspell/${DICTNAME}.dic

@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2008/10/05 22:56:41 schmonz Exp $
+bin/mp3splt
+man/man1/mp3splt.1

@@ -1,0 +1,44 @@
+$NetBSD: patch-aa,v 1.2 2010/03/04 21:40:29 spz Exp $
+
+--- config.orig	2000-03-12 01:51:52.000000000 +0000
++++ config
+@@ -7,31 +7,31 @@
+ #
+ 
+ # Directory where the client will be installed.
+-BINDIR		= /usr/local/bin
++BINDIR		= ${LOCALBASE}/bin
+ 
+ # Directory where the manual page will be installed.
+-MANDIR		= /usr/local/man
++MANDIR		= ${LOCALBASE}/man
+ 
+ # Directory for support files
+-LIBDIR = /usr/local/lib
++LIBDIR = ${LOCALBASE}/lib
+ 
+ # Compiler to use.
+-CC		= cc
++CC		?= cc
+ 
+ # Compile options.
+-CFLAGS		= -Wall -Werror -g -I/usr/pkg/include -I/usr/pkg/include/tcl8.0
++CFLAGS		+= -Wall -g -I${LOCALBASE}/include -I${LOCALBASE}/include/tcl/generic -DLOCALBASE=\"${LOCALBASE}\"
+ 
+ # Lint flags
+-LFLAGS		= -uvberxHz -I/usr/pkg/include -I/usr/pkg/include/tcl8.0
++LFLAGS		+= -uvberxHz -I${LOCALBASE}/include -I${LOCALBASE}/include/tcl/generic -DLOCALBASE=\"${LOCALBASE}\"
+ 
+ # Other libraries to include.
+-OTHERLIBS	=-L/usr/pkg/lib -ltcl80 -lreadline -lcurses -ltermcap -lm
++OTHERLIBS	+=-L${LOCALBASE}/lib -Wl,-R${LOCALBASE}/lib -ltcl -lreadline -lcurses -ltermcap -lm
+ 
+ # Makefile dependency generator.
+ MAKEDEPEND	= mkdep
+ 
+ # Makefile dependency generator.
+-DEPENDFLAGS	=   -I/usr/pkg/include -I/usr/pkg/include/tcl8.0
++DEPENDFLAGS	=   -I${LOCALBASE}/include -I${LOCALBASE}/include/tcl/generic
+ 
+ # Hostname and port of remote server.
+ DEFAULTHOST	= himring.draga.com

@@ -1,0 +1,12 @@
+$NetBSD: patch-ac,v 1.5 2012/12/15 22:17:31 markd Exp $
+
+--- configure.orig	2012-11-29 09:45:02.000000000 +0000
++++ configure
+@@ -5749,6 +5749,7 @@ TCL_H_PLACES_D="$d/generic \
+ 		$d/include/tcl$TCL_VERS \
+ 		$d/include/tcl$TCL_ALT_VERS \
+ 		$d/include \
++		$d/include/tcl/generic \
+ 		/usr/local/include \
+ 		"
+ TCL_H_PLACES=" \

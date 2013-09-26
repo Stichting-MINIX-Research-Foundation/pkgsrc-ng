@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2013/06/14 08:53:57 wiz Exp $
+bin/urlview
+bin/url_handler.sh
+man/man1/urlview.1

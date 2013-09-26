@@ -1,0 +1,17 @@
+$NetBSD: patch-ab,v 1.11 2009/02/11 17:53:40 drochner Exp $
+
+--- configure.orig	2008-08-16 18:30:28.000000000 +0200
++++ configure
+@@ -7513,9 +7513,9 @@ echo "$as_me: WARNING: unable to link st
+       fi
+    fi
+ fi
+-CPPFLAGS=""
+-LDFLAGS=""
+-LIBS=""
++CPPFLAGS="$SAVE_CPPFLAGS"
++LDFLAGS="$SAVE_LDFLAGS"
++LIBS="$SAVE_LIBS"
+ 
+ #--------------------------------------------------------------------
+ # Handle different systems case by case

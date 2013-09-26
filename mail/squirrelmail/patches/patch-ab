@@ -1,0 +1,21 @@
+$NetBSD: patch-ab,v 1.16 2010/03/07 03:41:49 taca Exp $
+
+* Use case ignore match for detecting encoded word.
+* Fix encoding problem of attached filenames; don't convert encoding here.
+
+--- functions/i18n.php.orig	2010-01-25 02:47:41.000000000 +0000
++++ functions/i18n.php
+@@ -680,13 +680,6 @@ function japanese_charset_xtra() {
+             $ret = @mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+             break;
+         case 'downloadfilename':
+-            $useragent = func_get_arg(2);
+-            if (strstr($useragent, 'Windows') !== false ||
+-                strstr($useragent, 'Mac_') !== false) {
+-                $ret = mb_convert_encoding($ret, 'SJIS', 'AUTO');
+-            } else {
+-                $ret = mb_convert_encoding($ret, 'EUC-JP', 'AUTO');
+-}
+             break;
+         case 'wordwrap':
+             $no_begin = "\x21\x25\x29\x2c\x2e\x3a\x3b\x3f\x5d\x7d\xa1\xf1\xa1\xeb\xa1" .

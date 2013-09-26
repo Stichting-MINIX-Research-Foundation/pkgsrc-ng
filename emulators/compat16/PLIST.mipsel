@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST.mipsel,v 1.2 2009/06/14 17:51:02 joerg Exp $
+${EMULSUBDIRSLASH}usr/X11R6/lib/libPEX5.so.6
+${EMULSUBDIRSLASH}usr/X11R6/lib/libPEX5.so.6.0
+${EMULSUBDIRSLASH}usr/X11R6/lib/libXIE.so.6
+${EMULSUBDIRSLASH}usr/X11R6/lib/libXIE.so.6.0
+${EMULSUBDIRSLASH}usr/lib/libobjc.so.1
+${EMULSUBDIRSLASH}usr/lib/libobjc.so.1.0
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.4
+${EMULSUBDIRSLASH}usr/lib/libstdc++.so.4.0

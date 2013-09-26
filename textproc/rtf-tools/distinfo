@@ -1,0 +1,8 @@
+$NetBSD: distinfo,v 1.8 2011/10/06 21:56:15 dholland Exp $
+
+SHA1 (RTF-1.10.tar.Z) = 1fcf63e52bd2d57b2841e32667ab76bb6c2998c6
+RMD160 (RTF-1.10.tar.Z) = 0fdacb6df5779a343d419e1e3bf007f8d8cabbda
+Size (RTF-1.10.tar.Z) = 312224 bytes
+SHA1 (rtf-tools-jumbo-patch-20111006.gz) = f99a0dc6729733a58561006acdd7ddbf284621bb
+RMD160 (rtf-tools-jumbo-patch-20111006.gz) = d4aef13640f3c0ba39ad2a3811db74e8ed42f66b
+Size (rtf-tools-jumbo-patch-20111006.gz) = 31427 bytes

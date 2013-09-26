@@ -1,0 +1,13 @@
+$NetBSD: patch-ab,v 1.9 2013/05/19 07:35:56 adam Exp $
+
+--- cfg.c.orig	2011-04-18 01:47:48.000000000 +0000
++++ cfg.c
+@@ -64,7 +64,7 @@ void CFG_FindROMImages(const char *direc
+ #endif
+ 
+ #ifndef SYSTEM_WIDE_CFG_FILE
+-#define SYSTEM_WIDE_CFG_FILE "/etc/atari800.cfg"
++#define SYSTEM_WIDE_CFG_FILE PREFIX "/share/atari800/atari800.cfg"
+ #endif
+ 
+ static char rtconfig_filename[FILENAME_MAX];

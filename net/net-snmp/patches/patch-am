@@ -1,0 +1,16 @@
+$NetBSD: patch-am,v 1.13 2013/03/17 00:17:34 gdt Exp $
+
+--- agent/mibgroup/host/hr_swrun.c.orig	2012-10-09 22:28:58.000000000 +0000
++++ agent/mibgroup/host/hr_swrun.c
+@@ -1012,8 +1012,10 @@ var_hrswrun(struct variable * vp,
+ 	else
+ 	    long_return = 4;	/* application */
+     #endif
+-#else
++#elif defined darwin
++	long_return = -1;
++#else
+ 	long_return = 4;	/* application */
+ #endif
+         return (u_char *) & long_return;
+     case HRSWRUN_STATUS:

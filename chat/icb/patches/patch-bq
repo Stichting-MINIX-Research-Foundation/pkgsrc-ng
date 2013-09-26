@@ -1,0 +1,23 @@
+$NetBSD: patch-bq,v 1.5 2013/01/11 13:24:32 joerg Exp $
+
+--- icb/main.c.orig	1995-02-24 21:20:24.000000000 +0000
++++ icb/main.c
+@@ -6,7 +6,8 @@
+ #include "icb.h"
+ #include "externs.h"
+ #include <sys/wait.h>
+-#include <sys/dir.h>
++#include <dirent.h>
++#include <time.h>
+ #include "getswitch.h"
+ 
+ char *optv[] = { "clear", "list", "who", "restricted", "nickname:", "group:",
+@@ -225,7 +226,7 @@ char **argv;
+ 		tclinit();
+ 		readlineinit();
+ 		if (restrictflg && !gv.restricted)
+-			restrict();
++			restricted();
+ 	}
+ 
+ 	/* try to connect to port - if it fails, start server if we are on */

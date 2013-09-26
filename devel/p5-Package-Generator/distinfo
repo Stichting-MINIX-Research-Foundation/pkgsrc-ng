@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2009/07/18 18:13:19 sno Exp $
+
+SHA1 (Package-Generator-0.103.tar.gz) = 5fcc31add1078279541690f72dc377c3979005e6
+RMD160 (Package-Generator-0.103.tar.gz) = 41e92c2d19599f6c74f8145929a24abebe5ed72c
+Size (Package-Generator-0.103.tar.gz) = 26845 bytes

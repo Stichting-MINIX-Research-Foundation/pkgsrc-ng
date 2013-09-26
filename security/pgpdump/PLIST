@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:13:35 joerg Exp $
+bin/pgpdump
+man/man1/pgpdump.1
+share/doc/pgpdump/COPYRIGHT
+share/doc/pgpdump/README

@@ -1,0 +1,30 @@
+$NetBSD: patch-aa,v 1.11 2011/01/31 15:39:12 tnn Exp $
+
+--- configure.orig	2010-12-10 20:04:17.000000000 +0000
++++ configure
+@@ -863,7 +863,7 @@ dvidir='${docdir}'
+ pdfdir='${docdir}'
+ psdir='${docdir}'
+ libdir='${exec_prefix}/lib'
+-localedir='${datarootdir}/locale'
++localedir='${prefix}/${PKGLOCALEDIR}/locale'
+ mandir='${datarootdir}/man'
+ 
+ ac_prev=
+@@ -12778,12 +12778,12 @@ fi
+ 
+ KDE4_SESSION="$with_kde4session"
+ 
+-if test "$with_kde4session" = "yes"; then
+-	KDEDIR="`kde4-config --install data`"
+-fi
++#if test "$with_kde4session" = "yes"; then
++#	KDEDIR="`kde4-config --install data`"
++#fi
+ 
+ if test "x$KDEDIR" = x; then
+-	KDEDIR="${datadir}/kde4/apps/"
++	KDEDIR="${datadir}/kde/apps/"
+ fi
+ 
+ 

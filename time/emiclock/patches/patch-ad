@@ -1,0 +1,48 @@
+$NetBSD: patch-ad,v 1.7 2013/01/15 16:21:35 morr Exp $
+
+--- Imakefile.orig	1999-09-02 14:33:47.000000000 +0000
++++ Imakefile
+@@ -102,9 +102,14 @@ XCOMM
+ #endif	/* LinuxArchitecture */
+ 
+ /* FreeBSD */
+-#if defined(i386BsdArchitecture) && (defined(i386FreeBsd) || defined(FreeBSDArchitecture))
++#if defined(i386BsdArchitecture) && defined(i386FreeBsd) || defined(FreeBSDArchitecture)
+ #define	StartupSound	myu.au
+-#endif	/* i386BsdArchitecture && (i386FreeBsd || FreeBSDArchitecture) */
++#endif	/* i386BsdArchitecture && i386FreeBsd || FreeBSDArchitecture */
++
++/* NetBSD */
++#if defined(NetBSDArchitecture)
++#define	StartupSound	myu.au
++#endif	/* NetBSDArchitecture */
+ 
+ #else	/* USE_NETAUDIO */
+ 
+@@ -143,7 +148,7 @@ XCOMM
+ LOCAL_LIBRARIES = XawClientLibs
+ # ifdef	USE_XAW3D
+       DEPXAWLIB = $(USRLIBDIR)/libXaw3d.a
+-         XAWLIB = -lXaw3d
++         XAWLIB = -lXaw
+ # endif	/* USE_XAW3D */
+ 
+   SYS_LIBRARIES = SoundLibrary -lm
+@@ -219,6 +224,8 @@ XCOMM
+ #define	ResourceDir	resources/Xaw3d
+ #endif	/* !USE_XAW3D */
+ 
++AllTarget(EmiClock.ad)
++
+ EmiClock.ad:: ResourceDir/EmiClock.ad
+ 	$(CP) ResourceDir/EmiClock.ad .
+ 
+@@ -234,6 +241,6 @@ XCOMM
+ 
+ #ifdef	USE_SOUND
+ install:: sounds/StartupSound
+-	MakeDir(EmiClockLib)
+-	$(INSTALL) -c $(INSTAPPFLAGS) sounds/StartupSound EmiClockLib/StartupSound
++	MakeDir(${DESTDIR}EmiClockLib)
++	$(INSTALL) -c $(INSTAPPFLAGS) sounds/StartupSound ${DESTDIR}EmiClockLib/StartupSound
+ #endif	/* USE_SOUND */

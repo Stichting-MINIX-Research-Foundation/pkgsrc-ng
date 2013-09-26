@@ -1,0 +1,108 @@
+$NetBSD: patch-ac,v 1.12 2012/05/24 09:35:54 hauke Exp $
+
+--- vpnc-script.in.orig	2008-11-19 21:55:51.000000000 +0100
++++ vpnc-script.in	2011-04-14 23:33:24.877879829 +0200
+@@ -48,29 +48,36 @@ PATH=/sbin:/usr/sbin:$PATH
+ 
+ OS="`uname -s`"
+ 
+-DEFAULT_ROUTE_FILE=/var/run/vpnc/defaultroute
+-RESOLV_CONF_BACKUP=/var/run/vpnc/resolv.conf-backup
++STATEDIR=@VARBASE@/run/vpnc
++DEFAULT_ROUTE_FILE=$STATEDIR/defaultroute
++RESOLV_CONF_BACKUP=$STATEDIR/resolv.conf-backup
+ FULL_SCRIPTNAME=@PREFIX@/sbin/vpnc
+ SCRIPTNAME=`basename $FULL_SCRIPTNAME`
+ 
+ # some systems, eg. Darwin & FreeBSD, prune /var/run on boot
+-if [ ! -d "/var/run/vpnc" ]; then
+-	mkdir -p /var/run/vpnc
++if [ ! -d $STATEDIR ]; then
++	mkdir -p $STATEDIR
+ fi
+ 
+ # stupid SunOS: no blubber in /usr/local/bin ... (on stdout)
+-IPROUTE="`which ip | grep '^/' 2> /dev/null`"
++IPROUTE="`command -v ip | grep '^/' 2> /dev/null`"
+ 
+ if [ "$OS" = "Linux" ]; then
+ 	ifconfig_syntax_ptp="pointopoint"
+ 	route_syntax_gw="gw"
+ 	route_syntax_del="del"
+ 	route_syntax_netmask="netmask"
++	route_syntax_iface=""
+ else
+ 	ifconfig_syntax_ptp=""
+ 	route_syntax_gw=""
+ 	route_syntax_del="delete"
+ 	route_syntax_netmask="-netmask"
++	if [ "$OS" = "SunOS" ]; then
++		route_syntax_iface="-interface"
++	else
++		route_syntax_iface=""
++	fi
+ fi
+ 
+ if [ -x /sbin/resolvconf ]; then # Optional tool on Debian, Ubuntu, Gentoo
+@@ -93,7 +100,7 @@ do_ifconfig() {
+ 		DEV=$($IPROUTE route | grep ^default | sed 's/^.* dev \([[:alnum:]-]\+\).*$/\1/')
+ 		MTU=$(($($IPROUTE link show "$DEV" | grep mtu | sed 's/^.* mtu \([[:digit:]]\+\).*$/\1/') - 88))
+ 	else
+-		MTU=1412
++		MTU=1390
+ 	fi
+ 
+ 	# Point to point interface require a netmask of 255.255.255.255 on some systems
+@@ -163,11 +170,11 @@ else # use route command
+ 		# isn't -n supposed to give --numeric output?
+ 		# apperently not...
+ 		# Get rid of lines containing IPv6 addresses (':')
+-		netstat -r -n | awk '/:/ { next; } /^(default|0\.0\.0\.0)/ { print $2; }'
++		netstat -r -n | awk '/:/ { next; } $2 ~ /^link/ { next; } /^(default|0\.0\.0\.0)/ { print $2; }'
+ 	}
+ 	
+ 	set_vpngateway_route() {
+-		route add -host "$VPNGATEWAY" $route_syntax_gw "`get_default_gw`"
++		route add -host "$VPNGATEWAY" $route_syntax_gw "`get_default_gw`" $route_syntax_iface
+ 	}
+ 
+ 	del_vpngateway_route() {
+@@ -178,7 +185,7 @@ else # use route command
+ 		DEFAULTGW="`get_default_gw`"
+ 		echo "$DEFAULTGW" > "$DEFAULT_ROUTE_FILE"
+ 		route $route_syntax_del default
+-		route add default $route_syntax_gw "$INTERNAL_IP4_ADDRESS"
++		route add default $route_syntax_gw "$INTERNAL_IP4_ADDRESS" $route_syntax_iface
+ 	}
+ 	
+ 	set_network_route() {
+@@ -186,7 +193,7 @@ else # use route command
+ 		NETMASK="$2"
+ 		NETMASKLEN="$3"
+ 		del_network_route "$NETWORK" "$NETMASK" "$NETMASKLEN"
+-		route add -net "$NETWORK" $route_syntax_netmask "$NETMASK" $route_syntax_gw "$INTERNAL_IP4_ADDRESS"
++		route add -net "$NETWORK" $route_syntax_netmask "$NETMASK" $route_syntax_gw "$INTERNAL_IP4_ADDRESS" $route_syntax_iface
+ 	}
+ 	
+ 	reset_default_route() {
+@@ -439,6 +446,20 @@ do_pre_init() {
+ }
+ 
+ do_connect() {
++	if test "$TARGET_NETWORKS" ; then
++		i=0
++		for network in $TARGET_NETWORKS ; do
++			eval CISCO_SPLIT_INC_${i}_ADDR=`echo $network | cut -f1 -d/`
++			eval CISCO_SPLIT_INC_${i}_MASKLEN=`echo $network | cut -f2 -d/`
++			eval CISCO_SPLIT_INC_${i}_MASK=$( @PERL5@ -e '$ARGV[0]=~s,.*/,,;$m=(2**$ARGV[0]-1)<<(32-$ARGV[0]);printf "%d.%d.%d.%d\n", $m>>24 & 0xff, $m>>16 & 0xff, $m>>8 & 0xff, $m & 0xff;' $network )
++			eval CISCO_SPLIT_INC_${i}_PROTOCOL=0
++			eval CISCO_SPLIT_INC_${i}_SPORT=0
++			eval CISCO_SPLIT_INC_${i}_DPORT=0
++			i=`expr $i + 1`
++		done
++		CISCO_SPLIT_INC=$i
++	fi
++
+ 	if [ -n "$CISCO_BANNER" ]; then
+ 		echo "Connect Banner:"
+ 		echo "$CISCO_BANNER" | while read LINE ; do echo "|" "$LINE" ; done

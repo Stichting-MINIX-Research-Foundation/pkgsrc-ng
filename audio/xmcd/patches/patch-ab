@@ -1,0 +1,45 @@
+$NetBSD: patch-ab,v 1.13 2012/08/07 20:18:20 marino Exp $
+
+--- cda_d/Imakefile.orig	2001-08-08 00:15:13.000000000 +0000
++++ cda_d/Imakefile
+@@ -53,7 +53,13 @@
+ DEFINES= -DBSDCOMPAT -DUSE_TERMIOS
+ #else
+ #if defined(NetBSDArchitecture)
+-DEFINES= -DBSDCOMPAT -DNOVISUAL -DUSE_TERMIOS
++#if OSMajorVersion == 1 && (OSMinorVersion < 6 || \
++    (OSMinorVersion == 6 && OSTeenyVersion < 20))
++DEFINES= -DBSDCOMPAT -DUSE_TERMIOS
++#else
++DEFINES= -DBSDCOMPAT -DUSE_TERMIOS -DUSE_NETBSD_CURSES
++#define USE_NETBSD_CURSES
++#endif
+ #else
+ #if defined(__bsdi__)
+ .if exists(/usr/include/ncurses.h)
+@@ -121,17 +127,22 @@ LOCAL_LIBRARIES=-L/usr/5lib -lcurses
+ LOCAL_LIBRARIES=-lncurses
+ #else
+ #if defined(FreeBSDArchitecture)
+-LOCAL_LIBRARIES=-lncurses -lmytinfo
++LOCAL_LIBRARIES=-lncurses
+ .if exists(/usr/include/camlib.h)
+ LOCAL_LIBRARIES+= -lcam
+ .endif
+ #else
+ #if defined(NetBSDArchitecture)
+-LOCAL_LIBRARIES=
++LOCAL_LIBRARIES= ${MOTIFLIB} XawClientLibs
++#if defined USE_NETBSD_CURSES
++LOCAL_LIBRARIES+=-lcurses
++#else
++LOCAL_LIBRARIES+=-lncurses
++#endif
+ #else
+ #if defined(__bsdi__)
+ .if exists(/usr/include/ncurses.h)
+-LOCAL_LIBRARIES=-lncurses
++LOCAL_LIBRARIES=-I${LOCALBASE}/include -L${LOCALBASE}/lib -Wl,-R${LOCALBASE}/lib -lncurses
+ .else
+ LOCAL_LIBRARIES=
+ .endif

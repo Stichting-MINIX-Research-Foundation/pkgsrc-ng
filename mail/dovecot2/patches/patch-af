@@ -1,0 +1,13 @@
+$NetBSD: patch-af,v 1.6 2013/05/23 19:45:50 adam Exp $
+
+--- doc/example-config/conf.d/Makefile.in.orig	2013-05-19 23:04:29.000000000 +0000
++++ doc/example-config/conf.d/Makefile.in
+@@ -256,7 +256,7 @@ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+ pkgsysconfdir = $(sysconfdir)/dovecot
+-exampledir = $(docdir)/example-config/conf.d
++exampledir = $(datadir)/examples/dovecot/conf.d
+ example_DATA = \
+ 	auth-checkpassword.conf.ext \
+ 	auth-deny.conf.ext \

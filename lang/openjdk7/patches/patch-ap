@@ -1,0 +1,53 @@
+$NetBSD: patch-ap,v 1.5 2013/06/15 09:31:05 jperkin Exp $
+
+Use pkgsrc fontconfig.
+
+--- jdk/src/solaris/native/sun/awt/fontpath.c.orig	2013-05-29 03:57:58.000000000 +0000
++++ jdk/src/solaris/native/sun/awt/fontpath.c
+@@ -72,8 +72,8 @@ extern Display *awt_display;
+ #define FONTCONFIG_DLL_VERSIONED X11_PATH "/lib/" VERSIONED_JNI_LIB_NAME("fontconfig", "1")
+ #define FONTCONFIG_DLL X11_PATH "/lib/" JNI_LIB_NAME("fontconfig")
+ #else
+-#define FONTCONFIG_DLL_VERSIONED VERSIONED_JNI_LIB_NAME("fontconfig", "1")
+-#define FONTCONFIG_DLL JNI_LIB_NAME("fontconfig")
++#define FONTCONFIG_DLL_VERSIONED "@BUILDLINK_PREFIX.fontconfig@/lib/" JNI_LIB_NAME("fontconfig")
++#define FONTCONFIG_DLL "@BUILDLINK_PREFIX.fontconfig@/lib/" JNI_LIB_NAME("fontconfig")
+ #endif
+ 
+ #define MAXFDIRS 512    /* Max number of directories that contain fonts */
+@@ -181,6 +181,27 @@ static char *fullLinuxFontPath[] = {
+     NULL, /* terminates the list */
+ };
+ #endif
++static char *pkgsrcFontPath[] = {
++   "@PREFIX@/lib/X11/fonts/100dpi",
++   "@PREFIX@/lib/X11/fonts/75dpi",
++   "@PREFIX@/lib/X11/fonts/Type1",
++   "@PREFIX@/lib/X11/fonts/cyrillic",
++   "@PREFIX@/lib/X11/fonts/misc",
++   "@PREFIX@/lib/X11/fonts/TTF",
++   "/usr/X11R7/lib/X11/fonts/100dpi",
++   "/usr/X11R7/lib/X11/fonts/75dpi",
++   "/usr/X11R7/lib/X11/fonts/Type1",
++   "/usr/X11R7/lib/X11/fonts/cyrillic",
++   "/usr/X11R7/lib/X11/fonts/misc",
++   "/usr/X11R7/lib/X11/fonts/TTF",
++   "/usr/X11R6/lib/X11/fonts/100dpi",
++   "/usr/X11R6/lib/X11/fonts/75dpi",
++   "/usr/X11R6/lib/X11/fonts/Type1",
++   "/usr/X11R6/lib/X11/fonts/cyrillic",
++   "/usr/X11R6/lib/X11/fonts/misc",
++   "/usr/X11R6/lib/X11/fonts/TTF",
++   NULL
++};
+ 
+ static char **getFontConfigLocations();
+ 
+@@ -545,6 +566,7 @@ static char *getPlatformFontPathChars(JN
+ #else /* IF SOLARIS */
+     knowndirs = fullSolarisFontPath;
+ #endif
++    knowndirs = pkgsrcFontPath;
+ 
+     /* REMIND: this code requires to be executed when the GraphicsEnvironment
+      * is already initialised. That is always true, but if it were not so,

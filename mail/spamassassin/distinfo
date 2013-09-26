@@ -1,0 +1,20 @@
+$NetBSD: distinfo,v 1.58.4.1 2013/08/01 12:51:53 tron Exp $
+
+SHA1 (Mail-SpamAssassin-3.3.2.tar.gz) = de954f69e190496eff4a796a9bab61747f03072b
+RMD160 (Mail-SpamAssassin-3.3.2.tar.gz) = 78e22ba6ba62a48fb7d24c40170124881b975fd9
+Size (Mail-SpamAssassin-3.3.2.tar.gz) = 1208182 bytes
+SHA1 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz) = a199d5f0f8c2381e3dfe421e7a774356b3ffda4b
+RMD160 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz) = 22843725705aca9a7c773d9cca50d6eb30ca295c
+Size (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz) = 258995 bytes
+SHA1 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.asc) = 102cbd61d3d37243d17a48748fc468a1a4e91d05
+RMD160 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.asc) = 764ea0f583c370c3c11f7245005327afa6c19988
+Size (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.asc) = 823 bytes
+SHA1 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.sha1) = 13003cfad508bd45863e02711aaee041ab9bc30e
+RMD160 (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.sha1) = aa218d53eb3dda0737171f75d63b7a64f97c2930
+Size (Mail-SpamAssassin-rules-3.3.2-r1104058.tar.gz.sha1) = 88 bytes
+SHA1 (patch-aa) = 0fff97dee1153332471aeadc2b96c357d1925f5c
+SHA1 (patch-ab) = 84ebc0f611365c00205a85cb84970772a0931ef8
+SHA1 (patch-ae) = d46b1d8f56c8c61936c307f74b39a49da1b1f353
+SHA1 (patch-aq) = 3a273c7742275647c2334382fed29c0ea33dfbd8
+SHA1 (patch-ay) = ca8ea0b1e6d8fddd29d6ae960e1bf6e534d2f424
+SHA1 (patch-sa-update) = 893d8c2ebe68524b620a438f30e2b9ba764aaa6e

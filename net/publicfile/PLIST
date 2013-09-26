@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:09:39 joerg Exp $
+publicfile/bin/configure
+publicfile/bin/httpd
+publicfile/bin/ftpd

@@ -1,0 +1,35 @@
+$NetBSD: patch-ae,v 1.4 2012/02/28 21:55:28 cheusov Exp $
+
+--- server/Makefile.orig	2010-09-09 20:21:09.000000000 +0000
++++ server/Makefile
+@@ -24,23 +24,23 @@ libs/tests:
+ 	cd libs ; make
+ 
+ read_kvars.o: read_kvars.c ../libs/JsStr.h ../libs/MaraHash.h ../MaraDns.h
+-	$(CC) -c $(FLAGS) -o read_kvars.o read_kvars.c
++	$(CC) -c $(FLAGS) $(CFLAGS) -o read_kvars.o read_kvars.c
+ 
+ MaraBigHash.o: MaraBigHash.c ../libs/JsStr.h ../libs/MaraHash.h ../MaraDns.h MaraBigHash_locale.h
+-	$(CC) -c $(FLAGS) -o MaraBigHash.o MaraBigHash.c 
++	$(CC) -c $(FLAGS) $(CFLAGS) -o MaraBigHash.o MaraBigHash.c 
+ 
+ timestamp.o: timestamp.c MaraDNS_locale.h
+-	$(CC) -c $(FLAGS) -o timestamp.o timestamp.c
++	$(CC) -c $(FLAGS) $(CFLAGS) -o timestamp.o timestamp.c
+ 
+ MaraAnyChain.o: MaraAnyChain.c
+-	$(CC) -c $(FLAGS) -o MaraAnyChain.o MaraAnyChain.c
++	$(CC) -c $(FLAGS) $(CFLAGS) -o MaraAnyChain.o MaraAnyChain.c
+ 
+ udpsuccess.o: udpsuccess.c
+-	$(CC) -c $(FLAGS) -o udpsuccess.o udpsuccess.c
++	$(CC) -c $(FLAGS) $(CFLAGS) -o udpsuccess.o udpsuccess.c
+ 
+ maradns: MaraDNS.c $(OBJECTS) MaraDNS_locale.h
+-	$(CC) $(FLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o maradns MaraDNS.c $(OBJECTS) 
++	$(CC) $(FLAGS) $(CFLAGS) $(LDFLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o maradns MaraDNS.c $(OBJECTS) $(LDADD)
+ 
+ simple: MaraDNS.c $(OBJECTS) MaraDNS_locale.h
+-	$(CC) $(FLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o simple simple.c $(OBJECTS) 
++	$(CC) $(FLAGS) $(CFLAGS) $(LDFLAGS) -DVERSION=\"$(VERSION)\" -DCOMPILED=\"$(COMPILED)\" -o simple simple.c $(OBJECTS) $(LDADD)
+ 

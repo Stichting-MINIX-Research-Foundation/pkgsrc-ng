@@ -1,0 +1,26 @@
+$NetBSD: patch-ad,v 1.5 2009/09/08 19:20:49 joerg Exp $
+
+--- lib/Makefile.orig	Thu Feb  4 00:43:26 1999
++++ lib/Makefile
+@@ -25,7 +25,7 @@
+ # Software Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.         #
+ ##############################################################################
+ #
+-LIBRARY=libXmHTML.a
++LIBRARY=libXmHTML.la
+ 
+ # Target to make
+ TARGET=$(LIBRARY)
+@@ -44,9 +44,9 @@
+ 	@(set -x; cd common; $(MAKE) all $(pass_flags) )
+ 
+ $(TARGET):: common $(PLATFORM) 
+-	$(RM) $@ \ 
+-	$(AR) $@ common/*.o $(PLATFORM)/*.o
+-	$(RANLIB) $@
++	$(RM) $@
++	${LIBTOOL} --mode=link $(CC) -o $@ common/*.lo $(PLATFORM)/*.lo \
++		-rpath ${PREFIX}/lib -version-info 1:2
+ 	
+ depend:: 
+ 	@( for dir in $(SUBDIRS) ; do \

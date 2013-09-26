@@ -1,0 +1,4 @@
+pbulk is the modular bulk build framework for pkgsrc.
+
+This package contains the front end bulk build and the script logic
+for full and limited bulk builds.

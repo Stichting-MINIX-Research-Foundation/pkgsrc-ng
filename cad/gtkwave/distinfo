@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.13 2011/12/16 10:58:14 drochner Exp $
+
+SHA1 (gtkwave-3.3.28.tar.gz) = 05a502daba0532468af31576dd17971a7f276027
+RMD160 (gtkwave-3.3.28.tar.gz) = ff0d2a2da18b967aa6e25fbaee5f08998f692bfd
+Size (gtkwave-3.3.28.tar.gz) = 3225502 bytes
+SHA1 (patch-aa) = 47d8556b4d1356182d86404b2c2151613a5d714f

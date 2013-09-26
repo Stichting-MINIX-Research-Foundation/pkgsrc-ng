@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.7 2013/01/23 09:45:10 rhaen Exp $
+
+SHA1 (Cache-Memcached-1.30.tar.gz) = e439c698a9ff17bba0eae06db39b6bb36fc6fa75
+RMD160 (Cache-Memcached-1.30.tar.gz) = cfb766f09f3e2663ad6bea6fb20723e2be0dde24
+Size (Cache-Memcached-1.30.tar.gz) = 20643 bytes

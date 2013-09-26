@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:56:42 joerg Exp $
+bin/Packer
+bin/critter
+man/man6/critter.6
+share/Critical_Mass/lg-criti.xm
+share/Critical_Mass/resource.dat

@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 17:48:39 joerg Exp $
+bin/cvsgraph
+man/man1/cvsgraph.1
+man/man5/cvsgraph.conf.5
+share/doc/${PKGBASE}/LICENSE
+share/doc/${PKGBASE}/README
+share/examples/${PKGBASE}/cvsgraph.conf

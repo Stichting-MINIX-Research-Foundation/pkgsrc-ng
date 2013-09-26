@@ -1,0 +1,48 @@
+$NetBSD: patch-aj,v 1.4 2008/11/18 17:59:02 chuck Exp $
+
+--- glib.h.orig	2001-02-26 22:44:38.000000000 -0500
++++ glib.h	2008-11-18 12:51:35.000000000 -0500
+@@ -119,8 +119,12 @@
+  *  defined then the current definition is correct.
+  */
+ #ifndef	NULL
++#ifdef		__cplusplus
++#define	NULL	(0L)
++#else
+ #define	NULL	((void*) 0)
+ #endif
++#endif
+ 
+ #ifndef	FALSE
+ #define	FALSE	(0)
+@@ -204,7 +208,7 @@
+ #ifndef G_INLINE_FUNC
+ #  ifdef __GNUC__
+ #    ifdef __OPTIMIZE__
+-#      define G_INLINE_FUNC extern inline
++#      define G_INLINE_FUNC static inline
+ #    else
+ #      undef G_CAN_INLINE
+ #      define G_INLINE_FUNC extern
+@@ -271,14 +275,18 @@
+ 
+ /* Wrap the gcc __PRETTY_FUNCTION__ and __FUNCTION__ variables with
+  * macros, so we can refer to them as strings unconditionally.
++ *
++ * NB: GLib requires that these expand to string literals so that
++ * they're concatenable. Therefore, they're only useful for GCC < 3.0
++ * because since GCC 3.0 these macros expand to const pointers.
+  */
+-#ifdef	__GNUC__
++#if defined(__GNUC__) && (__GNUC__ < 3)
+ #define	G_GNUC_FUNCTION		__FUNCTION__
+ #define	G_GNUC_PRETTY_FUNCTION	__PRETTY_FUNCTION__
+-#else	/* !__GNUC__ */
++#else /* !(__GNUC__ < 3) */
+ #define	G_GNUC_FUNCTION		""
+ #define	G_GNUC_PRETTY_FUNCTION	""
+-#endif	/* !__GNUC__ */
++#endif        /* !(__GNUC__ < 3) */
+ 
+ /* we try to provide a usefull equivalent for ATEXIT if it is
+  * not defined, but use is actually abandoned. people should

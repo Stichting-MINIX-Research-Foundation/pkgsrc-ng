@@ -1,0 +1,28 @@
+$NetBSD: patch-ai,v 1.2 2008/12/17 02:19:59 christos Exp $
+
+--- icb/icb.h.orig	1995-02-24 16:20:23.000000000 -0500
++++ icb/icb.h	2008-12-16 20:20:23.000000000 -0500
+@@ -4,13 +4,13 @@
+ #include "../protocol.h"
+ #include "../tcl/tcl.h"
+ #include <stdio.h>
++#include <string.h>
++#include <stdlib.h>
+ #include <sys/param.h>
+ #ifdef NEED_CTYPE
+ #include <ctype.h>
+ #endif
+ 
+-char *malloc();
+-
+ /* command usage information */
+ 
+ typedef struct Usage {
+@@ -38,6 +38,7 @@
+ 	int beeps;		/* whether beeps are audible */
+ 	char *editmode;		/* input editing mode */
+ 	int tabreply;		/* should replies go into the tab history? */
++	int printtime;		/* print timestamp in front of every msg? */
+ 	int cute;		/* cute messages when a blank line is entered */
+ 	int autodel;		/* automatically delete nicks from the tab
+ 			        history that produce a "not logged on" error */

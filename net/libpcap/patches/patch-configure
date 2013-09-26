@@ -1,0 +1,25 @@
+$NetBSD: patch-configure,v 1.3 2013/06/21 13:35:06 jperkin Exp $
+
+Ensure consistent manual page locations.
+
+--- configure.orig	2013-03-25 14:51:40.000000000 +0000
++++ configure
+@@ -9986,8 +9985,6 @@ fi
+ # Individual cases can override this.
+ #
+ DYEXT="none"
+-MAN_FILE_FORMATS=5
+-MAN_MISC_INFO=7
+ case "$host_os" in
+ 
+ aix*)
+@@ -10255,6 +10252,9 @@ fi
+ 
+ test "x$enable_shared" = "xno" && DYEXT="none"
+ 
++MAN_FILE_FORMATS=5
++MAN_MISC_INFO=7
++
+ if test -n "$ac_tool_prefix"; then
+   # Extract the first word of "${ac_tool_prefix}ranlib", so it can be a program name with args.
+ set dummy ${ac_tool_prefix}ranlib; ac_word=$2

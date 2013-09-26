@@ -1,0 +1,18 @@
+$NetBSD: patch-bi,v 1.2 2010/09/27 12:01:49 taca Exp $
+
+* Don't declare errno.
+
+--- uip/rcvstore.c.orig	2006-04-11 14:51:32.000000000 +0000
++++ uip/rcvstore.c
+@@ -43,10 +43,7 @@ static struct swit switches[] = {
+ 
+ /*  */
+ 
+-extern int  errno;
+-
+-static char *tmpfilenam = NULLCP;
+-/*  */
++static char *tmpfilenam = NULLCP; /*  */
+ 
+ /* ARGSUSED */
+ 

@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.5 2012/03/07 00:19:08 elric Exp $
+bin/rtorrent
+share/examples/rtorrent/rtorrent.rc

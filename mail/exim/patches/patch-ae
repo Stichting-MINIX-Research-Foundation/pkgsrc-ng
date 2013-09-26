@@ -1,0 +1,41 @@
+$NetBSD: patch-ae,v 1.12 2012/06/11 11:41:25 adam Exp $
+
+--- scripts/exim_install.orig	2012-05-31 00:40:15.000000000 +0000
++++ scripts/exim_install
+@@ -83,6 +83,8 @@ if [ "${SYSTEM_ALIASES_FILE}" = "" ] ; t
+   SYSTEM_ALIASES_FILE=/etc/aliases
+ fi
+ 
++INST_CONFIGURE_FILE=${PREFIX}/share/examples/exim/configure
++
+ # Allow INST_xx to over-ride xx
+ case "$INST_BIN_DIRECTORY"       in ?*) BIN_DIRECTORY="$INST_BIN_DIRECTORY";; esac
+ case "$INST_CONFIGURE_FILE"      in ?*) CONFIGURE_FILE="$INST_CONFIGURE_FILE";; esac
+@@ -219,6 +221,9 @@ while [ $# -gt 0 ]; do
+   if [ $name = exim${EXE} ]; then
+     version=exim-`./exim -bV -C /dev/null | \
+       awk '/Exim version/ { OFS=""; print $3,"-",substr($4,2,length($4)-1) }'`${EXE}
++    # only for pkgsrc: ./exim cannot run during install to DESTDIR because 
++    # EXIM_USER may not exist at this time, so we fake the version information
++    version=@PKGSRC_EXIM_VERSION@${EXE}
+ 
+     if [ "${version}" = "exim-${EXE}" ]; then
+       echo $com ""
+@@ -414,15 +419,8 @@ elif [ ! -f ${CONFIGURE_FILE} ]; then
+     echo $com "*** Exim installation ${ver}failed ***"
+     exit 1
+   fi
+-  if [ ! -f ${SYSTEM_ALIASES_FILE} ]; then
+-    echo $com '****'
+-    echo $com Installing a dummy ${SYSTEM_ALIASES_FILE} file because you do not have
+-    echo $com one, and the default configuration requires it. You should
+-    echo $com edit ${SYSTEM_ALIASES_FILE} and at least create an alias for postmaster.
+-    echo $com '***'
+-    echo ${CP} ../src/aliases.default ${SYSTEM_ALIASES_FILE}
+-    ${real} ${CP} ../src/aliases.default ${SYSTEM_ALIASES_FILE}
+-  fi
++  echo ${CP} ../src/aliases.default ${DESTDIR}${PREFIX}/share/examples/exim/aliases
++  ${real} ${CP} ../src/aliases.default ${DESTDIR}${PREFIX}/share/examples/exim/aliases
+ 
+ else
+   echo $com Configuration file ${CONFIGURE_FILE} already exists

@@ -1,0 +1,15 @@
+$NetBSD: patch-ab,v 1.2 2012/04/07 16:30:05 schwarz Exp $
+
+--- src/context.c.orig	2012-04-07 01:25:21.000000000 +0200
++++ src/context.c	2012-04-07 01:27:52.000000000 +0200
+@@ -56,8 +56,8 @@
+ 	  if (LONG_MIN <= TYPE_MINIMUM (time_t)
+ 	      && TYPE_MAXIMUM (time_t) <= LONG_MAX)
+ 	    {
+-	      long int sec = inf->stat.st_mtime;
+-	      sprintf (buf, "%ld.%.9d", sec, nsec);
++	      long long int sec = inf->stat.st_mtime; /* should really be time_t */
++	      sprintf (buf, "%lld.%.9d", sec, nsec);
+ 	    }
+ 	  else if (TYPE_MAXIMUM (time_t) <= INTMAX_MAX)
+ 	    {

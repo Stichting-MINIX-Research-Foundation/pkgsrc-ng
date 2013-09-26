@@ -1,0 +1,58 @@
+$NetBSD: patch-ab,v 1.4 2013/03/28 21:30:49 joerg Exp $
+
+First chunk: automake-1.13 compat.
+Rest: ?
+
+--- configure.ac.orig	2008-02-10 10:31:33.000000000 +0000
++++ configure.ac
+@@ -5,7 +5,7 @@ AC_INIT([see],
+ 	[leonard@users.sourceforge.net])
+ AC_PREREQ(2.52)
+ AM_INIT_AUTOMAKE
+-AM_CONFIG_HEADER(include/config.h)
++AC_CONFIG_HEADERS(include/config.h)
+ AC_CONFIG_FILES([Makefile
+ 		 include/Makefile
+ 		 include/see/Makefile
+@@ -29,11 +29,11 @@ dnl
+ AC_PROG_CC
+ AC_PROG_SED
+ 
+-AC_LIBLTDL_CONVENIENCE([libltdl])
+ AC_LIBTOOL_DLOPEN
+ AC_PROG_LIBTOOL
+ dnl AC_LIB_LTDL
+-AC_CONFIG_SUBDIRS([libltdl])
++LIBLTDL=-lltdl
++LTDLINCL=
+ AC_SUBST([LIBLTDL])
+ AC_SUBST([LTDLINCL])
+ AC_SUBST([LIBSEE_LIBS])
+@@ -206,11 +206,12 @@ SEE_ARG_ENABLE(longjmperror,[yes],
+         [Define if you want SEE to catch longjmp corruption])
+ ])
+ 
+-SEE_ARG_ENABLE(native-dtoa,[auto],
++SEE_ARG_ENABLE(native-dtoa,[no],
+     [dtoa from libc],
+-    [enable_native_dtoa=yes
+-     AC_CHECK_FUNCS([strtod dtoa freedtoa],,[enable_native_dtoa=no])
+-])
++    [],
++    [enable_native_dtoa=yes],
++    [enable_native_dtoa=no]
++)
+ AM_CONDITIONAL(NATIVE_DTOA, test x"$enable_native_dtoa" = x"yes")
+ 
+ 
+@@ -333,6 +334,10 @@ AC_CHECK_FUNCS([isnan _isnan],[have_isna
+ AC_CHECK_FUNCS([finite _finite isfinite],[have_finite=yes])
+ AC_CHECK_FUNCS([copysign _copysign],[have_copysign=yes])
+ 
++if test $have_isnan = no; then
++    AC_CHECK_DECLS([isnan],[have_isnan=yes],,[#include <math.h>])
++fi
++
+ dnl -- when using double isnan/finite must be available
+ if test $ac_cv_sizeof_float -ne 8; then
+     test $have_isnan = no && missing_funcs="$missing_funcs isnan";

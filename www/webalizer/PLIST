@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 22:00:40 joerg Exp $
+bin/wcmgr
+bin/webalizer
+bin/webazolver
+man/man1/wcmgr.1
+man/man1/webalizer.1
+man/man1/webazolver.1
+share/doc/webalizer/CHANGES
+share/doc/webalizer/Copyright
+share/doc/webalizer/DNS.README
+share/doc/webalizer/README
+share/doc/webalizer/README.FIRST
+share/examples/webalizer.conf.sample

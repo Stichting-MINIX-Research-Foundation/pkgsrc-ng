@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.5 2008/11/13 04:41:00 obache Exp $
+include/sieve2.h
+include/sieve2_error.h
+lib/libsieve.la
+lib/pkgconfig/libsieve.pc

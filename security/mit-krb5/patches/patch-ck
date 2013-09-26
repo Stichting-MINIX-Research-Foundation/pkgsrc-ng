@@ -1,0 +1,15 @@
+$NetBSD: patch-ck,v 1.2 2012/07/16 19:12:33 adam Exp $
+
+Fix build where libtool chokes on "--version-info : " (at least OS X)
+
+--- lib/apputils/Makefile.in.orig	2012-05-31 23:49:44.000000000 +0000
++++ lib/apputils/Makefile.in
+@@ -16,6 +16,8 @@ DEFS=
+ STLIBOBJS=net-server.o @LIBOBJS@
+ STOBJLISTS=OBJS.ST
+ LIBBASE=apputils
++LIBMAJOR=0
++LIBMINOR=0
+ 
+ all-unix:: all-liblinks
+ clean-unix:: clean-liblinks clean-libs clean-libobjs

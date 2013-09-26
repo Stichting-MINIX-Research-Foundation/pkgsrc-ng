@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.19 2013/03/17 15:59:54 taca Exp $
+
+SHA1 (facter-1.6.18.gem) = 5069693055556e277e3363ff2bd1c2d19a94ba12
+RMD160 (facter-1.6.18.gem) = 68bc809e1fd854eb0e89b199b04ae1c4761f2d22
+Size (facter-1.6.18.gem) = 145920 bytes

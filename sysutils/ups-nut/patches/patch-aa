@@ -1,0 +1,13 @@
+$NetBSD: patch-aa,v 1.11 2013/02/16 17:34:58 jdf Exp $
+
+--- conf/Makefile.in.orig	2013-02-08 15:36:48.000000000 +0100
++++ conf/Makefile.in	2013-02-08 15:37:02.000000000 +0100
+@@ -112,7 +112,7 @@
+ CC = @CC@
+ CCDEPMODE = @CCDEPMODE@
+ CFLAGS = @CFLAGS@
+-CONFPATH = @CONFPATH@
++CONFPATH = $(DESTDIR)@prefix@/share/examples/nut
+ CPP = @CPP@
+ CPPFLAGS = @CPPFLAGS@
+ CPPUNIT_CFLAGS = @CPPUNIT_CFLAGS@

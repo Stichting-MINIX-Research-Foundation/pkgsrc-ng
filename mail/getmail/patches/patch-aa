@@ -1,0 +1,28 @@
+$NetBSD: patch-aa,v 1.8 2011/09/26 14:06:30 schmonz Exp $
+
+Use standard pkgsrc paths, and don't install RPM spec file.
+
+--- setup.py.orig	2007-11-23 16:26:55.000000000 +0000
++++ setup.py
+@@ -39,12 +39,11 @@ GETMAILDOCDIR = os.path.join(
+     datadir or prefix,
+     'share',
+     'doc',
+-    'getmail-%s' % __version__
++    'getmail'
+ )
+ 
+ GETMAILMANDIR = os.path.join(
+     datadir or prefix,
+-    'share',
+     'man',
+     'man1'
+ )
+@@ -100,7 +99,6 @@ setup(
+     data_files=[
+         (GETMAILDOCDIR, [
+             './README',
+-            './getmail.spec',
+             'docs/BUGS',
+             'docs/COPYING',
+             'docs/CHANGELOG',

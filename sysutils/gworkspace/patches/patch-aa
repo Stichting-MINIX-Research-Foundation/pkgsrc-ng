@@ -1,0 +1,21 @@
+$NetBSD: patch-aa,v 1.7 2012/10/22 03:08:29 rh Exp $
+
+Add missing includes.
+
+--- GWorkspace/Desktop/GWDesktopManager.m.orig	2012-03-28 18:45:01.000000000 +0000
++++ GWorkspace/Desktop/GWDesktopManager.m
+@@ -31,6 +31,14 @@
+ #import "GWorkspace.h"
+ #import "GWViewersManager.h"
+ #import "TShelf/TShelfWin.h"
++#include <sys/types.h>
++#include <sys/param.h>
++
++#if defined(__DragonFly__)
++#include <sys/mount.h>
++#elif (defined(BSD) && BSD >= 199306)
++#include <sys/statvfs.h>
++#endif
+ 
+ #define RESV_MARGIN 10
+ 

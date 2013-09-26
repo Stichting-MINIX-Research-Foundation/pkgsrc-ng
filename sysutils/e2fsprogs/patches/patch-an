@@ -1,0 +1,15 @@
+$NetBSD: patch-an,v 1.2 2010/12/23 06:34:50 ryoon Exp $
+
+--- e2fsck/e2fsck.h.orig	2010-05-13 22:59:49.000000000 +0000
++++ e2fsck/e2fsck.h
+@@ -61,6 +61,10 @@
+ #define P_(singular, plural, n) ((n) == 1 ? (singular) : (plural))
+ #endif
+ 
++#ifndef ETC_DIR
++#define ETC_DIR "/etc"		/* Where to find the config file */
++#endif
++
+ /*
+  * Exit codes used by fsck-type programs
+  */

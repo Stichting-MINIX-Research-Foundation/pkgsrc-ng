@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.28 2010/04/30 06:53:07 sbd Exp $
+
+--- dialects/n+obsd/machine.h.orig	2006-03-28 16:54:17.000000000 -0500
++++ dialects/n+obsd/machine.h	2008-05-17 18:53:29.000000000 -0400
+@@ -41,6 +41,10 @@
+ 
+ #include <sys/types.h>
+ #include <sys/param.h>
++#include <stdbool.h>
++#if __NetBSD_Version__ >= 499006200
++#define HASCWDINFO
++#endif
+ 
+ 
+ /*

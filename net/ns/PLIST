@@ -1,0 +1,10 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 18:09:36 joerg Exp $
+bin/calcdest
+bin/dec-tr-stat
+bin/epa-tr-stat
+bin/nlanr-tr-stat
+bin/ns
+bin/setdest
+bin/ucb-tr-stat
+man/man1/ns.1
+share/doc/ns/CHANGES.html

@@ -1,0 +1,17 @@
+$NetBSD: patch-ai,v 1.2 2013/03/24 16:51:08 joerg Exp $
+--- CommonUtilitiesLib/StrPtrLen.h.orig	2005-05-18 08:01:14.000000000 +0000
++++ CommonUtilitiesLib/StrPtrLen.h
+@@ -66,7 +66,12 @@ class StrPtrLen
+         Bool16 NumEqualIgnoreCase(const char* compare, const UInt32 len) const;
+         
+         void Delete() { delete [] Ptr; Ptr = NULL; Len = 0; }
+-        char *ToUpper() { for (UInt32 x = 0; x < Len ; x++) Ptr[x] = toupper (Ptr[x]); return Ptr;}
++		char *ToUpper()
++		{
++			for (UInt32 x = 0; x < Len ; x++)
++				Ptr[x] = toupper (Ptr[x]);
++			return Ptr;
++		}
+         
+         char *FindStringCase(char *queryCharStr, StrPtrLen *resultStr, Bool16 caseSensitive) const;
+ 

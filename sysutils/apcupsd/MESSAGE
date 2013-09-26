@@ -1,0 +1,20 @@
+===========================================================================
+$NetBSD: MESSAGE,v 1.4 2012/01/22 09:07:50 shattered Exp $
+
+NOTE:  You may use the (undocumented) NISIP configuration file option to
+       determine what interfaces the NIS server will listen on; use
+       "NISIP 127.0.0.1" for better security.
+
+NOTE:  With NetBSD 4.0 and higher, you can leave USB HID devices enabled,
+       but force a single port to attach ugen instead (for the UPS) with
+       a kernel configuration line along the lines of:
+           ugen*   at uhub0 port 1 flags 1
+
+NOTE:  With most APC cables you must put a "local" flag in /etc/ttys for
+       the port you connect your UPS to, and run "ttyflags -a" to turn it
+       on the first time.
+
+For complete documentation, see the HTML docs in
+file://${PREFIX}/share/doc/html/apcupsd/index.html
+
+===========================================================================

@@ -1,0 +1,36 @@
+$NetBSD: patch-am,v 1.4 2013/01/11 13:24:32 joerg Exp $
+
+--- icb/readlineinit.c.orig	1995-02-24 21:20:25.000000000 +0000
++++ icb/readlineinit.c
+@@ -1,4 +1,6 @@
+ #include <readline.h>
++#include <stdlib.h>
++#include <unistd.h>
+ #include "icb.h"
+ #include "externs.h"
+ 
+@@ -9,7 +11,7 @@
+ readlineinit()
+ {
+ char *editor;
+-int handletab();
++int handletab(int, int);
+ 
+ /*
+  * bind the tab key
+@@ -21,12 +23,12 @@ rl_bind_key_in_map('\t', handletab, emac
+ rl_vi_editing_mode(); /* default to vi, dammit. */
+ gv.editmode = "vi";
+ 
+-editor = (char *)getenv("EDITOR");
++editor = getenv("EDITOR");
+ if (!editor)
+-	editor = (char *)getenv("VISUAL");
++	editor = getenv("VISUAL");
+ 
+ if (editor != NULL)
+-   if (strcmp((char *)basename(editor),"emacs")==0)
++   if (strcmp(basename(editor),"emacs")==0)
+    {
+ 	rl_emacs_editing_mode();
+ 	gv.editmode = "emacs";

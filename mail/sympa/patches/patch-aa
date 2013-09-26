@@ -1,0 +1,58 @@
+$NetBSD: patch-aa,v 1.6 2012/05/16 16:16:46 bouyer Exp $
+
+--- Makefile.in.orig	2011-08-25 16:48:08.000000000 +0200
++++ Makefile.in	2012-02-24 20:06:42.000000000 +0100
+@@ -635,35 +635,30 @@
+ 			echo "Creating $(DESTDIR)$$dir"; \
+ 			install -d -m 755 $(DESTDIR)$$dir; \
+ 		fi; \
+-		chown $(USER) $(DESTDIR)$$dir || /bin/true; \
+-		chgrp $(GROUP) $(DESTDIR)$$dir || /bin/true; \
++		chown $(USER) $(DESTDIR)$$dir || true; \
++		chgrp $(GROUP) $(DESTDIR)$$dir || true; \
+ 	done
+ 
+ installconfig: installdir
+ 	@echo "Installing basic configuration ..."
+ 	export PERL5LIB=$(DESTDIR)$(modulesdir); \
+-	if [ ! -f  $(DESTDIR)$(confdir)/sympa.conf ]; then \
+-		echo "This looks like your first Sympa installation. The following wizard will assist you to create your first Sympa configuration.";\
+-		if [ ! -d $(DESTDIR)$(confdir) ]; then \
+-			$(INSTALL) -d -m 755 $(DESTDIR)$(confdir); \
+-		fi; \
+-		$(DESTDIR)$(sbindir)/sympa_wizard.pl \
+-			--create sympa.conf \
+-			--target $(DESTDIR)$(confdir)/sympa.conf \
+-			|| /bin/true; \
+-		$(DESTDIR)$(sbindir)/sympa_wizard.pl \
+-			--create wwsympa.conf \
+-			--target $(DESTDIR)$(confdir)/wwsympa.conf \
+-			|| /bin/true; \
++	if [ ! -d $(DESTDIR)$(prefix)/share/examples/sympa ]; then \
++		$(INSTALL) -d -m 755 $(DESTDIR)$(prefix)/share/examples/sympa; \
+ 	fi; \
+-	if [ ! -f $(DESTDIR)$(sysconfdir)/data_structure.version ]; then \
+-		cd $(DESTDIR)$(sysconfdir); \
+-		echo "# automatically created file" >> data_structure.version; \
+-		echo "# you should not modify it" >> data_structure.version; \
+-		echo $(VERSION) >> data_structure.version; \
+-		chown $(USER) data_structure.version || /bin/true; \
+-		chgrp $(GROUP) data_structure.version || /bin/true; \
+-	fi
++	$(DESTDIR)$(sbindir)/sympa_wizard.pl \
++		--create sympa.conf \
++		--target $(DESTDIR)$(prefix)/share/examples/sympa/sympa.conf \
++		|| true; \
++	$(DESTDIR)$(sbindir)/sympa_wizard.pl \
++		--create wwsympa.conf \
++		--target $(DESTDIR)$(prefix)/share/examples/sympa/wwsympa.conf \
++		|| true; \
++	cd $(DESTDIR)$(prefix)/share/examples/sympa; \
++	echo "# automatically created file" >> data_structure.version; \
++	echo "# you should not modify it" >> data_structure.version; \
++	echo $(VERSION) >> data_structure.version; \
++	chown $(USER) data_structure.version || true; \
++	chgrp $(GROUP) data_structure.version || true;
+ 
+ nextstep: 
+ 	@echo ""

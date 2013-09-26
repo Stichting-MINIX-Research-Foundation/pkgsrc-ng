@@ -1,0 +1,5 @@
+geda is a suite of Electronic Design Automation (EDA) tools
+used to make electrical circuit design, simulation and prototyping/
+production easier/doable.  The suite includes the gschem schematic
+capture program, the gnetlist netlister, the gattrib attribute editor
+along with several other utility programs.

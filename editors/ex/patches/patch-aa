@@ -1,0 +1,81 @@
+$NetBSD: patch-aa,v 1.8 2012/12/28 03:03:08 dholland Exp $
+
+- configure paths and programs for pkgsrc
+- don't install the executable sticky as that's often no longer allowed
+- don't create the PRESERVEDIR at install time
+  (the pkgsrc makefile takes care of it)
+
+--- Makefile.orig	2004-01-03 14:22:47.000000000 +0000
++++ Makefile
+@@ -80,16 +80,16 @@
+ # located  below $(DESTDIR). $(PRESERVEDIR) is used for recovery files. It
+ # will get mode 1777.
+ #
+-BINDIR		= bin
+-LIBEXECDIR	= libexec
+-MANDIR		= man
+-DESTDIR		= /usr/local
+-PRESERVEDIR	= /var/preserve
++BINDIR		= ${PREFIX}/bin
++LIBEXECDIR	= ${PREFIX}/libexec
++MANDIR		= ${PREFIX}/${PKGMANDIR}
++PRESERVEDIR	= ${VARBASE}/tmp/vi.recover
+ 
+ #
+ # A BSD-like install program. GNU install will fit well here, too.
+ #
+-INSTALL		= /usr/ucb/install
++#INSTALL	= /usr/ucb/install
++INSTALL		= ${BSD_INSTALL}
+ 
+ #
+ # Compiler and linker flags.
+@@ -140,9 +140,9 @@ FEATURES	= -DLISPCODE -DCHDIR -DFASTTAG 
+ # advanced multibyte character support etc. which might not be present
+ # on your system.
+ #
+-REINC	= -I./libuxre -DUXRE
+-RELIB	= -L./libuxre -luxre
+-RETGT	= uxre
++#REINC	= -I./libuxre -DUXRE
++#RELIB	= -L./libuxre -luxre
++#RETGT	= uxre
+ 
+ #
+ # These settings should be correct for any modern Unix.
+@@ -182,7 +182,7 @@ OSTYPE	= -DVMUNIX -DPOSIX_1
+ # On System V, the terminfo library may be more accurate than the termcap
+ # file. To use it, link against the curses library.
+ #
+-#TERMLIB	= curses
++TERMLIB	= curses
+ #
+ # You may also get terminfo access by using the ncurses library.
+ #
+@@ -191,7 +191,7 @@ OSTYPE	= -DVMUNIX -DPOSIX_1
+ # The preferred choice for ex on Linux and other systems that provide a good
+ # termcap file is the 2.11BSD termcap library included here.
+ #
+-TERMLIB	= termlib
++#TERMLIB	= termlib
+ 
+ #
+ # Since ex uses sbrk() internally, a conflict with the libc's version of
+@@ -297,7 +297,7 @@ install: all install-man
+ 		mv $(DESTDIR)/$(BINDIR)/ex $(DESTDIR)/$(BINDIR)/ex.old.$$$$; \
+ 		rm -f $(DESTDIR)/$(BINDIR)/ex.old.$$$$; \
+ 	fi
+-	$(INSTALL) -c -s -m 1755 ex $(DESTDIR)/$(BINDIR)/ex
++	$(INSTALL) -c -s -m 755 ex $(DESTDIR)/$(BINDIR)/ex
+ 	test -d $(DESTDIR)/$(LIBEXECDIR) || mkdir $(DESTDIR)/$(LIBEXECDIR)
+ 	$(INSTALL) -c -s exrecover $(DESTDIR)/$(LIBEXECDIR)/exrecover
+ 	$(INSTALL) -c -s expreserve $(DESTDIR)/$(LIBEXECDIR)/expreserve
+@@ -305,8 +305,6 @@ install: all install-man
+ 	ln -s ex $(DESTDIR)/$(BINDIR)/vedit
+ 	ln -s ex $(DESTDIR)/$(BINDIR)/vi
+ 	ln -s ex $(DESTDIR)/$(BINDIR)/view
+-	test -d $(PRESERVEDIR) || mkdir $(PRESERVEDIR)
+-	chmod 1777 $(PRESERVEDIR)
+ 
+ ex.o: config.h ex_argv.h ex.h ex_proto.h ex_temp.h ex_tty.h ex_tune.h
+ ex.o: ex_vars.h libterm/libterm.h

@@ -1,0 +1,45 @@
+$NetBSD: patch-bo,v 1.6 2011/11/27 00:28:29 marino Exp $
+
+--- src/host.c.orig	2005-08-22 15:13:17.000000000 +0000
++++ src/host.c
+@@ -217,9 +217,8 @@ static char rcsid[] =
+ 
+ #include <stdio.h>
+ 
+-#ifdef	SYSVSTR
+ #include <string.h>
+-#else
++#ifndef SYSVSTR
+ #include <strings.h>
+ #endif
+ #include <ctype.h>
+@@ -984,7 +983,7 @@ iflist(alp, np)
+ #ifdef OSIOCGIFCONF
+ #if defined(IMA_RS6K) || defined(IMA_RS6KMP) || defined(IMA_SP2MPI) \
+ 			|| defined(IMA_AIX4SP2) || defined(IMA_AIX5SP2) \
+-			|| defined(IMA_FREEBSD)
++			|| defined(IMA_FREEBSD) || defined(IMA_DRAGONFLY)
+ 		SIOCGIFCONF
+ #else
+ 		OSIOCGIFCONF
+@@ -998,7 +997,7 @@ iflist(alp, np)
+ 	}
+ 
+ 	for (cp = sif.ifc_ifcu.ifcu_buf;
+-			cp - sif.ifc_ifcu.ifcu_buf < sif.ifc_len;
++			cp - (char *)sif.ifc_ifcu.ifcu_buf < sif.ifc_len;
+ 			cp += sizeof(*reqp) - sizeof(struct sockaddr) + SIZ(reqp->ifr_addr))
+ 	{
+ 		reqp = (struct ifreq*)cp;
+@@ -1011,7 +1010,11 @@ iflist(alp, np)
+ 		}
+ 		/* On some FreeBSD systems: */
+ 		/* if (IFF_UP & req.ifr_flags) { */
++#if defined(IMA_FREEBSD) || defined(IMA_DRAGONFLY)
++		if (IFF_UP & req.ifr_flags) {
++#else
+ 		if (IFF_UP & req.ifr_ifru.ifru_flags) {
++#endif
+ 			if (nip > 0 && !(nip % 10))
+ 				iplist = TREALLOC(iplist, (nip + 10), struct in_addr);
+ 			iplist[nip++] =

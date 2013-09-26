@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.9 2010/11/09 19:01:42 minskim Exp $
+share/texmf-dist/fonts/afm/public/chemarrow/arrow.afm
+share/texmf-dist/fonts/map/dvips/chemarrow/chemarrow.map
+share/texmf-dist/fonts/source/public/chemarrow/arrow.mf
+share/texmf-dist/fonts/tfm/public/chemarrow/arrow.tfm
+share/texmf-dist/fonts/type1/public/chemarrow/arrow.inf
+share/texmf-dist/fonts/type1/public/chemarrow/arrow.pfb
+share/texmf-dist/fonts/type1/public/chemarrow/arrow.pfm
+share/texmf-dist/tex/latex/chemarrow/chemarrow.sty

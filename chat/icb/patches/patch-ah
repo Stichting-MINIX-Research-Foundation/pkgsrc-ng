@@ -1,0 +1,16 @@
+$NetBSD: patch-ah,v 1.4 2013/01/11 13:24:32 joerg Exp $
+
+--- icb/history.c.orig	1995-02-24 21:20:23.000000000 +0000
++++ icb/history.c
+@@ -16,10 +16,8 @@ static STRLIST *hp = (STRLIST *) 0;	/* u
+ /* add a username to the list */
+ /* called whenever a user sends a personal message to another */
+ 
+-histput(nick)
+-char *nick;
++void histput(char *nick)
+ {
+-	char *malloc();
+ 	STRLIST *sp;
+ 
+ 	/* hunt for user within list */

@@ -1,0 +1,387 @@
+$NetBSD: patch-ad,v 1.7 2012/01/25 09:56:08 he Exp $
+
+A number of changes to make this build with no warnings under -Wall.
+
+--- tftpd.c.orig	1995-03-20 20:14:39.000000000 +0000
++++ tftpd.c
+@@ -24,7 +24,7 @@ char copyright[] =
+ #endif /* not lint */
+ 
+ #ifndef lint
+-static char sccsid[] = "@(#)tftpd.c	5.12 (Berkeley) 6/1/90";
++char tftpd_sccsid[] = "@(#)tftpd.c	5.12 (Berkeley) 6/1/90";
+ #endif /* not lint */
+ 
+ /*
+@@ -43,9 +43,13 @@ static char sccsid[] = "@(#)tftpd.c	5.12
+ #include <sys/signal.h>
+ #include <sys/time.h>
+ #include <sys/param.h>
++#ifdef __sun
++#include <sys/filio.h>
++#endif
+ 
+ #include <netinet/in.h>
+ 
++#include <arpa/inet.h>
+ #include <arpa/tftp.h>
+ 
+ #include <netdb.h>
+@@ -56,19 +60,45 @@ static char sccsid[] = "@(#)tftpd.c	5.12
+ #include <syslog.h>
+ #include <string.h>
+ 
++#include <unistd.h>
++#include <fcntl.h>
++#ifdef __STDC__
++#include <stdlib.h>
++#endif
++
+ #define	TIMEOUT		5
+ 
+-extern	int errno;
++extern int readConfigFile(int, char**);
++extern int realPath(char *, char*);
++extern int validateAccessToFile(char *, unsigned long, int);
++extern int isConfigFile(struct stat*);
++
++extern int readit(FILE *, struct tftphdr **, int);
++extern void read_ahead(FILE *, int);
++extern int synchnet(int);
++extern int write_behind(FILE *, int);
++extern int writeit(FILE *, struct tftphdr **, int, int);
++
++
++static void setUpForDebugging();
++static void reapChildren();
++static int awaitInput(int);
++static int createChild();
++static void runChild(struct tftphdr*, int);
++static void tftp(struct tftphdr *, int);
++static void nak(int);
++static int validate_access(char *, int);
++
+ struct	sockaddr_in sock_in = { AF_INET };
+ int	peer;
+ int	rexmtval = TIMEOUT;
+ int	maxtimeout = 5*TIMEOUT;
+ 
+-#define	PKTSIZE	SEGSIZE+4
+-char	buf[PKTSIZE];
+-char	ackbuf[PKTSIZE];
++#define	BUF_PKTSIZE	SEGSIZE+4
++char	buf[BUF_PKTSIZE];
++char	ackbuf[BUF_PKTSIZE];
+ struct	sockaddr_in from;
+-int	fromlen;
++socklen_t	fromlen;
+ 
+ extern int	tftpDebugLevel;
+ extern char*	tftpDefaultDirectory;
+@@ -92,6 +122,7 @@ int	n;
+ }
+ #endif
+ 
++int
+ main(argc, argv)
+ int	argc;
+ char	**argv;
+@@ -105,6 +136,8 @@ char	**argv;
+ 
+ 	if (argc > 1 && strcmp (argv[1], "-d") == 0) {
+ 		setUpForDebugging();
++		argc--;
++		argv++;
+ 	}
+ 	if (ioctl(0, FIONBIO, &on) < 0) {
+ 		syslog(LOG_ERR, "ioctl(FIONBIO): %m\n");
+@@ -165,6 +198,7 @@ char	**argv;
+ 
+ /* Run directly, rather than called from inetd.
+  */
++static void
+ setUpForDebugging()
+ {
+ 	int peer;
+@@ -182,7 +216,7 @@ setUpForDebugging()
+ 
+ 	listenSock.sin_family = AF_INET;
+ 	listenSock.sin_addr.s_addr = htonl(INADDR_ANY);
+-	if (serv = getservbyname("tftpd", "udp"))
++	if ((serv = getservbyname("tftpd", "udp")) != 0)
+ 		listenSock.sin_port = serv->s_port;
+ 	else
+ 		listenSock.sin_port = htons(69);
+@@ -199,10 +233,11 @@ setUpForDebugging()
+  * wait for <maxInputWait> seconds, or a default
+  * of 5 minutes if that is not set.
+  */
++static int
+ awaitInput(chan)
+ int	chan;
+ {
+-	int imask;
++	fd_set imask;
+ 	int nready;
+ 	struct timeval tv;
+ 	extern int maxInputWait;
+@@ -212,8 +247,9 @@ int	chan;
+ 	else
+ 		tv.tv_sec = 5*60;	/* default: wait for 5 minutes */
+ 	tv.tv_usec = 0;
+-	imask = 1<<chan;
+-	nready = select (sizeof(imask)*8, &imask, (int*)0, (int*)0, &tv);
++	FD_ZERO(&imask);
++	FD_SET(chan, &imask);
++	nready = select (chan+1 , &imask, NULL, NULL, &tv);
+ 	return nready;
+ }
+ 
+@@ -228,6 +264,7 @@ int	signum;
+ }
+ 
+ /* Create a child process */
++static int
+ createChild()
+ {
+ 	int i, pid;
+@@ -247,6 +284,7 @@ createChild()
+ }
+ 
+ /* check for any terminated child processes */
++static void
+ reapChildren()
+ {
+ 	int p;
+@@ -262,9 +300,10 @@ reapChildren()
+  * Get a connected socket to the client and process
+  * the request.
+  */
++static void
+ runChild(tp, n)
+-register struct tftphdr *tp;
+-int n;
++     struct tftphdr *tp;
++     int n;
+ {
+ 
+ 	from.sin_family = AF_INET;
+@@ -294,7 +333,10 @@ int n;
+ }
+ 
+ int	validate_access();
+-int	sendfile(), recvfile();
++
++struct formats;
++int	tftpsendfile(struct formats *);
++int	tftprecvfile(struct formats *);
+ 
+ struct formats {
+ 	char	*f_mode;
+@@ -303,8 +345,8 @@ struct formats {
+ 	int	(*f_recv)();
+ 	int	f_convert;
+ } formats[] = {
+-	{ "netascii",	validate_access,	sendfile,	recvfile, 1 },
+-	{ "octet",	validate_access,	sendfile,	recvfile, 0 },
++	{ "netascii",	validate_access,	tftpsendfile,	tftprecvfile, 1 },
++	{ "octet",	validate_access,	tftpsendfile,	tftprecvfile, 0 },
+ #ifdef notdef
+ 	{ "mail",	validate_user,		sendmail,	recvmail, 1 },
+ #endif
+@@ -314,6 +356,7 @@ struct formats {
+ /*
+  * Handle initial connection protocol.
+  */
++static void
+ tftp(tp, size)
+ 	struct tftphdr *tp;
+ 	int size;
+@@ -323,6 +366,8 @@ tftp(tp, size)
+ 	register struct formats *pf;
+ 	char *filename, *mode;
+ 
++	mode = "";
++
+ #ifdef	BROKEN_TH_STUFF		/* solaris 2.3 redefiened th_stuff */
+ 	filename = cp = (char *) &tp->th_stuff;
+ #else
+@@ -345,8 +390,8 @@ again:
+ 		goto again;
+ 	}
+ 	for (cp = mode; *cp; cp++)
+-		if (isupper(*cp))
+-			*cp = tolower(*cp);
++		if (isupper((unsigned char)*cp))
++		  *cp = tolower((unsigned char)*cp);
+ 	for (pf = formats; pf->f_mode; pf++)
+ 		if (strcmp(pf->f_mode, mode) == 0)
+ 			break;
+@@ -355,13 +400,13 @@ again:
+ 		exit(1);
+ 	}
+ 	if (tftpDebugLevel > 0) {
+-		char buf[1024];
+-		buf[0] = '\0';
+-		getwd(buf);
++		char* buf;
++		buf = getcwd(NULL, 0);
+ 		syslog(LOG_DEBUG, "request %s '%s' from %s; cwd='%s'",
+ 			(tp->th_opcode == RRQ ? "read" : "write"),
+ 			filename, inet_ntoa(from.sin_addr),
+ 			buf);
++		free(buf);
+ 	}
+ 	ecode = (*pf->f_validate)(filename, tp->th_opcode);
+ 	if (ecode) {
+@@ -438,6 +483,7 @@ FILE *file;
+  *
+  */
+ #define IS_ROOTED(S)	(*(S) == '/')
++static int
+ validate_access(filename, mode)
+ 	char *filename;
+ 	int mode;
+@@ -459,17 +505,25 @@ validate_access(filename, mode)
+ 
+ 	/* Rule 2:
+ 	 */
+-	if (tftpRootDirectory != 0 && IS_ROOTED(filename)) {
++	if ((tftpRootDirectory != 0 && IS_ROOTED(filename)) ||
++	    (tftpDefaultDirectory != 0 && IS_ROOTED(filename))) {
+ 		char _tmp[1024];
++		char* realRootDir; 
+ 		int maxPath;
+ 		int rootLen;
+ 
+-		rootLen = strlen (tftpRootDirectory);
++		if (tftpRootDirectory != 0 ) {
++			realRootDir = tftpRootDirectory;
++		}
++		else {
++			realRootDir = tftpDefaultDirectory;
++		}
++
++		rootLen = strlen (realRootDir);
+ 
+ 		/* make sure the pathname doesn't already contain
+ 		 * the virtual root.
+ 		 */
+-		if (strncmp(filename,tftpRootDirectory,rootLen) != 0) {
+ 
+ 			/* Insure our temporary space is big enough */
+ 			maxPath = ((sizeof _tmp) - 1) - rootLen;
+@@ -481,6 +535,8 @@ validate_access(filename, mode)
+ 				return EACCESS;
+ 			}
+ 
++		if (strncmp(filename,realRootDir,rootLen) != 0) {
++
+ 			/* Squeeze out any '.' or '..' components */
+ 			strcpy (tmpPath, filename);
+ 			if (realPath (tmpPath, _tmp) < 0) {
+@@ -492,21 +548,54 @@ validate_access(filename, mode)
+ 			/* Create the full pathname, prefixed by the
+ 			 * virtual root.
+ 			 */
+-			strcpy (tmpPath, tftpRootDirectory);
++			strcpy (tmpPath, realRootDir);
+ 			strcat (tmpPath, _tmp);
+ 			filename = tmpPath;
+ 		}
++		else {
++			/* Squeeze out any '.' or '..' components */
++		        strcpy (tmpPath, filename);
++                        if (realPath (tmpPath, _tmp) < 0) {
++                                if (tftpDebugLevel > 1)
++                                        syslog (LOG_DEBUG, "realPath fails");
++                                return EACCESS;
++	}
++			/* Create the full pathname */
++			strcpy (tmpPath,_tmp);
++			filename = tmpPath;
++			if (strncmp(filename,realRootDir,rootLen) != 0) {
++			    if (tftpDebugLevel > 1) {
++				syslog(LOG_DEBUG, "file=%s; invalid access denied", filename);
++				return EACCESS;
++	                    }	
++			}
++		}
+ 	}
+ 
+ 	/* Rule 3:
+ 	 */
+-	if (!IS_ROOTED(filename) && tftpDefaultDirectory == 0) {
+-		strcpy (tmpPath, tftpRootDirectory);
+-		strcat (tmpPath, "/");
++	if ((!IS_ROOTED(filename)  && tftpRootDirectory != 0) ||
++	    (!IS_ROOTED(filename)  && tftpDefaultDirectory != 0)) {
++		char _tmp[1024];
+ 		strcat (tmpPath, filename);
++	        /* Squeeze out any '.' or '..' components */
++                        strcpy (tmpPath, filename);
++                        if (realPath (tmpPath, _tmp) < 0) {
++                                if (tftpDebugLevel > 1)
++                                        syslog (LOG_DEBUG, "realPath fails");
++                                return EACCESS;
++                        }
++		if ( tftpDefaultDirectory == 0 ) {
++			strcpy (tmpPath, tftpRootDirectory);
++		}
++		else {
++			strcpy (tmpPath, tftpDefaultDirectory);
++		}
++		strcat (tmpPath, _tmp);
+ 		filename = tmpPath;
+ 	}
+ 
++
+ 	/* Check access lists */
+ 	/* Rules 4&5:
+ 	 */
+@@ -565,7 +654,7 @@ validate_access(filename, mode)
+ 	 * This will be done with the effective permissions of the TFTPD
+ 	 * process.
+ 	 */
+-	fd = open(filename, mode == RRQ ? 0 : 1);
++	fd = open(filename, mode == RRQ ? (O_RDONLY) : (O_WRONLY|O_TRUNC));
+ 	if (fd < 0) {
+ 		syslog (LOG_DEBUG, "open fails; errno = %d", errno);
+ 		return errno+100;
+@@ -593,7 +682,8 @@ void timer()
+ /*
+  * Send the requested file.
+  */
+-sendfile(pf)
++int
++tftpsendfile(pf)
+ 	struct formats *pf;
+ {
+ 	struct tftphdr *dp, *r_init();
+@@ -664,7 +754,8 @@ void justquit()
+ /*
+  * Receive a file.
+  */
+-recvfile(pf)
++int
++tftprecvfile(pf)
+ 	struct formats *pf;
+ {
+ 	struct tftphdr *dp, *w_init();
+@@ -688,7 +779,7 @@ send_ack:
+ 		write_behind(file, pf->f_convert);
+ 		for ( ; ; ) {
+ 			alarm(rexmtval);
+-			n = recv(peer, dp, PKTSIZE, 0);
++			n = recv(peer, dp, BUF_PKTSIZE, 0);
+ 			alarm(0);
+ 			if (n < 0) {            /* really? */
+ 				syslog(LOG_ERR, "tftpd: read: %m\n");
+@@ -758,6 +849,7 @@ struct errmsg {
+  * standard TFTP codes, or a UNIX errno
+  * offset by 100.
+  */
++static void
+ nak(error)
+ 	int error;
+ {

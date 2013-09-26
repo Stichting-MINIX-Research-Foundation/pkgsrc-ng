@@ -1,0 +1,22 @@
+$NetBSD: patch-ab,v 1.4 2010/12/23 12:36:02 fhajny Exp $
+
+--- js.c.orig	2008-04-11 22:24:55.000000000 +0000
++++ js.c
+@@ -1233,7 +1233,7 @@ SrcNotes(JSContext *cx, JSScript *script
+                 JS_ASSERT(script->code[offset] == JSOP_NOP);
+             }
+         }
+-        fprintf(gOutFile, "%3u: %5u [%4u] %-8s",
++        fprintf(gOutFile, "%3tu: %5u [%4u] %-8s",
+                 PTRDIFF(sn, notes, jssrcnote), offset, delta, name);
+         switch (type) {
+           case SRC_SETLINE:
+@@ -1558,7 +1558,7 @@ DumpScope(JSContext *cx, JSObject *obj, 
+         DUMP_ATTR(SETTER);
+ #undef  DUMP_ATTR
+ 
+-        fprintf(fp, " slot %lu flags %x shortid %d\n",
++        fprintf(fp, " slot %u flags %x shortid %d\n",
+                 (unsigned long)sprop->slot, sprop->flags, sprop->shortid);
+     }
+ }

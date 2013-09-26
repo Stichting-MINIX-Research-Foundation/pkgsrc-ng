@@ -1,0 +1,4 @@
+w3m is a pager and/or text-based browser. It can handle table,
+cookies, authentication, and almost everything except JavaScript.
+
+Additionally, this package enables inline-image support.

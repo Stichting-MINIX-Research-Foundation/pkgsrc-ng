@@ -1,0 +1,42 @@
+$NetBSD: patch-ad,v 1.3 2011/10/28 06:16:12 spz Exp $
+
+avoid the wrapper + -C trap
+
+--- config-test.orig	1997-08-27 15:17:13.000000000 +0000
++++ config-test
+@@ -7,8 +7,7 @@
+ # execute this by cd to your majordomo dir, then 'wrapper config-test'
+ #
+ 
+-@requires = ( "ctime.pl",
+-	     "majordomo_version.pl",
++@requires = ( "majordomo_version.pl",
+ 	     "majordomo.pl",
+ 	     "shlock.pl",
+ 	     "config_parse.pl",
+@@ -117,7 +116,7 @@ wellokay
+ print "\n\tNon obvious things that cause headaches:\n\n";
+ &header('');
+ 
+-$cf = $ARGV[0] || $ENV{'MAJORDOMO_CF'};
++$cf = $ENV{'MAJORDOMO_CF'};
+ 
+ if (eval "require '$cf'") { 
+     &good("'require'd $cf okay.");    
+@@ -125,6 +124,7 @@ if (eval "require '$cf'") { 
+     &bad("something's wrong with $cf: $@");
+ }
+ 
++unshift(@INC, $bindir);
+ foreach (@requires) {
+     if (require $_) {
+ 	&good("found $_ okay.");
+@@ -286,7 +286,7 @@ print "Checking to see if there are new 
+ print "your majordomo.cf file...";
+ 
+ open($cf, $cf) || &bad("Couldn't open $cf for reading, $!");
+-open(S, 'sample.cf') || &bad("Couldn't open sample.cf for reading, $!");
++open(S, "$bindir/sample.cf") || &bad("Couldn't open $bindir/sample.cf for reading, $!");
+ 
+ while (<S>) {
+     next unless /^\s*(\$\w+(('|::)\w+)*)/;

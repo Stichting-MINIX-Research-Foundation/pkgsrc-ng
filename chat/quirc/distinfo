@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.11 2013/01/26 23:05:16 wiz Exp $
+
+SHA1 (quirc-0.9.84.tar.gz) = 0d9aa3f35616c3d5e6835a318266f1c71232e4d1
+RMD160 (quirc-0.9.84.tar.gz) = 6fdacee28b63363c3276349c32bd7bfbd463ff19
+Size (quirc-0.9.84.tar.gz) = 341962 bytes
+SHA1 (patch-aa) = fe5c266abb0651739c10d4428457cc7a6ab426aa
+SHA1 (patch-ac) = 4353b22eb607d2e1f158ba4a2668ebf1e2616de7
+SHA1 (patch-ad) = 37a6e3525dc0ff7655fd62c8981eb81eae916126
+SHA1 (patch-ag) = c5f56e4efc99200789e6d9c382c952674b7014c0
+SHA1 (patch-history.h) = 7f8a6a742cd169cde13aaae865e022cc36332774
+SHA1 (patch-nick.h) = 5a7e46b1da8c4e6381d00bb7477706df52c1505b
+SHA1 (patch-query.h) = 6803318fea7c20a1b3d477bc0e55ad42a5b08862
+SHA1 (patch-serverdcc.h) = 4354cc730fd2d5bda072c61fa00e06d10c6c9448
+SHA1 (patch-tcl.cc) = dce4bcb73d29edd03e97fccdf1af68c3820e8c24

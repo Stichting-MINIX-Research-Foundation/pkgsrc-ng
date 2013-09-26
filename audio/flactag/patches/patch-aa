@@ -1,0 +1,29 @@
+$NetBSD: patch-aa,v 1.4 2012/11/06 18:38:34 drochner Exp $
+
+--- UTF8Tag.cc.orig	2012-06-19 12:40:34.000000000 +0000
++++ UTF8Tag.cc
+@@ -34,6 +34,7 @@
+ #include <string.h>
+ #include <stdio.h>
+ #include <stdlib.h>
++#include <cstdio>
+ 
+ #include <iconv.h>
+ 
+@@ -73,11 +74,15 @@ void CUTF8Tag::Convert()
+ 		memset(Out,0,m_UTF8Value.length()*4);
+ 		size_t OutLeft=m_UTF8Value.length()*4;
+ 
++#if defined(__DragonFly__) || (__linux__)
+ 		char *InBuff=In;
++#else
++		const char *InBuff=In;
++#endif
+ 		char *OutBuff=Out;
+ 
+ 		std::stringstream NewCodeset;
+-		NewCodeset << Codeset << "//TRANSLIT//IGNORE";
++		NewCodeset << Codeset;
+ 
+ 		iconv_t Convert=iconv_open(NewCodeset.str().c_str(),"UTF-8");
+ 		if ((iconv_t)-1!=Convert)

@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:17:15 joerg Exp $
+include/ezxml.h
+lib/libezxml.a
+share/doc/ezxml/ezxml.txt

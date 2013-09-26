@@ -1,0 +1,37 @@
+# $NetBSD: Makefile,v 1.38 2013/06/04 22:15:55 tron Exp $
+#
+
+DISTNAME=	ogre-v1-6-3
+PKGNAME=	ogre-1.6.3
+PKGREVISION=	10
+CATEGORIES=	devel
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ogre/}
+EXTRACT_SUFX=	.tar.bz2
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://ogre.sourceforge.net/
+COMMENT=	Object-Oriented Graphics Rendering Engine
+LICENSE=	gnu-lgpl-v2.1
+
+WRKSRC=			${WRKDIR}/ogre
+GNU_CONFIGURE=		yes
+USE_TOOLS+=		gmake pkg-config xmkmf
+USE_LANGUAGES=		c c++
+USE_LIBTOOL=		yes
+
+CONFIGURE_ARGS+=	--with-platform=GLX
+CONFIGURE_ARGS+=	--disable-freeimage
+CONFIGURE_ARGS+=	--disable-cg
+
+PKGCONFIG_OVERRIDE+=	OGRE.pc.in
+
+.include "../../archivers/zziplib/buildlink3.mk"
+.include "../../devel/devIL/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../graphics/MesaLib/buildlink3.mk"
+.include "../../graphics/freetype2/buildlink3.mk"
+.include "../../graphics/glu/buildlink3.mk"
+.include "../../x11/libXaw/buildlink3.mk"
+.include "../../x11/libXxf86vm/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/bsd.pkg.mk"

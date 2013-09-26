@@ -1,0 +1,14 @@
+@comment $NetBSD: PLIST,v 1.2 2012/04/08 20:21:45 wiz Exp $
+${PYSITELIB}/${EGG_FILE}
+${PYSITELIB}/funcparserlib/__init__.py
+${PYSITELIB}/funcparserlib/__init__.pyc
+${PYSITELIB}/funcparserlib/__init__.pyo
+${PYSITELIB}/funcparserlib/lexer.py
+${PYSITELIB}/funcparserlib/lexer.pyc
+${PYSITELIB}/funcparserlib/lexer.pyo
+${PYSITELIB}/funcparserlib/parser.py
+${PYSITELIB}/funcparserlib/parser.pyc
+${PYSITELIB}/funcparserlib/parser.pyo
+${PYSITELIB}/funcparserlib/util.py
+${PYSITELIB}/funcparserlib/util.pyc
+${PYSITELIB}/funcparserlib/util.pyo

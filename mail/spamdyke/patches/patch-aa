@@ -1,0 +1,15 @@
+$NetBSD: patch-aa,v 1.11 2012/01/05 00:53:20 schmonz Exp $
+
+Substitute paths.
+
+--- spamdyke.h.orig	2012-01-04 17:46:13.000000000 +0000
++++ spamdyke.h
+@@ -94,7 +94,7 @@
+ #define STRINGIFY(X)                    _STRINGIFY(X)
+ 
+ #define DEFAULT_REMOTE_IP               "0.0.0.0"
+-#define DEFAULT_PATH                    "/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:/var/qmail/bin:/home/vpopmail/bin"
++#define DEFAULT_PATH                    "/bin:/usr/bin:@LOCALBASE@/bin:@QMAILDIR@/bin:/home/vpopmail/bin"
+ #define DEFAULT_NIHDNS_RESOLVER_FILENAME        "/etc/resolv.conf"
+ #define DEFAULT_NIHDNS_PORT             53
+ #define DEFAULT_TIMEOUT_NIHDNS_TOTAL_SECS       30

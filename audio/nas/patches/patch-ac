@@ -1,0 +1,31 @@
+$NetBSD: patch-ac,v 1.8.4.1 2013/07/10 13:53:52 tron Exp $
+
+--- server/nasd.conf.eg.orig	Thu Feb 26 01:16:01 2009
++++ server/nasd.conf.eg
+@@ -44,7 +44,7 @@ OutDevType	"EXT"
+ 
+ inputsection
+ 
+-	device		"/dev/dsp1"		# The input device, usually
++	device		"/dev/@DEVOSSAUDIO@1"		# The input device, usually
+ 	mixer		"/dev/mixer1"		# mixer device
+         gain            50                      # default input gain (0-100)
+ 	maxrate		44100
+@@ -62,7 +62,7 @@ end
+ 
+ # These are used by voxware only for now.
+ outputsection
+-	device		"/dev/dsp"		# The output device, usually
++	device		"@DEVOSSAUDIO@"		# The output device, usually
+ 	mixer		"/dev/mixer"		# mixer device
+         gain            50                      # default output gain (0-100)
+ 	maxrate		44100			# CD quality.
+@@ -88,7 +88,7 @@ end
+ #
+ #
+ #outputsection
+-#	device	"/dev/pcaudio"
++#	device		"/dev/speaker"
+ #	maxrate		8000
+ #	minrate		8000
+ #	wordsize	8

@@ -1,0 +1,10 @@
+#!@SH@
+#
+# $NetBSD: INSTALL,v 1.2 2011/12/05 10:18:17 wiz Exp $
+
+case "${STAGE}" in
+POST-INSTALL)
+	${PREFIX}/bin/htfuzzy -v synonyms
+	${PREFIX}/bin/htfuzzy -v endings
+	;;
+esac

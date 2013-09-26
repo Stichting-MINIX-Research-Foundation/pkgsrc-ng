@@ -1,0 +1,14 @@
+$NetBSD: patch-ad,v 1.4 2011/04/28 07:27:25 adam Exp $
+
+--- config.h.in.orig	2010-11-04 19:37:13.000000000 +0000
++++ config.h.in
+@@ -234,6 +234,9 @@
+ /* Define to 1 if you have the <net/if.h> header file. */
+ #undef HAVE_NET_IF_H
+ 
++/* Define to 1 if you have the <net/if_tap.h> header file. */
++#undef HAVE_NET_IF_TAP_H
++
+ /* Define to 1 if you have the <net/if_tun.h> header file. */
+ #undef HAVE_NET_IF_TUN_H
+ 

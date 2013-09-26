@@ -1,0 +1,12 @@
+$NetBSD: patch-cs,v 1.2 2009/12/10 20:35:57 abs Exp $
+
+--- lib/libxview/textsw/ei_text.c.orig	1993-06-29 05:17:37.000000000 +0000
++++ lib/libxview/textsw/ei_text.c
+@@ -121,6 +121,7 @@ static void	ei_plain_text_set_dummy_char
+ #endif
+ static struct ei_span_result ei_plain_text_span_of_group();
+ static struct ei_process_result ei_plain_text_expand();
++static paint_batch();
+ 
+ struct ei_ops   ei_plain_text_ops = {
+     ei_plain_text_destroy,

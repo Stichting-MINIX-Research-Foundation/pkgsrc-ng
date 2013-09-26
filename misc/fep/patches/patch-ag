@@ -1,0 +1,19 @@
+$NetBSD: patch-ag,v 1.8 2012/03/05 12:16:00 obache Exp $
+
+--- fep_funcs.h.orig	1991-05-29 01:31:20.000000000 -0400
++++ fep_funcs.h	2005-12-10 16:59:27.000000000 -0500
+@@ -6,4 +6,4 @@
+-#endif lint
++#endif /* lint */
+ 
+ /*
+  * command line edit functions
+@@ -22,7 +22,7 @@ int	delete_previous_character();
+ int	delete_previous_word();
+ int	delete_previous_Word();
+ int	delete_to_kill_buffer();
+-int	terminate();
++void	terminate(int);
+ int	end_of_line();
+ int	expand_file_name();
+ int	forward_character();

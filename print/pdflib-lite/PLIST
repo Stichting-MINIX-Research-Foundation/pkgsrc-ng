@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 18:11:58 joerg Exp $
+bin/pdfimage
+bin/pdflib-config
+bin/text2pdf
+include/pdflib.h
+lib/libpdf.la
+share/doc/pdflib/PDFlib-API-reference.pdf
+share/doc/pdflib/PDFlib-Lite-license.pdf

@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2008/05/14 11:56:26 jmcneill Exp $
+bin/unshield
+include/libunshield.h
+lib/libunshield.la
+lib/pkgconfig/libunshield.pc
+man/man1/unshield.1

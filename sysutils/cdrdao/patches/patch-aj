@@ -1,0 +1,21 @@
+$NetBSD: patch-aj,v 1.2 2009/11/22 21:05:18 drochner Exp $
+
+--- xdao/SoundIF-solaris.cc.orig	2007-12-29 13:31:54.000000000 +0100
++++ xdao/SoundIF-solaris.cc
+@@ -45,6 +45,7 @@
+  * Sound interface for Solaris. Thanks to Tobias Oetiker <oetiker@ee.ethz.ch>.
+  */
+ 
++#include <sys/types.h>
+ #include <sys/audioio.h>
+ #include <stdio.h>
+ #include <assert.h>
+@@ -197,7 +198,7 @@ int SoundIFImpl::setupDevice()
+   auinf.play.sample_rate=44100;
+   auinf.play.channels=2;
+   auinf.play.precision=16;
+-  auinf.play.encoding=AUDIO_ENCODING_LINEAR;
++  auinf.play.encoding=AUDIO_ENCODING_SLINEAR_BE;
+ 
+   if (ioctl(dspFd_, AUDIO_SETINFO, &auinf) < 0) {
+     log_message(-1, _("Cannot setup audio interface: %s"), strerror(errno));

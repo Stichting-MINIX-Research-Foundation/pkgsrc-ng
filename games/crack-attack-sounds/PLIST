@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:56:42 joerg Exp $
+share/crack-attack/music/game.ogg
+share/crack-attack/music/gameover.ogg
+share/crack-attack/music/prelude.ogg
+share/crack-attack/music/youwin.ogg
+share/crack-attack/sounds/block_awaking.wav
+share/crack-attack/sounds/block_dying.wav
+share/crack-attack/sounds/block_fallen.wav
+share/crack-attack/sounds/countdown.wav
+share/crack-attack/sounds/garbage_fallen.wav
+share/crack-attack/sounds/garbage_shattering.wav

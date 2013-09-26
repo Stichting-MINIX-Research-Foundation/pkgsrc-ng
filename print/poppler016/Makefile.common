@@ -1,0 +1,19 @@
+# $NetBSD: Makefile.common,v 1.2 2012/10/08 13:45:44 asau Exp $
+#
+# used by print/poppler/Makefile
+# used by print/poppler-qt/Makefile
+
+POPPLER_VERS=		0.16.7
+DISTNAME=		poppler-${POPPLER_VERS}
+CATEGORIES=		print
+MASTER_SITES=		http://poppler.freedesktop.org/
+
+HOMEPAGE=		http://poppler.freedesktop.org/
+LICENSE=		gnu-gpl-v2
+
+DISTINFO_FILE=		${.CURDIR}/../../print/poppler016/distinfo
+PATCHDIR=		${.CURDIR}/../../print/poppler016/patches
+
+USE_TOOLS+=		pkg-config
+USE_LIBTOOL=		yes
+USE_LANGUAGES=		c c++

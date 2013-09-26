@@ -1,0 +1,29 @@
+$NetBSD: patch-as,v 1.3 2010/03/03 13:01:43 is Exp $
+
+--- Makefile.orig	2005-01-18 17:11:10.000000000 +0100
++++ Makefile
+@@ -4,7 +4,7 @@
+ 
+ 
+ CC = cc
+-CFLAGS = -g  
++CFLAGS = -O3
+ MAKE = make
+ SHELL = /bin/sh
+ 
+@@ -38,7 +38,7 @@ all:	config
+ 
+ ##  Install everything.
+ 
+-install:  paths.sh	; sh install.sh
++install:  paths.sh	; sh install.sh ${DESTDIR}
+ 
+ 
+ 
+@@ -264,3 +264,6 @@ srvdist:
+ 	srv/srv  quick/vm  examples/mbrot  examples/remote  \
+ 	    create/args2  create/chairs  global/3  global/4  global/5  \
+ 	    literal/cap  misc/timeslice2  vm
++
++verify:
++	srv/srv

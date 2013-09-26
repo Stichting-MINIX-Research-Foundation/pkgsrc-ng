@@ -1,0 +1,13 @@
+$NetBSD: patch-ah,v 1.5 2009/10/02 19:21:59 is Exp $
+
+--- getdisk.c.orig	2004-11-08 21:10:27.000000000 +0100
++++ getdisk.c
+@@ -95,7 +95,7 @@
+ #endif
+ 
+ /* imported from NetBSD pkgsrc */
+-#if defined(__NetBSD__) && (__NetBSD_Version__ > 200030000)
++#if defined(__NetBSD__) && (__NetBSD_Version__ >= 299000900)
+ #undef BSDSTATFS
+ #define        SVR4
+ #endif 

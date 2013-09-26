@@ -1,0 +1,8 @@
+@comment $NetBSD: PLIST,v 1.4 2012/02/01 10:38:18 obache Exp $
+bin/sidfquery
+lib/libsauth.la
+libexec/enma
+man/ja_JP.UTF-8/man1/enma.1
+man/man1/enma.1
+share/examples/enma/enma.conf.sample
+share/examples/rc.d/enma

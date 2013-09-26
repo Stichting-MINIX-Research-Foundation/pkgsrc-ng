@@ -1,0 +1,17 @@
+$NetBSD: patch-av,v 1.2 2013/03/24 16:51:08 joerg Exp $
+
+--- QTFileTools/QTFileInfo.tproj/Makefile.POSIX.orig	2005-04-27 12:21:14.000000000 +0000
++++ QTFileTools/QTFileInfo.tproj/Makefile.POSIX
+@@ -6,10 +6,10 @@ C++ = $(CPLUS)
+ CC = $(CCOMP)
+ LINK = $(LINKER)
+ CCFLAGS += $(COMPILER_FLAGS) $(INCLUDE_FLAG) ../../PlatformHeader.h -g -Wall
+-LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a
++LIBS = $(CORE_LINK_LIBS) -lCommonUtilitiesLib  -lQTFileExternalLib ../../CommonUtilitiesLib/libCommonUtilitiesLib.a ../../QTFileLib/libQTFileExternalLib.a
+ 
+ #OPTIMIZATION
+-CCFLAGS += -O3
++CCFLAGS += 
+ 
+ # EACH DIRECTORY WITH HEADERS MUST BE APPENDED IN THIS MANNER TO THE CCFLAGS
+ 

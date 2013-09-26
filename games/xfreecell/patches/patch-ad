@@ -1,0 +1,21 @@
+$NetBSD: patch-ad,v 1.2 2008/05/24 15:59:27 obache Exp $
+
+--- widget/widget.h.orig	1999-03-15 16:29:32.000000000 +0000
++++ widget/widget.h
+@@ -8,6 +8,8 @@
+ #include <vector>
+ #include <string>
+ 
++using namespace std;
++
+ const char defaultFont[] = "7x14";
+ 
+ extern Display* NSdpy;
+@@ -42,6 +44,7 @@ Display* NSdisplay();
+ // ##### NSComponent #####
+ class NSComponent {
+ public:
++  virtual ~NSComponent() {};
+   virtual int x() const = 0;
+   virtual int y() const = 0;
+   virtual unsigned int width() const = 0;

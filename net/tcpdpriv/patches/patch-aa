@@ -1,0 +1,76 @@
+$NetBSD: patch-aa,v 1.6 2012/03/07 18:56:52 hans Exp $
+
+--- tcpdpriv.c.orig	2000-04-18 07:59:19.000000000 +0000
++++ tcpdpriv.c
+@@ -65,7 +65,7 @@
+ #endif	/* defined(SVR4) */
+ #include <sys/param.h>
+ #include <sys/time.h>
+-#if	!defined(SVR4)
++#if 0
+ #include <sys/ucred.h>
+ #endif	/* !defined(SVR4) */
+ #include <sys/mount.h>
+@@ -78,7 +78,7 @@
+ 
+ #include <netinet/in.h>
+ #include <netinet/if_ether.h>
+-#if	!defined(SVR4)
++#if 0
+ #include <sys/mbuf.h>
+ #endif	/* !defined(SVR4) */
+ #include <netinet/in_systm.h>
+@@ -90,7 +90,7 @@
+ #include <arpa/nameser.h>
+ #endif
+ 
+-#if !defined(sun)
++#if 0
+ #include <net/slcompress.h>
+ #if	!defined(osf1)
+ #include <net/slip.h>
+@@ -111,6 +111,14 @@
+ 
+ #include <pcap.h>
+ 
++#if defined(__sun)
++#include <sys/sysmacros.h>
++#endif
++
++#if defined(__NetBSD__) && (__NetBSD_Version__ >= 299000900) /* NetBSD 2.99.9 */
++#define statfs statvfs
++#endif
++
+ /*
+  * deal with systems in which bpf_int32 and bpf_u_int32 are not defined
+  */
+@@ -2491,10 +2499,10 @@ dlt_hdrlen(int dlt)
+     }
+ }
+ 
++static void usage(char *cmd);
+ static void
+ verify_and_print_args(char *cmd)
+ {
+-    static void usage(char *cmd);
+ 
+     lookup_init(&addr_propagate);
+ 
+@@ -2759,7 +2767,7 @@ usage(char *cmd)
+ int
+ main(int argc, char *argv[], char *envp[])
+ {
+-    void bpf_dump(FILE *output, struct bpf_program *, int);
++    void my_bpf_dump(FILE *output, struct bpf_program *, int);
+     char *copy_argv(register char **argv);
+     char *read_infile(char *fname);
+     char *rfile, *wfile;
+@@ -2903,7 +2911,7 @@ main(int argc, char *argv[], char *envp[
+ 
+     /* dump? */
+     if (dflag) {
+-	bpf_dump(stderr, &fcode, dflag);
++	my_bpf_dump(stderr, &fcode, dflag);
+ 	exit(0);
+     }
+ 

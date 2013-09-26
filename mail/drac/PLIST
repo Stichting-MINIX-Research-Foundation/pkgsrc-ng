@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:04:31 joerg Exp $
+include/drac.h
+lib/libdrac.a
+libexec/rpc.dracd
+man/man3/dracauth.3
+man/man8/rpc.dracd.8
+share/examples/drac/INSTALL
+share/examples/drac/README
+share/examples/drac/dracd-setup
+share/examples/drac/dracd.allow-sample
+share/examples/drac/testing.c

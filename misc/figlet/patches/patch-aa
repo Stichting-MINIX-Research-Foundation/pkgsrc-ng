@@ -1,0 +1,55 @@
+$NetBSD: patch-aa,v 1.8 2011/05/06 18:02:06 drochner Exp $
+
+--- Makefile.orig	2011-01-26 10:36:21.000000000 +0000
++++ Makefile
+@@ -19,8 +19,8 @@
+ SHELL = /bin/sh
+ 
+ # The C compiler and linker to use
+-CC	= gcc
+-CFLAGS	= -g -O2 -Wall
++CC	?= gcc
++CFLAGS	?= -g -O2 -Wall
+ LD	= gcc
+ LDFLAGS =
+ 
+@@ -29,13 +29,13 @@ LDFLAGS =
+ XCFLAGS	= -DTLF_FONTS
+ 
+ # Where to install files
+-prefix	= /usr/local
++prefix	= ${PREFIX}
+ 
+ # Where the executables should be put
+ BINDIR	= $(prefix)/bin
+ 
+ # Where the man page should be put
+-MANDIR	= $(prefix)/man
++#MANDIR	= $(prefix)/man
+ 
+ # Where figlet will search first for fonts (the ".flf" files).
+ DEFAULTFONTDIR = $(prefix)/share/figlet
+@@ -77,13 +77,16 @@ clean:
+ 	rm -f *.o *~ core figlet chkfont
+ 
+ install: all
+-	mkdir -p $(DESTDIR)$(BINDIR)
+-	mkdir -p $(DESTDIR)$(MANDIR)/man6
+-	mkdir -p $(DESTDIR)$(DEFAULTFONTDIR)
+-	cp $(BINS) $(DESTDIR)$(BINDIR)
+-	cp $(MANUAL) $(DESTDIR)$(MANDIR)/man6
+-	cp fonts/*.flf $(DESTDIR)$(DEFAULTFONTDIR)
+-	cp fonts/*.flc $(DESTDIR)$(DEFAULTFONTDIR)
++	${BSD_INSTALL_DATA_DIR} $(DESTDIR)$(BINDIR)
++	${BSD_INSTALL_DATA_DIR} $(DESTDIR)$(MANDIR)
++	${BSD_INSTALL_DATA_DIR} $(DESTDIR)$(DEFAULTFONTDIR)
++	${BSD_INSTALL_PROGRAM} figlet $(DESTDIR)$(BINDIR)
++	${BSD_INSTALL_PROGRAM} chkfont $(DESTDIR)$(BINDIR)
++	${BSD_INSTALL_SCRIPT} figlist $(DESTDIR)$(BINDIR)
++	${BSD_INSTALL_SCRIPT} showfigfonts $(DESTDIR)$(BINDIR)
++	${BSD_INSTALL_DATA} $(MANUAL) $(DESTDIR)$(MANDIR)
++	${BSD_INSTALL_DATA} fonts/*.flf $(DESTDIR)$(DEFAULTFONTDIR)
++	${BSD_INSTALL_DATA} fonts/*.flc $(DESTDIR)$(DEFAULTFONTDIR)
+ 
+ dist:
+ 	rm -Rf $(DIST) $(DIST).tar.gz

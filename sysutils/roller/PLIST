@@ -1,0 +1,19 @@
+@comment $NetBSD: PLIST,v 1.5 2009/06/14 18:16:13 joerg Exp $
+sbin/logprune
+sbin/logroll
+sbin/roller
+share/roller/proc-cron
+share/roller/proc-ftp
+share/roller/proc-httpd-access
+share/roller/proc-httpd-errors
+share/roller/proc-ipmon
+share/roller/proc-maillog
+share/roller/proc-messages
+share/roller/proc-news
+share/roller/proc-newstally
+share/roller/proc-procmail-mailman
+share/roller/proc-radius
+share/roller/proc-sendmail.st
+share/roller/proc-wtmp
+share/roller/proc-xferlog
+share/roller/tallyho

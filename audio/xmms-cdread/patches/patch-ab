@@ -1,0 +1,42 @@
+$NetBSD: patch-ab,v 1.3 2011/11/27 00:25:05 marino Exp $
+
+--- cdread.c.orig	2001-08-18 11:29:43.000000000 +0000
++++ cdread.c
+@@ -57,7 +57,7 @@ struct cd_cfg cd_cfg;
+ #endif
+ 
+ /*\ Neat.. Three OSes with three different ways of talking to CDROM drives.. \*/
+-#if defined(HAVE_SYS_CDIO_H) && (defined(__FreeBSD__) || defined(__OpenBSD__))
++#if defined(HAVE_SYS_CDIO_H) && (defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__DragonFly__))
+ #include "cdrombsd.h"
+ #elif defined(__SOLARIS__) || defined(__Solaris__) || defined(__solaris__) || defined(__sun__) || defined(sun)
+ #include "cdromsolaris.h"
+@@ -377,7 +377,7 @@ init_thread(gchar *device)
+ }
+ 
+ void
+-_fini(void)
++cd_finish(void)
+ {
+ 	CD_LOCK();
+ 	while (cd_list)
+@@ -388,6 +388,9 @@ _fini(void)
+ 		xmms_usleep(10000);
+ }
+ 
++static void destruct(void) __attribute__((destructor));
++static void destruct(void) { cd_finish(); }
++
+ static void
+ cd_init(void)
+ {
+@@ -742,7 +745,8 @@ get_volume(gint *l, gint *r)
+ static void
+ set_volume(gint l, gint r)
+ {
+-#if defined(HAVE_SYS_CDIO_H) && defined(__FreeBSD__)
++#if defined(HAVE_SYS_CDIO_H) && \
++   (defined(__FreeBSD__) || defined(__DragonFly__))
+ 	struct ioc_vol vol;
+ #else
+ 	struct cdrom_volctrl vol;

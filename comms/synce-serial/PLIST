@@ -1,0 +1,9 @@
+@comment $NetBSD: PLIST,v 1.2 2009/06/14 17:38:42 joerg Exp $
+bin/synce-serial-abort
+bin/synce-serial-chat
+bin/synce-serial-config
+bin/synce-serial-start
+man/man8/synce-serial-abort.8
+man/man8/synce-serial-config.8
+man/man8/synce-serial-start.8
+share/synce/synce-serial-common

@@ -1,0 +1,19 @@
+$NetBSD: patch-aa,v 1.6 2012/01/23 09:39:52 wiz Exp $
+
+--- fileio.c.orig	2004-12-13 02:47:59.000000000 +0000
++++ fileio.c
+@@ -19,6 +19,14 @@
+ */
+ 
+ #include "dbench.h"
++#ifdef __APPLE__
++#include <sys/aio.h>
++#define fdatasync fsync
++#endif
++
++#ifdef __DragonFly__
++#define O_SYNC O_FSYNC
++#endif
+ 
+ #define MAX_FILES 200
+ 

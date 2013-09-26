@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.3 2009/06/14 18:17:30 joerg Exp $
+${RUBY_VENDORARCHLIB}/sary.${RUBY_DLEXT}
+${RUBY_DOC}/sary/Reference.en.rd
+${RUBY_DOC}/sary/Reference.ja.rd

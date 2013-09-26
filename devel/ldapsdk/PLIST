@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.4 2009/06/14 17:48:50 joerg Exp $
+include/disptmpl.h
+include/lber.h
+include/ldap.h
+include/srchpref.h
+lib/liblber.a
+lib/liblber.so
+lib/liblber.so.1
+lib/liblber.so.1.0
+lib/libldap.a
+lib/libldap.so
+lib/libldap.so.1
+lib/libldap.so.1.0
+share/examples/ldapsdk/ldapfilter.conf
+share/examples/ldapsdk/ldapfriendly
+share/examples/ldapsdk/ldapsearchprefs.conf
+share/examples/ldapsdk/ldaptemplates.conf

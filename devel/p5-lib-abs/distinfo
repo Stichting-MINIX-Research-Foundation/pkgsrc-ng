@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2011/12/13 12:29:02 hiramatsu Exp $
+
+SHA1 (lib-abs-0.92.tar.gz) = 6ca6b080de66e3ed81cffeb3ccbde39690a2b351
+RMD160 (lib-abs-0.92.tar.gz) = 7e4e1f96b94caefc2b24a01c31af4b6963f55122
+Size (lib-abs-0.92.tar.gz) = 39591 bytes

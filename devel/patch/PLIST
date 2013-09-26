@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.7 2012/06/01 16:32:41 cheusov Exp $
+bin/gpatch
+gnu/bin/patch
+gnu/man/man1/patch.1
+man/man1/gpatch.1
