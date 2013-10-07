@@ -1,0 +1,31 @@
+$NetBSD$
+
+--- gas/configure.tgt.orig	Mon Jun 20 13:23:21 2011
++++ gas/configure.tgt
+@@ -201,7 +201,8 @@ case ${generic_target} in
+   i386-*-freebsd[12].*)			fmt=aout em=386bsd ;;
+   i386-*-freebsd[12])			fmt=aout em=386bsd ;;
+   i386-*-freebsd* \
+-  | i386-*-kfreebsd*-gnu)		fmt=elf em=freebsd ;;
++  | i386-*-kfreebsd*-gnu \
++  | i386-*-dragonfly*)		fmt=elf em=freebsd ;;
+   i386-*-sysv*)				fmt=coff ;;
+   i386-*-sco3.2v5*coff)			fmt=coff ;;
+   i386-*-isc*)				fmt=coff ;;
+@@ -417,6 +418,7 @@ case ${generic_target} in
+   *-*-aout | *-*-scout)			fmt=aout ;;
+   *-*-dragonfly*)			fmt=elf em=dragonfly ;;
+   *-*-freebsd* | *-*-kfreebsd*-gnu)	fmt=elf em=freebsd ;;
++  *-*-dragonfly*)			fmt=elf em=freebsd ;;
+   *-*-bsd*)				fmt=aout em=sun3 ;;
+   *-*-generic)				fmt=generic ;;
+   *-*-xray | *-*-hms)			fmt=coff ;;
+@@ -424,6 +426,8 @@ case ${generic_target} in
+   *-*-elf | *-*-sysv4*)			fmt=elf ;;
+   *-*-solaris*)				fmt=elf em=solaris ;;
+   *-*-aros*)				fmt=elf em=linux ;;
++  i*-*-minix*)				fmt=elf em=minix ;;
++  arm*-*-minix*)			fmt=elf em=armeabi ;;
+   *-*-vxworks* | *-*-windiss)		fmt=elf em=vxworks ;;
+   *-*-netware)				fmt=elf em=netware ;;
+ esac

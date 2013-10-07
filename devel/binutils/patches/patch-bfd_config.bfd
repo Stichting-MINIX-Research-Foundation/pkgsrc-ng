@@ -1,0 +1,23 @@
+$NetBSD$
+
+--- bfd/config.bfd.orig	Tue Sep  4 14:14:59 2012
++++ bfd/config.bfd
+@@ -315,7 +315,7 @@ case "${targ}" in
+     ;;
+   arm-*-elf | arm-*-freebsd* | arm*-*-linux-* | arm*-*-conix* | \
+   arm*-*-uclinux* | arm-*-kfreebsd*-gnu | \
+-  arm*-*-eabi* )
++  arm*-*-eabi* | arm*-*-minix*)
+     targ_defvec=bfd_elf32_littlearm_vec
+     targ_selvecs=bfd_elf32_bigarm_vec
+     ;;
+@@ -709,6 +709,9 @@ case "${targ}" in
+     ;;
+   i[3-7]86-none-*)
+     targ_defvec=i386coff_vec
++    ;;
++  i[3-7]86-*-minix)
++    targ_defvec=bfd_elf32_i386_minix_vec
+     ;;
+   i[3-7]86-*-aout* | i[3-7]86*-*-vsta*)
+     targ_defvec=i386aout_vec

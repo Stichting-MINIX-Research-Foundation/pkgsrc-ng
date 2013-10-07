@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- gold/Makefile.in.orig	Wed Sep 14 01:29:01 2011
++++ gold/Makefile.in
+@@ -334,7 +334,7 @@ install_sh = @install_sh@
+ installed_linker = @installed_linker@
+ libdir = @libdir@
+ libexecdir = @libexecdir@
+-localedir = @localedir@
++localedir = /usr/pkg/share/locale
+ localstatedir = @localstatedir@
+ mandir = @mandir@
+ mkdir_p = @mkdir_p@

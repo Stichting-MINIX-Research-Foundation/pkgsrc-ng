@@ -1,0 +1,12 @@
+$NetBSD$
+
+--- gold/testsuite/Makefile.in.orig	Mon Mar 25 08:06:23 2013
++++ gold/testsuite/Makefile.in
+@@ -1875,6 +1875,7 @@ CYGPATH_W = @CYGPATH_W@
+ DATADIRNAME = @DATADIRNAME@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++DLOPEN_LIBS = 
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@

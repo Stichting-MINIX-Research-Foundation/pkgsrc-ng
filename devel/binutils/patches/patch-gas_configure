@@ -1,0 +1,15 @@
+$NetBSD$
+
+--- gas/configure.orig	Mon Jun 18 04:43:06 2012
++++ gas/configure
+@@ -6127,6 +6127,10 @@ freebsd* | dragonfly*)
+   fi
+   ;;
+ 
++minix*)
++  lt_cv_deplibs_check_method=pass_all
++  ;;
++
+ gnu*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;

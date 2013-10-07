@@ -1,0 +1,33 @@
+$NetBSD: patch-aa,v 1.5 2012/07/23 12:24:34 jperkin Exp $
+
+Remove etc
+
+--- configure.orig	2011-08-14 21:28:15.000000000 +0900
++++ configure	2012-02-13 10:34:04.000000000 +0900
+@@ -2667,7 +2667,7 @@
+ # binutils, gas and ld appear in that order because it makes sense to run
+ # "make check" in that particular order.
+ # If --enable-gold is used, "gold" may replace "ld".
+-host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gprof etc expect dejagnu m4 utils guile fastjar gnattools"
++host_tools="texinfo flex bison binutils gas ld fixincludes gcc cgen sid sim gdb gprof expect dejagnu m4 utils guile fastjar gnattools"
+ 
+ # libgcj represents the runtime libraries only used by gcj.
+ libgcj="target-libffi \
+@@ -2861,7 +2861,7 @@ case "${ENABLE_GOLD}" in
+       *-*-elf* | *-*-sysv4* | *-*-unixware* | *-*-eabi* | hppa*64*-*-hpux* \
+       | *-*-linux* | frv-*-uclinux* | *-*-irix5* | *-*-irix6* \
+       | *-*-netbsd* | *-*-openbsd* | *-*-freebsd* | *-*-dragonfly* \
+-      | *-*-solaris2* | *-*-nto*)
++      | *-*-solaris2* | *-*-nto* | *minix* )
+         case "${target}" in
+           *-*-linux*aout* | *-*-linux*oldld*)
+             ;;
+@@ -14663,6 +14663,8 @@ do
+   case $ac_option in
+   # Handling of the options.
+   -recheck | --recheck | --rechec | --reche | --rech | --rec | --re | --r)
++	: Avoid regenerating within pkgsrc
++	exit 0
+     ac_cs_recheck=: ;;
+   --version | --versio | --versi | --vers | --ver | --ve | --v | -V )
+     $as_echo "$ac_cs_version"; exit ;;

@@ -1,0 +1,21 @@
+$NetBSD$
+
+--- gold/Makefile.in.orig	Mon Mar 25 08:06:23 2013
++++ gold/Makefile.in
+@@ -249,6 +249,7 @@ CYGPATH_W = @CYGPATH_W@
+ DATADIRNAME = @DATADIRNAME@
+ DEFS = @DEFS@
+ DEPDIR = @DEPDIR@
++DLOPEN_LIBS = 
+ ECHO_C = @ECHO_C@
+ ECHO_N = @ECHO_N@
+ ECHO_T = @ECHO_T@
+@@ -375,7 +376,7 @@ AM_CPPFLAGS = \
+ 	-DTOOLLIBDIR="\"$(tooldir)/lib\"" @INCINTL@
+ 
+ LIBIBERTY = ../libiberty/libiberty.a
+-@PLUGINS_TRUE@LIBDL = -ldl
++@PLUGINS_TRUE@LIBDL = 
+ @THREADS_TRUE@THREADSLIB = -lpthread
+ AM_YFLAGS = -d
+ 

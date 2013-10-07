@@ -1,17 +1,17 @@
 $NetBSD$
 
---- ld/configure.tgt.orig	Tue Sep  4 12:53:47 2012
+--- ld/configure.tgt.orig	Mon Nov 21 09:29:37 2011
 +++ ld/configure.tgt
-@@ -76,6 +76,8 @@ arm-*-rtems*)		targ_emul=armelf ;;
+@@ -68,6 +68,8 @@ arm-*-rtems*)		targ_emul=armelf ;;
  armeb-*-elf)		targ_emul=armelfb ;;
  arm-*-elf | arm*-*-eabi*)
  	  		targ_emul=armelf ;;
-+arm*-*-minix*)	targ_emul=armelf_minix
++arm*-*-minix*)		targ_emul=armelf_minix
 +			targ_extra_emuls="armelf" ;;
  arm*-*-symbianelf*)     targ_emul=armsymbian;;
  arm-*-kaos*)		targ_emul=armelf ;;
  arm9e-*-elf)		targ_emul=armelf ;;
-@@ -202,6 +204,8 @@ i[3-7]86-*-bsd)		targ_emul=i386bsd ;;
+@@ -180,6 +182,8 @@ i[3-7]86-*-bsd)		targ_emul=i386bsd ;;
  i[3-7]86-*-bsd386)	targ_emul=i386bsd ;;
  i[3-7]86-*-bsdi*)	targ_emul=i386bsd ;;
  i[3-7]86-*-aout)	targ_emul=i386aout ;;

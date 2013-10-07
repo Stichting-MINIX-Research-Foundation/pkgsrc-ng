@@ -1,8 +1,7 @@
 # $NetBSD: Makefile,v 1.57 2014/01/26 03:49:01 ryoon Exp $
 
-# MINIX: We currently only support Binutils 2.23 as patched in our base system.
-#DISTNAME=	binutils-2.24
-DISTNAME=	binutils-2.23.2
+DISTNAME=	binutils-2.22
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -60,28 +59,14 @@ PLIST.ld=	yes
 EXTRA_FILES+=	ld
 .endif
 
-.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+.if ${OS_VARIANT} == "Minix"
 CONFIGURE_ARGS+= \
 	--with-sysroot=/ \
 	--enable-gold=yes \
 	--enable-ld=default \
 	--enable-plugins \
 	--enable-lto
-
-# LSC - Somehow configure doesn't find the installed ld when compiling inside
-#       a jail...
-CONFIGURE_ENV+= LD=/usr/bin/ld
-
-# BJG - gold requires bison
-USE_TOOLS+=		bison lex
-# BJG - there is a harmless warning in ld we need to ignore
-CFLAGS+=		-Wno-error
-# BJG - gcc expects binaries with this program prefix
-MINIX_PROGRAM_PREFIX=i586-elf32-minix-
-CPPFLAGS+= -DHAVE_DLFCN_H
 .endif
-
-CFLAGS.OpenBSD+=	-Wno-bounded
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
@@ -119,8 +104,6 @@ post-install:
 	set -e; \
 	if [ -f ${DESTDIR}${PREFIX}/bin/g${f:Q} ]; then \
 	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/${PKGGNUDIR}bin/${f}; \
-	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/bin/${f}; \
-	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/bin/${MINIX_PROGRAM_PREFIX}${f}; \
 	fi
 	if [ -f ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/g${f:Q}.1 ]; then \
 	    ${LN} -sf ${PREFIX}/${PKGMANDIR}/man1/g${f}.1 \

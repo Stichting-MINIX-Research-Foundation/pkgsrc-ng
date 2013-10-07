@@ -1,0 +1,10 @@
+--- gold/configure.ac.orig	Mon Mar 25 08:06:23 2013
++++ gold/configure.ac	Fri Jul 18 14:46:06 2014
+@@ -496,6 +496,7 @@ AC_CHECK_DECLS([basename, ffs, asprintf, vasprintf, sn
+ 
+ AC_LANG_PUSH(C++)
+ 
++AC_CHECK_HEADERS(unordered_set unordered_map)
+ AC_CHECK_HEADERS(tr1/unordered_set tr1/unordered_map)
+ AC_CHECK_HEADERS(ext/hash_map ext/hash_set)
+ AC_CHECK_HEADERS(byteswap.h)

@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- gas/configure.tgt.orig	Tue Sep  4 12:53:45 2012
++++ gas/configure.tgt
+@@ -446,6 +446,8 @@ case ${generic_target} in
+   *-*-elf | *-*-sysv4*)			fmt=elf ;;
+   *-*-solaris*)				fmt=elf em=solaris ;;
+   *-*-aros*)				fmt=elf em=linux ;;
++  i*-*-minix*)                       fmt=elf em=minix ;;
++  arm*-*-minix*)                       fmt=elf em=armeabi ;;
+   *-*-vxworks* | *-*-windiss)		fmt=elf em=vxworks ;;
+   *-*-netware)				fmt=elf em=netware ;;
+ esac
