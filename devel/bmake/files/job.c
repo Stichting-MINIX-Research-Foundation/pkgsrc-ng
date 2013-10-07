@@ -1396,7 +1396,7 @@ JobExec(Job *job, char **argv)
 	 * we can kill it and all its descendants in one fell swoop,
 	 * by killing its process family, but not commit suicide.
 	 */
-#if defined(MAKE_NATIVE) || defined(HAVE_SETPGID)
+#if defined(MAKE_NATIVE) && defined(HAVE_SETPGID)
 #if defined(SYSV)
 	/* XXX: dsl - I'm sure this should be setpgrp()... */
 	(void)setsid();

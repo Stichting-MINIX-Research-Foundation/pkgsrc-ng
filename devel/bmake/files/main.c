@@ -832,7 +832,7 @@ main(int argc, char **argv)
 		progname++;
 	else
 		progname = argv[0];
-#if defined(MAKE_NATIVE) || (defined(HAVE_SETRLIMIT) && defined(RLIMIT_NOFILE))
+#if defined(MAKE_NATIVE) && (defined(HAVE_SETRLIMIT) && defined(RLIMIT_NOFILE))
 	/*
 	 * get rid of resource limit on file descriptors
 	 */
