@@ -27,8 +27,13 @@ _METADATA_TARGETS+=	${_BUILD_INFO_FILE}
 ${_BUILD_INFO_FILE}: ${_PLIST_NOKEYWORDS}
 	${RUN}${MKDIR} ${.TARGET:H}
 	${RUN}${RM} -f ${.TARGET}.tmp
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT}
+	${RUN} (${_BUILD_DEFS:NPATH:@v@${ECHO} ${v}=${${v}:S,NetBSD,Minix,:Q} ;@})	\
+		> ${.TARGET}.tmp
+.else
 	${RUN} (${_BUILD_DEFS:NPATH:@v@${ECHO} ${v}=${${v}:Q} ;@})	\
 		> ${.TARGET}.tmp
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT}
 .if !empty(USE_LANGUAGES)
 	${RUN}${ECHO} "CC_VERSION=${CC_VERSION}" >> ${.TARGET}.tmp
 .endif

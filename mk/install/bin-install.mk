@@ -30,12 +30,14 @@
 # List of sites carrying binary pkgs. Variables "rel" and "arch" are
 # replaced with OS release ("1.5", ...) and architecture ("mipsel", ...)
 .if ${OPSYS} == "NetBSD"
+.  if ${OS_VARIANT} != "Minix"
 BINPKG_SITES?= \
 	http://cdn.NetBSD.org/pub/pkgsrc/packages/NetBSD/$${arch}/$${rel} \
 	http://ftp6.NetBSD.org/pub/pkgsrc/packages/NetBSD/$${arch}/$${rel}
-.elif ${OPSYS} == "Minix"
+.  else
 BINPKG_SITES?= \
-	ftp://ftp.minix3.org/pub/minix/packages/$$(${UNAME} -r)/$${arch}
+	http://www.minix3.org/pkgsrc/packages/$$(${UNAME} -r)/$${arch}
+.  endif
 .elif ${OPSYS} == "DragonFly"
 BINPKG_SITES?= \
 	http://mirror-master.dragonflybsd.org/packages/$${arch}/DragonFly-$${rel}/stable
