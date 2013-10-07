@@ -20,7 +20,9 @@ TOOLS_PLATFORM.csh?=		/bin/csh
 TOOLS_PLATFORM.cut?=		/usr/bin/cut
 TOOLS_PLATFORM.date?=		/bin/date
 TOOLS_PLATFORM.diff?=		/usr/bin/diff
+.if exists(/usr/bin/diff3)
 TOOLS_PLATFORM.diff3?=		/usr/bin/diff3
+.endif
 TOOLS_PLATFORM.dirname?=	/usr/bin/dirname
 TOOLS_PLATFORM.echo?=		echo			# shell builtin
 TOOLS_PLATFORM.egrep?=		/usr/bin/egrep
@@ -36,7 +38,9 @@ TOOLS_PLATFORM.ftp?=		/usr/bin/ftp
 TOOLS_PLATFORM.gettext?=	/usr/bin/gettext
 .endif
 TOOLS_PLATFORM.grep?=		/usr/bin/grep
+.if exists(/usr/bin/groff)
 TOOLS_PLATFORM.groff?=		/usr/bin/groff
+.endif
 TOOLS_PLATFORM.gsoelim?=	${TOOLS_PLATFORM.soelim}	# GNUish
 TOOLS_PLATFORM.gunzip?=		/usr/bin/gunzip -f
 TOOLS_PLATFORM.gzcat?=		/usr/bin/gzcat
@@ -44,7 +48,9 @@ TOOLS_PLATFORM.gzip?=		/usr/bin/gzip -nf ${GZIP}
 TOOLS_PLATFORM.head?=		/usr/bin/head
 TOOLS_PLATFORM.hostname?=	/bin/hostname
 TOOLS_PLATFORM.id?=		/usr/bin/id
+.if exists(/usr/bin/ident)
 TOOLS_PLATFORM.ident?=		/usr/bin/ident
+.endif
 .if empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 TOOLS_PLATFORM.install?=	/usr/bin/install
 .else
@@ -86,7 +92,9 @@ TOOLS_PLATFORM.pax?=		/bin/pax
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
 .if empty(USE_CROSS_COMPILE:M[yY][eE][sS])
+.if exists(/usr/bin/readelf)
 TOOLS_PLATFORM.readelf?=	/usr/bin/readelf
+.endif
 .else
 TOOLS_PLATFORM.readelf?=	${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-readelf
 .endif
@@ -101,7 +109,9 @@ TOOLS_PLATFORM.sleep?=		/bin/sleep
 TOOLS_PLATFORM.soelim?=		/usr/bin/soelim
 TOOLS_PLATFORM.sort?=		/usr/bin/sort
 .if empty(USE_CROSS_COMPILE:M[yY][eE][sS])
+.if exists(/usr/bin/strip)
 TOOLS_PLATFORM.strip?=		/usr/bin/strip
+.endif
 .else
 TOOLS_PLATFORM.strip?=		${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-strip
 .endif
@@ -112,7 +122,9 @@ TOOLS_PLATFORM.tar?=		/bin/tar
 .elif exists(/usr/bin/tar)
 TOOLS_PLATFORM.tar?=		/usr/bin/tar
 .endif
+.if exists(/usr/bin/tbl)
 TOOLS_PLATFORM.tbl?=		/usr/bin/tbl
+.endif
 TOOLS_PLATFORM.tee?=		/usr/bin/tee
 TOOLS_PLATFORM.test?=		test			# shell builtin
 TOOLS_PLATFORM.touch?=		/usr/bin/touch
