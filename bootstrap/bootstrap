@@ -47,6 +47,8 @@ unprivileged=no
 
 preserve_path=no
 
+enable_db=yes
+
 # where the building takes place
 bootstrapdir=`dirname "$0"`
 bootstrapdir=`cd "${bootstrapdir}" && pwd`
@@ -693,11 +695,12 @@ Linux)
 Minix)
 	root_group=operator
 	need_bsd_install=yes
+	enable_db=no
 	need_awk=no
 	need_sed=no
 	set_opsys=no
 	machine_arch=`uname -p`
-	LDFLAGS="-lcompat_minix -lminlib"
+	check_compiler=yes
 	;;	
 MirBSD)
 	root_group=wheel
@@ -1065,6 +1068,13 @@ if [ "$need_xargs" = "yes" ]; then
 	need_extras=yes
 fi
 
+if [ "$enable_db" = "yes" ]
+then
+    db_flag="--enable-db"
+else
+    db_flag="--disable-db"
+fi
+
 echo_msg "Bootstrapping mk-files"
 run_cmd "(cd ${pkgsrcdir}/pkgtools/bootstrap-mk-files/files && env CP=${cpprog} \
  OPSYS=${opsys} MK_DST=${wrkdir}/share/mk ROOT_GROUP=${root_group} \
@@ -1085,7 +1095,7 @@ bmake="$wrkdir/bin/bmake $make_quiet_flags"
 # build libnbcompat
 echo_msg "Building libnbcompat"
 copy_src $pkgsrcdir/pkgtools/libnbcompat/files libnbcompat
-run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt --enable-db && $bmake $make_quiet_flags)"
+run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt $db_flag && $bmake $make_quiet_flags)"
 
 # bootstrap ksh if necessary
 case "$need_ksh" in

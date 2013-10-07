@@ -311,10 +311,14 @@ OS_VARIANT=		SCOOSR6
 .  endif
 
 .elif ${OPSYS} == "Minix"
-LOWER_VENDOR?=		pc
-LOWER_OPSYS:=		${OPSYS:tl}
-LDFLAGS+=		-lcompat_minix -lminlib
+LOWER_VENDOR?=		elf32
+OPSYS:=			NetBSD
+LOWER_OPSYS:=		netbsd
+OS_VARIANT:=		Minix
+ROOT_GROUP:=		operator
 
+NATIVE_MACHINE_GNU_PLATFORM=	${NATIVE_MACHINE_GNU_ARCH}-elf32-minix
+MACHINE_GNU_PLATFORM=		${MACHINE_GNU_ARCH}-elf32-minix
 .elif !defined(LOWER_OPSYS)
 LOWER_OPSYS:=		${OPSYS:tl}
 .endif
@@ -357,6 +361,17 @@ PKGPATH?=		${.CURDIR:C|.*/([^/]*/[^/]*)$|\1|}
 
 # Load the settings from MAKECONF, which is /etc/mk.conf by default.
 .include <bsd.own.mk>
+
+.if ${OS_VARIANT} == "Minix"
+# Minix: For now we differ from NetBSD on the following, but the
+#        way it is set in platform/NetBSD.mk prevents us from
+#        setting it in the system-wide mk.conf
+.undef PKG_HAVE_KQUEUE
+_OPSYS_MAX_CMDLEN_CMD=	echo 262144
+_OPSYS_SHLIB_TYPE=	ELF	# ELF shared libraries on Minix
+_OPSYS_HAS_OSSAUDIO=	no	# libossaudio is available
+_OPSYS_HAS_INET6=	no	# IPv6 is not standard
+.endif
 
 # /usr/share/mk/bsd.own.mk on NetBSD 1.3 does not define OBJECT_FMT
 .if !empty(MACHINE_PLATFORM:MNetBSD-1.3*)
@@ -430,7 +445,8 @@ SHAREMODE?=		${DOCMODE}
 
 # Load the OS-specific definitions for program variables.  Default to loading
 # the NetBSD ones if an OS-specific file doesn't exist.
-.if exists(${_PKGSRC_TOPDIR}/mk/platform/${OPSYS}.mk)
+
+.if  exists(${_PKGSRC_TOPDIR}/mk/platform/${OPSYS}.mk)
 .  include "${_PKGSRC_TOPDIR}/mk/platform/${OPSYS}.mk"
 .else
 .  include "${_PKGSRC_TOPDIR}/mk/platform/NetBSD.mk"
