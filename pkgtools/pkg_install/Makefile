@@ -25,8 +25,8 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--with-pkgdbdir=${PKG_DBDIR:Q}
 
 USE_FEATURES=		nbcompat
-
-NBCOMPAT_CONFIGURE_ARGS+=	--enable-bsd-getopt --enable-db
+# MINIX: Unsupported for now, requires mmap: --enable-db
+NBCOMPAT_CONFIGURE_ARGS+=	--enable-bsd-getopt
 
 SKIP_AUDIT_PACKAGES=	yes
 NO_PKGTOOLS_REQD_CHECK=	yes
