@@ -25,8 +25,8 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-pkgdbdir=${PKG_DBDIR}
 
 USE_FEATURES=		nbcompat
-
-NBCOMPAT_CONFIGURE_ARGS+=	--enable-bsd-getopt --enable-db
+# MINIX: Unsupported for now, requires mmap: --enable-db
+NBCOMPAT_CONFIGURE_ARGS+=	--enable-bsd-getopt
 
 SKIP_AUDIT_PACKAGES=	yes
 NO_PKGTOOLS_REQD_CHECK=	yes
@@ -78,7 +78,12 @@ CPPFLAGS+=		-D_FILE_OFFSET_BITS=64
 CPPFLAGS+=		-DDEF_UMASK=${DEF_UMASK}
 
 MAKE_ENV+=		PKGSRC_MACHINE_ARCH=${MACHINE_ARCH}
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+MAKE_ENV+=		OPSYS=Minix
+CPPFLAGS+=		-DOPSYS_NAME=\"Minix\"
+.else
 MAKE_ENV+=		OPSYS=${OPSYS}
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
 MAKE_ENV+=		CATMAN_SECTION_SUFFIX=${CATMAN_SECTION_SUFFIX:Q}
 MAKE_ENV+=		MANINSTALL=${MANINSTALL:Q}
 
