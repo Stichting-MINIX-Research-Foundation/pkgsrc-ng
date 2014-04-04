@@ -22,3 +22,4 @@ SHA1 (patch-hints_sco.sh) = 8d43cdc0632799e1cdb5dc6fdb968052a9ae4216
 SHA1 (patch-hints_solaris__2.sh) = f054d36917c74df8219c0fc84e9b20fa312a56a3
 SHA1 (patch-ta) = a9d13eeec22733e4087942f217a0d47a19498a6f
 SHA1 (patch-ze) = d6fb718a1417e37a7d6bee1ae89fe2beec51c81b
+SHA1 (patch-zz-minix) = e324d4a3f6e7bad648b0721093a09e6f047101ca

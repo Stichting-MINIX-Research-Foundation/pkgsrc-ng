@@ -1,0 +1,21 @@
+--- Configure.orig	Fri Apr 24 10:51:48 2015
++++ Configure	Fri Apr 24 10:54:52 2015
+@@ -3401,6 +3401,9 @@
+ 			;;
+ 		MiNT)	osname=mint
+ 			;;
++		minix*) osname=minix
++			osvers=`$uname -r | UU/tr '[A-Z]' '[a-z]'`
++			;;
+ 		netbsd*) osname=netbsd
+ 			osvers=`$uname -r | UU/tr '[A-Z]' '[a-z]'`
+ 			;;
+@@ -8557,7 +8560,7 @@
+ 	solaris)
+ 		xxx="-R $shrpdir"
+ 		;;
+-	freebsd|mirbsd|netbsd|openbsd|interix|dragonfly|bitrig)
++	freebsd|mirbsd|minix|netbsd|openbsd|interix|dragonfly|bitrig)
+ 		xxx="-Wl,-R$shrpdir"
+ 		;;
+ 	bsdos|linux|irix*|dec_osf|gnu*|haiku)
