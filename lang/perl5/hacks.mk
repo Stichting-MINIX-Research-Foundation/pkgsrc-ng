@@ -88,4 +88,10 @@ CFLAGS+=	-fno-reorder-blocks
 .  endif
 .endif
 
+### Minix, no pthreads available
+### Perl cannot be compiled with threading support ATM.
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT:U} == "Minix"
+PKG_HACKS+=			broken-minix-pthreads
+PERL5_BUILD_THREADS_SUPPORT=	no
+.endif
 .endif  # PERL5_HACKS_MK

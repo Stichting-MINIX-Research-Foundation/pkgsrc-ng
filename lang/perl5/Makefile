@@ -205,6 +205,7 @@ LIBSWANTED.HPUX=	cl pthread $$libswanted # see Perl's README.hpux
 LIBSWANTED.IRIX=	m crypt
 LIBSWANTED.Interix=	m dl
 LIBSWANTED.Linux=	m crypt dl nsl
+LIBSWANTED.Minix=	m crypt c
 LIBSWANTED.MirBSD=	m crypt
 LIBSWANTED.NetBSD=	m crypt
 LIBSWANTED.OpenBSD=	m crypt
@@ -224,6 +225,7 @@ SYSLIBPATH.Darwin=	/usr/lib
 SYSLIBPATH.DragonFly=	/usr/lib
 SYSLIBPATH.FreeBSD=	/usr/lib
 SYSLIBPATH.Interix=	/usr/lib
+SYSLIBPATH.Minix=	/usr/lib
 SYSLIBPATH.MirBSD=	/usr/lib
 SYSLIBPATH.NetBSD=	/usr/lib
 SYSLIBPATH.OpenBSD=	/usr/lib
@@ -289,6 +291,8 @@ post-extract:
 		${WRKSRC}/cpan/DB_File/hints/netbsd.pl
 	cp ${FILESDIR}/cpan-DB_File-hints-openbsd.pl \
 		${WRKSRC}/cpan/DB_File/hints/openbsd.pl
+# MINIX:
+	cp ${FILESDIR}/minix.sh ${WRKSRC}/hints/minix.sh
 
 pre-configure:
 	cd ${WRKSRC} && find `pwd` -name "*.orig" -type f -exec ${RM} -f {} \;
