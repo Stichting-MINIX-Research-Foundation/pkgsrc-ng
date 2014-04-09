@@ -7,3 +7,5 @@ SHA1 (patch-aa) = 8fa167bebf27b7bc3008edd61408a0aede6bdf69
 SHA1 (patch-ab) = 3ab767d3c0413bf30b6e9cce62e9686cd3d53fda
 SHA1 (patch-ac) = fa8b0388f8f0469803c5869a23c3a1247eef70a1
 SHA1 (patch-ad) = 48c3832e9205777832ef2a6334033ff6099be8a4
+SHA1 (patch-zz-minix-a) = 83fd8e2dc61bac55bc8f165808e9281fee589400
+SHA1 (patch-zz-minix-b) = fef6154c6d892f48ee0dcedef341b9f0fa53dab0

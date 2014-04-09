@@ -1,0 +1,213 @@
+--- configure.orig	Fri Apr 24 16:27:41 2015
++++ configure	Fri Apr 24 16:32:10 2015
+@@ -5335,7 +5335,7 @@
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | mirbsd* | darwin* | dragonfly*)
++  minix* | netbsd* | freebsd* | openbsd* | mirbsd* | darwin* | dragonfly*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -5840,7 +5840,7 @@
+   lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|\.so|_pic\.a)$'
+   ;;
+ 
+-netbsd*)
++minix* | netbsd*)
+   lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so|_pic\.a)$'
+   ;;
+ 
+@@ -9658,7 +9658,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec='${wl}-rpath,$libdir'
+@@ -10302,7 +10302,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec='${wl}-rpath,$libdir'
+@@ -11362,6 +11362,18 @@
+   shlibpath_overrides_runpath=yes
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=linux
+   need_lib_prefix=no
+@@ -12940,7 +12952,7 @@
+   mirbsd*)
+     lt_cv_sys_dlopen_deplibs=yes
+     ;;
+-  netbsd*)
++  minix* | netbsd*)
+     lt_cv_sys_dlopen_deplibs=yes
+     ;;
+   openbsd*)
+@@ -14774,7 +14786,7 @@
+ 	esac
+ 	;;
+ 
+-      netbsd*)
++      minix* | netbsd*)
+ 	ld_shlibs_CXX=yes
+ 	archive_cmds_CXX='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+ 	archive_expsym_cmds_CXX='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+@@ -15525,7 +15537,7 @@
+ 	    ;;
+ 	esac
+ 	;;
+-      netbsd*)
++      minix* | netbsd*)
+ 	;;
+       *qnx* | *nto*)
+         # QNX uses GNU C++, but need to define -shared option too, otherwise
+@@ -16553,6 +16565,18 @@
+   shlibpath_overrides_runpath=yes
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=linux
+   need_lib_prefix=no
+@@ -18089,7 +18113,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_F77='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_F77='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_F77='${wl}-rpath,$libdir'
+@@ -18683,7 +18707,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_F77='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_F77='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_F77='${wl}-rpath,$libdir'
+@@ -19572,6 +19596,18 @@
+   shlibpath_overrides_runpath=yes
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=linux
+   need_lib_prefix=no
+@@ -21242,7 +21278,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_FC='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_FC='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_FC='${wl}-rpath,$libdir'
+@@ -21836,7 +21872,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_FC='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_FC='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_FC='${wl}-rpath,$libdir'
+@@ -22725,6 +22761,18 @@
+   shlibpath_overrides_runpath=yes
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=linux
+   need_lib_prefix=no
+@@ -24125,7 +24173,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_GO='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_GO='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_GO='${wl}-rpath,$libdir'
+@@ -24730,7 +24778,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_GO='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_GO='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_GO='${wl}-rpath,$libdir'
+@@ -26282,7 +26330,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_GCJ='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_GCJ='$CC -shared $pic_flag $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_GCJ='${wl}-rpath,$libdir'
+@@ -26887,7 +26935,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       archive_cmds_GCJ='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname -o $lib'
+       archive_expsym_cmds_GCJ='$CC -shared $libobjs $deplibs $compiler_flags ${wl}-soname $wl$soname ${wl}-retain-symbols-file $wl$export_symbols -o $lib'
+       hardcode_libdir_flag_spec_GCJ='${wl}-rpath,$libdir'
