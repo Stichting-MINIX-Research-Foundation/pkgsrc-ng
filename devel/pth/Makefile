@@ -25,7 +25,7 @@ TEST_TARGET=		test
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} != "Minix"
 .  if ${MACHINE_ARCH} == "m68k" && (!empty(OS_VERSION:M1.5.[12]*) || !empty(OS_VERSION:M1.[0-4]*))
 pre-configure:
 	@${ECHO} Building without --enable-syscall-hard. lib/18644 needs fixing.
@@ -36,6 +36,10 @@ CONFIGURE_ARGS+=	--enable-syscall-hard
 CONFIGURE_ENV+=		ac_cv_check_nfdstype='unsigned int'
 CONFIGURE_ENV+=		ac_cv_typedef_nfds_t=no # in <poll.h>, but that's unused
 .endif
+
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ENV+=		ac_cv_header_sys_resource_h=no
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
 
 # XXX: Check this is still required and reverse test to OS which need it.
 .if ${OPSYS} != "SunOS"
