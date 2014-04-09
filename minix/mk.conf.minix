@@ -1,0 +1,136 @@
+# We ensure this Makefile is only seen during pkgsrc builds
+.ifdef BSD_PKG_MK
+
+# Allow local overrides:
+.-include "${.PARSEDIR}/local.mk.conf"
+
+#######################################################################
+# Settings which differs from platform/NetBSD.mk
+unix=		We run Minix.
+OS=		Minix
+OS_VARIANT=	Minix
+
+NOLINT=         1
+MKCATPAGES?=	yes
+
+ROOT_GROUP?=	operator
+BINGRP?=	operator
+MANGRP?=	operator
+INFOGRP?=	operator
+DOCGRP?=	operator
+NLSGRP?=	operator
+
+NOLOGIN?=	/bin/false
+
+ULIMIT_CMD_datasize?=	ulimit -d
+ULIMIT_CMD_stacksize?=	ulimit -s
+ULIMIT_CMD_memorysize?=	ulimit -m
+ULIMIT_CMD_cputime?=	ulimit -t
+
+PS?=		/usr/bin/ps
+# Our nroff can't handle -mandoc correctly
+NROFF?=		mandoc
+
+PREFER_NATIVE_PTHREADS=	no
+X11_TYPE=	native
+
+# In some cases, MACHINE_GNU_PLATFORM get set back to i386--netbsdelf,
+# make sure the correct triple is set.
+# LSC: Still required?
+MACHINE_GNU_PLATFORM=	${MACHINE_ARCH}-elf32-minix
+
+#######################################################################
+# Download URLs for sources and packages
+
+MASTER_SITE_LOCAL?= \
+	http://www.minix3.org/pkgsrc/distfiles/minix/${OS_VERSION}/
+
+MASTER_SITE_MINIX?= \
+	http://www.minix3.org/pkgsrc/distfiles/local/${OS_VERSION}/
+
+MASTER_SITE_BACKUP?= \
+	ftp://ftp.netbsd.org/pub/pkgsrc/distfiles/ \
+	ftp://ftp.freebsd.org/pub/FreeBSD/distfiles/ \
+	http://ftp.jp.netbsd.org/pub/pkgsrc/distfiles/
+
+MASTER_SITE_OVERRIDE?= \
+	${MASTER_SITE_MINIX}
+
+#######################################################################
+# PKGSRC Paths
+
+# defaults to /var, which is too small on MINIX
+VARBASE?=	/usr/pkg/var
+PKG_DBDIR?=	/usr/pkg/var/db/pkg
+PKG_TOOLS_BIN?=	/usr/pkg/sbin
+
+# By default builds within pkgsrc, we don't want that
+WRKOBJDIR?=	${PKGSRCDIR}/work
+
+# Defaults to ${PKGSRCDIR}/packages, seems we don't want either.
+PACKAGES?=	${PKGSRCDIR}/packages/${OS_VERSION}/${MACHINE_ARCH}
+
+#######################################################################
+# PKGSRC tools
+PKGSRC_COMPILER?=	clang
+
+.if ${PKGSRC_COMPILER} == "clang"
+# Check if the clang package is available
+.if exists(/usr/pkg/bin/clang)
+CLANGBASE?=	/usr/pkg
+.else
+CLANGBASE?=	/usr
+.endif
+HAVE_LLVM?=	36
+
+CC?=		clang
+CXX?=		clang++
+CPP?=		clang -E
+.else
+AS?=            gas
+CC?=            gcc
+CXX?=           g++
+.endif
+
+.if exists(/usr/pkg/bin/strip)
+TOOLS_PLATFORM.strip?=	/usr/pkg/bin/strip
+.endif
+
+#######################################################################
+# Compilation Flags for all packages
+CFLAGS+= -march=i586
+
+# Headers are available, but not yet fully supported.
+CONFIGURE_ENV+= ac_cv_func_msync=no
+CONFIGURE_ENV+= gl_have_pthread=no
+
+IMAKEOPTS+=	-DBuildHtmlManPages=NO
+
+#######################################################################
+# PKGSRC Build Options
+SKIP_LICENSE_CHECK?=			yes
+ALLOW_VULNERABLE_PACKAGES?=		yes
+
+PKG_DEFAULT_OPTIONS?=			-inet6 -threads -kqueue
+
+PKG_RCD_SCRIPTS?=			yes
+RCD_SCRIPTS_DIR?=			${LOCALBASE}/etc/rc.d
+
+#LSC: the following packages are not yet part of the base system, as expected
+#     on NetBSD
+PREFER_PKGSRC+=		groff
+
+PYTHON_VERSION_DEFAULT?=		27
+PYPACKAGE?=				python27
+
+RUBY_USE_PTHREAD?=			no
+RUBY_ARCH?=				i386-minix
+
+#LSC: Otherwise fails on missing files when generating the tarball
+ZSH_STATIC?=				yes
+
+#######################################################################
+# Package-specific default options
+PKG_OPTIONS.gcc45?=			-gcc-java -gcc-fortran
+
+.endif # BSD_PKG_MK

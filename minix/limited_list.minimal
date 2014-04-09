@@ -1,0 +1,8 @@
+pkgtools/pkgin
+devel/git-base
+devel/binutils
+lang/clang
+lang/gcc45
+devel/bmake
+editors/vim
+security/openssh
