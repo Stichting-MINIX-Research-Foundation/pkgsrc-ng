@@ -25,7 +25,8 @@ CATDEPS?=	${TMACDIR}/tmac.andoc \
 		${TMACDIR}/tmac.doc
 .endif
 MANTARGET?=	cat
-NROFF?=		nroff -Tascii
+# LSC: On MINIX our current nroff doesn't support -Tascii
+NROFF?=		mandoc -Tascii
 GROFF?=		groff -Tascii
 TBL?=		tbl
 
