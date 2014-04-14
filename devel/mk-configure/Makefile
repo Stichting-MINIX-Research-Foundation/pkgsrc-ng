@@ -38,6 +38,9 @@ post-install:
 .include "../../mk/bsd.prefs.mk"
 
 CHECK_PERMS_SKIP=	*/foobar.in */hello_world3.in */prog1.awk.in
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == Minix
+MAKE_ENV+=		OPSYS=Minix MANGRP=operator BINGRP=operator
+.endif
 
 .if ${OPSYS} == SunOS && exists(/usr/xpg4/bin/awk)
 REPLACE_INTERPRETER+=	awk
