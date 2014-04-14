@@ -36,6 +36,10 @@ post-install:
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == Minix
+MAKE_ENV+=		OPSYS=Minix MANGRP=operator BINGRP=operator
+.endif
+
 .if ${OPSYS} == SunOS && exists(/usr/xpg4/bin/awk)
 REPLACE_INTERPRETER+=	awk
 REPLACE.awk.old=	/usr/bin/awk
