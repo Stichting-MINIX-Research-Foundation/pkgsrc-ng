@@ -1,0 +1,57 @@
+--- configure.orig	Fri Apr 24 21:20:55 2015
++++ configure	Fri Apr 24 21:27:45 2015
+@@ -5210,7 +5210,7 @@
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
++  minix* | netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -5702,7 +5702,7 @@
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd*)
++minix* | netbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -9130,7 +9130,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -9763,7 +9763,7 @@
+       link_all_deplibs=yes
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -10797,6 +10797,18 @@
+   # people can always --disable-shared, the test was removed, and we
+   # assume the GNU/Linux dynamic linker is in use.
+   dynamic_linker='GNU/Linux ld.so'
++  ;;
++
++minix*)
++  version_type=sunos
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
+   ;;
+ 
+ netbsd*)
