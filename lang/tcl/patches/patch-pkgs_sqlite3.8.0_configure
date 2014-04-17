@@ -1,7 +1,5 @@
-$NetBSD: patch-pkgs_sqlite3.8.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
-
---- pkgs/sqlite3.8.0/configure.orig	2013-08-27 18:50:58.000000000 +0000
-+++ pkgs/sqlite3.8.0/configure
+--- pkgs/sqlite3.8.0/configure.orig	Tue Aug 27 18:50:58 2013
++++ pkgs/sqlite3.8.0/configure	Fri Apr 18 10:59:17 2014
 @@ -6473,7 +6473,6 @@ fi
  		CC_SEARCH_FLAGS='-Wl,-rpath,${LIB_RUNTIME_DIR}'
  fi
@@ -10,6 +8,15 @@ $NetBSD: patch-pkgs_sqlite3.8.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
  	    { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ELF" >&5
  $as_echo_n "checking for ELF... " >&6; }
  if ${tcl_cv_ld_elf+:} false; then :
+@@ -6518,7 +6517,7 @@ fi
+ 	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
+ 	    TCL_LIB_VERSIONS_OK=nodots
+ 	    ;;
+-	NetBSD-*|FreeBSD-[3-4].*)
++	Minix-*|NetBSD-*|FreeBSD-[3-4].*)
+ 	    # FreeBSD 3.* and greater have ELF.
+ 	    # NetBSD 2.* has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
 @@ -6547,17 +6546,17 @@ fi
  		;;
  	    esac
@@ -51,7 +58,16 @@ $NetBSD: patch-pkgs_sqlite3.8.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
  	    CYGWIN_*) ;;
  	    IRIX*) ;;
 -	    NetBSD-*|FreeBSD-*|OpenBSD-*) ;;
-+	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
  	    Darwin-*) ;;
  	    SCO_SV-3.2*) ;;
  	    windows) ;;
+@@ -8465,6 +8464,8 @@ do
+   case $ac_option in
+   # Handling of the options.
+   -recheck | --recheck | --rechec | --reche | --rech | --rec | --re | --r)
++	: Avoid regenerating within pkgsrc
++	exit 0
+     ac_cs_recheck=: ;;
+   --version | --versio | --versi | --vers | --ver | --ve | --v | -V )
+     $as_echo "$ac_cs_version"; exit ;;

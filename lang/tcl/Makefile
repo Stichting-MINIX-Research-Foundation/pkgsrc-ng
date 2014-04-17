@@ -46,4 +46,5 @@ PLIST_SUBST+=		SONUM=${TCL_SONUM}
 PLIST_SUBST+=		BASEVER=${TCL_BASEVER}
 
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../devel/pth/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,5 @@
-$NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
-
---- unix/Makefile.in.orig	2013-09-19 20:17:13.000000000 +0000
-+++ unix/Makefile.in
+--- unix/Makefile.in.orig	Thu Sep 19 20:17:13 2013
++++ unix/Makefile.in	Fri Apr 18 10:19:33 2014
 @@ -8,6 +8,7 @@ VERSION 		= @TCL_VERSION@
  MAJOR_VERSION		= @TCL_MAJOR_VERSION@
  MINOR_VERSION		= @TCL_MINOR_VERSION@
@@ -10,7 +8,7 @@ $NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
  
  #--------------------------------------------------------------------------
  # Things you can change to personalize the Makefile for your own site (you can
-@@ -54,6 +55,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TC
+@@ -54,6 +55,8 @@ SCRIPT_INSTALL_DIR	= $(INSTALL_ROOT)$(TCL_LIBRARY)
  
  # Directory in which to install the include file tcl.h:
  INCLUDE_INSTALL_DIR	= $(INSTALL_ROOT)$(includedir)
@@ -19,7 +17,7 @@ $NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
  
  # Path to the private tcl header dir:
  PRIVATE_INCLUDE_DIR	= @PRIVATE_INCLUDE_DIR@
-@@ -103,7 +106,7 @@ CFLAGS_OPTIMIZE		= -DNDEBUG @CFLAGS_OPTI
+@@ -103,7 +106,7 @@ CFLAGS_OPTIMIZE		= -DNDEBUG @CFLAGS_OPTIMIZE@
  #CFLAGS			= $(CFLAGS_DEBUG)
  #CFLAGS			= $(CFLAGS_OPTIMIZE)
  #CFLAGS			= $(CFLAGS_DEBUG) $(CFLAGS_OPTIMIZE)
@@ -36,7 +34,7 @@ $NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
  #TCL_LIB_FILE		= libtcl.a
  
  # Generic lib name used in rules that apply to tcl and tk
-@@ -613,7 +617,7 @@ SRCS = $(GENERIC_SRCS) $(TOMMATH_SRCS) $
+@@ -613,7 +617,7 @@ SRCS = $(GENERIC_SRCS) $(TOMMATH_SRCS) $(UNIX_SRCS) $(
  
  all: binaries libraries doc packages
  
@@ -124,7 +122,7 @@ $NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
  	    do \
  	    if [ ! -d "$$i" ] ; then \
  		echo "Making directory $$i"; \
-@@ -950,13 +976,17 @@ install-headers:
+@@ -950,14 +976,18 @@ install-headers:
  		fi; \
  	    done;
  	@echo "Installing header files to $(INCLUDE_INSTALL_DIR)/";
@@ -134,17 +132,27 @@ $NetBSD: patch-unix_Makefile.in,v 1.7 2014/01/11 14:41:05 adam Exp $
 -		$(GENERIC_DIR)/tclTomMath.h \
 -		$(GENERIC_DIR)/tclTomMathDecls.h ; \
 +	@for i in $(GENERIC_DIR)/*.h ; \
-+	    do \
+ 	    do \
+-	    $(INSTALL_DATA) $$i "$(INCLUDE_INSTALL_DIR)"; \
 +	    $(INSTALL_DATA) $$i "$(GENERIC_INCLUDE_INSTALL_DIR)"; \
-+	    done;
+ 	    done;
 +	@for i in $(UNIX_DIR)/*.h ; \
 +	    do \
 +	    $(INSTALL_DATA) $$i "$(UNIX_INCLUDE_INSTALL_DIR)"; \
 +	    done;
 +	@for i in tcl.h tclDecls.h tclOO.h tclOODecls.h tclPlatDecls.h; \
- 	    do \
--	    $(INSTALL_DATA) $$i "$(INCLUDE_INSTALL_DIR)"; \
++	    do \
 +	    cd "$(INCLUDE_INSTALL_DIR)" && ln -sf tcl/generic/$$i $$i; \
- 	    done;
++	    done;
  
  # Optional target to install private headers
+ install-private-headers:
+@@ -1726,7 +1756,7 @@ configure-packages:
+ 		  $$i/configure --with-tcl=../.. \
+ 		      --with-tclinclude=$(GENERIC_DIR) \
+ 		      $(PKG_CFG_ARGS) --libdir=$(PACKAGE_DIR) \
+-		      --enable-shared --enable-threads; ) || exit $$?; \
++		      --enable-shared; ) || exit $$?; \
+ 	      fi; \
+ 	    fi; \
+ 	  fi; \

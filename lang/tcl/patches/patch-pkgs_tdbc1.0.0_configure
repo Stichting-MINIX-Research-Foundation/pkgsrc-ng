@@ -1,7 +1,5 @@
-$NetBSD: patch-pkgs_tdbc1.0.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
-
---- pkgs/tdbc1.0.0/configure.orig	2012-11-23 21:46:02.000000000 +0000
-+++ pkgs/tdbc1.0.0/configure
+--- pkgs/tdbc1.0.0/configure.orig	Fri Nov 23 21:46:02 2012
++++ pkgs/tdbc1.0.0/configure	Fri Apr 18 11:04:41 2014
 @@ -9405,7 +9405,6 @@ fi
  fi
  
@@ -10,7 +8,7 @@ $NetBSD: patch-pkgs_tdbc1.0.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
  		;;
  	    esac
  	    case "$arch" in
-@@ -9462,9 +9461,6 @@ fi
+@@ -9462,11 +9461,8 @@ fi
  
  fi
  
@@ -18,8 +16,11 @@ $NetBSD: patch-pkgs_tdbc1.0.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
 -	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
 -	    TCL_LIB_VERSIONS_OK=nodots
  	    ;;
- 	NetBSD-*|FreeBSD-[3-4].*)
+-	NetBSD-*|FreeBSD-[3-4].*)
++	Minix-*|NetBSD-*|FreeBSD-[3-4].*)
  	    # FreeBSD 3.* and greater have ELF.
+ 	    # NetBSD 2.* has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
 @@ -9497,17 +9493,17 @@ fi
  		;;
  	    esac
@@ -61,7 +62,16 @@ $NetBSD: patch-pkgs_tdbc1.0.0_configure,v 1.2 2014/02/05 12:50:51 obache Exp $
  	    CYGWIN_*) ;;
  	    IRIX*) ;;
 -	    NetBSD-*|FreeBSD-*|OpenBSD-*) ;;
-+	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
  	    Darwin-*) ;;
  	    SCO_SV-3.2*) ;;
  	    windows) ;;
+@@ -12223,6 +12219,8 @@ do
+ _ACEOF
+ cat >>$CONFIG_STATUS <<\_ACEOF
+   -recheck | --recheck | --rechec | --reche | --rech | --rec | --re | --r)
++	: Avoid regenerating within pkgsrc
++	exit 0
+     ac_cs_recheck=: ;;
+   --version | --vers* | -V )
+     echo "$ac_cs_version"; exit 0 ;;

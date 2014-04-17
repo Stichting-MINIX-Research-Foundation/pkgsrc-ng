@@ -1,6 +1,6 @@
-$NetBSD: patch-unix_configure,v 1.6 2014/01/11 14:41:05 adam Exp $
+$NetBSD$
 
---- unix/configure.orig	2013-09-19 20:17:13.000000000 +0000
+--- unix/configure.orig	Thu Sep 19 20:17:13 2013
 +++ unix/configure
 @@ -7731,7 +7731,7 @@ fi
  	    CC_SEARCH_FLAGS=""
@@ -11,6 +11,15 @@ $NetBSD: patch-unix_configure,v 1.6 2014/01/11 14:41:05 adam Exp $
  	    arch=`arch -s`
  	    case "$arch" in
  	    vax)
+@@ -7781,7 +7781,7 @@ fi
+ 	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
+ 	    TCL_LIB_VERSIONS_OK=nodots
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
 @@ -7805,7 +7805,7 @@ fi
  fi
  
@@ -33,7 +42,7 @@ $NetBSD: patch-unix_configure,v 1.6 2014/01/11 14:41:05 adam Exp $
  	    CYGWIN_*|MINGW32_*) ;;
  	    IRIX*) ;;
 -	    NetBSD-*|FreeBSD-*|OpenBSD-*) ;;
-+	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*|MirBSD-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*|MirBSD-*) ;;
  	    Darwin-*) ;;
  	    SCO_SV-3.2*) ;;
  	    *) SHLIB_CFLAGS="-fPIC" ;;
@@ -104,7 +113,7 @@ $NetBSD: patch-unix_configure,v 1.6 2014/01/11 14:41:05 adam Exp $
  #--------------------------------------------------------------------
  #       The statements below define various symbols relating to Tcl
  #       stub support.
-@@ -19278,12 +19277,7 @@ eval "TCL_STUB_LIB_FILE=libtclstub${TCL_
+@@ -19278,12 +19277,7 @@ eval "TCL_STUB_LIB_FILE=libtclstub${TCL_UNSHARED_LIB_S
  eval "TCL_STUB_LIB_FILE=\"${TCL_STUB_LIB_FILE}\""
  eval "TCL_STUB_LIB_DIR=${libdir}"
  
@@ -162,7 +171,7 @@ $NetBSD: patch-unix_configure,v 1.6 2014/01/11 14:41:05 adam Exp $
  
  
  
-@@ -20092,6 +20067,7 @@ s,@EXTRA_BUILD_HTML@,$EXTRA_BUILD_HTML,;
+@@ -20092,6 +20067,7 @@ s,@EXTRA_BUILD_HTML@,$EXTRA_BUILD_HTML,;t t
  s,@EXTRA_TCLSH_LIBS@,$EXTRA_TCLSH_LIBS,;t t
  s,@DLTEST_LD@,$DLTEST_LD,;t t
  s,@DLTEST_SUFFIX@,$DLTEST_SUFFIX,;t t
