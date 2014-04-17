@@ -27,3 +27,7 @@ SHA1 (patch-gio_inotify_inotify-kernel.c) = 18fc55be06dfa4ebf7128b8d1888aaff3b2b
 SHA1 (patch-glib_gmain.c) = d09ff66e475ee52d37ac0dcb463110f690ce6511
 SHA1 (patch-glib_gthread-posix.c) = ca93c8dc358453eb79b518c884464c90d7628888
 SHA1 (patch-glib_gtimezone.c) = d9686da52f171a073d80cfd9f80aa490088a00a3
+SHA1 (patch-zz-minix-a) = 7113d6c9d374f661201e2cb0b6697d85debc9507
+SHA1 (patch-zz-minix-b) = af0e70d4809be0f87a4a64bd6be9f899bf9c7b3e
+SHA1 (patch-zz-minix-c) = be265f0810343c4dca6bea12f9558aa97f95952d
+SHA1 (patch-zz-minix-d) = ab073e72fa53f5da94e002443624844128c4124e

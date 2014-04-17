@@ -1,0 +1,108 @@
+--- gio/gsocket.c.orig	Tue Nov 12 05:30:22 2013
++++ gio/gsocket.c	Wed May  7 16:45:47 2014
+@@ -1323,11 +1326,13 @@ g_socket_get_ttl (GSocket *socket)
+       g_socket_get_option (socket, IPPROTO_IP, IP_TTL,
+ 			   &value, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_get_option (socket, IPPROTO_IPV6, IPV6_UNICAST_HOPS,
+ 			   &value, &error);
+     }
++#endif
+   else
+     g_return_val_if_reached (0);
+ 
+@@ -1364,6 +1369,7 @@ g_socket_set_ttl (GSocket  *socket,
+       g_socket_set_option (socket, IPPROTO_IP, IP_TTL,
+ 			   ttl, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_set_option (socket, IPPROTO_IP, IP_TTL,
+@@ -1371,6 +1377,7 @@ g_socket_set_ttl (GSocket  *socket,
+       g_socket_set_option (socket, IPPROTO_IPV6, IPV6_UNICAST_HOPS,
+ 			   ttl, &error);
+     }
++#endif
+   else
+     g_return_if_reached ();
+ 
+@@ -1472,11 +1479,13 @@ g_socket_get_multicast_loopback (GSocket *socket)
+       g_socket_get_option (socket, IPPROTO_IP, IP_MULTICAST_LOOP,
+ 			   &value, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_get_option (socket, IPPROTO_IPV6, IPV6_MULTICAST_LOOP,
+ 			   &value, &error);
+     }
++#endif
+   else
+     g_return_val_if_reached (FALSE);
+ 
+@@ -1517,6 +1526,7 @@ g_socket_set_multicast_loopback (GSocket    *socket,
+       g_socket_set_option (socket, IPPROTO_IP, IP_MULTICAST_LOOP,
+ 			   loopback, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_set_option (socket, IPPROTO_IP, IP_MULTICAST_LOOP,
+@@ -1524,6 +1534,7 @@ g_socket_set_multicast_loopback (GSocket    *socket,
+       g_socket_set_option (socket, IPPROTO_IPV6, IPV6_MULTICAST_LOOP,
+ 			   loopback, &error);
+     }
++#endif
+   else
+     g_return_if_reached ();
+ 
+@@ -1561,11 +1572,13 @@ g_socket_get_multicast_ttl (GSocket *socket)
+       g_socket_get_option (socket, IPPROTO_IP, IP_MULTICAST_TTL,
+ 			   &value, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_get_option (socket, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
+ 			   &value, &error);
+     }
++#endif
+   else
+     g_return_val_if_reached (FALSE);
+ 
+@@ -1603,6 +1616,7 @@ g_socket_set_multicast_ttl (GSocket  *socket,
+       g_socket_set_option (socket, IPPROTO_IP, IP_MULTICAST_TTL,
+ 			   ttl, &error);
+     }
++#ifndef __minix
+   else if (socket->priv->family == G_SOCKET_FAMILY_IPV6)
+     {
+       g_socket_set_option (socket, IPPROTO_IP, IP_MULTICAST_TTL,
+@@ -1610,6 +1624,7 @@ g_socket_set_multicast_ttl (GSocket  *socket,
+       g_socket_set_option (socket, IPPROTO_IPV6, IPV6_MULTICAST_HOPS,
+ 			   ttl, &error);
+     }
++#endif
+   else
+     g_return_if_reached ();
+ 
+@@ -2053,6 +2068,7 @@ g_socket_multicast_group_operation (GSocket       *soc
+       result = setsockopt (socket->priv->fd, IPPROTO_IP, optname,
+ 			   &mc_req, sizeof (mc_req));
+     }
++#ifndef __minix
+   else if (g_inet_address_get_family (group) == G_SOCKET_FAMILY_IPV6)
+     {
+       struct ipv6_mreq mc_req_ipv6;
+@@ -2070,6 +2086,7 @@ g_socket_multicast_group_operation (GSocket       *soc
+       result = setsockopt (socket->priv->fd, IPPROTO_IPV6, optname,
+ 			   &mc_req_ipv6, sizeof (mc_req_ipv6));
+     }
++#endif
+   else
+     g_return_val_if_reached (FALSE);
+ 

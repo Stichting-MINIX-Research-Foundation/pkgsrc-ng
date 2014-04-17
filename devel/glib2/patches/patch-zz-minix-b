@@ -1,0 +1,13 @@
+--- ./gio/glocalfile.c.orig	Tue Nov 12 05:30:22 2013
++++ ./gio/glocalfile.c	Fri May  9 12:26:13 2014
+@@ -89,6 +89,10 @@
+ #endif
+ #endif
+ 
++#ifdef __minix
++/* LSC: Not very proud of that one, but... */
++#undef AT_FDCWD
++#endif
+ 
+ static void g_local_file_file_iface_init (GFileIface *iface);
+ 
