@@ -23,4 +23,9 @@ PKG_HACKS+=		optimisation
 BUILDLINK_TRANSFORM+=	rm:-O[0-9]*
 .endif
 
+.if !empty(PKGSRC_COMPILER:Mclang) && ${OPSYS} == "NetBSD" && ${OS_VARIANT}
+PKG_HACKS+=		Force no optimisations whith clang on Minix
+BUILDLINK_TRANSFORM+=	rename:-O[0-9]*:-O0
+.endif
+
 .endif	# M4_HACKS_MK

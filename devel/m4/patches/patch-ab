@@ -1,13 +1,11 @@
-$NetBSD: patch-ab,v 1.13 2013/10/04 21:02:11 wiz Exp $
-
---- lib/fseeko.c.orig	2013-09-22 06:15:55.000000000 +0000
-+++ lib/fseeko.c
-@@ -125,7 +125,7 @@ fseeko (FILE *fp, off_t offset, int when
+--- lib/fseeko.c.orig	Sun Sep 22 06:15:55 2013
++++ lib/fseeko.c	Fri Apr 18 00:06:46 2014
+@@ -125,7 +125,7 @@ fseeko (FILE *fp, off_t offset, int whence)
        fp->_flags &= ~_IO_EOF_SEEN;
        fp->_offset = pos;
  #elif defined __sferror || defined __DragonFly__ /* FreeBSD, NetBSD, OpenBSD, DragonFly, Mac OS X, Cygwin */
 -# if defined __CYGWIN__
-+# if defined(__CYGWIN__) || defined(__NetBSD__)
++# if defined(__CYGWIN__) || defined(__NetBSD__) || defined(__minix)
        /* fp_->_offset is typed as an integer.  */
        fp_->_offset = pos;
  # else
