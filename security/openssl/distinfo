@@ -12,3 +12,5 @@ SHA1 (patch-crypto_bn_bn__prime.pl) = c07e8ccba319e4260af46e714c3be56f70579fa6
 SHA1 (patch-crypto_des_Makefile) = 6c67c81ba7054647e1138165d9280c8db82b8498
 SHA1 (patch-engines_ccgost_Makefile) = 8834074c74abab604ef1ba7959750c22c0ffb6e7
 SHA1 (patch-tools_Makefile) = 6e7324d01c0cd5e290085fe8124315bcac8cf198
+SHA1 (patch-zz-minix-a) = eea835946ed13192a93146354805f3be8e00c935
+SHA1 (patch-zz-minix-b) = e88a0cf7c3f60b54e46e2323c85eafdb8678fb06
