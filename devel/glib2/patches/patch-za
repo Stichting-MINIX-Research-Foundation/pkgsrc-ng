@@ -1,0 +1,24 @@
+--- gio/ginetaddress.c.orig	Wed May  7 16:55:07 2014
++++ gio/ginetaddress.c	Wed May  7 16:56:06 2014
+@@ -482,8 +482,10 @@ g_inet_address_new_loopback (GSocketFamily family)
+ 
+       return g_inet_address_new_from_bytes (addr, family);
+     }
++#ifndef __minix
+   else
+     return g_inet_address_new_from_bytes (in6addr_loopback.s6_addr, family);
++#endif
+ }
+ 
+ /**
+@@ -509,8 +511,10 @@ g_inet_address_new_any (GSocketFamily family)
+ 
+       return g_inet_address_new_from_bytes (addr, family);
+     }
++#ifndef __minix
+   else
+     return g_inet_address_new_from_bytes (in6addr_any.s6_addr, family);
++#endif
+ }
+ 
+ 
