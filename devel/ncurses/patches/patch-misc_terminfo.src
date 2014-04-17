@@ -1,0 +1,32 @@
+$NetBSD$
+
+--- misc/terminfo.src.orig	Sun Feb 20 20:46:53 2011
++++ misc/terminfo.src
+@@ -17751,7 +17751,27 @@ osexec|Osborne executive,
+ 
+ # See
+ #	http://www.minix3.org/manpages/man4/console.4.html
++# LSC Add back some missing support for fn keys, keypad and PgUp/PgDn
++# Added lf0@, lf1@, lf2@, lf3@, lf4@, lf5@, , not sure what it does... to check!
+ minix|minix console (v3),
++        acsc=+\020\,\021-\030.^Y0\333`\004a\261f\370g\361h\260j\331k\277l\332m\300n\305o~p\304q\304r\304s_t\303u\264v\301w\302x\263y\363z\362{\343|\330}\234~\376,
++	kdch1=\177, kend=\E[Y, kf0=\E[21~, kf1=\E[11~, kf10=\E[21~,
++	kf11=\E[11;2~, kf12=\E[12;2~, kf13=\E[13;2~,
++	kf14=\E[14;2~, kf15=\E[15;2~, kf16=\E[17;2~,
++	kf17=\E[18;2~, kf18=\E[19;2~, kf19=\E[20;2~, kf2=\E[12~,
++	kf20=\E[21;2~, kf21=\E[11;5~, kf22=\E[12;5~,
++	kf23=\E[13;5~, kf24=\E[14;5~, kf25=\E[15;5~,
++	kf26=\E[17;5~, kf27=\E[18;5~, kf28=\E[19;5~,
++	kf29=\E[20;5~, kf3=\E[13~, kf30=\E[21;5~, kf31=\E[11;6~,
++	kf32=\E[12;6~, kf33=\E[13;6~, kf34=\E[14;6~,
++	kf35=\E[15;6~, kf36=\E[17;6~, kf37=\E[18;6~,
++	kf38=\E[19;6~, kf39=\E[20;6~, kf4=\E[14~, kf40=\E[21;6~,
++	kf5=\E[15~, kf6=\E[17~, kf7=\E[18~, kf8=\E[19~, kf9=\E[20~, 
++	kich1=\E[@, knp=\E[U, kpp=\E[V, lf0@, lf1@, lf2@, lf3@, lf4@, lf5@,
++	use=minix-3.0,
++	khome=\E[H,  kcuu1=\E[A,
++
++minix-3.0|minix console (v3),
+ 	use=ecma+color, use=minix-1.7,
+ 
+ # See

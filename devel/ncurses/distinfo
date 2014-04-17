@@ -9,3 +9,5 @@ SHA1 (patch-ac) = 412f2b7aaba6aeeef99dff2b51eb9bda390f04c0
 SHA1 (patch-ad) = 82e81dec3798f81efefd1cbbaee95ae39b46350c
 SHA1 (patch-cxx_cursesf.h) = 98ea07e87f00ba2c67a8c3f8e6d54693c8869f9b
 SHA1 (patch-cxx_cursesm.h) = 24194189201782b457bd3e2c953dcaa34dde99ea
+SHA1 (patch-misc_terminfo.src) = 8476e24cb311404865aa29ebfcf6435d3c6e5e1d
+SHA1 (patch-ncurses_tinfo_lib__baudrate.c) = 2d654d0d3f1d3a90dd0be414ca98d1b2e1fd09f9
