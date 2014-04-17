@@ -7,3 +7,4 @@ Size (pkg-config-0.29.1.tar.gz) = 2013454 bytes
 SHA1 (patch-configure) = 6847644b9df3e3e2334f7c45bcbb2d3b7734d165
 SHA1 (patch-glib_configure) = 5080a19186a948ba305278cef91ec76a920429e4
 SHA1 (patch-glib_glib_gtimer.c) = ee877a6c148b148a86f9087960863cfa8305bbf7
+SHA1 (patch-zz-minix) = 423a32586781d9dcecb5e1004edf67d769608dc3
