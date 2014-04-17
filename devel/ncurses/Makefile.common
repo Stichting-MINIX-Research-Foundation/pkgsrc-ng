@@ -40,6 +40,10 @@ SUBST_MESSAGE.rpath=	Fixing rpath in ncurses-config.
 
 CONFIGURE_ARGS.Darwin+=	--disable-mixed-case
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CFLAGS+= -D_NETBSD_SOURCE
+.endif
+
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 TOOL_DEPENDS+=		ncurses-${NC_VERS}:../../devel/ncurses
 CONFIGURE_ENV+=		BUILD_CC=${NATIVE_CC:Q}
