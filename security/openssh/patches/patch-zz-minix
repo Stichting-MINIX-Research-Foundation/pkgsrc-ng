@@ -1,0 +1,22 @@
+--- sshd_config.orig	Sun Oct 16 17:09:47 2016
++++ sshd_config	Sun Oct 16 17:12:50 2016
+@@ -101,12 +101,19 @@
+ #X11Forwarding no
+ #X11DisplayOffset 10
+ #X11UseLocalhost yes
++
++# LSC: Uncomment if you wish to use X11 forwarding. To actually
++#      activate X11 forwarding, you also need to set X11Forwarding yes.
++#XAuthLocation /usr/X11R7/bin/xauth # LSC: Use Native xauth
++#X11UseLocalhost no # LSC: Workaround SSHD bug
++
+ #PermitTTY yes
+ #PrintMotd yes
+ #PrintLastLog yes
+ #TCPKeepAlive yes
+ #UseLogin no
+ #UsePrivilegeSeparation sandbox
++UsePrivilegeSeparation no # LSC: for Minix, this is not supported ATM.
+ #PermitUserEnvironment no
+ #Compression delayed
+ #ClientAliveInterval 0

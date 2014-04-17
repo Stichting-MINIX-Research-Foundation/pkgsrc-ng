@@ -30,3 +30,4 @@ SHA1 (patch-sshd.8) = 5bf48cd27cef8e8810b9dc7115f5180102a345d1
 SHA1 (patch-sshd.c) = cd23ce269bfb48b0caa901e62fc01d35ef0618ac
 SHA1 (patch-sshpty.c) = cb691d4fbde808927f2fbcc12b87ad983cf21938
 SHA1 (patch-uidswap.c) = 68c4f5ffab7f4c5c9c00b7443a74b2da52809b7e
+SHA1 (patch-zz-minix) = aac3d555c2123918638c55696fdc14afb551ba11

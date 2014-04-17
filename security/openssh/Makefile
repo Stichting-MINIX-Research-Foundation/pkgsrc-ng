@@ -114,6 +114,11 @@ CONFIGURE_ENV+=		ac_cv_func_strnvis=no
 # workaround for ./configure problem, pkg/50936
 #
 CONFIGURE_ENV+=		ac_cv_func_reallocarray=no
+
+. if ${OS_VARIANT} == "Minix"
+CPPFLAGS+= -D_OPENBSD_SOURCE
+CONFIGURE_ARGS+= ac_cv_have_decl_O_NONBLOCK=no
+. endif # ${OS_VARIANT} == "Minix"
 .endif
 
 .if (${OPSYS} == "SunOS") && (${OS_VERSION} == "5.8" || ${OS_VERSION} == "5.9")
