@@ -30,6 +30,11 @@ post-configure:
 	cd ${WRKSRC}/glib; \
 	${GREP} -v HAVE_DTRACE config.h >config.h.new; \
 	${MV} config.h.new config.h
+
+.if ${OS_VARIANT} == "Minix"
+USE_GNU_ICONV=	yes
+.include "../../devel/pth/buildlink3.mk"
+.endif
 .endif
 
 .if ${OS_VARIANT} == "SCOOSR5"
