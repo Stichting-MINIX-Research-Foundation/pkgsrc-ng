@@ -34,6 +34,11 @@ CONFIGURE_ARGS+=	--install_prefix=${DESTDIR}
 CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	shared no-fips
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_SCRIPT=      ./Configure
+CONFIGURE_ARGS+=       Minix no-threads no-heartbeat
+.endif
+
 .if ${OPSYS} == "SunOS"
 .  if ${MACHINE_ARCH} == "sparc"
 OPENSSL_MACHINE_ARCH=	${SPARC_TARGET_ARCH}
