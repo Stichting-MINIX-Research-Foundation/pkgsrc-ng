@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.19 2012/10/03 11:43:31 asau Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/10 11:08:16 roy Exp $
 #
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 .include "Makefile.common"
 
+PKGREVISION=		1
 COMMENT+=		, tty version
 
 
@@ -18,5 +19,5 @@ INSTALL_TARGET=		install man-install
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 
-.include "../../mk/curses.buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

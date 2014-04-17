@@ -1,11 +1,13 @@
-# $NetBSD: Makefile.common,v 1.1 2013/04/29 09:52:16 ryoon Exp $
+# $NetBSD: Makefile.common,v 1.8 2014/03/27 19:28:33 ryoon Exp $
 # used by inputmethod/ibus-mozc/Makefile
 # used by inputmethod/mozc-elisp/Makefile
 # used by inputmethod/mozc-server/Makefile
 # used by inputmethod/mozc-tool/Makefile
+# used by inputmethod/mozc-renderer/Makefile
+# used by inputmethod/uim-mozc/Makefile
 #
 
-DISTNAME=	mozc-1.10.1390.102
+DISTNAME=	mozc-1.13.1651.102
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://mozc.googlecode.com/files/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,7 +22,12 @@ PATCHDIR=	${.CURDIR}/../../inputmethod/mozc-server/patches
 
 BUILD_DEPENDS+=	${PYPKGPREFIX}-gyp-[0-9]*:../../devel/gyp
 
+PYTHON_VERSIONS_INCOMPATIBLE=  33 # py-gyp
+
 USE_LANGUAGES=	c c++
+# nullptr requires -std=c++11, and -std=c++11 requires gcc 4.7 or later
+GCC_REQD+=	4.7
+CXXFLAGS+=	-std=c++11
 
 USE_TOOLS+=	gmake pkg-config
 
@@ -37,15 +44,10 @@ SUBST_STAGE.gyp=	pre-configure
 SUBST_MESSAGE.gyp=	Fix gyp defaults
 SUBST_FILES.gyp+=	base/base.gyp
 SUBST_FILES.gyp+=	base/process.cc
+SUBST_FILES.gyp+=	base/system_util.cc
 SUBST_FILES.gyp+=	handwriting/zinnia_handwriting.cc
 SUBST_FILES.gyp+=	unix/ibus/gen_mozc_xml.py
-SUBST_FILES.gyp+=	gui/qt_rcc.gypi
-SUBST_FILES.gyp+=	gui/qt_moc.gypi
-SUBST_FILES.gyp+=	gui/qt_uic.gypi
-SUBST_FILES.gyp+=	gui/qt_libraries.gypi
-SUBST_FILES.gyp+=	base/const.h
-SUBST_FILES.gyp+=	build_mozc.py
-SUBST_FILES.gyp+=	protobuf/genproto.gypi
+SUBST_FILES.gyp+=	gyp/common.gypi
 SUBST_VARS.gyp+=	OPENSSL_CFLAGS OPENSSL_INC OPENSSL_LDFLAGS OPENSSL_LIBS
 SUBST_VARS.gyp+=	PREFIX QTDIR
 
@@ -64,14 +66,15 @@ MOZC_BUILD_MODE=	Release # or Debug
 do-configure:
 	cd ${WRKSRC} && env ${MAKE_ENV} \
 		GYP_DEFINES="use_libprotobuf=1" \
-		${PYTHONBIN} build_mozc.py gyp --os=${LOWER_OPSYS} && \
-		${PYTHONBIN} build_mozc.py build_tools -c ${MOZC_BUILD_MODE} ${_MAKE_JOBS}
+		${PYTHONBIN} build_mozc.py gyp \
+		--gypdir=${GYPDIR}/bin && \
+		${PYTHONBIN} build_mozc.py build_tools -c ${MOZC_BUILD_MODE} \
+		${_MAKE_JOBS}
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/protobuf/buildlink3.mk"
 # gmock is not used yet...
 #.include "../../devel/gmock/buildlink3.mk"
-.include "../../inputmethod/ibus/buildlink3.mk"
 .include "../../inputmethod/zinnia/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/qt4-libs/buildlink3.mk"

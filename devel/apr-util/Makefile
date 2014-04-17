@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/05/09 07:39:34 adam Exp $
+# $NetBSD: Makefile,v 1.36 2014/02/12 23:17:45 tron Exp $
 
-DISTNAME=	apr-util-1.4.1
-PKGREVISION=	6
+DISTNAME=	apr-util-1.5.3
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE:=apr/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,13 +23,16 @@ CONFIGURE_ARGS+=	--without-odbc
 CONFIGURE_ARGS+=	--without-sqlite2
 PKGCONFIG_OVERRIDE+=	apr-util.pc.in
 
+# just a list of exported symbols for a library that also starts with shebang
+CHECK_INTERPRETER_SKIP=	lib/aprutil.exp
+
 MAKE_ENV+=	WRAPPER_DIR=${WRAPPER_DIR}
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
 .include "../../converters/libiconv/buildlink3.mk"
-BUILDLINK_API_DEPENDS.apr+=	apr>=1.3.0
+BUILDLINK_API_DEPENDS.apr+=	apr>=1.5.0
 .include "../../devel/apr/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

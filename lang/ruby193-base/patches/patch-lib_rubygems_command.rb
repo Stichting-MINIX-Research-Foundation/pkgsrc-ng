@@ -1,4 +1,4 @@
-$NetBSD: patch-lib_rubygems_command.rb,v 1.1.2.2 2013/07/16 17:00:50 tron Exp $
+$NetBSD: patch-lib_rubygems_command.rb,v 1.1 2013/07/07 15:01:01 taca Exp $
 
 * Support partly build_args options.
 

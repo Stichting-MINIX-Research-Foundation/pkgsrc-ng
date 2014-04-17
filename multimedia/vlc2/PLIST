@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9 2013/04/14 22:10:23 cheusov Exp $
+@comment $NetBSD: PLIST,v 1.12 2013/11/28 10:12:25 martin Exp $
 bin/cvlc
 ${PLIST.x11}bin/qvlc
 bin/rvlc
@@ -97,7 +97,7 @@ lib/libvlc.la
 lib/libvlccore.la
 lib/pkgconfig/libvlc.pc
 lib/pkgconfig/vlc-plugin.pc
-lib/vlc/plugins/3dnow/libmemcpy3dn_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/3dnow/libmemcpy3dn_plugin.la
 lib/vlc/plugins/access/libaccess_attachment_plugin.la
 lib/vlc/plugins/access/libaccess_avio_plugin.la
 lib/vlc/plugins/access/libaccess_bd_plugin.la
@@ -251,11 +251,11 @@ lib/vlc/plugins/misc/libvod_rtsp_plugin.la
 ${PLIST.x11}lib/vlc/plugins/misc/libxdg_screensaver_plugin.la
 lib/vlc/plugins/misc/libxml_plugin.la
 ${PLIST.x11}lib/vlc/plugins/misc/libxscreensaver_plugin.la
-lib/vlc/plugins/mmx/libi420_rgb_mmx_plugin.la
-lib/vlc/plugins/mmx/libi420_yuy2_mmx_plugin.la
-lib/vlc/plugins/mmx/libi422_yuy2_mmx_plugin.la
-lib/vlc/plugins/mmx/libmemcpymmx_plugin.la
-lib/vlc/plugins/mmxext/libmemcpymmxext_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/mmx/libi420_rgb_mmx_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/mmx/libi420_yuy2_mmx_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/mmx/libi422_yuy2_mmx_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/mmx/libmemcpymmx_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/mmxext/libmemcpymmxext_plugin.la
 lib/vlc/plugins/mux/libmux_asf_plugin.la
 lib/vlc/plugins/mux/libmux_avi_plugin.la
 lib/vlc/plugins/mux/libmux_dummy_plugin.la
@@ -281,9 +281,9 @@ ${PLIST.pulseaudio}lib/vlc/plugins/services_discovery/libpulselist_plugin.la
 lib/vlc/plugins/services_discovery/libsap_plugin.la
 lib/vlc/plugins/services_discovery/libupnp_plugin.la
 ${PLIST.x11}lib/vlc/plugins/services_discovery/libxcb_apps_plugin.la
-lib/vlc/plugins/sse2/libi420_rgb_sse2_plugin.la
-lib/vlc/plugins/sse2/libi420_yuy2_sse2_plugin.la
-lib/vlc/plugins/sse2/libi422_yuy2_sse2_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/sse2/libi420_rgb_sse2_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/sse2/libi420_yuy2_sse2_plugin.la
+${PLIST.x86simd}lib/vlc/plugins/sse2/libi422_yuy2_sse2_plugin.la
 lib/vlc/plugins/stream_filter/libdecomp_plugin.la
 lib/vlc/plugins/stream_filter/libstream_filter_dash_plugin.la
 lib/vlc/plugins/stream_filter/libstream_filter_httplive_plugin.la
@@ -412,6 +412,7 @@ share/locale/am/LC_MESSAGES/vlc.mo
 share/locale/an/LC_MESSAGES/vlc.mo
 share/locale/ar/LC_MESSAGES/vlc.mo
 share/locale/ast/LC_MESSAGES/vlc.mo
+share/locale/az/LC_MESSAGES/vlc.mo
 share/locale/be/LC_MESSAGES/vlc.mo
 share/locale/bg/LC_MESSAGES/vlc.mo
 share/locale/bn/LC_MESSAGES/vlc.mo
@@ -453,7 +454,9 @@ share/locale/ka/LC_MESSAGES/vlc.mo
 share/locale/kk/LC_MESSAGES/vlc.mo
 share/locale/km/LC_MESSAGES/vlc.mo
 share/locale/kmr/LC_MESSAGES/vlc.mo
+share/locale/kn/LC_MESSAGES/vlc.mo
 share/locale/ko/LC_MESSAGES/vlc.mo
+share/locale/ky/LC_MESSAGES/vlc.mo
 share/locale/lg/LC_MESSAGES/vlc.mo
 share/locale/lt/LC_MESSAGES/vlc.mo
 share/locale/lv/LC_MESSAGES/vlc.mo
@@ -468,6 +471,7 @@ share/locale/ne/LC_MESSAGES/vlc.mo
 share/locale/nl/LC_MESSAGES/vlc.mo
 share/locale/nn/LC_MESSAGES/vlc.mo
 share/locale/oc/LC_MESSAGES/vlc.mo
+share/locale/or_IN/LC_MESSAGES/vlc.mo
 share/locale/pa/LC_MESSAGES/vlc.mo
 share/locale/pl/LC_MESSAGES/vlc.mo
 share/locale/ps/LC_MESSAGES/vlc.mo

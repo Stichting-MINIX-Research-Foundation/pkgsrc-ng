@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2013/06/17 12:44:54 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2013/11/24 02:38:58 dholland Exp $
 
 DISTNAME=	mono-basic-2.10
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	lang
 MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/mono-basic/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,6 +14,7 @@ LICENSE=	gnu-lgpl-v2 AND mit
 USE_TOOLS+=		gmake
 USE_LANGUAGES+=		# empty
 EXTRACT_USING=		gtar
+ALL_ENV+=		PLATFORM=
 
 GNU_CONFIGURE=		yes
 

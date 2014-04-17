@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2013/06/06 12:54:16 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2014/02/12 23:17:52 tron Exp $
 
 DISTNAME=	kate-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	editors
 COMMENT=	KDE advanced text editor
 
@@ -9,7 +9,7 @@ PY_PATCHPLIST=	YES
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
-CHECK_PORTABILITY_SKIP+= part/tests/hl/highlight.sh
+CHECK_PORTABILITY_SKIP+= examples/syntax/highlight.sh
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 

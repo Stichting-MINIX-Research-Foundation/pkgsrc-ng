@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2013/06/12 12:35:35 wiz Exp $
+# $NetBSD: Makefile,v 1.83 2014/02/12 23:18:08 tron Exp $
 
 DISTNAME=		nmh-1.5
-PKGREVISION=		3
+PKGREVISION=		4
 CATEGORIES=		mail
 MASTER_SITES=		http://savannah.nongnu.org/download/nmh/
 
@@ -36,7 +36,7 @@ NMH_MTA?=		smtp
 
 GNU_CONFIGURE=		yes
 
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/libexec/nmh
+GNU_CONFIGURE_LIBDIR=	${PREFIX}/libexec/nmh
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--enable-nmh-pop
 CONFIGURE_ARGS+=	--with-mts=${NMH_MTA:Q}

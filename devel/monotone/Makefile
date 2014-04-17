@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.82 2013/05/31 12:40:01 wiz Exp $
+# $NetBSD: Makefile,v 1.87 2014/02/25 11:51:32 joerg Exp $
 #
 
 DISTNAME=	monotone-1.0
-PKGREVISION=	11
+PKGREVISION=	15
 CATEGORIES=	devel scm
 MASTER_SITES=	http://monotone.ca/downloads/1.0/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,8 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://monotone.ca/
 COMMENT=	Free distributed version control system
+
+LUA_VERSIONS_ACCEPTED=	51
 
 GCC_REQD+=		3.0
 GNU_CONFIGURE=		yes

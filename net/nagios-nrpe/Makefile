@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2013/05/31 12:41:34 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2014/03/11 14:34:39 jperkin Exp $
 #
 
 DISTNAME=		nrpe-2.12
 PKGNAME=		nagios-${DISTNAME}
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		net sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=nagios/}
 
@@ -34,8 +34,12 @@ CONFIGURE_ARGS+=	--with-nagios-group=${NAGIOS_GROUP:Q}
 
 CONF_FILES+=		${PREFIX}/share/examples/nagios/nrpe.cfg ${PKG_SYSCONFDIR}/nrpe.cfg
 RCD_SCRIPTS+=		nrpe
+SMF_NAME=		nrpe
+FILES_SUBST+=		NAGIOS_USER=${NAGIOS_USER}
+FILES_SUBST+=		NAGIOS_GROUP=${NAGIOS_GROUP}
+FILES_SUBST+=		NAGIOSDIR=${NAGIOSDIR}
 
-INSTALLATION_DIRS=	sbin libexec/nagios share/examples/nagios share/examples/rc.d
+INSTALLATION_DIRS=	sbin libexec/nagios share/examples/nagios
 
 .include "options.mk"
 
@@ -43,6 +47,5 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/nrpe ${DESTDIR}${PREFIX}/sbin
 	${INSTALL_PROGRAM} ${WRKSRC}/src/check_nrpe ${DESTDIR}${PREFIX}/libexec/nagios
 	${INSTALL_DATA} ${WRKSRC}/sample-config/nrpe.cfg ${DESTDIR}${PREFIX}/share/examples/nagios
-	${INSTALL_SCRIPT} ${WRKDIR}/nrpe ${DESTDIR}${PREFIX}/${RCD_SCRIPTS_EXAMPLEDIR}
 
 .include "../../mk/bsd.pkg.mk"

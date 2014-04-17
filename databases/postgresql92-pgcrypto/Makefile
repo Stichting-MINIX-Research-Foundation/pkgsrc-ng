@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2013/02/09 11:19:18 adam Exp $
+# $NetBSD: Makefile,v 1.6 2014/02/23 11:25:53 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/92-pgcrypto-/}
 COMMENT=	Module providing cryptographic functions for PostgreSQL

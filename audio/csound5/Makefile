@@ -1,11 +1,9 @@
-# $NetBSD: Makefile,v 1.27 2013/02/16 11:20:07 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.33 2014/02/24 16:19:39 joerg Exp $
 
-DISTNAME=		Csound${CSOUND_VERSION}_src
+DISTNAME=		Csound${CSOUND_VERSION}
 PKGNAME=		csound5-${CSOUND_VERSION}
-PKGREVISION=		18
 CATEGORIES=		audio
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=csound/}
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=csound/csound5/csound5.19/}
 WRKSRC=			${WRKDIR}/Csound${CSOUND_VERSION}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -13,12 +11,11 @@ HOMEPAGE=		http://sourceforge.net/projects/csound/
 COMMENT=		Software synthesizer and sequencer
 LICENSE=		gnu-lgpl-v2.1 # or later
 
-CSOUND_VERSION=		5.01
+CSOUND_VERSION=		5.19.01
 USE_LANGUAGES=		c c++
-CFLAGS+=		-g -D__PKGSRC_PREFIX__=${PREFIX}/ -DBETA
+USE_TOOLS+=		bison
+CFLAGS+=		-D__PKGSRC_PREFIX__=${PREFIX}/ -DBETA
 BUILD_DEPENDS+=		scons>=0.96:../../devel/scons
-# Severe LP64 problems
-#NOT_FOR_PLATFORM=	${LP64PLATFORMS}
 SCONS=			${PREFIX}/bin/scons
 SCONS_ARGS=		-C ${WRKSRC} prefix=${PREFIX}
 SCONS_ARGS+=		buildDSSI=0 buildLoris=0 buildRelease=1
@@ -26,9 +23,27 @@ SCONS_ARGS+=		useALSA=0 useJack=0 useOSC=0 usePortMIDI=0
 SCONS_ARGS+=		usePortAudio=0
 SCONS_ARGS+=		buildInterfaces=0
 
+# Has long files our tar doesn't understand.
+EXTRACT_USING=		gtar
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 5.01
+
 INSTALLATION_DIRS=	bin
 
+CHECK_PORTABILITY_SKIP+=	installer/misc/makedeb.sh
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+SUBST_CLASSES+=		strip
+SUBST_STAGE.strip=	pre-build
+SUBST_FILES.strip=	install.py installer/misc/mkpackage.py
+SUBST_SED.strip=	-e 's/--strip-unneeded//g'
+.endif
+
 do-build:
+	cd ${WRKSRC} && ${TOOLS_PATH.bison} -d -o frontends/beats/beats.tab.c frontends/beats/beats.y
+	cd ${WRKSRC} && if [ ! -f custom.py ]; then cp custom.py.mkg custom.py; fi
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${SCONS} ${SCONS_ARGS}
 
 do-install:

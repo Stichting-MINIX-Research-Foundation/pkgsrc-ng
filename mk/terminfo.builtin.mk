@@ -1,10 +1,10 @@
-# $NetBSD: terminfo.builtin.mk,v 1.2 2010/02/08 22:11:43 roy Exp $
+# $NetBSD: terminfo.builtin.mk,v 1.5 2013/11/23 09:10:14 obache Exp $
 
 BUILTIN_PKG:=	terminfo
 
 BUILTIN_FIND_LIBS:=		terminfo curses tinfo
-BUILTIN_FIND_FILES_VAR:=	H_TERM
-BUILTIN_FIND_FILES.H_TERM:=	/usr/include/term.h
+BUILTIN_FIND_HEADERS_VAR:=	H_TERM
+BUILTIN_FIND_HEADERS.H_TERM:=	term.h
 BUILTIN_FIND_GREP.H_TERM:=	tigetstr
 
 .include "buildlink3/bsd.builtin.mk"
@@ -38,8 +38,8 @@ USE_BUILTIN.terminfo=	${IS_BUILTIN.terminfo}
 .endif
 MAKEVARS+=	USE_BUILTIN.terminfo
 
-# Define BUILTIN_LIBNAME.termcap to be the base name of the built-in
-# termcap library.
+# Define BUILTIN_LIBNAME.terminfo to be the base name of the built-in
+# terminfo library.
 #
 # The way this is determined is:
 #
@@ -77,8 +77,12 @@ BUILDLINK_LIBNAME.terminfo=	${BUILTIN_LIBNAME.terminfo}
 # of those library options.
 #
 .  if empty(BUILDLINK_TREE:Mcurses) && empty(BUILDLINK_TREE:Mncurses)
+.    if empty(BUILDLINK_LIBNAME.terminfo:Mcurses)
 BUILDLINK_TRANSFORM+=		rm:-lcurses
+.    endif
+.    if empty(BUILDLINK_LIBNAME.terminfo:Mncurses)
 BUILDLINK_TRANSFORM+=		rm:-lncurses
+.    endif
 .  endif
 
 .endif	# CHECK_BUILTIN.terminfo

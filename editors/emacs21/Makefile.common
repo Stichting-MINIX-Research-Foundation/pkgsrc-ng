@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.13 2013/04/06 20:27:20 rodent Exp $
+# $NetBSD: Makefile.common,v 1.15 2013/10/27 20:47:53 joerg Exp $
 #
 # used by editors/emacs21/Makefile
 # used by editors/emacs21-nox11/Makefile
@@ -80,6 +80,23 @@ LDFLAGS+=	-Z
 .include "../../mk/compiler.mk"
 .if !empty(CC_VERSION:Mgcc-3.*)
 CFLAGS+=	-fno-zero-initialized-in-bss
+.endif
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+TOOL_DEPENDS+=	tradcpp-[0-9]*:../../devel/tradcpp
+TRADCPP=	${PREFIX}/bin/tradcpp
+.else
+TRADCPP=	${CPP} -traditional-cpp
+.endif
+ALL_ENV+=	TRADCPP=${TRADCPP:Q}
+
+.if (${OPSYS} == "NetBSD") && \
+    !exists(/usr/lib/libgcc_s.so) && !exists(/usr/lib/libgcc.a)
+# NetBSD with native Clang doesn't provide libgcc, everything is in libc.
+pre-configure: fake-libgcc
+
+fake-libgcc:
+	${AR} q ${BUILDLINK_DIR}/lib/libgcc.a
 .endif
 
 INFO_FILES=	yes

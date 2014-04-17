@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.3 2007/09/14 07:39:31 wiz Exp $
+# $NetBSD: options.mk,v 1.5 2014/02/24 16:14:58 joerg Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.libcaca
 PKG_SUPPORTED_OPTIONS=		imlib2
@@ -16,6 +16,7 @@ CONFIGURE_ARGS+=	--disable-imlib2
 .endif
 
 .if !empty(PKG_OPTIONS:Mncurses)
+USE_NCURSES=		yes
 .  include "../../devel/ncurses/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-ncurses
 .else
@@ -38,3 +39,8 @@ CONFIGURE_ARGS+=	--x-libraries=${BUILDLINK_PREFIX.libX11}/lib
 .else
 CONFIGURE_ARGS+=	--disable-x11
 .endif
+
+# could be made into options if desired
+.for i in gl cocoa network vga csharp java cxx python ruby cppunit zzuf
+CONFIGURE_ARGS+=	--disable-${i}
+.endfor

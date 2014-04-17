@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.11 2013/04/01 16:18:40 wiz Exp $
+@comment $NetBSD: PLIST,v 1.13 2014/01/06 14:36:57 wiz Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -10,6 +10,9 @@ ${PYSITELIB}/pytz/__init__.pyo
 ${PYSITELIB}/pytz/exceptions.py
 ${PYSITELIB}/pytz/exceptions.pyc
 ${PYSITELIB}/pytz/exceptions.pyo
+${PYSITELIB}/pytz/lazy.py
+${PYSITELIB}/pytz/lazy.pyc
+${PYSITELIB}/pytz/lazy.pyo
 ${PYSITELIB}/pytz/reference.py
 ${PYSITELIB}/pytz/reference.pyc
 ${PYSITELIB}/pytz/reference.pyo
@@ -316,9 +319,6 @@ ${PYSITELIB}/pytz/zoneinfo/Asia/Qatar
 ${PYSITELIB}/pytz/zoneinfo/Asia/Qyzylorda
 ${PYSITELIB}/pytz/zoneinfo/Asia/Rangoon
 ${PYSITELIB}/pytz/zoneinfo/Asia/Riyadh
-${PYSITELIB}/pytz/zoneinfo/Asia/Riyadh87
-${PYSITELIB}/pytz/zoneinfo/Asia/Riyadh88
-${PYSITELIB}/pytz/zoneinfo/Asia/Riyadh89
 ${PYSITELIB}/pytz/zoneinfo/Asia/Saigon
 ${PYSITELIB}/pytz/zoneinfo/Asia/Sakhalin
 ${PYSITELIB}/pytz/zoneinfo/Asia/Samarkand
@@ -529,9 +529,6 @@ ${PYSITELIB}/pytz/zoneinfo/MST7MDT
 ${PYSITELIB}/pytz/zoneinfo/Mexico/BajaNorte
 ${PYSITELIB}/pytz/zoneinfo/Mexico/BajaSur
 ${PYSITELIB}/pytz/zoneinfo/Mexico/General
-${PYSITELIB}/pytz/zoneinfo/Mideast/Riyadh87
-${PYSITELIB}/pytz/zoneinfo/Mideast/Riyadh88
-${PYSITELIB}/pytz/zoneinfo/Mideast/Riyadh89
 ${PYSITELIB}/pytz/zoneinfo/NZ
 ${PYSITELIB}/pytz/zoneinfo/NZ-CHAT
 ${PYSITELIB}/pytz/zoneinfo/Navajo

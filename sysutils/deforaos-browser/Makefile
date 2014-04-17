@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.9 2013/06/15 12:33:38 khorben Exp $
+# $NetBSD: Makefile,v 1.13 2014/01/11 21:11:53 khorben Exp $
 #
 
-DISTNAME=	Browser-0.4.12
-PKGNAME=	deforaos-browser-0.4.12
+DISTNAME=	Browser-0.4.13
+PKGNAME=	deforaos-browser-0.4.13
 CATEGORIES=	sysutils
-MASTER_SITES=	http://www.defora.org/os/download/download/4294/
+MASTER_SITES=	http://www.defora.org/os/download/download/4310/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
-COMMENT=	DeforaOS desktop file and desktop manager
+COMMENT=	DeforaOS desktop file manager and desktop handler
 
 LICENSE=	gnu-gpl-v3
 
@@ -41,6 +41,7 @@ post-install:
 
 .include "options.mk"
 
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../x11/deforaos-libdesktop/buildlink3.mk"
 .include "../../x11/libXrandr/buildlink3.mk"
 .include "../../databases/shared-mime-info/buildlink3.mk"

@@ -1,13 +1,11 @@
-# $NetBSD: Makefile,v 1.28 2013/06/06 12:55:07 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2014/01/27 18:41:15 wiz Exp $
 
 VER=		3.0.2
 DISTNAME=	ical-${VER}
-EXTRACT_SUFFIX=	.tar.gz
-#PKGREVISION=	1
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	time
 MASTER_SITES=	https://launchpad.net/ical-tcl/3.x/${VER}/+download/
-FETCH_USING=	curl
+EXTRACT_SUFFIX=	.tar.gz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://launchpad.net/ical-tcl/
@@ -21,6 +19,8 @@ CONFIGURE_ARGS+= --prefix=${PREFIX:Q} \
 		--with-tclconfig=${BUILDLINK_PREFIX.tcl}/lib \
 		--with-tclsh=${BUILDLINK_PREFIX.tcl}/bin/tclsh \
 		--with-tkconfig=${BUILDLINK_PREFIX.tk}/lib
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 USE_TOOLS+=	gmake gsed
 

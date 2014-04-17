@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2013/02/01 22:21:09 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2014/03/14 08:34:45 obache Exp $
 
 DISTNAME=	tuntap
 PKGNAME=	solaris-tap-20091116
@@ -16,6 +16,10 @@ DIST_SUBDIR=	${PKGNAME_NOREV}
 WRKSRC=		${WRKDIR}/tuntap
 
 .include "../../mk/bsd.prefs.mk"
+
+.if empty(ABI:U:M64)
+CONFIGURE_ARGS+=	--disable-64bit
+.endif
 
 INSTALLATION_DIRS=	include/net lkm
 

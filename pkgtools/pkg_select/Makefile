@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.17 2012/09/11 23:19:37 asau Exp $
+# $NetBSD: Makefile,v 1.19 2014/03/03 04:52:49 obache Exp $
 #
 
 DISTNAME=	pkg_select-20090308
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	pkgtools
 MASTER_SITES=	ftp://ftp.NetBSD.org/pub/NetBSD/misc/imil/
 
 MAINTAINER=	imil@gcu.info
 COMMENT=	Curses based pkgsrc system browser / manager
+LICENSE=	original-bsd
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
@@ -19,6 +20,11 @@ INSTALLATION_DIRS+=	${EXAMPLEDIR} share/pkg_select
 EXAMPLEDIR=	${PREFIX}/share/examples/${PKGBASE}
 CONF_FILES=	${EXAMPLEDIR}/${PKGBASE}.conf.example	\
 			${PKG_SYSCONFDIR}/${PKGBASE}.conf
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+BUILDLINK_TRANSFORM+=	rm:-Wno-traditional
+.endif
 
 SUBST_CLASSES+=		path
 SUBST_STAGE.path=	pre-configure

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.98 2013/05/09 07:39:19 adam Exp $
+# $NetBSD: Makefile,v 1.111 2014/03/22 09:05:24 bsiegert Exp $
 
-DISTNAME=	heimdal-1.5.2
-PKGREVISION=	8
+DISTNAME=	heimdal-1.5.3
+PKGREVISION=	5
 CATEGORIES=	security
 MASTER_SITES=	http://www.h5l.org/dist/src/
 
@@ -16,7 +16,7 @@ CONFLICTS+=	openafs-[0-9]*
 CONFLICTS+=	gss-[0-9]*
 CONFLICTS+=	kth-krb4-[0-9]*
 
-MAKE_JOBS_SAFE=		no
+MAKE_JOBS_SAFE=	no
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		bison flex
@@ -42,6 +42,13 @@ CONFIGURE_ENV+=		COMPILE_ET=no	# build Heimdal's compile_et(1)
 # XXX Grand Central Dispatch is broken in 1.4
 CONFIGURE_ENV+=		ac_cv_funclib_dispatch_async_f=no
 
+.include "../../mk/bdb.buildlink3.mk"
+
+# XXX Don't detect db1 when a newer version is available; otherwise build fails
+.if ${BDB_TYPE} != "db1"
+CONFIGURE_ENV+=		ac_cv_funclib_dbopen=no
+.endif
+
 CFLAGS.Darwin+=		-DBIND_8_COMPAT
 
 # Though Solaris has a <vis.h> header, it does something very unrelated
@@ -49,21 +56,29 @@ CFLAGS.Darwin+=		-DBIND_8_COMPAT
 OPSYSVARS+=		CONFIGURE_ENV
 CONFIGURE_ENV.SunOS+=	ac_cv_header_vis_h=no
 
-# Heimdal's configure script expects to find the readline.h header as
-# <readline.h>.
-CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.readline}
-CPPFLAGS+=		-I${BUILDLINK_PREFIX.readline}/include/readline
+.include "../../mk/readline.buildlink3.mk"
+
+.if ${READLINE_TYPE} == "readline"
+CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.editlinereadline}
+.elif ${READLINE_TYPE} == "editline"
+CONFIGURE_ARGS+=	--with-libedit=${BUILDLINK_PREFIX.editlinereadline}
+.endif
+
+PLIST_VARS+=		glob vis
+.if ${OPSYS} == "SunOS"
+PLIST.vis=	yes
+PLIST.glob=	yes
+.endif
+
+# Linux does not have include/vis.h and expected include/glob.h.
+.if ${OPSYS} == "Linux"
+PLIST.vis=	yes
+PLIST.glob=	yes
+.endif
 
 PLIST_VARS+=		afskauth hcrypto
 .if ${OPSYS} == "IRIX"
 PLIST.afskauth=		yes
-.endif
-
-.include "../../security/openssl/builtin.mk"
-
-.if ${MACHINE_PLATFORM:MNetBSD-[1-3]*} != "" || \
-    (${OPSYS} == "SunOS" && !empty(USE_BUILTIN.openssl:Myes))
-PLIST.hcrypto=		yes
 .endif
 
 OWN_DIRS_PERMS=		${HEIMDAL_HDB_DIR} ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0700
@@ -71,12 +86,6 @@ SPECIAL_PERMS+=		${PREFIX}/bin/otp ${SETUID_ROOT_PERMS}
 SPECIAL_PERMS=		${PREFIX}/bin/${KRB5_PREFIX}su ${SETUID_ROOT_PERMS}
 RCD_SCRIPTS=		kadmind kcm kdc kpasswdd
 INFO_FILES=		yes
-
-# Dynamically determine the "replacement" headers for bits needed by
-# Heimdal but are missing in the base system and add them to the PLIST.
-GENERATE_PLIST+=	\
-	( cd ${WRKSRC}/lib/roken && ${BUILD_MAKE_CMD} print-xheaders |	\
-	  ${XARGS} -n 1 | ${SED} -e "s,^,include/krb5/roken/," );
 
 TEST_TARGET=		check
 
@@ -91,9 +100,26 @@ pre-build:
 	${TOUCH} ${WRKSRC}/po/localefiles
 
 .include "../../databases/sqlite3/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
-.include "../../mk/bdb.buildlink3.mk"
-.include "../../mk/curses.buildlink3.mk"
+CHECK_BUILTIN.openssl:=	yes
+.include "../../security/openssl/builtin.mk"
+CHECK_BUILTIN.openssl:=no
+.if ${MACHINE_PLATFORM:MNetBSD-[1-3]*} != "" || \
+    (${OPSYS} == "SunOS" && !empty(USE_BUILTIN.openssl:Myes) &&	\
+		!empty(BUILTIN_LIB_FOUND.crypto:M[Nn][Oo]))
+PLIST.hcrypto=		yes
+.endif
+
+.if ${OPSYS} == "MirBSD"
+.if !empty(USE_BUILTIN.openssl:Myes)
+PLIST.hcrypto=		yes
+.endif
+PLIST.vis=		yes
+# all of the tools need to link against pthread, force it.
+PTHREAD_AUTO_VARS=	yes
+.endif
+
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

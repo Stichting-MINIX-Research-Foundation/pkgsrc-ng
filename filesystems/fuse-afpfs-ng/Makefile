@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2012/10/03 16:08:30 asau Exp $
+# $NetBSD: Makefile,v 1.13 2014/01/01 11:52:15 wiz Exp $
 
 DISTNAME=	afpfs-ng-0.8.1
 PKGNAME=	fuse-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	filesystems
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=afpfs-ng/}
 EXTRACT_SUFX=	.tar.bz2
@@ -18,9 +18,18 @@ USE_LANGUAGES=	c c++
 
 REPLACE_SH+=	fuse/afpfs
 
+.include "../../mk/readline.buildlink3.mk"
+
+SUBST_CLASSES+=		termcap
+SUBST_STAGE.termcap=	post-patch
+SUBST_FILES.termcap=	configure.ac configure cmdline/Makefile.*
+.if ${TERMCAP_TYPE} == none
+SUBST_SED.termcap+=	-e 's|ncurses||'
+.else
+SUBST_SED.termcap+=	-e 's|ncurses|${BUILDLINK_LIBNAME.termcap}|'
+.endif
+
 .include "../../devel/gmp/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
 .include "../../security/libgpg-error/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.35 2013/05/31 12:39:59 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2014/01/20 19:20:08 joerg Exp $
 
 DISTNAME=		gcvs-1.0
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=cvsgui/}
 # extra distfile containing an updated configure script
@@ -21,6 +21,8 @@ INFO_FILES=	yes
 CONFIGURE_ARGS+=	--with-tclinclude="${BUILDLINK_PREFIX.tcl}/include"
 CONFIGURE_ARGS+=	--with-tcllib="${BUILDLINK_PREFIX.tcl}/lib"
 CONFIGURE_ARGS+=	perl_path=${PERL5}
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../x11/gtk/buildlink3.mk"

@@ -1,13 +1,15 @@
-# $NetBSD: options.mk,v 1.1 2013/04/21 14:04:20 rodent Exp $
+# $NetBSD: options.mk,v 1.3 2014/01/02 12:19:00 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.json-glib
 PKG_SUPPORTED_OPTIONS=	introspection nls tests
-PKG_SUGGESTED_OPTIONS+=	nls tests
+PKG_SUGGESTED_OPTIONS+=	introspection nls tests
 PLIST_VARS+=		introspection nls
 
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mintrospection)
+BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=0.9.5
+BUILDLINK_DEPMETHOD.gobject-introspection+=	build
 .include "../../devel/gobject-introspection/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-introspection=yes
 PLIST.introspection=	yes

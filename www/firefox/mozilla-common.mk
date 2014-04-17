@@ -1,8 +1,7 @@
-# $NetBSD: mozilla-common.mk,v 1.7 2013/06/26 11:32:12 ryoon Exp $
+# $NetBSD: mozilla-common.mk,v 1.27 2014/03/12 23:41:33 ryoon Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
-# used by devel/xulrunner/Makefile
 # used by mail/thunderbird/Makefile
 # used by www/firefox/Makefile
 # used by www/seamonkey/Makefile
@@ -17,28 +16,40 @@ UNLIMIT_RESOURCES+=	datasize
 # but gcc 4.5.4 of NetBSD 7 generates working binary.
 .if !empty(MACHINE_PLATFORM:MNetBSD-5.*)
 GCC_REQD+=		4.6
+.  if ${MACHINE_ARCH} == "i386"
+# Fix for PR pkg/48152.
+CPPFLAGS+=		-march=i486
+.  endif
 .else
 GCC_REQD+=		4.5
 .endif
 
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/libpkix/libpkix.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/multinit/multinit.sh
+CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/tests/update-test262.sh
 
-CONFIGURE_ARGS+=	--disable-tests --disable-pedantic
+
+CONFIGURE_ARGS+=	--disable-tests
+CONFIGURE_ARGS+=	--disable-pedantic
 CONFIGURE_ARGS+=	--enable-crypto
-CONFIGURE_ARGS+=	--enable-optimize=-O2 --with-pthreads
+CONFIGURE_ARGS+=	--with-pthreads
 CONFIGURE_ARGS+=	--disable-javaxpcom
 CONFIGURE_ARGS+=	--enable-default-toolkit=cairo-gtk2
-CONFIGURE_ARGS+=	--enable-svg --enable-mathml
+CONFIGURE_ARGS+=	--enable-gstreamer
+CONFIGURE_ARGS+=	--enable-svg
+CONFIGURE_ARGS+=	--enable-mathml
+CONFIGURE_ARGS+=	--enable-pango
 CONFIGURE_ARGS+=	--enable-system-cairo
 CONFIGURE_ARGS+=	--enable-system-pixman
 CONFIGURE_ARGS+=	--with-system-libvpx
 CONFIGURE_ARGS+=	--enable-system-hunspell
 CONFIGURE_ARGS+=	--enable-system-ffi
+CONFIGURE_ARGS+=	--with-system-icu
 CONFIGURE_ARGS+=	--with-system-nss
 CONFIGURE_ARGS+=	--with-system-nspr
 CONFIGURE_ARGS+=	--with-system-jpeg
-CONFIGURE_ARGS+=	--with-system-zlib --with-system-bz2
+CONFIGURE_ARGS+=	--with-system-zlib
+CONFIGURE_ARGS+=	--with-system-bz2
 CONFIGURE_ARGS+=	--with-system-libevent=${BUILDLINK_PREFIX.libevent}
 CONFIGURE_ARGS+=	--enable-system-sqlite
 CONFIGURE_ARGS+=	--disable-crashreporter
@@ -46,6 +57,23 @@ CONFIGURE_ARGS+=	--disable-libnotify
 CONFIGURE_ARGS+=	--disable-necko-wifi
 CONFIGURE_ARGS+=	--enable-chrome-format=flat
 CONFIGURE_ARGS+=	--disable-libjpeg-turbo
+
+CONFIGURE_ARGS+=	--disable-elf-hack
+CONFIGURE_ARGS+=	--disable-elf-dynstr-gc
+CONFIGURE_ARGS+=	--disable-gconf
+CONFIGURE_ARGS+=	--enable-gio
+CONFIGURE_ARGS+=	--enable-extensions=gio
+CONFIGURE_ARGS+=	--disable-mochitest
+CONFIGURE_ARGS+=	--enable-canvas
+#CONFIGURE_ARGS+=	--enable-readline
+CONFIGURE_ARGS+=	--disable-installer
+CONFIGURE_ARGS+=	--enable-url-classifier
+#CONFIGURE_ARGS+=	--enable-startup-notification
+CONFIGURE_ARGS+=	--enable-shared-js
+CONFIGURE_ARGS+=	--with-system-ply
+CONFIGURE_ARGS+=	--disable-icf
+CONFIGURE_ARGS+=	--disable-necko-wifi
+CONFIGURE_ARGS+=	--disable-updater
 
 SUBST_CLASSES+=			fix-paths
 SUBST_STAGE.fix-paths=		pre-configure
@@ -63,7 +91,9 @@ CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}js/src/build/autoconf/config.sub
 CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}nsprpub/build/autoconf/config.sub
 CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}/js/ctypes/libffi/config.sub
 
+PYTHON_VERSIONS_ACCEPTED=	27
 PYTHON_FOR_BUILD_ONLY=		yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-sqlite2
 .include "../../lang/python/application.mk"
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
@@ -75,7 +105,25 @@ SUBST_MESSAGE.python=	Fixing path to python.
 SUBST_FILES.python+=	media/webrtc/trunk/build/common.gypi
 SUBST_SED.python+=	-e 's,<!(python,<!(${PYTHONBIN},'
 
-PLIST_VARS+=	sps vorbis tremor
+# Build outside ${WRKSRC}
+# Try to conflict with config/makefiles/xpidl/Makefile.in
+OBJDIR=			../build
+CONFIGURE_DIRS=		${OBJDIR}
+CONFIGURE_SCRIPT=	${WRKSRC}/configure
+
+PLIST_VARS+=	sps vorbis tremor glskia throwwrapper
+
+.include "../../mk/endian.mk"
+.if ${MACHINE_ENDIAN} == "little"
+PLIST.glskia=	yes
+.endif
+
+.if ${MACHINE_ARCH} != "sparc64"
+# For some reasons the configure test for GCC bug 26905 still triggers on
+# sparc64, which makes mozilla skip the installation of a few wrapper headers.
+# Other archs end up with one additional file in the SDK headers
+PLIST.throwwrapper=	yes
+.endif
 
 .if !empty(MACHINE_PLATFORM:S/i386/x86/:MLinux-*-x86*)
 PLIST.sps=	yes
@@ -117,19 +165,17 @@ CONFIGURE_ENV+=	ac_cv_thread_keyword=no
 PREFER.bzip2?=	pkgsrc
 .endif
 
-.if ${OPSYS} == "Linux"
-.include "../../audio/alsa-lib/buildlink3.mk"
-.endif
 .include "../../archivers/bzip2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.7.14.1
+BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.0.2
 CONFIGURE_ENV+=	ac_cv_sqlite_secure_delete=yes	# c.f. patches/patch-al
 .include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/libffi/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.9.6
+BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.2
 .include "../../devel/nspr/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nss+=	nss>=3.14.3
+.include "../../textproc/icu/buildlink3.mk"
+BUILDLINK_API_DEPENDS.nss+=	nss>=3.15.4
 .include "../../devel/nss/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
@@ -141,5 +187,6 @@ BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.10.2nb4
 .include "../../textproc/hunspell/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.18.3nb1
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../multimedia/gstreamer0.10/buildlink3.mk"
+.include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
-

@@ -1,11 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2013/05/31 12:41:46 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.8 2014/03/03 03:30:55 obache Exp $
 
-DISTNAME=	pkgsrc-todo-1.2
+PKGNAME=	pkgsrc-todo-1.2
 PKGREVISION=	1
 CATEGORIES=	pkgtools
-MASTER_SITES=	# none
-DISTFILES=	# none
 
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/docs/pkgsrc/

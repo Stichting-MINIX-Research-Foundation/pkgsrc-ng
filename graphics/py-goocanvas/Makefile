@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2013/06/06 12:54:34 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.34 2014/01/25 10:30:10 wiz Exp $
 
 DISTNAME=	pygoocanvas-0.14.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
-PKGREVISION=	20
+PKGREVISION=	22
 CATEGORIES=	graphics python
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pygoocanvas/0.14/}
 
@@ -21,6 +20,8 @@ PKGCONFIG_OVERRIDE+=	pygoocanvas.pc.in
 CONFIGURE_ARGS+=	--disable-docs
 
 PY_PATCHPLIST=	yes
+PYTHON_VERSIONED_DEPENDENCIES=	cairo:link
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
 
 .include "../../lang/python/pyversion.mk"
 
@@ -29,7 +30,6 @@ BUILDLINK_API_DEPENDS.pygtk2+=	${PYPKGPREFIX}-gtk2>=2.10.0
 .include "../../devel/py-gobject/buildlink3.mk"
 BUILDLINK_API_DEPENDS.goocanvas+=	goocanvas>=0.14.0
 .include "../../graphics/goocanvas/buildlink3.mk"
-BUILDLINK_API_DEPENDS.pycairo+=	${PYPKGPREFIX}-cairo>=1.8.4
-.include "../../graphics/py-cairo/buildlink3.mk"
+.include "../../lang/python/versioned_dependencies.mk"
 .include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"

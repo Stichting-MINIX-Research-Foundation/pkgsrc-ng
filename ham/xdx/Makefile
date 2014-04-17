@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2013/06/06 12:54:36 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2014/02/08 23:21:48 wiedi Exp $
 #
 
 DISTNAME=	xdx-2.4.2
-PKGREVISION=	18
+PKGREVISION=	20
 CATEGORIES=	ham
 MASTER_SITES=	http://www.qsl.net/pg4i/download/
 
@@ -14,6 +14,8 @@ LICENSE=	gnu-gpl-v2
 USE_TOOLS+=	gmake pkg-config
 GNU_CONFIGURE=	yes
 USE_PKGLOCALEDIR=yes
+
+LDFLAGS.SunOS+=	-lsocket -lnsl -lresolv
 
 BUILDLINK_TRANSFORM+=	rm:-DGTK_DISABLE_DEPRECATED
 

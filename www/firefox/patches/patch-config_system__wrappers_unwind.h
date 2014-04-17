@@ -1,4 +1,4 @@
-$NetBSD: patch-config_system__wrappers_unwind.h,v 1.3 2013/06/27 15:52:51 joerg Exp $
+$NetBSD: patch-config_system__wrappers_unwind.h,v 1.5 2014/02/20 13:19:03 ryoon Exp $
 
 --- config/system_wrappers/unwind.h.orig	2013-05-13 19:56:18.000000000 +0000
 +++ config/system_wrappers/unwind.h

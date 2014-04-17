@@ -1,4 +1,4 @@
-# $NetBSD: ext.mk,v 1.29.8.1 2013/08/25 16:56:44 tron Exp $
+# $NetBSD: ext.mk,v 1.30 2013/07/21 17:29:47 taca Exp $
 #
 # PHP extension package framework, for both PECL and bundled PHP extensions.
 #

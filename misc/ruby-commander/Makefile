@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2012/12/17 12:35:11 taca Exp $
+# $NetBSD: Makefile,v 1.8 2014/02/14 23:20:04 minskim Exp $
 
-DISTNAME=	commander-4.1.3
+DISTNAME=	commander-4.1.6
 CATEGORIES=	misc
 
 MAINTAINER=	tonnerre@NetBSD.org

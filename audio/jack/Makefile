@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.25 2013/05/31 12:39:36 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2014/02/23 10:22:13 richard Exp $
 #
 
 DISTNAME=	jack-audio-connection-kit-${JACK_VERSION}
@@ -76,7 +76,7 @@ PLIST.coreaudio=	yes
 ### XXX The sun driver is buggy on NetBSD right now.  I hope to remedy
 ###	this shortly.
 ###
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "Solaris"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "SunOS"
 CONFIGURE_ARGS+=	--enable-sun
 PLIST.sunaudio=		yes
 .else
@@ -119,7 +119,7 @@ post-extract:
 		${CP} ${FILESDIR}/atomicity.h ${WRKSRC}/config/os/netbsd
 
 .include "../../audio/libsamplerate/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

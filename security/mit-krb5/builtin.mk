@@ -1,19 +1,20 @@
-# $NetBSD: builtin.mk,v 1.7 2011/04/08 17:30:35 tez Exp $
+# $NetBSD: builtin.mk,v 1.12 2014/02/28 12:17:20 obache Exp $
 
 BUILTIN_PKG:=	mit-krb5
 
 .include "../../mk/bsd.fast.prefs.mk"
 
-BUILTIN_FIND_FILES_VAR:=		H_MIT_KRB5 SH_KRB5_CONFIG
+BUILTIN_FIND_HEADERS_VAR:=		H_MIT_KRB5
 .if !(empty(MACHINE_PLATFORM:MDarwin-9.*-*) && \
-      empty(MACHINE_PLATFORM:MDarwin-10.*-*))
-BUILTIN_FIND_FILES.H_MIT_KRB5=		/usr/include/krb5/krb5.h
+      empty(MACHINE_PLATFORM:MDarwin-1?.*-*))
+BUILTIN_FIND_HEADERS.H_MIT_KRB5=	krb5/krb5.h
 .elif !empty(MACHINE_PLATFORM:MSunOS-*-*)
-BUILTIN_FIND_FILES.H_MIT_KRB5=		/usr/include/kerberosv5/krb5.h
+BUILTIN_FIND_HEADERS.H_MIT_KRB5=	kerberosv5/krb5.h
 .else
-BUILTIN_FIND_FILES.H_MIT_KRB5=		/usr/include/krb5.h
+BUILTIN_FIND_HEADERS.H_MIT_KRB5=	krb5.h
 .endif
 BUILTIN_FIND_GREP.H_MIT_KRB5=		Massachusetts Institute of Technology
+BUILTIN_FIND_FILES_VAR:=		SH_KRB5_CONFIG
 BUILTIN_FIND_FILES.SH_KRB5_CONFIG=	/usr/bin/krb5-config
 BUILTIN_FIND_GREP.SH_KRB5_CONFIG=	^[ 	]*--version)
 
@@ -39,7 +40,7 @@ MAKEVARS+=	IS_BUILTIN.mit-krb5
     !empty(IS_BUILTIN.mit-krb5:M[yY][eE][sS])
 .  if empty(SH_KRB5_CONFIG:M__nonexistent__)
 BUILTIN_VERSION.mit-krb5!=	${SH_KRB5_CONFIG} --version | \
-				${SED} -e 's/.*release //' -e 's/-.*//'
+		${SED} -e 's/.*release //' -e 's/-.*//' -e 's/).*//'
 .  endif
 BUILTIN_VERSION.mit-krb5?=	1.4.0
 BUILTIN_PKG.mit-krb5=		mit-krb5-${BUILTIN_VERSION.mit-krb5}
@@ -72,3 +73,47 @@ USE_BUILTIN.mit-krb5!=							\
 .  endif
 .endif
 MAKEVARS+=	USE_BUILTIN.mit-krb5
+
+###
+### The section below only applies if we are not including this file
+### solely to determine whether a built-in implementation exists.
+###
+CHECK_BUILTIN.mit-krb5?=	no
+.if !empty(CHECK_BUILTIN.mit-krb5:M[nN][oO])
+.  if !empty(USE_BUILTIN.mit-krb5:M[yY][eE][sS])
+KRB5_CONFIG?=	${SH_KRB5_CONFIG}
+ALL_ENV+=	KRB5_CONFIG=${KRB5_CONFIG:Q}
+
+BUILDLINK_CPPFLAGS.mit-krb5!=	${SH_KRB5_CONFIG} --cflags
+BUILDLINK_LDFLAGS.mit-krb5!=	${SH_KRB5_CONFIG} --libs
+
+#
+# The SunOS builtin krb5-config does not support all of the arguments that the
+# MIT version does so we install a fake script which strips them out.
+#
+.    if ${OPSYS} == "SunOS"
+KRB5_CONFIG=			${BUILDLINK_DIR}/bin/krb5-config
+BUILDLINK_CPPFLAGS.mit-krb5+=	-I/usr/include/gssapi
+BUILDLINK_LDFLAGS.mit-krb5+=	-lgss
+BUILDLINK_TARGETS+=		fake-krb5-config
+
+fake-krb5-config:
+	${RUN}								\
+	src=../../security/mit-krb5/files/krb5-config-wrapper.sh;	\
+	dst=${BUILDLINK_DIR}/bin/krb5-config;				\
+	if [ ! -f $${dst} ]; then					\
+		${ECHO_BUILDLINK_MSG} "Creating $${dst}";		\
+		${ECHO} "#!${SH}" > $${dst};				\
+		${SED} -e "s,@KRB5_CONFIG@,${SH_KRB5_CONFIG:Q},g"	\
+		    $${src} >> $${dst};					\
+		${CHMOD} +x $${dst};					\
+	fi
+
+.    endif
+.  else
+KRB5_CONFIG?=	${BUILDLINK_PREFIX.mit-krb5}/bin/krb5-config
+CONFIGURE_ENV+=	KRB5_CONFIG=${KRB5_CONFIG:Q}
+MAKE_ENV+=	KRB5_CONFIG=${KRB5_CONFIG:Q}
+.  endif
+
+.endif	# CHECK_BUILTIN.mit-krb5

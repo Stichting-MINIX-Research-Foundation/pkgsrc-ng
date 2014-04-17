@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2012/10/28 06:30:56 asau Exp $
+# $NetBSD: Makefile,v 1.15 2014/03/02 05:47:08 obache Exp $
 #
 
 DISTNAME=	paros-3.2.13-unix
@@ -20,6 +20,10 @@ USE_TOOLS+=	pax
 INSTALLATION_DIRS=	bin lib
 
 WRKSRC=		${WRKDIR}/${PKGBASE}
+
+# contains Linux/Windows binaries
+CHECK_SHLIBS_SKIP=	lib/paros/libmozembed-linux-gtk1.2.so
+CHECK_SHLIBS_SKIP+=	lib/paros/libmozembed-linux-gtk2.so
 
 SUBST_CLASSES+=		java
 SUBST_MESSAGE.java=	Fixing hardcoded path to Java.

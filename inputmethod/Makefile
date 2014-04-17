@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.55 2013/03/13 15:08:16 ryoon Exp $
+# $NetBSD: Makefile,v 1.60 2014/01/20 10:46:30 ryoon Exp $
 #
 
 COMMENT=	Input method tools and libraries
@@ -23,9 +23,11 @@ SUBDIR+=	ibus-el
 SUBDIR+=	ibus-handwrite
 SUBDIR+=	ibus-hangul
 SUBDIR+=	ibus-input-pad
+SUBDIR+=	ibus-libthai
 SUBDIR+=	ibus-m17n
 SUBDIR+=	ibus-mozc
 SUBDIR+=	ibus-pinyin
+SUBDIR+=	ibus-python
 SUBDIR+=	ibus-qt
 SUBDIR+=	ibus-skk
 SUBDIR+=	ibus-t9
@@ -52,6 +54,7 @@ SUBDIR+=	libskk
 SUBDIR+=	libtabe
 SUBDIR+=	m17n-im-config
 SUBDIR+=	mozc-elisp
+SUBDIR+=	mozc-renderer
 SUBDIR+=	mozc-server
 SUBDIR+=	mozc-tool
 SUBDIR+=	multiskkserv
@@ -63,6 +66,7 @@ SUBDIR+=	prime-dict
 SUBDIR+=	prime-el
 SUBDIR+=	py-input-pad
 SUBDIR+=	py-zinnia
+SUBDIR+=	qt5-uim
 SUBDIR+=	ruby-zinnia
 SUBDIR+=	scim
 SUBDIR+=	scim-anthy
@@ -119,6 +123,7 @@ SUBDIR+=	tomoe
 SUBDIR+=	tomoe-gtk
 SUBDIR+=	uim
 SUBDIR+=	uim-elisp
+SUBDIR+=	uim-mozc
 SUBDIR+=	uim-tomoe-gtk
 SUBDIR+=	unicon-im
 SUBDIR+=	xcin

@@ -1,14 +1,17 @@
-# $NetBSD: Makefile,v 1.38 2013/01/26 21:37:43 adam Exp $
+# $NetBSD: Makefile,v 1.42 2014/03/15 00:16:03 ryoon Exp $
 #
+# Changes can be found in the RCS file at
+# http://www.cybercom.net/~dcoffin/dcraw/RCS/dcraw.c,v
 
-DISTNAME=	dcraw-9.16
-PKGREVISION=	1
+DISTNAME=	dcraw-9.20
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.cybercom.net/~dcoffin/dcraw/archive/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cybercom.net/~dcoffin/dcraw/
 COMMENT=	Raw digital camera decoder
+
+DIST_SUBDIR=	${PKGNAME_NOREV}
 
 USE_PKGLOCALEDIR=	yes
 WRKSRC=			${WRKDIR}/${PKGBASE}
@@ -31,18 +34,7 @@ INSTALLATION_DIRS+=	${PKGLOCALEDIR}/locale/${lang}/LC_MESSAGES
 
 BROKEN_GETTEXT_DETECTION=	yes
 
-PKG_OPTIONS_VAR=	PKG_OPTIONS.dcraw
-PKG_SUPPORTED_OPTIONS=	lcms
-PKG_SUGGESTED_OPTIONS=	lcms
-
-.include "../../mk/bsd.options.mk"
-
-.if !empty(PKG_OPTIONS:Mlcms)
-LIBS+=		-llcms
-.include "../../graphics/lcms/buildlink3.mk"
-.else
-CFLAGS+=	-DNO_LCMS
-.endif
+.include "options.mk"
 
 do-build:
 	set -e; cd ${WRKSRC};						\

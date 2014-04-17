@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2013/06/06 12:55:08 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.19 2014/01/25 10:30:26 wiz Exp $
 
 DISTNAME=	bmpanel2-2.1pre1
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bmpanel2.googlecode.com/files/
 
@@ -11,20 +10,21 @@ HOMEPAGE=	http://code.google.com/p/bmpanel2/
 COMMENT=	NETWM-compatible panel for X11
 LICENSE=	mit
 
+BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
+
 USE_CMAKE=	yes
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config gzip
 
 PY_PATCHPLIST=	yes
 REPLACE_PYTHON=	extra/py/bmpanel2.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.1pre1
 
 SUBST_CLASSES+=		prefix
 SUBST_SED.prefix=	-e "s,/usr/local,${PREFIX},g"
 SUBST_FILES.prefix=	xdg.c
 SUBST_STAGE.prefix=	post-extract
 SUBST_MESSAGE.prefix=	Fixing path to themes.
-
-BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"

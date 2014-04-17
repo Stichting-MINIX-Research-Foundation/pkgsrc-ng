@@ -1,16 +1,16 @@
-$NetBSD: patch-asn.c,v 1.1 2013/03/09 10:25:28 tron Exp $
+$NetBSD: patch-asn.c,v 1.3 2013/07/06 09:57:20 tron Exp $
 
-Fix build under Mac OS X. Based on this commit:
+Fix build under Mac OS X (Lion).
 
-https://github.com/mackyle/mtr/commit/8348cfdc39694f0ada686b8277b75b3f72c6a47f
-
---- asn.c.orig	2013-02-23 15:13:40.000000000 +0000
-+++ asn.c	2013-03-09 09:48:21.000000000 +0000
-@@ -27,6 +27,7 @@
+--- asn.c.orig	2013-04-24 10:32:13.000000000 +0100
++++ asn.c	2013-07-06 10:55:12.000000000 +0100
+@@ -21,9 +21,7 @@
  #include <stdlib.h>
  #include <sys/types.h>
  
-+#define BIND_8_COMPAT
+-#ifndef __APPLE__
+ #define BIND_8_COMPAT
+-#endif
  #include <arpa/nameser.h>
- #include <netdb.h>
- #include <netinet/in.h>
+ #ifdef HAVE_ARPA_NAMESER_COMPAT_H
+ #include <arpa/nameser_compat.h>

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2013/06/16 06:31:12 adam Exp $
+# $NetBSD: Makefile,v 1.21 2014/01/01 11:14:38 adam Exp $
 
-.include "../../devel/scmgit/Makefile.version"
+.include "../../devel/git/Makefile.version"
 
 DISTNAME=	git-${GIT_VERSION}
 PKGNAME=	${DISTNAME:S/git/gitweb/}
@@ -12,10 +12,10 @@ HOMEPAGE=	http://git.or.cz/
 COMMENT=	Web interface for GIT repositories
 
 #DEPENDS+=	apache{,2,22}-[0-9]*:../../www/apache22
-DEPENDS+=	scmgit-base>=${GIT_VERSION}:../../devel/scmgit-base
-DEPENDS+=	p5-Time-HiRes>=1.9725:../../time/p5-Time-HiRes
+DEPENDS+=	git-base>=${GIT_VERSION}:../../devel/git-base
+DEPENDS+=	{perl>=5.15.8,p5-Time-HiRes>=1.9725}:../../time/p5-Time-HiRes
 
-DISTINFO_FILE=	${.CURDIR}/../../devel/scmgit-base/distinfo
+DISTINFO_FILE=	${.CURDIR}/../../devel/git-base/distinfo
 
 USE_TOOLS+=	gmake perl:run
 

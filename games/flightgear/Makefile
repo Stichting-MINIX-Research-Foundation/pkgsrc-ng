@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.39 2013/06/06 12:54:21 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/02/12 23:17:54 tron Exp $
 
 DISTNAME=	flightgear-2.8.0
-PKGREVISION=	11
+PKGREVISION=	15
 CATEGORIES=	games
 MASTER_SITES=	ftp://ftp.flightgear.org/pub/fgfs/Source/ \
 		http://mirrors.ibiblio.org/pub/mirrors/flightgear/ftp/Source/ \
@@ -17,7 +17,6 @@ USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_CMAKE=		yes
 CMAKE_ARGS+=		-DJPEG_FACTORY:BOOL=ON
-CMAKE_ARGS+=		-DCMAKE_INSTALL_MANDIR=${PKGMANDIR}
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../audio/freealut/buildlink3.mk"

@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.31 2012/09/11 23:19:34 asau Exp $
+# $NetBSD: Makefile,v 1.33 2014/03/03 03:39:10 obache Exp $
 #
 
-DISTNAME=	cdpack-1.9
+PKGNAME=	cdpack-1.9
 CATEGORIES=	pkgtools
-MASTER_SITES=	# empty
-DISTFILES=	# empty
 
 MAINTAINER=	dmcmahill@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/
 COMMENT=	Utility to create multi-cd/dvd binary package collections
+LICENSE=	original-bsd
 
 # for mkisofs
 DEPENDS+=	cdrtools-[0-9]*:../../sysutils/cdrtools

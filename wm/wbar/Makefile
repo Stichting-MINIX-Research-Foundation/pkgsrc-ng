@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2013/06/06 12:55:10 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/10 14:42:35 ryoon Exp $
 #
 
 DISTNAME=	wbar-2.2.2
-PKGREVISION=	13
+PKGREVISION=	16
 CATEGORIES=	wm
 MASTER_SITES=	http://wbar.googlecode.com/files/
 

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.53 2013/05/31 12:39:57 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2014/01/26 03:49:01 ryoon Exp $
 
-DISTNAME=	binutils-2.23.2
-PKGREVISION=	1
+DISTNAME=	binutils-2.24
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -15,11 +14,21 @@ CONFLICTS=	avr-binutils<2.13.2.1nb1
 
 NOT_FOR_PLATFORM=	Darwin-*-* Interix-*-*
 
+MAKE_JOBS_SAFE=		no
+
 USE_PKGLOCALEDIR=	yes
 REPLACE_LOCALEDIR_PATTERNS+=	Make-in
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+
+# PR pkg/48504, ksh is sufficient for NetBSD 5.2 and NetBSD 6.1
+.include "../../mk/bsd.prefs.mk"
+.if !empty(MACHINE_PLATFORM:MNetBSD-[5-6].*-*) && \
+	empty(MACHINE_PLATFORM:MNetBSD-6.99.*-*)
+USE_TOOLS+=		ksh
+CONFIG_SHELL=		ksh
+.endif
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-lib-path='/lib:/usr/lib'
@@ -49,11 +58,13 @@ PLIST.ld=	yes
 EXTRA_FILES+=	ld
 .endif
 
+CFLAGS.OpenBSD+=	-Wno-bounded
+
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=	-Wno-unused-value -Wno-format-security \
 		-Wno-uninitialized -Wno-format -Wno-string-plus-int \
-		-Wno-empty-body -Wno-self-assign
+		-Wno-empty-body -Wno-self-assign -Wno-unused-function
 .endif
 
 # Prevent the need to run texi2pod.pl and pod2man which would

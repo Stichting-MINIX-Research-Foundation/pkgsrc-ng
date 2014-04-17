@@ -1,7 +1,7 @@
-# $NetBSD: options.mk,v 1.1 2013/03/16 22:25:21 dholland Exp $
+# $NetBSD: options.mk,v 1.3 2013/12/27 16:42:46 gdt Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ghostscript
-PKG_SUPPORTED_OPTIONS=	x11 cups debug fontconfig disable-compile-inits
+PKG_SUPPORTED_OPTIONS=	x11 debug fontconfig disable-compile-inits
 PKG_SUGGESTED_OPTIONS=	x11 fontconfig
 
 .include "../../mk/bsd.options.mk"
@@ -19,28 +19,6 @@ CONFIGURE_ARGS+=	--with-x
 CONFIGURE_ARGS+=	--without-x
 .endif
 
-PLIST_VARS+=		cups
-.if !empty(PKG_OPTIONS:Mcups)
-CONFIGURE_ARGS+=	--enable-cups
-PLIST.cups=		yes
-INSTALL_TARGET+=	install-cups
-
-CUPS_CONFDIR?=	${PKG_SYSCONFBASEDIR}/cups
-CUPS_EGDIR=	${PREFIX}/share/examples/cups
-CONF_FILES+=	${CUPS_EGDIR}/gstoraster.convs ${CUPS_CONFDIR}/gstoraster.convs
-
-SUBST_CLASSES+=		cupsetc
-SUBST_STAGE.cupsetc=	post-extract
-SUBST_MESSAGE.cupsetc=	Fixing CUPS etc directory path to install as example
-SUBST_FILES.cupsetc=	cups/cups.mak
-SUBST_SED.cupsetc=	-e 's|$$(CUPSSERVERROOT)|${CUPS_EGDIR}|g'
-
-.include "../../print/cups/buildlink3.mk"
-.include "../../mk/jpeg.buildlink3.mk"
-.else
-CONFIGURE_ARGS+=	--disable-cups
-.endif
-
 .if !empty(PKG_OPTIONS:Mdebug)
 CONFIGURE_ARGS+=	--enable-debug
 .endif
@@ -53,7 +31,7 @@ CONFIGURE_ARGS+=	--disable-fontconfig
 
 # Please note the same if condition is in post-extract: target in Makefile
 .if !empty(PKG_OPTIONS:Mdisable-compile-inits)
-CONFIGURE_ARGS+=        --disable-compile-inits
+CONFIGURE_ARGS+=	--disable-compile-inits
 PLIST.no_cidfmap=	YES
 .else
 PLIST.cidfmap=		YES

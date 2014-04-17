@@ -1,12 +1,12 @@
-# $NetBSD: buildlink3.mk,v 1.22 2013/06/04 22:16:02 tron Exp $
+# $NetBSD: buildlink3.mk,v 1.24 2014/01/17 09:01:58 adam Exp $
 
 BUILDLINK_TREE+=	wine
 
 .if !defined(WINE_BUILDLINK3_MK)
 WINE_BUILDLINK3_MK:=
 
-BUILDLINK_API_DEPENDS.wine+=	wine>=1.2.0
-BUILDLINK_ABI_DEPENDS.wine+=	wine>=1.2.3nb14
+BUILDLINK_API_DEPENDS.wine+=	wine>=1.3.0
+BUILDLINK_ABI_DEPENDS.wine+=	wine>=1.3.26nb1
 BUILDLINK_PKGSRCDIR.wine?=	../../emulators/wine
 
 pkgbase:= wine

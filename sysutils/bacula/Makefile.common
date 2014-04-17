@@ -1,10 +1,10 @@
-# $NetBSD: Makefile.common,v 1.61 2013/03/04 21:57:21 wiz Exp $
+# $NetBSD: Makefile.common,v 1.64 2014/01/14 10:58:17 markd Exp $
 #
 # used by sysutils/bacula-clientonly/Makefile
 # used by sysutils/bacula-tray-monitor/Makefile
 # used by sysutils/bacula-wx-console/Makefile
 
-DISTNAME=	bacula-5.2.12
+DISTNAME=	bacula-5.2.13
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=bacula/}
 
@@ -60,7 +60,7 @@ CONFIGURE_ARGS+=	--with-scriptdir=${PREFIX}/libexec/bacula
 CONFIGURE_ARGS+=	--with-sbin-perm=0755
 CONFIGURE_ARGS+=	--with-working-dir=${BACULA_WORKINGDIR}
 CONFIGURE_ARGS+=	--with-pid-dir=${BACULA_PIDDIR}
-CONFIGURE_ARGS+=	--with-readline=${PREFIX}/include/readline
+CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.editlinereadline}/include/readline
 
 .if ${OPSYS} == "Linux"
 CONFIGURE_ARGS+=	--enable-smartalloc
@@ -73,10 +73,8 @@ PTHREAD_OPTS+=		require
 PTHREAD_AUTO_VARS=	yes
 
 EXAMPLESDIR=		${PREFIX}/share/examples/bacula
+INSTALLATION_DIRS+=	${EXAMPLESDIR}
 
-pre-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${EXAMPLESDIR}
-
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

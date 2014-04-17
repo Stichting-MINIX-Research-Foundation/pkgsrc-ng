@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.109 2013/06/06 12:54:05 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.118 2014/02/12 23:17:34 tron Exp $
 
 DISTNAME=	rhythmbox-0.12.8
-PKGREVISION=	28
+PKGREVISION=	36
 CATEGORIES=	audio gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rhythmbox/0.12/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,6 +22,8 @@ CONFIGURE_ARGS+=	--with-html-dir=${PREFIX}/share/doc
 CONFIGURE_ARGS+=	--disable-fm-radio
 
 GCONF_SCHEMAS=		rhythmbox.schemas
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2, py-gstreamer0.10
 
 .include "../../lang/python/application.mk"
 .include "../../x11/py-gtk2/buildlink3.mk"

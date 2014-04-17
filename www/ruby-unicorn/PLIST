@@ -1,7 +1,8 @@
-@comment $NetBSD: PLIST,v 1.4 2013/03/14 16:24:21 taca Exp $
+@comment $NetBSD: PLIST,v 1.6 2014/03/26 13:45:12 taca Exp $
 bin/unicorn
 bin/unicorn_rails
 ${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_EXTSDIR}/unicorn_http.${RUBY_DLEXT}
 ${GEM_LIBDIR}/.CHANGELOG.old
 ${GEM_LIBDIR}/.document
 ${GEM_LIBDIR}/.gitignore
@@ -95,6 +96,7 @@ ${GEM_LIBDIR}/t/bin/unused_listen
 ${GEM_LIBDIR}/t/broken-app.ru
 ${GEM_LIBDIR}/t/detach.ru
 ${GEM_LIBDIR}/t/env.ru
+${GEM_LIBDIR}/t/fails-rack-lint.ru
 ${GEM_LIBDIR}/t/heartbeat-timeout.ru
 ${GEM_LIBDIR}/t/hijack.ru
 ${GEM_LIBDIR}/t/listener_names.ru
@@ -138,6 +140,7 @@ ${GEM_LIBDIR}/t/t0100-rack-input-tests.sh
 ${GEM_LIBDIR}/t/t0116-client_body_buffer_size.sh
 ${GEM_LIBDIR}/t/t0116.ru
 ${GEM_LIBDIR}/t/t0200-rack-hijack.sh
+${GEM_LIBDIR}/t/t0300-no-default-middleware.sh
 ${GEM_LIBDIR}/t/t0600-https-server-basic.sh
 ${GEM_LIBDIR}/t/t9000-preread-input.sh
 ${GEM_LIBDIR}/t/t9001-oob_gc.sh

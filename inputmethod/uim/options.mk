@@ -1,11 +1,24 @@
-# $NetBSD: options.mk,v 1.27 2012/10/23 10:24:07 wiz Exp $
+# $NetBSD: options.mk,v 1.29 2014/01/20 13:26:54 ryoon Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.uim
 PKG_SUPPORTED_OPTIONS=	anthy canna curl eb expat ffi gnome gnome3 gtk gtk3 m17nlib openssl prime sj3 sqlite uim-fep wnn4 xim
+PKG_SUPPORTED_OPTIONS+=	editline
 PKG_OPTIONS_OPTIONAL_GROUPS=	kde qt
 PKG_OPTIONS_GROUP.kde=	kde kde3
 PKG_OPTIONS_GROUP.qt=	qt qt3
 PKG_SUGGESTED_OPTIONS=	anthy expat gtk prime uim-fep xim
+
+# Store installed modules
+UIM_MODULES=		skk tutcode byeoru latin elatin xmload pyload \
+			viqr ipa-x-sampa look ajax-ime social-ime \
+			google-cgiapi-jp baidu-olime-jp
+
+CHECK_BUILTIN.editline:=	yes
+.include "../../devel/editline/builtin.mk"
+CHECK_BUILTIN.editline:=	no
+.if !empty(USE_BUILTIN.editline:M[Yy][Ee][Ss])
+PKG_SUGGESTED_OPTIONS+=	editline
+.endif
 
 .include "../../mk/bsd.options.mk"
 
@@ -22,6 +35,17 @@ PKG_FAIL_REASON+=	"'qt3' conflict with 'qt' or 'kde' option"
 
 PLIST_VARS+=		helperdata uim-dict-gtk uim-dict-gtk3 uim-dict-helperdata fep
 PLIST_VARS+=		anthy curl eb expat ffi gnome gnome3 gtk gtk3 kde kde3 m17nlib openssl qt qt3 sqlite wnn xim
+PLIST_VARS+=		canna prime sj3
+PLIST_VARS+=		editline
+
+.if !empty(PKG_OPTIONS:Meditline)
+PLIST.editline=		yes
+.include "../../devel/editline/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-libedit=${BUILDLINK_PREFIX.editline}
+.else
+CONFIGURE_ARGS+=	--with-libedit=no
+.endif
+
 
 .if !empty(PKG_OPTIONS:Mxim)
 .include "../../x11/libXft/buildlink3.mk"
@@ -57,12 +81,14 @@ CONFIGURE_ARGS+=	--disable-fep
 .  include "../../inputmethod/anthy/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-anthy-utf8
 PLIST.anthy=		yes
+UIM_MODULES+=		anthy
 .else
 CONFIGURE_ARGS+=	--without-anthy
 .endif
 
 .if !empty(PKG_OPTIONS:Mcanna)
 CONFIGURE_ARGS+=	--with-canna
+UIM_MODULES+=		canna
 .endif
 
 .if !empty(PKG_OPTIONS:Mcurl)
@@ -83,6 +109,7 @@ PLIST.eb=		yes
 .  include "../../textproc/expat/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-expat=${BUILDLINK_PREFIX.expat}
 PLIST.expat=		yes
+UIM_MODULES+=		yahoo-jp
 .endif
 
 .if !empty(PKG_OPTIONS:Mffi)
@@ -160,6 +187,7 @@ PLIST.m17nlib=		yes
 INSTALL_TEMPLATES+=	INSTALL.m17nlib
 DEINSTALL_TEMPLATES+=	DEINSTALL.m17nlib
 CHECK_FILES_SKIP+=	${PREFIX}/share/uim/pixmaps/m17n-.*\.png
+UIM_MODULES+=		m17nlib
 .else
 CONFIGURE_ARGS+=	--without-m17nlib
 .endif
@@ -190,10 +218,14 @@ PLIST.openssl=		yes
 
 .if !empty(PKG_OPTIONS:Mprime)
 CONFIGURE_ARGS+=	--with-prime
+PLIST.prime=		yes
+UIM_MODULES+=		prime
 .endif
 
 .if !empty(PKG_OPTIONS:Msj3)
 CONFIGURE_ARGS+=	--with-sj3
+PLIST.sj3=		yes
+UIM_MODULES+=		sj3
 .endif
 
 # For input prediction
@@ -210,6 +242,7 @@ CONFIGURE_ARGS+=	--with-wnn-includes=${BUILDLINK_PREFIX.ja-FreeWnn-lib}/include/
 CONFIGURE_ARGS+=	--with-wnn-libraries=${BUILDLINK_PREFIX.ja-FreeWnn-lib}/lib
 CPPFLAGS+=		-DWNNENVDIR=\"${BUILDLINK_PREFIX.ja-FreeWnn-lib}/share/wnn\"
 PLIST.wnn=		yes
+UIM_MODULES+=		wnn
 .endif
 
 .if !empty(PKG_OPTIONS:Mgtk) || !empty(PKG_OPTIONS:Mgnome)

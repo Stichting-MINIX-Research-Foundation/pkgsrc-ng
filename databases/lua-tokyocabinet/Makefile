@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2012/10/02 21:25:21 asau Exp $
+# $NetBSD: Makefile,v 1.20 2013/10/30 13:27:22 obache Exp $
 #
 
-DISTNAME=	tokyocabinet-lua-1.9
+DISTNAME=	tokyocabinet-lua-1.10
 PKGNAME=	${LUA_PKGPREFIX}-${DISTNAME:S/-lua-/-/}
 CATEGORIES=	databases
 MASTER_SITES=	${HOMEPAGE:S/luadoc/luapkg/}
@@ -18,13 +18,7 @@ USE_TOOLS+=	pkg-config pax
 TEST_TARGET=	check
 TEST_ENV+=	LUA_CDIR=${WRKSRC}
 
-FIND_PREFIX:=	LUADIR=lua
-.include "../../mk/find-prefix.mk"
-
-REPLACE_INTERPRETER+=	lua
-REPLACE.lua.old=	.*lua
-REPLACE.lua.new=	${LUADIR}/bin/lua
-REPLACE_FILES.lua=	*.lua
+REPLACE_LUA=		*.lua
 
 INSTALLATION_DIRS+=	share/tokyocabinet/doc/lua
 
@@ -39,6 +33,7 @@ post-install:
 
 BUILDLINK_API_DEPENDS.tokyocabinet+=	tokyocabinet>=1.4.29
 .include "../../databases/tokyocabinet/buildlink3.mk"
+.include "../../lang/lua/application.mk"
 .include "../../lang/lua/module.mk"
 PTHREAD_AUTO_VARS=	yes
 .include "../../mk/pthread.buildlink3.mk"

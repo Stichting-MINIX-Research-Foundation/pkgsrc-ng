@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2012/10/03 00:02:37 asau Exp $
+# $NetBSD: Makefile,v 1.27 2014/01/11 14:42:02 adam Exp $
 #
 
 DISTNAME=	i2cb-6.0_ALPHA
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	chat
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 
@@ -11,7 +11,6 @@ HOMEPAGE=	http://www.draga.com/~jwise/i2cb/
 COMMENT=	Next generation Internet Citicen's Band chat client
 
 WRKSRC=		${WRKDIR}/icb
-USE_GNU_READLINE=	yes
 
 CFLAGS.SunOS+=	-DBSD_COMP
 LIBS.SunOS+=	-lsocket

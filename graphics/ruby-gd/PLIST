@@ -1,6 +1,7 @@
-@comment $NetBSD: PLIST,v 1.8.34.1 2013/07/16 17:00:50 tron Exp $
+@comment $NetBSD: PLIST,v 1.10 2014/03/17 14:12:10 taca Exp $
 ${GEM_HOME}/build_info/${GEM_NAME}.info
 ${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_EXTSDIR}/GD.${RUBY_DLEXT}
 ${GEM_LIBDIR}/Changes
 ${GEM_LIBDIR}/GD.c
 ${GEM_LIBDIR}/doc/INSTALL.en

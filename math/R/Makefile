@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.140 2013/06/06 12:54:42 wiz Exp $
+# $NetBSD: Makefile,v 1.147 2014/03/14 20:15:38 markd Exp $
 
-DISTNAME=		R-2.15.1
-PKGREVISION=		7
+DISTNAME=		R-3.0.3
 CATEGORIES=		math
-MASTER_SITES=		${MASTER_SITE_R_CRAN:=base/R-2/}
+MASTER_SITES=		${MASTER_SITE_R_CRAN:=base/R-3/}
 
 MAINTAINER=		markd@NetBSD.org
 HOMEPAGE=		http://www.R-project.org/
@@ -16,12 +15,13 @@ NOT_FOR_PLATFORM=	NetBSD-1.[0-4]*-alpha NetBSD-1.5-alpha \
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
+USE_GCC_RUNTIME=	yes
+
 BUILD_TARGET=		all info
 INSTALL_TARGET=		install install-info
 TEST_TARGET=		check
 USE_TOOLS+=		gmake gzip:run makeinfo perl:run sed unzip:run xmkmf
 USE_TOOLS+=		pkg-config
-USE_GNU_READLINE=	yes		# uses callback interface
 USE_GNU_ICONV=		yes		# latin1 support, iconvlist
 USE_LANGUAGES=		c c++ fortran
 USE_LIBTOOL=		yes
@@ -42,6 +42,11 @@ CONFIGURE_ARGS+=	--with-system-zlib
 CONFIGURE_ARGS+=	--with-system-bzlib
 CONFIGURE_ARGS+=	--with-system-pcre
 CONFIGURE_ARGS+=	--with-system-xz
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
+CONFIGURE_ARGS+=	--enable-long-double=no
+.endif
 
 # Disable Mac OS specific support used by R.app
 CONFIGURE_ARGS+=	--disable-R-framework
@@ -70,6 +75,7 @@ CONFIGURE_ENV+=		lt_cv_path_SED=${TOOLS_SED}
 CONFIGURE_ENV+=		ac_cv_path_R_GZIPCMD=${TOOLS_GZIP_CMD}
 CONFIGURE_ENV+=		ac_cv_path_R_UNZIPCMD=${TOOLS_PATH.unzip}
 CONFIGURE_ENV+=		r_cv_prog_f77_flag_mieee=no
+CONFIGURE_ENV+=		ac_cv_path_PDFLATEX=""
 
 # We don't want "lib64"
 CONFIGURE_ENV+=		LIBnn=lib
@@ -79,6 +85,10 @@ CONFIGURE_ENV+=		LIBnn=lib
 SHAREMODE=		644
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+CONFIGURE_ARGS+=	--disable-openmp
+.endif
 
 # R_PAPERSIZE can be: A4, Letter, Legal, Executive
 .if defined(PAPERSIZE)
@@ -95,26 +105,26 @@ CONFIGURE_ENV+=		R_PAPERSIZE=${R_PAPERSIZE:Q}
 INSTALL_DATA=		${INSTALL} ${COPY} -m ${SHAREMODE}
 INSTALL_SCRIPT=		${INSTALL} ${COPY} -m ${BINMODE}
 
-# to build NEWS.pdf
-BUILD_DEPENDS+=		tex-latex-bin-[0-9]*:../../print/tex-latex-bin
-BUILD_DEPENDS+=		tex-metafont-[0-9]*:../../fonts/tex-metafont
-BUILD_DEPENDS+=		tex-ae-[0-9]*:../../fonts/tex-ae
-BUILD_DEPENDS+=		tex-ec-[0-9]*:../../fonts/tex-ec
-BUILD_DEPENDS+=		tex-tools-[0-9]*:../../print/tex-tools
-BUILD_DEPENDS+=		tex-url-[0-9]*:../../print/tex-url
-BUILD_DEPENDS+=		tex-oberdiek-[0-9]*:../../print/tex-oberdiek
-BUILD_DEPENDS+=		tex-amsfonts-[0-9]*:../../fonts/tex-amsfonts
-BUILD_DEPENDS+=		tex-cm-[0-9]*:../../fonts/tex-cm
-BUILD_DEPENDS+=		tex-cm-super-[0-9]*:../../fonts/tex-cm-super
-BUILD_DEPENDS+=		tex-fontname-[0-9]*:../../fonts/tex-fontname
-BUILD_DEPENDS+=		tex-graphics-[0-9]*:../../print/tex-graphics
-BUILD_DEPENDS+=		tex-hyperref-[0-9]*:../../print/tex-hyperref
-BUILD_DEPENDS+=		tex-ifluatex-[0-9]*:../../print/tex-ifluatex
-BUILD_DEPENDS+=		tex-ifxetex-[0-9]*:../../print/tex-ifxetex
-BUILD_DEPENDS+=		tex-latex-[0-9]*:../../print/tex-latex
-BUILD_DEPENDS+=		tex-latexconfig-[0-9]*:../../print/tex-latexconfig
-BUILD_DEPENDS+=		tex-mptopdf-[0-9]*:../../graphics/tex-mptopdf
-BUILD_DEPENDS+=		tex-pdftex-def-[0-9]*:../../print/tex-pdftex
+## to build NEWS.pdf
+#BUILD_DEPENDS+=		tex-latex-bin-[0-9]*:../../print/tex-latex-bin
+#BUILD_DEPENDS+=		tex-metafont-[0-9]*:../../fonts/tex-metafont
+#BUILD_DEPENDS+=		tex-ae-[0-9]*:../../fonts/tex-ae
+#BUILD_DEPENDS+=		tex-ec-[0-9]*:../../fonts/tex-ec
+#BUILD_DEPENDS+=		tex-tools-[0-9]*:../../print/tex-tools
+#BUILD_DEPENDS+=		tex-url-[0-9]*:../../print/tex-url
+#BUILD_DEPENDS+=		tex-oberdiek-[0-9]*:../../print/tex-oberdiek
+#BUILD_DEPENDS+=		tex-amsfonts-[0-9]*:../../fonts/tex-amsfonts
+#BUILD_DEPENDS+=		tex-cm-[0-9]*:../../fonts/tex-cm
+#BUILD_DEPENDS+=		tex-cm-super-[0-9]*:../../fonts/tex-cm-super
+#BUILD_DEPENDS+=		tex-fontname-[0-9]*:../../fonts/tex-fontname
+#BUILD_DEPENDS+=		tex-graphics-[0-9]*:../../print/tex-graphics
+#BUILD_DEPENDS+=		tex-hyperref-[0-9]*:../../print/tex-hyperref
+#BUILD_DEPENDS+=		tex-ifluatex-[0-9]*:../../print/tex-ifluatex
+#BUILD_DEPENDS+=		tex-ifxetex-[0-9]*:../../print/tex-ifxetex
+#BUILD_DEPENDS+=		tex-latex-[0-9]*:../../print/tex-latex
+#BUILD_DEPENDS+=		tex-latexconfig-[0-9]*:../../print/tex-latexconfig
+#BUILD_DEPENDS+=		tex-mptopdf-[0-9]*:../../graphics/tex-mptopdf
+#BUILD_DEPENDS+=		tex-pdftex-def-[0-9]*:../../print/tex-pdftex
 
 
 BUILDLINK_API_DEPENDS.zlib+= zlib>=1.2.3
@@ -129,6 +139,7 @@ CONFIGURE_ARGS+=	--enable-mbcs=no
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
+# uses callback interface
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"

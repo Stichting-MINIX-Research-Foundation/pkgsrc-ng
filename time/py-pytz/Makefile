@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2013/04/01 16:18:40 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.26 2014/01/25 10:30:26 wiz Exp $
 
-DISTNAME=	pytz-2013b
+DISTNAME=	pytz-2013.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	time python
 MASTER_SITES=	http://pypi.python.org/packages/source/p/pytz/
@@ -13,8 +12,6 @@ COMMENT=	World timezone definitions, modern and historical
 LICENSE=	mit
 
 USE_LANGUAGES=	# none
-
-PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 REPLACE_PYTHON=	pytz/tzfile.py
 

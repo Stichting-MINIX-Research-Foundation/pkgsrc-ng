@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2013/06/06 12:54:20 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/01/03 04:40:34 dholland Exp $
 #
 
 DISTNAME=	fntsample-3.2
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	fonts
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fntsample/}
 
@@ -14,7 +14,7 @@ HOMEPAGE=	http://fntsample.sourceforge.net/
 COMMENT=	Make font samples, similar to Unicode charts, showing Unicode coverage
 LICENSE=	gnu-gpl-v3
 
-USE_TOOLS+=	pkg-config gmake perl:run
+USE_TOOLS+=	pkg-config gmake perl:run msgfmt
 REPLACE_PERL=	pdfoutline.pl
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--with-unicode-blocks=${WRKDIR}/Blocks.txt

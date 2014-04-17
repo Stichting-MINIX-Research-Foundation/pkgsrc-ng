@@ -1,4 +1,4 @@
-$NetBSD: patch-sapi_fpm_php-fpm.conf.in,v 1.1.4.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-sapi_fpm_php-fpm.conf.in,v 1.2 2013/07/12 00:07:04 taca Exp $
 
 Uncomment the pid parameter so the pidfile is created and rc.d script
 can really start / stop php-fpm

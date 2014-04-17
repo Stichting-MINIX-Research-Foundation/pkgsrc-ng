@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2013/06/06 12:54:26 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2013/10/10 14:42:11 ryoon Exp $
 #
 
 DISTNAME=	rftg-0.8.1
-PKGREVISION=	12
+PKGREVISION=	14
 CATEGORIES=	games
 MASTER_SITES=	http://warpcore.org/rftg/ \
 		http://keldon.net/rftg/

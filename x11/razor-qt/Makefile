@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2013/06/06 12:55:21 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.10 2014/02/12 23:18:56 tron Exp $
 
 DISTNAME=	razorqt-0.5.1
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	x11
 MASTER_SITES=	https://github.com/downloads/Razor-qt/razor-qt/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 
 BUILD_DEPENDS+=	doxygen-[0-9]*:../../devel/doxygen
 
-FETCH_USING=	curl
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	bash pkg-config
 USE_CMAKE=	yes

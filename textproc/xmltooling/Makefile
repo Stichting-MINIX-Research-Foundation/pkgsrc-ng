@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.10 2013/02/06 23:23:54 jperkin Exp $
+# $NetBSD: Makefile,v 1.17 2014/02/12 23:18:42 tron Exp $
 
-DISTNAME=	xmltooling-1.4.2
-PKGREVISION=	2
+DISTNAME=	xmltooling-1.5.3
+PKGREVISION=	5
 CATEGORIES=	textproc
-MASTER_SITES=	http://www.shibboleth.net/downloads/c++-opensaml/2.4.3/
+MASTER_SITES=	http://www.shibboleth.net/downloads/c++-opensaml/${PKGVERSION_NOREV}/
 
 MAINTAINER=	pettai@NetBSD.org
-HOMEPAGE=	http://shibboleth.internet2.edu/
+HOMEPAGE=	http://shibboleth.net/
 COMMENT=	High level interface for XML processing library
 LICENSE=	apache-2.0
 
@@ -15,6 +15,7 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-doxygen-doc
 
+.include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/log4shib/buildlink3.mk"
 .include "../../security/xml-security-c/buildlink3.mk"
 .include "../../textproc/xerces-c/buildlink3.mk"

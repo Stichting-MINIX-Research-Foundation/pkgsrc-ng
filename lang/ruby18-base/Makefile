@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.78 2013/06/27 16:33:57 taca Exp $
+# $NetBSD: Makefile,v 1.81 2014/03/16 17:54:31 taca Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
+PKGREVISION=	1
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -19,6 +20,7 @@ CONFLICTS=	${RUBY_PKGPREFIX}-dbm-[0-9]* \
 		${RUBY_PKGPREFIX}-openssl-[0-9]* \
 		${RUBY_PKGPREFIX}-tcltk-[0-9]*
 
+USE_GCC_RUNTIME=yes
 USE_LANGUAGES=	c
 USE_TOOLS+=	pax yacc
 GNU_CONFIGURE=	yes
@@ -133,7 +135,7 @@ post-install:
 .for f in ${DOCS}
 	${INSTALL_DATA} ${WRKSRC}/${f} ${DESTDIR}${PREFIX}/${RUBY_DOC}/${f:C/^doc\///}
 .endfor
-	${INSTALL_SCRIPT} ${WRKSRC}/ext/dl/h2rb ${DESTDIR}${PREFIX}/bin/h2rb${RUBY_VER}
+	${INSTALL_SCRIPT} ${WRKSRC}/ext/dl/h2rb ${DESTDIR}${PREFIX}/bin/h2rb${RUBY_SUFFIX}
 .for f in ${EXT_DOCS}
 	${INSTALL_DATA} ${WRKSRC}/ext/${f} ${DESTDIR}${PREFIX}/${RUBY_DOC}
 .endfor

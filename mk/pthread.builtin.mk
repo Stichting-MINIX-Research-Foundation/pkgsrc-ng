@@ -1,11 +1,10 @@
-# $NetBSD: pthread.builtin.mk,v 1.13 2013/04/28 13:40:17 obache Exp $
+# $NetBSD: pthread.builtin.mk,v 1.15 2013/11/23 09:10:14 obache Exp $
 
 BUILTIN_PKG:=	pthread
 
 BUILTIN_FIND_LIBS:=		pthread c_r rt
-BUILTIN_FIND_FILES_VAR=		H_PTHREAD
-BUILTIN_FIND_FILES.H_PTHREAD=	/usr/include/pthread.h	\
-				/boot/develop/headers/posix/pthread.h
+BUILTIN_FIND_HEADERS_VAR=	H_PTHREAD
+BUILTIN_FIND_HEADERS.H_PTHREAD=	pthread.h
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
@@ -61,7 +60,8 @@ BUILDLINK_LDFLAGS.pthread=	# empty
 # XXX
 # XXX This should really be a check for GCC!
 # XXX
-BUILDLINK_OPSYS_SUPPORT_PTHREAD=	DragonFly FreeBSD Linux MirBSD NetBSD OpenBSD
+BUILDLINK_OPSYS_SUPPORT_PTHREAD=	\
+	DragonFly FreeBSD Linux MirBSD NetBSD OpenBSD SunOS
 .    if !empty(BUILDLINK_OPSYS_SUPPORT_PTHREAD:M${OPSYS})
 BUILDLINK_CFLAGS.pthread+=	-pthread
 BUILDLINK_LDFLAGS.pthread+=	-pthread

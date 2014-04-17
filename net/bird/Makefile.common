@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.2 2012/10/23 17:18:11 asau Exp $
+# $NetBSD: Makefile.common,v 1.4 2014/03/28 23:27:16 pettai Exp $
 # used by net/bird/Makefile
 # used by net/bird6/Makefile
 
-DISTNAME=	bird-1.3.6
+DISTNAME=	bird-1.3.11
 PKGNAME=	${DISTNAME:S/bird/bird${BIRD6}/}
 CATEGORIES=	net
 MASTER_SITES=	ftp://bird.network.cz/pub/bird/
@@ -15,7 +15,6 @@ LICENSE=	gnu-gpl-v2
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake flex bison
-USE_GNU_READLINE=	yes
 
 CONFIGURE_ARGS+=	--localstatedir=/var
 BIRD6?=			# empty

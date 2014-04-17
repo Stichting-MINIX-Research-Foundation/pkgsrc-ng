@@ -1,4 +1,4 @@
-# $NetBSD: bjam.mk,v 1.13 2011/09/07 23:43:40 joerg Exp $
+# $NetBSD: bjam.mk,v 1.15 2013/11/20 19:17:55 adam Exp $
 
 .include "../../devel/boost-jam/buildlink3.mk"
 
@@ -15,13 +15,28 @@ BJAM_ARGS+=		--layout=system
 BJAM_ARGS+=		--toolset=${BOOST_TOOLSET}
 BJAM_ARGS+=		--disable-long-double
 BJAM_ARGS+=		${BJAM_BUILD}
-# GCC 4.4 and above needs this
+
 .include "../../mk/compiler.mk"
-.if (!empty(PKGSRC_COMPILER:Mgcc) && !empty(CC_VERSION:Mgcc-4.[4-9]*)) || !empty(PKGSRC_COMPILER:Mclang)
+
+.if !empty(PKGSRC_COMPILER:Mgcc)
+.  if !empty(CC_VERSION:Mgcc-4.[4-7]*)
 BJAM_ARGS+=		cxxflags=-std=c++0x
+CXXFLAGS+=		-std=c++0x
+.  elif !empty(CC_VERSION:Mgcc-4.[89]*)
+BJAM_ARGS+=		cxxflags=-std=c++11
+CXXFLAGS+=		-std=c++11
+.  endif
 .endif
 
-BJAM_BUILD+=		release
+.if !empty(PKGSRC_COMPILER:Mclang)
+BJAM_ARGS+=		cxxflags=-std=c++11
+CXXFLAGS+=		-std=c++11
+.  if !empty(OPSYS:MDarwin)
+BJAM_ARGS+=		cxxflags=-stdlib=libc++ linkflags=-stdlib=libc++
+.  endif
+.endif
+
+BJAM_BUILD+=		variant=release
 BJAM_BUILD+=		threading=multi
 BJAM_BUILD+=		link=shared,static
 

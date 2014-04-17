@@ -1,5 +1,5 @@
 #! @PERL@
-# $NetBSD: pkglint.pl,v 1.856 2013/05/26 18:09:24 wiz Exp $
+# $NetBSD: pkglint.pl,v 1.866 2014/03/03 05:18:23 obache Exp $
 #
 
 # pkglint - static analyzer and checker for pkgsrc packages
@@ -291,7 +291,7 @@ our $program		= $0;
 # Commonly used regular expressions.
 #
 
-use constant regex_dependency_gt => qr"^((?:\$\{[\w_]+\}|[\w_\.]|-[^\d])+)>=(\d[^-]*)$";
+use constant regex_dependency_lge => qr"^((?:\$\{[\w_]+\}|[\w_\.]|-[^\d])+)[<>]=?(\d[^-*?\[\]]*)$";
 use constant regex_dependency_wildcard
 				=> qr"^((?:\$\{[\w_]+\}|[\w_\.]|-[^\d\[])+)-(?:\[0-9\]\*|\d[^-]*)$";
 use constant regex_gnu_configure_volatile_vars
@@ -367,9 +367,11 @@ my $is_internal;		# Is the current item from the infrastructure?
 #
 
 my $ipc_distinfo;		# Maps "$alg:$fname" => "checksum".
+my %ipc_used_licenses;		# { license name => true }
+my $ipc_checking_root_recursively; # For checking unused licenses
 
 # Context of the package that is currently checked.
-my $pkgpath;			# The relative path to the package within PKGSRC.
+my $pkgpath;			# The relative path to the package within PKGSRC
 my $pkgdir;			# PKGDIR from the package Makefile
 my $filesdir;			# FILESDIR from the package Makefile
 my $patchdir;			# PATCHDIR from the package Makefile
@@ -2111,9 +2113,8 @@ sub parse_mk_cond($$) {
 sub parse_licenses($) {
 	my ($licenses) = @_;
 
-	# XXX: this is clearly cheating
 	$licenses =~ s,\${PERL5_LICENSE},gnu-gpl-v2 OR artistic,g;
-	$licenses =~ s,[()]|AND|OR,,g;
+	$licenses =~ s,[()]|AND|OR,,g; # XXX: treats OR like AND
 	my @licenses = split(/\s+/, $licenses);
 	return \@licenses;
 }
@@ -2437,6 +2438,18 @@ sub checkword_absolute_pathname($$) {
 	}
 }
 
+sub check_unused_licenses() {
+
+	for my $licensefile (<${cwd_pkgsrcdir}/licenses/*>) {
+		if (-f $licensefile) {
+			my $licensename = basename($licensefile);
+			if (!exists($ipc_used_licenses{$licensename})) {
+				log_warning($licensefile, NO_LINES, "This license seems to be unused.");
+			}
+		}
+	}
+}
+
 sub checkpackage_possible_downgrade() {
 
 	$opt_debug_trace and log_debug(NO_FILE, NO_LINES, "checkpackage_possible_downgrade");
@@ -2527,6 +2540,13 @@ sub checkline_rcsid_regex($$$) {
 
 	if ($line->text !~ m"^${prefix_regex}\$(${id})(?::[^\$]+|)\$$") {
 		$line->log_error("\"${prefix}\$${opt_rcsidstring}\$\" expected.");
+		$line->explain_error(
+"Several files in pkgsrc must contain the CVS Id, so that their current",
+"version can be traced back later from a binary package. This is to",
+"ensure reproducible builds, for example for finding bugs.",
+"",
+"Please insert the text from the above error message (without the quotes)",
+"at this position in the file.");
 		return false;
 	}
 	return true;
@@ -3939,7 +3959,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 "foo-* matches foo-1.2, but also foo-client-1.2 and foo-server-1.2.");
 
 				} else {
-					$line->log_warning("Unknown dependency pattern \"${value}\".");
+					$line->log_error("Unknown dependency pattern \"${value}\".");
 				}
 
 			} elsif ($value =~ m"\{") {
@@ -3977,12 +3997,12 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 
 				}
 
-				if ($pattern =~ regex_dependency_gt) {
+				if ($pattern =~ regex_dependency_lge) {
 #				($abi_pkg, $abi_version) = ($1, $2);
 				} elsif ($pattern =~ regex_dependency_wildcard) {
 #				($abi_pkg) = ($1);
 				} else {
-					$line->log_warning("Unknown dependency pattern \"${pattern}\".");
+					$line->log_error("Unknown dependency pattern \"${pattern}\".");
 				}
 
 			} elsif ($value =~ m":\.\./[^/]+$") {
@@ -4009,7 +4029,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 			if ($value =~ m"^(\w+)-(\w+)$") {
 				my ($opsys, $arch) = ($1, $2);
 
-				if ($opsys !~ m"^(?:bsdos|cygwin|darwin|dragonfly|freebsd|haiku|hpux|interix|irix|linux|netbsd|openbsd|osf1|sunos)$") {
+				if ($opsys !~ m"^(?:bsdos|cygwin|darwin|dragonfly|freebsd|haiku|hpux|interix|irix|linux|netbsd|openbsd|osf1|sunos|solaris)$") {
 					$line->log_warning("Unknown operating system: ${opsys}");
 				}
 				# no check for $os_version
@@ -4118,7 +4138,10 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 					my $license_file_line = $pkgctx_vardef->{"LICENSE_FILE"};
 
 					$license_file = "${current_dir}/" . resolve_relative_path($license_file_line->get("value"), false);
+				} else {
+					$ipc_used_licenses{$license} = true;
 				}
+
 				if (!-f $license_file) {
 					$line->log_warning("License file ".normalize_pathname($license_file)." does not exist.");
 				}
@@ -4253,7 +4276,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 				$line->log_warning("${varname} must be a positive integer number.");
 			}
 			if ($line->fname !~ m"(?:^|/)Makefile$") {
-				$line->log_error("${varname} must not be set outside the package Makefile.");
+				$line->log_error("${varname} only makes sense directly in the package Makefile.");
 				$line->explain_error(
 "Usually, different packages using the same Makefile.common have",
 "different dependencies and will be bumped at different times (e.g. for",
@@ -4268,7 +4291,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 			if ($value =~ m"^(${part})-(${part})-(${part})$") {
 				my ($opsys, $os_version, $arch) = ($1, $2, $3);
 
-				if ($opsys !~ m"^(?:\*|BSDOS|Cygwin|Darwin|DragonFly|FreeBSD|Haiku|HPUX|Interix|IRIX|Linux|NetBSD|OpenBSD|OSF1|SunOS)$") {
+				if ($opsys !~ m"^(?:\*|BSDOS|Cygwin|Darwin|DragonFly|FreeBSD|Haiku|HPUX|Interix|IRIX|Linux|NetBSD|OpenBSD|OSF1|QNX|SunOS)$") {
 					$line->log_warning("Unknown operating system: ${opsys}");
 				}
 				# no check for $os_version
@@ -4399,7 +4422,10 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 		},
 
 		Tool => sub {
-			if ($value =~ m"^([-\w]+|\[)(?::(\w+))?$") {
+			if ($varname eq "TOOLS_NOOP" && $op eq "+=") {
+				# no warning for package-defined tool definitions
+
+			} elsif ($value =~ m"^([-\w]+|\[)(?::(\w+))?$") {
 				my ($toolname, $tooldep) = ($1, $2);
 				if (!exists(get_tool_names()->{$toolname})) {
 					$line->log_error("Unknown tool \"${toolname}\".");
@@ -4452,8 +4478,8 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 			} elsif ($value =~ m"^([0-9A-Za-z]+)://([^/]+)(.*)$") {
 				my ($scheme, $host, $abs_path) = ($1, $2, $3);
 
-				if ($scheme ne "ftp" && $scheme ne "http" && $scheme ne "gopher") {
-					$line->log_warning("\"${value}\" is not a valid URL. Only http, ftp and gopher URLs are allowed here.");
+				if ($scheme ne "ftp" && $scheme ne "http" && $scheme ne "https" && $scheme ne "gopher") {
+					$line->log_warning("\"${value}\" is not a valid URL. Only ftp, gopher, http, and https URLs are allowed here.");
 
 				} elsif ($abs_path eq "") {
 					$line->log_note("For consistency, please add a trailing slash to \"${value}\".");
@@ -4910,7 +4936,7 @@ sub checklines_package_Makefile_varorder($) {
 		],
 		[ "Unsorted stuff, part 1", once,
 			[
-				[ "DISTNAME", once ],
+				[ "DISTNAME", optional ],
 				[ "PKGNAME",  optional ],
 				[ "PKGREVISION", optional ],
 				[ "SVR4_PKGNAME", optional ],
@@ -4964,6 +4990,7 @@ sub checklines_package_Makefile_varorder($) {
 		[ "Dependencies", optional,
 			[
 				[ "BUILD_DEPENDS", many ],
+				[ "TOOL_DEPENDS", many ],
 				[ "DEPENDS", many ],
 			]
 		]
@@ -5110,6 +5137,7 @@ sub checklines_mk($) {
 
 		} elsif ($varcanon eq "USE_TOOLS") {
 			foreach my $tool (split(qr"\s+", $line->get("value"))) {
+				$tool =~ s/:(build|run)//;
 				$mkctx_tools->{$tool} = true;
 				$opt_debug_misc and $line->log_debug("${tool} is added to USE_TOOLS.");
 			}
@@ -5593,7 +5621,7 @@ sub checklines_buildlink3_mk_pre2009($$) {
 
 			if ($varname eq "BUILDLINK_ABI_DEPENDS.${bl_pkgbase}") {
 				$abi_line = $line;
-				if ($value =~ regex_dependency_gt) {
+				if ($value =~ regex_dependency_lge) {
 					($abi_pkg, $abi_version) = ($1, $2);
 				} elsif ($value =~ regex_dependency_wildcard) {
 					($abi_pkg) = ($1);
@@ -5604,7 +5632,7 @@ sub checklines_buildlink3_mk_pre2009($$) {
 			}
 			if ($varname eq "BUILDLINK_API_DEPENDS.${bl_pkgbase}") {
 				$api_line = $line;
-				if ($value =~ regex_dependency_gt) {
+				if ($value =~ regex_dependency_lge) {
 					($api_pkg, $api_version) = ($1, $2);
 				} elsif ($value =~ regex_dependency_wildcard) {
 					($api_pkg) = ($1);
@@ -5753,7 +5781,7 @@ sub checklines_buildlink3_mk_2009($$$) {
 
 			if ($varname eq "BUILDLINK_ABI_DEPENDS.${bl_pkgbase}") {
 				$abi_line = $line;
-				if ($value =~ regex_dependency_gt) {
+				if ($value =~ regex_dependency_lge) {
 					($abi_pkg, $abi_version) = ($1, $2);
 				} elsif ($value =~ regex_dependency_wildcard) {
 					($abi_pkg) = ($1);
@@ -5764,7 +5792,7 @@ sub checklines_buildlink3_mk_2009($$$) {
 			}
 			if ($varname eq "BUILDLINK_API_DEPENDS.${bl_pkgbase}") {
 				$api_line = $line;
-				if ($value =~ regex_dependency_gt) {
+				if ($value =~ regex_dependency_lge) {
 					($api_pkg, $api_version) = ($1, $2);
 				} elsif ($value =~ regex_dependency_wildcard) {
 					($api_pkg) = ($1);
@@ -6142,7 +6170,7 @@ sub checkfile_package_Makefile($$) {
 	}
 
 	if (!exists($pkgctx_vardef->{"LICENSE"})) {
-		log_error($fname, NO_LINE_NUMBER, "All packages must define their LICENSE.");
+		log_error($fname, NO_LINE_NUMBER, "Each package must define its LICENSE.");
 	}
 
 	if (exists($pkgctx_vardef->{"GNU_CONFIGURE"}) && exists($pkgctx_vardef->{"USE_LANGUAGES"})) {
@@ -6230,6 +6258,9 @@ sub checkfile_package_Makefile($$) {
 
 			if (dewey_cmp($effective_pkgversion, "<", $suggver)) {
 				$effective_pkgname_line->log_warning("This package should be updated to ${suggver}${comment}.");
+				$effective_pkgname_line->explain_warning(
+"The wishlist for package updates in doc/TODO mentions that a newer",
+"version of this package is available.");
 			}
 			if (dewey_cmp($effective_pkgversion, "==", $suggver)) {
 				$effective_pkgname_line->log_note("The update request to ${suggver} from doc/TODO${comment} has been done.");
@@ -6281,6 +6312,16 @@ sub checkfile_patch($) {
 		CFA CH CHD CLD0 CLD CLA0 CLA
 		UFA UH UL
 	);
+
+	my @comment_explanation = (
+"Each patch must document why it is necessary. If it has been applied",
+"because of a security issue, a reference to the CVE should be mentioned",
+"as well.",
+"",
+"Since it is our goal to have as few patches as possible, all patches",
+"should be sent to the upstream maintainers of the package. After you",
+"have done so, you should add a reference to the bug report containing",
+"the patch.");
 
 	my ($line, $m);
 
@@ -6433,11 +6474,13 @@ sub checkfile_patch($) {
 		}], [PST_TEXT, re_patch_cfd, PST_CFA, sub() {
 			if (!$seen_comment) {
 				$line->log_error("Comment expected.");
+				$line->explain_error(@comment_explanation);
 			}
 			$line->log_warning("Please use unified diffs (diff -u) for patches.");
 		}], [PST_TEXT, re_patch_ufd, PST_UFA, sub() {
 			if (!$seen_comment) {
 				$line->log_error("Comment expected.");
+				$line->explain_error(@comment_explanation);
 			}
 		}], [PST_TEXT, re_patch_text, PST_TEXT, sub() {
 			$seen_comment = true;
@@ -6450,6 +6493,7 @@ sub checkfile_patch($) {
 				$opt_warn_space and $line->log_note("Empty line expected.");
 			} else {
 				$line->log_error("Comment expected.");
+				$line->explain_error(@comment_explanation);
 			}
 			$line->log_warning("Please use unified diffs (diff -u) for patches.");
 		}], [PST_CENTER, re_patch_ufd, PST_UFA, sub() {
@@ -6457,6 +6501,7 @@ sub checkfile_patch($) {
 				$opt_warn_space and $line->log_note("Empty line expected.");
 			} else {
 				$line->log_error("Comment expected.");
+				$line->explain_error(@comment_explanation);
 			}
 		}], [PST_CENTER, undef, PST_TEXT, sub() {
 			$opt_warn_space and $line->log_note("Empty line expected.");
@@ -6914,9 +6959,10 @@ sub checkfile_PLIST($) {
 			} elsif ($pkgpath ne "graphics/hicolor-icon-theme" && $text =~ m"^share/icons/hicolor(?:$|/)") {
 				my $f = "../../graphics/hicolor-icon-theme/buildlink3.mk";
 				if (defined($pkgctx_included) && !exists($pkgctx_included->{$f})) {
-					$line->log_error("Please .include \"$f\"");
+					$line->log_error("Please .include \"$f\" in the Makefile");
 					$line->explain_error(
-"If hicolor icon themes are installed, icon theme cache must be maintained.");
+"If hicolor icon themes are installed, icon theme cache must be",
+"maintained. The hicolor-icon-theme package takes care of that.");
 				}
 
 			} elsif ($pkgpath ne "graphics/gnome-icon-theme" && $text =~ m"^share/icons/gnome(?:$|/)") {
@@ -7016,6 +7062,8 @@ sub checkfile($) {
 	if (S_ISDIR($st->mode)) {
 		if ($basename eq "files" || $basename eq "patches" || $basename eq "CVS") {
 			# Ok
+		} elsif ($fname =~ m"(?:^|/)files/[^/]*$") {
+			# Ok
 
 		} elsif (!is_emptydir($fname)) {
 			log_warning($fname, NO_LINE_NUMBER, "Unknown directory name.");
@@ -7047,10 +7095,10 @@ sub checkfile($) {
 	} elsif ($basename =~ m"^MESSAGE") {
 		$opt_check_MESSAGE and checkfile_MESSAGE($fname);
 
-	} elsif ($basename =~ m"^patch-[-A-Za-z0-9_\.~]*$") {
+	} elsif ($basename =~ m"^patch-[-A-Za-z0-9_.~+]*[A-Za-z0-9_]$") {
 		$opt_check_patches and checkfile_patch($fname);
 
-	} elsif ($fname =~ m"(?:^|/)patches/manual-[^/]*$") {
+	} elsif ($fname =~ m"(?:^|/)patches/manual[^/]*$") {
 		$opt_debug_unchecked and log_debug($fname, NO_LINE_NUMBER, "Unchecked file \"${fname}\".");
 
 	} elsif ($fname =~ m"(?:^|/)patches/[^/]*$") {
@@ -7071,6 +7119,8 @@ sub checkfile($) {
 	} elsif (!-T $fname) {
 		log_warning($fname, NO_LINE_NUMBER, "Unexpectedly found a binary file.");
 
+	} elsif ($fname =~ m"(?:^|/)files/[^/]*$") {
+		# Ok
 	} else {
 		log_warning($fname, NO_LINE_NUMBER, "Unexpected file found.");
 		$opt_check_extra and checkfile_extra($fname);
@@ -7147,12 +7197,14 @@ sub checkdir_root() {
 				next;
 			}
 
-			if (defined($prev_subdir) && $subdir eq $prev_subdir) {
-				$line->log_error("${subdir} must only appear once.");
-			} elsif (defined($prev_subdir) && $subdir lt $prev_subdir) {
-				$line->log_warning("${subdir} should come before ${prev_subdir}.");
-			} else {
+			if (!defined($prev_subdir) || $subdir gt $prev_subdir) {
 				# correctly ordered
+			} elsif ($subdir eq $prev_subdir) {
+				$line->log_error("${subdir} must only appear once.");
+			} elsif ($prev_subdir eq "x11" && $subdir eq "archivers") {
+				# ignore that one, since it is documented in the top-level Makefile
+			} else {
+				$line->log_warning("${subdir} should come before ${prev_subdir}.");
 			}
 
 			$prev_subdir = $subdir;
@@ -7166,6 +7218,7 @@ sub checkdir_root() {
 	checklines_mk($lines);
 
 	if ($opt_recursive) {
+		$ipc_checking_root_recursively = true;
 		push(@todo_items, @subdirs);
 	}
 }
@@ -7524,6 +7577,10 @@ sub main() {
 	@todo_items = (@ARGV != 0) ? @ARGV : (".");
 	while (@todo_items != 0) {
 		checkitem(shift(@todo_items));
+	}
+
+	if ($ipc_checking_root_recursively) {
+		check_unused_licenses();
 	}
 
 	PkgLint::Logging::print_summary_and_exit($opt_quiet);

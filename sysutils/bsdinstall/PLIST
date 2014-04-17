@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2013/09/05 12:19:49 jperkin Exp $
+bin/bsdinstall
+man/cat1/bsdinstall.0
+man/man1/bsdinstall.1

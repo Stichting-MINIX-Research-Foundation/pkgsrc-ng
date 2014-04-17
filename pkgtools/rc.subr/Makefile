@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.25 2012/09/11 23:19:39 asau Exp $
+# $NetBSD: Makefile,v 1.27 2014/03/03 05:12:35 obache Exp $
 #
 
-DISTNAME=		rc.subr-20090118
+PKGNAME=		rc.subr-20090118
 CATEGORIES=		pkgtools
-MASTER_SITES=		# empty
-DISTFILES=		# empty
 
 MAINTAINER=		sbd@NetBSD.org
 HOMEPAGE=		http://www.NetBSD.org/
 COMMENT=		Portable NetBSD rc.subr implementation for pkgsrc
+LICENSE=		original-bsd
 
 ONLY_FOR_PLATFORM=	Darwin-*-* FreeBSD-[0-4].*-* Interix-*-*
 ONLY_FOR_PLATFORM+=	Linux-*-* SunOS-*-*

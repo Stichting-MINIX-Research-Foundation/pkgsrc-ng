@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.50 2013/06/06 12:55:12 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.55 2014/02/12 23:18:47 tron Exp $
 
 DISTNAME=	alacarte-0.13.1
-PKGREVISION=	22
+PKGREVISION=	26
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/alacarte/0.13/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +15,7 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	intltool perl pkg-config gmake msgfmt
 
 PY_PATCHPLIST=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2, py-gtk2
 
 SUBST_CLASSES+=	paths
 SUBST_STAGE.paths=	pre-configure

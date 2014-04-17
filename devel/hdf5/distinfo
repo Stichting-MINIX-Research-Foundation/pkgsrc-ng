@@ -1,8 +1,8 @@
-$NetBSD: distinfo,v 1.30 2013/04/09 14:25:40 adam Exp $
+$NetBSD: distinfo,v 1.32 2014/02/14 09:09:40 adam Exp $
 
-SHA1 (hdf5-1.8.10-patch1.tar.bz2) = 458cb91496e313debd55d52a7f89459a5469cceb
-RMD160 (hdf5-1.8.10-patch1.tar.bz2) = d28b78ddc812994d473a6872814bc4904a4dff91
-Size (hdf5-1.8.10-patch1.tar.bz2) = 6010792 bytes
+SHA1 (hdf5-1.8.12.tar.bz2) = 8414ca0e6ff7d08e423955960d641ec5f309a55f
+RMD160 (hdf5-1.8.12.tar.bz2) = b885803d35855007f2e66f1a376fff9d11d5c1ec
+Size (hdf5-1.8.12.tar.bz2) = 5994832 bytes
 SHA1 (patch-c++_examples_Makefile.in) = 9ae14ae81abc9c858abb0d03b92e498b2113591c
 SHA1 (patch-c++_examples_run-c++-ex.sh.in) = 58c38b2ba5557cdae2c4fe1e72c6fa55e5606f1e
 SHA1 (patch-configure) = b8d6e6e53ecb5e5861fba88be1a203cedf6747b3

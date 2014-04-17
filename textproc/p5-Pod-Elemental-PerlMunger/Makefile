@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:42:11 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2014/02/01 13:04:50 wen Exp $
 
-DISTNAME=	Pod-Elemental-PerlMunger-0.093331
+DISTNAME=	Pod-Elemental-PerlMunger-0.200001
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Pod/}
 
@@ -11,7 +10,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Pod-Elemental-PerlMunger/
 COMMENT=	Perl5 module that takes a string of Perl and rewrites its Pod
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
+DEPENDS+=	p5-List-AllUtils-[0-9]*:../../devel/p5-List-AllUtils
 DEPENDS+=	p5-Moose-[0-9]*:../../devel/p5-Moose
 DEPENDS+=	p5-PPI-[0-9]*:../../devel/p5-PPI
 DEPENDS+=	p5-Pod-Elemental>=0.092941:../../textproc/p5-Pod-Elemental

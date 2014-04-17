@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.5 2013/04/04 21:08:36 adam Exp $
+# $NetBSD: Makefile.common,v 1.11 2014/03/27 20:57:54 adam Exp $
 #
 # used by databases/postgresql92-adminpack/Makefile
 # used by databases/postgresql92-client/Makefile
@@ -21,7 +21,7 @@
 #	<lang>-postgresql	client-side interface to PostgreSQL
 #	postgresql-<lang>	server-side module for PostgreSQL backend
 
-DISTNAME=	postgresql-9.2.4
+DISTNAME=	postgresql-9.2.8
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=source/v${PKGVERSION_NOREV}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -44,6 +44,7 @@ DISTINFO_FILE?=		${.CURDIR}/../../databases/postgresql92/distinfo
 COMMON_FILESDIR?=	${.CURDIR}/../../databases/postgresql92/files
 PATCHDIR?=		${.CURDIR}/../../databases/postgresql92/patches
 
+USE_GCC_RUNTIME=	yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		bison gmake lex msgfmt
 PKG_SYSCONFSUBDIR=	postgresql
@@ -52,6 +53,7 @@ PKG_SYSCONFSUBDIR=	postgresql
 
 PG_TEMPLATE.SunOS=	solaris
 PG_TEMPLATE.IRIX=	irix5
+PG_TEMPLATE.MirBSD=	openbsd
 .if !defined(PG_TEMPLATE.${OPSYS})
 PG_TEMPLATE.${OPSYS}=	${LOWER_OPSYS}
 .endif
@@ -79,6 +81,11 @@ CONFIGURE_ARGS+=	--without-zlib
 # procfs and largefile.
 .if ${OPSYS} == "SunOS"
 CONFIGURE_ENV+=		ac_cv_header_sys_ucred_h=no
+.endif
+
+# configure fails on OpenBSD and MirBSD if thread safety is enabled.
+.if ${OPSYS} == "OpenBSD" || ${OPSYS} == "MirBSD"
+CONFIGURE_ARGS+=	--disable-thread-safety
 .endif
 
 # PGSQL_BLCKSZ is the size in bytes of a PostgreSQL disk page or block.

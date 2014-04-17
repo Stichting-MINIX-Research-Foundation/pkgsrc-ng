@@ -1,4 +1,4 @@
-$NetBSD: patch-bb,v 1.1.14.1 2013/08/12 14:21:30 tron Exp $
+$NetBSD: patch-bb,v 1.2 2013/08/12 02:47:32 taca Exp $
 
 --- include/config.h.in.orig	2013-07-24 19:08:23.000000000 +0000
 +++ include/config.h.in

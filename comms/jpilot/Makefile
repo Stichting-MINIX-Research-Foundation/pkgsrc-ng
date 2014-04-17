@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.91 2013/06/06 12:53:53 wiz Exp $
+# $NetBSD: Makefile,v 1.97 2014/02/12 23:17:38 tron Exp $
 #
 
-DISTNAME=		jpilot-1.8.0
-#KGREVISION=		19
+DISTNAME=		jpilot-1.8.1
 PKGREVISION=		3
 CATEGORIES=		comms
 MASTER_SITES=		http://www.jpilot.org/
@@ -37,6 +36,7 @@ PLUGINSDIR=		${PREFIX}/lib/jpilot/plugins
 .include "../../comms/pilot-link-libs/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+.include "../../security/libgcrypt/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 
 post-extract:

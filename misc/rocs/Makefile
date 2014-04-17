@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2013/06/06 12:54:49 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2014/02/12 23:18:15 tron Exp $
 
 DISTNAME=	rocs-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	misc
 COMMENT=	KDE graph theory IDE
 
@@ -12,6 +12,7 @@ CMAKE_ARGS+=	-DKDE4_BUILD_TESTS:BOOL=OFF
 .include "../../meta-pkgs/kde4/kde4.mk"
 
 .include "../../devel/boost-libs/buildlink3.mk"
+.include "../../devel/grantlee/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 

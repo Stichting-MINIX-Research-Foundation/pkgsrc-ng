@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/03/14 19:00:25 taca Exp $
+
+SHA1 (em-http-request-1.1.2.gem) = 826562ec11f703fb9ba959446a6881f3e9186d57
+RMD160 (em-http-request-1.1.2.gem) = aaa264288fc0e4132348769a5a4bbe614fbdc900
+Size (em-http-request-1.1.2.gem) = 218112 bytes

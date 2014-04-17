@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:39:44 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2014/02/06 12:30:20 abs Exp $
 
-DISTNAME=	Convert-Color-0.08
+DISTNAME=	Convert-Color-0.10
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	converters perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Convert/}
 
@@ -12,7 +11,7 @@ COMMENT=	Color space conversions and named lookups
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-List-UtilsBy-[0-9]*:../../devel/p5-List-UtilsBy
-DEPENDS+=	p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
+DEPENDS+=	{perl>=5.8.9,p5-Module-Pluggable-[0-9]*}:../../devel/p5-Module-Pluggable
 
 USE_LANGUAGES=		# empty
 PERL5_MODULE_TYPE=	Module::Build

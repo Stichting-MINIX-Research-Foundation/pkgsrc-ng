@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2013/06/06 12:54:07 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2014/02/22 09:20:30 obache Exp $
 #
 
 DISTNAME=	tnt-1.2.2
 PKGNAME=	${DISTNAME:S/tnt/tnt-mmtl/}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mmtl/}
 
@@ -35,11 +35,10 @@ CONFIGURE_ENV+=	CPP=${CPP}
 post-patch:
 	${MV} ${WRKSRC}/tnt ${WRKSRC}/tnt-mmtl
 	cd ${WRKSRC}/bem && aclocal
-	cd ${WRKSRC}/bem && automake
+	cd ${WRKSRC}/bem && automake --add-missing --copy --force-missing
 	cd ${WRKSRC}/bem && autoconf
 
 .include "../../lang/tcl/buildlink3.mk"
-.include "../../lang/tcl-itcl/buildlink3.mk"
 .include "../../x11/tk/buildlink3.mk"
 .include "../../x11/tk-BWidget/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

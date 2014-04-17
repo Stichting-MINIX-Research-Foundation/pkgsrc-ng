@@ -1,4 +1,4 @@
-$NetBSD: patch-af,v 1.3.18.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-af,v 1.4 2013/07/12 00:07:04 taca Exp $
 
 --- ext/phar/Makefile.frag.orig	2013-07-10 17:43:08.000000000 +0000
 +++ ext/phar/Makefile.frag

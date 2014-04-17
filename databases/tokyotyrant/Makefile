@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.30 2012/10/02 21:25:55 asau Exp $
+# $NetBSD: Makefile,v 1.33 2014/03/13 11:08:50 jperkin Exp $
 #
 
 DISTNAME=	tokyotyrant-1.1.41
+PKGREVISION=	2
 CATEGORIES=	databases net
 MASTER_SITES=	${HOMEPAGE}
 
@@ -11,6 +12,7 @@ COMMENT=	Network interface of Tokyo Cabinet
 LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=	yes
+USE_GCC_RUNTIME=yes
 USE_TOOLS+=	gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	tokyotyrant.pc.in

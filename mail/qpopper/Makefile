@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.65 2013/02/06 23:22:48 jperkin Exp $
+# $NetBSD: Makefile,v 1.67 2014/02/12 23:18:09 tron Exp $
 #
 
 DISTNAME=		qpopper${VERSION}
 PKGNAME=		qpopper-${VERSION}
-PKGREVISION=		1
+PKGREVISION=		3
 CATEGORIES=		mail
 MASTER_SITES=		${QPOPPER_MASTER_SITES}
 

@@ -1,4 +1,4 @@
-# $NetBSD: Darwin.mk,v 1.52 2013/04/28 12:53:56 obache Exp $
+# $NetBSD: Darwin.mk,v 1.61 2013/12/31 11:13:43 jperkin Exp $
 #
 # Variable definitions for the Darwin operating system.
 
@@ -15,6 +15,7 @@
 # Snow Leopard	10.6.x	10.x.y	3.2+ (gcc 4.0.1 and 4.2.1)
 # Lion		10.7.x	11.x.y	4.1 (llvm gcc 4.2.1)
 # Mountain Lion	10.8.x	12.x.y	4.5 (llvm gcc 4.2.1)
+# Mavericks	10.9.x	13.x.y	5 (llvm clang 5.0)
 
 # Tiger (and earlier) use Xfree 4.4.0 (and earlier)
 .if empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
@@ -67,13 +68,25 @@ ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
 GROUPADD?=		${LOCALBASE}/sbin/groupadd
 USERADD?=		${LOCALBASE}/sbin/useradd
 _PKG_USER_HOME?=	/var/empty	# to match other system accounts
-_USER_DEPENDS=		user>=20040801:../../sysutils/user_darwin
+_USER_DEPENDS=		user-darwin>=20130712:../../sysutils/user_darwin
 
 _OPSYS_EMULDIR.darwin=	# empty
 
+#
+# From Xcode 5 onwards system headers are no longer installed by default
+# into /usr/include, so we need to query their location.
+#
+.if exists(/usr/bin/xcrun)
+OSX_SDK_PATH!=	/usr/bin/xcrun --show-sdk-path 2>/dev/null || echo /nonexistent
+.endif
+
 _OPSYS_SYSTEM_RPATH?=		/usr/lib
 _OPSYS_LIB_DIRS?=		/usr/lib
+.if exists(/usr/include/stdio.h)
 _OPSYS_INCLUDE_DIRS?=		/usr/include
+.elif exists(${OSX_SDK_PATH}/usr/include/stdio.h)
+_OPSYS_INCLUDE_DIRS?=		${OSX_SDK_PATH}/usr/include
+.endif
 
 .if ${OS_VERSION:R} >= 6
 _OPSYS_HAS_INET6=	yes	# IPv6 is standard
@@ -92,8 +105,19 @@ _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-V simple -b -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		no	# don't add rpath to LDFLAGS
 
+# Comes with a native mit-krb5 implementation
+KRB5_DEFAULT?=		mit-krb5
+
+#
+# Builtin overrides.
+#
+.if !empty(OS_VERSION:M[56].*)
+USE_BUILTIN.dl=		no	# Darwin-[56].* uses devel/dlcompat
+.endif
+
 # Builtin defaults which make sense for this platform.
-PREFER.linux-pam?=	native
+_OPSYS_PREFER.linux-pam?=	native
+_OPSYS_PREFER.mit-krb5?=	native
 
 # flags passed to the linker to extract all symbols from static archives.
 # this is GNU ld.

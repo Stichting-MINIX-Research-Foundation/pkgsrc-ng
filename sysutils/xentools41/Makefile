@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.35 2013/06/04 07:38:49 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/02/13 11:12:58 drochner Exp $
 #
 # VERSION is set in version.mk as it is shared with other packages
 .include		"version.mk"
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools41-${VERSION}
-PKGREVISION=		1
+PKGREVISION=		3
 CATEGORIES=		sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -27,6 +27,8 @@ BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 .if !exists(/usr/bin/iasl)
 BUILD_DEPENDS+= acpica-utils-[0-9]*:../../sysutils/acpica-utils
 .endif
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
 
 PKG_SYSCONFSUBDIR=	xen
 
@@ -60,25 +62,25 @@ MAKE_ENV+=		V=YES
 #MAKE_ENV+=		INSTALL_PROG=${BSD_INSTALL_PROGRAM}
 
 PY_PATCHPLIST=		yes
-#PYTHON_PATCH_SCRIPTS+=	misc/xm
-#PYTHON_PATCH_SCRIPTS+=	misc/netfix
-#PYTHON_PATCH_SCRIPTS+=	misc/xen-bugtool
-#PYTHON_PATCH_SCRIPTS+=	misc/xencons
-#PYTHON_PATCH_SCRIPTS+=	misc/xend
-#PYTHON_PATCH_SCRIPTS+=	misc/xensymoops
-#PYTHON_PATCH_SCRIPTS+=	misc/xen-python-path
-#PYTHON_PATCH_SCRIPTS+=	pygrub/src/pygrub
-#PYTHON_PATCH_SCRIPTS+=	python/xen/util/*.py
-#PYTHON_PATCH_SCRIPTS+=	python/xen/xend/*.py
-#PYTHON_PATCH_SCRIPTS+=	python/xen/xm/*.py
-#PYTHON_PATCH_SCRIPTS+=	python/xen/util/*.py
-#PYTHON_PATCH_SCRIPTS+=	python/*.py
-#PYTHON_PATCH_SCRIPTS+=	security/python/xensec_gen/cgi-bin/policy.cgi
-#PYTHON_PATCH_SCRIPTS+=	security/python/xensec_gen/*.py
-#PYTHON_PATCH_SCRIPTS+=	security/python/*.py
-#PYTHON_PATCH_SCRIPTS+=	security/*.py
-#PYTHON_PATCH_SCRIPTS+=	xenmon/*.py
-#PYTHON_PATCH_SCRIPTS+=	xentrace/xentrace_format
+#REPLACE_PYTHON+=	misc/xm
+#REPLACE_PYTHON+=	misc/netfix
+#REPLACE_PYTHON+=	misc/xen-bugtool
+#REPLACE_PYTHON+=	misc/xencons
+#REPLACE_PYTHON+=	misc/xend
+#REPLACE_PYTHON+=	misc/xensymoops
+#REPLACE_PYTHON+=	misc/xen-python-path
+#REPLACE_PYTHON+=	pygrub/src/pygrub
+#REPLACE_PYTHON+=	python/xen/util/*.py
+#REPLACE_PYTHON+=	python/xen/xend/*.py
+#REPLACE_PYTHON+=	python/xen/xm/*.py
+#REPLACE_PYTHON+=	python/xen/util/*.py
+#REPLACE_PYTHON+=	python/*.py
+#REPLACE_PYTHON+=	security/python/xensec_gen/cgi-bin/policy.cgi
+#REPLACE_PYTHON+=	security/python/xensec_gen/*.py
+#REPLACE_PYTHON+=	security/python/*.py
+#REPLACE_PYTHON+=	security/*.py
+#REPLACE_PYTHON+=	xenmon/*.py
+#REPLACE_PYTHON+=	xentrace/xentrace_format
 
 REPLACE_PYTHON+=	python/xen/remus/*.py
 REPLACE_PYTHON+=	python/xen/util/*.py
@@ -173,7 +175,7 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/xmdomain.cfg.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 	${INSTALL_DATA} ${WRKDIR}/xm.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" && !exists(/var/shm)
 CPPFLAGS+=	-Dshm_open=open -Dshm_unlink=unlink
 .endif
 
@@ -183,7 +185,9 @@ EXTRA_HOSTCFLAGS+=	-Wno-error=ignored-attributes
 EXTRA_CFLAGS+=	-Wno-error=ignored-attributes -no-integrated-as \
 		-Wno-error=tautological-compare -Wno-error=null-dereference \
 		-Wno-error=empty-body -Wno-error=self-assign \
-		-Wno-error=sometimes-uninitialized
+		-Wno-error=sometimes-uninitialized -Wno-error=unused-function
+BUILDLINK_TRANSFORM+=	rm:-falign-jumps=1 rm:-falign-loops=1 \
+			rm:-mpreferred-stack-boundary=2
 .endif
 
 MAKE_ENV+=	EXTRA_HOSTCFLAGS=${EXTRA_HOSTCFLAGS:Q} EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

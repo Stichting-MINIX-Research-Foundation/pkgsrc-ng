@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.116 2013/06/06 12:55:13 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.126 2014/02/12 23:18:47 tron Exp $
 
 DISTNAME=		gnome-applets-2.32.1.1
-PKGREVISION=		28
+PKGREVISION=		36
 CATEGORIES=		x11 gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-applets/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -15,6 +14,8 @@ GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2
 
 .include "options.mk"
 
@@ -53,8 +54,8 @@ PRINT_PLIST_AWK+=	/examples/ { print "$${PLIST.battstat}"$$0; next; }
 .include "../../devel/GConf/schemas.mk"
 
 PY_PATCHPLIST=	yes
-PYTHON_PATCH_SCRIPTS+=	invest-applet/invest/invest-applet.py
-PYTHON_PATCH_SCRIPTS+=	invest-applet/invest/invest-chart
+REPLACE_PYTHON+=	invest-applet/invest/invest-applet.py
+REPLACE_PYTHON+=	invest-applet/invest/invest-chart
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.glib2+=			glib2>=2.18.0

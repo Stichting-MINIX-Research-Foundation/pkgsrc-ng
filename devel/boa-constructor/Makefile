@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.25 2013/06/06 12:54:11 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.28 2014/01/25 10:30:00 wiz Exp $
 
 VERSION=		0.6.1
 DISTNAME=		boa-constructor-${VERSION}.src
 PKGNAME=		boa-constructor-${VERSION}
-PKGREVISION=		20
+PKGREVISION=		22
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=boa-constructor/}
 EXTRACT_SUFX=		.zip
@@ -24,6 +23,8 @@ INSTALLATION_DIRS=	bin ${BOADIR}
 SEDSUBSTS=	-e "s|@PYTHONBIN@|${PYTHONBIN}|"
 SEDSUBSTS+=	-e "s|@PREFIX@|${PREFIX}|"
 SEDSUBSTS+=	-e "s|@VERSION@|${VERSION}|"
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-wxWidgets
 
 REPLACE_PYTHON+=	Boa.py
 REPLACE_PYTHON+=	Examples/advanced/FramePanels/wxApp1.py

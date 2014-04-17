@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.95 2013/06/06 12:54:27 wiz Exp $
+# $NetBSD: Makefile,v 1.103 2014/02/12 23:17:59 tron Exp $
 
-DISTNAME=	blender-2.66a
-PKGREVISION=	4
+DISTNAME=	blender-2.69
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.blender.org/source/
 
@@ -24,11 +24,8 @@ FIND_PREFIX:=		SCONSDIR=scons
 
 INSTALLATION_DIRS=	bin share/blender
 
-.if ${OPSYS} == "NetBSD"
-# This doesn't seem right...
-.if !empty(OS_VERSION:M6.99.*) || !empty(OS_VERSION:M7.*)
+.if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
 LDFLAGS+=	-lexecinfo
-.endif
 .endif
 
 # To pass LDFLAGS to compiler/linker
@@ -44,8 +41,10 @@ SCONS_ARGS+=	WITH_BF_JACK=False
 SCONS_ARGS+=	WITH_BF_OPENAL=False
 SCONS_ARGS+=	WITH_BF_SNDFILE=False
 SCONS_ARGS+=	WITH_BF_FFMPEG=False
+SCONS_ARGS+=	WITH_BF_3DMOUSE=False
 
 SCONS_ARGS+=	BF_PYTHON=${PREFIX}
+SCONS_ARGS+=	BF_PYTHON_ABI_FLAGS=''
 SCONS_ARGS+=	BF_SDL=${BUILDLINK_PREFIX.SDL}
 SCONS_ARGS+=	BF_OPENEXR=${BUILDLINK_PREFIX.openexr}
 SCONS_ARGS+=	BF_JPEG=${BUILDLINK_PREFIX.jpeg}
@@ -68,11 +67,14 @@ do-build:
 
 # build is done in install phase.
 do-install:
-	cd ${WRKSRC} && \
-		${SCONSDIR}/bin/scons ${SCONS_ARGS}
+	cd ${WRKSRC:Q} && ${PKGSRC_SETENV} ${MAKE_ENV}			\
+		${SCONSDIR}/bin/scons ${SCONS_ARGS} ${_MAKE_JOBS}
 
 CHECK_INTERPRETER_SKIP=	share/blender/${DISTNAME:S/blender-//:C/[a-z]//}/scripts/*.py share/blender/${DISTNAME:S/blender-//:C/[a-z]//}datafiles/*.py \
 			share/blender/${DISTNAME:S/blender-//:C/[a-z]//}/python/lib/python3.3/venv/scripts/posix/pydoc
+
+REPLACE_PYTHON+=	release/bin/blender-thumbnailer.py
+REPLACE_PYTHON+=	intern/cycles/kernel/SConscript
 
 post-install:
 	${LN} -sf ${PREFIX}/share/blender/blender \

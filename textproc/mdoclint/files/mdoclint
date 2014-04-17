@@ -1,7 +1,7 @@
 #!@PERL5@
 #
-# $OpenBSD: mdoclint,v 1.14 2009/04/13 12:40:05 espie Exp $
-# $NetBSD: mdoclint,v 1.33 2013/06/02 11:58:36 wiz Exp $
+# $OpenBSD: mdoclint,v 1.42 2014/03/18 22:36:30 miod Exp $
+# $NetBSD: mdoclint,v 1.47 2014/03/19 07:34:10 wiz Exp $
 #
 # Copyright (c) 2001-2013 Thomas Klausner
 # All rights reserved.
@@ -38,25 +38,27 @@ use Getopt::Std;
 
 use constant {
 	OPENBSD => 0,
-	NETBSD => 1
+	NETBSD => 1,
+	SECTION_SEE_ALSO => 2,
+	SECTION_AUTHORS => 3
 };
 
 use vars qw(
-    	$opt_A $opt_a $opt_D $opt_d $opt_e $opt_F $opt_f $opt_H $opt_h $opt_l
+	$opt_A $opt_a $opt_D $opt_d $opt_e $opt_F $opt_f $opt_H $opt_h $opt_l
 	$opt_m
-	$opt_n $opt_O $opt_o $opt_P $opt_p $opt_r $opt_S $opt_s $opt_v $opt_w
+	$opt_n $opt_o $opt_P $opt_p $opt_r $opt_S $opt_s $opt_v $opt_w
 	$opt_X $opt_x
 );
 
 
 my $arch=`uname -m`;
 chomp($arch);
-my $options="AaDdeFfHhlmnOoPprSsvwXx";
+my $options="AaDdeFfHhlmnoPprSsvwXx";
 
 sub usage
 	{
-	my $default = OPENBSD ? "-aDdfmnoPprSsXx" : "-aDdeflmnoPprSsXx";
-	
+	my $default = OPENBSD ? "-AaDdfmnoPprSsXx" : "-AaDdeflmnoPprSsXx";
+
 	print STDERR <<"EOF";
 mdoclint: verify man page correctness
 usage:	mdoclint [-$options] file ...
@@ -72,7 +74,6 @@ usage:	mdoclint [-$options] file ...
 	-l	warn about unknown libraries
 	-m	warn about man pages that are not in mdoc(7) format
 	-n	warn about .Nd's ending in '.'
-	-O	warn about unsorted .It arguments
 	-o	warn about non-empty .Os strings
 	-P	warn about paragraph problems
 	-p	warn about punctuation problems
@@ -81,7 +82,7 @@ usage:	mdoclint [-$options] file ...
 	-s	warn about whitespace problems
 	-v	verbose output
 	-w	show section header in warnings
-	-X	warn about explicit mentions of FreeBSD, NetBSD, or OpenBSD
+	-X	warn about explicit mentions of the *BSD system names
 	-x	warn about cross-references with missing targets
 Default is $default if no flag is specified.
 EOF
@@ -92,6 +93,7 @@ EOF
 my %short = (
     "Free" => ".Fx",
     "Net" => ".Nx",
+    "DragonFly" => ".Dx",
     "Open" => ".Ox"
 );
 
@@ -175,6 +177,7 @@ my $valid_date_re;
 		"DIAGNOSTICS",
 		NETBSD ? "COMPATIBILITY" : undef,
 		"ERRORS",
+		NETBSD ? "CODE REFERENCES" : undef,
 		"SEE ALSO",
 		"STANDARDS",
 		"HISTORY",
@@ -193,16 +196,16 @@ my $valid_date_re;
 	my @arches;
 	if (OPENBSD) {
 		@arches =
-		    (qw(alpha amd64 arm armish aviion beagle cats hp300 hppa
+		    (qw(alpha amd64 arm armish armv7 aviion cats hppa
 		    hppa64 i386 landisk loongson luna88k macppc mips64
-		    mvme68k mvme88k octeon sgi socppc sparc sparc64 vax
+		    octeon sgi socppc sparc sparc64 vax
 		    zaurus));
 	}
 	if (NETBSD) {
 		@arches =
 		    (qw(acorn26 acorn32 algor alpha amiga arc atari
 		    bebox cats cesfic cobalt dreamcast evbarm evbmips evbppc
-		    evbsh3 evbsh5 hp300 hp700 hpcarm hpcmips hpcsh
+		    evbsh3 evbsh5 hp300 hpcarm hpcmips hpcsh hppa
 		    i386 ibmnws luna68k mac68k macppc mipsco mmeye
 		    mvme68k mvmeppc netwinder news68k newsmips next68k
 		    pc532 playstation2 pmax pmppc prep sandpoint sbmips
@@ -216,14 +219,14 @@ my $valid_date_re;
 		$esections_re = qr{(?:3p|[0-9])}o;
 	}
 	if (NETBSD) {
-		$sections_re = qr{[1-9]}o;
-		$esections_re = qr{[0-9]}o;
+		$sections_re = qr{[1-9](?:lua)?}o;
+		$esections_re = qr{[0-9](?:lua)?}o;
 	}
 	if (OPENBSD) {
 		$valid_date_re = qr{\$Mdocdate\b};
 	}
 	if (NETBSD) {
-		$valid_date_re = qr{(?:January|February|March|April|May|June|July|August|September|October|November|December)\s*[1-9][0-9]*,\s*(?:198[0-9]|199[0-9]|200[0-9]|201[0-3])$}o;
+		$valid_date_re = qr{(?:January|February|March|April|May|June|July|August|September|October|November|December)\s*[1-9][0-9]*,\s*(?:198[0-9]|199[0-9]|200[0-9]|201[0-4])$}o;
 	}
 }
 
@@ -243,23 +246,6 @@ sub warning
 	print STDOUT "$self->{fn}:$extra$self->{ln}: ", join('', @_), "\n";
 }
 
-my $order = " !\"#\$\%&'()*+,-./:;<=>?[\\]^_{|}~".
-	"0123456789".
-	"AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz";
-
-sub forder {
-	my ($a, $b, $c, $len, $i);
-	$a = $_[0];
-	$b = $_[1];
-	$len = (length($a) < length($b))? length($a) : length($b);
-	for($i = 0; $i<=$len; $i++) {
-		$c = (index($order,substr($a,$i,1)) <=> index($order,substr($b,$i,1)));
-		if($c){ return $c };
-	}
-	return (length($a) <=> length($b));
-}
-
-
 sub handle_options
 {
 	getopts($options);
@@ -268,11 +254,11 @@ sub handle_options
 	# default to all warnings if no flag is set
 	unless ($opt_A or $opt_a or $opt_D or $opt_d or $opt_e
 		or $opt_f or $opt_H or $opt_l
-		or $opt_m or $opt_n or $opt_O
+		or $opt_m or $opt_n
 		or $opt_o or $opt_P or $opt_p or $opt_r
 		or $opt_S or $opt_s or $opt_X or $opt_x) {
 		$opt_A = $opt_a = $opt_D = $opt_d = $opt_f = $opt_m =
-		    $opt_n = $opt_O = $opt_o = $opt_P = $opt_p = $opt_r = $opt_S =
+		    $opt_n = $opt_o = $opt_P = $opt_p = $opt_r = $opt_S =
 		    $opt_s = $opt_X = $opt_x = 1;
 		$opt_e = $opt_l = 1 if NETBSD;
 	}
@@ -315,7 +301,8 @@ sub new
 		sasection => 0,
 		saname => '',
 		sarest => ',',
-		insa => 0,
+		inauthors => 0,
+		in_section => 0,
 		inliteral => 0,
 		shseen => {},
 		last_error_name => '',
@@ -364,22 +351,37 @@ sub parse_macro_args
 	return @params;
 }
 
+sub end_of_section
+{
+	my ($s) = @_;
+
+	if ($s->{in_section} == SECTION_SEE_ALSO and not $s->{sarest} eq "") {
+		$s->warning("unneeded characters at end of SEE ALSO: ",
+		    "`$s->{sarest}'") if $opt_a;
+		# to avoid a second warning at EOF
+		$s->{sarest} = "";
+	}
+
+	if ($s->{in_section} == SECTION_AUTHORS) {
+	    if (!$s->{an_found}) {
+		$s->warning("missing .An in AUTHORS section") if $opt_A;
+	    }
+	}
+}
+
 sub set_section_header
 {
 	my ($s, $section_header) = @_;
 	$section_header = join(' ', $s->parse_macro_args($section_header));
 
+	end_of_section($s);
+
 	if ($section_header eq 'SEE ALSO') {
-		$s->{insa} = 1;
-	} elsif ($s->{insa} == 1) {
-		if (not $s->{sarest} eq "") {
-			$s->warning("unneeded characters at end of ",
-			    "SEE ALSO: ", "`$s->{sarest}'") if $opt_a;
-			# to avoid a second warning at EOF
-			$s->{sarest} = "";
-		}
-		# finished SEE ALSO section
-		$s->{insa} = 2;
+		$s->{in_section} = SECTION_SEE_ALSO;
+	} elsif ($section_header eq 'AUTHORS') {
+		$s->{in_section} = SECTION_AUTHORS;
+	} else {
+		$s->{in_section} = 0;
 	}
 
 	if (not $sections{$section_header}) {
@@ -461,17 +463,19 @@ sub process_line
 
 	if ($s->{mandoc_p}) {
 		if (/^\.Sh\s+(.*)$/o) {
+			my $line = $_;
 			$s->set_section_header($1);
-			return "$_\n";
+			return "$line\n";
 		}
 	} else {
 		if (/^\.SH\s+(.*)$/o) {
+			my $line = $_;
 			$s->set_section_header($1);
-			return "$_\n";
+			return "$line\n";
 		}
 	}
 
-	if ($s->{insa} == 1) {
+	if ($s->{in_section} == SECTION_SEE_ALSO) {
 		if (/^\.Xr\s+(\S+)\s+($sections_re)\s?(.*)?$/o) {
 			my ($saname, $sasection, $sarest) = ($1, $2, $3);
 			$saname =~ s/^\\&//o;
@@ -499,6 +503,11 @@ sub process_line
 			$s->{sarest} = "";
 		}
 	}
+	if ($s->{in_section} == SECTION_AUTHORS) {
+		if (/^\.An / && not /^\.An -(no|)split/) {
+			$s->{an_found} = 1;
+		}
+	}
 
 	if (/^\.Fn.*,.+/o) {
 		$s->warning("possible .Fn misuse: `$_'") if $opt_f;
@@ -516,15 +525,16 @@ sub process_line
 		}
 	}
 
-	if (/\b(Free|Net|Open)BSD\b/o
-	    and not /\b(?:www|ftp)\.(?:Free|Net|Open)BSD\.org\b/o
+	if (/\b(Free|Net|DragonFly|Open)BSD\b/o
+	    and not /\b(?:www|ftp)\.(?:Free|Net|DragonFly|Open)BSD\.org\b/o
 	    and not /\bOpenBSD\::.*3p\b/o
 	    and not /\/pub\/OpenBSD\//o
 	    and not /\@(?:Free|Net|Open)BSD\.(?i:org)\b/o) {
 		$s->warning("verbose mention of `$1BSD' instead of "
 		    . "`$short{$1}': `$_'") if $opt_X;
 	}
-	if (/^\./o and (/Bx (Open)/o or /Bx (Free)/o or /Bx (Net)/o)) {
+	if (/^\./o and (/Bx (Open)/o or /Bx (Free)/o
+			or /Bx (DragonFly)/o or /Bx (Net)/o)) {
 		$s->warning("`.Bx $1' found -- use $short{$1} instead")
 		    if $opt_X;
 	}
@@ -614,8 +624,8 @@ sub process_line
 	/^\.Bl\s+/o and $s->{last_error_name} = "";
 
 	if ($s->{current_section_header} eq "ERRORS" and
-	    /^\.It\s+Bq\s+Er\s+(E[\w_]+)$/o) {
-		my $current_error_name = $1;
+	    /^\.It\s+(Bq\s+)?(Er\s+)?(E[\w_]+)$/o) {
+		my $current_error_name = $3;
 
 		if ($s->{last_error_name} eq $current_error_name) {
 			$s->warning("Duplicate item for ",
@@ -647,10 +657,7 @@ sub finish
 		$s->warning("Paragraph problem: .Pp at EOF") if $opt_P;
 	}
 
-	if ($s->{insa} > 0 and not $s->{sarest} eq "") {
-		$s->warning("unneeded characters at end of SEE ALSO: ",
-		    "`$s->{sarest}'") if $opt_a;
-	}
+	end_of_section($s);
 
 #    	if (not ($fn =~ /$section$/)) {
 #		$s->warning("section doesn't match (internal value: $section)");

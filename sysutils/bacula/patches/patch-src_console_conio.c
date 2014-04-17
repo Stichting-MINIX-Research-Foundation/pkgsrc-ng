@@ -1,19 +1,26 @@
-$NetBSD: patch-src_console_conio.c,v 1.1 2012/10/06 17:54:53 christos Exp $
+$NetBSD: patch-src_console_conio.c,v 1.3 2014/01/22 10:45:21 jperkin Exp $
 
 - need termios.h, our term.h does not include it
 - t_insert_line and t_delete_line are macros in term.h; undef them
+- spell HAVE_TERM_H correctly
 
---- src/console/conio.c.orig	2012-09-13 04:51:19.000000000 -0400
-+++ src/console/conio.c	2012-10-05 11:29:38.000000000 -0400
-@@ -61,6 +61,7 @@
+--- src/console/conio.c.orig	2013-02-19 19:21:35.000000000 +0000
++++ src/console/conio.c
+@@ -64,11 +64,12 @@
  
- #endif
+ #ifdef HAVE_CONIO
  
 +#include <termios.h>
  #include <curses.h>
  #include <term.h>
  
-@@ -245,7 +246,9 @@
+ #if defined(HAVE_SUN_OS)
+-#if !defined(_TERM_H)
++#if !defined(HAVE_TERM_H)
+ extern "C" int tgetent(void *, const char *);
+ extern "C" int tgetnum(const char *);
+ extern "C" char *tgetstr (const char*, char**);
+@@ -250,7 +251,9 @@ static char * getnext(void);
  static char * getprev(void);
  static void putline(char *newl, int newlen);
  static void t_honk_horn(void);

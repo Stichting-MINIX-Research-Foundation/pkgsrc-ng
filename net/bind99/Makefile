@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.26.2.3 2013/07/27 11:35:40 tron Exp $
+# $NetBSD: Makefile,v 1.34 2014/03/11 14:34:38 jperkin Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/ \
 		http://ftp.belnet.be/pub/mirror/ftp.isc.org/isc/bind9/${BIND_VERSION}/
@@ -14,7 +15,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.9.3-P2
+BIND_VERSION=	9.9.5
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -66,6 +67,7 @@ PLIST.inet6=	yes
 .endif
 
 RCD_SCRIPTS=		lwresd named9
+SMF_METHODS=		named
 
 INSTALLATION_DIRS=	${DOCDIR} share/doc/bind9/arm
 

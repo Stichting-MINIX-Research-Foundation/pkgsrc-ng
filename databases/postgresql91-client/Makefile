@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2013/02/09 11:19:15 adam Exp $
+# $NetBSD: Makefile,v 1.17 2014/02/23 11:25:52 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/91-client-/}
 COMMENT=	PostgreSQL database client programs
@@ -14,7 +14,7 @@ CONFIGURE_ARGS+=	--with-zlib
 # NetBSD earler than 4.0 or DragonFly.
 # 2. configure with --enable-thread-safety fails on OpenBSD.
 .if (${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[0-3].*)) || \
-    ${OPSYS} == "DragonFly" || ${OPSYS} == "OpenBSD"
+    ${OPSYS} == "DragonFly" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "MirBSD"
 PGSQL_THREAD_SAFETY?=	no
 .endif
 PGSQL_THREAD_SAFETY?=	yes
@@ -40,8 +40,6 @@ CONF_FILES+=	share/postgresql/${f}.sample ${PKG_SYSCONFDIR}/${f}
 .endfor
 
 # XXX work around core dumps with the native libedit
-USE_GNU_READLINE=	yes
-
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

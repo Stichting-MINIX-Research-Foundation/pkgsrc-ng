@@ -1,10 +1,10 @@
-# $NetBSD: options.mk,v 1.7 2013/05/16 12:04:57 obache Exp $
+# $NetBSD: options.mk,v 1.12 2014/02/28 12:28:32 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.squid
 PKG_SUPPORTED_OPTIONS=	inet6 snmp ssl squid-backend-aufs squid-backend-diskd \
 		squid-backend-rock squid-backend-ufs squid-carp squid-unlinkd \
 		squid-kerberos-helper squid-ldap-helper squid-pam-helper
-PKG_OPTIONS_LEGACY_OPTS=	diskd:squid-backend-diskd \
+PKG_OPTIONS_LEGACY_OPTS+=	diskd:squid-backend-diskd \
 	null:squid-backend-null ufs:squid-backend-ufs \
 	linux-netfilter:squid-netfilter ipf-transparent:squid-ipf \
 	pf-transparent:squid-pf unlinkd:squid-unlinkd \
@@ -16,6 +16,7 @@ PLIST_VARS+=	da_file da_LDAP
 PLIST_VARS+=	na_SMB
 PLIST_VARS+=	ta_kerberos
 PLIST_VARS+=	eacl_file_userip eacl_LDAP_group eacl_unix_group
+PLIST_VARS+=	ssl
 
 PKG_SUGGESTED_OPTIONS=	inet6 snmp ssl squid-backend-diskd squid-carp \
 		squid-pam-helper squid-unlinkd
@@ -59,7 +60,7 @@ PKG_SUPPORTED_OPTIONS+=	squid-arp-acl
 SQUID_BACKENDS?=		ufs
 SQUID_BASIC_AUTH_HELPERS?=	MSNT NCSA NIS getpwnam
 SQUID_DIGEST_AUTH_HELPERS?=	file
-SQUID_NTLM_AUTH_HELPERS?=	SMB
+SQUID_NTLM_AUTH_HELPERS?=	fake
 SQUID_EXTERNAL_ACL_HELPERS?=	file_userip unix_group
 
 # squid's code has preference as:
@@ -90,7 +91,10 @@ CONFIGURE_ARGS+=	--disable-ipv6
 
 .if !empty(PKG_OPTIONS:Msquid-kerberos-helper)
 .include "../../mk/krb5.buildlink3.mk"
+CONFIGURE_ARGS+=	--with-krb5-config=${KRB5_CONFIG:Q}
 SQUID_NEGOTIATE_AUTH_HELPERS+=	kerberos
+.else
+CONFIGURE_ARGS+=	--with-krb5-config=no
 .endif
 
 .if !empty(PKG_OPTIONS:Msquid-ldap-helper)
@@ -115,6 +119,7 @@ CONFIGURE_ARGS+=	--disable-snmp
 .if !empty(PKG_OPTIONS:Mssl)
 CONFIGURE_ARGS+=	--enable-ssl --with-openssl=${SSLBASE:Q}
 .  include "../../security/openssl/buildlink3.mk"
+PLIST.ssl=		yes
 .endif
 
 .if !empty(PKG_OPTIONS:Msquid-backend-aufs)
@@ -196,10 +201,10 @@ CONFIGURE_ARGS+=	--enable-external-acl-helpers=${SQUID_EXTERNAL_ACL_HELPERS:Q}
 .  for i in ${SQUID_EXTERNAL_ACL_HELPERS}
 PLIST.eacl_${i}=	yes
 .  endfor
-.PHONY: squid-enable-helper-external_auth
-pre-configure: squid-enable-helper-external_auth
-squid-enable-helper-external_auth:
-.  for i in ${SQUID_EXTERNAL_AUTH_HELPERS}
-	${ECHO} "exit 0" > ${WRKSRC}/helpers/external_auth/${i}/config.test
+.PHONY: squid-enable-helper-external_acl
+pre-configure: squid-enable-helper-external_acl
+squid-enable-helper-external_acl:
+.  for i in ${SQUID_EXTERNAL_ACL_HELPERS}
+	${ECHO} "exit 0" > ${WRKSRC}/helpers/external_acl/${i}/config.test
 .  endfor
 .endif

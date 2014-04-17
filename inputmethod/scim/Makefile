@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/06/06 12:53:47 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2014/02/12 23:18:05 tron Exp $
 #
 
 DISTNAME=		scim-1.4.14
-PKGREVISION=		12
+PKGREVISION=		17
 CATEGORIES=		inputmethod
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scim/}
 
@@ -45,6 +45,8 @@ PTHREAD_AUTO_VARS=	yes
 .if ${OPSYS} == "SunOS"
 CONFIGURE_ENV+=		ac_cv_func_gethostbyname_r=no
 LDFLAGS.SunOS+=		-lsocket -lnsl
+.elif ${OPSYS} == "NetBSD"
+CONFIGURE_ENV+=		ac_cv_func_gethostbyname_r=no
 .endif
 
 .include "../../devel/gettext-lib/buildlink3.mk"

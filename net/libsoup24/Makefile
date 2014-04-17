@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.56 2013/06/10 18:57:55 joerg Exp $
+# $NetBSD: Makefile,v 1.60 2014/01/19 13:05:04 wiz Exp $
 
-DISTNAME=	libsoup-2.42.2
+DISTNAME=	libsoup-2.44.2
 PKGNAME=	${DISTNAME:S/libsoup/libsoup24/}
-PKGREVISION=	3
 CATEGORIES=	net gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.42/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.44/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -31,6 +30,8 @@ TEST_TARGET=	check
 .include "../../mk/compiler.mk"
 .if !empty(CC_VERSION:Mgcc-4.[01].*) || !empty(CC_VERSION:Mgcc-[1-3].*)
 CONFIGURE_ARGS+= 	--disable-more-warnings
+.elif !emptry(CC_VERSION:Mgcc-4.[8].*)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-error=format-zero-length
 .endif
 
 .if !empty(PKGSRC_COMPILER:Mclang)

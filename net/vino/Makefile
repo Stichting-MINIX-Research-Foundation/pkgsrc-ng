@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.67 2013/06/06 12:54:58 wiz Exp $
+# $NetBSD: Makefile,v 1.75 2014/02/12 23:18:27 tron Exp $
 
-DISTNAME=	vino-2.28.3
-PKGREVISION=	21
+DISTNAME=	vino-2.32.2
+PKGREVISION=	7
 CATEGORIES=	net gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vino/2.28/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vino/2.32/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnome.org/
 COMMENT=	VNC server for GNOME
+LICENSE=	gnu-gpl-v2
 
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes

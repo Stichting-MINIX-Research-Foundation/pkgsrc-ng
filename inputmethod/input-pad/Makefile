@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2013/06/06 12:53:55 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2013/12/07 11:32:31 obache Exp $
 #
 
 .include "Makefile.common"
-PKGREVISION=	9
 
 MAINTAINER=	obache@NetBSD.org
 COMMENT=	On-screen Input Pad to Send Characters with Mouse
@@ -14,14 +13,17 @@ USE_TOOLS+=		gmake pkg-config intltool msgfmt xgettext msgmerge
 
 PKGCONFIG_OVERRIDE+=	input-pad.pc.in
 
-CONFIGURE_ARGS+=	--enable-python=no
+CONFIGURE_ARGS+=	--enable-pygobject2=no
+CONFIGURE_ARGS+=	--disable-maintainer-mode
+
+MANCOMPRESSED=		yes
 
 .include "options.mk"
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libxkbfile/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libxklavier+=	libxklavier>=4.0

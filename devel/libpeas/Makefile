@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2013/06/06 12:53:47 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2014/02/12 18:11:27 drochner Exp $
 #
 
-DISTNAME=	libpeas-1.6.2
-PKGREVISION=	4
+DISTNAME=	libpeas-1.8.1
 CATEGORIES=	devel gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libpeas/1.6/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libpeas/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -16,7 +15,13 @@ USE_PKGLOCALEDIR=	yes
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config intltool gmake msgfmt
+USE_TOOLS+=	gmake intltool msgfmt pkg-config gsed
+
+PYTHON_VERSIONS_INCOMPATIBLE=	26 27
+
+.include "../../lang/python/pyversion.mk"
+CONFIGURE_ARGS+=	--disable-python2
+CONFIGURE_ENV+=		PYTHON3_CONFIG=/usr/pkg/bin/python${PYVERSSUFFIX}-config
 
 PKGCONFIG_OVERRIDE+=	data/libpeas-gtk-1.0.pc.in
 PKGCONFIG_OVERRIDE+=	data/libpeas-1.0.pc.in
@@ -24,5 +29,6 @@ PKGCONFIG_OVERRIDE+=	data/libpeas-1.0.pc.in
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../devel/py-gobject3/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

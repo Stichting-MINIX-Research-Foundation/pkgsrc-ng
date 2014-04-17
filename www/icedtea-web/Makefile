@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.25 2013/06/06 12:55:11 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.33 2014/02/12 23:18:45 tron Exp $
 
-DISTNAME=	icedtea-web-9e1f7dc48c20
+# Keep icedtea-web distfile in sync with lang/openjdk7/icedtea-extras.mk
+DISTNAME=	icedtea-web-81dfc0552a1c
 PKGNAME=	icedtea-web-1.5pre
-PKGREVISION=	3
+PKGREVISION=	10
 CATEGORIES=	www
-MASTER_SITES=	-http://icedtea.classpath.org/hg/icedtea-web/archive/9e1f7dc48c20.tar.bz2
+MASTER_SITES=	-http://icedtea.classpath.org/hg/icedtea-web/archive/81dfc0552a1c.tar.bz2
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -14,8 +14,9 @@ COMMENT=	Java browser plugin and Web Start launcher
 #LICENSE=	# GPL2 + Classpath exception
 
 GNU_CONFIGURE=		yes
-USE_LANGUAGES+=		c c++
-USE_TOOLS+=		autoconf automake gmake gsed perl pkg-config zip
+USE_LANGUAGES=		c c++
+USE_TOOLS+=		autoconf automake bash gmake gsed perl pkg-config zip
+LICENSE=		gnu-gpl-v2
 
 REPLACE_PERL=		javac.in
 
@@ -36,9 +37,8 @@ post-install:
 		${LN} -s ../../IcedTeaPlugin.so IcedTeaPlugin.so
 	${RM} -r ${DESTDIR}/${PREFIX}/bin ${DESTDIR}/${PREFIX}/man
 
-BUILDLINK_API_DEPENDS.xulrunner17+=       xulrunner17>=17.0.6nb1
-.include "../../devel/xulrunner17/buildlink3.mk"
-BUILDLINK_API_DEPENDS.openjdk7+=       openjdk7>=1.7.0.147
+.include "../../devel/xulrunner24/buildlink3.mk"
+BUILDLINK_API_DEPENDS.openjdk7+=openjdk7>=1.7.25nb4
 .include "../../lang/openjdk7/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

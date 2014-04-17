@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.23 2013/06/06 12:53:58 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.26 2013/10/10 14:41:52 ryoon Exp $
 
 BUILDLINK_TREE+=	m17n-im-config
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	m17n-im-config
 M17N_IM_CONFIG_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.m17n-im-config+=	m17n-im-config>=0.9.0
-BUILDLINK_ABI_DEPENDS.m17n-im-config+=	m17n-im-config>=0.9.0nb20
+BUILDLINK_ABI_DEPENDS.m17n-im-config+=	m17n-im-config>=0.9.0nb23
 BUILDLINK_PKGSRCDIR.m17n-im-config?=	../../inputmethod/m17n-im-config
 
 .include "../../devel/gettext-lib/buildlink3.mk"

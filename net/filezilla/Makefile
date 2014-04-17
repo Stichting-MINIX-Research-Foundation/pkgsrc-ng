@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.43.2.1 2013/08/21 21:59:57 tron Exp $
-#
+# $NetBSD: Makefile,v 1.50 2014/02/16 23:20:58 wiz Exp $
 
-VERSION=	3.7.2
+VERSION=	3.7.3
 DISTNAME=	FileZilla_${VERSION}_src
 PKGNAME=	filezilla-${VERSION}
+PKGREVISION=	4
 CATEGORIES=	net x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=filezilla/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +19,6 @@ USE_TOOLS+=	gmake pkg-config msgfmt msgmerge
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 CONFIGURE_ARGS+=	--disable-autoupdatecheck
-CONFIGURE_ARGS+=	--with-tinyxml=builtin
 # avoid xdg-utils dependency
 CONFIGURE_ENV+=		ac_cv_path_xdgopen=firefox
 
@@ -30,5 +29,7 @@ CONFIGURE_ENV+=		ac_cv_path_xdgopen=firefox
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+BUILDLINK_API_DEPENDS.tinyxml+=	tinyxml>=2.6.2nb1
+.include "../../textproc/tinyxml/buildlink3.mk"
 .include "../../x11/wxGTK28/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

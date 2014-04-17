@@ -1,4 +1,4 @@
-# $NetBSD: tools.NetBSD.mk,v 1.47 2013/05/09 23:33:53 riastradh Exp $
+# $NetBSD: tools.NetBSD.mk,v 1.51 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the NetBSD operating system.
 
@@ -84,6 +84,7 @@ TOOLS_PLATFORM.readelf?=	/usr/bin/readelf
 .else
 TOOLS_PLATFORM.readelf?=	${TOOLDIR}/bin/${MACHINE_GNU_PLATFORM}-readelf
 .endif
+TOOLS_PLATFORM.readlink?=	/usr/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 TOOLS_PLATFORM.sdiff?=		/usr/bin/sdiff
@@ -112,13 +113,17 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
-TOOLS_PLATFORM.wc?=		/usr/bin/wc
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
 .if exists(/usr/bin/unzip)
 TOOLS_PLATFORM.unzip?=		/usr/bin/unzip
 .endif
+TOOLS_PLATFORM.wc?=		/usr/bin/wc
 TOOLS_PLATFORM.xargs?=		/usr/bin/xargs
 .if exists(/usr/bin/xgettext)
 TOOLS_PLATFORM.xgettext?=	/usr/bin/xgettext
+.endif
+.if exists(/usr/bin/xz)
+TOOLS_PLATFORM.xz?=		/usr/bin/xz
 .endif
 .if exists(/usr/bin/xzcat)
 TOOLS_PLATFORM.xzcat?=		/usr/bin/xzcat

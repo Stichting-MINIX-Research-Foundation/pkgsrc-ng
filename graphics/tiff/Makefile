@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.112 2013/05/02 14:52:44 drochner Exp $
+# $NetBSD: Makefile,v 1.116 2013/09/21 18:47:05 dholland Exp $
 
 DISTNAME=	tiff-4.0.3
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.remotesensing.org/pub/libtiff/ \
 		http://libtiff.maptools.org/dl/
@@ -38,5 +38,6 @@ post-install:
 .include "../../devel/zlib/buildlink3.mk"
 # XXX for liblzma; there are more potential suppliers
 .include "../../archivers/xz/buildlink3.mk"
+.include "../../graphics/jbigkit/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

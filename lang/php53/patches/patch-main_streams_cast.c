@@ -1,4 +1,4 @@
-$NetBSD: patch-main_streams_cast.c,v 1.1.14.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-main_streams_cast.c,v 1.2 2013/07/12 00:07:04 taca Exp $
 
 * For NetBSD 6.0+, __NetBSD_Version__ should includes 600000000.
 

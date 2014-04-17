@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.109 2013/05/31 12:42:32 wiz Exp $
+# $NetBSD: Makefile,v 1.117 2014/02/27 23:47:12 schmonz Exp $
 #
 
-DISTNAME=		ikiwiki_3.20130518
+DISTNAME=		ikiwiki_3.20140227
 PKGNAME=		${DISTNAME:S/_/-/}
-PKGREVISION=		1
 CATEGORIES=		www textproc
 MASTER_SITES=		${MASTER_SITE_DEBIAN:=pool/main/i/ikiwiki/}
 
@@ -66,7 +65,14 @@ TEST_TARGET=		test
 .include "options.mk"
 
 pre-configure:
+	rm -f ${WRKSRC}/doc/examples/blog/posts/Test.html
 	find ${WRKSRC} -type f -name '*.orig' -print | xargs rm -f
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+TOOLS_PLATFORM.find=	# empty, to force GNU find from pkgsrc findutils
+.endif
 
 .include "../../lang/perl5/module.mk"
 .include "../../lang/python/application.mk"

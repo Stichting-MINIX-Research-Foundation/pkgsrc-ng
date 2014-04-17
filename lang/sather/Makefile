@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.52 2013/06/06 12:54:40 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2014/01/11 14:42:04 adam Exp $
 
 DISTNAME=		sather-1.2.3
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=sather/}
 
@@ -13,6 +13,8 @@ COMMENT=		Compiler for the Sather object oriented programming language
 MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=		gmake makeinfo pax perl:run
+
+BUILD_DEPENDS+=		tradcpp-[0-9]*:../../devel/tradcpp
 
 BUILD_TARGET=		full optional
 INFO_FILES=		yes
@@ -95,6 +97,11 @@ do-install:
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_DATA} ${WRKSRC}/Emacs/*.el				\
 		${DESTDIR}${PREFIX}/share/emacs/site-lisp
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-error=return-type -Wno-comment -Wno-parentheses-equality
+.endif
 
 .include "../../devel/boehm-gc/buildlink3.mk"
 .include "../../x11/tk/buildlink3.mk"

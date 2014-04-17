@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.118 2013/05/31 00:38:59 rodent Exp $
+# $NetBSD: Makefile,v 1.122 2014/01/05 12:34:49 ryoon Exp $
 #
 
 COMMENT=	X11 window managers, configuration tools, and themes
@@ -45,8 +45,8 @@ SUBDIR+=	i3
 SUBDIR+=	icecc
 SUBDIR+=	icewm
 SUBDIR+=	icewm-imlib
+SUBDIR+=	icewm13
 SUBDIR+=	icewmconf
-SUBDIR+=	ion
 SUBDIR+=	jwm
 SUBDIR+=	larswm
 SUBDIR+=	libAppleWM
@@ -58,6 +58,7 @@ SUBDIR+=	mlvwm
 SUBDIR+=	musca
 SUBDIR+=	notion
 SUBDIR+=	novawm
+SUBDIR+=	obconf
 SUBDIR+=	obpager
 SUBDIR+=	olvwm
 SUBDIR+=	openbox
@@ -69,9 +70,9 @@ SUBDIR+=	pwm
 SUBDIR+=	py-tyle
 SUBDIR+=	ratpoison
 SUBDIR+=	sawfish
-SUBDIR+=	scrotwm
 SUBDIR+=	selectwm
 SUBDIR+=	skippy
+SUBDIR+=	spectrwm
 SUBDIR+=	tvtwm
 SUBDIR+=	twm
 SUBDIR+=	uwm

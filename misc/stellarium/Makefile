@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.75 2013/06/12 15:29:37 wiz Exp $
+# $NetBSD: Makefile,v 1.79 2014/02/12 23:18:15 tron Exp $
 
-DISTNAME=	stellarium-0.12.1
-PKGREVISION=	5
+DISTNAME=	stellarium-0.12.4
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=stellarium/}
 
@@ -28,6 +28,9 @@ SUBST_SED.mac=		-e 's,Q_OS_MAC,Q_XX_MAC,'
 BUILDLINK_TRANSFORM+=	rm:-Wno-unused-but-set-parameter
 BUILDLINK_TRANSFORM+=	rm:-Wno-unused-but-set-variable
 .endif
+
+# needs phonon (Qt phonon, not KDE's)
+CMAKE_ARGS+=	-DENABLE_SOUND:BOOL=FALSE
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

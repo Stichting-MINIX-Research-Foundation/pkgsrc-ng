@@ -41,6 +41,12 @@ aterm-kanji		Enable kanji support.
 aterm-xterm-scroll	Use xterm-scrollbar instead of a NeXT-like one.
 atheme-large-net	Enable support for large networks (i.e. > 2000 users).
 audiofile		Enable audio conversion using libaudiofile.
+auth-db			Use Berkley DB for the jabberd2 authorization database.
+auth-ldap		Use LDAP for jabberd2 authorization.
+auth-mysql		Use MySQL for the jabberd2 authorization database.
+auth-pam		Use PAM for jabberd2 authorization.
+auth-pgsql		Use PostgreSQL for jabberd2 the authorization database.
+auth-sqlite		Use SQLite for jabberd2 the authorization database.
 avahi			Enable DNS service discovery and multicast DNS support.
 avahi-howl		Enable howl compatibility in avahi.
 bacula-static		Enable building of statically linked versions of the Bacula daemons.
@@ -208,6 +214,7 @@ ghostscript		Enable GhostScript support.
 gif			Enable GIF support.
 gimp			Enable GIMP support.
 gimp1-helpbrowser	Link against gnome1 to get a help browser.
+git-gui			Build the GUI in Tcl/Tk.
 glade			Enable Glade support
 gmp			Enable gmp (GNU Multiple Precision Arithmetic Library) support.
 gmp-fat			Build-in all x86 assembler code, detecting CPU at run-time.
@@ -223,6 +230,7 @@ gqmpeg-japanese		Japanese ID3 tag support.
 gqmpeg-russian		Russian ID3 tag support.
 graphicsmagick		Use GraphicsMagick as imaging library.
 groff-docs		Install documentation images.
+groonga-httpd		Enable nginx used for groonga-httpd.
 groonga-suggest-learner	Enable Groonga suggest learner.
 gsasl			Enable SASL support with gsasl.
 gsl			Use GNU Scientific Library.
@@ -404,6 +412,7 @@ lprng-suid		Install LPRng executables setuid root.
 lsof-less-secure-sockets	If 'lsof-more-secure' is set, allow all sockets to be viewed at all times.
 lsof-more-secure	Only allow root to view all open files with lsof.
 lua			Enable Lua support.
+luit			Enable luit support.
 lynx			Use and enable support for the lynx browser.
 lzma			Enable LZMA (de)compression support.
 lzo			Enable LZO (de)compression support.
@@ -423,6 +432,10 @@ mecab			Use MeCab as the Japanese Morphological Analzer.
 mex			Enable matlab mex support (Linux and Solaris only).
 migemo			Enable migemo (Japanese text search tool/library) support.
 mikmod			Enable MikMod sound library.
+mio-epoll		Use epoll to watch for incoming messages/connections.
+mio-kqueue		Use kqueue to watch for incoming messages/connections.
+mio-poll		Use poll to watch for incoming messages/connections.
+mio-select		Use select to watch for incoming messages/connections.
 mitshm			Enable MIT-SHM X extension support.
 mlib			Enable usage of medialib (SunOS only).
 mlterm-fb		Enable framebuffer support.
@@ -507,8 +520,10 @@ p0f			Enable support for passive OS fingerprinting.
 pam			Enable PAM support.
 pcb-motif		Use Motif for the gui instead of GTK for cad/pcb.
 pcre			Enable Perl-compatible regular expressions.
+pcsc			Enable PC/SC support.
 pdf			Enable PDF support.
 perl			Enable Perl support.
+pgadmin-db-designer	Enable pgAdmin database-designer functionality.
 pgsql			Enable PostgreSQL support.
 pim			Enable pim (personal information management) support.
 pinepwd			Enable $HOME/.pinepwd stored IMAP password file.
@@ -526,9 +541,11 @@ pstack			Enable pstack backtrace library.
 psycopg1		Enable psycopg 1.1.x support.
 psycopg2		Enable psycopg 2.x support.
 pulseaudio		Enable support for the PulseAudio sound server.
+py-numpy		Enable support for NumPy.
 pyrex			Enable Pyrex language support.
 python			Enable Python support.
 qdbm			Enable qdbm support.
+qemu-0			Use qemu-0.x.
 qmail-badrcptto		Patch to SMTP-reject particular envelope recipients.
 qmail-bigdns		Patch to handle oversized responses to MX queries.
 qmail-netqmail		Patch collection prepared by respected list members.
@@ -539,6 +556,7 @@ qmail-viruscan		Patch to SMTP-reject certain types of MIME attachments.
 qpopper-servermode	Enable server mode.
 qt			Enable support for QT.
 qt3			Enable support for QT3.
+qt4			Enable support for QT4.
 quartz			Enable Quartz support on Mac OS X.
 quickml-analog		Enable quickml log analizer.
 quickml-limit		Enable quickml creators and members limitation.
@@ -556,12 +574,14 @@ samplerate		Enable libsamplerate support.
 sane			Enable support for SANE scanners.
 sane-backends-hp3900	Include HP3900 driver.
 sasl			Enable SASL support.
+sasl-cyrus		Use Cyrus SASL for the SASL layer.
+sasl-gnu		Use GNU SASL for the SASL layer
 saslauthd		Use the Cyrus saslauthd daemon for authentication.
 sbcl			Use Steel-Bank Common Lisp.
 scapy-crypto		Add in crypto support.
 scapy-pyx		Add in py-X support.
-scmgit-gui		Build the GUI in Tcl/Tk.
 sdl			Use SDL as display library.
+sdl2			Use SDL2 as display library.
 seamonkey		Use seamonkey as gecko rendering engine.
 sendmail-milter		Build the milter with support for the Sendmail MTA.
 sendmail-socketmap	Enable Sendmail SOCKETMAP support.
@@ -619,6 +639,10 @@ squid-unlinkd		Enable use of unlinkd.
 ssl			Enable SSL support.
 starttls		Enable TLS support.
 static			Allows you to build static libraries.
+storage-db		Use Berkley DB for the jabberd2 message store.
+storage-mysql		Use MySQL for the jabberd2 message store.
+storage-pgsql		Use PostgreSQL for the jabberd2 message store.
+storage-sqlite		Use SQLite for the jabberd2 message store.
 streamtuner-local	Enable local metadata support.
 streamtuner-xiph	Enable the Xiph plugin.
 suexec			Enable suEXEC support in Apache web server.
@@ -648,6 +672,7 @@ trn-inn			Use INN as NNTP client.
 trn-nntpclnt		Use nntpclnt as NNTP client.
 ucspi-ssl-perl		Enable Perl support in ucspi-ssl.
 ucspi-tcp-nodefaultrbl	Remove the (nonexistent) default RBL from rblsmtpd.
+udev			Enable support for the udev device manager.
 uds			Enable support for Unix domain sockets.
 uim			Enable UIM support.
 uim-fep			Enable UIM FEP support.
@@ -656,8 +681,6 @@ unicode			Enable support for Unicode.
 unixodbc		Enable ODBC support via unixODBC.
 unrealircd-chroot	Enable support for running in a chroot jail.
 unrealircd-disableusermod	Disable /sethost, /setident, /chgname, /chghost, and /chgident.
-unrealircd-hub		IRC hub server.
-unrealircd-leaf		IRC leaf node server.
 unrealircd-no-operoverride	Disable operator override.
 unrealircd-nospoof	Enable anti-spoof protection for older TCP/IP stacks.
 unrealircd-operoverride-verify	Require opers to /invite themselves into a +s or +p channel.
@@ -674,6 +697,7 @@ uulib			Enable support for uulib.
 v4l2			Enable V4L2 (Video4Linux2) support.
 vaapi			Enable support for VAAPI.
 valgrind		Enable Valgrind debugging and profiling support.
+vatnumber-suds		Enable lightweight soap-based web services client (net/py-suds).
 vbr			Enable Vouch By Reference support.
 vdpau			Enable support for VDPAU.
 vflib			Enable support for Japanese vector font library.
@@ -717,9 +741,11 @@ xpm			Enable X PixMap image format support.
 xrandr			Enable Xrandr support.
 xrender			Enable Xrender support.
 xscreensaver-webcollage	Install webcollage screensaver.
+xscrnsaver		Enable X11 Screen Saver support.
 xterm-256color		Enable 256 color support.
 xterm-88color		Enable 88 color support.
 xterm-luit		Enable locale <> UTF encoding translation.
+xterm-toolbar		Enable toolbar support in xterm.
 xtest			Use XTEST Extension Library.
 xvid			Enable usage of XVid codecs.
 xvideo			Enable X-Video Motion Compensation library support.

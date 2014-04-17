@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2012/10/03 12:55:09 asau Exp $
+# $NetBSD: Makefile,v 1.8 2013/10/16 23:59:36 roy Exp $
 #
 
-DISTNAME=		aliados-0.1.1
+DISTNAME=		aliados-0.2.0
 PKGREVISION=		1
 CATEGORIES=		emulators
 MASTER_SITES=		http://www.arrakis.es/~ninsesabe/aliados/
@@ -13,8 +13,8 @@ COMMENT=		CP/M 80 emulator
 
 PKG_INSTALLATION_TYPES= overwrite pkgviews
 
-NO_CONFIGURE=		YES
-USE_LANGUAGES=		c++
+GNU_CONFIGURE=		YES
+USE_LANGUAGES=		c c++
 USE_NCURSES=		yes # tigetstr tparm setupterm
 
 INSTALLATION_DIRS=	bin share/doc/aliados
@@ -22,7 +22,7 @@ INSTALLATION_DIRS=	bin share/doc/aliados
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/aliados ${DESTDIR}${PREFIX}/bin
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/aliados
-	${INSTALL_DATA} ${WRKSRC}/aliados.doc ${DESTDIR}${PREFIX}/share/doc/aliados
+	${INSTALL_DATA} ${WRKSRC}/aliadosdoc.html ${DESTDIR}${PREFIX}/share/doc/aliados
 
-.include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/terminfo.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

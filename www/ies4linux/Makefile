@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2012/10/28 06:30:18 asau Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/01/25 10:30:27 wiz Exp $
 
 DISTNAME=	ies4linux-2.99.0.1
 PKGREVISION=	5
@@ -18,6 +17,7 @@ BUILD_DEPENDS+= cabextract-[0-9]*:../../archivers/cabextract
 NO_BUILD= 	yes
 USE_LANGUAGES=	# none
 USE_TOOLS+=	bash:run pax unzip:run
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
 
 SHAREDIR=		share/ies4linux
 
@@ -29,7 +29,7 @@ SUBST_SED.sharedir=	-e "s|.dirname ..0..|${PREFIX}/${SHAREDIR}|g"
 REPLACE_BASH=		${WRKSRC}/ies4linux \
 			${WRKSRC}/lib/install.sh ${WRKSRC}/lib/uninstall.sh
 
-INSTALLATION_DIRS	= bin ${SHAREDIR}
+INSTALLATION_DIRS= 	bin ${SHAREDIR}
 
 do-install:
 	cd ${WRKSRC} && rm -f lib/functions.sh.orig

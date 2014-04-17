@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.41 2013/06/06 12:54:18 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2014/01/20 19:20:08 joerg Exp $
 #
 
 DISTNAME=	vigor-0.016
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=vigor/}
 
@@ -45,6 +45,8 @@ SUBST_SED.db185=	-e '/^\#include <db\.h>/s/db\.h/db_185.h/'
 BDB_ACCEPTED=		db1
 .include "../../mk/bdb.buildlink3.mk"
 .endif
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"

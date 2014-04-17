@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2013/02/06 23:21:18 jperkin Exp $
+# $NetBSD: Makefile,v 1.47 2014/02/12 23:17:35 tron Exp $
 
 DISTNAME=	gale-0.99fruit
 PKGNAME=	gale-0.99f
-PKGREVISION=	7
+PKGREVISION=	10
 CATEGORIES=	chat
 MASTER_SITES=	http://download.ofb.net/gale/
 EXTRACT_SUFX=	.tar.bz2
@@ -13,7 +13,6 @@ COMMENT=	Secure instant messaging system
 
 MAKE_JOBS_SAFE=	no
 
-USE_GNU_READLINE=	yes	# needs rl_named_function()
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
@@ -49,6 +48,7 @@ post-install:
 
 .include "../../devel/boehm-gc/buildlink3.mk"
 .include "../../devel/glib/buildlink3.mk"
+# needs rl_named_function()
 .include "../../devel/readline/buildlink3.mk"
 .include "../../lang/tcl/buildlink3.mk"
 .include "../../net/adns/buildlink3.mk"

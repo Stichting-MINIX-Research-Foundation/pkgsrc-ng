@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.9 2013/02/15 11:54:02 obache Exp $
+# $NetBSD: Makefile,v 1.13 2014/01/11 14:42:03 adam Exp $
 #
 
 DISTNAME=	vera++-1.1.1
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	devel
 MASTER_SITES=	http://www.inspirel.com/vera/files/
 
-MAINTAINER=	jmmv@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.inspirel.com/vera/
 COMMENT=	Programmable verification and analysis tool for C++
 

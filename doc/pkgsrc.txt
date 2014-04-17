@@ -64,11 +64,13 @@ I. The pkgsrc user's guide
             3.3.1. Cygwin
             3.3.2. Darwin (Mac OS X)
             3.3.3. FreeBSD
-            3.3.4. Interix
-            3.3.5. IRIX
-            3.3.6. Linux
-            3.3.7. OpenBSD
-            3.3.8. Solaris
+            3.3.4. GNU/kFreeBSD
+            3.3.5. Interix
+            3.3.6. IRIX
+            3.3.7. Linux
+            3.3.8. MirBSD
+            3.3.9. OpenBSD
+            3.3.10. Solaris
 
     4. Using pkgsrc
 
@@ -147,17 +149,18 @@ I. The pkgsrc user's guide
         9.5. How to resume transfers when fetching distfiles?
         9.6. How can I install/use modular X.org from pkgsrc?
         9.7. How to fetch files from behind a firewall
-        9.8. How do I tell make fetch to do passive FTP?
-        9.9. How to fetch all distfiles at once
-        9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc"
+        9.8. How to fetch files from HTTPS sites
+        9.9. How do I tell make fetch to do passive FTP?
+        9.10. How to fetch all distfiles at once
+        9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc"
             mean?
-        9.11. What does "Could not find bsd.own.mk" mean?
-        9.12. Using 'sudo' with pkgsrc
-        9.13. How do I change the location of configuration files?
-        9.14. Automated security checks
-        9.15. Why do some packages ignore my CFLAGS?
-        9.16. A package does not build. What shall I do?
-        9.17. What does "Makefile appears to contain unresolved cvs/rcs/???
+        9.12. What does "Could not find bsd.own.mk" mean?
+        9.13. Using 'sudo' with pkgsrc
+        9.14. How do I change the location of configuration files?
+        9.15. Automated security checks
+        9.16. Why do some packages ignore my CFLAGS?
+        9.17. A package does not build. What shall I do?
+        9.18. What does "Makefile appears to contain unresolved cvs/rcs/???
             merge conflicts" mean?
 
 II. The pkgsrc developer's guide
@@ -590,11 +593,13 @@ Table 1.1. Platforms supported by pkgsrc
 |---------------------------------------------+------------------|
 |Haiku                                        |     Sep 2010     |
 |---------------------------------------------+------------------|
-|MirBSD                                       |     Aug 2011     |
+|MirBSD                                       |     Jan 2011     |
 |---------------------------------------------+------------------|
 |Minix3                                       |     Nov 2011     |
 |---------------------------------------------+------------------|
 |Cygwin                                       |     Mar 2013     |
+|---------------------------------------------+------------------|
+|GNU/kFreeBSD                                 |     Jul 2013     |
 +----------------------------------------------------------------+
 
 
@@ -716,11 +721,13 @@ Table of Contents
         3.3.1. Cygwin
         3.3.2. Darwin (Mac OS X)
         3.3.3. FreeBSD
-        3.3.4. Interix
-        3.3.5. IRIX
-        3.3.6. Linux
-        3.3.7. OpenBSD
-        3.3.8. Solaris
+        3.3.4. GNU/kFreeBSD
+        3.3.5. Interix
+        3.3.6. IRIX
+        3.3.7. Linux
+        3.3.8. MirBSD
+        3.3.9. OpenBSD
+        3.3.10. Solaris
 
 4. Using pkgsrc
 
@@ -799,16 +806,17 @@ Table of Contents
     9.5. How to resume transfers when fetching distfiles?
     9.6. How can I install/use modular X.org from pkgsrc?
     9.7. How to fetch files from behind a firewall
-    9.8. How do I tell make fetch to do passive FTP?
-    9.9. How to fetch all distfiles at once
-    9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
-    9.11. What does "Could not find bsd.own.mk" mean?
-    9.12. Using 'sudo' with pkgsrc
-    9.13. How do I change the location of configuration files?
-    9.14. Automated security checks
-    9.15. Why do some packages ignore my CFLAGS?
-    9.16. A package does not build. What shall I do?
-    9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+    9.8. How to fetch files from HTTPS sites
+    9.9. How do I tell make fetch to do passive FTP?
+    9.10. How to fetch all distfiles at once
+    9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+    9.12. What does "Could not find bsd.own.mk" mean?
+    9.13. Using 'sudo' with pkgsrc
+    9.14. How do I change the location of configuration files?
+    9.15. Automated security checks
+    9.16. Why do some packages ignore my CFLAGS?
+    9.17. A package does not build. What shall I do?
+    9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
         conflicts" mean?
 
 Chapter 2. Where to get pkgsrc and how to keep it up-to-date
@@ -865,15 +873,15 @@ published at pkgsrc.tar.bz2 and pkgsrc.tar.xz respectively.
 
 You can fetch the same files using FTP.
 
-The tar file for the stable branch 2009Q1 is in the directory pkgsrc-2009Q1 and
-is also called pkgsrc-2009Q1.tar.gz.
+The tar file for the stable branch 2013Q1 is in the directory pkgsrc-2013Q1 and
+is also called pkgsrc.tar.gz.
 
 To download a pkgsrc stable tarball, run:
 
-$ ftp ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-20xxQy/pkgsrc-20xxQy.tar.gz
+$ ftp ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-20xxQy/pkgsrc.tar.gz
 
 Where pkgsrc-20xxQy is the stable branch to be downloaded, for example, "
-pkgsrc-2009Q1".
+pkgsrc-2013Q1".
 
 You can use fetch it also using "wget", "curl", or your web browser.
 
@@ -998,11 +1006,13 @@ Table of Contents
     3.3.1. Cygwin
     3.3.2. Darwin (Mac OS X)
     3.3.3. FreeBSD
-    3.3.4. Interix
-    3.3.5. IRIX
-    3.3.6. Linux
-    3.3.7. OpenBSD
-    3.3.8. Solaris
+    3.3.4. GNU/kFreeBSD
+    3.3.5. Interix
+    3.3.6. IRIX
+    3.3.7. Linux
+    3.3.8. MirBSD
+    3.3.9. OpenBSD
+    3.3.10. Solaris
 
 3.1. Binary distribution
 
@@ -1018,7 +1028,7 @@ permissions like setuid are ignored).
 
 Installing the bootstrap kit from source should be as simple as:
 
-# env CVS_RSH=ssh cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout pkgsrc
+# env CVS_RSH=ssh cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -P pkgsrc
 # cd pkgsrc/bootstrap
 # ./bootstrap
 
@@ -1103,7 +1113,14 @@ with the FreeBSD userland tools. There are several steps:
  3. An example mk.conf file will be placed in /etc/mk.conf.example file when
     you use the bootstrap script.
 
-3.3.4. Interix
+3.3.4. GNU/kFreeBSD
+
+Debian GNU/kFreeBSD is the only GNU/kFreeBSD distribution now. Debian GNU/
+kFreeBSD 7.0 or later is tested and supported.
+
+You should install ncurses (libncurses and libncurses-dev) packages.
+
+3.3.5. Interix
 
 Interix is a POSIX-compatible subsystem for the Windows NT kernel, providing a
 Unix-like environment with a tighter kernel integration than available with
@@ -1121,7 +1138,7 @@ and Windows Server 2008 R2 (6.1). As of this writing, the SUA's Interix 6.0
 (32bit) and 6.1 (64bit) subsystems have been tested. Other versions may work as
 well. The Interix 5.x subsystem has not yet been tested with pkgsrc.
 
-3.3.4.1. When installing Interix/SFU
+3.3.5.1. When installing Interix/SFU
 
 At an absolute minimum, the following packages must be installed from the
 Windows Services for Unix 3.5 distribution in order to use pkgsrc:
@@ -1165,7 +1182,7 @@ hotfixes note above, the following option can be added to the appropriate
 will disable DEP completely, which may be a security risk if applications are
 often run as a user in the Administrators group!)
 
-3.3.4.2. What to do if Interix/SFU is already installed
+3.3.5.2. What to do if Interix/SFU is already installed
 
 If SFU is already installed and you wish to alter these settings to work with
 pkgsrc, note the following things.
@@ -1188,7 +1205,7 @@ pkgsrc, note the following things.
 
     Set the DWORD value "EnableSetuidBinaries" to 1; then reboot.
 
-3.3.4.3. Important notes for using pkgsrc
+3.3.5.3. Important notes for using pkgsrc
 
 The package manager (either the pkgsrc "su" user, or the user running
 "pkg_add") must be a member of the local Administrators group. Such a user must
@@ -1213,7 +1230,7 @@ adequate emulation in most cases:
 interix:kP=\E[S:kN=\E[T:kH=\E[U:dc@:DC@:tc=pcansi:
 
 
-3.3.4.4. Limitations of the Interix platform
+3.3.5.4. Limitations of the Interix platform
 
 Though Interix suffices as a familiar and flexible substitute for a full
 Unix-like platform, it has some drawbacks that should be noted for those
@@ -1257,7 +1274,7 @@ desiring to make the most of Interix.
     make tape drive access possible by using Cygwin as a bridge (similarly to
     audio bridged via Cygwin's esound server).
 
-3.3.4.5. Known issues for pkgsrc on Interix
+3.3.5.5. Known issues for pkgsrc on Interix
 
 It is not necessary, in general, to have a "root" user on the Windows system;
 any member of the local Administrators group will suffice. However, some
@@ -1273,7 +1290,7 @@ around the issue:
 # chmod -R g+w $PKG_DBDIR
 
 
-3.3.5. IRIX
+3.3.6. IRIX
 
 You will need a working C compiler, either gcc or SGI's MIPS and MIPSpro
 compiler (cc/c89). Please set the CC environment variable according to your
@@ -1317,7 +1334,7 @@ to make sure that MIPSPro is used, please set your PATH to not include the
 location of gcc (often /usr/freeware/bin), and (important) pass the
 '--preserve-path' flag.
 
-3.3.6. Linux
+3.3.7. Linux
 
 Some versions of Linux (for example Debian GNU/Linux) need either libtermcap or
 libcurses (libncurses). Installing the distributions libncurses-dev package (or
@@ -1359,7 +1376,26 @@ linking a C++ shared library and records it, throwing away the -Bstatic and
 libtool-linked C++ shared libraries will have a runtime dependency on the icc
 libraries until this is fixed in libtool.
 
-3.3.7. OpenBSD
+3.3.8. MirBSD
+
+pkgsrc has been tested on MirBSD #10-current (2011 and newer). Older versions
+might also work. Releases before #10 are not supported.
+
+The package tools of the (older) native ports tree, MirPorts, have the same
+names as the ones used by pkgsrc. Care should be taken that the right tools are
+used. When installing packages from source, use the bmake command for pkgsrc
+and mmake for MirPorts.
+
+pkgsrc and MirPorts use the same location for the package database, /var/db/
+pkg. It is strongly recommended to use /usr/pkg/db instead, so that the pkgsrc
+tree is self-contained. This is also the default setting used in the binary
+package builds.
+
+Binary packages for MirBSD/i386 can be found on the pkgsrc ftp server. The
+bootstrap kit there already contains the pkgin package manager. See the pkgsrc
+on MirOS page for more details.
+
+3.3.9. OpenBSD
 
 OpenBSD 5.1 has been tested and supported, other versions may work.
 
@@ -1392,7 +1428,7 @@ with the OpenBSD userland tools. There are several steps:
     .endif
 
 
-3.3.8. Solaris
+3.3.10. Solaris
 
 Solaris 2.6 through 10 are supported on both x86 and sparc. You will need a
 working C compiler. Both gcc 4.5.3 and Sun WorkShop 5 have been tested.
@@ -1417,7 +1453,7 @@ Whichever compiler you use, please ensure the compiler tools and your $prefix
 are in your PATH. This includes /usr/ccs/{bin,lib} and e.g. /usr/pkg/
 {bin,sbin}.
 
-3.3.8.1. If you are using gcc
+3.3.10.1. If you are using gcc
 
 It makes life much simpler if you only use the same gcc consistently for
 building all packages.
@@ -1428,7 +1464,7 @@ gcc used during bootstrapping.
 
 Binary packages of gcc can be found through http://www.sunfreeware.com/.
 
-3.3.8.2. If you are using Sun WorkShop
+3.3.10.2. If you are using Sun WorkShop
 
 You will need at least the following packages installed (from WorkShop 5.0)
 
@@ -1452,7 +1488,7 @@ Note
 The CPP setting might break some packages that use the C preprocessor for
 processing things other than C source code.
 
-3.3.8.3. Building 64-bit binaries with SunPro
+3.3.10.3. Building 64-bit binaries with SunPro
 
 To build 64-bit packages, you just need to have the following lines in your
 mk.conf file:
@@ -1465,7 +1501,7 @@ Note
 This setting has been tested for the SPARC architecture. Intel and AMD machines
 need some more work.
 
-3.3.8.4. Common problems
+3.3.10.4. Common problems
 
 Sometimes, when using libtool, /bin/ksh crashes with a segmentation fault. The
 workaround is to use another shell for the configure scripts, for example by
@@ -2220,16 +2256,16 @@ be read-only, some other must be writable. Some can be on remote filesystems
 (such as NFS) and some should be local. Some can be temporary filesystems,
 others must survive a sudden reboot.
 
-  * 10 GB for the distfiles (read-write, remote, temporary)
+  * 40 GB for the distfiles (read-write, remote, temporary)
 
-  * 10 GB for the binary packages (read-write, remote, permanent)
+  * 30 GB for the binary packages (read-write, remote, permanent)
 
-  * 400 MB for the pkgsrc tree (read-only, remote, permanent)
+  * 1 GB for the pkgsrc tree (read-only, remote, permanent)
 
   * 5 GB for LOCALBASE (read-write, local, temporary for pbulk, permanent for
     old-bulk)
 
-  * 5 GB for the log files (read-write, remote, permanent)
+  * 10 GB for the log files (read-write, remote, permanent)
 
   * 5 GB for temporary files (read-write, local, temporary)
 
@@ -2387,11 +2423,11 @@ rebuild them, and they can be used to debug these broken package builds later.
 
 7.3.5. Disk space requirements
 
-Currently, roughly the following requirements are valid for NetBSD 2.0/i386:
+Currently, roughly the following requirements are valid for NetBSD 6.99/amd64:
 
-  * 10 GB - distfiles (NFS ok)
+  * 40 GB - distfiles (NFS ok)
 
-  * 8 GB - full set of all binaries (NFS ok)
+  * 30 GB - full set of all binaries (NFS ok)
 
   * 5 GB - temp space for compiling (local disk recommended)
 
@@ -2440,7 +2476,7 @@ src/etc, be sure the following items are present and properly configured:
 
     # ln -sf /usr/share/zoneinfo/UTC /usr/sandbox/etc/localtime
 
- 6. /usr/src (system sources, e. g. for sysutils/aperture):
+ 6. /usr/src (system sources, rarely used by packages if at all:
 
     # ln -s ../disk1/cvs .
               # ln -s cvs/src-2.0 src
@@ -2825,16 +2861,17 @@ Table of Contents
 9.5. How to resume transfers when fetching distfiles?
 9.6. How can I install/use modular X.org from pkgsrc?
 9.7. How to fetch files from behind a firewall
-9.8. How do I tell make fetch to do passive FTP?
-9.9. How to fetch all distfiles at once
-9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
-9.11. What does "Could not find bsd.own.mk" mean?
-9.12. Using 'sudo' with pkgsrc
-9.13. How do I change the location of configuration files?
-9.14. Automated security checks
-9.15. Why do some packages ignore my CFLAGS?
-9.16. A package does not build. What shall I do?
-9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+9.8. How to fetch files from HTTPS sites
+9.9. How do I tell make fetch to do passive FTP?
+9.10. How to fetch all distfiles at once
+9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+9.12. What does "Could not find bsd.own.mk" mean?
+9.13. Using 'sudo' with pkgsrc
+9.14. How do I change the location of configuration files?
+9.15. Automated security checks
+9.16. Why do some packages ignore my CFLAGS?
+9.17. A package does not build. What shall I do?
+9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
     conflicts" mean?
 
 This section contains hints, tips & tricks on special things in pkgsrc that we
@@ -2904,12 +2941,13 @@ Utilities used by pkgsrc (not automatically installed):
     distfiles from multiple locations. It currently supports the following
     methods: multiple CD-ROMs and network FTP/HTTP connections.
 
-  * pkgtools/xpkgwedge: Put X11 packages someplace else (enabled by default).
-
   * devel/cpuflags: Determine the best compiler flags to optimise code for your
     current CPU and compiler.
 
 Utilities for keeping track of installed packages, being up to date, etc:
+
+  * pkgtools/pkgin: A package update tool similar to apt(1). Download, install,
+    and upgrade binary packages easily.
 
   * pkgtools/pkg_chk: Reports on packages whose installed versions do not match
     the latest pkgsrc entries.
@@ -2932,9 +2970,7 @@ Utilities for people maintaining or creating individual packages:
   * pkgtools/pkgdiff: Automate making and maintaining patches for a package
     (includes pkgdiff, pkgvi, mkpatches, etc.).
 
-  * pkgtools/rpm2pkg, pkgtools/url2pkg: Aids in converting to pkgsrc.
-
-  * pkgtools/gensolpkg: Convert pkgsrc to a Solaris package.
+  * pkgtools/url2pkg: Aids in converting to pkgsrc.
 
 Utilities for people maintaining pkgsrc (or: more obscure pkg utilities)
 
@@ -2966,12 +3002,12 @@ By default, resuming transfers in pkgsrc is disabled, but you can enable this
 feature by adding the option PKG_RESUME_TRANSFERS=YES into mk.conf. If, during
 a fetch step, an incomplete distfile is found, pkgsrc will try to resume it.
 
-You can also use a different program than the default ftp(1) by changing the
-FETCH_USING variable. You can specify the program by using of ftp, fetch, wget
-or curl. Alternatively, fetching can be disabled by using the value manual. A
-value of custom disables the system defaults and dependency tracking for the
-fetch program. In that case you have to provide FETCH_CMD, FETCH_BEFORE_ARGS,
-FETCH_RESUME_ARGS, FETCH_OUTPUT_ARGS, FETCH_AFTER_ARGS.
+You can also use a different program than the platform default program by
+changing the FETCH_USING variable. You can specify the program by using of ftp,
+fetch, wget or curl. Alternatively, fetching can be disabled by using the value
+manual. A value of custom disables the system defaults and dependency tracking
+for the fetch program. In that case you have to provide FETCH_CMD,
+FETCH_BEFORE_ARGS, FETCH_RESUME_ARGS, FETCH_OUTPUT_ARGS, FETCH_AFTER_ARGS.
 
 For example, if you want to use wget to download, you'll have to use something
 like:
@@ -3001,7 +3037,19 @@ the proxy port number. So the proxy environment variables are:
 ftp_proxy=ftp://orpheus.amdahl.com:80/
 http_proxy=http://orpheus.amdahl.com:80/
 
-9.8. How do I tell make fetch to do passive FTP?
+9.8. How to fetch files from HTTPS sites
+
+Some fetch tools are not prepared to support HTTPS by default (for example, the
+one in NetBSD 6.0), or the one installed by the pkgsrc bootstrap (to avoid an
+openssl dependency that low in the dependency graph).
+
+Usually you won't notice, because distribution files are mirrored weekly to "
+ftp.NetBSD.org", but that might not be often enough if you are following
+pkgsrc-current. In that case, set FETCH_USING in your mk.conf file to "curl" or
+"wget", which are both compiled with HTTPS support by default. Of course, these
+tools need to be installed before you can use them this way.
+
+9.9. How do I tell make fetch to do passive FTP?
 
 This depends on which utility is used to retrieve distfiles. From bsd.pkg.mk,
 FETCH_CMD is assigned the first available command from the following list:
@@ -3018,7 +3066,7 @@ following to your mk.conf file: PASSIVE_FETCH=1.
 Having that option present will prevent /usr/bin/ftp from falling back to
 active transfers.
 
-9.9. How to fetch all distfiles at once
+9.10. How to fetch all distfiles at once
 
 You would like to download all the distfiles in a single batch from work or
 university, where you can't run a make fetch. There is an archive of distfiles
@@ -3053,7 +3101,7 @@ everything by running:
 
 % make fetch NO_SKIP=yes
 
-9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
 
 When compiling the pkgtools/pkg_install package, you get the error from make
 that it doesn't know how to make /usr/share/tmac/tmac.andoc? This indicates
@@ -3063,7 +3111,7 @@ distribution on your machine. It is recommended to do that to format man pages.
 In the case of the pkgtools/pkg_install package, you can get away with setting
 NOMAN=YES either in the environment or in mk.conf.
 
-9.11. What does "Could not find bsd.own.mk" mean?
+9.12. What does "Could not find bsd.own.mk" mean?
 
 You didn't install the compiler set, comp.tgz, when you installed your NetBSD
 machine. Please get and install it, by extracting it in /:
@@ -3074,7 +3122,7 @@ machine. Please get and install it, by extracting it in /:
 comp.tgz is part of every NetBSD release. Get the one that corresponds to your
 release (determine via uname -r).
 
-9.12. Using 'sudo' with pkgsrc
+9.13. Using 'sudo' with pkgsrc
 
 When installing packages as non-root user and using the just-in-time su(1)
 feature of pkgsrc, it can become annoying to type in the root password for each
@@ -3087,7 +3135,7 @@ mk.conf, somewhere after the definition of the LOCALBASE variable:
 SU_CMD=        ${LOCALBASE}/bin/sudo /bin/sh -c
 .endif
 
-9.13. How do I change the location of configuration files?
+9.14. How do I change the location of configuration files?
 
 As the system administrator, you can choose where configuration files are
 installed. The default settings make all these files go into ${PREFIX}/etc or
@@ -3107,7 +3155,7 @@ of PKGBASE.
 Note that after changing these settings, you must rebuild and reinstall any
 affected packages.
 
-9.14. Automated security checks
+9.15. Automated security checks
 
 Please be aware that there can often be bugs in third-party software, and some
 of these bugs can leave a machine vulnerable to exploitation by attackers. In
@@ -3136,7 +3184,7 @@ If this package is installed, pkgsrc builds will use it to perform a security
 check before building any package. See Section 5.2, "Variables affecting the
 build process" for ways to control this check.
 
-9.15. Why do some packages ignore my CFLAGS?
+9.16. Why do some packages ignore my CFLAGS?
 
 When you add your own preferences to the CFLAGS variable in your mk.conf, these
 flags are passed in environment variables to the ./configure scripts and to
@@ -3150,7 +3198,7 @@ Usually you can remove these lines. But be aware that some "smart" programmers
 write so bad code that it only works for the specific combination of CFLAGS
 they have chosen.
 
-9.16. A package does not build. What shall I do?
+9.17. A package does not build. What shall I do?
 
  1. Make sure that your copy of pkgsrc is consistent. A case that occurs often
     is that people only update pkgsrc in parts, because of performance reasons.
@@ -3166,7 +3214,7 @@ they have chosen.
 
  4. If the problem still exists, write a mail to the pkgsrc-users mailing list.
 
-9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
 conflicts" mean?
 
 You have modified a file from pkgsrc, and someone else has modified that same
@@ -3525,17 +3573,11 @@ numerous settings that are typical of KDE packages.
 Python modules and programs packages are easily created using a set of
 predefined variables.
 
-Most Python packages use either "distutils" or easy-setup ("eggs"). If the
-software uses "distutils", set the PYDISTUTILSPKG variable to "yes" so pkgsrc
-will make use of this framework. "distutils" uses a script called setup.py, if
-the "distutils" driver is not called setup.py, set the PYSETUP variable to the
-name of the script.
+If some Python versions are not supported by the software, set the
+PYTHON_VERSIONS_INCOMPATIBLE variable to the Python versions that are not
+supported, e.g.
 
-If the default Python versions are not supported by the software, set the
-PYTHON_VERSIONS_ACCEPTED variable to the Python versions the software is known
-to work with, from the most recent to the older one, e.g.
-
-PYTHON_VERSIONS_ACCEPTED=       31 27 26
+PYTHON_VERSIONS_INCOMPATIBLE=       26
 
 If the packaged software is a Python module, include "../../lang/python/
 extension.mk". In this case, the package directory should be called "
@@ -3544,17 +3586,31 @@ py-software" and PKGNAME should be set to "${PYPKGPREFIX}-${DISTNAME}", e.g.
 DISTNAME=   foopymodule-1.2.10
 PKGNAME=    ${PYPKGPREFIX}-${DISTNAME}
 
-If it is an application, also include "../../lang/python/application.mk" before
-"extension.mk".
-
-If the packaged software, either it is an application or a module, is
-egg-aware, you only need to include "../../lang/python/egg.mk".
-
-In order to correctly set the path to the Python interpreter, use the
-REPLACE_PYTHON variable and set it to the list of files (paths relative to
-WRKSRC) that must be corrected. For example :
+If it is an application, include "../../lang/python/application.mk". In order
+to correctly set the path to the Python interpreter, use the REPLACE_PYTHON
+variable and set it to the list of files (paths relative to WRKSRC) that must
+be corrected. For example:
 
 REPLACE_PYTHON=   *.py
+
+Most Python packages use either "distutils" or easy-setup ("eggs"). If the
+software uses "distutils", include "../../lang/python/distutils.mk". so pkgsrc
+will use this framework. "distutils" uses a script called setup.py, if the "
+distutils" driver is not called setup.py, set the PYSETUP variable to the name
+of the script.
+
+Otherwise, if the packaged software is egg-aware, you only need to include "..
+/../lang/python/egg.mk".
+
+Some Python modules have separate distributions for Python-2.x and Python-3.x
+support. In pkgsrc this is handled by the versioned_dependencies.mk file. Set
+PYTHON_VERSIONED_DEPENDENCIES to the list of packages that should be depended
+upon and include "../../lang/python/versioned_dependencies.mk", then the pkgsrc
+infrastructure will depend on the appropriate package version. For example:
+
+PYTHON_VERSIONED_DEPENDENCIES=dateutil dns
+
+Look inside versioned_dependencies.mk for a list of supported packages.
 
 10.2. Examples
 
@@ -3706,7 +3762,7 @@ it would have looked for pkg-config instead of gtk-config. So I changed the x11
 /gtk2 to x11/gtk in the package Makefile, and tried again.
 
 [...]
-cc -o xpidl.o -c -DOSTYPE=\"NetBSD3\" -DOSARCH=\"NetBSD\"   -I../../../dist/include/xpcom -I../../../dist/include -I/tmp/roland/pkgsrc/www/nvu/work.bacc/mozilla/dist/include/nspr -I/usr/X11R6/include   -fPIC -DPIC -I/home/roland/pkg/include -I/usr/include  -I/usr/X11R6/include -Wall -W -Wno-unused -Wpointer-arith -Wcast-align -Wno-long-long -pedantic -O2 -I/home/roland/pkg/include -I/usr/include -Dunix -pthread -pipe  -DDEBUG -D_DEBUG -DDEBUG_roland -DTRACING -g -I/home/roland/pkg/include/glib/glib-1.2 -I/home/roland/pkg/lib/glib/include -I/usr/pkg/include/orbit-1.0   -I/home/roland/pkg/include -I/usr/include  -I/usr/X11R6/include -include ../../../mozilla-config.h -DMOZILLA_CLIENT -Wp,-MD,.deps/xpidl.pp xpidl.c
+cc -o xpidl.o -c -DOSTYPE=\"NetBSD3\" -DOSARCH=\"NetBSD\"  [...]
 In file included from xpidl.c:42:
 xpidl.h:53:24: libIDL/IDL.h: No such file or directory
 In file included from xpidl.c:42:
@@ -4723,6 +4779,13 @@ issues:
     a dependency on x11/lesstif, x11/motif or x11/openmotif. The user can set
     MOTIF_TYPE to "dt", "lesstif", "motif" or "openmotif" to choose which Motif
     version will be used.
+
+  * readline.buildlink3.mk checks for a system-provided GNU readline or
+    editline (libedit) installation, or adds a dependency on devel/readline,
+    devel/editline. The user can set READLINE_DEFAULT to choose readline
+    implementation. If your package really needs GNU readline library, its
+    Makefile should include devel/readline/buildlink3.mk instead of
+    readline.buildlink3.mk.
 
   * oss.buildlink3.mk defines several variables that may be used by packages
     that use the Open Sound System (OSS) API.
@@ -6633,6 +6696,7 @@ variable with "=" instead of "+=". The licenses accepted by default are:
         artistic artistic-2.0
         boost-license
         cc-by-sa-v3.0
+        cc0-1.0-universal
         cddl-1.0
         cpl-1.0
         epl-v1.0
@@ -6868,6 +6932,16 @@ version numbers recognized by pkg_info(1).
     For security fixes, please update the package vulnerabilities file. See
     Section 19.1.10, "Handling packages with security problems" for more
     information.
+
+ 7. If the package depends on either one of two (or more) packages, specify the
+    "pre-req-package-name" as a comma-separated list between curly braces.
+
+    As an example, take a package that depends on the Perl "version" module,
+    which has been part of Perl itself since version 5.10.0. This either/or
+    dependency is expressed as:
+
+    DEPENDS+=       {perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
+
 
 If your package needs files from another package to build, add the relevant
 distribution files to DISTFILES, so they will be extracted automatically. See
@@ -7662,7 +7736,7 @@ take some extra steps to make sure they get registered in the database:
     manually patch the package.
 
  3. Check the PLIST and remove any entries under the etc/gconf directory, as
-    they will be handled automatically. See Section 9.13, "How do I change the
+    they will be handled automatically. See Section 9.14, "How do I change the
     location of configuration files?" for more information.
 
  4. Define the GCONF_SCHEMAS variable in your Makefile with a list of all
@@ -8023,7 +8097,7 @@ or package moves or removals, set the CTYPE variable on the command line to
 your local login name is not the same as your NetBSD login name. The target
 also automatically removes possibly existing entries for the package in the
 TODO file. Don't forget to commit the changes, e.g. by using make
-changes-entry-commit! If you are not using a checkout directly from
+commit-changes-entry! If you are not using a checkout directly from
 cvs.NetBSD.org, but e.g. a local copy of the repository, you can set
 USE_NETBSD_REPO=yes. This makes the cvs commands use the main repository.
 
@@ -8047,6 +8121,9 @@ $ cvs commit
 $ cd ..
 $ vi Makefile # add SUBDIRS+=pkgname line
 $ cvs commit Makefile
+$ cd pkgname
+$ make CTYPE=Added changes-entry
+$ make commit-changes-entry
 
 The commit message of the initial import should include part of the DESCR file,
 so people reading the mailing lists know what the package is/does.

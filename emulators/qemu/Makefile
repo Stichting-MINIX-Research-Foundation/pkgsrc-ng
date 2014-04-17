@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.110 2013/06/28 19:30:28 tsutsui Exp $
+# $NetBSD: Makefile,v 1.122 2014/01/25 10:30:07 wiz Exp $
 
-DISTNAME=		qemu-1.4.2
-PKGREVISION=		1
-CATEGORIES=		emulators
-MASTER_SITES=		http://wiki.qemu.org/download/
-EXTRACT_SUFX=		.tar.bz2
+DISTNAME=	qemu-1.7.0
+CATEGORIES=	emulators
+MASTER_SITES=	http://wiki.qemu.org/download/
+EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.qemu.org/
-COMMENT=		CPU emulator using dynamic translation
-LICENSE=		gnu-gpl-v2 AND gnu-lgpl-v2.1 AND mit AND modified-bsd
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.qemu.org/
+COMMENT=	CPU emulator using dynamic translation
+LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1 AND mit AND modified-bsd
 
 CONFLICTS+=		qemu-bin-[0-9]*
 NOT_FOR_PLATFORM=	NetBSD-1.[0-6]*-*
@@ -17,7 +16,8 @@ NOT_FOR_PLATFORM=	NetBSD-1.[0-6]*-*
 # As a workaround, use emulators/qemu0.
 NOT_FOR_PLATFORM=	NetBSD-5*-*
 
-USE_TOOLS+=		gmake makeinfo perl:build pkg-config
+USE_TOOLS+=		bison gmake makeinfo perl:build pkg-config
+USE_NCURSES=		yes			# requires resize_term()
 UNLIMIT_RESOURCES=	datasize
 HAS_CONFIGURE=		yes
 
@@ -27,13 +27,15 @@ BUILD_DEPENDS+=		texi2html-[0-9]*:../../textproc/texi2html
 
 .include "../../mk/bsd.prefs.mk"
 
-CONFIGURE_ENV+=		mansuffix=/${PKGMANDIR}
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--interp-prefix=${PREFIX}/share/qemu
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--python=${PYTHONBIN}
 CONFIGURE_ARGS+=	--smbd=${PREFIX}/sbin/smbd
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
+CONFIGURE_ARGS+=	--enable-curses
+#HF#CONFIGURE_ARGS+=	--disable-fdt			# HF: build on OS X
+CONFIGURE_ENV+=		mansuffix=/${PKGMANDIR}
 
 CONF_FILES=		${EGDIR}/target-x86_64.conf \
 			${PKG_SYSCONFDIR}/target-x86_64.conf
@@ -41,39 +43,9 @@ EGDIR=			${PREFIX}/share/examples/qemu
 INSTALL_MAKE_FLAGS=	egdir=${EGDIR}
 PKG_SYSCONFSUBDIR=	qemu
 
-# Avoid clash with system include file:
-pre-patch:
-	mv ${WRKSRC}/audio/audio.h ${WRKSRC}/audio/qaudio.h
-
-SUBST_CLASSES+=		qaudio
-SUBST_STAGE.qaudio=	pre-configure
-SUBST_FILES.qaudio=	arch_init.c monitor.c savevm.c vl.c \
-			audio/*.c \
-			hw/ac97.c \
-			hw/adlib.c \
-			hw/cs4231a.c \
-			hw/es1370.c \
-			hw/gus.c \
-			hw/hda-audio.c \
-			hw/lm4549.c \
-			hw/lm4549.h \
-			hw/marvell_88w8618_audio.c \
-			hw/milkymist-ac97.c \
-			hw/mips_fulong2e.c \
-			hw/omap2.c \
-			hw/palm.c \
-			hw/pcspk.c \
-			hw/sb16.c \
-			hw/spitz.c \
-			hw/tsc210x.c \
-			hw/usb/dev-audio.c \
-			hw/wm8750.c \
-			hw/z2.c \
-			ui/vnc.h
-SUBST_SED.qaudio=	-e s,audio.h\",qaudio.h\",g
-SUBST_MESSAGE.qaudio=	Fixing audio.h confusion
-
 REPLACE_PERL+=		scripts/texi2pod.pl
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported yet as of 1.7.0
 
 BUILDLINK_PASSTHRU_DIRS+= /usr/lib
 BUILDLINK_PASSTHRU_RPATHDIRS+= /usr/lib
@@ -107,6 +79,8 @@ PLIST.nbd=		YES
 .elif !empty(OPSYS:MLinux)
 USER_EMUL=		${UE_ARCHS}
 PLIST.nbd=		YES
+.elif !empty(MACHINE_PLATFORM:MSunOS-5.11-*)
+PLIST.nbd=		YES
 .endif
 
 PLIST_VARS+=		${UE_ARCHS} nbd
@@ -123,9 +97,9 @@ post-install:
 .include "../../mk/oss.buildlink3.mk"
 .endif
 .include "../../devel/glib2/buildlink3.mk"
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/extension.mk"
 .include "../../x11/pixman/buildlink3.mk"
-.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

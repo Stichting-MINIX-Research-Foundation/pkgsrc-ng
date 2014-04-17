@@ -1,4 +1,4 @@
-$NetBSD: patch-xpcom_reflect_xptcall_src_md_unix_xptcinvoke__gcc__x86__unix.cpp,v 1.1 2013/05/23 13:12:13 ryoon Exp $
+$NetBSD: patch-xpcom_reflect_xptcall_src_md_unix_xptcinvoke__gcc__x86__unix.cpp,v 1.3 2014/02/20 13:19:03 ryoon Exp $
 
 --- xpcom/reflect/xptcall/src/md/unix/xptcinvoke_gcc_x86_unix.cpp.orig	2013-05-11 19:19:56.000000000 +0000
 +++ xpcom/reflect/xptcall/src/md/unix/xptcinvoke_gcc_x86_unix.cpp

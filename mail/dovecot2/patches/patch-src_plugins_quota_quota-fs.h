@@ -1,4 +1,4 @@
-$NetBSD: patch-src_plugins_quota_quota-fs.h,v 1.3.2.1 2013/08/06 15:57:07 tron Exp $
+$NetBSD: patch-src_plugins_quota_quota-fs.h,v 1.4 2013/08/05 23:12:42 bouyer Exp $
 
 fix support for NetBSD's libquota
 

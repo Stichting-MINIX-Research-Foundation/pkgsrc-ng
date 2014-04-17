@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.4 2013/06/14 21:13:24 wiz Exp $
+@comment $NetBSD: PLIST,v 1.8 2013/11/03 16:07:49 wiz Exp $
 bin/anki
 man/man1/anki.1
 share/anki/LICENSE
@@ -304,12 +304,14 @@ share/anki/locale/eu/LC_MESSAGES/anki.mo
 share/anki/locale/fa/LC_MESSAGES/anki.mo
 share/anki/locale/fi/LC_MESSAGES/anki.mo
 share/anki/locale/fr/LC_MESSAGES/anki.mo
+share/anki/locale/gl/LC_MESSAGES/anki.mo
 share/anki/locale/gu/LC_MESSAGES/anki.mo
 share/anki/locale/he/LC_MESSAGES/anki.mo
 share/anki/locale/hr/LC_MESSAGES/anki.mo
 share/anki/locale/hu/LC_MESSAGES/anki.mo
 share/anki/locale/it/LC_MESSAGES/anki.mo
 share/anki/locale/ja/LC_MESSAGES/anki.mo
+share/anki/locale/km/LC_MESSAGES/anki.mo
 share/anki/locale/ko/LC_MESSAGES/anki.mo
 share/anki/locale/lt/LC_MESSAGES/anki.mo
 share/anki/locale/lv/LC_MESSAGES/anki.mo
@@ -347,13 +349,16 @@ share/anki/locale/qt_zh_CN.qm
 share/anki/locale/qt_zh_TW.qm
 share/anki/locale/ro/LC_MESSAGES/anki.mo
 share/anki/locale/ru/LC_MESSAGES/anki.mo
+share/anki/locale/sk/LC_MESSAGES/anki.mo
 share/anki/locale/sl/LC_MESSAGES/anki.mo
+share/anki/locale/sr/LC_MESSAGES/anki.mo
 share/anki/locale/sv/LC_MESSAGES/anki.mo
 share/anki/locale/th/LC_MESSAGES/anki.mo
 share/anki/locale/tlh/LC_MESSAGES/anki.mo
 share/anki/locale/tr/LC_MESSAGES/anki.mo
 share/anki/locale/uk/LC_MESSAGES/anki.mo
 share/anki/locale/vi/LC_MESSAGES/anki.mo
+share/anki/locale/wo/LC_MESSAGES/anki.mo
 share/anki/locale/zh_CN/LC_MESSAGES/anki.mo
 share/anki/locale/zh_HK/LC_MESSAGES/anki.mo
 share/anki/locale/zh_TW/LC_MESSAGES/anki.mo
@@ -404,6 +409,8 @@ share/anki/tests/support/suspended12.anki
 share/anki/tests/support/text-2fields.txt
 share/anki/tests/support/text-tags.txt
 share/anki/tests/support/text-update.txt
+share/anki/tests/support/update1.apkg
+share/anki/tests/support/update2.apkg
 share/anki/tests/test_cards.py
 share/anki/tests/test_collection.py
 share/anki/tests/test_decks.py

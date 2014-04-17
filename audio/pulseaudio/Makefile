@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2013/06/06 12:54:05 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.82 2014/02/12 23:17:34 tron Exp $
 
 DISTNAME=	pulseaudio-2.1
-PKGREVISION=	7
+PKGREVISION=	14
 CATEGORIES=	audio
 MASTER_SITES=	http://freedesktop.org/software/pulseaudio/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -27,6 +26,11 @@ CONFIGURE_ARGS+=	--disable-default-build-tests
 CONFIGURE_ENV+=		ac_cv_tls=none
 .endif
 
+# Wrong sys/capability.h assumptions, incompatible implementation:
+.if ${OPSYS} == "FreeBSD"
+CONFIGURE_ARGS+=       --without-caps
+.endif
+
 CONFIGURE_ENV+=		EGDIR=${EGDIR}
 MAKE_ENV+=		EGDIR=${EGDIR}
 
@@ -44,6 +48,11 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR:Q}
 # Build module-mmkbd-evdev.so under Linux
 .if ${OPSYS} == "Linux" && exists(/usr/include/linux/input.h)
 PLIST.evdev=		yes
+.endif
+
+# Find the appropriate SDK
+.if !empty(MACHINE_PLATFORM:MDarwin-10.*)
+CONFIGURE_ARGS+=	--with-mac-sysroot=/Developer/SDKs/MacOSX10.6.sdk
 .endif
 
 .include "options.mk"
@@ -80,7 +89,7 @@ PLIST.sun=		yes
 PLIST.hal=		yes
 PLIST.oss=		yes
 .  endif
-.else
+.elif ${OPSYS} != "Darwin"
 PLIST.hal=		yes
 PLIST.oss=		yes
 .endif

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.47 2013/05/20 19:17:15 adam Exp $
+# $NetBSD: Makefile,v 1.57 2014/03/13 13:36:19 adam Exp $
 
-DISTNAME=	sqlite-autoconf-3071700
-PKGNAME=	sqlite3-tcl-3.7.17
+DISTNAME=	sqlite-autoconf-3080401
+PKGNAME=	sqlite3-tcl-3.8.4.1
 CATEGORIES=	databases
-MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2013/ \
-		http://www.sqlite.org/2013/
+MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2014/ \
+		http://www.sqlite.org/2014/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.sqlite.org/
@@ -21,7 +21,11 @@ PLIST_SUBST+=		TCL_TRIM_DOTS=${PKGVERSION_NOREV:S/.//g}
 
 BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.6.10
 
+# avoid conflict with lang/tcl
+post-extract:
+	mv ${WRKSRC}/doc/sqlite3.n ${WRKSRC}/doc/sqlite3-tcl.n
+
 .include "../../databases/sqlite3/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
 .include "../../lang/tcl/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

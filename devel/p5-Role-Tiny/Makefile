@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.7 2013/05/31 12:40:42 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2013/10/02 07:32:27 wen Exp $
 
-DISTNAME=	Role-Tiny-1.002004
+DISTNAME=	Role-Tiny-1.003002
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/I/IL/ILMARI/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/H/HA/HAARG/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Role-Tiny/

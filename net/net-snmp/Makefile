@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.98 2013/05/31 12:41:35 wiz Exp $
+# $NetBSD: Makefile,v 1.102 2014/03/11 14:34:39 jperkin Exp $
 
 DISTNAME=	net-snmp-5.7.2
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=net-snmp/}
 
@@ -101,6 +101,7 @@ CONFIGURE_ARGS+=	--enable-ucd-snmp-compatibility
 #
 REQD_DIRS=	${PREFIX}/share/snmp
 RCD_SCRIPTS=	snmpd snmptrapd
+SMF_NAME=	snmp
 
 USE_TOOLS+=		sh:run
 REPLACE_INTERPRETER+=	bash

@@ -1,4 +1,4 @@
-$NetBSD: patch-dist_stl__wrappers_ios,v 1.1.2.2 2013/08/24 19:45:15 tron Exp $
+$NetBSD: patch-dist_stl__wrappers_ios,v 1.1 2013/07/16 22:27:45 joerg Exp $
 
 --- dist/stl_wrappers/ios.orig	2013-07-14 12:39:46.000000000 +0000
 +++ dist/stl_wrappers/ios

@@ -1,31 +1,48 @@
-# $NetBSD: Makefile,v 1.7 2013/03/16 02:00:34 taca Exp $
+# $NetBSD: Makefile,v 1.11 2014/03/18 11:10:52 adam Exp $
 
-PKGNAME=		${PHP_PKG_PREFIX}-fpm-${PHP_BASE_VERS}
-CATEGORIES=		www
+PKGNAME=	${PHP_PKG_PREFIX}-fpm-${PHP_BASE_VERS}
+CATEGORIES=	www
 
-HOMEPAGE=		http://php-fpm.org/
-MAINTAINER=		filip@joyent.com
-COMMENT=		FPM interface for ${PKG_PHP}
-LICENSE=		2-clause-bsd
-
-PHP_VERSIONS_ACCEPTED=	53 54
+HOMEPAGE=	http://php-fpm.org/
+MAINTAINER=	filip@joyent.com
+COMMENT=	FPM interface for ${PKG_PHP}
+LICENSE=	2-clause-bsd
 
 USE_PHP_EXT_PATCHES=	yes
 LIBTOOL_OVERRIDE=	# empty
 
-BUILD_DEFS+=		VARBASE APACHE_USER APACHE_GROUP
+.include "../../mk/bsd.prefs.mk"
+
+FPM_USER?=		${APACHE_USER}
+FPM_GROUP?=		${APACHE_GROUP}
+
+BUILD_DEFS+=		VARBASE FPM_USER FPM_GROUP
+
+PKG_USERS_VARS=		FPM_USER
+PKG_GROUPS_VARS=	FPM_GROUP
+PKG_GROUPS=		${FPM_GROUP}
+PKG_USERS=		${FPM_USER}:${FPM_GROUP}
+
+PKG_GECOS.${FPM_USER}=	PHP FPM daemon user
+PKG_SHELL.${FPM_USER}=	${NOLOGIN}
 
 EGDIR=			${PREFIX}/share/examples/php
 CONF_FILES=		${EGDIR}/php-fpm.conf ${PKG_SYSCONFDIR}/php-fpm.conf
 AUTO_MKDIRS=		yes
 
 CONFIGURE_ARGS+=	--enable-fpm
-CONFIGURE_ARGS+=	--with-fpm-user=${APACHE_USER}
-CONFIGURE_ARGS+=	--with-fpm-group=${APACHE_GROUP}
+CONFIGURE_ARGS+=	--with-fpm-user=${FPM_USER}
+CONFIGURE_ARGS+=	--with-fpm-group=${FPM_GROUP}
 
+SMF_NAME=		php-fpm
 RCD_SCRIPTS=		php_fpm
-MESSAGE_SUBST+=		CGIDIR=${CGIDIR:Q}
-MESSAGE_SUBST+=		VARBASE=${VARBASE:Q}
+MESSAGE_SUBST+=		CGIDIR=${CGIDIR}
+MESSAGE_SUBST+=		VARBASE=${VARBASE}
+
+# Make sure modules can link correctly
+.if ${OPSYS} == "Darwin"
+INSTALL_UNSTRIPPED=	yes
+.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/sapi/fpm/php-fpm ${DESTDIR}${PREFIX}/sbin/php-fpm

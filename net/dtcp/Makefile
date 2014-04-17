@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2012/10/23 17:18:18 asau Exp $
+# $NetBSD: Makefile,v 1.28 2014/03/15 05:20:51 obache Exp $
 #
 
 DISTNAME=	dtcp-20060109
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://www.imasy.or.jp/~ume/ipv6/ \
 		http://home.jp.FreeBSD.org/~ume/ipv6/
@@ -20,6 +20,7 @@ INSTALLATION_DIRS=	${PKGMANDIR}/cat8 ${PKGMANDIR}/man8 sbin
 INSTALL_MAKE_FLAGS+=	PREFIX=${PREFIX} DESTDIR=${DESTDIR}
 
 USE_BSD_MAKEFILE=	yes
+USE_TOOLS=		nroff
 
 .include "../../lang/ruby/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

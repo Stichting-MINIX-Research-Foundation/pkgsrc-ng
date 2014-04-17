@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2012/10/07 14:22:52 mef Exp $
+@comment $NetBSD: PLIST,v 1.3 2014/01/11 12:32:25 obache Exp $
 share/ghostscript/${PKGVERSION}/Resource/Font/GothicBBB-Medium-H
 share/ghostscript/${PKGVERSION}/Resource/Font/GothicBBB-Medium-EUC-H
 share/ghostscript/${PKGVERSION}/Resource/Font/Ryumin-Light-EUC-H

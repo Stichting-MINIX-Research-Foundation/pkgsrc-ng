@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.16 2013/06/06 12:55:22 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2014/01/03 05:26:24 ryoon Exp $
 #
 
 DISTNAME=	sakura-${SAKURA_VER}
-SAKURA_VER=	3.0.4
-PKGREVISION=	8
+SAKURA_VER=	3.1.3
 CATEGORIES=	x11
-MASTER_SITES=	http://launchpadlibrarian.net/103638542/
+MASTER_SITES=	http://launchpadlibrarian.net/159682501/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	ryoon@NetBSD.org

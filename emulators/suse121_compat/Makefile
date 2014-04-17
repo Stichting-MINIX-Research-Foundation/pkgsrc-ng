@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1.1.1.12.1 2013/08/25 16:34:46 tron Exp $
+# $NetBSD: Makefile,v 1.2 2013/08/25 12:20:25 obache Exp $
 
 DISTNAME=	suse_compat-${SUSE_VERSION}
 PKGREVISION=	1

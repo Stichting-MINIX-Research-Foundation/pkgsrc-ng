@@ -1,10 +1,12 @@
-# $NetBSD: Makefile,v 1.25 2013/06/22 22:39:10 jperkin Exp $
+# $NetBSD: Makefile,v 1.35 2014/03/26 13:24:52 jperkin Exp $
 
 DISTNAME=	kde-workspace-${_KDE_VERSION}
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	x11
 COMMENT=	Base workspace for the KDE 4 integrated X11 desktop
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 4.11.3
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -42,14 +44,13 @@ CONF_FILES+=		${PREFIX}/share/examples/kde4-dbus/org.kde.kcontrol.kcmclock.conf 
 			${PKG_SYSCONFDIR}/dbus-1/system.d/org.kde.kcontrol.kcmclock.conf
 CONF_FILES+=		${PREFIX}/share/examples/kde4-dbus/org.kde.kcontrol.kcmkdm.conf \
 			${PKG_SYSCONFDIR}/dbus-1/system.d/org.kde.kcontrol.kcmkdm.conf
-CONF_FILES+=		${PREFIX}/share/examples/kde4-dbus/org.kde.powerdevil.backlighthelper.conf \
-			${PKG_SYSCONFDIR}/dbus-1/system.d/org.kde.powerdevil.backlighthelper.conf
 
 SPECIAL_PERMS+=		${PREFIX}/lib/kde4/libexec/kcheckpass \
 			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 6555
 
 REPLACE_PERL+= \
 	kcontrol/keys/convertShortcuts.pl \
+	kwin/clients/oxygen/data/update_oxygen.pl \
 	kwin/data/kwin3_plugin.pl \
 	kwin/data/pluginlibFix.pl
 REPLACE_SH+=		libs/plasmagenericshell/widgetsexplorer/package/Messages.sh
@@ -64,6 +65,16 @@ PLIST_VARS+=	utempter noutempter
 PLIST.utempter=		yes
 .else
 PLIST.noutempter=	yes
+.endif
+
+PLIST_VARS+=	gles
+.if ${OPSYS} == "Linux" && exists(/usr/include/GLES2/gl2.h)
+PLIST.gles=		yes
+.endif
+
+.if ${OPSYS} == "Linux"
+CONF_FILES+=		${PREFIX}/share/examples/kde4-dbus/org.kde.powerdevil.backlighthelper.conf \
+			${PKG_SYSCONFDIR}/dbus-1/system.d/org.kde.powerdevil.backlighthelper.conf
 .endif
 
 SUBST_CLASSES+=		paths
@@ -146,6 +157,7 @@ BUILDLINK_DEPMETHOD.qt4-tools=	full
 .include "../../x11/libXxf86misc/buildlink3.mk"
 .include "../../x11/libXScrnSaver/buildlink3.mk"
 .include "../../x11/xcb-util-image/buildlink3.mk"
+.include "../../x11/xcb-util-keysyms/buildlink3.mk"
 .include "../../x11/xcb-util-renderutil/buildlink3.mk"
 
 .include "../../mk/pam.buildlink3.mk"

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.2 2012/12/01 15:22:32 jakllsch Exp $
+@comment $NetBSD: PLIST,v 1.4 2014/03/11 14:05:01 jperkin Exp $
 bin/afs_compile_et
 bin/afsio
 bin/afsmonitor
@@ -224,6 +224,7 @@ lib/libubik.a
 libexec/openafs/buserver
 libexec/openafs/dafileserver
 libexec/openafs/dasalvager
+libexec/openafs/davolserver
 libexec/openafs/fileserver
 libexec/openafs/kaserver
 libexec/openafs/ptserver
@@ -261,6 +262,5 @@ sbin/voldump
 sbin/volinfo
 sbin/vos
 sbin/vsys
-share/examples/rc.d/bosserver
 share/openafs/C/afszcm.cat
 @pkgdir lib/openafs

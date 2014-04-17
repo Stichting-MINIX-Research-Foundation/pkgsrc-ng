@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.58 2013/06/06 12:53:49 wiz Exp $
+# $NetBSD: Makefile,v 1.61 2014/01/27 17:10:46 drochner Exp $
 
 DISTNAME=	gconfmm-2.28.3
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gconfmm/2.28/}
 EXTRACT_SUFX=	.tar.bz2
@@ -18,5 +18,5 @@ PKGCONFIG_OVERRIDE+=	${WRKSRC}/gconf/gconfmm-2.6.pc.in
 GNU_CONFIGURE=		yes
 
 .include "../../devel/GConf/buildlink3.mk"
-.include "../../x11/gtkmm/buildlink3.mk"
+.include "../../devel/glibmm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

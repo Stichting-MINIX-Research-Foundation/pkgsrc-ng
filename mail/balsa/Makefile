@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.102 2013/06/06 12:54:40 wiz Exp $
+# $NetBSD: Makefile,v 1.110 2014/02/12 23:18:06 tron Exp $
 
-DISTNAME=	balsa-2.4.8
-PKGREVISION=	28
+DISTNAME=	balsa-2.4.14
+PKGREVISION=	7
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://pawsa.fedorapeople.org/balsa/
 EXTRACT_SUFX=	.tar.bz2
@@ -31,10 +31,6 @@ CONF_FILES=	${EGDIR}/balsa.soundlist ${PKG_SYSCONFDIR}/sound/events/balsa.soundl
 
 .include "options.mk"
 
-BUILDLINK_TRANSFORM+=		rm:-DGNOME_DISABLE_DEPRECATED
-BUILDLINK_TRANSFORM+=		rm:-DGNOME_VFS_DISABLE_DEPRECATED
-BUILDLINK_TRANSFORM+=		rm:-DGTK_DISABLE_DEPRECATED
-
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libbonobo/buildlink3.mk"
@@ -45,11 +41,10 @@ BUILDLINK_TRANSFORM+=		rm:-DGTK_DISABLE_DEPRECATED
 .include "../../mail/gmime24/buildlink3.mk"
 .include "../../mail/libesmtp/buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
-.include "../../print/libgnomeprint/buildlink3.mk"
-.include "../../print/libgnomeprintui/buildlink3.mk"
 .include "../../security/gpgme/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
 .include "../../textproc/gtkspell/buildlink3.mk"
+.include "../../textproc/gnome-doc-utils/buildlink3.mk"
 .include "../../mk/omf-scrollkeeper.mk"
 .include "../../www/gtkhtml314/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

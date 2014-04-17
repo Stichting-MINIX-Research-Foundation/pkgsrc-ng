@@ -1,4 +1,4 @@
-# $NetBSD: tools.Linux.mk,v 1.50 2012/10/01 10:25:03 ryoon Exp $
+# $NetBSD: tools.Linux.mk,v 1.54 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the Linux operating system.
 
@@ -199,6 +199,7 @@ TOOLS_PLATFORM.openssl?=	/usr/bin/openssl
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 .endif
 TOOLS_PLATFORM.pwd?=		/bin/pwd
+TOOLS_PLATFORM.readlink?=	/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 .if exists(/bin/sdiff)
@@ -237,13 +238,24 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
+.if exists(/bin/uniq)
+TOOLS_PLATFORM.uniq?=		/bin/uniq
+.elif exists(/usr/bin/uniq)
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
+.endif
 TOOLS_PLATFORM.wc?=		/usr/bin/wc
+.if exists(/usr/bin/wget)
+TOOLS_PLATFORM.wget?=		/usr/bin/wget
+.endif
 TOOLS_PLATFORM.xargs?=		/usr/bin/xargs -r
 .if exists(/usr/bin/xgettext)
 TOOLS_PLATFORM.xgettext?=	/usr/bin/xgettext
 .endif
 .if exists(/usr/bin/yacc)
 TOOLS_PLATFORM.yacc?=		/usr/bin/yacc
+.endif
+.if exists(/usr/bin/xz)
+TOOLS_PLATFORM.xz?=		/usr/bin/xz
 .endif
 .if exists(/usr/bin/xzcat)
 TOOLS_PLATFORM.xzcat?=		/usr/bin/xzcat

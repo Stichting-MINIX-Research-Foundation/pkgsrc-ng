@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.11 2012/10/27 12:20:13 wen Exp $
+$NetBSD: distinfo,v 1.13 2014/03/13 23:16:57 spz Exp $
 
-SHA1 (Capture-Tiny-0.20.tar.gz) = 637d165c84643a255476e714801105b1f093f83b
-RMD160 (Capture-Tiny-0.20.tar.gz) = 7ecdf8c30738eeeb2f7da8e86c568611f95383f6
-Size (Capture-Tiny-0.20.tar.gz) = 29763 bytes
+SHA1 (Capture-Tiny-0.24.tar.gz) = 1832229da007eb1a38d2418a7e1a35b8affb5d43
+RMD160 (Capture-Tiny-0.24.tar.gz) = 261c96ba457a4ea99dffe10202780116b525e886
+Size (Capture-Tiny-0.24.tar.gz) = 33995 bytes

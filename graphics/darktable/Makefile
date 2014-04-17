@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2013/06/06 12:54:28 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/02/19 09:44:56 jperkin Exp $
 
-DISTNAME=	darktable-1.2
-PKGREVISION=	5
+DISTNAME=	darktable-1.2.3
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=darktable/}
 EXTRACT_SUFX=	.tar.xz
@@ -41,8 +41,8 @@ LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/darktable
 .include "../../mk/bsd.fast.prefs.mk"
 .if ${MACHINE_ARCH} == "i386"
 # SSE alignment issues
-GCC_REQD=	4.2
-CFLAGS+=	-mstackrealign -msse2
+GCC_REQD+=	4.2
+CFLAGS+=	-mstackrealign -msse2 -march=i686
 .endif
 
 .if ${OPSYS} == "NetBSD"
@@ -66,6 +66,7 @@ BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.7.14.1nb1
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libgphoto2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../graphics/GraphicsMagick/buildlink3.mk"
 .include "../../graphics/exiv2/buildlink3.mk"
 .include "../../graphics/gegl/buildlink3.mk"
 .include "../../graphics/lensfun/buildlink3.mk"
@@ -75,7 +76,7 @@ BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.7.14.1nb1
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../net/flickcurl/buildlink3.mk"
 .include "../../net/libsoup24/buildlink3.mk"
-.include "../../security/gnome-keyring/buildlink3.mk"
+#.include "../../security/gnome-keyring/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/json-glib/buildlink3.mk"

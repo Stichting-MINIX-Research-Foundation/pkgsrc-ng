@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2012/10/23 19:51:26 asau Exp $
+# $NetBSD: Makefile,v 1.22 2014/01/25 10:45:21 wiz Exp $
 #
 
-DISTNAME=	tdir-1.58
-PKGREVISION=	5
+DISTNAME=	tdir-1.69
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.tundraware.com/Software/tdir/
 
@@ -13,7 +12,7 @@ LICENSE=	tdir-license
 NOT_FOR_BULK_PLATFORM=	HPUX-*-*
 
 USE_TOOLS+=		gunzip
-PYTHON_PATCH_SCRIPTS=	tdir
+REPLACE_PYTHON=	tdir
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/tdir
 
 do-install:

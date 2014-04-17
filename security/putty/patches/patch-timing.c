@@ -1,4 +1,4 @@
-$NetBSD: patch-timing.c,v 1.1.6.1 2013/08/21 19:40:13 tron Exp $
+$NetBSD: patch-timing.c,v 1.2 2013/08/07 11:06:39 drochner Exp $
 
 --- timing.c.orig	2012-09-19 22:12:00.000000000 +0000
 +++ timing.c

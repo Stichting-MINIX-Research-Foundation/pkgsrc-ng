@@ -1,0 +1,33 @@
+$NetBSD: patch-php.ini-development,v 1.3 2014/01/11 17:05:09 taca Exp $
+
+--- php.ini-development.orig	2014-01-08 10:15:20.000000000 +0000
++++ php.ini-development
+@@ -703,7 +703,7 @@ default_mimetype = "text/html"
+ ;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ ; UNIX: "/path1:/path2"
+-;include_path = ".:/php/includes"
++include_path = ".:@PREFIX@/lib/php"
+ ;
+ ; Windows: "\path1;\path2"
+ ;include_path = ".;c:\php\includes"
+@@ -724,8 +724,8 @@ doc_root =
+ ; http://php.net/user-dir
+ user_dir =
+ 
+-; Directory in which the loadable extensions (modules) reside.
+-; http://php.net/extension-dir
++; Directory in which the loadable extensions (modules) reside. If not
++; defined, then use the extension directory specified at compile-time.
+ ; extension_dir = "./"
+ ; On windows:
+ ; extension_dir = "ext"
+@@ -798,7 +798,7 @@ file_uploads = On
+ ; Temporary directory for HTTP uploaded files (will use system default if not
+ ; specified).
+ ; http://php.net/upload-tmp-dir
+-;upload_tmp_dir =
++upload_tmp_dir = /tmp
+ 
+ ; Maximum allowed size for uploaded files.
+ ; http://php.net/upload-max-filesize

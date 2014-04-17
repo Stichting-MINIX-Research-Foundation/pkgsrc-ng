@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.30 2013/06/06 12:55:21 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2014/01/03 05:03:51 ryoon Exp $
 
-DISTNAME=	rep-gtk-0.90.4
+DISTNAME=	rep-gtk-0.90.8.1
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
-PKGREVISION=	12
 CATEGORIES=	x11 lang
-MASTER_SITES=	http://download.tuxfamily.org/sawfish/rep-gtk/
+MASTER_SITES=	http://download.tuxfamily.org/librep/rep-gtk/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://rep-gtk.sourceforge.net/
+HOMEPAGE=	http://sawfish.wikia.com/
 COMMENT=	GTK2 librep bindings (used by wm/sawfish)
 
 CONFLICTS=	rep-gtk-[0-9]*

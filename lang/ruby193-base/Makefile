@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.30.2.1 2013/07/16 17:00:50 tron Exp $
+# $NetBSD: Makefile,v 1.42 2014/03/13 17:53:36 taca Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
-PKGREVISION=	1
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -15,6 +14,7 @@ LICENSE=	${RUBY_LICENSE}
 RUBY_VERSION_SUPPORTED=	193
 
 MAKE_JOBS_SAFE=		no
+USE_GCC_RUNTIME=	yes
 USE_LANGUAGES=		c
 USE_TOOLS+=		pax yacc
 GNU_CONFIGURE=		yes
@@ -78,8 +78,6 @@ SUBST_MESSAGE.conf=	Fixing configuration files.
 .if !empty(RUBY_SUFFIX)
 CONFIGURE_ARGS+= --program-suffix=${RUBY_SUFFIX}
 CONFIGURE_ARGS+= --with-soname=${RUBY_NAME}
-CONFIGURE_ARGS+= --with-sitedir=${PREFIX}/${RUBY_SITELIB_BASE}
-CONFIGURE_ARGS+= --with-vendordir=${PREFIX}/${RUBY_VENDORLIB_BASE}
 CONFIGURE_ARGS+= --with-ruby-version=${RUBY_VERSION}
 CONFIGURE_ARGS+= --with-ruby-pc="ruby-${RUBY_VERSION}.pc"
 .endif
@@ -108,11 +106,9 @@ CONFIGURE_ENV+=	ac_cv_header_ucontext_h=no
 .endif
 
 #
-# work around for Linux and Cygwin
+# prevent unwanted mkdir recorded in rbconfig.rb
 #
-.if ${OPSYS} == "Linux" || ${OPSYS} == "Cygwin"
 CONFIGURE_ENV+=	MKDIR_P=${MKDIR:Q}
-.endif
 
 DOCS=		COPYING COPYING.ja ChangeLog NEWS README \
 		README.EXT README.EXT.ja README.ja ToDo \
@@ -147,7 +143,7 @@ pre-configure:
 	${RM} -f ${WRKSRC}/ext/tk/extconf.rb
 
 pre-install:
-	cd ${WRKSRC}/bin; for f in *; do ${LN} -f $$f $${f}${RUBY_VER}; done
+	cd ${WRKSRC}/bin; for f in *; do ${LN} -f $$f $${f}${RUBY_SUFFIX}; done
 	cd ${WRKSRC}/lib; \
 		${FIND} . \( -name '*.orig' -o -name '*.orig_dist' \) \
 		-exec ${RM} -f {} \;

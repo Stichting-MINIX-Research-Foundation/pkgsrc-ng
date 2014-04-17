@@ -1,4 +1,4 @@
-# $NetBSD: tools.SunOS.mk,v 1.42 2013/02/12 15:08:48 jperkin Exp $
+# $NetBSD: tools.SunOS.mk,v 1.44 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the Solaris operating system.
 #
@@ -158,7 +158,8 @@ TOOLS_PLATFORM.openssl?=	/usr/bin/openssl
 # Don't use GNU patch
 #TOOLS_PLATFORM.gpatch?=		/usr/bin/gpatch
 #TOOLS_PLATFORM.patch?=		/usr/bin/gpatch
-TOOLS_PLATFORM.pax?=		/bin/pax
+# Native pax doesn't support -O required by mk/extract/extract
+#TOOLS_PLATFORM.pax?=		/bin/pax
 #.if exists(/usr/bin/perl)
 #TOOLS_PLATFORM.perl?=		/usr/bin/perl
 #TOOLS_PLATFORM.pod2man?=	/usr/perl5/bin/pod2man
@@ -209,6 +210,7 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/xpg4/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/ccs/bin/tsort
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
 .if exists(/usr/bin/unzip)
 TOOLS_PLATFORM.unzip?=		/usr/bin/unzip
 .endif

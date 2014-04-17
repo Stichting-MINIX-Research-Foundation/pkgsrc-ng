@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2013/06/11 12:58:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.45 2013/10/10 14:42:08 ryoon Exp $
 #
 
 DISTNAME=	gpsim-0.26.1
+PKGREVISION=	2
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gpsim/}
 
@@ -14,7 +15,6 @@ USE_LANGUAGES=	c c++
 
 USE_TOOLS+=	gmake pkg-config
 USE_LIBTOOL=	YES
-USE_GNU_READLINE=	YES
 
 INSTALLATION_DIRS=	share/doc/gpsim
 

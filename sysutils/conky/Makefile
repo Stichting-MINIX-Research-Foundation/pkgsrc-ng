@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2013/06/06 12:55:02 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2014/02/12 23:18:38 tron Exp $
 #
 
 DISTNAME=	conky-1.9.0
-PKGREVISION=	11
+PKGREVISION=	16
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=conky/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,10 +16,13 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config aclocal autoconf autoheader automake
 
-CONFIGURE_ARGS+=	--enable-imlib2 --enable-lua-imlib2
-CONFIGURE_ARGS+=	--enable-lua-cairo
+CONFIGURE_ARGS+=	--enable-imlib2
 CONFIGURE_ARGS+=	--enable-curl --enable-rss
 CONFIGURE_ARGS+=	--enable-weather-metar --enable-weather-xoap
+# devel/tolua++ was deeply broken by the lua 5.1 to 5.2 update and got
+# removed; disable lua support for now
+CONFIGURE_ARGS+=	--disable-lua
+# CONFIGURE_ARGS+=	--enable-lua-cairo --enable-lua-imlib2
 
 EGDIR=		share/examples/conky
 OWN_DIRS=	${PKG_SYSCONFDIR}/conky
@@ -43,7 +46,7 @@ post-install:
 	${INSTALL_DATA} files/conkyrc ${DESTDIR}${PREFIX}/${EGDIR}
 
 .include "../../devel/ncurses/buildlink3.mk"
-.include "../../devel/tolua++/buildlink3.mk"
+#.include "../../devel/tolua++/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXdamage/buildlink3.mk"

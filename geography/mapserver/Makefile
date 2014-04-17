@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2013/06/04 22:16:12 tron Exp $
+# $NetBSD: Makefile,v 1.51 2014/02/12 23:17:58 tron Exp $
 
 DISTNAME=	mapserver-5.6.8
-PKGREVISION=	11
+PKGREVISION=	15
 CATEGORIES=	geography www
 MASTER_SITES=	http://download.osgeo.org/mapserver/
 
@@ -42,7 +42,7 @@ do-install:
 
 .include "../../converters/fribidi/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../geography/gdal-lib/buildlink3.mk"
 .include "../../geography/geos/buildlink3.mk"

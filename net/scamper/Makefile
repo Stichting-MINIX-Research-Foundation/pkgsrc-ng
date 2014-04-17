@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.13 2012/10/23 17:19:07 asau Exp $
+# $NetBSD: Makefile,v 1.15 2014/01/26 10:28:49 markd Exp $
 #
 
-DISTNAME=	scamper-cvs-20111202b
+DISTNAME=	scamper-cvs-20140122
 PKGNAME=	${DISTNAME:S/-cvs//}
 CATEGORIES=	net
-MASTER_SITES=	http://www.wand.net.nz/scamper/
+MASTER_SITES=	http://www.caida.org/tools/measurement/scamper/code/
 
 MAINTAINER=	mjl@luckie.org.nz
-HOMEPAGE=	http://www.wand.net.nz/scamper/
+HOMEPAGE=	http://www.caida.org/tools/measurement/scamper/
 COMMENT=	Tool for parallelised IPv4 and IPv6 measurement
 LICENSE=	gnu-gpl-v2
 

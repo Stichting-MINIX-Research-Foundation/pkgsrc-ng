@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2013/05/31 12:40:32 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2014/01/08 07:27:35 wen Exp $
 #
 
-DISTNAME=	MooseX-App-Cmd-0.09
+DISTNAME=	MooseX-App-Cmd-0.27
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
 
@@ -15,15 +14,16 @@ LICENSE=	${PERL5_LICENSE}
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/MooseX/App/Cmd/.packlist
 
-DEPENDS+=	p5-App-Cmd>=0.300:../../devel/p5-App-Cmd
+DEPENDS+=	p5-Any-Moose>=0:../../devel/p5-Any-Moose
+DEPENDS+=	p5-App-Cmd>=0.321:../../devel/p5-App-Cmd
 DEPENDS+=	p5-Getopt-Long-Descriptive>=0.091:../../devel/p5-Getopt-Long-Descriptive
 DEPENDS+=	p5-Moose>=0.86:../../devel/p5-Moose
 DEPENDS+=	p5-MooseX-Getopt>=0.18:../../devel/p5-MooseX-Getopt
-DEPENDS+=	p5-MooseX-Has-Options-[0-9]*:../../devel/p5-MooseX-Has-Options
-DEPENDS+=	p5-MooseX-MarkAsMethods-[0-9]*:../../devel/p5-MooseX-MarkAsMethods
+DEPENDS+=	p5-MouseX-Getopt>=0:../../devel/p5-MouseX-Getopt
+DEPENDS+=	p5-namespace-clean>=0:../../devel/p5-namespace-clean
 
 # For test target
-BUILD_DEPENDS+= p5-MooseX-ConfigFromFile-[0-9]*:../../devel/p5-MooseX-ConfigFromFile
+BUILD_DEPENDS+=	p5-MooseX-ConfigFromFile>=0.08:../../devel/p5-MooseX-ConfigFromFile
 BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 BUILD_DEPENDS+=	p5-Test-Output-[0-9]*:../../devel/p5-Test-Output
 BUILD_DEPENDS+=	p5-Test-use-ok-[0-9]*:../../devel/p5-Test-use-ok

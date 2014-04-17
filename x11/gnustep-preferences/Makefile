@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2013/05/09 07:40:36 adam Exp $
+# $NetBSD: Makefile,v 1.41 2013/10/19 09:07:13 adam Exp $
 
 DISTNAME=	Preferences-1.2.0
 PKGNAME=	gnustep-${DISTNAME:S/P/p/}
-PKGREVISION=	22
+PKGREVISION=	23
 CATEGORIES=	x11 gnustep
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=prefsapp/}
 EXTRACT_SUFX=	.tar.bz2
@@ -25,6 +25,12 @@ SUBST_FILES.gnustep_installation_dir+=	GNUmakefile.preamble
 SUBST_FILES.gnustep_installation_dir+=	PrefsModule/GNUmakefile.preamble
 SUBST_FILES.gnustep_installation_dir+=	Modules/Keyboard/GNUmakefile
 SUBST_SED.gnustep_installation_dir+=	-e 's|\$$(GNUSTEP_SYSTEM_ROOT)/Library/Preferences|$${DESTDIR}${GNUSTEP_LIB_DIR}/Preferences|'
+
+.include "../../mk/compiler.mk"
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-unused-const-variable
+.endif
 
 .include "../../x11/gnustep-back/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

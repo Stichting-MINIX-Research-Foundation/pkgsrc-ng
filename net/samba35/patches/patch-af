@@ -1,4 +1,4 @@
-$NetBSD: patch-af,v 1.5.6.1 2013/08/12 14:21:30 tron Exp $
+$NetBSD: patch-af,v 1.6 2013/08/12 02:47:32 taca Exp $
 
 Patch to join an Active Directory from
 http://www.ogris.de/samba/unix-active-directory.html.

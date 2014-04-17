@@ -1,7 +1,16 @@
-$NetBSD: patch-CMakeLists.txt,v 1.2 2012/08/10 13:54:14 ryoon Exp $
+$NetBSD: patch-CMakeLists.txt,v 1.4 2014/01/03 05:26:24 ryoon Exp $
 
---- CMakeLists.txt.orig	2012-01-27 11:52:46.987517960 +0100
-+++ CMakeLists.txt	2012-01-27 11:55:28.028774190 +0100
+--- CMakeLists.txt.orig	2013-12-13 19:31:31.000000000 +0000
++++ CMakeLists.txt
+@@ -53,7 +53,7 @@ INSTALL (TARGETS sakura RUNTIME DESTINAT
+ INSTALL (FILES sakura.desktop DESTINATION share/applications)
+ INSTALL (FILES terminal-tango.svg DESTINATION share/pixmaps)
+ IF (POD2MAN)	
+-	INSTALL (FILES ${sakura_BINARY_DIR}/sakura.1 DESTINATION share/man/man1)	
++	INSTALL (FILES ${sakura_BINARY_DIR}/sakura.1 DESTINATION man/man1)	
+ ENDIF (POD2MAN)
+ INSTALL (FILES INSTALL DESTINATION share/doc/sakura)	
+ 
 @@ -70,5 +70,5 @@ ADD_CUSTOM_TARGET (distclean
  
  IF (POD2MAN) 

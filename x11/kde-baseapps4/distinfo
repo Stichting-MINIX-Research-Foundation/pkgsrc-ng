@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.6 2013/06/22 20:18:25 jperkin Exp $
+$NetBSD: distinfo,v 1.8 2014/02/01 02:20:53 markd Exp $
 
-SHA1 (kde-baseapps-4.10.3.tar.xz) = c9949ef6dafbc567bb3f088bf9e156c3a5a9ec08
-RMD160 (kde-baseapps-4.10.3.tar.xz) = 70caa3c27ac73330cbeb6c5ca26a7a94ec260479
-Size (kde-baseapps-4.10.3.tar.xz) = 2613696 bytes
+SHA1 (kde-baseapps-4.11.5.tar.xz) = 3271747be25f70dbed8ddc61ea3b803473b1e46e
+RMD160 (kde-baseapps-4.11.5.tar.xz) = 6afae75f5dca1d7a77563d83cf3fcce967abee33
+Size (kde-baseapps-4.11.5.tar.xz) = 2520984 bytes
 SHA1 (patch-dolphin_src_kitemviews_kfileitemmodelrolesupdater.cpp) = ee7482a2dee09ea68907c899aac08be014136b88

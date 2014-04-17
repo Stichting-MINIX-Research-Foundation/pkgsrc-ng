@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:42:17 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2013/08/29 13:31:15 joerg Exp $
 #
 
-DISTNAME=	Text-RecordParser-v1.5.0
+DISTNAME=	Text-RecordParser-v1.6.3
 PKGNAME=	p5-${DISTNAME:S/v1/1/}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Text/}
 
@@ -16,6 +16,11 @@ DEPENDS+=	p5-Class-Accessor>=0:../../devel/p5-Class-Accessor
 DEPENDS+=	p5-IO-stringy-[0-9]*:../../devel/p5-IO-stringy
 DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
 DEPENDS+=	p5-Readonly-[0-9]*:../../devel/p5-Readonly
+DEPENDS+=	p5-Pod-Readme>=0:../../textproc/p5-Pod-Readme
+DEPENDS+=	p5-Pod-Markdown>=0:../../textproc/p5-Pod-Markdown
+DEPENDS+=	p5-Text-Autoformat-[0-9]*:../../textproc/p5-Text-Autoformat
+
+BUILD_DEPENDS+=	p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
 
 # Recommended dependencies
 DEPENDS+=	p5-GraphViz-[0-9]*:../../graphics/p5-GraphViz
@@ -30,9 +35,13 @@ PERL5_MODULE_TYPE=	Module::Build
 
 USE_TOOLS+=perl
 
-REPLACE_PERL+=		bin/tab2graph	blib/script/tab2graph
-REPLACE_PERL+=		bin/tablify	blib/script/tablify
-REPLACE_PERL+=		bin/tabmerge	blib/script/tabmerge
+REPLACE_PERL+=		bin/tab2graph
+REPLACE_PERL+=		bin/tablify
+REPLACE_PERL+=		bin/tabmerge
+
+# File is unwriteable but is generated during the build.
+post-extract:
+	${RM} -f ${WRKSRC}/README.md
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

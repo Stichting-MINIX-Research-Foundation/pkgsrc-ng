@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.68 2013/06/23 01:09:43 tsutsui Exp $
+# $NetBSD: Makefile,v 1.78 2014/03/26 14:27:22 taca Exp $
 #
 
-DISTNAME=	mikutter.0.2.2.1264
+DISTNAME=	mikutter.0.2.2.1537
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/./-/}
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://mikutter.hachune.net/bin/
 
@@ -11,22 +12,19 @@ HOMEPAGE=	http://mikutter.hachune.net/
 COMMENT=	Simple, powerful, and moeful twitter client
 LICENSE=	gnu-gpl-v3 AND cc-by-sa-v3.0
 
-RUBY_VERSION_SUPPORTED=	193
+RUBY_VERSION_SUPPORTED=	193 200 21
 
 .include "../../lang/ruby/rubyversion.mk"
 
 DEPENDS+=	xdg-utils-[0-9]*:../../misc/xdg-utils
 DEPENDS+=	${RUBY_PKGPREFIX}-hmac>=0.4.0:../../security/ruby-hmac
-DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gtk>=1.2.5:../../x11/ruby-gnome2-gtk
-DEPENDS+=	${RUBY_PKGPREFIX}-rcairo>=1.10.0:../../graphics/ruby-rcairo
+DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gtk>=2.2.0:../../x11/ruby-gnome2-gtk
 DEPENDS+=	${RUBY_PKGPREFIX}-oauth>=0.4.7:../../security/ruby-oauth
 DEPENDS+=	${RUBY_PKGPREFIX}-memoize>=1.3.1:../../devel/ruby-memoize
 DEPENDS+=	${RUBY_PKGPREFIX}-bsearch>=1.5:../../devel/ruby-bsearch
-DEPENDS+=	${RUBY_PKGPREFIX}-addressable-[0-9]*:../../net/ruby-addressable
-DEPENDS+=	${RUBY_PKGPREFIX}-typed-array-[0-9]*:../../misc/ruby-typed-array
+DEPENDS+=	${RUBY_PKGPREFIX}-addressable>=2.3:../../net/ruby-addressable
+DEPENDS+=	${RUBY_PKGPREFIX}-typed-array>=0.1:../../misc/ruby-typed-array
 #DEPENDS+=	${RUBY_PKGPREFIX}-test-unit-[0-9]*:../../devel/ruby-test-unit
-# notify-send
-DEPENDS+=	{libnotify-[0-9]*,libnotify07-[0-9]*}:../../sysutils/libnotify
 
 WRKSRC=		${WRKDIR}/mikutter
 USE_LANGUAGES=	# none
@@ -47,10 +45,13 @@ do-build:
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/mikutter.rb ${DESTDIR}${PREFIX}/share/mikutter
+	${INSTALL_DATA} ${WRKSRC}/Gemfile ${DESTDIR}${PREFIX}/share/mikutter
 	cd ${WRKSRC} && pax -rwpp -s '/.*\.orig//' core devel plugin ${DESTDIR}${PREFIX}/share/mikutter
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/mikutter
 	${INSTALL_SCRIPT} ${WRKDIR}/mikutter.sh ${DESTDIR}${PREFIX}/bin/mikutter
 	${INSTALL_DATA} ${WRKDIR}/desktop ${DESTDIR}${PREFIX}/share/applications/mikutter.desktop
 
+RUBY_JSON_TYPE=	pure
+RUBY_JSON_REQD=	1.8
 .include "../../lang/ruby/json.mk"
 .include "../../mk/bsd.pkg.mk"

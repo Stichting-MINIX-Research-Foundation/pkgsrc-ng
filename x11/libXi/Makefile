@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23.2.1 2013/07/15 19:41:34 tron Exp $
+# $NetBSD: Makefile,v 1.24 2013/07/03 06:27:03 wiz Exp $
 
 DISTNAME=		libXi-1.7.2
 CATEGORIES=		x11 devel

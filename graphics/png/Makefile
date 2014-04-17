@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.159 2013/06/23 05:20:33 tsutsui Exp $
+# $NetBSD: Makefile,v 1.169 2014/03/12 09:17:52 wiz Exp $
 
-DISTNAME=	libpng-1.6.2
-PKGREVISION=	1
+DISTNAME=	libpng-1.6.10
 PKGNAME=	${DISTNAME:S/lib//}
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libpng/} \
-		ftp://ftp.fu-berlin.de/unix/graphics/png/src/
+		ftp://ftp.fu-berlin.de/unix/graphics/png/src/libpng16/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	wiz@NetBSD.org
@@ -16,6 +15,12 @@ LICENSE=	zlib
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=	yes
+# do not create libpng.la
+CONFIGURE_ARGS+=	--disable-unversioned-links
+# but do install png.h outside include/libpng$VERSION for now
+# until pkgsrc is fixed to use libpng-config or the pc file everywhere
+INSTALL_TARGET=	install install-header-links
+
 PKGCONFIG_OVERRIDE=	scripts/libpng.pc.in libpng.pc.in
 TEST_TARGET=	check
 USE_LIBTOOL=	yes

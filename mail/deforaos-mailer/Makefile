@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.8 2013/06/06 12:54:42 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/03/21 14:00:57 jperkin Exp $
 
-DISTNAME=	Mailer-0.1.5
-PKGNAME=	deforaos-mailer-0.1.5
-PKGREVISION=	5
+DISTNAME=	Mailer-0.1.6
+PKGNAME=	deforaos-mailer-0.1.6
+PKGREVISION=	3
 CATEGORIES=	mail
-MASTER_SITES=	http://www.defora.org/os/download/download/3704/
+MASTER_SITES=	http://www.defora.org/os/download/download/4029/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -26,16 +25,22 @@ AUTO_MKDIRS=	yes
 
 CONFLICTS=	john-[0-9]*
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${PKGMANDIR} != "share/man"
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/compose.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/compose.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/mailer.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/mailer.1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man/man1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man
+.endif
 
 .include "options.mk"
 
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../x11/deforaos-libdesktop/buildlink3.mk"
+BUILDLINK_API_DEPENDS.gtk-doc+=	gtk-doc>=1.20
 .include "../../textproc/gtk-doc/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

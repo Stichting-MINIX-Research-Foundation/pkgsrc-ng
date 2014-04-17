@@ -1,8 +1,8 @@
-$NetBSD: patch-src_drivers_netbsd.c,v 1.1 2011/04/05 05:22:52 rxg Exp $
+$NetBSD: patch-src_drivers_netbsd.c,v 1.3 2014/02/27 03:40:10 rxg Exp $
 
---- src/drivers/netbsd.c.orig	2010-01-09 22:34:20.000000000 +0000
-+++ src/drivers/netbsd.c
-@@ -174,7 +174,7 @@ static void bufdump(struct xmp_context *
+--- src/sound_netbsd.c.orig	2013-04-06 13:38:02.000000000 +0000
++++ src/sound_netbsd.c
+@@ -99,7 +101,7 @@ static void play(void *b, int i)
  	while (i) {
  		if ((j = write(audio_fd, b, i)) > 0) {
  			i -= j;

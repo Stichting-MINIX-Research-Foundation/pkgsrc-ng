@@ -17,7 +17,7 @@
 #	Simon J. Gerraty <sjg@crufty.net>
 
 # RCSid:
-#	$Id: os.sh,v 1.6 2013/04/06 02:49:57 obache Exp $
+#	$Id: os.sh,v 1.10 2014/03/14 21:59:34 ryoon Exp $
 #
 #	@(#) Copyright (c) 1994 Simon J. Gerraty
 #
@@ -44,7 +44,7 @@ MACHINE_ARCH=`uname -p 2>/dev/null || echo $MACHINE`
 # there is at least one case of `uname -p` outputting
 # a bunch of usless drivel
 case "$MACHINE_ARCH" in
-*[!A-Za-z0-9_-]*) MACHINE_ARCH="$MACHINE";;
+unknown|*[!A-Za-z0-9_-]*) MACHINE_ARCH="$MACHINE";;
 esac
         
 # we need this here, and it is not always available...
@@ -194,6 +194,17 @@ CYGWIN_*)
 	case $MACHINE in
 	i?86)	MACHINE_ARCH=i386;;
 	esac
+	;;
+GNU/kFreeBSD)
+	MACHINE_ARCH=$MACHINE
+	;;
+FreeMiNT)
+	MACHINE_ARCH=m68k
+	;;
+SCO_SV)
+	OSREL=`uname -v`
+	OSMAJOR=`IFS=.; set $OSREL; echo $1`
+	MACHINE_ARCH=`uname -m`
 	;;
 esac
 

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2012/08/14 17:07:57 asau Exp $
+# $NetBSD: Makefile,v 1.11 2014/03/09 14:15:43 wen Exp $
 
 CATEGORIES=	math
-PKGREVISION=	1
 MASTER_SITES=	${MASTER_SITE_R_CRAN:=contrib/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -10,9 +9,7 @@ COMMENT=	Circular Statistics, from "Topics in circular Statistics"
 LICENSE=	gnu-gpl-v2
 
 R_PKGNAME=	circular
-R_PKGVER=	0.4-3
-
-PKG_DESTDIR_SUPPORT=	none
+R_PKGVER=	0.4-7
 
 USE_LANGUAGES=	fortran c
 

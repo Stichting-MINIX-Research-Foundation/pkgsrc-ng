@@ -1,4 +1,4 @@
-$NetBSD: patch-ba,v 1.1.14.1 2013/08/12 14:21:30 tron Exp $
+$NetBSD: patch-ba,v 1.2 2013/08/12 02:47:32 taca Exp $
 
 --- configure.in.orig	2013-07-24 18:53:49.000000000 +0000
 +++ configure.in

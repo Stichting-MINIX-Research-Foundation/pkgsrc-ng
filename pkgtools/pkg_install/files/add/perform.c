@@ -1,4 +1,4 @@
-/*	$NetBSD: perform.c,v 1.103 2013/01/31 10:25:30 wiz Exp $	*/
+/*	$NetBSD: perform.c,v 1.105 2013/09/02 10:28:44 jperkin Exp $	*/
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif
@@ -6,7 +6,7 @@
 #if HAVE_SYS_CDEFS_H
 #include <sys/cdefs.h>
 #endif
-__RCSID("$NetBSD: perform.c,v 1.103 2013/01/31 10:25:30 wiz Exp $");
+__RCSID("$NetBSD: perform.c,v 1.105 2013/09/02 10:28:44 jperkin Exp $");
 
 /*-
  * Copyright (c) 2003 Grant Beattie <grant@NetBSD.org>
@@ -412,9 +412,6 @@ check_already_installed(struct pkg_task *pkg)
 		}
 		return 1;
 	}
-
-	if (Force)
-		return 1;
 
 	/* We can only arrive here for explicitly requested packages. */
 	if (!Automatic && is_automatic_installed(pkg->pkgname)) {
@@ -1559,6 +1556,7 @@ nuke_pkg:
 
 nuke_pkgdb:
 	if (!Fake) {
+		(void) remove_files(pkg->install_logdir, "+*");
 		if (recursive_remove(pkg->install_logdir, 1))
 			warn("Couldn't remove %s", pkg->install_logdir);
 		free(pkg->install_logdir_real);

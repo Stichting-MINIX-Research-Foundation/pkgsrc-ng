@@ -1,8 +1,10 @@
-$NetBSD: patch-configure.sh,v 1.1 2012/04/19 21:05:46 joerg Exp $
+$NetBSD: patch-configure.sh,v 1.4 2014/02/20 16:40:54 schmonz Exp $
 
---- discount-2.1.2/configure.sh.orig	2012-04-19 14:00:16.000000000 +0000
-+++ discount-2.1.2/configure.sh
-@@ -76,11 +76,11 @@ AC_C_INLINE
+Fix messed up configure.sh.
+
+--- discount/configure.sh.orig	2013-08-26 08:16:50.000000000 +0000
++++ discount/configure.sh
+@@ -87,11 +87,11 @@ AC_C_INLINE
  AC_SCALAR_TYPES sub hdr
  AC_CHECK_BASENAME
  
@@ -17,30 +19,30 @@ $NetBSD: patch-configure.sh,v 1.1 2012/04/19 21:05:46 joerg Exp $
      AC_DEFINE 'INITRNG(x)' 'srand((unsigned int)x)'
  else
      AC_DEFINE 'INITRNG(x)' '(void)1'
-@@ -102,7 +102,7 @@ else
+@@ -113,7 +113,7 @@ else
      AC_DEFINE 'COINTOSS()' '1'
  fi
  
 -if AC_CHECK_FUNCS strcasecmp; then
-+if AC_CHECK_FUNCS 'strcasecmp("X", "x")'; then
++if AC_CHECK_FUNCS 'strcasecmp("X","X")'; then
      :
  elif AC_CHECK_FUNCS stricmp; then
      AC_DEFINE strcasecmp stricmp
-@@ -110,7 +110,7 @@ else
+@@ -121,7 +121,7 @@ else
      AC_FAIL "$TARGET requires either strcasecmp() or stricmp()"
  fi
  
 -if AC_CHECK_FUNCS strncasecmp; then
-+if AC_CHECK_FUNCS 'strncasecmp("X", "x", 1)'; then
++if AC_CHECK_FUNCS 'strcasecmp("X","X")'; then
      :
  elif AC_CHECK_FUNCS strnicmp; then
      AC_DEFINE strncasecmp strnicmp
-@@ -118,7 +118,7 @@ else
+@@ -129,7 +129,7 @@ else
      AC_FAIL "$TARGET requires either strncasecmp() or strnicmp()"
  fi
  
 -if AC_CHECK_FUNCS fchdir || AC_CHECK_FUNCS getcwd ; then
-+if AC_CHECK_FUNCS 'fchdir(0)' || AC_CHECK_FUNCS 'getcwd((char *)0, 0)'; then
++if AC_CHECK_FUNCS 'fchdir(0)' || AC_CHECK_FUNCS getcwd ; then
      AC_SUB 'THEME' ''
  else
      AC_SUB 'THEME' '#'

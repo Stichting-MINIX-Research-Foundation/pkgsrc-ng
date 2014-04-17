@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2012/10/28 06:30:21 asau Exp $
+# $NetBSD: Makefile,v 1.13 2014/01/25 10:30:27 wiz Exp $
 
 DISTNAME=	loggerhead-${VER}
 PKGREVISION=	1
@@ -17,9 +17,11 @@ DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 DEPENDS+=	${PYPKGPREFIX}-Paste>=1.2:../../www/py-paste
 DEPENDS+=	${PYPKGPREFIX}-PasteDeploy>=1.3:../../www/py-PasteDeploy
 DEPENDS+=	${PYPKGPREFIX}-SimpleTAL>=4.1:../../www/py-simpletal
-DEPENDS+=	${PYPKGPREFIX}-flup-[0-9]*:../../www/py-flup
 
-.include "../../lang/python/pyversion.mk"
+PYTHON_VERSIONED_DEPENDENCIES=	flup
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-PasteDeploy, py-paste, py-simpletal
+
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"
+.include "../../lang/python/versioned_dependencies.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: gcc.mk,v 1.141 2013/06/15 22:32:18 wiz Exp $
+# $NetBSD: gcc.mk,v 1.144 2014/02/04 12:11:57 fhajny Exp $
 #
 # This is the compiler definition for the GNU Compiler Collection.
 #
@@ -690,6 +690,7 @@ PKG_CXX:=	${_GCC_CXX}
 _GCC_VARS+=	FC
 _GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}g77
 _ALIASES.FC=	f77 g77
+FC=		g77
 FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77
 F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}g77
 PKG_FC:=	${_GCC_FC}
@@ -699,6 +700,7 @@ PKGSRC_FORTRAN?=	g77
 _GCC_VARS+=	FC
 _GCC_FC=	${_GCC_DIR}/bin/${_GCC_BIN_PREFIX}gfortran
 _ALIASES.FC=	gfortran
+FC=		gfortran
 FCPATH=		${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran
 F77PATH=	${_GCCBINDIR}/${_GCC_BIN_PREFIX}gfortran
 PKG_FC:=	${_GCC_FC}
@@ -794,9 +796,9 @@ PREPEND_PATH+=	${_GCC_DIR}/bin
 .if (defined(_USE_GCC_SHLIB) && !empty(_USE_GCC_SHLIB:M[Yy][Ee][Ss])) && !empty(USE_PKGSRC_GCC_RUNTIME:M[Yy][Ee][Ss])
 #  Special case packages which are themselves a dependency of gcc runtime.
 .  if empty(PKGPATH:Mdevel/libtool-base) && empty(PKGPATH:Mdevel/binutils) && empty(PKGPATH:Mlang/gcc??)
-.    if !empty(_GCC_VERSION:M4.7*)
+.    if !empty(CC_VERSION:Mgcc-4.7*)
 .      include "../../lang/gcc47-libs/buildlink3.mk"
-.    elif !empty(_GCC_VERSION:M4.8*)
+.    elif !empty(CC_VERSION:Mgcc-4.8*)
 .      include "../../lang/gcc48-libs/buildlink3.mk"
 .    else
 PKG_FAIL_REASON=	"No USE_PKGSRC_GCC_RUNTIME support for ${CC_VERSION}"
@@ -846,6 +848,11 @@ _GCC_NEEDS_A_FORTRAN=	yes
 .endif
 .if !empty(_GCC_NEEDS_A_FORTRAN:M[yY][eE][sS])
 .  include "../../mk/compiler/${PKGSRC_FORTRAN}.mk"
+.endif
+
+.if ${OPSYS} == "Interix" && !empty(_GCCBINDIR:M/opt/gcc.*)
+COMPILER_INCLUDE_DIRS=	${_GCCBINDIR:H}/include ${_OPSYS_INCLUDE_DIRS}
+COMPILER_LIB_DIRS=	${_GCCBINDIR:H}/lib ${_OPSYS_LIB_DIRS}
 .endif
 
 .endif	# COMPILER_GCC_MK

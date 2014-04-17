@@ -1,4 +1,4 @@
-$NetBSD: patch-ipc_ipdl_ipdl_lower.py,v 1.1 2013/05/23 13:12:13 ryoon Exp $
+$NetBSD: patch-ipc_ipdl_ipdl_lower.py,v 1.3 2014/02/20 13:19:03 ryoon Exp $
 
 --- ipc/ipdl/ipdl/lower.py.orig	2013-01-04 23:44:34.000000000 +0000
 +++ ipc/ipdl/ipdl/lower.py

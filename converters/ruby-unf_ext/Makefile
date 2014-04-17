@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3.4.1 2013/07/16 17:00:50 tron Exp $
+# $NetBSD: Makefile,v 1.4 2013/07/07 15:18:11 taca Exp $
 
 DISTNAME=	unf_ext-0.0.6
 PKGREVISION=	1

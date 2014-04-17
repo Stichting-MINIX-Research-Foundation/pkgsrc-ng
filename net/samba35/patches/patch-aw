@@ -1,4 +1,4 @@
-$NetBSD: patch-aw,v 1.1.1.1.22.1 2013/08/12 14:21:30 tron Exp $
+$NetBSD: patch-aw,v 1.2 2013/08/12 02:47:32 taca Exp $
 
 --- winbindd/winbindd_cache.c.orig	2013-07-24 18:53:49.000000000 +0000
 +++ winbindd/winbindd_cache.c

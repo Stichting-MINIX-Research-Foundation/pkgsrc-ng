@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.90 2013/06/02 08:01:34 wiz Exp $
+# $NetBSD: Makefile,v 1.100 2014/03/12 09:49:56 wiz Exp $
 
-DISTNAME=	mercurial-2.6.2
+DISTNAME=	mercurial-2.9.1
 CATEGORIES=	devel scm
 MASTER_SITES=	http://mercurial.selenic.com/release/
 
@@ -16,6 +16,18 @@ USE_TOOLS+=			gmake msgfmt
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man5
 INSTALLATION_DIRS+=	share/doc/mercurial
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.9
+# see also http://mercurial.selenic.com/wiki/SupportedPythonVersions
+# 3.x support is not planned for the near future
+#
+# the following setup argument was requested when compiling
+# for python-3.x
+#.include "../../lang/python/pyversion.mk"
+#
+#.if ("${PYPKGPREFIX}" != "py26") && ("${PYPKGPREFIX}" != "py27")
+#PYSETUPARGS+=	--c2to3
+#.endif
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/*.1  ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1

@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.21 2012/10/31 11:19:34 asau Exp $
+# $NetBSD: Makefile,v 1.41 2014/03/12 10:14:19 wiz Exp $
 
-EGG_VERSION=		0.6c11
+EGG_VERSION=		3.1
 DISTNAME=		setuptools-${EGG_VERSION}
 EGG_NAME=		setuptools-${EGG_VERSION}
 PKGNAME=		${PYPKGPREFIX}-setuptools-${EGG_VERSION}
-PKGREVISION=		1
 CATEGORIES=		devel python
-MASTER_SITES=		http://pypi.python.org/packages/source/s/setuptools/
+MASTER_SITES=		https://pypi.python.org/packages/source/s/setuptools/
 
 MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		http://peak.telecommunity.com/DevCenter/setuptools
 COMMENT=		New Python packaging system
+LICENSE=		python-software-foundation OR zpl
 
-PYDISTUTILSPKG=		yes
+PYDISTUTILSPKG=			yes
 
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX} PYPKGPREFIX=${PYPKGPREFIX}
 PLIST_SUBST+=	EGG_NAME=${EGGNAME}
@@ -20,37 +20,26 @@ PLIST_SUBST+=	EGG_INFODIR=${EGG_NAME}-py${PYVERSSUFFIX}.egg-info
 PRINT_PLIST_AWK+=	{ gsub(/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info/, \
 			       "$${EGG_INFODIR}") }
 
-CHECK_FILES_SKIP+=	${PREFIX}/${PYSITELIB}/easy-install.pth
+REPLACE_PYTHON=		setuptools/command/easy_install.py
+REPLACE_PYTHON+=	setuptools/tests/test_resources.py
 
-.include "../../mk/bsd.prefs.mk"
-
-.include "../../lang/python/extension.mk"
+.include "../../mk/bsd.fast.prefs.mk"
 
 PYSETUPINSTALLARGS=	--single-version-externally-managed
 .if ${_USE_DESTDIR} == "no"
 PYSETUPINSTALLARGS+=	--root=/
 .endif
 
-FILES_SUBST+=	PYSITELIB=${PREFIX}/${PYSITELIB}
-FILES_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-
 .if ${OPSYS} == "Darwin"
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 .endif
 
-post-extract:
-	chmod -R go-w ${WRKSRC}
-
-post-build:
-	${SED} -e 's,@PYTHON@,${PYTHONBIN},' \
-	       -e 's,@PYPREFIX@,${PYPKGPREFIX},' \
-	       -e 's,@PYSITELIB@,${PREFIX}/${PYSITELIB},' \
-	       ${FILESDIR}/manage-eggs.py > ${WRKDIR}/manage-eggs.py
-	${SED} -e 's,@PYTHON@,${PYTHONBIN},' \
-	       -e 's,@PKGVERSION@,${EGG_VERSION},' \
-	       ${FILESDIR}/easy_install.py > ${WRKDIR}/easy_install.py
-
+# upstream often forgets deleting files, and packages on Windows,
+# so permissions are usually wrong
 post-install:
-	${INSTALL_SCRIPT} ${WRKDIR}/manage-eggs.py ${DESTDIR}${PREFIX}/bin/${PYPKGPREFIX}-manage-eggs
+	${RM} -f ${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info/*.orig
+	${CHMOD} ${SHAREMODE} ${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info/*
 
+.include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"

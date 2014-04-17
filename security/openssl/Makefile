@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.178 2013/06/07 07:17:15 obache Exp $
+# $NetBSD: Makefile,v 1.185.2.1 2014/04/08 10:09:26 tron Exp $
 
-DISTNAME=	openssl-1.0.1e
+DISTNAME=	openssl-1.0.1g
 MASTER_SITES=	http://ftp.openssl.org/source/
-PKGREVISION=	1
 SVR4_PKGNAME=	ossl
 CATEGORIES=	security
 
@@ -16,7 +15,9 @@ CRYPTO=		yes
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
-BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
+BUILD_DEPENDS+=	{p5-Perl4-CoreLibs-[0-9]*,perl<5.16}:../../devel/p5-Perl4-CoreLibs
+
+USE_GCC_RUNTIME=	yes
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
@@ -62,7 +63,7 @@ CONFIGURE_ARGS+=	irix64-mips4-cc
 .    endif
 .  endif
 .elif ${OPSYS} == "OSF1"
-PLIST_OPSYS=		PLIST.osf1
+USE_PLIST_SHLIB=	no
 CONFIGURE_SCRIPT=	./Configure
 .  if !empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	tru64-alpha-gcc
@@ -112,7 +113,11 @@ CONFIGURE_ARGS+=	hpux-parisc-${CC}
 CONFIGURE_ARGS+=	hpux-ia64-${CC}
 .    endif
 .  endif
-
+.elif ${OPSYS} == "Linux"
+.  if ${MACHINE_ARCH} == "powerpc64"
+CONFIGURE_SCRIPT=	./Configure
+CONFIGURE_ARGS+=	linux-ppc64
+.  endif
 .endif
 
 .include "../../security/openssl/options.mk"
@@ -120,14 +125,11 @@ CONFIGURE_ARGS+=	hpux-ia64-${CC}
 CONFIGURE_ARGS+=	${CFLAGS} ${LDFLAGS}
 CONFIGURE_ENV+=		PERL=${PERL5:Q}
 
-PLIST_OPSYS?=		${PKGDIR}/PLIST.${LOWER_OPSYS:C/([.0-9]*)$//}
-.if exists(${PLIST_OPSYS})
-PLIST_SHLIB=		${PLIST_OPSYS}
-.else
-PLIST_SHLIB=		${PKGDIR}/PLIST.shlib
-.endif
-PLIST_SRC=		${PLIST_SHLIB}
 PLIST_SRC+=		${PKGDIR}/PLIST.common
+USE_PLIST_SHLIB?=	yes
+.if ${USE_PLIST_SHLIB} == "yes"
+PLIST_SRC+=		${PKGDIR}/PLIST.shlib
+.endif
 PLIST_SUBST+=		SHLIB_VERSION=${OPENSSL_VERS:C/[^0-9]*$//}
 PLIST_SUBST+=		SHLIB_MAJOR=${OPENSSL_VERS:C/\..*$//}
 

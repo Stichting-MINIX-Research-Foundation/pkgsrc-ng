@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.108 2013/06/06 12:54:19 wiz Exp $
+# $NetBSD: Makefile,v 1.111 2013/10/10 14:42:08 ryoon Exp $
 
 DISTNAME=		vice-2.4
-PKGREVISION=		5
+PKGREVISION=		7
 CATEGORIES=		emulators
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=vice-emu/}
 MASTER_SITES+=		ftp://ftp.zimmers.net/pub/cbm/crossplatform/emulators/VICE/
@@ -49,7 +49,7 @@ CPPFLAGS+=		-DHAVE_STDINT_H
 CPPFLAGS+=		-DHAVE_STDINT_H
 .endif
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"

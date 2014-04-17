@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.29 2013/05/31 12:42:02 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2014/03/11 14:34:40 jperkin Exp $
 #
 
 DISTNAME=	munin_${VER}
 VER=		1.3.2
 PKGNAME=	munin-node-${VER}
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=munin/}
 
@@ -99,6 +99,7 @@ MESSAGE_SUBST+=	VARBASE=${VARBASE:Q}
 BUILD_DEFS+=	VARBASE
 
 RCD_SCRIPTS+=	munin-node
+SMF_NAME=	munin
 
 EGDIR=		${PREFIX}/share/examples/munin
 

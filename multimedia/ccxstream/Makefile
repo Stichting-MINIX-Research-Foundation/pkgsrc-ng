@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2012/10/08 09:20:58 asau Exp $
+# $NetBSD: Makefile,v 1.4 2014/01/27 23:12:14 wiedi Exp $
 #
 
 DISTNAME=	ccxstream-1.0.15
@@ -15,6 +15,8 @@ USE_TOOLS+=		gmake
 DOCDIR=			share/doc/ccxstream
 INSTALLATION_DIRS=	bin ${DOCDIR}
 
+LDFLAGS.SunOS+=		-lsocket -lnsl
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ccxstream ${DESTDIR}${PREFIX}/bin/
 	${INSTALL_PROGRAM} ${WRKSRC}/ccxtest ${DESTDIR}${PREFIX}/bin/
@@ -26,5 +28,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/PORTING ${DESTDIR}${PREFIX}/${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/TODO ${DESTDIR}${PREFIX}/${DOCDIR}
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

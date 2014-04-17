@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2013/06/07 15:52:27 ryoon Exp $
+# $NetBSD: Makefile,v 1.12 2014/01/01 12:40:53 ryoon Exp $
 #
 
-DISTNAME=	OmegaT_3.0.3_Beta_Source
+DISTNAME=	OmegaT_3.0.8_01_Beta_Source
 PKGNAME=	${DISTNAME:S/OmegaT_/OmegaT-/:S/_Source//:S/_Beta//:S/_/./g}
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=omegat/}
@@ -14,7 +14,7 @@ LICENSE=	gnu-gpl-v2
 
 WRKSRC=		${WRKDIR}
 USE_LANGUAGES=	# none
-USE_JAVA=	run
+USE_JAVA=	yes
 USE_JAVA2=	yes
 
 BUILD_DEPENDS+=	apache-ant-[0-9]*:../../devel/apache-ant

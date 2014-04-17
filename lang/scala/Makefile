@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2012/10/02 20:11:53 asau Exp $
+# $NetBSD: Makefile,v 1.9 2013/10/02 06:59:08 yyamano Exp $
 
-DISTNAME=	scala-2.9.2
+DISTNAME=	scala-2.10.3
 CATEGORIES=	lang
-MASTER_SITES=	http://www.scala-lang.org/downloads/distrib/files/
+MASTER_SITES=	http://www.scala-lang.org/files/archive/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	yyamano@NetBSD.org
@@ -34,7 +34,7 @@ post-extract:
 	@${RM}  ${WRKSRC}/bin/*.bat
 
 do-install:
-	@${RM}  ${WRKSRC}/bin/*.orig
+	@${RM} -f ${WRKSRC}/bin/*.orig
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/* ${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/man/man1/* ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	@cd ${WRKSRC} && ${TAR} cf - doc lib misc src | ${TAR} xf - -C ${DESTDIR}${SCALA_HOME}

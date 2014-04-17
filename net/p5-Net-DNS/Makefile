@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.51 2013/05/31 12:41:37 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2013/12/09 14:17:50 obache Exp $
 
-DISTNAME=		Net-DNS-0.69
+DISTNAME=		Net-DNS-0.72
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 SVR4_PKGNAME=		p5ndn
@@ -15,10 +15,10 @@ LICENSE=		${PERL5_LICENSE}
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
-BUILD_DEPENDS+=		{p5-Test-Simple>=0.44,perl{,-thread}>=5.8.0}:../../devel/p5-Test-Simple
+BUILD_DEPENDS+=		{p5-Test-Simple>=0.44,perl>=5.8.0}:../../devel/p5-Test-Simple
 DEPENDS+=		p5-Digest-HMAC>=1.0:../../security/p5-Digest-HMAC
-DEPENDS+=		p5-Digest-MD5>=2.12:../../security/p5-Digest-MD5
-DEPENDS+=		p5-MIME-Base64>=2.11:../../converters/p5-MIME-Base64
+DEPENDS+=		{perl>=5.7.3,p5-Digest-MD5>=2.12}:../../security/p5-Digest-MD5
+DEPENDS+=		{perl>=5.7.3,p5-MIME-Base64>=2.11}:../../converters/p5-MIME-Base64
 DEPENDS+=		p5-Net-IP>=1.20:../../net/p5-Net-IP
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.p5-Net-DNS

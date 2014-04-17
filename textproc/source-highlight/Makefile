@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.38 2013/02/15 11:54:09 obache Exp $
+# $NetBSD: Makefile,v 1.42 2013/12/08 22:35:11 joerg Exp $
 
-DISTNAME=	source-highlight-3.1.4
-PKGREVISION=	6
+DISTNAME=	source-highlight-3.1.7
 SVR4_PKGNAME=	srchl
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GNU:=src-highlite/}
@@ -18,7 +17,7 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-boost-regex=boost_regex
 CONFIGURE_ARGS+=	--without-bash-completion
-CONFIGURE_ENV+=		CTAGS=${LOCALBASE}/bin/exctags
+CONFIGURE_ENV+=		CTAGS=${LOCALBASE}/bin/exctags ac_cv_header_stdbool_h=yes
 
 PKGCONFIG_OVERRIDE=	source-highlight.pc.in
 

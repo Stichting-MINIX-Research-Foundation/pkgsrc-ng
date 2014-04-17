@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12 2013/06/17 17:35:28 bouyer Exp $
+@comment $NetBSD: PLIST,v 1.15 2014/03/11 14:05:09 jperkin Exp $
 bin/nagios
 bin/nagiostats
 bin/p1.pl
@@ -30,7 +30,6 @@ share/examples/nagios/objects/templates.cfg-sample
 share/examples/nagios/objects/timeperiods.cfg-sample
 share/examples/nagios/objects/windows.cfg-sample
 share/examples/nagios/resource.cfg-sample
-share/examples/rc.d/nagios
 share/nagios/config.inc.php
 share/nagios/contexthelp/A1.html
 share/nagios/contexthelp/A2.html
@@ -212,6 +211,10 @@ share/nagios/images/logos/monitor.png
 share/nagios/images/logos/nagios.gd2
 share/nagios/images/logos/nagios.gif
 share/nagios/images/logos/nagiosvrml.png
+share/nagios/images/logos/netbsd40.gd2
+share/nagios/images/logos/netbsd40.gif
+share/nagios/images/logos/netbsd40.jpg
+share/nagios/images/logos/netbsd40.png
 share/nagios/images/logos/next.gd2
 share/nagios/images/logos/next.gif
 share/nagios/images/logos/next.jpg
@@ -222,10 +225,6 @@ share/nagios/images/logos/ng-switch40.jpg
 share/nagios/images/logos/ng-switch40.png
 share/nagios/images/logos/notebook.gd2
 share/nagios/images/logos/notebook.gif
-share/nagios/images/logos/netbsd40.gd2
-share/nagios/images/logos/netbsd40.gif
-share/nagios/images/logos/netbsd40.jpg
-share/nagios/images/logos/netbsd40.png
 share/nagios/images/logos/novell40.gd2
 share/nagios/images/logos/novell40.gif
 share/nagios/images/logos/novell40.jpg
@@ -352,9 +351,6 @@ share/nagios/images/weblogo1.png
 share/nagios/images/zoom1.gif
 share/nagios/images/zoom2.gif
 share/nagios/includes/jquery-1.7.1.min.js
-share/nagios/js/jquery-1.7.1.min.js
-share/nagios/rss-corefeed.php
-share/nagios/rss-newsfeed.php
 share/nagios/includes/rss/extlib/Snoopy.class.inc
 share/nagios/includes/rss/rss_cache.inc
 share/nagios/includes/rss/rss_fetch.inc
@@ -362,8 +358,11 @@ share/nagios/includes/rss/rss_parse.inc
 share/nagios/includes/rss/rss_utils.inc
 share/nagios/includes/utils.inc.php
 share/nagios/index.php
+share/nagios/js/jquery-1.7.1.min.js
 share/nagios/main.php
 share/nagios/robots.txt
+share/nagios/rss-corefeed.php
+share/nagios/rss-newsfeed.php
 share/nagios/side.php
 share/nagios/stylesheets/avail.css
 share/nagios/stylesheets/checksanity.css
@@ -383,4 +382,6 @@ share/nagios/stylesheets/summary.css
 share/nagios/stylesheets/tac.css
 share/nagios/stylesheets/trends.css
 @pkgdir share/nagios/ssi
+@pkgdir share/nagios/media
+@pkgdir share/nagios/docs/images
 @pkgdir etc/nagios/objects

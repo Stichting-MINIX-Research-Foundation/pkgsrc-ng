@@ -1,24 +1,27 @@
-# $NetBSD: Makefile,v 1.39 2013/04/06 21:07:36 rodent Exp $
+# $NetBSD: Makefile,v 1.43 2014/01/25 10:30:24 wiz Exp $
 
-DISTNAME=	libxslt-1.1.26
+DISTNAME=	libxslt-1.1.28
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 PKGREVISION=	2
 CATEGORIES=	textproc python
-MASTER_SITES=	ftp://xmlsoft.org/libxslt/
-MASTER_SITES+=	${MASTER_SITE_GNOME:=sources/libxslt/1.1/}
+MASTER_SITES=	ftp://xmlsoft.org/libxslt/ \
+		http://xmlsoft.org/sources/
 
 MAINTAINER=	minskim@NetBSD.org
 HOMEPAGE=	http://xmlsoft.org/XSLT/
 COMMENT=	Python wrapper for libxslt
 LICENSE=	mit # with no-advertising clause
 
+DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 DEPENDS+=	${PYPKGPREFIX}-libxml2>=2.6.8:../../textproc/py-libxml2
 
-WRKSRC=		${WRKDIR}/${DISTNAME}/python
-PYDISTUTILSPKG=	YES
-NO_CONFIGURE=	YES
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.1.28
 
-MAKE_ENV+=		PYLIBXSLTVERSION=${PKGVERSION:Q}
+WRKSRC=		${WRKDIR}/${DISTNAME}/python
+PYDISTUTILSPKG=	yes
+NO_CONFIGURE=	yes
+
+MAKE_ENV+=		PYLIBXSLTVERSION=${PKGVERSION}
 
 SUBST_CLASSES+=		setup
 SUBST_MESSAGE.setup=	Fixing hardcoded paths.
@@ -33,7 +36,6 @@ BUILDLINK_API_DEPENDS.libxslt+=	libxslt>=${PKGVERSION}
 
 .include "../../lang/python/extension.mk"
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../textproc/libxml2/buildlink3.mk"
 
 post-extract:
 	${CP} ${FILESDIR}/setup.py ${WRKSRC}

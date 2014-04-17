@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.93 2013/06/06 12:55:00 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.98 2014/02/24 12:02:48 wiz Exp $
 
-DISTNAME=	lilypond-2.16.2
-PKGREVISION=	6
+DISTNAME=	lilypond-2.18.1
 CATEGORIES=	print
-MASTER_SITES=	http://download.linuxaudio.org/lilypond/sources/v2.16/
+MASTER_SITES=	http://download.linuxaudio.org/lilypond/sources/v2.18/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://lilypond.org/
@@ -30,11 +28,13 @@ DEPENDS+=	tex-cyrillic-[0-9]*:../../print/tex-cyrillic
 DEPENDS+=	tex-psnfss-[0-9]*:../../fonts/tex-psnfss
 DEPENDS+=	tex-epsf-[0-9]*:../../print/tex-epsf
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics
+# 1.7 coredumps when generating eps files
+DEPENDS+=	potrace>=1.8:../../graphics/potrace
 
 GNU_CONFIGURE=		YES
 USE_PKGLOCALEDIR=	YES
 USE_LANGUAGES=		c c++
-USE_TOOLS+=		bison gmake gs:run makeinfo perl pkg-config msgfmt
+USE_TOOLS+=		bison flex gmake gs:run makeinfo perl pkg-config msgfmt
 USE_TOOLS+=		texi2html zip
 MAKE_FILE=		GNUmakefile
 
@@ -52,18 +52,11 @@ CONFIGURE_ARGS+=	--with-ncsb-dir=${PREFIX}/share/fonts/urw
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
 REPLACE_PYTHON+= scripts/build/yyout2grammar.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.18.0
 PLIST_SUBST+=	PKGVERSION=${PKGVERSION:S/nb${PKGREVISION}//}
 
-# 1.7 coredumps when generating eps files
-DEPENDS+=	potrace>=1.8:../../graphics/potrace
-
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ENV+= LEX="${PREFIX}/bin/flex"
+# needs FlexLexer.h
 .include "../../devel/flex/buildlink3.mk"
-.else
-USE_TOOLS+= flex
-.endif
-
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../lang/guile/buildlink3.mk"

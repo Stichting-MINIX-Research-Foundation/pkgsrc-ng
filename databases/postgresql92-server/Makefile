@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2013/02/09 11:19:19 adam Exp $
+# $NetBSD: Makefile,v 1.11 2014/03/12 17:01:57 gdt Exp $
 
 PKGNAME=	${DISTNAME:C/-/92-server-/}
 COMMENT=	PostgreSQL database server programs
@@ -44,13 +44,10 @@ DL_LIBS+=	-lltdl
 # PGGROUP	group of the database administrator
 # PGHOME	home directory of the database administrator and location of
 #		the databases
-PGUSER?=		pgsql
-PGGROUP?=		pgsql
-PGHOME?=		${PREFIX}/${PGUSER}
 FILES_SUBST+=		PGUSER=${PGUSER}
 FILES_SUBST+=		PGGROUP=${PGGROUP}
 FILES_SUBST+=		PGHOME=${PGHOME}
-BUILD_DEFS+=		PGHOME
+BUILD_DEFS+=		PGHOME VARBASE
 
 ALL_ENV+=		INSTALLED_LIBPQ=yes
 
@@ -63,6 +60,8 @@ PKG_GECOS.${PGUSER}=	PostgreSQL database administrator
 PKG_HOME.${PGUSER}=	${PGHOME}
 
 RCD_SCRIPTS=		pgsql
+SMF_METHODS=		postgresql
+SMF_NAME=		postgresql
 
 .include "../../databases/postgresql92-client/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

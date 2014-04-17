@@ -1,0 +1,15 @@
+$NetBSD: patch-ipc_chromium_Makefile.in,v 1.6 2014/03/20 21:02:00 ryoon Exp $
+
+--- ipc/chromium/Makefile.in.orig	2014-03-15 05:19:19.000000000 +0000
++++ ipc/chromium/Makefile.in
+@@ -11,9 +11,7 @@ vpath %.c \
+   $(srcdir)/src/third_party/libevent \
+   $(NULL)
+ else # } else {
+-# message_pump_libevent.cc includes third_party/libevent/event.h,
+-# which we put in $(DIST), see export rule below
+-LOCAL_INCLUDES += -I$(DIST)
++LOCAL_INCLUDES += $(filter %/compat, $(MOZ_LIBEVENT_CFLAGS))
+ endif # }
+ 
+ vpath %.cc \

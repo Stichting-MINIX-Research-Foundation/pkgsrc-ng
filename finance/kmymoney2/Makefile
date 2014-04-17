@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2013/06/06 12:54:20 wiz Exp $
+# $NetBSD: Makefile,v 1.80 2014/02/12 23:17:53 tron Exp $
 
 DISTNAME=	kmymoney2-1.0.5
-PKGREVISION=	21
+PKGREVISION=	26
 CATEGORIES=	finance kde
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=kmymoney2/}
 EXTRACT_SUFX=  .tar.bz2
@@ -11,7 +11,7 @@ HOMEPAGE=	http://kmymoney2.sourceforge.net/
 COMMENT=	Personal finance manager for KDE
 LICENSE=	gnu-gpl-v2
 
-USE_TOOLS+=		gmake msgfmt perl pkg-config bash
+USE_TOOLS+=		gmake msgfmt perl pkg-config bash gsed
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		YES
 GNU_CONFIGURE=		YES
@@ -35,6 +35,7 @@ CONFIGURE_ARGS+=	--enable-mt
 REPLACE_PERL+=	admin/fixuifiles
 
 .include "../../meta-pkgs/kde3/kde3.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
@@ -44,5 +45,4 @@ REPLACE_PERL+=	admin/fixuifiles
 BUILDLINK_ABI_DEPENDS.qt3-libs+=	qt3-libs>=3.3.8nb9
 .endif
 .include "../../x11/qt3-libs/buildlink3.mk"
-.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

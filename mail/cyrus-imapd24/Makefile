@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/05/31 12:41:13 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2014/02/13 06:24:36 obache Exp $
 
 DISTNAME=	cyrus-imapd-2.4.17
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	mail
 MASTER_SITES=	http://cyrusimap.org/releases/ \
 		ftp://ftp.cyrusimap.org/cyrus-imapd/ \
@@ -51,6 +51,8 @@ CONFIGURE_ARGS+=	--enable-murder
 CONFIGURE_ARGS+=	--enable-nntp
 CONFIGURE_ARGS+=	--enable-replication
 
+CONFIGURE_ARGS+=	andrew_cv_runpath_switch=${COMPILER_RPATH_FLAG}
+
 .include "options.mk"
 
 MAKE_ENV+=		PERL=${PERL5:Q}
@@ -76,14 +78,6 @@ pre-build:
 BUILDLINK_API_DEPENDS.cyrus-sasl+=	cyrus-sasl>=2.1.17
 .include "../../security/cyrus-sasl/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
-
-# NetBSD's libssl is built without bn/bn_const.c (PR#37505)
-.if !empty(MACHINE_PLATFORM:MNetBSD-4.*-*)
-#.  if !empty(USE_BUILTIN.openssl:M[yY][eE][sS])
-CFLAGS+=	-DOPENSSL_LACK_BN_CONST
-#.  endif
-.endif
-
 .include "../../security/tcp_wrappers/buildlink3.mk"
 
 # Only imap/mupdate needs to be build with pthreads support, so selectively

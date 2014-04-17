@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2013/06/06 12:54:04 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2014/02/07 13:57:31 wiedi Exp $
 #
 
 DISTNAME=		libvisual-bmp-0.2.0
-PKGREVISION=		24
+PKGREVISION=		26
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=libvisual/}
 
@@ -14,6 +14,8 @@ USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config msgfmt
+
+CFLAGS.SunOS+=		-Du_int8_t=uint8_t -Du_int32_t=uint32_t
 
 post-extract:
 	${MV} ${WRKSRC}/pixmaps/libvisual-xmms-vis.bmp \

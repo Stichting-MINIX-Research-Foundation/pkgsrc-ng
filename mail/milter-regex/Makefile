@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2012/10/08 12:19:17 asau Exp $
+# $NetBSD: Makefile,v 1.22 2013/10/15 14:44:42 joerg Exp $
 
 DISTNAME=	milter-regex-1.7
+PKGREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	http://www.benzedrine.cx/
 
@@ -8,8 +9,8 @@ MAINTAINER=	jdarrow@NetBSD.org
 HOMEPAGE=	http://www.benzedrine.cx/milter-regex.html
 COMMENT=	Milter enabling regular expression filtering
 
-USE_TOOLS+=		yacc
-INSTALLATION_DIRS=	${PKGMANDIR}/man8 sbin
+USE_TOOLS+=		nroff yacc
+INSTALLATION_DIRS=	${PKGMANDIR}/cat8 ${PKGMANDIR}/man8 sbin
 
 PKG_GROUPS=		smmsp
 PKG_USERS=		smmsp:smmsp
@@ -27,8 +28,24 @@ SUBST_STAGE.var=	do-configure
 SUBST_FILES.var=	milter-regex.8 milter-regex.c
 SUBST_SED.var=		-e 's|/var/spool|${VARBASE}|g'
 
+.include "../../mk/bsd.prefs.mk"
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-unused-const-variable
+.endif
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/milter-regex ${DESTDIR}${PREFIX}/sbin
+.if !empty(MANINSTALL:Mcatinstall)
+.  if defined(CATMAN_SECTION_SUFFIX) && !empty(CATMAN_SECTION_SUFFIX:M[Yy][Ee][Ss])
+	${INSTALL_DATA} ${WRKSRC}/milter-regex.cat8 \
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/cat8/milter-regex.8
+.  else
+	${INSTALL_DATA} ${WRKSRC}/milter-regex.cat8 \
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/cat8/milter-regex.0
+.  endif
+.endif
 	${INSTALL_DATA} ${WRKSRC}/milter-regex.8 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man8
 

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.21 2013/06/06 12:54:35 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2014/01/01 11:52:21 wiz Exp $
 #
 
-DISTNAME=		shotwell-0.14.1
-PKGREVISION=		5
+DISTNAME=		shotwell-0.15.1
+PKGREVISION=		1
 CATEGORIES=		graphics
-MASTER_SITES=		http://yorba.org/download/shotwell/0.14/
+MASTER_SITES=		http://yorba.org/download/shotwell/0.15/
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgrsc-users@NetBSD.org
@@ -27,7 +27,7 @@ REPLACE_SH+=		configure
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/glib2/schemas.mk"
-.include "../../devel/libgee/buildlink3.mk"
+.include "../../devel/libgee0.8/buildlink3.mk"
 .include "../../devel/libgphoto2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"

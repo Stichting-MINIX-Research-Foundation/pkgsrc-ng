@@ -1,13 +1,13 @@
-$NetBSD: patch-pan_data-impl_groups.cc,v 1.1 2013/06/16 20:44:24 joerg Exp $
+$NetBSD: patch-pan_data-impl_groups.cc,v 1.3 2014/01/01 12:10:00 wiz Exp $
 
---- pan/data-impl/groups.cc.orig	2013-06-16 10:45:37.000000000 +0000
+--- pan/data-impl/groups.cc.orig	2013-12-21 12:39:52.000000000 +0000
 +++ pan/data-impl/groups.cc
-@@ -81,8 +81,6 @@ namespace
+@@ -81,7 +81,7 @@ namespace
    }
  }
  
 -#include <ext/algorithm>
--
++#include <algorithm>
+ 
  void
  DataImpl :: load_newsrc (const Quark       & server,
-                          LineReader        * in,

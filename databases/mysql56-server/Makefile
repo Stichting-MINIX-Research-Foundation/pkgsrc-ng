@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.6 2013/06/04 18:17:25 adam Exp $
+# $NetBSD: Makefile,v 1.14 2014/03/11 14:34:36 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
 SVR4_PKGNAME=	mysqs
 COMMENT=	MySQL 5, a free SQL database (server)
 
-CONFLICTS=	{mysql-server-[0-9]*,mysql3-server-[0-9]*}
+CONFLICTS=	mysql3-server-[0-9]*
 
 .include "../../databases/mysql56-client/Makefile.common"
 
-INFO_FILES=		yes
 CMAKE_ARGS+=		-DWITH_LIBWRAP=ON
 CMAKE_ARGS+=		-DINSTALL_INFODIR=${PKGINFODIR}
 
@@ -46,6 +45,8 @@ PKG_HOME.${MYSQL_USER}=		${MYSQL_DATADIR}
 PKG_SHELL.${MYSQL_USER}=	${SH}
 
 RCD_SCRIPTS=		mysqld
+SMF_NAME=		mysql
+SMF_METHODS=		${RCD_SCRIPTS}
 
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q}
 FILES_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}
@@ -85,6 +86,5 @@ CXXFLAGS+=		-D_POSIX_C_SOURCE=199506L -D__EXTENSIONS__
 
 BUILDLINK_AUTO_DIRS.mysql-client=	no
 .include "../../databases/mysql56-client/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
 .include "../../security/tcp_wrappers/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

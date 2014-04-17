@@ -1,11 +1,9 @@
-# $NetBSD: Makefile,v 1.20 2013/06/06 12:54:34 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2014/01/27 18:41:13 wiz Exp $
 
-DISTNAME=		matplotlib-1.2.0
-PKGNAME=		${PYPKGPREFIX}-matplotlib-tk-1.2.0
-PKGREVISION=		4
+DISTNAME=		matplotlib-1.3.1
+PKGNAME=		${PYPKGPREFIX}-matplotlib-tk-1.3.1
 CATEGORIES=		graphics python
 MASTER_SITES=		https://github.com/downloads/matplotlib/matplotlib/
-FETCH_USING=		curl
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://matplotlib.sourceforge.net/
@@ -31,7 +29,10 @@ post-patch:
 	${ECHO} "wxagg = False"; \
 	${ECHO} "macosx = False" ) > ${WRKSRC}/setup.cfg
 
-.include "../../lang/python/extension.mk"
+post-install:
+	${RM} -r ${DESTDIR}/${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info
+
+.include "../../lang/python/egg.mk"
 .include "../../graphics/py-matplotlib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

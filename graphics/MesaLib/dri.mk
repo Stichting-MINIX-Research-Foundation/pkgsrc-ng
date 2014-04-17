@@ -1,13 +1,23 @@
-# $NetBSD: dri.mk,v 1.6.10.1 2013/08/28 05:40:18 spz Exp $
+# $NetBSD: dri.mk,v 1.8 2014/03/14 07:19:36 obache Exp $
 #
 # Currently, this is for convenience only.
 #
 .if !defined(DRI_MK)
 DRI_MK=		# defined
 
+.  if !defined(USE_BUILTIN.MesaLib)
+CHECK_BUILTIN.MesaLib:=	yes
+.    include "../../graphics/MesaLib/builtin.mk"
+CHECK_BUILTIN.MesaLib:=	no
+.  endif
+
+.  if !empty(USE_BUILTIN.MesaLib:M[Nn][Oo])
+BUILDLINK_API_DEPENDS.dri2proto+=	dri2proto>=2.1
+BUILDLINK_API_DEPENDS.glproto+=		glproto>=1.4.11
+BUILDLINK_API_DEPENDS.libdrm+=		libdrm>=2.4.24
+.  endif
 .  include "../../textproc/expat/buildlink3.mk"
 .  include "../../x11/dri2proto/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glproto+=	glproto>=1.4.11
 .  include "../../x11/glproto/buildlink3.mk"
 .  include "../../x11/libXdamage/buildlink3.mk"
 .  include "../../x11/libXfixes/buildlink3.mk"

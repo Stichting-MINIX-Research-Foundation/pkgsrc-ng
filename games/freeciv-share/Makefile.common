@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.39 2012/07/31 15:49:37 prlw1 Exp $
+# $NetBSD: Makefile.common,v 1.42 2014/02/09 18:08:44 wiedi Exp $
 
 # used by games/freeciv-share/Makefile
 # used by games/freeciv-client/Makefile
@@ -16,7 +16,7 @@ LICENSE=	gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake msgfmt pkg-config
-USE_LANGUAGES+=		c c++
+USE_LANGUAGES+=		c99 c++
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
@@ -24,7 +24,8 @@ USE_PKGLOCALEDIR=	yes
 DISTINFO_FILE=		${.CURDIR}/../../games/freeciv-share/distinfo
 PATCHDIR=		${.CURDIR}/../../games/freeciv-share/patches
 
-PYTHON_PATCH_SCRIPTS=	${WRKSRC}/common/generate_packets.py
+REPLACE_PYTHON=	${WRKSRC}/common/generate_packets.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.3.2
 
 SUBST_CLASSES+=		data
 SUBST_STAGE.data=	post-patch

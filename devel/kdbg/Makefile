@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.99 2013/06/06 12:54:13 wiz Exp $
+# $NetBSD: Makefile,v 1.103 2014/02/12 23:17:47 tron Exp $
 
 DISTNAME=	kdbg-2.2.2
-PKGREVISION=	19
+PKGREVISION=	22
 CATEGORIES=	devel kde
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=kdbg/}
 
@@ -9,6 +9,9 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.kdbg.org/
 COMMENT=	Graphical User Interface around gdb using KDE
 LICENSE=	gnu-gpl-v2
+
+# Race condition with using procattach.h and rebuilding procattachbase.h
+MAKE_JOBS_SAFE=	no
 
 USE_TOOLS+=		gmake msgfmt perl
 GNU_CONFIGURE=		YES

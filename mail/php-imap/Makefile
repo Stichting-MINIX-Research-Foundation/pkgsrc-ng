@@ -1,12 +1,15 @@
-# $NetBSD: Makefile,v 1.25 2013/02/22 03:07:45 taca Exp $
+# $NetBSD: Makefile,v 1.27 2014/02/12 23:18:09 tron Exp $
 
 MODNAME=		imap
+PKGREVISION=		1
 CATEGORIES+=		mail
 COMMENT=		PHP extension for IMAP (Internet Mailbox Access Protocol)
 
 CONFLICTS=	php-imap-[0-9]*
 
 USE_PHP_EXT_PATCHES=	yes
+
+USE_TOOLS+=		pkg-config
 
 .include "../../mk/bsd.prefs.mk"
 

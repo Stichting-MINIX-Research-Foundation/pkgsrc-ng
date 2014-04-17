@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2013/06/06 12:54:01 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/02/12 23:17:32 tron Exp $
 #
 
 DISTNAME=	ario-1.5.1
-PKGREVISION=	19
+PKGREVISION=	28
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ario-player/1.5.1/}
 
@@ -37,6 +37,5 @@ BUILDLINK_TRANSFORM+=	rm:-W${fl}
 .include "../../audio/taglib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libgcrypt+=	libgcrypt>=1.4.0
 .include "../../security/libgcrypt/buildlink3.mk"
-.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

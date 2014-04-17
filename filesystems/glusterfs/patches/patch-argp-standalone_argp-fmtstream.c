@@ -1,6 +1,6 @@
-$NetBSD: patch-argp-standalone_argp-fmtstream.c,v 1.1 2012/12/20 21:53:20 joerg Exp $
+$NetBSD: patch-argp-standalone_argp-fmtstream.c,v 1.5 2013/10/04 08:07:23 manu Exp $
 
---- argp-standalone/argp-fmtstream.c.orig	2012-10-11 17:38:19.000000000 +0000
+--- argp-standalone/argp-fmtstream.c.orig	2013-07-12 17:43:25.000000000 +0000
 +++ argp-standalone/argp-fmtstream.c
 @@ -389,6 +389,7 @@ __argp_fmtstream_printf (struct argp_fmt
  weak_alias (__argp_fmtstream_printf, argp_fmtstream_printf)

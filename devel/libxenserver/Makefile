@@ -1,21 +1,22 @@
-# $NetBSD: Makefile,v 1.6 2013/02/06 23:21:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.10 2014/02/12 23:17:48 tron Exp $
 #
 
-DISTNAME=	libxenserver-5.6.100-1-src
-PKGNAME=	${DISTNAME:S/-1-src//}
-PKGREVISION=	4
+VERSION=	6.2.0
+DISTNAME=	XenServer-${VERSION}-SDK
+PKGNAME=	libxenserver-${VERSION}
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	http://community.citrix.com/download/attachments/38633496/
+MASTER_SITES=	http://downloadns.citrix.com.edgesuite.net/7289/
 
 MAINTAINER=	sborrill@NetBSD.org
 HOMEPAGE=	http://community.citrix.com/cdn/xs/sdks/
 COMMENT=	Citrix XenServer SDK for C
-LICENSE=	gnu-gpl-v2
+LICENSE=	2-clause-bsd
 
-EXTRACT_SUFX=	.tar.bz2
-WRKSRC=		${WRKDIR}/libxenserver
-MAJOR=		1
-MINOR=		3
+EXTRACT_SUFX=	.zip
+WRKSRC=		${WRKDIR}/XenServer-SDK/libxenserver/src
+MAJOR=		2
+MINOR=		0
 BUILD_TARGET=	libxenserver.so
 USE_TOOLS+=	gmake pax
 
@@ -28,10 +29,7 @@ do-install:
 	${INSTALL_LIB} ${WRKSRC}/libxenserver.so.${MAJOR}.${MINOR} ${DESTDIR}${PREFIX}/lib
 	${INSTALL_LIB} ${WRKSRC}/libxenserver.so ${DESTDIR}${PREFIX}/lib
 	cd ${WRKSRC}/include/xen/api && pax -rw *.h ${DESTDIR}${PREFIX}/include/xen/api
-.for example in test_event_handling.c test_failures.c test_vm_ops.c
-	${INSTALL_DATA} ${WRKSRC}/test/${example} \
-	    ${DESTDIR}${PREFIX}/share/examples/libxenserver
-.endfor
+	cd ${WRKSRC}/test &&  pax -rw *.c ${DESTDIR}${PREFIX}/share/examples/libxenserver
 
 .include "../../mk/bsd.prefs.mk"
 

@@ -1,4 +1,4 @@
-$NetBSD: patch-aa,v 1.8 2011/03/15 21:51:44 gls Exp $
+$NetBSD: patch-aa,v 1.10 2013/11/24 05:52:10 gls Exp $
 
 Fix $HOSTSFILE installation path
 

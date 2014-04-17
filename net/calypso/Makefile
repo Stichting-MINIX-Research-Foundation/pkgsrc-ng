@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2012/10/23 17:18:13 asau Exp $
+# $NetBSD: Makefile,v 1.9 2014/01/25 10:30:15 wiz Exp $
 
-DISTNAME=	calypso-1.0
-PKGREVISION=	1
+DISTNAME=	calypso-1.3
 CATEGORIES=	net time
 MASTER_SITES=	http://keithp.com/calypso/
 
@@ -11,14 +10,11 @@ COMMENT=	CardDAV/CalDAV server
 LICENSE=	gnu-gpl-v3
 
 DEPENDS+=	${PYPKGPREFIX}-vobject>=0.8.1c:../../textproc/py-vobject
-DEPENDS+=	scmgit-base-[0-9]*:../../devel/scmgit-base
-
-#WRKSRC=		${WRKDIR}/calypso
-
-PYDISTUTILSPKG=			yes
-PYTHON_VERSIONS_INCLUDE_3X=	yes
+DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 
 INSTALLATION_DIRS=	share/examples/calypso
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-vobject
 
 REPLACE_PYTHON=	calypso.py
 
@@ -26,5 +22,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/config ${DESTDIR}${PREFIX}/share/examples/calypso/
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/extension.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

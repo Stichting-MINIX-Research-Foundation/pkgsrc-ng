@@ -1,4 +1,4 @@
-$NetBSD: patch-import.c,v 1.1.14.1 2013/08/21 19:40:13 tron Exp $
+$NetBSD: patch-import.c,v 1.3 2013/08/07 11:06:39 drochner Exp $
 
 --- import.c.orig	2013-07-20 13:15:20.000000000 +0000
 +++ import.c

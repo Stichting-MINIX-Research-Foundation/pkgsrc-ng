@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2012/10/31 11:17:30 asau Exp $
+# $NetBSD: Makefile,v 1.6 2014/02/19 09:44:56 jperkin Exp $
 #
 
-DISTNAME=	msgpack-0.5.7
+DISTNAME=	msgpack-0.5.8
 CATEGORIES=	devel
-MASTER_SITES=	http://msgpack.org/releases/cpp/
+MASTER_SITES=	https://github.com/msgpack/msgpack-c/releases/download/cpp-${PKGVERSION_NOREV}/
 
 MAINTAINER=	obache@NetBSD.org
 HOMEPAGE=	http://msgpack.org/
@@ -14,7 +14,9 @@ GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 
-GCC_REQD=	4.1
+PKGCONFIG_OVERRIDE=	msgpack.pc.in
+
+GCC_REQD+=	4.1
 
 .include "../../mk/bsd.prefs.mk"
 

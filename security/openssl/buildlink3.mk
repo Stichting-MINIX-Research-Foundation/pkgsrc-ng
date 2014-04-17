@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.47 2013/04/03 11:56:20 obache Exp $
+# $NetBSD: buildlink3.mk,v 1.49 2014/02/12 23:23:17 tron Exp $
 
 BUILDLINK_TREE+=	openssl
 
@@ -7,7 +7,7 @@ OPENSSL_BUILDLINK3_MK:=
 
 .  include "../../mk/bsd.fast.prefs.mk"
 
-BUILDLINK_API_DEPENDS.openssl+=	openssl>=0.9.6m
+BUILDLINK_API_DEPENDS.openssl+=	openssl>=1.0.1c
 BUILDLINK_ABI_DEPENDS.openssl+=	openssl>=1.0.1c
 BUILDLINK_PKGSRCDIR.openssl?=	../../security/openssl
 

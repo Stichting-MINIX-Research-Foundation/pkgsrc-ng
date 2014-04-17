@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.12 2012/09/11 23:19:33 asau Exp $
+# $NetBSD: Makefile,v 1.15 2014/03/03 03:36:51 obache Exp $
 #
 
-DISTNAME=	binpatch-1.0
+PKGNAME=	binpatch-1.0
 CATEGORIES=	pkgtools
-MASTER_SITES=	# empty
-DISTFILES=	# empty
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	ftp://ftp.NetBSD.org/pub/NetBSD/packages/pkgsrc/doc/pkgsrc.html
 COMMENT=	Trivial binary patch applicator
+LICENSE=	beer-ware
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -19,8 +18,8 @@ do-extract:
 
 do-build:
 	@(cd ${WRKSRC}; \
-	  ${ECHO} "${CC} -o binpatch binpatch.c"; \
-	  ${CC} -o binpatch binpatch.c )
+	  ${ECHO} "${CC} ${CFLAGS} -o binpatch binpatch.c"; \
+	  ${CC} ${CFLAGS} -o binpatch binpatch.c )
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/binpatch ${DESTDIR}${PREFIX}/bin/binpatch

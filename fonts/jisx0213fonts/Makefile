@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.16 2013/06/05 13:47:51 obache Exp $
+# $NetBSD: Makefile,v 1.18 2013/07/27 11:58:08 tsutsui Exp $
 #
 
 DISTNAME=	jisx0213fonts-0.0

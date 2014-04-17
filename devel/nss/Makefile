@@ -1,33 +1,31 @@
-# $NetBSD: Makefile,v 1.68 2013/05/31 12:40:02 wiz Exp $
+# $NetBSD: Makefile,v 1.79 2014/03/23 07:48:03 richard Exp $
 
-DISTNAME=		nss-${NSS_RELEASE}
-NSS_RELEASE=		3.14.3
-PKGREVISION=		2
+DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
+NSS_RELEASE=		3.16.0
 CATEGORIES=		security
-MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_RELEASE:S/./_/g}_RTM/src/}
+MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_RELEASE:S/.0$//:S/./_/g}_RTM/src/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.mozilla.org/projects/security/pki/nss/
 COMMENT=		Libraries to support development of security-enabled applications
 LICENSE=		mpl-2.0
 
-CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/libpkix/libpkix.sh
-CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/multinit/multinit.sh
+CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}nss/tests/libpkix/libpkix.sh
+CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}nss/tests/multinit/multinit.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/configure
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
 
-WRKSRC=			${WRKDIR}/${DISTNAME}/mozilla
-
+USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		gmake perl pax pkg-config
 
-.include		"../../mk/bsd.prefs.mk"
+.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Darwin"
 SUBST_CLASSES+=			exec_path
 SUBST_STAGE.exec_path=		pre-configure
 SUBST_MESSAGE.exec_path=	Fixing @executable_path
-SUBST_FILES.exec_path=		security/nss/lib/freebl/config.mk
-SUBST_FILES.exec_path=		security/coreconf/Darwin.mk
+SUBST_FILES.exec_path=		nss/lib/freebl/config.mk
+SUBST_FILES.exec_path=		coreconf/Darwin.mk
 SUBST_SED.exec_path=		-e 's,@executable_path,${PREFIX}/lib/nss,g'
 .endif
 
@@ -65,8 +63,7 @@ post-extract:
 	find ${WRKSRC} -type d | xargs ${CHMOD} 755
 
 do-build:
-	cd ${WRKSRC}/security/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} \
-	  build_coreconf build_dbm all
+	cd ${WRKSRC}/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} all
 
 INSTALLATION_DIRS=	include/nss lib/nss lib/pkgconfig
 DIST=	${WRKSRC}/dist
@@ -80,8 +77,8 @@ do-install:
 	set -e; \
 	{ ${ECHO} "Name: NSS"; \
 	  ${ECHO} "Description: Mozilla Network Security Services"; \
-	  ${ECHO} "Version: ${PKGVERSION_NOREV}"; \
-	  ${ECHO} "Requires: nspr >= 4.8.2"; \
+	  ${ECHO} "Version: ${NSS_RELEASE}"; \
+	  ${ECHO} "Requires: nspr >= 4.10.3"; \
 	  ${ECHO} "Cflags: -I${PREFIX}/include/nss/nss -I${PREFIX}/include/nss"; \
 	  ${ECHO} "Libs: -L${PREFIX}/lib/nss" \
 	      "${COMPILER_RPATH_FLAG}${PREFIX}/lib/nss" \

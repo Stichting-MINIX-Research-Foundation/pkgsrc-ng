@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20.6.1 2013/07/31 15:18:44 tron Exp $
+# $NetBSD: Makefile,v 1.22 2013/07/26 09:29:34 is Exp $
 
 .include "Makefile.common"
 
@@ -10,7 +10,6 @@ COMMENT=		ISO/Edinburgh-style Prolog compiler
 
 GNU_CONFIGURE=		yes
 CONFIGURE_DIRS=		src
-USE_GNU_READLINE=	yes # uses rl_event_hook() interface
 
 CONFIGURE_ENV+=		PL=swi-prolog
 CONFIGURE_ENV+=		ARCH=${MACHINE_GNU_PLATFORM}	# make PLIST consistent
@@ -34,6 +33,7 @@ REPLACE_FILES.swipl+=	library/dialect/sicstus/swipl-lfr.pl
 TEST_TARGET=		check
 
 .include "../../devel/ncurses/buildlink3.mk"
+# uses rl_event_hook() interface
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

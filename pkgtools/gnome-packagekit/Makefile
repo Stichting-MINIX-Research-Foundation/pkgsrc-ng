@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.35 2013/06/06 12:54:59 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.42 2014/03/03 04:26:38 obache Exp $
 
 DISTNAME=	gnome-packagekit-0.4.0
-PKGREVISION=	27
+PKGREVISION=	32
 CATEGORIES=	pkgtools gnome
 MASTER_SITES=	http://www.packagekit.org/releases/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.packagekit.org/
 COMMENT=	GNOME frontend for PackageKit
+LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
@@ -18,6 +18,7 @@ USE_PKGLOCALEDIR= yes
 GCONF_SCHEMAS+=	gnome-packagekit.schemas
 
 PY_PATCHPLIST=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.4.0
 
 # needed for gnome-packagekit-0.4 and gtk2-2.20 -- remove on next update
 BUILDLINK_TRANSFORM+=	rm:-DG_DISABLE_DEPRECATED

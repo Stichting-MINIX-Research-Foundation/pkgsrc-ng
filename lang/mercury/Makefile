@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.44 2013/06/11 19:34:14 asau Exp $
+# $NetBSD: Makefile,v 1.46 2013/07/15 02:02:23 ryoon Exp $
 
 DISTNAME=		mercury-srcdist-13.05.1-beta-2013-05-28
 PKGNAME=		mercury-13.05.1beta
@@ -15,7 +15,6 @@ COMMENT=		Modern logic/functional programming language
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake pax bison flex
 USE_TOOLS+=		perl # ?
-USE_GNU_READLINE=	yes # rl_prep_term_function
 INFO_FILES=		yes
 
 # Some of the scripts test CC and use special settings for gcc.
@@ -32,7 +31,7 @@ BUILD_MAKE_FLAGS+=	INSTALL_PREFIX=${INSTALL_PREFIX:Q}
 BUILD_MAKE_FLAGS+=	INSTALL_INFO_DIR=${INSTALL_PREFIX:Q}/${PKGINFODIR:Q}
 BUILD_MAKE_FLAGS+=	INSTALL_MAN_DIR=${INSTALL_PREFIX:Q}/${PKGMANDIR:Q}
 BUILD_MAKE_FLAGS+=	MERCURY_COMPILER=${INSTALL_PREFIX:Q}/bin/mercury_compile
-#BUILD_MAKE_FLAGS+=	PARALLEL=$(MAKE_JOBS:D-j$(MAKE_JOBS))
+BUILD_MAKE_FLAGS+=	PARALLEL=$(MAKE_JOBS:D-j$(MAKE_JOBS))
 
 CHECK_PORTABILITY_SKIP+=	boehm_gc/configure
 CHECK_INTERPRETER_SKIP+=	lib/mercury/reconf/scripts/mtags.in
@@ -56,6 +55,7 @@ do-install:
 	cd ${WRKSRC}/samples && \
 	pax -rw . ${DESTDIR}${PREFIX}/share/examples/mercury
 
+# rl_prep_term_function
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

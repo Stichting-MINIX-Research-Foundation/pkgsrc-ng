@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.39 2013/05/09 07:40:03 adam Exp $
+# $NetBSD: Makefile,v 1.43 2014/02/13 11:39:05 fhajny Exp $
 
 DISTNAME=	dbmail-2.2.17
-PKGREVISION=	13
+PKGREVISION=	17
 CATEGORIES=	mail
 MASTER_SITES=	http://www.dbmail.org/download/2.2/
 
@@ -57,7 +57,7 @@ post-install:
 
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.8.0
 .include "../../devel/glib2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gmime+=	gmime>=2.2.10
-.include "../../mail/gmime/buildlink3.mk"
+BUILDLINK_API_DEPENDS.gmime20+=	gmime20>=2.2.10
+.include "../../mail/gmime20/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

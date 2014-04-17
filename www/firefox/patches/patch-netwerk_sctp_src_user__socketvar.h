@@ -1,4 +1,4 @@
-$NetBSD: patch-netwerk_sctp_src_user__socketvar.h,v 1.2 2013/06/26 11:32:12 ryoon Exp $
+$NetBSD: patch-netwerk_sctp_src_user__socketvar.h,v 1.4 2014/02/20 13:19:03 ryoon Exp $
 
 --- netwerk/sctp/src/user_socketvar.h.orig	2013-06-17 22:13:23.000000000 +0000
 +++ netwerk/sctp/src/user_socketvar.h

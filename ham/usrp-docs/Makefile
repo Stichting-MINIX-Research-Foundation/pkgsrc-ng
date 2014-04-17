@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2013/02/15 11:54:07 obache Exp $
+# $NetBSD: Makefile,v 1.23 2014/01/05 21:33:17 wiz Exp $
 
 PKGNAME=	usrp-docs-${VERSION}
-PKGREVISION=	8
+PKGREVISION=	11
 COMMENT=	Documentation for the usrp module
 
 .include "../../meta-pkgs/gnuradio/Makefile.common"
@@ -10,7 +10,7 @@ USE_TOOLS+=	make
 CONFIGURE_ARGS+=--enable-doxygen
 CONFIGURE_ARGS+=--docdir=${LOCALBASE}/share/doc/gnuradio/usrp
 
-BUILD_DEPENDS+=	doxygen>=1.8.2:../../devel/doxygen
+BUILD_DEPENDS+=	doxygen>=1.8.6:../../devel/doxygen
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 
 BUILD_DIRS=	usrp/doc

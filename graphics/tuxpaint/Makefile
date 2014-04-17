@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.74 2013/06/06 12:54:35 wiz Exp $
+# $NetBSD: Makefile,v 1.77 2013/12/10 11:33:37 jperkin Exp $
 #
 
 DISTNAME=	tuxpaint-0.9.17
-PKGREVISION=	26
+PKGREVISION=	28
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tuxpaint/}
 
@@ -34,6 +34,7 @@ INSTALL_MAKE_FLAGS+=	PKG_ROOT=${DESTDIR}
 MAKE_ENV+=		LIBS=${LIBS:M*:Q}
 LIBS+=			-liconv
 LIBS+=			-lpng
+LIBS.SunOS+=		-lsocket -lnsl
 
 post-install:
 	-${FIND} ${DESTDIR}${PREFIX}/share/doc/tuxpaint -name CVS -exec ${RM} -r {} \; 2>/dev/null

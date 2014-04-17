@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.170 2013/06/06 12:54:43 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.174 2014/01/27 20:47:19 wiz Exp $
 
 DISTNAME=		gnumeric-1.8.4
-PKGREVISION=		34
+PKGREVISION=		36
 CATEGORIES=		math gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnumeric/1.8/}
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.gnome.org/projects/gnumeric/
+HOMEPAGE=		https://wiki.gnome.org/Apps/Gnumeric
 COMMENT=		Spreadsheet program from the GNOME project (development version)
 LICENSE=		gnu-gpl-v2
 
@@ -26,6 +25,7 @@ REPLACE_PERL+=		plugins/perl-func/perl_func.pl
 
 CONFIGURE_ARGS+=	--with-python
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.8.4
 .include "../../lang/python/application.mk"
 .include "../../devel/py-gobject/buildlink3.mk"
 

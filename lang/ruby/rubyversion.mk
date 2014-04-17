@@ -1,4 +1,4 @@
-# $NetBSD: rubyversion.mk,v 1.100 2013/06/27 16:32:03 taca Exp $
+# $NetBSD: rubyversion.mk,v 1.116 2014/03/14 19:54:23 taca Exp $
 #
 
 # This file determines which Ruby version is used as a dependency for
@@ -10,8 +10,8 @@
 # RUBY_VERSION_DEFAULT
 #	The preferered Ruby version to use.
 #
-#		Possible values: 18 193
-#		Default: 193
+#		Possible values: 18 193 200 21
+#		Default: 200
 #
 # RUBY_BUILD_RDOC
 #	Build rdoc of this package and so that install formated
@@ -41,14 +41,14 @@
 # RUBY_VERSION_SUPPORTED
 #	The Ruby versions that are acceptable for the package.
 #
-#		Possible values: 18 193
-#		Default: 18 193
+#		Possible values: 18 193 200 21
+#		Default: 200 193 18 21
 #
 # RUBY_NOVERSION
 #	If "Yes", the package dosen't depend on any version of Ruby, such
 #	as editing mode for emacs.  In this case, package's name would begin
 #	with "ruby-".  Otherwise, the package's name is begin with
-#	${RUBY_PKGPREFIX}; "ruby18" or "ruby193".
+#	${RUBY_PKGPREFIX}; "ruby18", "ruby193" or "ruby200".
 #
 #		Possible values: Yes No
 #		Default: No
@@ -69,7 +69,7 @@
 # RUBY_VER
 #	Really selected version of ruby.
 #
-#		Possible values: 18 193
+#		Possible values: 18 193 200
 #
 #	Use this variable in pkgsrc's Makefile
 #
@@ -115,7 +115,7 @@
 #	Name of ruby base package's name.
 #
 # RUBY_SRCDIR
-#	Directory of base ruby package.
+#	Relative path to directory of base ruby package.
 #
 # RUBY_SHLIBVER
 #	Suffix of libruby shared library's version.
@@ -200,32 +200,48 @@ _RUBYVERSION_MK=	# defined
 
 .include "../../mk/bsd.prefs.mk"
 
+.if defined(PKGNAME_REQD)
+. if !empty(PKGNAME_REQD:Mruby[0-9][0-9][0-9]-*) || !empty(PKGNAME_REQD:Mruby[0-9][0-9]-*)
+_RUBY_VERSION_REQD:= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
+.  if ${_RUBY_VERSION_REQD} != "211"
+RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
+.  else
+RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9])[0-9]-.*/\1/}
+.  endif
+. endif
+.endif
+
 # current supported Ruby's version
 RUBY18_VERSION=		1.8.7
 RUBY193_VERSION=	1.9.3
+RUBY200_VERSION=	2.0.0
+RUBY21_VERSION=		2.1.1
 
 # patch
 RUBY18_PATCHLEVEL=	pl374
-RUBY193_PATCHLEVEL=	p448
+RUBY193_PATCHLEVEL=	p545
+RUBY200_PATCHLEVEL=	p451
 
 # current API compatible version; used for version of shared library
 RUBY18_API_VERSION=	1.8.7
 RUBY193_API_VERSION=	1.9.1
+RUBY200_API_VERSION=	2.0.0
+RUBY21_API_VERSION=	2.1.0
 
 #
-RUBY_VERSION_DEFAULT?=	193
+RUBY_VERSION_DEFAULT?=	200
 
-RUBY_VERSION_SUPPORTED?= 193 18
+RUBY_VERSION_SUPPORTED?= 200 193 18 21
 
 .if defined(RUBY_VERSION_REQD)
 . for rv in ${RUBY_VERSION_SUPPORTED}
-.  if ${rv} == ${RUBY_VERSION_REQD}
+.  if "${rv}" == ${RUBY_VERSION_REQD}
 RUBY_VER=	${rv}
 .  endif
 . endfor
 .elif !defined(RUBY_VER)
 . for rv in ${RUBY_VERSION_SUPPORTED}
-.  if ${rv} == ${RUBY_VERSION_DEFAULT}
+.  if "${rv}" == ${RUBY_VERSION_DEFAULT}
 RUBY_VER=	${rv}
 .  endif
 . endfor
@@ -241,14 +257,47 @@ RUBY_VER=	${rv}
 
 RUBY_VER:=	${RUBY_VER_MAP.${RUBY_VER}:U${RUBY_VER}}
 
+RUBY_SUFFIX?=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}${_RUBY_VER_TEENY}
+
 .if ${RUBY_VER} == "18"
 RUBY_VERSION=		${RUBY18_VERSION}
 RUBY_VERSION_FULL=	${RUBY_VERSION}${RUBY_PATCHLEVEL:S/pl/./}
 RUBY_ABI_VERSION=	${RUBY18_API_VERSION}
+
+RUBY_RDOC_VERSION=	1.0.1
+
+RUBY_SUFFIX=		${RUBY_VER}
+
 .elif ${RUBY_VER} == "193"
 RUBY_VERSION=		${RUBY193_VERSION}
 RUBY_VERSION_FULL=	${RUBY_VERSION}${RUBY_PATCHLEVEL}
 RUBY_ABI_VERSION=	${RUBY_VERSION}
+
+RUBY_GEMS_VERSION=	1.8.23
+RUBY_RDOC_VERSION=	3.9.4
+RUBY_RAKE_VERSION=	0.9.2.2
+RUBY_JSON_VERSION=	1.5.5
+
+.elif ${RUBY_VER} == "200"
+RUBY_VERSION=		${RUBY200_VERSION}
+RUBY_VERSION_FULL=	${RUBY_VERSION}${RUBY_PATCHLEVEL}
+RUBY_ABI_VERSION=	${RUBY_VERSION}
+
+RUBY_GEMS_VERSION=	2.0.3
+RUBY_RDOC_VERSION=	4.1.0
+RUBY_RAKE_VERSION=	0.9.6
+RUBY_JSON_VERSION=	1.7.7
+
+.elif ${RUBY_VER} == "21"
+RUBY_VERSION=		${RUBY21_VERSION}
+RUBY_VERSION_FULL=	${RUBY_VERSION}
+RUBY_ABI_VERSION=	${RUBY_VERSION}
+
+RUBY_GEMS_VERSION=	2.2.2
+RUBY_RDOC_VERSION=	4.1.0
+RUBY_RAKE_VERSION=	10.1.0
+RUBY_JSON_VERSION=	1.8.1
+
 .else
 PKG_FAIL_REASON+= "Unknown Ruby version specified: ${RUBY_VER}."
 .endif
@@ -282,15 +331,13 @@ _RUBY_VER_TEENY=	${RUBY_VERSION:C/([0-9]+)\.([0-9]+)\.([0-9]+)/\3/}
 _RUBY_API_MAJOR=	${RUBY_API_VERSION:C/([0-9]+)\.([0-9]+)\.([0-9]+)/\1\2/}
 _RUBY_API_MINOR=	${RUBY_API_VERSION:C/([0-9]+)\.([0-9]+)\.([0-9]+)/\3/}
 
-RUBY_SUFFIX=		${RUBY_VER}
-
 RUBY_NAME=		ruby${RUBY_SUFFIX}
 RUBYGEM_NAME=		gem${RUBY_SUFFIX}
 RAKE_NAME=		rake${RUBY_SUFFIX}
 
 RUBY_ENCODING_ARG?=
 
-RUBY_BASE=		ruby${RUBY_VER}-base
+RUBY_BASE=		${RUBY_NAME}-base
 
 RUBY_PKGPREFIX?=	${RUBY_NAME}
 
@@ -309,46 +356,50 @@ RUBY_BUILD_RDOC?=	Yes
 RUBY_BUILD_RI?=		Yes
 
 RUBY?=			${PREFIX}/bin/${RUBY_NAME}
-RDOC?=			${PREFIX}/bin/rdoc${RUBY_VER}
+RDOC?=			${PREFIX}/bin/rdoc${RUBY_SUFFIX}
 
-RUBY_ARCH?= ${LOWER_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
+RUBY_ARCH?= ${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
 
 #
 # Ruby shared and static library version handling.
 #
 RUBY_SHLIBVER?=		${RUBY_API_VERSION}
-RUBY_SHLIB?=		${RUBY_VER}.${RUBY_SLEXT}.${RUBY_SHLIBVER}
+RUBY_SHLIB?=		${RUBY_SUFFIX}.${RUBY_SLEXT}.${RUBY_SHLIBVER}
 RUBY_SHLIBALIAS?=	@comment
-RUBY_STATICLIB?=	${RUBY_VER}-static.a
+RUBY_STATICLIB?=	${RUBY_SUFFIX}-static.a
 
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "Interix"
 RUBY_SHLIBVER=		${_RUBY_API_MAJOR}.${_RUBY_API_MINOR}
-_RUBY_SHLIBALIAS=	${RUBY_VER}.${RUBY_SLEXT}.${_RUBY_API_MAJOR}
+_RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_API_MAJOR}
 .elif ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
 .if ${RUBY_VER} == "18"
-RUBY_SHLIBVER=		${RUBY_VER}
+RUBY_SHLIBVER=		${RUBY_SUFFIX}
 .else
 RUBY_SHLIBVER=		${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}${_RUBY_API_MINOR}
 .endif
 .elif ${OPSYS} == "OpenBSD" || ${OPSYS} == "MirBSD"
+.if ${_RUBY_VER_MINOR} == 0
+RUBY_SHLIBVER=		${_RUBY_VER_MAJOR}.${_RUBY_API_MINOR}
+.else
 RUBY_SHLIBVER=		${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}${_RUBY_API_MINOR}
+.endif
 .elif ${OPSYS} == "Darwin"
-RUBY_SHLIB=		${RUBY_VER}.${RUBY_SHLIBVER}.${RUBY_SLEXT}
+RUBY_SHLIB=		${RUBY_SUFFIX}.${RUBY_SHLIBVER}.${RUBY_SLEXT}
 .if ${RUBY_VER} == "18"
-_RUBY_SHLIBALIAS=	${RUBY_VER}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${RUBY_SLEXT}
+_RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${RUBY_SLEXT}
 .else
 _RUBY_SHLIBALIAS=	.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${RUBY_SLEXT}
-RUBY_STATICLIB=		${RUBY_VER}.${RUBY_API_VERSION}-static.a
+RUBY_STATICLIB=		${RUBY_SUFFIX}.${RUBY_API_VERSION}-static.a
 .endif
 .elif ${OPSYS} == "Linux"
-_RUBY_SHLIBALIAS=	${RUBY_VER}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
+_RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
 .elif ${OPSYS} == "SunOS"
 RUBY_SHLIBVER=		${_RUBY_VER_MAJOR}
- _RUBY_SHLIBALIAS=	${RUBY_VER}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${_RUBY_API_MINOR}
+ _RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${_RUBY_API_MINOR}
 .elif ${OPSYS} == "Cygwin"
-RUBY_SHLIB=		${RUBY_VER}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll.a
-RUBY_SHLIBALIAS=	bin/cygruby${RUBY_VER}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll
-RUBY_STATICLIB=		${RUBY_VER}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}-static.a
+RUBY_SHLIB=		${RUBY_SUFFIX}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll.a
+RUBY_SHLIBALIAS=	bin/cygruby${RUBY_SUFFIX}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll
+RUBY_STATICLIB=		${RUBY_SUFFIX}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}-static.a
 .endif
 
 .if !empty(_RUBY_SHLIBALIAS)
@@ -387,7 +438,7 @@ RUBY_USE_PTHREAD?=	yes
 
 RUBY_DYNAMIC_DIRS?=	# empty
 
-RUBY_SRCDIR?=	${_PKGSRC_TOPDIR}/lang/${RUBY_BASE}
+RUBY_SRCDIR?=	../../lang/ruby${RUBY_VER}-base
 
 #
 # common paths
@@ -430,9 +481,12 @@ MAKEFLAGS+=		RUBY_VERSION_DEFAULT=${RUBY_VERSION_DEFAULT:Q}
 #
 # PLIST_VARS for x11/ruby-tk package.
 #
-PLIST_VARS+=		ruby19
+PLIST_VARS+=		ruby19 ruby200
 .if ${RUBY_VER} != "18"
 PLIST.ruby19=		yes
+. if ${RUBY_VER} != "193"
+PLIST.ruby200=		yes
+. endif
 .endif
 
 PLIST_RUBY_DIRS=	RUBY_INC=${RUBY_INC:Q} RUBY_ARCHINC=${RUBY_ARCHINC:Q} \
@@ -459,16 +513,19 @@ PLIST_RUBY_DIRS=	RUBY_INC=${RUBY_INC:Q} RUBY_ARCHINC=${RUBY_ARCHINC:Q} \
 #
 FILES_SUBST+=		RUBY=${RUBY:Q} RUBY_NAME=${RUBY_NAME:Q} \
 			RUBY_PKGPREFIX=${RUBY_PKGPREFIX:Q} \
+			RUBY_SUFFIX=${RUBY_SUFFIX} \
 			RUBY_VER=${RUBY_VER:Q} \
 			${PLIST_RUBY_DIRS}
 
 MESSAGE_SUBST+=		RUBY="${RUBY}" RUBY_VER="${RUBY_VER}" \
 			RUBY_VERSION="${RUBY_VERSION}" \
 			RUBY_PKGPREFIX="${RUBY_PKGPREFIX}" \
+			RUBY_SUFFIX=${RUBY_SUFFIX} \
 			${PLIST_RUBY_DIRS:S,DIR="${PREFIX}/,DIR=",}
 
 PLIST_SUBST+=		RUBY=${RUBY:Q} RUBY_VER=${RUBY_VER:Q} \
 			RUBY_PKGPREFIX=${RUBY_PKGPREFIX} \
+			RUBY_SUFFIX=${RUBY_SUFFIX} \
 			RUBY_VERSION=${RUBY_VERSION:Q} \
 			RUBY_VER_DIR=${RUBY_VER_DIR:Q} \
 			RUBY_DLEXT=${RUBY_DLEXT:Q} RUBY_SLEXT=${RUBY_SLEXT:Q} \

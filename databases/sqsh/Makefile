@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.34 2013/02/06 23:22:02 jperkin Exp $
+# $NetBSD: Makefile,v 1.36 2014/02/12 23:17:45 tron Exp $
 
 # This section contains variables that might be overridden.
 PKGNAME?=	${PKGNAME_BASE}
@@ -7,7 +7,7 @@ COMMENT?=	SQL shell for Sybase and MS-SQL servers
 # Normal package Makefile contents follow.
 DISTNAME=	sqsh-2.1-src
 PKGNAME_BASE=	${DISTNAME:S/-src//}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sqsh/}
 
@@ -25,8 +25,8 @@ GNU_CONFIGURE=		yes
 BUILD_TARGET=		build
 
 CONFIGURE_ARGS+=	--with-readline
-CONFIGURE_ENV+=		INCDIRS=${BUILDLINK_PREFIX.readline:Q}/include
-CONFIGURE_ENV+=		LIBDIRS=${BUILDLINK_PREFIX.readline:Q}/lib
+CONFIGURE_ENV+=		INCDIRS=${BUILDLINK_PREFIX.editlinereadline:Q}/include
+CONFIGURE_ENV+=		LIBDIRS=${BUILDLINK_PREFIX.editlinereadline:Q}/lib
 
 CHECK_HEADERS_SKIP=	src/sqsh_config.h
 
@@ -43,6 +43,6 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/sample.sqshrc \
 		${DESTDIR}${PREFIX}/share/examples/sqsh
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

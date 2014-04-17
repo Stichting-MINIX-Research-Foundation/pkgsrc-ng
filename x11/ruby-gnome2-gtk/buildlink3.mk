@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.26 2013/06/06 12:53:54 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.29 2014/03/14 13:05:26 obache Exp $
 
 BUILDLINK_TREE+=	ruby-gnome2-gtk
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	ruby-gnome2-gtk
 RUBY_GNOME2_GTK_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.ruby-gnome2-gtk+=	${RUBY_PKGPREFIX}-gnome2-gtk>=0.17.0
-BUILDLINK_ABI_DEPENDS.ruby-gnome2-gtk+=	${RUBY_PKGPREFIX}-gnome2-gtk>=2.0.0nb3
+BUILDLINK_ABI_DEPENDS.ruby-gnome2-gtk+=	${RUBY_PKGPREFIX}-gnome2-gtk>=2.2.0
 BUILDLINK_PKGSRCDIR.ruby-gnome2-gtk?=	../../x11/ruby-gnome2-gtk
 
 .include "../../devel/ruby-gnome2-glib/buildlink3.mk"

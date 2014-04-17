@@ -1,14 +1,17 @@
-$NetBSD: patch-jmorecfg.h,v 1.1 2013/01/24 22:10:43 adam Exp $
+$NetBSD: patch-jmorecfg.h,v 1.3 2014/01/28 21:19:00 wiz Exp $
 
-Avoid problems when FALSE and TRUE are defined as preprocessor macros.
+Fix problem with booleans by reverting to the old definition.
 
---- jmorecfg.h.orig	2012-08-08 14:23:20.000000000 +0000
+--- jmorecfg.h.orig	2013-09-17 07:20:20.000000000 +0000
 +++ jmorecfg.h
-@@ -252,15 +252,14 @@ typedef void noreturn_t;
+@@ -303,19 +303,14 @@ typedef void noreturn_t;
   * Defining HAVE_BOOLEAN before including jpeglib.h should make it work.
   */
  
--#ifdef HAVE_BOOLEAN
+-#ifndef HAVE_BOOLEAN
+-#if defined FALSE || defined TRUE || defined QGLOBAL_H
+-/* Qt3 defines FALSE and TRUE as "const" variables in qglobal.h */
+-typedef int boolean;
  #ifndef FALSE			/* in case these macros already exist */
  #define FALSE	0		/* values of boolean */
  #endif
@@ -17,6 +20,7 @@ Avoid problems when FALSE and TRUE are defined as preprocessor macros.
  #endif
 -#else
 -typedef enum { FALSE = 0, TRUE = 1 } boolean;
+-#endif
 +#ifndef HAVE_BOOLEAN
 +typedef int boolean;
  #endif

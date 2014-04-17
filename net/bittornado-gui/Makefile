@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.28 2012/10/23 17:18:12 asau Exp $
-#
+# $NetBSD: Makefile,v 1.30 2014/01/25 10:45:20 wiz Exp $
 
 .include "../../net/bittornado/Makefile.common"
 
@@ -15,8 +14,9 @@ DEPENDS+=	${PYPKGPREFIX}-wxWidgets-[0-9]*:../../x11/py-wxWidgets
 
 NO_BUILD=	yes
 
-PYTHON_PATCH_SCRIPTS=	btcompletedirgui.py btdownloadgui.py
-PYTHON_PATCH_SCRIPTS+=	btmaketorrentgui.py
+REPLACE_PYTHON=	btcompletedirgui.py btdownloadgui.py
+REPLACE_PYTHON+=	btmaketorrentgui.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-wxWidgets
 
 INSTALLATION_DIRS=	bin
 

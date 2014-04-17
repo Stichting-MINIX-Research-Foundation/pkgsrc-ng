@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2012/10/23 10:24:14 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.14 2013/10/30 06:49:55 dholland Exp $
 
-DISTNAME=	notion-3-2012042300-src
+DISTNAME=	notion-3-2013030200-src
 PKGNAME=	${DISTNAME:S/3-/3./:S/-src//}
+PKGREVISION=	1
 CATEGORIES=	wm
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=notion/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +16,7 @@ LICENSE=	ion-license AND gnu-lgpl-v2.1
 CONFLICTS=	ion3-[0-9]*
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/-src//}
+USE_LANGUAGES=	c99
 USE_TOOLS+=	gmake msgfmt pax pkg-config
 MAKE_FLAGS+=	X11_PREFIX=${BUILDLINK_PREFIX.libX11}
 
@@ -27,11 +28,11 @@ EGFILES+=	cfg_layouts.lua
 EGFILES+=	cfg_menu.lua
 EGFILES+=	cfg_notion.lua
 EGFILES+=	cfg_notioncore.lua
-EGFILES+=	cfg_pwm.lua
 EGFILES+=	cfg_query.lua
 EGFILES+=	cfg_sp.lua
 EGFILES+=	cfg_statusbar.lua
 EGFILES+=	cfg_tiling.lua
+EGFILES+=	cfg_xrandr.lua
 EGFILES+=	look.lua
 EGFILES+=	look_brownsteel.lua
 EGFILES+=	look_clean.lua
@@ -47,10 +48,20 @@ EGFILES+=	lookcommon_clean.lua
 EGFILES+=	lookcommon_emboss.lua
 
 PKG_SYSCONFSUBDIR=	notion
+INSTALLATION_DIRS=	${EGDIR}
 
 .for f in ${EGFILES}
 CONF_FILES+=	${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+# Abuse buildlink to add required libraries.
+BUILDLINK_TRANSFORM+=	opt:-Wl,--as-needed:-lsocket
+BUILDLINK_TRANSFORM+=	rm:-Wl,-whole-archive
+BUILDLINK_TRANSFORM+=	rm:-Wl,-no-whole-archive
+.endif
 
 post-install:
 	cd ${WRKSRC} && pax -rw contrib ${DESTDIR}${EGDIR}

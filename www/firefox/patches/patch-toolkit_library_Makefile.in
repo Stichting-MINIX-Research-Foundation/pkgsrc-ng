@@ -1,12 +1,46 @@
-$NetBSD: patch-toolkit_library_Makefile.in,v 1.1 2013/05/23 13:12:13 ryoon Exp $
+$NetBSD: patch-toolkit_library_Makefile.in,v 1.5 2014/03/20 21:02:00 ryoon Exp $
 
---- toolkit/library/Makefile.in.orig	2013-05-11 19:19:54.000000000 +0000
+--- toolkit/library/Makefile.in.orig	2014-03-15 05:19:37.000000000 +0000
 +++ toolkit/library/Makefile.in
-@@ -405,6 +405,7 @@ endif
+@@ -164,6 +164,18 @@ ifdef MOZ_NATIVE_HUNSPELL
+ EXTRA_DSO_LDOPTS += $(MOZ_HUNSPELL_LIBS)
+ endif
+ 
++ifdef MOZ_NATIVE_OGG
++EXTRA_DSO_LDOPTS += $(MOZ_OGG_LIBS)
++endif
++
++ifdef MOZ_NATIVE_VORBIS
++EXTRA_DSO_LDOPTS += $(MOZ_VORBIS_LIBS)
++endif
++
++ifdef MOZ_NATIVE_OPUS
++EXTRA_DSO_LDOPTS += $(MOZ_OPUS_LIBS)
++endif
++
+ ifdef MOZ_NATIVE_LIBEVENT
+ EXTRA_DSO_LDOPTS += $(MOZ_LIBEVENT_LIBS)
+ endif
+@@ -176,6 +188,14 @@ ifndef MOZ_TREE_PIXMAN
+ EXTRA_DSO_LDOPTS += $(MOZ_PIXMAN_LIBS)
+ endif
+ 
++ifdef MOZ_NATIVE_GRAPHITE2
++EXTRA_DSO_LDOPTS += $(MOZ_GRAPHITE2_LIBS)
++endif
++
++ifdef MOZ_NATIVE_HARFBUZZ
++EXTRA_DSO_LDOPTS += $(MOZ_HARFBUZZ_LIBS)
++endif
++
+ ifdef MOZ_DMD
+ EXTRA_DSO_LDOPTS += $(call EXPAND_LIBNAME_PATH,dmd,$(DIST)/lib)
+ endif
+@@ -183,6 +203,7 @@ endif
  EXTRA_DSO_LDOPTS += $(call EXPAND_LIBNAME_PATH,gkmedias,$(DIST)/lib)
  
  ifdef MOZ_WEBRTC
 +EXTRA_DSO_LDOPTS += $(MOZ_LIBV4L2_LIBS)
- ifdef MOZ_PEERCONNECTION
- COMPONENT_LIBS += peerconnection
- endif
+ ifdef MOZ_WEBRTC_SIGNALING
+ SHARED_LIBRARY_LIBS += \
+   $(DEPTH)/media/webrtc/signaling/signaling_ecc/$(LIB_PREFIX)ecc.$(LIB_SUFFIX) \

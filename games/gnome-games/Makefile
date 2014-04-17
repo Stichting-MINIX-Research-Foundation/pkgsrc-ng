@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.134 2013/06/06 12:54:21 wiz Exp $
+# $NetBSD: Makefile,v 1.142 2014/02/12 23:17:54 tron Exp $
 
 DISTNAME=		gnome-games-2.32.1
-PKGREVISION=		19
+PKGREVISION=		25
 CATEGORIES=		games gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-games/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -10,6 +10,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.gnome.org/
 COMMENT=		GNOME2 games collection
 #LICENSE=		gnu-gpl-v2 AND gnu-fdl-v1.1
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2
 
 CONFLICTS=		xbill-[0-9]*
 SUPERSEDES=		glchess-[0-9]*
@@ -44,8 +46,8 @@ GCONF_SCHEMAS+=	mahjongg.schemas
 GCONF_SCHEMAS+=	swell-foop.schemas
 GCONF_SCHEMAS+=	gnome-sudoku.schemas
 
-PYTHON_PATCH_SCRIPTS+=	glchess/src/glchess.in.in
-PYTHON_PATCH_SCRIPTS+=	gnome-sudoku/src/gnome-sudoku.in.in
+REPLACE_PYTHON+=	glchess/src/glchess.in.in
+REPLACE_PYTHON+=	gnome-sudoku/src/gnome-sudoku.in.in
 PY_PATCHPLIST=		yes
 
 #!/usr/bin/env sh is pretty dumb and REPLACE_SH doesn't support fixing it
@@ -66,8 +68,7 @@ BUILDLINK_API_DEPENDS.librsvg+=	librsvg>=2.12.6
 .include "../../graphics/librsvg/buildlink3.mk"
 BUILDLINK_API_DEPENDS.clutter+= clutter>=1.0
 .include "../../graphics/clutter/buildlink3.mk"
-BUILDLINK_API_DEPENDS.clutter-gtk+= clutter-gtk>=0.10
-.include "../../graphics/clutter-gtk/buildlink3.mk"
+.include "../../graphics/clutter-gtk0.10/buildlink3.mk"
 .include "../../lang/guile/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/omf-scrollkeeper.mk"

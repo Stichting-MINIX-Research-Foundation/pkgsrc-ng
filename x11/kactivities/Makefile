@@ -1,11 +1,14 @@
-# $NetBSD: Makefile,v 1.17 2013/06/06 12:53:44 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2014/03/26 10:01:12 markd Exp $
 
 DISTNAME=	kactivities-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	2
 CATEGORIES=	x11
 COMMENT=	KDE Activity Manager
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
+
+# Needs C++11 features for kactivitymanager
+GCC_REQD+=	4.5
 
 PKGCONFIG_OVERRIDE+=	lib/libkactivities.pc.cmake
 

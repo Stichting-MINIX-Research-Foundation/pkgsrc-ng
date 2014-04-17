@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.93 2013/06/13 14:16:21 wiz Exp $
+# $NetBSD: Makefile,v 1.96 2014/01/24 23:00:15 ryoon Exp $
 
 PKGNAME=	MesaLib-${MESA_PKGVERSION}
-PKGREVISION=	2
+PKGREVISION=	4
 COMMENT=	Graphics library similar to SGI's OpenGL
 
 CONFLICTS+=	xf86driproto<2.0.4
@@ -68,6 +68,10 @@ pre-install:
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=	-no-integrated-as -fvisibility=hidden
+.endif
+
+.if ${OPSYS} == "MirBSD"
+BUILDLINK_TRANSFORM+=	rm:-fvisibility=hidden
 .endif
 
 .include "../../mk/bsd.pkg.mk"

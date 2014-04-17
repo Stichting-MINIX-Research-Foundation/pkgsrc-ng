@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2013/05/09 14:28:25 joerg Exp $
+# $NetBSD: Makefile,v 1.57 2014/02/12 23:18:25 tron Exp $
 
 DISTNAME=	rtorrent-0.9.2
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	${HOMEPAGE:=downloads/}
 

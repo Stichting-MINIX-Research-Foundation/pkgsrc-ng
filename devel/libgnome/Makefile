@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.102 2013/06/06 12:53:45 wiz Exp $
+# $NetBSD: Makefile,v 1.106 2014/02/12 23:17:48 tron Exp $
 #
 
 DISTNAME=	libgnome-2.32.1
-PKGREVISION=	17
+PKGREVISION=	21
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgnome/2.32/}
 EXTRACT_SUFX=	.tar.bz2

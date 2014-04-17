@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.67 2013/06/10 15:37:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.73 2014/02/12 23:18:53 tron Exp $
 
 PKGNAME=	${PYPKGPREFIX}-qt4-${PYQT_VERSION}
-PYQT_VERSION=	4.10.1
-PKGREVISION=	4
+PYQT_VERSION=	4.10.2
+PKGREVISION=	1
 CATEGORIES=	x11 python
 #MASTER_SITES=	http://www.riverbankcomputing.com/static/Downloads/PyQt4/
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqt/}
@@ -26,7 +26,6 @@ INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 
 PY_PATCHPLIST=		yes
 PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
-PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 BUILDLINK_TRANSFORM+=	rm:-Wl,-R${WRKSRC}/qpy/QtCore
 BUILDLINK_TRANSFORM+=	rm:-Wl,-R${WRKSRC}/qpy/QtDeclarative
@@ -56,7 +55,6 @@ SUBST_MESSAGE.PIC=	Adding -fPIC to CXXFLAGS.
 
 PLIST_SRC=		${PKGDIR}/PLIST.common
 .if ${OPSYS} == "Darwin"
-# XXX this is not recorded in distinfo
 DISTNAME=		PyQt-mac-gpl-${PYQT_VERSION}
 .else
 DISTNAME=		PyQt-x11-gpl-${PYQT_VERSION}
@@ -69,7 +67,6 @@ do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHONBIN} configure.py ${CONFIGURE_ARGS})
 
-BUILDLINK_API_DEPENDS.py-sip+= ${PYPKGPREFIX}-sip>=4.14
 .include "../../x11/py-sip/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../sysutils/py-dbus/buildlink3.mk"

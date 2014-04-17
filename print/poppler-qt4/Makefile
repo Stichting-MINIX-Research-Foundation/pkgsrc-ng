@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.38 2013/06/06 12:55:00 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2014/02/12 23:18:30 tron Exp $
 
 .include "../../print/poppler/Makefile.common"
 
 PKGNAME=		poppler-qt4-${POPPLER_VERS}
-PKGREVISION=		3
+PKGREVISION=		1
 COMMENT=		PDF rendering library (QT4 wrapper)
 MAINTAINER=		reed@reedmedia.net
 
@@ -17,12 +17,6 @@ CONFIGURE_ENV+=		MOCQT4=${QTDIR}/bin/moc
 BUILDLINK_API_DEPENDS.poppler+= poppler>=${POPPLER_VERS}
 .include "../../print/poppler/buildlink3.mk"
 
-.if !empty(PKG_BUILD_OPTIONS.poppler:Mpoppler-cms)
-CONFIGURE_ARGS+=	--enable-cms
-.else
-CONFIGURE_ARGS+=	--disable-cms
-.endif
-
 PKGCONFIG_OVERRIDE+=	${WRKSRC}/poppler-qt4.pc.in
 
 INSTALLATION_DIRS+=	lib include/poppler lib/pkgconfig
@@ -30,7 +24,7 @@ INSTALLATION_DIRS+=	lib include/poppler lib/pkgconfig
 BUILD_DIRS=		qt4/src
 
 pre-build:
-	cd ${WRKSRC}/poppler && ${BUILD_MAKE_CMD} libpoppler-arthur.la
+	cd ${WRKSRC}/qt4/src && ${BUILD_MAKE_CMD}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/poppler-qt4.pc ${DESTDIR}${PREFIX}/lib/pkgconfig

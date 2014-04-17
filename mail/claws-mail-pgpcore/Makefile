@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2013/06/06 12:53:53 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2014/01/15 17:22:31 drochner Exp $
 #
 
 PLUGIN_NAME=	pgpcore
-PKGREVISION=	8
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -12,7 +11,6 @@ PLIST_SRC+=	PLIST
 
 PLIST_SRC+=	PLIST
 
-CONFIGURE_ARGS+=	--enable-gpgme
 CONFIGURE_ARGS+=	--enable-pgpcore-plugin
 CONFIGURE_ARGS+=	--enable-pgpmime-plugin
 CONFIGURE_ARGS+=	--enable-pgpinline-plugin

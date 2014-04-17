@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2013/02/06 23:21:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2014/02/12 23:17:35 tron Exp $
 
 DISTNAME=	climm-0.7.1
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	chat
 MASTER_SITES=	http://www.climm.org/source/
 EXTRACT_SUFX=	.tgz

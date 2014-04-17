@@ -1,15 +1,11 @@
-# $NetBSD: builtin.mk,v 1.33 2013/06/13 07:51:26 adam Exp $
+# $NetBSD: builtin.mk,v 1.38 2014/03/03 06:56:35 obache Exp $
 
 BUILTIN_PKG:=	openssl
 
-BUILTIN_FIND_LIBS:=		des
-BUILTIN_FIND_FILES_VAR:=	H_OPENSSLCONF H_OPENSSLV
-BUILTIN_FIND_FILES.H_OPENSSLCONF= /usr/include/openssl/opensslconf.h \
-				/usr/sfw/include/openssl/opensslconf.h \
-				/boot/common/include/openssl/opensslconf.h
-BUILTIN_FIND_FILES.H_OPENSSLV=	/usr/include/openssl/opensslv.h \
-				/usr/sfw/include/openssl/opensslv.h \
-				/boot/common/include/openssl/opensslv.h
+BUILTIN_FIND_LIBS:=		crypto des ssl
+BUILTIN_FIND_HEADERS_VAR:=	H_OPENSSLCONF H_OPENSSLV
+BUILTIN_FIND_HEADERS.H_OPENSSLCONF=	openssl/opensslconf.h
+BUILTIN_FIND_HEADERS.H_OPENSSLV=	openssl/opensslv.h 
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
@@ -34,7 +30,7 @@ MAKEVARS+=	IS_BUILTIN.openssl
     empty(H_OPENSSLV:M__nonexistent__)
 BUILTIN_VERSION.openssl!=						\
 	${AWK} 'BEGIN { hex="0123456789abcdef";				\
-			split("abcdefghijklmnopqrstuvwxyz", alpha, "");	\
+			alpha="abcdefghijklmnopqrstuvwxyz";	\
 		}							\
 		/\#define[ 	]*OPENSSL_VERSION_NUMBER/ {		\
 			major = index(hex, substr($$3, 3, 1)) - 1;	\
@@ -51,7 +47,7 @@ BUILTIN_VERSION.openssl!=						\
 			} else if (i > 26) {				\
 				patchlevel = "a";			\
 			} else {					\
-				patchlevel = alpha[i];			\
+				patchlevel = substr(alpha,i,1);			\
 			}						\
 			printf "%s%s%s%s\n",				\
 				major, minor, teeny, patchlevel;	\
@@ -130,6 +126,11 @@ USE_BUILTIN.openssl=	${IS_BUILTIN.openssl}
 .    if defined(BUILTIN_PKG.openssl) && \
         !empty(IS_BUILTIN.openssl:M[yY][eE][sS])
 USE_BUILTIN.openssl=	yes
+### take care builtin check case, BUILDLINK_API_DEPENDS may not be defined yet.
+CHECK_BUILTIN.openssl?=	no
+.      if !empty(CHECK_BUILTIN.openssl:M[yY][eE][sS])
+BUILDLINK_API_DEPENDS.openssl?=	openssl>=1.0.1c
+.      endif
 .      for dep_ in ${BUILDLINK_API_DEPENDS.openssl}
 .        if !empty(USE_BUILTIN.openssl:M[yY][eE][sS])
 USE_BUILTIN.openssl!=							\
@@ -248,7 +249,7 @@ SSLDIR=	${PKG_SYSCONFDIR.openssl}
 .    if ${OPSYS} == "NetBSD"
 SSLDIR=	/etc/openssl
 .    elif ${OPSYS} == "Haiku"
-SSLDIR=	/boot/common/ssl
+SSLDIR=	/boot/common/data/ssl
 .    else
 SSLDIR=	/etc/ssl 		# most likely place
 .    endif
@@ -278,11 +279,16 @@ openssl-fake-pc:
 	if ${TEST} -f $${src}; then \
 		${LN} -sf $${src} $${dst}; \
 	else \
-		{ ${ECHO} "Name: OpenSSL-libcrypto"; \
-		${ECHO} "Description: OpenSSL cryptography library"; \
-		${ECHO} "Version: ${BUILTIN_VERSION.openssl}"; \
-		${ECHO} "Libs: -L${BUILDLINK_PREFIX.openssl}/lib${LIBABISUFFIX} -lcrypto"; \
-		${ECHO} "Cflags: -I${BUILDLINK_PREFIX.openssl}/include"; \
+		{ ${ECHO} 'prefix=${BUILDLINK_PREFIX.openssl}'; \
+		${ECHO} 'exec_prefix=$${prefix}'; \
+		${ECHO} 'libdir=$${exec_prefix}/lib${LIBABISUFFIX}'; \
+		${ECHO} 'includedir=$${prefix}/include'; \
+		${ECHO}; \
+		${ECHO} 'Name: OpenSSL-libcrypto'; \
+		${ECHO} 'Description: OpenSSL cryptography library'; \
+		${ECHO} 'Version: ${BUILTIN_VERSION.openssl}'; \
+		${ECHO} 'Libs: -L$${libdir} -lcrypto'; \
+		${ECHO} 'Cflags: -I$${includedir}'; \
 		} >$${dst}; \
 	fi
 	${RUN} \
@@ -292,11 +298,16 @@ openssl-fake-pc:
 	if ${TEST} -f $${src}; then \
 		${LN} -sf $${src} $${dst}; \
 	else \
-		{ ${ECHO} "Name: OpenSSL"; \
-		${ECHO} "Description: Secure Sockets Layer and cryptography libraries"; \
-		${ECHO} "Version: ${BUILTIN_VERSION.openssl}"; \
-		${ECHO} "Libs: -L${BUILDLINK_PREFIX.openssl}/lib${LIBABISUFFIX} -lssl -lcrypto"; \
-		${ECHO} "Cflags: -I${BUILDLINK_PREFIX.openssl}/include"; \
+		{ ${ECHO} 'prefix=${BUILDLINK_PREFIX.openssl}'; \
+		${ECHO} 'exec_prefix=$${prefix}'; \
+		${ECHO} 'libdir=$${exec_prefix}/lib${LIBABISUFFIX}'; \
+		${ECHO} 'includedir=$${prefix}/include'; \
+		${ECHO}; \
+		${ECHO} 'Name: OpenSSL'; \
+		${ECHO} 'Description: Secure Sockets Layer and cryptography libraries'; \
+		${ECHO} 'Version: ${BUILTIN_VERSION.openssl}'; \
+		${ECHO} 'Libs: -L$${libdir} -lssl -lcrypto'; \
+		${ECHO} 'Cflags: -I$${includedir}'; \
 		} >$${dst}; \
 	fi
 	${RUN} \
@@ -306,11 +317,16 @@ openssl-fake-pc:
 	if ${TEST} -f $${src}; then \
 		${LN} -sf $${src} $${dst}; \
 	else \
-		{ ${ECHO} "Name: OpenSSL"; \
-		${ECHO} "Description: Secure Sockets Layer and cryptography libraries and tools"; \
-		${ECHO} "Version: ${BUILTIN_VERSION.openssl}"; \
-		${ECHO} "Libs: -L${BUILDLINK_PREFIX.openssl}/lib${LIBABISUFFIX} -lssl -lcrypto"; \
-		${ECHO} "Cflags: -I${BUILDLINK_PREFIX.openssl}/include"; \
+		{ ${ECHO} 'prefix=${BUILDLINK_PREFIX.openssl}'; \
+		${ECHO} 'exec_prefix=$${prefix}'; \
+		${ECHO} 'libdir=$${exec_prefix}/lib${LIBABISUFFIX}'; \
+		${ECHO} 'includedir=$${prefix}/include'; \
+		${ECHO}; \
+		${ECHO} 'Name: OpenSSL'; \
+		${ECHO} 'Description: Secure Sockets Layer and cryptography libraries and tools'; \
+		${ECHO} 'Version: ${BUILTIN_VERSION.openssl}'; \
+		${ECHO} 'Libs: -L$${libdir} -lssl -lcrypto'; \
+		${ECHO} 'Cflags: -I$${includedir}'; \
 		} >$${dst}; \
 	fi
 .    endif

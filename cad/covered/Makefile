@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2013/06/06 12:54:06 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2014/01/20 19:20:07 joerg Exp $
 #
 
 DISTNAME=	covered-0.4.7
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=covered/}
 
@@ -33,6 +33,8 @@ REPLACE_FILES.WISH+=	scripts/summary.tcl
 # the execute bit set.
 CONFIGURE_ENV+=	r_cv_path_TCL_CONFIG=${BUILDLINK_PREFIX.tcl}/lib/tclConfig.sh
 CONFIGURE_ENV+=	r_cv_path_TK_CONFIG=${BUILDLINK_PREFIX.tk}/lib/tkConfig.sh
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 .include "../../devel/gperf/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

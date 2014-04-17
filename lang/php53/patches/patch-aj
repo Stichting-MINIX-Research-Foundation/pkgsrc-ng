@@ -1,4 +1,4 @@
-$NetBSD: patch-aj,v 1.2.8.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-aj,v 1.3 2013/07/12 00:07:04 taca Exp $
 
 Use proper shbang line.
 

@@ -1,4 +1,4 @@
-$NetBSD: patch-xpcom_ds_TimeStamp.h,v 1.1 2013/05/23 13:12:13 ryoon Exp $
+$NetBSD: patch-xpcom_ds_TimeStamp.h,v 1.3 2014/02/20 13:19:03 ryoon Exp $
 
 http://gnats.netbsd.org/47233
 

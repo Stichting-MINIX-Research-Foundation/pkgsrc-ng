@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.27 2012/10/23 10:24:13 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2013/11/09 06:10:48 dholland Exp $
 #
 
 DISTNAME=	amiwm0.20pl48
@@ -17,6 +17,9 @@ NO_BIN_ON_FTP=		${RESTRICTED}
 NO_SRC_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_CDROM=	${RESTRICTED}
 
+# Extensive use of 32-bit values to hold pointers
+NOT_FOR_PLATFORM+=	${LP64PLATFORMS}
+
 USE_TOOLS+=	ksh:run yacc lex
 REPLACE_KSH=	Xsession.in Xsession2.in
 
@@ -30,7 +33,6 @@ CONFIGURE_ENV+=	X_PRE_LIBS=${X_PRE_LIBS:Q}
 CONFIGURE_ENV+=	X_EXTRA_LIBS=-lXt
 
 X_PRE_LIBS=	${COMPILER_RPATH_FLAG}${X11BASE}/lib
-FIX_RPATH+=	X_PRE_LIBS
 
 INSTALLATION_DIRS=	bin
 

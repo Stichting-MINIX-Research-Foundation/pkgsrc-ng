@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2013/06/06 03:00:07 taca Exp $
+# $NetBSD: Makefile,v 1.15 2014/01/25 10:30:13 wiz Exp $
 
-DISTNAME=	bulk-medium-20130606
+DISTNAME=	bulk-medium-20140121
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -9,6 +9,8 @@ MAINTAINER=	dholland@NetBSD.org
 COMMENT=	Meta-package for a standard medium-sized limited bulk build
 
 META_PACKAGE=	yes
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-postgresql, py-matplotlib-gtk2
 
 RESTRICTED=		Just for test build purpose
 NO_BIN_ON_CDROM=	${RESTRICTED}
@@ -63,9 +65,9 @@ BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
 BUILD_DEPENDS+=	openldap-client-[0-9]*:../../databases/openldap-client
 BUILD_DEPENDS+=	postgresql84-client-[0-9]*:../../databases/postgresql84-client
 BUILD_DEPENDS+=	postgresql91-client-[0-9]*:../../databases/postgresql91-client
-BUILD_DEPENDS+=	scmgit-[0-9]*:../../devel/scmgit
-BUILD_DEPENDS+=	scmgit-base-[0-9]*:../../devel/scmgit-base
-BUILD_DEPENDS+=	scmgit-docs-[0-9]*:../../devel/scmgit-docs
+BUILD_DEPENDS+=	git-[0-9]*:../../devel/git
+BUILD_DEPENDS+=	git-base-[0-9]*:../../devel/git-base
+BUILD_DEPENDS+=	git-docs-[0-9]*:../../devel/git-docs
 BUILD_DEPENDS+=	mercurial-[0-9]*:../../devel/mercurial
 BUILD_DEPENDS+=	emacs24>=24<25:../../editors/emacs24
 BUILD_DEPENDS+=	emacs-packages-[0-9]*:../../editors/emacs-packages
@@ -81,7 +83,6 @@ BUILD_DEPENDS+=	gnuplot-[0-9]*:../../graphics/gnuplot
 BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-[0-9]*:../../graphics/py-matplotlib
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-gtk-[0-9]*:../../graphics/py-matplotlib-gtk2
-BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-tk-[0-9]*:../../graphics/py-matplotlib-tk
 BUILD_DEPENDS+=	gawk-[0-9]*:../../lang/gawk
 BUILD_DEPENDS+=	php>=5.3<5.4:../../lang/php53
 BUILD_DEPENDS+=	php>=5.4<5.5:../../lang/php54
@@ -92,7 +93,6 @@ BUILD_DEPENDS+=	sun-jre6-[0-9]*:../../lang/sun-jre6
 BUILD_DEPENDS+=	openjdk7-[0-9]*:../../lang/openjdk7
 BUILD_DEPENDS+=	openjdk7-bin-[0-9]*:../../lang/openjdk7-bin
 BUILD_DEPENDS+=	python26-[0-9]*:../../lang/python26
-BUILD_DEPENDS+=	python32-[0-9]*:../../lang/python32
 BUILD_DEPENDS+=	python33-[0-9]*:../../lang/python33
 BUILD_DEPENDS+=	tcl-[0-9]*:../../lang/tcl
 BUILD_DEPENDS+=	fetchmail-[0-9]*:../../mail/fetchmail
@@ -218,8 +218,8 @@ BUILD_DEPENDS+=	hicolor-icon-theme-[0-9]*:../../graphics/hicolor-icon-theme
 #
 # 6. Other very small packages
 #
-BUILD_DEPENDS+=	lua-stdlib-[0-9]*:../../devel/lua-stdlib
-BUILD_DEPENDS+=	lua-stdlib-doc-[0-9]*:../../devel/lua-stdlib-doc
+BUILD_DEPENDS+=	${LUA_PKGPREFIX}-stdlib-[0-9]*:../../devel/lua-stdlib
+BUILD_DEPENDS+=	${LUA_PKGPREFIX}-stdlib-doc-[0-9]*:../../devel/lua-stdlib-doc
 
 #
 # Note that (unlike in bulk-small) we make no effort to list or track
@@ -232,5 +232,6 @@ BUILD_DEPENDS+=	lua-stdlib-doc-[0-9]*:../../devel/lua-stdlib-doc
 BUILD_DEPENDS+=	bulk-small-[0-9]*:../../meta-pkgs/bulk-small
 
 PYTHON_FOR_BUILD_ONLY=	yes
+.include "../../lang/lua/luaversion.mk" # for LUA_PKGPREFIX
 .include "../../lang/python/pyversion.mk" # for PYPKGPREFIX
 .include "../../mk/bsd.pkg.mk"

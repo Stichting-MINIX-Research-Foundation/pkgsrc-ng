@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.198 2013/06/04 22:16:13 tron Exp $
+# $NetBSD: Makefile,v 1.202 2014/02/13 19:53:43 adam Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	ImageMagick-${DISTVERSION}
-PKGREVISION=	3
 
 MAINTAINER=	adam@NetBSD.org
 COMMENT=	Package for display and interactive manipulation of images
@@ -46,7 +45,7 @@ GCC_REQD+=		3.0
 CFLAGS+=		-O
 .endif
 
-PKG_SYSCONFSUBDIR=	ImageMagick
+PKG_SYSCONFSUBDIR=	ImageMagick-${IM_MAJOR_LIB_VER}
 EGDIR=		${PREFIX}/share/examples/ImageMagick
 CONF_FILES=	${EGDIR}/coder.xml ${PKG_SYSCONFDIR}/coder.xml
 CONF_FILES+=	${EGDIR}/colors.xml ${PKG_SYSCONFDIR}/colors.xml

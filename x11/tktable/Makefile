@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2013/06/06 12:53:47 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2014/01/11 14:42:01 adam Exp $
 #
 
 DISTNAME=	Tktable2.10
 PKGNAME=	${DISTNAME:S/Tktable/tktable-/}
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tktable/}
 
@@ -16,6 +16,7 @@ GNU_CONFIGURE=	yes
 
 CONFIGURE_ARGS+=	--x-includes=${BUILDLINK_PREFIX.libX11}/include \
 			--x-libraries=${BUILDLINK_PREFIX.libX11}/lib
+CONFIGURE_ENV+=		PKG_LIBS=${X11_LDFLAGS:Q}
 
 .include "options.mk"
 

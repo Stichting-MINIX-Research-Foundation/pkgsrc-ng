@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.17 2012/10/03 00:20:16 asau Exp $
-#
+# $NetBSD: Makefile,v 1.21 2014/01/27 18:41:11 wiz Exp $
 
-DISTNAME=	simplejson-2.6.2
+DISTNAME=	simplejson-3.3.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	converters
-MASTER_SITES=	http://pypi.python.org/packages/source/s/simplejson/
+MASTER_SITES=	https://pypi.python.org/packages/source/s/simplejson/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://undefined.org/python/#simplejson

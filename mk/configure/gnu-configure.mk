@@ -1,11 +1,11 @@
-# $NetBSD: gnu-configure.mk,v 1.14 2013/06/12 12:35:35 wiz Exp $
+# $NetBSD: gnu-configure.mk,v 1.16 2014/01/28 11:32:30 obache Exp $
 
 _VARGROUPS+=			gnu-configure
 _USER_VARS.gnu-configure=	# none
 _PKG_VARS.gnu-configure=	GNU_CONFIGURE GNU_CONFIGURE_PREFIX \
 	SET_LIBDIR GNU_CONFIGURE_LIBSUBDIR \
-	GNU_CONFIGURE_INFODIR GNU_CONFIGURE_MANDIR \
-	CONFIGURE_HAS_MANDIR CONFIGURE_HAS_INFODIR \
+	GNU_CONFIGURE_LIBDIR GNU_CONFIGURE_INFODIR GNU_CONFIGURE_MANDIR \
+	CONFIGURE_HAS_LIBDIR CONFIGURE_HAS_MANDIR CONFIGURE_HAS_INFODIR \
 	OVERRIDE_DIRDEPTH.configure \
 	USE_GNU_CONFIGURE_HOST
 
@@ -29,10 +29,20 @@ CONFIGURE_ENV+=	lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+
 GNU_CONFIGURE_PREFIX?=	${PREFIX}
 CONFIGURE_ARGS+=	--prefix=${GNU_CONFIGURE_PREFIX:Q}
 
+.if (defined(SET_LIBDIR) && !empty(SET_LIBDIR)) || \
+	(defined(GNU_CONFIGURE_LIBDIR) && !empty(GNU_CONFIGURE_LIBDIR)) || \
+	(defined(GNU_CONFIGURE_LIBSUBDIR) && !empty(GNU_CONFIGURE_LIBSUBDIR))
+CONFIGURE_HAS_LIBDIR=	yes
+.else
+CONFIGURE_HAS_LIBDIR?=	no
+.endif
 .if defined(GNU_CONFIGURE_LIBSUBDIR) && !empty(GNU_CONFIGURE_LIBSUBDIR)
-CONFIGURE_ARGS+=	--libdir=${GNU_CONFIGURE_PREFIX}/lib/${GNU_CONFIGURE_LIBSUBDIR}
-.elif defined(SET_LIBDIR) && !empty(SET_LIBDIR)
-CONFIGURE_ARGS+=	--libdir=${GNU_CONFIGURE_PREFIX}/lib
+GNU_CONFIGURE_LIBDIR?=	${GNU_CONFIGURE_PREFIX}/lib/${GNU_CONFIGURE_LIBSUBDIR}
+.else
+GNU_CONFIGURE_LIBDIR?=	${GNU_CONFIGURE_PREFIX}/lib
+.endif
+.if !empty(CONFIGURE_HAS_LIBDIR:M[Yy][Ee][Ss])
+CONFIGURE_ARGS+=	--libdir=${GNU_CONFIGURE_LIBDIR}
 .endif
 
 USE_GNU_CONFIGURE_HOST?=	yes
@@ -151,8 +161,7 @@ _SCRIPT.configure-scripts-osdep=					\
 configure-scripts-osdep:
 .if defined(_SCRIPT.configure-scripts-osdep) && !empty(_SCRIPT.configure-scripts-osdep)
 	@${STEP_MSG} "Modifying GNU configure scripts for OS dependent support"
-	${_PKG_SILENT}${_PKG_DEBUG}set -e;				\
-	cd ${WRKSRC};							\
+	${RUN} cd ${WRKSRC};						\
 	depth=0; pattern=${CONFIGURE_SCRIPT:T};				\
 	while ${TEST} $$depth -le ${OVERRIDE_DIRDEPTH.configure}; do	\
 		for file in $$pattern; do				\

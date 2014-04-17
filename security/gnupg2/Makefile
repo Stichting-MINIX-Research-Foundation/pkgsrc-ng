@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.45 2013/05/29 22:53:36 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2014/02/12 23:18:32 tron Exp $
 
-DISTNAME=	gnupg-2.0.20
+DISTNAME=	gnupg-2.0.22
 PKGNAME=	${DISTNAME:S/gnupg/gnupg2/}
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/gnupg/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,7 +21,6 @@ USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sharedstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--with-static-rnd=auto
 CONFIGURE_ARGS+=	--without-included-gettext
 CONFIGURE_ARGS+=	--with-pinentry-pgm=${BUILDLINK_PREFIX.pinentry}/bin/pinentry
 
@@ -41,7 +41,7 @@ BUILDLINK_API_DEPENDS.libksba+=		libksba>=1.0.2
 .include "../../databases/openldap-client/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/pth/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/libassuan2/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"

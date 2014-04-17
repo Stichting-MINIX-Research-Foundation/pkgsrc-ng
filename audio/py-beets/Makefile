@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2013/06/12 20:29:21 drochner Exp $
-#
+# $NetBSD: Makefile,v 1.9 2014/01/25 10:29:56 wiz Exp $
 
-DISTNAME=	v1.2.0
+DISTNAME=	v1.3.2
 PKGNAME=	beets-${DISTNAME:S/v//}
 CATEGORIES=	audio
 MASTER_SITES=	https://github.com/sampsyo/beets/archive/
@@ -19,6 +18,8 @@ DEPENDS+=	${PYPKGPREFIX}-mutagen-[0-9]*:../../audio/py-mutagen
 DEPENDS+=	${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 DEPENDS+=	${PYPKGPREFIX}-Unidecode-[0-9]*:../../textproc/py-Unidecode
 DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-mutagen
 
 .include "../../lang/python/pyversion.mk"
 .if empty(PYPKGPREFIX:Mpy27)

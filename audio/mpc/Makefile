@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.18 2012/10/02 23:48:00 asau Exp $
+# $NetBSD: Makefile,v 1.20 2013/12/06 13:39:34 wiz Exp $
 
-DISTNAME=		mpc-0.21
+DISTNAME=		mpc-0.25
 CATEGORIES=		audio
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=musicpd/}
-EXTRACT_SUFX=		.tar.bz2
+#MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=musicpd/}
+MASTER_SITES=		http://www.musicpd.org/download/mpc/0/
+EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		simonb@NetBSD.org
 HOMEPAGE=		http://musicpd.org/

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/02/06 23:22:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.33 2014/02/12 23:18:10 tron Exp $
 #
 
-DISTNAME=		spamdyke-4.3.1
+DISTNAME=		spamdyke-5.0.0
 PKGREVISION=		1
 CATEGORIES=		mail
 MASTER_SITES=		${HOMEPAGE}releases/

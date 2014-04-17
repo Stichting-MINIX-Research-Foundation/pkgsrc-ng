@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2013/05/09 07:40:19 adam Exp $
+# $NetBSD: Makefile,v 1.41 2014/02/12 23:18:17 tron Exp $
 
 DISTNAME=	mediatomb-0.12.1
-PKGREVISION=	15
+PKGREVISION=	21
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mediatomb/}
 
@@ -43,6 +43,8 @@ SUBST_STAGE.config=	post-patch
 
 INSTALLATION_DIRS+=	share/applications share/examples/mediatomb
 
+LDFLAGS.SunOS+=	-liconv
+
 post-extract:
 	${CP} ${FILESDIR}/config.xml.in ${WRKSRC}/config.xml
 	${CP} ${FILESDIR}/mediatomb.desktop.in ${WRKSRC}/mediatomb.desktop
@@ -58,10 +60,10 @@ post-install:
 .include "options.mk"
 
 .include "../../audio/taglib/buildlink3.mk"
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
-.include "../../multimedia/ffmpeg/buildlink3.mk"
 .include "../../sysutils/file/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

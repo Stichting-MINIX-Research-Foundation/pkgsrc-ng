@@ -1,4 +1,4 @@
-# $NetBSD: package.mk,v 1.18 2012/10/14 21:30:33 minskim Exp $
+# $NetBSD: package.mk,v 1.22 2013/12/15 06:02:02 dholland Exp $
 #
 # This Makefile fragment is intended to be included by packages that build
 # TeX Live packages.
@@ -33,7 +33,7 @@ MASTER_SITES?=	${MASTER_SITE_TEX_CTAN:=systems/texlive/tlnet/archive/}
 .if empty(TEXLIVE_REV)
 DIST_SUBDIR?=	${PKGNAME_NOREV}
 .else
-DIST_SUBDIR?=	${PKGBASE:C/-doc$$//}-${TEXLIVE_REV}
+DIST_SUBDIR?=	${PKGBASE:S/-doc$//}-${TEXLIVE_REV}
 .endif
 EXTRACT_SUFX?=	.tar.xz
 
@@ -53,15 +53,6 @@ REPLACE.texlua.new=	${LOCALBASE}/bin/texlua
 REPLACE_FILES.texlua=	${REPLACE_TEXLUA}
 .endif
 
-.if empty(TEX_TEXMF_DIRS)
-_dirs=		bibtex doc dvips fonts makeindex metafont metapost \
-		omega scripts source tex vtex
-_topdir=	${DESTDIR}${PREFIX}/share/texmf-dist
-.else
-_dirs=		texmf texmf-dist
-_topdir=	${DESTDIR}${PREFIX}/share
-.endif
-
 .PHONY: _texlive-set-permission _texlive-info _texlive-man _texlive-install
 _texlive-set-permission:
 .for _pat in ${TEXLIVE_IGNORE_PATTERNS}
@@ -75,30 +66,50 @@ _texlive-set-permission:
 .endfor
 
 _texlive-info:
-	if [ -d ${WRKSRC}/texmf/doc/info ]; then \
-		${RM} -f ${WRKSRC}/texmf/doc/info/dir; \
+	if [ -d ${WRKSRC}/texmf-dist/doc/info ]; then \
+		${RM} -f ${WRKSRC}/texmf-dist/doc/info/dir; \
 		${MKDIR} ${WRKSRC}/info; \
-		${MV} ${WRKSRC}/texmf/doc/info/* ${WRKSRC}/info; \
-		${RMDIR} -p ${WRKSRC}/texmf/doc/info || ${TRUE}; \
+		${MV} ${WRKSRC}/texmf-dist/doc/info/* ${WRKSRC}/info; \
+		${RMDIR} -p ${WRKSRC}/texmf-dist/doc/info || ${TRUE}; \
+	fi
+	if [ -d ${WRKSRC}/doc/info ]; then \
+		${RM} -f ${WRKSRC}/doc/info/dir; \
+		${MKDIR} ${WRKSRC}/info; \
+		${MV} ${WRKSRC}/doc/info/* ${WRKSRC}/info; \
+		${RMDIR} -p ${WRKSRC}/doc/info || ${TRUE}; \
 	fi
 
 _texlive-man:
-	if [ -d ${WRKSRC}/texmf/doc/man ]; then \
+	if [ -d ${WRKSRC}/texmf-dist/doc/man ]; then \
 		${MKDIR} ${WRKSRC}/man; \
-		${MV} ${WRKSRC}/texmf/doc/man/* ${WRKSRC}/man; \
+		${MV} ${WRKSRC}/texmf-dist/doc/man/* ${WRKSRC}/man; \
 		${FIND} ${WRKSRC}/man -name \*.pdf -exec ${RM} {} \; ; \
-		${RMDIR} -p ${WRKSRC}/texmf/doc/man || ${TRUE}; \
+		${RMDIR} -p ${WRKSRC}/texmf-dist/doc/man || ${TRUE}; \
+	fi
+	if [ -d ${WRKSRC}/doc/man ]; then \
+		${MKDIR} ${WRKSRC}/man; \
+		${MV} ${WRKSRC}/doc/man/* ${WRKSRC}/man; \
+		${FIND} ${WRKSRC}/man -name \*.pdf -exec ${RM} {} \; ; \
+		${RMDIR} -p ${WRKSRC}/doc/man || ${TRUE}; \
 	fi
 
 _texlive-install:
-.for _dir in ${_dirs}
-	if [ -d ${WRKSRC}/${_dir} ]; then \
-		cd ${WRKSRC} && \
-		${MKDIR} ${_topdir} && \
-		${PAX} -rwpm -s ',.*\.orig$$,,' \
-			${_dir} ${_topdir}; \
-	fi
-.endfor
+	if [ -d ${WRKSRC}/texmf -o -d ${WRKSRC}/texmf-dist ]; then \
+		_dirs="texmf texmf-dist"; \
+		_topdir="${DESTDIR}${PREFIX}/share"; \
+	else \
+		_dirs="bibtex doc dvips fonts makeindex metafont metapost omega scripts source tex vtex"; \
+		_topdir="${DESTDIR}${PREFIX}/share/texmf-dist"; \
+	fi; \
+	for _dir in $$_dirs; do \
+		if [ -d ${WRKSRC}/$$_dir ]; then \
+			echo $$_dir; \
+			cd ${WRKSRC} && \
+			${INSTALL_DATA_DIR} $$_topdir && \
+			${PAX} -rwpm -s ',.*\.orig$$,,' \
+				$$_dir $$_topdir; \
+		fi \
+	done
 	if [ -d ${WRKSRC}/bin ]; then \
 		${FIND} ${WRKSRC}/bin -name \*.orig -exec ${RM} {} \; ; \
 		${INSTALL_SCRIPT_DIR} ${DESTDIR}${PREFIX}/bin; \

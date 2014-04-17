@@ -1,14 +1,23 @@
-# $NetBSD: options.mk,v 1.13 2012/04/25 15:59:59 drochner Exp $
+# $NetBSD: options.mk,v 1.15 2014/03/29 04:15:09 ryoon Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.aria2
 
 PKG_OPTIONS_GROUP.ssl=		gnutls ssl
 PKG_OPTIONS_REQUIRED_GROUPS=	ssl
 
-PKG_SUPPORTED_OPTIONS=		sqlite
-PKG_SUGGESTED_OPTIONS=		ssl sqlite
+PKG_SUPPORTED_OPTIONS=		nls sqlite
+PKG_SUGGESTED_OPTIONS=		nls sqlite ssl
+PLIST_VARS+=			nls
 
 .include "../../mk/bsd.options.mk"
+
+.if !empty(PKG_OPTIONS:Mnls)
+.include "../../devel/gettext-lib/buildlink3.mk"
+PLIST.nls=		yes
+.else
+CONFIGURE_ARGS+=	--disable-nls
+.endif
+
 ###
 ###	SSL/TLS implementation
 ###

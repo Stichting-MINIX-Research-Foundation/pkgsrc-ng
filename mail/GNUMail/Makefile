@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.36 2013/05/09 07:40:02 adam Exp $
-#
+# $NetBSD: Makefile,v 1.38 2013/12/23 11:57:04 wiz Exp $
 
 DISTNAME=	GNUMail-1.2.0
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	mail gnustep
 MASTER_SITES=	http://debian.uni-essen.de/misc/GNUstep/Apps/GNUMail/
 
-MAINTAINER=	rh@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.collaboration-world.com/gnumail/
 COMMENT=	GNUstep clone of NeXT's Mail.app application
 LICENSE=	gnu-lgpl-v2

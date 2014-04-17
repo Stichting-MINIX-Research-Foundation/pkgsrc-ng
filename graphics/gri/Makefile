@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2013/06/23 18:12:46 dholland Exp $
+# $NetBSD: Makefile,v 1.50 2014/02/12 23:18:00 tron Exp $
 
 DISTNAME=	gri-2.12.23
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gri/}
 
@@ -23,9 +23,9 @@ INFO_FILES=		yes
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} PKGINFODIR=${PKGINFODIR}
 
 pre-configure:
-	cd ${WRKSRC} && aclocal && autoconf
+	cd ${WRKSRC} && autoreconf -i
 
 .include "../../devel/netcdf/buildlink3.mk"
 .include "../../devel/popt/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.50 2012/09/11 23:19:36 asau Exp $
+# $NetBSD: Makefile,v 1.52 2014/03/03 04:40:47 obache Exp $
 
-DISTNAME=	pkg_comp-1.37
+PKGNAME=	pkg_comp-1.37
 CATEGORIES=	pkgtools
-MASTER_SITES=	# empty
-DISTFILES=	# empty
 
 MAINTAINER=	jmmv@NetBSD.org
 COMMENT=	Build packages inside a chroot jail
+LICENSE=	modified-bsd
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 

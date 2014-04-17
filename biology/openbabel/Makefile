@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2013/06/06 12:54:06 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/10 14:42:01 ryoon Exp $
 #
 
 DISTNAME=	openbabel-2.3.0
-PKGREVISION=	14
+PKGREVISION=	16
 CATEGORIES=	biology
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=openbabel/}
 
@@ -14,7 +14,6 @@ LICENSE=	gnu-gpl-v2
 USE_LANGUAGES=	c c++
 
 USE_CMAKE=	yes
-CMAKE_ARGS+=	-DPKGMANDIR=${PKGMANDIR:Q}
 
 .include "options.mk"
 

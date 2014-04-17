@@ -1,15 +1,16 @@
-# $NetBSD: enigmail.mk,v 1.9 2013/04/07 20:23:49 ryoon Exp $
+# $NetBSD: enigmail.mk,v 1.13 2014/03/30 04:13:17 ryoon Exp $
 #
 # This Makefile fragment hooks the Enigmail OpenPGP extension
 # (see http://www.mozilla-enigmail.org/ ) into the build.
 
-ENIGMAIL_DIST=		enigmail-1.5.1.tar.gz
+ENIGMAIL_DIST=		enigmail-1.6.1_pre20140112.tar.xz
 XPI_FILES+=		${WRKDIR}/enigmail.xpi
 .if !defined(DISTFILES)
 DISTFILES=		${DEFAULT_DISTFILES}
 .endif
 DISTFILES+=		${ENIGMAIL_DIST}
-SITES.${ENIGMAIL_DIST}=	http://www.mozilla-enigmail.org/download/source/
+#SITES.${ENIGMAIL_DIST}=	http://www.mozilla-enigmail.org/download/source/
+SITES.${ENIGMAIL_DIST}=	https://dev.gentoo.org/~polynomial-c/mozilla/
 
 DEPENDS+=		gnupg-[0-9]*:../../security/gnupg
 PLIST_SRC+=		PLIST.enigmail
@@ -19,30 +20,34 @@ PLIST_SUBST+=		TARGET_XPCOM_ABI=${TARGET_XPCOM_ABI}
 
 USE_TOOLS+=		patch pax
 
+REPLACE_PERL+=		${WRKSRC}/${OBJDIR}/mailnews/extensions/enigmail/util/fixlang.pl
+
 post-extract: enigmail-post-extract
 .PHONY: enigmail-post-extract
 enigmail-post-extract:
-	${RUN} mv ${WRKDIR}/enigmail ${WRKSRC}/mailnews/extensions/
-	${RUN} cd ${WRKSRC} && \
+	${RUN} mkdir ${WRKSRC}/${OBJDIR}/mailnews/extensions
+	${RUN} mv ${WRKDIR}/enigmail ${WRKSRC}/${OBJDIR}/mailnews/extensions
+	${RUN} cd ${WRKSRC}/${OBJDIR} && \
 		${PATCH} < ${FILESDIR}/mailnews_extensions_enigmail_ipc_modules_subprocess.jsm && \
-		${PATCH} < ${FILESDIR}/patch-files_mailnews_extensions_enigmail_ipc_src_Makefile.enig
+		${PATCH} < ${FILESDIR}/patch-mailnews_extensions_enigmail_Makefile
 
 post-configure: enigmail-post-configure
 .PHONY: enigmail-post-configure
 enigmail-post-configure:
-	${RUN} cd ${WRKSRC}/mailnews/extensions/enigmail &&		\
-	  ${SETENV} ${CONFIGURE_ENV} ${PERL5} ./makemake -r
+	cd ${WRKSRC}/${OBJDIR}/mailnews/extensions/enigmail && \
+		${SETENV} ${CONFIGURE_ENV} \
+		./configure --prefix=${PREFIX}
 
 # We need to do a switcheroo of the dist directory while building enigmail;
 # otherwise we get extra files contamination in the PLIST.
 post-build: enigmail-post-build
 .PHONY: enigmail-post-build
 enigmail-post-build:
-	${RUN} cd ${WRKSRC}/mozilla/dist && pax -rwpe . ../dist.save
-	${RUN} cd ${WRKSRC}/mailnews/extensions/enigmail &&		\
-	  ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} &&			\
-	  ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} xpi
-	${CP} ${WRKSRC}/mozilla/dist/bin/enigmail*.xpi			\
+	rm -rf ${WRKSRC}/${OBJDIR}/mozilla/dist.save
+	cd ${WRKSRC}/${OBJDIR}/mozilla/dist && pax -rwpe . ../dist.save
+	cd ${WRKSRC}/${OBJDIR}/mailnews/extensions/enigmail && \
+		${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} all xpi
+	${CP} ${WRKSRC}/${OBJDIR}/mailnews/extensions/enigmail/build/enigmail*.xpi \
 	  ${WRKDIR}/enigmail.xpi
-	${RUN} rm -rf ${WRKSRC}/mozilla/dist
-	${RUN} cd ${WRKSRC}/mozilla/dist.save && pax -rwpe . ../dist
+	rm -rf ${WRKSRC}/${OBJDIR}/mozilla/dist
+	cd ${WRKSRC}/${OBJDIR}/mozilla/dist.save && pax -rwpe . ../dist

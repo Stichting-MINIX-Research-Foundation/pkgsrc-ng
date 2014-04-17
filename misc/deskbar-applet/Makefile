@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.76 2013/06/06 12:54:45 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.84 2014/02/12 23:18:12 tron Exp $
 
 DISTNAME=	deskbar-applet-2.32.0
-PKGREVISION=	26
+PKGREVISION=	32
 CATEGORIES=	misc gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/deskbar-applet/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -21,7 +20,9 @@ PKGCONFIG_OVERRIDE=	data/deskbar-applet.pc.in
 
 GCONF_SCHEMAS=		deskbar-applet.schemas
 
-PYTHON_PATCH_SCRIPTS=		deskbar/deskbar-applet.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2, py-gtk2
+
+REPLACE_PYTHON=		deskbar/deskbar-applet.py
 PY_PATCHPLIST=			yes
 
 BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.6.0

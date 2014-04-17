@@ -1,13 +1,47 @@
-$NetBSD: patch-aa,v 1.2 2010/11/28 21:12:54 adam Exp $
+$NetBSD: patch-aa,v 1.4 2013/08/15 09:45:58 richard Exp $
 
---- src/oss.c.orig	2010-02-19 23:39:40.000000000 +0000
+* configure OSS device name
+* use config.h WORDS_BIGENDIAN macro
+
+--- src/oss.c.orig	2011-02-09 21:02:40.000000000 +0000
 +++ src/oss.c
-@@ -243,7 +243,7 @@ static int open_oss(ca_context *c, struc
+@@ -21,10 +21,6 @@
+   <http://www.gnu.org/licenses/>.
+ ***/
  
-         p = PRIVATE(c);
+-#ifdef HAVE_CONFIG_H
+-#include <config.h>
+-#endif
+-
+ #include <sys/types.h>
+ #include <sys/ioctl.h>
+ #include <sys/param.h>
+@@ -38,6 +34,10 @@
+ #include <pthread.h>
+ #include <semaphore.h>
+ 
++#ifdef HAVE_CONFIG_H
++#include <config.h>
++#endif
++
+ #ifdef HAVE_MACHINE_SOUNDCARD_H
+ #  include <machine/soundcard.h>
+ #else
+@@ -240,7 +240,7 @@ static int open_oss(ca_context *c, struc
+          * multichannel streams. We cannot support those files hence */
+         ca_return_val_if_fail(ca_sound_file_get_nchannels(out->file) <= 2, CA_ERROR_NOTSUPPORTED);
  
 -        if ((out->pcm = open(c->device ? c->device : "/dev/dsp", O_WRONLY | O_NONBLOCK, 0)) < 0)
 +        if ((out->pcm = open(c->device ? c->device : DEVOSSAUDIO, O_WRONLY | O_NONBLOCK, 0)) < 0)
                  goto finish_errno;
  
          if ((mode = fcntl(out->pcm, F_GETFL)) < 0)
+@@ -259,7 +259,7 @@ static int open_oss(ca_context *c, struc
+                 val = AFMT_S16_NE;
+                 break;
+         case CA_SAMPLE_S16RE:
+-#if __BYTE_ORDER == __LITTLE_ENDIAN
++#ifndef WORDS_BIGENDIAN
+                 val = AFMT_S16_BE;
+ #else
+                 val = AFMT_S16_LE;

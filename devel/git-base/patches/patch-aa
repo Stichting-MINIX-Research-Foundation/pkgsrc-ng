@@ -1,0 +1,46 @@
+$NetBSD: patch-aa,v 1.2 2013/12/04 12:51:06 adam Exp $
+
+--- Makefile.orig	2013-12-03 19:35:24.000000000 +0000
++++ Makefile
+@@ -351,8 +351,6 @@ GIT-VERSION-FILE: FORCE
+ 
+ CFLAGS = -g -O2 -Wall
+ LDFLAGS =
+-ALL_CFLAGS = $(CPPFLAGS) $(CFLAGS)
+-ALL_LDFLAGS = $(LDFLAGS)
+ STRIP ?= strip
+ 
+ # Among the variables below, these:
+@@ -393,13 +391,9 @@ htmldir_relative = $(patsubst $(prefix)/
+ 
+ export prefix bindir sharedir sysconfdir gitwebdir localedir
+ 
+-CC = cc
+-AR = ar
+ RM = rm -f
+ DIFF = diff
+-TAR = tar
+ FIND = find
+-INSTALL = install
+ RPMBUILD = rpmbuild
+ TCL_PATH = tclsh
+ TCLTK_PATH = wish
+@@ -1630,8 +1624,8 @@ ifdef DEFAULT_HELP_FORMAT
+ BASIC_CFLAGS += -DDEFAULT_HELP_FORMAT='"$(DEFAULT_HELP_FORMAT)"'
+ endif
+ 
+-ALL_CFLAGS += $(BASIC_CFLAGS)
+-ALL_LDFLAGS += $(BASIC_LDFLAGS)
++ALL_CFLAGS = $(BASIC_CFLAGS) $(CPPFLAGS) $(CFLAGS)
++ALL_LDFLAGS = $(BASIC_LDFLAGS) $(LDFLAGS)
+ 
+ export DIFF TAR INSTALL DESTDIR SHELL_PATH
+ 
+@@ -2338,7 +2332,6 @@ ifndef NO_GETTEXT
+ endif
+ ifndef NO_PERL
+ 	$(MAKE) -C perl prefix='$(prefix_SQ)' DESTDIR='$(DESTDIR_SQ)' install
+-	$(MAKE) -C gitweb install
+ endif
+ ifndef NO_TCLTK
+ 	$(MAKE) -C gitk-git install

@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2013/06/06 12:54:17 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.35 2013/12/09 14:17:47 obache Exp $
 
 DISTNAME=	Padre-0.96
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	10
+PKGREVISION=	14
 CATEGORIES=	editors perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Padre/}
 
@@ -31,7 +30,7 @@ BUILD_DEPENDS+= p5-Test-Script>=1.07:../../devel/p5-Test-Script
 #DEPENDS+=	p5-ack>=1.86:../../textproc/p5-ack
 DEPENDS+=	p5-Algorithm-Diff>=1.1900:../../devel/p5-Algorithm-Diff
 DEPENDS+=	p5-App-cpanminus>=0.9923:../../devel/p5-App-cpanminus
-DEPENDS+=	p5-CGI>=3.47:../../www/p5-CGI
+DEPENDS+=	{perl>=5.11.1,p5-CGI>=3.47}:../../www/p5-CGI
 DEPENDS+=	p5-Capture-Tiny>=0.06:../../devel/p5-Capture-Tiny
 DEPENDS+=	p5-Class-Adapter>=1.05:../../devel/p5-Class-Adapter
 DEPENDS+=	p5-Class-Inspector>=1.22:../../devel/p5-Class-Inspector
@@ -83,7 +82,7 @@ DEPENDS+=	{perl>=5.10.1,p5-Pod-Simple>=3.07}:../../textproc/p5-Pod-Simple
 DEPENDS+=	p5-Probe-Perl>=0.01:../../devel/p5-Probe-Perl
 DEPENDS+=	p5-Readonly-XS>=1.05:../../devel/p5-Readonly-XS
 DEPENDS+=	p5-Sort-Versions>=1.5:../../devel/p5-Sort-Versions
-DEPENDS+=	{perl>=5.10.0,p5-Storable>=2.16}:../../devel/p5-Storable
+#DEPENDS+=	{perl>=5.10.0,p5-Storable>=2.16}:../../devel/p5-Storable
 DEPENDS+=	p5-Template-Tiny>=0.11:../../textproc/p5-Template-Tiny
 DEPENDS+=	{perl>=5.12.0,p5-Text-Balanced>=2.01}:../../textproc/p5-Text-Balanced
 DEPENDS+=	p5-Text-Diff>=1.41:../../textproc/p5-Text-Diff

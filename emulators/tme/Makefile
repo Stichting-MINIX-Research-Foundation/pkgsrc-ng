@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2013/06/06 12:54:19 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2014/01/16 10:59:58 martin Exp $
 #
 
 DISTNAME=		tme-0.8
-PKGREVISION=		19
+PKGREVISION=		23
 CATEGORIES=		emulators
 MASTER_SITES=		http://csail.mit.edu/~fredette/tme/
 
@@ -25,7 +25,12 @@ BUILDLINK_DEPMETHOD.libXt?=	build
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=tautological-compare \
-			-Wno-error=sometimes-uninitialized
+			-Wno-error=sometimes-uninitialized \
+			-Wno-error=unused-function
+.elif !empty(CC_VERSION:Mgcc-4.8.*)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-but-set-variable	\
+	-Wno-error=array-bounds					\
+	-fno-strict-aliasing
 .endif
 
 

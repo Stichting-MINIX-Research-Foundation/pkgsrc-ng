@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.7 2013/05/26 17:56:09 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2014/03/27 08:50:00 obache Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python33-${PY_DISTVERSION}
+PKGREVISION=	1
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -12,13 +13,21 @@ LICENSE=	python-software-foundation
 
 CONFLICTS+=	python-[0-9]*
 
+PLIST_AWK+=	-f ${PKGSRCDIR}/lang/python/plist-python.awk
+PLIST_AWK_ENV+=	PYTHON_SOABI="cpython-33"
+PRINT_PLIST_AWK+=	/^[^@]/ && /[^\/]+\.py[co]$$/ {
+PRINT_PLIST_AWK+=	gsub(/__pycache__\//, "")
+PRINT_PLIST_AWK+=	gsub(/\.cpython-33/, "")}
+
 GNU_CONFIGURE=		yes
-CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir:Q}
 CONFIGURE_ARGS+=	--with-threads
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	OPT=${CFLAGS:M*:Q}
 CONFIGURE_ARGS+=	--with-system-ffi
 CONFIGURE_ARGS+=	--without-pymalloc
+CONFIGURE_ENV+=		ac_cv_path_mkdir=${TOOLS_PATH.mkdir}
+
+PKGCONFIG_OVERRIDE+=	Misc/python.pc.in
 
 USE_LANGUAGES=		c c++
 
@@ -26,6 +35,13 @@ PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 
 .include "../../mk/bsd.prefs.mk"
+
+# http://bugs.python.org/issue13241
+.if !empty(MACHINE_PLATFORM:MDarwin-10.*)
+PKGSRC_COMPILER=	clang
+CC=			clang
+CXX=			clang++
+.endif
 
 # fdatasync()
 LIBS.SunOS+=		-lrt
@@ -99,6 +115,12 @@ REPLACE.py33.old=	.*python[^ ]*
 REPLACE.py33.new=	${PREFIX}/bin/python${PY_VER_SUFFIX}
 REPLACE_FILES.py33=	Lib/*.py Lib/*/*.py Lib/*/*/*.py Lib/*/*/*/*.py
 
+SUBST_CLASSES+=		findlib
+SUBST_MESSAGE.findlib=	Fixing find_library_file on Darwin.
+SUBST_STAGE.findlib=	pre-configure
+SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
+SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
+
 CHECK_INTERPRETER_SKIP=	lib/python${PY_VER_SUFFIX}/venv/scripts/posix/pydoc
 
 .if ${OPSYS} == "HPUX"
@@ -107,7 +129,6 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/libpython3.3.sl.1.0
 .endif
 
-USE_GNU_READLINE=			yes
 BUILDLINK_DEPMETHOD.readline=		build
 
 .include "../../archivers/bzip2/buildlink3.mk"

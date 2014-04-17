@@ -1,13 +1,16 @@
-# $NetBSD: Makefile,v 1.12 2013/05/31 12:41:50 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/02/26 01:16:56 gdt Exp $
 #
 
-DISTNAME=	ccid-1.4.8
+DISTNAME=	ccid-1.4.15
 PKGREVISION=	1
 CATEGORIES=	security
-MASTER_SITES=	http://alioth.debian.org/frs/download.php/3768/
+# Note that the MASTER_SITES URL is not stable with version changes,
+# and one can end up with an old version if DISTNAME is changed but
+# not the magic number in MASTER_SITES.
+MASTER_SITES=	https://alioth.debian.org/frs/download.php/file/3989/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	gdt@NetBSD.org
 HOMEPAGE=	http://pcsclite.alioth.debian.org/ccid.html
 COMMENT=	Middleware to access a smart card using SCard API (PC/SC)
 LICENSE=	gnu-lgpl-v2.1

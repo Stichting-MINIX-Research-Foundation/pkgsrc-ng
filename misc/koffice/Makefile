@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.152 2013/06/06 12:54:48 wiz Exp $
+# $NetBSD: Makefile,v 1.158 2014/02/12 23:18:14 tron Exp $
 
 DISTNAME=	koffice-1.6.3
-PKGREVISION=	48
+PKGREVISION=	52
 CATEGORIES=	misc kde
 MASTER_SITES=	${MASTER_SITE_KDE:=koffice-1.6.3/src/}
 EXTRACT_SUFX=	.tar.bz2
@@ -43,6 +43,8 @@ REPLACE_PERL+=		tools/scripts/gdb_output_to_text.pl
 REPLACE_PERL+=		tools/thesaurus/extract.pl
 REPLACE_PERL+=		kpresenter/kprconverter.pl
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.6.3
+
 # Ensure we export symbols in the linked shared object.
 LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}
 
@@ -61,6 +63,7 @@ post-install:
 .include "../../graphics/ImageMagick/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"
+.include "../../graphics/lcms/buildlink3.mk"
 .include "../../graphics/libart/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"

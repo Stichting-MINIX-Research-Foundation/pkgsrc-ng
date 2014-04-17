@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2012/10/31 11:19:43 asau Exp $
+# $NetBSD: Makefile,v 1.25 2014/02/12 23:17:50 tron Exp $
 #
 
-DISTNAME=		rudiments-0.34
+DISTNAME=		rudiments-0.42
+PKGREVISION=		2
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=rudiments/}
 
@@ -15,13 +16,13 @@ USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		YES
 USE_PKGLOCALEDIR=	YES
-PLIST_VARS+=		shm
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} != "NetBSD"
-PLIST.shm=		yes
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CXX+=	-Wno-error=unused-private-field
 .endif
 
+.include "../../devel/pcre/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

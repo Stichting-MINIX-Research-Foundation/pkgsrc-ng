@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.53 2013/06/23 09:30:14 mbalmer Exp $
+# $NetBSD: Makefile,v 1.56 2014/03/25 12:54:22 gdt Exp $
 
 DISTNAME=	nedit-${VERS}-src
 PKGNAME=	nedit-${VERS}
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	editors
+# @pkglint: MASTER_SITE_NEDIT is defined below
 MASTER_SITES=	${MASTER_SITE_NEDIT:=v${VERS:S/./_/g}/} \
 		${MASTER_SITE_SOURCEFORGE:=nedit/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +12,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.nedit.org/
 COMMENT=	Motif based standard GUI style text editor
+LICENSE=	gnu-gpl-v2
 
 VERS=		5.5
 MASTER_SITE_NEDIT=	http://www.nedit.org/ftp/			\
@@ -23,7 +25,7 @@ MASTER_SITE_NEDIT=	http://www.nedit.org/ftp/			\
 
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 BUILD_TARGET=		netbsd
-INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PREFIX}/share/doc/nedit
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/source/nedit ${DESTDIR}${PREFIX}/bin
@@ -32,7 +34,6 @@ do-install:
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/nedit.1
 	${INSTALL_MAN} ${WRKSRC}/doc/nc.man \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/nedit-nc.1
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/nedit
 .for f in README ReleaseNotes
 	${INSTALL_DATA} ${WRKSRC}/${f} ${DESTDIR}${PREFIX}/share/doc/nedit
 .endfor

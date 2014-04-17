@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2013/06/04 07:38:49 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2014/01/25 10:45:21 wiz Exp $
 
 VERSION=	3.3.2
 DISTNAME=	xen-${VERSION}
@@ -20,6 +20,7 @@ DEPENDS+=	${PYPKGPREFIX}-curses>=0nb4:../../devel/py-curses
 BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 
 PKG_SYSCONFSUBDIR=	xen
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
 
 ONLY_FOR_PLATFORM=	Linux-2.6*-i386 Linux-2.6*-x86_64
 ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64 NetBSD-[5-9].*-i386
@@ -49,25 +50,25 @@ MAKE_ENV+=		XEN_TARGET_ARCH="x86_64" XEN_COMPILE_ARCH="x86_64"
 MAKE_ENV+=		XEN_TARGET_ARCH="unsupported"
 .endif
 PY_PATCHPLIST=		yes
-PYTHON_PATCH_SCRIPTS+=	misc/xm
-PYTHON_PATCH_SCRIPTS+=	misc/netfix
-PYTHON_PATCH_SCRIPTS+=	misc/xen-bugtool
-PYTHON_PATCH_SCRIPTS+=	misc/xencons
-PYTHON_PATCH_SCRIPTS+=	misc/xend
-PYTHON_PATCH_SCRIPTS+=	misc/xensymoops
-PYTHON_PATCH_SCRIPTS+=	misc/xen-python-path
-PYTHON_PATCH_SCRIPTS+=	pygrub/src/pygrub
-PYTHON_PATCH_SCRIPTS+=	python/xen/util/*.py
-PYTHON_PATCH_SCRIPTS+=	python/xen/xend/*.py
-PYTHON_PATCH_SCRIPTS+=	python/xen/xm/*.py
-PYTHON_PATCH_SCRIPTS+=	python/xen/util/*.py
-PYTHON_PATCH_SCRIPTS+=	python/*.py
-PYTHON_PATCH_SCRIPTS+=	security/python/xensec_gen/cgi-bin/policy.cgi
-PYTHON_PATCH_SCRIPTS+=	security/python/xensec_gen/*.py
-PYTHON_PATCH_SCRIPTS+=	security/python/*.py
-PYTHON_PATCH_SCRIPTS+=	security/*.py
-PYTHON_PATCH_SCRIPTS+=	xenmon/*.py
-PYTHON_PATCH_SCRIPTS+=	xentrace/xentrace_format
+REPLACE_PYTHON+=	misc/xm
+REPLACE_PYTHON+=	misc/netfix
+REPLACE_PYTHON+=	misc/xen-bugtool
+REPLACE_PYTHON+=	misc/xencons
+REPLACE_PYTHON+=	misc/xend
+REPLACE_PYTHON+=	misc/xensymoops
+REPLACE_PYTHON+=	misc/xen-python-path
+REPLACE_PYTHON+=	pygrub/src/pygrub
+REPLACE_PYTHON+=	python/xen/util/*.py
+REPLACE_PYTHON+=	python/xen/xend/*.py
+REPLACE_PYTHON+=	python/xen/xm/*.py
+REPLACE_PYTHON+=	python/xen/util/*.py
+REPLACE_PYTHON+=	python/*.py
+REPLACE_PYTHON+=	security/python/xensec_gen/cgi-bin/policy.cgi
+REPLACE_PYTHON+=	security/python/xensec_gen/*.py
+REPLACE_PYTHON+=	security/python/*.py
+REPLACE_PYTHON+=	security/*.py
+REPLACE_PYTHON+=	xenmon/*.py
+REPLACE_PYTHON+=	xentrace/xentrace_format
 
 SUBST_CLASSES+=		pathsvar
 SUBST_STAGE.pathsvar=	pre-configure
@@ -151,7 +152,8 @@ OWN_DIRS=		${PKG_SYSCONFDIR}/scripts /var/log/xen
 EXTRA_HOSTCFLAGS+=	-Wno-error=ignored-attributes -Wno-error=format-security
 EXTRA_CFLAGS+=	-Wno-error=ignored-attributes -no-integrated-as \
 		-Wno-error=tautological-compare -Wno-error=null-dereference \
-		-Wno-error=self-assign -Wno-error=sometimes-uninitialized
+		-Wno-error=self-assign -Wno-error=sometimes-uninitialized \
+		-Wno-error=unused-function
 .endif
 
 MAKE_ENV+=	EXTRA_HOSTCFLAGS=${EXTRA_HOSTCFLAGS:Q} EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

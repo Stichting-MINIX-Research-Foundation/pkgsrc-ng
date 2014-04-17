@@ -1,4 +1,4 @@
-$NetBSD: patch-al,v 1.1.26.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-al,v 1.2 2013/07/12 00:07:04 taca Exp $
 
 --- ext/pdo_mysql/config.m4.orig	2013-07-10 17:43:08.000000000 +0000
 +++ ext/pdo_mysql/config.m4

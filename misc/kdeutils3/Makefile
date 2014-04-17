@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.99 2013/06/06 12:54:47 wiz Exp $
+# $NetBSD: Makefile,v 1.103 2014/02/12 23:18:13 tron Exp $
 
 DISTNAME=	kdeutils-${_KDE_VERSION}
-PKGREVISION=	30
+PKGREVISION=	33
 COMMENT=	Utilities for the KDE integrated X11 desktop
 
 .include "../../meta-pkgs/kde3/Makefile.kde3"
@@ -26,7 +26,7 @@ SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${PREFIX.gtar}/bin/gtar<
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/machine/apmvar.h)
-CPPFLAGS+=             -D__NetBSD_APM__
+CPPFLAGS+=		-D__NetBSD_APM__
 .endif
 
 .if ${OPSYS} == "DragonFly"
@@ -36,6 +36,8 @@ CONFIGURE_ENV+= 	ac_cv_c_long_double=no
 CONFIGURE_ARGS+=	--with-snmp=no
 CONFIGURE_ARGS+=	--with-pythondir=${LOCALBASE}
 CONFIGURE_ENV+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 3.5.10
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../devel/gmp/buildlink3.mk"

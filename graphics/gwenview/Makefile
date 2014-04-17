@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2013/06/06 12:54:31 wiz Exp $
+# $NetBSD: Makefile,v 1.72 2014/02/12 23:18:00 tron Exp $
 
 DISTNAME=	gwenview-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	graphics
 COMMENT=	KDE image viewer
 
@@ -13,6 +13,7 @@ COMMENT=	KDE image viewer
 .include "../../graphics/lcms2/buildlink3.mk"
 .include "../../graphics/libkipi/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../misc/nepomuk-core/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/kactivities/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"

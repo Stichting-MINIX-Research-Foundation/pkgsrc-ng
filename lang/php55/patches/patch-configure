@@ -1,0 +1,117 @@
+$NetBSD: patch-configure,v 1.5 2014/03/19 21:56:31 asau Exp $
+
+--- configure.orig	2014-03-05 10:52:32.000000000 +0000
++++ configure
+@@ -23604,7 +23604,7 @@ fi
+     if test "$found_openssl" = "no"; then
+ 
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -25754,7 +25754,7 @@ $as_echo "yes" >&6; }
+     PHP_SQLITE3_CFLAGS="-I@ext_srcdir@/libsqlite $other_flags $threadsafe_flags $debug_flags"
+ 
+ 
+-    for header_file in ext/sqlite3/libsqlite/sqlite3.h; do
++    for header_file; do
+ 
+ 
+   unique=`echo $header_file|$SED 's/[^a-zA-Z0-9]/_/g'`
+@@ -36811,7 +36811,7 @@ fi
+     if test "$found_openssl" = "no"; then
+ 
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -48213,7 +48213,7 @@ fi
+     if test "$found_openssl" = "no"; then
+ 
+     if test "$PHP_OPENSSL_DIR" = "yes"; then
+-      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl"
++      PHP_OPENSSL_DIR="/usr/local/ssl /usr/local /usr /usr/local/openssl /"
+     fi
+ 
+     for i in $PHP_OPENSSL_DIR; do
+@@ -65190,7 +65190,7 @@ rm -f core *.core core.conftest.* gmon.o
+ fi
+ 
+ 
+-if test "$flock_type" == "unknown"; then
++if test "$flock_type" = "unknown"; then
+ 	as_fn_error $? "Don't know how to define struct flock on this system, set --enable-opcache=no" "$LINENO" 5
+ fi
+ 
+@@ -104584,12 +104584,7 @@ old_CC=$CC
+ if test "$PHP_THREAD_SAFETY" = "yes" && test -n "$ac_cv_pthreads_cflags"; then
+   CXXFLAGS="$CXXFLAGS $ac_cv_pthreads_cflags"
+   INLINE_CFLAGS="$INLINE_CFLAGS $ac_cv_pthreads_cflags"
+-  cat >meta_ccld<<EOF
+-#! /bin/sh
+-exec $CC $ac_cv_pthreads_cflags \$@
+-EOF
+-  CC="$abs_builddir/meta_ccld"
+-  chmod +x meta_ccld
++  CPPFLAGS="$CPPFLAGS $ac_cv_pthreads_cflags"
+ fi
+ 
+ if test "$PHP_THREAD_SAFETY" = "yes" && test "$PHP_MYSQL" = "yes"; then
+@@ -107703,7 +107698,7 @@ if test -z "$aix_libpath"; then aix_libp
+       hardcode_shlibpath_var=no
+       ;;
+ 
+-    freebsd1*)
++    freebsd1|freebsd1.*)
+       ld_shlibs=no
+       ;;
+ 
+@@ -108352,7 +108347,7 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd1*)
++freebsd1|freebsd1.*)
+   dynamic_linker=no
+   ;;
+ 
+@@ -108363,7 +108358,7 @@ freebsd* | dragonfly*)
+     objformat=`/usr/bin/objformat`
+   else
+     case $host_os in
+-    freebsd[123]*) objformat=aout ;;
++    freebsd[123]|freebsd[123].*) objformat=aout ;;
+     *) objformat=elf ;;
+     esac
+   fi
+@@ -110443,7 +110438,7 @@ if test -z "$aix_libpath"; then aix_libp
+ 	;;
+     esac
+     ;;
+-  freebsd[12]*)
++  freebsd[12]|freebsd[12].*)
+     # C++ shared libraries reported to be fairly broken before switch to ELF
+     ld_shlibs_CXX=no
+     ;;
+@@ -111989,7 +111984,7 @@ dgux*)
+   shlibpath_var=LD_LIBRARY_PATH
+   ;;
+ 
+-freebsd1*)
++freebsd1|freebsd1.*)
+   dynamic_linker=no
+   ;;
+ 
+@@ -112000,7 +111995,7 @@ freebsd* | dragonfly*)
+     objformat=`/usr/bin/objformat`
+   else
+     case $host_os in
+-    freebsd[123]*) objformat=aout ;;
++    freebsd[123]|freebsd[123].*) objformat=aout ;;
+     *) objformat=elf ;;
+     esac
+   fi

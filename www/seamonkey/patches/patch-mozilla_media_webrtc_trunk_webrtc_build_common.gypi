@@ -1,35 +1,25 @@
-$NetBSD: patch-mozilla_media_webrtc_trunk_webrtc_build_common.gypi,v 1.1 2013/05/23 13:25:30 ryoon Exp $
+$NetBSD: patch-mozilla_media_webrtc_trunk_webrtc_build_common.gypi,v 1.4 2013/12/26 13:17:37 ryoon Exp $
 
---- mozilla/media/webrtc/trunk/webrtc/build/common.gypi.orig	2013-05-03 03:08:06.000000000 +0000
+--- mozilla/media/webrtc/trunk/webrtc/build/common.gypi.orig	2013-12-11 04:28:56.000000000 +0000
 +++ mozilla/media/webrtc/trunk/webrtc/build/common.gypi
-@@ -124,6 +124,11 @@
-         # and Java Implementation
-         'enable_android_opensl%': 0,
+@@ -78,9 +78,9 @@
+     'enable_protobuf%': 1,
+ 
+     # Disable these to not build components which can be externally provided.
+-    'build_libjpeg%': 1,
++    'build_libjpeg%': 0,
+     'build_libyuv%': 1,
+-    'build_libvpx%': 1,
++    'build_libvpx%': 0,
+ 
+     # Enable to use the Mozilla internal settings.
+     'build_with_mozilla%': 0,
+@@ -241,7 +241,7 @@
        }],
-+      ['OS=="linux" or OS=="solaris" or os_bsd==1', {
-+        'include_v4l2_video_capture%': 1,
-+      }, {
-+        'include_v4l2_video_capture%': 0,
-+      }],
-       ['OS=="ios"', {
-         'enable_video%': 0,
-         'enable_protobuf%': 0,
-@@ -210,6 +215,18 @@
-           }],
+       ['OS=="dragonfly" or OS=="netbsd"', {
+         'defines': [
+-          # doesn't support pthread_condattr_setclock
++          # doesn't support pthread_condattr_setclock, NetBSD 6 supports it.
+           'WEBRTC_CLOCK_TYPE_REALTIME',
          ],
        }],
-+      ['os_bsd==1', {
-+        'defines': [
-+          'WEBRTC_BSD',
-+          'WEBRTC_THREAD_RR',
-+        ],
-+      }],
-+      ['OS=="dragonfly" or OS=="netbsd"', {
-+        'defines': [
-+          # doesn't support pthread_condattr_setclock
-+          'WEBRTC_CLOCK_TYPE_REALTIME',
-+        ],
-+      }],
-       ['OS=="ios"', {
-         'defines': [
-           'WEBRTC_MAC',

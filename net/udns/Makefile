@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2013/01/26 21:25:12 schnoebe Exp $
+# $NetBSD: Makefile,v 1.9 2014/02/24 19:29:02 schnoebe Exp $
 
-DISTNAME=	udns-0.2
-PKGREVISION=	2
+DISTNAME=	udns-0.4
 CATEGORIES=	net
 MASTER_SITES=	http://www.corpit.ru/mjt/udns/
 
@@ -31,6 +30,9 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/udns.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
 	${INSTALL_MAN} ${WRKSRC}/dnsget.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_MAN} ${WRKSRC}/rblcheck.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+
+CFLAGS.SunOS+=	-DHAVE_INET_PTON_NTOP
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../mk/bsd.pkg.mk"
 

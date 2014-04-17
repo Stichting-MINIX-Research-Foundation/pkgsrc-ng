@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.54 2013/06/06 12:54:50 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2014/03/30 09:56:29 ryoon Exp $
 #
 
 DISTNAME=	DVDStyler-2.4.3
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dvdstyler/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.dvdstyler.de/
+HOMEPAGE=	http://www.dvdstyler.org/
 COMMENT=	Crossplatform DVD Authoring System
 LICENSE=	gnu-gpl-v2
 

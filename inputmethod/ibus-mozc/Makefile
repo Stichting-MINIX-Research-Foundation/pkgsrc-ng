@@ -1,12 +1,15 @@
-# $NetBSD: Makefile,v 1.9 2013/06/06 12:54:37 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2014/02/12 23:18:04 tron Exp $
 
 PKGNAME=	ibus-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	2
 
-INSTALLATION_DIRS+=	libexec share/ibus share/icons share/ibus/component \
+INSTALLATION_DIRS+=	libexec share/ibus share/ibus/component \
 			share/ibus-mozc
 
 DEPENDS+=	xdg-utils-[0-9]*:../../misc/xdg-utils
+DEPENDS+=	mozc-renderer-[0-9]*:../../inputmethod/mozc-renderer
+DEPENDS+=	mozc-server-[0-9]*:../../inputmethod/mozc-server
+DEPENDS+=	mozc-tool-[0-9]*:../../inputmethod/mozc-tool
 
 do-build:
 	cd ${WRKSRC} && env ${MAKE_ENV} \
@@ -18,14 +21,8 @@ do-install:
 		${DESTDIR}${PREFIX}/libexec/ibus-engine-mozc
 	${INSTALL_DATA} ${WRKSRC}/out_${OSDEST}/${MOZC_BUILD_MODE}/obj/gen/unix/ibus/mozc.xml \
 		${DESTDIR}${PREFIX}/share/ibus/component
-.for f in ui-alpha_full ui-alpha_half ui-dictionary ui-direct \
-	ui-hiragana ui-katakana_full ui-katakana_half ui-properties ui-tool
-	${INSTALL_DATA} ${WRKSRC}/data/images/unix/${f}.png \
-		${DESTDIR}${PREFIX}/share/icons/${f:S/^ui-/mozc-/}.png
-.endfor
-	${INSTALL_DATA} ${WRKSRC}/data/images/product_icon_32bpp-128.png \
-		${DESTDIR}${PREFIX}/share/icons/mozc.png
 	${INSTALL_DATA} ${WRKSRC}/data/images/unix/ime_product_icon_opensource-32.png \
 		${DESTDIR}${PREFIX}/share/ibus-mozc/product_icon.png
 
+.include "../../inputmethod/ibus/buildlink3.mk"
 .include "../../inputmethod/mozc-server/Makefile.common"

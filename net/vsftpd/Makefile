@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2013/02/06 23:23:27 jperkin Exp $
+# $NetBSD: Makefile,v 1.40 2014/02/12 23:18:27 tron Exp $
 #
 
 DISTNAME=	vsftpd-2.3.4
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	net
 MASTER_SITES=	http://security.appspot.com/downloads/ \
 		${MASTER_SITE_LOCAL}
@@ -39,6 +39,13 @@ SUBST_STAGE.paths=	post-patch
 MAKE_ENV+=		LIBS=${LIBS:Q}
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS" && ${OS_VERSION} == "5.11"
+SUBST_CLASSES+=		dirfd
+SUBST_STAGE.dirfd=	pre-build
+SUBST_FILES.dirfd=	port/solaris_bogons.h
+SUBST_SED.dirfd=	-e '/dirfd_extras/d'
+.endif
 
 VSFTPD_USER?=	vsftpd
 VSFTPD_GROUP?=	vsftpd

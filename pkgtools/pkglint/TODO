@@ -1,18 +1,12 @@
-$NetBSD: TODO,v 1.75 2013/03/26 15:08:53 schmonz Exp $
+$NetBSD: TODO,v 1.78 2013/10/12 18:09:59 rillig Exp $
 
 Please add your own entries at the bottom of this file. If possible,
 include the name of an example package where a warning should occur.
 
 * When you understand some behavior of the code, document it by
   adding automated tests to pkglint.t!
-* fix false positive warnings
 * warn about the use of ${WRKDIR:=...}, as this construct should only
   be used with lists.
-* record with each substring its source location to be able to make
-  even more precise diagnostics
-* Many of the checking routines need some context to provide better
-  warnings. For example, checkline_foo() may need to know what has
-  happened in the file before that line.
 * Add checks for binary packages. See Debian/lintian for ideas.
 * Of the user-defined variables, some may be used at load-time and some
   don't. Find out how pkglint can distinguish them.
@@ -36,17 +30,6 @@ include the name of an example package where a warning should occur.
   cd ${WRKSRC} && autoconf, then an incorrect warning is issued.
 * LOCALBASE should not be used in normal Makefiles
 * complain if LICENSE definition is missing
-
-%
-
-mail/mail-notification failed for Thomas, apparently because of an
-unexpressed dependency on hicolor-icon-theme.  I don't know if it's
-possible to add a way to notice that the PLIST contains hicolor files
-but that there's no dependency, or perhaps a list of mappings of sets of
-PLIST regexes to sets of required packages, or something.
-
-%
-
 * don't complain about "procedure calls", like for pkg-build-options in
   the various buildlink3.mk files.
 
@@ -60,3 +43,7 @@ if package A conflicts with B, then B should also conflict with A.
   point out problems that only occur on case-sensitive filesystems. For
   example, devel/p5-Net-LDAP and devel/p5-Net-ldap should be considered
   different paths.
+
+%
+
+* Warn about using REPLACE_PYTHON without including application.mk.

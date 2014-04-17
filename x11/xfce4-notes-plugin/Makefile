@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.35 2013/06/06 12:54:00 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2013/10/10 14:41:55 ryoon Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 XFCE4_VERSION=	1.6.0
 
 DISTNAME=	xfce4-notes-plugin-${XFCE4_VERSION}
-PKGREVISION=	18
+PKGREVISION=	20
 CATEGORIES=	sysutils
 MASTER_SITES=	http://goodies.xfce.org/releases/xfce4-notes-plugin/
 COMMENT=	Xfce notes plugin

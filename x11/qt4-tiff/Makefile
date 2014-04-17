@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2013/06/06 12:55:21 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2014/02/12 23:18:55 tron Exp $
 
 .include "../../x11/qt4-libs/Makefile.common"
 
 PKGNAME=	qt4-tiff-${QTVERSION}
-PKGREVISION=	5
+PKGREVISION=	1
 COMMENT=	QT TIFF image format plugin
 
 CONFIGURE_ARGS+=	-I${QTDIR}/include
@@ -16,13 +16,11 @@ do-build:
 	cd ${WRKSRC}/src/tools/moc && env ${MAKE_ENV} ${GMAKE}
 	cd ${WRKSRC}/src/plugins/imageformats/tiff && env ${MAKE_ENV} ${GMAKE}
 
-IMGFMTDIR=	${QTPREFIX}/plugins/imageformats
-
-INSTALLATION_DIRS=	${IMGFMTDIR}
+INSTALLATION_DIRS=	${QTPREFIX}/plugins/imageformats
 
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/plugins/imageformats/libqtiff.la \
-		${DESTDIR}${IMGFMTDIR}
+		${DESTDIR}${QTPREFIX}/plugins/imageformats
 
 # up to 4.3.2 a builtin libtiff is used
 BUILDLINK_API_DEPENDS.qt4-libs+= qt4-libs>=4.3.2nb1

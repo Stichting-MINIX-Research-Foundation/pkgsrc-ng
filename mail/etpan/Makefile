@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2013/05/31 12:41:13 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2014/03/09 10:18:28 roy Exp $
 
 DISTNAME=	etpan-ng-0.7.1
 PKGNAME=	${DISTNAME:S/-ng//}
-PKGREVISION=	15
+PKGREVISION=	17
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libetpan/}
 
@@ -14,6 +14,7 @@ BDB_ACCEPTED=		db4 db5
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		perl:run yacc
 GNU_CONFIGURE=		yes
+FAKE_NCURSES=		yes
 
 DOCDIR=			${PREFIX}/share/doc/etpan
 
@@ -25,7 +26,7 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/CONFIG ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/doc/INTERNAL ${DESTDIR}${DOCDIR}
 
-.include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mail/libetpan/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bdb.buildlink3.mk"

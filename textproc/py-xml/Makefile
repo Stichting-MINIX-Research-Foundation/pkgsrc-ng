@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.21 2013/06/17 13:33:47 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2014/01/25 10:45:21 wiz Exp $
 
 DISTNAME=	PyXML-0.8.4
 PKGNAME=	${PYPKGPREFIX}-xml-0.8.4
@@ -18,6 +18,8 @@ PYSETUPBUILDARGS+=	--ldflags="${EXPAT_LDFLAGS}"
 EXPAT_LDFLAGS=		${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.expat}/lib
 FIX_RPATH+=		EXPAT_LDFLAGS
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # dead upstream, no plans of porting
+
 PYXML_SCRIPTS=	scripts/xmlproc_parse \
 		scripts/xmlproc_val
 
@@ -29,7 +31,7 @@ post-extract:
 	${MV} ${WRKSRC}/${s} ${WRKSRC}/${s}${PYVERSSUFFIX}
 .endfor
 
-PYTHON_PATCH_SCRIPTS=	${PYXML_SCRIPTS:S/$/${PYVERSSUFFIX}/g}
+REPLACE_PYTHON=	${PYXML_SCRIPTS:S/$/${PYVERSSUFFIX}/g}
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
 .include "../../textproc/expat/buildlink3.mk"

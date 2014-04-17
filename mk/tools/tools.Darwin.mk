@@ -1,4 +1,4 @@
-# $NetBSD: tools.Darwin.mk,v 1.46 2012/07/27 14:38:26 jperkin Exp $
+# $NetBSD: tools.Darwin.mk,v 1.51 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the Darwin (Mac OS X) operating system.
 
@@ -6,9 +6,11 @@ TOOLS_PLATFORM.[?=		[			# shell builtin
 TOOLS_PLATFORM.awk?=		/usr/bin/awk
 TOOLS_PLATFORM.basename?=	/usr/bin/basename
 TOOLS_PLATFORM.bash?=		/bin/bash
-# Darwin's bison is too old (1.28).
-# TOOLS_PLATFORM.bison?=		/usr/bin/bison
-# TOOLS_PLATFORM.bison-yacc?=	/usr/bin/bison -y
+# Native bison (at least up to version 2.3 in OSX Lion) does not work
+# well in the tools environment and cannot locate m4sugar.m4 without
+# BISON_PKGDATADIR being set.  For now just pull in the pkgsrc tool.
+#TOOLS_PLATFORM.bison?=		/usr/bin/bison
+#TOOLS_PLATFORM.bison-yacc?=	/usr/bin/bison -y
 .if exists(/usr/bin/bsdtar)
 TOOLS_PLATFORM.bsdtar?=		/usr/bin/bsdtar
 .endif
@@ -51,7 +53,9 @@ TOOLS_PLATFORM.grep?=		/usr/bin/grep
 .if exists(/usr/bin/groff)
 TOOLS_PLATFORM.groff?=/usr/bin/groff
 .endif
+.if exists(/usr/bin/gnutar)
 TOOLS_PLATFORM.gtar?=		/usr/bin/gnutar
+.endif
 TOOLS_PLATFORM.gunzip?=		/usr/bin/gunzip -f
 TOOLS_PLATFORM.gzcat?=		/usr/bin/gzcat
 TOOLS_PLATFORM.gzip?=		/usr/bin/gzip -nf ${GZIP}
@@ -86,6 +90,7 @@ TOOLS_PLATFORM.pax?=		/bin/pax
 #TOOLS_PLATFORM.patch?=		/usr/bin/patch
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
+TOOLS_PLATFORM.readlink?=	/usr/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 TOOLS_PLATFORM.sed?=		/usr/bin/sed
@@ -111,6 +116,7 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
 TOOLS_PLATFORM.unzip?=		/usr/bin/unzip
 TOOLS_PLATFORM.wc?=		/usr/bin/wc
 .if exists(/usr/bin/wish)

@@ -1,4 +1,4 @@
-$NetBSD: patch-lib_rubygems_specification.rb,v 1.3.4.1 2013/07/16 17:00:50 tron Exp $
+$NetBSD: patch-lib_rubygems_specification.rb,v 1.4 2013/07/07 15:01:01 taca Exp $
 
 Changes for pkgsrc environment:
 

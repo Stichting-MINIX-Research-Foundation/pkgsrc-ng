@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2013/05/11 22:24:46 alnsn Exp $
+# $NetBSD: Makefile,v 1.4 2013/10/30 06:03:37 dholland Exp $
 #
 
 DISTNAME=	${PL_VERSION}
-PKGNAME=	lua-penlight-${PL_VERSION}
+PKGNAME=	${LUA_PKGPREFIX}-penlight-${PL_VERSION}
 CATEGORIES=	devel
 MASTER_SITES=	https://github.com/stevedonovan/Penlight/archive/
 
@@ -11,7 +11,7 @@ HOMEPAGE=	https://github.com/stevedonovan/Penlight/archive/
 COMMENT=	Lua libraries for functional programming, OS path management, etc
 LICENSE=	mit
 
-PL_VERSION=	1.1.0
+PL_VERSION=	1.1.1
 DIST_SUBDIR=	lua-penlight
 
 NO_BUILD=	yes

@@ -1,50 +1,42 @@
-# $NetBSD: Makefile,v 1.31 2013/06/07 02:13:39 schmonz Exp $
-#
+# $NetBSD: Makefile,v 1.36 2014/01/25 10:30:12 wiz Exp $
 
-DISTNAME=		rss2email-2.71
-PKGREVISION=		3
+DISTNAME=		v3.8
+PKGNAME=		rss2email-3.8
 CATEGORIES=		mail
-MASTER_SITES=		${HOMEPAGE}
-EXTRACT_SUFX=		.zip
+MASTER_SITES=		${HOMEPAGE}archive/
+DIST_SUBDIR=		rss2email
 
 MAINTAINER=		schmonz@NetBSD.org
-HOMEPAGE=		http://www.allthingsrss.com/rss2email/
+HOMEPAGE=		https://github.com/wking/rss2email/
 COMMENT=		Get RSS feeds emailed to you
 LICENSE=		gnu-gpl-v2
 
-DEPENDS+=		${PYPKGPREFIX}-feedparser-[0-9]*:../../textproc/py-feedparser
-DEPENDS+=		${PYPKGPREFIX}-html2text-[0-9]*:../../textproc/py-html2text
+DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
+DEPENDS+=		${PYPKGPREFIX}-feedparser>=5.0.1:../../textproc/py-feedparser
+DEPENDS+=		${PYPKGPREFIX}-html2text>=3.0.1:../../textproc/py-html2text
 
-NO_BUILD=		yes
-PYTHON_PATCH_SCRIPTS=	*.py
+WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
+
+PYTHON_VERSIONS_INCOMPATIBLE=	26 27
+
+PYDISTUTILSPKG=		yes
+PY_PATCHPLIST=		yes
+REPLACE_PYTHON=		test/test.py
 
 SUBST_CLASSES+=		bin
 SUBST_STAGE.bin=	do-configure
-SUBST_FILES.bin=	rss2email.py r2e
+SUBST_FILES.bin=	rss2email/main.py
 SUBST_SED.bin=		-e 's|@LOCALBASE@|${LOCALBASE}|g'
-SUBST_SED.bin+=		-e 's|@PREFIX@|${PREFIX}|g'
-SUBST_SED.bin+=		-e 's|@PYTHONBIN@|${PYTHONBIN}|g'
 
-SUBST_CLASSES+=		crlf
-SUBST_STAGE.crlf=	post-extract
-SUBST_FILES.crlf=	config.py.example
-SUBST_SED.crlf=		-e 's|||g'
+INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
-SHAREDIR=		${PREFIX}/share/rss2email
-EGDIR=			${PREFIX}/share/examples/rss2email
-INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+do-test:
+	cd ${WRKSRC} && env PYTHONPATH=.:${LOCALBASE}/share/html2text ./test/test.py
 
-post-extract:
-	cp ${FILESDIR}/r2e.1 ${WRKSRC}
-
-do-install:
+post-install:
 	set -e; cd ${WRKSRC};						\
-	${INSTALL_SCRIPT_DIR} ${DESTDIR}${SHAREDIR};			\
-	${INSTALL_SCRIPT} rss2email.py ${DESTDIR}${SHAREDIR};		\
-	${INSTALL_DATA_DIR} ${DESTDIR}${EGDIR};				\
-	${INSTALL_DATA} config.py.example ${DESTDIR}${EGDIR}/config.py;	\
-	${INSTALL_MAN} r2e.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1;	\
-	${INSTALL_SCRIPT} r2e ${DESTDIR}${PREFIX}/bin
+	${INSTALL_MAN} r2e.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
 .include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"
