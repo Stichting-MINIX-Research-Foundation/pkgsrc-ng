@@ -1,0 +1,20 @@
+--- pkgs/thread2.7.2/configure.orig	Sun Aug 30 21:28:41 2015
++++ pkgs/thread2.7.2/configure	Sun Aug 30 21:29:01 2015
+@@ -9334,7 +9334,7 @@
+ 
+ 	    # OpenBSD doesn't do version numbers with dots.
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
+@@ -10230,7 +10230,7 @@
+ 	    BSD/OS*) ;;
+ 	    CYGWIN_*|MINGW32_*) ;;
+ 	    IRIX*) ;;
+-	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
+ 	    Darwin-*) ;;
+ 	    SCO_SV-3.2*) ;;
+ 	    windows) ;;
