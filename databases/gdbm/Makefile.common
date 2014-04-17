@@ -17,3 +17,9 @@ PATCHDIR=	${.CURDIR}/../../databases/gdbm/patches
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ENV+= ac_cv_func_mmap_fixed_mapped=no
+.endif
