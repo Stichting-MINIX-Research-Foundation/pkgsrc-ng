@@ -7,3 +7,4 @@ Size (bison-3.0.4.tar.xz) = 1973796 bytes
 SHA1 (patch-data_glr.c) = a2e0900ed995e4320e80f8ed05eae8e82be50502
 SHA1 (patch-lib_isnan.c) = 5b44fc6e2e97e36f91cd784bf3a38ad459fccdab
 SHA1 (patch-lib_stdio.in.h) = bb793f0c8f56c3a838609f8a86cf5afc70420da8
+SHA1 (patch-zz-minix-a) = f1786ef240b894af886af84ecb1c9bdb21279208
