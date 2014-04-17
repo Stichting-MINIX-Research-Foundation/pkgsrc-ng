@@ -1,8 +1,5 @@
 $NetBSD: distinfo,v 1.97 2015/08/22 05:17:22 taca Exp $
 
-SHA1 (openssh-7.1p1-hpn-20150822.diff.bz2) = 444a2fbd80d57ff93b53ade84ec162e2a2f3aa67
-RMD160 (openssh-7.1p1-hpn-20150822.diff.bz2) = 87fb6887d9ccb4b305ff3c25fd5f67847d9996d1
-Size (openssh-7.1p1-hpn-20150822.diff.bz2) = 12173 bytes
 SHA1 (openssh-7.1p1.tar.gz) = ed22af19f962262c493fcc6ed8c8826b2761d9b6
 RMD160 (openssh-7.1p1.tar.gz) = 2c97ea10099fa8658156c0351d60d715655b9b07
 Size (openssh-7.1p1.tar.gz) = 1493170 bytes
@@ -32,3 +29,4 @@ SHA1 (patch-sshd.8) = 50154729a94aeaef17213d92979967b12d9c4e15
 SHA1 (patch-sshd.c) = d381db6d05067d0f28be8268847df97a0c8e9ba4
 SHA1 (patch-sshpty.c) = f87451e49e39fe137c8876fae52110dc2569958a
 SHA1 (patch-uidswap.c) = 875be63bb6d1a7dd8c3d1c008c85aa4bf37dfdc2
+SHA1 (patch-zz-minix) = 1098c7642641e49952c358a4a9ca6f7e66a54c63
