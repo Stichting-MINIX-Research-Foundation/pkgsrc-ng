@@ -10,7 +10,11 @@ HOMEPAGE=	http://search.cpan.org/dist/IO-Socket-SSL/
 COMMENT=	Perl5 SSL socket interface class
 LICENSE=	${PERL5_LICENSE}
 
+.include "../../mk/bsd.prefs.mk"
+
+.if !(${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 DEPENDS+=	p5-IO-Socket-INET6-[0-9]*:../../net/p5-IO-Socket-INET6
+.endif
 DEPENDS+=	p5-Net-LibIDN-[0-9]*:../../net/p5-Net-LibIDN
 DEPENDS+=	p5-Net-SSLeay>=1.59:../../security/p5-Net-SSLeay
 DEPENDS+=	p5-Mozilla-CA-[0-9]*:../../security/p5-Mozilla-CA
