@@ -5,3 +5,5 @@ RMD160 (libidn-1.28.tar.gz) = 19e7559d1b2b61b116d77ccd82af7f69d242ae7a
 Size (libidn-1.28.tar.gz) = 3476317 bytes
 SHA1 (patch-aa) = c97ade5696f5f31ed49e789155799b8de238b35e
 SHA1 (patch-ad) = e841511ab19a654b91548cad570d1da3305eb858
+SHA1 (patch-build-aux_config.guess) = 6192f02097375851553a06d7a82abce0dd223c14
+SHA1 (patch-configure) = a438f34c53399eb639f4b28d056bb4d36c009cc3

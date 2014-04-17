@@ -1,0 +1,13 @@
+--- build-aux/config.guess.orig	Wed Jul 10 11:46:55 2013
++++ build-aux/config.guess	Fri Apr 18 00:52:49 2014
+@@ -880,8 +880,8 @@ EOF
+ 	# other systems with GNU libc and userland
+ 	echo ${UNAME_MACHINE}-unknown-`echo ${UNAME_SYSTEM} | sed 's,^[^/]*/,,' | tr '[A-Z]' '[a-z]'``echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`-${LIBC}
+ 	exit ;;
+-    i*86:Minix:*:*)
+-	echo ${UNAME_MACHINE}-pc-minix
++    *:Minix:*:*)
++	echo ${UNAME_MACHINE}-elf32-minix
+ 	exit ;;
+     aarch64:Linux:*:*)
+ 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}
