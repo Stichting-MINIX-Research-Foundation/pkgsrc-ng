@@ -4,3 +4,4 @@ SHA1 (gdbm-1.12.tar.gz) = 86513e8871bb376bc014e9e5a2d18a8e0a8ea2f5
 RMD160 (gdbm-1.12.tar.gz) = 5f47e6adfec14b31c3e26c1027684ba4845eef8a
 SHA512 (gdbm-1.12.tar.gz) = 25e03dceed6986f1977d304a5ad059ac6c603a88ad4aa18c831ec42df82d68006f2e04b8a3cc400d0a4970750c78ba24a3f84cdff70de9f278cfd854c059699e
 Size (gdbm-1.12.tar.gz) = 841213 bytes
+SHA1 (patch-configure) = 5924ad4d3f8c04ddb21c0cf4294c9714cc1c2c9f
