@@ -119,7 +119,14 @@ PLIST.vis=		yes
 PTHREAD_AUTO_VARS=	yes
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ARGS+=	--disable-pthread-support
+.undef PLIST.hcrypto
+.endif
+
 .include "../../mk/termcap.buildlink3.mk"
+.if !(${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 .include "../../mk/pthread.buildlink3.mk"
+.endif
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
