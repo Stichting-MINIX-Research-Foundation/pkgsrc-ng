@@ -7,4 +7,5 @@ SHA1 (patch-aa) = 6acf84077e84fd693bb2b52377774db3d15b4f8f
 SHA1 (patch-ab) = 235ae1d844721a5ea9d027d051eedc0f7898413c
 SHA1 (patch-ac) = fd1892bfb4dcf8a22ae4654eb944eda9725f964e
 SHA1 (patch-ncurses_base_MKlib__gen.sh) = f8ce67fbd273529e4161a2820677d05a623fd527
-SHA1 (patch-ncurses_tinfo_lib__baudrate.c) = e383a11530a3045e729ab8c738e57a9e217a994f
+SHA1 (patch-ncurses_tinfo_lib__baudrate.c) = ff7ac80e2ec5801f33c28c9f7262b01e1aa77b6c
+SHA1 (patch-zz-minix-a) = 67ef8a56b56bf8e8a5da14a7162ed668d14f9b67

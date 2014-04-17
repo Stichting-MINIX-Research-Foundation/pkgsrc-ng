@@ -18,7 +18,7 @@ sys/ttydev.h doesn't exist in OpenBSD 5.5
   * ospeed's type for compatibility.
   */
 -#if NCURSES_OSPEED_COMPAT && ((defined(__FreeBSD__) && (__FreeBSD_version < 700000)) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__APPLE__))
-+#if NCURSES_OSPEED_COMPAT && ((defined(__FreeBSD__) && (__FreeBSD_version < 700000)) || defined(__NetBSD__) || (defined(__OpenBSD__) && (OpenBSD < 201405)) || defined(__APPLE__))
++#if NCURSES_OSPEED_COMPAT && ((defined(__FreeBSD__) && (__FreeBSD_version < 700000)) || defined(__minix) || defined(__NetBSD__) || (defined(__OpenBSD__) && (OpenBSD < 201405)) || defined(__APPLE__))
  #undef B0
  #undef B50
  #undef B75
