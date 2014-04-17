@@ -1,0 +1,8 @@
+@comment $NetBSD$
+bin/git-review
+${PYSITELIB}/git_review-${PKGVERSION}-py2.7.egg-info/PKG-INFO
+${PYSITELIB}/git_review-${PKGVERSION}-py2.7.egg-info/SOURCES.txt
+${PYSITELIB}/git_review-${PKGVERSION}-py2.7.egg-info/dependency_links.txt
+${PYSITELIB}/git_review-${PKGVERSION}-py2.7.egg-info/requires.txt
+${PYSITELIB}/git_review-${PKGVERSION}-py2.7.egg-info/top_level.txt
+man/man1/git-review.1
