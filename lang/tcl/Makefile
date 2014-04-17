@@ -68,4 +68,5 @@ post-build:
 BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.13.0
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../devel/pth/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

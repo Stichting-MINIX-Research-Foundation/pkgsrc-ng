@@ -1,0 +1,20 @@
+--- pkgs/sqlite3.13.0/configure.orig	Sun Aug 30 21:21:08 2015
++++ pkgs/sqlite3.13.0/configure	Sun Aug 30 21:21:32 2015
+@@ -7295,7 +7295,7 @@
+ fi
+ 	    # OpenBSD doesn't do version numbers with dots.
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
+@@ -7947,7 +7947,7 @@
+ 	    BSD/OS*) ;;
+ 	    CYGWIN_*|MINGW32_*) ;;
+ 	    IRIX*) ;;
+-	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
+ 	    Darwin-*) ;;
+ 	    SCO_SV-3.2*) ;;
+ 	    windows) ;;

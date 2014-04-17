@@ -1,0 +1,20 @@
+--- pkgs/tdbcodbc1.0.4/configure.orig	Sun Aug 30 21:26:31 2015
++++ pkgs/tdbcodbc1.0.4/configure	Sun Aug 30 21:26:51 2015
+@@ -7829,7 +7829,7 @@
+ fi
+ 	    # OpenBSD doesn't do version numbers with dots.
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
+@@ -8481,7 +8481,7 @@
+ 	    BSD/OS*) ;;
+ 	    CYGWIN_*|MINGW32_*) ;;
+ 	    IRIX*) ;;
+-	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
+ 	    Darwin-*) ;;
+ 	    SCO_SV-3.2*) ;;
+ 	    windows) ;;

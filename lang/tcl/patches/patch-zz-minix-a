@@ -1,0 +1,20 @@
+--- pkgs/itcl4.0.5/configure.orig	Sun Aug 30 21:18:26 2015
++++ pkgs/itcl4.0.5/configure	Sun Aug 30 21:19:12 2015
+@@ -7359,7 +7359,7 @@
+ fi
+ 	    # OpenBSD doesn't do version numbers with dots.
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'
+@@ -8011,7 +8011,7 @@
+ 	    BSD/OS*) ;;
+ 	    CYGWIN_*|MINGW32_*) ;;
+ 	    IRIX*) ;;
+-	    NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
++	    Minix-*|NetBSD-*|FreeBSD-*|OpenBSD-*|DragonFly-*) ;;
+ 	    Darwin-*) ;;
+ 	    SCO_SV-3.2*) ;;
+ 	    windows) ;;
