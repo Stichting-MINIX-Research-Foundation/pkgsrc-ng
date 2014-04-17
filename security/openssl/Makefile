@@ -37,6 +37,11 @@ CONFIGURE_ARGS+=	shared no-fips
 CC=			gcc
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_SCRIPT=      ./Configure
+CONFIGURE_ARGS+=       Minix no-threads
+.endif
+
 .if ${OPSYS} == "SunOS"
 .  if ${MACHINE_ARCH} == "sparc"
 OPENSSL_MACHINE_ARCH=	sparcv7

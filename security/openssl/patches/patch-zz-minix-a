@@ -1,0 +1,14 @@
+--- e_os.h.orig	Thu Mar 19 13:30:36 2015
++++ e_os.h	Fri Apr 24 14:51:53 2015
+@@ -82,7 +82,11 @@
+  * set this to a comma-separated list of 'random' device files to try out. My
+  * default, we will try to read at least one of these files
+  */
++#if defined(__minix)
++#  define DEVRANDOM "/dev/random","/dev/urandom","/dev/srandom"
++#else
+ #  define DEVRANDOM "/dev/urandom","/dev/random","/dev/srandom"
++#endif /* defined(__minix) */
+ # endif
+ # ifndef DEVRANDOM_EGD
+ /*
