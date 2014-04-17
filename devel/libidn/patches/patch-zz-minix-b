@@ -1,0 +1,84 @@
+--- configure.orig	Fri Apr 24 20:44:46 2015
++++ configure	Fri Apr 24 20:47:41 2015
+@@ -7343,7 +7343,7 @@
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
++  minix* | netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -7834,7 +7834,7 @@
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd* | netbsdelf*-gnu)
++minix* | netbsd* | netbsdelf*-gnu)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -11499,7 +11499,7 @@
+       fi
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -12130,7 +12130,7 @@
+       link_all_deplibs=yes
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -13147,6 +13147,18 @@
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=no
++  hardcode_into_libs=yes
++  dynamic_linker='Minix ld.elf_so'
++  ;;
++
+ netbsdelf*-gnu)
+   version_type=linux
+   need_lib_prefix=no
+@@ -21409,7 +21421,7 @@
+   if test "$cross_compiling" = yes; then :
+   case "$host_os" in
+           # Guess yes on platforms where we know the result.
+-          *-gnu* | freebsd* | netbsd* | openbsd* \
++          *-gnu* | freebsd* | minix* | netbsd* | openbsd* \
+           | hpux* | solaris* | cygwin* | mingw*)
+             ac_cv_func_malloc_0_nonnull=yes ;;
+           # If we don't know, assume the worst.
+@@ -32504,7 +32516,7 @@
+       fi
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds_GCJ='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -33096,7 +33108,7 @@
+       link_all_deplibs_GCJ=yes
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds_GCJ='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
