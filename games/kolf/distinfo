@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.2 2013/05/21 12:49:30 markd Exp $
+$NetBSD: distinfo,v 1.4 2014/02/01 02:20:46 markd Exp $
 
-SHA1 (kolf-4.10.3.tar.xz) = f35c94f3e184e8b1bcaab50e519b424e580c5665
-RMD160 (kolf-4.10.3.tar.xz) = a6d2e060ec0857381abd7d7ba7e2bfb898fa933f
-Size (kolf-4.10.3.tar.xz) = 780884 bytes
+SHA1 (kolf-4.11.5.tar.xz) = 6baf74b347627fd9ceffbb99f47159443f00f472
+RMD160 (kolf-4.11.5.tar.xz) = e9ef185904cc6a670a9bf9ef01cc66798e62c61e
+Size (kolf-4.11.5.tar.xz) = 764980 bytes

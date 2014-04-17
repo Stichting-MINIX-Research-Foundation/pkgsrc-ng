@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18.2.1 2013/07/30 20:17:50 tron Exp $
+# $NetBSD: Makefile,v 1.26 2014/03/18 20:09:08 adam Exp $
 
-DISTNAME=	httpd-2.4.6
+DISTNAME=	httpd-2.4.9
 PKGNAME=	${DISTNAME:S/httpd/apache/}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
@@ -33,7 +33,9 @@ CONFIGURE_ENV+=		CFLAGS=${APACHE_CUSTOM_CFLAGS:M*:Q}
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1 -D__EXTENSIONS__
 
 .include "../../mk/bsd.prefs.mk"
+BUILDLINK_API_DEPENDS.apr+=	apr>=1.5.0
 .include "../../devel/apr/buildlink3.mk"
+BUILDLINK_API_DEPENDS.apr-util+=	apr-util>=1.5.3
 .include "../../devel/apr-util/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
@@ -174,9 +176,9 @@ post-install:
 	${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/bin/${file}
 .endfor
 
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/test-cgi
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/printenv
 

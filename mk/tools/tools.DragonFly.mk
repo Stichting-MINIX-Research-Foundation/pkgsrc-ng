@@ -1,4 +1,4 @@
-# $NetBSD: tools.DragonFly.mk,v 1.38 2011/12/08 20:38:39 marino Exp $
+# $NetBSD: tools.DragonFly.mk,v 1.42 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the DragonFly operating system.
 
@@ -28,6 +28,7 @@ TOOLS_PLATFORM.egrep?=		/usr/bin/egrep
 TOOLS_PLATFORM.env?=		/usr/bin/env
 TOOLS_PLATFORM.expr?=		/bin/expr
 TOOLS_PLATFORM.false?=		/usr/bin/false
+TOOLS_PLATFORM.fetch?=		/usr/bin/fetch
 TOOLS_PLATFORM.fgrep?=		/usr/bin/fgrep
 TOOLS_PLATFORM.file?=		/usr/bin/file
 TOOLS_PLATFORM.find?=		/usr/bin/find
@@ -70,6 +71,7 @@ TOOLS_PLATFORM.pax?=		/bin/pax
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
 TOOLS_PLATFORM.readelf?=	/usr/bin/readelf
+TOOLS_PLATFORM.readlink?=	/usr/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 TOOLS_PLATFORM.sdiff?=		/usr/bin/sdiff
@@ -89,7 +91,9 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		/usr/bin/true
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
 TOOLS_PLATFORM.wc?=		/usr/bin/wc
 TOOLS_PLATFORM.xargs?=		/usr/bin/xargs
+TOOLS_PLATFORM.xz?=		/usr/bin/xz
 TOOLS_PLATFORM.xzcat?=		/usr/bin/xzcat
 TOOLS_PLATFORM.yacc?=		/usr/bin/yacc

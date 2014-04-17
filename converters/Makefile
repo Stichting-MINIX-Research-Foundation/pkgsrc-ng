@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.120 2013/04/17 01:19:49 rodent Exp $
+# $NetBSD: Makefile,v 1.128 2014/02/05 21:43:39 abs Exp $
 #
 
 COMMENT=	Document format and character code converters
@@ -31,8 +31,14 @@ SUBDIR+=	ja-dvi2tty
 SUBDIR+=	jcode-perl
 SUBDIR+=	kcc
 SUBDIR+=	latex2rtf
+SUBDIR+=	libabw
 SUBDIR+=	libcdr
+SUBDIR+=	libe-book
+SUBDIR+=	libetonyek
+SUBDIR+=	libfreehand
 SUBDIR+=	libiconv
+SUBDIR+=	libmspub
+SUBDIR+=	libmwaw
 SUBDIR+=	libvisio
 SUBDIR+=	libwpd
 SUBDIR+=	libwpg
@@ -41,6 +47,7 @@ SUBDIR+=	macfork
 SUBDIR+=	mpack
 SUBDIR+=	nkf
 SUBDIR+=	odt2txt
+SUBDIR+=	orcus
 SUBDIR+=	p5-Convert-BinHex
 SUBDIR+=	p5-Convert-Color
 SUBDIR+=	p5-Convert-TNEF
@@ -48,6 +55,7 @@ SUBDIR+=	p5-Convert-UUlib
 SUBDIR+=	p5-Data-Hexify
 SUBDIR+=	p5-JSON
 SUBDIR+=	p5-JSON-Any
+SUBDIR+=	p5-JSON-MaybeXS
 SUBDIR+=	p5-JSON-PP
 SUBDIR+=	p5-JSON-XS
 SUBDIR+=	p5-JSON-XS-VersionOneAndTwo
@@ -57,8 +65,11 @@ SUBDIR+=	p5-MARC-Crosswalk-DublinCore
 SUBDIR+=	p5-MIME-Base32
 SUBDIR+=	p5-MIME-Base64
 SUBDIR+=	p5-MIME-Base64-URLSafe
+SUBDIR+=	p5-Sereal-Decoder
+SUBDIR+=	p5-Sereal-Encoder
 SUBDIR+=	p5-Text-Iconv
 SUBDIR+=	p5-Unicode-Collate
+SUBDIR+=	p5-Unicode-EastAsianWidth
 SUBDIR+=	p5-Unicode-IMAPUtf7
 SUBDIR+=	p5-Unicode-Map
 SUBDIR+=	p5-Unicode-Map8
@@ -79,6 +90,7 @@ SUBDIR+=	py-simplejson
 SUBDIR+=	py-zbase32
 SUBDIR+=	py-zfec
 SUBDIR+=	py-zhCodecs
+SUBDIR+=	pyzy
 SUBDIR+=	qkc
 SUBDIR+=	qrencode
 SUBDIR+=	recode

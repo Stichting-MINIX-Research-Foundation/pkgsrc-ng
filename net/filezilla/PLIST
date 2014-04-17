@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9.20.1 2013/08/21 21:59:57 tron Exp $
+@comment $NetBSD: PLIST,v 1.10 2013/08/07 16:48:49 drochner Exp $
 bin/filezilla
 bin/fzputtygen
 bin/fzsftp

@@ -1,4 +1,4 @@
-$NetBSD: patch-aq,v 1.3.18.1 2013/08/12 14:21:30 tron Exp $
+$NetBSD: patch-aq,v 1.4 2013/08/12 02:47:32 taca Exp $
 
 Add support for passwd expand gecos
 

@@ -1,4 +1,4 @@
-# $NetBSD: bsd.fetch-vars.mk,v 1.14 2012/07/27 10:48:36 jperkin Exp $
+# $NetBSD: bsd.fetch-vars.mk,v 1.16 2014/03/02 08:54:41 obache Exp $
 #
 # This Makefile fragment is included separately by bsd.pkg.mk and
 # defines some variables which must be defined earlier than where
@@ -36,7 +36,9 @@ _SYS_VARS.fetch=	DEFAULT_DISTFILES
 #DISTDIR?=               ${PKGSRCDIR}/distfiles
 
 _DISTDIR=		${DISTDIR}/${DIST_SUBDIR}
+.if defined(DISTNAME) && !empty(DISTNAME)
 DEFAULT_DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
+.endif
 DISTFILES?=		${DEFAULT_DISTFILES}
 
 # File lists, defined early to allow tool dependencies.
@@ -79,7 +81,7 @@ USE_TOOLS+=	digest:bootstrap
 
 _FETCH_TOOLS.ftp=		ftp
 _FETCH_TOOLS.fetch=		fetch
-_FETCH_DEPENDS.wget=		wget-[0-9]*:../../net/wget
+_FETCH_TOOLS.wget=		wget
 _FETCH_TOOLS.curl=		curl
 _FETCH_TOOLS.manual=		false
 

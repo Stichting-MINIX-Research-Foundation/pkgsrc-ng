@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2013/04/06 20:27:26 rodent Exp $
+# $NetBSD: Makefile,v 1.21 2014/02/12 23:18:23 tron Exp $
 
 PKGNAME=		${DISTNAME:S/-/-mysql-/}
-PKGREVISION=		8
+PKGREVISION=		10
 COMMENT=		MySQL-based DNS server
 
 CONFLICTS=		mydns-pgsql-[0-9]*
@@ -13,6 +13,7 @@ FILESDIR=		${.CURDIR}/../../net/mydns-pgsql/files
 CONFIGURE_ARGS+=	--without-pgsql
 CONFIGURE_ARGS+=	--with-mysql-lib=${BUILDLINK_PREFIX.mysql-client}/${BUILDLINK_LIBDIRS.mysql-client}
 CONFIGURE_ARGS+=	--with-mysql-include=${BUILDLINK_PREFIX.mysql-client}/${BUILDLINK_INCDIRS.mysql-client}
+CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}/lib
 
 INFO_FILES=		yes
 

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2013/10/31 08:32:55 wiz Exp $
+
+SHA1 (dateutils-0.2.6.tar.xz) = 55709a7a259bf73fb9ff7bb62de7a31a894870ed
+RMD160 (dateutils-0.2.6.tar.xz) = 3b505637bba64a0cc8fbd63935dd63e397b1e1cc
+Size (dateutils-0.2.6.tar.xz) = 485740 bytes

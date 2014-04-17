@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2013/04/24 10:06:50 sbd Exp $
+# $NetBSD: Makefile,v 1.10 2014/03/26 14:27:22 taca Exp $
 #
 
 DISTNAME=	quickml-0.7
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	mail
 MASTER_SITES=	http://0xcc.net/quickml/
 
@@ -15,7 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LANGUAGES=	# none
 RCD_SCRIPTS+=	quickml
 
-RUBY_VERSION_SUPPORTED= 193
+RUBY_VERSION_SUPPORTED= 200 193 21
 
 QUICKML_USER=	quickml
 QUICKML_GROUP=	quickml

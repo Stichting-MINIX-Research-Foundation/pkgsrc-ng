@@ -1,19 +1,16 @@
-# $NetBSD: Makefile,v 1.141 2013/05/31 12:42:30 wiz Exp $
+# $NetBSD: Makefile,v 1.147 2014/02/12 23:18:43 tron Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	apache-${APACHE_VERSION}
-PKGREVISION=	5
+PKGREVISION=	2
 CATEGORIES=	www
 
 HOMEPAGE=	http://httpd.apache.org/
 COMMENT=	Apache HTTP (Web) server, version 2
+LICENSE=	apache-2.0
 
 CONFLICTS=	apache-*ssl-[0-9]* apache6-[0-9]*
-
-CVE_2011_3192=	CVE-2011-3192-${APACHE_VERSION}-byterange-fixes.patch
-PATCHFILES+=	${CVE_2011_3192}
-SITES.${CVE_2011_3192}=	${MASTER_SITE_APACHE:=httpd/patches/apply_to_${APACHE_VERSION}/}
 
 BUILD_DEFS+=	IPV6_READY
 BUILD_DEFS+=	VARBASE
@@ -241,9 +238,9 @@ post-install:
 		${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/sbin/$$file; \
 	done
 
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/test-cgi
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/printenv
 

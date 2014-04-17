@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24 2013/04/11 16:27:45 drochner Exp $
+# $NetBSD: Makefile,v 1.26 2014/01/25 10:30:21 wiz Exp $
 
-DISTNAME=		duplicity-0.6.21
+DISTNAME=		duplicity-0.6.22
 CATEGORIES=		sysutils net
 MASTER_SITES=		http://code.launchpad.net/duplicity/0.6-series/${PKGVERSION_NOREV}/+download/
 
@@ -23,6 +23,7 @@ GPGPATH=	${LOCALBASE}/bin/gpg
 .endif
 
 REPLACE_PYTHON+=	bin/*
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.6.22
 
 SUBST_CLASSES+=			fix-paths
 SUBST_STAGE.fix-paths=		pre-configure

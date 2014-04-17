@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.16 2013/02/06 23:23:21 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.18 2014/02/12 23:18:24 tron Exp $
 
 DISTNAME=	pen-0.17.2
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	net
 MASTER_SITES=	http://siag.nu/pub/pen/
 
-MAINTAINER=	rh@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://siag.nu/pen/
 COMMENT=	Load balancer for "simple" tcp based protocols
 

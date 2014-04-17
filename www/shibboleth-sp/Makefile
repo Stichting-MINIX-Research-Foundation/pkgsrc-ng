@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.8 2013/02/06 23:24:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2014/02/12 23:18:47 tron Exp $
 #
 
-DISTNAME=	shibboleth-sp-2.4.3
-PKGREVISION=	2
+DISTNAME=	shibboleth-sp-2.5.2
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	http://www.shibboleth.net/downloads/service-provider/${PKGVERSION_NOREV}/
 
 MAINTAINER=	pettai@NetBSD.org
-HOMEPAGE=	http://shibboleth.internet2.edu/
+HOMEPAGE=	http://shibboleth.net/
 COMMENT=	Shibboleth2 Service Provider
 LICENSE=	apache-2.0
 
@@ -17,7 +17,6 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--with-xmltooling=${PREFIX}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 
-WRKSRC=		${WRKDIR}/shibboleth-${PKGVERSION_NOREV}
 EGDIR=		${PREFIX}/share/examples/shibboleth
 SHIB_CONFDIR=	${PKG_SYSCONFDIR}/shibboleth
 
@@ -35,6 +34,7 @@ SUBST_STAGE.paths=	post-patch
 SUBST_SED.paths=	-e 's,@EGDIR@,${EGDIR},'
 SUBST_SED.paths+=	-e 's,@SHIB_CONFDIR@,${SHIB_CONFDIR},'
 
+REPLACE_BASH=	configs/metagen.sh
 
 CONF_FILES=	${EGDIR}/console.logger \
 			${SHIB_CONFDIR}/console.logger
@@ -98,7 +98,9 @@ post-install:
 	${INSTALL} ${WRKSRC}/configs/metagen.sh \
 		${DESTDIR}${PREFIX}/bin/shib-metagen
 
+.include "../../devel/boost-libs/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+.include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/log4shib/buildlink3.mk"
 .include "../../textproc/xerces-c/buildlink3.mk"
 .include "../../security/xml-security-c/buildlink3.mk"

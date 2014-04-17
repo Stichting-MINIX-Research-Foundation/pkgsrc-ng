@@ -1,20 +1,16 @@
-# $NetBSD: Makefile,v 1.15 2012/10/06 14:10:52 asau Exp $
-#
+# $NetBSD: Makefile,v 1.17 2014/02/16 01:04:39 schmonz Exp $
 
-DISTNAME=	gifsicle-1.41
-PKGREVISION=	1
+DISTNAME=	gifsicle-1.78
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.lcdf.org/~eddietwo/gifsicle/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.lcdf.org/~eddietwo/gifsicle/
 COMMENT=	Create, edit, and inspect GIFs from shell
+LICENSE=	gnu-gpl-v2
 
-GNU_CONFIGURE=	YES
+GNU_CONFIGURE=		yes
 
-BUILDLINK_DEPMETHOD.libXt?=	build
+.include "options.mk"
 
-.include "../../x11/libSM/buildlink3.mk"
-.include "../../x11/libX11/buildlink3.mk"
-.include "../../x11/libXt/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

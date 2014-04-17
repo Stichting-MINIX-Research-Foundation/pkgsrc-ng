@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2012/10/02 20:11:49 asau Exp $
+# $NetBSD: Makefile,v 1.4 2013/12/17 23:23:38 joerg Exp $
 
 DISTNAME=		picoc-2.1
+PKGREVISION=		1
 CATEGORIES=		lang
 MASTER_SITES=		http://picoc.googlecode.com/files/
 EXTRACT_SUFX=		.tar.bz2
@@ -17,6 +18,6 @@ AUTO_MKDIRS=		yes
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/picoc ${DESTDIR}${PREFIX}/bin/picoc
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

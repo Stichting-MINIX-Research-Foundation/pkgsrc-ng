@@ -1,4 +1,4 @@
-# $NetBSD: check-portability.awk,v 1.4 2006/11/13 23:21:53 rillig Exp $
+# $NetBSD: check-portability.awk,v 1.8 2014/03/11 23:27:40 ryoon Exp $
 #
 # Checks a shell file for possible portability problems.
 #

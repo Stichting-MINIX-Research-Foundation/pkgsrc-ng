@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12.12.1 2013/08/11 13:13:47 tron Exp $
+@comment $NetBSD: PLIST,v 1.13 2013/08/07 19:19:58 bouyer Exp $
 share/doc/kronolith/INSTALL
 share/doc/kronolith/README
 share/doc/kronolith/RELEASE_NOTES

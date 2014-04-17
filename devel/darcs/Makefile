@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/05/31 12:39:58 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2014/02/12 23:17:46 tron Exp $
 
 DISTNAME=		darcs-2.0.2
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		devel scm
 MASTER_SITES=		http://www.darcs.net/
 
@@ -11,8 +11,6 @@ COMMENT=		Distributed revision control system
 
 BUILD_DEPENDS+=		latex2html>=2002.2.1nb3:../../textproc/latex2html
 BUILD_DEPENDS+=		tex-fancyvrb-[0-9]*:../../print/tex-fancyvrb
-
-PKG_DESTDIR_SUPPORT=	none
 
 USE_TOOLS+=		gmake perl
 MAKE_FILE=		GNUmakefile

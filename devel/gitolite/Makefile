@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2013/06/11 13:37:20 ryoon Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/01/27 18:41:11 wiz Exp $
 
-GLVER=		3.5.1
+GLVER=		3.5.2
 DISTNAME=	gitolite-${GLVER}
 CATEGORIES=	devel net
 MASTER_SITES=	-https://github.com/sitaramc/gitolite/archive/v${GLVER}.tar.gz
@@ -11,14 +10,10 @@ HOMEPAGE=	https://github.com/sitaramc/gitolite/wiki
 COMMENT=	Gitolite allows you to host Git repositories easily and securely
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=	scmgit-base>=1.6.6:../../devel/scmgit-base
+DEPENDS+=	git-base>=1.6.6:../../devel/git-base
 
 USE_LANGUAGES=	# none
 USE_TOOLS+=	pax perl:run
-
-# Force using "curl" for fetching the distribution file. It is only available
-# over HTTPS and "curl" is the only fetch program which always supports HTTPS.
-FETCH_USING=	curl
 
 NO_BUILD=	yes
 
@@ -36,7 +31,8 @@ SUBST_SED.perl=		-e 's,/usr/bin/perl,${PERL5},g'
 
 INSTALLATION_DIRS+=	bin lib \
 			share/doc/gitolite \
-			libexec/gitolite
+			libexec/gitolite \
+			${PERL5_INSTALLVENDORARCH}
 
 pre-install:
 	${FIND} ${WRKSRC} -type f \

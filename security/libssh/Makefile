@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.15 2013/04/08 11:17:21 rodent Exp $
+# $NetBSD: Makefile,v 1.19 2014/02/12 23:18:33 tron Exp $
 #
-
 # history: upstream renamed 0.11 to 0.1.1;
 # we have to use the old-style convention so that version compares work.
 #
 VER=			0.5.4
 DISTNAME=		libssh-${VER}
 PKGNAME=		libssh-0.54
-PKGREVISION=		1
+PKGREVISION=		3
 CATEGORIES=		security
 MASTER_SITES=		https://red.libssh.org/attachments/download/41/
 
@@ -18,11 +17,6 @@ LICENSE=		2-clause-bsd
 
 DIST_SUBDIR=		security
 
-.include "../../mk/bsd.prefs.mk"
-
-# ftp: Unsupported URL scheme `https'
-FETCH_USING=		curl
-
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
 
@@ -31,4 +25,5 @@ TEST_TARGET=		check
 
 .include "options.mk"
 
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

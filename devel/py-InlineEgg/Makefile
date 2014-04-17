@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2012/10/31 11:19:27 asau Exp $
-#
+# $NetBSD: Makefile,v 1.17 2014/01/25 10:45:17 wiz Exp $
 
 DISTNAME=		InlineEgg-1.08
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
@@ -12,12 +11,13 @@ HOMEPAGE=		http://oss.corest.com/projects/inlineegg.html
 COMMENT=		Python module for writing inline assembler programs
 LICENSE=		inlineegg-license
 
-PYTHON_PATCH_SCRIPTS=		examples/example1.py examples/example2.py \
+REPLACE_PYTHON=		examples/example1.py examples/example2.py \
 				examples/example3.py examples/example4.py \
 				examples/example5.py examples/example6.py \
 				xored_shell_client.py
 
 PYTHON_SELF_CONFLICT=		yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.08
 
 INSTALLATION_DIRS=	share/doc/InlineEgg share/examples/InlineEgg
 

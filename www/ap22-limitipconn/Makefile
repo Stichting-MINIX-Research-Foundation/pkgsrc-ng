@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.4 2013/02/06 23:23:58 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2014/02/12 23:18:43 tron Exp $
 #
 
 DISTNAME=		mod_limitipconn-0.23
 EXTRACT_SUFX=		.tar.bz2
 PKGNAME=		${DISTNAME:S/mod_/ap22-/}
-PKGREVISION=		3
+PKGREVISION=		5
 CATEGORIES=		www
 MASTER_SITES=		http://dominia.org/djao/limit/
 LICENSE=		apache-2.0

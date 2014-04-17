@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.53 2009/06/14 22:06:40 joerg Exp $
+@comment $NetBSD: PLIST,v 1.55 2014/03/11 14:05:19 jperkin Exp $
 bin/appletproxy
 bin/drkonqi
 bin/extensionproxy
@@ -71,7 +71,7 @@ bin/ksplash
 bin/ksplashsimple
 bin/kstart
 bin/ksysguard
-bin/ksysguardd
+${PLIST.ksysguardd}bin/ksysguardd
 bin/ksystraycmd
 bin/ktip
 bin/ktrash
@@ -1136,7 +1136,6 @@ share/examples/kdebase3/kde-information.menu
 share/examples/kdebase3/kde-screensavers.menu
 share/examples/kdebase3/kde-settings.menu
 share/examples/kdebase3/ksysguarddrc
-share/examples/rc.d/kdm
 share/icons/Daemon.png
 share/icons/NetBSD-flag.png
 share/icons/crystalsvg/128x128/apps/access.png

@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2013/04/20 09:38:05 obache Exp $
-#
+# $NetBSD: Makefile,v 1.11 2014/03/13 11:08:52 jperkin Exp $
 
 PKGNAME=	${PYPKGPREFIX}-cElementTree-${PY_DISTVERSION}
 CATEGORIES=	textproc python
@@ -8,10 +7,9 @@ MAINTAINER=	obache@NetBSD.org
 HOMEPAGE=	http://www.effbot.org/zone/celementtree.htm
 COMMENT=	C implementation of Python ElementTree API
 
-PYTHON_VERSIONS_INCLUDE_3X=	yes
-
 EXTRACT_ELEMENTS=	${PYSUBDIR}/Modules/_elementtree.c
 
+USE_GCC_RUNTIME=yes
 USE_TOOLS+=	patch
 
 PYDISTUTILSPKG=	yes

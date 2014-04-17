@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.132 2013/06/06 12:53:47 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.135 2013/12/23 11:57:05 wiz Exp $
 
 DISTNAME=		nautilus-2.32.2.1
-PKGREVISION=		17
+PKGREVISION=		19
 CATEGORIES=		sysutils gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/nautilus/2.32/}
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		rh@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://live.gnome.org/Nautilus
 COMMENT=		Nautilus file manager for GNOME2
 #LICENSE=		gnu-gpl-v2 AND gnu-fdl-v1.1 AND gnu-lgpl-v2 AND TRADEMARK_NOTICE

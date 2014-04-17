@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.21 2012/10/23 19:51:24 asau Exp $
+# $NetBSD: Makefile,v 1.23 2013/12/02 22:26:22 asau Exp $
 
-DISTNAME=		smartmontools-5.40
+DISTNAME=		smartmontools-6.2
 PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=smartmontools/}
 
-MAINTAINER=		shattered@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://smartmontools.sourceforge.net/
 COMMENT=		Control and monitor storage systems using SMART
 LICENSE=		gnu-gpl-v2
@@ -19,8 +19,13 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 
+OWN_DIRS=		${PKG_SYSCONFDIR}/smartd_warning.d
+
 EGDIR=			${PREFIX}/share/examples/smartmontools
 CONF_FILES=		${EGDIR}/smartd.conf ${PKG_SYSCONFDIR}/smartd.conf
+CONF_FILES_PERMS=	${EGDIR}/smartd_warning.sh \
+			${PKG_SYSCONFDIR}/smartd_warning.sh \
+			${ROOT_USER} ${ROOT_GROUP} 0755
 RCD_SCRIPTS=		smartd
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}

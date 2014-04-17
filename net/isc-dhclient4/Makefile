@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2013/04/10 11:31:26 fhajny Exp $
-#
+# $NetBSD: Makefile,v 1.10 2014/02/12 23:18:21 tron Exp $
 
 PKGNAME=	isc-dhclient-${DHVER}
 PKGREVISION=	1

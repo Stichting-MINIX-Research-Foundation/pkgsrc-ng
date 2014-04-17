@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2013/02/06 23:21:03 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2014/02/12 23:18:35 tron Exp $
 
 DISTNAME=	pkcs11-helper-1.10
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	security
 MASTER_SITES=	https://github.com/downloads/alonbl/pkcs11-helper/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,7 +11,6 @@ HOMEPAGE=	http://www.opensc-project.org/opensc/wiki/pkcs11-helper
 COMMENT=	Library that simplifies the interaction with PKCS\#11
 LICENSE=	modified-bsd OR gnu-gpl-v2
 
-FETCH_USING=		curl
 # Not documented, but relatively clear from warnings.
 USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes

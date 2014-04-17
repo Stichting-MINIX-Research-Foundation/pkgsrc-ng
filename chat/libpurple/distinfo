@@ -1,6 +1,7 @@
-$NetBSD: distinfo,v 1.38 2013/03/05 01:45:46 dsainty Exp $
+$NetBSD: distinfo,v 1.41 2014/02/04 09:04:30 obache Exp $
 
-SHA1 (pidgin-2.10.7.tar.bz2) = 01bc06e3a5712dded3ad4a4913ada12a3cd01e15
-RMD160 (pidgin-2.10.7.tar.bz2) = 51827270c7b55ae134d4b70fc5a5845681d9c1d1
-Size (pidgin-2.10.7.tar.bz2) = 10069279 bytes
+SHA1 (pidgin-2.10.9.tar.bz2) = f3de8fd94dba1f4c98d5402a02430f9f323e665a
+RMD160 (pidgin-2.10.9.tar.bz2) = 05d8e9593730ec576dec34007b45396454d8880d
+Size (pidgin-2.10.9.tar.bz2) = 10093423 bytes
+SHA1 (patch-libpurple_plugins_perl_common_Makefile.PL.in) = 40326826000ed42e7570486f89f3196b58093d48
 SHA1 (patch-libpurple_protocols_gg_lib_libgadu.h) = 5756134e17ae2ce28d3555cd40354245e22a5bd6

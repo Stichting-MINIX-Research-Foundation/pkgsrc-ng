@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.56 2013/06/06 12:54:12 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2014/01/01 11:52:11 wiz Exp $
 #
 
 DISTNAME=	coconut-0.3.0
-PKGREVISION=	35
+PKGREVISION=	39
 CATEGORIES=	devel
 MASTER_SITES=	# ${MASTER_SITE_SOURCEFORGE:=coconut-lib/}
 
@@ -22,7 +22,6 @@ MAKE_ENV+=	AM_MAKEFLAGS="am__depfiles_maybe="
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/popt/buildlink3.mk"
 .include "../../net/gnet1/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

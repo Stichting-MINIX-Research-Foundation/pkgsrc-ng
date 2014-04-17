@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2013/05/31 12:41:25 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/01/02 04:56:13 dholland Exp $
 
-DISTNAME=	bulk-small-20130316
-PKGREVISION=	1
+DISTNAME=	bulk-small-20140101
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -49,13 +48,17 @@ NO_BIN_ON_FTP=		${RESTRICTED}
 # 1. Applications. These should be either very small or very widely used,
 # or preferably both; all others should go in bulk-medium.
 #
+# Please do not "fix" the emacs reference by updating it to emacs23 or
+# newer, as those versions of emacs take longer to build than this
+# entire package's time budget.
+#
 BUILD_DEPENDS+=	ircII-[0-9]*:../../chat/ircII
 BUILD_DEPENDS+=	irssi-[0-9]*:../../chat/irssi
 BUILD_DEPENDS+=	irssi-icb-[0-9]*:../../chat/irssi-icb
 BUILD_DEPENDS+=	weechat-[0-9]*:../../chat/weechat
 BUILD_DEPENDS+=	base64-[0-9]*:../../converters/base64
 BUILD_DEPENDS+=	mpack-[0-9]*:../../converters/mpack
-BUILD_DEPENDS+=	emacs24>=24<25:../../editors/emacs24
+BUILD_DEPENDS+=	emacs22>=22<23:../../editors/emacs22
 BUILD_DEPENDS+=	nano-[0-9]*:../../editors/nano
 BUILD_DEPENDS+=	vim-[0-9]*:../../editors/vim
 BUILD_DEPENDS+=	vim-share-[0-9]*:../../editors/vim-share
@@ -110,7 +113,12 @@ BUILD_DEPENDS+=	m4-[0-9]*:../../devel/m4
 BUILD_DEPENDS+=	pkg-config-[0-9]*:../../devel/pkg-config
 #BUILD_DEPENDS+=	osabi-[0-9]*:../../pkgtools/osabi
 BUILD_DEPENDS+=	pkg_tarup-[0-9]*:../../pkgtools/pkg_tarup
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${X11_TYPE} == "native"
 BUILD_DEPENDS+=	x11-links-[0-9]*:../../pkgtools/x11-links
+.endif
 
 #
 # 4. Core widely-used libraries.
@@ -161,7 +169,6 @@ BUILD_DEPENDS+=	libgpg-error-[0-9]*:../../security/libgpg-error
 							# required by libgcrypt
 BUILD_DEPENDS+=	libtasn1-[0-9]*:../../security/libtasn1	# required by gnutls
 BUILD_DEPENDS+=	nettle-[0-9]*:../../security/nettle	# required by gnutls
-BUILD_DEPENDS+=	xpmroot-[0-9]*:../../x11/xpmroot	# required by fvwm
 
 
 .include "../../mk/bsd.pkg.mk"

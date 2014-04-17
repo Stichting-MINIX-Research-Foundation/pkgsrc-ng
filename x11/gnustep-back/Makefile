@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.57 2013/06/06 12:55:13 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2013/12/23 11:57:06 wiz Exp $
 
 DISTNAME=	gnustep-back-0.22.0
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	x11 gnustep
 MASTER_SITES=	${MASTER_SITE_GNUSTEP:=core/}
 
-MAINTAINER=	rh@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnustep.org/
 COMMENT=	X11 AppKit backend for GNUstep
 LICENSE=	gnu-gpl-v3
@@ -14,7 +14,7 @@ USE_LANGUAGES=		objc
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--exec-prefix=${PREFIX}/libexec/GNUstep
-LDFLAGS=		${LINKER_RPATH_FLAG}${PREFIX}/lib
+LDFLAGS=		${COMPILER_RPATH_FLAG}${PREFIX}/lib
 MAKE_FILE=		GNUmakefile
 
 pre-install:

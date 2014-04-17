@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.64 2013/06/06 12:54:40 wiz Exp $
+# $NetBSD: Makefile,v 1.72 2014/02/12 23:18:05 tron Exp $
 #
 
 DISTNAME=	coq-8.4pl2
-PKGREVISION=	5
+PKGREVISION=	12
 CATEGORIES=	lang math
 MASTER_SITES=	http://coq.inria.fr/distrib/V${PKGVERSION_NOREV}/files/
 
@@ -18,7 +18,7 @@ CONFIGURE_ARGS+=	-emacslib ${PREFIX}/share/emacs/site-lisp
 CONFIGURE_ARGS+=	-mandir ${PREFIX}/${PKGMANDIR}
 CONFIGURE_ARGS+=	-configdir ${PKG_SYSCONFDIR}/xdg/coq
 CONFIGURE_ARGS+=	-docdir ${PREFIX}/share/doc/coq
-CONFIGURE_ARGS+=	-coqdocdir ${PREFIX}/share/texmf/tex/latex/coq
+CONFIGURE_ARGS+=	-coqdocdir ${PREFIX}/share/texmf-dist/tex/latex/coq
 BUILD_TARGET=		world
 
 BUILDLINK_API_DEPENDS.ocaml+=	ocaml>=3.10
@@ -38,6 +38,7 @@ PLIST_SUBST+=	COQIDE_TYPE="byte"
 .  if !empty(MACHINE_PLATFORM:MLinux-*-*) || \
       !empty(MACHINE_PLATFORM:MDragonFly-*-*) || \
       !empty(MACHINE_PLATFORM:MFreeBSD-*-*) || \
+      !empty(MACHINE_PLATFORM:MDarwin-*-*) || \
       !empty(MACHINE_PLATFORM:MNetBSD-*-*)
 PLIST.natdynlink=	yes
 .  endif

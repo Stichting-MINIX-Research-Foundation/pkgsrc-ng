@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2013/06/16 13:00:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.24 2014/02/12 23:17:34 tron Exp $
 
 DISTNAME=		moc-2.4.4
+PKGREVISION=		1
 CATEGORIES=		audio
 MASTER_SITES=		http://ftp.daper.net/pub/soft/moc/stable/
 EXTRACT_SUFX=		.tar.bz2
@@ -34,11 +35,6 @@ SUBST_MESSAGE.oss=	Fixing hardcoded audio device.
 #USE_TOOLS+=		autoconf automake
 #pre-configure:
 #	cd ${WRKSRC} && autoreconf -v -i
-
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
-.endif
 
 LIBS.SunOS+=	-lsocket
 

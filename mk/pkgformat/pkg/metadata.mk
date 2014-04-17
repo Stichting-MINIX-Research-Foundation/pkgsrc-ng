@@ -1,4 +1,4 @@
-# $NetBSD: metadata.mk,v 1.5 2013/03/07 13:15:29 obache Exp $
+# $NetBSD: metadata.mk,v 1.8 2014/03/02 07:18:36 obache Exp $
 
 ######################################################################
 ### The targets below are all PRIVATE.
@@ -24,7 +24,7 @@ _BUILD_DATE_cmd=	${DATE} "+%Y-%m-%d %H:%M:%S %z"
 _BUILD_HOST_cmd=	${UNAME} -a
 _METADATA_TARGETS+=	${_BUILD_INFO_FILE}
 
-${_BUILD_INFO_FILE}: plist
+${_BUILD_INFO_FILE}: ${_PLIST_NOKEYWORDS}
 	${RUN}${MKDIR} ${.TARGET:H}
 	${RUN}${RM} -f ${.TARGET}.tmp
 	${RUN} (${_BUILD_DEFS:NPATH:@v@${ECHO} ${v}=${${v}:Q} ;@})	\
@@ -70,6 +70,10 @@ ${_BUILD_INFO_FILE}: plist
 		fi;							\
 		linklibs=`${AWK} '/.*\.so(\.[0-9]+)*$$/ { print "${DESTDIR}${PREFIX}/" $$0 }' ${_PLIST_NOKEYWORDS}`; \
 		for i in $$linklibs; do					\
+			case "$$i" in					\
+			${CHECK_SHLIBS_SKIP:U:@p@${DESTDIR}${PREFIX}/${p}) continue ;;@}	\
+			*);;						\
+			esac;						\
 			if ${TEST} -r $$i -a ! -x $$i -a ! -h $$i; then	\
 				${TEST} ${PKG_DEVELOPER:Uno:Q}"" = "no" || \
 					${ECHO} "$$i: installed without execute permission; fixing (should use [BSD_]INSTALL_LIB)"; \
@@ -293,7 +297,7 @@ ${_PRESERVE_FILE}:
 _SIZE_PKG_FILE=		${PKG_DB_TMPDIR}/+SIZE_PKG
 _METADATA_TARGETS+=	${_SIZE_PKG_FILE}
 
-${_SIZE_PKG_FILE}: plist
+${_SIZE_PKG_FILE}: ${PLIST}
 	${RUN}${MKDIR} ${.TARGET:H}
 	${RUN} \
 	${CAT} ${PLIST} |						\
@@ -386,7 +390,6 @@ _CONTENTS_TARGETS+=	${_DEPENDS_FILE}
 _CONTENTS_TARGETS+=	${_DESCR_FILE}
 _CONTENTS_TARGETS+=	${_MESSAGE_FILE}
 _CONTENTS_TARGETS+=	${_DEPENDS_PLIST}
-_CONTENTS_TARGETS+=	plist
 _CONTENTS_TARGETS+=	${_PRESERVE_FILE}
 _CONTENTS_TARGETS+=	${_SIZE_ALL_FILE}
 _CONTENTS_TARGETS+=	${_SIZE_PKG_FILE}

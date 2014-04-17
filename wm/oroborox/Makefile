@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2013/06/06 12:55:09 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2014/01/25 10:45:22 wiz Exp $
 #
 
 DISTNAME=	OroboROX-0.9.8
 PKGNAME=	oroborox-0.9.8
-PKGREVISION=	22
+PKGREVISION=	24
 CATEGORIES=	wm
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=rox/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,11 +23,11 @@ USE_TOOLS+=		autoconf pax pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-xft --with-platform=${PLATFORM:Q}
 
-PYTHON_PATCH_SCRIPTS=	Configure/OroboScheme/AppRun
-PYTHON_PATCH_SCRIPTS+=	Configure/OroboScheme/AppInfo.py
-PYTHON_PATCH_SCRIPTS+=	Configure/OroboScheme/Schemer.py
-PYTHON_PATCH_SCRIPTS+=	Configure/Windows/AppRun
-PYTHON_PATCH_SCRIPTS+=	Configure/Workspaces/AppRun
+REPLACE_PYTHON=	Configure/OroboScheme/AppRun
+REPLACE_PYTHON+=	Configure/OroboScheme/AppInfo.py
+REPLACE_PYTHON+=	Configure/OroboScheme/Schemer.py
+REPLACE_PYTHON+=	Configure/Windows/AppRun
+REPLACE_PYTHON+=	Configure/Workspaces/AppRun
 
 INSTALLATION_DIRS=	share/rox/OroboROX
 

@@ -1,4 +1,4 @@
-# $NetBSD: terminfo.buildlink3.mk,v 1.2 2011/07/12 06:42:58 obache Exp $
+# $NetBSD: terminfo.buildlink3.mk,v 1.6 2014/03/11 09:16:57 obache Exp $
 #
 # This Makefile fragment is meant to be included by packages that require
 # any terminfo implementation instead of one particular one.  The available
@@ -12,8 +12,8 @@
 # === User-settable variables ===
 #
 # TERMINFO_DEFAULT
-#	This value represents the type of curses we wish to use on the
-#	system.  Setting this to "curses" means that the system curses
+#	This value represents the type of terminfo we wish to use on the
+#	system.  Setting this to "terminfo" means that the system terminfo
 #	implementation is fine.
 #
 #	Possible: terminfo, ncurses, pdcurses
@@ -22,17 +22,18 @@
 # === Variables set by this file ===
 #
 # TERMINFO_TYPE
-#	The name of the selected curses implementation.
+#	The name of the selected terminfo implementation.
 
 TERMINFO_BUILDLINK3_MK:=	${TERMINFO_BUILDLINK3_MK}+
 .include "bsd.fast.prefs.mk"
 
 .if !empty(TERMINFO_BUILDLINK3_MK:M+)
 
-# _TERMINFO_PKGS is an exhaustive list of all of the curses implementations
-# that may be used with curses.buildlink3.mk.
+# _TERMINFO_PKGS is an exhaustive list of all of the terminfo implementations
+# that may be used with terminfo.buildlink3.mk.
 #
 _TERMINFO_PKGS?=		terminfo ncurses pdcurses
+_TERMINFO_TYPES?=		terminfo tinfo curses ncurses
 
 CHECK_BUILTIN.terminfo:=	yes
 .  include "terminfo.builtin.mk"
@@ -49,7 +50,7 @@ TERMINFO_DEFAULT?=	ncurses
 
 _TERMINFO_ACCEPTED=	# empty
 .if defined(USE_BUILTIN.terminfo) && !empty(USE_BUILTIN.terminfo:M[yY][eE][sS])
-_TERMINFO_ACCEPTED+=	terminfo	# system curses exists
+_TERMINFO_ACCEPTED+=	terminfo	# system terminfo exists
 .endif
 _TERMINFO_ACCEPTED+=	ncurses		# pkgsrc ncurses
 _TERMINFO_ACCEPTED+=	pdcurses	# pkgsrc pdcurses
@@ -64,12 +65,31 @@ TERMINFO_TYPE=		none
 BUILD_DEFS+=		TERMINFO_DEFAULT
 BUILD_DEFS_EFFECTS+=	TERMINFO_TYPE
 
+# Most GNU configure scripts will try finding every terminfo implementation,
+# so prevent them from finding any except for the one we decide upon.
+#
+# There is special handling for packages that can be provided by pkgsrc,
+# e.g. curses -- see terminfo.builtin.mk for details.
+#
+.if empty(TERMINFO_TYPE:Mnone)
+.  for _tcap_ in ${_TERMINFO_TYPES}
+.    if empty(TERMINFO_TYPE:M${_tcap_}) \
+	&& (!defined(CURSES_TYPE) || empty(CURSES_TYPE:U:M${_tcap_}))
+BUILDLINK_TRANSFORM+=		l:${_tcap_}:${BUILDLINK_LIBNAME.terminfo}
+.    endif
+.  endfor
+.endif
+
 .endif	# TERMINFO_BUILDLINK3_MK
 
 .if ${TERMINFO_TYPE} == "none"
 PKG_FAIL_REASON=	\
 	"${_TERMINFO_TYPE} is not an acceptable terminfo type for ${PKGNAME}."
 .elif ${TERMINFO_TYPE} == "terminfo"
+BUILDLINK_TREE+=		terminfo -terminfo
+BUILDLINK_LIBNAME.terminfo?=	${BUILTIN_LIBNAME.terminfo}
+BUILDLINK_LDADD.terminfo?=	${BUILDLINK_LIBNAME.terminfo:S/^/-l/:S/^-l$//}
+BUILDLINK_BUILTIN_MK.terminfo=	../../mk/terminfo.builtin.mk
 .elif ${TERMINFO_TYPE} == "ncurses"
 USE_NCURSES=			yes
 .  include "../../devel/ncurses/buildlink3.mk"

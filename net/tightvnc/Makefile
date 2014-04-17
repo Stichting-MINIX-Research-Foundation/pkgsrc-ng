@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2013/05/31 12:41:44 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/02/12 23:18:26 tron Exp $
 
 DISTNAME=		tightvnc-1.3.10
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		net x11
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=vnc-tight/}
 DISTFILES=		${DISTNAME}_unixsrc.tar.bz2
@@ -20,7 +20,17 @@ MAKE_JOBS_SAFE=		no
 
 BUILD_TARGET=		World
 
+TOOL_DEPENDS+=		tradcpp-[0-9]*:../../devel/tradcpp
+
 .include "../../mk/bsd.prefs.mk"
+
+CPPFLAGS+=		-DDEFAULT_CPP=\"${PREFIX}/bin/tradcpp\"
+
+.include "../../mk/compiler.mk"
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+CPPFLAGS+=		-Wno-error=return-type
+.endif
 
 # XXX - this should go into Xvnc's NetBSD.cf, but imake doesn't
 # seem to pick it up. Someone with strong X-fu needs to look at it.

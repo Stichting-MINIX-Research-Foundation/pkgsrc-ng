@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.14 2013/02/06 23:21:24 jperkin Exp $
+# $NetBSD: Makefile,v 1.20 2014/03/11 14:34:36 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
 PKGREVISION=	1
 SVR4_PKGNAME=	mysqs
 COMMENT=	MySQL 5, a free SQL database (server)
 
-CONFLICTS=		{mysql-server-[0-9]*,mysql3-server-[0-9]*}
+CONFLICTS=		mysql3-server-[0-9]*
 
 .include "../../databases/mysql51-client/Makefile.common"
 
@@ -52,6 +52,8 @@ PKG_HOME.${MYSQL_USER}=		${MYSQL_DATADIR}
 PKG_SHELL.${MYSQL_USER}=	${SH}
 
 RCD_SCRIPTS=		mysqld
+SMF_NAME=		mysql
+SMF_METHODS=		${RCD_SCRIPTS}
 
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q} \
 			MYSQL_DATADIR=${MYSQL_DATADIR} \
@@ -89,7 +91,7 @@ CXXFLAGS+=		-D_POSIX_C_SOURCE=199506L -D__EXTENSIONS__
 # is enabled that option sets a full dependency on readline otherwise
 # make this only a build-time dependency.
 BUILDLINK_DEPMETHOD.readline?=	build
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 
 post-configure:
 	cd ${WRKSRC}/include && cp -f config.h my_config.h

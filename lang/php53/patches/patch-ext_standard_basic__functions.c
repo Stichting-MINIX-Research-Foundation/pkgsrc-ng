@@ -1,4 +1,4 @@
-$NetBSD: patch-ext_standard_basic__functions.c,v 1.1.10.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-ext_standard_basic__functions.c,v 1.2 2013/07/12 00:07:04 taca Exp $
 
 Work around VAX FP lack of INF
 

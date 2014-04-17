@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2013/02/01 22:21:12 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/01/25 10:30:19 wiz Exp $
 
 DISTNAME=	prelude-correlator-0.9.0-beta8
 PKGNAME=	prelude-correlator-${DISTNAME:S/-beta/beta/:C/.*-//}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	security
 MASTER_SITES=	http://www.prelude-ids.com/download/releases/prelude-correlator/
 
@@ -41,7 +40,7 @@ SUBST_FILES.code=	run-prelude-correlator.c
 SUBST_FILES.code+=	${WRKSRC}/*.py
 SUBST_SED.code=		-e 's,@PREFIX@,${PREFIX},g'
 SUBST_SED.code+=	-e 's,@PRELUDE_USER@,${PRELUDE_USER},g'
-SUBST_SED.code+=        -e 's,@PRELUDE_HOME@,${PRELUDE_HOME},g'
+SUBST_SED.code+=	-e 's,@PRELUDE_HOME@,${PRELUDE_HOME},g'
 
 CONF_FILES+=		${EGDIR}/prelude-correlator.conf ${PKG_SYSCONFDIR}/prelude-correlator/prelude-correlator.conf
 CONF_FILES+=		${EGDIR}/dshield.dat ${PRELUDE_HOME}/dshield.dat
@@ -51,7 +50,7 @@ REQD_DIRS+=		${PRELUDE_HOME}
 REQD_DIRS_PERMS+=	${PRELUDE_HOME} ${PRELUDE_USER} ${PRELUDE_GROUP} 0700
 
 REPLACE_PYTHON=		${WRKSRC}/*.py
-
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.9.0beta8
 EGG_NAME=		prelude_correlator-0.9.0_beta8
 
 pre-patch:

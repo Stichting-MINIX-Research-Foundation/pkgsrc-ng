@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2013/06/06 12:53:43 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2014/02/12 23:18:45 tron Exp $
 #
 
-PKGNAME=	libmediawiki-3.2.0
-DISTNAME=	digikam-3.2.0
-PKGREVISION=	3
+PKGNAME=	libmediawiki-3.5.0
+DISTNAME=	digikam-3.5.0
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_KDE:=digikam/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,7 +16,7 @@ LICENSE=	gnu-gpl-v2
 BUILD_DEPENDS+=	automoc4>=0.9.83:../../devel/automoc4
 
 USE_LANGUAGES=		c c++
-USE_TOOLS+=		pkg-config
+USE_TOOLS+=		gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	libmediawiki.pc.cmake
 

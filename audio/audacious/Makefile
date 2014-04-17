@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.33 2013/06/06 12:53:48 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2014/01/09 15:23:32 jperkin Exp $
 #
 
 DISTNAME=		audacious-1.5.1
-PKGREVISION=		20
+PKGREVISION=		22
 CATEGORIES=		audio
 MASTER_SITES=		http://distfiles.atheme.org/
 EXTRACT_SUFX=		.tbz2
@@ -35,7 +35,7 @@ CONFIGURE_ARGS+=	--enable-ipv6
 LIBS+=  -lexecinfo
 .endif
 
-LIBS.SunOS+=		-lm -lX11
+LIBS.SunOS+=		-lm -lX11 -lICE -lgmodule-2.0
 LDFLAGS.DragonFly=	-lm -lX11 -lICE -lgmodule-2.0
 
 .include "../../devel/atk/buildlink3.mk"

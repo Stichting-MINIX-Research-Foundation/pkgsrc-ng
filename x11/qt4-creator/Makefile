@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2013/06/06 12:55:21 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2014/02/25 11:51:32 joerg Exp $
 
 DISTNAME=	qt-creator-2.0.1-src
 PKGNAME=	${DISTNAME:S/qt-/qt4-/:S/-src//}
-PKGREVISION=	17
+PKGREVISION=	20
 CATEGORIES=	devel
 MASTER_SITES=	http://get.qt.nokia.com/qtcreator/
 EXTRACT_SUFX=	.tgz
@@ -24,6 +24,11 @@ BUILD_DEPENDS+=	qt4-sqlite3>=4.7.0:../../x11/qt4-sqlite3
 
 BUILD_TARGET=	make_default qch_docs
 MAKE_ENV+=	PREFIX=${PREFIX}
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
+
+pre-configure:
+	rm -rf ${WRKSRC}/src/libs/3rdparty/botan
 
 do-configure:
 	cd ${WRKSRC} && env ${CONFIGURE_ENV} ${QTDIR}/bin/qmake
@@ -62,5 +67,6 @@ do-install:
 
 BUILDLINK_DEPMETHOD.qt4-tools=	full
 
+.include "../../security/botan/buildlink3.mk"
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

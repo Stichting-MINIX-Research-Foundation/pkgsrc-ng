@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.6 2013/05/21 12:49:32 markd Exp $
+$NetBSD: distinfo,v 1.8 2014/02/01 02:20:48 markd Exp $
 
-SHA1 (kgamma-4.10.3.tar.xz) = 7e246704a1e639886925d794dcb4bfab7bb993ca
-RMD160 (kgamma-4.10.3.tar.xz) = 817a7301dd28e1209ba111ef0ce068b88c97f10f
-Size (kgamma-4.10.3.tar.xz) = 27092 bytes
+SHA1 (kgamma-4.11.5.tar.xz) = 7c5404eb22d59479055839176c6c3c3a109f0895
+RMD160 (kgamma-4.11.5.tar.xz) = c54ac6c8bd819626588bd371bc6172d6a41fafad
+Size (kgamma-4.11.5.tar.xz) = 22980 bytes

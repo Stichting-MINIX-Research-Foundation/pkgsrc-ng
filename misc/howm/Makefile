@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2013/02/17 19:18:07 dholland Exp $
+# $NetBSD: Makefile,v 1.9 2014/03/26 13:26:45 taca Exp $
 
-DISTNAME=	howm-1.4.0
-PKGREVISION=	1
+DISTNAME=	howm-1.4.1
 CATEGORIES=	misc
 MASTER_SITES=	http://howm.sourceforge.jp/a/
 
@@ -13,7 +12,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	${RUBY_PKGPREFIX}-migemo-[0-9]*:../../textproc/migemo
 DEPENDS+=	${EMACS_PKGNAME_PREFIX}migemo-elisp-[0-9]*:../../textproc/migemo-elisp
 
-RUBY_VERSION_SUPPORTED= 193
+RUBY_VERSION_SUPPORTED= 21 200 193
 
 GNU_CONFIGURE=	yes
 

@@ -1,7 +1,5 @@
-@comment $NetBSD: PLIST,v 1.5 2013/05/18 22:59:46 prlw1 Exp $
-include/pygobject-3.0/pygobject.h
+@comment $NetBSD: PLIST,v 1.7 2014/02/12 00:57:25 prlw1 Exp $
 lib/libpyglib-gi-2.0-python${PYVERSSUFFIX}.la
-lib/pkgconfig/pygobject-3.0.pc
 ${PYSITELIB}/gi/__init__.py
 ${PYSITELIB}/gi/__init__.pyc
 ${PYSITELIB}/gi/__init__.pyo
@@ -27,6 +25,9 @@ ${PYSITELIB}/gi/_gobject/propertyhelper.pyo
 ${PYSITELIB}/gi/_gobject/signalhelper.py
 ${PYSITELIB}/gi/_gobject/signalhelper.pyc
 ${PYSITELIB}/gi/_gobject/signalhelper.pyo
+${PYSITELIB}/gi/docstring.py
+${PYSITELIB}/gi/docstring.pyc
+${PYSITELIB}/gi/docstring.pyo
 ${PYSITELIB}/gi/importer.py
 ${PYSITELIB}/gi/importer.pyc
 ${PYSITELIB}/gi/importer.pyo

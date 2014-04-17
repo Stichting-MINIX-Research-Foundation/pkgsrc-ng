@@ -1,20 +1,24 @@
-# $NetBSD: Makefile,v 1.27 2013/05/31 12:42:54 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2014/03/10 12:49:39 obache Exp $
 
 DISTNAME=	squidGuard-1.4
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	www
 MASTER_SITES=	http://www.squidguard.org/Downloads/ \
 		http://www.squidguard.org/Downloads/Patches/1.4/
 DISTFILES=	${DEFAULT_DISTFILES} \
 		squidGuard-1.4-patch-20091015.tar.gz \
 		squidGuard-1.4-patch-20091019.tar.gz
+# http://bugs.squid-cache.org/show_bug.cgi?id=3978
+PATCH_SITES=	-http://bugs.squid-cache.org/attachment.cgi?id=2988
+PATCHFILES=	squidGuard-1.4_upgrade.patch
+PATCH_DIST_STRIP=	-p1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.squidguard.org/
 COMMENT=	Ultrafast and free filter, redirector and access controller for Squid
 LICENSE=	gnu-gpl-v2
 
-.include "../../www/squid/Makefile.common"
+.include "../../www/squid3/Makefile.common"
 
 BDB_ACCEPTED=		db4 db5
 USE_TOOLS+=		lex yacc perl

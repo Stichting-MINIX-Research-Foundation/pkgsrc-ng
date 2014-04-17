@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.212 2013/05/31 12:41:52 wiz Exp $
+# $NetBSD: Makefile,v 1.218 2014/03/29 09:38:11 taca Exp $
 
-DISTNAME=		openssh-6.2p1
-PKGNAME=		openssh-6.2.1
-PKGREVISION=		1
+DISTNAME=		openssh-6.6p1
+PKGNAME=		openssh-6.6.1
 SVR4_PKGNAME=		ossh
 CATEGORIES=		security
 MASTER_SITES=		ftp://ftp.openssh.com/pub/OpenBSD/OpenSSH/portable/ \
@@ -24,6 +23,7 @@ CONFLICTS+=		ssh2-[0-9]* ssh2-nox11-[0-9]*
 CONFLICTS+=		openssh+gssapi-[0-9]*
 CONFLICTS+=		lsh>2.0
 
+USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		perl
 
 CRYPTO=			yes
@@ -37,7 +37,6 @@ BUILD_DEFS+=		OPENSSH_CHROOT
 BUILD_DEFS+=		VARBASE
 
 INSTALL_TARGET=		install-nokeys
-PLIST_SRC=		# empty
 
 .include "options.mk"
 
@@ -143,6 +142,8 @@ CONFIGURE_ARGS+=	--with-xauth=${X11PREFIX}/bin/xauth
 
 CONFS=			ssh_config sshd_config moduli
 
+PLIST_VARS+=		prng
+
 .if exists(/dev/urandom)
 .  if ${OPSYS} == "NetBSD"
 MESSAGE_SRC+=		${.CURDIR}/MESSAGE.urandom
@@ -150,7 +151,7 @@ MESSAGE_SRC+=		${.CURDIR}/MESSAGE.urandom
 .else
 CONFIGURE_ARGS+=	--without-random
 CONFS+=			ssh_prng_cmds
-PLIST_SRC+=		${.CURDIR}/PLIST.prng
+PLIST.prng=		yes
 .endif
 
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
@@ -161,8 +162,8 @@ CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 OWN_DIRS=		${OPENSSH_CHROOT}
 RCD_SCRIPTS=		sshd
 RCD_SCRIPT_SRC.sshd=	${WRKDIR}/sshd.sh
+SMF_METHODS=		sshd
 
-PLIST_SRC+=		${.CURDIR}/PLIST
 FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR:Q}
 
 SUBST_CLASSES+=		patch

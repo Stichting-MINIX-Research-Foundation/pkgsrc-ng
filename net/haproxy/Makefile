@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2013/06/20 21:36:28 morr Exp $
+# $NetBSD: Makefile,v 1.10 2014/02/20 00:37:46 rodent Exp $
 
 DISTNAME=	haproxy-1.4.24
+PKGREVISION=	1
 CATEGORIES=	net www
 MASTER_SITES=	http://haproxy.1wt.eu/download/1.4/src/
 
@@ -16,17 +17,11 @@ INSTALL_MAKE_FLAGS+=	PREFIX=${PREFIX}
 INSTALL_MAKE_FLAGS+=	DOCDIR=${PREFIX}/share/doc/${PKGBASE}
 INSTALL_MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
+RCD_SCRIPTS=		haproxy
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 INSTALLATION_DIRS=	${EGDIR} share/examples/rc.d
 
 .include "../../mk/bsd.prefs.mk"
-
-PLIST_VARS+=		rcd
-.if ${OPSYS} == "NetBSD"
-RCD_SCRIPTS=		haproxy
-INSTALLATION_DIRS+=	share/examples/rc.d
-PLIST.rcd=		yes
-.endif
 
 .if ${OPSYS} == "NetBSD"
 TARGET=netbsd

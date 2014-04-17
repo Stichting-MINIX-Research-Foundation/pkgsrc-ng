@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2013/05/31 12:42:02 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/31 16:25:51 jperkin Exp $
 #
 
 DISTNAME=	${PKGNAME_NOREV:S:-server-:_:}
 PKGNAME=	munin-server-1.3.2
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=munin/}
 
@@ -40,8 +40,9 @@ MUNIN_GROUP?=	munin
 MUNIN_USER?=	munin
 
 PKG_GROUPS=	${MUNIN_GROUP}
-PKG_USERS=	${MUNIN_USER}:${MUNIN_GROUP}:::${VARBASE}/munin
+PKG_USERS=	${MUNIN_USER}:${MUNIN_GROUP}
 PKG_GECOS.${MUNIN_USER}=	Munin user
+PKG_HOME.${MUNIN_USER}=		${VARBASE}/munin
 USERGROUP_PHASE=	pre-install
 
 PKG_SYSCONFSUBDIR?=	munin

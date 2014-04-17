@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2013/01/03 13:49:43 ryoon Exp $
+# $NetBSD: Makefile,v 1.3 2013/12/31 05:51:31 ryoon Exp $
 #
 
-PWVER=		2.4.6
+PWVER=		2.5.3
 DISTNAME=	piwigo-${PWVER}
 PKGNAME=	${PHP_PKG_PREFIX}-${DISTNAME}
 CATEGORIES=	www

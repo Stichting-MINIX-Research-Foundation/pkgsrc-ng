@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2013/03/16 22:25:21 dholland Exp $
+@comment $NetBSD: PLIST,v 1.4 2013/12/27 16:42:46 gdt Exp $
 bin/dvipdf
 bin/eps2eps
 bin/font2c
@@ -35,15 +35,12 @@ include/ghostscript/ierrors.h
 lib/libgs.so
 lib/libgs.so.9
 lib/libgs.so.${PKGVERSION}
-${PLIST.cups}libexec/cups/filter/gstopxl
-${PLIST.cups}libexec/cups/filter/gstoraster
 man/de/man1/dvipdf.1
 man/de/man1/eps2eps.1
 man/de/man1/font2c.1
 man/de/man1/gsnd.1
 man/de/man1/pdf2dsc.1
 man/de/man1/pdf2ps.1
-man/de/man1/pdfopt.1
 man/de/man1/printafm.1
 man/de/man1/ps2ascii.1
 man/de/man1/ps2pdf.1
@@ -64,7 +61,6 @@ man/man1/gslp.1
 man/man1/gsnd.1
 man/man1/pdf2dsc.1
 man/man1/pdf2ps.1
-man/man1/pdfopt.1
 man/man1/pf2afm.1
 man/man1/pfbtopfa.1
 man/man1/printafm.1
@@ -77,9 +73,6 @@ man/man1/ps2pdf14.1
 man/man1/ps2pdfwr.1
 man/man1/ps2ps.1
 man/man1/wftopfa.1
-${PLIST.cups}share/cups/model/pxlcolor.ppd
-${PLIST.cups}share/cups/model/pxlmono.ppd
-${PLIST.cups}share/examples/cups/gstoraster.convs
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/CIDFSubst/DroidSansFallback.ttf
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/CIDFont/ArtifexBullet
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/CMap/78-EUC-H
@@ -263,6 +256,10 @@ ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Decoding/FCO_Wingdin
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Decoding/Latin1
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Decoding/StandardEncoding
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Decoding/Unicode
+${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Encoding/CEEncoding
+${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Encoding/ExpertEncoding
+${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Encoding/ExpertSubsetEncoding
+${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Encoding/NotDefEncoding
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Encoding/Wingdings
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/CenturySchL-Bold
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/CenturySchL-BoldItal
@@ -299,6 +296,7 @@ ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/URWPalladioL-Bo
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/URWPalladioL-BoldItal
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/URWPalladioL-Ital
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Font/URWPalladioL-Roma
+${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/IdiomSet/Pscript5Idiom
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Init/FAPIcidfmap
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Init/FAPIconfig
 ${PLIST.no_cidfmap}share/ghostscript/${PKGVERSION}/Resource/Init/FAPIfontmap

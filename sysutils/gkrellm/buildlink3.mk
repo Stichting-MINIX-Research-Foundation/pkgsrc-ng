@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.34 2013/06/06 12:53:57 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.37 2014/02/12 23:18:39 tron Exp $
 
 BUILDLINK_TREE+=	gkrellm
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	gkrellm
 GKRELLM_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.gkrellm+=	gkrellm>=2.1.22
-BUILDLINK_ABI_DEPENDS.gkrellm+=	gkrellm>=2.2.10nb19
+BUILDLINK_ABI_DEPENDS.gkrellm+=	gkrellm>=2.2.10nb22
 BUILDLINK_PKGSRCDIR.gkrellm?=	../../sysutils/gkrellm
 
 .include "../../devel/glib2/buildlink3.mk"

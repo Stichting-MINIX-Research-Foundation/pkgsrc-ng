@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2012/11/06 18:41:44 drochner Exp $
-#
+# $NetBSD: Makefile,v 1.19 2014/01/25 10:29:56 wiz Exp $
 
-DISTNAME=	picard-1.1
+DISTNAME=	picard-1.2
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ftp.musicbrainz.org/pub/musicbrainz/picard/
 
@@ -15,6 +14,8 @@ DEPENDS+=	${PYPKGPREFIX}-mutagen>=1.20:../../audio/py-mutagen
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	msgfmt pkg-config
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-mutagen
 
 HAS_CONFIGURE=		yes
 CONFIG_SHELL=		${PYTHONBIN}

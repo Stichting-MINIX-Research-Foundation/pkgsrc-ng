@@ -1,7 +1,15 @@
-# $NetBSD: Makefile,v 1.35 2013/02/01 22:21:12 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2014/01/01 11:52:33 wiz Exp $
 #
+# The following packages use the same distfile, even if they
+# currently do not use a common Makefile fragment. Please look at
+# them when updating this package
+# pkgsrc/security/pinentry-gtk
+# pkgsrc/security/pinentry-gtk2
+# pkgsrc/security/pinentry-qt
+# pkgsrc/security/pinentry-qt4
 
-DISTNAME=		pinentry-0.8.2
+DISTNAME=		pinentry-0.8.3
+PKGREVISION=		2
 CATEGORIES=		security
 MASTER_SITES=		ftp://ftp.gnupg.org/gcrypt/pinentry/
 EXTRACT_SUFX=		.tar.bz2
@@ -9,6 +17,7 @@ EXTRACT_SUFX=		.tar.bz2
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		ftp://ftp.gnupg.org/gcrypt/pinentry/
 COMMENT=		Applications for entering PINs or Passphrases
+LICENSE=		gnu-gpl-v2
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-libiconv-prefix=${BUILDLINK_PREFIX.iconv}

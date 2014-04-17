@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.52 2013/06/28 10:58:50 abs Exp $
+# $NetBSD: Makefile,v 1.64 2014/03/06 18:57:56 abs Exp $
 
-DISTNAME=	openjdk-7u6-fcs-src-b24-09_aug_2012
-PKGNAME=	openjdk7-1.7.21
-PKGREVISION=	3
+DISTNAME=	openjdk-1.7.51-20140125
+PKGNAME=	openjdk7-1.7.51
+PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
-EXTRACT_SUFX=	.zip
+EXTRACT_SUFX=	.tar.bz2
 
 # Note: Remember to set sun-jre-jce when updating distinfo
 
@@ -19,9 +19,9 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 # diff between distfile and bsd-port branch. To check out, use:
 # "hg fclone http://hg.openjdk.java.net/bsd-port/bsd-port/"
-PATCH_DIST_STRIP=	-p1
-PATCHFILES+=	jdk-7u21-20130526.diff
-PATCH_SITES+=	${MASTER_SITE_LOCAL:=openjdk7/}
+#PATCH_DIST_STRIP=	-p1
+#PATCHFILES+=	jdk-7u21-20130526.diff
+#PATCH_SITES+=	${MASTER_SITE_LOCAL:=openjdk7/}
 
 CACERTS=	cacerts-20091013.tar.bz2
 DISTFILES+=	${CACERTS}
@@ -122,6 +122,8 @@ _WRAP_EXTRA_ARGS.CXX+=	-Wno-parentheses -Wno-sign-conversion \
 			-Wno-delete-non-virtual-dtor \
 			-Wno-return-type -Wno-unused-parameter \
 			-Wno-parentheses-equality -Wno-empty-body
+BUILDLINK_TRANSFORM+=	rm:-fcheck-new
+BUILDLINK_TRANSFORM+=	rm:-fpch-deps
 .  if ${MACHINE_ARCH} == "x86_64"
 _WRAP_EXTRA_ARGS.CXX+=	-mstackrealign
 .  endif

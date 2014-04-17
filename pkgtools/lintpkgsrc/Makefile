@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2013/05/31 12:41:46 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/03/03 03:30:53 obache Exp $
 
-DISTNAME=	lintpkgsrc-4.86
+PKGNAME=	lintpkgsrc-4.86
 PKGREVISION=	1
 CATEGORIES=	pkgtools
-MASTER_SITES=	# none
-DISTFILES=	# none
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/Documentation/pkgsrc/
@@ -42,7 +40,11 @@ do-extract:
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/lintpkgsrc.pl ${DESTDIR}${PREFIX}/bin/lintpkgsrc
 .if !empty(MANINSTALL:Mcatinstall)
+.  if defined(CATMAN_SECTION_SUFFIX) && !empty(CATMAN_SECTION_SUFFIX:M[Yy][Ee][Ss])
+	${INSTALL_MAN} ${WRKSRC}/lintpkgsrc.0 ${DESTDIR}${PREFIX}/${PKGMANDIR}/cat1/lintpkgsrc.1
+.  else
 	${INSTALL_MAN} ${WRKSRC}/lintpkgsrc.0 ${DESTDIR}${PREFIX}/${PKGMANDIR}/cat1
+.  endif
 .endif
 .if !empty(MANINSTALL:Mmaninstall)
 	${INSTALL_MAN} ${WRKSRC}/lintpkgsrc.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1

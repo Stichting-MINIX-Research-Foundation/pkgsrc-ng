@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.37 2013/06/11 14:18:22 ryoon Exp $
+# $NetBSD: Makefile,v 1.40 2014/03/27 18:39:31 ryoon Exp $
 #
 
-DISTNAME=	efj-umefont_452
-PKGNAME=	${DISTNAME:C/([a-z]+)-//:S/_/-ttf-0./}
+DISTNAME=	umefont_461
+PKGNAME=	${DISTNAME:S/_/-ttf-0./}
 CATEGORIES=	fonts japanese
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=ume-font/22212/}
-EXTRACT_SUFX=	.7z
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://sourceforge.jp/projects/ume-font/wiki/FrontPage

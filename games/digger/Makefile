@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.17 2012/10/06 11:54:35 asau Exp $
+# $NetBSD: Makefile,v 1.19 2014/01/09 14:50:09 jperkin Exp $
 #
 
 DISTNAME=		digger-20020314
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		games
 MASTER_SITES=		http://www.digger.org/
 
@@ -26,4 +26,5 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/digger ${DESTDIR}${PREFIX}/bin/digger
 
 .include "../../devel/SDL/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

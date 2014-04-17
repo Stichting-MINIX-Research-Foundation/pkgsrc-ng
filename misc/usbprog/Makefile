@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2013/06/06 12:54:50 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2014/02/12 23:18:16 tron Exp $
 #
 
 DISTNAME=	usbprog-0.2.0
-PKGREVISION=	19
+PKGREVISION=	22
 CATEGORIES=	misc
 MASTER_SITES=	http://download.berlios.de/usbprog/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +19,7 @@ USE_LIBTOOL=	yes
 .include "../../www/curl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../devel/libusb/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../x11/wxGTK28/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

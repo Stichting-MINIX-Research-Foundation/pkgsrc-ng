@@ -1,10 +1,10 @@
-$NetBSD: patch-auth2.c,v 1.1 2013/05/01 19:58:26 imil Exp $
+$NetBSD: patch-auth2.c,v 1.3 2014/03/29 09:38:11 taca Exp $
 
 Replace uid 0 with ROOTUID macro
 
---- auth2.c.orig	2012-12-02 22:53:20.000000000 +0000
+--- auth2.c.orig	2014-02-04 00:12:57.000000000 +0000
 +++ auth2.c
-@@ -307,7 +307,7 @@ userauth_finish(Authctxt *authctxt, int 
+@@ -301,7 +301,7 @@ userauth_finish(Authctxt *authctxt, int 
  		fatal("INTERNAL ERROR: authenticated and postponed");
  
  	/* Special handling for root */

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.29 2012/11/07 14:33:54 he Exp $
+# $NetBSD: Makefile,v 1.32 2014/03/05 13:52:29 he Exp $
 #
 
 DISTNAME=	scotty-${DIST_VERS}
 PKGNAME=	tcl-scotty-${DIST_VERS}
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	net tcl
 MASTER_SITES=	ftp://ftp.ibr.cs.tu-bs.de/pub/local/tkined/
 
@@ -26,6 +26,10 @@ CONFIGURE_ARGS+=--with-tcl-config=${BUILDLINK_PREFIX.tcl}/lib	\
 		--enable-multicast				\
 		--enable-gdmo --without-tk-config
 CONFIGURE_ENV+=	TARGET=scotty
+
+.include "../../mk/bsd.prefs.mk"
+
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q} GDMO_LIBS=
 
 USE_LIBTOOL=	yes
 USE_TOOLS+=	lex yacc

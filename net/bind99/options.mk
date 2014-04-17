@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.7 2013/06/06 02:55:03 taca Exp $
+# $NetBSD: options.mk,v 1.10 2013/09/21 16:00:34 taca Exp $
 
 PKG_OPTIONS_VAR=        PKG_OPTIONS.bind99
 PKG_SUPPORTED_OPTIONS=  bind-dig-sigchase bind-xml-statistics-server
@@ -55,8 +55,7 @@ CONFIGURE_ARGS+=	--with-dlz-filesystem
 .endif
 
 .if !empty(PKG_OPTIONS:Mrrl)
-PATCHFILES=rl-9.9.3-P1.patch
-PATCH_SITES=http://ss.vix.su/~vjs/
+CONFIGURE_ARGS+=	--enable-rrl
 .endif
 
 ###
@@ -92,7 +91,7 @@ CONFIGURE_ARGS+=	--disable-threads
 ### readline support in dig(1) and nsupdate(1).
 ###
 .if !empty(PKG_OPTIONS:Mreadline)
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 CONFIGURE_ARGS+=	--with-readline
 .else
 CONFIGURE_ARGS+=	--without-readline

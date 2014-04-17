@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2013/05/31 12:39:45 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2014/02/06 12:45:44 abs Exp $
 
-DISTNAME=	JSON-XS-2.33
+DISTNAME=	JSON-XS-3.01
 PKGNAME=	p5-${DISTNAME}0
-PKGREVISION=	2
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=JSON/}
 
@@ -11,7 +10,8 @@ HOMEPAGE=	http://search.cpan.org/dist/JSON-XS/
 COMMENT=	JSON serialising/deserialising, done correctly and fast
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	p5-common-sense-[0-9]*:../../devel/p5-common-sense
+DEPENDS+=	p5-common-sense>=0:../../devel/p5-common-sense
+DEPENDS+=	p5-Types-Serialiser>=0:../../devel/p5-Types-Serialiser
 
 PERL5_PACKLIST=	auto/JSON/XS/.packlist
 

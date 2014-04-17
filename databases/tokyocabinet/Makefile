@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2012/10/02 21:25:55 asau Exp $
+# $NetBSD: Makefile,v 1.43 2014/03/13 11:08:50 jperkin Exp $
 #
 
-DISTNAME=	tokyocabinet-1.4.46
+DISTNAME=	tokyocabinet-1.4.48
 CATEGORIES=	databases
 MASTER_SITES=	${HOMEPAGE}
 
@@ -11,6 +11,7 @@ COMMENT=	Modern implementation of DBM
 LICENSE=	gnu-lgpl-v2.1
 
 GNU_CONFIGURE=	yes
+USE_GCC_RUNTIME=yes
 USE_TOOLS+=	gmake pkg-config
 USE_LANGUAGES=	c99
 

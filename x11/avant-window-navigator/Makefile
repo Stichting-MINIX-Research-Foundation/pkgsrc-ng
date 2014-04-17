@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2013/06/06 12:55:12 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.20 2014/01/25 10:30:30 wiz Exp $
 
 DISTNAME=	avant-window-navigator-0.4.0
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	x11
 MASTER_SITES=	https://launchpad.net/awn/0.4/0.4.0/+download/
 
@@ -11,8 +10,8 @@ HOMEPAGE=	https://launchpad.net/awn
 COMMENT=	Dock-like navigation bar
 LICENSE=	gnu-lgpl-v2
 
-# Needed for launchpad
-FETCH_USING=	curl
+DEPENDS+=	${PYPKGPREFIX}-xdg-[0-9]*:../../devel/py-xdg
+DEPENDS+=	bzr>=2.4.2:../../devel/bzr
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
@@ -43,9 +42,8 @@ SUBST_SED.pathfix=	-e "s,/usr/share,${PREFIX}/share,"
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	awn-settings/awnSettings.py.in
 REPLACE_PYTHON+=	awn-settings/awnSettingsHelper.py
-
-DEPENDS+=		${PYPKGPREFIX}-xdg-[0-9]*:../../devel/py-xdg
-DEPENDS+=		bzr>=2.4.2:../../devel/bzr
+PYTHON_VERSIONED_DEPENDENCIES=	cairo:link
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
 
 .include "../../devel/GConf/schemas.mk"
 .include "../../lang/vala014/buildlink3.mk"
@@ -53,7 +51,7 @@ DEPENDS+=		bzr>=2.4.2:../../devel/bzr
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../sysutils/py-dbus/buildlink3.mk"
 .include "../../x11/py-gtk2/buildlink3.mk"
-.include "../../graphics/py-cairo/buildlink3.mk"
+.include "../../lang/python/versioned_dependencies.mk"
 .include "../../x11/libdesktop-agnostic/buildlink3.mk"
 .include "../../sysutils/libgtop/buildlink3.mk"
 .include "../../lang/python/application.mk"

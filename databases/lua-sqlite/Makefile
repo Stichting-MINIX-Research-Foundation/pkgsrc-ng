@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2012/10/02 21:25:21 asau Exp $
+# $NetBSD: Makefile,v 1.17 2013/11/26 07:19:30 dholland Exp $
 #
 
 DISTNAME=	lsqlite_src
-PKGNAME=	lua-sqlite-20030228
-PKGREVISION=	6
+PKGNAME=	${LUA_PKGPREFIX}-sqlite-20030228
+PKGREVISION=	7
 CATEGORIES=	databases
 MASTER_SITES=	http://lua-users.org/files/wiki_insecure/binary_modules/luasqlite/
 EXTRACT_SUFX=	.zip
@@ -16,6 +16,8 @@ WRKSRC=		${WRKDIR}
 
 CFLAGS+=	-fPIC
 LIBS+=		-llua -lsqlite
+
+LUA_VERSIONS_INCOMPATIBLE=	52
 
 AUTO_MKDIRS=	yes
 
@@ -31,5 +33,5 @@ do-install:
 		${DESTDIR}${PREFIX}/share/examples/lua-sqlite
 
 .include "../../databases/sqlite/buildlink3.mk"
-.include "../../lang/lua/buildlink3.mk"
+.include "../../lang/lua/module.mk"
 .include "../../mk/bsd.pkg.mk"

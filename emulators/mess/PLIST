@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12 2013/06/13 14:27:59 wiz Exp $
+@comment $NetBSD: PLIST,v 1.15 2014/02/06 10:40:19 wiz Exp $
 bin/castool
 bin/floptool
 bin/imgtool
@@ -15,9 +15,11 @@ share/mess/hash/a5200.hsi
 share/mess/hash/a5200.xml
 share/mess/hash/a7800.xml
 share/mess/hash/a800.xml
+share/mess/hash/a800_flop.xml
 share/mess/hash/abc1600.xml
 share/mess/hash/abc80.xml
 share/mess/hash/abc800.xml
+share/mess/hash/abc800_hdd.xml
 share/mess/hash/abc806.xml
 share/mess/hash/adam_cart.xml
 share/mess/hash/adam_cass.xml
@@ -27,6 +29,7 @@ share/mess/hash/advision.xml
 share/mess/hash/aim65_cart.xml
 share/mess/hash/alice32.xml
 share/mess/hash/alice90.xml
+share/mess/hash/alphatro_flop.xml
 share/mess/hash/amiga1000_flop.xml
 share/mess/hash/amiga1200_flop.xml
 share/mess/hash/amiga3000_flop.xml
@@ -37,6 +40,7 @@ share/mess/hash/amiga_flop.xml
 share/mess/hash/amigaaga_flop.xml
 share/mess/hash/amigaecs_flop.xml
 share/mess/hash/amigaocs_flop.xml
+share/mess/hash/ampro.xml
 share/mess/hash/apc.xml
 share/mess/hash/apfm1000.xml
 share/mess/hash/apogee.xml
@@ -55,6 +59,7 @@ share/mess/hash/bbcbc.xml
 share/mess/hash/bbcm_cart.xml
 share/mess/hash/bbcm_cass.xml
 share/mess/hash/bk0010.xml
+share/mess/hash/bml3_flop.xml
 share/mess/hash/bw12.xml
 share/mess/hash/bw2.xml
 share/mess/hash/bx256hp_flop.xml
@@ -77,16 +82,19 @@ share/mess/hash/coco_cart.xml
 share/mess/hash/coleco.xml
 share/mess/hash/compis.xml
 share/mess/hash/comx35_flop.xml
+share/mess/hash/copera.xml
 share/mess/hash/cpc_cass.xml
 share/mess/hash/cpc_flop.xml
 share/mess/hash/crvision.xml
 share/mess/hash/dim68k.xml
+share/mess/hash/dps1.xml
 share/mess/hash/ec1841.xml
 share/mess/hash/einstein.xml
 share/mess/hash/electron_cart.xml
 share/mess/hash/ep64_cart.xml
 share/mess/hash/ep64_cass.xml
 share/mess/hash/ep64_flop.xml
+share/mess/hash/famicom_cass.xml
 share/mess/hash/famicom_flop.xml
 share/mess/hash/fm77av.xml
 share/mess/hash/fm7_cass.xml
@@ -108,7 +116,9 @@ share/mess/hash/hx20_flop.xml
 share/mess/hash/ibm5140.xml
 share/mess/hash/ibm5150.xml
 share/mess/hash/ibm5150_cass.xml
+share/mess/hash/ibm5160_flop.xml
 share/mess/hash/ibm5170.xml
+share/mess/hash/ibm5170_cdrom.xml
 share/mess/hash/ibmpcjr_cart.xml
 share/mess/hash/ibmpcjr_flop.xml
 share/mess/hash/interact.xml
@@ -152,6 +162,7 @@ share/mess/hash/msx1_cart.xml
 share/mess/hash/msx1_cass.xml
 share/mess/hash/msx2.hsi
 share/mess/hash/msx2_cart.xml
+share/mess/hash/myvision.xml
 share/mess/hash/mz2000_cass.xml
 share/mess/hash/mz2000_flop.xml
 share/mess/hash/mz2500.xml
@@ -196,6 +207,7 @@ share/mess/hash/pecom_cass.xml
 share/mess/hash/pentagon_cass.xml
 share/mess/hash/pet_cass.xml
 share/mess/hash/pet_flop.xml
+share/mess/hash/pet_hdd.xml
 share/mess/hash/pet_rom.xml
 share/mess/hash/pico.xml
 share/mess/hash/pippin.xml
@@ -234,6 +246,7 @@ share/mess/hash/sms.xml
 share/mess/hash/snes.xml
 share/mess/hash/snes_bspack.xml
 share/mess/hash/snes_strom.xml
+share/mess/hash/snes_vkun.xml
 share/mess/hash/socrates.xml
 share/mess/hash/softbox.xml
 share/mess/hash/softwarelist.dtd
@@ -273,7 +286,8 @@ share/mess/hash/tutor.xml
 share/mess/hash/tvc_cart.xml
 share/mess/hash/ut88.xml
 share/mess/hash/uzebox.xml
-share/mess/hash/v1050.xml
+share/mess/hash/v1050_flop.xml
+share/mess/hash/v1050_hdd.xml
 share/mess/hash/vboy.xml
 share/mess/hash/vc4000.xml
 share/mess/hash/vectrex.xml
@@ -282,13 +296,16 @@ share/mess/hash/vic10.xml
 share/mess/hash/vic1001_cart.xml
 share/mess/hash/vic1001_cass.xml
 share/mess/hash/vic1001_flop.xml
+share/mess/hash/victor9k_flop.xml
 share/mess/hash/vidbrain.xml
 share/mess/hash/vii.xml
 share/mess/hash/vip.xml
+share/mess/hash/visicom.xml
 share/mess/hash/vixen.xml
 share/mess/hash/vsmile_cart.xml
 share/mess/hash/vsmile_cd.xml
 share/mess/hash/wangpc.xml
+share/mess/hash/wicat.xml
 share/mess/hash/wmbullet.xml
 share/mess/hash/wscolor.xml
 share/mess/hash/wswan.xml

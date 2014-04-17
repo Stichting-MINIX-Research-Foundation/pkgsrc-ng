@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.52 2013/02/06 23:22:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.62 2014/03/27 05:36:10 obache Exp $
 
 .include "dist.mk"
 
-PKGNAME=	python26-${PY_DISTVERSION}
 PKGREVISION=	3
+
+PKGNAME=	python26-${PY_DISTVERSION}
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -58,7 +59,7 @@ USE_TOOLS+=	gmake
 PY_PLATNAME=	${LOWER_OPSYS:C/\..*//}
 .elif ${OPSYS} == "SunOS"
 PY_PLATNAME=	sunos${OS_VERSION:C/\..*//}
-CONFIGURE_ENV+=        ac_cv_header_netpacket_packet_h=no
+CONFIGURE_ENV+=		ac_cv_header_netpacket_packet_h=no
 .elif ${OPSYS} == "HPUX"
 PY_PLATNAME=	hp-ux11
 .else
@@ -91,16 +92,6 @@ IS_64BIT_PLATFORM?=	no
 PLIST_VARS+=	dl
 .if empty(IS_64BIT_PLATFORM:M[yY][eE][sS])
 PLIST.dl=	yes
-.endif
-
-# builds additional modules if OpenSSL < 0.9.8
-PLIST_VARS+=		openssl097
-CHECK_BUILTIN.openssl:=	yes
-.include "../../security/openssl/builtin.mk"
-CHECK_BUILTIN.openssl:=	no
-.if !empty(USE_BUILTIN.openssl:M[yY][eE][sS]) && \
-    !empty(BUILTIN_PKG.openssl:Mopenssl-0.9.[67]*)
-PLIST.openssl097=	yes
 .endif
 
 # setup.py causes some modules to be built if the platform is *not* 64bit.
@@ -165,7 +156,7 @@ SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
 post-extract:
-	${MV} ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Lib/smtpd${PY_VER_SUFFIX}.py
+	${LN} -s ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Tools/scripts/smtpd${PY_VER_SUFFIX}.py
 	${MV} ${WRKSRC}/Tools/scripts/pydoc ${WRKSRC}/Tools/scripts/pydoc${PY_VER_SUFFIX}
 	${MV} ${WRKSRC}/Tools/scripts/2to3 ${WRKSRC}/Tools/scripts/2to3-${PY_VER_SUFFIX}
 
@@ -175,7 +166,6 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/libpython2.6.sl.1.0
 .endif
 
-USE_GNU_READLINE=			yes
 BUILDLINK_DEPMETHOD.readline=		build
 
 .include "../../archivers/bzip2/buildlink3.mk"

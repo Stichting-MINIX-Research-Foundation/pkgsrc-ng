@@ -1,4 +1,4 @@
-# $NetBSD: bsd.pkg.update.mk,v 1.23 2011/05/04 09:49:34 obache Exp $
+# $NetBSD: bsd.pkg.update.mk,v 1.26 2014/02/14 07:14:23 obache Exp $
 #
 # This Makefile fragment is included by bsd.pkg.mk and contains the targets
 # and variables for "make update".
@@ -16,7 +16,7 @@ REINSTALL?=	NO	# reinstall upon update
 #
 .if !defined(UPDATE_TARGET)
 .  if defined(DEPENDS_TARGET) && (${DEPENDS_TARGET} == "update")
-.    if ${_USE_DESTDIR} != "no" || make(package) || make(package-install)
+.    if make(package) || make(package-install)
 UPDATE_TARGET=	package-install
 .    else
 UPDATE_TARGET=	install
@@ -127,7 +127,7 @@ ${_DDIR}: ${_DLIST}
 	if [ "$$pkgs" ]; then ${PKG_INFO} -Q PKGPATH $$pkgs; fi > ${_DDIR}
 
 ${_DLIST}: ${WRKDIR}
-	if ${PKG_INFO} -qe "${PKGWILDCARD}"; then \
+	${RUN} if ${PKG_INFO} -qe "${PKGWILDCARD}"; then \
 		${PKG_INFO} -qr "${PKGWILDCARD}" > ${_DLIST}; \
 	else \
 		${TOUCH} ${_DLIST}; \

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.87 2013/06/06 12:54:09 wiz Exp $
+# $NetBSD: Makefile,v 1.92 2014/02/12 23:17:37 tron Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	${DISTNAME}
-PKGREVISION=	17
+PKGREVISION=	22
 OWNER=		tron@NetBSD.org
 COMMENT=	X11 (X Window System) IRC client, using the GTK2 toolkit
 
@@ -30,20 +30,25 @@ BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.20.0
 .if ${OPSYS} == "Darwin"
 INSTALL_UNSTRIPPED=	YES
 
-.if empty(PKG_BUILD_OPTIONS.gtk2:Mquartz)
+.  if empty(PKG_BUILD_OPTIONS.gtk2:Mquartz)
+CONFIGURE_ARGS+=	--enable-xft
 LDFLAGS.Darwin+=	-L${PREFIX}/lib -lX11
-.else
+.  else
 CONFIGURE_ARGS+=	--disable-xlib
-.endif
+.  endif
+.else
+CONFIGURE_ARGS+=	--enable-xft
 .endif
 
-INSTALLATION_DIRS+=	share/doc/xchat lib/xchat/plugins
+INSTALLATION_DIRS+=	share/doc/xchat lib/xchat/plugins include/xchat
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/xchat/
 	${INSTALL_DATA} ${WRKSRC}/faq.html ${DESTDIR}${PREFIX}/share/doc/xchat/
 	${INSTALL_DATA} ${WRKSRC}/plugins/plugin20.html \
 		${DESTDIR}${PREFIX}/share/doc/xchat/
+	${INSTALL_DATA} ${WRKSRC}/plugins/xchat-plugin.h \
+		${DESTDIR}${PREFIX}/include/xchat/
 
 .if !empty(PKG_OPTIONS:Mgnome)
 

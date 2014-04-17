@@ -1,19 +1,19 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:41:14 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.13 2014/01/27 18:41:13 wiz Exp $
 
-DISTNAME=	imapsync-1.286
-PKGREVISION=	3
+DISTNAME=	imapsync-1.564
+PKGREVISION=	1
 CATEGORIES=	mail
-MASTER_SITES=	http://www.linux-france.org/prj/imapsync/dist/
+MASTER_SITES=	https://fedorahosted.org/released/imapsync/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	abs@NetBSD.org
-HOMEPAGE=	http://www.linux-france.org/prj/imapsync/
+HOMEPAGE=	https://fedorahosted.org/imapsync/
 COMMENT=	Incremental recursive IMAP transfer tool
 
+DEPENDS+=	p5-Data-Uniqid>=0:../../devel/p5-Data-Uniqid
 DEPENDS+=	p5-Date-Manip>=0:../../devel/p5-Date-Manip
 DEPENDS+=	p5-Digest-HMAC-[0-9]*:../../security/p5-Digest-HMAC
-DEPENDS+=	p5-Digest-MD5-[0-9]*:../../security/p5-Digest-MD5
+DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-IO-Socket-SSL-[0-9]*:../../security/p5-IO-Socket-SSL
 DEPENDS+=	p5-Mail-IMAPClient>=3.1.9:../../mail/p5-Mail-IMAPClient
 DEPENDS+=	p5-Term-ReadKey-[0-9]*:../../devel/p5-Term-ReadKey

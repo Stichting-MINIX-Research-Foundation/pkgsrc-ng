@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2013/03/02 20:33:30 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2014/02/16 21:37:06 wiedi Exp $
 
 DISTNAME=	flow-tools-0.68
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.eng.oar.net/pub/flow-tools/
 
@@ -9,7 +9,10 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.splintered.net/sw/flow-tools/
 COMMENT=	Collect and store NetFlow data
 
+USE_TOOLS+=	lex
 GNU_CONFIGURE=	YES
+
+CPPFLAGS.SunOS+=	-Du_int8_t=uint8_t -Du_int32_t=uint32_t
 
 PKG_SYSCONFSUBDIR=	flow-tools
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
@@ -48,7 +51,7 @@ PLIST_VARS+=		python
 .if !empty(PKG_OPTIONS:Mpython)
 .  include "../../lang/python/application.mk"
 
-PYTHON_PATCH_SCRIPTS=	bin/flow-rpt2rrd bin/flow-log2rrd bin/flow-rptfmt
+REPLACE_PYTHON=	bin/flow-rpt2rrd bin/flow-log2rrd bin/flow-rptfmt
 PLIST.python=		yes
 
 post-install:

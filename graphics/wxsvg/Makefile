@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.41 2013/06/06 12:53:59 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2014/03/30 10:32:34 ryoon Exp $
 #
 
 DISTNAME=	wxsvg-1.1.14
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=wxsvg/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://wxsvg.sourceforge.net/
+HOMEPAGE=	http://sourceforge.net/projects/wxsvg/
 COMMENT=	C++ library to create, manipulate and render SVG files
 LICENSE=	gnu-lgpl-v2
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.136 2013/06/06 12:54:42 wiz Exp $
+# $NetBSD: Makefile,v 1.144 2014/02/12 23:18:07 tron Exp $
 
 DISTNAME=	evolution-data-server-2.32.3
-PKGREVISION=	23
+PKGREVISION=	29
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-data-server/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +19,7 @@ USE_PKGLOCALEDIR=	YES
 GNU_CONFIGURE=		YES
 
 PYTHON_FOR_BUILD_ONLY=	YES
-PYTHON_PATCH_SCRIPTS=	addressbook/libebook/gen-western-table.py
+REPLACE_PYTHON=	addressbook/libebook/gen-western-table.py
 
 .include "options.mk"
 
@@ -31,7 +31,7 @@ CONFIGURE_ENV+=		PTHREAD_LIB="${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}"
 .include "../../devel/pthread-sem/buildlink3.mk"
 LIBS+=		-lsemaphore
 .endif
-.if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M4.*)
+.if (${OPSYS} == "NetBSD" && !empty(OS_VERSION:M4.*) || ${OPSYS} == "Darwin")
 BUILDLINK_TRANSFORM+=   rm:-Wl,--no-undefined
 .endif
 

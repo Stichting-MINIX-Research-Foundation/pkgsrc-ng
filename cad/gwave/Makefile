@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.56 2013/06/06 12:54:07 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2014/02/27 01:01:21 wiedi Exp $
 #
 
 DISTNAME=	gwave2-20090213
 PKGNAME=	${DISTNAME:S/gwave2/gwave/}
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gwave/}
 
@@ -22,6 +22,7 @@ EVAL_PREFIX+=	GRAPHDIR=plotutils
 CONFIGURE_ENV+=	GRAPH=${GRAPHDIR}/bin/graph
 
 LDFLAGS.DragonFly=	-lX11
+LDFLAGS.SunOS+=		-lX11
 
 # make this file get rebuilt in a way that gcc3 can deal with
 #post-extract:

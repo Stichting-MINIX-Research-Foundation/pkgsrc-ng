@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2013/06/06 12:54:30 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2013/10/15 14:43:00 joerg Exp $
 #
 
 DISTNAME=	libmng-1.0.10
 PKGNAME=	${DISTNAME:S/libmng/gmngview/}
-PKGREVISION=	19
+PKGREVISION=	22
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libmng/}
 
@@ -21,6 +21,7 @@ USE_TOOLS+=		pkg-config
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/gmngview ${DESTDIR}${PREFIX}/bin
 
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../graphics/lcms/buildlink3.mk"
 .include "../../graphics/mng/buildlink3.mk"
+.include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

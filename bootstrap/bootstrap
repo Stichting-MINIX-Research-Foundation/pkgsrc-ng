@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $NetBSD: bootstrap,v 1.194 2013/06/14 15:07:37 tron Exp $
+# $NetBSD: bootstrap,v 1.204 2014/03/14 21:52:13 ryoon Exp $
 #
 # Copyright (c) 2001-2011 Alistair Crooks <agc@NetBSD.org>
 # All rights reserved.
@@ -63,6 +63,7 @@ usage="Usage: $0 "'
     [ --help ]
     [ --mk-fragment <mk.conf> ]
     [ --pkgdbdir <pkgdbdir> ]
+    [ --pkginfodir <pkginfodir> ]
     [ --pkgmandir <pkgmandir> ]
     [ --prefer-pkgsrc <list|yes|no> ]
     [ --prefix <prefix> ]
@@ -146,6 +147,15 @@ get_compiler()
 		done
 		IFS="${save_IFS}"
 	fi
+
+	# Clang compiler pretends to be GCC, so we have to check that
+	cat >${wrkdir}/$$.c <<EOF
+#ifdef __clang__
+indeed
+#endif
+EOF
+	compiler_is_clang=`${testcc:-cc} -E ${wrkdir}/$$.c 2>/dev/null | grep -c indeed`
+	rm -f ${wrkdir}/$$.c
 
 	cat >${wrkdir}/$$.c <<EOF
 #ifdef __GNUC__
@@ -299,6 +309,12 @@ copy_src()
 		mkdir_p $wrkdir/$_dst
 	fi
 	$cpprog -r $_src/* $wrkdir/$_dst
+	if [ -f $wrkdir/$_dst/config.guess ]; then
+		$cpprog $pkgsrcdir/mk/gnu-config/config.guess $wrkdir/$_dst/
+	fi
+	if [ -f $wrkdir/$_dst/config.sub ]; then
+		$cpprog $pkgsrcdir/mk/gnu-config/config.sub $wrkdir/$_dst/
+	fi
 }
 
 get_optarg()
@@ -341,8 +357,10 @@ esac
 
 # On some newer Ubuntu installations, /bin/sh is a symlink to /bin/dash,
 # whose echo(1) is not BSD-compatible.
+# On all Debian GNU/kFreeBSD 7.0, /bin/sh is a symlink to /bin/dash, and
+# use /bin/bash. bootstrap forces /bin/bash is used.
 dash_echo_test=`$bootstrap_sh -c 'echo "\\100"'`
-if [ "$dash_echo_test" = "@" ]; then
+if [ "$opsys" != "GNUkFreeBSD" ] && [ "$dash_echo_test" = "@" ]; then
 	{ echo "ERROR: Your shell's echo command is not BSD-compatible."
 	  echo "ERROR: Please select another shell by setting the environment"
 	  echo "ERROR: variable SH."
@@ -363,6 +381,7 @@ echo_msg "bootstrap started: $build_start"
 # whether they will be system wide or user specific
 prefix=
 pkgdbdir=
+pkginfodir=
 pkgmandir=
 sysconfdir=
 varbase=
@@ -380,6 +399,8 @@ while [ $# -gt 0 ]; do
 	--prefix)	prefix="$2"; shift ;;
 	--pkgdbdir=*)	pkgdbdir=`get_optarg "$1"` ;;
 	--pkgdbdir)	pkgdbdir="$2"; shift ;;
+	--pkginfodir=*)	pkginfodir=`get_optarg "$1"` ;;
+	--pkginfodir)	pkginfodir="$2"; shift ;;
 	--pkgmandir=*)	pkgmandir=`get_optarg "$1"` ;;
 	--pkgmandir)	pkgmandir="$2"; shift ;;
 	--sysconfdir=*)	sysconfdir=`get_optarg "$1"` ;;
@@ -426,6 +447,7 @@ checkarg_sane_absolute_path "$prefix" "--prefix"
 checkarg_sane_absolute_path "$pkgdbdir" "--pkgdbdir"
 checkarg_sane_absolute_path "$sysconfdir" "--sysconfdir"
 checkarg_sane_absolute_path "$varbase" "--varbase"
+checkarg_sane_relative_path "$pkginfodir" "--pkginfodir"
 checkarg_sane_relative_path "$pkgmandir" "--pkgmandir"
 
 # set defaults for system locations if not already set by the user
@@ -441,10 +463,13 @@ fi
 [ -z "$pkgdbdir" ] && pkgdbdir=${varbase}/db/pkg
 
 if [ "$prefix" = "/usr" ]; then
+	[ -z "$pkginfodir" ] && pkginfodir=share/info
 	[ -z "$pkgmandir" ] && pkgmandir=share/man
 else
+	[ -z "$pkginfodir" ] && pkginfodir=info
 	[ -z "$pkgmandir" ] && pkgmandir=man
 fi
+infodir=${prefix}/${pkginfodir}
 mandir=${prefix}/${pkgmandir}
 [ -z "$sysconfdir" ] && sysconfdir=${prefix}/etc
 
@@ -457,6 +482,8 @@ root_user=root
 bmakexenv=
 bmakexargs=
 need_extras=no
+set_machine_arch=no
+use_bsdinstall=
 case "$opsys" in
 AIX)
 	root_group=system
@@ -531,6 +558,23 @@ FreeBSD)
 	need_sed=no
 	set_opsys=no
 	machine_arch=`uname -p`
+	check_compiler=yes
+	;;
+FreeMiNT)
+	root_group=root
+	need_bsd_install=no
+	need_awk=no
+	need_sed=no
+	set_opsys=no
+	machine_arch=m68k
+	;;
+GNUkFreeBSD)
+	root_group=root
+	need_bsd_install=no
+	need_awk=yes
+	need_sed=no
+	set_opsys=no
+	machine_arch=`uname -m`
 	;;
 Haiku)
 	root_user=`id -un`
@@ -639,6 +683,12 @@ Linux)
 	need_sed=no
 	set_opsys=no
 	machine_arch=`uname -m | sed -e 's/i.86/i386/'`
+	# Support multiarch systems.
+	if [ "$machine_arch" = "x86_64" -a "$abi" = "32" ]; then
+		machine_arch=i386
+		set_machine_arch=yes
+		bmakexargs="MACHINE_ARCH=$machine_arch"
+	fi
 	;;
 Minix)
 	root_group=operator
@@ -711,9 +761,21 @@ QNX)
 	whoamiprog="id -un"
 	machine_arch=`uname -p | sed -e 's/x86/i386/'`
 	;;
+SCO_SV)
+	root_group=root
+	need_awk=yes
+	need_bsd_install=yes
+	need_sed=yes
+	set_opsys=no
+	whoamiprog='id -u'
+	groupsprog='id -g'
+	# /bin/sh under OpenServer 5.0.7/3.2 breaks bmake tests.
+	#bmakexargs="$bmakexargs --with-defshell=/bin/ksh"
+	;;
 SunOS)
 	root_group=root
 	need_bsd_install=yes
+	use_bsdinstall=yes
 	if [ -x "/usr/gnu/bin/awk" ]; then
 		need_awk=no
 	else
@@ -829,7 +891,10 @@ echo "Working directory is: ${wrkdir}"
 
 if [ "$compiler" = "" ] && [ x"$check_compiler" = x"yes" ]; then
 	get_compiler
-	if [ $compiler_is_gnu -gt 0 ]; then
+	# Clang pretends to be GCC, so we have to check it first.
+	if [ $compiler_is_clang -gt 0 ]; then
+		compiler="clang"
+	elif [ $compiler_is_gnu -gt 0 ]; then
 		compiler="gcc"
 	else
 		case "$opsys" in
@@ -900,6 +965,9 @@ fi
 if [ -n "$abi" ]; then
 	echo "ABI=			$abi" >> ${TARGET_MKCONF}
 fi
+if [ "$set_machine_arch" = "yes" ]; then
+	echo "MACHINE_ARCH=		$machine_arch" >> ${TARGET_MKCONF}
+fi
 if [ "$compiler" != "" ]; then
 	echo "PKGSRC_COMPILER=	$compiler" >> ${TARGET_MKCONF}
 fi
@@ -939,6 +1007,7 @@ if [ "${sysconfdir}" != "${prefix}/etc" ]; then
 	echo "PKG_SYSCONFBASE=	$sysconfdir" >> ${TARGET_MKCONF}
 fi
 echo "PKG_TOOLS_BIN=		$prefix/sbin" >> ${TARGET_MKCONF}
+echo "PKGINFODIR=		$pkginfodir" >> ${TARGET_MKCONF}
 echo "PKGMANDIR=		$pkgmandir" >> ${TARGET_MKCONF}
 echo "" >> ${TARGET_MKCONF}
 
@@ -950,13 +1019,25 @@ fi
 BOOTSTRAP_MKCONF=${wrkdir}/mk.conf
 cp ${TARGET_MKCONF} ${BOOTSTRAP_MKCONF}
 
+# On all Debian GNU/kFreeBSD 7, /bin/sh is a symlink to /bin/dash, and
+# use /bin/bash.
+if [ "$opsys" = "GNUkFreeBSD" -a "$bootstrap_sh_set" != "set" ]; then
+	echo "TOOLS_PLATFORM.sh?=		/bin/bash	# instead of /bin/sh" >> ${TARGET_MKCONF}
+	echo "TOOLS_PLATFORM.sh?=		/bin/bash	# instead of /bin/sh" >> ${BOOTSTRAP_MKCONF}
+	echo $opsys
+fi
+
 # sbin is used by pkg_install, share/mk by bootstrap-mk-files
 mkdir_p $wrkdir/sbin $wrkdir/share/mk
 mkdir_p_early ${wrkdir}
 
 if [ "$need_bsd_install" = "yes" ]; then
 	BSTRAP_ENV="INSTALL='$prefix/bin/install-sh -c' $BSTRAP_ENV"
-	echo "TOOLS_PLATFORM.install?=	$prefix/bin/install-sh" >> ${TARGET_MKCONF}
+	if [ "$use_bsdinstall" = "yes" ]; then
+		echo "TOOLS_PLATFORM.install?=	$prefix/bin/bsdinstall" >> ${TARGET_MKCONF}
+	else
+		echo "TOOLS_PLATFORM.install?=	$prefix/bin/install-sh" >> ${TARGET_MKCONF}
+	fi
 	echo "TOOLS_PLATFORM.install?=	$wrkdir/bin/install-sh" >> ${BOOTSTRAP_MKCONF}
 fi
 
@@ -993,6 +1074,7 @@ $shprog ./bootstrap.sh)"
 bootstrap_bmake() {
 	echo_msg "Bootstrapping bmake"
 	copy_src $pkgsrcdir/devel/bmake/files bmake
+	run_cmd "chmod u+x $wrkdir/bmake/configure"
 	run_cmd "(cd $wrkdir/bmake && env $bmakexenv $shprog ./boot-strap $configure_quiet_flags -q -o bootstrap.$opsys --prefix=$wrkdir --sysconfdir=$wrkdir --mksrc none --with-default-sys-path="$wrkdir/share/mk" $bmakexargs)"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/bmake/bootstrap.$opsys/bmake $wrkdir/bin/bmake"
 }
@@ -1003,14 +1085,14 @@ bmake="$wrkdir/bin/bmake $make_quiet_flags"
 # build libnbcompat
 echo_msg "Building libnbcompat"
 copy_src $pkgsrcdir/pkgtools/libnbcompat/files libnbcompat
-run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt --enable-db && $bmake $make_quiet_flags)"
+run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt --enable-db && $bmake $make_quiet_flags)"
 
 # bootstrap ksh if necessary
 case "$need_ksh" in
 yes)	echo_msg "Bootstrapping ksh"
 	copy_src $pkgsrcdir/shells/pdksh/files ksh
 	test -n "$CC" || CC=gcc	# default to gcc if no compiler is specified
-	run_cmd "(cd $wrkdir/ksh && env $BSTRAP_ENV $shprog ./configure $configure_quiet_flags --prefix=$prefix --mandir=$mandir --sysconfdir=$sysconfdir && $bmake)"
+	run_cmd "(cd $wrkdir/ksh && env $BSTRAP_ENV $shprog ./configure $configure_quiet_flags --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir && $bmake)"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/ksh/ksh $wrkdir/bin/pdksh"
 	echo "TOOLS_PLATFORM.sh?=		$prefix/bin/pdksh" >> ${TARGET_MKCONF}
 	echo "TOOLS_PLATFORM.sh?=		$wrkdir/bin/pdksh" >> ${BOOTSTRAP_MKCONF}
@@ -1039,7 +1121,7 @@ esac
 case "$need_sed" in
 yes)	echo_msg "Bootstrapping sed"
 	copy_src $pkgsrcdir/textproc/nbsed/files sed
-	run_cmd "(cd $wrkdir/sed; env $BSTRAP_ENV CPPFLAGS='$CPPFLAGS -I../libnbcompat' LDFLAGS='$LDFLAGS -L../libnbcompat' LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --mandir=$mandir --sysconfdir=$sysconfdir --program-transform-name='s,sed,nbsed,' && $bmake)"
+	run_cmd "(cd $wrkdir/sed; env $BSTRAP_ENV CPPFLAGS='$CPPFLAGS -I../libnbcompat' LDFLAGS='$LDFLAGS -L../libnbcompat' LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --program-transform-name='s,sed,nbsed,' && $bmake)"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/sed/sed $wrkdir/bin/sed"
 	echo "TOOLS_PLATFORM.sed?=		$prefix/bin/nbsed" >> ${TARGET_MKCONF}
 	echo "TOOLS_PLATFORM.sed?=		$wrkdir/bin/sed" >> ${BOOTSTRAP_MKCONF}
@@ -1054,7 +1136,7 @@ CPPFLAGS='$CPPFLAGS -I../libnbcompat -I../../libnbcompat' \
 LDFLAGS='$LDFLAGS -L../libnbcompat -L../../libnbcompat' \
 LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C \
 --enable-bootstrap --prefix=$prefix --sysconfdir=$sysconfdir \
---with-pkgdbdir=$pkgdbdir --mandir=$mandir $pkg_install_args && $bmake)"
+--with-pkgdbdir=$pkgdbdir --infodir=$infodir --mandir=$mandir $pkg_install_args && $bmake)"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/admin/pkg_admin $wrkdir/sbin/pkg_admin"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/create/pkg_create $wrkdir/sbin/pkg_create"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/info/pkg_info $wrkdir/sbin/pkg_info"
@@ -1128,8 +1210,8 @@ fi
 echo ".endif			# end pkgsrc settings" >> ${TARGET_MKCONF}
 echo ".endif			# end pkgsrc settings" >> ${BOOTSTRAP_MKCONF}
 
-# register packages
-# usage: register_package <packagedirectory> [additional arguments]
+# build and register packages
+# usage: build_package <packagedirectory> [additional arguments]
 build_package() {
 	run_cmd "(cd $pkgsrcdir/$1 && $bmake USE_DESTDIR=no -DPKG_PRESERVE MAKECONF=${BOOTSTRAP_MKCONF} install)"
 }
@@ -1141,7 +1223,13 @@ build_package() {
 echo_msg "Installing packages"
 build_package "pkgtools/bootstrap-mk-files"
 case "$need_bsd_install" in
-yes)	build_package "sysutils/install-sh";;
+yes)
+	if [ "$use_bsdinstall" = "yes" ]; then
+		build_package "sysutils/bsdinstall"
+	else
+		build_package "sysutils/install-sh"
+	fi
+	;;
 esac
 case "$need_ksh" in
 yes)	build_package "shells/pdksh";;

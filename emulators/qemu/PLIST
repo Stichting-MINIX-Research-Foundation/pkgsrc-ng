@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.34 2013/06/16 18:27:25 tsutsui Exp $
+@comment $NetBSD: PLIST,v 1.37 2014/01/15 18:26:20 wiz Exp $
 ${PLIST.alpha}bin/qemu-alpha
 ${PLIST.arm}bin/qemu-arm
 ${PLIST.armeb}bin/qemu-armeb
@@ -36,6 +36,7 @@ bin/qemu-system-mips
 bin/qemu-system-mips64
 bin/qemu-system-mips64el
 bin/qemu-system-mipsel
+bin/qemu-system-moxie
 bin/qemu-system-or32
 bin/qemu-system-ppc
 bin/qemu-system-ppc64
@@ -58,12 +59,20 @@ share/doc/qemu/qemu-doc.html
 share/doc/qemu/qemu-tech.html
 share/doc/qemu/qmp-commands.txt
 share/examples/qemu/target-x86_64.conf
+share/qemu/QEMU,tcx.bin
 share/qemu/acpi-dsdt.aml
 share/qemu/bamboo.dtb
 share/qemu/bios.bin
+share/qemu/efi-e1000.rom
+share/qemu/efi-eepro100.rom
+share/qemu/efi-ne2k_pci.rom
+share/qemu/efi-pcnet.rom
+share/qemu/efi-rtl8139.rom
+share/qemu/efi-virtio.rom
 share/qemu/keymaps/ar
 share/qemu/keymaps/bepo
 share/qemu/keymaps/common
+share/qemu/keymaps/cz
 share/qemu/keymaps/da
 share/qemu/keymaps/de
 share/qemu/keymaps/de-ch
@@ -115,6 +124,8 @@ share/qemu/pxe-rtl8139.rom
 share/qemu/pxe-virtio.rom
 share/qemu/q35-acpi-dsdt.aml
 share/qemu/qemu-icon.bmp
+share/qemu/qemu_logo_no_text.svg
+share/qemu/s390-ccw.img
 share/qemu/s390-zipl.rom
 share/qemu/sgabios.bin
 share/qemu/slof.bin

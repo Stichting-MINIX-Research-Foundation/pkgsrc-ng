@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2013/06/15 19:03:31 pettai Exp $
+# $NetBSD: Makefile,v 1.18 2014/02/12 23:18:09 tron Exp $
 
-DISTNAME=	opendkim-2.8.3
+DISTNAME=	opendkim-2.9.0
+PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opendkim/}
 

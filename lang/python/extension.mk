@@ -1,4 +1,4 @@
-# $NetBSD: extension.mk,v 1.31 2012/10/03 22:03:41 wiz Exp $
+# $NetBSD: extension.mk,v 1.37 2014/01/24 12:42:52 obache Exp $
 
 .include "../../lang/python/pyversion.mk"
 
@@ -25,6 +25,9 @@ _PYSETUPINSTALLARGS=	${PYSETUPINSTALLARGS} ${PYSETUPOPTARGS} ${_PYSETUPTOOLSINST
 _PYSETUPINSTALLARGS+=	--root=${DESTDIR:Q}
 .endif
 PY_PATCHPLIST?=		yes
+PYSETUPINSTALLARGS?=	#empty
+PYSETUPTESTTARGET?=	test
+PYSETUPTESTARGS?=	#empty
 PYSETUPSUBDIR?=		#empty
 
 do-build:
@@ -34,6 +37,12 @@ do-build:
 do-install:
 	(cd ${WRKSRC}/${PYSETUPSUBDIR} && ${SETENV} ${INSTALL_ENV} ${MAKE_ENV} \
 	 ${PYTHONBIN} ${PYSETUP} ${PYSETUPARGS} "install" ${_PYSETUPINSTALLARGS})
+.if !target(do-test) && !(defined(TEST_TARGET) && !empty(TEST_TARGET))
+do-test:
+	(cd ${WRKSRC}/${PYSETUPSUBDIR} && ${SETENV} ${MAKE_ENV} ${PYTHONBIN} \
+	 ${PYSETUP} ${PYSETUPARGS} ${PYSETUPTESTTARGET} ${PYSETUPTESTARGS})
+.endif
+
 .endif
 
 # PY_NO_EGG suppress the installation of the egg info file (and
@@ -52,8 +61,15 @@ INSTALL_ENV+=		PKGSRC_PYTHON_NO_EGG=defined
 PLIST_SUBST+=	PYINC=${PYINC} PYLIB=${PYLIB} PYSITELIB=${PYSITELIB}
 .endif
 
-# prepare Python>=32 bytecode file location change
-.if empty(_PYTHON_VERSION:M2?) && ${_PYTHON_VERSION} != "31"
+# prepare Python>=3.2 bytecode file location change
+# http://www.python.org/dev/peps/pep-3147/
+.if empty(_PYTHON_VERSION:M2?)
+PY_PEP3147?=	yes
+.endif
+.if defined(PY_PEP3147) && !empty(PY_PEP3147:M[yY][eE][sS])
 PLIST_AWK+=	-f ${PKGSRCDIR}/lang/python/plist-python.awk
 PLIST_AWK_ENV+=	PYTHON_SOABI="cpython-${_PYTHON_VERSION}"
+PRINT_PLIST_AWK+=	/^[^@]/ && /[^\/]+\.py[co]$$/ {
+PRINT_PLIST_AWK+=	gsub(/__pycache__\//, "")
+PRINT_PLIST_AWK+=	gsub(/\.cpython-${_PYTHON_VERSION}/, "")}
 .endif

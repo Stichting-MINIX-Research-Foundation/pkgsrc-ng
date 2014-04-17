@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.132 2013/06/06 12:54:01 wiz Exp $
+# $NetBSD: Makefile,v 1.141 2014/02/12 23:17:32 tron Exp $
 #
 
 DISTNAME=	amarok-${VERS}
-VERS=		2.6.0
-PKGREVISION=	12
+VERS=		2.8.0
+PKGREVISION=	3
 CATEGORIES=	audio multimedia
 MASTER_SITES=	ftp://ftp.kde.org/pub/kde/stable/amarok/${VERS}/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -49,8 +49,7 @@ SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-se
 .include "../../databases/mysql51-server/buildlink3.mk"
 SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-server}/lib/mysql:
 .else
-.include "../../databases/mysql5-server/buildlink3.mk"
-SUBST_SED.mysql+=	-e s:@@WLR@@:${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.mysql-server}/lib/mysql:
+PKG_FAIL_REASON+=	"Unknown mysql version: ${_MYSQL_VERSION}"
 .endif
 
 .include "../../audio/liblastfm/buildlink3.mk"
@@ -62,6 +61,7 @@ BUILDLINK_API_DEPENDS.taglib+=	taglib>=1.6nb1
 .include "../../devel/qtscriptgenerator/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../meta-pkgs/kde4/kde4.mk"
+.include "../../misc/nepomuk-core/buildlink3.mk"
 .include "../../multimedia/ffmpeg/buildlink3.mk"
 .include "../../multimedia/libkcompactdisc/buildlink3.mk"
 .include "../../security/qca2/buildlink3.mk"

@@ -1,38 +1,49 @@
-$NetBSD: patch-aa,v 1.2 2012/08/23 18:04:12 marino Exp $
+$NetBSD: patch-aa,v 1.4 2013/10/15 14:44:18 joerg Exp $
 
-cleanup cpp args dans adjust/fix Darwin build
-
---- Makefile.orig	2008-12-22 16:20:05.000000000 +0000
+--- Makefile.orig	2009-06-26 15:58:00.000000000 +0000
 +++ Makefile
-@@ -37,7 +37,7 @@ HDRS= fdm.h array.h fetch.h match.h deli
- YACC= yacc -d
+@@ -5,7 +5,7 @@
+ 
+ VERSION= 1.7
+ 
+-FDEBUG= 1
++#FDEBUG= 1
  
  CC?= cc
--INCDIRS+= -I. -I- -I/usr/local/include
-+INCDIRS+= -I. 
- .ifdef PROFILE
- # Don't use ccache
- CC= /usr/bin/gcc
-@@ -70,7 +70,8 @@ LIBS+= -lpcre
- .if ${OS} == "Darwin"
- SRCS+= compat/strtonum.c
- INCDIRS+= -Icompat -I/usr/local/include/openssl
--CFLAGS+= -DNO_STRTONUM -DNO_SETRESUID -DNO_SETRESGID -DNO_SETPROCTITLE
-+CFLAGS+= -DNO_STRTONUM -DNO_SETRESUID -DNO_SETRESGID -DNO_SETPROCTITLE -DNO_QUEUE_H -DNO_TREE_H
-+LIBS+=	-lresolv
- .endif
- 
- # NetBSD
-@@ -93,9 +94,9 @@ CFLAGS+= -DNO_STRTONUM
- .endif
- 
- PREFIX?= /usr/local
--INSTALLDIR= install -d
--INSTALLBIN= install -g bin -o root -m 555
--INSTALLMAN= install -g bin -o root -m 444
-+INSTALLDIR= @INSTALL_PROGRAM_DIR@
-+INSTALLBIN= @INSTALL_PROGRAM@
-+INSTALLMAN= @INSTALL_MAN@
- 
+ YACC= yacc -d
+@@ -13,15 +13,7 @@ CFLAGS+= -DBUILD="\"$(VERSION)\""
  LDFLAGS+= -L/usr/local/lib
- .ifdef PROFILE
+ LIBS+= -lssl -lcrypto -ltdb -lz
+ 
++CPPFLAGS+=-I.
+-# This sort of sucks but gets rid of the stupid warning and should work on
+-# most platforms...
+-CCV!= (LC_ALL=C ${CC} -v 2>&1|awk '/gcc version 4/') || true
+-.if empty(CCV)
+-CPPFLAGS:= -I. -I- -I/usr/local/include ${CPPFLAGS}
+-.else
+-CPPFLAGS:= -iquote. -I/usr/local/include ${CPPFLAGS}
+-.endif
+-
+ .ifdef FDEBUG
+ LDFLAGS+= -Wl,-E
+ CFLAGS+= -g -ggdb -DDEBUG
+@@ -76,12 +67,12 @@ regress:	fdm
+ 		cd regress && ${MAKE}
+ 
+ install:	all
+-		${INSTALLDIR} ${DESTDIR}${PREFIX}/bin
+-		${INSTALLBIN} fdm ${DESTDIR}${PREFIX}/bin/
+-		${INSTALLDIR} ${DESTDIR}${PREFIX}/man/man1
+-		${INSTALLMAN} fdm.1 ${DESTDIR}${PREFIX}/man/man1/
+-		${INSTALLDIR} ${DESTDIR}${PREFIX}/man/man5
+-		${INSTALLMAN} fdm.conf.5 ${DESTDIR}${PREFIX}/man/man5/
++		${BSD_INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/bin
++		${BSD_INSTALL_PROGRAM} fdm ${DESTDIR}${PREFIX}/bin/
++		${BSD_INSTALL_MAN_DIR} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
++		${BSD_INSTALL_MAN} fdm.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/
++		${BSD_INSTALL_MAN_DIR} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
++		${BSD_INSTALL_MAN} fdm.conf.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5/
+ 
+ uninstall:
+ 		rm -f ${DESTDIR}${PREFIX}/bin/fdm

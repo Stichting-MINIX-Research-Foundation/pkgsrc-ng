@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2012/10/31 11:19:36 asau Exp $
+# $NetBSD: Makefile,v 1.5 2014/01/27 19:00:18 wiz Exp $
 
-DISTNAME=	pyxdg-0.19
+DISTNAME=	pyxdg-0.25
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
 CATEGORIES=	devel python
-MASTER_SITES=	http://www.freedesktop.org/~lanius/
+MASTER_SITES=	http://people.freedesktop.org/~takluyver/
 
 MAINTAINER=	snj@NetBSD.org
 HOMEPAGE=	http://freedesktop.org/wiki/Software/pyxdg

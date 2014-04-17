@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2013/05/09 07:40:02 adam Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/19 09:07:06 adam Exp $
 #
 
 DISTNAME=	spl-1.0pre3
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	lang
 MASTER_SITES=	http://www.clifford.at/spl/releases/ \
 		http://www.clifford.at/spl/releases/OLD/
@@ -46,5 +46,5 @@ post-install:
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

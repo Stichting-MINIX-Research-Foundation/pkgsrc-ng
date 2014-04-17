@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.7 2013/06/18 19:59:35 joerg Exp $
+# $NetBSD: Makefile.common,v 1.13 2014/02/13 07:49:56 adam Exp $
 #
 # used by databases/mysql56-client/Makefile
 # used by databases/mysql56-server/Makefile
 
-DISTNAME=	mysql-5.6.12
+DISTNAME=	mysql-5.6.16
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-5.6/}
 
@@ -60,7 +60,6 @@ CMAKE_ARGS+=		-DINSTALL_SQLBENCHDIR="share/mysql/sql-bench"
 CMAKE_ARGS+=		-DINSTALL_SUPPORTFILESDIR="share/mysql"
 CMAKE_ARGS+=		-DMYSQL_DATADIR=${MYSQL_DATADIR}
 
-# always use our own readline, not MySQL bundled one
 CMAKE_ARGS+=		-DWITH_ZLIB="system"
 CMAKE_ARGS+=		-DDEFAULT_CHARSET=${MYSQL_CHARSET:Q}
 CMAKE_ARGS+=		-DDEFAULT_COLLATION=${MYSQL_COLLATION:Q}
@@ -111,14 +110,15 @@ SUBST_SED.scr=		-e "s,chown,${CHOWN},g"
 SUBST_SED.scr+=		-e "s,/bin/sh,${RCD_SCRIPTS_SHELL},g"
 SUBST_MESSAGE.scr=	Fixing scripts.
 
-.include "../../devel/readline/buildlink3.mk"
+.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+SOEXT="dylib"
+.else
+SOEXT="so"
+.endif
 
 CMAKE_ARGS+=	-DWITH_EDITLINE=system
-.if !empty(USE_BUILTIN.readline:M[yY][eE][sS]) && !empty(BUILTIN_LIB_FOUND.edit:M[yY][eE][sS])
-CMAKE_ARGS+=	-DEDITLINE_LIBRARY=${BUILDLINK_PREFIX.readline}/lib/libedit.so
-.else
-CMAKE_ARGS+=	-DEDITLINE_LIBRARY=${BUILDLINK_PREFIX.readline}/lib/libreadline.so
-.endif
-CMAKE_ARGS+=	-DEDITLINE_INCLUDE_DIR=${BUILDLINK_PREFIX.readline}/include/readline
+CMAKE_ARGS+=	-DEDITLINE_LIBRARY=${BUILDLINK_PREFIX.editline}/lib/libedit.${SOEXT}
+CMAKE_ARGS+=	-DEDITLINE_INCLUDE_DIR=${BUILDLINK_PREFIX.editline}/include/readline
 
+.include "../../devel/editline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

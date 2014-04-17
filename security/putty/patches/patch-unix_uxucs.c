@@ -1,4 +1,4 @@
-$NetBSD: patch-unix_uxucs.c,v 1.1.6.1 2013/08/21 19:40:13 tron Exp $
+$NetBSD: patch-unix_uxucs.c,v 1.2 2013/08/07 11:06:39 drochner Exp $
 
 --- unix/uxucs.c.orig	2013-07-22 07:12:05.000000000 +0000
 +++ unix/uxucs.c

@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2013/03/15 18:57:17 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.22 2013/12/11 19:45:28 wiz Exp $
 
-DISTNAME=		fribidi-0.19.5
-PKGREVISION=		1
+DISTNAME=		fribidi-0.19.6
 CATEGORIES=		converters
 MASTER_SITES=		http://fribidi.org/download/
 LICENSE=		gnu-gpl-v2
@@ -24,5 +22,13 @@ USE_TOOLS+=		pkg-config gmake
 PKGCONFIG_OVERRIDE=	fribidi.pc.in
 
 TEST_TARGET=		check
+
+# avoid installing empty man pages
+# (makemandb reports errors for them, and they have no use)
+# https://bugs.freedesktop.org/show_bug.cgi?id=67714
+
+post-install:
+	cd ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3 && \
+		rm fribidi_set_debug.3 fribidi_unicode_version.3 fribidi_version_info.3
 
 .include "../../mk/bsd.pkg.mk"

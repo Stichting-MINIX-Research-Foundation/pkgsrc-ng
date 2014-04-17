@@ -1,4 +1,4 @@
-/*	$NetBSD: http.c,v 1.32 2012/04/07 15:27:21 joerg Exp $	*/
+/*	$NetBSD: http.c,v 1.35 2014/01/08 20:25:34 joerg Exp $	*/
 /*-
  * Copyright (c) 2000-2004 Dag-Erling Coïdan Smørgrav
  * Copyright (c) 2003 Thomas Klausner <wiz@NetBSD.org>
@@ -63,8 +63,12 @@
  * SUCH DAMAGE.
  */
 
-#if defined(__linux__) || defined(__MINT__)
+#if defined(__linux__) || defined(__MINT__) || defined(__FreeBSD_kernel__)
 /* Keep this down to Linux or MiNT, it can create surprises elsewhere. */
+/*
+   __FreeBSD_kernel__ is defined for GNU/kFreeBSD.
+   See http://glibc-bsd.alioth.debian.org/porting/PORTING .
+*/
 #define _GNU_SOURCE
 #endif
 
@@ -405,6 +409,7 @@ static struct {
 /*
  * Send a formatted line; optionally echo to terminal
  */
+LIBFETCH_PRINTFLIKE(2, 3)
 static int
 http_cmd(conn_t *conn, const char *fmt, ...)
 {
@@ -747,7 +752,7 @@ http_connect(struct url *URL, struct url *purl, const char *flags, int *cached)
 		/* fetch_connect() has already set an error code */
 		return (NULL);
 	if (strcasecmp(URL->scheme, SCHEME_HTTPS) == 0 &&
-	    fetch_ssl(conn, verbose) == -1) {
+	    fetch_ssl(conn, URL, verbose) == -1) {
 		fetch_close(conn);
 		/* grrr */
 #ifdef EAUTH

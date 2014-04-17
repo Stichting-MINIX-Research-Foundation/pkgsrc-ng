@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.27 2013/06/06 12:54:42 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2014/02/12 23:18:10 tron Exp $
 #
 
 DISTNAME=	thunderbird-${TB_VER}esr.source
 PKGNAME=	thunderbird10-${TB_VER}
 TB_VER=		10.0.12
-PKGREVISION=	6
+PKGREVISION=	11
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_MOZILLA_ESR:=thunderbird/releases/${TB_VER}esr/source/}
 EXTRACT_SUFX=	.tar.bz2
@@ -59,6 +59,7 @@ post-build:
 	  < ${FILESDIR}/desktop.in					\
 	  > ${WRKDIR}/desktop
 
+INSTALLATION_DIRS+=	lib/${MOZILLA}/extensions
 INSTALLATION_DIRS+=	share/applications share/pixmaps
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/desktop				\

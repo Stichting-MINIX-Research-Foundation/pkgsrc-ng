@@ -1,4 +1,4 @@
-# $NetBSD: tools.OpenBSD.mk,v 1.33 2012/05/03 06:52:01 obache Exp $
+# $NetBSD: tools.OpenBSD.mk,v 1.35 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the OpenBSD operating system.
 
@@ -71,6 +71,7 @@ TOOLS_PLATFORM.pax?=		/bin/pax
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
 TOOLS_PLATFORM.readelf?=	/usr/bin/readelf
+TOOLS_PLATFORM.readlink?=	/usr/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 TOOLS_PLATFORM.sdiff?=		/usr/bin/sdiff
@@ -95,6 +96,7 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
 TOOLS_PLATFORM.wc?=		/usr/bin/wc
 TOOLS_PLATFORM.xargs?=		/usr/bin/xargs -r
 TOOLS_PLATFORM.yacc?=		/usr/bin/yacc

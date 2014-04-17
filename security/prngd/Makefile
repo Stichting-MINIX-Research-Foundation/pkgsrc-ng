@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.13 2013/04/08 11:17:22 rodent Exp $
+# $NetBSD: Makefile,v 1.15 2013/08/03 14:44:28 rodent Exp $
 
 DISTNAME=		prngd-0.9.29
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=prngd/}
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
+MAINTAINER=		rodent@NetBSD.org
 HOMEPAGE=		http://prngd.sourceforge.net/
 COMMENT=		Pseudo Random Number Generator Daemon
 
@@ -21,6 +21,8 @@ SUBST_MESSAGE.path=	Fixing paths in man page.
 SUBST_FILES.path=	prngd.man
 SUBST_SED.path=		-e 's,/usr/local,${PREFIX},g'
 SUBST_SED.path+=	-e 's,/var,${VARBASE},g'
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE}

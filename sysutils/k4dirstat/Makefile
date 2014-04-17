@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2013/06/06 12:55:05 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2014/02/12 23:18:40 tron Exp $
 
 DISTNAME=	k4dirstat-2.7.4
-PKGREVISION=	5
+PKGREVISION=	8
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bitbucket.org/jeromerobert/k4dirstat/get/
 EXTRACT_SUFX=	.tar.bz2
@@ -16,8 +16,6 @@ USE_TOOLS+=	perl msgfmt
 USE_LANGUAGES=	c c++
 
 WRKSRC=		${WRKDIR}/jeromerobert-k4dirstat-33ed79e1054e
-
-FETCH_USING=	curl
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"

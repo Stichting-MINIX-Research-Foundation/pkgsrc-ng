@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.9 2011/04/20 18:50:00 hans Exp $
+# $NetBSD: options.mk,v 1.11 2013/10/15 16:21:46 asau Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.clisp
 
@@ -9,7 +9,9 @@ PKG_SUPPORTED_OPTIONS+=		readline
 
 PKG_SUPPORTED_OPTIONS+=		gmalloc
 
-PKG_SUGGESTED_OPTIONS+=		ffcall readline
+PKG_SUPPORTED_OPTIONS+=		doc
+
+PKG_SUGGESTED_OPTIONS+=		ffcall readline doc
 
 # CLISP doesn't work with jemalloc:
 .if ${OPSYS} == "NetBSD"
@@ -39,9 +41,15 @@ CONFIGURE_ARGS+=	--with-dynamic-ffi
 .endif
 
 .if !empty(PKG_OPTIONS:Mreadline)
-USE_GNU_READLINE=	YES
 CONFIGURE_ARGS+=	--with-readline
 .include "../../devel/readline/buildlink3.mk"
+.endif
+
+.if !empty(PKG_OPTIONS:Mdoc)
+USE_TOOLS+=		dvipdf groff
+.else
+# suppress generation of printable documentation
+CONFIGURE_ENV+=		PS2PDF= ac_cv_prog_PS2PDF=
 .endif
 
 

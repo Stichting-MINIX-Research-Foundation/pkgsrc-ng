@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.140 2013/06/17 12:44:54 wiz Exp $
+# $NetBSD: Makefile,v 1.146 2014/01/01 11:52:21 wiz Exp $
 
 DISTNAME=	mono-3.0.10
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/mono/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,7 +14,7 @@ LICENSE=	mit AND gnu-gpl-v2 AND gnu-lgpl-v2 AND apache-2.0
 MAKE_JOBS_SAFE=	no
 BUILD_DEPENDS+=	p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
 CONFLICTS=	pnet-[0-9]* mcsim-[0-9]* lc-[0-9]*
-ALL_ENV+=	MONO_SHARED_DIR=${WRKDIR:Q}
+ALL_ENV+=	MONO_SHARED_DIR=${WRKDIR:Q} PLATFORM=
 
 USE_TOOLS+=	bash:run bison gmake gtar msgfmt perl:run pkg-config
 USE_LIBTOOL=	yes
@@ -137,8 +137,17 @@ PLIST_VARS=	monodoc
 CONFIGURE_ARGS+=	--with-mcs-docs=no
 CONFIGURE_ENV+=		ac_cv_func_getdomainname=no
 CONFIGURE_ENV+=		ac_cv_func_setdomainname=no
+.  if ${ABI} == "32"
 ULIMIT_CMD_datasize=	ulimit -d 262144
 ULIMIT_CMD_stacksize=	ulimit -s 10240
+.  else
+CONFIGURE_ARGS+=	--with-sigaltstack=no
+ULIMIT_CMD_datasize=	ulimit -d 524288
+ULIMIT_CMD_stacksize=	ulimit -s 10240
+.  endif
+.elif ${OPSYS} == "NetBSD" && ${MACHINE_ARCH:M*arm*}
+CONFIGURE_ARGS+=	--with-mcs-docs=no
+CONFIGURE_ARGS+=	--disable-parallel-mark
 .else
 PLIST.monodoc=		yes
 .endif

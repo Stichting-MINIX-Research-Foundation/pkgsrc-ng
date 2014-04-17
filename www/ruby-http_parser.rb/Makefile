@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2011/10/04 12:01:02 obache Exp $
+# $NetBSD: Makefile,v 1.5 2014/01/17 13:19:18 obache Exp $
 
-DISTNAME=	http_parser.rb-0.5.3
+DISTNAME=	http_parser.rb-0.6.0
 CATEGORIES=	www
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://github.com/tmm1/http_parser.rb
 COMMENT=	Simple callback-based HTTP request/response parser
 LICENSE=	mit

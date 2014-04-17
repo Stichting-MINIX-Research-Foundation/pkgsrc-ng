@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2013/01/31 21:45:05 adam Exp $
+# $NetBSD: Makefile,v 1.24 2014/01/11 10:52:46 adam Exp $
 
 .include "../../devel/gettext/Makefile.common"
 
@@ -9,10 +9,12 @@ DISTINFO_FILE=	${.CURDIR}/../../devel/gettext/distinfo
 PATCHDIR=	${.CURDIR}/../../devel/gettext/patches
 
 USE_LANGUAGES=		c c++
+USE_TOOLS+=		xz
 USE_PKGLOCALEDIR=	yes
 CONFIGURE_ARGS+=	--disable-csharp
 CONFIGURE_ARGS+=	--with-included-libcroco
 CONFIGURE_ARGS+=	--without-git
+CONFIGURE_ARGS+=	--with-xz
 CONFIGURE_ARGS+=	--without-included-gettext
 CONFIGURE_ENV+=		GCJ= ac_cv_prog_GCJ= ac_cv_prog_JAR=
 CONFIGURE_ENV+=		HAVE_GCJ_IN_PATH=
@@ -27,6 +29,11 @@ INFO_FILES=		yes
 BROKEN_GETTEXT_DETECTION=	yes
 USE_BUILTIN.gettext=	no # force use of pkgsrc gettext-lib
 
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "Cygwin"
+BUILDLINK_TRANSFORM+=	rm:-Wl,--disable-auto-import
+.endif
+
 post-install:
 	cd ${WRKSRC}/gettext-tools/misc && ${MAKE} install DESTDIR=${DESTDIR}
 	${INSTALL_MAN} ${WRKSRC}/gettext-tools/man/autopoint.1 \
@@ -34,7 +41,6 @@ post-install:
 	${INSTALL_MAN} ${WRKSRC}/gettext-tools/man/gettextize.1 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

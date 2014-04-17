@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.60 2013/05/31 12:41:59 wiz Exp $
+# $NetBSD: Makefile,v 1.62 2014/03/13 11:08:52 jperkin Exp $
 
 .include "../../sysutils/coreutils/Makefile.common"
 
-PKGREVISION=	6
 
 CONFIGURE_ARGS+=	--without-gmp
 
@@ -23,6 +22,11 @@ PLIST_VARS+=		hostid stdbuf
 PLIST.hostid=		yes
 .endif
 
+# This should really only be defined if building stdbuf, however we cannot
+# set this variable after including compiler.mk, so we take the hit of
+# setting it unconditionally for now.
+USE_GCC_RUNTIME=	yes
+
 .include "../../mk/compiler.mk"
 
 .if ${OBJECT_FMT} == "ELF" && \
@@ -34,10 +38,10 @@ PROGS=	[ base64 basename cat chcon chgrp chmod chown chroot cksum comm \
 	cp csplit cut date dd df dir dircolors dirname du hostid echo env \
 	expand expr factor false fmt fold groups head id install join kill \
 	link ln logname ls md5sum mkdir mkfifo mknod mktemp mv nice nl \
-	nohup nproc od paste pathchk pinky pr printenv printf ptx pwd \
-	readlink rm rmdir runcon seq sha1sum sha224sum sha256sum sha384sum \
-	sha512sum shred shuf sleep sort split stat stdbuf stty sum sync tac \
-	tail tee test timeout touch tr true truncate tsort tty uname \
+	nohup nproc numfmt od paste pathchk pinky pr printenv printf ptx pwd \
+	readlink realpath rm rmdir runcon seq sha1sum sha224sum sha256sum \
+	sha384sum sha512sum shred shuf sleep sort split stat stdbuf stty sum \
+	sync tac tail tee test timeout touch tr true truncate tsort tty uname \
 	unexpand uniq unlink uptime users vdir wc who whoami yes
 
 AUTO_MKDIRS=	yes

@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.89 2013/01/06 00:38:13 wiz Exp $
+# $NetBSD: Makefile,v 1.95 2014/03/15 01:43:05 obache Exp $
 
-DISTNAME=	freetype-2.4.11
+DISTNAME=	freetype-2.5.3
 PKGNAME=	${DISTNAME:S/-/2-/}
+PKGREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/}
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/} \
+		http://download.savannah.gnu.org/releases/freetype/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	rh@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freetype.org/
 COMMENT=	Font rendering engine and library API
 LICENSE=	gnu-gpl-v2
@@ -31,15 +33,7 @@ PKGCONFIG_OVERRIDE=	builds/unix/freetype2.in
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
 
-PKG_OPTIONS_VAR=	PKG_OPTIONS.freetype2
-PKG_SUPPORTED_OPTIONS=	subpixel
-
-.include "../../mk/bsd.options.mk"
-
-# subpixel (lcd) rendering, patent issues
-.if !empty(PKG_OPTIONS:Msubpixel)
-CFLAGS+=	-DFT_CONFIG_OPTION_SUBPIXEL_RENDERING
-.endif
+.include "options.mk"
 
 # source code breaks strict aliasing in gcc>=2.95
 .if !empty(CC_VERSION:Mgcc-[3-9]*) || !empty(CC_VERSION:Mgcc-2.95*)

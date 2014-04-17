@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2013/06/06 12:55:12 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2014/02/12 23:18:46 tron Exp $
 #
 
 DISTNAME=	netsurf-1.2-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	26
+PKGREVISION=	30
 CATEGORIES=	www
 MASTER_SITES=	http://www.netsurf-browser.org/downloads/releases/
 
@@ -41,6 +41,7 @@ do-install:
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../devel/libglade/buildlink3.mk"
 .include "../../graphics/librsvg/buildlink3.mk"
+.include "../../graphics/lcms/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: common.mk,v 1.1.2.2 2013/08/25 16:56:44 tron Exp $
+# $NetBSD: common.mk,v 1.1 2013/07/21 17:29:47 taca Exp $
 # used by lang/php53/Makefile.common
 # used by lang/php54/Makefile.common
 # 

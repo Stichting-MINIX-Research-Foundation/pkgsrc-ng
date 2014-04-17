@@ -1,0 +1,15 @@
+$NetBSD: patch-browser_installer_package-manifest.in,v 1.4 2014/03/20 21:02:00 ryoon Exp $
+
+Limit SPARC bits to just SPARC (untested, but fixes x86).
+
+--- browser/installer/package-manifest.in.orig	2014-03-15 05:19:09.000000000 +0000
++++ browser/installer/package-manifest.in
+@@ -732,7 +732,7 @@
+ #endif
+ 
+ ; for Solaris SPARC
+-#ifdef SOLARIS
++#if defined(SOLARIS) && defined(SPARC)
+ bin/libfreebl_32fpu_3.so
+ bin/libfreebl_32int_3.so
+ bin/libfreebl_32int64_3.so

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.12 2012/10/31 11:17:22 asau Exp $
+# $NetBSD: Makefile,v 1.14 2014/02/27 12:45:24 obache Exp $
 
-DISTNAME=	libthai-0.1.18
+DISTNAME=	libthai-0.1.20
 CATEGORIES=	devel
 MASTER_SITES=	http://linux.thai.net/pub/thailinux/software/libthai/ \
 		ftp://linux.thai.net/pub/ThaiLinux/software/libthai/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	obache@NetBSD.org
 HOMEPAGE=	http://linux.thai.net/projects/libthai

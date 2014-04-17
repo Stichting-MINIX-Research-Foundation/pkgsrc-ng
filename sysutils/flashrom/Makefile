@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2012/10/23 19:51:02 asau Exp $
+# $NetBSD: Makefile,v 1.8 2014/02/26 10:31:40 wiedi Exp $
 #
 
-DISTNAME=	flashrom-0.9.5.2
+DISTNAME=	flashrom-0.9.7
 PKGNAME=	${DISTNAME:S/-r/pre/}
 CATEGORIES=	sysutils
 MASTER_SITES=	http://download.flashrom.org/releases/
@@ -20,7 +20,7 @@ USE_TOOLS+= gmake pkg-config
 DEPENDS+=	dmidecode-[0-9]*:../../sysutils/dmidecode
 .endif
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS"
 
 SUBST_CLASSES+=	pciutils
 SUBST_FILES.pciutils=	Makefile
@@ -32,6 +32,11 @@ SUBST_SED.pciutils+= -e 's,<pci/pci.h>,<pciutils/pci.h>,g'
 LDFLAGS+= -lpci
 CPPFLAGS+= -I/${PREFIX}/include
 
+.endif
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
+.if ${OPSYS} == "SunOS"
+MAKE_ENV+=	WARNERROR=0
 .endif
 
 INSTALLATION_DIRS=	sbin ${PKGMANDIR}/man8

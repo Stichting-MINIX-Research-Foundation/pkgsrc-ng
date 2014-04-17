@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2013/06/06 12:55:06 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2014/02/12 23:18:40 tron Exp $
 
 DISTNAME=	strigi-0.7.8
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.vandenoever.info/software/strigi/
 EXTRACT_SUFX=	.tar.bz2
@@ -25,8 +25,11 @@ RT_LIB_SCHED=	-lrt
 RT_LIB_SCHED=	# empty
 .endif
 
+LDFLAGS.Darwin+=	-lclucene-shared
+LDFLAGS.DragonFly+=	-lclucene-shared
+
 CFLAGS.SunOS+=	-DCMAKE_HAVE_PTHREAD_CREATE
-LDFLAGS.SunOS+=	-mimpure-text -lrt -lsocket
+LDFLAGS.SunOS+=	-mimpure-text -lrt -lsocket -lclucene-shared
 
 CMAKE_ARGS+=	-DENABLE_FFMPEG=OFF
 .if !empty(RT_LIB_SCHED)
@@ -38,6 +41,7 @@ CMAKE_ARGS+=	-Dtest_LIBS=${RT_LIB_SCHED}
 pre-configure:
 	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/
 
+BUILDLINK_API_DEPENDS.libclucene+=	libclucene>=2.3.3.4
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/cppunit/buildlink3.mk"

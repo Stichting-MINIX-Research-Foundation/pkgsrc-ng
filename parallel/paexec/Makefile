@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2013/03/08 14:06:30 cheusov Exp $
+# $NetBSD: Makefile,v 1.14 2013/08/26 16:20:03 cheusov Exp $
 #
 
-DISTNAME=	paexec-0.18.0
-PKGREVISION=	1
+DISTNAME=	paexec-0.19.1
 CATEGORIES=	parallel sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=paexec/} \
 		http://mova.org/~cheusov/pub/paexec/
@@ -31,7 +30,9 @@ MAKE_ENV+=		EGDIR=${EGDIR}
 REPLACE_SH+=		examples/cc_wrapper/cc_wrapper_cmd \
 			tests/broken_echo/transport_broken_echo2
 
-.include "../../devel/mk-configure/mk-c.mk"
+post-install:
+	set -e; cd ${WRKSRC}; \
+	${INSTALL_DATA} presentation/paexec.pdf ${DESTDIR}${PREFIX}/share/doc/paexec/
 
-.include "../../devel/libmaa/buildlink3.mk"
+.include "../../devel/mk-configure/mk-c.mk"
 .include "../../mk/bsd.pkg.mk"

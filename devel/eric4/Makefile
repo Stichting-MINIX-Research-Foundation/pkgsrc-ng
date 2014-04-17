@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.37 2013/06/06 12:54:12 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.40 2014/02/12 23:17:46 tron Exp $
 
-VERS=			4.5.6
+VERS=			4.5.18
 DISTNAME=		eric4-${VERS}
-PKGREVISION=		6
+PKGREVISION=		1
 CATEGORIES=		devel
 MASTER_SITES=	http://downloads.sourceforge.net/project/eric-ide/eric4/stable/${VERS}/
+EXTRACT_USING=		gtar
 
 MAINTAINER=		helgoman@users.sourceforge.net
 HOMEPAGE=		http://eric-ide.python-projects.org/index.html
@@ -15,6 +15,7 @@ LICENSE=		gnu-gpl-v3
 NO_BUILD=				yes
 
 PY_PATCHPLIST=			yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 4.5.18
 
 CONFIGURE_ARGS+=		-b ${PREFIX}/bin
 CONFIGURE_ARGS+=		-d ${PREFIX}/${PYSITELIB}

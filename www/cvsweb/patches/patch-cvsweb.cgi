@@ -1,4 +1,4 @@
-$NetBSD: patch-cvsweb.cgi,v 1.1.2.2 2013/08/14 12:45:40 tron Exp $
+$NetBSD: patch-cvsweb.cgi,v 1.1 2013/07/30 13:01:11 tez Exp $
 
 Fix warnings from newer perl versions
 

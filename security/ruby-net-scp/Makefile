@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2013/06/16 17:15:26 taca Exp $
+# $NetBSD: Makefile,v 1.8 2013/09/15 14:57:11 taca Exp $
 
-DISTNAME=	net-scp-1.1.1
+DISTNAME=	net-scp-1.1.2
 CATEGORIES=	net security
 
-MAINTAINER=	filip@joyent.com
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://rubyforge.org/projects/net-ssh/
 COMMENT=	Secure copy for Ruby
 LICENSE=	mit

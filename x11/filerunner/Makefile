@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2013/06/06 12:55:12 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2014/01/20 19:20:09 joerg Exp $
 
 DISTNAME=	FileRunner-2.5.1
 PKGNAME=	${DISTNAME:S/FileRunner/filerunner/}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	x11
 MASTER_SITES=	http://www.cd.chalmers.se/~hch/
 
@@ -30,6 +30,8 @@ do-install:
 .for map in cross.bit frterm.bit larger.bit left.bit max.bit pgdown.bit pgup.bit right.bit smaller.bit toggle.bit tree.bit up.bit update.bit xterm.bit
 		${INSTALL_DATA} ${WRKSRC}/bitmaps/${map} ${DESTDIR}${PREFIX}/lib/FileRunner/bitmaps
 .endfor
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 .include "../../x11/tk/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

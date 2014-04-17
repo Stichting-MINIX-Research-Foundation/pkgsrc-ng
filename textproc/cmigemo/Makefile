@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:42:06 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2013/09/19 09:18:06 obache Exp $
 #
 
 DISTNAME=	cmigemo-default-src-20110227
@@ -19,7 +19,7 @@ SKKJISYO_VERS=	201102
 JISYOFILE=	SKK-JISYO.L.${SKKJISYO_VERS}.bz2
 SITES.${SKKJISYO_FILE}=	${MASTER_SITE_FREEBSD_LOCAL:=matusita/skk-jisyo/}
 
-BUILD_DEPENDS+= nkf>=2.06:../../converters/nkf
+TOOL_DEPENDS+= nkf>=2.06:../../converters/nkf
 
 HAS_CONFIGURE=	yes
 USE_TOOLS+=	perl gzip gmake
@@ -27,6 +27,9 @@ USE_LIBTOOL=	yes
 WRKSRC=		${WRKDIR}/cmigemo-default-src
 
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
+CONFIGURE_ENV+=		PROGRAM_INSTALL=${INSTALL:Q}
+CONFIGURE_ENV+=		PROGRAM_ENCODEFILTER="nkf -x"
+CONFIGURE_ENV+=		PROGRAM_HTTP=${TRUE:Q}
 INSTALL_MAKE_FLAGS+=	prefix=${DESTDIR}${PREFIX}
 
 SUBST_CLASSES+=	prefix
@@ -39,8 +42,5 @@ INSTALL_TARGET=	gcc-install
 
 post-extract:
 	${MV} ${WRKDIR}/${JISYOFILE:R} ${WRKSRC}/dict/SKK-JISYO.L
-
-# no need to fetch SKK dictionaly file
-TOOLS_NOOP+=	curl
 
 .include "../../mk/bsd.pkg.mk"

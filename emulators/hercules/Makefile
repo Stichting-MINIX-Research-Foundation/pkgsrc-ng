@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.30 2013/05/31 12:41:00 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2013/10/15 14:14:53 ryoon Exp $
 
-DISTNAME=		hercules-3.07
-PKGREVISION=		3
+DISTNAME=		hercules-3.09
 CATEGORIES=		emulators
-MASTER_SITES=		http://www.hercules-390.org/
+MASTER_SITES=		http://downloads.hercules-390.eu/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.hercules-390.org/
+HOMEPAGE=		http://www.hercules-390.eu/
 COMMENT=		S370 emulator
 LICENSE=		qpl-v1.0
 
@@ -20,7 +19,7 @@ USE_LIBTOOL=		YES
 
 PTHREAD_OPTS+=		require
 
-REPLACE_PERL+=		util/cvslvlck
+REPLACE_PERL+=		util/bldlvlck
 USE_TOOLS+=		perl:run
 
 INSTALLATION_DIRS+=	bin share/examples/hercules
@@ -30,6 +29,7 @@ INSTALLATION_DIRS+=	bin share/examples/hercules
 pre-configure:
 	${RM} ${WRKSRC}/ltdl.h ${WRKSRC}/ltdl.c
 	cd ${WRKSRC} && autoconf
+
 pre-install:
 	${INSTALL_DATA} ${WRKSRC}/hercules.cnf ${DESTDIR}${PREFIX}/share/examples/hercules/
 #	${INSTALL_DATA} ${WRKSRC}/zzsa.cnf ${DESTDIR}${PREFIX}/share/examples/hercules/

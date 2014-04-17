@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.79 2013/06/06 12:54:42 wiz Exp $
+# $NetBSD: Makefile,v 1.87 2014/02/12 23:18:08 tron Exp $
 #
 
 DISTNAME=	mail-notification-5.4
-PKGREVISION=	27
+PKGREVISION=	34
 CATEGORIES=	mail gnome
 MASTER_SITES=	http://savannah.nongnu.org/download/mailnotify/
 EXTRACT_SUFX=	.tar.bz2
@@ -48,6 +48,11 @@ CONFIGURE_ARGS+=	sasl=no
 .  include "../../security/openssl/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	ssl=no
+.endif
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-unused-function
 .endif
 
 do-build:

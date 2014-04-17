@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.30 2013/06/27 15:48:11 joerg Exp $
+# $NetBSD: Makefile,v 1.33 2014/02/12 23:17:34 tron Exp $
 #
 
 DISTNAME=		lmms-0.4.15
+PKGREVISION=		2
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=lmms/}
 EXTRACT_SUFX=		.tar.bz2
@@ -14,7 +15,7 @@ LICENSE=		gnu-gpl-v2
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
-USE_TOOLS+=		gmake perl
+USE_TOOLS+=		gmake perl pkg-config
 USE_CMAKE=		yes
 
 BUILDLINK_TRANSFORM+=	rm:-floop-optimize2 rm:-fgcse-las rm:-ldl

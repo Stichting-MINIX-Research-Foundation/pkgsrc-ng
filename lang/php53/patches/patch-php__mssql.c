@@ -1,4 +1,4 @@
-$NetBSD: patch-php__mssql.c,v 1.1.16.1 2013/07/15 22:32:24 tron Exp $
+$NetBSD: patch-php__mssql.c,v 1.2 2013/07/12 00:07:04 taca Exp $
 
 Fix with newer freetds:
 

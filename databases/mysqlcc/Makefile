@@ -1,27 +1,23 @@
-# $NetBSD: Makefile,v 1.41 2013/06/06 12:54:11 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2013/10/09 17:39:06 wiz Exp $
 #
 
-DISTNAME=		mysqlcc-0.9.8-src
+DISTNAME=		mysqlcc-1.0.2-src
 PKGNAME=		${DISTNAME:S/-src//}
-PKGREVISION=		12
+PKGREVISION=		1
 CATEGORIES=		databases
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=mysqlcc/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://mysqlcc.sourceforge.net/
 COMMENT=		MySQL Control Center
+LICENSE=		gnu-gpl-v2
 
 USE_LANGUAGES=		c c++
-USE_PKGLOCALEDIR=	YES
-USE_TOOLS+=		autoconf automake
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	\
-	--with-mysql-lib=${BUILDLINK_PREFIX.mysql-client}/lib/mysql
+	--with-mysql-lib=${BUILDLINK_PREFIX.mysql-client}/${BUILDLINK_LIBDIRS.mysql-client}
 CONFIGURE_ARGS+=	\
-	--with-mysql-include=${BUILDLINK_PREFIX.mysql-client}/include/mysql
-CONFIGURE_ARGS+=	--with-openssl-includes=${SSLBASE}/include
-CONFIGURE_ARGS+=	--with-openssl-lib=${SSLBASE}/lib
-CONFIGURE_ENV+=		QMAKESPEC="${QTDIR}/mkspecs/netbsd-g++"
+	--with-mysql-include=${BUILDLINK_PREFIX.mysql-client}/${BUILDLINK_INCDIRS.mysql-client}
 
 SUBST_CLASSES+=		paths
 SUBST_STAGE.paths=	pre-configure
@@ -29,13 +25,8 @@ SUBST_FILES.paths=	src/CApplication.cpp
 SUBST_SED.paths=	-e "s|@PREFIX@|${PREFIX}|"
 SUBST_MESSAGE.paths=	Fixing paths.
 
-MYSQL_VERSIONS_ACCEPTED=	50
-
 INSTALLATION_DIRS=	bin share/mysqlcc/translations
 SUPPORT_FILES=		error.wav information.wav syntax.txt warning.wav
-
-pre-configure:
-	cd ${WRKSRC} && aclocal && autoconf
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mysqlcc ${DESTDIR}${PREFIX}/bin
@@ -47,7 +38,6 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/translations/*.ts \
 		${DESTDIR}${PREFIX}/share/mysqlcc/translations
 
-.include "../../security/openssl/buildlink3.mk"
 .include "../../x11/qt3-tools/buildlink3.mk"
 .include "../../mk/mysql.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2013/06/02 11:24:56 ryoon Exp $
+# $NetBSD: Makefile,v 1.9 2013/10/12 10:30:40 ryoon Exp $
 #
 
-DISTNAME=	newlisp-10.5.0
+DISTNAME=	newlisp-10.5.4
 CATEGORIES=	lang
 MASTER_SITES=	http://www.newlisp.org/downloads/
 EXTRACT_SUFX=	.tgz
@@ -25,5 +25,5 @@ SUBST_FILES.interpreter=	guiserver/*lsp util/syntax.cgi util/newlispdoc
 SUBST_SED.interpreter=		-e 's,/usr/bin/newlisp,${PREFIX}/bin/newlisp,'
 SUBST_SED.interpreter+=		-e 's,/usr/bin/env newlisp,${PREFIX}/bin/newlisp,'
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

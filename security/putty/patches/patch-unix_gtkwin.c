@@ -1,4 +1,4 @@
-$NetBSD: patch-unix_gtkwin.c,v 1.2.6.1 2013/08/21 19:40:13 tron Exp $
+$NetBSD: patch-unix_gtkwin.c,v 1.3 2013/08/07 11:06:39 drochner Exp $
 
 Make the home/end keys work on BSD servers as well as Linux ones
 

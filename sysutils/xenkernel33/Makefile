@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2013/06/19 14:03:41 gdt Exp $
-#
+# $NetBSD: Makefile,v 1.26 2014/01/25 10:30:22 wiz Exp $
 
 VERSION=	3.3.2
 DISTNAME=	xen-${VERSION}
@@ -28,6 +27,7 @@ USE_TOOLS+=	gmake
 
 PYTHON_FOR_BUILD_ONLY=	yes
 PY_PATCHPLIST=		NO
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 3.3.2
 
 SUBST_CLASSES+=		py
 SUBST_STAGE.py=		pre-build
@@ -50,7 +50,8 @@ MESSAGE_SUBST+=		XENKERNELDIR=${XENKERNELDIR:Q}
 .if !empty(PKGSRC_COMPILER:Mclang)
 EXTRA_CFLAGS+=	-Qunused-arguments -no-integrated-as -Wno-error=format \
 		-Wno-error=parentheses-equality -Wno-error=enum-conversion \
-		-Wno-error=tautological-compare
+		-Wno-error=tautological-compare -Wno-error=unused-function
+BUILDLINK_TRANSFORM+=	rm:-fno-reorder-blocks
 .endif
 
 do-build:

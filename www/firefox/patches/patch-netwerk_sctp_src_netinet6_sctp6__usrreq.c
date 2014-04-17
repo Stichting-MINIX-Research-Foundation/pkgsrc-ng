@@ -1,4 +1,4 @@
-$NetBSD: patch-netwerk_sctp_src_netinet6_sctp6__usrreq.c,v 1.1 2013/06/26 11:32:12 ryoon Exp $
+$NetBSD: patch-netwerk_sctp_src_netinet6_sctp6__usrreq.c,v 1.3 2014/02/20 13:19:03 ryoon Exp $
 
 --- netwerk/sctp/src/netinet6/sctp6_usrreq.c.orig	2013-06-17 22:13:23.000000000 +0000
 +++ netwerk/sctp/src/netinet6/sctp6_usrreq.c

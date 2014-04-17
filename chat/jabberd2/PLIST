@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.15 2012/08/26 18:25:47 adam Exp $
+@comment $NetBSD: PLIST,v 1.18 2014/03/11 14:04:59 jperkin Exp $
 bin/bdbdump.pl
 bin/c2s
 bin/jabberd
@@ -51,10 +51,10 @@ man/man8/jabberd.8
 man/man8/router.8
 man/man8/s2s.8
 man/man8/sm.8
-share/doc/jabberd/ChangeLog
+share/doc/jabberd/NEWS
 share/doc/jabberd/README
 share/doc/jabberd/README.protocol
-share/doc/jabberd/UPGRADE
+share/doc/jabberd/README.config
 share/examples/jabberd/c2s.xml
 share/examples/jabberd/db-jd14-2-jd2.sql
 share/examples/jabberd/db-setup.mysql
@@ -69,8 +69,3 @@ share/examples/jabberd/router-users.xml
 share/examples/jabberd/router.xml
 share/examples/jabberd/s2s.xml
 share/examples/jabberd/sm.xml
-share/examples/rc.d/c2s
-share/examples/rc.d/jabberd
-share/examples/rc.d/router
-share/examples/rc.d/s2s
-share/examples/rc.d/sm

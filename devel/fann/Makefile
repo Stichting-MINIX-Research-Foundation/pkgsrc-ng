@@ -1,18 +1,19 @@
-# $NetBSD: Makefile,v 1.4 2012/10/31 11:16:57 asau Exp $
+# $NetBSD: Makefile,v 1.7 2014/01/26 10:28:53 wiz Exp $
 
 .include "Makefile.common"
 
 COMMENT=		Fast Artificial Neural Network
 
-USE_PKGLOCALEDIR=	yes
-USE_LIBTOOL=		yes
+LICENSE=		gnu-lgpl-v2.1
+
+USE_TOOLS+=		cmake
+USE_CMAKE=		yes
+
+USE_LANGUAGES+=		c99
+# Perhaps not, but cmake complains
+USE_LANGUAGES+=		 c++
+
 USE_TOOLS+=		pkg-config
-GNU_CONFIGURE=		yes
-
 PKGCONFIG_OVERRIDE+=	fann.pc.in
-
-post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}/${PREFIX}/share/doc/fann
-	(cd ${WRKSRC} && ${INSTALL_DATA} doc/* ${DESTDIR}/${PREFIX}/share/doc/fann)
 
 .include "../../mk/bsd.pkg.mk"

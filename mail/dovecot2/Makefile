@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.45.2.2 2013/08/16 10:19:53 tron Exp $
+# $NetBSD: Makefile,v 1.60 2014/03/11 14:34:38 jperkin Exp $
 
-DISTNAME=	dovecot-2.2.5
+DISTNAME=	dovecot-2.2.12
 CATEGORIES=	mail
 MASTER_SITES=	http://www.dovecot.org/releases/${PKGVERSION_NOREV:R}/
 
@@ -12,7 +12,7 @@ LICENSE=	mit AND gnu-lgpl-v2.1 AND modified-bsd
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		pkg-config rpcgen
+USE_TOOLS+=		gmake pkg-config rpcgen
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
@@ -21,6 +21,7 @@ CONFIGURE_ARGS+=	--with-ssldir=${SSLDIR}
 .include "../../mk/bsd.prefs.mk"
 
 RCD_SCRIPTS=		dovecot
+SMF_NAME=		dovecot
 
 DOVECOT_USER?=		dovecot
 DOVECOT_GROUP?=		dovecot
@@ -67,5 +68,6 @@ post-install:
 .undef MANZ
 
 .include "../../archivers/bzip2/buildlink3.mk"
+.include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

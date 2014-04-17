@@ -1,12 +1,14 @@
-# $NetBSD: options.mk,v 1.14 2013/06/26 11:32:12 ryoon Exp $
+# $NetBSD: options.mk,v 1.19 2013/11/16 02:01:46 ryoon Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.firefox
 PKG_SUPPORTED_OPTIONS=	official-mozilla-branding
-PKG_SUPPORTED_OPTIONS+=	debug mozilla-jemalloc gnome pulseaudio webrtc
+PKG_SUPPORTED_OPTIONS+=	alsa debug mozilla-jemalloc gnome pulseaudio webrtc
 PLIST_VARS+=		gnome jemalloc debug
 
-.if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
-PKG_SUGGESTED_OPTIONS+=	mozilla-jemalloc
+.if ${OPSYS} == "Linux"
+PKG_SUGGESTED_OPTIONS+=	alsa mozilla-jemalloc
+.else
+PKG_SUGGESTED_OPTIONS+= pulseaudio
 .endif
 
 # On NetBSD/amd64 6.99.21 libxul.so is invalid when --enable-webrtc is set.
@@ -15,6 +17,13 @@ PKG_SUGGESTED_OPTIONS+=	webrtc
 .endif
 
 .include "../../mk/bsd.options.mk"
+
+.if !empty(PKG_OPTIONS:Malsa)
+CONFIGURE_ARGS+=	--enable-alsa
+.include "../../audio/alsa-lib/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-alsa
+.endif
 
 .if !empty(PKG_OPTIONS:Mgnome)
 .include "../../devel/libgnomeui/buildlink3.mk"
@@ -37,12 +46,13 @@ CONFIGURE_ARGS+=	--disable-jemalloc
 .endif
 
 .if !empty(PKG_OPTIONS:Mdebug)
-CONFIGURE_ARGS+=	--enable-debug --enable-debug-symbols
+CONFIGURE_ARGS+=	--enable-debug="-g -O0" --enable-debug-symbols --disable-optimize
 CONFIGURE_ARGS+=	--disable-install-strip
 PLIST.debug=		yes
 .else
 CONFIGURE_ARGS+=	--disable-debug --disable-debug-symbols
 CONFIGURE_ARGS+=	--enable-install-strip
+CONFIGURE_ARGS+=	--enable-optimize=-O2 
 .endif
 
 .if !empty(PKG_OPTIONS:Mpulseaudio)
@@ -51,13 +61,14 @@ CONFIGURE_ARGS+=	--enable-pulseaudio
 .endif
 # XXX end
 
-PLIST_VARS+=		nobranding
+PLIST_VARS+=		branding nobranding
 .if !empty(PKG_OPTIONS:Mofficial-mozilla-branding)
 CONFIGURE_ARGS+=	--enable-official-branding
 LICENSE=		mozilla-trademark-license
 RESTRICTED=		Trademark holder prohibits distribution of modified versions.
 NO_BIN_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_FTP=		${RESTRICTED}
+PLIST.branding=		yes
 .else
 PLIST.nobranding=	yes
 .endif

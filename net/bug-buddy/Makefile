@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.95 2013/06/06 12:54:54 wiz Exp $
+# $NetBSD: Makefile,v 1.100 2014/03/01 22:29:20 richard Exp $
 #
 
-DISTNAME=		bug-buddy-2.26.0
-PKGREVISION=		27
+DISTNAME=		bug-buddy-2.30.0
 CATEGORIES=		net gnome
-MASTER_SITES=		${MASTER_SITE_GNOME:=sources/bug-buddy/2.26/}
+MASTER_SITES=		${MASTER_SITE_GNOME:=sources/bug-buddy/2.30/}
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -25,6 +24,10 @@ pre-configure:
 	cd ${WRKSRC} && autoconf -f
 
 .include "options.mk"
+
+.if ${OPSYS} == "SunOS"
+CONFIGURE_ARGS+=    --disable-google-breakpad
+.endif
 
 .include "../../mk/omf-scrollkeeper.mk"
 .include "../../devel/GConf/schemas.mk"

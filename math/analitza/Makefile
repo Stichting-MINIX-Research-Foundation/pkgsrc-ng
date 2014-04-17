@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.16 2013/06/06 12:53:44 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2014/02/12 23:18:10 tron Exp $
 
 DISTNAME=	analitza-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	math
 COMMENT=	KDE library for mathematical features
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
-USE_GNU_READLINE=	yes
 BROKEN_READLINE_DETECTION=	yes
 
 .include "../../meta-pkgs/kde4/kde4.mk"

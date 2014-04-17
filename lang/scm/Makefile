@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2012/10/02 20:11:53 asau Exp $
+# $NetBSD: Makefile,v 1.25 2014/02/08 23:39:55 wiedi Exp $
 #
 # Convert the version number as follows 2d2 -> 2.4.2, where the d is
 # changed to a 4, representing the 4th letter.
@@ -23,6 +23,8 @@ WRKSRC=		${WRKDIR}/scm
 EVAL_PREFIX+=	SLIB_PREFIX=slib
 INFO_FILES=	yes
 
+LDFLAGS.SunOS+=	-lsocket -lnsl
+
 SCM_MODULES+=	sc2 ramap dynl edline gsubr ioext posix record rgx socket
 SCM_MODULES+=	unix  continue scm scmmain findexec script time repl scl eval
 SCM_MODULES+=	sys subr debug unif rope unexelf
@@ -41,7 +43,7 @@ INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR}${PREFIX} \
 
 INSTALLATION_DIRS=	${PKGINFODIR} share/scm
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 
 post-extract:
 	${SED} -e "s|@SLIB_PREFIX@|"${SLIB_PREFIX:Q}"|g"		\

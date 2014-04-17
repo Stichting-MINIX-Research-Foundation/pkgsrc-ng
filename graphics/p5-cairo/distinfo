@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.5 2011/08/16 21:51:30 wiz Exp $
+$NetBSD: distinfo,v 1.7 2014/01/26 13:04:14 obache Exp $
 
-SHA1 (Cairo-1.062.tar.gz) = 9e18187157911fda065795892b14f0ec9947a778
-RMD160 (Cairo-1.062.tar.gz) = e383fe798ec08d65df3318186dd9b1b0ad8307f6
-Size (Cairo-1.062.tar.gz) = 95044 bytes
+SHA1 (Cairo-1.104.tar.gz) = 5af4c05dc2f5ea48a6a03edccecc5a09a220bcf3
+RMD160 (Cairo-1.104.tar.gz) = 1128d4418d43b3011e63152384132149dcb5409a
+Size (Cairo-1.104.tar.gz) = 108438 bytes

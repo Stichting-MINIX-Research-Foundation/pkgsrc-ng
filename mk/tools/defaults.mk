@@ -1,4 +1,4 @@
-# $NetBSD: defaults.mk,v 1.58 2012/10/01 10:45:16 ryoon Exp $
+# $NetBSD: defaults.mk,v 1.61 2014/03/06 07:34:20 uebayasi Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -139,6 +139,7 @@ _TOOLS_VARNAME.touch=		TOUCH
 _TOOLS_VARNAME.tr=		TR
 _TOOLS_VARNAME.true=		TRUE
 _TOOLS_VARNAME.tsort=		TSORT
+_TOOLS_VARNAME.uniq=		UNIQ
 _TOOLS_VARNAME.unrar=		UNRAR
 _TOOLS_VARNAME.unzip=		UNZIP_CMD
 _TOOLS_VARNAME.unzoo=		UNZOO
@@ -146,6 +147,7 @@ _TOOLS_VARNAME.wc=		WC
 _TOOLS_VARNAME.wish=		WISH
 _TOOLS_VARNAME.xargs=		XARGS
 _TOOLS_VARNAME.xmkmf=		XMKMF_CMD
+_TOOLS_VARNAME.xz=		XZ
 _TOOLS_VARNAME.xzcat=		XZCAT
 _TOOLS_VARNAME.yacc=		YACC
 

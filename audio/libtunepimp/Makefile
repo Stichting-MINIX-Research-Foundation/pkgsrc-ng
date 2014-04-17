@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2013/02/06 23:21:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.28 2014/02/12 23:17:34 tron Exp $
 
 DISTNAME=		libtunepimp-0.5.3
-PKGREVISION=		11
+PKGREVISION=		14
 CATEGORIES=		audio
 MASTER_SITES=		ftp://ftp.musicbrainz.org/pub/musicbrainz/ \
 			http://ftp.musicbrainz.org/pub/musicbrainz/
@@ -34,8 +34,7 @@ pre-configure:
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../audio/taglib/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../multimedia/libmp4v2/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.89.2.1 2013/07/15 20:19:16 spz Exp $
+# $NetBSD: Makefile,v 1.100 2014/03/28 11:25:43 adam Exp $
 
-DISTNAME=	httpd-2.2.25
+DISTNAME=	httpd-2.2.27
 PKGNAME=	${DISTNAME:S/httpd/apache/}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
@@ -8,7 +8,7 @@ MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
 		http://archive.eu.apache.org/dist/httpd/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	tron@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://httpd.apache.org/
 COMMENT=	Apache HTTP (Web) server, version 2.2
 LICENSE=	apache-2.0
@@ -227,9 +227,9 @@ post-install:
 		${CHMOD} ${BINMODE} ${DESTDIR}${PREFIX}/sbin/$$file; \
 	done
 
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
-	${CHOWN} -h -R ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/share/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/include/httpd
+	${CHOWN} -RP ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/lib/httpd
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/test-cgi
 	${CHOWN} ${BINOWN}:${BINGRP} ${DESTDIR}${PREFIX}/libexec/cgi-bin/printenv
 

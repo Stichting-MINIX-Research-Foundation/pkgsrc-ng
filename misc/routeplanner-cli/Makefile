@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2012/10/08 09:57:36 asau Exp $
+# $NetBSD: Makefile,v 1.17 2014/01/25 10:45:20 wiz Exp $
 #
 
 DISTNAME=		routeplanner_0.11
@@ -15,7 +15,7 @@ WRKSRC=			${WRKDIR}/routeplanner-0.11
 NO_BUILD=		yes
 USE_TOOLS+=		gzip
 
-PYTHON_PATCH_SCRIPTS=	rpcli
+REPLACE_PYTHON=	rpcli
 RPLIBDIR=		${PREFIX}/lib/routeplanner
 RPPY= rpcli.py rpcountry.py rpdbase.py rpunits.py rpcity.py rproute.py
 RPDB= Basic-USA.rpl3 NorthAmerica.rpl3
@@ -41,6 +41,7 @@ do-install:
 	done
 
 # optional speedup
+#PYTHON_VERSIONS_INCOMPATIBLE= 33 # py-kjbuckets
 #.include "../../devel/py-kjbuckets/buildlink3.mk"
 #.include "../../devel/py-pqueue/buildlink3.mk"
 

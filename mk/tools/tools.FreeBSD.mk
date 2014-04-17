@@ -1,4 +1,4 @@
-# $NetBSD: tools.FreeBSD.mk,v 1.36 2012/04/20 08:47:01 obache Exp $
+# $NetBSD: tools.FreeBSD.mk,v 1.40 2014/03/06 07:34:20 uebayasi Exp $
 #
 # System-supplied tools for the FreeBSD operating system.
 
@@ -65,6 +65,7 @@ TOOLS_PLATFORM.pax?=		/bin/pax
 TOOLS_PLATFORM.printf?=		/usr/bin/printf
 TOOLS_PLATFORM.pwd?=		/bin/pwd
 TOOLS_PLATFORM.readelf?=	/usr/bin/readelf
+TOOLS_PLATFORM.readlink?=	/usr/bin/readlink
 TOOLS_PLATFORM.rm?=		/bin/rm
 TOOLS_PLATFORM.rmdir?=		/bin/rmdir
 TOOLS_PLATFORM.sdiff?=		/usr/bin/sdiff
@@ -83,8 +84,15 @@ TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin
 TOOLS_PLATFORM.tsort?=		/usr/bin/tsort
+TOOLS_PLATFORM.uniq?=		/usr/bin/uniq
+.if exists(/usr/bin/unzip)
+TOOLS_PLATFORM.unzip?=		/usr/bin/unzip
+.endif
 TOOLS_PLATFORM.wc?=		/usr/bin/wc
 TOOLS_PLATFORM.xargs?=		/usr/bin/xargs
+.if exists(/usr/bin/xz)
+TOOLS_PLATFORM.xz?=		/usr/bin/xz
+.endif
 .if exists(/usr/bin/xzcat)
 TOOLS_PLATFORM.xzcat?=		/usr/bin/xzcat
 .endif

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.33 2013/06/06 12:54:03 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2013/10/10 14:41:58 ryoon Exp $
 #
 
 DISTNAME=	glurp-0.12.3
-PKGREVISION=	9
+PKGREVISION=	11
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=glurp/}
 
@@ -15,11 +15,6 @@ GNU_CONFIGURE=	yes
 USE_TOOLS+=	intltool pkg-config
 
 LIBS.SunOS+=	-lsocket -lnsl
-
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-export-dynamic
-.endif
 
 .include "../../audio/libmpd/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"

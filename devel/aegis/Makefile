@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/05/31 12:39:57 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2014/02/12 23:17:45 tron Exp $
 #
 
 DISTNAME=	aegis-4.24.2
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	devel scm
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=aegis/}
 
@@ -19,6 +19,10 @@ USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		groff gsoelim msgfmt perl:run yacc patch:run
 
 .include "../../mk/bsd.prefs.mk"
+
+.if !empty(PKGSRC_COMPILER:Mgcc)
+CXXFLAGS+=	-std=gnu++0x
+.endif
 
 AEGIS_USER_UID?=	3
 AEGIS_USER_GID?=	3

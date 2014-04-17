@@ -1,10 +1,11 @@
-# $NetBSD: builtin.mk,v 1.13 2011/01/23 10:01:37 markd Exp $
+# $NetBSD: builtin.mk,v 1.15 2014/02/22 09:50:47 obache Exp $
 
 BUILTIN_PKG:=	heimdal
 
-BUILTIN_FIND_FILES_VAR:=		H_HEIMDAL SH_KRB5_CONFIG
-BUILTIN_FIND_FILES.H_HEIMDAL=		/usr/include/krb5/krb5.h /usr/include/krb5.h
+BUILTIN_FIND_HEADERS_VAR:=		H_HEIMDAL
+BUILTIN_FIND_HEADERS.H_HEIMDAL=		krb5/krb5.h krb5.h
 BUILTIN_FIND_GREP.H_HEIMDAL=		heimdal_version
+BUILTIN_FIND_FILES_VAR:=		SH_KRB5_CONFIG
 BUILTIN_FIND_FILES.SH_KRB5_CONFIG=	/usr/bin/krb5-config
 BUILTIN_FIND_GREP.SH_KRB5_CONFIG=	^[ 	]*--version)
 
@@ -71,9 +72,17 @@ MAKEVARS+=	BUILTIN_PKG.heimdal
 USE_BUILTIN.heimdal=	no
 .  else
 USE_BUILTIN.heimdal=	${IS_BUILTIN.heimdal}
+.    if !empty(USE_BUILTIN.heimdal:M[yY][eE][sS])
+CHECK_BUILTIN.openssl:=	yes
+.      include "../../security/openssl/builtin.mk"
+CHECK_BUILTIN.openssl:=	no
+.      if !empty(USE_BUILTIN.openssl:M[Nn][Oo])
+USE_BUILTIN.heimdal=	no
+.      endif
+.    endif
 .    if defined(BUILTIN_PKG.heimdal) && \
         !empty(IS_BUILTIN.heimdal:M[yY][eE][sS])
-USE_BUILTIN.heimdal=	yes
+USE_BUILTIN.heimdal?=	yes
 .      for _dep_ in ${BUILDLINK_API_DEPENDS.heimdal}
 .        if !empty(USE_BUILTIN.heimdal:M[yY][eE][sS])
 USE_BUILTIN.heimdal!=							\

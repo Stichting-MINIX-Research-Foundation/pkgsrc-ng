@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.59 2013/02/06 23:23:39 jperkin Exp $
+# $NetBSD: Makefile,v 1.61 2014/02/12 23:18:33 tron Exp $
 #
 
 DISTNAME=		krb4-1.2.2
 PKGNAME=		kth-krb4-1.2.2
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		security net
 MASTER_SITES=		ftp://ftp.pdc.kth.se/pub/krb/src/
 
@@ -59,12 +59,12 @@ PLIST.glob=			yes
 
 .if ${OPSYS} == "NetBSD"
 CONFIGURE_ARGS+=	--with-readline=yes \
-	--with-readline-lib=${BUILDLINK_PREFIX.readline}/lib \
-	--with-readline-include=${BUILDLINK_PREFIX.readline}/include/readline \
+	--with-readline-lib=${BUILDLINK_PREFIX.editlinereadline}/lib \
+	--with-readline-include=${BUILDLINK_PREFIX.editlinereadline}/include/readline \
 	ac_cv_funclib_bswap16=yes \
 	ac_cv_funclib_bswap32=yes
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .endif
 
 PLIST_VARS+=	glob wantdes

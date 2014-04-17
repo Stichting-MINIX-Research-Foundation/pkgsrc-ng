@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.3 2013/06/25 13:29:33 kleink Exp $
+# $NetBSD: Makefile,v 1.10 2014/01/25 10:30:28 wiz Exp $
 
-DISTNAME=	Flask-Login-0.2.3
+DISTNAME=	Flask-Login-0.2.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/F/Flask-Login/
 
 MAINTAINER=	kleink@NetBSD.org
-HOMEPAGE=	https://bitbucket.org/leafstorm/flask-login/
+HOMEPAGE=	http://flask-login.readthedocs.org/
 COMMENT=	User session management for Flask
 LICENSE=	mit
 

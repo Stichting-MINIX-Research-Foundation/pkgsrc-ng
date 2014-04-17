@@ -1,9 +1,10 @@
-# $NetBSD: Makefile.common,v 1.2 2013/05/22 13:14:29 obache Exp $
+# $NetBSD: Makefile.common,v 1.7 2014/03/11 09:43:06 obache Exp $
+# used by textproc/cabocha/Makefile
 # used by textproc/p5-cabocha/Makefile
 # used by textproc/py-cabocha/Makefile
 # used by textproc/ruby-cabocha/Makefile
 
-DISTNAME=	cabocha-0.66
+DISTNAME=	cabocha-0.68
 CATEGORIES=	textproc
 MASTER_SITES=	http://cabocha.googlecode.com/files/
 EXTRACT_SUFX=	.tar.bz2
@@ -13,4 +14,8 @@ PATCHDIR=	${.CURDIR}/../../textproc/cabocha/patches
 
 MAINTAINER=	obache@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/cabocha/
-LICENSE=	modified-bsd
+LICENSE=	gnu-lgpl-v2.1 OR modified-bsd
+
+RESTRICTED=	Included model is not re-distributed without prior permission.
+NO_SRC_ON_FTP=		${RESTRICTED}
+NO_SRC_ON_CDROM=	${RESTRICTED}

@@ -1,14 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:42:21 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.6 2013/12/23 11:57:06 wiz Exp $
 
-DISTNAME=	XML-SAX-ExpatXS-1.31
+DISTNAME=	XML-SAX-ExpatXS-1.33
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 SVR4_PKGNAME=	p5xsx
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=XML/}
 
-MAINTAINER=	tnozaki@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/XML-SAX-ExpatXS/
 COMMENT=	Perl SAX 2 XS extension to Expat parser
 LICENSE=	${PERL5_LICENSE}

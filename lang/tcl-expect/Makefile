@@ -1,14 +1,16 @@
-# $NetBSD: Makefile,v 1.29 2013/06/10 21:49:21 markd Exp $
+# $NetBSD: Makefile,v 1.31 2014/03/13 11:08:51 jperkin Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	tcl-expect-${EXPECT_VERSION}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	lang
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Extensions to Tcl to support scripting of interactive programs
 LICENSE=	public-domain
+
+USE_GCC_RUNTIME=	yes
 
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--without-x

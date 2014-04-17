@@ -1,27 +1,27 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:41:29 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/02/14 12:11:10 obache Exp $
 #
 
 DISTNAME=	whohas-0.29
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	misc
 MASTER_SITES=	http://www.philippwesche.org/200811/whohas/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.philippwesche.org/200811/whohas/intro.html
 COMMENT=	Query several packaging systems for a program
+LICENSE=	gnu-gpl-v2 # or later
 
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
-DEPENDS+=	wget-[0-9]*:../../net/wget
 
 USE_LANGUAGES=	# none
+USE_TOOLS+=	perl:run
 
 REPLACE_PERL=	program/whohas
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/de/man1 \
 			share/doc/whohas
 
-do-build:
-	# nothing
+NO_BUILD=	yes
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/program/whohas ${DESTDIR}${PREFIX}/bin
@@ -32,5 +32,4 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/intro* \
 		${DESTDIR}${PREFIX}/share/doc/whohas
 
-.include "../../lang/perl5/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

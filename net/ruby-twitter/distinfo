@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.1 2013/05/09 15:53:33 mef Exp $
+$NetBSD: distinfo,v 1.3 2014/03/09 15:25:27 tsutsui Exp $
 
-SHA1 (twitter-4.6.2.gem) = 466d3c77bd1c2f30d28fd03f2ff931f5a3113e70
-RMD160 (twitter-4.6.2.gem) = 0070ff156978df1719a52c0506104445f71f5a33
-Size (twitter-4.6.2.gem) = 499200 bytes
+SHA1 (twitter-5.7.1.gem) = af89ebfc0a503cb8643f3ca9c43c90513b7c0cfd
+RMD160 (twitter-5.7.1.gem) = 55709b5895defd8965ff9aa94ba3b3d36e2b91a6
+Size (twitter-5.7.1.gem) = 504832 bytes

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.php,v 1.34.2.2 2013/08/25 16:56:44 tron Exp $
+# $NetBSD: Makefile.php,v 1.38 2013/12/13 15:30:35 taca Exp $
 # used by lang/php53/Makefile
 # used by www/ap-php/Makefile
 # used by www/php-fpm/Makefile
@@ -53,7 +53,7 @@ PKG_SUGGESTED_OPTIONS+=	inet6 ssl
 
 .if !empty(PKG_OPTIONS:Msuhosin)
 SUHOSIN_PHPVER=		5.3.25
-.  if ${SUHOSIN_PHPVER} != ${PHP_BASE_VERS} && ${PHP_BASE_VERS} != "5.3.27"
+.  if ${SUHOSIN_PHPVER} != ${PHP_BASE_VERS} && ${PHP_BASE_VERS} != "5.3.28"
 PKG_FAIL_REASON+=	"The suhosin patch is currently not available for"
 PKG_FAIL_REASON+=	"this version of PHP.  You may have to wait until"
 PKG_FAIL_REASON+=	"an updated patch is released or temporarily"
@@ -91,7 +91,6 @@ CONFIGURE_ARGS+=	--enable-maintainer-zts
 .endif
 
 .if !empty(PKG_OPTIONS:Mreadline)
-USE_GNU_READLINE=	yes
 .include "../../devel/readline/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.readline}
 .else

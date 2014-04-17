@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.12 2013/05/31 12:42:27 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2014/02/06 13:00:59 abs Exp $
 
-DISTNAME=	Rose-DateTime-0.537
+DISTNAME=	Rose-DateTime-0.540
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
 CATEGORIES=	time perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Rose/}
 
-MAINTAINER=	abs@absd.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Rose-DateTime/
 COMMENT=	DateTime helper functions and objects for Rose
 LICENSE=	${PERL5_LICENSE}

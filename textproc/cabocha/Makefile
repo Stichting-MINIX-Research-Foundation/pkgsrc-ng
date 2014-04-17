@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2013/05/22 13:14:29 obache Exp $
+# $NetBSD: Makefile,v 1.7 2014/03/11 09:43:06 obache Exp $
 #
 
 .include "Makefile.common"
 
 COMMENT=	Yet another Japanese Dependency Structure Analyzer
+
+NO_BIN_ON_FTP=		${RESTRICTED}
+NO_BIN_ON_CDROM=	${RESTRICTED}
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

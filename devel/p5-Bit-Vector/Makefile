@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.33 2013/05/31 12:40:05 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2013/11/24 09:57:03 wiz Exp $
 
-DISTNAME=	Bit-Vector-7.2
+DISTNAME=	Bit-Vector-7.3
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 SVR4_PKGNAME=	p5biv
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Bit/}
@@ -15,7 +15,7 @@ LICENSE=	${PERL5_LICENSE}
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 DEPENDS+=	p5-Carp-Clan>=5.3:../../devel/p5-Carp-Clan
-DEPENDS+=	{perl>=5.12.0,p5-Storable>=2.21}:../../devel/p5-Storable
+#DEPENDS+=	{perl>=5.12.0,p5-Storable>=2.21}:../../devel/p5-Storable
 
 PERL5_PACKLIST=		auto/Bit/Vector/.packlist
 

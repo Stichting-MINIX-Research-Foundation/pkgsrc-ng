@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2013/05/31 12:39:55 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.11 2013/09/09 14:07:58 wiz Exp $
 
-DISTNAME=		build-farm-4_10
+DISTNAME=		build-farm-4_11
 PKGNAME=		${DISTNAME:S/build-farm/pgbuildfarm/:S/_/./}
 PKGREVISION=		1
 CATEGORIES=		databases
@@ -13,9 +12,8 @@ HOMEPAGE=		http://www.pgbuildfarm.org/
 COMMENT=		PostgreSQL Build Farm client
 LICENSE=		postgresql-license
 
-DEPENDS+=		scmgit-base>=1.6:../../devel/scmgit-base
+DEPENDS+=		git-base>=1.6:../../devel/git-base
 DEPENDS+=		p5-libwww>=5.0:../../www/p5-libwww
-DEPENDS+=		p5-Digest-SHA1>=2.13:../../security/p5-Digest-SHA1
 
 WRKSRC=			${WRKDIR}/${DISTNAME:S/_/./}
 NO_BUILD=		yes

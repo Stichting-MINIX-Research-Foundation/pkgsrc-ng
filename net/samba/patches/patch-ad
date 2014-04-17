@@ -1,4 +1,4 @@
-$NetBSD: patch-ad,v 1.18.14.1 2013/08/12 12:20:19 tron Exp $
+$NetBSD: patch-ad,v 1.19 2013/08/12 02:45:55 taca Exp $
 
 --- VERSION.orig	2013-07-29 18:55:18.000000000 +0000
 +++ VERSION

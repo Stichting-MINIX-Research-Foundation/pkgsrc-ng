@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.2 2013/05/21 12:49:36 markd Exp $
+$NetBSD: distinfo,v 1.4 2014/02/01 02:20:51 markd Exp $
 
-SHA1 (ffmpegthumbs-4.10.3.tar.xz) = 1b4508d3f1c74a8d1a6136f27ba233ae3fb84eda
-RMD160 (ffmpegthumbs-4.10.3.tar.xz) = 20eca76411e525fc8b89b0ed924b8e99e999cbd1
-Size (ffmpegthumbs-4.10.3.tar.xz) = 20836 bytes
+SHA1 (ffmpegthumbs-4.11.5.tar.xz) = 8637cb229a092ec1b106b5cc34e93108562f281e
+RMD160 (ffmpegthumbs-4.11.5.tar.xz) = 3104ec45e932022cf91e480783d970dd64306b6a
+Size (ffmpegthumbs-4.11.5.tar.xz) = 20280 bytes

@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2012/10/03 12:55:10 asau Exp $
-#
+# $NetBSD: Makefile,v 1.6 2013/07/06 22:32:53 wiz Exp $
 
 DISTNAME=	B-emv2.2Linux
 PKGNAME=	b-em-2.2
@@ -11,7 +10,7 @@ HOMEPAGE=	http://b-em.bbcmicro.com/
 COMMENT=	Freeware Acorn BBC Micro Emulator with 2nd processors
 LICENSE=	gnu-gpl-v3
 
-USE_TOOLS+=	gmake
+USE_TOOLS+=	gmake aclocal automake
 
 WRKSRC=		${WRKDIR}
 GNU_CONFIGURE=	yes
@@ -30,6 +29,9 @@ SUBST_STAGE.d2u=	post-extract
 SUBST_FILES.d2u=	src/win.c src/linux.c
 SUBST_FILTER_CMD.d2u=	${TR} -d '\r'
 
+post-extract:
+	cd ${WRKSRC} && aclocal && automake -acf
+
 do-install:
 	${INSTALL} -d ${DESTDIR}${PREFIX}/bin
 	${INSTALL} -d ${DESTDIR}${BEMDATADIR}/roms
@@ -44,6 +46,7 @@ do-install:
 	${CP} -R ${WRKSRC}/ddnoise/* ${DESTDIR}${BEMDATADIR}/ddnoise
 	${FIND} ${DESTDIR}${BEMDATADIR} -type f -exec chmod 644 {} \;
 
+BUILDLINK_API_DEPENDS.allegro+=	allegro>=4.4.2nb2
 .include "../../devel/allegro/buildlink3.mk"
 .include "../../audio/openal/buildlink3.mk"
 .include "../../audio/freealut/buildlink3.mk"

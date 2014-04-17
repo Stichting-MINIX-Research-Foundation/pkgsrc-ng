@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.49 2013/06/06 12:55:01 wiz Exp $
+# $NetBSD: Makefile,v 1.53 2014/02/12 23:18:32 tron Exp $
 #
 
 DISTNAME=	honeyd-1.5b
-PKGREVISION=	29
+PKGREVISION=	32
 CATEGORIES=	security net
 MASTER_SITES=	http://www.citi.umich.edu/u/provos/honeyd/
 
@@ -35,7 +35,7 @@ BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.0
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/libdnsres/buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../net/libdnet/buildlink3.mk"
 .include "../../net/libpcap/buildlink3.mk"

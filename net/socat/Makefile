@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2013/05/10 00:46:53 riastradh Exp $
+# $NetBSD: Makefile,v 1.31 2014/02/12 23:18:26 tron Exp $
 
-DISTNAME=	socat-1.7.2.1
+DISTNAME=	socat-1.7.2.2
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://www.dest-unreach.org/socat/download/
 
@@ -10,7 +11,6 @@ COMMENT=	"netcat++" (extended design, new implementation)
 LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=		YES
-USE_GNU_READLINE=	YES
 ONLY_FOR_COMPILER=	gcc	# uses -Werror in the configure script
 
 .include "../../mk/bsd.prefs.mk"

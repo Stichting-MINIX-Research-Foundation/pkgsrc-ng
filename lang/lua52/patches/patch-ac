@@ -1,0 +1,23 @@
+$NetBSD: patch-ac,v 1.1 2013/10/30 06:18:10 dholland Exp $
+
+--- src/luaconf.h.orig	2013-03-16 21:10:18.000000000 +0000
++++ src/luaconf.h
+@@ -100,7 +100,9 @@
+ #else			/* }{ */
+ 
+ #define LUA_VDIR	LUA_VERSION_MAJOR "." LUA_VERSION_MINOR "/"
++#ifndef LUA_ROOT
+ #define LUA_ROOT	"/usr/local/"
++#endif
+ #define LUA_LDIR	LUA_ROOT "share/lua/" LUA_VDIR
+ #define LUA_CDIR	LUA_ROOT "lib/lua/" LUA_VDIR
+ #define LUA_PATH_DEFAULT  \
+@@ -175,7 +177,7 @@
+ ** default definition.
+ */
+ #if defined(__GNUC__) && ((__GNUC__*100 + __GNUC_MINOR__) >= 302) && \
+-    defined(__ELF__)		/* { */
++    defined(__ELF__) && !defined(__sun)	/* { */
+ #define LUAI_FUNC	__attribute__((visibility("hidden"))) extern
+ #define LUAI_DDEC	LUAI_FUNC
+ #define LUAI_DDEF	/* empty */

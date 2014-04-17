@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.60 2012/10/31 11:16:43 asau Exp $
+# $NetBSD: Makefile,v 1.63 2014/01/27 18:41:11 wiz Exp $
 
 DISTNAME=	bzr-2.5.1
 CATEGORIES=	devel scm
 MASTER_SITES=	https://launchpad.net/bzr/${PKGVERSION_NOREV:R}/${PKGVERSION_NOREV}/+download/
-FETCH_USING=	curl
 
 MAINTAINER=	ddeus.pkgsrc@mailnull.com
 HOMEPAGE=	http://bazaar-vcs.org/
@@ -18,11 +17,12 @@ USE_TOOLS+=		gmake msgfmt
 
 PY_PATCHPLIST=		yes
 PYDISTUTILSPKG=		yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-pyrex, py-paramiko
 
-PYTHON_PATCH_SCRIPTS=		bzr bzrlib/weave.py
-PYTHON_PATCH_SCRIPTS+=		bzrlib/patiencediff.py bzrlib/_patiencediff_py.py
-PYTHON_PATCH_SCRIPTS+=		bzrlib/plugins/bash_completion/bashcomp.py
-PYTHON_PATCH_SCRIPTS+=		bzrlib/tests/ssl_certs/create_ssls.py
+REPLACE_PYTHON=		bzr bzrlib/weave.py
+REPLACE_PYTHON+=		bzrlib/patiencediff.py bzrlib/_patiencediff_py.py
+REPLACE_PYTHON+=		bzrlib/plugins/bash_completion/bashcomp.py
+REPLACE_PYTHON+=		bzrlib/tests/ssl_certs/create_ssls.py
 
 .include "../../mk/bsd.prefs.mk"
 

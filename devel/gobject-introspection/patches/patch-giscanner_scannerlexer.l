@@ -1,25 +1,14 @@
-$NetBSD: patch-giscanner_scannerlexer.l,v 1.2 2013/05/05 09:20:44 drochner Exp $
+$NetBSD: patch-giscanner_scannerlexer.l,v 1.4 2013/12/08 13:28:27 prlw1 Exp $
 
-Ignore __asm volatile as per PR pkg/46017
-https://bugzilla.gnome.org/show_bug.cgi?id=678794
+Support __inline__ for older OSX.
 
---- giscanner/scannerlexer.l.orig	2012-12-18 16:27:16.000000000 +0000
+--- giscanner/scannerlexer.l.orig	2013-07-10 16:13:23.000000000 +0000
 +++ giscanner/scannerlexer.l
-@@ -134,6 +134,8 @@ stringtext				([^\\\"])|(\\.)
- ","					{ return ','; }
- "->"					{ return ARROW; }
- 
-+"__asm"[\t\f\v\r ]+"volatile"		{ if (!parse_ignored_macro()) REJECT; }
-+"__asm__"[\t\f\v\r ]+"volatile"		{ if (!parse_ignored_macro()) REJECT; }
- "__asm" 	        	        { if (!parse_ignored_macro()) REJECT; }
- "__asm__" 	        	        { if (!parse_ignored_macro()) REJECT; }
- "__attribute__" 		        { if (!parse_ignored_macro()) REJECT; }
-@@ -145,6 +147,8 @@ stringtext				([^\\\"])|(\\.)
+@@ -146,6 +146,7 @@ stringtext				([^\\\"])|(\\.)
+ "__const"                               { return CONST; }
+ "__extension__"                         { return EXTENSION; }
+ "__inline"				{ return INLINE; }
++"__inline__"				{ return INLINE; }
+ "__nonnull" 			        { if (!parse_ignored_macro()) REJECT; }
  "__signed__"				{ return SIGNED; }
  "__restrict"				{ return RESTRICT; }
- "__typeof"				{ if (!parse_ignored_macro()) REJECT; }
-+"__volatile"				{ if (!parse_ignored_macro()) REJECT; }
-+"__volatile__"				{ if (!parse_ignored_macro()) REJECT; }
- "_Bool"					{ return BOOL; }
- 
- "G_GINT64_CONSTANT"			{ return INTL_CONST; }

@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.1992 2013/06/05 08:19:57 tron Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.1997 2014/03/11 14:07:04 jperkin Exp $
 #
 # This file is in the public domain.
 #
@@ -97,7 +97,7 @@ MAINTAINER?=		pkgsrc-users@NetBSD.org
 PKGWILDCARD?=		${PKGBASE}-[0-9]*
 SVR4_PKGNAME?=		${PKGNAME}
 TOOL_DEPENDS?=		# empty
-WRKSRC?=		${WRKDIR}/${DISTNAME}
+WRKSRC?=		${WRKDIR}/${DISTNAME:U${PKGNAME_NOREV}}
 
 # Override for SU_CMD user check
 _IS_ROOT_CMD?=		${TEST}	`${ID} -u` = `${ID} -u ${_SU_ROOT_USER}`
@@ -133,8 +133,12 @@ PKG_FAIL_REASON+=	"PKG_INSTALLATION_TYPE must be \`\`pkgviews'' or \`\`overwrite
 PKG_FAIL_REASON+=	"This package doesn't support PKG_INSTALLATION_TYPE=${PKG_INSTALLATION_TYPE}."
 .endif
 
-.if !defined(CATEGORIES) || !defined(DISTNAME)
-PKG_FAIL_REASON+='CATEGORIES and DISTNAME are mandatory.'
+.if !defined(CATEGORIES)
+PKG_FAIL_REASON+='CATEGORIES are mandatory.'
+.endif
+
+.if !defined(PKGNAME) && !defined(DISTNAME)
+PKG_FAIL_REASON+='PKGNAME and/or DISTNAME are mandatory.'
 .endif
 
 .if defined(PKG_PATH)
@@ -180,6 +184,7 @@ ALL_ENV+=	LDFLAGS=${LDFLAGS:M*:Q}
 ALL_ENV+=	LINKER_RPATH_FLAG=${LINKER_RPATH_FLAG:Q}
 ALL_ENV+=	PATH=${PATH:Q}:${LOCALBASE}/bin:${X11BASE}/bin
 ALL_ENV+=	PREFIX=${PREFIX}
+ALL_ENV+=	MAKELEVEL=0
 
 # This variable can be added to MAKE_ENV to ease installation of packages
 # that use BSD-style Makefiles.
@@ -309,6 +314,14 @@ OVERRIDE_DIRDEPTH?=	2
 # Handle alternatives
 #
 .include "alternatives.mk"
+
+# Support alternative init systems.
+#
+INIT_SYSTEM?=		rc.d
+.if ${INIT_SYSTEM} == "smf"
+.  include "smf.mk"
+.endif
+_BUILD_DEFS+=		INIT_SYSTEM
 
 # Define SMART_MESSAGES in /etc/mk.conf for messages giving the tree
 # of dependencies for building, and the current target.

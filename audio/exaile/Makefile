@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.41 2013/06/06 12:54:02 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.45 2014/01/25 10:45:16 wiz Exp $
 
 DISTNAME=	exaile_0.2.14
 PKGNAME=	${DISTNAME:S/_/-/1}
-PKGREVISION=	27
+PKGREVISION=	29
 CATEGORIES=	audio
 MASTER_SITES=	http://www.exaile.org/files/
 
@@ -17,7 +16,9 @@ WRKSRC=		${WRKDIR}/exaile-0.2.14
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		pkg-config gmake intltool msgfmt
 
-PYTHON_PATCH_SCRIPTS=	exaile.py
+REPLACE_PYTHON=	exaile.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-mutagen, py-sqlite2, py-gtk2, py-gstreamer0.10
+
 MAKE_ENV+=	PYTHONBIN=${PYTHONBIN}
 MAKE_FLAGS+=	PKGLOCALEDIR=${PKGLOCALEDIR}
 

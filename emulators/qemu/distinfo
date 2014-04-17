@@ -1,18 +1,17 @@
-$NetBSD: distinfo,v 1.84 2013/06/28 19:30:28 tsutsui Exp $
+$NetBSD: distinfo,v 1.92 2014/01/15 18:26:20 wiz Exp $
 
-SHA1 (qemu-1.4.2.tar.bz2) = 7e01e57e7385dba76125f69829aa78e98acdce4f
-RMD160 (qemu-1.4.2.tar.bz2) = 4b136a6f2192b07aaf04270a60c9326635d8865a
-Size (qemu-1.4.2.tar.bz2) = 10416877 bytes
-SHA1 (patch-ef) = 0b7dc779b174c842c529443e59ffaccbfe8616de
-SHA1 (patch-eg) = ce5adc1c45f6a7d6d6a63ec6c97ba146ff6e9e63
-SHA1 (patch-eh) = 72302ffd1a56dc4fa8d19b3095c9111331a20621
-SHA1 (patch-en) = d4396209ddca3b53f2e4664087550a9660708537
-SHA1 (patch-et) = 8c52e10d92e30226b02f9cb017efa28880124467
-SHA1 (patch-hw_xilinx__axienet.c) = e31f00c01a30d5447c771cceca413f247b67ea14
-SHA1 (patch-ioport.c) = a8f85248039de4d572f3af754d1e29ef9f83d8d7
-SHA1 (patch-memory.c) = ca15c0cfd20b54bee0f8ec769a9047b5cd76e4f3
-SHA1 (patch-net_tap-bsd.c) = 4d21ea8dd639db2a98ef9e341c3b863c9be965e2
-SHA1 (patch-slirp_tcp__subr.c) = c134e0fe0ce6b8fc92a630c98891b4c3e56cc861
-SHA1 (patch-user-exec.c) = 6400647b4a08885ebd4bd8f57d19d3fdb66ae434
-SHA1 (patch-util_hbitmap.c) = 8c3d42d9b594efc1b5eb0ccfb5d110bd63eaa9f0
-SHA1 (patch-util_qemu-thread-posix.c) = 04be1ce985dad2ffd78c300b8e1dd10fced1641a
+SHA1 (qemu-1.7.0.tar.bz2) = 4b5a21a614207e74a61659f7a6edecad6c31be95
+RMD160 (qemu-1.7.0.tar.bz2) = 0d16f3e59219ebd88177b827ba3d4874cbe9aff2
+Size (qemu-1.7.0.tar.bz2) = 12248954 bytes
+SHA1 (patch-ef) = 6e57de87f91067e8a9a1388c91133a31b3582b3a
+SHA1 (patch-et) = 036e1a254ce40df635dfb6107d2707879467e127
+SHA1 (patch-hw_display_omap__dss.c) = 6b13242f28e32346bc70548c216c578d98fd3420
+SHA1 (patch-hw_net_etraxfs__eth.c) = e5dd1661d60dbcd27b332403e0843500ba9544bc
+SHA1 (patch-hw_net_xilinx__axienet.c) = ebcd2676d64ce6f31e4a8c976d4fdf530ad5e8b7
+SHA1 (patch-hw_ppc_mac__newworld.c) = 9a0ec3ba0b6da2879fdaba6a7937fb16a02685f5
+SHA1 (patch-hw_ppc_mac__oldworld.c) = 46322c77c87be6d517c43466325c344db99cd463
+SHA1 (patch-include_exec_softmmu__template.h) = 65f5ab7c3c66bb28323769974cb3d65170d0e70d
+SHA1 (patch-memory.c) = 14df9c835ca318fc79a8d3a46bb94d2f229277cc
+SHA1 (patch-slirp_tcp__subr.c) = cfc8289384fa987289e32b64532c13a83a890820
+SHA1 (patch-user-exec.c) = eb83832c7c9e5f69313f8cad2c2f77b304072556
+SHA1 (patch-util_hbitmap.c) = 7ca62f7f7a82526007d034dfe7d5e2d4ff96f900

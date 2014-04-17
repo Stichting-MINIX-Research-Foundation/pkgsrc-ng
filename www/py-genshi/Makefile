@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2012/10/28 06:31:01 asau Exp $
-#
+# $NetBSD: Makefile,v 1.11 2014/01/18 08:08:59 obache Exp $
 
-DISTNAME=	Genshi-0.6
+DISTNAME=	Genshi-0.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://ftp.edgewall.com/pub/genshi/
@@ -14,7 +13,10 @@ LICENSE=	modified-bsd
 DEPENDS+=	${PYPKGPREFIX}-babel>=0.8:../../devel/py-babel
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
-USE_LANGUAGES=	# empty
+USE_LANGUAGES=	c
+
+do-test:
+		${RUN}cd ${WRKSRC};${PYTHONBIN} setup.py test
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

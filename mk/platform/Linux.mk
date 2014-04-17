@@ -1,4 +1,4 @@
-# $NetBSD: Linux.mk,v 1.55 2013/05/17 03:40:02 dsainty Exp $
+# $NetBSD: Linux.mk,v 1.60 2014/03/07 15:03:15 jperkin Exp $
 #
 # Variable definitions for the Linux operating system.
 
@@ -24,7 +24,6 @@ DEF_UMASK?=		022
 DEFAULT_SERIAL_DEVICE?=	/dev/null
 EXPORT_SYMBOLS_LDFLAGS?=	# Don't add symbols to the dynamic symbol table
 GROUPADD?=		/usr/sbin/groupadd
-LIBC_BUILTINS=		iconv getopt sysexits gettext
 MOTIF_TYPE_DEFAULT?=	motif	# default 2.0 compatible libs type
 .if exists(/etc/ssdlinux_version)
 NOLOGIN?=		/sbin/nologin
@@ -68,6 +67,14 @@ _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
 .endif
 _OPSYS_INCLUDE_DIRS?=	/usr/include
 
+# These are libc builtins
+_OPSYS_PREFER.getopt?=		native
+_OPSYS_PREFER.gettext?=		native
+_OPSYS_PREFER.iconv?=		native
+_OPSYS_PREFER.libexecinfo?=	native
+_OPSYS_PREFER.libinotify?=	native
+_OPSYS_PREFER.sysexits?=	native
+
 .if exists(/usr/include/netinet6) || exists(/usr/include/linux/in6.h)
 _OPSYS_HAS_INET6=	yes	# IPv6 is standard
 .else
@@ -75,7 +82,7 @@ _OPSYS_HAS_INET6=	no	# IPv6 is not standard
 .endif
 _OPSYS_HAS_JAVA=	no	# Java is not standard
 _OPSYS_HAS_MANZ=	no	# no MANZ for gzipping of man pages
-_OPSYS_HAS_OSSAUDIO=	no	# libossaudio is available
+_OPSYS_HAS_OSSAUDIO=	no	# libossaudio is unavailable
 _OPSYS_PERL_REQD=		# no base version of perl required
 _OPSYS_PTHREAD_AUTO=	no	# -lpthread needed for pthreads
 _OPSYS_SHLIB_TYPE=	ELF	# shared lib type
@@ -99,9 +106,16 @@ _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk
 _OPSYS_MAX_CMDLEN_CMD?=	/usr/bin/getconf ARG_MAX
 .endif
 
-.if (${MACHINE_ARCH} == "x86_64")
-ABI?=	64
-LIBABISUFFIX?=          64
+.if ${MACHINE_ARCH} == "x86_64"
+ABI?=		64
+LIBABISUFFIX?=	64
+.endif
+
+# When building 32-bit packages on x86_64 GNU ld isn't smart enough to
+# figure out the target architecture based on the objects so we need to
+# explicitly set it.
+.if ${NATIVE_MACHINE_ARCH} == "x86_64" && ${MACHINE_ARCH} == "i386"
+_WRAP_EXTRA_ARGS.LD+=	-m elf_i386
 .endif
 
 ## Use _CMD so the command only gets run when needed!

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.130 2013/06/29 19:24:57 spz Exp $
+# $NetBSD: Makefile,v 1.136 2014/03/30 12:57:54 spz Exp $
 
-DISTNAME=	curl-7.31.0
+DISTNAME=	curl-7.36.0
 CATEGORIES=	www
 MASTER_SITES=	http://curl.haxx.se/download/ \
 		ftp://ftp.sunet.se/pub/www/utilities/curl/
@@ -24,7 +24,7 @@ CONFIGURE_ARGS+=	--with-ca-path=${SSLCERTS}
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 PKGCONFIG_OVERRIDE=	libcurl.pc.in
 
-INSTALLATION_DIRS=	share/doc/curl share/examples/curl
+INSTALLATION_DIRS=	share/doc/curl
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -40,16 +40,9 @@ PRIVILEGED_STAGES+=	clean
 .include "options.mk"
 
 post-install:
-	for _f in MANUAL TheArtOfHttpScripting FAQ			\
-		curl-config.pdf curl.pdf; do				\
-		${INSTALL_DATA} ${WRKSRC}/docs/$${_f}			\
-			 ${DESTDIR}${PREFIX}/share/doc/curl/${_f};	\
-	done
-	for _f in ${WRKSRC}/docs/examples/*.c				\
-		${WRKSRC}/docs/examples/README; do			\
-		${INSTALL_DATA} $${_f} 					\
-			${DESTDIR}${PREFIX}/share/examples/curl;	\
-	done
+.for f in MANUAL TheArtOfHttpScripting FAQ
+	${INSTALL_DATA} ${WRKSRC}/docs/${f} ${DESTDIR}${PREFIX}/share/doc/curl/
+.endfor
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.28 2013/04/06 03:45:26 rodent Exp $
-#
+# $NetBSD: Makefile,v 1.30 2014/01/25 10:30:25 wiz Exp $
 
 DISTNAME=	etm-877
 PKGREVISION=	1
@@ -12,8 +11,10 @@ COMMENT=	Events and tasks manager using simple text files
 LICENSE=	gnu-gpl-v3
 
 DEPENDS+=	${PYPKGPREFIX}-wxWidgets>=2.8.7:../../x11/py-wxWidgets
-DEPENDS+=	${PYPKGPREFIX}-dateutil>=1.4.1:../../time/py-dateutil
 DEPENDS+=	${PYPKGPREFIX}-icalendar>=2.0.1:../../time/py-icalendar
+
+PYTHON_VERSIONED_DEPENDENCIES=	dateutil
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-wxWidgets
 
 USE_LANGUAGES=	# none
 
@@ -26,4 +27,5 @@ post-configure:
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
+.include "../../lang/python/versioned_dependencies.mk"
 .include "../../mk/bsd.pkg.mk"

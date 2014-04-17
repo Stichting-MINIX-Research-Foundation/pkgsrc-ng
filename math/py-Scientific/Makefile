@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.33 2012/09/11 23:04:30 asau Exp $
+# $NetBSD: Makefile,v 1.36 2014/02/12 23:18:11 tron Exp $
 
 DISTNAME=	ScientificPython-2.8
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/Python//}
+PKGREVISION=	2
 CATEGORIES=	math python
 MASTER_SITES=	http://sourcesup.cru.fr/frs/download.php/2309/
 
@@ -12,6 +13,7 @@ COMMENT=	Python modules for scientific computing
 CONFLICTS+=	py-Scientific-[0-9]*
 
 PYDISTUTILSPKG=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.8
 
 MAKE_ENV+=	NETCDF_PREFIX=${BUILDLINK_PREFIX.netcdf}
 

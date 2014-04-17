@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13.2.1 2013/07/16 17:00:50 tron Exp $
+# $NetBSD: Makefile,v 1.14 2013/07/07 15:21:33 taca Exp $
 
 DISTNAME=	ruby-odbc-0.99995
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/ruby-//}

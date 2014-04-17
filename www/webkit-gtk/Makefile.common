@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.27 2013/06/10 08:38:52 obache Exp $
+# $NetBSD: Makefile.common,v 1.31 2014/03/13 17:06:43 taca Exp $
 # used by www/webkit-gtk/Makefile
 # used by www/webkit-gtk3/Makefile
 
@@ -25,7 +25,6 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--with-target=x11 \
 			--with-font-backend=freetype
 CONFIGURE_ARGS+=	--disable-geolocation
-CONFIGURE_ENV+= ZLIB_CFLAGS=-I${BUILDLINK_PREFIX.zlib}/include ZLIB_LIBS=-lz
 
 .include "options.mk"
 
@@ -40,10 +39,11 @@ REPLACE_PERL+=	Source/JavaScriptCore/create_hash_table \
 		Source/WebCore/platform/text/mac/*.pl
 
 .include "../../lang/ruby/rubyversion.mk"
-BUILD_DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:../../lang/${RUBY_BASE}
+BUILD_DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 CONFIGURE_ENV+=	RUBY=${RUBY}
 
 PYTHON_FOR_BUILD_ONLY=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.10.2
 .include "../../lang/python/application.mk"
 CONFIGURE_ENV+=	PYTHON=${PYTHONBIN}
 
@@ -52,6 +52,10 @@ CXXFLAGS.SunOS+=	-fpermissive
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 CXXFLAGS+=	-std=c++11 -Wno-c++11-narrowing
+.endif
+
+.if !empty(MACHINE_PLATFORM:MSunOS-*-x86_64)
+CONFIGURE_ARGS+=	--disable-fast-malloc
 .endif
 
 BUILDLINK_API_DEPENDS.glib2+= glib2>=2.32.1

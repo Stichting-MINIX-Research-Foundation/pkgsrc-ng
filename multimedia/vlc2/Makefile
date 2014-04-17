@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.33 2013/06/06 12:54:53 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.49 2014/02/26 22:14:31 wiz Exp $
 
 DISTNAME=		vlc-${VLC_VERSION}
-PKGREVISION=		6
+PKGREVISION=		3
 CATEGORIES=		multimedia
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=vlc/} \
 			http://download.videolan.org/pub/videolan/vlc/${VLC_VERSION}/
 EXTRACT_SUFX=		.tar.xz
 
-VLC_VERSION=		2.0.6
+VLC_VERSION=		2.0.9
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.videolan.org/
@@ -122,6 +121,7 @@ CHECK_WRKREF_SKIP=	lib/libvlccore.a \
 .include "../../misc/libcdio/buildlink3.mk"
 
 .include "../../mk/jpeg.buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../converters/fribidi/buildlink3.mk"
 .include "../../devel/libebml/buildlink3.mk"

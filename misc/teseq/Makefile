@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2013/05/31 12:41:29 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2013/10/29 10:55:59 jperkin Exp $
 #
 
-DISTNAME=	teseq-1.0.0
-PKGREVISION=	2
+DISTNAME=	teseq-1.1
 CATEGORIES=	misc
 MASTER_SITES=	http://ftp.gnu.org/gnu/teseq/
 EXTRACT_SUFX=	.tar.bz2
@@ -12,6 +11,7 @@ HOMEPAGE=	http://ftp.gnu.org/gnu/teseq/
 COMMENT=	Terminal control sequence analyzer
 
 GNU_CONFIGURE=	yes
+USE_LANGUAGES=	c99
 USE_TOOLS+=	perl:run sed:run
 
 CONFIGURE_ENV+=	AUTOCONF=true # files pre-built, not needed

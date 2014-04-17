@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.64 2013/06/06 12:54:17 wiz Exp $
+# $NetBSD: Makefile,v 1.71 2014/02/12 23:17:52 tron Exp $
 #
 
 DISTNAME=	mlview-0.9.0
-PKGREVISION=	29
+PKGREVISION=	35
 CATEGORIES=	editors gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/mlview/0.9/}
 EXTRACT_SUFX=	.tar.bz2
@@ -16,6 +16,7 @@ USE_TOOLS+=		gmake intltool msgfmt pkg-config
 USE_LIBTOOL=		yes
 USE_LANGUAGES+=		c c++
 USE_PKGLOCALEDIR=	yes
+MAKE_JOBS_SAFE=		no
 
 GCONF_SCHEMAS=		mlview.schemas
 

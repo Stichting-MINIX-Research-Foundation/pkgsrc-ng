@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.32 2012/10/31 11:19:31 asau Exp $
-#
+# $NetBSD: Makefile,v 1.34 2014/01/25 10:45:17 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-idle-0
 PKGREVISION=	2
@@ -10,8 +9,6 @@ HOMEPAGE=	http://www.python.org/idle/
 COMMENT=	IDLE - The Integrated DeveLopment Environment for Python
 
 DEPENDS+=	${PYPKGPREFIX}-Tk-[0-9]*:../../x11/py-Tk
-
-PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 PY_PATCHPLIST=	yes
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
@@ -37,7 +34,7 @@ IDLE_NAME=	idle
 .endif
 
 EXTRACT_ELEMENTS=	${PYSUBDIR}/Tools/scripts/${IDLE_NAME}
-PYTHON_PATCH_SCRIPTS= Tools/scripts/${IDLE_NAME}
+REPLACE_PYTHON= Tools/scripts/${IDLE_NAME}
 NO_BUILD=	yes
 INSTALLATION_DIRS=	bin
 

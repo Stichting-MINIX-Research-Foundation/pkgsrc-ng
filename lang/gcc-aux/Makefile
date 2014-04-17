@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2013/05/31 12:41:10 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/01/07 02:30:11 marino Exp $
 #
 
 PKGNAME=	gcc-aux-${SNAPSHOT}
 DISTNAME=	gcc-${GCC_VERSION}
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 DISTFILES=	${DISTNAME}.tar.bz2
@@ -65,24 +65,28 @@ LINK_HEADER=		/usr/include/sys/link_elf.h
 
 
 .if ${OPSYS} == "NetBSD"
-.if !empty(OS_VERSION:M5.99.*)
-   NSUFF=	6.0_DEV
-.elif !empty(OS_VERSION:M6.99.*)
+.if !empty(OS_VERSION:M6.99.*)
    NSUFF=	7.0_DEV
 .else
    NSUFF=	${OS_VERSION}
+.endif
+# Special handling of clang may be required for all platforms
+# but currently this is confirmed only for NetBSD
+.if ${PKGSRC_COMPILER} == clang
+MY_CONFIGURE_ENV+=	LDFLAGS=-lm
 .endif
 .if ${MACHINE_ARCH} == "i386"
    OS_LABEL4VERS=	[NetBSD]
    BOOTSTRAP_TRIPLET=	i386-bootstrap-netbsdelf5.1/4.6.0
    BLD_TARGET=		${MACHINE_ARCH}-aux-netbsdelf${NSUFF}
+   BOOTSTRAP_COMPILER=	gnat-bootstrap.${MACHINE_ARCH}.netbsd.tar.bz2
 .endif
 .if ${MACHINE_ARCH} == "x86_64"
    OS_LABEL4VERS=	[NetBSD64]
-   BOOTSTRAP_TRIPLET=	x86_64-bootstrap-netbsd5.1/4.6.0
+   BOOTSTRAP_TRIPLET=	x86_64-aux-netbsd6.1/4.7.3
    BLD_TARGET=		${MACHINE_ARCH}-aux-netbsd${NSUFF}
+   BOOTSTRAP_COMPILER=	gnat-bootstrap2.${MACHINE_ARCH}.netbsd.tar.bz2
 .endif
-BOOTSTRAP_COMPILER=	gnat-bootstrap.${MACHINE_ARCH}.netbsd.tar.bz2
 LINK_HEADER=		/usr/include/link_elf.h
 .endif
 
@@ -132,9 +136,12 @@ FULL_GNATGCC=${LOCALBASE}/gcc-aux/bin/ada
 INTENDED_COMPILER=BOOTSTRAP
 FULL_GNATGCC=${BOOTSTRAP_PREFIX}/bin/gnatgcc
 DISTFILES+= ${BOOTSTRAP_COMPILER}
-SITES.${BOOTSTRAP_COMPILER}=	http://downloads.dragonlace.net/src/ \
-				http://dragonlace.mirrors.ada.cx/src/
+SITES.${BOOTSTRAP_COMPILER}=	http://downloads.dragonlace.net/src/
 FULL_PATH=${BOOTSTRAP_PREFIX}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/sbin:${PREFIX}/bin
+.  if ${OPSYS} == NetBSD && ${MACHINE_ARCH} == "x86_64"
+MY_CONFIGURE_ENV+= LD_LIBRARY_PATH=${BOOTSTRAP_PREFIX}/lib
+EXTRA_LLP=:${BOOTSTRAP_PREFIX}/lib
+.  endif
 .endif
 
 
@@ -143,16 +150,17 @@ FULL_PATH=${BOOTSTRAP_PREFIX}/bin:/sbin:/bin:/usr/sbin:/usr/bin:${PREFIX}/sbin:$
 #  gnat-bootstrap.i386.dragonfly.tar.bz2 \
 #  gnat-bootstrap.x86_64.dragonfly.tar.bz2 \
 #  gnat-bootstrap.i386.netbsd.tar.bz2 \
-#  gnat-bootstrap.x86_64.netbsd.tar.bz2 \
+#  gnat-bootstrap2.x86_64.netbsd.tar.bz2 \
 #  gnat-bootstrap.i386.solaris.tar.bz2
 
 
 # establish ada-aware compiler for use
 MY_CONFIGURE_ENV+=	CC=${FULL_GNATGCC}
 MY_CONFIGURE_ENV+=	PATH=${FULL_PATH}
+MY_CONFIGURE_ENV+=	LDFLAGS=${COMPILER_RPATH_FLAG:Q}${PKG_PREFIX:Q}/lib
 MY_MAKE_ENV=		PATH=${FULL_PATH}
 MY_MAKE_ENV+=		ICONVPREFIX=${PREFIX}
-MY_MAKE_ENV+=		LD_LIBRARY_PATH=${BUILDDIR}/gcc
+MY_MAKE_ENV+=		LD_LIBRARY_PATH=${BUILDDIR}/gcc${EXTRA_LLP}
 # ${WRKSRC}/fixincludes/ looks for sed and compiles the path to sed into
 # a binary so we need to make sure we give it the installed sed and not
 # the tool wrapped one.
@@ -326,10 +334,7 @@ test-c:
 
 
 do-install:
-	# This was install-strip, but a bug in 4.7.x prevents libobjc
-	# from installation.  Just install the unstripped version until
-	# it's fixed (Bug filed with GCC: 54720)
-	cd ${BUILDDIR} && ${SETENV} ${MY_MAKE_ENV} ${GMAKE} install \
+	cd ${BUILDDIR} && ${SETENV} ${MY_MAKE_ENV} ${GMAKE} install-strip \
 	DESTDIR=${DESTDIR}
 
 

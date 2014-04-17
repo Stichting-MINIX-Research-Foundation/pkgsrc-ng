@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.51 2013/05/31 12:41:59 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2014/02/12 23:18:38 tron Exp $
 
-PKGREVISION=		8
+PKGREVISION=		1
 
 CONFLICTS+=		bacula-client-[0-9]* bacula-clientonly-[0-9]*
 
@@ -39,7 +39,7 @@ REPLACE_PERL+=		src/cats/make_catalog_backup.pl.in
 .include "Makefile.common"
 
 .if !empty(USE_DESTDIR:M[Yy][Ee][Ss])
-INSTALL_MAKE_FLAGS+=	dir_user= dir_group=
+INSTALL_MAKE_FLAGS+=	dir_user= dir_group= sd_group=
 .endif
 
 post-install:

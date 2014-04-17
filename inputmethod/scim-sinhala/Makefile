@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.19 2013/06/06 12:54:39 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2013/10/10 14:42:19 ryoon Exp $
 #
 
 DISTNAME=		scim-sinhala-0.1.0
-PKGREVISION=		17
+PKGREVISION=		19
 CATEGORIES=		inputmethod
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE_JP:=scim-imengine/16666/}
 

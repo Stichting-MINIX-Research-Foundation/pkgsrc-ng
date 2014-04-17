@@ -1,13 +1,11 @@
-# $NetBSD: Makefile,v 1.31 2012/12/17 12:39:46 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.33 2013/10/24 06:08:44 obache Exp $
 
-DISTNAME=	taglib-1.8
-PKGREVISION=	1
+DISTNAME=	taglib-1.9.1
 CATEGORIES=	audio
-MASTER_SITES=	http://cloud.github.com/downloads/taglib/taglib/
+MASTER_SITES=	http://taglib.github.io/releases/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://taglib.github.com/
+HOMEPAGE=	http://taglib.github.io/
 COMMENT=	Library for accessing id tags in various media files
 LICENSE=	gnu-lgpl-v2.1 OR mpl-1.1
 
@@ -30,7 +28,7 @@ SUBST_MESSAGE.pc=	Fixing rpath in taglib-config.
 #
 # depends on builtin functions which enabled with i486 and later with GCC.
 #
-.if ${OPSYS} == "NetBSD" && !empty(CC_VERSION:M[4-9]*) && !empty(MACHINE_ARCH:Mi386)
+.if ${OPSYS} == "NetBSD" && !empty(CC_VERSION:Mgcc-[4-9]*) && !empty(MACHINE_ARCH:Mi386)
 GNU_ARCH.i386=		i486
 CFLAGS+=		-march=i486
 .endif

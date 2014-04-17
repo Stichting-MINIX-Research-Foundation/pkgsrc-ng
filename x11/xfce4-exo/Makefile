@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.31 2013/06/06 12:53:55 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2013/10/10 14:41:50 ryoon Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
@@ -6,7 +6,7 @@ XFCE4_VERSION=	0.3.101
 
 DISTNAME=	exo-${XFCE4_VERSION}
 PKGNAME=	xfce4-exo-${XFCE4_VERSION}
-PKGREVISION=	20
+PKGREVISION=	24
 CATEGORIES=	x11
 COMMENT=	Xfce extension library
 
@@ -33,8 +33,6 @@ CONF_FILES=		${EGDIR}/helpers.rc ${PKG_SYSCONFDIR}/helpers.rc
 OWN_DIRS+=		${EGDIR}
 
 .include "options.mk"
-
-BUILDLINK_API_DEPENDS.libnotify+=	libnotify>=0.4.0
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2013/06/15 16:51:29 pettai Exp $
+# $NetBSD: Makefile,v 1.9 2014/02/17 08:18:07 pettai Exp $
 #
 
-DISTNAME=	validns-0.7
+DISTNAME=	validns-0.8
 CATEGORIES=	security
 MASTER_SITES=	http://www.validns.net/download/
 
@@ -17,6 +17,11 @@ LICENSE=	2-clause-bsd
 #USE_TOOLS+=perl
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "SunOS"
+MAKE_ENV+=	EXTRALIBS="-lsocket -lnsl"
+.endif
 
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM}

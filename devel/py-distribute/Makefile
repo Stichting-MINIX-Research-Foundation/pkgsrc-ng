@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2013/06/02 14:23:20 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2014/01/25 10:30:03 wiz Exp $
 
-DISTNAME=	distribute-0.6.45
+DISTNAME=	distribute-0.6.49
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel
 MASTER_SITES=	http://pypi.python.org/packages/source/d/distribute/
@@ -11,7 +11,6 @@ COMMENT=	Replacement for setuptools
 LICENSE=	python-software-foundation # or ZPL
 
 CONFLICTS+=	${PYPKGPREFIX}-setuptools-[0-9]*
-PYTHON_VERSIONS_INCLUDE_3X= yes
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 REPLACE_PYTHON=		setuptools/command/easy_install.py

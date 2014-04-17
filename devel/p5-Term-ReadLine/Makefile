@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/05/31 12:40:46 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2014/03/30 13:08:50 taca Exp $
 
-DISTNAME=	Term-ReadLine-Gnu-1.20
+DISTNAME=	Term-ReadLine-Gnu-1.22
 PKGNAME=	p5-${DISTNAME:S/-Gnu//}
-PKGREVISION=	4
 SVR4_PKGNAME=	p5trl
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Term/}
@@ -14,16 +13,14 @@ LICENSE=	${PERL5_LICENSE} # see README
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
-USE_GNU_READLINE=	yes
 PERL5_PACKLIST=		auto/Term/ReadLine/Gnu/.packlist
 
-MAKE_PARAMS+=	--includedir=${PREFIX}/include --libdir=${PREFIX}/lib
+MAKE_PARAMS+=	--prefix=${BUILDLINK_PREFIX.readline}
 
 WRKSRC=		${WRKDIR}/${DISTNAME:C/a$//}
 
-REPLACE_PERL+=	Gnu/XS.pm Gnu/euc_jp.pm
+REPLACE_PERL+=	Gnu/XS.pm
 
 .include "../../devel/readline/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

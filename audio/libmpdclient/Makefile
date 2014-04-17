@@ -1,11 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2012/09/12 00:24:43 asau Exp $
-#
+# $NetBSD: Makefile,v 1.7 2014/01/02 19:42:08 wiz Exp $
 
-DISTNAME=	libmpdclient-2.6
-PKGREVISION=	1
+DISTNAME=	libmpdclient-2.9
 CATEGORIES=	audio
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=musicpd/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	http://www.musicpd.org/download/libmpdclient/2/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://mpd.wikia.com/wiki/ClientLib:libmpdclient
@@ -17,6 +15,6 @@ USE_LIBTOOL=	yes
 
 PKGCONFIG_OVERRIDE+=	libmpdclient.pc.in
 
-CONFIGURE_ENV+=		ac_cv_path_DOXYGEN=
+CONFIGURE_ARGS+=	--disable-documentation
 
 .include "../../mk/bsd.pkg.mk"

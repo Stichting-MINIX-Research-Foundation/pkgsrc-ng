@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.41 2013/04/01 20:52:44 adam Exp $
+# $NetBSD: Makefile,v 1.49 2014/02/09 08:09:04 adam Exp $
 
-DJANGOVERS=	1.5.1
-DISTNAME=	Django-${DJANGOVERS}
-PKGNAME=	${PYPKGPREFIX}-django-${DJANGOVERS}
+DISTNAME=	Django-1.6.2
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
-MASTER_SITES=	http://www.djangoproject.com/m/releases/1.5/
+MASTER_SITES=	http://www.djangoproject.com/m/releases/${PKGVERSION_NOREV:R}/
 
 MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://www.djangoproject.com/
@@ -22,7 +21,7 @@ REPLACE_PYTHON+=	${WRKSRC}/django/contrib/admin/bin/*.py
 REPLACE_PYTHON+=	${WRKSRC}/django/contrib/admin/static/admin/js/*.py
 REPLACE_PYTHON+=	${WRKSRC}/django/conf/project_template/*.py
 
-DEPENDS+=	${PYPKGPREFIX}-flup-[0-9]*:../../www/py-flup
+PYTHON_VERSIONED_DEPENDENCIES=	flup
 
 .include "options.mk"
 
@@ -50,4 +49,5 @@ PRINT_PLIST_AWK+=	{ gsub("^${BACKEND_PATH}/sqlite3/", "$${PLIST.sqlite}${BACKEND
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"
+.include "../../lang/python/versioned_dependencies.mk"
 .include "../../mk/bsd.pkg.mk"

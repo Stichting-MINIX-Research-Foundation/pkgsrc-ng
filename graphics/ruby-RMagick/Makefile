@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.90 2013/06/04 22:16:26 tron Exp $
+# $NetBSD: Makefile,v 1.92 2014/03/13 11:08:51 jperkin Exp $
 
 DISTNAME=	rmagick-2.13.2
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/rmagick/RMagick/}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	graphics
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -11,6 +11,8 @@ COMMENT=	Ruby binding to ImageMagick
 LICENSE=	mit
 
 USE_TOOLS+=	pkg-config
+
+USE_GCC_RUNTIME=	yes
 
 .include "../../lang/ruby/gem.mk"
 

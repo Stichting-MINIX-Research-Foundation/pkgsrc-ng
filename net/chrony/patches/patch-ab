@@ -1,4 +1,4 @@
-$NetBSD: patch-ab,v 1.4.28.1 2013/08/21 12:59:44 tron Exp $
+$NetBSD: patch-ab,v 1.5 2013/08/16 08:30:20 hannken Exp $
 
 The ctype functions work on integers.
 

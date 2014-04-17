@@ -1,4 +1,4 @@
-/*	$NetBSD: license.c,v 1.33 2013/05/05 21:09:59 rodent Exp $	*/
+/*	$NetBSD: license.c,v 1.36 2014/03/19 21:45:12 wiz Exp $	*/
 
 /*-
  * Copyright (c) 2009 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -51,9 +51,11 @@ const char *default_acceptable_licenses =
     "artistic artistic-2.0 "
     "boost-license "
     "cc-by-sa-v3.0 "
+    "cc0-1.0-universal "
     "cddl-1.0 "
     "cpl-1.0 "
     "epl-v1.0 "
+    "eupl-v1.1 "
     "gnu-fdl-v1.1 gnu-fdl-v1.2 gnu-fdl-v1.3 "
     "gnu-gpl-v1 "
     "gnu-gpl-v2 gnu-lgpl-v2 gnu-lgpl-v2.1 "

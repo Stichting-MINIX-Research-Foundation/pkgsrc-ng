@@ -1,24 +1,35 @@
-/*	$NetBSD: util.c,v 1.10 2011/06/18 22:39:46 bsiegert Exp $	*/
+/*	$NetBSD: util.c,v 1.12 2013/10/14 23:19:09 joerg Exp $	*/
 
 /*
  * Missing stuff from OS's
  *
- *	$Id: util.c,v 1.10 2011/06/18 22:39:46 bsiegert Exp $
+ *	$Id: util.c,v 1.12 2013/10/14 23:19:09 joerg Exp $
  */
 
+/*
+ * Workaround for EasyMiNT 1.70 and 1.83.
+ * Also needed on Linux systems where sys/ucontext.h sometimes uses __unused
+ * as field name.
+ */
+#if defined(__MINT__) || defined(__linux__)
+#include <signal.h>
+#endif
 #include "make.h"
 
 #ifndef MAKE_NATIVE
-static char rcsid[] = "$NetBSD: util.c,v 1.10 2011/06/18 22:39:46 bsiegert Exp $";
+static char rcsid[] = "$NetBSD: util.c,v 1.12 2013/10/14 23:19:09 joerg Exp $";
 #else
 #ifndef lint
-__RCSID("$NetBSD: util.c,v 1.10 2011/06/18 22:39:46 bsiegert Exp $");
+__RCSID("$NetBSD: util.c,v 1.12 2013/10/14 23:19:09 joerg Exp $");
 #endif
 #endif
 
 #include <errno.h>
 #include <time.h>
+/* workaround for EasyMiNT 1.70 and 1.83 */
+#if !defined(__MINT__)
 #include <signal.h>
+#endif
 
 #if !defined(HAVE_STRERROR)
 extern int errno, sys_nerr;

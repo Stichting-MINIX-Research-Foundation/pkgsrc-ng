@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.197 2013/06/06 12:53:59 wiz Exp $
+# $NetBSD: Makefile,v 1.207 2014/02/12 23:18:07 tron Exp $
 
 DISTNAME=		evolution-2.32.3
-PKGREVISION=		22
+PKGREVISION=		30
 CATEGORIES=		mail time gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/evolution/2.32/}
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		rh@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.gnome.org/projects/evolution/
 COMMENT=		GNOME mailer, calendar, contact manager, and communications tool
 #LICENSE=		modified-bsd AND gnu-lgpl-v2.1 AND gnu-lgpl-v3 AND perhaps more
@@ -55,6 +55,8 @@ BUILDLINK_TRANSFORM+=	rm:-DGTK_DISABLE_DEPRECATED
 .if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M4.*)
 BUILDLINK_TRANSFORM+=	rm:-Wl,--no-undefined
 .endif
+
+LDFLAGS.SunOS+=		-lldap
 
 .if !exists(/usr/include/semaphore.h)
 LDFLAGS+=	-lsemaphore

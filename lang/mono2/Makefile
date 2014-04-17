@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2013/06/17 13:14:41 jperkin Exp $
+# $NetBSD: Makefile,v 1.7 2014/01/01 11:52:22 wiz Exp $
 
 DISTNAME=	mono-2.10.9
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/mono/
 EXTRACT_SUFX=	.tar.bz2
@@ -18,7 +18,7 @@ BUILD_DEPENDS+=	p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
 
 CONFLICTS=	pnet-[0-9]* mcsim-[0-9]* lc-[0-9]*
 
-ALL_ENV+=		MONO_SHARED_DIR=${WRKDIR:Q}
+ALL_ENV+=		MONO_SHARED_DIR=${WRKDIR:Q} PLATFORM=
 
 USE_TOOLS+=		bison gmake perl:run pkg-config bash:run msgfmt
 USE_LIBTOOL=		yes
@@ -149,8 +149,12 @@ SUBST_SED.fix-libx11=		-e 's,@X11BASE@,${X11BASE},g'
 CPPFLAGS.NetBSD+=	-D_KMEMUSER
 CPPFLAGS.SunOS+=	-D__C99FEATURES__
 
-.if ${OPSYS} == "SunOS"
+.if !empty(MACHINE_PLATFORM:MSunOS-*-i386)
 ULIMIT_CMD_datasize=	ulimit -d 262144
+ULIMIT_CMD_stacksize=	ulimit -s 10240
+.elif !empty(MACHINE_PLATFORM:MSunOS-*-x86_64)
+CONFIGURE_ARGS+=	--with-sigaltstack=no
+ULIMIT_CMD_datasize=	ulimit -d 524288
 ULIMIT_CMD_stacksize=	ulimit -s 10240
 .endif
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.104 2013/05/31 12:41:34 wiz Exp $
+# $NetBSD: Makefile,v 1.106 2014/02/12 23:18:22 tron Exp $
 
 DISTNAME=	lftp-4.4.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.yar.ru/pub/source/lftp/ \
 		ftp://ftp.tuwien.ac.at/infosys/browsers/ftp/lftp/ \
@@ -17,7 +17,6 @@ LICENSE=	gnu-gpl-v3
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
-USE_GNU_READLINE=	yes	# uses _rl_mark_modified_lines
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
@@ -50,6 +49,7 @@ post-install: post-install-perl
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+# uses _rl_mark_modified_lines
 .include "../../devel/readline/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.27.6.1 2013/08/21 12:59:44 tron Exp $
+# $NetBSD: Makefile,v 1.29 2013/08/16 08:30:20 hannken Exp $
 
 DISTNAME=	chrony-1.29
 CATEGORIES=	net
@@ -36,6 +36,6 @@ post-install:
 			${DESTDIR}${EGDIR}/$${file};		\
 	done
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

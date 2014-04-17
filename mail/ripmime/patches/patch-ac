@@ -1,0 +1,17 @@
+$NetBSD: patch-ac,v 1.2 2013/08/30 16:53:45 joerg Exp $
+
+Avoid compiler warning.
+
+--- ripOLE/pldstr.c.orig	2008-10-31 16:17:32.000000000 +0000
++++ ripOLE/pldstr.c
+@@ -237,8 +237,8 @@ int PLD_strncasecmp( char *s1, char *s2,
+ 
+ 	while(n > 0)
+ 	{
+-		c1 = tolower(*ds1);
+-		c2 = tolower(*ds2);
++		c1 = tolower((unsigned char)*ds1);
++		c2 = tolower((unsigned char)*ds2);
+ 
+ 		if (c1 == c2)
+ 		{

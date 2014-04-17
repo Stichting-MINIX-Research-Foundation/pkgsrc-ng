@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.66 2013/06/06 12:53:56 wiz Exp $
+# $NetBSD: Makefile,v 1.71 2014/02/23 13:35:41 richard Exp $
 #
 
 DISTNAME=	streamtuner-0.99.99
-PKGREVISION=	30
+PKGREVISION=	34
 CATEGORIES=	audio www
 MASTER_SITES=	http://savannah.nongnu.org/download/streamtuner/
 
@@ -23,6 +23,10 @@ CONFIGURE_ARGS+=	--disable-gtk-doc
 CONFIGURE_ARGS+=	--with-html-dir=${PREFIX}/share/doc
 
 .include "options.mk"
+
+.if ${OPSYS} == "SunOS"
+BUILDLINK_TRANSFORM+=	rm:-lutil
+.endif
 
 .include "../../mk/omf-scrollkeeper.mk"
 .include "../../www/curl/buildlink3.mk"

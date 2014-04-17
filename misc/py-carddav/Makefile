@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2013/06/16 10:30:35 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2014/02/05 12:21:19 wiz Exp $
 
-DISTNAME=	pyCardDAV-0.5.0
+DISTNAME=	pyCardDAV-0.7.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/pyCardDAV/carddav/}
 CATEGORIES=	misc
 MASTER_SITES=	http://lostpackets.de/pycarddav/downloads/
@@ -17,18 +17,23 @@ DEPENDS+=	${PYPKGPREFIX}-requests-[0-9]*:../../devel/py-requests
 
 USE_LANGUAGES=	# none
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-vobject
+
 REPLACE_PYTHON=		pycarddav/ui.py
-REPLACE_PYTHON+=	pycarddav/controllers.py
+REPLACE_PYTHON+=	pycarddav/controllers/__init__.py
+REPLACE_PYTHON+=	pycarddav/controllers/query.py
+REPLACE_PYTHON+=	pycarddav/controllers/sync.py
 REPLACE_PYTHON+=	pycarddav/model.py
 REPLACE_PYTHON+=	pycarddav/carddav.py
 REPLACE_PYTHON+=	pycarddav/backend.py
 REPLACE_PYTHON+=	pycarddav/__init__.py
 
-INSTALLATION_DIRS= bin share/doc/py-carddav share/examples/py-carddav
+INSTALLATION_DIRS= bin ${PKGMANDIR}/man1 share/doc/py-carddav share/examples/py-carddav
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README* ${DESTDIR}${PREFIX}/share/doc/py-carddav
 	${INSTALL_DATA} ${WRKSRC}/pycard.conf.sample ${DESTDIR}${PREFIX}/share/examples/py-carddav
+	${INSTALL_DATA} ${WRKSRC}/doc/man/*.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"

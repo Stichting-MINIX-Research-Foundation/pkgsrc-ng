@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.49 2013/05/31 12:41:11 wiz Exp $
+# $NetBSD: Makefile,v 1.52 2013/12/06 06:20:00 dholland Exp $
 
 DISTNAME=	ghc-6.8.3
 PKGREVISION=	4
@@ -18,8 +18,6 @@ SITES.ghc-6.4.2-i386-unknown-netbsd-hc.tar.gz=${MASTER_SITE_LOCAL}
 
 ONLY_FOR_PLATFORM= Darwin-*-i386 FreeBSD-*-i386 NetBSD-*-i386 OpenBSD-*-i386 SunOS-*-i386
 
-PKG_DESTDIR_SUPPORT=	none
-
 CHECK_PORTABILITY_SKIP=	distrib/prep-bin-dist-mingw
 
 # += in a shell script, but in embedded AWK code, so it's ok.
@@ -28,7 +26,6 @@ CHECK_PORTABILITY_SKIP+=	libraries/base/cbits/ubconfc
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-ghc=${WRKDIR}/ghc-6.4.2/ghc/compiler/ghc-inplace
 CONFIGURE_ENV+=		PerlCmd=${PERL5:Q}
-USE_GNU_READLINE=	yes	# uses the UNDO_ constants
 USE_TOOLS+=		gmake perl:run
 
 SUBST_CLASSES+=		prefix
@@ -56,6 +53,7 @@ pre-configure:
 pre-build:
 	${ECHO} "SplitObjs=NO" > ${WRKSRC}/mk/build.mk
 
+# uses the UNDO_ constants
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

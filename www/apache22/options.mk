@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.9 2010/11/01 17:28:49 adam Exp $
+# $NetBSD: options.mk,v 1.12 2014/02/17 17:32:55 adam Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.apache
 PKG_OPTIONS_REQUIRED_GROUPS=	mpm

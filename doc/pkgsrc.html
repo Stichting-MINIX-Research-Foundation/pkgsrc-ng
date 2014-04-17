@@ -82,11 +82,13 @@
 <dt><span class="sect2"><a href="#cygwin">3.3.1. Cygwin</a></span></dt>
 <dt><span class="sect2"><a href="#darwin">3.3.2. Darwin (Mac OS X)</a></span></dt>
 <dt><span class="sect2"><a href="#freebsd">3.3.3. FreeBSD</a></span></dt>
-<dt><span class="sect2"><a href="#interix">3.3.4. Interix</a></span></dt>
-<dt><span class="sect2"><a href="#irix">3.3.5. IRIX</a></span></dt>
-<dt><span class="sect2"><a href="#linux">3.3.6. Linux</a></span></dt>
-<dt><span class="sect2"><a href="#openbsd">3.3.7. OpenBSD</a></span></dt>
-<dt><span class="sect2"><a href="#solaris">3.3.8. Solaris</a></span></dt>
+<dt><span class="sect2"><a href="#gnukfreebsd">3.3.4. GNU/kFreeBSD</a></span></dt>
+<dt><span class="sect2"><a href="#interix">3.3.5. Interix</a></span></dt>
+<dt><span class="sect2"><a href="#irix">3.3.6. IRIX</a></span></dt>
+<dt><span class="sect2"><a href="#linux">3.3.7. Linux</a></span></dt>
+<dt><span class="sect2"><a href="#mirbsd">3.3.8. MirBSD</a></span></dt>
+<dt><span class="sect2"><a href="#openbsd">3.3.9. OpenBSD</a></span></dt>
+<dt><span class="sect2"><a href="#solaris">3.3.10. Solaris</a></span></dt>
 </dl></dd>
 </dl></dd>
 <dt><span class="chapter"><a href="#using">4. Using pkgsrc</a></span></dt>
@@ -166,17 +168,18 @@ builds)</a></span></dt>
 <dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
 <dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
 <dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl></dd>
 </dl></dd>
 <dt><span class="part"><a href="#developers-guide">II. The pkgsrc developer's guide</a></span></dt>
@@ -668,7 +671,7 @@ minutes!</p>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.mirbsd.org/" target="_top">MirBSD</a></td>
-<td align="center">Aug 2011</td>
+<td align="center">Jan 2011</td>
 </tr>
 <tr>
 <td><a class="ulink" href="http://www.minix3.org/" target="_top">Minix3</a></td>
@@ -677,6 +680,10 @@ minutes!</p>
 <tr>
 <td><a class="ulink" href="http://cygwin.com/" target="_top">Cygwin</a></td>
 <td align="center">Mar 2013</td>
+</tr>
+<tr>
+<td><a class="ulink" href="http://www.debian.org/ports/kfreebsd-gnu/" target="_top">GNU/kFreeBSD</a></td>
+<td align="center">Jul 2013</td>
 </tr>
 </tbody>
 </table></div>
@@ -817,11 +824,13 @@ minutes!</p>
 <dt><span class="sect2"><a href="#cygwin">3.3.1. Cygwin</a></span></dt>
 <dt><span class="sect2"><a href="#darwin">3.3.2. Darwin (Mac OS X)</a></span></dt>
 <dt><span class="sect2"><a href="#freebsd">3.3.3. FreeBSD</a></span></dt>
-<dt><span class="sect2"><a href="#interix">3.3.4. Interix</a></span></dt>
-<dt><span class="sect2"><a href="#irix">3.3.5. IRIX</a></span></dt>
-<dt><span class="sect2"><a href="#linux">3.3.6. Linux</a></span></dt>
-<dt><span class="sect2"><a href="#openbsd">3.3.7. OpenBSD</a></span></dt>
-<dt><span class="sect2"><a href="#solaris">3.3.8. Solaris</a></span></dt>
+<dt><span class="sect2"><a href="#gnukfreebsd">3.3.4. GNU/kFreeBSD</a></span></dt>
+<dt><span class="sect2"><a href="#interix">3.3.5. Interix</a></span></dt>
+<dt><span class="sect2"><a href="#irix">3.3.6. IRIX</a></span></dt>
+<dt><span class="sect2"><a href="#linux">3.3.7. Linux</a></span></dt>
+<dt><span class="sect2"><a href="#mirbsd">3.3.8. MirBSD</a></span></dt>
+<dt><span class="sect2"><a href="#openbsd">3.3.9. OpenBSD</a></span></dt>
+<dt><span class="sect2"><a href="#solaris">3.3.10. Solaris</a></span></dt>
 </dl></dd>
 </dl></dd>
 <dt><span class="chapter"><a href="#using">4. Using pkgsrc</a></span></dt>
@@ -901,17 +910,18 @@ builds)</a></span></dt>
 <dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
 <dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
 <dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -978,14 +988,14 @@ and dashes.</p>
 	respectively.
 	</p>
 <p>You can fetch the same files using FTP.</p>
-<p>The tar file for the stable branch 2009Q1 is in the
-	directory <code class="filename">pkgsrc-2009Q1</code> and is also called <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-2009Q1/pkgsrc-2009Q1.tar.gz" target="_top"><code class="filename">pkgsrc-2009Q1.tar.gz</code></a>.</p>
+<p>The tar file for the stable branch 2013Q1 is in the
+	directory <code class="filename">pkgsrc-2013Q1</code> and is also called <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-2013Q1/pkgsrc.tar.gz" target="_top"><code class="filename">pkgsrc.tar.gz</code></a>.</p>
 <p>To download a pkgsrc stable tarball, run:</p>
 <pre class="screen">
-<code class="prompt">$</code> <strong class="userinput"><code>ftp ftp://ftp.NetBSD.org/pub/pkgsrc/<em class="replaceable"><code>pkgsrc-20xxQy</code></em>/<em class="replaceable"><code>pkgsrc-20xxQy</code></em>.tar.gz</code></strong></pre>
+<code class="prompt">$</code> <strong class="userinput"><code>ftp ftp://ftp.NetBSD.org/pub/pkgsrc/<em class="replaceable"><code>pkgsrc-20xxQy</code></em>/pkgsrc.tar.gz</code></strong></pre>
 <p>Where <em class="replaceable"><code>pkgsrc-20xxQy</code></em> is the
 	stable branch to be downloaded, for example, 
-	<span class="quote">&#8220;<span class="quote">pkgsrc-2009Q1</span>&#8221;</span>.</p>
+	<span class="quote">&#8220;<span class="quote">pkgsrc-2013Q1</span>&#8221;</span>.</p>
 <p>You can use fetch it also using "wget", "curl",
 	or your web browser.</p>
 <p>Then, extract it with:</p>
@@ -1116,11 +1126,13 @@ release -d
 <dt><span class="sect2"><a href="#cygwin">3.3.1. Cygwin</a></span></dt>
 <dt><span class="sect2"><a href="#darwin">3.3.2. Darwin (Mac OS X)</a></span></dt>
 <dt><span class="sect2"><a href="#freebsd">3.3.3. FreeBSD</a></span></dt>
-<dt><span class="sect2"><a href="#interix">3.3.4. Interix</a></span></dt>
-<dt><span class="sect2"><a href="#irix">3.3.5. IRIX</a></span></dt>
-<dt><span class="sect2"><a href="#linux">3.3.6. Linux</a></span></dt>
-<dt><span class="sect2"><a href="#openbsd">3.3.7. OpenBSD</a></span></dt>
-<dt><span class="sect2"><a href="#solaris">3.3.8. Solaris</a></span></dt>
+<dt><span class="sect2"><a href="#gnukfreebsd">3.3.4. GNU/kFreeBSD</a></span></dt>
+<dt><span class="sect2"><a href="#interix">3.3.5. Interix</a></span></dt>
+<dt><span class="sect2"><a href="#irix">3.3.6. IRIX</a></span></dt>
+<dt><span class="sect2"><a href="#linux">3.3.7. Linux</a></span></dt>
+<dt><span class="sect2"><a href="#mirbsd">3.3.8. MirBSD</a></span></dt>
+<dt><span class="sect2"><a href="#openbsd">3.3.9. OpenBSD</a></span></dt>
+<dt><span class="sect2"><a href="#solaris">3.3.10. Solaris</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -1140,7 +1152,7 @@ release -d
     </p>
 <p>Installing the bootstrap kit from source should be as simple as:</p>
 <pre class="screen">
-<code class="prompt">#</code> <strong class="userinput"><code>env CVS_RSH=ssh cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout pkgsrc</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>env CVS_RSH=ssh cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -P pkgsrc</code></strong>
 <code class="prompt">#</code> <strong class="userinput"><code>cd pkgsrc/bootstrap</code></strong>
 <code class="prompt">#</code> <strong class="userinput"><code>./bootstrap</code></strong>
     </pre>
@@ -1244,7 +1256,15 @@ release -d
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="interix"></a>3.3.4. Interix</h3></div></div></div>
+<a name="gnukfreebsd"></a>3.3.4. GNU/kFreeBSD</h3></div></div></div>
+<p>Debian GNU/kFreeBSD is the only GNU/kFreeBSD distribution now.
+      Debian GNU/kFreeBSD 7.0 or later is tested and supported.</p>
+<p> You should install ncurses (libncurses and libncurses-dev)
+      packages.</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="interix"></a>3.3.5. Interix</h3></div></div></div>
 <p>Interix is a POSIX-compatible subsystem for the Windows NT kernel,
       providing a Unix-like environment with a tighter kernel integration than
       available with Cygwin.  It is part of the Windows Services for Unix
@@ -1262,7 +1282,7 @@ release -d
       with pkgsrc.</p>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="platform.interix-sfu-install"></a>3.3.4.1. When installing Interix/SFU</h4></div></div></div>
+<a name="platform.interix-sfu-install"></a>3.3.5.1. When installing Interix/SFU</h4></div></div></div>
 <p>At an absolute minimum, the following packages must be installed from
 	the Windows Services for Unix 3.5 distribution in order to use pkgsrc:</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -1303,7 +1323,7 @@ release -d
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="platform.interix-sfu-postinstall"></a>3.3.4.2. What to do if Interix/SFU is already installed</h4></div></div></div>
+<a name="platform.interix-sfu-postinstall"></a>3.3.5.2. What to do if Interix/SFU is already installed</h4></div></div></div>
 <p>If SFU is already installed and you wish to alter these settings to work
 	with pkgsrc, note the following things.</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -1326,7 +1346,7 @@ release -d
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="platform.interix-notes"></a>3.3.4.3. Important notes for using pkgsrc</h4></div></div></div>
+<a name="platform.interix-notes"></a>3.3.5.3. Important notes for using pkgsrc</h4></div></div></div>
 <p>The package manager (either the pkgsrc "su" user, or the user
 	running "pkg_add") must be a member of the local Administrators
 	group.  Such a user must also be used to run the bootstrap.  This is
@@ -1349,7 +1369,7 @@ interix:kP=\E[S:kN=\E[T:kH=\E[U:dc@:DC@:tc=pcansi:
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="platform.interix-limits"></a>3.3.4.4. Limitations of the Interix platform</h4></div></div></div>
+<a name="platform.interix-limits"></a>3.3.5.4. Limitations of the Interix platform</h4></div></div></div>
 <p>Though Interix suffices as a familiar and flexible substitute
 	for a full Unix-like platform, it has some drawbacks that should
 	be noted for those desiring to make the most of Interix.</p>
@@ -1406,7 +1426,7 @@ interix:kP=\E[S:kN=\E[T:kH=\E[U:dc@:DC@:tc=pcansi:
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="platform.interix-knownissues"></a>3.3.4.5. Known issues for pkgsrc on Interix</h4></div></div></div>
+<a name="platform.interix-knownissues"></a>3.3.5.5. Known issues for pkgsrc on Interix</h4></div></div></div>
 <p>It is not necessary, in general, to have a "root" user on the
 	Windows system; any member of the local Administrators group will
 	suffice.  However, some packages currently assume that the user
@@ -1425,7 +1445,7 @@ interix:kP=\E[S:kN=\E[T:kH=\E[U:dc@:DC@:tc=pcansi:
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="irix"></a>3.3.5. IRIX</h3></div></div></div>
+<a name="irix"></a>3.3.6. IRIX</h3></div></div></div>
 <p>You will need a working C compiler, either gcc or SGI's MIPS and MIPSpro
       compiler (cc/c89).  Please set the <code class="varname">CC</code> environment variable
       according to your preference.  If you do not have a license for the MIPSpro
@@ -1470,7 +1490,7 @@ PKGSRC_COMPILER=        mipspro
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="linux"></a>3.3.6. Linux</h3></div></div></div>
+<a name="linux"></a>3.3.7. Linux</h3></div></div></div>
 <p>Some versions of Linux (for example Debian GNU/Linux) need
       either libtermcap or libcurses (libncurses).  Installing the
       distributions libncurses-dev package (or equivalent) should fix
@@ -1513,7 +1533,30 @@ ICCBASE=                /opt/intel/cc/10.1.008
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="openbsd"></a>3.3.7. OpenBSD</h3></div></div></div>
+<a name="mirbsd"></a>3.3.8. MirBSD</h3></div></div></div>
+<p>pkgsrc has been tested on MirBSD #10-current (2011 and newer).
+      Older versions might also work. Releases before #10 are not
+      supported.</p>
+<p>The package tools of the (older) native ports tree,
+      <a class="ulink" href="//www.mirbsd.org/ports.htm" target="_top">MirPorts</a>,
+      have the same names as the ones used by pkgsrc. Care should be taken
+      that the right tools are used. When installing packages from source,
+      use the <code class="filename">bmake</code> command for pkgsrc and
+      <code class="filename">mmake</code> for MirPorts.</p>
+<p>pkgsrc and MirPorts use the same location for the package
+      database, <code class="filename">/var/db/pkg</code>. It is strongly recommended
+      to use <code class="filename">/usr/pkg/db</code> instead, so that the pkgsrc
+      tree is self-contained. This is also the default setting used in the
+      binary package builds.</p>
+<p>Binary packages for MirBSD/i386 can be found on the pkgsrc ftp
+      server. The bootstrap kit there already contains the
+      <span class="command"><strong>pkgin</strong></span> package manager. See the
+      <a class="ulink" href="https://www.mirbsd.org/pkgsrc.htm" target="_top">pkgsrc on MirOS</a>
+      page for more details.</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="openbsd"></a>3.3.9. OpenBSD</h3></div></div></div>
 <p>OpenBSD 5.1 has been tested and supported,
       other versions may work.</p>
 <p>Care should be taken so that the tools that this kit installs do not conflict
@@ -1554,7 +1597,7 @@ ICCBASE=                /opt/intel/cc/10.1.008
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="solaris"></a>3.3.8. Solaris</h3></div></div></div>
+<a name="solaris"></a>3.3.10. Solaris</h3></div></div></div>
 <p>Solaris 2.6 through 10 are supported on both x86 and sparc.
       You will need a working C compiler. Both gcc 4.5.3 and
       Sun WorkShop 5 have been tested.</p>
@@ -1575,7 +1618,7 @@ ICCBASE=                /opt/intel/cc/10.1.008
       and e.g. <code class="filename">/usr/pkg/{bin,sbin}</code>.</p>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="solaris-gcc-note"></a>3.3.8.1. If you are using gcc</h4></div></div></div>
+<a name="solaris-gcc-note"></a>3.3.10.1. If you are using gcc</h4></div></div></div>
 <p>It makes life much simpler if you only use the same gcc consistently
 	for building all packages.</p>
 <p>It is recommended that an external gcc be used only for bootstrapping,
@@ -1586,7 +1629,7 @@ ICCBASE=                /opt/intel/cc/10.1.008
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="solaris-sun-workshop-note"></a>3.3.8.2. If you are using Sun WorkShop</h4></div></div></div>
+<a name="solaris-sun-workshop-note"></a>3.3.10.2. If you are using Sun WorkShop</h4></div></div></div>
 <p>You will need at least the following packages installed (from WorkShop
 	5.0)</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
@@ -1616,7 +1659,7 @@ CXXCPP= CC -E
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="solaris-sunpro-64"></a>3.3.8.3. Building 64-bit binaries with SunPro</h4></div></div></div>
+<a name="solaris-sunpro-64"></a>3.3.10.3. Building 64-bit binaries with SunPro</h4></div></div></div>
 <p>To build 64-bit packages, you just need to have the
 	following lines in your <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a> file:</p>
 <pre class="programlisting">
@@ -1632,7 +1675,7 @@ ABI=                    64
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
-<a name="plat.sunos.problems"></a>3.3.8.4. Common problems</h4></div></div></div>
+<a name="plat.sunos.problems"></a>3.3.10.4. Common problems</h4></div></div></div>
 <p>Sometimes, when using <span class="command"><strong>libtool</strong></span>,
       <code class="filename">/bin/ksh</code> crashes with a segmentation fault.
       The workaround is to use another shell for the configure
@@ -2590,11 +2633,11 @@ disk space can be read-only, some other must be writable. Some can be on
 remote filesystems (such as NFS) and some should be local. Some can be
 temporary filesystems, others must survive a sudden reboot.</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>10 GB for the distfiles (read-write, remote, temporary)</p></li>
-<li class="listitem"><p>10 GB for the binary packages (read-write, remote, permanent)</p></li>
-<li class="listitem"><p>400 MB for the pkgsrc tree (read-only, remote, permanent)</p></li>
+<li class="listitem"><p>40 GB for the distfiles (read-write, remote, temporary)</p></li>
+<li class="listitem"><p>30 GB for the binary packages (read-write, remote, permanent)</p></li>
+<li class="listitem"><p>1 GB for the pkgsrc tree (read-only, remote, permanent)</p></li>
 <li class="listitem"><p>5 GB for <code class="filename">LOCALBASE</code> (read-write, local, temporary for pbulk, permanent for old-bulk)</p></li>
-<li class="listitem"><p>5 GB for the log files (read-write, remote, permanent)</p></li>
+<li class="listitem"><p>10 GB for the log files (read-write, remote, permanent)</p></li>
 <li class="listitem"><p>5 GB for temporary files (read-write, local, temporary)</p></li>
 </ul></div>
 </div>
@@ -2800,10 +2843,10 @@ fi
 <div class="titlepage"><div><div><h3 class="title">
 <a name="disk-space-requirements"></a>7.3.5. Disk space requirements</h3></div></div></div>
 <p>Currently, roughly the following requirements are valid for
-      NetBSD 2.0/i386:</p>
+      NetBSD 6.99/amd64:</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>10 GB - distfiles (NFS ok)</p></li>
-<li class="listitem"><p>8 GB - full set of all binaries (NFS ok)</p></li>
+<li class="listitem"><p>40 GB - distfiles (NFS ok)</p></li>
+<li class="listitem"><p>30 GB - full set of all binaries (NFS ok)</p></li>
 <li class="listitem"><p>5 GB - temp space for compiling (local disk recommended)</p></li>
 </ul></div>
 <p>Note that all pkgs will be de-installed as soon as they are
@@ -2859,7 +2902,7 @@ fi
 </li>
 <li class="step">
 <p><code class="filename">/usr/src</code> (system sources,
-	  e.&nbsp;g. for <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/sysutils/aperture/README.html" target="_top"><code class="filename">sysutils/aperture</code></a>):</p>
+          rarely used by packages if at all:</p>
 <pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ln -s ../disk1/cvs .</code></strong>
 	  <code class="prompt">#</code> <strong class="userinput"><code>ln -s cvs/src-2.0 src</code></strong></pre>
 </li>
@@ -3235,17 +3278,18 @@ currently running.</p></dd>
 <dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
 <dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
 <dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl>
 </div>
 <p>This section contains hints, tips &amp; tricks on special things in
@@ -3323,8 +3367,6 @@ with each package.</p>
       Adds extra functionality to pkgsrc, allowing it to fetch distfiles
       from multiple locations. It currently supports the following
       methods: multiple CD-ROMs and network FTP/HTTP connections.</p></li>
-<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/xpkgwedge/README.html" target="_top"><code class="filename">pkgtools/xpkgwedge</code></a>: Put X11
-      packages someplace else (enabled by default).</p></li>
 <li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/devel/cpuflags/README.html" target="_top"><code class="filename">devel/cpuflags</code></a>: Determine
       the best compiler flags to optimise code for your current
       CPU and compiler. </p></li>
@@ -3332,6 +3374,9 @@ with each package.</p>
 <p>Utilities for keeping track of installed packages, being up to date,
 etc:</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/pkgin/README.html" target="_top"><code class="filename">pkgtools/pkgin</code></a>: A package
+    update tool similar to apt(1). Download, install, and upgrade
+    binary packages easily.</p></li>
 <li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/pkg_chk/README.html" target="_top"><code class="filename">pkgtools/pkg_chk</code></a>: Reports on
       packages whose installed versions do not match the latest pkgsrc
       entries.</p></li>
@@ -3352,11 +3397,8 @@ etc:</p>
 <li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/pkgdiff/README.html" target="_top"><code class="filename">pkgtools/pkgdiff</code></a>: Automate
       making and maintaining patches for a package (includes pkgdiff,
       pkgvi, mkpatches, etc.).</p></li>
-<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/rpm2pkg/README.html" target="_top"><code class="filename">pkgtools/rpm2pkg</code></a>,
-      <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/url2pkg/README.html" target="_top"><code class="filename">pkgtools/url2pkg</code></a>: Aids in
+<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/url2pkg/README.html" target="_top"><code class="filename">pkgtools/url2pkg</code></a>: Aids in
       converting to pkgsrc.</p></li>
-<li class="listitem"><p><a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/gensolpkg/README.html" target="_top"><code class="filename">pkgtools/gensolpkg</code></a>: Convert
-      pkgsrc to a Solaris package.</p></li>
 </ul></div>
 <p>Utilities for people maintaining pkgsrc (or: more obscure pkg
 utilities)</p>
@@ -3397,7 +3439,7 @@ enable this feature by adding the option
 <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>.  If, during a fetch step, an incomplete
 distfile is found, pkgsrc will try to resume it.</p>
 <p>You can also
-use a different program than the default <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?ftp+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">ftp</span>(1)</span></a> by changing the
+use a different program than the platform default program by changing the
 <code class="varname">FETCH_USING</code> variable.  You can specify the program by
 using of ftp, fetch, wget or curl.  Alternatively, fetching can be disabled
 by using the value manual.  A value of custom disables the system defaults
@@ -3445,7 +3487,22 @@ http_proxy=http://orpheus.amdahl.com:80/
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="passive-ftp"></a>9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</h2></div></div></div>
+<a name="fetch-https"></a>9.8. How to fetch files from HTTPS sites</h2></div></div></div>
+<p>Some fetch tools are not prepared to support HTTPS by default
+(for example, the one in NetBSD 6.0), or the one installed by the
+pkgsrc bootstrap (to avoid an openssl dependency that low in the
+dependency graph).</p>
+<p>Usually you won't notice, because distribution files are
+mirrored weekly to <span class="quote">&#8220;<span class="quote">ftp.NetBSD.org</span>&#8221;</span>, but that might not
+be often enough if you are following pkgsrc-current. In that case, set
+<code class="varname">FETCH_USING</code> in your <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a> file to
+<span class="quote">&#8220;<span class="quote">curl</span>&#8221;</span> or <span class="quote">&#8220;<span class="quote">wget</span>&#8221;</span>, which are both compiled
+with HTTPS support by default. Of course, these tools need to be
+installed before you can use them this way.</p>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="passive-ftp"></a>9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</h2></div></div></div>
 <p>This depends on which utility is used to retrieve distfiles.  From
 <code class="filename">bsd.pkg.mk</code>, <code class="varname">FETCH_CMD</code> is assigned
 the first available command from the following list:</p>
@@ -3465,7 +3522,7 @@ transfers.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="fetching-all-distfiles"></a>9.9. How to fetch all distfiles at once</h2></div></div></div>
+<a name="fetching-all-distfiles"></a>9.10. How to fetch all distfiles at once</h2></div></div></div>
 <p>You would like to download all the distfiles in a single batch
 from work or university, where you can't run a <span class="command"><strong>make
 fetch</strong></span>.  There is an archive of distfiles on <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/" target="_top">ftp.NetBSD.org</a>,
@@ -3497,7 +3554,7 @@ by running:</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="tmac.andoc-missing"></a>9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<a name="tmac.andoc-missing"></a>9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</h2></div></div></div>
 <p>When compiling the <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/pkg_install/README.html" target="_top"><code class="filename">pkgtools/pkg_install</code></a>
 package, you get the error from make that it doesn't know how to make
@@ -3511,7 +3568,7 @@ environment or in <a class="link" href="#mk.conf"><code class="filename">mk.conf
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bsd.own.mk-missing"></a>9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</h2></div></div></div>
+<a name="bsd.own.mk-missing"></a>9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</h2></div></div></div>
 <p>You didn't install the compiler set, <code class="filename">comp.tgz</code>,
 when you installed your NetBSD machine.  Please get and install it, by
 extracting it in <code class="filename">/</code>:</p>
@@ -3523,7 +3580,7 @@ the one that corresponds to your release (determine via <span class="command"><s
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="using-sudo-with-pkgsrc"></a>9.12. Using 'sudo' with pkgsrc</h2></div></div></div>
+<a name="using-sudo-with-pkgsrc"></a>9.13. Using 'sudo' with pkgsrc</h2></div></div></div>
 <p>When installing packages as non-root user and using the just-in-time
 <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?su+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> feature of pkgsrc, it can become annoying to type in the root
 password for each required package installed.  To avoid this, the sudo
@@ -3541,7 +3598,7 @@ SU_CMD=        ${LOCALBASE}/bin/sudo /bin/sh -c
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq.conf"></a>9.13. How do I change the location of configuration files?</h2></div></div></div>
+<a name="faq.conf"></a>9.14. How do I change the location of configuration files?</h2></div></div></div>
 <p>As the system administrator, you can choose where configuration files
 are installed.  The default settings make all these files go into
 <code class="filename">${PREFIX}/etc</code> or some of its subdirectories; this may
@@ -3563,7 +3620,7 @@ reinstall any affected packages.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="audit-packages"></a>9.14. Automated security checks</h2></div></div></div>
+<a name="audit-packages"></a>9.15. Automated security checks</h2></div></div></div>
 <p>Please be aware that there can often be bugs in third-party software,
 and some of these bugs can leave a machine vulnerable to exploitation by
 attackers.  In an effort to lessen the exposure, the NetBSD packages team
@@ -3596,7 +3653,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="ufaq-cflags"></a>9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</h2></div></div></div>
+<a name="ufaq-cflags"></a>9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</h2></div></div></div>
 <p>When you add your own preferences to the
 	<code class="varname">CFLAGS</code> variable in your
 	<a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>, these flags are passed in
@@ -3618,7 +3675,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="ufaq-fail"></a>9.16. A package does not build.  What shall I do?</h2></div></div></div>
+<a name="ufaq-fail"></a>9.17. A package does not build.  What shall I do?</h2></div></div></div>
 <div class="procedure"><ol class="procedure" type="1">
 <li class="step"><p>Make sure that your copy of pkgsrc is consistent. A
 	case that occurs often is that people only update pkgsrc in
@@ -3639,7 +3696,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq.rcs-conflicts"></a>9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</h2></div></div></div>
+<a name="faq.rcs-conflicts"></a>9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</h2></div></div></div>
 <p>You have modified a file from pkgsrc, and someone else has
 modified that same file afterwards in the CVS repository. Both changes
 are in the same region of the file, so when you updated pkgsrc, the
@@ -4013,23 +4070,13 @@ settings that are typical of KDE packages.</p>
 <a name="creating.python-module"></a>10.1.3. Python modules and programs</h3></div></div></div>
 <p>Python modules and programs packages are easily created using a
 set of predefined variables.</p>
-<p>Most Python packages use either <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> or
-easy-setup (<span class="quote">&#8220;<span class="quote">eggs</span>&#8221;</span>).
-If the software uses <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span>, set the
-<code class="varname">PYDISTUTILSPKG</code> variable to <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span> so
-pkgsrc will make use of this framework.
-<span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> uses a script called <code class="filename">setup.py</code>,
-if the <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> driver is not called
-<code class="filename">setup.py</code>, set the <code class="varname">PYSETUP</code> variable
-to the name of the script.</p>
 <p>
-If the default Python versions are not supported by the software, set the
-<code class="varname">PYTHON_VERSIONS_ACCEPTED</code> variable to the Python versions
-the software is known to work with, from the most recent to the older
-one, e.g.
+If some Python versions are not supported by the software, set the
+<code class="varname">PYTHON_VERSIONS_INCOMPATIBLE</code> variable to the Python versions
+that are not supported, e.g.
 </p>
 <pre class="programlisting">
-PYTHON_VERSIONS_ACCEPTED=       31 27 26
+PYTHON_VERSIONS_INCOMPATIBLE=       26
 </pre>
 <p>
 If the packaged software is a Python module, include
@@ -4042,20 +4089,43 @@ In this case, the package directory should be called
 DISTNAME=   foopymodule-1.2.10
 PKGNAME=    ${PYPKGPREFIX}-${DISTNAME}
 </pre>
-<p>If it is an application, also include
-<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/application.mk</code></span>&#8221;</span>
-before <span class="quote">&#8220;<span class="quote">extension.mk</span>&#8221;</span>.</p>
-<p>If the packaged software, either it is an application or a module, is
-egg-aware, you only need to include
-<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/egg.mk</code></span>&#8221;</span>.</p>
-<p>In order to correctly set the path to the Python interpreter, use the
+<p>If it is an application, include
+<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/application.mk</code></span>&#8221;</span>.
+In order to correctly set the path to the Python interpreter, use the
 <code class="varname">REPLACE_PYTHON</code> variable and set it to the list of files
 (paths relative to <code class="varname">WRKSRC</code>) that must be corrected.
-For example :
+For example:
 </p>
 <pre class="programlisting">
 REPLACE_PYTHON=   *.py
 </pre>
+<p>Most Python packages use either <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> or
+easy-setup (<span class="quote">&#8220;<span class="quote">eggs</span>&#8221;</span>).
+If the software uses <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span>, include 
+<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/distutils.mk</code></span>&#8221;</span>.
+so pkgsrc will use this framework.
+<span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> uses a script called <code class="filename">setup.py</code>,
+if the <span class="quote">&#8220;<span class="quote">distutils</span>&#8221;</span> driver is not called
+<code class="filename">setup.py</code>, set the <code class="varname">PYSETUP</code> variable
+to the name of the script.</p>
+<p>Otherwise, if the packaged software is egg-aware, you only need
+to include
+<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/egg.mk</code></span>&#8221;</span>.</p>
+<p>Some Python modules have separate distributions for Python-2.x
+and Python-3.x support. In pkgsrc this is handled by the
+<code class="filename">versioned_dependencies.mk</code> file. Set
+<code class="varname">PYTHON_VERSIONED_DEPENDENCIES</code> to the list of
+packages that should be depended upon and include
+<span class="quote">&#8220;<span class="quote"><code class="filename">../../lang/python/versioned_dependencies.mk</code></span>&#8221;</span>,
+then the pkgsrc infrastructure will depend on the appropriate package
+version. For example:
+</p>
+<pre class="programlisting">
+PYTHON_VERSIONED_DEPENDENCIES=dateutil dns
+</pre>
+<p>
+Look inside <code class="filename">versioned_dependencies.mk</code> for a list
+of supported packages.</p>
 </div>
 </div>
 <div class="sect1">
@@ -4225,7 +4295,7 @@ So I changed the <code class="literal">x11/gtk2</code> to
 and tried again.</p>
 <pre class="programlisting">
 [...]
-cc -o xpidl.o -c -DOSTYPE=\"NetBSD3\" -DOSARCH=\"NetBSD\"   -I../../../dist/include/xpcom -I../../../dist/include -I/tmp/roland/pkgsrc/www/nvu/work.bacc/mozilla/dist/include/nspr -I/usr/X11R6/include   -fPIC -DPIC -I/home/roland/pkg/include -I/usr/include  -I/usr/X11R6/include -Wall -W -Wno-unused -Wpointer-arith -Wcast-align -Wno-long-long -pedantic -O2 -I/home/roland/pkg/include -I/usr/include -Dunix -pthread -pipe  -DDEBUG -D_DEBUG -DDEBUG_roland -DTRACING -g -I/home/roland/pkg/include/glib/glib-1.2 -I/home/roland/pkg/lib/glib/include -I/usr/pkg/include/orbit-1.0   -I/home/roland/pkg/include -I/usr/include  -I/usr/X11R6/include -include ../../../mozilla-config.h -DMOZILLA_CLIENT -Wp,-MD,.deps/xpidl.pp xpidl.c
+cc -o xpidl.o -c -DOSTYPE=\"NetBSD3\" -DOSARCH=\"NetBSD\"  [...]
 In file included from xpidl.c:42:
 xpidl.h:53:24: libIDL/IDL.h: No such file or directory
 In file included from xpidl.c:42:
@@ -5526,6 +5596,14 @@ BUILDLINK_API_DEPENDS.foo+=   foo&gt;=1.1.0
 	<span class="quote">&#8220;<span class="quote">lesstif</span>&#8221;</span>, <span class="quote">&#8220;<span class="quote">motif</span>&#8221;</span> or
 	<span class="quote">&#8220;<span class="quote">openmotif</span>&#8221;</span> to choose
 	which Motif version will be used.</p></li>
+<li class="listitem"><p><code class="filename">readline.buildlink3.mk</code> checks for a
+	system-provided GNU readline or editline (libedit) installation,
+	or adds a dependency on <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/devel/readline/README.html" target="_top"><code class="filename">devel/readline</code></a>,
+	<a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/devel/editline/README.html" target="_top"><code class="filename">devel/editline</code></a>. The user can set
+	<code class="varname">READLINE_DEFAULT</code> to choose readline implementation.
+	If your package really needs GNU readline library, its Makefile
+	should include <code class="filename">devel/readline/buildlink3.mk</code>
+	instead of <code class="filename">readline.buildlink3.mk</code>.</p></li>
 <li class="listitem"><p><code class="filename">oss.buildlink3.mk</code> defines several
 	variables that may be used by packages that use the
 	Open Sound System (OSS) API.</p></li>
@@ -7658,7 +7736,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="tools.questions"></a>18.4. Questions regarding the tools</h2></div></div></div>
 <div class="qandaset">
-<a name="idm76168656"></a><dl>
+<a name="idm73061424"></a><dl>
 <dt>18.4.1. <a href="#tools.new">How do I add a new tool?</a>
 </dt>
 <dt>18.4.2. <a href="#tools.listall">How do I get a list of all available
@@ -7677,7 +7755,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.new"></a><a name="idm76168272"></a><p><b>18.4.1.</b></p>
+<a name="tools.new"></a><a name="idm73061040"></a><p><b>18.4.1.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I add a new tool?</p></td>
 </tr>
@@ -7687,7 +7765,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.listall"></a><a name="idm76167248"></a><p><b>18.4.2.</b></p>
+<a name="tools.listall"></a><a name="idm73060016"></a><p><b>18.4.2.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I get a list of all available
 	tools?</p></td>
@@ -7698,7 +7776,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.used"></a><a name="idm76166224"></a><p><b>18.4.3.</b></p>
+<a name="tools.used"></a><a name="idm73058992"></a><p><b>18.4.3.</b></p>
 </td>
 <td align="left" valign="top"><p>How can I get a list of all the tools that a
 	package is using while being built? I want to know whether it
@@ -7895,6 +7973,7 @@ INTERACTIVE_STAGE=      configure install
 	artistic artistic-2.0
 	boost-license
 	cc-by-sa-v3.0
+	cc0-1.0-universal
 	cddl-1.0
 	cpl-1.0
 	epl-v1.0
@@ -8159,6 +8238,18 @@ DEPENDS+=       ImageMagick&gt;=6.0:../../graphics/ImageMagick
 <p>For security fixes, please update the package
 	vulnerabilities file. See <a class="xref" href="#security-handling" title="19.1.10. Handling packages with security problems">Section 19.1.10, &#8220;Handling packages with security problems&#8221;</a> for more
 	information.</p>
+</li>
+<li class="listitem">
+<p>If the package depends on either one of two (or more)
+	packages, specify the <span class="quote">&#8220;<span class="quote">pre-req-package-name</span>&#8221;</span> as a
+	comma-separated list between curly braces.</p>
+<p>As an example, take a package that depends on the Perl
+	<span class="quote">&#8220;<span class="quote">version</span>&#8221;</span> module, which has been part of Perl
+	itself since version 5.10.0. This either/or dependency is
+	expressed as:</p>
+<pre class="programlisting">
+DEPENDS+=	{perl&gt;=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
+	</pre>
 </li>
 </ol></div>
 <p>If your package needs files from another package to build,
@@ -9185,7 +9276,7 @@ PERL5_PACKLIST= auto/Pg/.packlist
 	need to manually patch the package.</p></li>
 <li class="listitem"><p>Check the PLIST and remove any entries under the etc/gconf
 	directory, as they will be handled automatically.  See
-	<a class="xref" href="#faq.conf" title="9.13. How do I change the location of configuration files?">Section 9.13, &#8220;How do I change the location of configuration files?&#8221;</a> for more information.</p></li>
+	<a class="xref" href="#faq.conf" title="9.14. How do I change the location of configuration files?">Section 9.14, &#8220;How do I change the location of configuration files?&#8221;</a> for more information.</p></li>
 <li class="listitem"><p>Define the <code class="varname">GCONF_SCHEMAS</code> variable in
 	your <code class="filename">Makefile</code> with a list of all
 	<code class="filename">.schemas</code> files installed by the package, if
@@ -9760,7 +9851,7 @@ place.</p></li>
 	and if you still don't have the answer, ask on the
 	<code class="literal">pkgsrc-users</code> mailing list.</p>
 <div class="qandaset">
-<a name="idm77694160"></a><dl>
+<a name="idm74589232"></a><dl>
 <dt>22.1. <a href="#devfaq.makeflags">What is the difference between
 	MAKEFLAGS, .MAKEFLAGS and
 	MAKE_FLAGS?</a>
@@ -9805,7 +9896,7 @@ do?</a>
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.makeflags"></a><a name="idm77693776"></a><p><b>22.1.</b></p>
+<a name="devfaq.makeflags"></a><a name="idm74588848"></a><p><b>22.1.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKEFLAGS</code>, <code class="varname">.MAKEFLAGS</code> and
@@ -9821,7 +9912,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.make"></a><a name="idm77689808"></a><p><b>22.2.</b></p>
+<a name="devfaq.make"></a><a name="idm74584880"></a><p><b>22.2.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKE</code>, <code class="varname">GMAKE</code> and
@@ -9839,7 +9930,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.cc"></a><a name="idm77685328"></a><p><b>22.3.</b></p>
+<a name="devfaq.cc"></a><a name="idm74580400"></a><p><b>22.3.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">CC</code>, <code class="varname">PKG_CC</code> and
@@ -9857,7 +9948,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3flags"></a><a name="idm77681232"></a><p><b>22.4.</b></p>
+<a name="devfaq.bl3flags"></a><a name="idm74576304"></a><p><b>22.4.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">BUILDLINK_LDFLAGS</code>,
@@ -9870,7 +9961,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3prefix"></a><a name="idm77678928"></a><p><b>22.5.</b></p>
+<a name="devfaq.bl3prefix"></a><a name="idm74574128"></a><p><b>22.5.</b></p>
 </td>
 <td align="left" valign="top"><p>Why does <span class="command"><strong>make show-var
 	VARNAME=BUILDLINK_PREFIX.<em class="replaceable"><code>foo</code></em></strong></span>
@@ -9886,7 +9977,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.master_sites"></a><a name="idm77675856"></a><p><b>22.6.</b></p>
+<a name="devfaq.master_sites"></a><a name="idm74570928"></a><p><b>22.6.</b></p>
 </td>
 <td align="left" valign="top"><p>What does
 	<code class="literal">${MASTER_SITE_SOURCEFORGE:=package/}</code> mean? I
@@ -9910,7 +10001,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.mailinglists"></a><a name="idm77667792"></a><p><b>22.7.</b></p>
+<a name="devfaq.mailinglists"></a><a name="idm74554672"></a><p><b>22.7.</b></p>
 </td>
 <td align="left" valign="top"><p>Which mailing lists are there for package
 	developers?</p></td>
@@ -9935,7 +10026,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.documentation"></a><a name="idm77664080"></a><p><b>22.8.</b></p>
+<a name="devfaq.documentation"></a><a name="idm74550960"></a><p><b>22.8.</b></p>
 </td>
 <td align="left" valign="top"><p>Where is the pkgsrc
 	documentation?</p></td>
@@ -9983,7 +10074,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.too-much-time"></a><a name="idm77657552"></a><p><b>22.9.</b></p>
+<a name="devfaq.too-much-time"></a><a name="idm74544432"></a><p><b>22.9.</b></p>
 </td>
 <td align="left" valign="top"><p>I have a little time to kill.  What shall I
 do?</p></td>

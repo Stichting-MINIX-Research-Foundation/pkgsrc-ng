@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.8 2013/05/09 07:40:02 adam Exp $
+# $NetBSD: Makefile,v 1.11 2014/02/12 23:18:05 tron Exp $
 #
 
 DISTNAME=	konoha-1.0.0-952
 PKGNAME=	konoha-1.0.0.952
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	lang
 MASTER_SITES=	http://konoha.googlecode.com/files/
 
@@ -19,7 +19,7 @@ USE_LANGUAGES=	c c++
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

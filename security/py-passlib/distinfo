@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/01/01 17:46:20 kleink Exp $
+
+SHA1 (passlib-1.6.2.tar.gz) = 30be2a7ec83b7b28dc32eff02cd9173fbfa79fe5
+RMD160 (passlib-1.6.2.tar.gz) = 6e70c34e6f1b887cd21178c032f4c06a7622a58b
+Size (passlib-1.6.2.tar.gz) = 408950 bytes

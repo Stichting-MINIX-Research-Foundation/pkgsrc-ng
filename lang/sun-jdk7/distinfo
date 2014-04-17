@@ -1,14 +1,14 @@
-$NetBSD: distinfo,v 1.9.2.1 2013/07/14 16:10:54 tron Exp $
+$NetBSD: distinfo,v 1.14 2014/02/11 09:12:12 obache Exp $
 
-SHA1 (jdk-7u25-linux-i586.tar.gz) = 6b28b72351aa61329b5bacb16fca57c82813edd3
-RMD160 (jdk-7u25-linux-i586.tar.gz) = 07fbd1c375f26744c8c96c9dd6adf8305ea5edbd
-Size (jdk-7u25-linux-i586.tar.gz) = 97643815 bytes
-SHA1 (jdk-7u25-linux-x64.tar.gz) = 1992a3e713c45032740f1dd290cb80d176e2c8c1
-RMD160 (jdk-7u25-linux-x64.tar.gz) = a6d314a500742327a03ad349799da1a7f0e0449f
-Size (jdk-7u25-linux-x64.tar.gz) = 96316511 bytes
-SHA1 (jdk-7u25-solaris-i586.tar.gz) = 046da7d2b1d23db3bbe08e779b76d48c7613259f
-RMD160 (jdk-7u25-solaris-i586.tar.gz) = 4a95eb6d7bf6f0b3882376850866c445e8231a50
-Size (jdk-7u25-solaris-i586.tar.gz) = 96703653 bytes
-SHA1 (jdk-7u25-solaris-x64.tar.gz) = b38ada4b3c46a43fbd50809cab529de8d8903105
-RMD160 (jdk-7u25-solaris-x64.tar.gz) = 1d4c2bc2b5cb81a995adbf8b8b978700897f29d8
-Size (jdk-7u25-solaris-x64.tar.gz) = 15822924 bytes
+SHA1 (jdk-7u51-linux-i586.tar.gz) = 6cc2a9c41fa1fe9f4b713077b2e71a61c00071d9
+RMD160 (jdk-7u51-linux-i586.tar.gz) = 9c2608c489bfe81d6de271aed55d11dd921f2307
+Size (jdk-7u51-linux-i586.tar.gz) = 139444114 bytes
+SHA1 (jdk-7u51-linux-x64.tar.gz) = bee3b085a90439c833ce18e138c9f1a615152891
+RMD160 (jdk-7u51-linux-x64.tar.gz) = f2ad52611044ea72343e7fc809d17c635fb73c34
+Size (jdk-7u51-linux-x64.tar.gz) = 138199690 bytes
+SHA1 (jdk-7u51-solaris-i586.tar.gz) = 8bd1eb149cf4fc4349dd0a64cb3d209ee1f84db5
+RMD160 (jdk-7u51-solaris-i586.tar.gz) = aaa665df13366db7fee728d42fb527337a3a2418
+Size (jdk-7u51-solaris-i586.tar.gz) = 99755627 bytes
+SHA1 (jdk-7u51-solaris-x64.tar.gz) = da2e1978ae7f8e384dcc7461b18fd827927b00b4
+RMD160 (jdk-7u51-solaris-x64.tar.gz) = 79c8dc030301aee718d1ad5f6f8a169f0efc7e23
+Size (jdk-7u51-solaris-x64.tar.gz) = 17070697 bytes

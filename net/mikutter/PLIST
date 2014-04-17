@@ -1,7 +1,8 @@
-@comment $NetBSD: PLIST,v 1.23 2013/05/15 11:24:14 obache Exp $
+@comment $NetBSD: PLIST,v 1.25 2014/03/11 12:16:39 obache Exp $
 bin/mikutter
 share/applications/mikutter.desktop
 share/doc/mikutter/README
+share/mikutter/Gemfile
 share/mikutter/core/boot/check_config_permission.rb
 share/mikutter/core/boot/load_plugin.rb
 share/mikutter/core/boot/mainloop.rb
@@ -245,6 +246,7 @@ share/mikutter/core/retriever.rb
 share/mikutter/core/serialthread.rb
 share/mikutter/core/service.rb
 share/mikutter/core/skin.rb
+share/mikutter/core/skin/data/activity.png
 share/mikutter/core/skin/data/arrow_followed.png
 share/mikutter/core/skin/data/arrow_following.png
 share/mikutter/core/skin/data/arrow_notfollowed.png

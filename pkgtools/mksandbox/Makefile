@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2013/05/29 15:57:09 agc Exp $
+# $NetBSD: Makefile,v 1.8 2014/03/03 03:30:53 obache Exp $
 
-DISTNAME=	mksandbox-1.0
+PKGNAME=	mksandbox-1.3
 CATEGORIES=	pkgtools
-MASTER_SITES=	# none
-DISTFILES=	# none
 
 MAINTAINER=	agc@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/docs/pkgsrc/bulk.html#setting-up-a-sandbox

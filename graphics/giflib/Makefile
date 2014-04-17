@@ -1,9 +1,6 @@
-# $NetBSD: Makefile,v 1.45 2012/10/06 14:10:51 asau Exp $
-#
+# $NetBSD: Makefile,v 1.48 2013/08/31 18:41:33 adam Exp $
 
-.include "${.CURDIR}/Makefile.common"
-
-PKGREVISION=	2
+.include "Makefile.common"
 
 COMMENT=	GIF image format library
 

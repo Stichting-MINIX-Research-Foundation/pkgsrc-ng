@@ -1,4 +1,4 @@
-# $NetBSD: SunOS.mk,v 1.51 2013/05/16 17:09:07 jperkin Exp $
+# $NetBSD: SunOS.mk,v 1.58 2014/03/11 14:07:04 jperkin Exp $
 #
 # Variable definitions for the SunOS/Solaris operating system.
 
@@ -11,6 +11,7 @@ PS?=		/bin/ps
 SU?=		/usr/bin/su
 TYPE?=		/usr/bin/type
 
+CATMAN_SECTION_SUFFIX?=	yes
 CPP_PRECOMP_FLAGS?=	# unset
 DEF_UMASK?=		022
 DEFAULT_SERIAL_DEVICE?=	/dev/null
@@ -37,9 +38,19 @@ MOTIF_TYPE_DEFAULT?=	dt		# default 2.0 compatible libs type
 MOTIF_TYPE_DEFAULT?=	motif
 .endif
 
+# Use SMF by default if available.
+.if ${OS_VERSION} >= 5.10
+INIT_SYSTEM?=		smf
+.endif
+
+# Comes with a builtin implementation based on mit-krb5
+KRB5_DEFAULT?=		mit-krb5
+
 # Builtin defaults which make sense for this platform.
-PREFER.solaris-pam?=	native
-PREFER.openssl?=	pkgsrc
+_OPSYS_PREFER.libexecinfo?=	native
+_OPSYS_PREFER.mit-krb5?=	native
+_OPSYS_PREFER.openssl?=		pkgsrc
+_OPSYS_PREFER.solaris-pam?=	native
 
 _OPSYS_EMULDIR.solaris=		# empty
 _OPSYS_EMULDIR.solaris32=	# empty
@@ -66,6 +77,10 @@ _USE_RPATH=		yes		# add rpath to LDFLAGS
 # ld is not currently supported.
 _OPSYS_WHOLE_ARCHIVE_FLAG=	-z allextract
 _OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-z defaultextract
+
+# Remove flags specific to GNU ld.
+BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
+BUILDLINK_TRANSFORM+=	rm:-export-dynamic
 
 # Solaris has /usr/include/iconv.h, but it's not GNU iconv, so mark it
 # incompatible.

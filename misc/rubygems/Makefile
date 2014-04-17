@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.52.2.1 2013/07/16 17:00:51 tron Exp $
+# $NetBSD: Makefile,v 1.57 2014/03/13 18:05:49 taca Exp $
 
-DISTNAME=	rubygems-2.0.3
+DISTNAME=	rubygems-2.0.10
 PKGREVISION=	2
 CATEGORIES=	misc ruby
 MASTER_SITES=	http://production.cf.rubygems.org/rubygems/

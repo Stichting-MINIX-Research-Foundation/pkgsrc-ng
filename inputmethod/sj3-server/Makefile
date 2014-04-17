@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2012/10/06 14:25:18 asau Exp $
-#
+# $NetBSD: Makefile,v 1.15 2013/10/30 06:49:54 dholland Exp $
 
 .include "../../inputmethod/sj3/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/sj3-/sj3-server-/}
+PKGREVISION=	3
 
 COMMENT=	SJ3 Japanese input method server
 
@@ -33,7 +33,6 @@ INSTALLATION_DIRS+=	libdata
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/dict/sj3main.dic \
 		${DESTDIR}${PREFIX}/libdata/sj3main.dic
-
 
 .include "../../lang/lua/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

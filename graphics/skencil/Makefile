@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2013/06/13 14:26:35 joerg Exp $
+# $NetBSD: Makefile,v 1.32 2014/01/25 10:45:18 wiz Exp $
 
 DISTNAME=	skencil-0.6.17
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sketch/}
 
@@ -13,11 +13,15 @@ DEPENDS+=	${PYPKGPREFIX}-Tk-[0-9]*:../../x11/py-Tk
 
 USE_TOOLS+=	pax
 
-PYTHON_PATCH_SCRIPTS= sk2ppm.py sk2ps.py skconvert.py skencil.py skshow.py
+REPLACE_PYTHON= sk2ppm.py sk2ps.py skconvert.py skencil.py skshow.py
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-imaging
+
 SK_CONF_ARGS=	--imaging-include=${BUILDLINK_PREFIX.pyimaging}/${PYINC}/PIL
-SK_TKFLAGS=	-L${BUILDLINK_PREFIX.tk}/lib -R${BUILDLINK_PREFIX.tk}/lib -ltk -ltcl
-SK_TKFLAGS+=	-R${X11BASE}/lib
+SK_TKFLAGS=	-L${BUILDLINK_PREFIX.tk}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.tk}/lib -ltk -ltcl
+SK_TKFLAGS+=	${COMPILER_RPATH_FLAG}${X11BASE}/lib
 SK_CONF_ARGS+=	--tk-flags=${SK_TKFLAGS:Q}
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 do-configure:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \

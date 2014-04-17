@@ -1,4 +1,4 @@
-$NetBSD: patch-unix_uxnet.c,v 1.1.14.1 2013/08/21 19:40:13 tron Exp $
+$NetBSD: patch-unix_uxnet.c,v 1.2 2013/08/07 11:06:39 drochner Exp $
 
 --- unix/uxnet.c.orig	2013-07-27 18:35:48.000000000 +0000
 +++ unix/uxnet.c

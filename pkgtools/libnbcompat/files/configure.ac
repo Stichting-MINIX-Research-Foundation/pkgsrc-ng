@@ -1,4 +1,4 @@
-dnl $NetBSD: configure.ac,v 1.80 2013/02/10 12:38:52 obache Exp $
+dnl $NetBSD: configure.ac,v 1.82 2014/03/14 22:08:17 ryoon Exp $
 
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
@@ -41,7 +41,7 @@ AC_CHECK_HEADERS([alloca.h assert.h ctype.h dirent.h endian.h err.h errno.h \
 	sys/file.h sys/mkdev.h sys/ndir.h sys/param.h sys/socket.h sys/stat.h \
 	sys/statfs.h sys/statvfs.h sys/time.h sys/ttycom.h sys/types.h \
 	sys/uio.h sys/vfs.h sysexits.h termcap.h time.h tzfile.h unistd.h \
-	util.h utime.h
+	util.h utime.h sys/mman.h
 ])
 AC_CHECK_HEADERS([sys/mount.h], [:], [:], [
 	AC_INCLUDES_DEFAULT
@@ -159,6 +159,16 @@ AC_CHECK_FUNC(SHA512_File, [:], [
 
 case $host in
 *-*-hpux*)
+	AC_DEFINE(BROKEN_PREAD)
+	AH_TEMPLATE([BROKEN_PREAD], [
+	Define to 1 if the `pread' function is broken.
+])
+	AC_DEFINE(BROKEN_PWRITE)
+	AH_TEMPLATE([BROKEN_PWRITE], [
+	Define to 1 if the `pwrite' function is broken.
+])
+	;;
+*-*-sco3.2v5*)
 	AC_DEFINE(BROKEN_PREAD)
 	AH_TEMPLATE([BROKEN_PREAD], [
 	Define to 1 if the `pread' function is broken.

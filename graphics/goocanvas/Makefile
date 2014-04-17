@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2013/06/06 12:53:57 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2013/10/10 14:41:49 ryoon Exp $
 #
 
 DISTNAME=	goocanvas-1.0.0
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/goocanvas/1.0/}
 

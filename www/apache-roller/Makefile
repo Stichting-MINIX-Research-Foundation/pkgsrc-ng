@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2013/03/02 20:33:33 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/01/12 22:22:25 spz Exp $
 #
 
 DISTNAME=	roller-weblogger-${ROLLER_VER}-for-tomcat
 PKGNAME=	apache-roller-${ROLLER_VER}
 WRKSRC=		${WRKDIR}/${DISTNAME:S/-for//}
-PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=roller/roller-5/v${ROLLER_VER}/bin/}
 
@@ -16,7 +15,7 @@ BUILD_DEPENDS+=	fastjar-[0-9]*:../../archivers/fastjar
 
 USE_JAVA=	run
 USE_JAVA2=	1.5
-ROLLER_VER=	5.0.1
+ROLLER_VER=	5.0.3
 
 PLIST_SUBST+=		PKGNAME_NOREV=${PKGNAME_NOREV:Q}
 

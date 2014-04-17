@@ -1,6 +1,6 @@
 #!@RCD_SCRIPTS_SHELL@
 #
-# $NetBSD: chronyd.sh,v 1.4.84.1 2013/08/21 12:59:44 tron Exp $
+# $NetBSD: chronyd.sh,v 1.5 2013/08/16 08:30:20 hannken Exp $
 #
 # PROVIDE: chronyd
 # REQUIRE: DAEMON

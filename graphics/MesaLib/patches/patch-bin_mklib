@@ -1,4 +1,4 @@
-$NetBSD: patch-bin_mklib,v 1.1 2013/05/16 05:22:02 richard Exp $
+$NetBSD: patch-bin_mklib,v 1.3 2013/11/29 15:27:19 bsiegert Exp $
 
 Solaris ld seemingly has a hard time swallowing nested archives,
 so flatten them out as is done for linux.
@@ -6,9 +6,9 @@ so flatten them out as is done for linux.
 Also, to simplify PLIST processing, add versioned shared libraries
 for SunOS.
 
---- bin/mklib.orig	2011-10-15 00:43:58.000000000 +0000
+--- bin/mklib.orig	Sat Oct 15 00:43:34 2011
 +++ bin/mklib
-@@ -305,6 +305,12 @@ fi
+@@ -305,9 +305,15 @@ fi
  #
  # OK, make the library now
  #
@@ -20,7 +20,11 @@ for SunOS.
 +
  case $ARCH in
  
-     'Linux' | 'OpenBSD' | 'DragonFly' | 'GNU' | GNU/* | 'NetBSD')
+-    'Linux' | 'OpenBSD' | 'DragonFly' | 'GNU' | GNU/* | 'NetBSD')
++    'Linux' | 'OpenBSD' | 'DragonFly' | 'GNU' | GNU/* | 'NetBSD' | 'FreeBSD' | 'MirBSD')
+ 	# we assume gcc
+ 
+ 	if [ "x$LINK" = "x" ] ; then
 @@ -398,12 +404,6 @@ case $ARCH in
                  OPTS=${ALTOPTS}
              fi

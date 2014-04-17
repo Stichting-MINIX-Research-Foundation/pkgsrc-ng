@@ -1,6 +1,6 @@
-$NetBSD: patch-base_logging.cc,v 1.1 2013/04/29 09:52:17 ryoon Exp $
+$NetBSD: patch-base_logging.cc,v 1.3 2013/09/15 12:30:23 joerg Exp $
 
---- base/logging.cc.orig	2013-03-29 04:33:43.000000000 +0000
+--- base/logging.cc.orig	2013-08-28 05:26:13.000000000 +0000
 +++ base/logging.cc
 @@ -61,6 +61,10 @@
  #include "base/system_util.h"
@@ -18,17 +18,17 @@ $NetBSD: patch-base_logging.cc,v 1.1 2013/04/29 09:52:17 ryoon Exp $
  #if defined(__native_client__)
             "%p",
 -#elif defined(OS_LINUX)
-+#elif defined(OS_LINUX) || defined (OS_NETBSD)
++#elif defined(OS_LINUX) || defined(OS_NETBSD)
             "%lu",
- #else  // = OS_WIN or OS_MACOSX
-            "%u",
-@@ -131,6 +135,9 @@ string Logging::GetLogMessageHeader() {
+ #elif defined(OS_MACOSX) && defined(__LP64__)
+            "%llu",
+@@ -137,6 +141,9 @@ string Logging::GetLogMessageHeader() {
             ::getpid(),
             // pthread_self() returns __nc_basic_thread_data*.
             static_cast<void*>(pthread_self())
 +#elif defined(OS_NETBSD)
 +	   ::getpid(),
-+	   _lwp_self()
++	   (unsigned long)_lwp_self()
  #else  // = OS_LINUX
             ::getpid(),
             // It returns unsigned long.

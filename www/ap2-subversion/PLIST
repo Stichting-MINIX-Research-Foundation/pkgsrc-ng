@@ -1,4 +1,3 @@
-@comment $NetBSD: PLIST,v 1.3 2013/02/09 13:22:11 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.6 2013/10/05 12:41:57 obache Exp $
 lib/httpd/mod_authz_svn.so
 lib/httpd/mod_dav_svn.so
-lib/httpd/mod_dontdothat.so

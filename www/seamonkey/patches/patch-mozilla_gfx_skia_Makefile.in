@@ -1,16 +1,15 @@
-$NetBSD: patch-mozilla_gfx_skia_Makefile.in,v 1.1 2013/01/20 08:33:14 ryoon Exp $
+$NetBSD: patch-mozilla_gfx_skia_Makefile.in,v 1.3 2014/03/30 04:13:17 ryoon Exp $
 
---- mozilla/gfx/skia/Makefile.in.orig	2013-01-06 06:26:15.000000000 +0000
+--- mozilla/gfx/skia/Makefile.in.orig	2014-03-19 01:41:53.000000000 +0000
 +++ mozilla/gfx/skia/Makefile.in
-@@ -355,10 +355,9 @@ CPPSRCS += \
- 	SkMMapStream.cpp \
- 	SkOSFile.cpp \
- 	$(NULL)
--ifeq (Linux,$(OS_TARGET))
-+ifneq (,$(or $(MOZ_X11),$(filter Linux,$(OS_TARGET))))
- CPPSRCS += \
- 	SkFontHost_linux.cpp \
--	SkFontHost_tables.cpp \
- 	SkTime_Unix.cpp \
- 	$(NULL)
+@@ -34,6 +34,10 @@ ifeq (qt,$(MOZ_WIDGET_TOOLKIT))
+ OS_CXXFLAGS += $(MOZ_CAIRO_CFLAGS) $(MOZ_PANGO_CFLAGS) $(CAIRO_FT_CFLAGS)
  endif
+ 
++ifdef MOZ_NATIVE_HARFBUZZ
++OS_CXXFLAGS += $(MOZ_HARFBUZZ_CFLAGS)
++endif
++
+ include $(topsrcdir)/config/rules.mk
+ 
+ ifneq (,$(INTEL_ARCHITECTURE))

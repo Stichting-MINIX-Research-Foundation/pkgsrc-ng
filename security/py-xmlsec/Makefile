@@ -1,22 +1,22 @@
-# $NetBSD: Makefile,v 1.5 2013/02/06 23:23:44 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.8 2014/02/12 23:18:36 tron Exp $
 
-DISTNAME=	pyxmlsec-0.3.0
+DISTNAME=	pyxmlsec-0.3.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
-MASTER_SITES=	http://labs.libre-entreprise.org/frs/download.php/430/
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	security python
+MASTER_SITES=	http://labs.libre-entreprise.org/frs/download.php/897/
 
 MAINTAINER=	pmcphee@givex.com
 HOMEPAGE=	http://pyxmlsec.labs.libre-entreprise.org/
 COMMENT=	Python bindings for XMLSec Library
-LICENSE=	gnu-gpl-v2
+LICENSE=	mit
 
 DEPENDS+=	${PYPKGPREFIX}-libxml2-[0-9]*:../../textproc/py-libxml2
 
 USE_TOOLS+=	pkg-config
 
 PYDISTUTILSPKG=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.3.1
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

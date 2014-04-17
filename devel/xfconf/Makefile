@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2013/06/06 12:54:15 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2013/12/21 10:51:52 jperkin Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=	xfconf-${XFCE4_VERSION}
-PKGREVISION=	19
+PKGREVISION=	21
 CATEGORIES=	devel
 COMMENT=	Xfce client-server configuration storage and query system
 
@@ -15,6 +15,12 @@ PERL5_PACKLIST=		auto/Xfce4/Xfconf/.packlist
 CONFIGURE_ARGS+=	--with-perl-options=${MAKE_PARAMS}
 
 MAKE_DIRS+=	${PREFIX}/include/xfce4
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+CONFIGURE_ARGS+=	--disable-visibility
+.endif
 
 BUILDLINK_API_DEPENDS.dbus+=		dbus>=1.0.0
 BUILDLINK_API_DEPENDS.dbus-glib+=	dbus-glib>=0.72

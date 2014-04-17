@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.99 2013/05/31 12:41:13 wiz Exp $
+# $NetBSD: Makefile,v 1.101 2014/02/12 23:18:06 tron Exp $
 
 DISTNAME=	cyrus-imapd-2.2.13p1
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/ \
 		ftp://ftp.andrew.cmu.edu/pub/cyrus-mail/OLD-VERSIONS/imap/
@@ -47,6 +47,8 @@ CONFIGURE_ARGS+=	--enable-murder
 CONFIGURE_ARGS+=	--enable-nntp
 CONFIGURE_ARGS+=	--without-zephyr
 CONFIGURE_ARGS+=	--without-ucdsnmp
+
+CONFIGURE_ARGS+=	andrew_runpath_switch=${COMPILER_RPATH_FLAG}
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.cyrus-imapd
 PKG_SUPPORTED_OPTIONS=	gssapi kerberos kerberos4 ldap

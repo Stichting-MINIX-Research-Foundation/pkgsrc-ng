@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.94 2013/06/06 12:53:45 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.100 2014/02/12 23:18:53 tron Exp $
 
 DISTNAME=	gnome-python-2.28.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/gnome-python/gnome2/}
-PKGREVISION=	22
+PKGREVISION=	27
 CATEGORIES=	x11 python
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-python/2.28/}
 EXTRACT_SUFX=	.tar.bz2
@@ -18,6 +17,8 @@ PKGCONFIG_OVERRIDE+=	gnome-python-2.0.pc.in
 GNU_CONFIGURE=	YES
 CONFIGURE_ENV+=	PYTHON=${PYTHONBIN:Q}
 USE_TOOLS+=		pkg-config gmake
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit, py-gtk2
 
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "SunOS"

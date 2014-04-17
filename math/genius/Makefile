@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.55 2013/06/06 12:54:43 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2014/03/12 19:36:44 wiedi Exp $
 #
 
-DISTNAME=		genius-1.0.16
-PKGREVISION=		4
+DISTNAME=		genius-1.0.17
+PKGREVISION=		2
 CATEGORIES=		math
 MASTER_SITES=		http://ftp.5z.com/pub/genius/
 
@@ -11,13 +11,13 @@ HOMEPAGE=		http://www.jirka.org/genius.html
 COMMENT=		Calculator and math tool
 LICENSE=		gnu-gpl-v3
 
+USE_LANGUAGES=		c99
 MAKE_JOBS_SAFE=		no
 
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config gmake intltool msgfmt
-USE_GNU_READLINE=	yes
 
 .include "options.mk"
 

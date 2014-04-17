@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2012/12/13 00:33:19 gdt Exp $
+# $NetBSD: Makefile,v 1.7 2014/01/10 12:00:58 jperkin Exp $
 
 DISTNAME=	db-4.6.21
 PKGNAME=	${DISTNAME:S/db/db46/}
@@ -21,7 +21,6 @@ CONFIGURE_DIRS=		build_unix
 CONFIGURE_SCRIPT=	../dist/configure
 
 CONFIGURE_ARGS+=	--enable-cxx
-CONFIGURE_ARGS+=	--enable-rpc
 CONFIGURE_ARGS+=	--enable-compat185
 CONFIGURE_ARGS+=	--includedir=${PREFIX}/include/db46
 CONFIGURE_ARGS+=	--program-transform-name=s,db_,db46_,
@@ -48,6 +47,19 @@ CONFIGURE_ENV+=		ac_cv_lib_pthread_main=no
 .else
 PTHREAD_OPTS+=		native
 .  include "../../mk/pthread.buildlink3.mk"
+.endif
+
+.include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=		rpc
+
+.if ${OS_VARIANT} != "SmartOS"
+CONFIGURE_ARGS+=	--enable-rpc
+PLIST.rpc=		yes
+.endif
+
+.if ${OPSYS} == "MirBSD"
+PLIST_SRC=		PLIST.${OPSYS}
 .endif
 
 INSTALLATION_DIRS=	include/db46 lib share/doc/db46

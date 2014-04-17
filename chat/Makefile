@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.168 2012/12/29 20:15:54 dholland Exp $
+# $NetBSD: Makefile,v 1.171 2014/01/10 09:50:55 wiz Exp $
 #
 
 COMMENT=	Communication programs
@@ -56,6 +56,7 @@ SUBDIR+=	irssi-xmpp
 SUBDIR+=	jabberd
 SUBDIR+=	jabberd2
 SUBDIR+=	kadu
+SUBDIR+=	kgb-bot
 SUBDIR+=	kmess
 SUBDIR+=	konversation
 SUBDIR+=	konversation-kde3
@@ -70,6 +71,7 @@ SUBDIR+=	licq-core
 SUBDIR+=	licq-gui-console
 SUBDIR+=	licq-gui-qt
 SUBDIR+=	loudmouth
+SUBDIR+=	mcabber
 SUBDIR+=	meanwhile
 SUBDIR+=	msn-pecan
 SUBDIR+=	msnre
@@ -85,6 +87,7 @@ SUBDIR+=	p5-Net-ICQ2000
 SUBDIR+=	p5-Net-Jabber
 SUBDIR+=	p5-POE-Component-IRC
 SUBDIR+=	p5-POE-Filter-IRCD
+SUBDIR+=	phone
 SUBDIR+=	pidgin
 SUBDIR+=	pidgin-facebookchat
 SUBDIR+=	pidgin-icb

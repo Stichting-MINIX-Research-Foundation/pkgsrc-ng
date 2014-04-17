@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2013/05/31 12:39:55 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/03/13 11:08:49 jperkin Exp $
 
 DISTNAME=	postgis-1.5.3
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME}
@@ -12,8 +12,6 @@ COMMENT=	Spatial database capabilities for PostgreSQL
 
 LICENSE=	gnu-gpl-v2
 
-PGSQL_VERSIONS_ACCEPTED=	91 90 84
-
 DEPENDS+=		postgresql${PGSQL_VERSION}-server>=0:../../databases/postgresql${PGSQL_VERSION}-server
 
 CONFLICTS=		postgis-[0-9]*
@@ -21,6 +19,9 @@ CONFLICTS=		postgis-[0-9]*
 # gmake complains about adding + to parent rule
 MAKE_JOBS_SAFE=		no
 
+PGSQL_VERSIONS_ACCEPTED=	91 90 84
+
+USE_GCC_RUNTIME=	yes
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake lex pax perl

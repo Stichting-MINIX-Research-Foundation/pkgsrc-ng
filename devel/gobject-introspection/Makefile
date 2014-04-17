@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2013/06/05 14:51:22 taca Exp $
-#
+# $NetBSD: Makefile,v 1.38 2014/01/26 12:01:44 obache Exp $
 
-DISTNAME=	gobject-introspection-1.36.0
-PKGREVISION=	2
-CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gobject-introspection/1.36/}
+DISTNAME=	gobject-introspection-1.38.0
+PKGREVISION=	1
+CATEGORIES=	devel gnome
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gobject-introspection/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -14,11 +13,14 @@ LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.38.0
+
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config flex bison gmake
 GMAKE_REQD=	3.81
 
+PKGCONFIG_OVERRIDE+=	gobject-introspection-1.0.pc.in
 PKGCONFIG_OVERRIDE+=	gobject-introspection-no-export-1.0.pc.in
 
 SUBST_CLASSES+=	timet
@@ -47,6 +49,7 @@ CONFIGURE_ARGS+=	--disable-doctool --disable-tests
 
 BUILDLINK_API_DEPENDS.glib2+= glib2>=2.36.0
 .include "../../devel/glib2/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libffi+= libffi>=3.0.0
 .include "../../devel/libffi/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

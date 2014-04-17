@@ -1,0 +1,13 @@
+$NetBSD: patch-library_packaging_pkgin,v 1.1 2013/12/02 22:54:46 hubertf Exp $
+
+--- library//packaging/pkgin.orig	2013-08-22 02:50:24.000000000 +0000
++++ library//packaging/pkgin
+@@ -150,7 +150,7 @@ def main():
+                 state        = dict(default="present", choices=["present","absent"]),
+                 name         = dict(aliases=["pkg"], required=True)))
+ 
+-    pkgin_path = module.get_bin_path('pkgin', True, ['/opt/local/bin'])
++    pkgin_path = module.get_bin_path('pkgin', True, ['@LOCALBASE@/bin'])
+ 
+     p = module.params
+ 

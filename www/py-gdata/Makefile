@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2012/10/28 06:31:01 asau Exp $
+# $NetBSD: Makefile,v 1.15 2014/02/07 14:28:09 wiz Exp $
 
-DISTNAME=	gdata-2.0.17
+DISTNAME=	gdata-2.0.18
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	http://gdata-python-client.googlecode.com/files/
@@ -11,6 +11,9 @@ COMMENT=	Google Data API Python client library
 LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.0.18
+# https://code.google.com/p/gdata-python-client/issues/detail?id=229
 
 REPLACE_PYTHON=		src/atom/__init__.py
 REPLACE_PYTHON+=	src/atom/auth.py

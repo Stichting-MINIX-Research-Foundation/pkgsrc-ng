@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.73 2013/05/31 12:41:35 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2014/03/20 19:01:45 asau Exp $
 #
 
-DISTNAME=	ntp-4.2.4p8
-PKGREVISION=	5
+DISTNAME=	ntp-dev-4.2.7p410
+PKGNAME=	${DISTNAME:S/-dev-/-/}
+PKGREVISION=	1
 CATEGORIES=	net time
-MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/
+MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-dev/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.ntp.org/
@@ -19,6 +20,7 @@ USE_LIBTOOL=	YES
 USE_TOOLS+=	pax perl:run
 
 CONFIGURE_ARGS+=--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=--with-locfile=loc/pkgsrc
 CONFIGURE_ENV+=	  PATH_PERL=${PERL5}
 
 DOCDIR=		${DESTDIR}${PREFIX}/share/doc/ntp4
@@ -41,13 +43,11 @@ post-install:
 
 PLIST_VARS+=	ntptime tickadj timetrim
 
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Linux"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 PLIST.ntptime=		yes
 PLIST.tickadj=		yes
 .elif ${OPSYS} == "IRIX"
 PLIST.timetrim=		yes
-.elif ${OPSYS} == "SunOS"
-PLIST.ntptime=		yes
 .endif
 
 # chroot jail support
@@ -67,5 +67,5 @@ CONFIGURE_ARGS+=	--with-openssl-incdir=${SSLBASE}/include
 CONFIGURE_ARGS+=	--with-openssl-libdir=${SSLBASE}/lib
 CONFIGURE_ARGS+=	--with-crypto=openssl
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2013/06/09 01:16:10 ryoon Exp $
+# $NetBSD: Makefile,v 1.43 2014/03/23 01:19:17 ryoon Exp $
 #
 
-DISTNAME=	owncloud-5.0.7
+DISTNAME=	owncloud-6.0.2
 PKGNAME=	${PHP_PKG_PREFIX}-${DISTNAME}
 CATEGORIES=	www
 MASTER_SITES=	http://download.owncloud.org/community/
@@ -11,6 +11,8 @@ MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://owncloud.org/
 COMMENT=	Web services under your control
 LICENSE=	gnu-agpl-v3
+
+EXTRACT_USING=	bsdtar
 
 DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.3.0:../../textproc/php-dom
 DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.0:../../graphics/php-gd
@@ -28,10 +30,26 @@ USE_LANGUAGES=	# none
 
 NO_BUILD=	yes
 
-USE_TOOLS+=	pax
+USE_TOOLS+=	bash:run pax perl:run
 
 OC_DIR=		share/owncloud
 INSTALLATION_DIRS=	${OC_DIR}
+
+REPLACE_BASH+=	3rdparty/doctrine/dbal/run-all.sh
+REPLACE_BASH+=	apps/*/*/*
+REPLACE_BASH+=	core/img/image-optimization.sh
+REPLACE_BASH+=	l10n/init.sh
+
+REPLACE_PERL+=	3rdparty/phpdocx/pdf/lib/ttf2ufm/src/*/*
+REPLACE_PERL+=	3rdparty/phpdocx/pdf/lib/ttf2ufm/src/*/*/*
+REPLACE_PERL+=	apps/*/*/*
+REPLACE_PERL+=	l10n/l10n.pl
+
+# for php interpreter
+CHECK_INTERPRETER_SKIP+=	${OC_DIR}/3rdparty/doctrine/dbal/bin/doctrine-dbal
+CHECK_INTERPRETER_SKIP+=	${OC_DIR}/3rdparty/dompdf/load_font.php
+CHECK_INTERPRETER_SKIP+=	${OC_DIR}/3rdparty/phpdocx/pdf/load_font.php
+CHECK_INTERPRETER_SKIP+=	${OC_DIR}/occ
 
 .include "../../mk/bsd.prefs.mk"
 

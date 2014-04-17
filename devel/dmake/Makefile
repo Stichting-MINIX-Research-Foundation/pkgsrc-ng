@@ -1,34 +1,35 @@
-# $NetBSD: Makefile,v 1.12 2012/10/31 11:16:53 asau Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/01/08 21:47:55 wiz Exp $
 
-DISTNAME=	dmake-v4.1-src-export.all-unknown-all
-PKGNAME=	dmake-4.1
-PKGREVISION=	1
+DISTNAME=	dmake-4.12.2
 CATEGORIES=	devel
-MASTER_SITES=	http://dmake.wticorp.com/SourceDistribution/ \
-		ftp://plg.uwaterloo.ca/pub/dmake/
+MASTER_SITES=	http://dmake.apache-extras.org.codespot.com/files/
+EXTRACT_SUFX=.tar.bz2
 
-MAINTAINER=	rh@NetBSD.org
-HOMEPAGE=	http://dmake.wticorp.com/
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://code.google.com/a/apache-extras.org/p/dmake
 COMMENT=	Portable make supported by many platforms
+LICENSE=	gnu-gpl-v1
 
-MAKE_FILE=	makefile
-BUILD_TARGET=	linux
-WRKSRC=		${WRKDIR}/dmake
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--datarootdir=${PREFIX}/share/dmake
 
-INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+TEST_TARGET=		check
+INSTALLATION_DIRS=	bin share/dmake ${PKGMANDIR}/man1
 
-do-configure:
-	cd ${WRKSRC} && ${RM} unix/bsd43/dirent.h &&		\
-	${CP} unix/startup.h unix/startup.h.orig &&		\
-	${SED} -e "s:/usr/local/lib:${PREFIX}/share:g"	\
-		<unix/startup.h.orig >unix/startup.h
+.include "../../mk/bsd.prefs.mk"
 
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/dmake ${DESTDIR}${PREFIX}/bin
+.if ${OPSYS} == "SunOS"
+PLIST_SUBST+=	STARTUPOS=solaris
+.else
+PLIST_SUBST+=	STARTUPOS=linux
+.endif
+
+pre-test:
+	${SH} -c 'for a in 1 2 3 4 5 6 7 8 9 10 11 12;\
+	 do ${CHMOD} u+x ${WRKSRC}/tests/targets-$$a ;done'
+
+pre-install:
 	${INSTALL_MAN} ${WRKSRC}/man/dmake.tf \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/dmake.1
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/dmake
-	${CP} -pR ${WRKSRC}/startup ${DESTDIR}${PREFIX}/share/dmake
 
 .include "../../mk/bsd.pkg.mk"

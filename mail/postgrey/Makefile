@@ -1,16 +1,15 @@
-# $NetBSD: Makefile,v 1.34 2013/05/31 12:41:20 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2014/03/11 14:34:38 jperkin Exp $
 
-DISTNAME=	postgrey-1.33
-PKGREVISION=	6
+DISTNAME=	postgrey-1.34
 CATEGORIES=	mail
 MASTER_SITES=	http://postgrey.schweikert.ch/pub/
 
 MAINTAINER=	kim@tac.nyc.ny.us
 HOMEPAGE=	http://postgrey.schweikert.ch/
 COMMENT=	Postfix Greylist Policy Server
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	p5-BerkeleyDB-[0-9]*:../../databases/p5-BerkeleyDB
-DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
 DEPENDS+=	p5-IO-Multiplex-[0-9]*:../../devel/p5-IO-Multiplex
 DEPENDS+=	p5-Net-Server-[0-9]*:../../net/p5-Net-Server
 
@@ -48,6 +47,9 @@ OWN_DIRS_PERMS+=	${POSTGREY_DBDIR} \
 			${POSTGREY_USER} ${POSTGREY_GROUP} 0775
 
 FILES_SUBST+=		PERL=${PERL5:Q}
+FILES_SUBST+=		POSTGREY_USER=${POSTGREY_USER}
+FILES_SUBST+=		POSTGREY_GROUP=${POSTGREY_GROUP}
+FILES_SUBST+=		POSTGREY_DBDIR=${POSTGREY_DBDIR}
 
 SUBST_CLASSES+=		postgrey
 SUBST_STAGE.postgrey=	pre-build

@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.75 2013/06/06 12:55:09 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.80 2014/01/10 15:19:20 jperkin Exp $
 
-DISTNAME=		sawfish-1.7.1
-PKGREVISION=		14
+DISTNAME=		sawfish-1.10
+PKGREVISION=		1
 CATEGORIES=		x11 wm
-MASTER_SITES=		http://download.tuxfamily.org/sawfish/sawfish/
+MASTER_SITES=		http://download.tuxfamily.org/sawfish/
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -22,9 +21,8 @@ USE_TOOLS+=		gtar:run	# for librep run-time theme extraction
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 
+CONFIGURE_ARGS+=	--localedir=${PREFIX}/${PKGLOCALEDIR}/locale
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
-CONFIGURE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
-MAKE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
 CONFIGURE_ENV+=		REP_ENV_PKGSRC=${REP_ENV_PKGSRC:Q}
 MAKE_ENV+=		REP_ENV_PKGSRC=${REP_ENV_PKGSRC:Q}
 
@@ -43,6 +41,7 @@ REP_ENV_PKGSRC=
 .endif
 
 .include "../../graphics/gdk-pixbuf2-xlib/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"
 .include "../../devel/pangox-compat/buildlink3.mk"
 .include "../../lang/librep/buildlink3.mk"
@@ -50,5 +49,6 @@ REP_ENV_PKGSRC=
 .include "../../x11/gtk2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.libXt+=	build
 .include "../../x11/libXt/buildlink3.mk"
+.include "../../x11/libXtst/buildlink3.mk"
 .include "../../x11/rep-gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

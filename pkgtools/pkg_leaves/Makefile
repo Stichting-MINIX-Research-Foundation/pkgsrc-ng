@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2012/09/11 23:19:37 asau Exp $
+# $NetBSD: Makefile,v 1.7 2014/03/03 04:47:04 obache Exp $
 
-DISTNAME=	pkg_leaves-1.2
+PKGNAME=	pkg_leaves-1.2
 CATEGORIES=	pkgtools
-MASTER_SITES=	# empty
-DISTFILES=	# empty
 
 MAINTAINER=	joerg@NetBSD.org
 COMMENT=	Print leaf packages
+LICENSE=	2-clause-bsd
 
 WRKSRC=		${WRKDIR}
 NO_BUILD=	yes

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.4 2012/11/19 20:02:13 cheusov Exp $
+@comment $NetBSD: PLIST,v 1.6 2013/12/06 11:30:53 obache Exp $
 bin/seqdiag
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
@@ -36,9 +36,6 @@ ${PYSITELIB}/seqdiag/tests/test_pep8.pyo
 ${PYSITELIB}/seqdiag/tests/test_rst_directives.py
 ${PYSITELIB}/seqdiag/tests/test_rst_directives.pyc
 ${PYSITELIB}/seqdiag/tests/test_rst_directives.pyo
-${PYSITELIB}/seqdiag/tests/utils.py
-${PYSITELIB}/seqdiag/tests/utils.pyc
-${PYSITELIB}/seqdiag/tests/utils.pyo
 ${PYSITELIB}/seqdiag/utils/__init__.py
 ${PYSITELIB}/seqdiag/utils/__init__.pyc
 ${PYSITELIB}/seqdiag/utils/__init__.pyo
@@ -48,6 +45,9 @@ ${PYSITELIB}/seqdiag/utils/rst/__init__.pyo
 ${PYSITELIB}/seqdiag/utils/rst/directives.py
 ${PYSITELIB}/seqdiag/utils/rst/directives.pyc
 ${PYSITELIB}/seqdiag/utils/rst/directives.pyo
+${PYSITELIB}/seqdiag/utils/rst/nodes.py
+${PYSITELIB}/seqdiag/utils/rst/nodes.pyc
+${PYSITELIB}/seqdiag/utils/rst/nodes.pyo
 ${PYSITELIB}/seqdiag_sphinxhelper.py
 ${PYSITELIB}/seqdiag_sphinxhelper.pyc
 ${PYSITELIB}/seqdiag_sphinxhelper.pyo

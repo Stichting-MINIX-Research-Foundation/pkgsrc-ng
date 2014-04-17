@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2012/10/04 00:22:01 cheusov Exp $
+# $NetBSD: Makefile,v 1.25 2014/01/26 00:30:02 wiz Exp $
 
 DISTNAME=	Pyrex-0.9.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/P/p/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang python
 MASTER_SITES=	http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
 
@@ -11,10 +11,10 @@ HOMEPAGE=	http://www.cosc.canterbury.ac.nz/greg.ewing/python/Pyrex/
 COMMENT=	Language for Writing Python Extension Modules
 LICENSE=	apache-2.0
 
-PYDISTUTILSPKG= 	yes
 USE_TOOLS+= 	 	pax
 
 PYTHON_SELF_CONFLICT=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.9.9
 
-.include "../../lang/python/extension.mk"
+.include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

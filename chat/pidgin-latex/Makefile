@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2013/06/06 12:54:09 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2013/10/10 14:42:02 ryoon Exp $
 
 VERSION=	1.2.1
-PKGREVISION=	30
+PKGREVISION=	32
 DISTNAME=	pidgin-latex-${VERSION}
 EXTRACT_SUFX=	.tar.bz2
 CATEGORIES=	chat print
@@ -29,11 +29,6 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/pidgin-latex/
 
 DEPENDS+= ImageMagick-[0-9]*:../../graphics/ImageMagick
-
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
-.endif
 
 .include "../../chat/pidgin/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"

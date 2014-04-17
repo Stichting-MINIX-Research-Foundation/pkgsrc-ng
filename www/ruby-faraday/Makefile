@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2013/04/07 11:18:57 obache Exp $
+# $NetBSD: Makefile,v 1.8 2014/03/26 14:27:23 taca Exp $
 
-DISTNAME=	faraday-0.8.7
+DISTNAME=	faraday-0.9.0
 CATEGORIES=	www
 
 MAINTAINER=	obache@NetBSD.org
@@ -8,10 +8,9 @@ HOMEPAGE=	https://github.com/lostisland/faraday
 COMMENT=	HTTP/REST API client library
 LICENSE=	mit
 
-DEPENDS+=	${RUBY_PKGPREFIX}-multipart-post>=1.1:../../www/ruby-multipart-post
+DEPENDS+=	${RUBY_PKGPREFIX}-multipart-post>=1.2<3:../../www/ruby-multipart-post
 
-# multipart-post-1.2 is just Ruby-2.0 support bump.
-OVERRIDE_GEMSPEC+=	multipart-post>=1.1
+RUBY_VERSION_SUPPORTED=	200 193 21
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

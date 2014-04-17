@@ -1,15 +1,15 @@
-$NetBSD: patch-ssh.c,v 1.1 2013/05/01 19:58:26 imil Exp $
+$NetBSD: patch-ssh.c,v 1.3 2014/03/29 09:38:11 taca Exp $
 
 Interix support
 
---- ssh.c.orig	2012-07-06 03:45:01.000000000 +0000
+--- ssh.c.orig	2014-02-26 23:17:13.000000000 +0000
 +++ ssh.c
-@@ -794,7 +794,7 @@ main(int ac, char **av)
- 	if (ssh_connect(host, &hostaddr, options.port,
- 	    options.address_family, options.connection_attempts, &timeout_ms,
- 	    options.tcp_keep_alive, 
--#ifdef HAVE_CYGWIN
+@@ -943,7 +943,7 @@ main(int ac, char **av)
+ 	    strcmp(options.proxy_command, "-") == 0 &&
+ 	    options.proxy_use_fdpass)
+ 		fatal("ProxyCommand=- and ProxyUseFDPass are incompatible");
+-#ifndef HAVE_CYGWIN
 +#if defined(HAVE_CYGWIN) || defined(HAVE_INTERIX)
- 	    options.use_privileged_port,
- #else
- 	    original_effective_uid == 0 && options.use_privileged_port,
+ 	if (original_effective_uid != 0)
+ 		options.use_privileged_port = 0;
+ #endif

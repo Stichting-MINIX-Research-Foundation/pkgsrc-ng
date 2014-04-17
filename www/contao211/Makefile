@@ -1,12 +1,10 @@
-# $NetBSD: Makefile,v 1.8.2.1 2013/08/25 17:36:58 tron Exp $
+# $NetBSD: Makefile,v 1.14.2.1 2014/04/09 10:59:14 tron Exp $
 #
 
-DISTNAME=	contao-${CT_VERSION}
+DISTNAME=	${CT_VERSION}
 PKGNAME=	contao${CT_VER}-${CT_PKGVER}
-PKGREVISION=	1
 CATEGORIES=	www
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=contao/}
-DIST_SUBDIR=	${CT_DIST_SUBDIR}
+MASTER_SITES=	${CT_MASTER_SITE}
 
 MAINTAINER=	taca@NetBSD.org
 HOMEPAGE=	http://www.contao.org/
@@ -34,7 +32,6 @@ RESTRICT_DIRS=	system/html system/logs system/scripts system/tmp \
 		templates tl_files
 
 CONF_FILES+=	${CT_EGDIR}/contao.conf ${PKG_SYSCONFDIR}/contao.conf
-CONF_FILES+=	${CT_EGDIR}/htaccess.default ${CT_WEBDIR}/.htaccess
 
 .for f in ${EG_CONFIG}
 CONF_FILES+=	${CT_EGDIR}/system/config/${f} ${CT_WEBDIR}/system/config/${f}
@@ -60,7 +57,7 @@ SUBST_SED.conf+=        -e 's|@PREFIX@|${PREFIX:Q}|g'
 SUBST_SED.conf+=        -e 's|@CT_WEBDIR@|${CT_WEBDIR:Q}|g'
 SUBST_STAGE.conf=	post-configure
 
-WWW_FILES=	CHANGELOG.md GPL.txt LGPL.txt README.md \
+WWW_FILES=	.htaccess.default CHANGELOG.md GPL.txt LGPL.txt README.md \
 		contao cron.php index.php plugins share.php templates \
 		typolight
 WWW_SYSFILES=	config/.htaccess config/config.php constants.php contao.css \
@@ -92,8 +89,6 @@ do-install:
 		${DESTDIR}${PREFIX}/${CT_WEBDIR}/templates
 	cd ${WRKSRC}; pax -rw ${EG_DATA} ${DESTDIR}${PREFIX}/${CT_EGDIR}
 	rm -f ${DESTDIR}${PREFIX}/${CT_EGDIR}/system/config/.htaccess
-	${INSTALL_DATA} ${WRKSRC}/.htaccess.default \
-		${DESTDIR}${PREFIX}/${CT_EGDIR}/htaccess.default
 	${INSTALL_DATA} ${WRKDIR}/contao.conf ${DESTDIR}${PREFIX}/${CT_EGDIR}
 	${INSTALL_DATA} ${FILESDIR}/README \
 		${DESTDIR}${PREFIX}/${CT_DOCDIR}

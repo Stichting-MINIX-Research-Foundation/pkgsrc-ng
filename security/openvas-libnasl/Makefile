@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.10 2013/02/06 19:31:04 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/01/01 11:52:33 wiz Exp $
 
 DISTNAME=	openvas-libnasl-2.0.0
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	security
 MASTER_SITES=	http://wald.intevation.org/frs/download.php/549/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.openvas.org/
 COMMENT=	Libraries for the Open Vulnerability Assessment System
+LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	YES
 USE_LIBTOOL=	YES

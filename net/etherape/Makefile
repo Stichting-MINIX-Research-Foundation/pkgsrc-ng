@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.80 2013/06/12 12:35:35 wiz Exp $
+# $NetBSD: Makefile,v 1.88 2014/02/12 23:18:19 tron Exp $
 
 DISTNAME=	etherape-0.9.12
-PKGREVISION=	18
+PKGREVISION=	23
 CATEGORIES=	gnome net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=etherape/}
 
 MAINTAINER=	damon@NetBSD.org
 HOMEPAGE=	http://etherape.sourceforge.net/
 COMMENT=	Graphical network monitor
+LICENSE=	gnu-gpl-v2 # or later
 
 USE_TOOLS+=		gmake pkg-config
 USE_PKGLOCALEDIR=	yes
@@ -15,8 +16,6 @@ GNU_CONFIGURE=		yes
 
 PKG_SYSCONFSUBDIR=	etherape
 
-# XXX: $localedir defaults to $libdir/locale
-CONFIGURE_ARGS+=	--libdir=${PREFIX}/${PKGLOCALEDIR}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
 EGDIR=		${PREFIX}/share/examples/etherape

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.26 2013/04/04 21:08:32 adam Exp $
+# $NetBSD: Makefile.common,v 1.32 2014/03/27 20:57:54 adam Exp $
 #
 # used by databases/postgresql84-adminpack/Makefile
 # used by databases/postgresql84-client/Makefile
@@ -17,7 +17,7 @@
 #	<lang>-postgresql	client-side interface to PostgreSQL
 #	postgresql-<lang>	server-side module for PostgreSQL backend
 
-DISTNAME=	postgresql-8.4.17
+DISTNAME=	postgresql-8.4.21
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=source/v${PKGVERSION_NOREV}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -41,6 +41,7 @@ DISTINFO_FILE?=		${.CURDIR}/../postgresql84/distinfo
 COMMON_FILESDIR?=	${.CURDIR}/../postgresql84/files
 PATCHDIR?=		${.CURDIR}/../postgresql84/patches
 
+USE_GCC_RUNTIME=	yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		bison gmake lex msgfmt
 PKG_SYSCONFSUBDIR=	postgresql
@@ -49,6 +50,7 @@ PKG_SYSCONFSUBDIR=	postgresql
 
 PG_TEMPLATE.SunOS=	solaris
 PG_TEMPLATE.IRIX=	irix5
+PG_TEMPLATE.MirBSD=	openbsd
 .if !defined(PG_TEMPLATE.${OPSYS})
 PG_TEMPLATE.${OPSYS}=	${LOWER_OPSYS}
 .endif
@@ -65,6 +67,11 @@ CONFIGURE_ARGS+=	--without-python
 CONFIGURE_ARGS+=	--without-readline
 CONFIGURE_ARGS+=	--without-tcl
 CONFIGURE_ARGS+=	--without-zlib
+
+# configure fails on OpenBSD and MirBSD if thread safety is enabled.
+.if ${OPSYS} == "OpenBSD" || ${OPSYS} == "MirBSD"
+CONFIGURE_ARGS+=	--disable-thread-safety
+.endif
 
 # PGSQL_BLCKSZ is the size in bytes of a PostgreSQL disk page or block.
 # This also limits the size of a tuple.  The valid values are powers

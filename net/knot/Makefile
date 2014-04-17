@@ -1,21 +1,22 @@
-# $NetBSD: Makefile,v 1.8 2013/05/14 08:16:05 pettai Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/03/21 12:23:52 wiz Exp $
 
-DISTNAME=	knot-1.2.0
+DISTNAME=	knot-1.4.3
 CATEGORIES=	net
 MASTER_SITES=	https://secure.nic.cz/files/knot-dns/
-FETCH_USING=	curl
 
 MAINTAINER=	pettai@NetBSD.org
 HOMEPAGE=	http://www.knot-dns.cz/
 COMMENT=	Knot (auth) DNS server
 LICENSE=	gnu-gpl-v3
 
+# If you're not able to download the distfile, try using
+#FETCH_USING=   curl # in mk.conf or on the command-line
+
 BUILD_DEFS+=	VARBASE
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}/knot
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}/knot
 
 USE_LIBTOOL=	yes

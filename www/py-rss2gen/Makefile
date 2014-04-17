@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2012/10/28 06:31:02 asau Exp $
+# $NetBSD: Makefile,v 1.9 2014/01/25 10:30:29 wiz Exp $
 
-PYRSS2GENVER=	1.0.0
+PYRSS2GENVER=	1.1
 DISTNAME=	PyRSS2Gen-${PYRSS2GENVER}
 PKGNAME=	${PYPKGPREFIX}-rss2gen-${PYRSS2GENVER}
-PKGREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	http://www.dalkescientific.com/Python/
 
@@ -13,8 +12,6 @@ COMMENT=	Python module to generate RSS feeds
 LICENSE=	modified-bsd
 
 USE_LANGUAGES=	#none
-
-PYTHON_VERSIONS_INCLUDE_3X=	yes
 
 .include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

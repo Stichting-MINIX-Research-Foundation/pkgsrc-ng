@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2013/05/31 12:42:33 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2014/03/19 14:20:00 wen Exp $
 
-DISTNAME=	moodle-2.5
-PKGREVISION=	1
+DISTNAME=	moodle-2.5.5
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=moodle/}
 EXTRACT_SUFX=	.tgz
@@ -16,7 +15,6 @@ DEPENDS+=	${PHP_PKG_PREFIX}-iconv-[0-9]*:../../converters/php-iconv
 DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.2.0:../../converters/php-mbstring
 DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.2.0:../../www/php-curl
 DEPENDS+=	${PHP_PKG_PREFIX}-xmlrpc>=5.2.0:../../net/php-xmlrpc
-DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.2.0:../../archivers/php-zlib
 DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.2.0:../../textproc/php-dom
 DEPENDS+=	${PHP_PKG_PREFIX}-soap>=5.2.0:../../net/php-soap
 DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.2.0:../../textproc/php-json
@@ -35,8 +33,8 @@ INSTALLATION_DIRS=	${EGDIR} share/moodle
 
 PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
-APACHE_USER?=		www
-APACHE_GROUP?=		www
+PKG_GROUPS_VARS=	APACHE_GROUP
+PKG_USERS_VARS=		APACHE_USER
 BUILD_DEFS+=		APACHE_USER APACHE_GROUP
 
 PKG_SYSCONFSUBDIR=	httpd
@@ -46,8 +44,13 @@ CONF_FILES=		${PREFIX}/${EGDIR}/moodle.conf \
 			${PKG_SYSCONFDIR}/moodle.conf
 OWN_DIRS_PERMS+=	${MOODLEDATADIR} ${APACHE_USER} ${APACHE_GROUP} 0750
 
-NO_CONFIGURE=		YES
-NO_BUILD=		YES
+USE_TOOLS+=		pax
+NO_CONFIGURE=		yes
+NO_BUILD=		yes
+
+PLIST_SRC+=		${PKGDIR}/PLIST ${WRKDIR}/PLIST.AUTO
+
+.include "../../mk/apache.mk"
 
 SUBST_CLASSES+=		conf
 SUBST_MESSAGE.conf=	Fixing pathnames in configuration file.
@@ -55,6 +58,10 @@ SUBST_STAGE.conf=	post-patch
 SUBST_FILES.conf=	../moodle.conf
 SUBST_SED.conf=		-e "s,@MOODLEDIR@,${MOODLEDIR},g"
 SUBST_SED.conf+=	-e "s,@MOODLEDATADIR@,${MOODLEDATADIR},g"
+.if ${PKG_APACHE} == "apache24"
+SUBST_SED.conf+=	-e "/Order allow,deny/d"
+SUBST_SED.conf+=	-e "s,Allow from all,Require all granted,g"
+.endif
 
 SUBST_CLASSES+=		php
 SUBST_MESSAGE.php=	Fixing the path of php.
@@ -79,19 +86,15 @@ post-extract:
 	${CP} ${FILESDIR}/moodle.conf ${WRKDIR}/moodle.conf
 
 do-install:
-	cd ${WRKSRC} && ${FIND} . -type d -exec ${INSTALL_DATA_DIR} \
-	  ${DESTDIR}${MOODLEDIR}/{} \; -exec ${CHOWN} \
-	  ${APACHE_USER}:${APACHE_GROUP} ${DESTDIR}${MOODLEDIR}/{} \;
-	cd ${WRKSRC} && ${FIND} . \! -type d -exec ${INSTALL_DATA} {} \
-	  ${DESTDIR}${MOODLEDIR}/{} \; -exec ${CHOWN} \
-	  ${APACHE_USER}:${APACHE_GROUP} ${DESTDIR}${MOODLEDIR}/{} \;
+	cd ${WRKDIR} && ${FIND} moodle -type f -print \
+		| ${SED} -e 's,^,share/,' > ${WRKDIR}/PLIST.AUTO
+	cd ${WRKSRC} && ${PAX} -rw . ${DESTDIR}${MOODLEDIR}/
 	${INSTALL_DATA} ${WRKDIR}/moodle.conf \
-	  ${DESTDIR}${PREFIX}/${EGDIR}/moodle.conf
+		${DESTDIR}${PREFIX}/${EGDIR}/moodle.conf
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${MOODLEDATADIR}
 	${CHOWN} ${APACHE_USER}:${APACHE_GROUP} ${DESTDIR}${MOODLEDATADIR}
 
 .include "../../lang/php/phpversion.mk"
-.include "../../mk/apache.mk"
 .include "../../mk/bsd.pkg.mk"

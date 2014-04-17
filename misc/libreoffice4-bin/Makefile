@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2013/04/13 11:12:32 ryoon Exp $
+# $NetBSD: Makefile,v 1.6.2.1 2014/04/05 16:23:50 tron Exp $
 
 DISTNAME=		libreoffice4-bin	# overridden below
 PKGNAME=		libreoffice4-bin-${OO_RELEASE}
 CATEGORIES=		misc
-MASTER_SITES=		http://download.documentfoundation.org/libreoffice/stable/${OO_RELEASE}/rpm/x86/
 
 MAINTAINER=		ryoon@NetBSD.org
 HOMEPAGE=		http://www.libreoffice.org/
@@ -21,8 +20,9 @@ CONFLICTS+=		openoffice-linux-[0-9]*
 CONFLICTS+=		libreoffice3-bin-[0-9]*
 
 OO_VER=			4
-OO_BASEVER=		4.0
-OO_RELEASE=		4.0.2
+OO_BASEVER=		4.2
+OO_RELEASE=		4.2.2
+OO_RELEASEV=		4.2.2.1
 PLIST_SUBST+=		VER=${OO_VER:Q} BASEVER=${OO_BASEVER:Q}
 MESSAGE_SUBST+=		VER=${OO_VER:Q}
 FILES_SUBST+=		VER=${OO_VER:Q}
@@ -38,6 +38,7 @@ PLIST_SRC+=		${PKGDIR}/PLIST.dirs
 EMUL_PLATFORMS=		linux-i386 linux-x86_64
 #EMUL_PLATFORMS+=	solaris-i386 solaris-sparc
 EMUL_MODULES.linux=	freetype2 x11 locale png fontconfig cups gtk2 krb5
+EMUL_MODULES.linux+=	dbus dbus-glib
 EMUL_REQD=		suse>=11.3
 
 EMUL_PKG_FMT=		rpm
@@ -47,24 +48,18 @@ RPM2PKG_SUBPREFIX=	# empty
 RPM2PKG_STAGE=		do-install
 RUN_LDCONFIG=		no
 
-USE_TOOLS+=	patch
+USE_TOOLS+=	patch uniq
 
 .include "../../mk/bsd.prefs.mk"
 
 .if ${EMUL_PLATFORM} == "linux-i386"
 DISTNAME=		LibreOffice_${OO_RELEASE}_Linux_x86_rpm
-WRKSRC=			${WRKDIR}/LibreOffice_${OO_RELEASE}.2_Linux_x86_rpm
+WRKSRC=			${WRKDIR}/LibreOffice_${OO_RELEASEV}_Linux_x86_rpm
 MASTER_SITES=		http://download.documentfoundation.org/libreoffice/stable/${OO_RELEASE}/rpm/x86/
 .elif ${EMUL_PLATFORM} == "linux-x86_64"
 DISTNAME=		LibreOffice_${OO_RELEASE}_Linux_x86-64_rpm
-WRKSRC=			${WRKDIR}/LibreOffice_${OO_RELEASE}.2_Linux_x86-64_rpm
+WRKSRC=			${WRKDIR}/LibreOffice_${OO_RELEASEV}_Linux_x86-64_rpm
 MASTER_SITES=		http://download.documentfoundation.org/libreoffice/stable/${OO_RELEASE}/rpm/x86_64/
-.elif ${EMUL_PLATFORM} == "solaris-i386"
-DISTNAME=		OOo_${OO_RELEASE}_Solaris_x86_install_en-US
-WRKSRC=			${WRKDIR}/OOO320_m18_native_packed-1_en-US.9502/packages
-.elif ${EMUL_PLATFORM} == "solaris-sparc"
-DISTNAME=		OOo_${OO_RELEASE}_Solaris_Sparc_install_en-US
-WRKSRC=			${WRKDIR}/OOO320_m18_native_packed-1_en-US.9502/packages
 .endif
 
 .include "options.mk"
@@ -76,7 +71,7 @@ do-install:
 #	${RM} -f ${DESTDIR}${PREFIX}/opt/libreoffice${OO_BASEVER}/program/soffice.orig
 	${PATCH} -d ${DESTDIR}${PREFIX}/opt/libreoffice${OO_BASEVER}/program < ${FILESDIR}/spadmin-patch
 	${RM} -f ${DESTDIR}${PREFIX}/opt/libreoffice${OO_BASEVER}/program/spadmin.orig
-	uniq ${RPM2PKG_PLIST} | \
+	${UNIQ} ${RPM2PKG_PLIST} | \
 		${SED} -e 's,^@exec mkdir -m 755 -p %D/,@pkgdir,' > ${WRKDIR}/PLIST
 	${RM} -f ${DESTDIR}${PREFIX}/bin/soffice
 	${SED}  -e "s|@@PREFIX@@|${PREFIX}|g" -e "s|@@OO_VER@@|${OO_VER}|g" \

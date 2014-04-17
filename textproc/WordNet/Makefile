@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2013/06/06 12:55:06 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/01/20 19:20:08 joerg Exp $
 #
 
 DISTNAME=		WordNet-3.0
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		textproc
 MASTER_SITES=		http://wordnet.princeton.edu/3.0/ \
 			ftp://ftp.cogsci.princeton.edu/pub/wordnet/3.0/
@@ -26,6 +26,8 @@ SUBST_FILES.docpath+=	doc/ps/Makefile.in
 SUBST_MESSAGE.docpath=	Fixing path for documentation.
 SUBST_SED.docpath=	-e 's,prefix)/doc,prefix)/share/doc/WordNet,'
 SUBST_STAGE.docpath=	pre-configure
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 .include "../../x11/tk/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

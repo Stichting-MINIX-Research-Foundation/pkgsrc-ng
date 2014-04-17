@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1.2.1 2013/07/08 11:39:31 tron Exp $
+# $NetBSD: Makefile,v 1.2 2013/07/07 18:15:55 rodent Exp $
 #
 
 DISTNAME=	libfishsound-1.0.0

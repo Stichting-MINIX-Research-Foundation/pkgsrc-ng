@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.45 2013/02/06 23:23:58 jperkin Exp $
+# $NetBSD: Makefile,v 1.47 2014/02/12 23:18:44 tron Exp $
 
 DISTNAME=		cadaver-0.23.3
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		www
 MASTER_SITES=		http://www.webdav.org/cadaver/
 
@@ -21,7 +21,7 @@ LIBS+=			${BUILDLINK_LDADD.termcap}
 #INSTALL_MAKE_FLAGS+=	bindir=${DESTDIR:Q}${PREFIX:Q}/bin		\
 #			mandir=${DESTDIR:Q}${PREFIX:Q}/${PKGMANDIR:Q}
 
-.include "../../devel/readline/buildlink3.mk"
+.include "../../mk/readline.buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../www/neon/buildlink3.mk"

@@ -1,9 +1,10 @@
 #!/usr/bin/env perl
 #
-# $NetBSD: port2pkg.pl,v 1.20 2012/01/02 12:15:48 joerg Exp $
+# $NetBSD: port2pkg.pl,v 1.22 2014/02/17 10:32:02 wiz Exp $
 #
 
-require 'getopts.pl';
+use Getopt::Std;
+
 $^W=1;
 use strict;
 use vars qw($opt_m);
@@ -14,7 +15,7 @@ my($namespace, $portname, $portversion, $distname,
    $pkgname, $pkgnameprefix, $pkgnamesuffix);
 my(@man, @cat);
 
-&usage_and_exit() if (! &Getopts('m:'));
+&usage_and_exit() if (! &getopts('m:'));
 $|=1;
 
 $portsdir = shift;
@@ -156,11 +157,7 @@ sub conv_Makefile {
 	while (<PORTS>) {
 		last if (! /^\#/);
 
-		if (/\$FreeBSD(: .*) \$/ || /\$Id(: .*) \$/) {
-			print PKG "\# FreeBSD Id$1\n";
-		} else {
-			print;
-		}
+		print;
 	}
 	print PKG;
 

@@ -1,10 +1,9 @@
-# $NetBSD: builtin.mk,v 1.8 2010/12/14 19:51:45 abs Exp $
+# $NetBSD: builtin.mk,v 1.12 2014/01/14 20:34:49 bsiegert Exp $
 
 BUILTIN_PKG:=	zlib
 
-BUILTIN_FIND_FILES_VAR:=	H_ZLIB
-BUILTIN_FIND_FILES.H_ZLIB=	/usr/include/zlib.h \
-				/boot/develop/headers/3rdparty/zlib.h
+BUILTIN_FIND_HEADERS_VAR:=	H_ZLIB
+BUILTIN_FIND_HEADERS.H_ZLIB=	zlib.h
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
@@ -38,13 +37,8 @@ BUILTIN_VERSION.zlib!=							\
 			print vers;					\
 		}							\
 	' ${H_ZLIB:Q}
-#
-# If the built-in zlib is 1.1.4, assume that it has the fix for
-# CAN-2003-0107.
-.  if ${BUILTIN_VERSION.zlib} == "1.1.4"
-BUILTIN_VERSION.zlib=	1.1.4nb1
-.  endif
-BUILTIN_PKG.zlib=	zlib-${BUILTIN_VERSION.zlib}
+BUILTIN_PKG.zlib=      zlib-${BUILTIN_VERSION.zlib:C/-[A-Za-z]*//}
+
 .endif
 MAKEVARS+=	BUILTIN_PKG.zlib
 
@@ -83,3 +77,39 @@ MAKEVARS+=	USE_BUILTIN.zlib
 USE_BUILTIN.zlib=	no
 .  endif
 .endif
+
+###
+### The section below only applies if we are not including this file
+### solely to determine whether a built-in implementation exists.
+###
+CHECK_BUILTIN.zlib?=    no
+.if !empty(CHECK_BUILTIN.zlib:M[nN][oO])
+.  if !empty(USE_BUILTIN.zlib:M[yY][eE][sS])
+
+BUILDLINK_TARGETS+= fake-zlib-pc
+
+_FAKE_ZLIB_PC=${BUILDLINK_DIR}/lib/pkgconfig/zlib.pc
+
+fake-zlib-pc:
+	${RUN}	\
+	sedsrc=../../devel/zlib/files/zlib.pc.in;	\
+	src=${BUILDLINK_PREFIX.zlib}/lib${LIBABISUFFIX}/pkgconfig/zlib.pc;\
+	dst=${_FAKE_ZLIB_PC};					\
+	${MKDIR} ${BUILDLINK_DIR}/lib/pkgconfig;\
+	if [ ! -f $${dst} ]; then	\
+		if [ -f $${src} ]; then	\
+			${ECHO_BUILDLINK_MSG} "Symlinking $${src}";	\
+			${LN} -sf $${src} $${dst};			\
+		else	\
+			${ECHO_BUILDLINK_MSG} "Creating $${dst}";	\
+			${SED}	-e s,@prefix@,${BUILDLINK_PREFIX.zlib},\
+					-e s,@exec_prefix@,${BUILDLINK_PREFIX.zlib},\
+					-e s,@libdir@,${BUILDLINK_PREFIX.zlib}/lib${LIBABISUFFIX},\
+					-e s,@VERSION@,${BUILTIN_VERSION.zlib},\
+					-e s,@includedir@,${BUILDLINK_PREFIX.zlib}/include,\
+					-e s,@sharedlibdir@,${BUILDLINK_PREFIX.zlib}/lib,\
+				$${sedsrc} > $${dst};			\
+		fi	\
+	fi
+.  endif
+.endif # CHECK_BUILTIN.zlib

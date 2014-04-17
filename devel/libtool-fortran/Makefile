@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2013/06/04 22:15:54 tron Exp $
+# $NetBSD: Makefile,v 1.9 2014/02/26 10:40:46 jperkin Exp $
 
 ###########################################################################
 ###########################################################################
@@ -28,7 +28,7 @@
 FILESDIR=	${.CURDIR}/../libtool-base/files
 
 PKGNAME=	${DISTNAME:S/-/-fortran-/}
-PKGREVISION=	3
+PKGREVISION=	4
 SVR4_PKGNAME=	ltoof
 
 COMMENT=	Generic shared library support script (the script itself, incl. Fortran)
@@ -70,7 +70,9 @@ INSTALLATION_DIRS+=	bin
 .PHONY: fix-libtool
 fix-libtool:
 	cd ${WRKSRC}; for f in libtool; do				\
-		${SED}	-e "s,-L${BUILDLINK_DIR}/lib,," $$f > $$f.new;	\
+		${SED}	-e "s,-L${BUILDLINK_DIR}/lib *,,"		\
+			-e "s,${BUILDLINK_DIR}/lib *,,"			\
+			$$f > $$f.new;					\
 		if [ -x $$f ]; then ${CHMOD} +x $$f.new; fi;		\
 		${MV} -f $$f.new $$f;					\
 	done

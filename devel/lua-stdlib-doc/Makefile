@@ -1,15 +1,16 @@
-# $NetBSD: Makefile,v 1.3 2012/12/02 09:26:08 cheusov Exp $
+# $NetBSD: Makefile,v 1.5 2013/11/01 18:17:43 jperkin Exp $
 
 .include "../../devel/lua-stdlib/Makefile.common"
 
-PKGNAME=		${DISTNAME:S/stdlib/lua-stdlib-doc/}
+PKGNAME=		${DISTNAME:S/stdlib/${LUA_PKGPREFIX}-stdlib-doc/}
+PKGREVISION=		2
 MAINTAINER=		cheusov@NetBSD.org
 
 COMMENT=		Documentation for modules from lua-stdlib
 
 DOCDIR=			share/doc/lua-stdlib
 
-DEPENDS+=		lua-${DISTNAME}{,nb*}:../../devel/lua-stdlib
+DEPENDS+=		${LUA_PKGPREFIX}-${DISTNAME}{,nb*}:../../devel/lua-stdlib
 INSTALLATION_DIRS+=	${DOCDIR}/modules
 
 do-install:
@@ -18,4 +19,5 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/src/modules/*.html \
 	                ${DESTDIR}${PREFIX}/${DOCDIR}/modules/
 
+.include "../../lang/lua/luaversion.mk" # for LUA_PKGPREFIX
 .include "../../mk/bsd.pkg.mk"

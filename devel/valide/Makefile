@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2013/06/06 12:54:14 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.30 2014/01/25 10:30:06 wiz Exp $
 
 DISTNAME=	valide-0.4.0
-PKGREVISION=	20
+PKGREVISION=	23
 CATEGORIES=	devel
 MASTER_SITES=	http://valide.googlecode.com/files/
 
@@ -16,8 +15,9 @@ PYTHON_FOR_BUILD_ONLY=	yes
 REPLACE_PYTHON+=	wscript waf \
 			*/wscript_build \
 			*/*/wscript_build
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.4.0
 
-WAF_ENV=	CC=${CC:Q} CXX=${CXX:Q} PREFIX=${PREFIX:Q} \
+WAF_ENV=	PATH=${PATH} CC=${CC:Q} CXX=${CXX:Q} PREFIX=${PREFIX:Q} \
 		CFLAGS=${CFLAGS:Q} CXXFLAGS=${CXXFLAGS:Q} \
 		LINKFLAGS=${LDFLAGS:Q} DESTDIR=${DESTDIR:Q}
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2012/10/20 13:14:48 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2014/01/25 10:29:58 wiz Exp $
 
-DISTNAME=	chardet-2.1.1
+DISTNAME=	chardet-2.2.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	converters python
 MASTER_SITES=	http://pypi.python.org/packages/source/c/chardet/
@@ -10,5 +10,8 @@ HOMEPAGE=	http://pypi.python.org/pypi/chardet
 COMMENT=	Character encoding auto-detection in Python
 LICENSE=	gnu-lgpl-v2.1
 
+REPLACE_PYTHON=			chardet/chardetect.py
+
+.include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

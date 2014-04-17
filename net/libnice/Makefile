@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2013/05/26 20:28:18 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2014/03/17 17:02:55 richard Exp $
 #
 # Also update net/gst-plugins1-libnice when you update this!
 
-DISTNAME=	libnice-0.1.4
+DISTNAME=	libnice-0.1.5
 CATEGORIES=	net devel
 MASTER_SITES=	http://nice.freedesktop.org/releases/
 
@@ -16,7 +16,21 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
 CONFIGURE_ARGS+= --without-gstreamer
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+USE_LANGUAGES+=	c99
+.endif
+
 PKGCONFIG_OVERRIDE+=	nice/nice.pc.in
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
+
+.include "../../mk/compiler.mk"
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wunused-but-set-variable
+.endif
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../net/gupnp-igd/buildlink3.mk"

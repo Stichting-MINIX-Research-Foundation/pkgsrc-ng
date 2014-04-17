@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2013/01/17 19:55:43 kleink Exp $
+# $NetBSD: Makefile,v 1.7 2014/01/25 10:30:30 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
-PKGREVISION=	1
 
 COMMENT=	Python WSGI Utility Library
 

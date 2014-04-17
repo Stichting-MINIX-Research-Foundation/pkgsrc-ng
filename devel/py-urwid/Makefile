@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.16 2013/05/15 22:35:31 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/02/20 09:34:50 wiz Exp $
 
-DISTNAME=	urwid-1.1.1
+DISTNAME=	urwid-1.2.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel
-MASTER_SITES=	http://excess.org/urwid/
+MASTER_SITES=	https://pypi.python.org/packages/source/u/urwid/
 
 MAINTAINER=	tonio@NetBSD.org
-HOMEPAGE=	http://excess.org/urwid/
+HOMEPAGE=	http://urwid.org/
 COMMENT=	Curses-based Python user interface library
 LICENSE=	gnu-lgpl-v2.1 # or later
 

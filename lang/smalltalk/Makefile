@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.77 2013/06/06 12:54:40 wiz Exp $
+# $NetBSD: Makefile,v 1.82 2014/01/20 19:20:08 joerg Exp $
 
 DISTNAME=	smalltalk-3.2.4
-PKGREVISION=	15
+PKGREVISION=	18
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=smalltalk/}
 
@@ -14,7 +14,6 @@ ONLY_FOR_PLATFORM=	*-*-i386 *-*-x86_64 *-*-sparc *-*-powerpc
 MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=		gawk gmake makeinfo pkg-config zip
-USE_GNU_READLINE=	YES
 USE_LIBTOOL=		YES
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--with-system-ltdl
@@ -44,6 +43,8 @@ REPLACE.sys-sed.new=	${SED}
 REPLACE_FILES.sys-sed=	${REPLACE_SED}
 
 .include "../../mk/bsd.prefs.mk"
+
+CPPFLAGS+=	-DUSE_INTERP_RESULT
 
 # for backtrace
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)

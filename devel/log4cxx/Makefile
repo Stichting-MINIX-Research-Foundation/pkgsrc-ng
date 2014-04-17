@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2013/02/06 23:22:07 jperkin Exp $
+# $NetBSD: Makefile,v 1.8 2014/02/12 23:17:48 tron Exp $
 
 DISTNAME=	apache-log4cxx-0.10.0
 PKGNAME=	${DISTNAME:S/apache-//}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE:=logging/log4cxx/0.10.0/}
 

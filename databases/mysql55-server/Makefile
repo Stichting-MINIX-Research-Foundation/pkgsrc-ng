@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.12.2.1 2013/08/05 10:10:15 tron Exp $
+# $NetBSD: Makefile,v 1.19 2014/03/11 14:34:36 jperkin Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
-PKGREVISION=	2
+PKGREVISION=	1
 SVR4_PKGNAME=	mysqs
 COMMENT=	MySQL 5, a free SQL database (server)
 
-CONFLICTS=	{mysql-server-[0-9]*,mysql3-server-[0-9]*}
+CONFLICTS=	mysql3-server-[0-9]*
 
 .include "../../databases/mysql55-client/Makefile.common"
 
-INFO_FILES=		yes
 CMAKE_ARGS+=		-DWITH_LIBWRAP=ON
 CMAKE_ARGS+=		-DINSTALL_INFODIR=${PKGINFODIR}
 
@@ -46,6 +45,8 @@ PKG_HOME.${MYSQL_USER}=		${MYSQL_DATADIR}
 PKG_SHELL.${MYSQL_USER}=	${SH}
 
 RCD_SCRIPTS=		mysqld
+SMF_NAME=		mysql
+SMF_METHODS=		${RCD_SCRIPTS}
 
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q}
 FILES_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}

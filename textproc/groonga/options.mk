@@ -1,13 +1,14 @@
-# $NetBSD: options.mk,v 1.3 2012/02/27 11:59:52 obache Exp $
+# $NetBSD: options.mk,v 1.9 2014/03/15 04:55:21 obache Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.groonga
-PKG_SUPPORTED_OPTIONS=	mecab tests zlib lzo groonga-suggest-learner
-PKG_SUGGESTED_OPTIONS=	mecab groonga-suggest-learner
+PKG_SUPPORTED_OPTIONS=	mecab tests zlib lzo
+PKG_SUPPORTED_OPTIONS+=	groonga-suggest-learner groonga-httpd
+PKG_SUGGESTED_OPTIONS=	mecab groonga-suggest-learner groonga-httpd
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=		mecab learner
+PLIST_VARS+=		mecab learner httpd
 
 .if !empty(PKG_OPTIONS:Mmecab)
 CONFIGURE_ARGS+=	--with-mecab
@@ -22,9 +23,17 @@ CONFIGURE_ARGS+=	--without-mecab
 CONFIGURE_ARGS+=	--with-cutter
 USE_TOOLS+=		gmake
 TEST_TARGET=		check
+TEST_ENV+=		RUBYOPT="-Ku"
 .include "../../lang/ruby/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cutter+=		cutter>=1.1.6
 .include "../../devel/cutter/buildlink3.mk"
+RUBY_JSON_REQD=		1.8.0:build
+BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-bundler-[0-9]*:../../misc/ruby-bundler
+BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-msgpack>=0.5.6:../../devel/ruby-msgpack
+BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-test-unit>=2.5.5:../../devel/ruby-test-unit
+BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-test-unit-notify>=1.0.1:../../devel/ruby-test-unit-notify
+RUBY_JSON_REQD=		0:build
+.include "../../lang/ruby/json.mk"
 .else
 CONFIGURE_ARGS+=	--without-cutter
 .endif
@@ -55,4 +64,42 @@ PLIST.learner=		yes
 CONFIGURE_ARGS+=	--without-libevent
 CONFIGURE_ARGS+=	--without-message-pack
 CONFIGURE_ARGS+=	--disable-zeromq
+.endif
+
+.if !empty(PKG_OPTIONS:Mgroonga-httpd)
+.include "../../devel/pcre/buildlink3.mk"
+CONFIGURE_ARGS+=	--enable-groonga-httpd
+PLIST.httpd=	yes
+OWN_DIRS+=	${PKG_SYSCONFDIR}/httpd/html
+OWN_DIRS+=	${PKG_SYSCONFDIR}/httpd
+
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/fastcgi.conf \
+		${PKG_SYSCONFDIR}/httpd/fastcgi.conf
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/fastcgi_params \
+		${PKG_SYSCONFDIR}/httpd/fastcgi_params
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/groonga-httpd.conf \
+		${PKG_SYSCONFDIR}/httpd/groonga-httpd.conf
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/html/50x.html \
+		${PKG_SYSCONFDIR}/httpd/html/50x.html
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/html/index.html \
+		${PKG_SYSCONFDIR}/httpd/html/index.html
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/koi-utf \
+		${PKG_SYSCONFDIR}/httpd/koi-utf
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/koi-win \
+		${PKG_SYSCONFDIR}/httpd/koi-win
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/mime.types \
+		${PKG_SYSCONFDIR}/httpd/mime.types
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/scgi_params \
+		${PKG_SYSCONFDIR}/httpd/scgi_params
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/uwsgi_params \
+		${PKG_SYSCONFDIR}/httpd/uwsgi_params
+CONF_FILES+=	share/examples/${PKGBASE}/httpd/win-utf \
+		${PKG_SYSCONFDIR}/httpd/win-utf
+
+SUBST_CLASSES+=		confpath
+SUBST_STAGE.confpath=	post-configure
+SUBST_FILES.confpath=	vendor/nginx-1.4.4/objs/Makefile
+SUBST_SED.confpath=	-e 's,\$$(DESTDIR)${PKG_SYSCONFDIR}/httpd,\$$(DESTDIR)${PREFIX}/share/examples/${PKGBASE}/httpd,g'
+.else
+CONFIGURE_ARGS+=	--disable-groonga-httpd
 .endif

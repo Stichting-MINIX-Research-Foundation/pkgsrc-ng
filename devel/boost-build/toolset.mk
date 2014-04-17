@@ -1,4 +1,4 @@
-# $NetBSD: toolset.mk,v 1.5 2011/02/24 11:05:34 adam Exp $
+# $NetBSD: toolset.mk,v 1.7 2013/12/10 16:12:49 jperkin Exp $
 
 .if !empty(PKGSRC_COMPILER:Mgcc)
 .  if ${OPSYS} == "Darwin"

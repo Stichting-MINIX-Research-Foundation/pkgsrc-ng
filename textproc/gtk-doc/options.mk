@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.1 2008/11/18 11:55:58 wiz Exp $
+# $NetBSD: options.mk,v 1.4 2014/02/20 09:43:33 wiz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gtkdoc
 PKG_SUPPORTED_OPTIONS=	sgml
@@ -6,7 +6,8 @@ PKG_SUPPORTED_OPTIONS=	sgml
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Msgml)
+# XXX: will be removed after 1.20
 DEPENDS+= dsssl-docbook-modular-[0-9]*:../../textproc/dsssl-docbook-modular
 SGML_CATALOGS= ${PREFIX}/share/sgml/gtk-doc/gtk-doc.cat
-.include "../../textproc/jade/buildlink3.mk"
+DEPENDS+= openjade-[0-9]*:../../textproc/openjade
 .endif

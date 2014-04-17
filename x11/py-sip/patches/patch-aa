@@ -1,4 +1,4 @@
-$NetBSD: patch-aa,v 1.6 2012/05/23 13:26:49 obache Exp $
+$NetBSD: patch-aa,v 1.8 2013/09/05 15:27:42 drochner Exp $
 
 --- configure.py.orig	2012-02-10 10:03:04.000000000 +0000
 +++ configure.py

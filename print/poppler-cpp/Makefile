@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2013/06/04 22:16:59 tron Exp $
-#
+# $NetBSD: Makefile,v 1.12 2013/12/06 13:10:59 wiz Exp $
 
 .include "../../print/poppler/Makefile.common"
 
 PKGNAME=		poppler-cpp-${POPPLER_VERS}
-PKGREVISION=		2
 
 COMMENT=		PDF rendering library (cpp wrapper)
 MAINTAINER=		reed@reedmedia.net
@@ -28,12 +26,6 @@ CONFIGURE_ARGS+=	--disable-utils
 
 BUILDLINK_API_DEPENDS.poppler+=	poppler-${POPPLER_VERS}{,nb*}
 .include "../../print/poppler/buildlink3.mk"
-
-.if !empty(PKG_BUILD_OPTIONS.poppler:Mpoppler-cms)
-CONFIGURE_ARGS+=	--enable-cms
-.else
-CONFIGURE_ARGS+=	--disable-cms
-.endif
 
 BUILD_DIRS=		cpp
 INSTALL_DIRS=		cpp

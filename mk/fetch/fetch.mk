@@ -1,4 +1,4 @@
-# $NetBSD: fetch.mk,v 1.60 2013/02/16 07:32:28 obache Exp $
+# $NetBSD: fetch.mk,v 1.63 2014/02/14 07:43:46 obache Exp $
 
 _MASTER_SITE_BACKUP=	${MASTER_SITE_BACKUP:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
 _MASTER_SITE_OVERRIDE=	${MASTER_SITE_OVERRIDE:=${DIST_SUBDIR}${DIST_SUBDIR:D/}}
@@ -219,7 +219,7 @@ _FETCH_BEFORE_ARGS.wget=	${PASSIVE_FETCH:D--passive-ftp} \
 _FETCH_AFTER_ARGS.wget=		# empty
 _FETCH_RESUME_ARGS.wget=	-c
 _FETCH_OUTPUT_ARGS.wget=	-O
-_FETCH_CMD.wget=		${PREFIX}/bin/wget
+_FETCH_CMD.wget=		${TOOLS_PATH.wget}
 
 _FETCH_BEFORE_ARGS.curl=	${PASSIVE_FETCH:D--ftp-pasv} \
 				--fail --insecure --location \
@@ -335,7 +335,7 @@ depends-fetch:
 	${RUN}                                                          \
 	${_DEPENDS_WALK_CMD} ${PKGPATH} |                               \
 	while read dir; do                                              \
-		${ECHO} "===> Checksumming for $${dir}" &&              \
+		${ECHO} "===> Fetching for $${dir}" &&                  \
 		cd ${.CURDIR}/../../$$dir &&                            \
-		${RECURSIVE_MAKE} ${MAKEFLAGS} fetch;   		\
+		${RECURSIVE_MAKE} ${MAKEFLAGS} fetch || exit 1;         \
 	done

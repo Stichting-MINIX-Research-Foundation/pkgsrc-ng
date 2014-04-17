@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5.24.1 2013/07/16 20:00:25 tron Exp $
+# $NetBSD: Makefile,v 1.6 2013/07/07 16:02:42 taca Exp $
 
 DISTNAME=	stream-0.5
 PKGREVISION=	2

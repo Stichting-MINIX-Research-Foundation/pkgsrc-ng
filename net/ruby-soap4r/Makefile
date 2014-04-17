@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/09/17 16:11:12 jperkin Exp $
+# $NetBSD: Makefile,v 1.5 2014/03/26 13:27:50 taca Exp $
 
 DISTNAME=	soap4r-ruby1.9-2.0.5
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/-ruby1.9//}
@@ -11,7 +11,7 @@ LICENSE=	gnu-gpl-v2 OR ruby-license
 
 CONFLICTS+=	ruby[0-9]*-soap4r-*
 
-RUBY_VERSION_SUPPORTED=	193
+RUBY_VERSION_SUPPORTED=	21 200 193
 OVERRIDE_GEMSPEC= \
 	:files lib/soap/rpc/element.rb.orig= lib/xsd/xmlparser.rb.orig=
 

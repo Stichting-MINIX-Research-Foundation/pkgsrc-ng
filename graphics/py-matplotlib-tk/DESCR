@@ -7,6 +7,4 @@ functional interface familiar to matlab users or an object oriented
 interface familiar to python users, and several high resolution output
 formats are supported.
 
-This package contains the Tk driver for matplotlib.
-
 Tutorial: http://matplotlib.sourceforge.net/tutorial.html

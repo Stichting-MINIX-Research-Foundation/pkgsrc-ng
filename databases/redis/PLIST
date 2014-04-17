@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2013/06/13 17:41:34 mspo Exp $
+@comment $NetBSD: PLIST,v 1.4 2014/03/11 14:05:01 jperkin Exp $
 bin/redis-benchmark
 bin/redis-check-aof
 bin/redis-check-dump
@@ -8,7 +8,6 @@ share/doc/redis/00-RELEASENOTES
 share/doc/redis/BUGS
 share/doc/redis/COPYING
 share/doc/redis/README
-share/examples/rc.d/redis
 share/examples/redis/redis.conf.example
 share/examples/redis/tests/assets/default.conf
 share/examples/redis/tests/assets/encodings.rdb
@@ -23,7 +22,16 @@ share/examples/redis/tests/integration/redis-cli.tcl
 share/examples/redis/tests/integration/replication-2.tcl
 share/examples/redis/tests/integration/replication-3.tcl
 share/examples/redis/tests/integration/replication-4.tcl
+share/examples/redis/tests/integration/replication-psync.tcl
 share/examples/redis/tests/integration/replication.tcl
+share/examples/redis/tests/sentinel-tests/00-base.tcl
+share/examples/redis/tests/sentinel-tests/01-conf-update.tcl
+share/examples/redis/tests/sentinel-tests/02-slaves-reconf.tcl
+share/examples/redis/tests/sentinel-tests/03-runtime-reconf.tcl
+share/examples/redis/tests/sentinel-tests/04-slave-selection.tcl
+share/examples/redis/tests/sentinel-tests/includes/init-tests.tcl
+share/examples/redis/tests/sentinel-tmp/.gitignore
+share/examples/redis/tests/sentinel.tcl
 share/examples/redis/tests/support/redis.tcl
 share/examples/redis/tests/support/server.tcl
 share/examples/redis/tests/support/test.tcl
@@ -40,6 +48,7 @@ share/examples/redis/tests/unit/expire.tcl
 share/examples/redis/tests/unit/introspection.tcl
 share/examples/redis/tests/unit/limits.tcl
 share/examples/redis/tests/unit/maxmemory.tcl
+share/examples/redis/tests/unit/memefficiency.tcl
 share/examples/redis/tests/unit/multi.tcl
 share/examples/redis/tests/unit/obuf-limits.tcl
 share/examples/redis/tests/unit/other.tcl
@@ -47,6 +56,7 @@ share/examples/redis/tests/unit/printver.tcl
 share/examples/redis/tests/unit/protocol.tcl
 share/examples/redis/tests/unit/pubsub.tcl
 share/examples/redis/tests/unit/quit.tcl
+share/examples/redis/tests/unit/scan.tcl
 share/examples/redis/tests/unit/scripting.tcl
 share/examples/redis/tests/unit/slowlog.tcl
 share/examples/redis/tests/unit/sort.tcl

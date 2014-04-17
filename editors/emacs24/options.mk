@@ -1,12 +1,11 @@
-# $NetBSD: options.mk,v 1.1 2012/06/16 21:03:42 dholland Exp $
-#
+# $NetBSD: options.mk,v 1.4 2014/02/07 08:56:52 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.emacs
-PKG_SUPPORTED_OPTIONS=	dbus xft2 svg
+PKG_SUPPORTED_OPTIONS=	dbus xft2 svg xml gnutls
 PKG_OPTIONS_OPTIONAL_GROUPS+= window-system
 PKG_OPTIONS_GROUP.window-system= x11 nextstep
 PKG_OPTIONS_OPTIONAL_GROUPS+= toolkit
-PKG_OPTIONS_GROUP.toolkit= gtk motif xaw
+PKG_OPTIONS_GROUP.toolkit= gtk2 gtk3 motif xaw
 PKG_SUGGESTED_OPTIONS=	dbus svg x11 xft2
 
 .include "../../mk/bsd.options.mk"
@@ -21,6 +20,27 @@ CONFIGURE_ARGS+=	--without-dbus
 .  endif
 
 ###
+### Support XML2
+###
+.  if !empty(PKG_OPTIONS:Mxml)
+USE_TOOLS+=		pkg-config
+BUILDLINK_API_DEPENDS.libxml2+=	libxml2>=2.6.17
+.include "../../textproc/libxml2/buildlink3.mk"
+.  else
+CONFIGURE_ARGS+=	--without-xml2
+.  endif
+
+###
+### Support GnuTLS
+###
+.  if !empty(PKG_OPTIONS:Mgnutls)
+USE_TOOLS+=		pkg-config
+.include "../../security/gnutls/buildlink3.mk"
+.  else
+CONFIGURE_ARGS+=	--without-gnutls
+.  endif
+
+###
 ### Support SVG
 ###
 .  if !empty(PKG_OPTIONS:Msvg) && empty(PKG_OPTIONS:Mnextstep)
@@ -32,18 +52,18 @@ CONFIGURE_ARGS+=	--without-rsvg
 ###
 ### Any of the "toolkit" options with no window-system option implies "x11"
 ###
-.if !empty(PKG_OPTIONS:Mgtk) || !empty(PKG_OPTIONS:Mmotif) || !empty(PKG_OPTIONS:Mxaw) || !empty(PKG_OPTIONS:Mxft2)
+.if !empty(PKG_OPTIONS:Mgtk2) || !empty(PKG_OPTIONS:Mgtk3) || !empty(PKG_OPTIONS:Mmotif) || !empty(PKG_OPTIONS:Mxaw) || !empty(PKG_OPTIONS:Mxft2)
 .  if empty(PKG_OPTIONS:Mx11) && empty(PKG_OPTIONS:Mnextstep)
 PKG_OPTIONS+=		x11
 .  endif
 .endif
 
 ###
-### Default to using the Xaw X11 toolkit if none is specified.
+### Default to using GTK if none is specified.
 ###
 .if !empty(PKG_OPTIONS:Mx11)
-.  if empty(PKG_OPTIONS:Mgtk) && empty(PKG_OPTIONS:Mmotif) && empty(PKG_OPTIONS:Mxaw)
-PKG_OPTIONS+=		gtk
+.  if empty(PKG_OPTIONS:Mgtk2) && empty(PKG_OPTIONS:Mgtk3) && empty(PKG_OPTIONS:Mmotif) && empty(PKG_OPTIONS:Mxaw)
+PKG_OPTIONS+=		gtk3
 .  endif
 .endif
 
@@ -80,12 +100,20 @@ CONFIGURE_ARGS+=	--without-xft --without-otf --without-m17n-flt
 .  endif
 
 ###
-### Support using GTK X11 widgets.
+### Support using GTK3 X11 widgets.
 ###
-.  if !empty(PKG_OPTIONS:Mgtk)
+.  if !empty(PKG_OPTIONS:Mgtk3)
+USE_TOOLS+=		pkg-config
+.include "../../x11/gtk3/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-x-toolkit=gtk3
+
+###
+### Support using GTK2 X11 widgets.
+###
+.  elif !empty(PKG_OPTIONS:Mgtk2)
 USE_TOOLS+=		pkg-config
 .include "../../x11/gtk2/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-x-toolkit=gtk
+CONFIGURE_ARGS+=	--with-x-toolkit=gtk2
 
 ###
 ### Support using Motif X11 widgets.

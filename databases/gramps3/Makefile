@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.44 2013/06/06 12:54:10 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.50 2014/02/12 23:17:38 tron Exp $
 
-DISTNAME=		gramps-3.4.3
-PKGREVISION=		3
+DISTNAME=		gramps-3.4.4
+PKGREVISION=		1
 CATEGORIES=		databases
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gramps/}
 
@@ -16,6 +15,8 @@ LICENSE=		gnu-gpl-v2
 USE_TOOLS+=		msgfmt pkg-config intltool msgconv
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2, py-gtk2
 
 REPLACE_PYTHON=		src/DateHandler/_Date_fr.py
 REPLACE_PYTHON+=	src/plugins/quickview/Reporef.py

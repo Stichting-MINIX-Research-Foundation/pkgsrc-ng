@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:41:25 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.6 2014/02/05 18:04:05 wiz Exp $
 
-DISTNAME=	ppl-0.11.2
-PKGREVISION=	2
+DISTNAME=	ppl-1.1
 CATEGORIES=	math
 #MASTER_SITES=	ftp://gcc.gnu.org/pub/gcc/infrastructure/
-MASTER_SITES=	http://www.cs.unipr.it/ppl/Download/ftp/releases/0.11.2/
+MASTER_SITES=	ftp://ftp.cs.unipr.it/pub/ppl/releases/1.1/
 
-MAINTAINER=	kuehro@gmx.de
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cs.unipr.it/ppl/
-COMMENT=	The Parma Polyhedra Library. Used by gcc for loop optimization
+COMMENT=	The Parma Polyhedra Library
 LICENSE=	gnu-gpl-v3
 
 USE_LIBTOOL=	yes
@@ -25,6 +23,8 @@ CONFIGURE_ARGS+=	--with-gmp-prefix=${PREFIX}
 
 do-build:
 	set -e; cd ${WRKSRC}; ${SETENV} ${MAKE_ENV} ${GMAKE}
+
+TEST_TARGET=	-k check
 
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../math/mpfr/buildlink3.mk"

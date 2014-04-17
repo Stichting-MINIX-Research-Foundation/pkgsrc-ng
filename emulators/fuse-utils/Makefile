@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2012/10/03 12:55:12 asau Exp $
+# $NetBSD: Makefile,v 1.27 2014/01/01 11:52:14 wiz Exp $
 
-DISTNAME=	fuse-utils-1.0.0
-PKGREVISION=	5
+DISTNAME=	fuse-utils-1.1.1
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fuse-emulator/}
 
@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
-
 CONFIGURE_ENV+=		ac_cv_path_AUDIOFILE_CONFIG="pkg-config audiofile"
 
 LIBS+=			-lgcrypt

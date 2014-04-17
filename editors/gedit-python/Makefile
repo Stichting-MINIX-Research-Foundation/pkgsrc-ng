@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2013/06/06 12:54:16 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.23 2014/01/25 10:30:06 wiz Exp $
 
 DISTNAME=		gedit-2.30.4
 PKGNAME=		gedit-python-2.30.4
-PKGREVISION=		18
+PKGREVISION=		20
 CATEGORIES=		editors gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gedit/2.30/}
 EXTRACT_SUFX=		.tar.bz2
@@ -25,6 +24,8 @@ DISTINFO_FILE=	${.CURDIR}/../../editors/gedit/distinfo
 BUILD_DIRS=	plugin-loaders/python
 BUILD_DIRS+=	plugins/pythonconsole plugins/quickopen plugins/snippets
 INSTALL_DIRS=	${BUILD_DIRS}
+
+PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
 
 .include "../../lang/python/application.mk"
 .include "../../devel/py-gobject/buildlink3.mk"

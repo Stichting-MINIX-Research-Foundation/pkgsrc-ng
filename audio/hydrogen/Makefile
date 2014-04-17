@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2013/06/06 12:54:04 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2014/03/09 10:48:48 wiedi Exp $
 
-DISTNAME=	hydrogen-0.9.5.1
-PKGREVISION=	7
+DISTNAME=	hydrogen-0.9.6-beta3
+PKGNAME=	hydrogen-0.9.6.beta3
 CATEGORIES=	audio
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hydrogen/}
+MASTER_SITES=	https://github.com/hydrogen-music/hydrogen/archive/
 
 MAINTAINER=	mrg@eterna.com.au
 HOMEPAGE=	http://www.hydrogen-music.org/
@@ -13,26 +13,23 @@ USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
 
-BUILD_DEPENDS+=		scons>=0.98:../../devel/scons
-BUILD_DEPENDS+=		subversion-base>=1.0:../../devel/subversion-base
-
 MAKE_ENV+=	QTDIR=${PREFIX}/qt4 PATH=$$PATH:${PREFIX}/qt4/bin
-SCONS_ARGS=	libarchive=1 jack=0 lrdf=0 QTDIR=${QTDIR}
+
+USE_CMAKE=	yes
+CMAKE_ARGS+=	-DWANT_OSS=ON
+CMAKE_ARGS+=	-DWANT_LIBARCHIVE=ON
+CMAKE_ARGS+=	-DWANT_JACK=OFF
+CMAKE_ARGS+=	-DWANT_LRDF=OFF
 
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Linux"
-SCONS_ARGS+=	alsa=1
+CMAKE_ARGS+=	-DWANT_ALSA=ON
 .else
-SCONS_ARGS+=	alsa=0
+CMAKE_ARGS+=	-DWANT_ALSA=OFF
 .endif
 
-do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PREFIX}/bin/scons DESTDIR=${DESTDIR} prefix=${PREFIX} ${SCONS_ARGS}
-
-do-install:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PREFIX}/bin/scons DESTDIR=${DESTDIR} prefix=${PREFIX} ${SCONS_ARGS} install
-
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../archivers/libarchive/buildlink3.mk"
 .if ${OPSYS} == "Linux"

@@ -1,10 +1,10 @@
-$NetBSD: patch-user-exec.c,v 1.1 2013/06/27 14:09:35 tsutsui Exp $
+$NetBSD: patch-user-exec.c,v 1.4 2014/01/15 18:26:20 wiz Exp $
 
 Add OS dependent code for NetBSD/arm.
 
---- user-exec.c.orig	2013-05-24 13:37:58.000000000 +0000
+--- user-exec.c.orig	2013-11-27 22:15:55.000000000 +0000
 +++ user-exec.c
-@@ -428,19 +428,31 @@ int cpu_signal_handler(int host_signum, 
+@@ -434,19 +434,31 @@ int cpu_signal_handler(int host_signum, 
  
  #elif defined(__arm__)
  
@@ -33,6 +33,6 @@ Add OS dependent code for NetBSD/arm.
      pc = uc->uc_mcontext.arm_pc;
  #endif
 +#endif
-     /* XXX: compute is_write */
-     is_write = 0;
-     return handle_cpu_signal(pc, (unsigned long)info->si_addr,
+ 
+     /* error_code is the FSR value, in which bit 11 is WnR (assuming a v6 or
+      * later processor; on v5 we will always report this as a read).

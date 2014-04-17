@@ -1,23 +1,23 @@
-# $NetBSD: Makefile,v 1.3 2013/02/06 23:23:39 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.8 2014/02/12 23:18:33 tron Exp $
 
-DISTNAME=		luasec-0.4
+DISTNAME=		luasec-0.4.1
 PKGNAME=		${LUA_PKGPREFIX}-${DISTNAME:S/lua//}
 PKGREVISION=		1
 CATEGORIES=		security
-MASTER_SITES=		http://luaforge.net/frs/download.php/4255/
+MASTER_SITES=		https://github.com/brunoos/luasec/archive/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.inf.puc-rio.br/~brunoos/luasec/
+HOMEPAGE=		https://github.com/brunoos/luasec/
 COMMENT=		Lua binding for OpenSSL library
 LICENSE=		mit
 
 .include "../../mk/bsd.prefs.mk"
 
-DEPENDS+=		lua-socket>=2.0:../../net/lua-socket
+DEPENDS+=		${LUA_PKGPREFIX}-socket>=2.0:../../net/lua-socket
 
 USE_TOOLS+=		gmake
 
+WRKSRC=			${WRKDIR}/luasec-${DISTNAME}
 INSTALLATION_DIRS+=	${LUA_CDIR} ${LUA_LDIR}
 
 .if ${OPSYS} == "SunOS"

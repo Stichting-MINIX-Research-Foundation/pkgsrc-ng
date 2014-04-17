@@ -1,4 +1,4 @@
-# $NetBSD: module.mk,v 1.67 2012/10/10 09:27:12 sno Exp $
+# $NetBSD: module.mk,v 1.70 2014/02/17 04:28:45 obache Exp $
 #
 # This Makefile fragment is intended to be included by packages that build
 # and install perl5 modules.
@@ -41,6 +41,8 @@ PERL5_MODULE_TYPE?=		MakeMaker
 
 .if (${PERL5_MODULE_TYPE} != "MakeMaker") && \
     (${PERL5_MODULE_TYPE} != "Module::Build") && \
+    (${PERL5_MODULE_TYPE} != "Module::Build::Bundled") && \
+    (${PERL5_MODULE_TYPE} != "Module::Build::Tiny") && \
     (${PERL5_MODULE_TYPE} != "Module::Install") && \
     (${PERL5_MODULE_TYPE} != "Module::Install::Bundled")
 PKG_FAIL_REASON+=	"\`\`${PERL5_MODULE_TYPE}'' is not a supported PERL5_MODULE_TYPE."
@@ -51,16 +53,13 @@ TEST_TARGET?=		test
 
 .include "../../mk/compiler.mk"
 
-.if ${PERL5_MODULE_TYPE} == "Module::Build"
+.if ${PERL5_MODULE_TYPE} == "Module::Build" || \
+    ${PERL5_MODULE_TYPE} == "Module::Build::Bundled" || \
+    ${PERL5_MODULE_TYPE} == "Module::Build::Tiny"
 PERL5_MODTYPE=		modbuild
-.  if ${_USE_DESTDIR} != "no"
 PERL5_MODBUILD_DESTDIR_OPTION=--destdir ${DESTDIR:Q}
-.  else
-PERL5_MODBUILD_DESTDIR_OPTION=
-.  endif
-.elif ${PERL5_MODULE_TYPE} == "Module::Install"
-PERL5_MODTYPE=		modinst
-.elif ${PERL5_MODULE_TYPE} == "Module::Install::Bundled"
+.elif ${PERL5_MODULE_TYPE} == "Module::Install" || \
+      ${PERL5_MODULE_TYPE} == "Module::Install::Bundled"
 PERL5_MODTYPE=		modinst
 .elif ${PERL5_MODULE_TYPE} == "MakeMaker"
 PERL5_MODTYPE=		makemaker
@@ -78,7 +77,12 @@ BUILDLINK_DEPMETHOD.perl+=	full
 
 .if empty(PKGPATH:Mdevel/p5-Module-Build) && \
     (${PERL5_MODULE_TYPE} == "Module::Build")
-BUILD_DEPENDS+=		{perl>=5.12.2,p5-Module-Build>=0.36030}:../../devel/p5-Module-Build
+BUILD_DEPENDS+=		p5-Module-Build>=0.42050:../../devel/p5-Module-Build
+.endif
+
+.if empty(PKGPATH:Mdevel/p5-Module-Build-Tiny) && \
+    (${PERL5_MODULE_TYPE} == "Module::Build::Tiny")
+BUILD_DEPENDS+=		p5-Module-Build-Tiny>=0.23:../../devel/p5-Module-Build-Tiny
 .endif
 
 .if empty(PKGPATH:Mdevel/p5-Module-Install) && \
@@ -102,7 +106,7 @@ MAKE_ENV+=	PERL_MM_USE_DEFAULT=1
 # directories.
 #
 MAKE_PARAMS.makemaker+=	INSTALLDIRS=vendor
-MAKE_PARAMS.modbuild+=	installdirs=vendor
+MAKE_PARAMS.modbuild+=	--installdirs=vendor
 MAKE_PARAMS.modinst+=	installdirs=vendor
 
 MAKE_PARAMS+=	${MAKE_PARAMS.${PERL5_MODTYPE}}

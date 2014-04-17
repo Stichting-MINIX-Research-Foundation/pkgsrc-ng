@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.85 2013/06/06 12:54:02 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.90 2014/02/20 07:56:02 wiz Exp $
 
-DISTNAME=	easytag-2.1.8
-PKGREVISION=	5
+DISTNAME=	easytag-2.1.10
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/easytag/2.1/}
 EXTRACT_SUFX=	.tar.xz
@@ -11,6 +9,8 @@ MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://projects.gnome.org/easytag/
 COMMENT=	GTK+ tag editor for MP3, Ogg Vorbis files, and others
 LICENSE=	gnu-gpl-v2
+
+BUILD_DEPENDS+=	itstool-[0-9]*:../../textproc/itstool
 
 GNU_CONFIGURE=		yes
 USE_LANGUAGES=		c c++

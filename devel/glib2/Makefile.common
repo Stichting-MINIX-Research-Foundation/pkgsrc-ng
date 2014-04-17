@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.30 2013/06/14 21:04:03 wiz Exp $
+# $NetBSD: Makefile.common,v 1.36 2013/12/28 14:41:55 tron Exp $
 #
 # used by devel/glib2/Makefile
 # used by devel/gdbus-codegen/Makefile
@@ -6,11 +6,10 @@
 
 # When updating this package, please apply patch-ak to configure.in and
 # then run a matching version of autoconf to regen patch-aa.
-DISTNAME=	glib-2.36.3
+DISTNAME=	glib-2.38.2
 PKGNAME=	${DISTNAME:S/glib/glib2/}
 CATEGORIES=	# empty; redefined in Makefile
-MASTER_SITES=	ftp://ftp.gtk.org/pub/glib/${PKGVERSION_NOREV:R}/ \
-		${MASTER_SITE_GNOME:=sources/glib/${PKGVERSION_NOREV:R}/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/glib/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -38,6 +37,8 @@ CONFIGURE_ARGS+=	--with-pcre=system
 CONFIGURE_ARGS+=	--disable-dtrace
 CONFIGURE_ARGS+=	--disable-man  # Requires xsltproc and Docbook.
 CONFIGURE_ARGS+=	--disable-modular-tests
+# Avoid unnecessary autotools invocation.
+CONFIGURE_ARGS+=	--disable-maintainer-mode
 
 CONFIGURE_ARGS.gnu-iconv+=	--with-libiconv=gnu
 
@@ -75,6 +76,10 @@ BUILDLINK_TRANSFORM+=	rm:-Werror=missing-prototypes
 CONFIGURE_ENV+=		ac_cv_func_mmap_fixed_mapped=yes
 .endif
 
+.if ${OPSYS} == "SunOS"
+BUILDLINK_TRANSFORM+=	rm:-Werror=format=2
+.endif
+
 .include "../../mk/dlopen.buildlink3.mk"
 
 .if !empty(MACHINE_PLATFORM:MIRIX-5*)
@@ -91,6 +96,3 @@ SUBST_FILES.dbusdb+=	gio/gdbusprivate.c
 SUBST_FILES.dbusdb+=	po/glib20.pot
 SUBST_FILES.dbusdb+=	po/*.po
 SUBST_SED.dbusdb=	-e 's,/var/lib/dbus,${VARBASE}/db/dbus,g'
-
-pre-configure:
-	${TOUCH} ${WRKSRC}/configure ${WRKSRC}/aclocal.m4 ${WRKSRC}/config.h.in

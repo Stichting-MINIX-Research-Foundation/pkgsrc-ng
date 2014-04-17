@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/07/01 19:42:07 morr Exp $
-#
+# $NetBSD: Makefile,v 1.5 2014/02/23 11:25:52 adam Exp $
 
 PGSQL_VERSION=	90
 

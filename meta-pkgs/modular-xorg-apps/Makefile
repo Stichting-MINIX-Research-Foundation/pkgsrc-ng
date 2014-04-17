@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2013/05/31 11:37:25 rodent Exp $
+# $NetBSD: Makefile,v 1.30 2013/09/10 08:43:29 wiz Exp $
 
 DISTNAME=	# empty
-PKGNAME=	modular-xorg-apps-1.14
+PKGNAME=	modular-xorg-apps-1.14.1.3
 CATEGORIES=	meta-pkgs x11
 MASTER_SITES=	${MASTER_SITE_XORG:=app/}
 DISTFILES=	# empty
@@ -9,6 +9,7 @@ DISTFILES=	# empty
 MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://xorg.freedesktop.org/
 COMMENT=	Modular Xorg application meta-package
+LICENSE=	2-clause-bsd
 
 META_PACKAGE=	yes
 
@@ -19,6 +20,7 @@ DEPENDS+=	bdftopcf-[0-9]*:../../fonts/bdftopcf
 DEPENDS+=	beforelight-[0-9]*:../../x11/beforelight
 DEPENDS+=	bitmap-[0-9]*:../../x11/bitmap
 DEPENDS+=	editres-[0-9]*:../../x11/editres
+DEPENDS+=	font-util-[0-9]*:../../fonts/font-util
 DEPENDS+=	iceauth-[0-9]*:../../x11/iceauth
 DEPENDS+=	ico-[0-9]*:../../x11/ico
 DEPENDS+=	listres-[0-9]*:../../x11/listres
@@ -31,6 +33,7 @@ DEPENDS+=	x11perf-[0-9]*:../../x11/x11perf
 DEPENDS+=	xauth-[0-9]*:../../x11/xauth
 DEPENDS+=	xbacklight-[0-9]*:../../x11/xbacklight
 DEPENDS+=	xcalc-[0-9]*:../../x11/xcalc
+DEPENDS+=	xclipboard-[0-9]*:../../x11/xclipboard
 DEPENDS+=	xclock-[0-9]*:../../time/xclock
 DEPENDS+=	xconsole-[0-9]*:../../x11/xconsole
 DEPENDS+=	xcursorgen-[0-9]*:../../x11/xcursorgen
@@ -42,6 +45,7 @@ DEPENDS+=	xeyes-[0-9]*:../../x11/xeyes
 DEPENDS+=	xfd-[0-9]*:../../x11/xfd
 DEPENDS+=	xfindproxy-[0-9]*:../../net/xfindproxy
 DEPENDS+=	xfontsel-[0-9]*:../../x11/xfontsel
+DEPENDS+=	xfwp-[0-9]*:../../x11/xfwp
 DEPENDS+=	xgamma-[0-9]*:../../x11/xgamma
 DEPENDS+=	xgc-[0-9]*:../../graphics/xgc
 DEPENDS+=	xhost-[0-9]*:../../x11/xhost
@@ -68,12 +72,11 @@ DEPENDS+=	xrdb-[0-9]*:../../x11/xrdb
 DEPENDS+=	xrefresh-[0-9]*:../../x11/xrefresh
 DEPENDS+=	xscope-[0-9]*:../../x11/xscope
 DEPENDS+=	xset-[0-9]*:../../x11/xset
-DEPENDS+=	xsetmode-[0-9]*:../../x11/xsetmode
-DEPENDS+=	xsetpointer-[0-9]*:../../x11/xsetpointer
 DEPENDS+=	xsetroot-[0-9]*:../../x11/xsetroot
 DEPENDS+=	xsm-[0-9]*:../../x11/xsm
 DEPENDS+=	xstdcmap-[0-9]*:../../x11/xstdcmap
 DEPENDS+=	xterm-[0-9]*:../../x11/xterm
+DEPENDS+=	xtrans-[0-9]*:../../x11/xtrans
 DEPENDS+=	xvinfo-[0-9]*:../../x11/xvinfo
 DEPENDS+=	xwininfo-[0-9]*:../../x11/xwininfo
 DEPENDS+=	xwd-[0-9]*:../../x11/xwd

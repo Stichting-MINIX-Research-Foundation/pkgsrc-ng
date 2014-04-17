@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.57 2013/06/08 06:48:24 asau Exp $
+# $NetBSD: Makefile,v 1.61 2014/03/11 14:34:37 jperkin Exp $
 
 DISTNAME=		otp_src_${DIST_VERSION_MAJOR}${DIST_VERSION_MINOR:D-${DIST_VERSION_MINOR}}
+PKGREVISION=		2
 PKGNAME=		erlang-${ERLANG_VERSION}
 CATEGORIES=		lang
 MASTER_SITES=		http://www.erlang.org/download/
@@ -24,6 +25,24 @@ CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
 
 PTHREAD_OPTS+=		require native
 CONFIGURE_ARGS+=	--enable-threads
+
+.include "../../mk/bsd.prefs.mk"
+
+# have gcc without the necessary atomic ops?
+.if !empty(MACHINE_PLATFORM:MNetBSD-5.*)
+
+# a machine without native ethread implementation?
+.if	empty(MACHINE_PLATFORM:M*i386)	&&\
+	empty(MACHINE_PLATFORM:M*sparc)	&&\
+	empty(MACHINE_PLATFORM:M*sparc64) &&\
+	empty(MACHINE_PLATFORM:M*powerpc) &&\
+	empty(MACHINE_PLATFORM:M*x86_64)
+
+CONFIGURE_ARGS+=	--disable-native-ethr-impls\
+			--disable-smp-require-native-atomics
+
+.endif
+.endif
 
 MAKE_ENV+=		DESTDIR=${DESTDIR}
 
@@ -49,9 +68,9 @@ TEST_TARGET=		tests
 TEST_MAKE_FLAGS=	ERL_TOP=${WRKSRC}
 REPLACE_PERL+=		make/make_emakefile
 
-PLIST_SRC=		PLIST
+SMF_NAME=		epmd
 
-.include "../../mk/bsd.prefs.mk"
+PLIST_SRC=		PLIST
 
 .if exists(${.CURDIR}/PLIST.${OPSYS})
 PLIST_SRC+=	${.CURDIR}/PLIST.${OPSYS}
@@ -81,6 +100,6 @@ post-install:
 	chmod -R go-w ${DESTDIR}${PREFIX}/lib/erlang/lib
 
 .include "../../security/openssl/buildlink3.mk"
-.include "../../devel/ncurses/buildlink3.mk"
+.include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

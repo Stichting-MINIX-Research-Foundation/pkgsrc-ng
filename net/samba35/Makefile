@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.29.2.1 2013/08/12 14:21:30 tron Exp $
+# $NetBSD: Makefile,v 1.35 2014/03/03 08:46:45 obache Exp $
 
 .include "../../net/samba/Makefile.mirrors"
 
 DISTNAME=	samba-${VERSION}
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	${SAMBA_MIRRORS:=stable/}
 
@@ -50,9 +51,8 @@ USE_TOOLS+=		gmake mktemp perl:run
 REPLACE_PERL=		script/findsmb.in
 
 BROKEN_GETTEXT_DETECTION=yes
-USE_GNU_READLINE=	yes
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--libdir=${SAMBA_LIBDIR}
+GNU_CONFIGURE_LIBDIR=	${SAMBA_LIBDIR}
 CONFIGURE_ARGS+=	--with-libiconv=${BUILDLINK_PREFIX.iconv}
 CONFIGURE_ARGS+=	--with-readline=${BUILDLINK_PREFIX.readline}
 CONFIGURE_ARGS+=	--with-configdir=${SAMBA_ETCDIR}
@@ -114,12 +114,13 @@ SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing paths.
 SUBST_FILES.paths=	${WRKDIR}/adduser.sh ${WRKDIR}/deluser.sh
 SUBST_STAGE.paths=	post-patch
-SUBST_SED.paths+=	-e 's,@AWK@,${AWK},g'
-SUBST_SED.paths+=	-e 's,@CAT@,${CAT},g'
-SUBST_SED.paths+=	-e 's,@MKTEMP@,${MKTEMP},g'
-SUBST_SED.paths+=	-e 's,@RM@,${RM},g'
-SUBST_SED.paths+=	-e 's,@PWD_MKDB@,${PWD_MKDB},g'
-SUBST_SED.paths+=	-e 's,@SH@,${SH},g'
+SUBST_VARS.paths+=	AWK CAT MKTEMP RM PWD_MKDB SH
+
+SUBST_CLASSES+=		def-cfg
+SUBST_MESSAGE.def-cfg=	Fixing default config files
+SUBST_FILES.def-cfg=	${WRKDIR}/${DISTNAME}/examples/smb.conf.default
+SUBST_STAGE.def-cfg=	post-configure
+SUBST_VARS.def-cfg=	SAMBA_LOGDIR
 
 post-extract:
 	${CP} ${FILESDIR}/adduser.sh ${FILESDIR}/deluser.sh ${WRKDIR}

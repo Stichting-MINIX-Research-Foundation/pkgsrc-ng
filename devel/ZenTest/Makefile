@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2013/06/16 14:47:06 taca Exp $
+# $NetBSD: Makefile,v 1.21 2014/03/14 15:13:22 taca Exp $
 
-DISTNAME=	ZenTest-4.9.2
+DISTNAME=	ZenTest-4.9.5
 CATEGORIES=	devel
 
 MAINTAINER=	minskim@NetBSD.org

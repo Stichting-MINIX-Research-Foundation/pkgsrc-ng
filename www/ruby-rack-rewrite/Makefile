@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2013/02/11 13:31:27 taca Exp $
+# $NetBSD: Makefile,v 1.3 2014/03/14 19:27:01 taca Exp $
 
-DISTNAME=	rack-rewrite-1.3.3
+DISTNAME=	rack-rewrite-1.5.0
 CATEGORIES=	www
 
 MAINTAINER=	taca@NetBSD.org

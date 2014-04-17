@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2013/05/04 12:43:50 joerg Exp $
+# $NetBSD: Makefile,v 1.9 2013/09/15 12:28:22 joerg Exp $
 #
 
-DISTNAME=	libmemcached-1.0.4
+DISTNAME=	libmemcached-1.0.17
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	http://launchpad.net/libmemcached/1.0/${PKGVERSION}/+download/
+MASTER_SITES=	http://launchpad.net/libmemcached/1.0/${PKGVERSION_NOREV}/+download/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://libmemcached.org/
@@ -18,16 +19,28 @@ USE_LIBTOOL=	yes
 PKGCONFIG_OVERRIDE+=	support/libmemcached.pc.in
 
 .include "../../mk/bsd.prefs.mk"
-# Avoid building 64bit on a 32bit bootstrap (affects SunOS)
-.if defined(ABI) && empty(ABI:M64)
-CONFIGURE_ARGS+=	--disable-64bit
-.endif
+.include "options.mk"
 
-# for backtrace
-.if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
-LIBS+=	-lexecinfo
-.endif
+CONFIGURE_ARGS+=--enable-jobserver=no
 
 CPPFLAGS+=	-D__STDC_FORMAT_MACROS
 
+LIBS.SunOS+=	-lsocket
+
+# Disable, the configure check is completely broken.
+# Some checks are fixed in the local patches, but not enough to get
+# an actual build running
+.for sanitizer in address integer thread memory alignment bool bounds enum \
+     float-cast-overflow float-divide-by-zero integer-divide-by-zero null \
+     object-size return shift signed-integer-overflow unreachable \
+     unsigned-integer-overflow vla-bound vptr
+CONFIGURE_ARGS+=	ax_cv_check_cxxflags__Werror__fsanitize_${sanitizer:S/-/_/g}=no
+CONFIGURE_ARGS+=	ax_cv_check_cflags__Werror__fsanitize_${sanitizer:S/-/_/g}=no
+.endfor
+
+post-configure:
+	${ECHO} '#define HAVE_MEMCACHED_BINARY 1' >> ${WRKSRC}/mem_config.h
+	${ECHO} '#define MEMCACHED_BINARY "${PREFIX}/bin/memcached"' >> ${WRKSRC}/mem_config.h
+
+.include "../../devel/libexecinfo/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.29.2.1 2013/08/25 17:44:15 tron Exp $
+@comment $NetBSD: PLIST,v 1.30 2013/08/22 17:08:10 taca Exp $
 share/doc/roundcube/INSTALL
 share/doc/roundcube/LICENSE
 share/doc/roundcube/README.md

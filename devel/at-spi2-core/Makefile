@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2013/05/18 21:51:59 prlw1 Exp $
+# $NetBSD: Makefile,v 1.14 2013/12/08 13:40:20 prlw1 Exp $
 
-DISTNAME=	at-spi2-core-2.8.0
-CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/at-spi2-core/${PKGVERSION_NOREV:R}//}
+DISTNAME=	at-spi2-core-2.10.2
+CATEGORIES=	devel gnome
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/at-spi2-core/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	prlw1@cam.ac.uk
@@ -34,6 +34,7 @@ CONF_FILES=	${eg_busconfigdir}/accessibility.conf \
 			${busconfigdir}/accessibility.conf
 CONF_FILES+=	${eg_default_sessiondir}/at-spi-dbus-bus.desktop \
 			${default_sessiondir}/at-spi-dbus-bus.desktop
+MAKE_DIRS+=	${default_sessiondir}
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/gobject-introspection/buildlink3.mk"

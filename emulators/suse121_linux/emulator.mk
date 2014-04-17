@@ -1,4 +1,4 @@
-# $NetBSD: emulator.mk,v 1.1.1.1 2012/03/21 13:40:05 obache Exp $
+# $NetBSD: emulator.mk,v 1.4.2.1 2014/04/05 16:23:50 tron Exp $
 #
 # This file is included by linux-suse.mk in the emulator framework.
 #
@@ -51,3 +51,9 @@ DEPENDS_suse-12.1.${_mod_}:=	\
 	${DEPENDS_suse-12.1.${_mod_}:S/^suse_/suse32_/:S/suse121_/&32_/}
 .  endfor
 .endif
+DEPENDS_suse-12.1.nss=		${DEPENDS_suse-12.1.base}
+DEPENDS_suse-12.1.nspr=		${DEPENDS_suse-12.1.base}
+DEPENDS_suse-12.1.dbus=		${DEPENDS_suse-12.1.gtk2}
+DEPENDS_suse-12.1.dbus-glib=	${DEPENDS_suse-12.1.gtk2}
+DEPENDS_suse-12.1.libffi=	${DEPENDS_suse-12.1.gtk2}
+DEPENDS_suse-12.1.glib2=	${DEPENDS_suse-12.1.gtk2}

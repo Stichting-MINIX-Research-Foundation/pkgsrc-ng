@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.99 2013/06/06 12:54:40 wiz Exp $
+# $NetBSD: Makefile,v 1.102 2013/10/15 16:21:46 asau Exp $
 #
 
 DISTNAME=		clisp-2.49
-PKGREVISION=		18
+PKGREVISION=		20
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=clisp/}
 #EXTRACT_SUFX=		.tar.bz2
@@ -29,7 +29,7 @@ CONFIGURE_DIRS=		.
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 BUILD_DIRS=		src
-USE_TOOLS+=		dvipdf groff
+USE_TOOLS+=		groff
 UNLIMIT_RESOURCES=	datasize stacksize
 
 USE_GNU_CONFIGURE_HOST=	NO	# work around broken reasoning: "configure --host=..." => cross-building

@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2012/11/30 13:06:54 wen Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/03/09 14:22:53 wen Exp $
 
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_R_CRAN:=contrib/}
@@ -9,14 +8,12 @@ HOMEPAGE=	${R_HOMEPAGE_BASE}/wle/
 COMMENT=	Weighted Likelihood Estimation
 LICENSE=	gnu-gpl-v2
 
-R_PKGNAME=	wle
-R_PKGVER=	0.9-7
+DEPENDS+=	R-circular>=0.4.3:../../math/R-circular
 
-PKG_DESTDIR_SUPPORT=	none
+R_PKGNAME=	wle
+R_PKGVER=	0.9-9
 
 USE_LANGUAGES+=	c fortran
-
-DEPENDS+=	R-circular>=0.4.3:../../math/R-circular
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../math/R/Makefile.extension"
