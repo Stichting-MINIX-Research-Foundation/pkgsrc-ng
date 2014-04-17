@@ -112,6 +112,10 @@ CONFIGURE_ARGS+=	--disable-libutil
 # prior version don't have it.  So, disable use of strnvis(3) now.
 #
 CONFIGURE_ENV+=		ac_cv_func_strnvis=no
+
+.  if ${OS_VARIANT} == "Minix"
+LIBS+=			-lcrypt
+.  endif
 .endif
 
 .if (${OPSYS} == "SunOS") && (${OS_VERSION} == "5.8" || ${OS_VERSION} == "5.9")

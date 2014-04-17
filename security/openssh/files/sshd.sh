@@ -50,6 +50,12 @@ sshd_keygen()
 		${keygen_command} -t ecdsa -f @PKG_SYSCONFDIR@/ssh_host_ecdsa_key -N ''
 	fi
 /* HAVE_ECDSA_STOP */
+	if [ -f @PKG_SYSCONFDIR@/ssh_host_ed25519_key ]; then
+		@ECHO@ "You already have a ED25519 host key in @PKG_SYSCONFDIR@/ssh_host_ed25519_key"
+		@ECHO@ "Skipping protocol version 2 ED25519 Key Generation"
+	else
+		${keygen_command} -t ed25519 -f @PKG_SYSCONFDIR@/ssh_host_ed25519_key -N ''
+	fi
 	)
 }
 
