@@ -1,0 +1,66 @@
+--- configure.orig	Sun Oct 16 16:31:08 2016
++++ configure	Sun Oct 16 16:35:37 2016
+@@ -8481,7 +8481,7 @@
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  bitrig* | darwin* | dragonfly* | freebsd* | netbsd* | openbsd*)
++  bitrig* | darwin* | dragonfly* | freebsd* | minix* | netbsd* | openbsd*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -8947,7 +8947,7 @@
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd* | netbsdelf*-gnu)
++minix* | netbsd* | netbsdelf*-gnu)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -13028,7 +13028,7 @@
+       fi
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -13718,7 +13718,7 @@
+       esac
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -14844,6 +14844,18 @@
+   dynamic_linker='NetBSD ld.elf_so'
+   ;;
+ 
++minix*)
++  version_type=sunos
++  need_lib_prefix=no
++  need_version=no
++    library_names_spec='$libname$release$shared_ext$versuffix $libname$release$shared_ext$major $libname$shared_ext'
++    soname_spec='$libname$release$shared_ext$major'
++    dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -32014,7 +32026,7 @@
+       netbsd[123].*)
+                 tst_tsafe_getaddrinfo="no"
+         ;;
+-      netbsd*)
++      minix* | netbsd*)
+                 tst_tsafe_getaddrinfo="yes"
+         ;;
+       *bsd*)

@@ -6,4 +6,6 @@ SHA512 (curl-7.50.3.tar.bz2) = 59012f0d9abd38d00e0b2db0cd5d8b513c08000354d31e731
 Size (curl-7.50.3.tar.bz2) = 7478393 bytes
 SHA1 (patch-aa) = 793701d5ecc3343170fb437906c9adb74763cd13
 SHA1 (patch-curl-config.in) = d0cc7bb6a5bf0b9257f40dcffce7093cc0098eb7
+SHA1 (patch-lib_connect.c) = afe17a36b02d0694542a2d22b20c4231b966cf57
 SHA1 (patch-lib_hostcheck.c) = 8e772d3f91cdafae17281cc19004269ece0cf308
+SHA1 (patch-zz-minix-a) = 20a938ef857bb61355d3a45836894805aa317de3
