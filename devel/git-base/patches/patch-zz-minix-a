@@ -1,0 +1,11 @@
+--- compat/nedmalloc/malloc.c.h.orig	Fri Apr 18 16:10:39 2014
++++ compat/nedmalloc/malloc.c.h	Fri Apr 18 16:12:29 2014
+@@ -1323,7 +1323,7 @@ int mspace_mallopt(int, int);
+ #ifndef LACKS_UNISTD_H
+ #include <unistd.h>     /* for sbrk, sysconf */
+ #else /* LACKS_UNISTD_H */
+-#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__NetBSD__)
++#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__minix)
+ extern void*     sbrk(ptrdiff_t);
+ #endif /* FreeBSD etc */
+ #endif /* LACKS_UNISTD_H */

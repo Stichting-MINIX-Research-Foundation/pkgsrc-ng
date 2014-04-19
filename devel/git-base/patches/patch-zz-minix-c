@@ -1,0 +1,14 @@
+--- progress.c.orig	Sun Oct  4 00:40:24 2015
++++ progress.c	Sun Oct  4 00:41:58 2015
+@@ -75,7 +75,11 @@
+ static int is_foreground_fd(int fd)
+ {
+ 	int tpgrp = tcgetpgrp(fd);
++#if defined(__minix)
++	return tpgrp < 0 || tpgrp == getpid();
++#else
+ 	return tpgrp < 0 || tpgrp == getpgid(0);
++#endif /* defined(__minix) */
+ }
+ 
+ static int display(struct progress *progress, unsigned n, const char *done)

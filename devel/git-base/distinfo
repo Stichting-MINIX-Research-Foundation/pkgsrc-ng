@@ -12,3 +12,6 @@ SHA1 (patch-ah) = f22a2160631fb624e9e20616c68ad1a4aa2bebc7
 SHA1 (patch-ai) = 56b63d4790a11f5eb128186ad5efdd1bcf102f2e
 SHA1 (patch-config.mak.uname) = 5316873147acf5b6ef29e426946280bb6441c886
 SHA1 (patch-wrapper.c) = 1fb629ec301d0431cb5bebd716b1c3a7ae45577f
+SHA1 (patch-zz-minix-a) = 7bf6ca4176f53bfd00ee663b66851a5331073c5d
+SHA1 (patch-zz-minix-b) = 8ea47209f833fb59cc58fe332bd6e4315551e5af
+SHA1 (patch-zz-minix-c) = 62167e44a1d4762fa30f6374bd5a403e33e1d488
