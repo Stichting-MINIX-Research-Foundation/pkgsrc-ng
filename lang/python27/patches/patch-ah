@@ -1,8 +1,6 @@
-$NetBSD: patch-ah,v 1.2 2013/04/12 09:03:41 adam Exp $
-
---- Modules/_cursesmodule.c.orig	2013-04-06 14:02:36.000000000 +0000
-+++ Modules/_cursesmodule.c
-@@ -322,17 +322,9 @@ Window_NoArg2TupleReturnFunction(getpary
+--- Modules/_cursesmodule.c.orig	Sun Nov 10 07:36:41 2013
++++ Modules/_cursesmodule.c	Fri Apr 18 18:55:20 2014
+@@ -322,17 +322,9 @@ Window_NoArg2TupleReturnFunction(getparyx, int, "ii")
  
  Window_OneArgNoReturnFunction(clearok, int, "i;True(1) or False(0)")
  Window_OneArgNoReturnFunction(idlok, int, "i;True(1) or False(0)")
@@ -20,7 +18,16 @@ $NetBSD: patch-ah,v 1.2 2013/04/12 09:03:41 adam Exp $
  Window_OneArgNoReturnFunction(notimeout, int, "i;True(1) or False(0)")
  Window_OneArgNoReturnFunction(scrollok, int, "i;True(1) or False(0)")
  Window_OneArgNoReturnFunction(winsdelln, int, "i;nlines")
-@@ -2110,7 +2102,6 @@ PyCurses_Is_Term_Resized(PyObject *self,
+@@ -893,7 +885,7 @@ PyCursesWindow_GetKey(PyCursesWindowObject *self, PyOb
+         return Py_BuildValue("c", rtn);
+     } else {
+         const char *knp;
+-#if defined(__NetBSD__)
++#if defined(__NetBSD__) || defined(__minix)
+         knp = unctrl(rtn);
+ #else
+         knp = keyname(rtn);
+@@ -2110,7 +2102,6 @@ PyCurses_Is_Term_Resized(PyObject *self, PyObject *arg
  }
  #endif /* HAVE_CURSES_IS_TERM_RESIZED */
  
@@ -28,7 +35,7 @@ $NetBSD: patch-ah,v 1.2 2013/04/12 09:03:41 adam Exp $
  static PyObject *
  PyCurses_KeyName(PyObject *self, PyObject *args)
  {
-@@ -2129,7 +2120,6 @@ PyCurses_KeyName(PyObject *self, PyObjec
+@@ -2129,7 +2120,6 @@ PyCurses_KeyName(PyObject *self, PyObject *args)
  
      return PyString_FromString((knp == NULL) ? "" : (char *)knp);
  }
@@ -36,7 +43,7 @@ $NetBSD: patch-ah,v 1.2 2013/04/12 09:03:41 adam Exp $
  
  static PyObject *
  PyCurses_KillChar(PyObject *self)
-@@ -2674,9 +2664,7 @@ static PyMethodDef PyCurses_methods[] = 
+@@ -2674,9 +2664,7 @@ static PyMethodDef PyCurses_methods[] = {
  #ifdef HAVE_CURSES_IS_TERM_RESIZED
      {"is_term_resized",     (PyCFunction)PyCurses_Is_Term_Resized, METH_VARARGS},
  #endif

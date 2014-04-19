@@ -30,10 +30,16 @@ CHECK_PORTABILITY_SKIP=	Tools/faqwiz/move-faqwiz.sh
 
 USE_LANGUAGES=		c c++
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ARGS+=	--without-threads
+.else
 PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 .if ${PTHREAD_TYPE} == "pth"
 CONFIGURE_ARGS+=	--with-pth
+.endif
 .endif
 
 .include "../../mk/compiler.mk"
@@ -42,8 +48,6 @@ CONFIGURE_ARGS+=	--with-pth
 .if !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=	-fwrapv
 .endif
-
-.include "../../mk/bsd.prefs.mk"
 
 # fdatasync()
 LIBS.SunOS+=		-lrt
@@ -75,6 +79,8 @@ PY_PLATNAME=	sunos${OS_VERSION:C/\..*//}
 PY_PLATNAME=	hp-ux11
 .elif ${OPSYS} == "Linux"
 PY_PLATNAME=	linux2
+.elif ${OS_VARIANT} == "Minix"
+PY_PLATNAME=	minix3
 .else
 PY_PLATNAME=	${LOWER_OPSYS}${OS_VERSION:C/\..*//}
 .endif
@@ -120,7 +126,8 @@ PLIST.nis=	yes
 .  endif
 .else
 PLIST.dll=	yes
-.  if ${OPSYS} == "MirBSD"
+.  if ${OPSYS} == "MirBSD" ||\
+	(${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 # neither nis nor no-nis
 .  elif ${OPSYS} != "NetBSD" || exists(/usr/bin/ypcat)
 PLIST.nis=	yes

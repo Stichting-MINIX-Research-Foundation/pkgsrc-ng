@@ -1,28 +1,5 @@
-$NetBSD: patch-am,v 1.14 2014/03/27 05:36:37 obache Exp $
-
-Disabled modules for normal build:
-bsddb
-curses
-curses_panel
-elementtree
-sqlite3
-tkinter
-gdbm
-pyexpat
-readline
-{linux,oss,sun}audiodev
-spwd
-Those have separate packages where needed.
-
-Only check the BUILDLINK_DIR for libraries etc, do not pick up random
-headers and libraries from the system.
-
-Build the 1.85 compat module all the time against the BDB version of choice.
-
-cygwin 2.7.3-no-libm.patch
-
---- setup.py.orig	2013-11-10 07:36:41.000000000 +0000
-+++ setup.py
+--- setup.py.orig	Sun Nov 10 07:36:41 2013
++++ setup.py	Fri Apr 18 17:45:56 2014
 @@ -33,7 +33,7 @@ host_platform = get_platform()
  COMPILED_WITH_PYDEBUG = ('--with-pydebug' in sysconfig.get_config_var("CONFIG_ARGS"))
  
@@ -348,7 +325,18 @@ cygwin 2.7.3-no-libm.patch
              if dbmext is not None:
                  exts.append(dbmext)
              else:
-@@ -2222,9 +2056,9 @@ def main():
+@@ -1555,6 +1389,10 @@ class PyBuildExt(build_ext):
+             macros = dict()
+             libraries = []
+ 
++        elif host_platform.startswith('minix'):
++            macros = dict()
++            libraries = []
++
+         elif host_platform.startswith('netbsd'):
+             macros = dict()
+             libraries = []
+@@ -2222,9 +2060,9 @@ def main():
            ext_modules=[Extension('_struct', ['_struct.c'])],
  
            # Scripts to install

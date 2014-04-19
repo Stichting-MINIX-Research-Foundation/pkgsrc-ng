@@ -1,8 +1,6 @@
-$NetBSD: patch-pyconfig.h.in,v 1.2 2013/04/12 09:03:41 adam Exp $
-
---- pyconfig.h.in.orig	2011-06-11 17:46:28.000000000 +0200
-+++ pyconfig.h.in	2011-11-29 20:17:04.328552361 +0100
-@@ -1191,7 +1191,9 @@
+--- pyconfig.h.in.orig	Sun Nov 10 07:36:41 2013
++++ pyconfig.h.in	Fri Apr 18 17:38:30 2014
+@@ -1197,7 +1197,9 @@
  #undef _UINT64_T
  
  /* Define to the level of X/Open that your system supports */

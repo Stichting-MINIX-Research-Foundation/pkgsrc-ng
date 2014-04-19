@@ -1,0 +1,11 @@
+--- Modules/_ctypes/libffi/src/dlmalloc.c.orig	Fri Apr 18 19:08:34 2014
++++ Modules/_ctypes/libffi/src/dlmalloc.c	Fri Apr 18 19:08:56 2014
+@@ -1200,7 +1200,7 @@ int mspace_mallopt(int, int);
+ #ifndef LACKS_UNISTD_H
+ #include <unistd.h>     /* for sbrk */
+ #else /* LACKS_UNISTD_H */
+-#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__NetBSD__)
++#if !defined(__FreeBSD__) && !defined(__OpenBSD__) && !defined(__NetBSD__) && !defined(__minix)
+ extern void*     sbrk(ptrdiff_t);
+ #endif /* FreeBSD etc */
+ #endif /* LACKS_UNISTD_H */

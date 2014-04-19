@@ -1,14 +1,6 @@
-$NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
-
-- recognize MirBSD, Interix
-- remove special-case library version hack for FreeBSD
-- don't set Mac OS X target version: stick to the current one
-- honor pkgsrc LDFLAGS
-- other stuff not previously commented (XXX)
-
---- configure.orig	2013-04-06 14:02:41.000000000 +0000
-+++ configure
-@@ -3243,7 +3243,7 @@ case $ac_sys_system/$ac_sys_release in
+--- configure.orig	Sun Nov 10 07:36:41 2013
++++ configure	Fri Apr 18 17:50:36 2014
+@@ -3252,7 +3252,7 @@ case $ac_sys_system/$ac_sys_release in
    # Reconfirmed for OpenBSD 3.3 by Zachary Hamm, for 3.4 by Jason Ish.
    # In addition, Stefan Krah confirms that issue #1244610 exists through
    # OpenBSD 4.6, but is fixed in 4.7.
@@ -17,12 +9,12 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
      define_xopen_source=no
      # OpenBSD undoes our definition of __BSD_VISIBLE if _XOPEN_SOURCE is
      # also defined. This can be overridden by defining _BSD_SOURCE
-@@ -5342,15 +5342,10 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>
+@@ -5351,15 +5351,10 @@ $as_echo "#define Py_ENABLE_SHARED 1" >>confdefs.h
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
  	  INSTSONAME="$LDLIBRARY".$SOVERSION
            ;;
 -    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*)
-+    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|Interix*|MirBSD*)
++    Linux*|GNU*|Minix*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|Interix*|MirBSD*)
  	  LDLIBRARY='libpython$(VERSION).so'
  	  BLDLIBRARY='-L. -lpython$(VERSION)'
  	  RUNSHARED=LD_LIBRARY_PATH=`pwd`:${LD_LIBRARY_PATH}
@@ -34,7 +26,7 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
  	  INSTSONAME="$LDLIBRARY".$SOVERSION
  	  ;;
      hp*|HP*)
-@@ -6037,7 +6032,7 @@ $as_echo "$CC" >&6; }
+@@ -6046,7 +6041,7 @@ $as_echo "$CC" >&6; }
  	    # Calculate the right deployment target for this build.
  	    #
  	    cur_target=`sw_vers -productVersion | sed 's/\(10\.[0-9]*\).*/\1/'`
@@ -43,7 +35,7 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
  		    cur_target=10.3
  		    if test ${enable_universalsdk}; then
  			    if test "${UNIVERSAL_ARCHS}" = "all"; then
-@@ -8214,9 +8209,9 @@ then
+@@ -8222,9 +8217,9 @@ then
  			LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
  		else
  			# No framework, use the Python app as bundle-loader
@@ -56,7 +48,7 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
  		fi ;;
  	Darwin/*)
  		# Use -undefined dynamic_lookup whenever possible (10.3 and later).
-@@ -8240,15 +8235,15 @@ then
+@@ -8248,15 +8243,15 @@ then
  				LDCXXSHARED="$LDCXXSHARED "'$(PYTHONFRAMEWORKPREFIX)/$(PYTHONFRAMEWORKDIR)/Versions/$(VERSION)/$(PYTHONFRAMEWORK)'
  			else
  				# No framework, use the Python app as bundle-loader
@@ -76,14 +68,15 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
  	BSD/OS*/4*)
  		LDSHARED="gcc -shared"
  		LDCXXSHARED="g++ -shared";;
-@@ -8276,9 +8271,15 @@ then
+@@ -8284,9 +8279,15 @@ then
  				   ;;
  				esac
  		fi;;
+-	NetBSD*|DragonFly*)
 +	MirBSD*)
 +		LDSHARED='$(CC) -shared $(CCSHARED)'
 +		LDCXXSHARED='$(CXX) -shared $(CCSHARED)';;
- 	NetBSD*|DragonFly*)
++	Minix*|NetBSD*|DragonFly*)
  		LDSHARED='$(CC) -shared'
  		LDCXXSHARED='$(CXX) -shared';;
 +	Interix*)
@@ -92,22 +85,22 @@ $NetBSD: patch-al,v 1.11 2013/09/13 13:18:20 adam Exp $
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes" ; then
  			LDSHARED='$(CC) -shared'
-@@ -8322,7 +8323,8 @@ then
+@@ -8330,7 +8331,8 @@ then
  		 fi;;
  	Linux*|GNU*) CCSHARED="-fPIC";;
  	BSD/OS*/4*) CCSHARED="-fpic";;
 -	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*) CCSHARED="-fPIC";;
-+	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*) CCSHARED="-fPIC";;
++	FreeBSD*|Minix*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*) CCSHARED="-fPIC";;
 +	Interix*) CCSHARED="";;
  	OpenUNIX*|UnixWare*)
  		if test "$GCC" = "yes"
  		then CCSHARED="-fPIC"
-@@ -8374,11 +8376,12 @@ then
+@@ -8382,11 +8384,12 @@ then
  	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
  	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
  	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
 -	FreeBSD*|NetBSD*|OpenBSD*|DragonFly*)
-+	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*)
++	FreeBSD*|Minix*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*)
  		if [ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]
  		then
  			LINKFORSHARED="-Wl,--export-dynamic"

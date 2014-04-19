@@ -1,12 +1,10 @@
-$NetBSD: patch-aa,v 1.1.1.1 2011/02/22 08:52:01 obache Exp $
-
---- Include/py_curses.h.orig	2010-03-25 00:54:54.000000000 +0000
-+++ Include/py_curses.h
+--- Include/py_curses.h.orig	Sun Nov 10 07:36:39 2013
++++ Include/py_curses.h	Fri Apr 18 18:45:25 2014
 @@ -44,6 +44,21 @@
  #endif
  #endif
  
-+#ifdef __NetBSD__
++#if defined __NetBSD__ || defined __minix
 +/*
 +** On NetBSD, [n]curses.h and stdlib.h/wchar.h use different guards
 +** against multiple definition of wchar_t and wint_t.
