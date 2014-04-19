@@ -1,0 +1,13 @@
+--- Modules/_ctypes/libffi/config.guess.orig	Sat Apr 25 13:58:47 2015
++++ Modules/_ctypes/libffi/config.guess	Sat Apr 25 13:59:57 2015
+@@ -880,8 +880,8 @@
+ 	# other systems with GNU libc and userland
+ 	echo ${UNAME_MACHINE}-unknown-`echo ${UNAME_SYSTEM} | sed 's,^[^/]*/,,' | tr '[A-Z]' '[a-z]'``echo ${UNAME_RELEASE}|sed -e 's/[-(].*//'`-${LIBC}
+ 	exit ;;
+-    i*86:Minix:*:*)
+-	echo ${UNAME_MACHINE}-pc-minix
++    *:Minix:*:*)
++	echo ${UNAME_MACHINE}-elf32-minix
+ 	exit ;;
+     aarch64:Linux:*:*)
+ 	echo ${UNAME_MACHINE}-unknown-linux-${LIBC}

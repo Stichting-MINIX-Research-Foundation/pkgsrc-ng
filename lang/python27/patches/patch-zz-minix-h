@@ -1,0 +1,47 @@
+--- configure.orig	Tue Apr 28 06:43:45 2015
++++ configure	Tue Apr 28 06:45:35 2015
+@@ -5359,7 +5359,7 @@
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+ 	  INSTSONAME="$LDLIBRARY".$SOVERSION
+           ;;
+-    Linux*|GNU*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|Interix*|MirBSD*)
++    Linux*|GNU*|Minix*|NetBSD*|FreeBSD*|DragonFly*|OpenBSD*|Interix*|MirBSD*)
+ 	  LDLIBRARY='libpython$(VERSION).so'
+ 	  BLDLIBRARY='-L. -lpython$(VERSION)'
+ 	  RUNSHARED=LD_LIBRARY_PATH=`pwd`${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+@@ -8288,7 +8288,7 @@
+ 	MirBSD*)
+ 		LDSHARED='$(CC) -shared $(CCSHARED)'
+ 		LDCXXSHARED='$(CXX) -shared $(CCSHARED)';;
+-	NetBSD*|DragonFly*)
++	Minix*|NetBSD*|DragonFly*)
+ 		LDSHARED='$(CC) -shared'
+ 		LDCXXSHARED='$(CXX) -shared';;
+ 	OpenUNIX*|UnixWare*)
+@@ -8334,7 +8334,7 @@
+ 		 fi;;
+ 	Linux*|GNU*) CCSHARED="-fPIC";;
+ 	BSD/OS*/4*) CCSHARED="-fpic";;
+-	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*) CCSHARED="-fPIC";;
++	FreeBSD*|Minix*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*) CCSHARED="-fPIC";;
+ 	Interix*) CCSHARED="";;
+ 	OpenUNIX*|UnixWare*)
+ 		if test "$GCC" = "yes"
+@@ -8387,7 +8387,7 @@
+ 	OpenUNIX*|UnixWare*) LINKFORSHARED="-Wl,-Bexport";;
+ 	SCO_SV*) LINKFORSHARED="-Wl,-Bexport";;
+ 	ReliantUNIX*) LINKFORSHARED="-W1 -Blargedynsym";;
+-	FreeBSD*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*)
++	FreeBSD*|Minix*|NetBSD*|OpenBSD*|MirBSD*|DragonFly*)
+ 		if [ "`$CC -dM -E - </dev/null | grep __ELF__`" != "" ]
+ 		then
+ 			LINKFORSHARED="-Wl,--export-dynamic"
+@@ -10383,7 +10383,7 @@
+ {
+ int x=kqueue()
+ /* SCO OpenServer 5.0.7/3.2 has not kqueue, but detected as yes. */
+-#if defined(_SCO_DS)
++#if defined(_SCO_DS) || defined(__minix)
+ #error no kqueue
+ #endif
+   ;

@@ -1,0 +1,12 @@
+--- Modules/posixmodule.c.orig	Fri Apr 18 18:53:21 2014
++++ Modules/posixmodule.c	Fri Apr 18 18:53:52 2014
+@@ -2098,7 +2098,8 @@ Return a string representing the current working direc
+ 
+ #if (defined(__sun) && defined(__SVR4)) || \
+      defined(__OpenBSD__)               || \
+-     defined(__NetBSD__)
++     defined(__NetBSD__)		|| \
++     defined(__minix)
+ /* Issue 9185: getcwd() returns NULL/ERANGE indefinitely. */
+ static PyObject *
+ posix_getcwd(PyObject *self, PyObject *noargs)

@@ -1,0 +1,13 @@
+--- setup.py.orig	Sat Apr 25 15:57:29 2015
++++ setup.py	Sat Apr 25 15:58:11 2015
+@@ -1396,6 +1396,10 @@
+             macros = dict()
+             libraries = []
+ 
++        elif host_platform.startswith('minix'):
++            macros = dict()
++            libraries = []
++
+         elif host_platform.startswith('netbsd'):
+             macros = dict()
+             libraries = []
