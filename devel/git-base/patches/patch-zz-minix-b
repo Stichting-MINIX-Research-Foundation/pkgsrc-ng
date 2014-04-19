@@ -1,0 +1,31 @@
+--- config.mak.uname.orig	Sun Oct  4 00:20:19 2015
++++ config.mak.uname	Sun Oct  4 00:24:50 2015
+@@ -412,18 +412,20 @@
+ 	endif
+ endif
+ ifeq ($(uname_S),Minix)
++	ifeq ($(shell expr "$(uname_R)" : '[01]\.'),2)
++		NEEDS_LIBICONV = YesPlease
++	endif
++	BASIC_CFLAGS += -I/usr/pkg/include
++	BASIC_LDFLAGS += -L/usr/pkg/lib $(CC_LD_DYNPATH)/usr/pkg/lib
++	USE_ST_TIMESPEC = YesPlease
++	NO_MKSTEMPS = YesPlease
++	HAVE_PATHS_H = YesPlease
++# MINIX Deviation from NetBSD
++#	HAVE_BSD_SYSCTL = YesPlease
+ 	NO_IPV6 = YesPlease
+-	NO_ST_BLOCKS_IN_STRUCT_STAT = YesPlease
+-	NO_NSEC = YesPlease
+-	NEEDS_LIBGEN =
+ 	NEEDS_CRYPTO_WITH_SSL = YesPlease
+ 	NEEDS_IDN_WITH_CURL = YesPlease
+ 	NEEDS_SSL_WITH_CURL = YesPlease
+-	NEEDS_RESOLV =
+-	NO_HSTRERROR = YesPlease
+-	NO_MMAP = YesPlease
+-	NO_CURL =
+-	NO_EXPAT =
+ endif
+ ifeq ($(uname_S),NONSTOP_KERNEL)
+ 	# Needs some C99 features, "inline" is just one of them.

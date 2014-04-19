@@ -87,6 +87,10 @@ SUBST_FILES.fix-cd-P+=	t/test-lib.sh
 SUBST_MESSAGE.fix-cd-P=	Fixing cd arguments.
 SUBST_STAGE.fix-cd-P=	pre-build
 SUBST_SED.fix-cd-P=	-e "s/cd -P/cd/g"
+
+.if ${OS_VARIANT} == "Minix"
+CONFIGURE_ENV+=		ac_cv_search_clock_gettime=no
+.endif # ${OS_VARIANT} == "Minix"
 .endif
 
 LDFLAGS.SunOS+=		-lintl -lnsl
