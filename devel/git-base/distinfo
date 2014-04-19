@@ -10,5 +10,6 @@ SHA1 (patch-af) = d4741caeaed3ef6cfabf415f9fdbc95968307131
 SHA1 (patch-ag) = 4f0b9a5745203ea7ef369c8272b3ea7c644762f0
 SHA1 (patch-ah) = f22a2160631fb624e9e20616c68ad1a4aa2bebc7
 SHA1 (patch-ai) = 56b63d4790a11f5eb128186ad5efdd1bcf102f2e
-SHA1 (patch-config.mak.uname) = f18aafb64828f3c3e49321d6ef9756fff42c2056
+SHA1 (patch-aj) = 7bf6ca4176f53bfd00ee663b66851a5331073c5d
+SHA1 (patch-config.mak.uname) = 5de1ab407af0e5c2ddf633c5da89cf29ca1ecb66
 SHA1 (patch-wrapper.c) = d8252c63cca9a134fca3f8f6f28663f563c7b4bc
