@@ -1,11 +1,6 @@
-$NetBSD: patch-aa,v 1.26 2014/03/30 12:57:54 spz Exp $
-
-builtin krb5-config in platforms such as solaris do not support
-the gssapi option, and need an explicit -lgss
-
---- configure.orig	2014-03-25 10:29:28.000000000 +0000
-+++ configure
-@@ -3641,6 +3641,7 @@ $as_echo "$as_me: $xc_bad_var_msg librar
+--- configure.orig	Tue Mar 25 10:29:28 2014
++++ configure	Fri Apr 18 15:44:26 2014
+@@ -3641,6 +3641,7 @@ $as_echo "$as_me: $xc_bad_var_msg libraries. Use LIBS 
          ;;
      esac
    done
@@ -13,7 +8,62 @@ the gssapi option, and need an explicit -lgss
    if test $xc_bad_var_cflags = yes; then
      { $as_echo "$as_me:${as_lineno-$LINENO}: using CFLAGS: $CFLAGS" >&5
  $as_echo "$as_me: using CFLAGS: $CFLAGS" >&6;}
-@@ -16620,7 +16621,7 @@ squeeze() {
+@@ -8381,7 +8382,7 @@ else
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
++  minix* | netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -8872,7 +8873,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu | gnu*)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd* | netbsdelf*-gnu)
++minix* | netbsd* | netbsdelf*-gnu)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -12641,7 +12642,7 @@ _LT_EOF
+       fi
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -13270,7 +13271,7 @@ $as_echo "$lt_cv_irix_exported_symbol" >&6; }
+       link_all_deplibs=yes
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    minix* | netbsd* | netbsdelf*-gnu)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -14286,6 +14287,18 @@ fi
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++minix*)
++  version_type=linux
++  need_lib_prefix=no
++  need_version=no
++  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++  soname_spec='${libname}${release}${shared_ext}$major'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=no
++  hardcode_into_libs=yes
++  dynamic_linker='Minix ld.elf_so'
++  ;;
++
+ netbsdelf*-gnu)
+   version_type=linux
+   need_lib_prefix=no
+@@ -16620,7 +16633,7 @@ squeeze() {
  
  
        #
@@ -22,7 +72,7 @@ the gssapi option, and need an explicit -lgss
      #
      if test "$compiler_id" = "GNU_C" ||
        test "$compiler_id" = "CLANG"; then
-@@ -21079,7 +21080,12 @@ $as_echo "yes" >&6; }
+@@ -21079,7 +21092,12 @@ $as_echo "yes" >&6; }
  
    if test -z "$GSSAPI_INCS"; then
       if test -f "$GSSAPI_ROOT/bin/krb5-config"; then
@@ -36,7 +86,7 @@ the gssapi option, and need an explicit -lgss
       elif test "$GSSAPI_ROOT" != "yes"; then
          GSSAPI_INCS="-I$GSSAPI_ROOT/include"
       fi
-@@ -21227,13 +21233,18 @@ $as_echo "#define HAVE_GSSAPI 1" >>confd
+@@ -21227,13 +21245,18 @@ $as_echo "#define HAVE_GSSAPI 1" >>confdefs.h
          ;;
       *)
          if test -f "$GSSAPI_ROOT/bin/krb5-config"; then
@@ -58,7 +108,7 @@ the gssapi option, and need an explicit -lgss
          fi
          ;;
       esac
-@@ -21244,7 +21255,7 @@ $as_echo "#define HAVE_GSSAPI 1" >>confd
+@@ -21244,7 +21267,7 @@ $as_echo "#define HAVE_GSSAPI 1" >>confdefs.h
          LIBS="-lgss $LIBS"
          ;;
       *)
