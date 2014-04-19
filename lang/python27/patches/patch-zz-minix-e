@@ -1,0 +1,11 @@
+--- Modules/_ctypes/libffi/ltmain.sh.orig	Fri Apr 18 19:11:06 2014
++++ Modules/_ctypes/libffi/ltmain.sh	Fri Apr 18 19:11:33 2014
+@@ -7627,7 +7627,7 @@ func_mode_link ()
+ 	    # Rhapsody C library is in the System framework
+ 	    func_append deplibs " System.ltframework"
+ 	    ;;
+-	  *-*-netbsd*)
++	  *-*-netbsd* | *-*-minix*)
+ 	    # Don't link with libc until the a.out ld.so is fixed.
+ 	    ;;
+ 	  *-*-openbsd* | *-*-freebsd* | *-*-dragonfly*)

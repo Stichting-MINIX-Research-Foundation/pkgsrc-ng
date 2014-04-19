@@ -1,0 +1,11 @@
+--- Python/dynload_shlib.c.orig	Fri Apr 18 18:42:43 2014
++++ Python/dynload_shlib.c	Fri Apr 18 18:43:00 2014
+@@ -7,7 +7,7 @@
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ 
+-#if defined(__NetBSD__)
++#if defined(__NetBSD__) || defined(__minix)
+ #include <sys/param.h>
+ #if (NetBSD < 199712)
+ #include <nlist.h>
