@@ -1,0 +1,11 @@
+--- libcharset/lib/config.charset.orig	Sat Apr 19 09:15:48 2014
++++ libcharset/lib/config.charset	Sat Apr 19 09:16:33 2014
+@@ -385,7 +385,7 @@ case "$os" in
+     echo "ja_JP.Shift_JIS SHIFT_JIS"
+     echo "ko_KR.EUC EUC-KR"
+     ;;
+-  netbsd*)
++  minix*|netbsd*)
+     echo "646 ASCII"
+     echo "ISO8859-1 ISO-8859-1"
+     echo "ISO8859-2 ISO-8859-2"
