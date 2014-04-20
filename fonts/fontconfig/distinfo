@@ -7,6 +7,6 @@ SHA1 (patch-aa) = ae9a465321dcaee634faf016e2dd01e2f544af12
 SHA1 (patch-ab) = 5aabb4bd60319c83cbb22f784efe11bdc7308f92
 SHA1 (patch-ac) = 4a0b7b55aa4b5c106fd256c4ef81df2240224803
 SHA1 (patch-af) = d351265c894738284215f0bb38d47cc1c8f28ec7
-SHA1 (patch-ba) = e0ad71bfb333872fcef21d76db06312e7a325202
+SHA1 (patch-ba) = 5c2b336cb7ab9ec4583f51b8f12079d957ae494b
 SHA1 (patch-src_fcstat.c) = 9cb2d9b656bcb79d33be84a053e928ecf957dfd7
 SHA1 (patch-test_test-migration.c) = 16435e36de501523dd487005dec68c31c229112e
