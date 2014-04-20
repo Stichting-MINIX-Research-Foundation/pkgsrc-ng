@@ -21,4 +21,7 @@ USE_TOOLS+=	pkg-config perl
 PKGCONFIG_OVERRIDE+=	pixman-1.pc.in
 PKGCONFIG_OVERRIDE+=	pixman-1-uninstalled.pc.in
 
+# Minix does not support Thread Local Storage
+CONFIGURE_ARGS+= CPPFLAGS=-DPIXMAN_NO_TLS
+
 .include "../../mk/bsd.pkg.mk"
