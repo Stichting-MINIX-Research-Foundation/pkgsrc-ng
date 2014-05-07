@@ -1,0 +1,11 @@
+--- runConfigureICU.orig	Sun Oct 25 18:39:40 2015
++++ runConfigureICU	Sun Oct 25 18:40:29 2015
+@@ -327,7 +327,7 @@
+         DEBUG_CXXFLAGS='-Zi -MDd'
+         DEBUG_LDFLAGS='-DEBUG'
+         ;;
+-    *BSD | DragonFly | Bitrig)
++    *BSD | DragonFly | Bitrig | Minix)
+         THE_OS="BSD"
+         THE_COMP="the GNU C++"
+         DEBUG_CFLAGS='-g -O0'

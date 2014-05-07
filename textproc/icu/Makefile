@@ -27,6 +27,7 @@ CONFIGURE_ARGS+=	--disable-threads
 .endif
 
 .include "../../mk/compiler.mk"
+.include "../../mk/bsd.prefs.mk" # To get OPSYS
 
 # from ICU_CHECK_MH_FRAG in source/acinclude.m4
 .if ${OPSYS} == "SunOS"

@@ -1,0 +1,11 @@
+--- common/putilimp.h.orig	Sun Apr 26 15:46:47 2015
++++ common/putilimp.h	Sun Apr 26 15:47:20 2015
+@@ -126,7 +126,7 @@
+ #   endif
+ #elif U_PLATFORM_USES_ONLY_WIN32_API
+ #   define U_TIMEZONE _timezone
+-#elif U_PLATFORM == U_PF_BSD && !defined(__NetBSD__)
++#elif U_PLATFORM == U_PF_BSD && !defined(__minix) && !defined(__NetBSD__)
+    /* not defined */
+ #elif U_PLATFORM == U_PF_OS400
+    /* not defined */

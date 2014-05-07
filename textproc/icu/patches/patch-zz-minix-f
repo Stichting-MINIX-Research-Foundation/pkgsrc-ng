@@ -1,0 +1,14 @@
+--- i18n/ucol_res.cpp.orig	Sun Apr 26 16:05:53 2015
++++ i18n/ucol_res.cpp	Sun Apr 26 16:07:22 2015
+@@ -51,6 +51,11 @@
+ #include "ustrenum.h"
+ #include "utracimp.h"
+ 
++#if defined(__minix)
++/* LSC: Yet another example why macros are evil. */
++#undef read
++#endif /* defined(__minix) */
++
+ U_NAMESPACE_BEGIN
+ 
+ namespace {

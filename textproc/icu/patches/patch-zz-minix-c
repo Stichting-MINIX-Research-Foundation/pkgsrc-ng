@@ -1,0 +1,13 @@
+--- common/umutex.h.orig	Sun Apr 26 15:45:11 2015
++++ common/umutex.h	Sun Apr 26 15:45:32 2015
+@@ -375,6 +375,10 @@
+  */
+ 
+ #include <pthread.h>
++#ifdef __minix
++/* LSC: Once more, an example of why macros are a bad thing. */
++#undef select
++#endif
+ 
+ struct UMutex {
+     pthread_mutex_t  fMutex;
