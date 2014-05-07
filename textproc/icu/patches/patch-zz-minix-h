@@ -1,0 +1,14 @@
+--- i18n/collationdatareader.h.orig	Sun Apr 26 16:23:14 2015
++++ i18n/collationdatareader.h	Sun Apr 26 16:24:21 2015
+@@ -18,6 +18,11 @@
+ 
+ #include "unicode/udata.h"
+ 
++#if defined(__minix)
++/* LSC: Yet another proof for the evilness of macros. */
++#undef read
++#endif /* defined(__minix) */
++
+ struct UDataMemory;
+ 
+ U_NAMESPACE_BEGIN

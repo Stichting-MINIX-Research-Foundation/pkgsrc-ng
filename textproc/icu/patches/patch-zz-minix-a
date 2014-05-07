@@ -1,0 +1,38 @@
+--- configure.orig	Sun Oct 25 18:41:51 2015
++++ configure	Sun Oct 25 18:44:42 2015
+@@ -5147,7 +5147,7 @@
+ 		*-*-cygwin) icu_cv_host_frag=mh-cygwin-msvc ;;
+ 		esac
+ 	fi ;;
+-*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*) 	icu_cv_host_frag=mh-bsd-gcc ;;
++*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*|*-*-minix*) 	icu_cv_host_frag=mh-bsd-gcc ;;
+ *-*-aix*)
+ 	if test "$GCC" = yes; then
+ 		icu_cv_host_frag=mh-aix-gcc
+@@ -5697,7 +5697,7 @@
+ done
+ 
+ case "${host}" in
+-*-netbsd*)
++*-minix*|*-netbsd*)
+ if test "x$ac_cv_header_sys_atomic_h" = "xyes"; then
+     CONFIG_CPPFLAGS="$CONFIG_CPPFLAGS -DU_HAVE_NETBSD_ATOMIC_OPS=1";
+ fi
+@@ -6286,7 +6286,7 @@
+ # Check to see if genccode can generate simple assembly.
+ GENCCODE_ASSEMBLY=
+ case "${host}" in
+-*-linux*|*-kfreebsd*-gnu*|i*86-*-*bsd*|i*86-pc-gnu)
++*-linux*|*-kfreebsd*-gnu*|i*86-*-*bsd*|i*86-*-minix*|i*86-pc-gnu)
+     if test "$GCC" = yes; then
+         # We're using gcc, and the simple -a gcc command line works for genccode
+         GENCCODE_ASSEMBLY="-a gcc"
+@@ -7679,7 +7679,7 @@
+ case "${host}" in
+ 	*-*-solaris*) 	platform=U_SOLARIS ;;
+ 	*-*-linux*|*-*-gnu|*-*-k*bsd*-gnu|*-*-kopensolaris*-gnu)        platform=U_LINUX ;;
+-	*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*) 	platform=U_BSD ;;
++	*-*-*bsd*|*-*-dragonfly*|*-*-bitrig*|*-*-minix*) 	platform=U_BSD ;;
+ 	*-*-aix*) 	platform=U_AIX ;;
+ 	*-*-hpux*) 	platform=U_HPUX ;;
+ 	*-apple-darwin*|*-apple-rhapsody*)	platform=U_DARWIN ;;

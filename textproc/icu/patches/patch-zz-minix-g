@@ -1,0 +1,14 @@
+--- i18n/collationdatareader.cpp.orig	Sun Apr 26 16:14:39 2015
++++ i18n/collationdatareader.cpp	Sun Apr 26 16:15:55 2015
+@@ -30,6 +30,11 @@
+ #include "ucmndata.h"
+ #include "utrie2.h"
+ 
++#if defined(__minix)
++/* LSC: Yet another example of why macros are evil. */
++#undef read
++#endif /* defined(__minix) */
++
+ U_NAMESPACE_BEGIN
+ 
+ namespace {

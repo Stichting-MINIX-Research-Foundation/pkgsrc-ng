@@ -1,0 +1,11 @@
+--- common/unicode/platform.h.orig	Sun Oct 16 20:28:28 2016
++++ common/unicode/platform.h	Sun Oct 16 20:40:23 2016
+@@ -159,7 +159,7 @@
+ #   else
+ #       define U_PLATFORM U_PF_DARWIN
+ #   endif
+-#elif defined(BSD) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__MirBSD__) || defined(__DragonFly__)
++#elif defined(BSD) || defined(__FreeBSD__) || defined(__FreeBSD_kernel__) || defined(__minix) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__MirBSD__) || defined(__DragonFly__)
+ #   if defined(__FreeBSD__)
+ #       include <sys/endian.h>
+ #   endif
