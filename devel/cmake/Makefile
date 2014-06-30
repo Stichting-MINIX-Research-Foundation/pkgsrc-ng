@@ -34,6 +34,11 @@ LDFLAGS.SunOS+=		-lsocket -lnsl
 CONFIGURE_ARGS+=	--parallel=${MAKE_JOBS:Q}
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+post-extract:
+	${CP} ${FILESDIR}/Minix.cmake ${WRKSRC}/Modules/Platform/
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 PLIST_SUBST+=		CMAKE_API=${CMAKE_API}
 
 # for Source/cmDependsJavaParser.cxx
