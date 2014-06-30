@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- Source/kwsys/ProcessUNIX.c.orig	Wed Nov  3 19:58:30 2010
++++ Source/kwsys/ProcessUNIX.c
+@@ -111,7 +111,7 @@ static inline void kwsysProcess_usleep(unsigned int ms
+ #endif
+ 
+ /* Some platforms do not have siginfo on their signal handlers.  */
+-#if defined(SA_SIGINFO) && !defined(__BEOS__)
++#if defined(SA_SIGINFO) && !defined(__BEOS__) && !defined(__minix)
+ # define KWSYSPE_USE_SIGINFO 1
+ #endif
+ 
