@@ -19,3 +19,5 @@ SHA1 (patch-Utilities_cmjsoncpp_src_lib__json_json__writer.cpp) = 52c4cb0e8f097a
 SHA1 (patch-aa) = bab24334e025b7c1bf7caa2e69d6a439cc421ea9
 SHA1 (patch-ab) = d1b39bdcd654f2a4fc63463cd20de656cce3cf8f
 SHA1 (patch-ac) = b5cedc6a2354beaf08e06d416c150154a7dc1f05
+SHA1 (patch-zz-minix-a) = 7d1fa8e45289e9c1ea3b8ad330c2093a83985e8d
+SHA1 (patch-zz-minix-b) = d5c40a3aa39c8b09b3de0cb624b5b5a3be6b5126
