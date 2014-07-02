@@ -3,12 +3,12 @@
 DISTNAME=	clang-3.4
 PKGREVISION=	1
 CATEGORIES=	lang
-MASTER_SITES=	http://llvm.org/releases/${PKGVERSION_NOREV}/
-DISTFILES=	llvm-${PKGVERSION_NOREV}.src.tar.gz \
-		libcxx-${PKGVERSION_NOREV}.src.tar.gz \
-		clang-${PKGVERSION_NOREV}.src.tar.gz
+MASTER_SITES=	${MASTER_SITE_MINIX}
+DISTFILES=	llvm-${PKGVERSION_NOREV}.minix.src.tar.gz \
+		libcxx-${PKGVERSION_NOREV}.minix.src.tar.gz \
+		clang-${PKGVERSION_NOREV}.minix.src.tar.gz
 
-MAINTAINER=	adam.hoka@gmail.com
+MAINTAINER=	ben@minix3.org
 HOMEPAGE=	http://llvm.org/
 COMMENT=	Low Level Virtual Machine compiler infrastructure
 LICENSE=	modified-bsd
@@ -89,6 +89,41 @@ post-extract:
 .if ${OPSYS} == "SunOS"
 	${ECHO} "int sun_ld_needs_a_symbol=0;" >> ${WRKSRC}/lib/Target/NVPTX/InstPrinter/NVPTXInstPrinter.cpp
 .endif
+
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+.  if ${PKGSRC_COMPILER} == "clang"
+# Can't build libc++ with GCC45
+# Seems it is not installed, so for now just skip it, and go with the defaults.
+#CONFIGURE_ARGS+=	--enable-libcpp
+.  endif
+CONFIGURE_ARGS+=	--disable-threads
+CONFIGURE_ARGS+=	--with-binutils-include=${LOCALBASE}/include/
+CONFIGURE_ENV+= ac_cv_func_getrusage=no ac_cv_func_setrlimit=no
+
+post-install:
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/clang/tools/scan-build/* ${DESTDIR}${PREFIX}/bin/
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/clang/tools/scan-build/ccc-analyzer \
+		${WRKSRC}/tools/clang/tools/scan-build/c++-analyzer \
+		${WRKSRC}/tools/clang/tools/scan-build/scan-build \
+		${WRKSRC}/tools/clang/tools/scan-view/scan-view \
+		${DESTDIR}${PREFIX}/bin
+	${MKDIR} ${DESTDIR}${PYSITELIB}
+	${MKDIR} ${DESTDIR}${PYSITELIB}/Resources
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/clang/tools/scan-view/*.py \
+		${DESTDIR}${PYSITELIB}
+	${INSTALL_SCRIPT} ${WRKSRC}/tools/clang/tools/scan-view/Resources/* \
+		${DESTDIR}${PYSITELIB}/Resources
+	${MKDIR} ${DESTDIR}${PREFIX}/share
+	${INSTALL_DATA} ${WRKSRC}/tools/clang/tools/scan-build/scanview.css ${DESTDIR}${PREFIX}/share
+	${INSTALL_DATA} ${WRKSRC}/tools/clang/tools/scan-build/sorttable.js ${DESTDIR}${PREFIX}/share
+
+.  if ${PKGSRC_COMPILER} == "gcc"
+# When the package is compiled using GCC we depend on libstdc++
+# Requires changes in the package to symlink libstdc++.so* in /usr/pkg/lib
+#.include "../../lang/gcc45/buildlink3.mk"
+.  endif
+.include "../../devel/binutils/buildlink3.mk"
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
 
 .include "../../lang/python/tool.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

@@ -1,18 +1,12 @@
-$NetBSD: distinfo,v 1.23 2014/02/27 17:35:35 adam Exp $
+$NetBSD$
 
-SHA1 (clang-3.4.src.tar.gz) = a6a3c815dd045e9c13c7ae37d2cfefe65607860d
-RMD160 (clang-3.4.src.tar.gz) = 4fbd7e735edc96e224a82ebe2277c69efc488e6b
-Size (clang-3.4.src.tar.gz) = 10619607 bytes
-SHA1 (libcxx-3.4.src.tar.gz) = c45333dce3e6bdac2583682417c03b6bb149ceb0
-RMD160 (libcxx-3.4.src.tar.gz) = 146a49dc0ae9635f87b13038d36ad816b7245666
-Size (libcxx-3.4.src.tar.gz) = 1377487 bytes
-SHA1 (llvm-3.4.src.tar.gz) = 10b1fd085b45d8b19adb9a628353ce347bc136b8
-RMD160 (llvm-3.4.src.tar.gz) = 67e3f7baa679ca95d944b9cc3528d1ffbe3cdee0
-Size (llvm-3.4.src.tar.gz) = 15920544 bytes
-SHA1 (patch-ab) = 8dd0da6d47a57ac25eea358996cf874dd3289e08
-SHA1 (patch-ac) = 0f0cc98d443ec957fc5374fb491809d27e4f9d4e
-SHA1 (patch-ad) = ad1f6720e4c73e57fce10ba968b03637a133602d
-SHA1 (patch-include_llvm_Support_Host.h) = 545f9542cd2aaa6cea58d3653902b4e1a9e7189a
-SHA1 (patch-projects_libcxx_lib_buildit) = f19a6346099b9047f8b5c3739458fd11ea9e3e33
-SHA1 (patch-utils_lit_utils_check-coverage) = aec7c140d5b9e8cc38a0022533a5848d6b1ff0b8
-SHA1 (patch-utils_lit_utils_check-sdist) = df63c41b07f7531e787b54f6994458869023b66c
+SHA1 (clang-3.4.minix.src.tar.gz) = 2699f8c9c14df34cccdca39bd59e529a0936ba9a
+RMD160 (clang-3.4.minix.src.tar.gz) = bf583a5162e6d180710f7488c10afc8f19cf6798
+Size (clang-3.4.minix.src.tar.gz) = 10504447 bytes
+SHA1 (libcxx-3.4.minix.src.tar.gz) = 2faa2707aa7cdba79fe2b96482a0bb2c4b931e13
+RMD160 (libcxx-3.4.minix.src.tar.gz) = 6b0aac1ad775af71c2d13c4cc558e4bd2cd9bcae
+Size (libcxx-3.4.minix.src.tar.gz) = 1376365 bytes
+SHA1 (llvm-3.4.minix.src.tar.gz) = f52c8a7ea7ee531118499631e88ef552b5ea0a24
+RMD160 (llvm-3.4.minix.src.tar.gz) = 48768a541e4e3bdd10215c4360272db39d1bf7c1
+Size (llvm-3.4.minix.src.tar.gz) = 15750428 bytes
+SHA1 (patch-include_llvm_Config_config.h.in) = c963d3b44a8e1fcdaf49d5a5c3cceb4fa4133a0a

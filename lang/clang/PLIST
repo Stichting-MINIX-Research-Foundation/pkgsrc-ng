@@ -1,6 +1,8 @@
 @comment $NetBSD: PLIST,v 1.12 2014/02/27 17:35:35 adam Exp $
 bin/bugpoint
+bin/c++-analyzer
 bin/c-index-test
+bin/ccc-analyzer
 bin/clang
 bin/clang++
 bin/clang-check
@@ -134,6 +136,20 @@ include/c++/v1/unordered_set
 include/c++/v1/utility
 include/c++/v1/valarray
 include/c++/v1/vector
+bin/scan-build
+bin/scan-build.1
+bin/scan-build.bat
+bin/scan-view
+bin/scanview.css
+bin/set-xcode-analyzer
+bin/sorttable.js
+docs/llvm/html.tar.gz
+docs/llvm/html/Dummy.html
+docs/llvm/html/LibASTMatchersReference.html
+docs/llvm/html/clang/clang.html
+docs/llvm/html/clang/manpage.css
+docs/llvm/html/doxygen.css
+docs/llvm/ps/clang.ps
 include/clang-c/CXCompilationDatabase.h
 include/clang-c/CXString.h
 include/clang-c/Index.h
@@ -1113,6 +1129,7 @@ include/llvm/Transforms/Utils/ValueMapper.h
 include/llvm/Transforms/Vectorize.h
 lib/BugpointPasses.${SOEXT}
 lib/LLVMHello.${SOEXT}
+lib/LLVMgold.${SOEXT}
 lib/clang/${PKGVERSION}/include/Intrin.h
 lib/clang/${PKGVERSION}/include/__wmmintrin_aes.h
 lib/clang/${PKGVERSION}/include/__wmmintrin_pclmul.h
@@ -1283,11 +1300,7 @@ lib/libclangStaticAnalyzerCheckers.a
 lib/libclangStaticAnalyzerCore.a
 lib/libclangStaticAnalyzerFrontend.a
 lib/libclangTooling.a
-man/man1/clang.1
-share/doc/llvm/html.tar.gz
-share/doc/llvm/html/Dummy.html
-share/doc/llvm/html/LibASTMatchersReference.html
-share/doc/llvm/html/clang/clang.html
-share/doc/llvm/html/clang/manpage.css
-share/doc/llvm/html/doxygen.css
-share/doc/llvm/ps/clang.ps
+share/man/man1/clang.1
+share/scanview.css
+share/sorttable.js
+@pkgdir docs/llvm/html/img
