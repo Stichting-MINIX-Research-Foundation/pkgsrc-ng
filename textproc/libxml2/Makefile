@@ -45,6 +45,11 @@ SUBST_SED.cat+=	-e "s,@@XML_DEFAULT_CATALOG@@,${XML_DEFAULT_CATALOG},g"
 BUILDLINK_TRANSFORM+=	rm:-Werror=format=2
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+# LSC: See comment above
+CONFIGURE_ARGS+=	--without-threads
+.endif
+
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
