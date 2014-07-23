@@ -6,7 +6,11 @@ COMMENT=	Core components of the modular bulk build framework
 .include "../../pkgtools/pbulk/Makefile.common"
 
 USE_FEATURES=	nbcompat
-USE_TOOLS+=	groff nroff
+# MINIX: LSC: groff is actually not used, this allow us to work 
+# around a problem while building netpbm in the pbulk bootstrap
+# phase.
+#USE_TOOLS+=	groff nroff
+USE_TOOLS+=	nroff
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1
 USE_BSD_MAKEFILE=	yes
