@@ -52,11 +52,22 @@ MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 DEPENDS+=		pkg_install>=20130901:../../pkgtools/pkg_install
 
 # those have official repositories
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Minix"
+.if (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
+INSTALLATION_DIRS+=	${PREFIX}/etc/pkgin
+
+pre-install:
+	${GREP} -i ${OS_VARIANT} ${WRKSRC}/REPOSITORIES >> 			\
+		${WRKSRC}/repositories.conf
+
+post-install:
+	 ${INSTALL_DATA} ${WRKSRC}/repositories.conf ${DESTDIR}${PREFIX}/etc/pkgin/repositories.conf
+.else
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly"
 pre-install:
 	${GREP} -i ${OPSYS} ${WRKSRC}/REPOSITORIES >> 			\
 		${WRKSRC}/repositories.conf
 .endif
+.endif # (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/pkgin ${DESTDIR}${PREFIX}/bin
