@@ -1,0 +1,12 @@
+--- src/hb-font-private.hh.orig	Wed May  7 21:28:04 2014
++++ src/hb-font-private.hh	Wed May  7 21:28:34 2014
+@@ -35,6 +35,9 @@
+ #include "hb-face-private.hh"
+ #include "hb-shaper-private.hh"
+ 
++#ifdef __minix
++#undef read
++#endif
+ 
+ 
+ /*
