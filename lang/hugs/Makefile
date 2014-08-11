@@ -1,5 +1,7 @@
 # $NetBSD: Makefile,v 1.43 2013/07/15 02:02:23 ryoon Exp $
 
+#LSC: Until we fix the issue
+BROKEN=Makes somehow the kernel use up 75% of CPU, while nothing else happens on MINIX
 DISTNAME=	hugs98-Sep2006
 PKGNAME=	hugs98-200609
 PKGREVISION=	1
