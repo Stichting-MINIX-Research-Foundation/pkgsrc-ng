@@ -51,6 +51,10 @@ MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 
 DEPENDS+=		pkg_install>=20130901:../../pkgtools/pkg_install
 
+.if (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
+CONFIGURE_ENV += ac_cv_func_tcgetpgrp=no
+.endif
+
 # those have official repositories
 .if (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 INSTALLATION_DIRS+=	${PREFIX}/etc/pkgin
