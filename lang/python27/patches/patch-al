@@ -109,3 +109,38 @@
  	SunOS/5*) case $CC in
  		  *gcc*)
  		    if $CC -Xlinker --help 2>&1 | grep export-dynamic >/dev/null
+@@ -10355,34 +10358,6 @@
+ if ac_fn_c_try_compile "$LINENO"; then :
+ 
+ $as_echo "#define HAVE_EPOLL 1" >>confdefs.h
+-
+-   { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+-$as_echo "yes" >&6; }
+-else
+-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+-$as_echo "no" >&6; }
+-
+-fi
+-rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for kqueue" >&5
+-$as_echo_n "checking for kqueue... " >&6; }
+-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+-/* end confdefs.h.  */
+-
+-#include <sys/types.h>
+-#include <sys/event.h>
+-
+-int
+-main ()
+-{
+-int x=kqueue()
+-  ;
+-  return 0;
+-}
+-_ACEOF
+-if ac_fn_c_try_compile "$LINENO"; then :
+-
+-$as_echo "#define HAVE_KQUEUE 1" >>confdefs.h
+ 
+    { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+ $as_echo "yes" >&6; }

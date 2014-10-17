@@ -1843,11 +1843,13 @@ lib/python${PY_VER_SUFFIX}/lib-dynload/future_builtins.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/grp.so
 ${PLIST.extra-so}lib/python${PY_VER_SUFFIX}/lib-dynload/imageop.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/itertools.so
+lib/python${PY_VER_SUFFIX}/lib-dynload/math.so
 ${PLIST.nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis.so
 ${PLIST.no-nis}lib/python${PY_VER_SUFFIX}/lib-dynload/nis_failed.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/operator.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/parser.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/resource.so
+lib/python${PY_VER_SUFFIX}/lib-dynload/select.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/strop.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/syslog.so
 lib/python${PY_VER_SUFFIX}/lib-dynload/termios.so
