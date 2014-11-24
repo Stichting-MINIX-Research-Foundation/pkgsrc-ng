@@ -77,11 +77,12 @@ NO="no"
 
 # Generate a clean PATH for the jails.
 CHROOT_PATH=""
-for d in ${BOOTSTRAP_PREFIX} /usr/pkg /usr ''
+for d in ${BOOTSTRAP_PREFIX} /usr/pkg /usr/X11R7 /usr ''
 do
 	CHROOT_PATH=${CHROOT_PATH}:${d}/bin:${d}/sbin
 done
-LD_CHROOT_PATH=/usr/pkg/lib:/usr/lib:/lib
+CHROOT_PATH=${CHROOT_PATH}:/usr/games
+LD_CHROOT_PATH=/usr/pkg/lib:/usr/X11R7/lib:/usr/lib:/lib
 
 if [ ! -d $MINIXSRCDIR ]
 then
@@ -155,7 +156,7 @@ build_minix() {
 	echo ":-> Building minix chroot in ${ROOT_MINIX}"
 	(
 		exec 2>&1
-		set -e
+		set +e
 
 		echo ":--> Building minix sources [${BUILD_START}]"
 
@@ -177,8 +178,7 @@ build_minix() {
 			exit 1
 		fi
 
-		if [ ${_cc} = 0 -a ${_clang} = 0 -a
-			! $(cc --version | grep -q clang) ]
+		if [ ${_cc} = 0 -a ${_clang} = 0 -a ! $(cc --version | grep -q clang) ]
 		then
 			echo "It is unsupported to have cc set to someting else than clang,"
 		        echo "while clang is also installed on the system."
@@ -214,6 +214,7 @@ build_minix() {
 			TOOLDIR=${TOOLDIR} \
 			DESTDIR=${ROOT_MINIX} \
 			SLOPPY_FLIST=yes \
+			MKX11=yes \
 			MKUPDATE=yes \
 			${toolchain} \
 			MKKYUA=no \

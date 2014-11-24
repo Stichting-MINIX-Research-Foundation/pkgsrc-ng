@@ -31,6 +31,7 @@ PS?=		/usr/bin/ps
 NROFF?=		mandoc
 
 PREFER_NATIVE_PTHREADS=	no
+X11_TYPE=	native
 
 # In some cases, MACHINE_GNU_PLATFORM get set back to i386--netbsdelf,
 # make sure the correct triple is set.
@@ -71,7 +72,12 @@ PACKAGES?=	${PKGSRCDIR}/packages/${OS_VERSION}/${MACHINE_ARCH}
 PKGSRC_COMPILER?=	clang
 
 .if ${PKGSRC_COMPILER} == "clang"
+# Check if the clang package is available
+.if exists(/usr/pkg/bin/clang)
+CLANGBASE?=	/usr/pkg
+.else
 CLANGBASE?=	/usr
+.endif
 HAVE_LLVM?=	34
 
 CC?=		clang
@@ -81,6 +87,10 @@ CPP?=		clang -E
 AS?=            gas
 CC?=            gcc
 CXX?=           g++
+.endif
+
+.if exists(/usr/pkg/bin/strip)
+TOOLS_PLATFORM.strip?=	/usr/pkg/bin/strip
 .endif
 
 #######################################################################
@@ -108,7 +118,6 @@ RCD_SCRIPTS_DIR?=			${LOCALBASE}/etc/rc.d
 #LSC: the following packages are not yet part of the base system, as expected
 #     on NetBSD
 PREFER_PKGSRC+=		groff
-#PREFER_PKGSRC?=	MesaLib Xft2 Xrandr Xrender glu fontconfig freetype2
 
 PYTHON_VERSION_DEFAULT?=		27
 PYPACKAGE?=				python27
@@ -119,7 +128,5 @@ ZSH_STATIC?=				yes
 #######################################################################
 # Package-specific default options
 PKG_OPTIONS.gcc45?=			-gcc-java -gcc-fortran
-PKG_OPTIONS.groff?=			-x11
-PKG_OPTIONS.ghostscript?=		-x11
 
 .endif # BSD_PKG_MK
