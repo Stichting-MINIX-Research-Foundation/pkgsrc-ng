@@ -1,5 +1,5 @@
 @comment $NetBSD: PLIST,v 1.38 2015/03/15 21:05:37 wiz Exp $
-bin/cairo-trace
+@comment MINIX: bin/cairo-trace
 include/cairo/cairo-deprecated.h
 include/cairo/cairo-features.h
 include/cairo/cairo-ft.h
@@ -16,8 +16,8 @@ ${PLIST.xcb}include/cairo/cairo-xcb.h
 ${PLIST.x11}include/cairo/cairo-xlib-xrender.h
 ${PLIST.x11}include/cairo/cairo-xlib.h
 include/cairo/cairo.h
-lib/cairo/cairo-fdr.la
-lib/cairo/libcairo-trace.la
+@comment MINIX: lib/cairo/cairo-fdr.la
+@comment MINIX: Requires pthreads: lib/cairo/libcairo-trace.la
 lib/libcairo-script-interpreter.la
 lib/libcairo.la
 lib/pkgconfig/cairo-fc.pc

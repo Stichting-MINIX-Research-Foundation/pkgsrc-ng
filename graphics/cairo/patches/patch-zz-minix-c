@@ -1,0 +1,11 @@
+--- ./build/ltmain.sh.orig	Mon Oct 26 13:08:01 2015
++++ ./build/ltmain.sh	Mon Oct 26 13:08:24 2015
+@@ -7633,7 +7633,7 @@
+ 	    # Rhapsody C library is in the System framework
+ 	    func_append deplibs " System.ltframework"
+ 	    ;;
+-	  *-*-netbsd*)
++	  *-*-minix* | *-*-netbsd*)
+ 	    # Don't link with libc until the a.out ld.so is fixed.
+ 	    ;;
+ 	  *-*-openbsd* | *-*-freebsd* | *-*-dragonfly*)
