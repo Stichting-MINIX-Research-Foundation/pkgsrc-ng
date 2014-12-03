@@ -1,0 +1,11 @@
+--- perf/cairo-perf.c.orig	Wed Dec  3 11:26:55 2014
++++ perf/cairo-perf.c	Wed Dec  3 11:27:19 2014
+@@ -90,7 +90,7 @@
+     DosSleep (0);
+ #elif defined(_WIN32)
+     SleepEx(0, TRUE);
+-#elif defined(_POSIX_PRIORITY_SCHEDULING)
++#elif defined(_POSIX_PRIORITY_SCHEDULING) && !defined(__minix)
+     sched_yield ();
+ #else
+     sleep (0);

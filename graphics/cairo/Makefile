@@ -17,5 +17,9 @@ BUILDLINK_API_DEPENDS.freetype2+=	freetype2>=2.1.9
 #.include "../../print/libspectre/buildlink3.mk"
 BUILDLINK_API_DEPENDS.pixman+=	pixman>=0.30.0
 .include "../../x11/pixman/buildlink3.mk"
+.if (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
+CPPFLAGS+= -DCAIRO_NO_MUTEX=1
+.else
 .include "../../mk/pthread.buildlink3.mk"
+.endif # !(${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
 .include "../../mk/bsd.pkg.mk"
