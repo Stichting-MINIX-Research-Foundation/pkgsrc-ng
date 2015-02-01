@@ -6,3 +6,4 @@ SHA512 (gc-7.6.0.tar.gz) = 511e8c01287b1ee9dbec87f0573377de77038b7af053a3f33afed
 Size (gc-7.6.0.tar.gz) = 1111751 bytes
 SHA1 (patch-include_private_gc__priv.h) = d9fc570f2ef9d57afe92e63db1f9c5f48b1c0514
 SHA1 (patch-include_private_gcconfig.h) = 23621c34483899df0b3d3dd9f982a1d601c716a0
+SHA1 (patch-zz-minix) = 66a58ef57dfa53cc977efd253bd3a88599114dab
