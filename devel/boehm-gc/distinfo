@@ -4,3 +4,4 @@ SHA1 (gc-7.4.2.tar.gz) = cd4a54620c38a2c361b3ee99dd134dbffb57c313
 RMD160 (gc-7.4.2.tar.gz) = 106bda88d4e47c32f5ba4137c82fa173313d09a9
 Size (gc-7.4.2.tar.gz) = 1082597 bytes
 SHA1 (patch-dyn__load.c) = cd224eb9e31deba2f5a29f3202d8ef130e8fdaae
+SHA1 (patch-zz-minix) = 66a58ef57dfa53cc977efd253bd3a88599114dab
