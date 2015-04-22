@@ -1,0 +1,7 @@
+@comment $NetBSD: PLIST,v 1.2 2014/07/16 07:56:29 rodent Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/lib/rack/openid.rb
+${GEM_LIBDIR}/lib/rack/openid/simple_auth.rb
+${GEM_LIBDIR}/lib/rack/openid/version.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec
+@pkgdir lib/ruby/gems/2.0.0/build_info

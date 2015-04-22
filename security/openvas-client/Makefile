@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2014/02/12 23:18:34 tron Exp $
+# $NetBSD: Makefile,v 1.28 2014/09/25 19:15:27 jperkin Exp $
 #
 
 DISTNAME=	openvas-client-2.0.1
-PKGREVISION=	22
+PKGREVISION=	23
 CATEGORIES=	security
 MASTER_SITES=	http://wald.intevation.org/frs/download.php/552/
 
@@ -17,7 +17,7 @@ USE_X11=	YES
 
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--with-x11
-CONFIGURE_ARGS+=	--with-ssl
+CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
 
 .include "../../security/openvas-libraries/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.64 2014/02/12 23:18:39 tron Exp $
+# $NetBSD: Makefile,v 1.69 2015/01/21 09:12:42 obache Exp $
 #
 
 DISTNAME=	gvfs-1.6.7
-PKGREVISION=	10
+PKGREVISION=	14
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gvfs/1.6/}
 EXTRACT_SUFX=	.tar.bz2
@@ -50,7 +50,7 @@ CONFIGURE_ARGS+=	--disable-samba
 .endif
 
 .if !empty(PKG_OPTIONS:Mhal)
-.include "../../misc/libcdio/buildlink3.mk"
+.include "../../misc/libcdio-paranoia/buildlink3.mk"
 .include "../../sysutils/hal/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-hal
 CONFIGURE_ARGS+=	--enable-cdda

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2014/02/23 11:25:51 adam Exp $
+# $NetBSD: Makefile,v 1.15 2014/07/25 22:14:56 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/90-plpython-/}
 COMMENT=	PL/Python procedural language for the PostgreSQL backend

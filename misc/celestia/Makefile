@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.58 2014/02/12 23:18:12 tron Exp $
+# $NetBSD: Makefile,v 1.63 2014/10/19 22:27:46 alnsn Exp $
 
 DISTNAME=	celestia-1.6.1
-PKGREVISION=	2
+PKGREVISION=	7
 CATEGORIES=	misc x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=celestia/}
 
 MAINTAINER=	cesar_catrian@yahoo.com
 HOMEPAGE=	http://www.shatters.net/celestia/
 COMMENT=	Free real-time 3D space simulator
+LICENSE=	gnu-gpl-v2
 
 DISTINFO_FILE=	${.CURDIR}/../../misc/celestia/distinfo
 PATCHDIR=	${.CURDIR}/../../misc/celestia/patches

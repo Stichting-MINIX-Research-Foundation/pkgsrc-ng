@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2014/02/12 23:18:26 tron Exp $
+# $NetBSD: Makefile,v 1.90 2015/01/20 14:24:36 jaapb Exp $
 
-DISTNAME=	unison-2.40.102
-PKGREVISION=	16
+DISTNAME=	unison-2.48.3
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://www.seas.upenn.edu/~bcpierce/unison/download/releases/stable/
 
@@ -10,14 +10,12 @@ HOMEPAGE=	http://www.cis.upenn.edu/~bcpierce/unison/
 COMMENT=	File-synchronization tool
 LICENSE=	gnu-gpl-v3
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 .if (${MACHINE_ARCH} == "arm")
 BUILDLINK_ABI_DEPENDS.ocaml+=	ocaml>=3.12.0nb2
 .else
 BUILDLINK_ABI_DEPENDS.ocaml+=	ocaml>=3.11.2
 .endif
-BUILDLINK_API_DEPENDS.lablgtk+= lablgtk>=2.16.0
+BUILDLINK_API_DEPENDS.ocaml-lablgtk+= ocaml-lablgtk>=2.16.0
 
 # docs: unison-manual.pdf/html/ps/dvi
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}

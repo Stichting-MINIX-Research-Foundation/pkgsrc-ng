@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2013/07/05 13:29:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.45 2014/08/21 08:37:52 jperkin Exp $
 
 DISTNAME=	FSViewer.app-0.2.5
 PKGNAME=	FSViewer-0.2.5
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	sysutils x11 windowmaker
 MASTER_SITES=	http://www.bayernline.de/~gscholz/linux/fsviewer/
 
@@ -18,7 +18,7 @@ USE_TOOLS+=		gmake
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 
-LDFLAGS.SunOS+=		-lintl
+LDFLAGS.SunOS+=		-lintl -lWUtil
 LDFLAGS.DragonFly=	-lintl -lfontconfig
 
 .include "../../mk/bsd.prefs.mk"

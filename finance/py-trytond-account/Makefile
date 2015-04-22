@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2014/02/01 19:14:22 rodent Exp $
-
-DISTNAME=	trytond_account-3.0.1
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/_/-/1}
+# $NetBSD: Makefile,v 1.7 2015/03/15 00:17:34 rodent Exp $
+TRYTON_MODULE_NAME=	trytond_account
+.include "../../devel/py-trytond/Makefile.common"
 CATEGORIES=	finance python
-MASTER_SITES=	http://downloads.tryton.org/3.0/
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://www.tryton.org/
@@ -18,7 +16,6 @@ DEPENDS+=	${PYPKGPREFIX}-trytond-[0-9]*:../../devel/py-trytond
 
 USE_LANGUAGES=	# none
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # XXX according to setup.py
 PYTHON_VERSIONED_DEPENDENCIES=	dateutil
 
 REPLACE_PYTHON+=	tests/test_account.py

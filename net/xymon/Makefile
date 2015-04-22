@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.38 2014/02/27 20:22:41 spz Exp $
+# $NetBSD: Makefile,v 1.41 2014/09/21 14:49:45 spz Exp $
 #
 
 DISTNAME=		xymon-4.3.17
+PKGREVISION=		2
 CATEGORIES=		net
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=xymon/}
 
@@ -187,6 +188,7 @@ MAKE_ENV+=		MAKE=${MAKE_PROGRAM:Q}
 MAKE_ENV+=		PKGDIR=${PREFIX}
 MAKE_ENV+=		INSTALLROOT=${DESTDIR}
 MAKE_ENV+=		PKGBUILD=y
+MAKE_ENV+=		RPATH=${COMPILER_RPATH_FLAG}
 MAKE_ENV+=		${TOOLS_ENV}
 
 MENUFILES=		b2t-blue.gif b2t-grey.gif t2b-blue.gif t2b-grey.gif

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.2 2013/06/06 09:11:01 obache Exp $
+$NetBSD: distinfo,v 1.4 2014/09/20 12:00:42 obache Exp $
 
-SHA1 (vimpager-1.8.2.tar.gz) = 7856566eb4f81429922fafccf4e7271c0117d476
-RMD160 (vimpager-1.8.2.tar.gz) = 75880b19f5f98210ce60f82deaf08ab0018710b4
-Size (vimpager-1.8.2.tar.gz) = 9725 bytes
+SHA1 (vimpager-1.8.9.tar.gz) = 332a84fec5bd2a4c2dae518d52b310dcaa49f417
+RMD160 (vimpager-1.8.9.tar.gz) = 6e00c2cbd8e4628d535dd6782652c61084c726c8
+Size (vimpager-1.8.9.tar.gz) = 11942 bytes

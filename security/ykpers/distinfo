@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.10 2014/03/13 22:17:59 pettai Exp $
+$NetBSD: distinfo,v 1.13 2014/11/14 21:19:16 pettai Exp $
 
-SHA1 (ykpers-1.15.1.tar.gz) = dd1478cc106c624318dfe74bb2beda54f18f1fc8
-RMD160 (ykpers-1.15.1.tar.gz) = 4c44ce5f1f0fb048bdf54b852c24829c6bbcbaec
-Size (ykpers-1.15.1.tar.gz) = 500262 bytes
+SHA1 (ykpers-1.16.1.tar.gz) = ff7cf92551ee06da198a2cccd29d55b388ce172b
+RMD160 (ykpers-1.16.1.tar.gz) = 43aab1130d562a57ab9b8f3bd4292b48cc3c77fe
+Size (ykpers-1.16.1.tar.gz) = 501365 bytes
 SHA1 (patch-Makefile_in) = 78b1667f52367d3ccc9ee637fb2cb40ebd5b2f02

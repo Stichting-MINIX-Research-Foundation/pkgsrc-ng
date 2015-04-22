@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2013/12/09 14:17:47 obache Exp $
+# $NetBSD: Makefile,v 1.16 2014/11/06 02:22:52 wen Exp $
 
-DISTNAME=	UNIVERSAL-isa-1.20120726
+DISTNAME=	UNIVERSAL-isa-1.20140927
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/C/CH/CHROMATIC/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETHER/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/UNIVERSAL-isa/

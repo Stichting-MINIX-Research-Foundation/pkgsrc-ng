@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2014/03/11 14:34:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.23 2015/03/22 07:44:44 fhajny Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
-SVR4_PKGNAME=	mysqs
+PKGREVISION=	1
 COMMENT=	MySQL 5, a free SQL database (server)
 
 CONFLICTS=	mysql3-server-[0-9]*
@@ -51,6 +51,7 @@ SMF_METHODS=		${RCD_SCRIPTS}
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q}
 FILES_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}
 FILES_SUBST+=		MYSQL_USER=${MYSQL_USER} MYSQL_GROUP=${MYSQL_GROUP}
+FILES_SUBST+=		MYSQL_PIDFILE=${MYSQL_PIDFILE}
 MESSAGE_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}
 MESSAGE_SUBST+=		MYSQL_USER=${MYSQL_USER} MYSQL_GROUP=${MYSQL_GROUP}
 BUILD_DEFS+=		MYSQL_DATADIR
@@ -67,6 +68,16 @@ REPLACE_PERL+=		mysql-test/suite/funcs_2/lib/gen_charset_utf8.pl
 REPLACE_PERL+=		mysql-test/suite/rpl/extension/bhs.pl
 REPLACE_PERL+=		mysql-test/suite/rpl/extension/checksum.pl
 
+REPLACE_SH+=		mysql-test/suite/rpl/t/rpl_loaddata_symlink-master.sh
+REPLACE_SH+=		mysql-test/suite/rpl/t/rpl_loaddata_symlink-slave.sh
+REPLACE_SH+=		mysql-test/suite/rpl/t/rpl_misc_functions-slave.sh
+REPLACE_SH+=		mysql-test/t/long_tmpdir-master.sh
+REPLACE_SH+=		mysql-test/t/lowercase_mixed_tmpdir-master.sh
+REPLACE_SH+=		mysql-test/t/lowercase_mixed_tmpdir_innodb-master.sh
+
+CHECK_INTERPRETER_SKIP+=share/mysql/test/std_data/dtrace.d \
+			share/mysql/test/suite/opt_trace/validate_json.py
+
 # Replace interpreter without pulling in Python dependecy
 # Update when PYTHON_VERSION_DEFAULT changes!
 SUBST_CLASSES+=		python
@@ -75,7 +86,7 @@ SUBST_STAGE.python=	pre-configure
 SUBST_FILES.python+=	mysql-test/suite/opt_trace/validate_json.py
 SUBST_SED.python+=	-e 's,/usr/bin/python,${PREFIX}/bin/python2.7,'
 
-INSTALLATION_DIRS=	bin
+INSTALLATION_DIRS+=	bin
 
 .include "../../mk/compiler.mk"
 

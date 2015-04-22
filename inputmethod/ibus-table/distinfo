@@ -1,6 +1,5 @@
-$NetBSD: distinfo,v 1.3 2013/12/28 09:02:31 obache Exp $
+$NetBSD: distinfo,v 1.10 2015/01/11 09:09:28 obache Exp $
 
-SHA1 (ibus-table-1.5.0.tar.gz) = 3e474e52d963927fac1056112c1b92dfd47e5cbd
-RMD160 (ibus-table-1.5.0.tar.gz) = 4c9b00679a0a448839fd59d3439be36fc1083705
-Size (ibus-table-1.5.0.tar.gz) = 432844 bytes
-SHA1 (patch-engine_tabsqlitedb.py) = c360974f0dfb327f6bd18cce0c8bec4fe5dd806b
+SHA1 (ibus-table-1.9.2.tar.gz) = ca97b7a3866b11ba27c5b056610739a6d05d8aba
+RMD160 (ibus-table-1.9.2.tar.gz) = 801093802c2cf341198d7a0568f62acef9b69a4d
+Size (ibus-table-1.9.2.tar.gz) = 542249 bytes

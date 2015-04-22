@@ -1,13 +1,14 @@
-$NetBSD: patch-pdns_dns.hh,v 1.1 2012/05/20 19:37:49 marino Exp $
+$NetBSD: patch-pdns_dns.hh,v 1.4 2015/03/27 23:37:52 rodent Exp $
 
---- pdns/dns.hh.orig	2012-05-20 19:14:49.778625000 +0000
+Add DragonFly support.
+--- pdns/dns.hh.orig	2015-03-02 13:17:09.000000000 +0000
 +++ pdns/dns.hh
-@@ -173,7 +173,7 @@ enum  {
- #ifdef WIN32
- #define BYTE_ORDER 1
- #define LITTLE_ENDIAN 1
--#elif __FreeBSD__ || __APPLE__
-+#elif defined(__FreeBSD__) || defined(__APPLE__) || defined(__DragonFly__)
+@@ -207,7 +207,7 @@ enum  {
+         ns_t_any = 255,         /* Wildcard match. */
+ };
+ 
+-#if __FreeBSD__ || __APPLE__ || __OpenBSD__ || __DragonFly__ || defined(__FreeBSD_kernel__)
++#if defined(__FreeBSD__) || defined(__APPLE__) || defined(__OpenBSD__) || defined(__DragonFly__) || defined(__FreeBSD_kernel__) || defined(__NetBSD__)
  #include <machine/endian.h>
- #elif __linux__
+ #elif __linux__ || __GNU__
  # include <endian.h>

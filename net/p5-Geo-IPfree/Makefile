@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2013/10/15 14:11:12 wen Exp $
+# $NetBSD: Makefile,v 1.16 2015/02/20 07:15:29 mef Exp $
 #
 
-DISTNAME=	Geo-IPfree-1.132870
+DISTNAME=	Geo-IPfree-1.143630
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Geo/}
@@ -10,8 +10,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/~bricas/${DISTNAME}/
 COMMENT=	Gets country name by IP or hostname
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=	auto/Geo/IPfree/.packlist
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2014/03/26 13:29:53 imil Exp $
+# $NetBSD: Makefile,v 1.5 2015/02/27 07:51:58 alnsn Exp $
 #
 
 DISTNAME=	LuaJIT-2.0.3

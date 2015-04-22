@@ -1,30 +1,14 @@
-@comment $NetBSD: PLIST.java,v 1.3 2014/02/02 07:43:40 ryoon Exp $
+@comment $NetBSD: PLIST.java,v 1.8 2015/03/12 15:01:25 ryoon Exp $
 ${PKGNAME}/program/classes/ScriptFramework.jar
 ${PKGNAME}/program/classes/ScriptProviderForBeanShell.jar
 ${PKGNAME}/program/classes/ScriptProviderForJava.jar
-${PKGNAME}/program/classes/ScriptProviderForJavaScript.jar
 ${PKGNAME}/program/classes/XMergeBridge.jar
 ${PKGNAME}/program/classes/bsh.jar
-${PKGNAME}/program/classes/commons-logging-1.1.1.jar
 ${PKGNAME}/program/classes/commonwizards.jar
-${PKGNAME}/program/classes/flow-engine.jar
-${PKGNAME}/program/classes/flute-1.1.6.jar
 ${PKGNAME}/program/classes/form.jar
-${PKGNAME}/program/classes/js.jar
-${PKGNAME}/program/classes/libbase-1.1.6.jar
-${PKGNAME}/program/classes/libfonts-1.1.6.jar
-${PKGNAME}/program/classes/libformula-1.1.7.jar
-${PKGNAME}/program/classes/liblayout.jar
-${PKGNAME}/program/classes/libloader-1.1.6.jar
-${PKGNAME}/program/classes/librepository-1.1.6.jar
-${PKGNAME}/program/classes/libserializer-1.1.6.jar
-${PKGNAME}/program/classes/libxml-1.1.7.jar
 ${PKGNAME}/program/classes/officebean.jar
 ${PKGNAME}/program/classes/query.jar
 ${PKGNAME}/program/classes/report.jar
-${PKGNAME}/program/classes/reportbuilder.jar
-${PKGNAME}/program/classes/reportbuilderwizard.jar
-${PKGNAME}/program/classes/sac.jar
 ${PKGNAME}/program/classes/sdbc_hsqldb.jar
 ${PKGNAME}/program/classes/smoketest.jar
 ${PKGNAME}/program/classes/table.jar
@@ -34,7 +18,6 @@ ${PKGNAME}/program/libhsqldb.so
 ${PKGNAME}/program/libjdbclo.so
 ${PKGNAME}/program/libofficebean.so
 ${PKGNAME}/program/services/scriptproviderforbeanshell.rdb
-${PKGNAME}/program/services/scriptproviderforjavascript.rdb
 ${PKGNAME}/share/Scripts/beanshell/Capitalise/capitalise.bsh
 ${PKGNAME}/share/Scripts/beanshell/Capitalise/parcel-descriptor.xml
 ${PKGNAME}/share/Scripts/beanshell/HelloWorld/helloworld.bsh
@@ -56,13 +39,6 @@ ${PKGNAME}/share/Scripts/java/Highlight/parcel-descriptor.xml
 ${PKGNAME}/share/Scripts/java/MemoryUsage/MemoryUsage.jar
 ${PKGNAME}/share/Scripts/java/MemoryUsage/MemoryUsage.java
 ${PKGNAME}/share/Scripts/java/MemoryUsage/parcel-descriptor.xml
-${PKGNAME}/share/Scripts/javascript/ExportSheetsToHTML/exportsheetstohtml.js
-${PKGNAME}/share/Scripts/javascript/ExportSheetsToHTML/parcel-descriptor.xml
-${PKGNAME}/share/Scripts/javascript/HelloWorld/helloworld.js
-${PKGNAME}/share/Scripts/javascript/HelloWorld/parcel-descriptor.xml
-${PKGNAME}/share/Scripts/javascript/Highlight/ButtonPressHandler.js
-${PKGNAME}/share/Scripts/javascript/Highlight/ShowDialog.js
-${PKGNAME}/share/Scripts/javascript/Highlight/parcel-descriptor.xml
 ${PKGNAME}/share/extensions/nlpsolver/EvolutionarySolver.jar
 ${PKGNAME}/share/extensions/nlpsolver/META-INF/manifest.xml
 ${PKGNAME}/share/extensions/nlpsolver/components.rdb
@@ -1516,10 +1492,10 @@ ${PKGNAME}/share/extensions/wiki-publisher/WikiEditor/dialog.xlb
 ${PKGNAME}/share/extensions/wiki-publisher/WikiEditor/script.xlb
 ${PKGNAME}/share/extensions/wiki-publisher/WikiExtension.xcs
 ${PKGNAME}/share/extensions/wiki-publisher/WikiExtension.xcu
-${PKGNAME}/share/extensions/wiki-publisher/commons-codec-1.6.jar
+${PKGNAME}/share/extensions/wiki-publisher/commons-codec-1.9.jar
 ${PKGNAME}/share/extensions/wiki-publisher/commons-httpclient-3.1.jar
-${PKGNAME}/share/extensions/wiki-publisher/commons-lang-2.4.jar
-${PKGNAME}/share/extensions/wiki-publisher/commons-logging-1.1.1.jar
+${PKGNAME}/share/extensions/wiki-publisher/commons-lang3-3.3.1.jar
+${PKGNAME}/share/extensions/wiki-publisher/commons-logging-1.2.jar
 ${PKGNAME}/share/extensions/wiki-publisher/components.rdb
 ${PKGNAME}/share/extensions/wiki-publisher/description-af.txt
 ${PKGNAME}/share/extensions/wiki-publisher/description-am.txt
@@ -2744,8 +2720,6 @@ ${PKGNAME}/share/extensions/wiki-publisher/license/THIRDPARTYLICENSEREADME.html
 ${PKGNAME}/share/extensions/wiki-publisher/mediawiki.jar
 ${PKGNAME}/share/extensions/wiki-publisher/registration/LICENSE
 ${PKGNAME}/share/extensions/wiki-publisher/templates/MediaWiki/mediawiki.ott
-${PKGNAME}/share/registry/reportbuilder.xcd
-${PKGNAME}/share/template/common/wizard/report/default.otr
 ${PKGNAME}/ure/bin/javaldx
 ${PKGNAME}/ure/lib/JREProperties.class
 ${PKGNAME}/ure/lib/libjava_uno.so
@@ -2756,7 +2730,6 @@ ${PKGNAME}/ure/lib/libjuh.so
 ${PKGNAME}/ure/lib/libjuhx.so
 ${PKGNAME}/ure/lib/libjvmaccesslo.so
 ${PKGNAME}/ure/lib/libjvmfwklo.so
-${PKGNAME}/ure/lib/libsunjavapluginlo.so
 ${PKGNAME}/ure/share/java/java_uno.jar
 ${PKGNAME}/ure/share/java/juh.jar
 ${PKGNAME}/ure/share/java/jurt.jar

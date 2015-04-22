@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2014/03/18 20:09:08 adam Exp $
+# $NetBSD: Makefile,v 1.34 2015/02/02 14:45:51 adam Exp $
 
-DISTNAME=	httpd-2.4.9
+DISTNAME=	httpd-2.4.12
 PKGNAME=	${DISTNAME:S/httpd/apache/}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
@@ -192,4 +192,5 @@ post-install:
 .endif
 
 .include "../../mk/pthread.buildlink3.mk"
+.include "../../devel/readline/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -12,9 +12,9 @@ Hubert Feyrer
 
 The pkgsrc Developers
 
-Copyright   1994-2007 The NetBSD Foundation, Inc
+Copyright   1994-2015 The NetBSD Foundation, Inc
 
-$NetBSD: pkgsrc.xml,v 1.26 2007/09/18 08:17:21 rillig Exp $
+$NetBSD: pkgsrc.xml,v 1.28 2015/01/01 05:19:02 jnemeth Exp $
 
 Abstract
 
@@ -113,27 +113,15 @@ I. The pkgsrc user's guide
 
     7. Creating binary packages for everything in pkgsrc (bulk builds)
 
-        7.1. Think first, build later
-        7.2. Requirements of a bulk build
-        7.3. Running an old-style bulk build
+        7.1. Preparations
+        7.2. Running a pbulk-style bulk build
 
-            7.3.1. Configuration
-            7.3.2. Other environmental considerations
-            7.3.3. Operation
-            7.3.4. What it does
-            7.3.5. Disk space requirements
-            7.3.6. Setting up a sandbox for chrooted builds
-            7.3.7. Building a partial set of packages
-            7.3.8. Uploading results of a bulk build
+            7.2.1. Configuration
 
-        7.4. Running a pbulk-style bulk build
+        7.3. Requirements of a full bulk build
+        7.4. Creating a multiple CD-ROM packages collection
 
-            7.4.1. Preparation
-            7.4.2. Configuration
-
-        7.5. Creating a multiple CD-ROM packages collection
-
-            7.5.1. Example of cdpack
+            7.4.1. Example of cdpack
 
     8. Directory layout of the installed files
 
@@ -143,24 +131,23 @@ I. The pkgsrc user's guide
     9. Frequently Asked Questions
 
         9.1. Are there any mailing lists for pkg-related discussion?
-        9.2. Where's the pkgviews documentation?
-        9.3. Utilities for package management (pkgtools)
-        9.4. How to use pkgsrc as non-root
-        9.5. How to resume transfers when fetching distfiles?
-        9.6. How can I install/use modular X.org from pkgsrc?
-        9.7. How to fetch files from behind a firewall
-        9.8. How to fetch files from HTTPS sites
-        9.9. How do I tell make fetch to do passive FTP?
-        9.10. How to fetch all distfiles at once
-        9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc"
+        9.2. Utilities for package management (pkgtools)
+        9.3. How to use pkgsrc as non-root
+        9.4. How to resume transfers when fetching distfiles?
+        9.5. How can I install/use modular X.org from pkgsrc?
+        9.6. How to fetch files from behind a firewall
+        9.7. How to fetch files from HTTPS sites
+        9.8. How do I tell make fetch to do passive FTP?
+        9.9. How to fetch all distfiles at once
+        9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc"
             mean?
-        9.12. What does "Could not find bsd.own.mk" mean?
-        9.13. Using 'sudo' with pkgsrc
-        9.14. How do I change the location of configuration files?
-        9.15. Automated security checks
-        9.16. Why do some packages ignore my CFLAGS?
-        9.17. A package does not build. What shall I do?
-        9.18. What does "Makefile appears to contain unresolved cvs/rcs/???
+        9.11. What does "Could not find bsd.own.mk" mean?
+        9.12. Using 'sudo' with pkgsrc
+        9.13. How do I change the location of configuration files?
+        9.14. Automated security checks
+        9.15. Why do some packages ignore my CFLAGS?
+        9.16. A package does not build. What shall I do?
+        9.17. What does "Makefile appears to contain unresolved cvs/rcs/???
             merge conflicts" mean?
 
 II. The pkgsrc developer's guide
@@ -170,7 +157,7 @@ II. The pkgsrc developer's guide
         10.1. Common types of packages
 
             10.1.1. Perl modules
-            10.1.2. KDE applications
+            10.1.2. KDE3 applications
             10.1.3. Python modules and programs
 
         10.2. Examples
@@ -223,7 +210,8 @@ II. The pkgsrc developer's guide
         13.5. Man page compression
         13.6. Changing PLIST source with PLIST_SRC
         13.7. Platform-specific and differing PLISTs
-        13.8. Sharing directories between packages
+        13.8. Build-specific PLISTs
+        13.9. Sharing directories between packages
 
     14. Buildlink methodology
 
@@ -328,6 +316,7 @@ II. The pkgsrc developer's guide
             19.2.1. Packages whose distfiles aren't available for plain
                 downloading
             19.2.2. How to handle modified distfiles with the 'old' name
+            19.2.3. Packages hosted on github.com
 
         19.3. Fixing problems in the configure phase
 
@@ -770,27 +759,15 @@ Table of Contents
 
 7. Creating binary packages for everything in pkgsrc (bulk builds)
 
-    7.1. Think first, build later
-    7.2. Requirements of a bulk build
-    7.3. Running an old-style bulk build
+    7.1. Preparations
+    7.2. Running a pbulk-style bulk build
 
-        7.3.1. Configuration
-        7.3.2. Other environmental considerations
-        7.3.3. Operation
-        7.3.4. What it does
-        7.3.5. Disk space requirements
-        7.3.6. Setting up a sandbox for chrooted builds
-        7.3.7. Building a partial set of packages
-        7.3.8. Uploading results of a bulk build
+        7.2.1. Configuration
 
-    7.4. Running a pbulk-style bulk build
+    7.3. Requirements of a full bulk build
+    7.4. Creating a multiple CD-ROM packages collection
 
-        7.4.1. Preparation
-        7.4.2. Configuration
-
-    7.5. Creating a multiple CD-ROM packages collection
-
-        7.5.1. Example of cdpack
+        7.4.1. Example of cdpack
 
 8. Directory layout of the installed files
 
@@ -800,23 +777,22 @@ Table of Contents
 9. Frequently Asked Questions
 
     9.1. Are there any mailing lists for pkg-related discussion?
-    9.2. Where's the pkgviews documentation?
-    9.3. Utilities for package management (pkgtools)
-    9.4. How to use pkgsrc as non-root
-    9.5. How to resume transfers when fetching distfiles?
-    9.6. How can I install/use modular X.org from pkgsrc?
-    9.7. How to fetch files from behind a firewall
-    9.8. How to fetch files from HTTPS sites
-    9.9. How do I tell make fetch to do passive FTP?
-    9.10. How to fetch all distfiles at once
-    9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
-    9.12. What does "Could not find bsd.own.mk" mean?
-    9.13. Using 'sudo' with pkgsrc
-    9.14. How do I change the location of configuration files?
-    9.15. Automated security checks
-    9.16. Why do some packages ignore my CFLAGS?
-    9.17. A package does not build. What shall I do?
-    9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+    9.2. Utilities for package management (pkgtools)
+    9.3. How to use pkgsrc as non-root
+    9.4. How to resume transfers when fetching distfiles?
+    9.5. How can I install/use modular X.org from pkgsrc?
+    9.6. How to fetch files from behind a firewall
+    9.7. How to fetch files from HTTPS sites
+    9.8. How do I tell make fetch to do passive FTP?
+    9.9. How to fetch all distfiles at once
+    9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+    9.11. What does "Could not find bsd.own.mk" mean?
+    9.12. Using 'sudo' with pkgsrc
+    9.13. How do I change the location of configuration files?
+    9.14. Automated security checks
+    9.15. Why do some packages ignore my CFLAGS?
+    9.16. A package does not build. What shall I do?
+    9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
         conflicts" mean?
 
 Chapter 2. Where to get pkgsrc and how to keep it up-to-date
@@ -847,16 +823,13 @@ Before you download any pkgsrc files, you should decide whether you want the
 current branch or the stable branch. The latter is forked on a quarterly basis
 from the current branch and only gets modified for security updates. The names
 of the stable branches are built from the year and the quarter, for example
-2009Q1.
+2014Q3.
 
 The second step is to decide how you want to download pkgsrc. You can get it as
 a tar file or via CVS. Both ways are described here.
 
 Note that tar archive contains CVS working copy. Thus you can switch to using
 CVS at any later time.
-
-Note also that quarterly branch is not frozen in stone. It receives critical
-updates.
 
 2.1.1. As tar archive
 
@@ -873,7 +846,7 @@ published at pkgsrc.tar.bz2 and pkgsrc.tar.xz respectively.
 
 You can fetch the same files using FTP.
 
-The tar file for the stable branch 2013Q1 is in the directory pkgsrc-2013Q1 and
+The tar file for the stable branch 2014Q3 is in the directory pkgsrc-2014Q3 and
 is also called pkgsrc.tar.gz.
 
 To download a pkgsrc stable tarball, run:
@@ -881,13 +854,13 @@ To download a pkgsrc stable tarball, run:
 $ ftp ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-20xxQy/pkgsrc.tar.gz
 
 Where pkgsrc-20xxQy is the stable branch to be downloaded, for example, "
-pkgsrc-2013Q1".
+pkgsrc-2014Q3".
 
-You can use fetch it also using "wget", "curl", or your web browser.
+If you prefer, you can also fetch it using "wget", "curl", or your web browser.
 
 Then, extract it with:
 
-$ tar -xzf pkgsrc-20xxQy.tar.gz -C /usr
+$ tar -xzf pkgsrc.tar.gz -C /usr
 
 This will create the directory pkgsrc/ in /usr/ and all the package source will
 be stored under /usr/pkgsrc/.
@@ -903,7 +876,7 @@ To fetch a specific pkgsrc stable branch, run:
 $ cd /usr && cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -r pkgsrc-20xxQy -P pkgsrc
 
 Where pkgsrc-20xxQy is the stable branch to be checked out, for example, "
-pkgsrc-2009Q1"
+pkgsrc-2014Q3"
 
 This will create the directory pkgsrc/ in your /usr/ directory and all the
 package source will be stored under /usr/pkgsrc/.
@@ -960,9 +933,9 @@ strongly recommended.
 
 Note that by default the distfiles and the binary packages are saved in the
 pkgsrc tree, so don't forget to rescue them before updating. You can also
-configure pkgsrc to use other than the default directories by setting the
-DISTDIR and PACKAGES variables. See Chapter 5, Configuring pkgsrc for the
-details.
+configure pkgsrc to store distfiles and packages in directories outside the
+pkgsrc tree by setting the DISTDIR and PACKAGES variables. See Chapter 5, 
+Configuring pkgsrc for the details.
 
 To update pkgsrc from a tar file, download the tar file as explained above.
 Then, make sure that you have not made any changes to the files in the pkgsrc
@@ -985,7 +958,7 @@ When updating pkgsrc, the CVS program keeps track of the branch you selected.
 But if you, for whatever reason, want to switch from the stable branch to the
 current one, you can do it by adding the option "-A" after the "update"
 keyword. To switch from the current branch back to the stable branch, add the "
--rpkgsrc-2009Q3" option.
+-rpkgsrc-2014Q3" option.
 
 2.2.2.2. What happens to my changes when updating?
 
@@ -1578,7 +1551,7 @@ packages).
 
 4.1.2. Installing binary packages
 
-In the directory from the last section, there is a subdirectory called All,
+In the directory from the last section, there is a subdirectory called All/,
 which contains all the binary packages that are available for the platform,
 excluding those that may not be distributed via FTP or CDROM (depending on
 which medium you are using).
@@ -1587,7 +1560,7 @@ To install packages directly from an FTP or HTTP server, run the following
 commands in a Bourne-compatible shell (be sure to su to root first):
 
 # PATH="/usr/pkg/sbin:$PATH"
-# PKG_PATH="ftp://ftp.NetBSD.org/pub/pkgsrc/packages/OPSYS/ARCH/VERSIONS/All"
+# PKG_PATH="ftp://ftp.NetBSD.org/pub/pkgsrc/packages/OPSYS/ARCH/VERSIONS/All/"
 # export PATH PKG_PATH
 
 Instead of URLs, you can also use local paths, for example if you are
@@ -1912,7 +1885,7 @@ each variable's intent.
   * CROSSBASE: Where "cross" category packages will be installed. The default
     is ${LOCALBASE}/cross.
 
-  * X11BASE: Where X11 is installed on the system. The default is /usr/X11R6.
+  * X11BASE: Where X11 is installed on the system. The default is /usr/X11R7.
 
   * DISTDIR: Where to store the downloaded copies of the original source
     distributions used for building pkgsrc packages. The default is $
@@ -1962,8 +1935,10 @@ XXX
     up settings used by builds in /usr/src.
 
   * DEPENDS_TARGET: By default, dependencies are only installed, and no binary
-    package is created for them. You can set this variable to package to
-    automatically create binary packages after installing dependencies.
+    package is created for them. You can set this variable to package-install
+    to automatically create binary packages after installing dependencies.
+    Please note that the PKGSRC_KEEP_BIN_PKGS can be set to yes to preserve
+    binary packages when using the install as well.
 
 5.3. Variables affecting the installation process
 
@@ -1981,12 +1956,6 @@ DESTDIR support is now the default. To switch back to non-DESTDIR, you can set
 USE_DESTDIR=no; this setting will be deprecated though, so it's preferable to
 convert a package to DESTDIR instead.
 
-DESTDIR support changes the behaviour of various targets slightly. To install a
-package after building it, use package-install. package and install don't do
-that any longer. package-install can be used as DEPENDS_TARGET. bin-install
-will ask for the root password to install the package and fail, package-install
-will ask again.
-
 With basic DESTDIR support, make clean needs to be run as root.
 
 Considering the foo/bar package, DESTDIR full support can be tested using the
@@ -1999,15 +1968,15 @@ $ cd $PKGSRCDIR/foo/bar
 
 Verify DESTDIR full support, no root privileges should be needed
 
-$ make USE_DESTDIR=yes install
+$ make stage-install
 
 Create a package without root privileges
 
-$ make USE_DESTDIR=yes PACKAGES=$HOME/packages package
+$ make PACKAGES=$HOME/packages package
 
 For the following command, you must be able to gain root privileges using su(1)
 
-$ make USE_DESTDIR=yes PACKAGES=$HOME/packages package-install
+$ make PACKAGES=$HOME/packages install
 
 Then, as a simple user
 
@@ -2025,17 +1994,31 @@ PKGSRC_COMPILER:
     This is a list of values specifying the chain of compilers to invoke when
     building packages. Valid values are:
 
-      + distcc: distributed C/C++ (chainable)
+      + ccc: Compaq C Compilers (Tru64)
 
       + ccache: compiler cache (chainable)
 
+      + clang: Clang C and Objective-C compiler
+
+      + distcc: distributed C/C++ (chainable)
+
+      + f2c: Fortran 77 to C compiler (chainable)
+
+      + icc: Intel C++ Compiler (Linux)
+
+      + ido: SGI IRIS Development Option cc (IRIX 5)
+
       + gcc: GNU C/C++ Compiler
+
+      + hp: HP-UX C/aC++ compilers
 
       + mipspro: Silicon Graphics, Inc. MIPSpro (n32/n64)
 
-      + mipspro: Silicon Graphics, Inc. MIPSpro (o32)
+      + mipspro-ucode: Silicon Graphics, Inc. MIPSpro (o32)
 
       + sunpro: Sun Microsystems, Inc. WorkShip/Forte/Sun ONE Studio
+
+      + xlc: IBM's XL C/C++ compiler suite (Darwin/MacOSX)
 
     The default is "gcc". You can use ccache and/or distcc with an appropriate
     PKGSRC_COMPILER setting, e.g. "ccache gcc". This variable should always be
@@ -2072,8 +2055,6 @@ settings, use the += operator:
 LDFLAGS+=        -your -linkerflags
 
 5.5. Developer/advanced settings
-
-XXX
 
   * PKG_DEVELOPER: Run some sanity checks that package developers want:
 
@@ -2191,65 +2172,113 @@ Chapter 7. Creating binary packages for everything in pkgsrc (bulk builds)
 
 Table of Contents
 
-7.1. Think first, build later
-7.2. Requirements of a bulk build
-7.3. Running an old-style bulk build
+7.1. Preparations
+7.2. Running a pbulk-style bulk build
 
-    7.3.1. Configuration
-    7.3.2. Other environmental considerations
-    7.3.3. Operation
-    7.3.4. What it does
-    7.3.5. Disk space requirements
-    7.3.6. Setting up a sandbox for chrooted builds
-    7.3.7. Building a partial set of packages
-    7.3.8. Uploading results of a bulk build
+    7.2.1. Configuration
 
-7.4. Running a pbulk-style bulk build
+7.3. Requirements of a full bulk build
+7.4. Creating a multiple CD-ROM packages collection
 
-    7.4.1. Preparation
-    7.4.2. Configuration
+    7.4.1. Example of cdpack
 
-7.5. Creating a multiple CD-ROM packages collection
+For a number of reasons you may want to build binary packages for a large
+selected set of packages in pkgsrc or even for all pkgsrc packages. For
+instance, when you have multiple machines that should run the same software, it
+is wasted time if they all build their packages themselves from source. Or you
+may want to build a list of packages you want and check them before deploying
+onto production system. There is a way of getting a set of binary packages: The
+bulk build system, or pbulk ("p" stands for "parallel). This chapter describes
+how to set it up so that the packages are most likely to be usable later.
 
-    7.5.1. Example of cdpack
+7.1. Preparations
 
-When you have multiple machines that should run the same packages, it is wasted
-time if they all build their packages themselves from source. There are two
-ways of getting a set of binary packages: The old bulk build system, or the new
-(as of 2007) parallel bulk build (pbulk) system. This chapter describes how to
-set them up so that the packages are most likely to be usable later.
+First of all, you have to decide whether you build all packages or a limited
+set of them. Full bulk builds usually consume a lot more resources, both space
+and time, than builds for some practical sets of packages. There exists a
+number of particularly heavy packages that are not actually interesting to a
+wide audience. For a limited bulk builds you need to make a list of packages
+you want to build. Note, that all their dependencies will be built, so you
+don't need to track them manually.
 
-7.1. Think first, build later
+During bulk builds various packages are installed and deinstalled in /usr/pkg
+(or whatever LOCALBASE is), so make sure that you don't need any package during
+the builds. Essentially, you should provide fresh system, either a chroot
+environment or something even more restrictive, depending on what the operating
+system provides, or dedicate the whole physical machine. As a useful side
+effect this makes sure that bulk builds cannot break anything in your system.
+There have been numerous cases where certain packages tried to install files
+outside the LOCALBASE or wanted to edit some files in /etc.
 
-Since a bulk build takes several days or even weeks to finish, you should think
-about the setup before you start everything. Pay attention to at least the
-following points:
+7.2. Running a pbulk-style bulk build
 
-  * If you want to upload the binary packages to ftp.NetBSD.org, make sure the
-    setup complies to the requirements for binary packages:
+Running a pbulk-style bulk build works roughly as follows:
 
-      + To end up on ftp.NetBSD.org, the packages must be built by a NetBSD
-        developer on a trusted machine (that is, where you and only you have
-        root access).
+  * First, build the pbulk infrastructure in a fresh pkgsrc location.
 
-      + Packages on ftp.NetBSD.org should only be created from the stable
-        branches (like 2009Q1), so that users browsing the available
-        collections can see at a glance how old the packages are.
+  * Then, build each of the packages from a clean installation directory using
+    the infrastructure.
 
-      + The packages must be built as root, since some packages require set-uid
-        binaries at runtime, and creating those packages as unprivileged user
-        doesn't work well at the moment.
+7.2.1. Configuration
 
-  * Make sure that the bulk build cannot break anything in your system. Most
-    bulk builds run as root, so they should be run at least in a chroot
-    environment or something even more restrictive, depending on what the
-    operating system provides. There have been numerous cases where certain
-    packages tried to install files outside the LOCALBASE or wanted to edit
-    some files in /etc. Furthermore, the bulk builds install and deinstall
-    packages in /usr/pkg (or whatever LOCALBASE is) during their operation, so
-    be sure that you don't need any package during the build.
+To simplify configuration we provide helper script mk/pbulk/pbulk.sh.
 
-7.2. Requirements of a bulk build
+In order to use it, prepare a clear system (real one, chroot environment, jail,
+zone, virtual machine). Configure network access to fetch distribution files.
+Create user with name "pbulk".
+
+Fetch and extract pkgsrc. Use a command like one of these:
+
+# (cd /usr && ftp -o - http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc.tar.gz | tar -zxf-)
+# (cd /usr && fetch -o - http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc.tar.gz | tar -zxf-)
+# (cd /usr && cvs -Q -z3 -d anoncvs@anoncvs.NetBSD.org:/cvsroot get -P pkgsrc)
+
+Or any other way that fits (e.g., curl, wget).
+
+Deploy and configure pbulk tools, e.g.:
+
+# sh pbulk.sh -n # native (NetBSD)
+# sh pbulk.sh -n -c mk.conf.frag # native, apply settings from given mk.conf fragment
+# sh pbulk.sh -nlc mk.conf.frag # native, apply settings, configure for limited build
+
+Note
+
+mk.conf.frag is a fragment of mk.conf that contains settings you want to apply
+to packages you build. For instance,
+
+PKG_DEVELOPER=          yes             # perform more checks
+X11_TYPE=               modular         # use pkgsrc X11
+SKIP_LICENSE_CHECK=     yes             # accept all licences (useful when building all packages)
+
+If configured for limited list, replace the list in /usr/pbulk/etc/pbulk.list
+with your list of packages one per line without empty lines or comments. E.g.:
+
+www/firefox
+mail/thunderbird
+misc/libreoffice4
+
+At this point you can also review configuration in /usr/pbulk/etc and make
+final amendments, if wanted.
+
+Start it:
+
+# /usr/pbulk/bin/bulkbuild
+
+After it finishes, you'll have /mnt filled with distribution files, binary
+packages, and reports, plain text summary in /mnt/bulklog/meta/report.txt
+
+Note
+
+The pbulk.sh script does not cover all possible use cases. While being ready to
+run, it serves as a good starting point to understand and build more complex
+setups. The script is kept small enough for better understanding.
+
+Note
+
+The pbulk.sh script supports running unprivileged bulk build and helps
+configuring distributed bulk builds.
+
+7.3. Requirements of a full bulk build
 
 A complete bulk build requires lots of disk space. Some of the disk space can
 be read-only, some other must be writable. Some can be on remote filesystems
@@ -2262,416 +2291,13 @@ others must survive a sudden reboot.
 
   * 1 GB for the pkgsrc tree (read-only, remote, permanent)
 
-  * 5 GB for LOCALBASE (read-write, local, temporary for pbulk, permanent for
-    old-bulk)
+  * 5 GB for LOCALBASE (read-write, local, temporary)
 
   * 10 GB for the log files (read-write, remote, permanent)
 
   * 5 GB for temporary files (read-write, local, temporary)
 
-7.3. Running an old-style bulk build
-
-Note
-
-There are two ways of doing a bulk build. The old-style one and the new-style "
-pbulk". The latter is the recommended way.
-
-7.3.1. Configuration
-
-7.3.1.1. build.conf
-
-The build.conf file is the main configuration file for bulk builds. You can
-configure how your copy of pkgsrc is kept up to date, how the distfiles are
-downloaded, how the packages are built and how the report is generated. You can
-find an annotated example file in pkgsrc/mk/bulk/build.conf-example. To use it,
-copy build.conf-example to build.conf and edit it, following the comments in
-that file.
-
-7.3.1.2. mk.conf
-
-You may want to set variables in mk.conf. Look at pkgsrc/mk/defaults/mk.conf
-for details of the default settings. You will want to ensure that
-ACCEPTABLE_LICENSES meet your local policy. As used in this example,
-SKIP_LICENSE_CHECK=yes completely bypasses the license check.
-
-PACKAGES?=      ${_PKGSRCDIR}/packages/${MACHINE_ARCH}
-WRKOBJDIR?=     /usr/tmp/pkgsrc   # build here instead of in pkgsrc
-BSDSRCDIR=      /usr/src
-BSDXSRCDIR=     /usr/xsrc         # for x11/xservers
-OBJHOSTNAME?=   yes               # use work.`hostname`
-FAILOVER_FETCH= yes               # insist on the correct checksum
-PKG_DEVELOPER?= yes
-SKIP_LICENSE_CHECK=    yes
-
-Some options that are especially useful for bulk builds can be found at the top
-lines of the file mk/bulk/bsd.bulk-pkg.mk. The most useful options of these are
-briefly described here.
-
-  * If you are on a slow machine, you may want to set USE_BULK_BROKEN_CHECK to 
-    "no".
-
-  * If you are doing bulk builds from a read-only copy of pkgsrc, you have to
-    set BULKFILESDIR to the directory where all log files are created.
-    Otherwise the log files are created in the pkgsrc directory.
-
-  * Another important variable is BULK_PREREQ, which is a list of packages that
-    should be always available while building other packages.
-
-Some other options are scattered in the pkgsrc infrastructure:
-
-  * ALLOW_VULNERABLE_PACKAGES should be set to yes. The purpose of the bulk
-    builds is creating binary packages, no matter if they are vulnerable or
-    not. Leaving this variable unset would prevent the bulk build system from
-    even trying to build them, so possible building errors would not show up.
-
-  * CHECK_FILES (pkgsrc/mk/check/check-files.mk) can be set to "yes" to check
-    that the installed set of files matches the PLIST.
-
-  * CHECK_INTERPRETER (pkgsrc/mk/check/check-interpreter.mk) can be set to "yes
-    " to check that the installed "#!"-scripts will find their interpreter.
-
-  * PKGSRC_RUN_TEST can be set to "yes" to run each package's self-test before
-    installing it. Note that some packages make heavy use of "good" random
-    numbers, so you need to assure that the machine on which you are doing the
-    bulk builds is not completely idle. Otherwise some test programs will seem
-    to hang, while they are just waiting for new random data to be available.
-
-7.3.1.3. pre-build.local
-
-It is possible to configure the bulk build to perform certain site-specific
-tasks at the end of the pre-build stage. If the file pre-build.local exists in
-/usr/pkgsrc/mk/bulk, it will be executed (as a sh(1) script) at the end of the
-usual pre-build stage. An example use of pre-build.local is to have the line:
-
-echo "I do not have enough disk space to build this pig." \
-        > misc/openoffice/$BROKENF
-
-to prevent the system from trying to build a particular package which requires
-nearly 3 GB of disk space.
-
-7.3.2. Other environmental considerations
-
-As /usr/pkg will be completely deleted at the start of bulk builds, make sure
-your login shell is placed somewhere else. Either drop it into /usr/local/bin
-(and adjust your login shell in the passwd file), or (re-)install it via
-pkg_add(1) from /etc/rc.local, so you can login after a reboot (remember that
-your current process won't die if the package is removed, you just can't start
-any new instances of the shell any more). Also, if you use NetBSD earlier than
-1.5, or you still want to use the pkgsrc version of ssh for some reason, be
-sure to install ssh before starting it from rc.local:
-
-(cd /usr/pkgsrc/security/ssh && make bulk-install)
-if [ -f /usr/pkg/etc/rc.d/sshd ]; then
-  /usr/pkg/etc/rc.d/sshd
-fi
-
-Not doing so will result in you being not able to log in via ssh after the bulk
-build is finished or if the machine gets rebooted or crashes. You have been
-warned! :)
-
-7.3.3. Operation
-
-Make sure you don't need any of the packages still installed.
-
-Warning
-
-During the bulk build, all packages, their configuration files and some more
-files from /var, /home and possibly other locations will be removed! So don't
-run a bulk build with privileges that might harm your system.
-
-Be sure to remove all other things that might interfere with builds, like some
-libs installed in /usr/local, etc. then become root and type:
-
-# cd /usr/pkgsrc
-# sh mk/bulk/build
-
-
-If for some reason your last build didn't complete (power failure, system
-panic, ...), you can continue it by running:
-
-# sh mk/bulk/build restart
-
-At the end of the bulk build, you will get a summary via mail, and find build
-logs in the directory specified by FTP in the build.conf file.
-
-7.3.4. What it does
-
-The bulk builds consist of three steps:
-
-1. pre-build
-
-    The script updates your pkgsrc tree via (anon)cvs, then cleans out any
-    broken distfiles, and removes all packages installed.
-
-2. the bulk build
-
-    This is basically "make bulk-package" with an optimised order in which
-    packages will be built. Packages that don't require other packages will be
-    built first, and packages with many dependencies will be built later.
-
-3. post-build
-
-    Generates a report that's placed in the directory specified in the
-    build.conf file named broken.html, a short version of that report will also
-    be mailed to the build's admin.
-
-During the build, a list of broken packages will be compiled in /usr/pkgsrc
-/.broken (or .../.broken.${MACHINE} if OBJMACHINE is set), individual build
-logs of broken builds can be found in the package's directory. These files are
-used by the bulk-targets to mark broken builds to not waste time trying to
-rebuild them, and they can be used to debug these broken package builds later.
-
-7.3.5. Disk space requirements
-
-Currently, roughly the following requirements are valid for NetBSD 6.99/amd64:
-
-  * 40 GB - distfiles (NFS ok)
-
-  * 30 GB - full set of all binaries (NFS ok)
-
-  * 5 GB - temp space for compiling (local disk recommended)
-
-Note that all pkgs will be de-installed as soon as they are turned into a
-binary package, and that sources are removed, so there is no excessively huge
-demand to disk space. Afterwards, if the package is needed again, it will be
-installed via pkg_add(1) instead of building again, so there are no cycles
-wasted by recompiling.
-
-7.3.6. Setting up a sandbox for chrooted builds
-
-If you don't want all the packages nuked from a machine (rendering it useless
-for anything but pkg compiling), there is the possibility of doing the package
-bulk build inside a chroot environment.
-
-The first step is to set up a chroot sandbox, e.g. /usr/sandbox. This can be
-done by using null mounts, or manually.
-
-There is a shell script called mksandbox installed by the pkgtools/mksandbox
-package, which will set up the sandbox environment using null mounts. It will
-also create a script called sandbox in the root of the sandbox environment,
-which will allow the null mounts to be activated using the sandbox mount
-command and deactivated using the sandbox umount command.
-
-To set up a sandbox environment by hand, after extracting all the sets from a
-NetBSD installation or doing a make distribution DESTDIR=/usr/sandbox in /usr/
-src/etc, be sure the following items are present and properly configured:
-
- 1. Kernel
-
-    # cp /netbsd /usr/sandbox
-
- 2. /dev/*
-
-    # cd /usr/sandbox/dev ; sh MAKEDEV all
-
- 3. /etc/resolv.conf (for security/smtpd and mail):
-
-    # cp /etc/resolv.conf /usr/sandbox/etc
-
- 4. Working(!) mail config (hostname, sendmail.cf):
-
-    # cp /etc/mail/sendmail.cf /usr/sandbox/etc/mail
-
- 5. /etc/localtime (for security/smtpd):
-
-    # ln -sf /usr/share/zoneinfo/UTC /usr/sandbox/etc/localtime
-
- 6. /usr/src (system sources, rarely used by packages if at all:
-
-    # ln -s ../disk1/cvs .
-              # ln -s cvs/src-2.0 src
-
- 7. Create /var/db/pkg (not part of default install):
-
-    # mkdir /usr/sandbox/var/db/pkg
-
- 8. Create /usr/pkg (not part of default install):
-
-    # mkdir /usr/sandbox/usr/pkg
-
- 9. Checkout pkgsrc via cvs into /usr/sandbox/usr/pkgsrc:
-
-    # cd /usr/sandbox/usr
-    # cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -d -P pkgsrc
-
-
-    Do not mount/link this to the copy of your pkgsrc tree you do development
-    in, as this will likely cause problems!
-
-10. Make /usr/sandbox/usr/pkgsrc/packages and .../distfiles point somewhere
-    appropriate. NFS- and/or nullfs-mounts may come in handy!
-
-11. Edit mk.conf, see Section 7.3.1.2, "mk.conf".
-
-12. Adjust mk/bulk/build.conf to suit your needs.
-
-When the chroot sandbox is set up, you can start the build with the following
-steps:
-
-# cd /usr/sandbox/usr/pkgsrc
-# sh mk/bulk/do-sandbox-build
-
-
-This will just jump inside the sandbox and start building. At the end of the
-build, mail will be sent with the results of the build. Created binary pkgs
-will be in /usr/sandbox/usr/pkgsrc/packages (wherever that points/mounts to/
-from).
-
-7.3.7. Building a partial set of packages
-
-In addition to building a complete set of all packages in pkgsrc, the pkgsrc/mk
-/bulk/build script may be used to build a subset of the packages contained in
-pkgsrc. By setting SPECIFIC_PKGS in mk.conf, the variables
-
-  * SITE_SPECIFIC_PKGS
-
-  * HOST_SPECIFIC_PKGS
-
-  * GROUP_SPECIFIC_PKGS
-
-  * USER_SPECIFIC_PKGS
-
-will define the set of packages which should be built. The bulk build code will
-also include any packages which are needed as dependencies for the explicitly
-listed packages.
-
-One use of this is to do a bulk build with SPECIFIC_PKGS in a chroot sandbox
-periodically to have a complete set of the binary packages needed for your site
-available without the overhead of building extra packages that are not needed.
-
-7.3.8. Uploading results of a bulk build
-
-This section describes how pkgsrc developers can upload binary pkgs built by
-bulk builds to ftp.NetBSD.org.
-
-If you would like to automatically create checksum files for the binary
-packages you intend to upload, remember to set MKSUMS=yes in your mk/bulk/
-build.conf.
-
-If you would like to PGP sign the checksum files (highly recommended!),
-remember to set SIGN_AS=username@NetBSD.org in your mk/bulk/build.conf. This
-will prompt you for your GPG password to sign the files before uploading
-everything.
-
-Then, make sure that you have RSYNC_DST set properly in your mk/bulk/build.conf
-file, i.e. adjust it to something like one of the following:
-
-RSYNC_DST=ftp.NetBSD.org:/pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload
-
-Please use appropriate values for "20xxQy" (the branch), "a.b.c" (the OS
-version) and "arch" here. If your login on ftp.NetBSD.org is different from
-your local login, write your login directly into the variable, e.g. my local
-account is "feyrer", but for my login "hubertf", I use:
-
-RSYNC_DST=hubertf@ftp.NetBSD.org:/pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload
-
-A separate upload directory is used here to allow "closing" the directory
-during upload. To do so, run the following command on ftp.NetBSD.org next:
-
-nbftp% mkdir -p -m 750 /pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload
-
-Before uploading the binary pkgs, ssh authentication needs to be set up. This
-example shows how to set up temporary keys for the root account inside the
-sandbox (assuming that no keys should be present there usually):
-
-# chroot /usr/sandbox
-chroot-# rm $HOME/.ssh/id-dsa*
-chroot-# ssh-keygen -t rsa
-chroot-# cat $HOME/.ssh/id-rsa.pub
-
-
-Now take the output of id-rsa.pub and append it to your ~/.ssh/authorized_keys
-file on ftp.NetBSD.org. You should remove the key after the upload is done!
-
-Next, test if your ssh connection really works:
-
-chroot-# ssh ftp.NetBSD.org date
-
-Use "-l yourNetBSDlogin" here as appropriate!
-
-Now after all this works, you can exit the sandbox and start the upload:
-
-chroot-# exit
-# cd /usr/sandbox/usr/pkgsrc
-# sh mk/bulk/do-sandbox-upload
-
-
-The upload process may take quite some time. Use ls(1) or du(1) on the FTP
-server to monitor progress of the upload. The upload script will take care of
-not uploading restricted packages.
-
-After the upload has ended, first thing is to revoke ssh access:
-
-nbftp% vi ~/.ssh/authorized_keys
-      Gdd:x!
-
-Use whatever is needed to remove the key you've entered before! Last, move the
-uploaded packages out of the upload directory to have them accessible to
-everyone:
-
-nbftp% cd /pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy
-nbftp% mv upload/* .
-nbftp% rmdir upload
-nbftp% chgrp -R netbsd .
-nbftp% find . -type d | xargs chmod 775
-
-
-7.4. Running a pbulk-style bulk build
-
-Running a pbulk-style bulk build works roughly as follows:
-
-  * First, build the pbulk infrastructure in a fresh pkgsrc location.
-
-  * Then, build each of the packages from a clean installation directory using
-    the infrastructure.
-
-7.4.1. Preparation
-
-First, you need to create a pkgsrc installation for the pbulk infrastructure.
-No matter on which platform you are (even on NetBSD), you should bootstrap into
-its own directory. Let's take the directory /usr/pbulk or $HOME/pbulk for it.
-This installation will be bootstrapped and all the tools that are required for
-the bulk build will be installed there.
-
-$ cd /usr/pkgsrc
-$ ./bootstrap/bootstrap --prefix=/usr/pbulk --varbase=/usr/pbulk/var --workdir=/tmp/pbulk-bootstrap
-$ rm -rf /tmp/pbulk-bootstrap
-
-Now the basic environment for the pbulk infrastructure is installed. The
-specific tools are still missing. This is a good time to edit the pkgsrc
-configuration file /usr/pbulk/etc/mk.conf to fit your needs. Typical things you
-might set now are:
-
-  * PKG_DEVELOPER=yes, to enable many consistency checks,
-
-  * WRKOBJDIR=/tmp/pbulk-outer, to keep /usr/pkgsrc free from any
-    modifications,
-
-  * DISTDIR=/distfiles, to have only one directory in which all distfiles (for
-    the infrastructure and for the actual packages) are downloaded,
-
-  * ACCEPTABLE_LICENSES+=..., to select some licenses additional to the usual
-    Free/Open Source licenses that are acceptable to you,
-
-  * SKIP_LICENSE_CHECK=yes, to bypass the license checks.
-
-Now you are ready to build the rest of the pbulk infrastructure.
-
-$ cd pkgtools/pbulk
-$ /usr/pbulk/bin/bmake install
-$ rm -rf /tmp/pbulk-outer
-
-Now the pbulk infrastructure is built and installed. It still needs to be
-configured, and after some more preparation, we will be able to start the real
-bulk build.
-
-7.4.2. Configuration
-
-TODO; see pkgsrc/doc/HOWTO-pbulk for more information.
-
-TODO: continue writing
-
-7.5. Creating a multiple CD-ROM packages collection
+7.4. Creating a multiple CD-ROM packages collection
 
 After your pkgsrc bulk-build has completed, you may wish to create a CD-ROM set
 of the resulting binary packages to assist in installing packages on other
@@ -2679,7 +2305,7 @@ machines. The pkgtools/cdpack package provides a simple tool for creating the
 ISO 9660 images. cdpack arranges the packages on the CD-ROMs in a way that
 keeps all the dependencies for a given package on the same CD as that package.
 
-7.5.1. Example of cdpack
+7.4.1. Example of cdpack
 
 Complete documentation for cdpack is found in the cdpack(1) man page. The
 following short example assumes that the binary packages are left in /usr/
@@ -2855,23 +2481,22 @@ Chapter 9. Frequently Asked Questions
 Table of Contents
 
 9.1. Are there any mailing lists for pkg-related discussion?
-9.2. Where's the pkgviews documentation?
-9.3. Utilities for package management (pkgtools)
-9.4. How to use pkgsrc as non-root
-9.5. How to resume transfers when fetching distfiles?
-9.6. How can I install/use modular X.org from pkgsrc?
-9.7. How to fetch files from behind a firewall
-9.8. How to fetch files from HTTPS sites
-9.9. How do I tell make fetch to do passive FTP?
-9.10. How to fetch all distfiles at once
-9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
-9.12. What does "Could not find bsd.own.mk" mean?
-9.13. Using 'sudo' with pkgsrc
-9.14. How do I change the location of configuration files?
-9.15. Automated security checks
-9.16. Why do some packages ignore my CFLAGS?
-9.17. A package does not build. What shall I do?
-9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+9.2. Utilities for package management (pkgtools)
+9.3. How to use pkgsrc as non-root
+9.4. How to resume transfers when fetching distfiles?
+9.5. How can I install/use modular X.org from pkgsrc?
+9.6. How to fetch files from behind a firewall
+9.7. How to fetch files from HTTPS sites
+9.8. How do I tell make fetch to do passive FTP?
+9.9. How to fetch all distfiles at once
+9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+9.11. What does "Could not find bsd.own.mk" mean?
+9.12. Using 'sudo' with pkgsrc
+9.13. How do I change the location of configuration files?
+9.14. Automated security checks
+9.15. Why do some packages ignore my CFLAGS?
+9.16. A package does not build. What shall I do?
+9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
     conflicts" mean?
 
 This section contains hints, tips & tricks on special things in pkgsrc that we
@@ -2905,12 +2530,7 @@ To subscribe, do:
 Archives for all these mailing lists are available from http://
 mail-index.NetBSD.org/.
 
-9.2. Where's the pkgviews documentation?
-
-Pkgviews is tightly integrated with buildlink. You can find a pkgviews User's
-guide in pkgsrc/mk/buildlink3/PKGVIEWS_UG.
-
-9.3. Utilities for package management (pkgtools)
+9.2. Utilities for package management (pkgtools)
 
 The directory pkgsrc/pkgtools contains a number of useful utilities for both
 users and developers of pkgsrc. This section attempts only to make the reader
@@ -2978,7 +2598,7 @@ Utilities for people maintaining pkgsrc (or: more obscure pkg utilities)
 
   * pkgtools/libkver: Spoof kernel version for chrooted cross builds.
 
-9.4. How to use pkgsrc as non-root
+9.3. How to use pkgsrc as non-root
 
 If you want to use pkgsrc as non-root user, you can set some variables to make
 pkgsrc work under these conditions. At the very least, you need to set
@@ -2996,7 +2616,7 @@ choose and use multiple default directories under ~/pkg as the installation
 targets. These directories can be overridden by the "--prefix" flag provided by
 the script, as well as some others that allow finer tuning of the tree layout.
 
-9.5. How to resume transfers when fetching distfiles?
+9.4. How to resume transfers when fetching distfiles?
 
 By default, resuming transfers in pkgsrc is disabled, but you can enable this
 feature by adding the option PKG_RESUME_TRANSFERS=YES into mk.conf. If, during
@@ -3014,7 +2634,7 @@ like:
 
 FETCH_USING=    wget
 
-9.6. How can I install/use modular X.org from pkgsrc?
+9.5. How can I install/use modular X.org from pkgsrc?
 
 If you want to use modular X.org from pkgsrc instead of your system's own X11
 (/usr/X11R6, /usr/openwin, ...) you will have to add the following line into
@@ -3026,7 +2646,7 @@ Note
 
 The DragonFly operating system defaults to using modular X.org from pkgsrc.
 
-9.7. How to fetch files from behind a firewall
+9.6. How to fetch files from behind a firewall
 
 If you are sitting behind a firewall which does not allow direct connections to
 Internet hosts (i.e. non-NAT), you may specify the relevant proxy hosts. This
@@ -3037,7 +2657,7 @@ the proxy port number. So the proxy environment variables are:
 ftp_proxy=ftp://orpheus.amdahl.com:80/
 http_proxy=http://orpheus.amdahl.com:80/
 
-9.8. How to fetch files from HTTPS sites
+9.7. How to fetch files from HTTPS sites
 
 Some fetch tools are not prepared to support HTTPS by default (for example, the
 one in NetBSD 6.0), or the one installed by the pkgsrc bootstrap (to avoid an
@@ -3049,7 +2669,7 @@ pkgsrc-current. In that case, set FETCH_USING in your mk.conf file to "curl" or
 "wget", which are both compiled with HTTPS support by default. Of course, these
 tools need to be installed before you can use them this way.
 
-9.9. How do I tell make fetch to do passive FTP?
+9.8. How do I tell make fetch to do passive FTP?
 
 This depends on which utility is used to retrieve distfiles. From bsd.pkg.mk,
 FETCH_CMD is assigned the first available command from the following list:
@@ -3066,7 +2686,7 @@ following to your mk.conf file: PASSIVE_FETCH=1.
 Having that option present will prevent /usr/bin/ftp from falling back to
 active transfers.
 
-9.10. How to fetch all distfiles at once
+9.9. How to fetch all distfiles at once
 
 You would like to download all the distfiles in a single batch from work or
 university, where you can't run a make fetch. There is an archive of distfiles
@@ -3101,7 +2721,7 @@ everything by running:
 
 % make fetch NO_SKIP=yes
 
-9.11. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
+9.10. What does "Don't know how to make /usr/share/tmac/tmac.andoc" mean?
 
 When compiling the pkgtools/pkg_install package, you get the error from make
 that it doesn't know how to make /usr/share/tmac/tmac.andoc? This indicates
@@ -3111,7 +2731,7 @@ distribution on your machine. It is recommended to do that to format man pages.
 In the case of the pkgtools/pkg_install package, you can get away with setting
 NOMAN=YES either in the environment or in mk.conf.
 
-9.12. What does "Could not find bsd.own.mk" mean?
+9.11. What does "Could not find bsd.own.mk" mean?
 
 You didn't install the compiler set, comp.tgz, when you installed your NetBSD
 machine. Please get and install it, by extracting it in /:
@@ -3122,7 +2742,7 @@ machine. Please get and install it, by extracting it in /:
 comp.tgz is part of every NetBSD release. Get the one that corresponds to your
 release (determine via uname -r).
 
-9.13. Using 'sudo' with pkgsrc
+9.12. Using 'sudo' with pkgsrc
 
 When installing packages as non-root user and using the just-in-time su(1)
 feature of pkgsrc, it can become annoying to type in the root password for each
@@ -3135,7 +2755,7 @@ mk.conf, somewhere after the definition of the LOCALBASE variable:
 SU_CMD=        ${LOCALBASE}/bin/sudo /bin/sh -c
 .endif
 
-9.14. How do I change the location of configuration files?
+9.13. How do I change the location of configuration files?
 
 As the system administrator, you can choose where configuration files are
 installed. The default settings make all these files go into ${PREFIX}/etc or
@@ -3155,7 +2775,7 @@ of PKGBASE.
 Note that after changing these settings, you must rebuild and reinstall any
 affected packages.
 
-9.15. Automated security checks
+9.14. Automated security checks
 
 Please be aware that there can often be bugs in third-party software, and some
 of these bugs can leave a machine vulnerable to exploitation by attackers. In
@@ -3184,7 +2804,7 @@ If this package is installed, pkgsrc builds will use it to perform a security
 check before building any package. See Section 5.2, "Variables affecting the
 build process" for ways to control this check.
 
-9.16. Why do some packages ignore my CFLAGS?
+9.15. Why do some packages ignore my CFLAGS?
 
 When you add your own preferences to the CFLAGS variable in your mk.conf, these
 flags are passed in environment variables to the ./configure scripts and to
@@ -3198,7 +2818,7 @@ Usually you can remove these lines. But be aware that some "smart" programmers
 write so bad code that it only works for the specific combination of CFLAGS
 they have chosen.
 
-9.17. A package does not build. What shall I do?
+9.16. A package does not build. What shall I do?
 
  1. Make sure that your copy of pkgsrc is consistent. A case that occurs often
     is that people only update pkgsrc in parts, because of performance reasons.
@@ -3214,7 +2834,7 @@ they have chosen.
 
  4. If the problem still exists, write a mail to the pkgsrc-users mailing list.
 
-9.18. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
+9.17. What does "Makefile appears to contain unresolved cvs/rcs/??? merge
 conflicts" mean?
 
 You have modified a file from pkgsrc, and someone else has modified that same
@@ -3240,7 +2860,7 @@ Table of Contents
     10.1. Common types of packages
 
         10.1.1. Perl modules
-        10.1.2. KDE applications
+        10.1.2. KDE3 applications
         10.1.3. Python modules and programs
 
     10.2. Examples
@@ -3293,7 +2913,8 @@ Table of Contents
     13.5. Man page compression
     13.6. Changing PLIST source with PLIST_SRC
     13.7. Platform-specific and differing PLISTs
-    13.8. Sharing directories between packages
+    13.8. Build-specific PLISTs
+    13.9. Sharing directories between packages
 
 14. Buildlink methodology
 
@@ -3397,6 +3018,7 @@ Table of Contents
 
         19.2.1. Packages whose distfiles aren't available for plain downloading
         19.2.2. How to handle modified distfiles with the 'old' name
+        19.2.3. Packages hosted on github.com
 
     19.3. Fixing problems in the configure phase
 
@@ -3470,7 +3092,7 @@ Table of Contents
 10.1. Common types of packages
 
     10.1.1. Perl modules
-    10.1.2. KDE applications
+    10.1.2. KDE3 applications
     10.1.3. Python modules and programs
 
 10.2. Examples
@@ -3511,7 +3133,7 @@ package involves only a few steps.
 
     [...]
 
-    BUILD_DEPENDS+= lua>=5.0:../../lang/lua
+    BUILD_DEPENDS+= libxslt-[0-9]*:../../textproc/libxslt
     DEPENDS+=       screen-[0-9]*:../../misc/screen
     DEPENDS+=       screen>=4.0:../../misc/screen
 
@@ -3563,10 +3185,10 @@ package involves only a few steps.
 Simple Perl modules are handled automatically by url2pkg, including
 dependencies.
 
-10.1.2. KDE applications
+10.1.2. KDE3 applications
 
-KDE applications should always include meta-pkgs/kde3/kde3.mk, which contains
-numerous settings that are typical of KDE packages.
+KDE3 applications should always include meta-pkgs/kde3/kde3.mk, which contains
+numerous settings that are typical of KDE3 packages.
 
 10.1.3. Python modules and programs
 
@@ -3846,18 +3468,13 @@ mostly historical and has no further meaning.
   * DISTNAME is the basename of the distribution file to be downloaded from the
     package's website.
 
-  * PKGNAME is the name of the package, as used by pkgsrc. You only need to
-    provide it if DISTNAME (which is the default) is not a good name for the
-    package in pkgsrc. Usually it is the pkgsrc directory name together with
-    the version number. It must match the regular expression ^[A-Za-z0-9]
-    [A-Za-z0-9-_.+]*$, that is, it starts with a letter or digit, and contains
-    only letters, digits, dashes, underscores, dots and plus signs.
-
-  * SVR4_PKGNAME is the name of the package file to create if the PKGNAME isn't
-    unique on a SVR4 system. The default is PKGNAME, which may be shortened
-    when you use pkgtools/gensolpkg. Only add SVR4_PKGNAME if PKGNAME does not
-    produce an unique package name on a SVR4 system. The length of SVR4_PKGNAME
-    is limited to 5 characters.
+  * PKGNAME is the name of the package, as used by pkgsrc. You need to provide
+    it if DISTNAME (which is the default) is not a good name for the package in
+    pkgsrc or DISTNAME is not provided (no distribution file is required).
+    Usually it is the pkgsrc directory name together with the version number.
+    It must match the regular expression ^[A-Za-z0-9][A-Za-z0-9-_.+]*$, that
+    is, it starts with a letter or digit, and contains only letters, digits,
+    dashes, underscores, dots and plus signs.
 
   * CATEGORIES is a list of categories which the package fits in. You can
     choose any of the top-level directories of pkgsrc for it.
@@ -3886,7 +3503,10 @@ any.
     .Z.
 
   * PATCH_SITES: Primary location(s) for distribution patch files (see
-    PATCHFILES below) if not found locally.
+    PATCHFILES above) if not found locally.
+
+  * PATCH_DIST_STRIP: an argument to patch(1) that sets the pathname strip
+    count to help find the correct files to patch. It defaults to -p0.
 
 The third section contains the following variables.
 
@@ -4186,7 +3806,13 @@ MESSAGE
 
 ALTERNATIVES
 
-    FIXME: There is no documentation on the alternatives framework.
+    This file is used by the alternatives framework. It creates, configures,
+    and destroys generic wrappers used to run programs with similar interfaces.
+    See pkg_alternatives(8) from pkgtools/pkg_alternatives for more
+    information.
+
+    Each line of the file contains two filenames, first the wrapper and then
+    the alternative provided by the package. Both paths are relative to PREFIX.
 
 11.5.2. Files affecting the build process
 
@@ -4534,7 +4160,8 @@ Table of Contents
 13.5. Man page compression
 13.6. Changing PLIST source with PLIST_SRC
 13.7. Platform-specific and differing PLISTs
-13.8. Sharing directories between packages
+13.8. Build-specific PLISTs
+13.9. Sharing directories between packages
 
 The PLIST file contains a package's "packing list", i.e. a list of files that
 belong to the package (relative to the ${PREFIX} directory it's been installed
@@ -4557,7 +4184,7 @@ targets" for more information on this target.
 
 13.3. Tweaking output of make print-PLIST
 
-If you have used any of the *-dirs packages, as explained in Section 13.8,
+If you have used any of the *-dirs packages, as explained in Section 13.9,
 "Sharing directories between packages", you may have noticed that make
 print-PLIST outputs a set of @comments instead of real @dirrm lines. You can
 also do this for specific directories and files, so that the results of that
@@ -4611,8 +4238,9 @@ ${OPSYS}, ${LOWER_OPSYS}, ${OS_VERSION}
 
       + ${OS_VERSION} - "uname -r"
 
-For a complete list of values which are replaced by default, please look in
-bsd.pkg.mk (and search for PLIST_SUBST).
+For a list of values which are replaced by default, the output of make help
+topic=PLIST_SUBST as well as searching the pkgsrc/mk directory with grep for
+PLIST_SUBST should help.
 
 If you want to change other variables not listed above, you can add variables
 and their expansions to this variable in the following way, similar to
@@ -4677,7 +4305,23 @@ following files:
 
   * PLIST.common_end
 
-13.8. Sharing directories between packages
+13.8. Build-specific PLISTs
+
+Some packages decide to generate hard-to-guess file names during installation
+that are hard to wire down.
+
+In such cases, you can set the GENERATE_PLIST variable to shell code terminated
+(with a semicolon) that will output PLIST entries which will be appended to the
+PLIST
+
+You can find one example in editors/xemacs:
+
+      GENERATE_PLIST+=        ${ECHO} bin/${DISTNAME}-`${WRKSRC}/src/xemacs -sd`.dmp ;
+
+
+which will append something like bin/xemacs-21.4.23-54e8ea71.dmp to the PLIST.
+
+13.9. Sharing directories between packages
 
 A "shared directory" is a directory where multiple (and unrelated) packages
 install files. These directories were problematic because you had to add
@@ -4693,6 +4337,8 @@ installation as usual, and also add an entry to the PLIST:
 
 @pkgdir path/to/empty/directory
 
+
+or take a look at MAKE_DIRS and OWN_DIRS.
 
 Chapter 14. Buildlink methodology
 
@@ -4886,10 +4532,9 @@ symlinking:
 
   * BUILDLINK_CONTENTS_FILTER.pkg (not shown above) is a filter command that
     filters +CONTENTS input into a list of files relative to $
-    {BUILDLINK_PREFIX.pkg} on stdout. By default for overwrite packages,
-    BUILDLINK_CONTENTS_FILTER.pkg outputs the contents of the include and lib
-    directories in the package +CONTENTS, and for pkgviews packages, it outputs
-    any libtool archives in lib directories.
+    {BUILDLINK_PREFIX.pkg} on stdout. By default, BUILDLINK_CONTENTS_FILTER.pkg
+    outputs the contents of the include and lib directories in the package
+    +CONTENTS.
 
   * BUILDLINK_FNAME_TRANSFORM.pkg (not shown above) is a list of sed arguments
     used to transform the name of the source filename into a destination
@@ -5217,7 +4862,7 @@ shall be installed. Its contents are set based upon the following variables:
     definition of this variable only makes sense in the package's Makefile
     (i.e., it is not user-customizable).
 
-    As an example, consider the Apache package, www/apache2, which places its
+    As an example, consider the Apache package, www/apache24, which places its
     configuration files under the httpd/ subdirectory of PKG_SYSCONFBASE. This
     should be set in the package Makefile.
 
@@ -5393,7 +5038,7 @@ directories. For convenience, if the directory path is relative, it is taken to
 be relative to the package's installation prefix. Consider the following
 example, taken from fonts/dbz-ttf:
 
-FONTS_DIRS.ttf= ${PREFIX}/lib/X11/fonts/TTF
+FONTS_DIRS.ttf= ${PREFIX}/share/fonts/X11/TTF
 
 15.6.1. Disabling automatic update of the fonts databases
 
@@ -5800,13 +5445,14 @@ name is derived from the DISTNAME variable, is fetched. The more complicated
 cases are described below.
 
 The variable DISTFILES specifies the list of distfiles that have to be fetched.
-Its value defaults to ${DISTNAME}${EXTRACT_SUFX}, so that most packages don't
-need to define it at all. EXTRACT_SUFX is .tar.gz by default, but can be
-changed freely. Note that if your package requires additional distfiles to the
-default one, you cannot just append the additional filenames using the +=
-operator, but you have write for example:
+Its value defaults to ${DEFAULT_DISTFILES} and its value is ${DISTNAME}$
+{EXTRACT_SUFX}, so that most packages don't need to define it at all.
+EXTRACT_SUFX is .tar.gz by default, but can be changed freely. Note that if
+your package requires additional distfiles to the default one, you cannot just
+append the additional filenames using the += operator, but you have write for
+example:
 
-DISTFILES=      ${DISTNAME}${EXTRACT_SUFX} additional-files.tar.gz
+DISTFILES=      ${DEFAULT_DISTFILES} additional-files.tar.gz
 
 Each distfile is fetched from a list of sites, usually MASTER_SITES. If the
 package has multiple DISTFILES or multiple PATCHFILES from different sites, you
@@ -5830,6 +5476,14 @@ MASTER_SITES=   http://www.example.com/download.cgi?file=
 
 The exception to this rule are URLs starting with a dash. In that case the URL
 is taken as is, fetched and the result stored under the name of the distfile.
+You can use this style for the case when the download URL style does not match
+the above common case. For example, if permanent download URL is a redirector
+to the real download URL, or the download file name is offered by an HTTP
+Content-Disposition header. In the following example, foo-1.0.0.tar.gz will be
+created instead of the default v1.0.0.tar.gz.
+
+DISTNAME=       foo-1.0.0
+MASTER_SITES=   -http://www.example.com/archive/v1.0.0.tar.gz
 
 There are some predefined values for MASTER_SITES, which can be used in
 packages. The names of the variables should speak for themselves.
@@ -5844,13 +5498,18 @@ ${MASTER_SITE_GENTOO}
 ${MASTER_SITE_GNOME}
 ${MASTER_SITE_GNU}
 ${MASTER_SITE_GNUSTEP}
+${MASTER_SITE_HASKELL_HACKAGE}
 ${MASTER_SITE_IFARCHIVE}
 ${MASTER_SITE_KDE}
 ${MASTER_SITE_MOZILLA}
+${MASTER_SITE_MOZILLA_ALL}
+${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
+${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
+${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
 ${MASTER_SITE_SOURCEFORGE_JP}
@@ -5859,6 +5518,7 @@ ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
 ${MASTER_SITE_XCONTRIB}
 ${MASTER_SITE_XEMACS}
+${MASTER_SITE_XORG}
 
 Some explanations for the less self-explaining ones: MASTER_SITE_BACKUP
 contains backup sites for packages that are maintained in ftp://ftp.NetBSD.org/
@@ -6421,10 +6081,10 @@ bulk-package
 
     Used to do bulk builds. If an appropriate binary package already exists, no
     action is taken. If not, this target will compile, install and package it
-    (and its depends, if PKG_DEPENDS is set properly. See Section 7.3.1,
-    "Configuration"). After creating the binary package, the sources, the
-    just-installed package and its required packages are removed, preserving
-    free disk space.
+    (and its depends, if PKG_DEPENDS is set properly. See Chapter 7, Creating
+    binary packages for everything in pkgsrc (bulk builds)). After creating the
+    binary package, the sources, the just-installed package and its required
+    packages are removed, preserving free disk space.
 
     Beware that this target may deinstall all packages installed on a system!
 
@@ -6558,6 +6218,7 @@ Table of Contents
 
     19.2.1. Packages whose distfiles aren't available for plain downloading
     19.2.2. How to handle modified distfiles with the 'old' name
+    19.2.3. Packages hosted on github.com
 
 19.3. Fixing problems in the configure phase
 
@@ -6952,34 +6613,43 @@ being present in source form during the build.)
 
 Your package may conflict with other packages a user might already have
 installed on his system, e.g. if your package installs the same set of files as
-another package in the pkgsrc tree.
+another package in the pkgsrc tree or has the same PKGNAME.
 
-In this case you can set CONFLICTS to a space-separated list of packages
-(including version string) your package conflicts with.
+These cases are handled automatically by the packaging tools at package
+installation time and do not need to be handled manually.
 
-For example, x11/Xaw3d and x11/Xaw-Xpm install the same shared library, thus
-you set in pkgsrc/x11/Xaw3d/Makefile:
+In case the conflicts can not be recognized automatically (e.g., packages using
+the same config file location but no other shared files), you can set CONFLICTS
+to a space-separated list of packages (including version string) your package
+conflicts with.
 
-CONFLICTS=      Xaw-Xpm-[0-9]*
+For example, if both foo/bar and foo/baz use the same config file, you would
+set in foo/bar/Makefile:
+
+CONFLICTS=      baz-[0-9]*
 
 
-and in pkgsrc/x11/Xaw-Xpm/Makefile:
+and in pkgsrc/foo/baz/Makefile:
 
-CONFLICTS=      Xaw3d-[0-9]*
+CONFLICTS=      bar-[0-9]*
 
-
-Packages will automatically conflict with other packages with the name prefix
-and a different version string. "Xaw3d-1.5" e.g. will automatically conflict
-with the older version "Xaw3d-1.3".
 
 19.1.8. Packages that cannot or should not be built
 
 There are several reasons why a package might be instructed to not build under
 certain circumstances. If the package builds and runs on most platforms, the
-exceptions should be noted with NOT_FOR_PLATFORM. If the package builds and
-runs on a small handful of platforms, set ONLY_FOR_PLATFORM instead. Both
-ONLY_FOR_PLATFORM and NOT_FOR_PLATFORM are OS triples (OS-version-platform)
-that can use glob-style wildcards.
+exceptions should be noted with BROKEN_ON_PLATFORM. If the package builds and
+runs on a small handful of platforms, set BROKEN_EXCEPT_ON_PLATFORM instead.
+Both BROKEN_ON_PLATFORM and BROKEN_EXCEPT_ON_PLATFORM are OS triples
+(OS-version-platform) that can use glob-style wildcards.
+
+If a package is not appropriate for some platforms (as oopposed to merely
+broken), a different set of variables should be used as this affects failure
+reporting and statistics. If the package is appropriate for most platforms, the
+exceptions should be noted with NOT_FOR_PLATFORM. If the package is appropriate
+for only a small handful of platforms (often exactly one), set
+ONLY_FOR_PLATFORM instead. Both ONLY_FOR_PLATFORM and NOT_FOR_PLATFORM are OS
+triples (OS-version-platform) that can use glob-style wildcards.
 
 Some packages are tightly bound to a specific version of an operating system,
 e.g. LKMs or sysutils/lsof. Such binary packages are not backwards compatible
@@ -7169,6 +6839,48 @@ DIST_SUBDIR path in the filenames. Also, increase the PKGREVISION if the
 installed package is different. Furthermore, a mail to the package's authors
 seems appropriate telling them that changing distfiles after releases without
 changing the file names is not good practice.
+
+19.2.3. Packages hosted on github.com
+
+Helper methods exist for packages hosted on github.com which will often have
+distfile names that clash with other packages, for example 1.0.tar.gz. Use one
+of the three recipes from below:
+
+19.2.3.1. Fetch based on a tagged release
+
+If your distfile URL looks similar to http://github.com/username/exampleproject
+/archive/v1.0.zip, then you are packaging a tagged release.
+
+DISTNAME=       exampleproject-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     v${PKGVERSION_NOREV}
+EXTRACT_SUFX=   .zip
+
+19.2.3.2. Fetch based on a specific commit
+
+If your distfile URL looks similar to http://github.com/example/example/archive
+/988881adc9fc3655077dc2d4d757d480b5ea0e11.tar.gz, then you are packaging a
+specific commit not tied to a release.
+
+DISTNAME=       example-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:example/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     988881adc9fc3655077dc2d4d757d480b5ea0e11
+
+
+19.2.3.3. Fetch based on release
+
+If your distfile URL looks similar to http://github.com/username/exampleproject
+/releases/download/rel-1.6/offensive-1.6.zip, then you are packaging a release.
+
+DISTNAME=       offensive-1.6
+PKGNAME=        ${DISTNAME:S/offensive/proper/}
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+GITHUB_PROJECT= exampleproject
+GITHUB_RELEASE= rel-${PKGVERSION_NOREV} # usually just set this to ${DISTNAME}
+EXTRACT_SUFX=   .zip
+
 
 19.3. Fixing problems in the configure phase
 
@@ -7386,8 +7098,8 @@ variables:
 If your package contains interpreted perl scripts, add "perl" to the USE_TOOLS
 variable and set REPLACE_PERL to ensure that the proper interpreter path is
 set. REPLACE_PERL should contain a list of scripts, relative to WRKSRC, that
-you want adjusted. Every occurrence of */bin/perl will be replaced with the
-full path to the perl executable.
+you want adjusted. Every occurrence of */bin/perl in a she-bang line will be
+replaced with the full path to the perl executable.
 
 If a particular version of perl is needed, set the PERL5_REQD variable to the
 version number. The default is "5.0".
@@ -7399,8 +7111,10 @@ handling perl modules.
 
 REPLACE_SH, REPLACE_BASH, REPLACE_CSH, and REPLACE_KSH can be used to replace
 shell hash bangs in files. Please use the appropriate one, prefering REPLACE_SH
-in case this shell is sufficient. When using REPLACE_BASH, don't forget to add
-bash to USE_TOOLS.
+in case this shell is sufficient. Each should contain a list of scripts,
+relative to WRKSRC, that you want adjusted. Every occurrence of the matching
+shell in a she-bang line will be replaced with the full path to the shell
+executable. When using REPLACE_BASH, don't forget to add bash to USE_TOOLS.
 
 19.4.5. Other programming languages
 
@@ -7455,6 +7169,7 @@ Haiku       __HAIKU__
 Interix     __INTERIX
 IRIX        __sgi (TODO: get a definite source for this)
 Linux       linux, __linux, __linux__
+Mac OS X    __APPLE__
 MirBSD      __MirBSD__ (__OpenBSD__ is also defined)
 Minix3      __minix
 NetBSD      __NetBSD__
@@ -7482,8 +7197,12 @@ being enabled. Common symptoms are gcc internal errors or never finishing
 compiling a file.
 
 Typically, a workaround involves testing the MACHINE_ARCH and compiler version,
-disabling optimisation for that combination of file, MACHINE_ARCH and compiler,
-and documenting it in pkgsrc/doc/HACKS. See that file for a number of examples.
+disabling optimisation for that combination of file, MACHINE_ARCH and compiler.
+
+This used to be a big problem in the past, but is rarely needed now as compiler
+technology has matured. If you still need to add a compiler specific
+workaround, please do so in the file hacks.mk and describe the symptom and
+compiler version as detailed as possible.
 
 19.5.3. Undefined reference to "..."
 
@@ -7736,7 +7455,7 @@ take some extra steps to make sure they get registered in the database:
     manually patch the package.
 
  3. Check the PLIST and remove any entries under the etc/gconf directory, as
-    they will be handled automatically. See Section 9.14, "How do I change the
+    they will be handled automatically. See Section 9.13, "How do I change the
     location of configuration files?" for more information.
 
  4. Define the GCONF_SCHEMAS variable in your Makefile with a list of all
@@ -8046,8 +7765,8 @@ Our policy is that we accept binaries only from pkgsrc developers to guarantee
 that the packages don't contain any trojan horses etc. This is not to annoy
 anyone but rather to protect our users! You're still free to put up your
 home-made binary packages and tell the world where to get them. NetBSD
-developers doing bulk builds and wanting to upload them please see
-Section 7.3.8, "Uploading results of a bulk build".
+developers doing bulk builds and wanting to upload them please see Chapter 7, 
+Creating binary packages for everything in pkgsrc (bulk builds).
 
 21.2. Submitting source packages (for non-NetBSD-developers)
 
@@ -8122,8 +7841,7 @@ $ cd ..
 $ vi Makefile # add SUBDIRS+=pkgname line
 $ cvs commit Makefile
 $ cd pkgname
-$ make CTYPE=Added changes-entry
-$ make commit-changes-entry
+$ make CTYPE=Added commit-changes-entry
 
 The commit message of the initial import should include part of the DESCR file,
 so people reading the mailing lists know what the package is/does.
@@ -8344,8 +8062,8 @@ pkgsrc-users mailing list.
           and a list of cleanups and enhancements for pkgsrc that would be nice
           to have.
 
-        * Review packages for which review was requested on the pkgsrc-wip
-          review mailing list.
+        * Review packages for which review was requested on the tech-pkg
+          mailing list.
 
 Chapter 23. GNOME packaging and porting
 
@@ -8972,23 +8690,6 @@ mk/platform/MyOS.mk
 
     This file contains the platform-specific definitions that are used by
     pkgsrc. Start by copying one of the other files and edit it to your needs.
-
-mk/platform/MyOS.pkg.dist
-
-    This file contains a list of directories, together with their permission
-    bits and ownership. These directories will be created automatically with
-    every package that explicitly sets USE_MTREE. This feature will be removed.
-
-mk/platform/MyOS.x11.dist
-
-    Just copy one of the pre-existing x11.dist files to your MyOS.x11.dist.
-
-mk/tools/bootstrap.mk
-
-    On some operating systems, the tools that are provided with the base system
-    are not good enough for pkgsrc. For example, there are many versions of sed
-    (1) that have a narrow limit on the line length they can process. Therefore
-    pkgsrc brings its own tools, which can be enabled here.
 
 mk/tools/tools.MyOS.mk
 

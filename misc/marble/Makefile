@@ -1,13 +1,15 @@
-# $NetBSD: Makefile,v 1.22 2014/02/12 23:18:15 tron Exp $
+# $NetBSD: Makefile,v 1.30 2015/03/01 06:24:13 markd Exp $
 
 DISTNAME=	marble-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	misc
 COMMENT=	KDE desktop globe
 
-MAKE_JOBS_SAFE=	NO
+# .../src/apps/marble-kde/marble_part.cpp:106:10: fatal error: 'settings.h' file not found
+MAKE_JOBS_SAFE=no
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
+
+CMAKE_ARGS+=	-DWITH_libgps:BOOL=OFF
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 

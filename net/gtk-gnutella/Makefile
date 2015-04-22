@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.86 2013/10/10 14:42:27 ryoon Exp $
+# $NetBSD: Makefile,v 1.88 2014/08/21 09:48:30 jperkin Exp $
 
 DISTNAME=	gtk-gnutella-0.96.6
-PKGREVISION=	21
+PKGREVISION=	22
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gtk-gnutella/}
 EXTRACT_SUFX=	.tar.bz2
@@ -20,6 +20,8 @@ CONFIGURE_ARGS+=	--localedir="${PREFIX}/${PKGLOCALEDIR}/locale"
 CONFIGURE_ARGS+=	--cc=${CC:Q}
 CONFIGURE_ARGS+=	--cflags=${CFLAGS:Unone:Q}
 CONFIGURE_ARGS+=	--yacc="yacc"
+
+LDFLAGS.SunOS+=	-lsocket -lnsl -liconv
 
 .include "options.mk"
 

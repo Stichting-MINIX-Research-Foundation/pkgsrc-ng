@@ -1,8 +1,8 @@
-$NetBSD: patch-kldap_ber.cpp,v 1.2 2012/11/11 22:28:29 joerg Exp $
+$NetBSD: patch-kldap_ber.cpp,v 1.4 2014/11/14 22:23:40 joerg Exp $
 
 Fix building with Clang.
 
---- kldap/ber.cpp.orig	2012-11-08 10:20:25.000000000 +0000
+--- kldap/ber.cpp.orig	2014-11-14 14:44:22.000000000 +0000
 +++ kldap/ber.cpp
 @@ -124,7 +124,7 @@ QByteArray Ber::flatten() const
    return ret;

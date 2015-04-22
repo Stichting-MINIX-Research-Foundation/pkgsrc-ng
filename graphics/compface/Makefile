@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.20 2013/05/31 12:41:05 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2015/03/06 17:58:24 tnn Exp $
 
 DISTNAME=	compface-1.5.2
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	graphics
-MASTER_SITES=	http://ftp.xemacs.org/pub/xemacs/aux/
+MASTER_SITES=	${MASTER_SITE_XEMACS:=aux/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://freshmeat.net/projects/compface/

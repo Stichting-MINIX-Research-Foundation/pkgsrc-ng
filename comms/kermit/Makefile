@@ -1,15 +1,18 @@
-# $NetBSD: Makefile,v 1.84 2014/02/12 23:17:38 tron Exp $
+# $NetBSD: Makefile,v 1.87 2015/01/17 15:30:03 bsiegert Exp $
 
 DISTNAME=	cku302
 PKGNAME=	kermit-9.0.302
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	comms
 MASTER_SITES=	ftp://ftp.kermitproject.org/kermit/archives/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.kermitproject.org
+HOMEPAGE=	http://www.kermitproject.org/
 COMMENT=	Network and serial communication, file transfer, and scripting utility
-LICENSE=	kermit-license
+
+# UNIX C-Kermit 9.0 has been released with the Revised 3-Clause BSD License.
+# http://www.columbia.edu/kermit/licensing.html
+LICENSE= modified-bsd
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -33,8 +36,7 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/wermit ${DESTDIR}${PREFIX}/bin/kermit
 	${INSTALL_DATA} ${WRKSRC}/*.txt ${DESTDIR}${PREFIX}/share/doc/kermit
 	${INSTALL_MAN} ${WRKSRC}/ckuker.nr \
-		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/kermit.1; \
-
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/kermit.1
 
 .include "../../mk/curses.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"

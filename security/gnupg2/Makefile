@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.51 2014/02/12 23:18:32 tron Exp $
+# $NetBSD: Makefile,v 1.58 2015/02/21 09:08:53 wiz Exp $
 
-DISTNAME=	gnupg-2.0.22
+DISTNAME=	gnupg-2.0.27
 PKGNAME=	${DISTNAME:S/gnupg/gnupg2/}
-PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/gnupg/
 EXTRACT_SUFX=	.tar.bz2
@@ -12,8 +11,6 @@ HOMEPAGE=	http://www.gnupg.org/
 COMMENT=	GNUpg with OpenPGP and S/MIME capabilities
 LICENSE=	gnu-gpl-v3
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 INFO_FILES=		yes
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
@@ -21,7 +18,6 @@ USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sharedstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--without-included-gettext
 CONFIGURE_ARGS+=	--with-pinentry-pgm=${BUILDLINK_PREFIX.pinentry}/bin/pinentry
 
 # Sometimes wrong include file gets detected, e.g. for Clang

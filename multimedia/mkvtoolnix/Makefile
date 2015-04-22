@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2014/03/15 05:30:09 obache Exp $
+# $NetBSD: Makefile,v 1.73 2015/03/02 19:59:07 joerg Exp $
 
 DISTNAME=	mkvtoolnix-5.0.1
-PKGREVISION=	20
+PKGREVISION=	24
 CATEGORIES=	multimedia
 MASTER_SITES=	http://www.bunkus.org/videotools/mkvtoolnix/sources/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,11 +20,16 @@ CONFIGURE_ARGS+=	--with-boost_regex=boost_regex
 CONFIGURE_ARGS+=	--with-boost-system=boost_system
 CONFIGURE_ARGS+=	--with-boost-filesystem=boost_filesystem
 
+REPLACE_LOCALEDIR_PATTERNS=	build-config.in
+
 LDFLAGS.DragonFly=	-lboost_system
+LDFLAGS.SunOS+=		-lintl
 
 INSTALL_ENV+=	SHELL=${SH:Q}
 
 .include "../../mk/bsd.prefs.mk"
+
+CXXFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
 
 .if !empty(MAKE_JOBS)
 DRAKE_ARGS=	-j${MAKE_JOBS}

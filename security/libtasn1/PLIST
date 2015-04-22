@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.14 2013/07/04 17:06:30 wiz Exp $
+@comment $NetBSD: PLIST,v 1.17 2015/03/29 13:10:49 wiz Exp $
 bin/asn1Coding
 bin/asn1Decoding
 bin/asn1Parser
@@ -14,13 +14,17 @@ man/man3/asn1_bit_der.3
 man/man3/asn1_check_version.3
 man/man3/asn1_copy_node.3
 man/man3/asn1_create_element.3
+man/man3/asn1_decode_simple_ber.3
 man/man3/asn1_decode_simple_der.3
 man/man3/asn1_delete_element.3
 man/man3/asn1_delete_structure.3
+man/man3/asn1_delete_structure2.3
 man/man3/asn1_der_coding.3
 man/man3/asn1_der_decoding.3
+man/man3/asn1_der_decoding2.3
 man/man3/asn1_der_decoding_element.3
 man/man3/asn1_der_decoding_startEnd.3
+man/man3/asn1_dup_node.3
 man/man3/asn1_encode_simple_der.3
 man/man3/asn1_expand_any_defined_by.3
 man/man3/asn1_expand_octet_string.3

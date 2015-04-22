@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/03/07 00:30:11 agc Exp $
+# $NetBSD: Makefile,v 1.30 2015/03/23 09:27:57 nros Exp $
 
-DISTNAME=		libvirt-1.2.2
+DISTNAME=		libvirt-1.2.9
+PKGREVISION=		3
 CATEGORIES=		sysutils
 MASTER_SITES=		http://libvirt.org/sources/
 
@@ -17,7 +18,7 @@ USE_LIBTOOL=		yes
 
 BUILD_DEFS+=		VARBASE
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
 
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	docs/apibuild.py
@@ -38,11 +39,16 @@ CONF_FILES+=		${EGDIR}/sasl2/libvirt.conf ${PKG_SYSCONFDIR}/sasl2/libvirt.conf
 AUTO_MKDIRS=		yes
 RCD_SCRIPTS=            libvirtd
 
+.include "options.mk"
+
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../devel/yajl/buildlink3.mk"
 .include "../../mk/readline.buildlink3.mk"
+.include "../../net/libpcap/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../security/cyrus-sasl/buildlink3.mk"
 .include "../../security/libgcrypt/buildlink3.mk"

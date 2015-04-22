@@ -1,4 +1,4 @@
-# $NetBSD: bsd.pkginstall.mk,v 1.58 2014/03/11 13:45:07 jperkin Exp $
+# $NetBSD: bsd.pkginstall.mk,v 1.62 2015/02/24 09:46:09 wiz Exp $
 #
 # This Makefile fragment is included by bsd.pkg.mk and implements the
 # common INSTALL/DEINSTALL scripts framework.  To use the pkginstall
@@ -7,20 +7,18 @@
 #
 # User-settable variables:
 #
-# PKGINSTALL_VERBOSE
-#	A list of scriptlets that will be verbose and output a message
-#	noting the actions taken.
+# FONTS_VERBOSE indicates whether the +FONTS scriptlet will output a message
+#	noting the actions taken if PKG_UPDATE_FONTS_DB is YES.  It is either
+#	YES or NO and defaults to YES for PKG_DEVELOPERs, otherwise NO.
 #
-#	* "all" is a special value that implies all of the other items
-#	* "fonts" for +FONTS
-#	* "info-files" for +INFO_FILES
+# INFO_FILES_VERBOSE indicates whether the +INFO_FILES scriptlet will output
+#	a message noting the actions taken.  It is either YES or NO and
+#	defaults to  YES for PKG_DEVELOPERs, otherwise NO.
 #
-#	Default value: "all" for PKG_DEVELOPERs, empty otherwise.
-#
-
 _VARGROUPS+=		pkginstall
 _USER_VARS.pkginstall= \
-	PKGINSTALL_VERBOSE \
+	FONTS_VERBOSE \
+	INFO_FILES_VERBOSE \
 	PKG_CREATE_USERGROUP \
 	PKG_CONFIG PKG_CONFIG_PERMS \
 	PKG_RCD_SCRIPTS \
@@ -88,7 +86,6 @@ HEADER_TEMPLATES?=	# empty
     empty(HEADER_TEMPLATES:M${PKGDIR}/HEADER)
 HEADER_TEMPLATES+=	${PKGDIR}/HEADER
 .endif
-_DEINSTALL_PRE_TMPL?=	${.CURDIR}/../../mk/pkginstall/deinstall-pre
 DEINSTALL_TEMPLATES?=	# empty
 .if exists(${PKGDIR}/DEINSTALL) && \
     empty(DEINSTALL_TEMPLATES:M${PKGDIR}/DEINSTALL)
@@ -102,7 +99,6 @@ INSTALL_TEMPLATES?=	# empty
     empty(INSTALL_TEMPLATES:M${PKGDIR}/INSTALL)
 INSTALL_TEMPLATES+=	${PKGDIR}/INSTALL
 .endif
-_INSTALL_POST_TMPL?=	${.CURDIR}/../../mk/pkginstall/install-post
 _INSTALL_DATA_TMPL?=	# empty
 _FOOTER_TMPL?=		${.CURDIR}/../../mk/pkginstall/footer
 
@@ -114,7 +110,6 @@ _FOOTER_TMPL?=		${.CURDIR}/../../mk/pkginstall/footer
 #	template files minus any user-supplied templates.
 #
 _DEINSTALL_TEMPLATES=	${_HEADER_TMPL} ${HEADER_TEMPLATES}		\
-			${_DEINSTALL_PRE_TMPL}				\
 			${DEINSTALL_TEMPLATES}				\
 			${_DEINSTALL_TMPL}				\
 			${_FOOTER_TMPL}
@@ -122,17 +117,14 @@ _INSTALL_TEMPLATES=	${_HEADER_TMPL} ${HEADER_TEMPLATES}		\
 			${_INSTALL_UNPACK_TMPL}				\
 			${_INSTALL_TMPL}				\
 			${INSTALL_TEMPLATES}				\
-			${_INSTALL_POST_TMPL}				\
 			${_FOOTER_TMPL}					\
 			${_INSTALL_DATA_TMPL}				\
 
 _DEINSTALL_TEMPLATES_DFLT=	${_HEADER_TMPL}				\
-				${_DEINSTALL_PRE_TMPL}			\
 				${_DEINSTALL_TMPL}			\
 				${_FOOTER_TMPL}
 _INSTALL_TEMPLATES_DFLT=	${_HEADER_TMPL}				\
 				${_INSTALL_TMPL}			\
-				${_INSTALL_POST_TMPL}			\
 				${_FOOTER_TMPL}
 
 # These are the list of source files that are concatenated to form the
@@ -147,15 +139,12 @@ INSTALL_SRC?=		${_INSTALL_TEMPLATES}
 FILES_SUBST+=		PREFIX=${PREFIX:Q}
 FILES_SUBST+=		LOCALBASE=${LOCALBASE:Q}
 FILES_SUBST+=		X11BASE=${X11BASE:Q}
-FILES_SUBST+=		DEPOTBASE=${DEPOTBASE:Q}
 FILES_SUBST+=		VARBASE=${VARBASE:Q}
 FILES_SUBST+=		PKG_SYSCONFBASE=${PKG_SYSCONFBASE:Q}
-FILES_SUBST+=		PKG_SYSCONFDEPOTBASE=${PKG_SYSCONFDEPOTBASE:Q}
 FILES_SUBST+=		PKG_SYSCONFBASEDIR=${PKG_SYSCONFBASEDIR:Q}
 FILES_SUBST+=		PKG_SYSCONFDIR=${PKG_SYSCONFDIR:Q}
 FILES_SUBST+=		CONF_DEPENDS=${CONF_DEPENDS:C/:.*//:Q}
 FILES_SUBST+=		PKGBASE=${PKGBASE:Q}
-FILES_SUBST+=		PKG_INSTALLATION_TYPE=${PKG_INSTALLATION_TYPE:Q}
 
 # PKG_USERS represents the users to create for the package.  It is a
 #	space-separated list of elements of the form
@@ -992,6 +981,13 @@ ${_INSTALL_FONTS_FILE}: ../../mk/pkginstall/fonts
 # These values merely set the defaults for INSTALL/DEINSTALL scripts, but
 # they may be overridden by resetting them in the environment.
 #
+.if ${PKG_DEVELOPER:Uno} != "no"
+FONTS_VERBOSE?=		YES
+INFO_FILES_VERBOSE?=	YES
+.else
+FONTS_VERBOSE?=		NO
+INFO_FILES_VERBOSE?=	NO
+.endif
 PKG_CREATE_USERGROUP?=	YES
 PKG_CONFIG?=		YES
 PKG_CONFIG_PERMS?=	NO
@@ -1004,22 +1000,8 @@ FILES_SUBST+=		PKG_CONFIG_PERMS=${PKG_CONFIG_PERMS:Q}
 FILES_SUBST+=		PKG_RCD_SCRIPTS=${PKG_RCD_SCRIPTS:Q}
 FILES_SUBST+=		PKG_REGISTER_SHELLS=${PKG_REGISTER_SHELLS:Q}
 FILES_SUBST+=		PKG_UPDATE_FONTS_DB=${PKG_UPDATE_FONTS_DB:Q}
-
-.if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no"
-PKGINSTALL_VERBOSE?=	all
-.else
-PKGINSTALL_VERBOSE?=	# empty
-.endif
-.if !empty(PKGINSTALL_VERBOSE:Mall) || !empty(PKGINSTALL_VERBOSE:Mfonts)
-FILES_SUBST+=		FONTS_VERBOSE=yes
-.else
-FILES_SUBST+=		FONTS_VERBOSE=no
-.endif
-.if !empty(PKGINSTALL_VERBOSE:Mall) || !empty(PKGINSTALL_VERBOSE:Minfo-files)
-FILES_SUBST+=		INFO_FILES_VERBOSE=yes
-.else
-FILES_SUBST+=		INFO_FILES_VERBOSE=no
-.endif
+FILES_SUBST+=		FONTS_VERBOSE=${FONTS_VERBOSE:Q}
+FILES_SUBST+=		INFO_FILES_VERBOSE=${INFO_FILES_VERBOSE:Q}
 
 # Substitute for various programs used in the DEINSTALL/INSTALL scripts and
 # in the rc.d scripts.
@@ -1160,7 +1142,7 @@ post-install-script:
 
 # rc.d scripts are automatically generated and installed into the rc.d
 # scripts example directory at the post-install step.  The following
-# variables are relevent to this process:
+# variables are relevant to this process:
 #
 # RCD_SCRIPTS			lists the basenames of the rc.d scripts
 #

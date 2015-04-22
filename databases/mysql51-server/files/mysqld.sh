@@ -1,6 +1,6 @@
 #!@RCD_SCRIPTS_SHELL@
 #
-# $NetBSD: mysqld.sh,v 1.1.1.1 2010/03/04 16:28:58 taca Exp $
+# $NetBSD: mysqld.sh,v 1.3 2014/12/05 17:22:15 schmonz Exp $
 #
 # PROVIDE: mysqld
 # REQUIRE: DAEMON LOGIN mountall
@@ -14,7 +14,7 @@
 #
 #       mysqld_user="mysql"		# user to run mysqld as
 #       mysqld_datadir="/path/to/home"	# path to MySQL database directory
-#
+#	mysqld_pidfile="/path/to/p.pid"	# path to MySQL PID file
 
 if [ -f /etc/rc.subr ]; then
 	. /etc/rc.subr
@@ -27,6 +27,7 @@ procname="@PREFIX@/libexec/${name}"
 : ${mysqld_user:=@MYSQL_USER@}
 : ${mysqld_group:=@MYSQL_GROUP@}
 : ${mysqld_datadir:=@MYSQL_DATADIR@}
+: ${mysqld_pidfile:=@MYSQL_PIDFILE@}
 
 extra_commands="initdb"
 initdb_cmd="mysqld_initdb"
@@ -81,19 +82,21 @@ mysqld_start()
 	ulimit -n 4096
 	cd @PREFIX@
 	${command} --user=${mysqld_user} --datadir=${mysqld_datadir} \
-		   --pid-file=${pidfile} ${mysqld_flags} \
-		   ${thread_flags} &
+		   --pid-file=${mysqld_pidfile} ${mysqld_flags} \
+		   ${thread_flags} \
+		   2>&1 | logger -t nbmysqld_safe \
+		   &
 }
 
 if [ -f /etc/rc.subr -a -d /etc/rc.d -a -f /etc/rc.d/DAEMON ]; then
 	load_rc_config $name
-	pidfile="${mysqld_datadir}/`@HOSTNAME_CMD@`.pid"
+	pidfile="${mysqld_pidfile}"
 	run_rc_command "$1"
 else
 	if [ -f /etc/rc.conf ]; then
 		. /etc/rc.conf
 	fi
-	pidfile="${mysqld_datadir}/`@HOSTNAME_CMD@`.pid"
+	pidfile="${mysqld_pidfile}"
 	case "$1" in
 	initdb)
 		eval ${initdb_cmd}

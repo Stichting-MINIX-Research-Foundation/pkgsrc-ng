@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.33 2013/07/28 20:46:18 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2015/02/22 23:04:13 gdt Exp $
 
-DISTNAME=	guile-www-2.37
+DISTNAME=	guile-www-2.39
 CATEGORIES=	devel www
 MASTER_SITES=	http://download.savannah.nongnu.org/releases/guile-www/
 EXTRACT_SUFX=	.tar.xz

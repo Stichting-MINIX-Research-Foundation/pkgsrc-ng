@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.52 2014/02/12 23:18:18 tron Exp $
+# $NetBSD: Makefile,v 1.56 2014/10/07 16:47:32 adam Exp $
 
 DISTNAME=		avahi-0.6.31
-PKGREVISION=		18
+PKGREVISION=		21
 CATEGORIES=		net
 MASTER_SITES=		http://avahi.org/download/
 
@@ -51,6 +51,8 @@ CFLAGS+=		-D_NETBSD_SOURCE
 .endif
 
 CPPFLAGS.SunOS+=	--std=c99 -D_XOPEN_SOURCE=600
+# Not yet reported upstream.
+CPPFLAGS.Darwin+=	-D__APPLE_USE_RFC_3542
 
 PLIST_SRC+=		${PKGDIR}/PLIST.shared
 

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.53 2014/02/12 23:18:10 tron Exp $
-#
+# $NetBSD: Makefile,v 1.57 2015/01/22 12:04:36 bouyer Exp $
 
-DISTNAME=	sympa-6.1.11
-PKGREVISION=	6
+DISTNAME=	sympa-6.1.24
+#PKGREVISION=	8
 CATEGORIES=	mail
 MASTER_SITES=	http://www.sympa.org/distribution/ \
 		http://www.sympa.org/distribution/old/
@@ -17,7 +16,7 @@ PKG_DESTDIR_SUPPORT=	destdir
 DEPENDS+=	mhonarc-[0-9]*:../../mail/mhonarc
 DEPENDS+=	p5-Archive-Zip>=1.05:../../archivers/p5-Archive-Zip
 DEPENDS+=	p5-AuthCAS>=1.5:../../security/p5-AuthCAS
-DEPENDS+=	{perl>=5.10,p5-CGI>=2.52}:../../www/p5-CGI
+DEPENDS+=	p5-CGI>=2.52:../../www/p5-CGI
 DEPENDS+=	p5-Crypt-CipherSaber>=0.50:../../security/p5-Crypt-CipherSaber
 DEPENDS+=	p5-DBD-Sybase>=0.90:../../databases/p5-DBD-Sybase
 DEPENDS+=	p5-DBI>=1.06:../../databases/p5-DBI
@@ -137,11 +136,10 @@ OWN_DIRS_PERMS+=	${SYMPA_SPOOL}/outgoing ${SYMPA_USER} ${SYMPA_GROUP} 770
 OWN_DIRS_PERMS+=	${SYMPA_SPOOL}/task ${SYMPA_USER} ${SYMPA_GROUP} 770
 OWN_DIRS_PERMS+=	${SYMPA_SPOOL}/tmp ${SYMPA_USER} ${SYMPA_GROUP} 770
 
-SPECIAL_PERMS+=	 ${SYMPA_BIN}/aliaswrapper ${ROOT_USER} ${SYMPA_GROUP} 4550
+SPECIAL_PERMS+=  ${SYMPA_BIN}/sympa_newaliases-wrapper ${ROOT_USER} ${SYMPA_GROUP} 4550
 SPECIAL_PERMS+=	 ${SYMPA_BIN}/bouncequeue ${SYMPA_USER} ${SYMPA_GROUP} 4555
 SPECIAL_PERMS+=	 ${SYMPA_BIN}/familyqueue ${SYMPA_USER} ${SYMPA_GROUP} 4555
 SPECIAL_PERMS+=	 ${SYMPA_BIN}/queue ${SYMPA_USER} ${SYMPA_GROUP} 4555
-SPECIAL_PERMS+=	 ${SYMPA_BIN}/virtualwrapper ${ROOT_USER} ${SYMPA_GROUP} 4550
 SPECIAL_PERMS+=	 ${SYMPA_PREFIX}/libexec/cgi-bin/wwsympa-wrapper.fcgi \
 			 ${SYMPA_USER} ${SYMPA_GROUP} 6555
 SPECIAL_PERMS+=	 ${SYMPA_PREFIX}/libexec/cgi-bin/sympa_soap_server-wrapper.fcgi \
@@ -181,11 +179,9 @@ post-install:
 	${CHMOD} a-w \
 	    ${DESTDIR}${SYMPA_PREFIX}/libexec/cgi-bin/wwsympa-wrapper.fcgi \
 	    ${DESTDIR}${SYMPA_PREFIX}/libexec/cgi-bin/sympa_soap_server-wrapper.fcgi \
-	    ${DESTDIR}${SYMPA_BIN}/aliaswrapper \
 	    ${DESTDIR}${SYMPA_BIN}/bouncequeue \
 	    ${DESTDIR}${SYMPA_BIN}/familyqueue \
-	    ${DESTDIR}${SYMPA_BIN}/queue \
-	    ${DESTDIR}${SYMPA_BIN}/virtualwrapper
+	    ${DESTDIR}${SYMPA_BIN}/queue
 
 .include "../../lang/perl5/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

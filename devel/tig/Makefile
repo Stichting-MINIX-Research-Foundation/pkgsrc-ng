@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2013/09/09 14:07:59 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/06/12 04:15:48 pho Exp $
 
-DISTNAME=	tig-1.2
-PKGREVISION=	1
+DISTNAME=	tig-1.2.1
 CATEGORIES=	devel scm
 MASTER_SITES=	http://jonas.nitro.dk/tig/releases/
 
@@ -12,7 +11,7 @@ LICENSE=	gnu-gpl-v2
 
 BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
-DEPENDS+=	git-[0-9]*:../../devel/git
+DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake
@@ -26,6 +25,16 @@ CONFIGURE_ENV+=	GIT_CONFIG=${GIT_CONFIG:Q}
 
 CONFIGURE_ARGS+=		${CONFIGURE_ARGS.${ICONV_TYPE}-iconv}
 CONFIGURE_ARGS.gnu-iconv=	--with-libiconv=${BUILDLINK_PREFIX.iconv}
+
+.include "../../mk/bsd.prefs.mk"
+.if !empty(GLIBC_VERSION)
+# Some version of glibc requires _XOPEN_SOURCE being defined to
+# provide S_IFMT in <sys/stat.h>
+CFLAGS+=	-D_XOPEN_SOURCE
+# It is also required to define _BSD_SOURCE to get struct timezone
+# defined in <sys/time.h>
+CFLAGS+=	-D_BSD_SOURCE
+.endif
 
 BUILD_TARGET=	all doc
 INSTALL_TARGET=	install install-doc

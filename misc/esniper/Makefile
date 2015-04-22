@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2014/02/12 23:18:12 tron Exp $
+# $NetBSD: Makefile,v 1.27 2015/03/26 10:08:15 jperkin Exp $
 #
 
-DISTNAME=		esniper-2-23-0
-PKGNAME=		esniper-2.23.0
-PKGREVISION=		4
+DISTNAME=		esniper-2-31-0
+PKGNAME=		esniper-2.31.0
 CATEGORIES=		misc
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=esniper/}
 EXTRACT_SUFX=		.tgz
@@ -12,8 +11,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://esniper.sourceforge.net/
 COMMENT=		Simple, lightweight tool for sniping ebay auctions
 LICENSE=		2-clause-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		yes
 

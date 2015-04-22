@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.54 2013/10/05 07:40:59 adam Exp $
+# $NetBSD: Makefile,v 1.57 2014/12/01 12:43:43 wiz Exp $
 
 DISTNAME=	p7zip_9.20.1_src_all
 PKGNAME=	p7zip-9.20.1
@@ -7,12 +7,10 @@ CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=p7zip/}
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	wiz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://p7zip.sourceforge.net/
 COMMENT=	File archiver with high compression
 LICENSE=	gnu-lgpl-v2.1 AND unrar-license
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		gmake
@@ -48,6 +46,9 @@ SUBST_CLASSES+=		lib
 SUBST_FILES.lib+=	CPP/7zip/UI/Common/LoadCodecs.cpp
 SUBST_SED.lib+=		-e "s,getenv(.P7ZIP_HOME_DIR.),\"${PREFIX}/lib/\","
 SUBST_STAGE.lib=	post-patch
+
+.include "../../mk/dlopen.buildlink3.mk"
+BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:M*}
 
 .include "../../mk/endian.mk"
 

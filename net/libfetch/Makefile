@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.51 2014/02/12 23:18:22 tron Exp $
+# $NetBSD: Makefile,v 1.54 2014/08/28 10:46:24 jperkin Exp $
 #
 
 DISTNAME=	libfetch-2.36
@@ -30,6 +30,7 @@ INSTALL_TARGET=	install includes
 
 do-extract:
 	${CP} -r ${FILESDIR} ${WRKSRC}
+	${TOUCH} ${WRKSRC}/fetch.cat3
 
 .include "options.mk"
 

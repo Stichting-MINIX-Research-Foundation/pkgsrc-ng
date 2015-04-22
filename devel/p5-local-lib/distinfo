@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.15 2014/02/16 17:56:44 sno Exp $
+$NetBSD: distinfo,v 1.17 2015/02/18 13:04:54 mef Exp $
 
-SHA1 (local-lib-2.000004.tar.gz) = 60d20361a4bf50d7fc73928c7685d5112f8c45d9
-RMD160 (local-lib-2.000004.tar.gz) = bd1bcf07906660eadf157a3fbcc07aaa01beb841
-Size (local-lib-2.000004.tar.gz) = 47624 bytes
+SHA1 (local-lib-2.000015.tar.gz) = de3489943e2d8f51bd1fd5a0866f21bf56ba454f
+RMD160 (local-lib-2.000015.tar.gz) = ebbeb468b5121be0dbe3ea8b8b3c97120f67c065
+Size (local-lib-2.000015.tar.gz) = 51781 bytes

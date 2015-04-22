@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2013/07/12 10:45:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.56 2015/01/27 20:32:26 drochner Exp $
 #
 
 DISTNAME=	${PKGNAME_NOREV}-stable-src
-PKGNAME=	privoxy-3.0.19
-PKGREVISION=	4
+PKGNAME=	privoxy-3.0.23
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ijbswa/}
 
@@ -46,6 +45,7 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE:Q}
 CONFIGURE_ARGS+=	--sysconfdir=${EGDIR:Q}
 CONFIGURE_ARGS+=	--with-user=${PRIVOXY_USER:Q}
 CONFIGURE_ARGS+=	--with-group=${PRIVOXY_GROUP:Q}
+CONFIGURE_ARGS+=	--enable-compression
 
 USER_GROUP=		${PRIVOXY_USER} ${PRIVOXY_GROUP}
 

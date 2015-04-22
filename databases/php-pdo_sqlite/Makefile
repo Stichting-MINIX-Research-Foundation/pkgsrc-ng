@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2012/10/02 21:25:39 asau Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/20 16:33:28 taca Exp $
 
 MODNAME=		pdo_sqlite
 CATEGORIES+=		databases

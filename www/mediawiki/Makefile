@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2014/03/13 07:30:34 wen Exp $
+# $NetBSD: Makefile,v 1.50 2014/12/20 02:26:59 wen Exp $
 
 DISTNAME=	mediawiki-${VER}.${PVER}
 CATEGORIES=	www
@@ -21,9 +21,8 @@ INSTALLATION_DIRS=	${EGDIR} share/mediawiki
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-VER=			1.22
-PVER=			4
+VER=			1.24
+PVER=			1
 
 APACHE_USER?=		www
 APACHE_GROUP?=		www
@@ -57,6 +56,9 @@ SUBST_CLASSES+=		sh2
 SUBST_STAGE.sh2=	post-patch
 SUBST_MESSAGE.sh2=	Fixing path to sh
 SUBST_FILES.sh2+=	maintenance/mwjsduck-gen
+SUBST_FILES.sh2+=	docs/kss/scripts/kss-node-check.sh
+SUBST_FILES.sh2+=	maintenance/resources/update-oojs-ui.sh
+SUBST_FILES.sh2+=	maintenance/resources/update-oojs.sh
 SUBST_SED.sh2=		-e "s|/usr/bin/env bash|${SH}|"
 
 SUBST_CLASSES+=		perl
@@ -70,7 +72,6 @@ SUBST_CLASSES+=		python
 SUBST_STAGE.python=	post-patch
 SUBST_MESSAGE.python=	Fixing python path
 SUBST_FILES.python+=	extensions/ConfirmEdit/captcha.py
-SUBST_FILES.python+=	maintenance/cssjanus/cssjanus.py maintenance/cssjanus/csslex.py
 SUBST_SED.python=	-e "s,/usr/bin/python,${PYTHONBIN},"
 
 SUBST_CLASSES+=		python2
@@ -83,6 +84,7 @@ SUBST_CLASSES+=		php
 SUBST_MESSAGE.php=	Fixing the path of php.
 SUBST_STAGE.php=	post-patch
 SUBST_FILES.php+=	includes/normal/UtfNormalTest2.php
+SUBST_FILES.php+=	maintenance/update.php
 SUBST_SED.php=          -e "s,/usr/bin/env php,${PREFIX}/bin/php,g"
 
 post-extract:

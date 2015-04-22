@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.72 2014/02/12 23:18:03 tron Exp $
+# $NetBSD: Makefile,v 1.77 2014/10/07 16:47:27 adam Exp $
 
-DISTNAME=	pstoedit-3.60
-PKGREVISION=	13
+DISTNAME=	pstoedit-3.62
+PKGREVISION=	2
 CATEGORIES=	converters graphics print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pstoedit/}
 
@@ -44,6 +44,7 @@ post-install:
 	done
 	${INSTALL_DATA} ${DOCSRC}/readme.txt	${DESTDIR}${DOCDIR}
 
+.include "../../archivers/libzip/buildlink3.mk"
 .include "../../graphics/gd/buildlink3.mk"
 .include "../../graphics/ImageMagick/buildlink3.mk"
 .include "../../graphics/plotutils/buildlink3.mk"

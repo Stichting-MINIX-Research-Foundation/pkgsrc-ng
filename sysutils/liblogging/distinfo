@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/01/16 16:35:37 fhajny Exp $
+
+SHA1 (liblogging-1.0.5.tar.gz) = e202bf9412747ecd384678e8b3024a4646d45c2f
+RMD160 (liblogging-1.0.5.tar.gz) = b9936e7cf4abde97d578db3b904539c117403212
+Size (liblogging-1.0.5.tar.gz) = 571051 bytes

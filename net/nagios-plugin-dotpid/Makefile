@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2014/02/05 09:31:47 manu Exp $
+# $NetBSD: Makefile,v 1.3 2015/03/22 19:44:28 rodent Exp $
 #
 
 PKGNAME=	nagios-plugin-dotpid-${DISTNAME:C/.*-//}
-DISTNAME=	check_dotpid-0.1
-PKGREVISION=	1
+DISTNAME=	check_dotpid-0.3
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.espci.fr/pub/nagios-local/
 EXTRACT_SUFX=	.tgz
@@ -12,8 +11,6 @@ MAINTAINER=	manu@NetBSD.org
 HOMEPAGE=	http://ftp.espci.fr/pub/nagios-local/
 COMMENT=	/var/run/*.pid monitoring plugin for Nagios
 LICENSE=	modified-bsd
-
-PKG_DESTDIR_SUPPORT=	user-destdir
 
 INSTALLATION_DIRS+= libexec/nagios
 

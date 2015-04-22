@@ -1,5 +1,5 @@
 #! @PERL@
-# $NetBSD: pkglint.t,v 1.9 2013/03/26 15:11:36 schmonz Exp $
+# $NetBSD: pkglint.t,v 1.13 2014/12/06 22:21:30 schmonz Exp $
 #
 
 require 'pkglint.pl';			# so we can test its internals
@@ -81,9 +81,9 @@ sub test_get_vartypes_basictypes {
 		Pathlist Pathmask Pathname
 		Perl5Packlist
 		PkgName PkgOptionsVar PkgPath PkgRevision
-		PlatformTriple PrefixPathname
+		PlatformTriple PrefixPathname PythonDependency
 		RelativePkgDir RelativePkgPath
-		Restricted SVR4PkgName
+		Restricted
 		SedCommand SedCommands
 		ShellCommand ShellWord
 		Stage String Tool URL Unchecked UserGroupName Varname Version
@@ -130,14 +130,14 @@ sub test_pkglint_main {
 	@ARGV = ('-h');
 	test_unit($unit, undef, 0, '^usage: pkglint ', '^$');
 
-	@ARGV = ();
-	test_unit($unit, undef, 1, '^ERROR:.+how to check', '^$');
+	@ARGV = ('..');
+	test_unit($unit, undef, 0, '^looks fine', '^$');
 
 	@ARGV = ('.');
 	test_unit($unit, undef, 1, '^ERROR:.+how to check', '^$');
 
-	@ARGV = ('..');
-	test_unit($unit, undef, 1, '^ERROR:.+LICENSE', '^$');
+	@ARGV = ();
+	test_unit($unit, undef, 1, '^ERROR:.+how to check', '^$');
 
 	@ARGV = ('/does/not/exist');
 	test_unit($unit, undef, 1, '^ERROR:.+not exist', '^$');
@@ -148,14 +148,11 @@ sub test_pkglint_main {
 
 sub test_lint_some_reference_packages {
 	my %reference_packages = (
-		'mail/qmail-run' => {
+		'devel/syncdir' => {
 			stdout_re => <<EOT,
-^WARN: .*distinfo: File not found\. Please run '.*make makesum'\.
-ERROR: .*Makefile: All packages must define their LICENSE\.
-WARN: .*Makefile:[0-9]+: Unknown dependency pattern \"qmail-qfilter-1\.5nb1\"\.
-WARN: .*Makefile:[0-9]+: The LOCALBASE variable should not be used by packages\.
-WARN: .*Makefile:[0-9]+: The LOCALBASE variable should not be used by packages\.
-1 errors and 4 warnings found\..*\$
+^ERROR: .*Makefile: Each package must define its LICENSE\.
+ERROR: .*patches/patch-aa:[0-9]+: Comment expected\.
+2 errors and 0 warnings found\..*\$
 EOT
 			stderr_re => undef,
 			exitcode => 1,
@@ -163,12 +160,10 @@ EOT
 		'mail/qmail' => {
 			stdout_re => <<EOT,
 ^WARN: .*Makefile:[0-9]+: USERGROUP_PHASE is defined but not used\. Spelling mistake\\?
-ERROR: .*patches/patch-hier\.c:[0-9]+: Comment expected\.
-ERROR: .*patches/patch-spawn\.c:[0-9]+: Comment expected\.
-2 errors and 1 warnings found\..*\$
+0 errors and 1 warnings found\..*\$
 EOT
 			stderr_re => undef,
-			exitcode => 1,
+			exitcode => 0,
 		},
 		'mail/getmail' => {
 			stdout_re => <<EOT,

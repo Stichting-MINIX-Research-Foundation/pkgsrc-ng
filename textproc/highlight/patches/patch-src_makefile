@@ -1,0 +1,30 @@
+$NetBSD: patch-src_makefile,v 1.1 2014/08/18 01:24:59 schmonz Exp $
+
+Use pkgsrc-specified compiler and flags.
+
+--- src/makefile.orig	2014-04-04 17:26:25.000000000 +0000
++++ src/makefile
+@@ -12,12 +12,12 @@
+ 
+ # See src/gui-qt/highlight.pro for the Qt GUI compilation options
+ 
+-CXX=c++
++#CXX=c++
+ 
+ # Added -qt4 because of Arch Linux Qt5 migration
+ QMAKE=qmake-qt4
+ 
+-CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
++#CFLAGS:=-Wall -O2 ${CFLAGS} -DNDEBUG
+ #CFLAGS:=-ggdb ${CFLAGS}
+ 
+ CFLAGS_DILU=-fno-strict-aliasing
+@@ -61,7 +61,7 @@ ifdef PIC
+ 	CFLAGS+=-fPIC
+ endif
+ 
+-LDFLAGS = -ldl
++#LDFLAGS = -ldl
+ # Do not strip by default (Mac OS X lazy pointer issues)
+ # Add -static to avoid linking with shared libs (can cause trouble when highlight
+ # is run as service)

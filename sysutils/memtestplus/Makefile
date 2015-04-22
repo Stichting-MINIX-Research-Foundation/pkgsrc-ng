@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2013/12/22 21:32:36 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/03/21 02:18:39 tnn Exp $
 #
 
 # Note -- version number also in the do-install rule
@@ -7,6 +7,7 @@ MINVER=01
 
 DISTNAME=		memtest86+-${MAJVER}.${MINVER}
 PKGNAME=		memtestplus-${MAJVER}.${MINVER}
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.memtest.org/download/${MAJVER}.${MINVER}/
 
@@ -37,6 +38,10 @@ SUBST_SED.delcr=	-e 's/.$$//g'
 
 .if !empty(CC_VERSION:Mgcc-3.*)
 BUILDLINK_TRANSFORM+=	rm:-fno-stack-protector
+.endif
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+BROKEN+=	${PKGNAME} does not produce a working binary with clang
 .endif
 
 do-install:

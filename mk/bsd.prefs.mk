@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.344 2014/03/14 22:05:18 ryoon Exp $
+# $NetBSD: bsd.prefs.mk,v 1.361 2015/03/14 17:37:19 sevan Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -90,15 +90,34 @@ MAKEFLAGS+=		OS_VERSION=${OS_VERSION:Q}
 
 # Preload these for architectures not in all variations of bsd.own.mk,
 # which do not match their GNU names exactly.
+GNU_ARCH.aarch64eb?=	aarch64_be
+GNU_ARCH.coldfire?=	m5407
 GNU_ARCH.arm26?=	arm
 GNU_ARCH.arm32?=	arm
-GNU_ARCH.i486?=		i386
-GNU_ARCH.i586?=		i386
-GNU_ARCH.i686?=		i386
+GNU_ARCH.earm?=		arm
+GNU_ARCH.earmhf?=	arm
+GNU_ARCH.earmeb?=	armeb
+GNU_ARCH.earmhfeb?=	armeb
+GNU_ARCH.earmv4?=	armv4
+GNU_ARCH.earmv4eb?=	armv4eb
+GNU_ARCH.earmv5?=	arm
+GNU_ARCH.earmv5eb?=	armeb
+GNU_ARCH.earmv6?=	armv6
+GNU_ARCH.earmv6hf?=	armv6
+GNU_ARCH.earmv6eb?=	armv6eb
+GNU_ARCH.earmv6hfeb?=	armv6eb
+GNU_ARCH.earmv7?=	armv7
+GNU_ARCH.earmv7hf?=	armv7
+GNU_ARCH.earmv7eb?=	armv7eb
+GNU_ARCH.earmv7hfeb?=	armv7eb
+GNU_ARCH.i386?=		i486
+GNU_ARCH.i586?=		i486
+GNU_ARCH.i686?=		i486
 GNU_ARCH.m68000?=	m68010
 GNU_ARCH.mips?=		mipsel
 GNU_ARCH.sh3eb?=	sh
 GNU_ARCH.sh3el?=	shle
+GNU_ARCH.mips64eb?=	mips64
 NATIVE_MACHINE_GNU_ARCH?=	${GNU_ARCH.${NATIVE_MACHINE_ARCH}:U${NATIVE_MACHINE_ARCH}}
 MACHINE_GNU_ARCH?=		${GNU_ARCH.${MACHINE_ARCH}:U${MACHINE_ARCH}}
 
@@ -301,8 +320,8 @@ OS_VARIANT=		OmniOS
 SCO_RELEASE!=		${UNAME} -r
 SCO_VERSION!=		${UNAME} -v
 LOWER_VENDOR?=		pc
-LOWER_OPSYS?=		sco${SCO_RELEASE}v${SCO_VERSION}
-MACHINE_GNU_PLATFORM?=	${MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS}
+LOWER_OPSYS?=		sco
+LOWER_OPSYS_VERSUFFIX=	${SCO_RELEASE}v${SCO_VERSION}
 _UNAME_V!=		${UNAME} -v
 .  if !empty(_UNAME_V:M5.0*)
 OS_VARIANT=		SCOOSR5
@@ -334,8 +353,8 @@ NATIVE_MACHINE_ARCH:=		${MACHINE_ARCH}
 
 NATIVE_MACHINE_PLATFORM?=	${OPSYS}-${OS_VERSION}-${NATIVE_MACHINE_ARCH}
 MACHINE_PLATFORM?=		${OPSYS}-${OS_VERSION}-${MACHINE_ARCH}
-NATIVE_MACHINE_GNU_PLATFORM?=	${NATIVE_MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
-MACHINE_GNU_PLATFORM?=		${MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
+NATIVE_MACHINE_GNU_PLATFORM?=	${NATIVE_MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${NATIVE_APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${NATIVE_APPEND_ABI}
+MACHINE_GNU_PLATFORM?=		${MACHINE_GNU_ARCH}-${LOWER_VENDOR}-${LOWER_OPSYS:C/[0-9]//g}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${APPEND_ABI}
 
 # Needed to prevent an "install:" target from being created in bsd.own.mk.
 NEED_OWN_INSTALL_TARGET=no
@@ -386,6 +405,8 @@ OBJECT_FMT?=	ELF
 .  else
 OBJECT_FMT?=	a.out
 .  endif
+.elif ${OPSYS} == "FreeBSD"
+OBJECT_FMT?=	ELF
 .elif ${OPSYS} == "DragonFly"
 OBJECT_FMT=	ELF
 .elif ${OPSYS} == "MirBSD"
@@ -504,6 +525,14 @@ _MAKE_INSTALL_AS_ROOT=	no
 DESTDIR=
 .endif
 
+# controls whether binary packages are preserved in pkgsrc/packages/All
+# default is no (to preserve settings since 2013/05/23, prior to that it
+# was yes)
+_KEEP_BIN_PKGS?= no
+.if !empty(PKGSRC_KEEP_BIN_PKGS:U:M[Yy][Ee][Ss])
+_KEEP_BIN_PKGS=	yes
+.endif
+
 _MAKE_CLEAN_AS_ROOT?=	no
 # Whether to run the clean target as root.
 _MAKE_INSTALL_AS_ROOT?=	yes
@@ -535,8 +564,24 @@ _CROSS_DESTDIR=	${CROSS_DESTDIR}
 
 # Depends on MACHINE_ARCH override above
 .if ${OPSYS} == "NetBSD"
+# XXX NATIVE_OBJECT_FMT is a cop-out -- but seriously, who is going to
+# do cross-builds on a NetBSD host that still uses a.out?
+NATIVE_OBJECT_FMT?=	${OBJECT_FMT}
+.  if ${NATIVE_OBJECT_FMT} == "ELF" && \
+   (!empty(NATIVE_MACHINE_ARCH:Mearm*) || \
+    ${NATIVE_MACHINE_GNU_ARCH} == "arm" || \
+    ${NATIVE_MACHINE_ARCH} == "i386" || \
+    ${NATIVE_MACHINE_ARCH} == "m68k" || \
+    ${NATIVE_MACHINE_ARCH} == "m68000" || \
+    ${NATIVE_MACHINE_GNU_ARCH} == "sh" || \
+    ${NATIVE_MACHINE_GNU_ARCH} == "shle" || \
+    ${NATIVE_MACHINE_ARCH} == "sparc" || \
+    ${NATIVE_MACHINE_ARCH} == "vax")
+NATIVE_APPEND_ELF=	elf
+.  endif
 .  if ${OBJECT_FMT} == "ELF" && \
-   (${MACHINE_GNU_ARCH} == "arm" || \
+   (!empty(MACHINE_ARCH:Mearm*) || \
+    ${MACHINE_GNU_ARCH} == "arm" || \
     ${MACHINE_ARCH} == "i386" || \
     ${MACHINE_ARCH} == "m68k" || \
     ${MACHINE_ARCH} == "m68000" || \
@@ -546,28 +591,13 @@ _CROSS_DESTDIR=	${CROSS_DESTDIR}
     ${MACHINE_ARCH} == "vax")
 APPEND_ELF=		elf
 .  endif
-.endif
-
-PKG_INSTALLATION_TYPES?= overwrite
-# This is a whitespace-separated list of installation types supported
-# by the package.
-#
-# *NOTE*: This variable *must* be set in the package Makefile *before*
-#         the inclusion of bsd.prefs.mk.
-#
-# Possible: any of: overwrite, pkgviews
-# Default: overwrite
-
-# Set the style of installation to be performed for the package.  The
-# funky make variable modifiers just select the first word of the value
-# stored in the referenced variable.
-#
-.for _pref_ in ${PKG_INSTALLATION_PREFS}
-.  if !empty(PKG_INSTALLATION_TYPES:M${_pref_})
-PKG_INSTALLATION_TYPE?=	${PKG_INSTALLATION_TYPES:M${_pref_}:S/^/_pkginsttype_/1:M_pkginsttype_*:S/^_pkginsttype_//}
+.  if !empty(NATIVE_MACHINE_ARCH:Mearm*)
+NATIVE_APPEND_ABI=	-${NATIVE_MACHINE_ARCH:C/eb//:C/v[4-7]//:S/earm/eabi/}
 .  endif
-.endfor
-PKG_INSTALLATION_TYPE?=	none
+.  if !empty(MACHINE_ARCH:Mearm*)
+APPEND_ABI=		-${MACHINE_ARCH:C/eb//:C/v[4-7]//:S/earm/eabi/}
+.  endif
+.endif
 
 # if the system is IPv6-ready, compile with IPv6 support turned on.
 .if empty(_OPSYS_HAS_INET6:M[nN][oO])
@@ -584,6 +614,8 @@ X11_TYPE?=		modular
 X11BASE?=	/usr/openwin
 .  elif ${OPSYS} == "Cygwin" || ${OPSYS} == "IRIX" || ${OPSYS} == "OSF1" || ${OPSYS} == "HPUX"
 X11BASE?=	/usr
+.  elif !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
+X11BASE?=	/usr/X11R6
 .  elif !empty(MACHINE_PLATFORM:MDarwin-9.*-*) || \
         !empty(MACHINE_PLATFORM:MDarwin-10.*-*) || \
         !empty(MACHINE_PLATFORM:MDarwin-11.*-*)
@@ -638,9 +670,6 @@ IMAKE_GAMEMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}6
 IMAKE_MISCMAN_DIR=	${IMAKE_MAN_SOURCE_PATH}7
 IMAKE_MANNEWSUFFIX=	${IMAKE_MAN_SUFFIX}
 IMAKE_MANINSTALL?=	maninstall
-
-DEPOT_SUBDIR?=		packages
-DEPOTBASE=		${LOCALBASE}/${DEPOT_SUBDIR}
 
 # LINK_RPATH_FLAG publicly exports the linker flag used to set the
 # run-time library search path.
@@ -757,6 +786,11 @@ PREPEND_PATH+=		${X11BASE}/bin
 .endif
 PREPEND_PATH+=		${LOCALBASE}/bin
 
+# Support alternative init systems.
+#
+INIT_SYSTEM?=		rc.d
+_BUILD_DEFS+=		INIT_SYSTEM
+
 # Wrapper framework definitions
 .include "wrapper/wrapper-defs.mk"
 
@@ -786,10 +820,33 @@ _PKG_VARS.dirs=		WRKSRC PATCHDIR FILESDIR PKGDIR
 _SYS_VARS.dirs=		WRKDIR DESTDIR PKG_SYSCONFBASEDIR
 
 # List of 64bit operating systems with sizeof(int) != sizeof(void *).
-# This can be used for software that is not 64bit clean.
+# This can be used with BROKEN_ON_PLATFORM for software that is not
+# 64bit clean. The "amd64" case is for OpenBSD.
 #
-# Keywords: ONLY_FOR_PLATFORM NOT_FOR_PLATFORM 64bit
+# Keywords: BROKEN_ON_PLATFORM 64bit
 #
-LP64PLATFORMS=		*-*-alpha *-*-sparc64 *-*-x86_64
+LP64PLATFORMS=		*-*-aarch64 *-*-aarch64eb *-*-alpha *-*-ia64 \
+			*-*-mips64eb *-*-mips64el *-*-powerpc64 *-*-riscv64 \
+			*-*-sparc64 *-*-x86_64 *-*-amd64
+
+# Lists of big-endian and little-endian platforms, to be used with
+# BROKEN_ON_PLATFORM.
+#
+# Keywords: BROKEN_ON_PLATFORM little-endian big-endian endian
+#
+_BIGENDIANCPUS=		coldfire hppa m68000 m68k mips64eb mipseb or1k \
+			powerpc powerpc64 sh3eb sparc sparc64
+_LITTLEENDIANCPUS=	alpha i386 ia64 mips64el mipsel riscv32 riscv64 \
+			sh3el vax x86_64 amd64
+
+# piles of ARM variants
+_ARMCPUS+=		arm earm earmhf earmv4 earmv5 earmv6 earmv6hf
+_ARMCPUS+=		earmv7 earmv7hf aarch64
+_BIGENDIANCPUS+=	${_ARMCPUS:S/$/eb/}
+_LITTLEENDIANCPUS+=	${_ARMCPUS}
+
+BIGENDIANPLATFORMS=	${_BIGENDIANCPUS:S/^/*-*-/}
+LITTLEENDIANPLATFORMS=	${_LITTLEENDIANCPUS:S/^/*-*-/}
+
 
 .endif	# BSD_PKG_MK

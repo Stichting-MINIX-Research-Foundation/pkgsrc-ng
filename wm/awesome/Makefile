@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.47.2.1 2014/04/08 22:30:27 tron Exp $
+# $NetBSD: Makefile,v 1.53 2014/10/19 22:27:48 alnsn Exp $
 #
 
-DISTNAME=	awesome-3.5.1
-PKGREVISION=	4
+DISTNAME=	awesome-3.5.5
+PKGREVISION=	3
 CATEGORIES=	x11 wm
 MASTER_SITES=	http://awesome.naquadah.org/download/
 EXTRACT_SUFX=	.tar.xz
@@ -13,6 +13,7 @@ COMMENT=	Tiling window manager based on dwm
 LICENSE=	gnu-gpl-v2
 
 CONFLICTS+=	awesome<3.0
+LUA_VERSIONS_INCOMPATIBLE=52
 
 USE_TOOLS+=	bash gmake pkg-config
 USE_CMAKE=	yes
@@ -45,7 +46,7 @@ BUILD_DEPENDS+=	asciidoc>=8.3.0:../../textproc/asciidoc
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 BUILD_DEPENDS+=	docbook-xml-[0-9]*:../../textproc/docbook-xml
 
-DEPENDS+=		${LUA_PKGPREFIX}-gi-[0-9]*:../../devel/lua-gi
+DEPENDS+=		${LUA_PKGPREFIX}-gi>=0.7.0:../../devel/lua-gi
 DEPENDS+=		pango>=1.29.4nb2:../../devel/pango
 
 LDFLAGS.SunOS+=		-liconv
@@ -57,16 +58,15 @@ LDFLAGS.SunOS+=		-liconv
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/cairo-gobject/buildlink3.mk"
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
-.include "../../graphics/imlib2/buildlink3.mk"
 .include "../../lang/lua/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libxcb/buildlink3.mk"
 .include "../../x11/libxdg-basedir/buildlink3.mk"
-.include "../../x11/libXcursor/buildlink3.mk"
 .include "../../x11/xcb-util/buildlink3.mk"
-.include "../../x11/xcb-util-image/buildlink3.mk"
+.include "../../x11/xcb-util-cursor/buildlink3.mk"
 .include "../../x11/xcb-util-keysyms/buildlink3.mk"
 .include "../../x11/xcb-util-wm/buildlink3.mk"
+.include "../../x11/xproto/buildlink3.mk"
 .include "../../x11/startup-notification/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

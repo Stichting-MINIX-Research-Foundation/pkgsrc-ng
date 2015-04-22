@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2013/02/17 06:07:46 dholland Exp $
+# $NetBSD: Makefile,v 1.8 2015/01/10 16:15:30 gdt Exp $
 
 PKGNAME=	${DISTNAME:S/emacs/emacs24/:S/-/-nox11-/}
+PKGREVISION=	1
 
 CONFLICTS+=	emacs24-[0-9]*
 
@@ -10,9 +11,9 @@ PKGDIR=		${.CURDIR}/../../editors/emacs24
 
 .include "../../editors/emacs24/Makefile.common"
 
-CONFIGURE_ARGS+=	--without-dbus --without-m17n-flt --without-otf \
-			--without-rsvg --without-x --without-xft \
-			--without-gif --without-jpeg --without-png \
-			--without-tiff --without-xpm
+CONFIGURE_ARGS+=	--without-dbus --without-m17n-flt --without-otf
+CONFIGURE_ARGS+=	--without-rsvg --without-x --without-xft
+CONFIGURE_ARGS+=	--without-gif --without-jpeg --without-png
+CONFIGURE_ARGS+=	--without-tiff --without-xpm
 
 .include "../../mk/bsd.pkg.mk"

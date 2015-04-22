@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2013/10/10 14:42:34 ryoon Exp $
+# $NetBSD: Makefile,v 1.28 2014/12/01 12:39:18 joerg Exp $
 #
 
 DISTNAME=	fluxconf-0.9.9
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	wm
 MASTER_SITES=	http://devaux.fabien.free.fr/flux/
 
@@ -20,6 +20,7 @@ USE_TOOLS+=		msgfmt pkg-config
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=invalid-source-encoding -Wno-error=format-security -Wno-error=self-assign
+CWRAPPERS_APPEND.cc+=	-Wno-error=invalid-source-encoding -Wno-error=format-security -Wno-error=self-assign
 .endif
 
 .include "../../devel/gettext-lib/buildlink3.mk"

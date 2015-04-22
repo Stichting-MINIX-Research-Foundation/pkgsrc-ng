@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2013/10/23 11:41:25 obache Exp $
+# $NetBSD: Makefile,v 1.7 2015/03/15 19:57:40 hiramatsu Exp $
 
 DISTNAME=	pyzy-0.1.0
+PKGREVISION=	2
 CATEGORIES=	converters chinese
 MASTER_SITES=	http://pyzy.googlecode.com/files/
 DISTFILES=	${DEFAULT_DISTFILES} ${DBTAR}
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/pyzy/
 COMMENT=	Chinese PinYin and Bopomofo conversion library
 LICENSE=	gnu-lgpl-v2.1
@@ -19,6 +20,12 @@ PKGCONFIG_OVERRIDE+=	pyzy-1.0.pc.in
 
 CONFIGURE_ARGS+=	--disable-db-android
 CONFIGURE_ARGS+=	--enable-db-open-phrase
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+# Reduce noise to a level that real warnings can be seen
+CXXFLAGS+=	-Wno-gnu-designator
+.endif
 
 # taken from ${WRKSRC}/data/db/open-phrase/Makefile.am
 DBVER=		1.0.0
@@ -43,12 +50,9 @@ CONFIGURE_ARGS+=	--disable-boost
 CONFIGURE_ARGS+=	--enable-boost
 CONFIGURE_ARGS+=	--with-boost=${BUILDLINK_PREFIX.boost-headers}
 .include "../../devel/boost-headers/buildlink3.mk"
-SUBST_CLASSES+=		shared_ptr
-SUBST_STAGE.shared_ptr=	post-configure
-SUBST_FILES.shared_ptr=	src/*.h
-SUBST_SED.shared_ptr=	-e 's,std::shared_ptr,boost::shared_ptr,g'
 .endif
 
+# http://code.google.com/p/pyzy/issues/detail?id=4
 .include "../../inputmethod/ibus/bad-env-usage.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.24.0
 .include "../../devel/glib2/buildlink3.mk"

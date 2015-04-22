@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.1 2014/02/23 11:30:36 sno Exp $
+# $NetBSD: Makefile,v 1.4 2015/02/03 12:24:24 mef Exp $
 
 DISTNAME=	Test-Identity-0.01
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/P/PE/PEVANS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Test/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://metacpan.org/release/Test-Identity
@@ -11,7 +12,7 @@ COMMENT=	Assert the referential identity of a reference
 LICENSE=	${PERL5_LICENSE}
 
 
-BUILD_DEPENDS+=	p5-Module-Build>=0.36:../../devel/p5-Module-Build
+BUILD_DEPENDS+=	{perl>=5.11.3,p5-Module-Build>=0.36}:../../devel/p5-Module-Build
 
 USE_LANGUAGES=	
 PERL5_MODULE_TYPE+=	Module::Build

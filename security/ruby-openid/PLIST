@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2014/07/16 07:56:28 rodent Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/COPYING
+${GEM_LIBDIR}/examples/httpconsumer.rb
+${GEM_LIBDIR}/lib/openid/association.rb
+${GEM_LIBDIR}/lib/openid/constants.rb
+${GEM_LIBDIR}/lib/openid/consumer.rb
+${GEM_LIBDIR}/lib/openid/errors.rb
+${GEM_LIBDIR}/lib/openid/interface.rb
+${GEM_LIBDIR}/lib/openid/util.rb
+${GEM_LIBDIR}/README
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec
+@pkgdir lib/ruby/gems/2.0.0/build_info

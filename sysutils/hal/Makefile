@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.67 2013/07/12 10:45:03 jperkin Exp $
+# $NetBSD: Makefile,v 1.72 2015/01/31 12:08:55 wiz Exp $
 
 DISTNAME=		hal-0.5.14
-PKGREVISION=		12
+PKGREVISION=		15
 CATEGORIES=		sysutils
 MASTER_SITES=		http://hal.freedesktop.org/releases/
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		netbsd-desktop@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://hal.freedesktop.org/
 COMMENT=		FreeDesktop hardware abstraction layer
 LICENSE=		gnu-gpl-v2
@@ -72,7 +72,7 @@ PLIST_SRC=		PLIST
 
 CFLAGS.SunOS+=		-Du_int32_t=uint32_t
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "SunOS"
+.if ${OPSYS} == "Darwin"
 BUILDLINK_TRANSFORM+=	rm:-Wl,--as-needed
 .endif
 

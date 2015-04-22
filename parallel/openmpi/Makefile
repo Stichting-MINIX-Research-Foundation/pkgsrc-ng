@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2014/02/18 22:21:33 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2015/01/15 20:51:11 dholland Exp $
 
 DISTNAME=	openmpi-1.6.4
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	parallel
 MASTER_SITES=	http://www.open-mpi.org/software/ompi/v1.6/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,7 +20,6 @@ LIBTOOL_OVERRIDE=	${WRKSRC}/libtool \
 SHLIBTOOL_OVERRIDE=	${WRKSRC}/config/libtool.m4 \
 			${WRKSRC}/opal/libltdl/m4/libtool.m4
 
-CONFIGURE_ARGS+=	--without-sge
 CONFIGURE_ARGS+=	--without-slurm
 CONFIGURE_ARGS+=	--enable-contrib-no-build=vt # in separate package
 CONFIGURE_ARGS+=	--with-libltdl=external # use our libltdl
@@ -38,9 +37,20 @@ USE_TOOLS+=		perl:run
 
 TEST_TARGET=	check
 
-.if ${OPSYS} == "DragonFly" || ${OPSYS} == "FreeBSD" || \
+PLIST_VARS+=	linux loadleveler notifier-smtp ofud openib shm
+
+.if ${OPSYS} == "Linux"
+PLIST.shm=		yes
+PLIST.linux=		yes
+PLIST.openib=		yes
+PLIST.loadleveler=	yes
+PLIST.ofud=		yes
+PLIST.notifier-smtp=	yes
+.elif ${OPSYS} == "AIX"
+PLIST.loadleveler=	yes
+.elif ${OPSYS} == "DragonFly" || ${OPSYS} == "FreeBSD" || \
     (${OPSYS} == "NetBSD" && exists(/var/shm))
-PLIST_SRC+=		PLIST.shm
+PLIST.shm=		yes
 .endif
 
 ## Just in case you'll need it...

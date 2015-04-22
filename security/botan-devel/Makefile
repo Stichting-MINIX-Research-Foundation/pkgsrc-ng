@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2014/03/05 21:22:38 joerg Exp $
+# $NetBSD: Makefile,v 1.6 2014/11/07 19:39:25 adam Exp $
 
 DISTNAME=	Botan-1.11.8
 PKGNAME=	${DISTNAME:tl}
+PKGREVISION=	3
 CATEGORIES=	security
 MASTER_SITES=	http://files.randombit.net/botan/
 EXTRACT_SUFX=	.tbz
@@ -28,6 +29,15 @@ CONFIGURE_ARGS+=	--cc-bin=${CXX} --cc=clang
 MAKE_FLAGS+=	LIB_OPT=${CXXFLAGS:Q}
 
 USE_TOOLS+=	gmake
+
+PLIST_VARS+=	x86 x86_64
+
+.if ${MACHINE_ARCH} == "x86_64"
+PLIST.x86_64=	yes
+PLIST.x86=	yes
+.elif ${MACHINE_ARCH} == "i386"
+PLIST.x86=	yes
+.endif
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"

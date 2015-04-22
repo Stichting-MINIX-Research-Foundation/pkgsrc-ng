@@ -1,18 +1,21 @@
-$NetBSD: distinfo,v 1.23 2014/02/27 17:35:35 adam Exp $
+$NetBSD: distinfo,v 1.30 2015/03/03 16:27:33 tnn Exp $
 
-SHA1 (clang-3.4.src.tar.gz) = a6a3c815dd045e9c13c7ae37d2cfefe65607860d
-RMD160 (clang-3.4.src.tar.gz) = 4fbd7e735edc96e224a82ebe2277c69efc488e6b
-Size (clang-3.4.src.tar.gz) = 10619607 bytes
-SHA1 (libcxx-3.4.src.tar.gz) = c45333dce3e6bdac2583682417c03b6bb149ceb0
-RMD160 (libcxx-3.4.src.tar.gz) = 146a49dc0ae9635f87b13038d36ad816b7245666
-Size (libcxx-3.4.src.tar.gz) = 1377487 bytes
-SHA1 (llvm-3.4.src.tar.gz) = 10b1fd085b45d8b19adb9a628353ce347bc136b8
-RMD160 (llvm-3.4.src.tar.gz) = 67e3f7baa679ca95d944b9cc3528d1ffbe3cdee0
-Size (llvm-3.4.src.tar.gz) = 15920544 bytes
+SHA1 (cfe-3.6.0.src.tar.xz) = 06b252867a3d118c95ca279fd3c4ac05f6730551
+RMD160 (cfe-3.6.0.src.tar.xz) = 2e04853d2f8133fea493ee12d7f05bc6b27dc988
+Size (cfe-3.6.0.src.tar.xz) = 8640776 bytes
+SHA1 (compiler-rt-3.6.0.src.tar.xz) = 771cbf0535dce1ca3a3be022377781e32fdea70e
+RMD160 (compiler-rt-3.6.0.src.tar.xz) = 716cbd5e101959b064331ad73bfe18fcb98347c5
+Size (compiler-rt-3.6.0.src.tar.xz) = 1140616 bytes
+SHA1 (libcxx-3.6.0.src.tar.xz) = 5445194366ae2291092fd2204030cb3d01ad6272
+RMD160 (libcxx-3.6.0.src.tar.xz) = 9221db789b801dde45ad89f57c7a74fd3b082cf4
+Size (libcxx-3.6.0.src.tar.xz) = 946380 bytes
+SHA1 (llvm-3.6.0.src.tar.xz) = 6eb2b7381d924bb3f267281c9058c817d825d824
+RMD160 (llvm-3.6.0.src.tar.xz) = cd2216a21871ba5be52e193e28e444bd04dacee2
+Size (llvm-3.6.0.src.tar.xz) = 12750908 bytes
 SHA1 (patch-ab) = 8dd0da6d47a57ac25eea358996cf874dd3289e08
 SHA1 (patch-ac) = 0f0cc98d443ec957fc5374fb491809d27e4f9d4e
 SHA1 (patch-ad) = ad1f6720e4c73e57fce10ba968b03637a133602d
 SHA1 (patch-include_llvm_Support_Host.h) = 545f9542cd2aaa6cea58d3653902b4e1a9e7189a
-SHA1 (patch-projects_libcxx_lib_buildit) = f19a6346099b9047f8b5c3739458fd11ea9e3e33
-SHA1 (patch-utils_lit_utils_check-coverage) = aec7c140d5b9e8cc38a0022533a5848d6b1ff0b8
-SHA1 (patch-utils_lit_utils_check-sdist) = df63c41b07f7531e787b54f6994458869023b66c
+SHA1 (patch-tools_clang_tools_scan-build_scan-build) = a671f1e513fb43ddc0e73751a78235ab39aeaf9d
+SHA1 (patch-tools_lli_Makefile) = 9801878144833b9c871677110183539cd0a08e9a
+SHA1 (patch-unittests_ExecutionEngine_MCJIT_Makefile) = 8243131319b77f025568592acf9436cf6fe5219c

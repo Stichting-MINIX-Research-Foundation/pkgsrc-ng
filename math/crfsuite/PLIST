@@ -1,0 +1,17 @@
+@comment $NetBSD: PLIST,v 1.2 2014/10/31 00:54:02 cheusov Exp $
+bin/crfsuite
+include/crfsuite.h
+include/crfsuite.hpp
+include/crfsuite_api.hpp
+lib/libcqdb.la
+lib/libcrfsuite.la
+share/doc/crfsuite/AUTHORS
+share/doc/crfsuite/COPYING
+share/doc/crfsuite/ChangeLog
+share/doc/crfsuite/INSTALL
+share/doc/crfsuite/README
+share/examples/crfsuite/chunking.py
+share/examples/crfsuite/crfutils.py
+share/examples/crfsuite/ner.py
+share/examples/crfsuite/pos.py
+share/examples/crfsuite/template.py

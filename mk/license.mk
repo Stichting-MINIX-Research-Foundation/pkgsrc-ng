@@ -1,4 +1,4 @@
-# $NetBSD: license.mk,v 1.61 2014/03/19 21:45:12 wiz Exp $
+# $NetBSD: license.mk,v 1.66 2015/03/22 03:43:11 tnn Exp $
 #
 # This file handles everything about the LICENSE variable. It is
 # included automatically by bsd.pkg.mk.
@@ -58,7 +58,7 @@
 #	and non-free licenses do.
 #
 #	http://opensource.org/licenses/category
-#	http://www.fsf.org/licensing/licenses/index_html
+#	http://www.gnu.org/licenses/license-list.html
 #
 # === Predefined variables ===
 #
@@ -109,6 +109,7 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	cc-by-sa-v3.0 \
 	cc0-1.0-universal \
 	cddl-1.0 \
+	cecill-2.1 \
 	cpl-1.0 \
 	epl-v1.0 \
 	eupl-v1.1 \
@@ -126,7 +127,9 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	mpl-1.0 mpl-1.1 mpl-2.0 \
 	mplusfont \
 	ofl-v1.0 ofl-v1.1 \
+	openssl \
 	original-bsd modified-bsd 2-clause-bsd \
+	osl \
 	php \
 	png-license \
 	postgresql-license \
@@ -150,7 +153,7 @@ ACCEPTABLE_LICENSES=	${ACCEPTABLE_LICENCES}
 .endif
 
 .if !defined(LICENSE)
-.  if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no"
+.  if ${PKG_DEVELOPER:Uno} != "no"
 WARNINGS+=		"[license.mk] Every package should define a LICENSE."
 .  endif
 

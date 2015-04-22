@@ -1,8 +1,11 @@
-# $NetBSD: Darwin.mk,v 1.61 2013/12/31 11:13:43 jperkin Exp $
+# $NetBSD: Darwin.mk,v 1.66 2015/01/03 21:30:52 gdt Exp $
 #
 # Variable definitions for the Darwin operating system.
 
 # OS, Kernel, Xcode Version
+# Note that Xcode gets updates on older systems sometimes.
+# pkgsrc generally expects that the most up-to-date xcode available for
+# an OS version is installed
 #
 # Codename	OS	Kernel	Xcode
 # Cheetah	10.0.x	1.3.1
@@ -15,7 +18,8 @@
 # Snow Leopard	10.6.x	10.x.y	3.2+ (gcc 4.0.1 and 4.2.1)
 # Lion		10.7.x	11.x.y	4.1 (llvm gcc 4.2.1)
 # Mountain Lion	10.8.x	12.x.y	4.5 (llvm gcc 4.2.1)
-# Mavericks	10.9.x	13.x.y	5 (llvm clang 5.0)
+# Mavericks	10.9.x	13.x.y	6 (llvm clang 6.0)
+# Yosemite	10.10.x	14.x.y	6 (llvm clang 6.0)
 
 # Tiger (and earlier) use Xfree 4.4.0 (and earlier)
 .if empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
@@ -121,8 +125,13 @@ _OPSYS_PREFER.mit-krb5?=	native
 
 # flags passed to the linker to extract all symbols from static archives.
 # this is GNU ld.
+.if empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
+_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,-force-load
+_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	
+.else
 _OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
 _OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
+.endif
 
 _OPSYS_CAN_CHECK_SHLIBS=	no # can't use readelf in check/bsd.check-vars.mk
 
@@ -143,6 +152,7 @@ CONFIGURE_ENV+=		ac_cv_func_poll=no
 .endif
 
 # Use "/bin/ksh" for buildlink3 wrapper script to improve build performance.
-.if empty(OS_VERSION:M[0-8].*) && exists(/bin/ksh)
+.if (!empty(OS_VERSION:M9.*) || !empty(OS_VERSION:M1[0-2].*)) && \
+    exists(/bin/ksh)
 WRAPPER_BIN_SH?=	/bin/ksh
 .endif

@@ -1,33 +1,26 @@
-# $NetBSD: Makefile,v 1.11 2014/01/25 10:30:26 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/11/24 04:45:05 mef Exp $
 #
 
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME}
-PKGREVISION=	2
 
 COMMENT=	Simple Common Gateway Interface for Apache
+LICENSE=	cnri-license
 
 DEPENDS+=	${PYPKGPREFIX}-scgi-[0-9]*:../../www/py-scgi
 
 APACHE_MODULE= yes
 
 # does not compile with apache24
-PKG_APACHE_ACCEPTED=	apache13 apache2 apache22
+PKG_APACHE_ACCEPTED=	apache22
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-quixote via py-scgi
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-quixote via py-scgi
 
-.include "../../mk/apache.mk"
-.include "../../www/apache/module.mk"
-
-.if ${APACHE_PKG_PREFIX} == "ap13"
-MODULE_EXT=	so
-APACHE_MODULE_SRCDIR=	${WRKDIR}/${DISTNAME}/apache1
-.else
 MODULE_EXT=	la
 APACHE_MODULE_SRCDIR=	${WRKDIR}/${DISTNAME}/apache2
-.endif
 
 APACHE_MODULE_NAME=	mod_scgi.${MODULE_EXT}
 APACHE_MODULE_SRC=	mod_scgi.c
 
 .include "../../lang/python/pyversion.mk"
+.include "../../mk/apache.module.mk"
 .include "../../www/py-scgi/Makefile.common"

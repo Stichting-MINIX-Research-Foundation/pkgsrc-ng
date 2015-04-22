@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2014/01/25 10:30:13 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/02/18 22:29:03 jperkin Exp $
 
-DISTNAME=	bulk-large-20130223
-PKGREVISION=	2
+DISTNAME=	bulk-large-20150218
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -15,13 +14,13 @@ RESTRICTED=		Just for test build purpose
 NO_BIN_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_FTP=		${RESTRICTED}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
 
 #
 # Note: the primary purpose of this package is to build the most
 # popular/useful packages out of the set of all packages in pkgsrc.
 # On a fast build machine this whole meta-package should build in less
-# than 24 hous, assuming that bulk-medium is already built.
+# than 24 hours, assuming that bulk-medium is already built.
 #
 # The guideline for adding stuff to this package is: if you had only
 # a day or so to build 1/3 of pkgsrc, which 1/3 would be most useful
@@ -71,9 +70,7 @@ BUILD_DEPENDS+=	mysql-client>=5.1<5.5:../../databases/mysql51-client
 BUILD_DEPENDS+=	mysql-server>=5.1<5.5:../../databases/mysql51-server
 BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
 BUILD_DEPENDS+=	mysql-server>=5.5:../../databases/mysql55-server
-BUILD_DEPENDS+=	postgresql84-[0-9]*:../../databases/postgresql84
-BUILD_DEPENDS+=	postgresql91-[0-9]*:../../databases/postgresql91
-BUILD_DEPENDS+=	postgresql92-[0-9]*:../../databases/postgresql92
+BUILD_DEPENDS+=	postgresql93-[0-9]*:../../databases/postgresql93
 BUILD_DEPENDS+=	valgrind-[0-9]*:../../devel/valgrind
 BUILD_DEPENDS+=	abiword-[0-9]*:../../editors/abiword
 BUILD_DEPENDS+=	emacs24>=24<25:../../editors/emacs24
@@ -91,15 +88,13 @@ BUILD_DEPENDS+=	roundcube-[0-9]*:../../mail/roundcube
 BUILD_DEPENDS+=	squirrelmail-[0-9]*:../../mail/squirrelmail
 BUILD_DEPENDS+=	thunderbird-[0-9]*:../../mail/thunderbird
 BUILD_DEPENDS+=	thunderbird-l10n-[0-9]*:../../mail/thunderbird-l10n
-BUILD_DEPENDS+=	thunderbird10-[0-9]*:../../mail/thunderbird10
-BUILD_DEPENDS+=	thunderbird10-l10n-[0-9]*:../../mail/thunderbird10-l10n
 BUILD_DEPENDS+=	R-[0-9]*:../../math/R
 BUILD_DEPENDS+=	octave-[0-9]*:../../math/octave
 BUILD_DEPENDS+=	zyGrib-[0-9]*:../../misc/zyGrib
 BUILD_DEPENDS+=	mplayer-[0-9]*:../../multimedia/mplayer
 BUILD_DEPENDS+=	xine-ui-[0-9]*:../../multimedia/xine-ui
 BUILD_DEPENDS+=	gstreamer0.10-plugins-[0-9]*:../../meta-pkgs/gstreamer0.10-plugins
-BUILD_DEPENDS+=	cups-[0-9]*:../../print/cups
+BUILD_DEPENDS+=	cups-[0-9]*:../../print/cups15
 BUILD_DEPENDS+=	evince-[0-9]*:../../print/evince
 BUILD_DEPENDS+=	lilypond-[0-9]*:../../print/lilypond
 BUILD_DEPENDS+=	mit-krb5-appl-[0-9]*:../../security/mit-krb5-appl
@@ -111,7 +106,6 @@ BUILD_DEPENDS+=	${RUBY_PKGPREFIX}-rails>=3.2:../../www/ruby-rails32
 #
 # 3. Libraries
 #
-BUILD_DEPENDS+=	db46-[0-9]*:../../databases/db46
 BUILD_DEPENDS+=	db5-[0-9]*:../../databases/db5
 BUILD_DEPENDS+=	heimdal-[0-9]*:../../security/heimdal
 BUILD_DEPENDS+=	mit-krb5-[0-9]*:../../security/mit-krb5
@@ -137,7 +131,6 @@ BUILD_DEPENDS+=	tex-collection-latex-doc-[0-9]*:../../print/tex-collection-latex
 BUILD_DEPENDS+=	deforaos-desktop-[0-9]*:../../meta-pkgs/deforaos-desktop
 BUILD_DEPENDS+=	desktop-gnome-[0-9]*:../../meta-pkgs/desktop-gnome
 BUILD_DEPENDS+=	gnome-[0-9]*:../../meta-pkgs/gnome
-BUILD_DEPENDS+=	gnome-admin-[0-9]*:../../meta-pkgs/gnome-admin
 BUILD_DEPENDS+=	gnome-platform-[0-9]*:../../meta-pkgs/gnome-platform
 BUILD_DEPENDS+=	gnustep-[0-9]*:../../meta-pkgs/gnustep
 BUILD_DEPENDS+=	kde>=3<4:../../meta-pkgs/kde3

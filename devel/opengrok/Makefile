@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.31 2014/02/12 23:17:49 tron Exp $
+# $NetBSD: Makefile,v 1.35 2014/10/31 03:59:58 ryoon Exp $
 
-DISTNAME=	OpenGrok-0.12-rc5
+DISTNAME=	OpenGrok-0.12.1
 PKGNAME=	${DISTNAME:tl:S/-rc/rc/}
 PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	-https://github.com/OpenGrok/OpenGrok/archive/0.12-rc5.tar.gz
+MASTER_SITES=	-https://github.com/OpenGrok/OpenGrok/archive/0.12.1.tar.gz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://opengrok.github.io/OpenGrok/
@@ -17,6 +17,7 @@ DEPENDS+=	exctags-[0-9]*:../../devel/exctags
 DEPENDS+=	jflex-[0-9]*:../../devel/jflex
 DEPENDS+=	apache-ant-[0-9]*:../../devel/apache-ant
 
+# XXX PREFIX should not be used here, but I would like to reduce dependencies.
 SUBST_CLASSES+=		vcs
 SUBST_FILES.vcs+=	OpenGrok
 SUBST_MESSAGE.vcs=	Set VCS program pathes.

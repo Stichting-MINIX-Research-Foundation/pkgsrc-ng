@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.65 2014/02/12 23:17:58 tron Exp $
+# $NetBSD: Makefile,v 1.69 2014/08/18 11:13:45 adam Exp $
 
 .include "Makefile.common"
-
-PKGREVISION=	1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.graphicsmagick.org/

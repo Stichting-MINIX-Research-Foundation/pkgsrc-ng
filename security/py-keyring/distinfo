@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.1.1.1 2011/04/14 17:27:04 drochner Exp $
+$NetBSD: distinfo,v 1.7 2015/03/01 15:09:07 wiz Exp $
 
-SHA1 (keyring-0.5.1.tar.gz) = f7b9005313a24c4a00a295efcba4f9b2c1085f26
-RMD160 (keyring-0.5.1.tar.gz) = 950eeae68f5aa4605d42e091a24872ff24d7ad4d
-Size (keyring-0.5.1.tar.gz) = 17928 bytes
+SHA1 (keyring-5.3.zip) = 0c55f45144181adc634ce20309a5a60dfd0cd54b
+RMD160 (keyring-5.3.zip) = 44596ec4d492c662675a07110046284c0a350731
+Size (keyring-5.3.zip) = 87921 bytes

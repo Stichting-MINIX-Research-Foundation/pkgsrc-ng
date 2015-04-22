@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.17 2014/02/12 23:18:07 tron Exp $
+# $NetBSD: Makefile,v 1.23 2015/03/20 01:25:31 taca Exp $
 
-DISTNAME=	dovecot-2.2-pigeonhole-0.4.2
+DISTNAME=	dovecot-2.2-pigeonhole-0.4.7
 PKGNAME=	${DISTNAME:S/-2.2-/-/}
-PKGREVISION=	1
 CATEGORIES=	mail
-MASTER_SITES=	http://www.rename-it.nl/dovecot/2.2/
+MASTER_SITES=	http://pigeonhole.dovecot.org/releases/2.2/
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://www.dovecot.org/
 COMMENT=	Support for the Sieve language and the ManageSieve protocol
 LICENSE=	gnu-lgpl-v2.1
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=		pkg-config rpcgen
 USE_LIBTOOL=		yes

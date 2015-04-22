@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2013/05/31 12:41:46 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2014/10/09 14:06:50 wiz Exp $
 #
 
 DISTNAME=	pkgse-0.3
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	pkgtools
 MASTER_SITES=	http://imil.net/NetBSD/
 EXTRACT_SUFX=	.tgz
@@ -12,8 +12,6 @@ HOMEPAGE=	http://imil.net/wp/
 COMMENT=	Fetch informations about a NetBSD package from pkgsrc.netbsd.se
 
 DEPENDS+=	p5-libwww>=5.76:../../www/p5-libwww
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 NO_BUILD=	yes
 USE_TOOLS+=	perl:run

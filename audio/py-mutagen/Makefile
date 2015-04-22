@@ -1,17 +1,16 @@
-# $NetBSD: Makefile,v 1.13 2014/01/25 10:29:57 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2015/01/06 19:52:40 drochner Exp $
 
-DISTNAME=	mutagen-1.22
+DISTNAME=	mutagen-1.27
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	audio
-MASTER_SITES=	http://mutagen.googlecode.com/files/
+MASTER_SITES=	https://bitbucket.org/lazka/mutagen/downloads/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/mutagen/
+HOMEPAGE=	https://bitbucket.org/lazka/mutagen
 COMMENT=	Audio metadata handling for Python
 LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=	# none
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.22
 
 .include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

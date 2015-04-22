@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2014/08/13 20:27:09 gls Exp $
+
+SHA1 (gunicorn-19.1.0.tar.gz) = de194e73fb3b6e726a93447e2cb654bce3eb7048
+RMD160 (gunicorn-19.1.0.tar.gz) = 3e20543935ccc30b36d01a2ff8235cb8a9ff454f
+Size (gunicorn-19.1.0.tar.gz) = 382397 bytes

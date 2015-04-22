@@ -1,4 +1,4 @@
-# $NetBSD: SunOS.mk,v 1.58 2014/03/11 14:07:04 jperkin Exp $
+# $NetBSD: SunOS.mk,v 1.63 2015/03/19 19:15:23 tron Exp $
 #
 # Variable definitions for the SunOS/Solaris operating system.
 
@@ -68,6 +68,9 @@ _OPSYS_PERL_REQD=			# no base version of perl required
 _OPSYS_PTHREAD_AUTO=	no		# -lpthread needed for pthreads
 _OPSYS_SHLIB_TYPE=	ELF		# shared lib type
 _OPSYS_MISSING_FEATURES=asprintf
+.if !exists(/usr/include/err.h)
+_OPSYS_MISSING_FEATURES+=err
+.endif
 _PATCH_CAN_BACKUP=	yes		# native patch(1) can make backups
 _PATCH_BACKUP_ARG?= 	-b -V simple -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes		# add rpath to LDFLAGS
@@ -79,8 +82,17 @@ _OPSYS_WHOLE_ARCHIVE_FLAG=	-z allextract
 _OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-z defaultextract
 
 # Remove flags specific to GNU ld.
+BUILDLINK_TRANSFORM+=	rm:-Wl,--as-needed
 BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
+BUILDLINK_TRANSFORM+=	rm:-Wl,--gc-sections
+BUILDLINK_TRANSFORM+=	rm:-Wl,--no-as-needed
+BUILDLINK_TRANSFORM+=	rm:-Wl,--warn-common
+BUILDLINK_TRANSFORM+=	rm:-Wl,--warn-shared-textrel
+BUILDLINK_TRANSFORM+=	rm:-Wl,-export-dynamic
 BUILDLINK_TRANSFORM+=	rm:-export-dynamic
+
+# Convert GNU ld flags to native SunOS ld flags where possible.
+BUILDLINK_TRANSFORM+=	opt:-Wl,--rpath:-Wl,-R
 
 # Solaris has /usr/include/iconv.h, but it's not GNU iconv, so mark it
 # incompatible.

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/01/20 15:45:14 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2014/12/31 13:57:30 wiz Exp $
 
-DISTNAME=	easy-thumbnails-1.2
+DISTNAME=	easy-thumbnails-1.5
 PKGNAME=	${PYPKGPREFIX}-django-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/e/easy-thumbnails/
 
@@ -13,10 +12,7 @@ LICENSE=	modified-bsd
 
 DEPENDS+=	${PYPKGPREFIX}-django-[0-9]*:../../www/py-django
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.2
-EGG_NAME=	${DISTNAME:S/-/_/}
-
 USE_LANGUAGES=		# empty
 
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/12/09 14:17:48 obache Exp $
+# $NetBSD: Makefile,v 1.30 2014/10/09 14:06:38 wiz Exp $
 #
 
 DISTNAME=	anomy-sanitizer-1.76
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	http://mailtools.anomy.net/dist/
 
@@ -12,8 +12,6 @@ COMMENT=	Mail message filter and sanitizer
 
 DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64-[0-9]*}:../../converters/p5-MIME-Base64
 DEPENDS+=	{perl>=5.7.3,p5-Digest-MD5-[0-9]*}:../../security/p5-Digest-MD5
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 .include "../../mk/bsd.prefs.mk"
 

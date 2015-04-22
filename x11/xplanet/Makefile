@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.70 2013/10/10 14:42:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.75 2014/09/08 21:24:45 wiz Exp $
 
 DISTNAME=	xplanet-1.2.2
-PKGREVISION=	17
+PKGREVISION=	22
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=xplanet/}
 
@@ -25,7 +25,7 @@ INSTALLATION_DIRS+=	${XPLANET_DIRS:C,.*,share/xplanet/&,g}
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/netpbm/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"

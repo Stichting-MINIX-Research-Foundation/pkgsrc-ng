@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2014/03/11 14:34:37 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2015/03/12 14:10:28 tnn Exp $
 
-DISTNAME=	redis-2.8.7
+DISTNAME=	redis-2.8.18
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
@@ -51,6 +51,8 @@ SUBST_MESSAGE.fix-paths= Fixing paths.
 SUBST_FILES.fix-paths=	redis.conf
 SUBST_VARS.fix-paths=	REDIS_DATADIR REDIS_LOGDIR REDIS_PIDDIR
 
+CHECK_PORTABILITY_SKIP+=	deps/jemalloc/configure
+
 post-extract:
 	${CHMOD} -R g-w ${WRKSRC}
 
@@ -65,4 +67,5 @@ post-install:
 do-test:
 	cd ${WRKSRC} && ${SH} runtest
 
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

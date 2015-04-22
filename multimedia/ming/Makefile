@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.20 2013/07/05 13:29:41 ryoon Exp $
+# $NetBSD: Makefile,v 1.24 2014/09/28 03:00:45 obache Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	multimedia
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.libming.org/
 COMMENT=	SWF output library
 LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v2
@@ -36,6 +36,6 @@ INSTALL_DIRS=	. docs/man
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

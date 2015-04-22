@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2014/02/12 23:18:37 tron Exp $
-#
+# $NetBSD: Makefile,v 1.13 2014/09/08 21:24:45 wiz Exp $
 
 DISTNAME=	ZoneMinder-1.25.0
 PKGNAME=	${DISTNAME:S/ZoneMinder-/zoneminder-/}
-PKGREVISION=	4
+PKGREVISION=	9
 CATEGORIES=	security
 MASTER_SITES=	http://www2.zoneminder.com/downloads/
 
@@ -12,7 +11,7 @@ HOMEPAGE=	http://www.zoneminder.com/
 COMMENT=	Video camera security and surveillance solution
 LICENSE=	gnu-gpl-v2
 
-PKG_DESTDIR_SUPPORT=	user-destdir
+DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.zoneminder
 PKG_SUPPORTED_OPTIONS=	apache
@@ -131,12 +130,15 @@ SUBST_SED.dbpaths-path=		-e 's|/usr/local/bin/|${PREFIX}/bin/|g'
 SUBST_SED.dbpaths-path+=	-e 's|/usr/bin|${PREFIX}/bin|g'
 SUBST_SED.dbpaths-path+=	-e 's|/cgi-bin/nph-zms|/zm/cgi-bin/nph-zms|g'
 
-# Required to find the 'mysql' client executable.
+#
+# Required to find the 'mysql' client executable, and may also use 'sudo' if
+# installed.
+#
 SUBST_CLASSES+=			script-path
 SUBST_MESSAGE.script-path=	Adjusting paths in scripts.
 SUBST_STAGE.script-path=	pre-configure
-SUBST_FILES.script-path=	scripts/zmupdate.pl.in
-SUBST_SED.script-path=		-e 's|/usr/local/bin|${PREFIX}/bin|g'
+SUBST_FILES.script-path=	${REPLACE_PERL}
+SUBST_SED.script-path=	-e "s|^\\([\$$]ENV{PATH} *= *'\\).*';\$$|\\1${PREFIX}/bin:/bin:/usr/bin';|g"
 
 SUBST_CLASSES+=		files
 SUBST_STAGE.files=	pre-configure
@@ -144,6 +146,12 @@ SUBST_FILES.files=	zoneminder.conf
 SUBST_SED.files=	-e "s|@ZM_HTTPD_ROOT@|${PREFIX}/${ZM_HTTPD_ROOT}|g"
 SUBST_SED.files+=	-e "s|@ZM_HTTPD_CGIBIN@|${PREFIX}/${ZM_HTTPD_CGIBIN}|g"
 SUBST_MESSAGE.files=	Fixing ZoneMinder configuration file for Apache.
+
+PLIST_VARS+=		rcd
+
+.if ${INIT_SYSTEM} == "rc.d"
+PLIST.rcd=		yes
+.endif
 
 post-extract:
 	${CP} ${FILESDIR}/zoneminder.conf ${WRKSRC}/zoneminder.conf
@@ -171,7 +179,9 @@ INSTALLATION_DIRS+=	bin share/examples/rc.d share/zoneminder/db
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/zoneminder.conf ${DESTDIR}${PREFIX}/${EGDIR}/apache/zoneminder.conf
 	${INSTALL_DATA} ${WRKSRC}/zm.conf ${DESTDIR}${PREFIX}/${EGDIR}/config/zm.conf
+.if ${INIT_SYSTEM} == "rc.d"
 	${INSTALL_SCRIPT} ${WRKSRC}/scripts/zm ${DESTDIR}${PREFIX}/share/examples/rc.d/zoneminder
+.endif
 	${INSTALL_DATA} ${WRKSRC}/db/*.sql ${DESTDIR}${PREFIX}/share/zoneminder/db/
 	rmdir ${DESTDIR}${PREFIX}/${ZM_HTTPD_ROOT:Q}/events || true
 	rmdir ${DESTDIR}${PREFIX}/${ZM_HTTPD_ROOT:Q}/images || true
@@ -187,6 +197,5 @@ post-install:
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../graphics/netpbm/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

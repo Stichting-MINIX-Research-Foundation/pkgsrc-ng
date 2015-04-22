@@ -1,12 +1,28 @@
-$NetBSD: patch-browser_app_nsBrowserApp.cpp,v 1.1 2014/03/20 21:02:00 ryoon Exp $
+$NetBSD: patch-browser_app_nsBrowserApp.cpp,v 1.6 2015/01/29 22:22:26 wiz Exp $
 
---- browser/app/nsBrowserApp.cpp.orig	2014-03-15 05:19:07.000000000 +0000
+* Replace XP_MACOSX with XP_DARWIN as the former is not defined when
+  the toolkit is not cocoa.
+
+--- browser/app/nsBrowserApp.cpp.orig	2014-05-06 22:55:09.000000000 +0000
 +++ browser/app/nsBrowserApp.cpp
-@@ -586,6 +586,7 @@ int main(int argc, char* argv[])
-   TriggerQuirks();
+@@ -18,8 +18,10 @@
+ #include <unistd.h>
  #endif
  
-+  setenv("MOZ_PLUGIN_PATH", "%%LOCALBASE%%/lib/browser_plugins/symlinks/gecko", 0);
-   int gotCounters;
- #if defined(XP_UNIX)
-   struct rusage initialRUsage;
+-#ifdef XP_MACOSX
++#ifdef XP_DARWIN
+ #include <mach/mach_time.h>
++#endif
++#ifdef MOZ_WIDGET_COCOA
+ #include "MacQuirks.h"
+ #endif
+ 
+@@ -447,7 +449,7 @@ TimeStamp_Now()
+   }
+ 
+   return sGetTickCount64() * freq.QuadPart;
+-#elif defined(XP_MACOSX)
++#elif defined(XP_DARWIN)
+   return mach_absolute_time();
+ #elif defined(HAVE_CLOCK_MONOTONIC)
+   struct timespec ts;

@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.11 2013/05/31 12:42:09 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2015/01/26 13:57:10 mef Exp $
 
-DISTNAME=	FormValidator-Simple-0.28
+DISTNAME=	FormValidator-Simple-0.29
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	textproc perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../by-authors/id/L/LY/LYOKATO/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=FormValidator/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://search.cpan.org/perldoc?FormValidator::Simple
+HOMEPAGE=	http://search.cpan.org/dist/FormValidator-Simple/
 COMMENT=	Validation with simple chains of constraints
 LICENSE=	${PERL5_LICENSE}
 

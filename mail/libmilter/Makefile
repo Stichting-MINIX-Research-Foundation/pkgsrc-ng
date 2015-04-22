@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.19 2012/10/08 12:19:14 asau Exp $
+# $NetBSD: Makefile,v 1.21 2014/12/06 23:24:37 jnemeth Exp $
 
 PKGNAME=	libmilter-${DIST_VERS}
 COMMENT=	Mail filter support library for sendmail
@@ -21,5 +21,5 @@ PTHREAD_OPTS+=	require
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
 
-# has to be below include for bsd.pkg.mk, else substition fails
+# has to be below include for bsd.pkg.mk, else substitution fails
 OBJDIR!=	${ECHO} obj.`${UNAME} -srm | ${TR} \  .`

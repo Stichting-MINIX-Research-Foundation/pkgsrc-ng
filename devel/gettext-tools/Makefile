@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.24 2014/01/11 10:52:46 adam Exp $
+# $NetBSD: Makefile,v 1.27 2015/01/10 16:19:48 gdt Exp $
 
 .include "../../devel/gettext/Makefile.common"
 
@@ -9,13 +9,14 @@ DISTINFO_FILE=	${.CURDIR}/../../devel/gettext/distinfo
 PATCHDIR=	${.CURDIR}/../../devel/gettext/patches
 
 USE_LANGUAGES=		c c++
-USE_TOOLS+=		xz
+USE_TOOLS+=		xz:run
 USE_PKGLOCALEDIR=	yes
 CONFIGURE_ARGS+=	--disable-csharp
 CONFIGURE_ARGS+=	--with-included-libcroco
 CONFIGURE_ARGS+=	--without-git
 CONFIGURE_ARGS+=	--with-xz
 CONFIGURE_ARGS+=	--without-included-gettext
+CONFIGURE_ARGS+=	--without-emacs
 CONFIGURE_ENV+=		GCJ= ac_cv_prog_GCJ= ac_cv_prog_JAR=
 CONFIGURE_ENV+=		HAVE_GCJ_IN_PATH=
 CONFIGURE_ENV+=		HAVE_JAVAC_IN_PATH=

@@ -1,6 +1,7 @@
-@comment $NetBSD: PLIST,v 1.7 2014/03/16 17:52:12 taca Exp $
+@comment $NetBSD: PLIST,v 1.11 2015/03/08 15:17:19 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
 ${GEM_EXTSDIR}/fastfilereaderext.${RUBY_DLEXT}
+${GEM_EXTSDIR}/gem.build_complete
 ${GEM_EXTSDIR}/rubyeventmachine.${RUBY_DLEXT}
 ${GEM_LIBDIR}/.gitignore
 ${GEM_LIBDIR}/.travis.yml
@@ -121,6 +122,7 @@ ${GEM_LIBDIR}/tests/test_basic.rb
 ${GEM_LIBDIR}/tests/test_channel.rb
 ${GEM_LIBDIR}/tests/test_completion.rb
 ${GEM_LIBDIR}/tests/test_connection_count.rb
+${GEM_LIBDIR}/tests/test_connection_write.rb
 ${GEM_LIBDIR}/tests/test_defer.rb
 ${GEM_LIBDIR}/tests/test_deferrable.rb
 ${GEM_LIBDIR}/tests/test_epoll.rb
@@ -135,10 +137,12 @@ ${GEM_LIBDIR}/tests/test_httpclient.rb
 ${GEM_LIBDIR}/tests/test_httpclient2.rb
 ${GEM_LIBDIR}/tests/test_idle_connection.rb
 ${GEM_LIBDIR}/tests/test_inactivity_timeout.rb
+${GEM_LIBDIR}/tests/test_iterator.rb
 ${GEM_LIBDIR}/tests/test_kb.rb
 ${GEM_LIBDIR}/tests/test_line_protocol.rb
 ${GEM_LIBDIR}/tests/test_ltp.rb
 ${GEM_LIBDIR}/tests/test_ltp2.rb
+${GEM_LIBDIR}/tests/test_many_fds.rb
 ${GEM_LIBDIR}/tests/test_next_tick.rb
 ${GEM_LIBDIR}/tests/test_object_protocol.rb
 ${GEM_LIBDIR}/tests/test_pause.rb

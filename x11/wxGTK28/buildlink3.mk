@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.27 2013/10/10 14:41:50 ryoon Exp $
+# $NetBSD: buildlink3.mk,v 1.30 2015/02/28 23:48:40 joerg Exp $
 
 BUILDLINK_TREE+=	wxGTK28
 
@@ -6,11 +6,12 @@ BUILDLINK_TREE+=	wxGTK28
 WXGTK28_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.wxGTK28+=	wxGTK28>=2.8.10
-BUILDLINK_ABI_DEPENDS.wxGTK28+=	wxGTK28>=2.8.12nb4
+BUILDLINK_ABI_DEPENDS.wxGTK28+=	wxGTK28>=2.8.12nb5
 BUILDLINK_PKGSRCDIR.wxGTK28?=	../../x11/wxGTK28
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
@@ -18,6 +19,7 @@ BUILDLINK_PKGSRCDIR.wxGTK28?=	../../x11/wxGTK28
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
+.include "../../x11/libXxf86vm/buildlink3.mk"
 .endif # WXGTK28_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-wxGTK28

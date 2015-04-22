@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.38 2014/02/12 23:18:49 tron Exp $
+# $NetBSD: Makefile,v 1.55 2015/02/21 23:35:42 ryoon Exp $
 
 DISTNAME=	kde-runtime-${_KDE_VERSION}
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	x11
 COMMENT=	Runtime requirements for the KDE integrated X11 desktop
 
@@ -17,6 +17,8 @@ DEPENDS+=	htdig>=3.2.0:../../www/htdig
 DEPENDS+=	oxygen-icons-[0-9]*:../../graphics/oxygen-icons
 
 USE_TOOLS+=		gmake
+
+LDFLAGS.SunOS+=	-lsocket
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
@@ -65,7 +67,6 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 #.include "../../security/libssh/buildlink3.mk"
 .include "../../security/qca2/buildlink3.mk"
 .include "../../misc/kdepimlibs4/buildlink3.mk"
-.include "../../misc/nepomuk-core/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../graphics/exiv2/buildlink3.mk"
@@ -76,8 +77,6 @@ BUILDLINK_ABI_DEPENDS.attica?=	attica>=0.1.4
 .include "../../multimedia/xine-lib/buildlink3.mk"
 .include "../../net/openslp/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
-BUILDLINK_ABI_DEPENDS.soprano?=	soprano>=2.6.50
-.include "../../textproc/soprano/buildlink3.mk"
 .include "../../x11/kactivities/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.168 2014/02/12 23:18:48 tron Exp $
+# $NetBSD: Makefile,v 1.174 2014/12/16 10:46:32 prlw1 Exp $
 
 DISTNAME=		gnome-panel-2.32.1
-PKGREVISION=		36
+PKGREVISION=		41
 CATEGORIES=		x11 gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-panel/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -22,7 +22,7 @@ USE_LIBTOOL=		YES
 PKGCONFIG_OVERRIDE+=	bonobo/libpanel-applet/libpanelapplet-2.0.pc.in
 PKGCONFIG_OVERRIDE+=	libpanel-applet/libpanelapplet-3.0.pc.in
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-ORBit via py-gnome2
 
 # XXX this pkg installs a gio module to ${PREFIX}/lib/gnome-panel/modules
 # but there are two problems with this:
@@ -76,6 +76,7 @@ BUILDLINK_API_DEPENDS.libgweather+=	libgweather>=2.24.1
 #.include "../../security/policykit/buildlink3.mk"
 #.include "../../security/policykit-gnome/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 BUILDLINK_API_DEPENDS.gnome-menus+= gnome-menus>=2.28.0
 .include "../../sysutils/gnome-menus/buildlink3.mk"
 .include "../../textproc/gnome-doc-utils/buildlink3.mk"

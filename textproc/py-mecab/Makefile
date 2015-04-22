@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2014/01/25 10:30:24 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2014/12/31 13:57:30 wiz Exp $
 
 .include "../../textproc/mecab/Makefile.common"
 
@@ -11,8 +11,6 @@ LICENSE=	gnu-gpl-v2 OR gnu-lgpl-v2.1 OR modified-bsd
 
 USE_LANGUAGES=	c c++
 
-EGG_NAME=	${DISTNAME:S/-/_/}
-
 TEST_ENV+=	PYTHONPATH=${WRKSRC:Q}/build/lib.${LOWER_OPSYS}-${OS_VERSION}-${MACHINE_ARCH}-${PYVERSSUFFIX}
 
 do-test:
@@ -22,7 +20,7 @@ do-test:
 
 BUILDLINK_API_DEPENDS.mecab+=	mecab>=${MECAB_VERSION}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.996
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.996
 
 .include "../../textproc/mecab/buildlink3.mk"
 .include "../../lang/python/distutils.mk"

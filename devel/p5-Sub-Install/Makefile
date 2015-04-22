@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2014/02/16 19:20:00 sno Exp $
-#
+# $NetBSD: Makefile,v 1.13 2014/09/06 12:51:03 wiz Exp $
 
-DISTNAME=	Sub-Install-0.927
+DISTNAME=	Sub-Install-0.928
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/R/RJ/RJBS/}

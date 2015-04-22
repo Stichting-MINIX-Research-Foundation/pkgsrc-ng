@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/10/28 06:30:04 asau Exp $
+# $NetBSD: Makefile,v 1.5 2014/06/11 12:57:22 joerg Exp $
 #
 
 DISTNAME=	mod_geoip2_1.2.5
@@ -11,10 +11,8 @@ HOMEPAGE=	http://www.maxmind.com/app/mod_geoip
 COMMENT=	Apache module to interact with the MaxMind geoip database
 LICENSE=	apache-1.1
 
-.include "../../mk/apache.mk"
-APACHE_MODULE=	yes
 APACHE_MODULE_NAME=	mod_geoip.so
-PKG_APACHE_ACCEPTED=	apache2 apache22
+PKG_APACHE_ACCEPTED=	apache22
 NO_CONFIGURE=	yes
 CPPFLAGS+=	-I${DESTDIR}/include
 LDFLAGS+=	-L${DESTDIR}/lib -lGeoIP
@@ -22,6 +20,6 @@ LDFLAGS+=	-L${DESTDIR}/lib -lGeoIP
 pre-install:
 	cp ${WRKDIR}/${DISTNAME}/.libs/mod_geoip.so ${WRKDIR}/${DISTNAME}/
 
-.include "../../www/apache/module.mk"
+.include "../../mk/apache.module.mk"
 .include "../../net/GeoIP/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

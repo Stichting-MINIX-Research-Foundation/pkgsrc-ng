@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.52 2014/01/27 20:47:19 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2014/05/29 23:36:53 wiz Exp $
 
 DISTNAME=	gnumeric-1.10.17
-PKGREVISION=	19
+PKGREVISION=	21
 CATEGORIES=	math gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnumeric/1.10/}
 EXTRACT_SUFX=	.tar.bz2
@@ -29,7 +29,7 @@ PLIST_SUBST+=		GOFFICE_VERSION=${GOFFICE_VERSION}
 
 CONFIGURE_ARGS+=	--with-python
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.10.17
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.10.17
 .include "../../lang/python/application.mk"
 .include "../../devel/py-gobject/buildlink3.mk"
 

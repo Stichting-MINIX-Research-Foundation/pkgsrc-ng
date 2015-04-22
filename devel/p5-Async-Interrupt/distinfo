@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.6 2013/09/02 12:55:02 obache Exp $
+$NetBSD: distinfo,v 1.9 2015/02/13 14:03:34 mef Exp $
 
-SHA1 (Async-Interrupt-1.1.tar.gz) = e3e95507dcaa4c3a4e42bd11a394b4b9f4e651dc
-RMD160 (Async-Interrupt-1.1.tar.gz) = 746a2dc5e46939255b2af05ff8519b9e500b01e2
-Size (Async-Interrupt-1.1.tar.gz) = 30611 bytes
+SHA1 (Async-Interrupt-1.21.tar.gz) = a8c2945e78b7c223c3f87fd2268f400326f5d92d
+RMD160 (Async-Interrupt-1.21.tar.gz) = 8fa1c7780ba232295e2b00eebf0d968f1cfb3400
+Size (Async-Interrupt-1.21.tar.gz) = 33918 bytes

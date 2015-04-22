@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.7 2013/07/07 23:46:50 marino Exp $
+# $NetBSD: options.mk,v 1.10 2014/05/09 22:45:15 marino Exp $
 
 
 # xmlada is built-in (not optional) due to gprbuild dependency
@@ -12,7 +12,7 @@
 PKG_OPTIONS_VAR=	PKG_OPTIONS.aws
 PKG_OPTIONS_OPTIONAL_GROUPS=	slayer
 PKG_OPTIONS_GROUP.slayer=	ssl gnutls
-PKG_SUPPORTED_OPTIONS=	ldap inet6 debug disable-shared-rt relocatable
+PKG_SUPPORTED_OPTIONS=	ldap inet6 debug relocatable
 PKG_SUGGESTED_OPTIONS=	ssl
 
 .include "../../mk/bsd.prefs.mk"
@@ -35,7 +35,7 @@ DOTBUILD=		release
 # NetBSD until NetBSD upgrades it's libgcc or until a new GNAT and GPRBuild
 # are delivered that don't have this bug.
 
-.if $(OPSYS) == "NetBSD"
+.if $(OPSYS) == NetBSD
 CONFIGURE_ARGS+=	ZLIB=false
 .else
 CONFIGURE_ARGS+=	ZLIB=true
@@ -89,9 +89,9 @@ DOTBUILD=debug
 ##  Shared Runtime Library  ##
 ##############################
 
-.if !empty(PKG_OPTIONS:Mdisable-shared-rt)
+#.if !empty(PKG_OPTIONS:Mdisable-shared-rt)
 CONFIGURE_ARGS+= ENABLE_SHARED=false
-.endif
+#.endif
 
 ############################
 ##  Default Library Type  ##

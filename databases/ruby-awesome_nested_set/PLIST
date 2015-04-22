@@ -1,0 +1,11 @@
+@comment $NetBSD: PLIST,v 1.2 2014/07/16 07:56:28 rodent Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/CHANGELOG
+${GEM_LIBDIR}/lib/awesome_nested_set/awesome_nested_set.rb
+${GEM_LIBDIR}/lib/awesome_nested_set/helper.rb
+${GEM_LIBDIR}/lib/awesome_nested_set.rb
+${GEM_LIBDIR}/lib/awesome_nested_set/version.rb
+${GEM_LIBDIR}/MIT-LICENSE
+${GEM_LIBDIR}/README.rdoc
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec
+@pkgdir lib/ruby/gems/2.0.0/build_info

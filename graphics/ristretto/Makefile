@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/10/10 14:42:16 ryoon Exp $
+# $NetBSD: Makefile,v 1.31 2015/01/08 10:14:38 martin Exp $
 #
 
 DISTNAME=	ristretto-0.0.22
-PKGREVISION=	25
+PKGREVISION=	27
 CATEGORIES=	graphics
 MASTER_SITES=	http://goodies.xfce.org/releases/ristretto/
 
@@ -19,6 +19,7 @@ GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake pkg-config msgfmt perl intltool
 
 LDFLAGS.DragonFly=	-lX11
+LDFLAGS.FreeBSD=	-lX11
 LDFLAGS.SunOS=		-lX11
 
 .include "../../devel/xfce4-dev-tools/buildlink3.mk"

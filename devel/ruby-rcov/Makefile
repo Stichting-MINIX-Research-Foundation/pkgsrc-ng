@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/03/17 14:07:06 taca Exp $
+# $NetBSD: Makefile,v 1.12 2015/03/08 16:01:26 taca Exp $
 
 DISTNAME=	rcov-1.0.0
+PKGREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -11,9 +12,7 @@ LICENSE=	gnu-gpl-v2 OR ruby-license
 RUBY_VERSION_SUPPORTED=	18
 
 USE_GCC_RUNTIME=	yes
-
-post-install:
-	${MV} ${DESTDIR}${PREFIX}/bin/rcov ${DESTDIR}${PREFIX}/bin/rcov${RUBY_SUFFIX}
+RUBYGEM_OPTIONS+=	--format-executable
 
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

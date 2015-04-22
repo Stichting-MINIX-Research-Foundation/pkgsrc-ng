@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2013/10/10 14:42:09 ryoon Exp $
+# $NetBSD: Makefile,v 1.17 2014/06/20 20:11:27 tsutsui Exp $
 
-SNAPSHOTDATE=		20130727
+SNAPSHOTDATE=		20140607
 DISTNAME=		xnp2-${SNAPSHOTDATE}
 PKGNAME=		xnp2-0.83pl${SNAPSHOTDATE}
-PKGREVISION=		2
 CATEGORIES=		emulators
 MASTER_SITES=		http://www.nonakap.org/np2/
 EXTRACT_SUFX=		.tar.bz2
@@ -19,7 +18,7 @@ CONFIGURE_DIRS=		x11
 
 GNU_CONFIGURE=		yes
 
-.include "options.mk"
+CONFIGURE_ARGS+=	--enable-build-all
 
 INSTALLATION_DIRS+=	share/doc/xnp2 ${PKGMANDIR}/ja/man1
 
@@ -28,6 +27,8 @@ post-install:
 		${DESTDIR}${PREFIX}/share/doc/xnp2
 	${MV} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/xnp2.1j	\
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/ja/man1/xnp2.1
+	${MV} ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/xnp21.1j	\
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/ja/man1/xnp21.1
 
 BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.6.0
 .include "../../x11/gtk2/buildlink3.mk"

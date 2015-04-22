@@ -1,21 +1,27 @@
-# $NetBSD: Makefile,v 1.3 2012/12/22 13:34:49 imil Exp $
+# $NetBSD: Makefile,v 1.12 2015/03/26 15:57:12 joerg Exp $
 #
 
-IRCVERS=	3.4.2
-DISTNAME=	irc-${IRCVERS}
-PKGNAME=	${PYPKGPREFIX}-irclib-${IRCVERS}
+PYIRCVERS=	11.1.1
+DISTNAME=	irc-${PYIRCVERS}
+PKGNAME=	${PYPKGPREFIX}-irclib-${PYIRCVERS}
 CATEGORIES=	net python
 MASTER_SITES=	http://pypi.python.org/packages/source/i/irc/
 EXTRACT_SUFX=	.zip
+EXTRACT_OPTS_ZIP=-aa -q -o
 
 MAINTAINER=	imil@NetBSD.org
-HOMEPAGE=	https://bitbucket.org/jaraco/irc
+HOMEPAGE=	http://python-irclib.sourceforge.net/
 COMMENT=	Internet Relay Chat (IRC) protocol client library
 LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=	# none
 
-.include "../../lang/python/egg.mk"
+DEPENDS+=	${PYPKGPREFIX}-six>=1.5.2:../../lang/py-six
+DEPENDS+=	${PYPKGPREFIX}-jaraco_util>=10.0.2:../../devel/py-jaraco_util
+
+BUILD_DEPENDS+=	${PYPKGPREFIX}-hgtools>=5:../../devel/py-hgtools
+
+.include "../../lang/python/distutils.mk"
 
 PLIST_VARS+=	requires
 .if ${PYVERSSUFFIX} == "2.5" || ${PYVERSSUFFIX} == "2.6"
@@ -25,10 +31,4 @@ PLIST.requires=	yes
 post-extract:
 	cd ${WRKSRC} && ${CHMOD} ${SHAREMODE} irc.egg-info/*
 
-# for some reason, this package does not install egg infos
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/irc.egg-info/*		\
-		${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_INFODIR}
-
-.include "../../devel/py-hgtools/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

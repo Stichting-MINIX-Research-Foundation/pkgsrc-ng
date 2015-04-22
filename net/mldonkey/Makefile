@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.73 2013/12/28 11:03:26 jaapb Exp $
+# $NetBSD: Makefile,v 1.77 2015/01/20 14:24:36 jaapb Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=		12
+PKGREVISION=		15
 
 RCD_SCRIPTS=		mldonkey
 
@@ -34,6 +34,7 @@ FILES_SUBST+=		MLDONKEY_USER=${MLDONKEY_USER:Q}
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/mlnet ${DESTDIR}${PREFIX}/libexec/mldonkey
 
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../sysutils/file/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.27 2014/02/12 23:18:00 tron Exp $
+# $NetBSD: Makefile,v 1.30 2014/08/21 08:55:01 jperkin Exp $
 #
 
 DISTNAME=		flphoto-1.2-source
 PKGNAME=		flphoto-1.2
-PKGREVISION=		19
+PKGREVISION=		20
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=fltk/}
 EXTRACT_SUFX=		.tar.bz2
@@ -17,9 +17,10 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 
 LIBS.DragonFly= 	-lstdc++
+LIBS.SunOS+= 		-lstdc++
 
 .include "../../x11/fltk13/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .include "../../devel/libgphoto2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

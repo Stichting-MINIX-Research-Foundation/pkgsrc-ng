@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2014/02/16 14:42:04 wen Exp $
+# $NetBSD: Makefile,v 1.30 2015/01/19 01:10:15 wen Exp $
 
-DISTNAME=	version-0.9908
+DISTNAME=	version-0.9911
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=version/}
@@ -9,8 +9,6 @@ MAINTAINER=	abs@absd.org
 HOMEPAGE=	http://search.cpan.org/dist/version/
 COMMENT=	Perl extension for Version Objects
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c
 PERL5_PACKLIST=		auto/version/.packlist

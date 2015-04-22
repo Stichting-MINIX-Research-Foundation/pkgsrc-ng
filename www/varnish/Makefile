@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2014/03/11 14:34:41 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2015/03/09 00:47:05 mspo Exp $
 #
 
-DISTNAME=	varnish-3.0.5
+DISTNAME=	varnish-3.0.6
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://repo.varnish-cache.org/source/
 
@@ -44,7 +45,9 @@ REPLACE_PYTHON+=	lib/libvcl/generate.py
 REPLACE_PYTHON+=	lib/libvmod_std/vmod.py
 
 .include "../../lang/python/pyversion.mk"
-BUILD_DEPENDS+=		${PYPKGPREFIX}-docutils>=0.5:../../textproc/py-docutils
+BUILD_DEPENDS+=		${PYPKGPREFIX}-docutils>=0.12:../../textproc/py-docutils
+CONFIGURE_ARGS+=	--with-rst2man=${PREFIX}/bin/rst2man-${PYVERSSUFFIX}.py
+CONFIGURE_ARGS+=	--with-rst2html=${PREFIX}/bin/rst2html-${PYVERSSUFFIX}.py
 
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../mk/bsd.prefs.mk"

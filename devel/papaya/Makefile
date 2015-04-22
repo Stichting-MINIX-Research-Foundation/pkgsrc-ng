@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.30 2013/05/31 12:40:56 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2014/10/09 14:06:30 wiz Exp $
 #
 
 DISTNAME=	papaya-0.1.7
-PKGREVISION=	9
+PKGREVISION=	10
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=papaya-utils/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://sourceforge.net/projects/papaya-utils/
 COMMENT=	Simple scripts for software development
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=	# none, not even C
 GNU_CONFIGURE=	YES

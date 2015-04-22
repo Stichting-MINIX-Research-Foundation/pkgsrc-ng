@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/01/09 11:49:00 jperkin Exp $
+# $NetBSD: Makefile,v 1.23 2014/12/08 14:04:57 mef Exp $
 #
 
-DISTNAME=		chkrootkit-0.49
-#KGREVISION=		1
+DISTNAME=		chkrootkit-0.50
 CATEGORIES=		security
 MASTER_SITES=		ftp://ftp.pangeia.com.br/pub/seg/pac/
 
@@ -10,8 +9,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.chkrootkit.org/
 COMMENT=		Locally checks for signs of a rootkit
 LICENSE=		modified-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=		gmake
 NO_CONFIGURE=		yes

@@ -1,8 +1,8 @@
-$NetBSD: patch-aa,v 1.2 2013/12/04 12:51:06 adam Exp $
+$NetBSD: patch-aa,v 1.4 2014/11/20 21:43:10 bsiegert Exp $
 
---- Makefile.orig	2013-12-03 19:35:24.000000000 +0000
+--- Makefile.orig	2014-05-30 21:38:10.000000000 +0000
 +++ Makefile
-@@ -351,8 +351,6 @@ GIT-VERSION-FILE: FORCE
+@@ -354,8 +354,6 @@ GIT-VERSION-FILE: FORCE
  
  CFLAGS = -g -O2 -Wall
  LDFLAGS =
@@ -11,7 +11,7 @@ $NetBSD: patch-aa,v 1.2 2013/12/04 12:51:06 adam Exp $
  STRIP ?= strip
  
  # Among the variables below, these:
-@@ -393,13 +391,9 @@ htmldir_relative = $(patsubst $(prefix)/
+@@ -396,13 +394,9 @@ htmldir_relative = $(patsubst $(prefix)/
  
  export prefix bindir sharedir sysconfdir gitwebdir localedir
  
@@ -25,7 +25,7 @@ $NetBSD: patch-aa,v 1.2 2013/12/04 12:51:06 adam Exp $
  RPMBUILD = rpmbuild
  TCL_PATH = tclsh
  TCLTK_PATH = wish
-@@ -1630,8 +1624,8 @@ ifdef DEFAULT_HELP_FORMAT
+@@ -1635,8 +1629,8 @@ ifdef DEFAULT_HELP_FORMAT
  BASIC_CFLAGS += -DDEFAULT_HELP_FORMAT='"$(DEFAULT_HELP_FORMAT)"'
  endif
  
@@ -36,7 +36,12 @@ $NetBSD: patch-aa,v 1.2 2013/12/04 12:51:06 adam Exp $
  
  export DIFF TAR INSTALL DESTDIR SHELL_PATH
  
-@@ -2338,7 +2332,6 @@ ifndef NO_GETTEXT
+@@ -2349,11 +2343,10 @@ install: all
+ ifndef NO_GETTEXT
+	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
+	(cd po/build/locale && $(TAR) cf - .) | \
+-	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xof -)
++	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xf -)
  endif
  ifndef NO_PERL
  	$(MAKE) -C perl prefix='$(prefix_SQ)' DESTDIR='$(DESTDIR_SQ)' install

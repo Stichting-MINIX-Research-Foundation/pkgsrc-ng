@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2013/12/30 13:07:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.18 2014/10/09 14:06:10 wiz Exp $
 #
 
 DISTNAME=	slang-2.2.4
 PKGNAME=	lib${DISTNAME:slang%=slang2%}
 PKGREVISION=	2
-SVR4_PKGNAME=	lslan
 CATEGORIES=	devel
 MASTER_SITES=	ftp://space.mit.edu/pub/davis/slang/v2.2/ \
 		ftp://ftp.ntua.gr/pub/lang/slang/slang/v2.2/
@@ -14,8 +13,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.jedsoft.org/slang/
 COMMENT=	Routines for rapid alpha-numeric terminal applications development
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 MAKE_JOBS_SAFE=		no
 

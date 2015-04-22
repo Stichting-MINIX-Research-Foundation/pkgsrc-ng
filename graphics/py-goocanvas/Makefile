@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2014/01/25 10:30:10 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2014/05/09 07:37:08 wiz Exp $
 
 DISTNAME=	pygoocanvas-0.14.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/^py//}
-PKGREVISION=	22
+PKGREVISION=	23
 CATEGORIES=	graphics python
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pygoocanvas/0.14/}
 
@@ -21,7 +21,7 @@ CONFIGURE_ARGS+=	--disable-docs
 
 PY_PATCHPLIST=	yes
 PYTHON_VERSIONED_DEPENDENCIES=	cairo:link
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
 
 .include "../../lang/python/pyversion.mk"
 

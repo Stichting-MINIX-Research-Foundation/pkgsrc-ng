@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.217 2013/08/17 11:52:36 richard Exp $
+# $NetBSD: Makefile,v 1.226 2015/03/14 01:24:54 prlw1 Exp $
 
 .include "Makefile.common"
 
@@ -30,7 +30,7 @@ CHECK_INTERPRETER_SKIP+=	bin/gtester-report
 CHECK_INTERPRETER_SKIP+=	bin/gdbus-codegen
 
 # need pcre utf8 + unicode-properties
-BUILDLINK_API_DEPENDS.pcre+=	pcre>=8.11
+BUILDLINK_API_DEPENDS.pcre+=	pcre>=8.31
 # to avoid pkg-config dependency, explicitly specify pcre location
 CONFIGURE_ARGS+=	PCRE_CFLAGS=-I${BUILDLINK_PREFIX.pcre}/include
 CONFIGURE_ARGS+=	PCRE_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.pcre}/lib -L${BUILDLINK_PREFIX.pcre}/lib -lpcre"

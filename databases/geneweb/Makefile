@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.37 2013/11/01 11:30:21 jaapb Exp $
+# $NetBSD: Makefile,v 1.40 2015/01/20 14:24:35 jaapb Exp $
 #
 
 DISTNAME=	geneweb-5.01
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	databases
 EXTRACT_SUFX=	.tgz
 MASTER_SITES=	ftp://ftp.inria.fr/INRIA/Projects/cristal/geneweb/Src/ \
@@ -82,7 +82,7 @@ do-install:
 		${TOUCH} ${DESTDIR}${PREFIX}/share/geneweb/gwtp_tmp/gwtp.log
 		${CHMOD} 600 ${DESTDIR}${PREFIX}/share/geneweb/gwtp_tmp/passwd
 		${CHMOD} 600 ${DESTDIR}${PREFIX}/share/geneweb/gwtp_tmp/gwtp.log
-		${CHOWN} -R root.${ROOT_GROUP} ${DESTDIR}${PREFIX}/share/geneweb
+		${CHOWN} -R root:${ROOT_GROUP} ${DESTDIR}${PREFIX}/share/geneweb
 
 .include "../../lang/camlp5/buildlink3.mk"
 .include "../../lang/ocaml/buildlink3.mk"

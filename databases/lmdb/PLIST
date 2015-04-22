@@ -1,0 +1,12 @@
+@comment $NetBSD: PLIST,v 1.2 2015/03/01 21:19:29 mspo Exp $
+bin/mdb_copy
+bin/mdb_dump
+bin/mdb_load
+bin/mdb_stat
+include/lmdb.h
+lib/liblmdb.a
+lib/liblmdb.so
+man/man1/mdb_copy.1
+man/man1/mdb_dump.1
+man/man1/mdb_load.1
+man/man1/mdb_stat.1

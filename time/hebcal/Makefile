@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.5 2013/05/31 12:42:24 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2014/12/04 01:05:34 mef Exp $
 #
 
-DISTNAME=	hebcal-3.7
-PKGREVISION=	2
+DISTNAME=	hebcal-3.11
 CATEGORIES=	time
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hebcal/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://hebcal.sourceforge.net/
 COMMENT=	Perpetual Hebrew calendar
+LICENSE=	gnu-gpl-v2
 
 INFO_FILES=	yes
 

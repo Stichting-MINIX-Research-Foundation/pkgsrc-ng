@@ -1,4 +1,4 @@
-# $NetBSD: tools.OSF1.mk,v 1.16 2014/03/06 07:34:20 uebayasi Exp $
+# $NetBSD: tools.OSF1.mk,v 1.18 2015/02/01 08:48:56 obache Exp $
 #
 # System-supplied tools for the OSF/1 operating system.
 #

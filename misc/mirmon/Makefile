@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.11 2013/07/21 10:44:03 shattered Exp $
+# $NetBSD: Makefile,v 1.14 2014/12/10 05:40:12 mef Exp $
 #
 
-DISTNAME=		mirmon-2.8
+DISTNAME=		mirmon-2.10
 CATEGORIES=		misc
 MASTER_SITES=		http://www.staff.science.uu.nl/~penni101/mirmon/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.staff.science.uu.nl/~penni101/mirmon/
 COMMENT=		Monitor the state of mirror servers
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+LICENSE=		apache-1.1
 
 REPLACE_PERL+=		mirmon
 USE_TOOLS+=		perl:run pod2man
@@ -22,7 +21,7 @@ SUBST_CLASSES+=		mirmon1
 SUBST_STAGE.mirmon1=	pre-configure
 SUBST_FILES.mirmon1=	mirmon
 SUBST_SED.mirmon1+=	-e s!/etc/!${PKG_SYSCONFDIR}/!g
-SUBST_SED.mirmon1+=	-e s!/sw/!${LOCALBASE}/!g
+SUBST_SED.mirmon1+=	-e s!/sw/!${PREFIX}/!g
 
 SUBST_CLASSES+=		mirmon2
 SUBST_STAGE.mirmon2=	pre-configure

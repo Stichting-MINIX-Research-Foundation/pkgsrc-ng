@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2013/05/31 12:41:11 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2014/08/12 08:33:31 prlw1 Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc44-${GCC_VERSION}
-PKGREVISION=		4
+PKGREVISION=		6
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
@@ -69,6 +69,13 @@ CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
 CONFIGURE_ARGS+=	--disable-libssp
 CONFIGURE_ARGS+=	--enable-threads=posix
+.if ${OPSYS} == "Darwin"
+# See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
+# create a stub library, not just to remove symbols, so we must not
+# let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
+# build fails for missing files.
+CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
+.endif
 
 CONFIGURE_ENV+=		CONFIG_SHELL=${CONFIG_SHELL}
 
@@ -89,6 +96,12 @@ CFLAGS+=		-I${BUILDLINK_DIR}/include
 #CONFIGURE_ARGS+=	--host=${GCC_PLATFORM:Q}
 #MAKE_ENV+=		AR=/usr/bin/ar
 #.endif # NetBSD
+
+.if ${OPSYS} == "NetBSD"
+.if !empty(OS_VERSION:M5.*)
+MAKE_ENV+=		ac_cv_func_gethostbyname_r=no
+.endif
+.endif
 
 LIBS.SunOS+=		-lgmp
 

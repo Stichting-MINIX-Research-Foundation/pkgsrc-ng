@@ -1,8 +1,9 @@
-$NetBSD: patch-pdns_recursor__cache.cc,v 1.1 2013/05/09 20:06:53 joerg Exp $
+$NetBSD: patch-pdns_recursor__cache.cc,v 1.3 2015/03/27 23:37:52 rodent Exp $
 
---- pdns/recursor_cache.cc.orig	2013-05-09 15:25:53.000000000 +0000
+Resolve boost symbol ambiguity.
+--- pdns/recursor_cache.cc.orig	2015-03-02 13:17:12.000000000 +0000
 +++ pdns/recursor_cache.cc
-@@ -74,7 +74,7 @@ DNSResourceRecord String2DNSRR(const str
+@@ -53,7 +53,7 @@ DNSResourceRecord String2DNSRR(const str
        rr.content=".";
    }
    else {
@@ -11,7 +12,7 @@ $NetBSD: patch-pdns_recursor__cache.cc,v 1.1 2013/05/09 20:06:53 joerg Exp $
      rr.content=regen->getZoneRepresentation();
    }
    rr.content.reserve(0);
-@@ -99,7 +99,7 @@ string DNSRR2String(const DNSResourceRec
+@@ -79,7 +79,7 @@ string DNSRR2String(const DNSResourceRec
        return simpleCompress(rr.content, rr.qname);
    else {
      string ret;

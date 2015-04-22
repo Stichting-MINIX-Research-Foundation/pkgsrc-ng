@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.124 2014/03/08 13:07:42 tron Exp $
+# $NetBSD: Makefile,v 1.145 2015/03/18 21:25:28 tron Exp $
 
 DISTNAME=	phpMyAdmin-${DIST_VERSION}-all-languages
 PKGNAME=	phpmyadmin-${DIST_VERSION:S/-//}
@@ -16,7 +16,6 @@ DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.3.0:../../archivers/php-zip
 DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.3.0:../../archivers/php-zlib
 DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.3.0:../../converters/php-mbstring
 DEPENDS+=	${PHP_PKG_PREFIX}-gettext>=5.3.0:../../devel/php-gettext
-DEPENDS+=	${PHP_PKG_PREFIX}-mysql>=5.3.0:../../databases/php-mysql
 DEPENDS+=	${PHP_PKG_PREFIX}-mysqli>=5.3.0:../../databases/php-mysqli
 DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.0:../../graphics/php-gd
 DEPENDS+=	${PHP_PKG_PREFIX}-mcrypt>=5.3.0:../../security/php-mcrypt
@@ -29,7 +28,7 @@ MESSAGE_SUBST+=	CONF_INC_PHP=${CONF_INC_PHP} PMCONFFILE=${PMCONFFILE:Q} \
 		EXDIR=${EXDIR:Q}
 
 CONF_INC_PHP=	${PREFIX}/share/phpmyadmin/config.inc.php
-DIST_VERSION=	4.1.9
+DIST_VERSION=	4.3.12
 DOC_FILES=	ChangeLog LICENSE README RELEASE-DATE-${DIST_VERSION}
 
 APACHE_USER?=	www
@@ -51,33 +50,85 @@ PKG_SYSCONFSUBDIR?=	phpmyadmin
 
 NO_BUILD=		yes
 
+CHECK_INTERPRETER_SKIP+=	share/phpmyadmin/config.inc.php
+
 INSTALLATION_DIRS+=	${PREFIX}/share/doc/phpmyadmin \
 			${PREFIX}/share/examples/phpmyadmin \
 			${PMDIR} ${PMDIR}/scripts
 
 INSTALL_DIRS=	doc/html
+INSTALL_DIRS+=	doc/html/_static
 INSTALL_DIRS+=	js
 INSTALL_DIRS+=	js/canvg
-INSTALL_DIRS+=	js/jqplot
-INSTALL_DIRS+=	js/jqplot/plugins
 INSTALL_DIRS+=	js/codemirror
 INSTALL_DIRS+=	js/codemirror/addon
+INSTALL_DIRS+=	js/codemirror/addon/hint
 INSTALL_DIRS+=	js/codemirror/addon/runmode
 INSTALL_DIRS+=	js/codemirror/lib
 INSTALL_DIRS+=	js/codemirror/mode
 INSTALL_DIRS+=	js/codemirror/mode/sql
+INSTALL_DIRS+=	js/jqplot
+INSTALL_DIRS+=	js/jqplot/plugins
 INSTALL_DIRS+=	js/jquery
 INSTALL_DIRS+=	js/jquery/src
-INSTALL_DIRS+=	js/jquery/src/jquery-ui
 INSTALL_DIRS+=	js/jquery/src/jquery
+INSTALL_DIRS+=	js/jquery/src/jquery-ui
 INSTALL_DIRS+=	js/jquery/src/jquery/ajax
 INSTALL_DIRS+=	js/openlayers
 INSTALL_DIRS+=	js/openlayers/img
+INSTALL_DIRS+=	js/openlayers/src
+INSTALL_DIRS+=	js/openlayers/src/openlayers
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/Firebug
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/Gears
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/BaseTypes
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Control
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Feature
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Filter
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/ArcXML
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/CSWGetDomain
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/CSWGetRecords
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/Filter
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/GML
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/OWSCommon
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/OWSContext
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/SLD
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/SOSCapabilities
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WFSCapabilities
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WFST
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WMC
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WMSCapabilities
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WMSDescribeLayer
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Format/WMTSCapabilities
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Geometry
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Handler
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Lang
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Layer
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Layer/Google
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Layer/MapServer
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Layer/Vector
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Layer/WMS
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Marker
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Popup
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Protocol
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Protocol/SOS
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Protocol/SQL
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Protocol/WFS
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Renderer
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Request
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Strategy
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Symbolizer
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Tile
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/OpenLayers/Tile/Image
+INSTALL_DIRS+=	js/openlayers/src/openlayers/lib/Rico
 INSTALL_DIRS+=	js/openlayers/theme
 INSTALL_DIRS+=	js/openlayers/theme/default
 INSTALL_DIRS+=	js/openlayers/theme/default/img
 INSTALL_DIRS+=	js/pmd
 INSTALL_DIRS+=	js/tracekit
+INSTALL_DIRS+=	js/transformations
 INSTALL_DIRS+=	libraries
 INSTALL_DIRS+=	libraries/PHPExcel
 INSTALL_DIRS+=	libraries/PHPExcel/PHPExcel
@@ -129,8 +180,15 @@ INSTALL_DIRS+=	libraries/plugins/auth/swekey
 INSTALL_DIRS+=	libraries/plugins/export
 INSTALL_DIRS+=	libraries/plugins/import
 INSTALL_DIRS+=	libraries/plugins/import/upload
+INSTALL_DIRS+=	libraries/plugins/schema
+INSTALL_DIRS+=	libraries/plugins/schema/dia
+INSTALL_DIRS+=	libraries/plugins/schema/eps
+INSTALL_DIRS+=	libraries/plugins/schema/pdf
+INSTALL_DIRS+=	libraries/plugins/schema/svg
 INSTALL_DIRS+=	libraries/plugins/transformations
 INSTALL_DIRS+=	libraries/plugins/transformations/abstract
+INSTALL_DIRS+=	libraries/plugins/transformations/input
+INSTALL_DIRS+=	libraries/plugins/transformations/output
 INSTALL_DIRS+=	libraries/properties
 INSTALL_DIRS+=	libraries/properties/options
 INSTALL_DIRS+=	libraries/properties/options/groups
@@ -150,6 +208,8 @@ INSTALL_DIRS+=	libraries/transformations
 INSTALL_DIRS+=	locale
 INSTALL_DIRS+=	locale/ar
 INSTALL_DIRS+=	locale/ar/LC_MESSAGES
+INSTALL_DIRS+=	locale/az
+INSTALL_DIRS+=	locale/az/LC_MESSAGES
 INSTALL_DIRS+=	locale/be
 INSTALL_DIRS+=	locale/be/LC_MESSAGES
 INSTALL_DIRS+=	locale/be@latin
@@ -186,6 +246,8 @@ INSTALL_DIRS+=	locale/hr
 INSTALL_DIRS+=	locale/hr/LC_MESSAGES
 INSTALL_DIRS+=	locale/hu
 INSTALL_DIRS+=	locale/hu/LC_MESSAGES
+INSTALL_DIRS+=	locale/ia
+INSTALL_DIRS+=	locale/ia/LC_MESSAGES
 INSTALL_DIRS+=	locale/id
 INSTALL_DIRS+=	locale/id/LC_MESSAGES
 INSTALL_DIRS+=	locale/it
@@ -194,6 +256,8 @@ INSTALL_DIRS+=	locale/ja
 INSTALL_DIRS+=	locale/ja/LC_MESSAGES
 INSTALL_DIRS+=	locale/ka
 INSTALL_DIRS+=	locale/ka/LC_MESSAGES
+INSTALL_DIRS+=	locale/ko
+INSTALL_DIRS+=	locale/ko/LC_MESSAGES
 INSTALL_DIRS+=	locale/lt
 INSTALL_DIRS+=	locale/lt/LC_MESSAGES
 INSTALL_DIRS+=	locale/mn
@@ -204,6 +268,7 @@ INSTALL_DIRS+=	locale/nl
 INSTALL_DIRS+=	locale/nl/LC_MESSAGES
 INSTALL_DIRS+=	locale/pl
 INSTALL_DIRS+=	locale/pl/LC_MESSAGES
+INSTALL_DIRS+=	locale/pt/LC_MESSAGES
 INSTALL_DIRS+=	locale/pt_BR
 INSTALL_DIRS+=	locale/pt_BR/LC_MESSAGES
 INSTALL_DIRS+=	locale/ro
@@ -272,6 +337,7 @@ do-install:
 	${MV} ${DESTDIR}${PREFIX}/share/phpmyadmin/config.sample.inc.php \
 	  ${DESTDIR}${EXDIR}/config.inc.php
 	${INSTALL_DATA} ${WRKSRC}/examples/* ${DESTDIR}${EXDIR}
+	${LN} -fs ${EXDIR} ${DESTDIR}${PREFIX}/share/phpmyadmin/examples
 
 	for dir in ${INSTALL_DIRS}; do					\
 		for file in ${WRKSRC}/$$dir/*; do			\

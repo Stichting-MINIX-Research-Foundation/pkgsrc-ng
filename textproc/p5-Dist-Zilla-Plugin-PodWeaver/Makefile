@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2014/02/23 02:12:37 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.8 2015/01/26 13:52:22 mef Exp $
 
-DISTNAME=	Dist-Zilla-Plugin-PodWeaver-4.005
+DISTNAME=	Dist-Zilla-Plugin-PodWeaver-4.006
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Dist/}
@@ -22,8 +22,6 @@ DEPENDS+=	p5-namespace-autoclean-[0-9]*:../../devel/p5-namespace-autoclean
 
 BUILD_DEPENDS+=	p5-File-Find-Rule-[0-9]*:../../devel/p5-File-Find-Rule
 BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple-[0-9]*}:../../devel/p5-Test-Simple
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Dist/Zilla/Plugin/PodWeaver/.packlist
 

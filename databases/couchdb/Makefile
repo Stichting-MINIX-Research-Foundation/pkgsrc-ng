@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2014/03/11 14:34:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.29 2014/10/07 16:47:20 adam Exp $
 #
 
-DISTNAME=		apache-couchdb-1.5.0
+DISTNAME=		apache-couchdb-1.6.1
 PKGNAME=		${DISTNAME:S/apache-//}
 PKGREVISION=		1
 CATEGORIES=		databases

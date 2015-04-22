@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.2 2014/02/21 18:09:02 richard Exp $
+# $NetBSD: options.mk,v 1.6 2014/06/18 09:26:11 wiz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ghostscript
 PKG_SUPPORTED_OPTIONS=	x11 cups debug fontconfig disable-compile-inits utf8
@@ -15,6 +15,11 @@ CONFIGURE_ARGS+=	--with-x
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
+
+. if !empty(X11_TYPE:Mnative)
+.  include "../../x11/libxcb/buildlink3.mk"
+.  include "../../graphics/freetype2/buildlink3.mk"
+. endif
 .else
 CONFIGURE_ARGS+=	--without-x
 CONFIGURE_ARGS+=	--disable-freetype
@@ -24,6 +29,7 @@ PLIST_VARS+=		cups
 .if !empty(PKG_OPTIONS:Mcups)
 CONFIGURE_ARGS+=	--enable-cups
 PLIST.cups=		yes
+BUILD_TARGET+=		cups
 INSTALL_TARGET+=	install-cups
 
 CUPS_CONFDIR?=	${PKG_SYSCONFBASEDIR}/cups
@@ -36,7 +42,7 @@ SUBST_MESSAGE.cupsetc=	Fixing CUPS etc directory path to install as example
 SUBST_FILES.cupsetc=	cups/cups.mak
 SUBST_SED.cupsetc=	-e 's|$$(CUPSSERVERROOT)|${CUPS_EGDIR}|g'
 
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-cups

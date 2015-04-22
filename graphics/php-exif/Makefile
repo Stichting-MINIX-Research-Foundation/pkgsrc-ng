@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2012/10/06 14:11:13 asau Exp $
+# $NetBSD: Makefile,v 1.14 2015/03/20 16:33:28 taca Exp $
 
 MODNAME=		exif
 CATEGORIES+=		graphics

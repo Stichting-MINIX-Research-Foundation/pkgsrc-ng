@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2013/10/19 09:07:11 adam Exp $
+# $NetBSD: Makefile,v 1.27 2014/10/07 16:47:34 adam Exp $
 
 PKGNAME=	${DISTNAME:S/cyrus-sasl/cy2-sql/}
-PKGREVISION=	3
+PKGREVISION=	5
 COMMENT=	Cyrus SASL SQL authentication plugin
 SASL_PLUGIN=	yes
 

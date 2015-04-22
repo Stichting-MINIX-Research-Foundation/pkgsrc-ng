@@ -1,4 +1,4 @@
-# $NetBSD: bsd.wrapper.mk,v 1.89 2014/03/06 10:15:54 uebayasi Exp $
+# $NetBSD: bsd.wrapper.mk,v 1.91 2014/11/25 18:27:49 joerg Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -65,7 +65,9 @@ ECHO_WRAPPER_MSG?=	${TRUE}
 # Prepend ${WRAPPER_BINDIR} to the PATH so that the wrappers are found
 # first when searching for executables.
 #
+.if ${USE_CWRAPPERS:tl} == "no"
 PREPEND_PATH+=		${WRAPPER_BINDIR}
+.endif
 
 ###
 ### BEGIN: after the barrier
@@ -743,8 +745,10 @@ wrapper-message:
 
 .PHONY: pre-wrapper do-wrapper post-wrapper
 
-.if !target(do-wrapper)
 do-wrapper: generate-wrappers
+
+.if !target(do-wrapper)
+do-wrapper:
 	@${DO_NADA}
 .endif
 

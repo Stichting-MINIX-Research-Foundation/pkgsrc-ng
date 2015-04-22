@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2013/07/03 18:27:23 sno Exp $
+# $NetBSD: Makefile,v 1.8 2014/12/04 00:28:59 wen Exp $
 
-DISTNAME=	DBIx-Class-Candy-0.002104
+DISTNAME=	DBIx-Class-Candy-0.002107
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
@@ -19,8 +19,6 @@ DEPENDS+=	p5-namespace-clean>=0.18:../../devel/p5-namespace-clean
 
 BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/DBIx/Class/Candy/.packlist
 

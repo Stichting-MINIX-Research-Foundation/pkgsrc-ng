@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.19 2013/12/03 19:37:20 asau Exp $
+@comment $NetBSD: PLIST,v 1.21 2015/03/10 20:50:37 asau Exp $
 bin/sbcl
 lib/sbcl/contrib/asdf.fasl
 lib/sbcl/contrib/sb-aclrepl.asd
@@ -21,6 +21,8 @@ lib/sbcl/contrib/sb-introspect.asd
 lib/sbcl/contrib/sb-introspect.fasl
 lib/sbcl/contrib/sb-md5.asd
 lib/sbcl/contrib/sb-md5.fasl
+lib/sbcl/contrib/sb-mpfr.asd
+lib/sbcl/contrib/sb-mpfr.fasl
 lib/sbcl/contrib/sb-posix.asd
 lib/sbcl/contrib/sb-posix.fasl
 lib/sbcl/contrib/sb-queue.asd
@@ -33,6 +35,7 @@ lib/sbcl/contrib/sb-simple-streams.asd
 lib/sbcl/contrib/sb-simple-streams.fasl
 lib/sbcl/contrib/sb-sprof.asd
 lib/sbcl/contrib/sb-sprof.fasl
+lib/sbcl/contrib/uiop.fasl
 lib/sbcl/sbcl.core
 man/man1/sbcl.1
 share/doc/sbcl/BUGS

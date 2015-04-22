@@ -1,13 +1,15 @@
-$NetBSD: patch-setup_extensions.py,v 1.3 2012/09/19 15:38:27 ryoon Exp $
+$NetBSD: patch-setup_extensions.py,v 1.5 2015/02/08 00:37:10 wiz Exp $
 
---- setup/extensions.py.orig	2012-09-19 15:19:07.000000000 +0000
+Fix build for pictureflow.
+
+--- setup/extensions.py.orig	2014-08-29 03:59:29.000000000 +0000
 +++ setup/extensions.py
-@@ -483,7 +483,7 @@ class Build(Command):
-             self.check_call(qmc + ['qtcurve.pro'])
-             self.check_call([make]+([] if iswindows else ['-j%d'%(cpu_count()
-                 or 1)]))
--            src = (glob.glob('*.so') + glob.glob('release/*.dll') +
-+            src = (glob.glob('.libs/*.so') + glob.glob('release/*.dll') +
-                     glob.glob('*.dylib'))
-             ext = 'pyd' if iswindows else 'so'
-             shutil.copy2(src[0], self.j(dest, 'calibre_style.'+ext))
+@@ -602,7 +602,7 @@ class Build(Command):
+         if iswindows:
+             qmc += ['-spec', 'win32-msvc2008']
+         fext = 'dll' if iswindows else 'dylib' if isosx else 'so'
+-        name = '%s%s.%s' % ('release/' if iswindows else 'lib', sip['target'], fext)
++        name = '%s%s.%s' % ('release/' if iswindows else '.libs/lib', sip['target'], fext)
+         try:
+             os.chdir(src_dir)
+             if self.newer(dest, sip['headers'] + sip['sources'] + ext.sources + ext.headers):

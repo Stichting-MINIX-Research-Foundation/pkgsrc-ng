@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.81 2014/03/16 17:54:31 taca Exp $
+# $NetBSD: Makefile,v 1.83 2015/02/16 14:03:32 taca Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -68,6 +68,11 @@ FILES_SUBST+=	DATE=${DATE:Q}
 
 .if !empty(RUBY_SUFFIX)
 CONFIGURE_ARGS+= --program-suffix=${RUBY_SUFFIX:Q}
+.endif
+
+# bmake doesn't like the codesign/POSTLINK constructs.
+.if ${OPSYS} == "Darwin"
+USE_TOOLS+=	gmake
 .endif
 
 #

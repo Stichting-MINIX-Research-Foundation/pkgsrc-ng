@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.100 2014/02/12 23:18:01 tron Exp $
+# $NetBSD: Makefile,v 1.114 2015/03/09 09:02:19 wiz Exp $
 
-DISTNAME=	inkscape-0.48.4
-PKGREVISION=	18
+DISTNAME=	inkscape-0.91
+PKGREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=inkscape/}
+#MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=inkscape/}
+MASTER_SITES=	https://inkscape.global.ssl.fastly.net/media/resources/file/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	reed@reedmedia.net
@@ -11,8 +12,8 @@ HOMEPAGE=	http://www.inkscape.org/
 COMMENT=	Scalable Vector Graphics (SVG) editor
 LICENSE=	gnu-gpl-v2
 
-.if !exists (/usr/bin/iconv)
-BUILD_DEPENDS+=		libiconv-[0-9]*:../../converters/libiconv
+.if !exists(/usr/bin/iconv)
+BUILD_DEPENDS+=	libiconv-[0-9]*:../../converters/libiconv
 .endif
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 # for inkex.py, needed by most python extension scripts
@@ -30,7 +31,6 @@ CONFIGURE_ENV+=		GMSGFMT=${TOOLS_DIR}/bin/msgfmt
 CONFIGURE_ARGS+=	--with-python
 
 REPLACE_PERL+=		share/extensions/*.p[lm]
-REPLACE_PERL+=		share/extensions/svg_dropshadow
 
 BUILDLINK_API_DEPENDS.boehm-gc+=	boehm-gc>=6.4
 BUILDLINK_API_DEPENDS.poppler+=		poppler>=0.5.9
@@ -39,38 +39,40 @@ UNLIMIT_RESOURCES=	datasize
 
 LDFLAGS.DragonFly=	-lX11
 
-SUBST_CLASSES+= pypath
-SUBST_STAGE.pypath= pre-configure
-SUBST_FILES.pypath= src/extension/implementation/script.cpp
-SUBST_VARS.pypath= PYTHONBIN
+SUBST_CLASSES+=		pypath
+SUBST_STAGE.pypath=	pre-configure
+SUBST_FILES.pypath=	src/extension/implementation/script.cpp
+SUBST_VARS.pypath=	PYTHONBIN
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.48.4
 REPLACE_PYTHON+=	cxxtest/cxxtestgen.py
 REPLACE_PYTHON+=	share/filters/i18n.py
 REPLACE_PYTHON+=	share/extensions/*.py
-REPLACE_PYTHON+=	share/extensions/test/*.test.py
 REPLACE_PYTHON+=	share/extensions/Barcode/*.py
+REPLACE_PYTHON+=	share/extensions/ink2canvas/*.py
+REPLACE_PYTHON+=	share/extensions/test/*.test.py
 REPLACE_PYTHON+=	share/patterns/i18n.py
 
-# XXX I don't see where this is used
-CHECK_INTERPRETER_SKIP+= share/inkscape/extensions/simplepath.rb
+CHECK_INTERPRETER_SKIP+=share/inkscape/extensions/genpofiles.sh
+CHECK_INTERPRETER_SKIP+=share/inkscape/extensions/simplepath.rb
+CHECK_PORTABILITY_SKIP+=packaging/macosx/Resources/bin/inkscape
+CHECK_PORTABILITY_SKIP+=packaging/macosx/ScriptExec/launcher-quartz-no-macintegration.sh
 
-# XXX these libraries are not auto-detected, at least on Darwin
-LDFLAGS.Darwin=		-lfontconfig -lpangoft2-1.0
-
-PKG_OPTIONS_VAR= PKG_OPTIONS.inkscape
-PKG_SUPPORTED_OPTIONS= gnome
-PKG_SUGGESTED_OPTIONS= gnome
+PKG_OPTIONS_VAR=	PKG_OPTIONS.inkscape
+PKG_SUPPORTED_OPTIONS=	gnome
+PKG_SUGGESTED_OPTIONS=	gnome
 
 .include "../../mk/bsd.options.mk"
 
 # gnome-vfs support for the inkscape file open window.
 .if !empty(PKG_OPTIONS:Mgnome)
-CONFIGURE_ARGS+= --with-gnome-vfs
+CONFIGURE_ARGS+=	--with-gnome-vfs
 .include "../../sysutils/gnome-vfs/buildlink3.mk"
 .endif
 
 BUILDLINK_API_DEPENDS.poppler-includes+= poppler-includes>=0.12.2
+BUILDLINK_API_DEPENDS.boehm-gc+=	boehm-gc>=7.4
+.include "../../converters/libcdr/buildlink3.mk"
+.include "../../converters/libvisio/buildlink3.mk"
 .include "../../devel/boehm-gc/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"

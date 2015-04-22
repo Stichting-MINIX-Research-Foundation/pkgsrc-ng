@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2014/01/26 08:57:32 bsiegert Exp $
+# $NetBSD: Makefile,v 1.30 2014/11/27 13:38:15 joerg Exp $
 
-DISTNAME=			mksh-R49
+DISTNAME=			mksh-R50d
 PKGNAME=			${DISTNAME:S/-R/-/}
 CATEGORIES=			shells
 MASTER_SITES=			http://www.mirbsd.org/MirOS/dist/mir/mksh/ \
@@ -17,8 +17,6 @@ LICENSE=			miros
 WRKSRC=				${WRKDIR}/mksh
 WRKBUILD?=			${WRKSRC}
 
-PKG_INSTALLATION_TYPES=		pkgviews overwrite
-
 PKG_SHELL=			bin/mksh
 
 LIBS.Interix+=			-lcrypt
@@ -26,8 +24,7 @@ LIBS.Interix+=			-lcrypt
 INSTALLATION_DIRS=		bin ${PKGMANDIR}/man1 share/examples/mksh
 
 do-build:
-	cd ${WRKBUILD} && LIBS=${LIBS:Q} CC=${CC:Q} CFLAGS=${CFLAGS:Q} \
-	    CPPFLAGS=${CPPFLAGS:Q} LDFLAGS=${LDFLAGS:Q} \
+	cd ${WRKBUILD} && ${SETENV} ${MAKE_ENV} LIBS=${LIBS:Q} \
 	    ${TOOLS_SHELL} ${WRKSRC}/Build.sh -r
 
 do-install:

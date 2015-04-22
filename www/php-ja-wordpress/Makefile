@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2013/12/27 22:55:20 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2015/03/21 04:15:19 ryoon Exp $
 
 DISTNAME=		wordpress-${VERSION}-ja
 PKGNAME=		${PHP_PKG_PREFIX}-ja-wordpress-${VERSION}
-VERSION=		3.8
+VERSION=		4.1.1
 CATEGORIES=		www
 MASTER_SITES=		http://ja.wordpress.org/
 

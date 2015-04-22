@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/03/13 15:09:52 taca Exp $
+
+SHA1 (netrc-0.10.3.gem) = 8a2284d20c45ffba2c35475cb962df98ad2837b0
+RMD160 (netrc-0.10.3.gem) = 5140f98acc4fcf1f8d197497b74016bb48929689
+Size (netrc-0.10.3.gem) = 10752 bytes

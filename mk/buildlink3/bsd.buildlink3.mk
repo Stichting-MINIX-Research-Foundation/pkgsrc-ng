@@ -1,4 +1,4 @@
-# $NetBSD: bsd.buildlink3.mk,v 1.224 2014/03/10 12:06:35 jperkin Exp $
+# $NetBSD: bsd.buildlink3.mk,v 1.234 2015/03/15 21:18:32 joerg Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -133,6 +133,7 @@ _ok_:=yes
 _enter_:=${_pkg_:M-*}
 # work around another bug in netbsd-5's make (fixed in HEAD)
 _use_:=${USE_BUILTIN.${_pkg_:S/^-//}:M[Yy][Ee][Ss]}
+_ignore_:=${IGNORE_PKG.${_pkg_:S/^-//}:M[Yy][Ee][Ss]}
 
 .  if "${_pkg_}" == "x11-links" || "${_pkg_}" == "-x11-links"
      # (nothing)
@@ -153,7 +154,7 @@ _use_:=${USE_BUILTIN.${_pkg_:S/^-//}:M[Yy][Ee][Ss]}
 .      else
          #.say "${_stack_:C/.*/  /} ${_pkg_:S/^-//} built-in"
 .      endif
-.    else
+.    elif empty(_ignore_)
        # no builtin version or not using it
        #.say "${_stack_:C/.*/  /} ${_pkg_:S/^-//} pkgsrc"
        _ok_:=no
@@ -204,7 +205,7 @@ _VARGROUPS+=		bl3
 _SYS_VARS.bl3+=		BUILDLINK_${v}
 .endfor
 .for p in ${_BUILDLINK_TREE}
-.  for v in AUTO_VARS BUILTIN_MK CONTENTS_FILTER CPPFLAGS DEPMETHOD FILES_CMD INCDIRS IS_DEPOT LDFLAGS LIBDIRS PKGNAME PREFIX RPATHDIRS
+.  for v in AUTO_VARS BUILTIN_MK CONTENTS_FILTER CPPFLAGS DEPMETHOD FILES_CMD INCDIRS LDFLAGS LIBDIRS PKGNAME PREFIX RPATHDIRS
 _SYS_VARS.bl3+=		BUILDLINK_${v}.${p}
 .  endfor
 .  for v in IGNORE_PKG USE_BUILTIN
@@ -289,9 +290,6 @@ ${_depmethod_}+=	${_BLNK_ADD_TO.${_depmethod_}}
 #
 # BUILDLINK_PKGNAME.<pkg>	the name of the package
 #
-# BUILDLINK_IS_DEPOT.<pkg>	"yes" or "no" for whether <pkg> is a
-#				depoted package.
-#
 # BUILDLINK_PREFIX.<pkg>	contains all of the installed files
 #				for <pkg>
 #
@@ -334,11 +332,12 @@ USE_BUILTIN.${_pkg_}?=		no
 _BLNK_PKG_DBDIR.${_pkg_}?=	_BLNK_PKG_DBDIR.${_pkg_}_not_found
 _BLNK_PKG_INFO.${_pkg_}?=	${TRUE}
 BUILDLINK_PKGNAME.${_pkg_}?=	${_pkg_}
-BUILDLINK_IS_DEPOT.${_pkg_}?=	no
 # Usual systems has builtin packages in /usr
 .    if exists(/usr)
 BUILDLINK_PREFIX.${_pkg_}?=	/usr
-# Haiku OS has posix packages in /boot/common
+# Haiku OS has posix packages in /boot/sytem/develop (or /boot/common)
+.    elif exists(/boot/system/develop)
+BUILDLINK_PREFIX.${_pkg_}?=	/boot/system/develop
 .    elif exists(/boot/common)
 BUILDLINK_PREFIX.${_pkg_}?=	/boot/common
 .    else
@@ -362,9 +361,6 @@ _BLNK_PKG_DBDIR.${_pkg_}!=	\
 	case "$$pkg" in							\
 	"")	dir="_BLNK_PKG_DBDIR.${_pkg_}_not_found" ;;		\
 	*)	dir="${_PKG_DBDIR}/$$pkg";				\
-		if [ -f $$dir/+DEPOT ]; then				\
-			dir=`${HEAD} -1 $$dir/+DEPOT`;			\
-		fi ;;							\
 	esac;								\
 	${ECHO} $$dir
 .      endif
@@ -381,26 +377,17 @@ _BLNK_PKG_INFO.${_pkg_}?=	${PKG_INFO_CMD} -K ${_PKG_DBDIR}
 .  endif
 
 BUILDLINK_PKGNAME.${_pkg_}?=	${_BLNK_PKG_DBDIR.${_pkg_}:T}
-.  if exists(${_BLNK_PKG_DBDIR.${_pkg_}}/+VIEWS)
-BUILDLINK_IS_DEPOT.${_pkg_}?=	yes
-.  else
-BUILDLINK_IS_DEPOT.${_pkg_}?=	no
-.  endif
 #
 # Set BUILDLINK_PREFIX.<pkg> to the "PREFIX" value for the package.
 #
 .  if !defined(BUILDLINK_PREFIX.${_pkg_})
-.    if !empty(BUILDLINK_IS_DEPOT.${_pkg_}:M[yY][eE][sS])
-BUILDLINK_PREFIX.${_pkg_}=	${_BLNK_PKG_DBDIR.${_pkg_}}
-.    else
-.      if empty(BUILDLINK_PKGNAME.${_pkg_}:M*not_found)
+.    if empty(BUILDLINK_PKGNAME.${_pkg_}:M*not_found)
 BUILDLINK_PREFIX.${_pkg_}!=						\
 	${TRUE} Computing BUILDLINK_PREFIX.${_pkg_:Q};			\
 	${_BLNK_PKG_INFO.${_pkg_}} -qp ${BUILDLINK_PKGNAME.${_pkg_}} |	\
 	${SED}  -e "s,^[^/]*,,;q"
-.      else
+.    else
 BUILDLINK_PREFIX.${_pkg_}=	BUILDLINK_PREFIX.${_pkg_}_not_found
-.      endif
 .    endif
 .  endif
 .  if empty(BUILDLINK_PREFIX.${_pkg_}:M*not_found)
@@ -493,15 +480,6 @@ BUILDLINK_LDFLAGS+=	${COMPILER_RPATH_FLAG}${_dir_}
 .  endif
 . endif
 .endfor
-#
-# Add the depot directory library directory for this package to the
-# runtime library search path.
-#
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-.  if empty(BUILDLINK_LDFLAGS:M${COMPILER_RPATH_FLAG}${PREFIX}/lib)
-BUILDLINK_LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib
-.  endif
-.endif
 #
 # Add the default view library directories to the runtime library search
 # path so that wildcard dependencies on library packages can always be
@@ -612,11 +590,9 @@ buildlink-directories:
 #
 # BUILDLINK_CONTENTS_FILTER.<pkg>
 #	filter command that filters +CONTENTS input into a list of files
-#	relative to ${BUILDLINK_PREFIX.<pkg>} on stdout.  By default for
-#	overwrite packages, BUILDLINK_CONTENTS_FILTER.<pkg> outputs the
-#	contents of the include and lib directories in the package
-#	+CONTENTS, and for pkgviews packages, it outputs any libtool
-#	archives in lib directories.
+#	relative to ${BUILDLINK_PREFIX.<pkg>} on stdout.  By default,
+#	BUILDLINK_CONTENTS_FILTER.<pkg> outputs the contents of the include
+#	and lib directories in the package +CONTENTS.
 #
 # BUILDLINK_FNAME_TRANSFORM.<pkg>
 #	sed arguments used to transform the name of the source filename
@@ -643,14 +619,8 @@ buildlink-${_pkg_}-cookie:
 	${RUN}					\
 	${TOUCH} ${TOUCH_FLAGS} ${_BLNK_COOKIE.${_pkg_}}
 
-.  if (${PKG_INSTALLATION_TYPE} == "pkgviews") &&			\
-      !empty(BUILDLINK_IS_DEPOT.${_pkg_}:M[yY][eE][sS])
-BUILDLINK_CONTENTS_FILTER.${_pkg_}?=					\
-	${EGREP} 'lib(/pkgconfig/.*\.pc$$|.*/lib[^/]*\.la$$)'
-.  else
 BUILDLINK_CONTENTS_FILTER.${_pkg_}?=					\
 	${EGREP} '(include.*/|\.h$$|\.idl$$|\.pc$$|/lib[^/]*\.[^/]*$$)'
-.  endif
 # XXX: Why not pkg_info -qL?
 BUILDLINK_FILES_CMD.${_pkg_}?=						\
 	${_BLNK_PKG_INFO.${_pkg_}} -f ${BUILDLINK_PKGNAME.${_pkg_}} |	\
@@ -703,15 +673,16 @@ ${_BLNK_COOKIE.${_pkg_}}:
 				msg="$$src -> $$dest";			\
 			fi;						\
 			dir=`${DIRNAME} "$$dest"`;			\
-			if [ ! -d "$$dir" ]; then				\
-				${MKDIR} "$$dir";				\
+			if [ ! -d "$$dir" ]; then			\
+				${MKDIR} "$$dir";			\
 			fi;						\
-			${RM} -f "$$dest";				\
+			if [ -e "$$dest" ]; then			\
+				${RM} -f "$$dest";			\
+			fi;						\
 			case "$$src" in					\
 			*.la)						\
-				${CAT} "$$src" |			\
 				${_BLNK_LT_ARCHIVE_FILTER.${_pkg_}}	\
-					> "$$dest";			\
+					"$$src" > "$$dest";		\
 				msg="$$msg (created)";			\
 				;;					\
 			*)						\
@@ -738,9 +709,7 @@ _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}=	# empty
 #
 _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
 	-e "/^dependency_libs=/s,\([${_BLNK_SEP}]\)/usr\(/lib${LIBABISUFFIX}/[^${_BLNK_SEP}]*lib[^/${_BLNK_SEP}]*\.la[${_BLNK_SEP}]\),\\1${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}\\2,g" \
-	-e "/^dependency_libs=/s,\([${_BLNK_SEP}]\)/usr\(/lib${LIBABISUFFIX}/[^${_BLNK_SEP}]*lib[^/${_BLNK_SEP}]*\.la[${_BLNK_SEP}]\),\\1${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}\\2,g" \
-	-e "/^dependency_libs=/s,\([${_BLNK_SEP}]\)${DEPOTBASE}/[^/${_BLNK_SEP}]*\(/[^${_BLNK_SEP}]*lib[^/${_BLNK_SEP}]*\.la[${_BLNK_SEP}]\),\\1${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}\\2,g" \
-	-e "/^dependency_libs=/s,\([${_BLNK_SEP}]\)${DEPOTBASE}/[^/${_BLNK_SEP}]*\(/[^${_BLNK_SEP}]*lib[^/${_BLNK_SEP}]*\.la[${_BLNK_SEP}]\),\\1${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}\\2,g"
+	-e "/^dependency_libs=/s,\([${_BLNK_SEP}]\)/usr\(/lib${LIBABISUFFIX}/[^${_BLNK_SEP}]*lib[^/${_BLNK_SEP}]*\.la[${_BLNK_SEP}]\),\\1${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}\\2,g"
 
 .if ${X11_TYPE} != "modular" && ${X11BASE} != "/usr"
 _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
@@ -794,19 +763,15 @@ _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
 # This prevents libtool from looking into the original directory
 # for other *.la files.
 #
-.  if (${PKG_INSTALLATION_TYPE} == "overwrite") ||			\
-      !empty(BUILDLINK_IS_DEPOT.${_pkg_}:M[nN][oO])
 _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
-	-e "/^libdir=/s,/usr\(/lib${LIBABISUFFIX}/[^${_BLNK_SEP}]*\),${BUILDLINK_DIR}\\1,g" \
-	-e "/^libdir=/s,${DEPOTBASE}/[^/${_BLNK_SEP}]*\(/[^${_BLNK_SEP}]*\),${BUILDLINK_DIR}\\1,g"
+	-e "/^libdir=/s,/usr\(/lib${LIBABISUFFIX}/[^${_BLNK_SEP}]*\),${BUILDLINK_DIR}\\1,g"
 
 _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
 	-e "/^libdir=/s,${LOCALBASE}\(/[^${_BLNK_SEP}]*\),${BUILDLINK_DIR}\\1,g"
 
-.    if ${X11_TYPE} != "modular" && ${X11BASE} != "/usr"
+.  if ${X11_TYPE} != "modular" && ${X11BASE} != "/usr"
 _BLNK_LT_ARCHIVE_FILTER_SED_SCRIPT.${_pkg_}+=				\
 	-e "/^libdir=/s,${X11BASE}\(/[^${_BLNK_SEP}]*\),${BUILDLINK_X11_DIR}\\1,g"
-.    endif
 .  endif
 .endfor
 
@@ -836,21 +801,6 @@ do-buildlink: ${_target_}
 _BLNK_PASSTHRU_DIRS=		# empty
 _BLNK_PASSTHRU_RPATHDIRS=	# empty
 #
-# Allow all of the depot directories for packages whose headers and
-# libraries we use.
-#
-.for _pkg_ in ${_BLNK_PACKAGES}
-.  if !empty(BUILDLINK_IS_DEPOT.${_pkg_}:M[yY][eE][sS])
-_BLNK_PASSTHRU_DIRS+=	${BUILDLINK_PREFIX.${_pkg_}}
-.  endif
-.endfor
-#
-# Allow the depot directory for the package we're building.
-#
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-_BLNK_PASSTHRU_DIRS+=	${PREFIX}
-.endif
-#
 # Allow any directories specified by the package or user.
 #
 _BLNK_PASSTHRU_DIRS+=	${BUILDLINK_PASSTHRU_DIRS}
@@ -862,19 +812,25 @@ _BLNK_PASSTHRU_DIRS+=	${BUILDLINK_PASSTHRU_DIRS}
 .for _dir_ in ${COMPILER_LIB_DIRS} ${COMPILER_INCLUDE_DIRS} ${LOCALBASE} ${X11BASE}
 _BLNK_PASSTHRU_DIRS:=	${_BLNK_PASSTHRU_DIRS:N${_dir_}}
 .endfor
+# For cwrappers, drop compiler specific search directories, but keep subdirectories.
+# E.g. /usr/include/openssl should be kept, but /usr/include must be dropped.
+.for _dir_ in ${COMPILER_LIB_DIRS}
+_CWRAPPERS_TRANSFORM+=	L:${_dir_}/:
+.endfor
+.for _dir_ in ${COMPILER_INCLUDE_DIRS}
+_CWRAPPERS_TRANSFORM+=	I:${_dir_}/:
+.endfor
 #
 # Allow all directories in the library subdirectories listed for each
 # package to be in the runtime library search path.
 #
 .for _pkg_ in ${_BLNK_PACKAGES}
-.  if !empty(BUILDLINK_IS_DEPOT.${_pkg_}:M[nN][oO])
-.    if !empty(BUILDLINK_LIBDIRS.${_pkg_})
-.      for _dir_ in ${BUILDLINK_LIBDIRS.${_pkg_}}
-.        if exists(${BUILDLINK_PREFIX.${_pkg_}}/${_dir_})
+.  if !empty(BUILDLINK_LIBDIRS.${_pkg_})
+.    for _dir_ in ${BUILDLINK_LIBDIRS.${_pkg_}}
+.      if exists(${BUILDLINK_PREFIX.${_pkg_}}/${_dir_})
 _BLNK_PASSTHRU_RPATHDIRS+=	${BUILDLINK_PREFIX.${_pkg_}}/${_dir_}
-.        endif
-.      endfor
-.    endif
+.      endif
+.    endfor
 .  endif
 .endfor
 #
@@ -912,9 +868,6 @@ _BLNK_MANGLE_DIRS+=	${_BLNK_PASSTHRU_DIRS}
 _BLNK_MANGLE_DIRS+=	${_BLNK_PASSTHRU_RPATHDIRS}
 _BLNK_MANGLE_DIRS+=	${COMPILER_INCLUDE_DIRS}
 _BLNK_MANGLE_DIRS+=	${COMPILER_LIB_DIRS}
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-_BLNK_MANGLE_DIRS+=	${PREFIX}
-.endif
 _BLNK_MANGLE_DIRS+=	${LOCALBASE}
 .if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_MANGLE_DIRS+=	${X11BASE}
@@ -941,9 +894,6 @@ _BLNK_PROTECT_DIRS+=	${_BLNK_PASSTHRU_DIRS}
 
 _BLNK_UNPROTECT_DIRS+=	${COMPILER_INCLUDE_DIRS}
 _BLNK_UNPROTECT_DIRS+=	${COMPILER_LIB_DIRS}
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-_BLNK_UNPROTECT_DIRS+=	${PREFIX}
-.endif
 _BLNK_UNPROTECT_DIRS+=	${LOCALBASE}
 .if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_UNPROTECT_DIRS+=	${X11BASE}
@@ -975,6 +925,7 @@ MAKEVARS+=	_BLNK_PHYSICAL_PATH.${_var_}
 # Add any package specified transformations (l:, etc.)
 #
 _BLNK_TRANSFORM+=	${BUILDLINK_TRANSFORM}
+_CWRAPPERS_TRANSFORM+=	${BUILDLINK_TRANSFORM}
 # Transform all references to the physical paths to some important
 # directories into their given names.
 #
@@ -994,16 +945,22 @@ _BLNK_TRANSFORM+=	strip-slashdot:
 #
 .for _dir_ in ${_BLNK_PROTECT_DIRS}
 _BLNK_TRANSFORM+=	mangle:${_dir_}:${_BLNK_MANGLE_DIR.${_dir_}}
+_CWRAPPERS_TRANSFORM+=	I:${_dir_}:${_dir_}
+_CWRAPPERS_TRANSFORM+=	L:${_dir_}:${_dir_}
+_CWRAPPERS_TRANSFORM+=	P:${_dir_}:${_dir_}
 .endfor
 #
 # Transform /usr/lib/../lib* to /usr/lib* so the following transformation
-# work.  (added by libtool on multlib Linux systems).
+# work.  (added by libtool on multilib Linux systems).
 #
 .if !empty(MACHINE_PLATFORM:MLinux-*-x86_64)
 _BLNK_TRANSFORM+=	mangle:/usr/lib/../lib64:/usr/lib64
 _BLNK_TRANSFORM+=	mangle:/usr/lib/../lib:/usr/lib
 _BLNK_TRANSFORM+=	mangle:/usr/lib/../lib32:/usr/lib32
 _BLNK_TRANSFORM+=	mangle:/usr/lib/../libx32:/usr/libx32
+_CWRAPPERS_TRANSFORM+=	L:/usr/lib/../lib:/usr/lib
+_CWRAPPERS_TRANSFORM+=	L:/usr/lib/../lib32:/usr/lib32
+_CWRAPPERS_TRANSFORM+=	L:/usr/lib/../libx32:/usr/libx32
 .endif
 #
 # Protect -I/usr/include/* and -L/usr/lib/* from transformations (these
@@ -1011,17 +968,21 @@ _BLNK_TRANSFORM+=	mangle:/usr/lib/../libx32:/usr/libx32
 #
 .for _dir_ in ${COMPILER_INCLUDE_DIRS}
 _BLNK_TRANSFORM+=	opt-sub:-I${_dir_}:-I${_BLNK_MANGLE_DIR.${_dir_}}
+_CWRAPPERS_TRANSFORM+=	I:${_dir_}:${_dir_}
 .endfor
 .for _dir_ in ${COMPILER_LIB_DIRS}
 _BLNK_TRANSFORM+=	opt-sub:-L${_dir_}:-L${_BLNK_MANGLE_DIR.${_dir_}}
+_CWRAPPERS_TRANSFORM+=	L:${_dir_}:${_dir_}
 .endfor
 #
 # Change any buildlink directories in runtime library search paths into
 # the canonical actual installed paths.
 #
 _BLNK_TRANSFORM+=	rpath:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}:${LOCALBASE}
+_CWRAPPERS_TRANSFORM+=	R:${BUILDLINK_DIR}:${LOCALBASE}
 .if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=	rpath:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}:${X11BASE}
+_CWRAPPERS_TRANSFORM+=	R:${BUILDLINK_X11_DIR}:${X11BASE}
 .endif
 #
 # Protect some directories that we allow to be specified for the runtime
@@ -1029,31 +990,17 @@ _BLNK_TRANSFORM+=	rpath:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}:${X11BASE}
 #
 .for _dir_ in ${_BLNK_PASSTHRU_DIRS} ${_BLNK_PASSTHRU_RPATHDIRS}
 _BLNK_TRANSFORM+=	rpath:${_dir_}:${_BLNK_MANGLE_DIR.${_dir_}}
+_CWRAPPERS_TRANSFORM+=	R:${_dir_}:${_dir_}
 .endfor
-#
-# Protect /usr/lib/* as they're all allowed to be specified for the
-# runtime library search path.
-#
-.for _dir_ in ${SYSTEM_DEFAULT_RPATH:S/:/ /g}
-_BLNK_TRANSFORM+=	sub-rpath:${_dir_}:${_BLNK_MANGLE_DIR.${_dir}}
-.endfor
-#
-# Change references to ${DEPOTBASE}/<pkg> into ${LOCALBASE} so that
-# "overwrite" packages think headers and libraries for "pkgviews" packages
-# are just found in the default view.
-#
-.if ${PKG_INSTALLATION_TYPE} == "overwrite"
-_BLNK_TRANSFORM+=	depot:${DEPOTBASE}:${LOCALBASE}
-.endif
 #
 # Convert direct paths to static libraries and libtool archives in
 # ${LOCALBASE} or ${X11BASE} into references into ${BUILDLINK_DIR}.
 #
-.if ${PKG_INSTALLATION_TYPE} == "overwrite"
 _BLNK_TRANSFORM+=	P:${LOCALBASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}
-.  if defined(USE_X11) && ${X11_TYPE} != "modular"
+_CWRAPPERS_TRANSFORM+=	P:${X11BASE}:${BUILDLINK_X11_DIR}
+.if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=	P:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
-.  endif
+_CWRAPPERS_TRANSFORM+=	P:${LOCALBASE}:${BUILDLINK_DIR}
 .endif
 #
 # Transform references to ${X11BASE} into ${BUILDLINK_X11_DIR}.
@@ -1063,14 +1010,16 @@ _BLNK_TRANSFORM+=	P:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
 .if defined(USE_X11) && empty(LOCALBASE:M${X11BASE}*) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=       I:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
 _BLNK_TRANSFORM+=       L:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
+_CWRAPPERS_TRANSFORM+=       I:${X11BASE}:${BUILDLINK_X11_DIR}
+_CWRAPPERS_TRANSFORM+=       L:${X11BASE}:${BUILDLINK_X11_DIR}
 .endif
 #
 # Transform references to ${LOCALBASE} into ${BUILDLINK_DIR}.
 #
-.if ${PKG_INSTALLATION_TYPE} == "overwrite"
 _BLNK_TRANSFORM+=	I:${LOCALBASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}
 _BLNK_TRANSFORM+=	L:${LOCALBASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}
-.endif
+_CWRAPPERS_TRANSFORM+=	I:${LOCALBASE}:${BUILDLINK_DIR}
+_CWRAPPERS_TRANSFORM+=	L:${LOCALBASE}:${BUILDLINK_DIR}
 #
 # Transform references to ${X11BASE} into ${BUILDLINK_X11_DIR}.
 # (do so only after transforming references to ${LOCALBASE} if the
@@ -1079,13 +1028,12 @@ _BLNK_TRANSFORM+=	L:${LOCALBASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}
 .if defined(USE_X11) && !empty(LOCALBASE:M${X11BASE}*) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=	I:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
 _BLNK_TRANSFORM+=	L:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
+_CWRAPPERS_TRANSFORM+=	I:${X11BASE}:${BUILDLINK_X11_DIR}
+_CWRAPPERS_TRANSFORM+=	L:${X11BASE}:${BUILDLINK_X11_DIR}
 .endif
 #
-# Protect any remaining references to ${PREFIX}, ${LOCALBASE}, or ${X11BASE}.
+# Protect any remaining references to ${LOCALBASE}, or ${X11BASE}.
 #
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-_BLNK_TRANSFORM+=	untransform:sub-mangle:${PREFIX}:${_BLNK_MANGLE_DIR.${PREFIX}}
-.endif
 _BLNK_TRANSFORM+=	untransform:sub-mangle:${LOCALBASE}:${_BLNK_MANGLE_DIR.${LOCALBASE}}
 .if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=	untransform:sub-mangle:${X11BASE}:${_BLNK_MANGLE_DIR.${X11BASE}}
@@ -1132,6 +1080,10 @@ _BLNK_LIBTOOL_FIX_LA=		${WRAPPER_TMPDIR}/libtool-fix-la
 
 # We need to "unbuildlinkify" any libtool archives.
 _BLNK_WRAP_LT_UNTRANSFORM_SED=	${SUBST_SED.unwrap}
+.if defined(USE_X11) && ${X11_TYPE} != "modular"
+_CWRAPPERS_UNWRAP+=	${BUILDLINK_X11_DIR}:${X11BASE}
+.endif
+_CWRAPPERS_UNWRAP+=	${BUILDLINK_DIR}:${LOCALBASE}
 
 # The libtool wrapper should do all of the same transformations as the
 # compiler wrapper since the primary mode of operation of the wrapper
@@ -1174,7 +1126,6 @@ ${WRAPPER_TMPDIR}/libtool-fix-la: ${BUILDLINK_SRCDIR}/libtool-fix-la
 	${RUN}${CAT} ${.ALLSRC}			\
 		| ${SED} -e "s|@_BLNK_WRAP_LT_UNTRANSFORM_SED@|"${_BLNK_WRAP_LT_UNTRANSFORM_SED:Q}"|g" \
 			 -e "s|@BUILDLINK_DIR@|${BUILDLINK_DIR}|g"	\
-			 -e "s|@DEPOTBASE@|${DEPOTBASE}|g"		\
 			 -e "s|@LOCALBASE@|${LOCALBASE}|g"		\
 			 -e "s|@WRKSRC@|${WRKSRC}|g"			\
 			 -e "s|@BASENAME@|"${BASENAME:Q}"|g"		\

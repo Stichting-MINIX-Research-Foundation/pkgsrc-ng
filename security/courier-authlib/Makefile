@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.45 2014/02/12 23:18:31 tron Exp $
+# $NetBSD: Makefile,v 1.47 2014/06/14 10:15:59 wiedi Exp $
 
 .include "Makefile.common"
 
 DISTNAME=	courier-authlib-0.64.0
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=courier/}
 EXTRACT_SUFX=	.tar.bz2
@@ -87,7 +87,7 @@ GENERATE_PLIST+=	${TEST} -f ${DESTDIR}${PREFIX}/${file} &&	\
 .endfor
 GENERATE_PLIST+=	${TRUE};
 
-INSTALLATION_DIRS=	bin sbin
+INSTALLATION_DIRS+=	bin sbin
 
 post-install: ${POST_INSTALL_TARGETS}
 

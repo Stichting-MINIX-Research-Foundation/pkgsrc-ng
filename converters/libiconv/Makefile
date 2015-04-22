@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.63 2013/12/23 11:57:02 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2014/10/09 14:06:03 wiz Exp $
 
 DISTNAME=	libiconv-1.14
 PKGREVISION=	2
@@ -9,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnu.org/software/libiconv/
 COMMENT=	Character set conversion library
 LICENSE=	gnu-gpl-v3 AND gnu-lgpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES+=		c c++
 USE_LIBTOOL=		yes
@@ -33,7 +31,6 @@ EGDIR=			${PREFIX}/share/examples/libiconv
 REQD_FILES=		${EGDIR}/charset.alias ${PREFIX}/lib/charset.alias
 
 MAKE_ENV+=		PAX=${PAX:Q}
-MAKE_JOBS_SAFE=		no		# ENOENT(srclib)
 
 .include "../../mk/compiler.mk"
 

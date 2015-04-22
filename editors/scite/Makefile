@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2014/02/06 17:26:32 drochner Exp $
+# $NetBSD: Makefile,v 1.23 2015/02/13 16:58:17 jperkin Exp $
 #
 
 DISTNAME=	scite339
 PKGNAME=	scite-3.3.9
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=scintilla/}
 EXTRACT_SUFX=	.tgz
@@ -18,6 +19,10 @@ BUILD_DIRS+=	gtk
 USE_TOOLS+=	gmake pkg-config
 MAKE_FILE=	makefile
 INSTALLATION_DIRS= share/applications share/pixmaps
+
+OPSYSVARS+=	BUILDLINK_TRANSFORM
+
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,--version-script=lua.vers
 
 post-extract:
 	${RM} -r ${WRKDIR}/scintilla

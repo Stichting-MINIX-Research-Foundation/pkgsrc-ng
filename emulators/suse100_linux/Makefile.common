@@ -1,4 +1,52 @@
-# $NetBSD: Makefile.common,v 1.22 2012/10/03 12:55:18 asau Exp $
+# $NetBSD: Makefile.common,v 1.28 2015/02/16 10:15:44 jperkin Exp $
+#
+# used by emulators/suse100_alsa/Makefile
+# used by emulators/suse100_alsa/Makefile
+# used by emulators/suse100_aspell/Makefile
+# used by emulators/suse100_aspell/Makefile
+# used by emulators/suse100_base/Makefile
+# used by emulators/suse100_base/Makefile
+# used by emulators/suse100_compat/Makefile
+# used by emulators/suse100_compat/Makefile
+# used by emulators/suse100_expat/Makefile
+# used by emulators/suse100_expat/Makefile
+# used by emulators/suse100_fontconfig/Makefile
+# used by emulators/suse100_fontconfig/Makefile
+# used by emulators/suse100_freetype2/Makefile
+# used by emulators/suse100_freetype2/Makefile
+# used by emulators/suse100_glx/Makefile
+# used by emulators/suse100_glx/Makefile
+# used by emulators/suse100_gtk2/Makefile
+# used by emulators/suse100_gtk2/Makefile
+# used by emulators/suse100_krb5/Makefile
+# used by emulators/suse100_krb5/Makefile
+# used by emulators/suse100_libcups/Makefile
+# used by emulators/suse100_libcups/Makefile
+# used by emulators/suse100_libidn/Makefile
+# used by emulators/suse100_libidn/Makefile
+# used by emulators/suse100_libjpeg/Makefile
+# used by emulators/suse100_libjpeg/Makefile
+# used by emulators/suse100_libpng/Makefile
+# used by emulators/suse100_libpng/Makefile
+# used by emulators/suse100_libsigc++2/Makefile
+# used by emulators/suse100_libsigc++2/Makefile
+# used by emulators/suse100_libtiff/Makefile
+# used by emulators/suse100_libtiff/Makefile
+# used by emulators/suse100_libxml2/Makefile
+# used by emulators/suse100_libxml2/Makefile
+# used by emulators/suse100_locale/Makefile
+# used by emulators/suse100_locale/Makefile
+# used by emulators/suse100_openmotif/Makefile
+# used by emulators/suse100_openmotif/Makefile
+# used by emulators/suse100_openssl/Makefile
+# used by emulators/suse100_openssl/Makefile
+# used by emulators/suse100_resmgr/Makefile
+# used by emulators/suse100_resmgr/Makefile
+# used by emulators/suse100_slang/Makefile
+# used by emulators/suse100_slang/Makefile
+# used by emulators/suse100_x11/Makefile
+# used by emulators/suse100_x11/Makefile
+# used by meta-pkgs/suse100/Makefile
 
 SUSE_PKG=		yes
 SUSE_VERSION=		10.0
@@ -33,43 +81,9 @@ _SUSE_FTP_SUBDIR_UPD=	suse/update/${SUSE_VERSION}/rpm/${SUSE_ARCH}/
 
 MASTER_SITE_SUSE_${SUSE_VERSION}=	\
 	http://ftp.hosteurope.de/mirror/ftp.opensuse.org/discontinued/10.0/suse/${SUSE_ARCH}/ \
-	http://suse.bifi.unizar.es/opensuse/${_SUSE_FTP_SUBDIR} \
-	ftp://mirror.colorado.edu/pub/opensuse/${_SUSE_FTP_SUBDIR} \
-	http://opensuse.berkeley.edu/opensuse/${_SUSE_FTP_SUBDIR} \
-	http://opensuse.intergenia.de/${_SUSE_FTP_SUBDIR} \
-	ftp://ftp.uniroma2.it/Linux/opensuse/${_SUSE_FTP_SUBDIR}
+	http://ftp.man.poznan.pl/pub/linux/opensuse/opensuse/${_SUSE_FTP_SUBDIR}
 
-MASTER_SITE_SUSE_${SUSE_VERSION}_UPD=	\
-	ftp://gd.tuwien.ac.at/opsys/linux/suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	http://gd.tuwien.ac.at/opsys/linux/suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://mirror.karneval.cz/pub/linux/suse/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.funet.fi/pub/linux/mirrors/suse/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp5.gwdg.de/pub/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://sunsite.informatik.rwth-aachen.de/pub/linux/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.uni-erlangen.de/pub/mirrors/suse/pub/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.hs.uni-hamburg.de/pub/mirrors/suse/${_SUSE_FTP_SUBDIR_UPD:S/suse/SuSE/} \
-	ftp://ftp.tu-chemnitz.de/pub/linux/suse/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.novell.hu/pub/mirrors/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.isr.ist.utl.pt/pub/MIRRORS/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.chg.ru/pub/Linux/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	http://suse.bifi.unizar.es/${_SUSE_FTP_SUBDIR_UPD} \
-	http://www.mirrorservice.org/sites/ftp.suse.com/pub/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.mirrorservice.org/sites/ftp.suse.com/pub/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.jaist.ac.jp/pub/Linux/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.jaist.ac.jp/pub/Linux/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.kddilabs.jp/Linux/packages/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.kddilabs.jp/Linux/packages/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.riken.jp/Linux/suse/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.riken.jp/Linux/suse/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.novell.co.jp/pub/suse/${_SUSE_FTP_SUBDIR_UPD} \
-	http://ftp.novell.co.jp/pub/suse/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.twaren.net/pub/Linux/${_SUSE_FTP_SUBDIR_UPD:S/suse/SuSE/} \
-	http://ftp.twaren.net/Linux/${_SUSE_FTP_SUBDIR_UPD:S/suse/SuSE/} \
-	ftp://ftp.cs.pu.edu.tw/Linux/SuSE/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://mirror.pacific.net.au/${_SUSE_FTP_SUBDIR_UPD} \
-	http://mirror.pacific.net.au/linux/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.gwdg.de/pub/linux/suse/ftp.suse.com/${_SUSE_FTP_SUBDIR_UPD} \
-	ftp://ftp.suse.com/pub/${_SUSE_FTP_SUBDIR_UPD}
+MASTER_SITE_SUSE_${SUSE_VERSION}_UPD=	# not available anywhere
 
 MASTER_SITES?=		${MASTER_SITE_SUSE_${SUSE_VERSION}}
 DIST_SUBDIR?=		suse${SUSE_VERSION:S/.//}/${SUSE_ARCH}
@@ -91,7 +105,7 @@ PATCHDIR=		${SUSE_PKGSRCDIR}/patches
 PKGDIR=			${SUSE_PKGSRCDIR}
 
 .if defined(SUSE_COMPAT32)
-PKGNAME:=		${DISTNAME:S/^suse_/suse32_/}
+PKGNAME:=		${PKGNAME:S/^suse_/suse32_/}
 COMMENT:=		${COMMENT:S/Linux/Linux 32-bit/}
 LINUX_BASE=		linux32
 .else

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.35 2014/02/12 23:18:23 tron Exp $
+# $NetBSD: Makefile,v 1.38 2015/02/19 14:45:03 taca Exp $
 #
 
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	net sysutils
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -22,7 +22,8 @@ BUILD_DEFS+=	${NAGIOS_GROUP}
 
 CONFIGURE_ARGS+= --without-pgsql --without-mysql \
 		--without-smbclient-command --without-snmpget-command \
-		--without-snmpgetnext-command --without-fping-command
+		--without-snmpgetnext-command --without-fping-command \
+		--without-apt-get-command
 
 SPECIAL_PERMS+=	${PREFIX}/libexec/nagios/check_icmp ${SETUID_ROOT_PERMS}
 SPECIAL_PERMS+=	${PREFIX}/libexec/nagios/check_dhcp ${SETUID_ROOT_PERMS}
@@ -57,7 +58,7 @@ DEPENDS+=	{ssh{,6}-[0-9]*,openssh-[0-9]*}:../../security/openssh
 
 .if (!exists(/usr/bin/dig) && !exists(/usr/sbin/dig)) || \
     (!exists(/usr/bin/nslookup) && !exists(/usr/sbin/nslookup))
-DEPENDS+=	bind-[0-9]*:../../net/bind96
+DEPENDS+=	bind-[0-9]*:../../net/bind910
 .endif
 
 .include "../../security/openssl/buildlink3.mk"

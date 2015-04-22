@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2013/05/31 12:41:59 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2015/03/14 13:56:49 tnn Exp $
 
 DISTNAME=		cdbkup-1.0
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=cdbkup/}
 
@@ -12,10 +12,12 @@ COMMENT=		CD-R(W) backup/restore system
 DEPENDS+=		{cdrtools,cdrtools-ossdvd}>=1.10:../../sysutils/cdrtools
 
 GNU_CONFIGURE=		YES
-USE_TOOLS+=		cat date gtar perl:run
+USE_TOOLS+=		cat bzip2:run date gtar:run gzip:run perl:run
 CONFIGURE_ENV+=		CAT=${TOOLS_CAT:Q}
 CONFIGURE_ENV+=		DATE=${TOOLS_DATE:Q}
 CONFIGURE_ENV+=		GNUTAR=${TOOLS_GTAR:Q}
+CONFIGURE_ENV+=		ac_cv_path_BZIP=${TOOLS_PATH.bzip2:Q}
+CONFIGURE_ENV+=		ac_cv_path_GZIP=${TOOLS_PATH.gzip:Q}
 
 .include "../../mk/bsd.prefs.mk"
 

@@ -1,11 +1,18 @@
-@comment $NetBSD: PLIST,v 1.1 2013/09/03 10:08:25 adam Exp $
+@comment $NetBSD: PLIST,v 1.4 2015/02/25 11:43:54 adam Exp $
 bin/squid-analyzer
-man/man3/squidanalyzer.3
+man/man3/squid-analyzer.3
 share/examples/squidanalyzer/excluded
+share/examples/squidanalyzer/included
+share/examples/squidanalyzer/lang/cs_CZ.txt
 share/examples/squidanalyzer/lang/de_DE.txt
 share/examples/squidanalyzer/lang/en_US.txt
+share/examples/squidanalyzer/lang/es_ES.txt
 share/examples/squidanalyzer/lang/fr_FR.txt
+share/examples/squidanalyzer/lang/it_IT.txt
+share/examples/squidanalyzer/lang/pl_PL.txt
 share/examples/squidanalyzer/lang/pt_BR.txt
+share/examples/squidanalyzer/lang/ru_RU.txt
+share/examples/squidanalyzer/lang/uk_UA.txt
 share/examples/squidanalyzer/network-aliases
 share/examples/squidanalyzer/squidanalyzer.conf
 share/examples/squidanalyzer/user-aliases

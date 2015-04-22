@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.91 2013/10/10 14:42:14 ryoon Exp $
+# $NetBSD: Makefile,v 1.96 2015/03/08 14:09:30 gdt Exp $
 
 # Note that upstream has replaced tarballs without changing the
 # version number (e.g., 0.19.2 had two different tarballs).
 # Therefore, it is suggested to wait a week after a release before
 # updating pkgsrc.
-DISTNAME=		ufraw-0.19.2
+DISTNAME=		ufraw-0.21
 PKGNAME=		gimp-${DISTNAME}
-PKGREVISION=		8
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=ufraw/}
-DIST_SUBDIR=		20130327
 
 MAINTAINER=		gdt@NetBSD.org
 HOMEPAGE=		http://ufraw.sourceforge.net/

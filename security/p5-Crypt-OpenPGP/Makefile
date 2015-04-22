@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.28 2013/12/09 14:17:51 obache Exp $
+# $NetBSD: Makefile,v 1.31 2014/10/09 14:06:53 wiz Exp $
 #
 
 DISTNAME=		Crypt-OpenPGP-1.06
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		3
-SVR4_PKGNAME=		p5pgp
+PKGREVISION=		4
 CATEGORIES=		security perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Crypt/}
 
@@ -32,8 +31,6 @@ DEPENDS+=		p5-URI-[0-9]*:../../www/p5-URI
 DEPENDS+=		p5-libwww>=5.10:../../www/p5-libwww
 
 BUILD_DEPENDS+=		p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Crypt/OpenPGP/.packlist

@@ -1,11 +1,8 @@
-$NetBSD: distinfo,v 1.11 2013/07/05 13:33:40 ryoon Exp $
+$NetBSD: distinfo,v 1.18 2015/03/03 13:47:14 ryoon Exp $
 
-SHA1 (emacs-24.3.tar.gz) = 3c672a176df06e20d2661058ad49893f184b4956
-RMD160 (emacs-24.3.tar.gz) = b67e847861002bbb76ae6588ff659408763313cf
-Size (emacs-24.3.tar.gz) = 52543898 bytes
-SHA1 (patch-aa) = 992373f582bbd99733361bae99bf54587a89a10d
-SHA1 (patch-ab) = 3d6c52d2e9ae934d955ae5bea0ef346d9fa428b9
-SHA1 (patch-ad) = 2dcb0f4b43c599d0c4af83b5f7e1f2797f96bdac
-SHA1 (patch-ag) = 407d34e97356c2e8bee26f0fd90f116dd194afcb
-SHA1 (patch-lib-careadlinkat.h) = f236d182e609bf7111c70e83e10806a75a220c29
-SHA1 (patch-src_image.c) = cb9b00c5478587d2e54286312411605753e66f5c
+SHA1 (emacs-24.4.tar.gz) = df540d889a685a3ccaae94682b3ff131968e2706
+RMD160 (emacs-24.4.tar.gz) = 52bec18c5f8e4ee7ea3b765620c0f19d2ee524c9
+Size (emacs-24.4.tar.gz) = 59020082 bytes
+SHA1 (patch-gnu_readlinkat.c) = 9252c92290ccf1d4094bbd3972d8309ebf9e57d6
+SHA1 (patch-lisp_net_browse-url.el) = 89f41e36df2fb875d22efa38d9b586aea46d7f9e
+SHA1 (patch-src_inotify.c) = 9dfddb9db39e84f376cad1d5a5a32861e7838cac

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.49 2013/02/16 11:17:56 wiz Exp $
+# $NetBSD: Makefile,v 1.52 2014/10/09 14:06:37 wiz Exp $
 
 DISTNAME=	plotutils-2.6
 PKGREVISION=	4
@@ -12,11 +12,9 @@ LICENSE=	gnu-gpl-v3
 
 CONFLICTS+=	plotutils-nox11-[0-9]*
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		lex yacc
+USE_TOOLS+=		lex:run yacc
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-libplotter
 MAKE_JOBS_SAFE=		no
@@ -24,5 +22,6 @@ INFO_FILES=		yes
 
 .include "options.mk"
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

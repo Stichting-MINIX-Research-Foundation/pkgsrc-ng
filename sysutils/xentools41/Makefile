@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.44 2014/02/13 11:12:58 drochner Exp $
+# $NetBSD: Makefile,v 1.49 2014/12/27 00:27:11 gdt Exp $
 #
 # VERSION is set in version.mk as it is shared with other packages
 .include		"version.mk"
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools41-${VERSION}
-PKGREVISION=		3
+PKGREVISION=		6
 CATEGORIES=		sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -28,7 +28,7 @@ BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 BUILD_DEPENDS+= acpica-utils-[0-9]*:../../sysutils/acpica-utils
 .endif
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
 
 PKG_SYSCONFSUBDIR=	xen
 
@@ -47,7 +47,7 @@ EGDIR=			${PREFIX}/share/examples/xen
 MESSAGE_SUBST=		EGDIR=${EGDIR}
 
 USE_TOOLS+=		perl 	#for pod2man
-USE_TOOLS+=		gmake
+USE_TOOLS+=		gmake pkg-config
 
 MAKE_ENV+=		PREFIX=${prefix:Q} WRKSRC=${WRKSRC}
 MAKE_ENV+=		EGDIR=${EGDIR:Q}

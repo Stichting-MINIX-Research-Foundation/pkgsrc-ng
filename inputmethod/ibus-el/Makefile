@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.12 2013/02/17 19:18:04 dholland Exp $
+# $NetBSD: Makefile,v 1.15 2015/03/15 20:03:24 hiramatsu Exp $
 #
 
 DISTNAME=	ibus-el-0.3.2
 PKGNAME=	${EMACS_PKGNAME_PREFIX}${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://www11.atwiki.jp/s-irie/pub/emacs/ibus/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www11.atwiki.jp/s-irie/pages/21.html
 COMMENT=	IBus client for GNU Emacs
 LICENSE=	gnu-gpl-v3
 
-DEPENDS+=	ibus>=1.2:../../inputmethod/ibus
+DEPENDS+=	{${PYPKGPREFIX}-ibus-python-[0-9]*,ibus>=1.2<1.5}:../../inputmethod/ibus-python
 DEPENDS+=	${PYPKGPREFIX}-Xlib-[0-9]*:../../x11/py-Xlib
 
 USE_LANGUAGES=	# none

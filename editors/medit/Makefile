@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.16 2014/03/21 07:13:45 obache Exp $
+# $NetBSD: Makefile,v 1.20 2015/03/15 19:42:33 hiramatsu Exp $
 
 DISTNAME=	medit-1.2.0
+PKGREVISION=	1
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mooedit/}
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://medit.bitbucket.org/
 COMMENT=	Programming and around-programming text editor
 LICENSE=	gnu-lgpl-v2.1
@@ -18,7 +19,7 @@ USE_LANGUAGES=	c c++
 USE_TOOLS+=	gmake pkg-config msgfmt intltool
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.2.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.2.0
 CONFIGURE_ARGS+=	--with-python=no
 CONFIGURE_ENV+=	MOO_PYTHON=${PYTHONBIN}
 
@@ -31,5 +32,4 @@ CONFIGURE_ENV+=	MOO_PYTHON=${PYTHONBIN}
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
-BUILDLINK_TRANSFORM+=		rename:-ldl:${BUILDLINK_LDADD.dl:Q}
 .include "../../mk/bsd.pkg.mk"

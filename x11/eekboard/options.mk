@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.4 2013/10/23 12:27:26 obache Exp $
+# $NetBSD: options.mk,v 1.6 2014/11/25 09:59:11 wiz Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.eekboard

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.11 2013/10/20 17:02:02 gls Exp $
+$NetBSD: distinfo,v 1.13 2015/01/05 13:18:28 drochner Exp $
 
-SHA1 (paramiko-1.12.0.tar.gz) = b106c74415db9fe15dd2d41e6d4b97b3404d9baa
-RMD160 (paramiko-1.12.0.tar.gz) = f1cf46da166a2d8d71fccb669f3505a0e7d4cf7b
-Size (paramiko-1.12.0.tar.gz) = 859845 bytes
+SHA1 (paramiko-1.15.2.tar.gz) = 754ffa47fd6f78b93fc56437cf14a79bef094f0f
+RMD160 (paramiko-1.15.2.tar.gz) = d513cae1f47624412f1d211e2058c6ec2c8448eb
+Size (paramiko-1.15.2.tar.gz) = 1220578 bytes

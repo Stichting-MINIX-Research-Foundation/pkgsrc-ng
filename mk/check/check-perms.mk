@@ -1,11 +1,7 @@
-# $NetBSD: check-perms.mk,v 1.14 2013/05/09 23:37:25 riastradh Exp $
+# $NetBSD: check-perms.mk,v 1.19 2015/02/16 10:42:00 jperkin Exp $
 #
 # This file checks that after installation of a package, all files and
 # directories of that package have sensible permissions set.
-#
-# To use this check in bulk builds, add
-#	BULK_PREREQ+= sysutils/checkperms
-# to your mk.conf file.
 #
 # User-settable variables:
 #
@@ -35,7 +31,7 @@ _VARGROUPS+=		check-perms
 _USER_VARS.check-perms=	CHECK_PERMS
 _PKG_VARS.check-perms=	CHECK_PERMS_SKIP CHECK_PERMS_AUTOSKIP
 
-.if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no"
+.if ${PKG_DEVELOPER:Uno} != "no"
 CHECK_PERMS?=		yes
 .else
 CHECK_PERMS?=		no
@@ -91,5 +87,5 @@ _check-perms: .PHONY
 		esac;							\
 		printf "%s\\n" "${DESTDIR}$$file";			\
 	  done								\
-	| awk ${_CHECK_PERMS_GETDIRS_AWK:Q}				\
+	| ${AWK} ${_CHECK_PERMS_GETDIRS_AWK:Q}				\
 	| ${_CHECK_PERMS_CMD} ${_CHECK_PERMS_FLAGS}

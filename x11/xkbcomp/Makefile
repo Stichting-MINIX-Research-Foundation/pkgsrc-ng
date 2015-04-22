@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2012/10/29 05:07:12 asau Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/11/20 23:46:04 wiz Exp $
 
-DISTNAME=		xkbcomp-1.2.4
+DISTNAME=		xkbcomp-1.3.0
 CATEGORIES=		x11
 MASTER_SITES=		${MASTER_SITE_XORG:=app/}
 EXTRACT_SUFX=		.tar.bz2
@@ -19,4 +18,6 @@ CONFIGURE_ENV+=		APP_MAN_SUFFIX=1
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libxkbfile/buildlink3.mk"
+BUILDLINK_API_DEPENDS.xproto+=	xproto>=7.0.17
+.include "../../x11/xproto/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

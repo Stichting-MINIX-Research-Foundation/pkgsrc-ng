@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.35 2014/02/12 23:18:17 tron Exp $
+# $NetBSD: Makefile,v 1.43 2015/03/15 20:13:24 hiramatsu Exp $
 #
 
-DISTNAME=	gnome-mplayer-1.0.8
-PKGREVISION=	10
+DISTNAME=	gnome-mplayer-1.0.9
+PKGREVISION=	2
 CATEGORIES=	multimedia
-MASTER_SITES=	http://gnome-mplayer.googlecode.com/files/
+MASTER_SITES=	http://gnome-mplayer.googlecode.com/svn/packages/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/gnome-mplayer/
 COMMENT=	GNOME Frontend for MPlayer
 LICENSE=	gnu-gpl-v2

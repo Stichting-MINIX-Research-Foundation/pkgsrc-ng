@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.37 2014/02/12 23:18:41 tron Exp $
+# $NetBSD: Makefile,v 1.39 2015/02/27 14:35:02 tnn Exp $
 
 .include "version.mk"
 
 DISTNAME=	webmin-${WBM_VERSION}
 #KGREVISION=	5
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	sysutils www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=webadmin/}
 
@@ -14,8 +14,6 @@ COMMENT=	Perl web server and CGI for Unix system administration
 LICENSE=        modified-bsd
 
 DEPENDS+=	p5-Net-SSLeay-[0-9]*:../../security/p5-Net-SSLeay
-
-NOT_FOR_BULK_PLATFORM=	HPUX-*-*
 
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 USE_LANGUAGES=	# empty

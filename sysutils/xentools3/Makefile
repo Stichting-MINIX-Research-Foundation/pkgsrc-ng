@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.39 2014/02/12 23:18:41 tron Exp $
+# $NetBSD: Makefile,v 1.41 2014/05/29 23:37:32 wiz Exp $
 
 VERSION=	3.1.4
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xentools3-${VERSION}
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -15,7 +15,7 @@ COMMENT=	Userland Tools for Xen
 DEPENDS+=	${PYPKGPREFIX}-readline-[0-9]*:../../devel/py-readline
 DEPENDS+=	${PYPKGPREFIX}-curses>=0nb4:../../devel/py-curses
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
 
 MAKE_JOBS_SAFE=	no
 

@@ -1,29 +1,34 @@
-# $NetBSD: Makefile,v 1.6 2014/01/25 10:30:04 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2014/12/31 13:57:27 wiz Exp $
 
-VERS=		0.53.0
-DISTNAME=	logilab-common-${VERS}
+DISTNAME=	logilab-common-0.63.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-EGG_NAME=	logilab_common-${VERS}
 CATEGORIES=	devel python
-MASTER_SITES=	http://ftp.logilab.org/pub/common/
+MASTER_SITES=	https://pypi.python.org/packages/source/l/logilab-common/
 
 MAINTAINER=	kamel.derouiche@gmail.com
 HOMEPAGE=	http://www.logilab.org/project/logilab-common
 COMMENT=	Useful miscellaneous modules used by Logilab projects
 LICENSE=	gnu-lgpl-v2.1
 
-#comment this out to avoid problems to find the binary by other programs
-PLIST_SUBST+=   PYVERSSUFFIX=${PYVERSSUFFIX}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-mxDateTime
+DEPENDS+=	${PYPKGPREFIX}-six>=1.4.0:../../lang/py-six
 
-INSTALLATION_DIRS=  ${PKGMANDIR}/man1
+.include "../../mk/bsd.fast.prefs.mk"
+
+.if ${OPSYS} == "Cygwin" || ${OPSYS} == "Interix"
+DEPENDS+=	${PYPKGPREFIX}-colorama-[0-9]*:../../comms/py-colorama
+.endif
+
+PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-mxDateTime
+
+INSTALLATION_DIRS=	${PKGMANDIR}/man1
 
 post-extract:
 	${MV} ${WRKSRC}/bin/pytest ${WRKSRC}/bin/pytest${PYVERSSUFFIX}
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/pytest.1 \
-		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/pytest${PYVERSSUFFIX}.1
 
 .include "../../lang/python/egg.mk"
 .include "../../time/py-mxDateTime/buildlink3.mk"

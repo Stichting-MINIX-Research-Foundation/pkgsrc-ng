@@ -1,19 +1,17 @@
-# $NetBSD: Makefile,v 1.185.2.1 2014/04/08 10:09:26 tron Exp $
+# $NetBSD: Makefile,v 1.204 2015/03/19 22:11:22 tron Exp $
 
-DISTNAME=	openssl-1.0.1g
-MASTER_SITES=	http://ftp.openssl.org/source/
-SVR4_PKGNAME=	ossl
+DISTNAME=	openssl-1.0.2a
 CATEGORIES=	security
+MASTER_SITES=	http://www.openssl.org/source/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.openssl.org/
 COMMENT=	Secure Socket Layer and cryptographic library
+LICENSE=	openssl
 
 CONFLICTS=	SSLeay-[0-9]* ssleay-[0-9]*
 
 CRYPTO=		yes
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILD_DEPENDS+=	{p5-Perl4-CoreLibs-[0-9]*,perl<5.16}:../../devel/p5-Perl4-CoreLibs
 
@@ -22,16 +20,15 @@ USE_GCC_RUNTIME=	yes
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
 
-EXTRACT_USING=		gtar
 USE_TOOLS+=		fgrep gmake perl
 TEST_TARGET=		tests
 MAKE_JOBS_SAFE=		no
 
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	./config
-CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
+CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--install_prefix=${DESTDIR}
-CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR:Q}
+CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	shared no-fips
 
 .if ${OPSYS} == "SunOS"
@@ -80,8 +77,6 @@ CONFIGURE_ARGS+=	darwin-ppc-cc
 CONFIGURE_ARGS+=	darwin-${MACHINE_ARCH}-cc
 .  endif
 
-.include "../../mk/dlopen.buildlink3.mk"
-
 SUBST_CLASSES+=		dl
 SUBST_MESSAGE.dl=	Adding dynamic link compatibility library.
 SUBST_STAGE.dl=		post-configure
@@ -89,17 +84,28 @@ SUBST_FILES.dl=		Makefile apps/Makefile crypto/Makefile \
 			crypto/pkcs7/Makefile test/Makefile
 SUBST_SED.dl=		-e 's,^EX_LIBS=,EX_LIBS=${DL_LDFLAGS:Q} ,g'
 
+.elif ${OPSYS} == "AIX"
+CONFIGURE_SCRIPT=	./Configure
+.  if defined(ABI) && ${ABI} == "64"
+.    if !empty(CC_VERSION:Mgcc*)
+CONFIGURE_ARGS+=	aix64-gcc
+.    else
+CONFIGURE_ARGS+=	aix64-cc
+.    endif
+.  else
+.    if !empty(CC_VERSION:Mgcc*)
+CONFIGURE_ARGS+=	aix-gcc
+.    else
+CONFIGURE_ARGS+=	aix-cc
+.    endif
+.  endif
 .elif ${OPSYS} == "Interix"
-
 SUBST_CLASSES+=		soname
 SUBST_STAGE.soname=	post-configure
 SUBST_FILES.soname=	Makefile.shared
 SUBST_SED.soname=	-e 's/-Wl,-soname=/-Wl,-h,/g'
-
 .elif ${OPSYS} == "HPUX"
-
 CONFIGURE_SCRIPT=	./Configure
-
 .  if ${ABI} == "64"
 .    if ${MACHINE_ARCH} == "hppa"
 CONFIGURE_ARGS+=	hpux64-parisc2-${CC}
@@ -118,12 +124,18 @@ CONFIGURE_ARGS+=	hpux-ia64-${CC}
 CONFIGURE_SCRIPT=	./Configure
 CONFIGURE_ARGS+=	linux-ppc64
 .  endif
+.elif ${OS_VARIANT} == "SCOOSR5"
+# SIGILL in _sha1_block_data_order_ssse3().
+CONFIGURE_ARGS+=	no-sse2
 .endif
 
 .include "../../security/openssl/options.mk"
 
 CONFIGURE_ARGS+=	${CFLAGS} ${LDFLAGS}
 CONFIGURE_ENV+=		PERL=${PERL5:Q}
+
+PKGCONFIG_OVERRIDE+=		libcrypto.pc libssl.pc openssl.pc
+PKGCONFIG_OVERRIDE_STAGE=	post-build
 
 PLIST_SRC+=		${PKGDIR}/PLIST.common
 USE_PLIST_SHLIB?=	yes
@@ -144,4 +156,5 @@ INSTALLATION_DIRS+=	share/examples/openssl
 pre-configure:
 	cd ${WRKSRC} && ${PERL5} util/perlpath.pl ${PERL5}
 
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

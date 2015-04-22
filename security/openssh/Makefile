@@ -1,17 +1,10 @@
-# $NetBSD: Makefile,v 1.218 2014/03/29 09:38:11 taca Exp $
+# $NetBSD: Makefile,v 1.228 2015/03/19 20:23:55 tron Exp $
 
 DISTNAME=		openssh-6.6p1
 PKGNAME=		openssh-6.6.1
-SVR4_PKGNAME=		ossh
+PKGREVISION=		5
 CATEGORIES=		security
-MASTER_SITES=		ftp://ftp.openssh.com/pub/OpenBSD/OpenSSH/portable/ \
-			ftp://ftp3.usa.openbsd.org/pub/OpenBSD/OpenSSH/portable/ \
-			ftp://gd.tuwien.ac.at/opsys/OpenBSD/OpenSSH/portable/ \
-			ftp://ftp.freenet.de/pub/ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/ \
-			ftp://ftp.jaist.ac.jp/pub/OpenBSD/OpenSSH/portable/ \
-			ftp://ftp.belnet.be/packages/openbsd/OpenSSH/portable/
-# Don't delete the last entry -- it's there if the pkgsrc version is not
-# up-to-date and the mirrors already removed the old distfile.
+MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.openssh.com/

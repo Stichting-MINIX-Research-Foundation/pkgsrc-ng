@@ -1,4 +1,4 @@
-$NetBSD: patch-source_core_NstMemory.hpp,v 1.1 2012/12/25 21:10:29 joerg Exp $
+$NetBSD: patch-source_core_NstMemory.hpp,v 1.3 2014/09/27 09:54:06 jperkin Exp $
 
 --- source/core/NstMemory.hpp.orig	2012-12-25 16:47:49.000000000 +0000
 +++ source/core/NstMemory.hpp

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.49 2014/01/25 10:30:09 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2014/05/09 07:37:07 wiz Exp $
 
 DISTNAME=		comix-4.0.4
-PKGREVISION=		25
+PKGREVISION=		26
 CATEGORIES=		graphics python
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=comix/}
 
@@ -24,7 +24,7 @@ SUBST_FILES.install-path=	install.py
 SUBST_SED.install-path=		-e "s,share/man/man,${PKGMANDIR}/man,g"
 
 REPLACE_PYTHON=			src/comix.py mime/comicthumb
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-imaging, py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-imaging, py-gtk2
 
 do-build:
 

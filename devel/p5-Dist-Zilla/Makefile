@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/02/10 13:59:06 wen Exp $
+# $NetBSD: Makefile,v 1.11 2015/03/01 09:37:19 mef Exp $
 
-DISTNAME=	Dist-Zilla-5.013
+DISTNAME=	Dist-Zilla-5.032
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Dist/}
@@ -28,6 +28,7 @@ DEPENDS+=	p5-File-ShareDir-Install>=0.03:../../devel/p5-File-ShareDir-Install
 DEPENDS+=	p5-File-pushd-[0-9]*:../../devel/p5-File-pushd
 DEPENDS+=	p5-Hash-Merge-Simple-[0-9]*:../../devel/p5-Hash-Merge-Simple
 DEPENDS+=	p5-JSON>=2.00:../../converters/p5-JSON
+DEPENDS+=	p5-JSON-MaybeXS-[0-9]*:../../converters/p5-JSON-MaybeXS
 DEPENDS+=	p5-List-AllUtils-[0-9]*:../../devel/p5-List-AllUtils
 DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
 DEPENDS+=	p5-Log-Dispatchouli>=1.102.220:../../devel/p5-Log-Dispatchouli
@@ -51,7 +52,8 @@ DEPENDS+=	p5-String-RewritePrefix>=0.005:../../textproc/p5-String-RewritePrefix
 DEPENDS+=	p5-Sub-Exporter-ForMethods-[0-9]*:../../devel/p5-Sub-Exporter-ForMethods
 DEPENDS+=	p5-Term-Encoding>=0:../../devel/p5-Term-Encoding
 DEPENDS+=	p5-Term-ReadKey-[0-9]*:../../devel/p5-Term-ReadKey
-# Term::ReadLine and Term::UI are part of core
+DEPENDS+=	p5-Term-UI-[0-9]*:../../devel/p5-Term-UI
+# Term::ReadLine is part of core
 DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 DEPENDS+=	p5-Text-Glob>=0.08:../../textproc/p5-Text-Glob
 DEPENDS+=	p5-Text-Template-[0-9]*:../../textproc/p5-Text-Template

@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2013/12/09 14:17:42 obache Exp $
+# $NetBSD: Makefile,v 1.22 2014/10/09 13:44:34 wiz Exp $
 
 DISTNAME=	Class-DBI-v3.0.17
 PKGNAME=	p5-${DISTNAME:S:-v:-:}
-PKGREVISION=	7
-SVR4_PKGNAME=	p5cdi
+PKGREVISION=	8
 CATEGORIES=	perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/T/TM/TMTM/}
 

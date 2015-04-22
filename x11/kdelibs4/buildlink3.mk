@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.36 2014/02/01 02:20:53 markd Exp $
+# $NetBSD: buildlink3.mk,v 1.42 2014/11/13 10:31:07 markd Exp $
 
 BUILDLINK_TREE+=	kdelibs
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	kdelibs
 KDELIBS_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.kdelibs+=	kdelibs4>=4.0.0
-BUILDLINK_ABI_DEPENDS.kdelibs+=	kdelibs4>=4.11.5
+BUILDLINK_ABI_DEPENDS.kdelibs+=	kdelibs4>=4.14.3
 BUILDLINK_PKGSRCDIR.kdelibs?=	../../x11/kdelibs4
 
 .include "../../archivers/bzip2/buildlink3.mk"
@@ -16,14 +16,14 @@ BUILDLINK_PKGSRCDIR.kdelibs?=	../../x11/kdelibs4
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
 .include "../../net/mDNSResponder/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/fam.buildlink3.mk"
 .include "../../sysutils/strigi/buildlink3.mk"
-.include "../../textproc/soprano/buildlink3.mk"
+#.include "../../textproc/soprano/buildlink3.mk"
 .include "../../textproc/aspell/buildlink3.mk"
 .include "../../textproc/enchant/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

@@ -1,0 +1,25 @@
+$NetBSD: patch-sumtitra,v 1.1 2014/11/05 22:41:38 he Exp $
+
+Fix a "year 2000" bug, and fix this to work without warning
+with newer perl.
+
+--- sumtitra.orig	1995-10-17 13:44:48.000000000 +0000
++++ sumtitra
+@@ -83,7 +83,7 @@ $DATE'startday = $startday;
+ $endday = $startday + $numdays - 1;
+ 
+ # Find which week to sum for
+-$week = shift(ARGV);
++$week = shift(@ARGV);
+ $oneday = 24 * 60 * 60;
+ if (!$week) {
+    # Default is last week.
+@@ -150,7 +150,7 @@ if ($nameadd) {
+ } else {
+    print "$name\n";
+ }
+-print $word{"banner"}, " $week 19$year\n";
++print $word{"banner"}, " $week ", 1900+$year, "\n";
+ 
+ printf "%-${projwidth}.${projwidth}s%6s!", $word{"project"}, $word{"tot"};
+ for ($startday..$endday) {

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2013/05/29 22:35:07 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2014/10/09 14:07:14 wiz Exp $
 
 DISTNAME=		libXfixes-5.0.1
 CATEGORIES=		x11 devel
@@ -12,17 +12,13 @@ LICENSE=		mit
 
 CONFLICTS+=		Xfixes-[0-9]*
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		pkg-config
 CONFIGURE_ENV+=		LIB_MAN_SUFFIX=3
 PKGCONFIG_OVERRIDE+=	xfixes.pc.in
 
-# needs version 4 which defines xXFixesHideCursorReq
-BUILDLINK_API_DEPENDS.fixesproto+=	fixesproto>=4
-
+BUILDLINK_API_DEPENDS.fixesproto+=	fixesproto>=5.0
 .include "../../x11/fixesproto/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 

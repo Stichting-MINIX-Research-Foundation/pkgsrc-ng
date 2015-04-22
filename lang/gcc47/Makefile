@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2014/01/14 19:16:52 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2015/03/12 14:53:13 ryoon Exp $
 
 GCC_PKGNAME=		gcc47
 .include		"version.mk"
@@ -8,7 +8,6 @@ PKGNAME=	${GCC_PKGNAME}-${GCC47_DIST_VERSION}
 ## When bumping the PKGREVISION of this package the PKGREVISION of
 ## lang/gcc47-libs needs to be bump to be at least 1 more than the
 ## PKGREVISION of this package!
-PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC47_DIST_VERSION}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -79,6 +78,13 @@ MAKE_ENV+=		ac_cv_func_gethostbyname_r=no
 .endif
 .if ${OPSYS} == "DragonFly"
 CONFIGURE_ARGS+=	--disable-bootstrap
+.endif
+.if ${OPSYS} == "Darwin"
+# See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
+# create a stub library, not just to remove symbols, so we must not
+# let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
+# build fails for missing files.
+CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
 .endif
 
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-i386) || !empty(MACHINE_PLATFORM:MLinux-*-i386)

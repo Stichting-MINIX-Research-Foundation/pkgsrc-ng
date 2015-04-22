@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.103 2014/02/12 23:18:28 tron Exp $
+# $NetBSD: Makefile,v 1.110 2015/03/09 09:02:20 wiz Exp $
 #
 
 .include "../../print/evince/Makefile.common"
-PKGREVISION=	34
+PKGREVISION=	40
 
 COMMENT=		Document viewer
 
@@ -18,5 +18,6 @@ USE_TOOLS+=	gsed
 BUILDLINK_DEPMETHOD.libXt?=	build
 .include "../../x11/libXt/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
+.include "../../x11/libICE/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

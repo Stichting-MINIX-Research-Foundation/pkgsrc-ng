@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.29 2014/01/20 13:26:54 ryoon Exp $
+# $NetBSD: options.mk,v 1.32 2014/12/26 08:43:27 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.uim
 PKG_SUPPORTED_OPTIONS=	anthy canna curl eb expat ffi gnome gnome3 gtk gtk3 m17nlib openssl prime sj3 sqlite uim-fep wnn4 xim
@@ -81,7 +81,7 @@ CONFIGURE_ARGS+=	--disable-fep
 .  include "../../inputmethod/anthy/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-anthy-utf8
 PLIST.anthy=		yes
-UIM_MODULES+=		anthy
+UIM_MODULES+=		anthy anthy-utf8
 .else
 CONFIGURE_ARGS+=	--without-anthy
 .endif
@@ -100,7 +100,7 @@ PLIST.curl=		yes
 .if !empty(PKG_OPTIONS:Meb)
 .include "../../textproc/eb/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-eb
-CONFIGURE_ARGS+=	--with-eb-conf=${PKG_SYSCONFDIR}/eb.conf
+CONFIGURE_ARGS+=	--with-eb-conf=${PKG_SYSCONFBASE}/eb.conf
 PLIST.eb=		yes
 .endif
 
@@ -182,7 +182,7 @@ CONFIGURE_ARGS+=	--disable-kde4-applet
 
 .if !empty(PKG_OPTIONS:Mm17nlib)
 .  include "../../devel/m17n-lib/buildlink3.mk"
-DEPENDS+=		m17n-contrib-[0-9]*:../../misc/m17n-contrib
+DEPENDS+=		{m17n-db>=1.6.5,m17n-contrib-[0-9]*}:../../misc/m17n-db
 PLIST.m17nlib=		yes
 INSTALL_TEMPLATES+=	INSTALL.m17nlib
 DEINSTALL_TEMPLATES+=	DEINSTALL.m17nlib

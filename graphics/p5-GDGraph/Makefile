@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2013/09/02 21:27:23 adam Exp $
+# $NetBSD: Makefile,v 1.28 2014/10/09 13:44:47 wiz Exp $
 
 DISTNAME=	GDGraph-1.48
 PKGNAME=	p5-${DISTNAME}
-SVR4_PKGNAME=	p5gdg
+PKGREVISION=	1
 CATEGORIES=	graphics perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=GD/}
 

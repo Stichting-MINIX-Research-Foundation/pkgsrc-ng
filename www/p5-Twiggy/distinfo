@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.2 2011/10/12 06:35:23 hiramatsu Exp $
+$NetBSD: distinfo,v 1.4 2015/01/12 13:33:34 mef Exp $
 
-SHA1 (Twiggy-0.1010.tar.gz) = dd44622357e2877290342eb90ef168182605b7a0
-RMD160 (Twiggy-0.1010.tar.gz) = 600c29e5c1bf66a640b3cca79653c70c692e805f
-Size (Twiggy-0.1010.tar.gz) = 70540 bytes
+SHA1 (Twiggy-0.1025.tar.gz) = 36ff5a722317ae4531534a66718004ca14690d4b
+RMD160 (Twiggy-0.1025.tar.gz) = daee2ec42d12ce22ce9dfda41dea6effdf609077
+Size (Twiggy-0.1025.tar.gz) = 62084 bytes

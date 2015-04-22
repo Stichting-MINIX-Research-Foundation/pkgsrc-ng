@@ -1,18 +1,14 @@
-# $NetBSD: Makefile,v 1.87 2013/12/09 14:17:56 obache Exp $
+# $NetBSD: Makefile,v 1.93 2015/02/17 13:11:16 wiz Exp $
 
-DISTNAME=	libwww-perl-6.05
+DISTNAME=	libwww-perl-6.13
 PKGNAME=	p5-${DISTNAME:S/-perl-/-/}
-PKGREVISION=	2
-SVR4_PKGNAME=	p5lww
 CATEGORIES=	www perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/G/GA/GAAS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETHER/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/libwww-perl/
 COMMENT=	Perl5 library for WWW access
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 DEPENDS+=	{perl>=5.10,p5-Digest-MD5>=0}:../../security/p5-Digest-MD5
 #		Encode in perl 5.14
@@ -31,7 +27,7 @@ DEPENDS+=	p5-HTTP-Message>=6:../../www/p5-HTTP-Message
 DEPENDS+=	p5-LWP-MediaTypes>=6:../../www/p5-LWP-MediaTypes
 DEPENDS+=	{perl>=5.7.3,p5-MIME-Base64>=2.1}:../../converters/p5-MIME-Base64
 DEPENDS+=	{perl>=5.10,p5-Net>=1.09}:../../net/p5-Net # for Net::FTP>=2.58
-DEPENDS+=	p5-Net-HTTP>=6:../../www/p5-Net-HTTP
+DEPENDS+=	p5-Net-HTTP>=6.07:../../www/p5-Net-HTTP
 DEPENDS+=	p5-URI>=1.10:../../www/p5-URI
 #		URI::Escape in URI
 DEPENDS+=	p5-WWW-RobotRules>=6.01:../../www/p5-WWW-RobotRules

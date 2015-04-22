@@ -1,10 +1,10 @@
-$NetBSD: patch-src_searchd.cpp,v 1.1 2014/03/05 13:44:23 fhajny Exp $
+$NetBSD: patch-src_searchd.cpp,v 1.3 2014/10/29 13:49:02 fhajny Exp $
 
 Avoid hard-coded paths.
 
---- src/searchd.cpp.orig	2014-02-19 19:13:38.000000000 +0000
+--- src/searchd.cpp.orig	2014-09-26 17:59:01.000000000 +0000
 +++ src/searchd.cpp
-@@ -19128,7 +19128,7 @@ void ShowHelp ()
+@@ -21264,7 +21264,7 @@ void ShowHelp ()
  		"--safetrace\t\tonly use system backtrace() call in crash reports\n"
  		"\n"
  		"Examples:\n"

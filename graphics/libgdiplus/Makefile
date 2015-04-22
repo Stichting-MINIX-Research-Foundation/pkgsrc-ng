@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2013/09/19 11:55:15 obache Exp $
+# $NetBSD: Makefile,v 1.72 2014/05/31 15:56:27 wiz Exp $
 
-DISTNAME=	libgdiplus-2.10
-PKGREVISION=	12
+DISTNAME=	libgdiplus-2.10.9
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.mono-project.com/sources/libgdiplus/
 EXTRACT_SUFX=	.tar.bz2
@@ -9,11 +9,12 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	kefren@NetBSD.org
 HOMEPAGE=	http://www.mono-project.com/
 COMMENT=	Implementation of the GDI+ API
+LICENSE=	mit
 
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		autoconf gmake pkg-config
 USE_LIBTOOL=		yes
-USE_LANGUAGES+=		c c++
+USE_LANGUAGES=		c c++
 PKGCONFIG_OVERRIDE+=	libgdiplus.pc.in
 PKGCONFIG_OVERRIDE+=	cairo/src/cairo.pc.in
 PKGCONFIG_OVERRIDE+=	cairo/src/cairo-backend.pc.in
@@ -28,7 +29,7 @@ BUILDLINK_TRANSFORM+=		rm:-Werror
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

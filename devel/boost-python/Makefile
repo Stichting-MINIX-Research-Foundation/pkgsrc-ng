@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2012/10/31 11:16:42 asau Exp $
+# $NetBSD: Makefile,v 1.25 2014/08/13 10:56:35 adam Exp $
 
 BOOST_PACKAGE=		python
 BOOST_COMMENT=		(Boost.Python binary library)

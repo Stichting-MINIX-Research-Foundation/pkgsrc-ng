@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.45 2014/02/12 23:17:48 tron Exp $
+# $NetBSD: Makefile,v 1.47 2015/03/14 17:43:57 tnn Exp $
 
 .include "../../devel/libevent/Makefile.common"
 
 PKGNAME=	libevent-${LIBEVENT_VERSION}
-PKGREVISION=	3
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -34,4 +33,5 @@ CPPFLAGS+=		-Dstrtoll=__strtoll
 .endif
 
 .include "../../security/openssl/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

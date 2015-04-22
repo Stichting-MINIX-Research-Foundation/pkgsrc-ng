@@ -1,4 +1,4 @@
-# $NetBSD: hacks.mk,v 1.1 2007/09/25 01:23:24 dmcmahill Exp $
+# $NetBSD: hacks.mk,v 1.3 2014/09/10 10:47:13 richard Exp $
 
 .if !defined(M4_HACKS_MK)
 M4_HACKS_MK=	defined

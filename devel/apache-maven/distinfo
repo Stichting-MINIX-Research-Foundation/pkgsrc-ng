@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.7 2013/05/18 05:37:03 markd Exp $
+$NetBSD: distinfo,v 1.10 2014/12/09 11:52:03 fhajny Exp $
 
-SHA1 (apache-maven-3.0.5-bin.tar.gz) = aecc0d3d67732939c0056d4a0d8510483ee1167e
-RMD160 (apache-maven-3.0.5-bin.tar.gz) = 05b877ea0f1880ad62b48a436658ba70cce94b73
-Size (apache-maven-3.0.5-bin.tar.gz) = 5144659 bytes
-SHA1 (patch-bin_m2.conf) = e0d2d7442fd86e539d73c1cdb6449d9c8b412122
-SHA1 (patch-bin_mvn) = 72025874b63e904ba1c112cb3d461043ac93aba9
+SHA1 (apache-maven-3.2.3-bin.tar.gz) = 1ce6641f7dcb4fd5785bedcdca2979da83f6d23f
+RMD160 (apache-maven-3.2.3-bin.tar.gz) = 45d5e349f232ba6ec32239bda107e59d31a1a231
+Size (apache-maven-3.2.3-bin.tar.gz) = 6956162 bytes
+SHA1 (patch-bin_m2.conf) = e267855998ee06efa649aee9e30a28833b7223cb
+SHA1 (patch-bin_mvn) = 3c70f0f6b50df1e001945155e08b9d8b90319955

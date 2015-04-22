@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.129 2014/01/25 10:30:14 wiz Exp $
+# $NetBSD: Makefile,v 1.132 2014/12/01 11:54:21 jmcneill Exp $
 
 DISTNAME=	gnome-2.26.2
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	meta-pkgs x11 gnome
 MASTER_SITES=	# empty
 
@@ -11,13 +11,17 @@ COMMENT=	Meta-package for the GNOME desktop
 
 META_PACKAGE=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-ORBit via py-gnome2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-ORBit via py-gnome2
 
 .include "../../lang/python/pyversion.mk"
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gnome
-PKG_SUPPORTED_OPTIONS=	pulseaudio
+PKG_SUPPORTED_OPTIONS=	pulseaudio mono
 PKG_SUGGESTED_OPTIONS=	pulseaudio
+# mono does not work on NetBSD/arm yet
+.if ${OPSYS} != "NetBSD" || empty(MACHINE_ARCH:M*arm*)
+PKG_SUGGESTED_OPTIONS+=	mono
+.endif
 .include "../../mk/bsd.options.mk"
 
 # see http://ftp.gnome.org/pub/GNOME/desktop/2.26/2.26.2/sources/
@@ -31,7 +35,7 @@ DEPENDS+=	deskbar-applet>=2.26.2:../../misc/deskbar-applet
 # needs opal->ffmpeg->lame, which has a special license
 #DEPENDS+=	ekiga>=3.2.1:../../net/ekiga
 DEPENDS+=	empathy>=2.26.2:../../chat/empathy
-DEPENDS+=	eog>=2.26.2:../../graphics/eog
+DEPENDS+=	eog>=2.26.2<3:../../graphics/eog
 DEPENDS+=	epiphany>=2.26.2:../../www/epiphany
 DEPENDS+=	evince>=2.26.2<3:../../print/evince
 DEPENDS+=	evolution>=2.26.2:../../mail/evolution
@@ -51,7 +55,9 @@ DEPENDS+=	gnome-applets>=2.26.1:../../x11/gnome-applets
 DEPENDS+=	gnome-backgrounds>=2.24.1:../../graphics/gnome-backgrounds
 DEPENDS+=	gnome-control-center>=2.26.0:../../x11/gnome-control-center
 DEPENDS+=	gnome-desktop>=2.26.2:../../x11/gnome-desktop
+.if !empty(PKG_OPTIONS:Mmono)
 DEPENDS+=	gnome-desktop-sharp>=2.26.0:../../x11/gnome-desktop-sharp
+.endif
 DEPENDS+=	gnome-doc-utils>=0.16.1:../../textproc/gnome-doc-utils
 DEPENDS+=	gnome-games>=2.26.2:../../games/gnome-games
 DEPENDS+=	gnome-icon-theme>=2.26.0:../../graphics/gnome-icon-theme
@@ -72,7 +78,9 @@ DEPENDS+=	${PYPKGPREFIX}-gnome2-desktop>=2.26.0:../../x11/py-gnome2-desktop
 DEPENDS+=	gnome-screensaver>=2.26.1:../../x11/gnome-screensaver
 DEPENDS+=	gnome-session>=2.26.1:../../x11/gnome-session
 DEPENDS+=	gnome-settings-daemon>=2.26.1:../../sysutils/gnome-settings-daemon
+.if !empty(PKG_OPTIONS:Mmono)
 DEPENDS+=	gnome-sharp>=2.24.1:../../x11/gnome-sharp
+.endif
 DEPENDS+=	gnome-speech>=0.4.25:../../audio/gnome-speech
 DEPENDS+=	gnome-system-monitor>=2.26.1:../../sysutils/gnome-system-monitor
 DEPENDS+=	gnome-system-tools>=2.22.2:../../sysutils/gnome-system-tools
@@ -118,7 +126,9 @@ DEPENDS+=	seahorse>=2.26.1:../../security/seahorse
 DEPENDS+=	seahorse-plugins>=2.26.1:../../security/seahorse-plugins
 DEPENDS+=	sound-juicer>=2.26.1:../../audio/sound-juicer
 DEPENDS+=	swfdec-gnome>=2.26.0:../../multimedia/swfdec-gnome
+.if !empty(PKG_OPTIONS:Mmono)
 DEPENDS+=	tomboy>=0.14.2:../../editors/tomboy
+.endif
 DEPENDS+=	totem>=2.26.2:../../multimedia/totem
 DEPENDS+=	totem-pl-parser>=2.26.2:../../multimedia/totem-pl-parser
 DEPENDS+=	vinagre>=2.26.2:../../net/vinagre

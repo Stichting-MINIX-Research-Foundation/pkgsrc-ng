@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.53 2013/05/31 12:40:56 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2015/03/01 22:45:26 spz Exp $
 
 DISTNAME=		rt-3.8.17
-PKGREVISION=		1
+PKGREVISION=		4
 CATEGORIES=		devel
 MASTER_SITES=		http://download.bestpractical.com/pub/rt/release/
 
@@ -88,7 +88,7 @@ DEPENDS+=	p5-Apache-DBI>=0.92:../../databases/p5-Apache-DBI
 DEPENDS+=	p5-Apache-DBI>=0.92:../../databases/p5-Apache-DBI
 .elif !empty(PKG_OPTIONS:Mfastcgi)
 DEPENDS+=	p5-FCGI>=0.67:../../www/p5-FCGI
-DEPENDS+=	{perl>=5.10.1,p5-CGI>=3.38}:../../www/p5-CGI
+DEPENDS+=	p5-CGI>=3.38:../../www/p5-CGI
 .endif
 PLIST_VARS+=	speedycgi
 .if !empty(PKG_OPTIONS:Mspeedycgi)

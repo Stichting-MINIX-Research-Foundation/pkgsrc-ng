@@ -1,5 +1,5 @@
 #! @PERL@
-# $NetBSD: url2pkg.pl,v 1.23 2013/12/28 16:46:29 ryoon Exp $
+# $NetBSD: url2pkg.pl,v 1.26 2014/08/01 15:44:13 schmonz Exp $
 #
 
 # Copyright (c) 2010 The NetBSD Foundation, Inc.
@@ -36,6 +36,7 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+use feature qw{ switch };
 use strict;
 use warnings;
 
@@ -330,7 +331,7 @@ sub generate_initial_package($) {
 		["DISTNAME", $distname],
 		["CATEGORIES", $category],
 		["MASTER_SITES", $master_sites],
-		($dist_sufx ne ".tar.gz"
+		(($dist_sufx ne ".tar.gz" && $dist_sufx ne ".gem")
 		? ["EXTRACT_SUFX", $dist_sufx]
 		: ())
 	]);
@@ -372,8 +373,13 @@ sub adjust_package_from_extracted_distfiles()
 	my @files = ();
 	opendir(WRKDIR, $abs_wrkdir) or die;
 	while (defined(my $f = readdir(WRKDIR))) {
-		next if $f =~ qr"^\.";
-		push(@files, $f);
+		no if $] >= 5.018, warnings => "experimental::smartmatch";
+		given ($f) {
+			next when qr"^\.";
+			next when 'pax_global_header';
+			next when qr".*\.gemspec";
+			default { push(@files, $f) }
+		}
 	}
 	closedir(WRKDIR);
 	if (@files == 1) {

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2012/10/28 06:30:07 asau Exp $
+# $NetBSD: Makefile,v 1.12 2014/06/11 12:57:23 joerg Exp $
 #
 
 DISTNAME=		bw_mod-0.6
@@ -15,7 +15,7 @@ COMMENT=		Class-based bandwidth limiting module for Apache 2
 APACHE_MODULE=		# defined
 INSTALLATION_DIRS=	share/doc
 
-PKG_APACHE_ACCEPTED=	apache2 apache22
+PKG_APACHE_ACCEPTED=	apache22
 
 APACHE_MODULE_NAME=	mod_bw.la
 
@@ -24,6 +24,5 @@ INSTALLATION_DIRS+=	share/doc
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/${DISTNAME}.txt ${DESTDIR}${PREFIX}/share/doc/apache_mod_bw.txt
 
-.include "../../mk/apache.mk"
-.include "../../www/apache/module.mk"
+.include "../../mk/apache.module.mk"
 .include "../../mk/bsd.pkg.mk"

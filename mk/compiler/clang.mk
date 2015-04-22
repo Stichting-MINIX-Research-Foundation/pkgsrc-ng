@@ -1,4 +1,4 @@
-# $NetBSD: clang.mk,v 1.13 2013/07/31 06:37:27 adam Exp $
+# $NetBSD: clang.mk,v 1.15 2015/03/02 19:59:07 joerg Exp $
 #
 # This is the compiler definition for the clang compiler.
 #
@@ -68,6 +68,10 @@ PKGSRC_FORTRAN?=g95
 .endif
 
 _WRAP_EXTRA_ARGS.CC+=	-Qunused-arguments
+CWRAPPERS_APPEND.cc+=	-Qunused-arguments
 _WRAP_EXTRA_ARGS.CXX+=	-Qunused-arguments
+CWRAPPERS_APPEND.cxx+=	-Qunused-arguments
+
+CLANG_NO_VALUE_PROPAGATION_PASS=	-O0
 
 .endif	# COMPILER_CLANG_MK

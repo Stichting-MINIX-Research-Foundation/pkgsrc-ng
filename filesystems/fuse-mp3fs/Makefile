@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/10/03 16:08:32 asau Exp $
+# $NetBSD: Makefile,v 1.5 2014/11/26 22:31:41 wiz Exp $
 #
 
 DISTNAME=	mp3fs-0.13

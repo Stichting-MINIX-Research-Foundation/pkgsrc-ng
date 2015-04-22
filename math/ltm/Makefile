@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.16 2012/09/11 23:04:23 asau Exp $
+# $NetBSD: Makefile,v 1.18 2014/12/27 00:00:26 mef Exp $
 #
 
 DISTNAME=		ltm-0.42.0
 PKGREVISION=		1
 CATEGORIES=		math
-MASTER_SITES=		http://libtom.org/files/
+MASTER_SITES=		http://libtom.net/files/
 EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://libtom.org/
+HOMEPAGE=		http://libtom.net/
 COMMENT=		Number theoretic multiple-precision integer library
 LICENSE=		public-domain
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 WRKSRC=			${WRKDIR}/libtommath-0.42.0
 USE_LIBTOOL=		yes

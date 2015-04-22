@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2014/02/12 23:18:05 tron Exp $
+# $NetBSD: Makefile,v 1.5 2014/08/07 03:03:32 obache Exp $
 
 PKGNAME=	uim-${DISTNAME}
-PKGREVISION=	1
 
-DISTFILES=	${DISTNAME}${EXTRACT_SUFX} uim-mozc-331.tar.xz
-SITES.uim-mozc-331.tar.xz=	${MASTER_SITE_SOURCEFORGE:=pnsft-aur/}
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} uim-mozc-334.tar.xz
+SITES.uim-mozc-334.tar.xz=	${MASTER_SITE_SOURCEFORGE:=pnsft-aur/}
 
 CONFLICTS+=	ibus-mozc<=1.13.1651.102
 
@@ -22,11 +21,11 @@ SUBST_FILES.mozc_tool=		scm/mozc-custom.scm
 SUBST_SED.mozc_tool=		-e 's,/usr/lib/mozc/mozc_tool,${PREFIX}/libexec/mozc_tool,g'
 
 post-extract:
-	mv ${WRKDIR}/uim-mozc-331/uim ${WRKSRC}/unix
-	mv ${WRKDIR}/uim-mozc-331/scm ${WRKSRC}
+	mv ${WRKDIR}/uim-mozc-334/uim ${WRKSRC}/unix
+	mv ${WRKDIR}/uim-mozc-334/scm ${WRKSRC}
 
 do-build:
-	cd ${WRKSRC} && env ${MAKE_ENV} \
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHONBIN} build_mozc.py build -c ${MOZC_BUILD_MODE} ${_MAKE_JOBS} \
 			unix/uim/uim.gyp:uim-mozc \
 			renderer/renderer.gyp:mozc_renderer
@@ -48,6 +47,9 @@ do-install:
 		${DESTDIR}${PREFIX}/share/uim
 	${INSTALL_DATA} ${WRKSRC}/scm/mozc.scm \
 		${DESTDIR}${PREFIX}/share/uim
+
+UIM_MODULES=	mozc
+.include "../../inputmethod/uim/modules.mk"
 
 .include "../../inputmethod/uim/buildlink3.mk"
 .include "../../inputmethod/mozc-server/Makefile.common"

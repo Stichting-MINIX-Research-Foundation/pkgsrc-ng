@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2014/02/17 00:39:26 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2014/12/31 13:57:26 wiz Exp $
 
-DISTNAME=	redis-2.9.1
+DISTNAME=	redis-2.10.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/-/-py-/1}
 CATEGORIES=	databases python
 MASTER_SITES=	https://pypi.python.org/packages/source/r/redis/
@@ -11,8 +11,6 @@ COMMENT=	Redis Python client
 LICENSE=	mit
 
 DEPENDS+=	redis-[0-9]*:../../databases/redis
-
-EGG_NAME=	${DISTNAME}
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

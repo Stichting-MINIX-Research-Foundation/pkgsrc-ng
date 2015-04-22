@@ -1,0 +1,32 @@
+$NetBSD: patch-configure,v 1.2 2014/05/27 13:24:43 fhajny Exp $
+
+Look for history/readline at proper places.
+--- configure.orig	2014-03-26 14:50:53.000000000 +0000
++++ configure
+@@ -17557,7 +17557,7 @@ fi
+ $as_echo_n "checking for history... " >&6; }
+ 
+ 
+-SEARCHPATH=/usr
++SEARCHPATH=${prefix}
+ NAME=history
+ HEADER=readline/history.h
+ LIBNAME=history
+@@ -17893,7 +17893,7 @@ fi
+ $as_echo_n "checking for readline... " >&6; }
+ 
+ 
+-SEARCHPATH=/usr
++SEARCHPATH=${prefix}
+ NAME=readline
+ HEADER=readline/readline.h
+ LIBNAME=readline
+@@ -18501,7 +18501,7 @@ rm -f core conftest.err conftest.$ac_obj
+ 
+ 
+ 
+-SEARCHPATH=/usr
++SEARCHPATH=${prefix}
+ NAME=iconv
+ HEADER=iconv.h
+ LIBNAME=iconv

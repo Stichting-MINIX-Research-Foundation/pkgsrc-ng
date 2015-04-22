@@ -1,33 +1,26 @@
-# $NetBSD: Makefile,v 1.37 2014/02/12 23:18:54 tron Exp $
-#
+# $NetBSD: Makefile,v 1.40 2014/12/30 14:40:30 wiz Exp $
 
-DISTNAME=	QScintilla-gpl-2.8
+.include "../../x11/qt4-qscintilla/Makefile.common"
+
 PKGNAME=	${PYPKGPREFIX}-qt4-${DISTNAME:tl:S/-gpl-/-/}
-PKGREVISION=	1
-CATEGORIES=	x11
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqt/}
-
-MAINTAINER=	helgoman@users.sourceforge.net
-HOMEPAGE=	http://www.riverbankcomputing.co.uk/software/qscintilla/intro
-COMMENT=	QScintilla -- Python bindings --
-LICENSE=	gnu-gpl-v3
+COMMENT=	QScintilla -- Python bindings
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/Python
-
-USE_LIBTOOL=		yes
-USE_LANGUAGES=		c++
 
 PY_PATCHPLIST=		yes
 PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 
 MAKE_FLAGS+=		TARGET=Qsci.la TARGETD=Qsci.la TARGETL=Qsci.la
 INSTALL_MAKE_FLAGS+=	INSTALL_ROOT=${DESTDIR}
+LIBS+=			-lqscintilla2
+MAKE_FLAGS+=		LDFLAGS=${LDFLAGS:Q}\ ${LIBS:Q}
 
 do-configure:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PYTHONBIN} configure.py \
 	    --qmake=${QTDIR}/bin/qmake --sip=${PREFIX}/bin/sip${PYVERSSUFFIX} \
 	    --pyqt-sipdir=${PREFIX}/share/sip${PYVERSSUFFIX} \
-	    --qsci-sipdir=${PREFIX}/share/sip${PYVERSSUFFIX}
+	    --qsci-sipdir=${PREFIX}/share/sip${PYVERSSUFFIX} \
+	    --qsci-libdir=${QTDIR}/lib
 
 post-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/Qsci.la \
@@ -36,6 +29,6 @@ post-install:
 .include "../../lang/python/extension.mk"
 .include "../../x11/py-sip/buildlink3.mk"
 .include "../../x11/py-qt4/buildlink3.mk"
+BUILDLINK_API_DEPENDS.qt4-qscintilla+=	qt4-qscintilla>=${PKGVERSION_NOREV}
 .include "../../x11/qt4-qscintilla/buildlink3.mk"
-.include "../../x11/qt4-libs/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

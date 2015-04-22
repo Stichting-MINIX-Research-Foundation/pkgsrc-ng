@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.105 2014/02/13 19:53:43 adam Exp $
+# $NetBSD: Makefile.common,v 1.112 2015/02/08 22:36:51 snj Exp $
 #
 # used by graphics/p5-PerlMagick/Makefile
 
-IM_MAJOR_VER=		6.8.8
+IM_MAJOR_VER=		6.9.0
 IM_MINOR_VER=		5
 IM_MAJOR_LIB_VER=	6
 
@@ -18,8 +18,6 @@ DISTVERSION=	${DISTSUFFIX:S/-/./}
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.imagemagick.org/pub/ImageMagick/ \
 		ftp://ftp.nluug.nl/pub/ImageMagick/ \
-		ftp://ftp.sunet.se/pub/multimedia/graphics/ImageMagick/ \
-		http://mirror.is.co.za/pub/imagemagick/ \
 		ftp://ftp.kddlabs.co.jp/graphics/ImageMagick/ \
 		http://www.imagemagick.org/download/
 EXTRACT_SUFX=	.tar.xz

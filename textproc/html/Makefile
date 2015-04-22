@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.24 2012/10/25 06:55:54 asau Exp $
+# $NetBSD: Makefile,v 1.26 2015/03/15 01:04:27 tnn Exp $
 #
 
 DISTNAME=	html-4.01
@@ -12,12 +12,10 @@ COMMENT=	SGML DTDs for the Hypertext Markup Language
 
 DEPENDS+=	iso8879>=1986:../../textproc/iso8879
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 WRKSRC=		${WRKDIR}
 EXTRACT_ONLY=	# empty
 NO_BUILD=	yes
-USE_TOOLS+=	tar
+USE_TOOLS+=	gzip tar
 
 INSTDIR=	${PREFIX}/share/sgml/html
 ISOCAT=		${PREFIX}/share/sgml/iso8879/catalog

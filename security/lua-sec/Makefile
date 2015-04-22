@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2014/02/12 23:18:33 tron Exp $
+# $NetBSD: Makefile,v 1.12 2014/10/19 22:27:47 alnsn Exp $
 
-DISTNAME=		luasec-0.4.1
+DISTNAME=		luasec-0.5
 PKGNAME=		${LUA_PKGPREFIX}-${DISTNAME:S/lua//}
-PKGREVISION=		1
+PKGREVISION=		3
 CATEGORIES=		security
 MASTER_SITES=		https://github.com/brunoos/luasec/archive/
 
@@ -26,8 +26,11 @@ BUILD_TARGET=		solaris
 BUILD_TARGET=		bsd
 .endif
 
-INSTALL_ENV+=		LUA_CDIR=${LUA_CDIR}
-INSTALL_ENV+=		LUA_LDIR=${LUA_LDIR}
+MAKE_ENV+=	LUAPATH=${PREFIX}/${LUA_LDIR}
+MAKE_ENV+=	LUACPATH=${PREFIX}/${LUA_CDIR}
+MAKE_ENV+=	INC_PATH=-I${PREFIX}/include
+MAKE_ENV+=	LIB_PATH="-L${PREFIX}/lib ${COMPILER_RPATH_FLAG}${PREFIX}/lib"
+MAKE_ENV+=	LD=${CC:Q}
 
 .include "../../lang/lua/module.mk"
 .include "../../security/openssl/buildlink3.mk"

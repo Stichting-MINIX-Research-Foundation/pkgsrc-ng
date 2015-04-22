@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2013/05/31 12:41:01 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/01/01 10:46:32 dholland Exp $
 #
 
 DISTNAME=		z26v213
 PKGNAME=		z26-2.13
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		emulators games
 MASTER_SITES=		http://www.whimsey.com/z26/
 
@@ -13,6 +13,7 @@ COMMENT=		Atari 2600 Emulator
 
 BUILD_DEPENDS+=		nasm-[0-9]*:../../devel/nasm
 
+# Uses i386 assembler.
 ONLY_FOR_PLATFORM+=	*-*-i386
 
 WRKSRC=			${WRKDIR}/z26_snapshot-20040523

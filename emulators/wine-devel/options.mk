@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.5 2011/05/02 21:23:01 adam Exp $
+# $NetBSD: options.mk,v 1.7 2015/02/09 13:30:44 adam Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.wine
 PKG_SUPPORTED_OPTIONS=	cups dbus esound hal ldap opengl sane ssl x11
@@ -9,7 +9,7 @@ PKG_SUGGESTED_OPTIONS=	opengl ssl x11
 PLIST_VARS+=		esd opengl x11
 
 .if !empty(PKG_OPTIONS:Mcups)
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--without-cups
 .endif
@@ -38,15 +38,13 @@ CONFIGURE_ARGS+=	--without-ldap
 .endif
 
 .if !empty(PKG_OPTIONS:Mssl)
-.include "../../security/openssl/buildlink3.mk"
+.include "../../security/gnutls/buildlink3.mk"
 .else
-CONFIGURE_ARGS+=	--without-openssl
+CONFIGURE_ARGS+=	--without-gnutls
 .endif
 
 .if !empty(PKG_OPTIONS:Mx11)
 PLIST.x11=		yes
-.include "../../fonts/fontconfig/buildlink3.mk"
-.include "../../graphics/freetype2/buildlink3.mk"
 .include "../../x11/libICE/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
@@ -59,7 +57,6 @@ PLIST.x11=		yes
 .include "../../x11/libXrender/buildlink3.mk"
 .include "../../x11/libXxf86vm/buildlink3.mk"
 .else
-CONFIGURE_ARGS+=	--without-freetype
 CONFIGURE_ARGS+=	--without-x
 .endif
 

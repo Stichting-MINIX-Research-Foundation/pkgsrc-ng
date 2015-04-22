@@ -1,0 +1,24 @@
+$NetBSD: patch-etc_Makefile.in,v 1.3 2014/09/19 08:31:26 joerg Exp $
+
+Don't install rancid.types.base as we will install it in example dir
+(in package Makefile)
+
+--- etc/Makefile.in.orig	2014-05-19 20:54:02.000000000 +0000
++++ etc/Makefile.in
+@@ -354,7 +354,6 @@ install-sysconfDATA: $(sysconf_DATA)
+ 	done | $(am__base_list) | \
+ 	while read files; do \
+ 	  echo " $(INSTALL_DATA) $$files '$(DESTDIR)$(sysconfdir)'"; \
+-	  $(INSTALL_DATA) $$files "$(DESTDIR)$(sysconfdir)" || exit $$?; \
+ 	done
+ 
+ uninstall-sysconfDATA:
+@@ -543,7 +543,7 @@ install-data-local: all
+ 	    $(INSTALL_DATA) lg.conf.sample $(DESTDIR)$(sysconfdir)/lg.conf; \
+ 	fi; \
+ 	fi; \
+-	$(INSTALL_DATA) rancid.types.base $(DESTDIR)$(sysconfdir)/rancid.types.base
++	#$(INSTALL_DATA) rancid.types.base $(DESTDIR)$(sysconfdir)/rancid.types.base
+ 
+ lg.conf.sample: Makefile $(srcdir)/lg.conf.sample.in
+ 	rm -f lg.conf.sample lg.conf.sample.tmp; \

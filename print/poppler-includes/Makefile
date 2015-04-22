@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.15 2013/07/04 13:14:07 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2014/07/22 12:14:36 wiz Exp $
 
 .include "../../print/poppler/Makefile.common"
 
@@ -18,7 +18,7 @@ INCDIR=${DESTDIR}${PREFIX}/include
 
 do-install:
 	${INSTALL_DATA_DIR} ${INCDIR}
-	for subdir in poppler goo splash;				\
+	for subdir in fofi poppler goo splash;				\
 	do								\
           mf=${WRKSRC}/"$$subdir"/Makefile.am;				\
 	  d=`sed -n -f ${FILESDIR}/dir.sed "$$mf"`;			\

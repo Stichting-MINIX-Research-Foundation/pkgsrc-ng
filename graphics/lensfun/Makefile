@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.25 2013/10/25 12:59:07 adam Exp $
+# $NetBSD: Makefile,v 1.28 2014/12/19 08:38:03 mef Exp $
 
 DISTNAME=	lensfun-0.2.8
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.berlios.de/lensfun/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=lensfun/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	gdt@NetBSD.org
@@ -35,6 +37,9 @@ PKGCONFIG_OVERRIDE=	libs/lensfun/lensfun.pc.in
 post-install:
 .if ${OPSYS} == "Darwin"
 	${MV} ${DESTDIR}${PREFIX}/lib/liblensfun.dylib.${PKGVERSION_NOREV} \
+		${DESTDIR}${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib
+	install_name_tool -id \
+		${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib \
 		${DESTDIR}${PREFIX}/lib/liblensfun.${PKGVERSION_NOREV}.dylib
 	${RM} ${DESTDIR}${PREFIX}/lib/liblensfun.dylib*
 	${LN} -s liblensfun.${PKGVERSION_NOREV}.dylib \

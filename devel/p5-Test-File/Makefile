@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2013/05/31 12:40:48 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2015/01/28 02:16:31 mef Exp $
 #
 
-DISTNAME=		Test-File-1.34
+DISTNAME=		Test-File-1.41
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		1
 CATEGORIES=		devel perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -13,6 +12,8 @@ COMMENT=		Test file attributes
 LICENSE=		${PERL5_LICENSE}
 
 PERL5_PACKLIST=		auto/Test/File/.packlist
+
+BUILD_DEPENDS+=		p5-Test-utf8>=0:../../devel/p5-Test-utf8
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

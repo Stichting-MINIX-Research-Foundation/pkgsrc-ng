@@ -1,19 +1,21 @@
-# $NetBSD: Makefile,v 1.119 2014/02/12 23:18:11 tron Exp $
+# $NetBSD: Makefile,v 1.123 2014/06/27 23:04:38 asau Exp $
 
 DISTNAME=	octave-${OCTAVE_VER}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	math
-MASTER_SITES=	${MASTER_SITE_GNU:=octave/} \
-		ftp://ftp.octave.org/pub/octave/ \
-		ftp://ftp.octave.org/pub/octave/bleeding-edge/
+MASTER_SITES=	${MASTER_SITE_GNU:=octave/}
+MASTER_SITES+=	ftp://ftp.octave.org/pub/octave/
+MASTER_SITES+=	ftp://ftp.octave.org/pub/octave/bleeding-edge/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://www.octave.org/
 COMMENT=	High-level language, intended for numerical computations
+LICENSE=	gnu-gpl-v3
 
 BUILD_DEPENDS+=	gperf>=2.7:../../devel/gperf
 BUILD_DEPENDS+=	teTeX-[0-9]*:../../print/teTeX
+TOOL_DEPENDS+=	gtexinfo>=5.1:../../devel/gtexinfo
 DEPENDS+=	gnuplot>=3.7:../../graphics/gnuplot
 
 OCTAVE_VER=	3.6.4

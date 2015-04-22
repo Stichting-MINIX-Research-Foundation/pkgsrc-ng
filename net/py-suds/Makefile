@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2014/01/25 10:30:17 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2014/12/31 13:57:29 wiz Exp $
 
 DISTNAME=	suds-0.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -10,9 +10,8 @@ HOMEPAGE=	https://fedorahosted.org/suds/
 COMMENT=	Lightweight SOAP python client for consuming Web Services
 LICENSE=	gnu-lgpl-v3
 
-EGG_NAME=		${DISTNAME}
 USE_LANGUAGES=		# empty
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.4
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.4
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

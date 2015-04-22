@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2014/02/12 23:18:35 tron Exp $
+# $NetBSD: Makefile,v 1.28 2014/10/09 13:44:55 wiz Exp $
 
-DISTNAME=	Crypt-SSLeay-0.64
+DISTNAME=	Crypt-SSLeay-0.72
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
-SVR4_PKGNAME=	p5csl
 CATEGORIES=	security perl5 www
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Crypt/}
 
@@ -12,12 +10,18 @@ HOMEPAGE=	http://search.cpan.org/dist/Crypt-SSLeay/
 COMMENT=	Crypt::SSLeay - OpenSSL glue that provides LWP https support
 LICENSE=	${PERL5_LICENSE}
 
+DEPENDS+=	p5-Path-Class>=0.26:../../devel/p5-Path-Class
+DEPENDS+=	p5-Try-Tiny>=0.19:../../devel/p5-Try-Tiny
+
 USE_LANGUAGES=		c
 
 PERL5_PACKLIST=		auto/Crypt/SSLeay/.packlist
 
 MAKE_ENV+=		PERL_MM_USE_DEFAULT=1
 MAKE_PARAMS+=		--lib=${SSLBASE}
+
+post-extract:
+	chmod -x ${WRKSRC}/lib/Net/SSL.pm
 
 .include "../../lang/perl5/module.mk"
 .include "../../security/openssl/buildlink3.mk"

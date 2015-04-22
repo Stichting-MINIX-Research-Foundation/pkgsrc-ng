@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2014/08/29 02:40:00 rodent Exp $
+
+SHA1 (CairoSVG-1.0.9.tar.gz) = 03ea34bc2858eae3ae1e0e1e3f01bb5cfdcbe20b
+RMD160 (CairoSVG-1.0.9.tar.gz) = 088da31e5101f1b1f7d1352908ca24b53b7449ff
+Size (CairoSVG-1.0.9.tar.gz) = 29685 bytes

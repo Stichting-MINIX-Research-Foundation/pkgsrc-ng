@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.41 2014/01/25 10:47:44 wiz Exp $
+# $NetBSD: Makefile,v 1.53 2015/03/09 19:47:54 tnn Exp $
 
-DISTNAME=		libdrm-2.4.52
+DISTNAME=		libdrm-2.4.59
 CATEGORIES=		x11 graphics
 MASTER_SITES=		http://dri.freedesktop.org/libdrm/
 EXTRACT_SUFX=		.tar.bz2
@@ -27,7 +27,7 @@ SUBST_STAGE.atomic=	pre-configure
 SUBST_VARS.atomic=	ATOMIC_OPS_CHECK
 
 ATOMIC_OPS_CHECK=	0
-.if exists(/usr/include/sys/atomic.h)
+.if exists(${CROSS_DESTDIR}/usr/include/sys/atomic.h)
 ATOMIC_OPS_CHECK=	1
 .else
 .  include "../../devel/libatomic_ops/buildlink3.mk"
@@ -38,10 +38,16 @@ CONFIGURE_ARGS+=	PTHREADSTUBS_CFLAGS=-I${PREFIX}/include \
 			PTHREADSTUBS_LIBS=-L${PREFIX}/lib
 CONFIGURE_ARGS+=	--disable-manpages
 
-PLIST_VARS+=	intel
+PLIST_VARS+=	intel arm
 .if !empty(MACHINE_ARCH:Mi386) || !empty(MACHINE_ARCH:Mx86_64)
+# libpciaccess is needed to build support for the intel KMS API,
+# libdrm_intel.so.
 .include "../../sysutils/libpciaccess/buildlink3.mk"
 PLIST.intel=	yes
+.elif !empty(MACHINE_ARCH:Marm*) || \
+      !empty(MACHINE_ARCH:Mearm*) || \
+      !empty(MACHINE_ARCH:Maarch64)
+PLIST.arm=	yes
 #.else
 #CONFIGURE_ARGS+=	--disable-intel
 .endif

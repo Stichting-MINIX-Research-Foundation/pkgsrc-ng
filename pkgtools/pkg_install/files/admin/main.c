@@ -1,4 +1,4 @@
-/*	$NetBSD: main.c,v 1.62 2013/08/03 11:45:14 obache Exp $	*/
+/*	$NetBSD: main.c,v 1.64 2015/01/02 14:26:16 wiz Exp $	*/
 
 #if HAVE_CONFIG_H
 #include "config.h"
@@ -7,7 +7,7 @@
 #if HAVE_SYS_CDEFS_H
 #include <sys/cdefs.h>
 #endif
-__RCSID("$NetBSD: main.c,v 1.62 2013/08/03 11:45:14 obache Exp $");
+__RCSID("$NetBSD: main.c,v 1.64 2015/01/02 14:26:16 wiz Exp $");
 
 /*-
  * Copyright (c) 1999-2009 The NetBSD Foundation, Inc.
@@ -104,7 +104,6 @@ usage(void)
 	    " rebuild-tree                - rebuild +REQUIRED_BY files from forward deps\n"
 	    " check [pkg ...]             - check md5 checksum of installed files\n"
 	    " add pkg ...                 - add pkg files to database\n"
-	    " delete pkg ...              - delete file entries for pkg in database\n"
 	    " set variable=value pkg ...  - set installation variable for package\n"
 	    " unset variable pkg ...      - unset installation variable for package\n"
 	    " lsall /path/to/pkgpattern   - list all pkgs matching the pattern\n"
@@ -218,15 +217,6 @@ add_pkg(const char *pkgdir, void *vp)
 	pkgdb_close();
 
 	return 0;
-}
-
-static void
-delete1pkg(const char *pkgdir)
-{
-	if (!pkgdb_open(ReadWrite))
-		err(EXIT_FAILURE, "cannot open pkgdb");
-	(void) pkgdb_remove_pkg(pkgdir);
-	pkgdb_close();
 }
 
 static void 
@@ -525,12 +515,6 @@ main(int argc, char *argv[])
 
 		for (++argv; *argv != NULL; ++argv)
 			add_pkg(*argv, &count);
-	} else if (strcasecmp(argv[0], "delete") == 0) {
-		argv++;		/* "delete" */
-		while (*argv != NULL) {
-			delete1pkg(*argv);
-			argv++;
-		}
 	} else if (strcasecmp(argv[0], "set") == 0) {
 		argv++;		/* "set" */
 		set_unset_variable(argv, FALSE);

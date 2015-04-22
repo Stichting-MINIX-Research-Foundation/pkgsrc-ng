@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.187 2013/10/10 14:41:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.195 2014/10/09 14:06:30 wiz Exp $
 
-DISTNAME=	pango-1.36.0
-PKGREVISION=	1
+DISTNAME=	pango-1.36.8
 CATEGORIES=	devel fonts
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pango/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -10,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.pango.org/
 COMMENT=	Library for layout and rendering of text
 LICENSE=	gnu-lgpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILD_DEPENDS+=		help2man-[0-9]*:../../converters/help2man
 
@@ -40,15 +37,7 @@ PKGCONFIG_OVERRIDE+=	pangoxft.pc.in
 CHECK_FILES_SKIP+=	${PREFIX}/libdata/pango/pango.modules
 CHECK_PORTABILITY_SKIP+= docs/check.docs
 
-PLIST_VARS+=		coretext
-
 .include "options.mk"
-
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-PLIST.coretext=		yes
-.endif
 
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.32.1
 .include "../../devel/glib2/buildlink3.mk"

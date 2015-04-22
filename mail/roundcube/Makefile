@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.60 2013/10/22 03:21:45 taca Exp $
+# $NetBSD: Makefile,v 1.70 2015/03/19 15:46:26 taca Exp $
 
-DISTNAME=	roundcubemail-0.9.5-dep
-PKGNAME=	${DISTNAME:S/mail-/-/:S/-dep//}
+DISTNAME=	roundcubemail-1.1.1
+PKGNAME=	${DISTNAME:S/mail-/-/}
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=roundcubemail/}
 
@@ -13,10 +13,12 @@ LICENSE=	gnu-gpl-v3
 DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=${PHP_BASE_VERS}:../../converters/php-iconv
 DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=${PHP_BASE_VERS}:../../converters/php-mbstring
 DEPENDS+=	${PHP_PKG_PREFIX}-dom>=${PHP_BASE_VERS}:../../textproc/php-dom
+DEPENDS+=	${PHP_PKG_PREFIX}-exif>=${PHP_BASE_VERS}:../../graphics/php-exif
 DEPENDS+=	${PHP_PKG_PREFIX}-intl>=${PHP_BASE_VERS}:../../textproc/php-intl
 DEPENDS+=	${PHP_PKG_PREFIX}-json>=${PHP_BASE_VERS}:../../textproc/php-json
 DEPENDS+=	${PHP_PKG_PREFIX}-mcrypt>=${PHP_BASE_VERS}:../../security/php-mcrypt
 
+DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_Sieve>=1.3.2:../../net/pear-Net_Sieve
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_SMTP>=1.4.2:../../net/pear-Net_SMTP
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Net_IDNA2>=0.1.1:../../net/pear-Net_IDNA2
 DEPENDS+=	${PHP_PKG_PREFIX}-pear-Mail_Mime>=1.8.1:../../mail/pear-Mail_Mime
@@ -65,11 +67,11 @@ CONF_FILES=		${EGDIR}/roundcube.conf \
 			${PKG_SYSCONFDIR}/roundcube.conf
 CONF_FILES+=		${EGDIR}/mimetypes.php \
 			${PKG_SYSCONFDIR}/mimetypes.php
-CONF_FILES_PERMS+=	${EGDIR}/db.inc.php.dist \
-			${PKG_SYSCONFDIR}/db.inc.php \
+CONF_FILES_PERMS+=	${EGDIR}/config.inc.php \
+			${PKG_SYSCONFDIR}/config.inc.php \
 			${WWW_USER} ${WWW_GROUP} 0640
-CONF_FILES_PERMS+=	${EGDIR}/main.inc.php.dist \
-			${PKG_SYSCONFDIR}/main.inc.php \
+CONF_FILES_PERMS+=	${EGDIR}/defaults.inc.php \
+			${PKG_SYSCONFDIR}/defaults.inc.php \
 			${WWW_USER} ${WWW_GROUP} 0640
 
 .for f in ${CONF_PLUGINS}
@@ -78,25 +80,29 @@ CONF_FILES_PERMS+=	${EGDIR}/plugins/${f}/config.inc.php \
 			${WWW_USER} ${WWW_GROUP} 0640
 .endfor
 
+.include "../../mk/apache.mk"
+
 SUBST_CLASSES+=		files
 SUBST_STAGE.files=	do-configure
+SUBST_MESSAGE.files=	Fixing configuration files.
 SUBST_FILES.files=	roundcube.conf
-SUBST_FILES.files+=	config/main.inc.php.dist
 SUBST_FILES.files+=	installer/index.php installer/rcube_install.php
 SUBST_FILES.files+=	program/include/iniset.php
 SUBST_SED.files=	-e "s|@RCDIR@|${RCDIR}|g"
 SUBST_SED.files+=	-e "s|@VARBASE@|${VARBASE}|g"
 SUBST_SED.files+=	-e "s|@PKG_EXAMPLES@|${PREFIX}/share/examples/roundcube|g"
 SUBST_SED.files+=	-e "s|@PKG_SYSCONFDIR@|${PKG_SYSCONFDIR}|g"
-SUBST_MESSAGE.files=	Fixing configuration files.
+.if ${PKG_APACHE} == "apache24"
+SUBST_SED.files+=	-e "/Order allow,deny/d"
+SUBST_SED.files+=	-e "/Order deny,allow/d"
+SUBST_SED.files+=	-e "s,Allow from all,Require all granted,g"
+SUBST_SED.files+=	-e "s,Deny from all,Require all denied,g"
+.endif
 
 REPLACE_INTERPRETER+=	php
 REPLACE.php.old=	/usr/bin/env php
 REPLACE.php.new=	${PREFIX}/bin/php
-REPLACE_FILES.php=	bin/cleandb.sh bin/decrypt.sh bin/indexcontacts.sh
-REPLACE_FILES.php+=	bin/installto.sh bin/moduserprefs.sh bin/msgexport.sh
-REPLACE_FILES.php+=	bin/msgimport.sh bin/update.sh bin/updatecss.sh
-REPLACE_FILES.php+=	bin/updatedb.sh
+REPLACE_FILES.php=	bin/*.sh
 
 REPLACE_PYTHON=		plugins/password/helpers/chpass-wrapper.py
 
@@ -118,10 +124,10 @@ do-install:
 		${DESTDIR}${EGDIR}/roundcube.conf
 	${INSTALL_DATA} ${WRKSRC}/config/mimetypes.php \
 		${DESTDIR}${EGDIR}/mimetypes.php
-	${INSTALL_DATA} ${WRKSRC}/config/db.inc.php.dist \
-		${DESTDIR}${EGDIR}/db.inc.php.dist
-	${INSTALL_DATA} ${WRKSRC}/config/main.inc.php.dist \
-		${DESTDIR}${EGDIR}/main.inc.php.dist
+	${INSTALL_DATA} ${WRKSRC}/config/config.inc.php.sample \
+		${DESTDIR}${EGDIR}/config.inc.php
+	${INSTALL_DATA} ${WRKSRC}/config/defaults.inc.php \
+		${DESTDIR}${EGDIR}/defaults.inc.php
 
 	${INSTALL_SCRIPT} ${WRKSRC}/bin/*.sh ${DESTDIR}${RCDIR}/bin/
 
@@ -143,7 +149,6 @@ do-install:
 			${DESTDIR}${EGDIR}/plugins/${f}/config.inc.php
 .endfor
 
-.include "../../mk/apache.mk"
 .include "options.mk"
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.260 2014/02/12 23:18:48 tron Exp $
+# $NetBSD: Makefile,v 1.266 2015/03/14 00:39:14 prlw1 Exp $
 
-DISTNAME=	gtk+-2.24.22
+DISTNAME=	gtk+-2.24.27
 PKGNAME=	${DISTNAME:S/gtk/gtk2/}
-PKGREVISION=	2
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtk+/2.24/}
 EXTRACT_SUFX=	.tar.xz
@@ -65,7 +64,7 @@ CONFIGURE_ARGS+=	--disable-visibility
 # which do not have it.
 .if ${OPSYS} == "SunOS"
 BUILD_DEPENDS+=		grep-[0-9]*:../../textproc/grep
-TOOLS_PATH.grep=	${LOCALBASE}/bin/ggrep
+TOOLS_PATH.grep=	${PREFIX}/bin/ggrep
 .endif
 
 CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
@@ -76,7 +75,7 @@ CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 #SUBST_SED.pthread=	-e 's,__PTHREAD_FLAGS__,${BUILDLINK_LDFLAGS.pthread},g'
 #SUBST_FILES.pthread=	gdk-pixbuf/Makefile.in
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.24.22
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.24.22
 REPLACE_PYTHON=	gtk/gtk-builder-convert
 
 # We remove the module databases during post-install since we create them

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2013/05/31 12:41:11 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2015/03/06 23:56:47 ryoon Exp $
 
-DISTNAME=		gforth-0.7.0
-PKGREVISION=		6
+DISTNAME=		gforth-0.7.3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gforth/}
 MASTER_SITES+=		http://www.complang.tuwien.ac.at/forth/gforth/
@@ -11,8 +10,14 @@ HOMEPAGE=		http://www.complang.tuwien.ac.at/forth/gforth/
 COMMENT=		Fast interpreter for the Forth language
 LICENSE=		gnu-gpl-v3
 
-ONLY_FOR_PLATFORM=	*-*-alpha *-*-i386 *-*-m68k *-*-powerpc *-*-sparc
-ONLY_FOR_PLATFORM+=	*-*-x86_64
+# This package claims to specifically support the following arches:
+#    alpha arm hppa i386 ia64 m68k mips powerpc sparc x86_64
+# and it has a generic config that should work for all random other
+# processors as long as they have IEEE floats. So, we'll explicitly
+# exclude vax and allow anything else.
+NOT_FOR_PLATFORM=	*-*-vax
+
+EXTRACT_USING=		bsdtar
 
 INFO_FILES=		yes
 
@@ -49,6 +54,15 @@ KERNEL_FI_cmd=								\
 	  ${ECHO} ;							\
 	  ${CAT} Makefile; } | ${MAKE_PROGRAM} -f - prkern
 PLIST_SUBST+=	KERNEL_FI=${KERNEL_FI_cmd:sh:Q}
+
+# Owing to https://gcc.gnu.org/bugzilla/show_bug.cgi?id=31152,
+# demand at least gcc 4.3 for arm.
+.include "../../mk/bsd.prefs.mk"
+.if !empty(MACHINE_ARCH:Marm*) || !empty(MACHINE_ARCH:Mearm*)
+.if !empty(PKGSRC_COMPILER:Mgcc)
+GCC_REQD+=	4.3
+.endif
+.endif
 
 # XXX Need test.
 #.include "../../mk/dlopen.buildlink3.mk"

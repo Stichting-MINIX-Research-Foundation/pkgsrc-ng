@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.22 2013/07/05 13:29:41 ryoon Exp $
+# $NetBSD: Makefile,v 1.25 2014/09/28 03:00:45 obache Exp $
 
 DISTNAME=	ming-ruby-${VER}
 PKGNAME=	${RUBY_PKGPREFIX}-ming-${VER}
-PKGREVISION=	9
+PKGREVISION=	11
 CATEGORIES=	multimedia
 MASTER_SITES=	http://rubyforge.org/frs/download.php/44137/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://mingruby.rubyforge.org/
 COMMENT=	Ruby extension to drive the Ming SWF library
 LICENSE=	gnu-lgpl-v2.1
@@ -23,6 +23,11 @@ CONFIGURE_ARGS+=	--siteruby=${PREFIX}/${RUBY_VENDORLIB_BASE}
 CONFIGURE_ARGS+=	--siterubyver=${PREFIX}/${RUBY_VENDORLIB}
 CONFIGURE_ARGS+=	--siterubyverarch=${PREFIX}/${RUBY_VENDORARCHLIB}
 
+SUBST_CLASSES+=		giflib
+SUBST_STAGE.giflib=	pre-configure
+SUBST_FILES.giflib=	ext/ming/mingc/extconf.rb
+SUBST_SED.giflib=	-e 's/ungif/gif/g'
+
 INSTALLATION_DIRS+=	${RUBY_EG}/ming
 
 pre-configure:
@@ -38,12 +43,6 @@ post-install:
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../multimedia/ming/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
-.if defined(GIFLIB_IMPLEMENTATION) && ${GIFLIB_IMPLEMENTATION} != "libungif"
-SUBST_CLASSES+=		giflib
-SUBST_STAGE.giflib=	pre-configure
-SUBST_FILES.giflib=	ext/ming/mingc/extconf.rb
-SUBST_SED.giflib=	-e 's/ungif/gif/g'
-.endif
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../lang/ruby/modules.mk"
 .include "../../mk/bsd.pkg.mk"

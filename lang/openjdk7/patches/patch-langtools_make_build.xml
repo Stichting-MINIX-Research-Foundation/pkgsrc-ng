@@ -1,8 +1,8 @@
-$NetBSD: patch-langtools_make_build.xml,v 1.1 2013/06/02 06:12:28 ryoon Exp $
+$NetBSD: patch-langtools_make_build.xml,v 1.4 2015/03/02 03:53:26 tnn Exp $
 
 * Avoid *.orig files.
 
---- langtools/make/build.xml.orig	2012-08-10 17:39:19.000000000 +0000
+--- langtools/make/build.xml.orig	2015-01-26 15:22:25.000000000 +0000
 +++ langtools/make/build.xml
 @@ -235,7 +235,8 @@
          </chmod>

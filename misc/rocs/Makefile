@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.28 2014/02/12 23:18:15 tron Exp $
+# $NetBSD: Makefile,v 1.35 2014/11/26 12:26:23 joerg Exp $
 
 DISTNAME=	rocs-${_KDE_VERSION}
 PKGREVISION=	1

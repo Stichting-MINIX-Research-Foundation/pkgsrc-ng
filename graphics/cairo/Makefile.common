@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.1 2013/08/31 22:19:32 adam Exp $
+# $NetBSD: Makefile.common,v 1.7 2015/03/15 21:05:37 wiz Exp $
 #
 # used by graphics/cairo/Makefile
 # used by graphics/cairo-gobject/Makefile
 
-DISTNAME=	cairo-1.12.16
+DISTNAME=	cairo-1.14.2
 CATEGORIES=	graphics
 MASTER_SITES=	http://cairographics.org/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -31,17 +31,6 @@ CONFIGURE_ARGS+=	--enable-tee
 
 PKGCONFIG_OVERRIDE+=	src/cairo.pc.in
 PKGCONFIG_OVERRIDE+=	src/cairo-features.pc.in
-
-.include "../../mk/bsd.prefs.mk"
-
-PLIST_VARS+=		quartz
-
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--enable-quartz
-CONFIGURE_ARGS+=	--enable-quartz-font
-CONFIGURE_ARGS+=	--enable-quartz-image
-PLIST.quartz=		yes
-.endif
 
 # For snprintf() and ctime_r()
 CPPFLAGS.SunOS+=		-D__EXTENSIONS__ -D_POSIX_PTHREAD_SEMANTICS

@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.34 2013/10/10 14:42:01 ryoon Exp $
+# $NetBSD: Makefile,v 1.36 2014/10/09 14:06:01 wiz Exp $
 #
 
 DISTNAME=	gsmc-1.1
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	cad
 MASTER_SITES=	http://www.qsl.net/ik5nax/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.qsl.net/ik5nax/
 COMMENT=	Smith charting program
-
-PKG_INSTALLATION_TYPES= overwrite pkgviews
 
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake pkg-config

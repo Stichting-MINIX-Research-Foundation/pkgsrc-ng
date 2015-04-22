@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.47 2014/01/26 13:03:58 wiz Exp $
+# $NetBSD: Makefile,v 1.50 2014/12/07 17:09:09 rodent Exp $
 
 DISTNAME=		matplotlib-1.3.1
 PKGNAME=		${PYPKGPREFIX}-matplotlib-gtk-1.3.1
+PKGREVISION=		1
 CATEGORIES=		graphics python
 MASTER_SITES=		https://github.com/downloads/matplotlib/matplotlib/
 
@@ -12,7 +13,7 @@ COMMENT=		GTK frontend for matplotlib
 USE_TOOLS+=		pkg-config
 PY_PATCHPLIST=		yes
 PYDISTUTILSPKG=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
 USE_LANGUAGES=		c c++
 
 post-patch:
@@ -29,7 +30,7 @@ post-patch:
 	${ECHO} "macosx = False" ) > ${WRKSRC}/setup.cfg
 
 post-install:
-	${RM} -r ${DESTDIR}/${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info
+	${RM} -r ${DESTDIR}/${PREFIX}/${PYSITELIB}/${EGG_INFODIR}
 
 .include "../../lang/python/egg.mk"
 .include "../../graphics/py-matplotlib/buildlink3.mk"

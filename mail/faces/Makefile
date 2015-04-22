@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.59 2013/05/31 12:41:14 wiz Exp $
+# $NetBSD: Makefile,v 1.61 2015/03/12 17:04:52 tnn Exp $
 
 DISTNAME=	faces-1.6.1
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.cs.indiana.edu/pub/faces/faces/faces-1.6.1/
 EXTRACT_SUFX=	.tar.Z
@@ -25,6 +25,7 @@ USE_TOOLS+=		perl:run yacc
 
 MAKE_FLAGS+=	PREFIX=${PREFIX:Q}
 MAKE_FLAGS+=	CCOMP=${CFLAGS:M*:Q}
+MAKE_FLAGS+=	MANDIR=${PREFIX:Q}/${PKGMANDIR:Q}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -39,7 +40,8 @@ MAKE_ENV+=	CPPFLAGS=
 MAKE_ENV+=	NISLOOKUP=-DNISLOOKUP
 .endif
 
-INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR}${PREFIX}
+INSTALL_MAKE_FLAGS+=	PREFIX=${DESTDIR:Q}${PREFIX:Q}	\
+			MANDIR=${DESTDIR:Q}${PREFIX:Q}/${PKGMANDIR:Q}
 
 INSTALLATION_DIRS+=	bin lib include ${PKGMANDIR}/man1 ${PKGMANDIR}/man3
 

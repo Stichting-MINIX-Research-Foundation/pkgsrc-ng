@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.22 2012/12/19 14:05:26 jperkin Exp $
+# $NetBSD: Makefile,v 1.25 2014/12/08 04:50:17 obache Exp $
 
-DISTNAME=	pciutils-3.1.10
+DISTNAME=	pciutils-3.3.0
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/ \
 		ftp://ftp.kernel.org/pub/software/utils/pciutils/
@@ -12,7 +12,7 @@ LICENSE=	gnu-gpl-v2
 
 MAKE_JOBS_SAFE=		no
 ONLY_FOR_PLATFORM=	AIX-*-* FreeBSD-*-* Linux-*-* NetBSD-*-*
-ONLY_FOR_PLATFORM+=	DragonFly-*-* OpenBSD-*-* SunOS-5.11-*
+ONLY_FOR_PLATFORM+=	DragonFly-*-* OpenBSD-*-* SunOS-5.11-* Haiku-*-*
 
 INSTALL_TARGET=		install install-lib
 USE_TOOLS+=		gmake pkg-config

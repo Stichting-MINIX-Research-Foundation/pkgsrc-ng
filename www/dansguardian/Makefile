@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2014/03/28 14:13:25 prlw1 Exp $
+# $NetBSD: Makefile,v 1.21 2015/01/20 11:34:43 prlw1 Exp $
 
 DISTNAME=	dansguardian-2.12.0.3
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dansguardian/}
 EXTRACT_SUFX=	.tar.bz2
@@ -45,6 +46,8 @@ CONFIGURE_ARGS+=	--with-proxygroup=${DANSGUARDIAN_GROUP}
 CONFIGURE_ARGS+=	--with-piddir=${VARBASE}/run
 CONFIGURE_ARGS+=	--with-logdir=${VARBASE}/log/dansguardian
 
+.include "options.mk"
+
 CHECK_WRKREF_SKIP+=	sbin/dansguardian
 
 REPLACE_PERL=		data/dansguardian.pl
@@ -64,4 +67,5 @@ CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
 
 .include "../../devel/pcre/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

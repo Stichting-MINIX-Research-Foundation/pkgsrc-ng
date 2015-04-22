@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2014/02/12 00:30:03 prlw1 Exp $
+# $NetBSD: Makefile,v 1.8 2014/06/30 14:25:59 joerg Exp $
 
 DISTNAME=		pycairo-1.10.0
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/py//}
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		graphics
 MASTER_SITES=		http://cairographics.org/releases/
 EXTRACT_SUFX=		.tar.bz2
@@ -14,7 +14,7 @@ LICENSE=		gnu-lgpl-v2.1 OR mpl-1.1
 
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
-USE_TOOLS+=		aclocal automake pkg-config
+USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
@@ -23,6 +23,10 @@ PYTHON_VERSIONS_INCOMPATIBLE=	26 27
 PY_PATCHPLIST=		yes
 # waf is not smart enough for this as of 1.10.0
 PY_PEP3147=		no
+
+pre-patch:
+	cd ${WRKSRC:Q} && \
+		${SETENV} ${CONFIGURE_ENV} ${PYTHONBIN} ./waf --help
 
 do-configure:
 	cd ${WRKSRC:Q} && \

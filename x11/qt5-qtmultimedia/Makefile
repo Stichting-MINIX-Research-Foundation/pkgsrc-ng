@@ -1,31 +1,27 @@
-# $NetBSD: Makefile,v 1.5 2014/02/12 23:18:55 tron Exp $
+# $NetBSD: Makefile,v 1.13 2015/02/21 23:35:42 ryoon Exp $
 
-.include "../../x11/qt5-qtbase/Makefile.common"
-
+DISTNAME=	qtmultimedia-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtmultimedia-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	2
 COMMENT=	Qt5 module for multimedia
 
-USE_LIBTOOL=		yes
-
-CONFIGURE_ARGS+=	-I${QTDIR}/include -L${QTDIR}/lib
-
-BUILD_DIRS+=		qtmultimedia
+BUILD_TARGET=		sub-src
 MAKE_ENV+=		QTDIR=${QTDIR}
-
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 INSTALLATION_DIRS+=	lib/pkgconfig
 
+.include "../../x11/qt5-qtbase/Makefile.common"
+
 post-install:
 .for i in Qt5Multimedia.pc Qt5MultimediaQuick_p.pc Qt5MultimediaWidgets.pc
-	${RM} -f ${DESTDIR}${PREFIX}/lib/pkgconfig/${i} && \
-		cd ${DESTDIR}${PREFIX}/lib/pkgconfig && \
-		ln -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
+	cd ${DESTDIR}${PREFIX}/lib/pkgconfig && \
+	ln -f -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
 .endfor
 
-.include "../../audio/pulseaudio/buildlink3.mk"
+.if ${OPSYS} != "Darwin"
 .include "../../audio/openal/buildlink3.mk"
+.include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
-.include "../../x11/qt5-qtbase/buildlink3.mk"
+.endif
 .include "../../x11/qt5-qtdeclarative/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

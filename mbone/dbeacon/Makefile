@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.3 2012/10/08 09:25:49 asau Exp $
+# $NetBSD: Makefile,v 1.6 2015/01/13 20:25:13 he Exp $
 #
 
 DISTNAME=	dbeacon-0.3.9.1
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	mbone
 MASTER_SITES=	http://fivebits.net/files/dbeacon/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://fivebits.net/proj/dbeacon/
 COMMENT=	Distributed IPv4/IPv6 multicast beacon
+LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	gmake
@@ -17,6 +18,8 @@ BUILD_DEFS+=	IPV6_READY
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/examples/dbeacon
 INSTALLATION_DIRS+=	share/doc/dbeacon
+
+#INSTALL_UNSTRIPPED=	yes
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dbeacon ${DESTDIR}${PREFIX}/bin

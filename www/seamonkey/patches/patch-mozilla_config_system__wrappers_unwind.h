@@ -1,6 +1,6 @@
-$NetBSD: patch-mozilla_config_system__wrappers_unwind.h,v 1.3 2013/11/08 12:55:52 ryoon Exp $
+$NetBSD: patch-mozilla_config_system__wrappers_unwind.h,v 1.5 2015/01/02 04:26:21 ryoon Exp $
 
---- mozilla/config/system_wrappers/unwind.h.orig	2013-11-04 05:52:46.000000000 +0000
+--- mozilla/config/system_wrappers/unwind.h.orig	2015-01-01 17:44:51.000000000 +0000
 +++ mozilla/config/system_wrappers/unwind.h
 @@ -0,0 +1,4 @@
 +#pragma GCC system_header

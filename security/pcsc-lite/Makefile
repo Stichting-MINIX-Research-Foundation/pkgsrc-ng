@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.22 2014/03/17 17:44:23 gdt Exp $
-#
+# $NetBSD: Makefile,v 1.25 2015/01/17 18:43:15 wiz Exp $
 
-DISTNAME=	pcsc-lite-1.8.11
-PKGREVISION=	1
+DISTNAME=	pcsc-lite-1.8.12
+PKGREVISION=	2
 CATEGORIES=	security
 # Note that the MASTER_SITES URL is not stable with version changes,
 # and one can end up with an old version if DISTNAME is changed but
 # not the magic number in MASTER_SITES.
-MASTER_SITES=	https://alioth.debian.org/frs/download.php/file/3991/
+MASTER_SITES=	https://alioth.debian.org/frs/download.php/file/4115/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -42,7 +41,7 @@ EGDIR=			${PREFIX}/share/examples/pcsc-lite
 PKGCONFIG_OVERRIDE+=	src/libpcsclite.pc.in
 
 BUILD_DEFS+=		VARBASE
-INSTALLATION_DIRS=	${EGDIR}
+RCD_SCRIPTS=		pcscd
 
 .include "../../devel/libusb1/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"

@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.14 2014/01/06 22:15:06 joerg Exp $
+$NetBSD: distinfo,v 1.17 2015/03/30 01:14:22 gdt Exp $
 
 SHA1 (amanda-3.3.1.tar.gz) = 22273381f61319e46e1da9d7029ca2b3991eee98
 RMD160 (amanda-3.3.1.tar.gz) = 0d66ad25fd905901a1afd3651bd6c1e00db9af8d
@@ -15,10 +15,16 @@ SHA1 (patch-common-src_glib-util.h) = 6d5b14acd7a44b17a52ebc697f5354db2a4b04f9
 SHA1 (patch-common-src_security-util.h) = c628cc19a624da2cfabdb7d488bc2cd2d4b955a4
 SHA1 (patch-config_amanda_dumpers.m4) = 3d0cf6133b003de53e05929d2ce04eaa0f614819
 SHA1 (patch-config_amanda_krb5-security.m4) = c82af0e106e49b59994b40f12ed5b1c165a8497f
+SHA1 (patch-config_amanda_tape.m4) = ac8da578326756eeadd935bdeddb202ea990c006
 SHA1 (patch-config_macro-archive_xsltproc.m4) = 20324db1ce3db016fa89fe39df5a8133c7766693
 SHA1 (patch-device-src_Makefile.am) = 29fd554033ff0ff7b1d98a08306f157ced7324c5
+SHA1 (patch-device-src_device.c) = 31cb823dcce0f7f3d9de8f9def1a0f025ab10876
 SHA1 (patch-example_Makefile.am) = 8d2dac1abdc473fbf94489bcb620a42a665fd27a
+SHA1 (patch-ndmp-src_ndmp2__xdr.c) = 9ae6d78c2192ece83a1aa141cb04c9761969ca5b
+SHA1 (patch-ndmp-src_ndmp3__xdr.c) = a080c7337ede4fe75f9735fb3355d0aa16b0af6c
+SHA1 (patch-ndmp-src_ndmp4__xdr.c) = 339b0d539754127446acf6456fb385f00b1fbcc3
 SHA1 (patch-oldrecover-src_Makefile.am) = 9127c1523937da3955662cc0b0921d05bca75248
+SHA1 (patch-perl_Amanda_Report_human.pm) = 3f23c333e5892b13915267a646837b8118d50128
 SHA1 (patch-perl_Amanda_Xfer.pm) = 7389672ce0ed08d8b5f6548a6bb466ef4e18ab1d
 SHA1 (patch-perl_Makefile.am) = 7b09e5cc30c9b441dae03b06bef5c757c93ff9f7
 SHA1 (patch-perl_amglue_Makefile.am) = 051e456a5d34dd19a11ccd45c32f078e72d16e6f

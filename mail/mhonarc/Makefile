@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2013/05/31 12:41:15 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2014/05/29 23:36:46 wiz Exp $
 
-DISTNAME=	MHonArc-2.6.18
-PKGNAME=	mhonarc-2.6.18
-PKGREVISION=	3
+DISTNAME=	MHonArc-2.6.19
+PKGNAME=	mhonarc-2.6.19
+PKGREVISION=	1
 CATEGORIES=	mail
 MASTER_SITES=	http://www.mhonarc.org/release/MHonArc/tar/
 EXTRACT_SUFX=	.tar.bz2

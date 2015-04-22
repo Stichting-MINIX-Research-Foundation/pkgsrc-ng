@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.3 2014/12/03 22:55:29 rodent Exp $
+
+SHA1 (django-tastypie-0.12.1.tar.gz) = 10b58b575cae643b96e51ce0ba3408579c7e87bf
+RMD160 (django-tastypie-0.12.1.tar.gz) = 53c47d518f7bcee4e1a4fe5b443b6401a27e45f0
+Size (django-tastypie-0.12.1.tar.gz) = 730543 bytes

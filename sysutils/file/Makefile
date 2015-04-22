@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.29 2014/03/12 18:35:48 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2015/03/22 09:48:51 bsiegert Exp $
 
-DISTNAME=		file-5.17
+DISTNAME=		file-5.22
 CATEGORIES=		sysutils
 MASTER_SITES=		ftp://ftp.astron.com/pub/file/
 
@@ -24,7 +24,7 @@ TEST_TARGET=		check
 # gcc<4 does not know -Wextra.
 # XXX: should be treated with wrappers automatically.
 .if !empty(CC_VERSION:Mgcc-[23]*)
-BUILDLINK_TRANSFORM+=	rename:-Wextra:-W
+BUILDLINK_TRANSFORM+=	opt:-Wextra:-W
 .endif
 # gcc<3 does not know -Wunused-parameter
 .if !empty(CC_VERSION:Mgcc-2*)

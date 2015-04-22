@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2013/09/09 09:44:41 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2015/03/10 07:16:26 wiz Exp $
 
-DISTNAME=		libX11-1.6.2
+DISTNAME=		libX11-1.6.3
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -9,8 +9,6 @@ MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		Base X libraries from modular Xorg X11
 LICENSE=		mit
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
@@ -29,11 +27,14 @@ CONFIGURE_ENV+=		FILE_MAN_SUFFIX=5
 CONFIGURE_ARGS+=	--disable-malloc0returnsnull
 .endif
 
-CPPFLAGS.OSF1+=		-pthread # Required by compiler if including pthread.h
-CPPFLAGS.MirBSD+=	-pthread
-LDFLAGS.MirBSD+=	-pthread
+.include "../../mk/pthread.buildlink3.mk"
+CPPFLAGS.OSF1+=		${PTHREAD_CFLAGS} # Required by compiler if including pthread.h
+CPPFLAGS.MirBSD+=	${PTHREAD_CFLAGS}
+LDFLAGS.MirBSD+=	${PTHREAD_LDFLAGS}
+LDFLAGS.OpenBSD+=	${PTHREAD_LDFLAGS}
 
 BUILDLINK_API_DEPENDS.libxcb+=libxcb>=1.8.1
+BUILDLINK_API_DEPENDS.xproto+=xproto>=7.0.17
 
 TOOL_DEPENDS+=		tradcpp-[0-9]*:../../devel/tradcpp
 CONFIGURE_ENV+=		ac_cv_path_RAWCPP="${PREFIX}/bin/tradcpp -Uunix"

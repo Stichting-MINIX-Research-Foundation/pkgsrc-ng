@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2013/09/02 13:26:32 obache Exp $
+# $NetBSD: Makefile,v 1.9 2015/01/12 07:50:42 mef Exp $
 #
 
-DISTNAME=	HTTP-Server-EV-0.67
+DISTNAME=	HTTP-Server-EV-0.68
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=HTTP/}

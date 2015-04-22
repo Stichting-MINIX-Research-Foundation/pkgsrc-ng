@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.52 2013/12/06 06:20:00 dholland Exp $
+# $NetBSD: Makefile,v 1.54 2015/01/04 08:04:59 dholland Exp $
 
 DISTNAME=	ghc-6.8.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	http://www.haskell.org/ghc/dist/6.8.3/
 DISTFILES=	ghc-6.8.3-src.tar.bz2 \
@@ -16,6 +16,7 @@ COMMENT=	Compiler for the functional language Haskell
 SITES.ghc-6.4.2-src.tar.bz2=http://www.haskell.org/ghc/dist/6.4.2/
 SITES.ghc-6.4.2-i386-unknown-netbsd-hc.tar.gz=${MASTER_SITE_LOCAL}
 
+# There is only an i386 bootstrap kit available.
 ONLY_FOR_PLATFORM= Darwin-*-i386 FreeBSD-*-i386 NetBSD-*-i386 OpenBSD-*-i386 SunOS-*-i386
 
 CHECK_PORTABILITY_SKIP=	distrib/prep-bin-dist-mingw

@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.7 2013/05/31 12:41:40 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/02/28 15:12:07 mef Exp $
 #
 
-DISTNAME=	Net-XMPP-1.02
+DISTNAME=	Net-XMPP-1.05
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	chat perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/~hacker/Net-XMPP-1.02/
 COMMENT=	Provide a Perl Developer access to the XMPP protocol
+LICENSE=	gnu-lgpl-v2.1
 
-DEPENDS+=	p5-XML-Stream>=1.22:../../textproc/p5-XML-Stream
+DEPENDS+=	p5-XML-Stream>=1.24:../../textproc/p5-XML-Stream
 DEPENDS+=	p5-Digest-SHA1>=1.02:../../security/p5-Digest-SHA1
 
 PERL5_MODULE_TYPE= Module::Build

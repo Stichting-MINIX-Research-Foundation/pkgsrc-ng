@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2012/10/29 05:06:33 asau Exp $
-#
+# $NetBSD: Makefile,v 1.12 2014/10/09 14:07:13 wiz Exp $
 
-DISTNAME=		libICE-1.0.8
+DISTNAME=		libICE-1.0.9
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -9,8 +8,6 @@ EXTRACT_SUFX=		.tar.bz2
 MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		Inter Client Exchange (ICE) library for X
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes

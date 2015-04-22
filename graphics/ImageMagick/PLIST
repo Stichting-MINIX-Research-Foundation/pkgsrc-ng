@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.80 2014/02/13 19:53:43 adam Exp $
+@comment $NetBSD: PLIST,v 1.83 2014/12/04 09:28:24 he Exp $
 bin/Magick++-config
 bin/Magick-config
 bin/MagickCore-config
@@ -17,6 +17,7 @@ bin/montage
 bin/stream
 include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++/Blob.h
+include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++/ChannelMoments.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++/CoderInfo.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++/Color.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/Magick++/Drawable.h
@@ -124,6 +125,7 @@ include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/transform.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/type.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/utility.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/version.h
+include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/vision.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/widget.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/xml-tree.h
 include/ImageMagick-${IM_MAJOR_LIB_VER}/magick/xwindow.h
@@ -208,12 +210,16 @@ share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/gaussian-blur.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/granite.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/imade_art2.jpg
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/label.gif
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/litecoin.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/logo-sm-flop.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/logo-sm-fx.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/logo-sm.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/logo.jpg
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/logo.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/montage.jpg
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/objects.gif
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/objects.jpg
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/objects.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/navy.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/patterns/bricks.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/images/patterns/checkerboard.png
@@ -1118,6 +1124,7 @@ share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/compare.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/compose.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/composite.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/conjure.html
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/connected-components.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/contact.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/convert.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/display.html
@@ -1179,9 +1186,9 @@ share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/source/type-windows.xml
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/source/type.xml
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/source/wand.c
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/sponsors.html
-share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/support.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/stream.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/subversion.html
+share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/support.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/t-shirt.html
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/wand.png
 share/doc/ImageMagick-${IM_MAJOR_LIB_VER}/www/webp.html

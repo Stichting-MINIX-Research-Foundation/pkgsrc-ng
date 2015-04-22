@@ -1,10 +1,11 @@
-# $NetBSD: can-be-built-here.mk,v 1.6 2008/11/05 08:24:23 rillig Exp $
+# $NetBSD: can-be-built-here.mk,v 1.8 2015/01/01 06:06:06 dholland Exp $
 #
 # This file checks whether a package can be built in the current pkgsrc
 # environment. It checks the following variables:
 #
 # * NOT_FOR_COMPILER, ONLY_FOR_COMPILER
 # * NOT_FOR_PLATFORM, ONLY_FOR_PLATFORM
+# * BROKEN_ON_PLATFORM, BROKEN_EXCEPT_ON_PLATFORM
 # * NOT_FOR_BULK_PLATFORM
 # * NOT_FOR_UNPRIVILEGED, ONLY_FOR_UNPRIVILEGED
 # * PKG_FAIL_REASON, PKG_SKIP_REASON
@@ -89,6 +90,31 @@ _CBBH.oplat=		yes
 .  endfor
 .endif
 
+# Check BROKEN_ON_PLATFORM
+_CBBH_CHECKS+=		bplat
+_CBBH_MSGS.bplat=	"This package is broken on these platforms: "${BROKEN_ON_PLATFORM:Q}"."
+
+_CBBH.bplat=		yes
+.for p in ${BROKEN_ON_PLATFORM}
+.  if !empty(MACHINE_PLATFORM:M${p})
+_CBBH.bplat=		no
+.  endif
+.endfor
+
+# Check BROKEN_EXCEPT_ON_PLATFORM
+_CBBH_CHECKS+=		beplat
+_CBBH_MSGS.beplat=	"This package is broken except on these platforms: "${BROKEN_EXCEPT_ON_PLATFORM:Q}"."
+
+_CBBH.beplat=		yes
+.if defined(BROKEN_EXCEPT_ON_PLATFORM) && !empty(BROKEN_EXCEPT_ON_PLATFORM)
+_CBBH.beplat=		no
+.  for p in ${BROKEN_EXCEPT_ON_PLATFORM}
+.    if !empty(MACHINE_PLATFORM:M${p})
+_CBBH.beplat=		yes
+.    endif
+.  endfor
+.endif
+
 # Check NOT_FOR_UNPRIVILEGED
 _CBBH_CHECKS+=		nunpriv
 _CBBH_MSGS.nunpriv=	"This package is not available in unprivileged mode."
@@ -127,17 +153,6 @@ _CBBH_MSGS.skip=	"This package has set PKG_SKIP_REASON:" ${PKG_SKIP_REASON}
 _CBBH.skip=		yes
 .if defined(PKG_SKIP_REASON) && !empty(PKG_SKIP_REASON)
 _CBBH.skip=		no
-.endif
-
-# Check PKG_INSTALLATION_TYPES
-_CBBH_CHECKS+=		pkgviews
-_CBBH_MSGS.pkgviews=	"This package is not available for pkgviews."
-
-_CBBH.pkgviews=		yes
-.if ${PKG_INSTALLATION_PREFS} == "pkgviews overwrite"
-.  if empty(PKG_INSTALLATION_TYPES:Mpkgviews)
-_CBBH.pkgviews=		no
-.  endif
 .endif
 
 # Collect and combine the results

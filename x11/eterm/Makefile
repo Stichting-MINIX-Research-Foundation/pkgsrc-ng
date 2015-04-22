@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.76 2013/07/05 13:29:44 ryoon Exp $
+# $NetBSD: Makefile,v 1.78 2015/03/14 14:48:46 tnn Exp $
 
 DISTNAME=	Eterm-0.9.5
 PKGNAME=	${DISTNAME:S/^E/e/}
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=eterm/}
 DISTFILES=	${DEFAULT_DISTFILES} ${PIXMAP_FILES}
@@ -45,5 +45,7 @@ SPECIAL_PERMS=		${PREFIX}/bin/Eterm ${SETUID_ROOT_PERMS}
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXmu/buildlink3.mk"
 .include "../../x11/libXres/buildlink3.mk"
+.include "../../converters/libiconv/buildlink3.mk"
+BUILDLINK_DEPMETHOD.iconv?=	build
 
 .include "../../mk/bsd.pkg.mk"

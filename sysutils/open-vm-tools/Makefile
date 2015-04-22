@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2014/02/12 23:18:40 tron Exp $
+# $NetBSD: Makefile,v 1.49 2014/12/01 12:39:18 joerg Exp $
 
 DISTNAME=	open-vm-tools-2008.08.08-109361
 PKGNAME=	open-vm-tools-2008.08.08.109361
-PKGREVISION=	35
+PKGREVISION=	38
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=open-vm-tools/}
 
@@ -34,6 +34,12 @@ RCD_SCRIPTS=			vmtools
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -f
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-local-typedef
+CWRAPPERS_APPEND.cc+=	-Wno-error=unused-local-typedef
+.endif
 
 .include "../../net/libdnet/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.bsd,v 1.2 2014/02/04 02:11:18 agc Exp $
+# $NetBSD: Makefile.bsd,v 1.8 2015/02/05 00:21:57 agc Exp $
 
 PROG=netpgpverify
 
@@ -18,7 +18,7 @@ LDFLAGS+=-g -O0
 .endif
 
 MAN=	netpgpverify.1
-WARNS=	6
+WARNS=	5
 
 .include <bsd.prog.mk>
 
@@ -30,3 +30,16 @@ tst:
 	./${PROG} -S sshtest-20140202.pub data.sig
 	@echo "expected failure, to check bad signatures fail to verify"
 	-sed -e 's|A|B|' data.gpg | ./${PROG} -S sshtest-20140202.pub 
+	@echo ""
+	@echo "expected failure, no valid key for verification"
+	-./${PROG} -k /dev/null NetBSD-6.0_RC1_hashes.gpg
+	@echo "dumping now"
+	./${PROG} -c dump -k pubring.gpg NetBSD-6.0_RC1_hashes.asc > /dev/null
+	@echo "dumping ssh now"
+	./${PROG} -c dump -S sshtest-20140202.pub data.gpg
+	@echo "testing pubring with one key"
+	uudecode 1keytest.gpg.uu
+	./${PROG} -k 1keypubring.gpg 1keytest.gpg
+	rm -f 1keytest.gpg
+	@echo "testing signing with a subkey"
+	./chk.sh -k joyent-pubring.gpg digest-20121220.tgz

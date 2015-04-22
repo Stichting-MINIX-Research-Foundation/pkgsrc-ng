@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.48 2014/02/12 23:18:48 tron Exp $
+# $NetBSD: Makefile,v 1.58 2015/01/09 22:25:23 wiz Exp $
 
-DISTNAME=	gtk+-3.10.7
+DISTNAME=	gtk+-3.14.5
 PKGNAME=	${DISTNAME:S/gtk/gtk3/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	x11 gnome
 MASTER_SITES=	ftp://ftp.gtk.org/pub/gtk/${PKGVERSION_NOREV:R}/ \
 		${MASTER_SITE_GNOME:=sources/gtk+/${PKGVERSION_NOREV:R}/}
@@ -22,7 +22,7 @@ BUILD_DEPENDS+=		gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
 GNU_CONFIGURE=		yes
 # XXX there is a subtle bashism in "configure" or a bug in NetBSD's sh
-CONFIG_SHELL=		bash
+CONFIG_SHELL=		${TOOLS_PATH.bash}
 CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/libdata
 # Work around build problems, disable unstable PAPI, PR #41608:
 CONFIGURE_ARGS+=	--disable-papi
@@ -76,27 +76,31 @@ _BUILDING_GTK3=	yes
 .include "modules.mk"
 
 .include "../../databases/shared-mime-info/buildlink3.mk"
-BUILDLINK_API_DEPENDS.atk+=	atk>=2.7.5
+BUILDLINK_API_DEPENDS.atk+=	atk>=2.12.0
 .include "../../devel/atk/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.37.5
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.41.2
 .include "../../devel/glib2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gdk-pixbuf2+=	gdk-pixbuf2>=2.27.1
+BUILDLINK_API_DEPENDS.gdk-pixbuf2+=	gdk-pixbuf2>=2.30.0
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.gobject-introspection:=	build
-BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.32
+BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.39.0
 .include "../../devel/gobject-introspection/buildlink3.mk"
 
 .include "options.mk"
 
 .include "../../devel/glib2/schemas.mk"
 
-BUILDLINK_API_DEPENDS.pango+=	pango>=1.32.4
+BUILDLINK_API_DEPENDS.pango+=	pango>=1.36.7
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.12.0
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/cairo-gobject/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+# gtk-update-icon-cache --source  is called during build
+NOOP_GTK_UPDATE_ICON_CACHE=
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.92 2014/01/11 14:42:04 adam Exp $
+# $NetBSD: Makefile,v 1.95 2015/01/20 14:24:36 jaapb Exp $
 #
 
 DISTNAME=	${SCIBASE}-src
-PKGREVISION=	12
+PKGREVISION=	14
 PKGNAME=	${SCIBASE}
 CATEGORIES=	math
 MASTER_SITES=	http://www.scilab.org/download/4.1/
@@ -18,7 +18,7 @@ SCIBASE=	scilab-4.1
 # SCIBASE is updated.
 WRKSRC=		${WRKDIR}/${SCIBASE}
 
-NOT_FOR_PLATFORM+=	${LP64PLATFORMS}
+BROKEN_ON_PLATFORM+=	${LP64PLATFORMS}
 
 USE_LANGUAGES=		c fortran77
 USE_X11BASE=		yes

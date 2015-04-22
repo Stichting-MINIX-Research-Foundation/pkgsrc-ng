@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.94 2014/03/23 13:21:16 wiz Exp $
+# $NetBSD: Makefile,v 1.99 2014/05/29 23:35:17 wiz Exp $
 
 DISTNAME=	geda-gaf-1.8.2
 PKGNAME=	${DISTNAME:S/-gaf-/-/}
+PKGREVISION=	4
 CATEGORIES=	cad
 MASTER_SITES=	http://ftp.geda-project.org/geda-gaf/stable/v1.8/1.8.2/
 
@@ -40,7 +41,7 @@ post-patch:
 REPLACE_BASH=		utils/scripts/gnet_hier_verilog.sh
 REPLACE_PYTHON=		utils/scripts/tragesym
 REPLACE_PERL+=		utils/scripts/pads_backannotate \
-			utils/scripts/gsymfix.pl \
+			utils/scripts/gsymfix \
 			utils/scripts/pcb_backannotate \
 			utils/scripts/refdes_renum \
 			utils/scripts/sarlacc_sym \

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.38 2014/02/12 23:18:38 tron Exp $
+# $NetBSD: Makefile,v 1.40 2014/09/06 06:24:07 jperkin Exp $
 
 DISTNAME=	cfengine-2.2.10
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	sysutils net
 MASTER_SITES=	http://www.cfengine.org/tarballs/ \
 		http://ftp.osuosl.org/pub/cfengine/ \
@@ -16,7 +16,7 @@ BUILD_DEFS+=		IPV6_READY
 
 BDB_ACCEPTED=		db4
 USE_LIBTOOL=		yes
-USE_TOOLS+=		flex perl:run
+USE_TOOLS+=		flex perl:run yacc
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-berkeleydb=${BUILDLINK_PREFIX.db4}
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}

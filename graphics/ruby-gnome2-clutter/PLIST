@@ -1,11 +1,14 @@
-@comment $NetBSD: PLIST,v 1.1 2014/01/05 09:04:31 obache Exp $
+@comment $NetBSD: PLIST,v 1.3 2014/12/30 08:53:44 obache Exp $
 ${RUBY_VENDORLIB}/clutter.rb
 ${RUBY_VENDORLIB}/clutter/actor-iter.rb
 ${RUBY_VENDORLIB}/clutter/actor.rb
 ${RUBY_VENDORLIB}/clutter/animatable.rb
+${RUBY_VENDORLIB}/clutter/brightness-contrast-effect.rb
 ${RUBY_VENDORLIB}/clutter/cairo.rb
+${RUBY_VENDORLIB}/clutter/clutter.rb
 ${RUBY_VENDORLIB}/clutter/color.rb
 ${RUBY_VENDORLIB}/clutter/event.rb
 ${RUBY_VENDORLIB}/clutter/point.rb
+${RUBY_VENDORLIB}/clutter/text-buffer.rb
 ${RUBY_VENDORLIB}/clutter/text.rb
 ${RUBY_VENDORLIB}/clutter/threads.rb

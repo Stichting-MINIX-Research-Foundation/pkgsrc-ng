@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2013/02/16 11:18:02 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/08/11 23:09:45 wiz Exp $
 
 DISTNAME=	ffmpegthumbnailer-2.0.8
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	multimedia
 MASTER_SITES=	http://ffmpegthumbnailer.googlecode.com/files/
 
@@ -20,5 +19,5 @@ PKGCONFIG_OVERRIDE+=	libffmpegthumbnailer.pc.in
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
-.include "../../multimedia/ffmpeg/buildlink3.mk"
+.include "../../multimedia/ffmpeg1/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

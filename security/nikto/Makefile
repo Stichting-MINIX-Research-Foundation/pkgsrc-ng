@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2013/05/31 12:41:52 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2014/12/30 15:13:21 wiz Exp $
 
 DISTNAME=	nikto-1.36
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	security www
 MASTER_SITES=	http://www.cirt.net/nikto/
 
@@ -16,9 +16,6 @@ USE_TOOLS+=	perl:run
 REPLACE_PERL=	nikto.pl
 NO_BUILD=	YES
 
-# NOTE: this package will not work with pkgviews due to a hardcoded
-# location for nmap.
-#
 SUBST_CLASSES+=		conf
 SUBST_STAGE.conf=	post-patch
 SUBST_FILES.conf=	config.txt

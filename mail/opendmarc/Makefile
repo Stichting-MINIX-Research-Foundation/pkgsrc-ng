@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/03/13 23:56:55 pettai Exp $
+# $NetBSD: Makefile,v 1.10 2015/03/15 22:26:34 pettai Exp $
 
-DISTNAME=	opendmarc-1.1.3
-PKGREVISION=	2
+DISTNAME=	opendmarc-1.3.1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opendmarc/}
 
@@ -22,7 +21,7 @@ USE_TOOLS+=	perl
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--with-milter=${PREFIX}
+CONFIGURE_ARGS+=	--with-milter=${BUILDLINK_PREFIX.libmilter}
 
 REPLACE_PERL=	reports/opendmarc-expire.in
 REPLACE_PERL+=	reports/opendmarc-import.in

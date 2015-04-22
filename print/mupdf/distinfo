@@ -1,13 +1,10 @@
-$NetBSD: distinfo,v 1.12 2014/02/20 23:15:27 wiz Exp $
+$NetBSD: distinfo,v 1.17 2014/10/05 15:19:18 wiz Exp $
 
-SHA1 (mupdf-1.3-source.tar.gz) = 082325aceb5565b07b82c2b6cc52a97533e03cf9
-RMD160 (mupdf-1.3-source.tar.gz) = 5f898cfaa3a54c7c34835411b0d386914edee2f8
-Size (mupdf-1.3-source.tar.gz) = 14594969 bytes
-SHA1 (patch-Makethird) = 37b0be98bf859ec9d995dd7a3c05c191be42a479
-SHA1 (patch-ab) = d3258d2c37743a3c4bc1949d3246e71d81e4d69e
-SHA1 (patch-ac) = d63f79f608aed2f237b9d3e8e557a342b0e1c420
-SHA1 (patch-ae) = df35d031a816eceac5bdfd5ddb298adea4a48ce0
-SHA1 (patch-ba) = eeb839953619c08d222b3400bab38b738c08b465
-SHA1 (patch-bb) = 82002ae6fe2eef67c1ee64123434298765716047
-SHA1 (patch-bc) = 02b2cb087dd94165f71126636b82976917cd0d7f
-SHA1 (patch-bd) = f8d4d1f7f638df4a39279294868dad8ac1ac5a33
+SHA1 (mupdf-1.6-source.tar.gz) = 491d7a3b131589791c7df6dd8161c6bfe41ce74a
+RMD160 (mupdf-1.6-source.tar.gz) = c2bab0bbb538cd446cbc7828c0a59c74c61c70cb
+Size (mupdf-1.6-source.tar.gz) = 13975531 bytes
+SHA1 (patch-Makethird) = 5ec66437c5695558f5e6497182d1f0c197ee5299
+SHA1 (patch-ab) = b965020ec098fc1bf8577cb16102ab4c37bb37d3
+SHA1 (patch-ac) = 2b0fe5f97df7b6709ba7a3abfbefdf72ee81e0a3
+SHA1 (patch-ae) = bad4b6b8c669c752c6318bb564d1176daac30d19
+SHA1 (patch-source_fitz_load-jpx.c) = e5271cf60aff104e05ff60333be54712475d5a33

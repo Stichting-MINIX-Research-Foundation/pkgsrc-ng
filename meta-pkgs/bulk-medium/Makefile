@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2014/01/25 10:30:13 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2015/03/15 15:29:31 taca Exp $
 
-DISTNAME=	bulk-medium-20140121
+DISTNAME=	bulk-medium-20150315
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -10,7 +10,7 @@ COMMENT=	Meta-package for a standard medium-sized limited bulk build
 
 META_PACKAGE=	yes
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-postgresql, py-matplotlib-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-postgresql, py-matplotlib-gtk2
 
 RESTRICTED=		Just for test build purpose
 NO_BIN_ON_CDROM=	${RESTRICTED}
@@ -63,8 +63,6 @@ BUILD_DEPENDS+=	fribidi-[0-9]*:../../converters/fribidi
 BUILD_DEPENDS+=	mysql-client>=5.1<5.5:../../databases/mysql51-client
 BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
 BUILD_DEPENDS+=	openldap-client-[0-9]*:../../databases/openldap-client
-BUILD_DEPENDS+=	postgresql84-client-[0-9]*:../../databases/postgresql84-client
-BUILD_DEPENDS+=	postgresql91-client-[0-9]*:../../databases/postgresql91-client
 BUILD_DEPENDS+=	git-[0-9]*:../../devel/git
 BUILD_DEPENDS+=	git-base-[0-9]*:../../devel/git-base
 BUILD_DEPENDS+=	git-docs-[0-9]*:../../devel/git-docs
@@ -84,14 +82,15 @@ BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-[0-9]*:../../graphics/py-matplotlib
 BUILD_DEPENDS+=	${PYPKGPREFIX}-matplotlib-gtk-[0-9]*:../../graphics/py-matplotlib-gtk2
 BUILD_DEPENDS+=	gawk-[0-9]*:../../lang/gawk
-BUILD_DEPENDS+=	php>=5.3<5.4:../../lang/php53
 BUILD_DEPENDS+=	php>=5.4<5.5:../../lang/php54
+BUILD_DEPENDS+=	php>=5.5<5.6:../../lang/php55
 BUILD_DEPENDS+=	ruby18-base-[0-9]*:../../lang/ruby18-base
 BUILD_DEPENDS+=	ruby193-base-[0-9]*:../../lang/ruby193-base
+BUILD_DEPENDS+=	ruby200-base-[0-9]*:../../lang/ruby200-base
 BUILD_DEPENDS+=	sun-jdk6-[0-9]*:../../lang/sun-jdk6
 BUILD_DEPENDS+=	sun-jre6-[0-9]*:../../lang/sun-jre6
 BUILD_DEPENDS+=	openjdk7-[0-9]*:../../lang/openjdk7
-BUILD_DEPENDS+=	openjdk7-bin-[0-9]*:../../lang/openjdk7-bin
+BUILD_DEPENDS+=	openjdk8-[0-9]*:../../lang/openjdk8
 BUILD_DEPENDS+=	python26-[0-9]*:../../lang/python26
 BUILD_DEPENDS+=	python33-[0-9]*:../../lang/python33
 BUILD_DEPENDS+=	tcl-[0-9]*:../../lang/tcl
@@ -102,12 +101,10 @@ BUILD_DEPENDS+=	mhonarc-[0-9]*:../../mail/mhonarc
 BUILD_DEPENDS+=	mutt-[0-9]*:../../mail/mutt
 BUILD_DEPENDS+=	re-alpine-[0-9]*:../../mail/re-alpine
 BUILD_DEPENDS+=	spamassassin-[0-9]*:../../mail/spamassassin
-BUILD_DEPENDS+=	bind>=9.6<9.7:../../net/bind96
-BUILD_DEPENDS+=	bind>=9.8<9.9:../../net/bind98
 BUILD_DEPENDS+=	bind>=9.9<9.10:../../net/bind99
+BUILD_DEPENDS+=	bind>=9.10<9.11:../../net/bind910
 BUILD_DEPENDS+=	clive-[0-9]*:../../net/clive
 BUILD_DEPENDS+=	nmap-[0-9]*:../../net/nmap
-BUILD_DEPENDS+=	samba>=3.5<3.6:../../net/samba35
 BUILD_DEPENDS+=	samba>=3.6:../../net/samba
 BUILD_DEPENDS+=	wpa_supplicant-[0-9]*:../../net/wpa_supplicant
 BUILD_DEPENDS+=	xymon-[0-9]*:../../net/xymon
@@ -185,8 +182,7 @@ BUILD_DEPENDS+=	librsvg-[0-9]*:../../graphics/librsvg
 BUILD_DEPENDS+=	blas-[0-9]*:../../math/blas
 BUILD_DEPENDS+=	lapack-[0-9]*:../../math/lapack
 BUILD_DEPENDS+=	boost-[0-9]*:../../meta-pkgs/boost
-BUILD_DEPENDS+=	ffmpeg-[0-9]*:../../multimedia/ffmpeg
-BUILD_DEPENDS+=	ffmpeg010-[0-9]*:../../multimedia/ffmpeg010
+BUILD_DEPENDS+=	ffmpeg2-[0-9]*:../../multimedia/ffmpeg2
 BUILD_DEPENDS+=	libogg-[0-9]*:../../multimedia/libogg
 BUILD_DEPENDS+=	libpcap-[0-9]*:../../net/libpcap
 BUILD_DEPENDS+=	libsoup24-[0-9]*:../../net/libsoup24
@@ -219,7 +215,6 @@ BUILD_DEPENDS+=	hicolor-icon-theme-[0-9]*:../../graphics/hicolor-icon-theme
 # 6. Other very small packages
 #
 BUILD_DEPENDS+=	${LUA_PKGPREFIX}-stdlib-[0-9]*:../../devel/lua-stdlib
-BUILD_DEPENDS+=	${LUA_PKGPREFIX}-stdlib-doc-[0-9]*:../../devel/lua-stdlib-doc
 
 #
 # Note that (unlike in bulk-small) we make no effort to list or track

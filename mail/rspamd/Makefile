@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2014/02/26 18:15:25 wiedi Exp $
+# $NetBSD: Makefile,v 1.10 2015/01/23 21:47:44 wiedi Exp $
 
-DISTNAME=	rspamd-0.6.8
-PKGREVISION=	1
+DISTNAME=	rspamd-0.8.1
 CATEGORIES=	mail
-MASTER_SITES=	https://rspamd.com/downloads/
+MASTER_SITES=	http://www.rspamd.com/downloads/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	wiedi@frubar.net
 HOMEPAGE=	https://www.rspamd.com/
@@ -12,7 +12,8 @@ LICENSE=	2-clause-bsd
 
 USE_CMAKE=	yes
 USE_TOOLS+=	perl pkg-config
-
+USE_LANGUAGES=	c99
+CPPFLAGS.SunOS+=	-D__EXTENSIONS__
 LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/rspamd
 
 PKG_SYSCONFSUBDIR=	rspamd
@@ -49,5 +50,6 @@ post-extract:
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../mail/gmime/buildlink3.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../lang/lua/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.40 2014/01/11 14:42:01 adam Exp $
+# $NetBSD: Makefile,v 1.44 2014/12/17 06:35:13 obache Exp $
 
 DISTNAME=	xcircuit-3.7.50
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	cad graphics
 MASTER_SITES=	http://opencircuitdesign.com/xcircuit/archive/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	shaun@inerd.com
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://opencircuitdesign.com/xcircuit/
 COMMENT=	Drawing program for X11 (especially for circuits)
+LICENSE=	gnu-gpl-v2
 
 WRKSRC=		${WRKDIR}/${DISTNAME}
 USE_TOOLS+=	gmake gs:run
@@ -17,7 +18,6 @@ GNU_CONFIGURE=	yes
 .include "../../lang/tcl/Makefile.version"
 .include "../../x11/tk/Makefile.version"
 
-CONFIGURE_ARGS+=--prefix=${PREFIX}
 CONFIGURE_ARGS+=--with-tcl=${BUILDLINK_PREFIX.tcl}/lib
 CONFIGURE_ARGS+=--with-tk=${BUILDLINK_PREFIX.tk}/lib
 CONFIGURE_ARGS+=--with-tclincls=${BUILDLINK_PREFIX.tcl}/include
@@ -25,9 +25,6 @@ CONFIGURE_ARGS+=--with-tcllibs=${BUILDLINK_PREFIX.tcl}/lib
 CONFIGURE_ARGS+=--with-tkincls=${BUILDLINK_PREFIX.tk}/include
 CONFIGURE_ARGS+=--with-tklibs=${BUILDLINK_PREFIX.tk}/lib
 #CFLAGS+=	-DBUILTINS_DIR=${PREFIX}/lib/${DISTNAME:C/\.[^\.]*$//}
-LDFLAGS+= 	-ltcl${TCL_VERSION:C/\.[^\.]*$//:C/\.//g}
-LDFLAGS+=	-ltk${TK_VERSION:C/\.[^\.]*$//:C/\.//g}
-LDFLAGS+=	-L${LOCALBASE}/lib
 
 BUILD_TARGET=	tcl
 INSTALL_TARGET= install-tcl

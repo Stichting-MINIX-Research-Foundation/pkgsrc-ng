@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2014/01/25 10:29:57 wiz Exp $
+# $NetBSD: Makefile,v 1.46 2014/05/09 07:36:54 wiz Exp $
 
 DISTNAME=	pymusique-0.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
-PKGREVISION=	26
+PKGREVISION=	27
 CATEGORIES=	audio
 MASTER_SITES=	http://www.pyronecrophilia.com/content/pymusique/
 
@@ -23,7 +23,7 @@ DEPENDS+=	${PYPKGPREFIX}-libxml2-[0-9]*:../../textproc/py-libxml2
 DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
 PYDISTUTILSPKG= yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-twisted, py-mcrypt, py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-twisted, py-mcrypt, py-gtk2
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

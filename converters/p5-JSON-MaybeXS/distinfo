@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.1.1.1 2014/02/05 21:43:11 abs Exp $
+$NetBSD: distinfo,v 1.4 2014/12/09 14:14:08 mef Exp $
 
-SHA1 (JSON-MaybeXS-1.001000.tar.gz) = a944f5dfa9630df01984548cc90024d96141d347
-RMD160 (JSON-MaybeXS-1.001000.tar.gz) = 8cad3f4536edf490fa89b330563ce44e2edab64e
-Size (JSON-MaybeXS-1.001000.tar.gz) = 4906 bytes
+SHA1 (JSON-MaybeXS-1.003003.tar.gz) = c5e9bc7278aacb32ba0fef40b9637e434fb55c56
+RMD160 (JSON-MaybeXS-1.003003.tar.gz) = b65e679c2e82128ebb962d1f25c363cfc0cac96f
+Size (JSON-MaybeXS-1.003003.tar.gz) = 9451 bytes

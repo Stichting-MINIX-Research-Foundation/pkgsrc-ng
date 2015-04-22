@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2013/12/15 14:07:13 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.3 2014/08/23 07:44:29 richard Exp $
 bin/xulrunner24
 include/xulrunner24/AbstractMediaDecoder.h
 include/xulrunner24/AccEvent.h
@@ -259,6 +259,7 @@ include/xulrunner24/inISearchObserver.h
 include/xulrunner24/inISearchProcess.h
 include/xulrunner24/ipc/IPCMessageUtils.h
 include/xulrunner24/jArray.h
+${PLIST.dtrace}include/xulrunner24/javascript-trace.h
 include/xulrunner24/js-config.h
 include/xulrunner24/js.msg
 include/xulrunner24/js/Anchor.h
@@ -341,6 +342,7 @@ include/xulrunner24/mozStorageCID.h
 include/xulrunner24/mozStorageHelper.h
 include/xulrunner24/mozcontainer.h
 include/xulrunner24/mozilla-config.h
+${PLIST.dtrace}include/xulrunner24/mozilla-trace.h
 include/xulrunner24/mozilla/AppData.h
 include/xulrunner24/mozilla/AppProcessChecker.h
 include/xulrunner24/mozilla/Assertions.h
@@ -3306,7 +3308,7 @@ include/xulrunner24/theora/codec.h
 include/xulrunner24/theora/theora.h
 include/xulrunner24/theora/theoradec.h
 include/xulrunner24/theora/theoraenc.h
-include/xulrunner24/tremor/ivorbiscodec.h
+${PLIST.tremor}include/xulrunner24/tremor/ivorbiscodec.h
 include/xulrunner24/txIEXSLTRegExFunctions.h
 include/xulrunner24/txIFunctionEvaluationContext.h
 include/xulrunner24/txINodeSet.h
@@ -3314,6 +3316,7 @@ include/xulrunner24/txIXPathObject.h
 include/xulrunner24/uconvutil.h
 include/xulrunner24/updatedefines.h
 include/xulrunner24/updatelogging.h
+${PLIST.vorbis}include/xulrunner24/vorbis/codec.h
 include/xulrunner24/webvtt/cue.h
 include/xulrunner24/webvtt/error.h
 include/xulrunner24/webvtt/node.h

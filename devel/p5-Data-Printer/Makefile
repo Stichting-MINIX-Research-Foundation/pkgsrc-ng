@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2014/01/07 15:22:31 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2015/01/31 13:27:07 mef Exp $
 
-DISTNAME=	Data-Printer-0.35
-PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+DISTNAME=	Data-Printer-0.35_01
+PKGNAME=	p5-${DISTNAME:S/_/./}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/G/GA/GARU/}
+#ASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Data/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Data-Printer/

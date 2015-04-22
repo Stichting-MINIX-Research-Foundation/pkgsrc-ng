@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.91 2014/02/24 19:30:53 schnoebe Exp $
+# $NetBSD: Makefile,v 1.96 2014/10/07 16:47:19 adam Exp $
 
 DISTNAME=	jabberd-2.3.2
+PKGREVISION=	3
 CATEGORIES=	chat
 MASTER_SITES=	https://github.com/jabberd2/jabberd2/releases/download/${DISTNAME}/
 EXTRACT_SUFX=	.tar.xz
-
-FETCH_USING=	curl
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://jabberd2.org/
@@ -27,6 +26,8 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 # XXX force linking against pthread, so some modules do not fail to dlopen()
 LDFLAGS+=	${PTHREAD_LDFLAGS}
 LIBS+=		${PTHREAD_LIBS}
+
+CFLAGS.SunOS+=		-D__EXTENSIONS__	# sockaddr_storage
 
 SUBST_CLASSES+=		path
 SUBST_STAGE.path=	post-patch

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.7 2013/12/06 11:35:03 obache Exp $
+$NetBSD: distinfo,v 1.9 2015/01/20 10:50:03 obache Exp $
 
-SHA1 (nwdiag-1.0.0.tar.gz) = 1642f7a09cb58a88c2167cfa703f98aa586d04d8
-RMD160 (nwdiag-1.0.0.tar.gz) = b48c639d10ad8249a3ee6956e53589e01a41da22
-Size (nwdiag-1.0.0.tar.gz) = 94646 bytes
+SHA1 (nwdiag-1.0.4.tar.gz) = 501c4a07f559cfd78b8f49b6949d79c2464b8818
+RMD160 (nwdiag-1.0.4.tar.gz) = 151f22c058337febc8ef93996b7abbed823ef83e
+Size (nwdiag-1.0.4.tar.gz) = 2652472 bytes

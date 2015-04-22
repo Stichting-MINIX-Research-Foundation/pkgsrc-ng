@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2014/01/25 10:30:28 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2014/12/31 13:57:32 wiz Exp $
 
-DISTNAME=	Flask-Cache-0.12
+DISTNAME=	Flask-Cache-0.13.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/F/Flask-Cache/
@@ -13,10 +13,6 @@ LICENSE=	modified-bsd
 DEPENDS+=	${PYPKGPREFIX}-flask-[0-9]*:../../www/py-flask
 
 USE_LANGUAGES=	# empty
-
-EGG_NAME=	${DISTNAME:S/-/_/}
-
-PYTHON_VERSIONS_INCOMPATIBLE=	33
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

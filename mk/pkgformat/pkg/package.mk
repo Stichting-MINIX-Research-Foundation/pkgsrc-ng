@@ -1,4 +1,4 @@
-# $NetBSD: package.mk,v 1.3 2013/08/10 06:05:57 obache Exp $
+# $NetBSD: package.mk,v 1.9 2015/02/16 10:50:33 jperkin Exp $
 
 .if defined(PKG_SUFX)
 WARNINGS+=		"PKG_SUFX is deprecated, please use PKG_COMPRESSION"
@@ -14,7 +14,13 @@ PKG_SUFX?=		.tgz
 FILEBASE?=		${PKGBASE}
 PKGFILE?=		${PKGREPOSITORY}/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
 .if ${_USE_DESTDIR} == "no"
+. if !empty(SIGN_PACKAGES:Mgpg)
+STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
+. elif !empty(SIGN_PACKAGES:Mx509)
+STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
+. else
 STAGE_PKGFILE?=		${PKGFILE}
+. endif
 .else
 STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
 .endif
@@ -38,7 +44,7 @@ package-check-installed:
 ### package-create creates the binary package.
 ###
 .PHONY: package-create
-package-create: package-remove ${PKGFILE} package-links
+package-create: ${PKGFILE} package-links
 
 ######################################################################
 ### stage-package-create (PRIVATE, pkgsrc/mk/package/package.mk)
@@ -62,9 +68,6 @@ _PKG_ARGS_PACKAGE+=	-I ${PREFIX} -p ${DESTDIR}${PREFIX}
 _PKG_ARGS_PACKAGE+=	-u ${REAL_ROOT_USER} -g ${REAL_ROOT_GROUP}
 .  endif
 .endif
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-_PKG_ARGS_PACKAGE+=	-E
-.endif
 
 ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
 	${RUN} ${MKDIR} ${.TARGET:H}
@@ -76,12 +79,21 @@ ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
 		exitcode=$$?; ${RM} -f "$$tmpname"; exit $$exitcode;	\
 	fi
 
-.if ${_USE_DESTDIR} != "no"
+.if ${PKGFILE} != ${STAGE_PKGFILE}
 ${PKGFILE}: ${STAGE_PKGFILE}
 	${RUN} ${MKDIR} ${.TARGET:H}
+. if !empty(SIGN_PACKAGES:U:Mgpg)
+	@${STEP_MSG} "Creating signed binary package ${.TARGET} (GPG)"
+	${PKG_ADMIN} gpg-sign-package ${STAGE_PKGFILE} ${PKGFILE}
+. elif !empty(SIGN_PACKAGES:U:Mx509)
+	@${STEP_MSG} "Creating signed binary package ${.TARGET} (X509)"
+	${PKG_ADMIN} x509-sign-package ${STAGE_PKGFILE} ${PKGFILE}	\
+		${X509_KEY} ${X509_CERTIFICATE}
+. else
 	@${STEP_MSG} "Creating binary package ${.TARGET}"
 	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null || \
 		${CP} -pf ${STAGE_PKGFILE} ${PKGFILE}
+. endif
 .endif
 
 ######################################################################
@@ -184,6 +196,7 @@ real-package-install:
 	@${DO_NADA}
 .endif
 
+MAKEFLAGS.su-real-package-install=	PKGNAME_REQD=${PKGNAME_REQD:Q}
 su-real-package-install:
 	@${PHASE_MSG} "Install binary package of "${PKGNAME:Q}
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])

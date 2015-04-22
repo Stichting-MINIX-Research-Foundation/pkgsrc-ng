@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.117 2014/02/12 23:18:24 tron Exp $
+# $NetBSD: Makefile,v 1.123 2014/10/19 22:27:47 alnsn Exp $
 
-DISTNAME=	nmap-6.40
-PKGREVISION=	5
+DISTNAME=	nmap-6.47
+PKGREVISION=	1
 CATEGORIES=	net security
 MASTER_SITES=	http://nmap.org/dist/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,8 +10,6 @@ MAINTAINER=	pettai@NetBSD.org
 HOMEPAGE=	http://insecure.org/nmap/
 COMMENT=	Network/port scanner with OS detection
 LICENSE=	gnu-gpl-v2
-
-#PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILDLINK_API_DEPENDS.libpcap+=	libpcap>=1.0.0
 BUILDLINK_API_DEPENDS.libpcre+=	libpcre>=7.6

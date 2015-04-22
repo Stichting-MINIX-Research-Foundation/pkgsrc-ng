@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2014/02/09 02:24:18 jnemeth Exp $
+# $NetBSD: Makefile,v 1.8 2014/06/15 19:39:32 jnemeth Exp $
 
 PKGNAME=	sendmail-cidrexpand-${DIST_VERS}
 MAINTAINER=	hauke@NetBSD.org

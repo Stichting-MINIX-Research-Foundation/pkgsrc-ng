@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2013/05/31 12:40:43 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2015/02/15 08:20:54 mef Exp $
 
-DISTNAME=	Set-Object-1.28
+DISTNAME=	Set-Object-1.34
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Set/}
 

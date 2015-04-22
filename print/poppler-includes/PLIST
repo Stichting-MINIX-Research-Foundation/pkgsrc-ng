@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.10 2013/03/24 16:56:26 spz Exp $
+@comment $NetBSD: PLIST,v 1.12 2014/06/07 10:56:09 wiz Exp $
 include/poppler/Annot.h
 include/poppler/Array.h
 include/poppler/BuiltinFont.h
@@ -31,6 +31,7 @@ include/poppler/Lexer.h
 include/poppler/Linearization.h
 include/poppler/Link.h
 include/poppler/LocalPDFDocBuilder.h
+include/poppler/MarkedContentOutputDev.h
 include/poppler/Movie.h
 include/poppler/NameToCharCode.h
 include/poppler/NameToUnicodeTable.h
@@ -58,6 +59,8 @@ include/poppler/StdinCachedFile.h
 include/poppler/StdinPDFDocBuilder.h
 include/poppler/Stream-CCITT.h
 include/poppler/Stream.h
+include/poppler/StructElement.h
+include/poppler/StructTreeRoot.h
 include/poppler/TextOutputDev.h
 include/poppler/UTF.h
 include/poppler/UTF8.h
@@ -70,6 +73,12 @@ include/poppler/UnicodeTypeTable.h
 include/poppler/ViewerPreferences.h
 include/poppler/XRef.h
 include/poppler/XpdfPluginAPI.h
+include/poppler/fofi/FoFiBase.h
+include/poppler/fofi/FoFiEncodings.h
+include/poppler/fofi/FoFiIdentifier.h
+include/poppler/fofi/FoFiTrueType.h
+include/poppler/fofi/FoFiType1.h
+include/poppler/fofi/FoFiType1C.h
 include/poppler/goo/FixedPoint.h
 include/poppler/goo/GooHash.h
 include/poppler/goo/GooLikely.h
@@ -79,6 +88,7 @@ include/poppler/goo/GooString.h
 include/poppler/goo/GooTimer.h
 include/poppler/goo/ImgWriter.h
 include/poppler/goo/JpegWriter.h
+include/poppler/goo/NetPBMWriter.h
 include/poppler/goo/PNGWriter.h
 include/poppler/goo/TiffWriter.h
 include/poppler/goo/gfile.h

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2014/01/27 18:41:12 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2015/03/07 01:15:15 ryoon Exp $
 
 DISTNAME=	KanjiStrokeOrders_v${KSOVER}
 PKGNAME=	${DISTNAME:tl:S/_v/-ttf-/}
 CATEGORIES=	fonts japanese
-MASTER_SITES=	https://sites.google.com/site/nihilistorguk/
+MASTER_SITES=	https://dl.dropboxusercontent.com/u/39004158/
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	ryoon@NetBSD.org
@@ -15,21 +15,21 @@ USE_X11BASE=	YES
 NO_CONFIGURE=	YES
 NO_BUILD=	YES
 
-KSOVER=		3.000
+KSOVER=		3.001
 
 DOCSDIR=	${PREFIX}/share/doc/${PKGBASE}
 
-INSTALLATION_DIRS=	lib/X11/fonts/TTF \
+INSTALLATION_DIRS=	share/fonts/X11/TTF \
 			${DOCSDIR}
 
-FONTDIR=	${PREFIX}/lib/X11/fonts/TTF
+FONTDIR=	${PREFIX}/share/fonts/X11/TTF
 FONTS_DIRS.ttf=	${FONTDIR}
 
 INSTALL_FONTS=	KanjiStrokeOrders_v${KSOVER}.ttf
 INSTALL_DOCS=	KSO_Excel_Sample.pdf \
 		KSO_PPT_Sample.pdf \
 		copyright.txt \
-		readme_en_v${KSOVER}.txt
+		readme_en_v${KSOVER}.utf
 
 WRKSRC=		${WRKDIR}
 USE_LANGUAGES=	# none

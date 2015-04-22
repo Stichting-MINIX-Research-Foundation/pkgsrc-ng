@@ -1,22 +1,18 @@
-# $NetBSD: Makefile,v 1.5 2014/02/12 23:18:55 tron Exp $
+# $NetBSD: Makefile,v 1.12 2015/02/21 23:35:42 ryoon Exp $
 
-.include "../../x11/qt5-qtbase/Makefile.common"
-
+DISTNAME=	qtdoc-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtdoc-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	1
 COMMENT=	Qt5 documentations
 
-USE_LIBTOOL=		yes
-
 MAKE_ENV+=		QTDIR=${QTDIR}
-
-BUILD_DIRS+=		qtdoc
-
-INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 
 BUILD_TARGET=		docs
 INSTALL_TARGET=		install_docs
 
-.include "../../x11/qt5-qtbase/buildlink3.mk"
+INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
+
+.include "../../x11/qt5-qtbase/Makefile.common"
+
 .include "../../x11/qt5-qttools/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

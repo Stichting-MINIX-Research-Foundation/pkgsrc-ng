@@ -1,20 +1,17 @@
-# $NetBSD: Makefile,v 1.3 2013/11/20 20:04:37 adam Exp $
+# $NetBSD: Makefile,v 1.12 2014/12/30 22:23:27 ryoon Exp $
 
-DISTNAME=	sdcc-src-3.3.0
+DISTNAME=	sdcc-src-3.4.0
 PKGNAME=	${DISTNAME:S/-src//}
-PKGREVISION=	2
 CATEGORIES=	devel lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sdcc/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://sdcc.sourceforge.net/
-COMMENT=	Cross compile 8051 code
+COMMENT=	Cross compile microcontroller code
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	gputils-[0-9]*:../../devel/gputils
-
-MAKE_JOBS_SAFE=		no
 
 USE_LANGUAGES=	c c++
 
@@ -27,7 +24,7 @@ BUILD_TARGET=	dep all
 
 WRKSRC=			${WRKDIR}/${DISTNAME:S/src-//}
 GNU_CONFIGURE=		YES
-USE_TOOLS+=		gmake lex perl:run
+USE_TOOLS+=		gmake lex:run perl:run
 
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/sdcc
 CONFIGURE_ARGS+=	--docdir=${PREFIX}/share/doc/sdcc

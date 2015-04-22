@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2013/10/19 09:07:05 adam Exp $
+# $NetBSD: Makefile,v 1.24 2014/10/07 16:47:26 adam Exp $
 #
 
 DISTNAME=		Cenon-3.9.6
-PKGREVISION=		3
+PKGREVISION=		5
 CATEGORIES=		graphics cad gnustep
 MASTER_SITES=		http://www.vhf-group.com/vhfInterservice/download/source/
 EXTRACT_SUFX=		.tar.bz2

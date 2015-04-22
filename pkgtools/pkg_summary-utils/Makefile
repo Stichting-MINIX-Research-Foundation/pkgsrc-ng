@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.30 2014/01/14 01:09:20 cheusov Exp $
+# $NetBSD: Makefile,v 1.36 2015/03/01 14:58:47 cheusov Exp $
 
-DISTNAME=	pkg_summary-utils-0.63.0
+DISTNAME=	pkg_summary-utils-0.66.0
 CATEGORIES=	pkgtools
 MASTER_SITES=	ftp://ftp.NetBSD.org/pub/NetBSD/misc/cheusov/psu/ \
 		http://www.mova.org/~cheusov/pub/pkg_summary-utils/
@@ -15,7 +15,7 @@ DEPENDS+=	runawk>=1.1.0:../../lang/runawk
 DEPENDS+=	pipestatus-[0-9]*:../../devel/pipestatus
 DEPENDS+=	digest-[0-9]*:../../pkgtools/digest
 
-BUILD_DEPENDS+=	mk-configure>=0.24.0:../../devel/mk-configure
+BUILD_DEPENDS+=	mk-configure>=0.26.0:../../devel/mk-configure
 
 CONFLICTS+=	awk-pkgsrc-dewey-[0-9]*
 CONFLICTS+=	pkg_src_summary-[0-9]*
@@ -35,8 +35,6 @@ INSTALL_TARGET=		install install-doc
 
 USE_LANGUAGES=		c
 USE_TOOLS+=		gzip:run
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 EGDIR=		${PREFIX}/share/examples/pkg_summary-utils
 

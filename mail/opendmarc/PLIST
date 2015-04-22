@@ -1,10 +1,11 @@
-@comment $NetBSD: PLIST,v 1.2 2014/03/11 14:05:04 jperkin Exp $
+@comment $NetBSD: PLIST,v 1.5 2015/03/15 22:26:34 pettai Exp $
 include/opendmarc/dmarc.h
 lib/libopendmarc.la
 man/man5/opendmarc.conf.5
 man/man8/opendmarc-check.8
 man/man8/opendmarc-expire.8
 man/man8/opendmarc-import.8
+man/man8/opendmarc-importstats.8
 man/man8/opendmarc-params.8
 man/man8/opendmarc-reports.8
 man/man8/opendmarc.8
@@ -22,7 +23,7 @@ share/doc/opendmarc/README.rddmarc
 share/doc/opendmarc/README.schema
 share/doc/opendmarc/dmarc_policy_t.html
 share/doc/opendmarc/dmarcfail.py
-share/doc/opendmarc/draft-dmarc-base-00-03.txt
+share/doc/opendmarc/draft-dmarc-base-13.txt
 share/doc/opendmarc/index.html
 share/doc/opendmarc/mkdb.mysql
 share/doc/opendmarc/mkdmarc
@@ -58,12 +59,14 @@ share/doc/opendmarc/opendmarc_policy_store_dmarc.html
 share/doc/opendmarc/opendmarc_policy_store_from_domain.html
 share/doc/opendmarc/opendmarc_policy_store_spf.html
 share/doc/opendmarc/opendmarc_policy_to_buf.html
+share/doc/opendmarc/opendmarc_spf_test.html
 share/doc/opendmarc/opendmarc_status_t.html
 share/doc/opendmarc/opendmarc_tld_read_file.html
 share/doc/opendmarc/opendmarc_tld_shutdown.html
 share/doc/opendmarc/opendmarc_util_clearargv.html
 share/doc/opendmarc/opendmarc_xml.html
 share/doc/opendmarc/opendmarc_xml_parse.html
+share/doc/opendmarc/overview.html
 share/doc/opendmarc/rddmarc
 share/doc/opendmarc/schema.mysql
 share/examples/opendmarc/opendmarc.conf.sample

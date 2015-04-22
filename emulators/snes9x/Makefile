@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.51 2014/01/09 12:38:04 jperkin Exp $
+# $NetBSD: Makefile,v 1.53 2015/03/31 15:27:06 joerg Exp $
 
 SNESVER=		1.43
 DISTNAME=		snes9x-${SNESVER}-src
@@ -11,7 +11,7 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.snes9x.com/
 COMMENT=		Super Nintendo Entertainment System (SNES) emulator
 
-NOT_FOR_PLATFORM=	${LP64PLATFORMS}
+BROKEN_ON_PLATFORM=	${LP64PLATFORMS}
 MAKE_JOBS_SAFE=		no
 
 WRKSRC=			${WRKDIR}/${DISTNAME}/snes9x
@@ -20,6 +20,8 @@ USE_TOOLS+=		gmake
 PTHREAD_OPTS+=		require
 INSTALLATION_DIRS=	bin
 GNU_CONFIGURE=		YES
+
+CONFIGURE_ARGS+=	--x-libraries=${X11BASE}/lib --x-includes=${X11BASE}/include
 
 SUBST_CLASSES+=		nodos
 SUBST_STAGE.nodos=	pre-patch

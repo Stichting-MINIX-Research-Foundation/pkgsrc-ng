@@ -1,20 +1,20 @@
-# $NetBSD: Makefile,v 1.37 2012/10/28 06:30:05 asau Exp $
+# $NetBSD: Makefile,v 1.39 2015/03/10 16:20:01 taca Exp $
 #
 
 DISTNAME=	mod_ruby-${VERSION}
 PKGNAME=	${APACHE_PKG_PREFIX}-${RUBY_PKGPREFIX}-${VERSION}
 CATEGORIES=	www ruby
-MASTER_SITES=	http://www.modruby.net/archive/
+MASTER_SITES=	# http://www.modruby.net/archive/
 
 MAINTAINER=	taca@NetBSD.org
-HOMEPAGE=	http://www.modruby.net/
+HOMEPAGE=	# http://www.modruby.net/
 COMMENT=	Apache module that embeds Ruby interpreter within
 
 # textproc/ruby-eruby is restricted to 1.8
 RUBY_VERSION_SUPPORTED= 18
 
 APACHE_MODULE=		yes
-PKG_APACHE_ACCEPTED=	apache13 apache2 apache22
+PKG_APACHE_ACCEPTED=	apache22
 USE_APR=		yes
 VERSION=		1.3.0
 HAS_CONFIGURE=  	yes

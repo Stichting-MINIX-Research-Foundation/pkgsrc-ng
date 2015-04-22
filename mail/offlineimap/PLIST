@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.5 2012/04/08 20:21:51 wiz Exp $
+@comment $NetBSD: PLIST,v 1.7 2014/05/30 15:28:06 schmonz Exp $
 bin/offlineimap
 ${PYSITELIB}/${EGG_FILE}
 ${PYSITELIB}/offlineimap/CustomConfig.py
@@ -10,6 +10,9 @@ ${PYSITELIB}/offlineimap/__init__.pyo
 ${PYSITELIB}/offlineimap/accounts.py
 ${PYSITELIB}/offlineimap/accounts.pyc
 ${PYSITELIB}/offlineimap/accounts.pyo
+${PYSITELIB}/offlineimap/emailutil.py
+${PYSITELIB}/offlineimap/emailutil.pyc
+${PYSITELIB}/offlineimap/emailutil.pyo
 ${PYSITELIB}/offlineimap/error.py
 ${PYSITELIB}/offlineimap/error.pyc
 ${PYSITELIB}/offlineimap/error.pyo
@@ -19,6 +22,9 @@ ${PYSITELIB}/offlineimap/folder/Base.pyo
 ${PYSITELIB}/offlineimap/folder/Gmail.py
 ${PYSITELIB}/offlineimap/folder/Gmail.pyc
 ${PYSITELIB}/offlineimap/folder/Gmail.pyo
+${PYSITELIB}/offlineimap/folder/GmailMaildir.py
+${PYSITELIB}/offlineimap/folder/GmailMaildir.pyc
+${PYSITELIB}/offlineimap/folder/GmailMaildir.pyo
 ${PYSITELIB}/offlineimap/folder/IMAP.py
 ${PYSITELIB}/offlineimap/folder/IMAP.pyc
 ${PYSITELIB}/offlineimap/folder/IMAP.pyo
@@ -37,6 +43,9 @@ ${PYSITELIB}/offlineimap/folder/UIDMaps.pyo
 ${PYSITELIB}/offlineimap/folder/__init__.py
 ${PYSITELIB}/offlineimap/folder/__init__.pyc
 ${PYSITELIB}/offlineimap/folder/__init__.pyo
+${PYSITELIB}/offlineimap/globals.py
+${PYSITELIB}/offlineimap/globals.pyc
+${PYSITELIB}/offlineimap/globals.pyo
 ${PYSITELIB}/offlineimap/imaplib2.py
 ${PYSITELIB}/offlineimap/imaplib2.pyc
 ${PYSITELIB}/offlineimap/imaplib2.pyo
@@ -64,6 +73,9 @@ ${PYSITELIB}/offlineimap/repository/Base.pyo
 ${PYSITELIB}/offlineimap/repository/Gmail.py
 ${PYSITELIB}/offlineimap/repository/Gmail.pyc
 ${PYSITELIB}/offlineimap/repository/Gmail.pyo
+${PYSITELIB}/offlineimap/repository/GmailMaildir.py
+${PYSITELIB}/offlineimap/repository/GmailMaildir.pyc
+${PYSITELIB}/offlineimap/repository/GmailMaildir.pyo
 ${PYSITELIB}/offlineimap/repository/IMAP.py
 ${PYSITELIB}/offlineimap/repository/IMAP.pyc
 ${PYSITELIB}/offlineimap/repository/IMAP.pyo
@@ -103,5 +115,14 @@ ${PYSITELIB}/offlineimap/ui/__init__.pyo
 ${PYSITELIB}/offlineimap/ui/debuglock.py
 ${PYSITELIB}/offlineimap/ui/debuglock.pyc
 ${PYSITELIB}/offlineimap/ui/debuglock.pyo
+${PYSITELIB}/offlineimap/utils/__init__.py
+${PYSITELIB}/offlineimap/utils/__init__.pyc
+${PYSITELIB}/offlineimap/utils/__init__.pyo
+${PYSITELIB}/offlineimap/utils/const.py
+${PYSITELIB}/offlineimap/utils/const.pyc
+${PYSITELIB}/offlineimap/utils/const.pyo
+${PYSITELIB}/offlineimap/utils/stacktrace.py
+${PYSITELIB}/offlineimap/utils/stacktrace.pyc
+${PYSITELIB}/offlineimap/utils/stacktrace.pyo
 share/examples/offlineimap/offlineimap.conf
 share/examples/offlineimap/offlineimap.conf.minimal

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:42:26 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/12/04 01:26:20 mef Exp $
 
-DISTNAME=	DateTime-Format-MySQL-0.04
+DISTNAME=	DateTime-Format-MySQL-0.05
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
 CATEGORIES=	time perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DateTime/}
 

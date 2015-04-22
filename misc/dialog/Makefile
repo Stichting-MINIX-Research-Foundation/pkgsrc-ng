@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2014/03/09 12:11:13 roy Exp $
+# $NetBSD: Makefile,v 1.72 2015/03/01 15:14:49 wiz Exp $
 
-DISTNAME=	dialog-1.2-20140219
+DISTNAME=	dialog-1.2-20150225
 PKGNAME=	${DISTNAME:C/-2/.2/}
-PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	ftp://invisible-island.net/dialog/
 EXTRACT_SUFX=	.tgz
@@ -18,8 +17,6 @@ USE_LIBTOOL=	yes
 CONFIGURE_ARGS+=	--with-libtool
 
 INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-P]-*
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

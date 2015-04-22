@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.40 2014/03/13 11:08:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.50 2015/02/21 11:03:53 fhajny Exp $
 
-DISTNAME=	ejabberd-13.12
+DISTNAME=	ejabberd-15.02
 CATEGORIES=	chat
 MASTER_SITES=	http://www.process-one.net/downloads/ejabberd/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tgz
+
+DISTFILES=	${DEFAULT_DISTFILES} ${DISTNAME}-deps.tar.gz
+SITES.${DISTNAME}-deps.tar.gz=	ftp://ftp.NetBSD.org/pub/NetBSD/misc/fhajny/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.ejabberd.im/
@@ -22,17 +25,14 @@ CONFIGURE_ARGS+=	--disable-debug
 CONFIGURE_ARGS+=	--enable-iconv
 CONFIGURE_ARGS+=	--enable-json
 CONFIGURE_ARGS+=	--enable-lager
+CONFIGURE_ARGS+=	--enable-mysql
 CONFIGURE_ARGS+=	--enable-nif
-CONFIGURE_ARGS+=	--enable-stun
-CONFIGURE_ARGS+=	--enable-user=${EJABBERD_USER}
-CONFIGURE_ARGS+=	--enable-zlib
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
-
-.include "../../lang/erlang/buildlink3.mk"
-.if !empty(PKG_BUILD_OPTIONS.erlang:Miodbc) || \
-    !empty(PKG_BUILD_OPTIONS.erlang:Munixodbc)
 CONFIGURE_ARGS+=	--enable-odbc
-.endif
+CONFIGURE_ARGS+=	--enable-pgsql
+CONFIGURE_ARGS+=	--enable-zlib
+
+CONFIGURE_ARGS+=	--enable-user=${EJABBERD_USER}
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 
 RCD_SCRIPTS=		ejabberd
 
@@ -82,21 +82,12 @@ SPECIAL_PERMS+=		sbin/ejabberdctl ${ROOT_USER} ${EJABBERD_GROUP} 0750
 
 REPLACE_SH=		ejabberdctl.template tools/captcha.sh
 
-post-patch:
-	${RM} -f ${WRKSRC}/doc/guide.tex.orig
-
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/doc/dev.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/features.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-	${INSTALL_DATA} ${WRKSRC}/doc/guide.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
-
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Localizing paths
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	Makefile.in
 SUBST_FILES.paths+=	ejabberd.yml.example
 SUBST_FILES.paths+=	ejabberdctl.template
-SUBST_FILES.paths+=	doc/guide.tex
 SUBST_SED.paths+=	-e 's,@PKG_SYSCONFDIR@,${PKG_SYSCONFDIR},g'
 SUBST_SED.paths+=	-e 's,@EJABBERD_DB@,${EJABBERD_DB},g'
 SUBST_SED.paths+=	-e 's,@EJABBERD_LOGDIR@,${EJABBERD_LOGDIR},g'
@@ -104,13 +95,21 @@ SUBST_SED.paths+=	-e 's,@EJABBERD_PIDDIR@,${EJABBERD_PIDDIR},g'
 SUBST_SED.paths+=	-e 's,@PREFIX@,${PREFIX},g'
 SUBST_SED.paths+=	-e 's,@DISTNAME@,${DISTNAME},g'
 
-post-configure:
-	cd ${WRKSRC} && ${BUILD_MAKE_CMD} deps
-	${PATCH} -p0 ${WRKSRC}/deps/p1_iconv/rebar.config \
-	  < ${FILESDIR}/deps_p1__iconv_rebar.config.patch
+# Helper target to refresh remote deps for tarring up
+fetch-deps:
+	cd ${WRKSRC} && ${RM} -rf deps && ${BUILD_MAKE_CMD} deps
+
+post-extract:
+	${LN} -s ${WRKDIR}/deps ${WRKSRC}/
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/doc/dev.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
+	${INSTALL_DATA} ${WRKSRC}/doc/features.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
+	${INSTALL_DATA} ${WRKSRC}/doc/guide.html ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../lang/erlang/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../textproc/libyaml/buildlink3.mk"

@@ -1,10 +1,10 @@
-# $NetBSD: builtin.mk,v 1.12 2013/11/23 11:29:35 obache Exp $
+# $NetBSD: builtin.mk,v 1.17 2015/02/05 07:09:31 pettai Exp $
 
 BUILTIN_PKG:=	libevent
 
 BUILTIN_FIND_HEADERS_VAR:=		H_LIBEVENT H_LIBEVENTCONFIG
 BUILTIN_FIND_HEADERS.H_LIBEVENT=	event.h
-BUILTIN_FIND_HEADERS.H_LIBEVENTCONFIG=	event-config.h
+BUILTIN_FIND_HEADERS.H_LIBEVENTCONFIG=	event-config.h event2/event-config.h
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
@@ -32,7 +32,15 @@ _BLTN_EVENT_1_4_11!= \
 	${GREP} -c 1.4.11-stable ${H_LIBEVENTCONFIG} || ${TRUE}
 _BLTN_EVENT_1_4_12!= \
 	${GREP} -c 1.4.12-stable ${H_LIBEVENTCONFIG} || ${TRUE}
-.    if ${_BLTN_EVENT_1_4_12} == "1"
+_BLTN_EVENT_2_0_21!= \
+	${GREP} -c 2.0.21-stable ${H_LIBEVENTCONFIG} || ${TRUE}
+_BLTN_EVENT_2_0_22!= \
+	${GREP} -c 2.0.22-stable ${H_LIBEVENTCONFIG} || ${TRUE}
+.    if ${_BLTN_EVENT_2_0_22} == "1"
+BUILTIN_VERSION.libevent=	2.0.22
+.    elif ${_BLTN_EVENT_2_0_21} == "1"
+BUILTIN_VERSION.libevent=	2.0.21
+.    elif ${_BLTN_EVENT_1_4_12} == "1"
 BUILTIN_VERSION.libevent=	1.4.12
 .    elif ${_BLTN_EVENT_1_4_11} == "1"
 BUILTIN_VERSION.libevent=	1.4.11
@@ -126,3 +134,35 @@ USE_BUILTIN.libevent!=							\
 .  endif  # PREFER.libevent
 .endif
 MAKEVARS+=	USE_BUILTIN.libevent
+
+# Fake pkg-config for builtin libevent on NetBSD
+
+.if !empty(USE_BUILTIN.libevent:M[yY][eE][sS])
+.  if !empty(USE_TOOLS:C/:.*//:Mpkg-config)
+do-configure-pre-hook: override-libevent-pkgconfig
+
+BLKDIR_PKGCFG=	${BUILDLINK_DIR}/lib/pkgconfig
+LIBEVENT_PKGCFGF=	libevent.pc
+
+override-libevent-pkgconfig: override-message-libevent-pkgconfig
+override-message-libevent-pkgconfig:
+	@${STEP_MSG} "Generating pkg-config file for builtin libevent package."
+
+override-libevent-pkgconfig:
+	${RUN}						\
+	${MKDIR} ${BLKDIR_PKGCFG};			\
+	{						\
+	${ECHO} "prefix=${LIBEVENT_PREFIX}";		\
+	${ECHO} "exec_prefix=\$${prefix}";		\
+	${ECHO} "libdir=\$${exec_prefix}/lib";		\
+	${ECHO} "includedir=\$${prefix}/include";	\
+	${ECHO} "";					\
+	${ECHO} "Name: libevent";			\
+	${ECHO} "Description: libevent is an asynchronous notification event loop library"; \
+	${ECHO} "Version: ${BUILTIN_VERSION.libevent}";	\
+	${ECHO} "Libs: ${COMPILER_RPATH_FLAG}\$${libdir} -L\$${libdir} -levent";	\
+	${ECHO} "Cflags: -I\$${includedir}";		\
+	} >> ${BLKDIR_PKGCFG}/${LIBEVENT_PKGCFGF};
+.  endif
+.endif
+

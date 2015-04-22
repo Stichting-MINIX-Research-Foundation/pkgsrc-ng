@@ -1,4 +1,4 @@
-$NetBSD: CHANGES-2013,v 1.4622 2014/01/20 14:30:02 wiz Exp $
+$NetBSD: CHANGES-2013,v 1.4625 2015/01/16 21:08:58 adam Exp $
 
 Changes to the packages collection and infrastructure in 2013:
 
@@ -1622,6 +1622,7 @@ Changes to the packages collection and infrastructure in 2013:
 	Updated net/rabbitmq to 3.0.4 [fhajny 2013-04-02]
 	Updated misc/tmux to 1.8 [fhajny 2013-04-02]
 	Added audio/py-audioread version 1.0.0 [drochner 2013-04-02]
+	Added audio/chromaprint version 0.7 [drochner 2013-04-02]
 	Updated textproc/saxon to 9.4.0.7j [rodent 2013-04-03]
 	Updated www/p5-Plack to 1.0022 [wen 2013-04-03]
 	Updated devel/p5-Moose to 2.0801 [wen 2013-04-03]
@@ -1986,6 +1987,7 @@ Changes to the packages collection and infrastructure in 2013:
 	Updated x11/py-sip to 4.14.5 [drochner 2013-04-10]
 	Updated x11/py-qt4 to 4.9.6 [drochner 2013-04-10]
 	Updated x11/qt4-qscintilla to 2.7.1 [drochner 2013-04-10]
+	Updated x11/py-qt4-qscintilla to 2.7.1 [drochner 2013-04-10]
 	Updated security/gnutls to 3.0.29 [drochner 2013-04-10]
 	Updated security/libgcrypt to 1.5.1 [drochner 2013-04-10]
 	Updated print/foomatic4-filters to 4.0.17 [drochner 2013-04-10]
@@ -2953,7 +2955,7 @@ Changes to the packages collection and infrastructure in 2013:
 	Updated net/p5-Test-TCP to 1.27 [wen 2013-05-27]
 	Updated www/p5-HTML-Parser to 3.71 [wen 2013-05-27]
 	Updated www/p5-HTML-TreeBuilder-LibXML to 0.23 [wen 2013-05-27]
-	Updated devel/zlib to 1.2.8 [adam 2012-05-27]
+	Updated devel/zlib to 1.2.8 [adam 2013-05-27]
 	Updated lang/python27 to 2.7.5 [adam 2013-05-27]
 	Updated devel/dconf to 0.16.0 [prlw1 2013-05-27]
 	Updated lang/nodejs to 0.10.8 [fhajny 2013-05-27]

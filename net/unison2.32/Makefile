@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2014/02/12 23:18:27 tron Exp $
+# $NetBSD: Makefile,v 1.40 2015/01/20 14:24:36 jaapb Exp $
 
 DISTNAME=	unison-2.32.52
-PKGREVISION=	36
+PKGREVISION=	41
 
 CATEGORIES=	net
 MASTER_SITES=	http://www.seas.upenn.edu/~bcpierce/unison/download/releases/stable/
@@ -10,8 +10,6 @@ MAINTAINER=	tonio@NetBSD.org
 HOMEPAGE=	http://www.cis.upenn.edu/~bcpierce/unison/
 COMMENT=	File-synchronization tool (old 2.32 branch)
 LICENSE=	gnu-gpl-v3
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILDLINK_API_DEPENDS.ocaml+=	ocaml>=3.08.2
 

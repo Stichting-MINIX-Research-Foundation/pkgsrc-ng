@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.102 2013/10/15 16:21:46 asau Exp $
+# $NetBSD: Makefile,v 1.105 2015/01/04 03:17:17 dholland Exp $
 #
 
 DISTNAME=		clisp-2.49
-PKGREVISION=		20
+PKGREVISION=		21
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=clisp/}
 #EXTRACT_SUFX=		.tar.bz2
@@ -12,15 +12,11 @@ HOMEPAGE=		http://clisp.cons.org/
 COMMENT=		CLISP, a Common Lisp implementation
 LICENSE=		gnu-gpl-v2
 
-# Sparc64 has assembler code problems, see
-# http://sourceforge.net/tracker/index.php?func=detail&aid=952681&group_id=1355&atid=101355
-NOT_FOR_PLATFORM=	*-*-sparc64
-NOT_FOR_PLATFORM+=	*-*-arm
+# XXX: is this still current?
+BROKEN_ON_PLATFORM+=	*-*-arm
 
 # makes the bulk build hang under MirBSD
-NOT_FOR_PLATFORM+=	MirBSD-*-*
-
-PKG_INSTALLATION_TYPES= overwrite pkgviews
+BROKEN_ON_PLATFORM+=	MirBSD-*-*
 
 MAKE_JOBS_SAFE=		no
 

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.39 2014/03/27 05:36:37 obache Exp $
+# $NetBSD: Makefile,v 1.48 2015/03/03 17:19:58 snj Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python27-${PY_DISTVERSION}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -30,7 +30,8 @@ CHECK_PORTABILITY_SKIP=	Tools/faqwiz/move-faqwiz.sh
 
 USE_LANGUAGES=		c c++
 
-PTHREAD_OPTS+=	require
+PTHREAD_OPTS+=		require
+PTHREAD_AUTO_VARS=	yes
 .include "../../mk/pthread.buildlink3.mk"
 .if ${PTHREAD_TYPE} == "pth"
 CONFIGURE_ARGS+=	--with-pth
@@ -75,6 +76,8 @@ PY_PLATNAME=	sunos${OS_VERSION:C/\..*//}
 PY_PLATNAME=	hp-ux11
 .elif ${OPSYS} == "Linux"
 PY_PLATNAME=	linux2
+.elif ${OS_VARIANT} == "SCOOSR5"
+PY_PLATNAME=	sco_sv3
 .else
 PY_PLATNAME=	${LOWER_OPSYS}${OS_VERSION:C/\..*//}
 .endif
@@ -162,6 +165,12 @@ SUBST_STAGE.findlib=	pre-configure
 SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
+SUBST_CLASSES+=		sslbase
+SUBST_MESSAGE.sslbase=	Fixing find-file for openssl with SSLBASE.
+SUBST_STAGE.sslbase=	pre-configure
+SUBST_FILES.sslbase=	setup.py
+SUBST_VARS.sslbase=	SSLBASE
+
 post-extract:
 	${LN} -s ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Tools/scripts/smtpd${PY_VER_SUFFIX}.py
 	${MV} ${WRKSRC}/Tools/scripts/pydoc ${WRKSRC}/Tools/scripts/pydoc${PY_VER_SUFFIX}
@@ -171,6 +180,12 @@ post-extract:
 post-install:
 	${LN} -fs ${DESTDIR}${PREFIX}/lib/libpython2.7.sl \
 		${DESTDIR}${PREFIX}/lib/libpython2.7.sl.1.0
+.endif
+
+.if ${OS_VARIANT} == "SCOOSR5"
+# SCO OpenServer 5.0.7/3.2 has no socklen_t in system headers, but has in
+# GNU pth's header. It should be used in this case.
+CONFIGURE_ENV+=		ac_cv_type_socklen_t=yes
 .endif
 
 BUILDLINK_DEPMETHOD.readline=		build

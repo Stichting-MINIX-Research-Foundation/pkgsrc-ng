@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2014/02/23 11:25:51 adam Exp $
+# $NetBSD: Makefile,v 1.16 2015/02/14 12:39:52 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/90-datatypes-/}
 COMMENT=	PostgreSQL data types support modules
@@ -19,6 +19,7 @@ BUILD_DIRS+=		contrib/uuid-ossp
 .endif
 
 BUILD_MAKE_FLAGS=	PGXS=1
+BUILD_DIRS+=		contrib/btree_gist
 BUILD_DIRS+=		contrib/citext
 BUILD_DIRS+=		contrib/hstore
 BUILD_DIRS+=		contrib/intarray

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.7 2012/10/06 11:54:51 asau Exp $
+# $NetBSD: Makefile,v 1.9 2015/03/06 19:54:09 tnn Exp $
 
 DISTNAME=	excessive_q3_server_003
 PKGNAME=	quake3server-excessive-003
 PKGREVISION=	1
 CATEGORIES=	games net
-MASTER_SITES=	ftp://ftp.fr.FreeBSD.org/pub/FreeBSD/distfiles/
+MASTER_SITES=	http://distcache.FreeBSD.org/ports-distfiles/
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	david@silicium.ath.cx
@@ -17,7 +17,6 @@ WRKSRC=		${WRKDIR}
 DEPENDS+=	quake3server>=1.32:../../games/quake3server
 USE_TOOLS+=	pax
 
-ONLY_FOR_PLATFORM=	NetBSD-*-i386
 NO_BUILD=	yes
 Q3MODDIR=	${Q3ROOTDIR}/excessive
 

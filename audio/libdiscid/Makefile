@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2013/06/16 09:58:48 shattered Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/01 08:23:53 dholland Exp $
 
-DISTNAME=	libdiscid-0.5.0
+DISTNAME=	libdiscid-0.6.1
 CATEGORIES=	audio
 MASTER_SITES=	http://ftp.musicbrainz.org/pub/musicbrainz/libdiscid/
 
@@ -9,12 +9,9 @@ HOMEPAGE=	http://musicbrainz.org/doc/libdiscid
 COMMENT=	Library for creating MusicBrainz DiscIDs
 LICENSE=	gnu-lgpl-v2.1
 
-ONLY_FOR_PLATFORM=	Darwin-*-* DragonFly-*-* FreeBSD-*-* Linux-*-*
-ONLY_FOR_PLATFORM+=	NetBSD-*-* OpenBSD-*-* SunOS-*-*
-
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config
+USE_TOOLS+=	pkg-config gmake
 
 PKGCONFIG_OVERRIDE+=	libdiscid.pc.in
 

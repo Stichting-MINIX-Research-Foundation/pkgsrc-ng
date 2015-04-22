@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.29 2012/10/08 09:57:21 asau Exp $
+# $NetBSD: Makefile,v 1.31 2015/01/06 11:27:15 ryoon Exp $
 #
 
-DISTNAME=	FD-3.00j
+DISTNAME=	FD-3.01b
 PKGNAME=	${DISTNAME:tl}
-PKGREVISION=	1
 CATEGORIES=	misc shells
 MASTER_SITES=	http://hp.vector.co.jp/authors/VA012337/soft/fd/
 
@@ -18,6 +17,7 @@ MAKE_FLAGS+=	PREFIX=${PREFIX}
 
 MANLANG?=	ja_JP.eucJP
 MAKE_ENV+=	LANGDIR=${MANLANG:Q} DATADIR=${DATADIR}
+
 PLIST_SUBST+=	FD_CONFIG=${FD_CONFIG:Q} MANLANG=${MANLANG:Q}
 
 DATADIR=	${PREFIX}/share/fd

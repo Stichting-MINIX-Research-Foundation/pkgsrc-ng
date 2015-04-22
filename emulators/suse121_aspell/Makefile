@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1.1.1 2012/03/21 13:35:33 obache Exp $
+# $NetBSD: Makefile,v 1.4 2015/02/16 10:15:44 jperkin Exp $
 
-DISTNAME=	suse_aspell-${SUSE_VERSION}
+PKGNAME=	suse_aspell-${SUSE_VERSION}
 CATEGORIES=	emulators
 RPMPKGS+=	aspell-0.60.6.1-2.1.2.${SUSE_ARCH}
 

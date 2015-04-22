@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.4 2014/02/08 23:50:08 wiedi Exp $
+# $NetBSD: Makefile,v 1.8 2015/03/07 21:14:32 tnn Exp $
 
-DISTNAME=	inadyn.v1.96.2
-PKGNAME=	${DISTNAME:C:.v:-:} # inadyn-1.96.2
+DISTNAME=	inadyn-1.96.2
 PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	http://www.inatech.eu/inadyn/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=troglobit/}
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.inatech.eu/inadyn/
+HOMEPAGE=	http://troglobit.com/inadyn.html
 COMMENT=	Dynamic DNS client
 LICENSE=	gnu-gpl-v2
 
@@ -20,7 +19,7 @@ LIBS.SunOS=	-lsocket -lnsl
 MAKE_ENV+=	TARGET_ARCH=pkgsrc
 MAKE_ENV+=	LIBS=${LIBS:Q}
 
-WRKSRC=		${WRKDIR}/inadyn
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 MAKE_FILE=	makefile
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man5 ${PKGMANDIR}/man8

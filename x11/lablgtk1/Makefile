@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2013/11/01 11:30:23 jaapb Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/20 14:24:38 jaapb Exp $
 
 DISTNAME=	lablgtk-1.2.7
 PKGNAME=	lablgtk1-1.2.7
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	x11
 MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/571/
+LICENSE=	gnu-lgpl-v2.1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://wwwfun.kurims.kyoto-u.ac.jp/soft/olabl/lablgtk.html
@@ -17,7 +18,7 @@ USE_TOOLS+=	gmake
 BUILDLINK_DEPMETHOD.ocaml=	full
 BUILDLINK_API_DEPENDS.ocaml+=	ocaml>=3.0.5
 
-CONFLICTS+=	lablgtk-1.*
+CONFLICTS+=	lablgtk-1.*{,nb*}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -49,4 +50,5 @@ INSTALLATION_DIRS+=	bin
 
 .include "../../x11/gtk/buildlink3.mk"
 .include "../../lang/ocaml/buildlink3.mk"
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

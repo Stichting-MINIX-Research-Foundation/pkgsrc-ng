@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2014/02/05 14:46:48 wen Exp $
+# $NetBSD: Makefile,v 1.21 2015/03/08 14:39:05 wen Exp $
 
-DISTNAME=	DBIx-Class-Fixtures-1.001021
+DISTNAME=	DBIx-Class-Fixtures-1.001028
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
@@ -26,6 +26,7 @@ DEPENDS+=	p5-File-Copy-Recursive>=0.35:../../sysutils/p5-File-Copy-Recursive
 DEPENDS+=	p5-Hash-Merge>=0.10:../../devel/p5-Hash-Merge
 # YAML::Syck provides JSON::Syck
 DEPENDS+=	p5-YAML-Syck>=1.27:../../textproc/p5-YAML-Syck
+DEPENDS+=	p5-Test-Compile>=0:../../devel/p5-Test-Compile
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/DBIx/Class/Fixtures/.packlist

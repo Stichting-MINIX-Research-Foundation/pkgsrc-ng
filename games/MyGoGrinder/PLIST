@@ -1,0 +1,50 @@
+@comment $NetBSD: PLIST,v 1.5 2015/02/21 08:10:13 wiz Exp $
+bin/MyGoGrinder.sh
+share/MyGoGrinder/MyGoGrinder.jar
+share/MyGoGrinder/Tags list English.txt
+share/MyGoGrinder/Tags-Liste Deutsch.txt
+share/doc/MyGoGrinder/GNU LICENSE v.2 (1991).txt
+share/doc/MyGoGrinder/docs/DEMO.WGF
+share/doc/MyGoGrinder/docs/collections.html
+share/doc/MyGoGrinder/docs/docs.html
+share/doc/MyGoGrinder/docs/download.html
+share/doc/MyGoGrinder/docs/features.html
+share/doc/MyGoGrinder/docs/imgs/About.png
+share/doc/MyGoGrinder/docs/imgs/AutoAdv.png
+share/doc/MyGoGrinder/docs/imgs/Banner.png
+share/doc/MyGoGrinder/docs/imgs/BannerOld.png
+share/doc/MyGoGrinder/docs/imgs/Edit.png
+share/doc/MyGoGrinder/docs/imgs/Find.png
+share/doc/MyGoGrinder/docs/imgs/Help.png
+share/doc/MyGoGrinder/docs/imgs/Import.png
+share/doc/MyGoGrinder/docs/imgs/NextProb.png
+share/doc/MyGoGrinder/docs/imgs/Open.png
+share/doc/MyGoGrinder/docs/imgs/Prefs.png
+share/doc/MyGoGrinder/docs/imgs/PrevProb.png
+share/doc/MyGoGrinder/docs/imgs/Save.png
+share/doc/MyGoGrinder/docs/imgs/SelProbs.png
+share/doc/MyGoGrinder/docs/imgs/Split.png
+share/doc/MyGoGrinder/docs/imgs/fullscreen.png
+share/doc/MyGoGrinder/docs/imgs/probframe.png
+share/doc/MyGoGrinder/docs/imgs/probframethumb.png
+share/doc/MyGoGrinder/docs/imgs/selectiondialog.png
+share/doc/MyGoGrinder/docs/imgs/selectiondialogthumb.png
+share/doc/MyGoGrinder/docs/imgs/settingsdialog.png
+share/doc/MyGoGrinder/docs/imgs/settingsdialogthumb.png
+share/doc/MyGoGrinder/docs/imgs/settingsfolder.png
+share/doc/MyGoGrinder/docs/imgs/sflogo.png
+share/doc/MyGoGrinder/docs/imgs/tagssortorder1.png
+share/doc/MyGoGrinder/docs/imgs/tagssortorder2.png
+share/doc/MyGoGrinder/docs/index.html
+share/doc/MyGoGrinder/docs/license.html
+share/doc/MyGoGrinder/docs/tips.html
+share/doc/MyGoGrinder/docs/wgf.html
+share/doc/MyGoGrinder/readme.txt
+share/examples/MyGoGrinder/Xuan-Xuan-Qi-Jing-(problems).zip
+share/pixmaps/MyGrinder128.png
+share/pixmaps/MyGrinder32.ico
+share/pixmaps/MyGrinder32.png
+share/pixmaps/MyGrinder48.ico
+share/pixmaps/MyGrinder48.png
+share/pixmaps/MyGrinder64.ico
+share/pixmaps/MyGrinder64.png

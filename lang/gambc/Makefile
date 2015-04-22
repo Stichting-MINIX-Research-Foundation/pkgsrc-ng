@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2013/12/15 19:39:34 joerg Exp $
+# $NetBSD: Makefile,v 1.13 2015/03/02 19:59:06 joerg Exp $
 #
 
 DISTNAME=	gambc-${GAMBC_DIST_VERSION}
@@ -10,8 +10,6 @@ EXTRACT_SUFX=	.tgz
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.iro.umontreal.ca/~gambit/
 COMMENT=	GambitC Scheme System
-
-NOT_FOR_BULK_PLATFORM+=	SunOS-*-*
 
 # bin/scheme-r5rs
 CONFLICTS+=	scheme48>=1.2
@@ -73,10 +71,7 @@ PACKAGE_STRING=		${${PKGBASE} ${PKGVERSION}:L}
 
 .include "version.mk"
 
-.include "../../mk/compiler.mk"
-.if !empty(PKGSRC_COMPILER:Mclang)
-MAKE_ENV+=	CLANG_NO_OPT=-O0
-.endif
+MAKE_ENV+=	CLANG_NO_OPT=${CLANG_NO_VALUE_PROPAGATION_PASS:Q}
 
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"

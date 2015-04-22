@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2013/05/10 07:13:59 adam Exp $
+# $NetBSD: Makefile,v 1.28 2015/01/31 21:25:47 adam Exp $
 
-DISTNAME=	libdvdread-4.2.0
+DISTNAME=	libdvdread-5.0.2
 CATEGORIES=	multimedia
-MASTER_SITES=	http://dvdnav.mplayerhq.hu/releases/
+MASTER_SITES=	http://download.videolan.org/pub/videolan/libdvdread/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -10,17 +10,11 @@ HOMEPAGE=	http://dvdnav.mplayerhq.hu/
 COMMENT=	DVD access library
 LICENSE=	gnu-gpl-v2
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LIBTOOL=		yes
-USE_TOOLS+=		aclocal autoconf automake autoreconf gmake
 GNU_CONFIGURE=		yes
+PKGCONFIG_OVERRIDE=	misc/dvdread.pc.in
 
 MESSAGE_SUBST+=		PKGBASE=${PKGBASE}
 
-pre-configure:
-	cd ${WRKSRC} && autoreconf -vi
-
 .include "options.mk"
-
 .include "../../mk/bsd.pkg.mk"

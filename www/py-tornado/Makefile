@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/01/27 19:58:50 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2015/02/08 16:31:48 wiz Exp $
 
-DISTNAME=	tornado-3.2
+DISTNAME=	tornado-4.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www
 MASTER_SITES=	http://pypi.python.org/packages/source/t/tornado/
@@ -9,6 +9,8 @@ MAINTAINER=	imil@NetBSD.org
 HOMEPAGE=	http://www.tornadoweb.org/
 COMMENT=	Fast and non-blocking web framework
 LICENSE=	apache-2.0
+
+DEPENDS+=	${PYPKGPREFIX}-curl>=7.18.2:../../www/py-curl
 
 REPLACE_PYTHON+=	setup.py
 REPLACE_PYTHON+=	tornado/*.py

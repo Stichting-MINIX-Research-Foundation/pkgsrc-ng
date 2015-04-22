@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2014/03/13 23:16:57 spz Exp $
+# $NetBSD: Makefile,v 1.22 2015/02/12 04:58:56 mef Exp $
 
-DISTNAME=	Capture-Tiny-0.24
+DISTNAME=	Capture-Tiny-0.28
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/D/DA/DAGOLDEN/}
@@ -10,7 +10,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Capture-Tiny/
 COMMENT=	Capture STDOUT and STDERR from Perl, XS or external programs
 LICENSE=	apache-2.0
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+DEPENDS+=	p5-Inline-C-[0-9]*:../../devel/p5-Inline-C
 
 PERL5_PACKLIST=		auto/Capture/Tiny/.packlist
 

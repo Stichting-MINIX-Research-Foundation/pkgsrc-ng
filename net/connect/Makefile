@@ -1,35 +1,32 @@
-# $NetBSD: Makefile,v 1.14 2012/10/23 17:18:15 asau Exp $
+# $NetBSD: Makefile,v 1.17 2015/03/09 09:24:35 mef Exp $
 
-DISTNAME=	connect
-PKGNAME=	${DISTNAME}-1.95
-PKGREVISION=	1
+DISTNAME=	1.104
+PKGNAME=	connect-${DISTNAME}
 CATEGORIES=	net security
-MASTER_SITES=	http://zippo.taiyo.co.jp/~gotoh/ssh/
-EXTRACT_SUFX=	.c
+MASTER_SITES=   http://bitbucket.org/gotoh/connect/get/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://zippo.taiyo.co.jp/~gotoh/ssh/connect.html
+HOMEPAGE=	https://bitbucket.org/gotoh/connect/wiki/Home
 COMMENT=	Open a TCP connection using a SOCKS4/5 or HTTP proxy server
 LICENSE=	gnu-gpl-v2
 
 CONFLICTS=	azara-[0-9]*
 
-EXTRACT_ONLY=	# empty
-DIST_SUBDIR=	${PKGNAME_NOREV}
+DIST_SUBDIR=	${PKGBASE}
+WRKSRC=		${WRKDIR}/gotoh-${PKGNAME_NOREV}
+USE_TOOLS=	gmake
 
 LIBS.Darwin+=	-lresolv
 LIBS.SunOS+=	-lresolv -lsocket -lnsl
 
 INSTALLATION_DIRS=	bin share/doc/connect
 
-do-build:
-	${MKDIR} ${WRKSRC}
-	${LINK.c} ${DISTDIR}/${DIST_SUBDIR}/${DISTFILES:Q} -o ${WRKSRC}/connect ${LIBS}
-	${EGREP} '^ \*(| .*)$$' ${DISTDIR}/${DIST_SUBDIR}/${DISTFILES:Q} | \
-	${CUT} -c 4- >${WRKSRC}/README
+pre-patch:
+	(cd ${WRKDIR}; ${MV} gotoh-connect-* gotoh-${PKGNAME_NOREV})
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/connect ${DESTDIR}${PREFIX}/bin
-	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/connect
+	${INSTALL_DATA} ${WRKSRC}/doc/manual.html ${DESTDIR}${PREFIX}/share/doc/connect
+	${INSTALL_DATA} ${WRKSRC}/doc/manual.txt ${DESTDIR}${PREFIX}/share/doc/connect
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2014/03/19 14:20:00 wen Exp $
+# $NetBSD: Makefile,v 1.37 2015/03/11 14:14:52 wen Exp $
 
-DISTNAME=	moodle-2.5.5
+DISTNAME=	moodle-2.8.5
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=moodle/}
 EXTRACT_SUFX=	.tgz
@@ -10,16 +10,17 @@ HOMEPAGE=	http://www.moodle.org/
 COMMENT=	Course management system based on social constructionism
 LICENSE=	gnu-gpl-v3
 
-DEPENDS+=	${PHP_PKG_PREFIX}-gd>=4.3.3:../../graphics/php-gd
-DEPENDS+=	${PHP_PKG_PREFIX}-iconv-[0-9]*:../../converters/php-iconv
-DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.2.0:../../converters/php-mbstring
-DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.2.0:../../www/php-curl
-DEPENDS+=	${PHP_PKG_PREFIX}-xmlrpc>=5.2.0:../../net/php-xmlrpc
-DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.2.0:../../textproc/php-dom
-DEPENDS+=	${PHP_PKG_PREFIX}-soap>=5.2.0:../../net/php-soap
-DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.2.0:../../textproc/php-json
-DEPENDS+=	${PHP_PKG_PREFIX}-intl>=2.0.0:../../textproc/php-intl
-DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.2.0:../../archivers/php-zip
+DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.4.4:../../graphics/php-gd
+DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=5.4.4:../../converters/php-iconv
+DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.4.4:../../converters/php-mbstring
+DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.4.4:../../www/php-curl
+DEPENDS+=	${PHP_PKG_PREFIX}-xmlrpc>=5.4.4:../../net/php-xmlrpc
+DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.4.4:../../textproc/php-dom
+DEPENDS+=	${PHP_PKG_PREFIX}-soap>=5.4.4:../../net/php-soap
+DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.4.4:../../textproc/php-json
+DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.4.4:../../textproc/php-intl
+DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.4.4:../../archivers/php-zip
+DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.4.4:../../archivers/php-zlib
 
 EGDIR=			share/examples/moodle
 MOODLEDIR=		${PREFIX}/share/moodle
@@ -30,8 +31,6 @@ INSTALLATION_DIRS=	${EGDIR} share/moodle
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PKG_GROUPS_VARS=	APACHE_GROUP
 PKG_USERS_VARS=		APACHE_USER

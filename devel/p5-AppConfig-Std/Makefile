@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2013/09/05 18:37:03 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2015/01/26 05:29:48 mef Exp $
 
-DISTNAME=	AppConfig-Std-1.08
+DISTNAME=	AppConfig-Std-1.09
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=AppConfig/}
@@ -8,8 +8,7 @@ MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=AppConfig/}
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/AppConfig-Std/
 COMMENT=	AppConfig::Std Perl module
-
-PKG_INSTALLATION_TYPES= overwrite pkgviews
+LICENSE=	${PERL5_LICENSE}
 
 PERL5_PACKLIST=		auto/AppConfig/Std/.packlist
 

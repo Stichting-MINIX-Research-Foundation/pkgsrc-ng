@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2014/01/01 11:52:08 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2014/12/01 11:49:48 jmcneill Exp $
 #
 
 DISTNAME=	brasero-2.32.1
-PKGREVISION=	25
+PKGREVISION=	28
 CATEGORIES=	sysutils gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/brasero/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -40,6 +40,7 @@ BUILDLINK_API_DEPENDS.gstreamer0.10+=		gstreamer0.10>=0.10.15
 .include "../../textproc/gnome-doc-utils/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
+.include "../../x11/libICE/buildlink3.mk"
 .include "../../x11/libunique/buildlink3.mk"
 .include "../../mk/omf-scrollkeeper.mk"
 .include "../../mk/bsd.pkg.mk"

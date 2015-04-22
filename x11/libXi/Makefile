@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.24 2013/07/03 06:27:03 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2014/10/09 14:07:14 wiz Exp $
 
-DISTNAME=		libXi-1.7.2
+DISTNAME=		libXi-1.7.4
 CATEGORIES=		x11 devel
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -9,8 +9,6 @@ MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		X Input extension library
 LICENSE=		mit
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
@@ -31,7 +29,7 @@ CONFIGURE_ARGS+=	--disable-malloc0returnsnull
 .endif
 
 BUILDLINK_API_DEPENDS.inputproto+=	inputproto>=2.3
-BUILDLINK_API_DEPENDS.libX11+=		libX11>=1.5
+BUILDLINK_API_DEPENDS.libX11+=		libX11>=1.6
 BUILDLINK_API_DEPENDS.libXext+=		libXext>=1.1
 BUILDLINK_API_DEPENDS.xextproto+=	xextproto>=7.0.3
 BUILDLINK_API_DEPENDS.xproto+=		xproto>=7.0.13

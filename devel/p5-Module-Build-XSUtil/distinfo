@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/12 06:32:50 mef Exp $
+
+SHA1 (Module-Build-XSUtil-0.14.tar.gz) = 5dfb1d17abfc61cafffcb3f461982e71eb9caa97
+RMD160 (Module-Build-XSUtil-0.14.tar.gz) = 5d82eee836b19b733ad155a1bf3a96e2a0690973
+Size (Module-Build-XSUtil-0.14.tar.gz) = 14863 bytes

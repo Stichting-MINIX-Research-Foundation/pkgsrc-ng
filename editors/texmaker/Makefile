@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.43 2014/02/12 23:17:52 tron Exp $
+# $NetBSD: Makefile,v 1.50 2015/03/09 09:02:19 wiz Exp $
 
-DISTNAME=	texmaker-4.1
-PKGREVISION=	2
+DISTNAME=	texmaker-4.4.1
+PKGREVISION=	3
 CATEGORIES=	editors
 MASTER_SITES=	http://www.xm1math.net/texmaker/
 EXTRACT_SUFX=	.tar.bz2
@@ -21,9 +21,8 @@ do-configure:
 	cd ${WRKSRC} && env ${CONFIGURE_ENV} \
 	${QTDIR}/bin/qmake PREFIX=${PREFIX} texmaker.pro DESKTOPDIR=${PREFIX}/share/applications ICONDIR=${PREFIX}/share/pixmaps
 
-.include "../../sysutils/desktop-file-utils/desktopdb.mk"
-.include "../../x11/qt4-libs/buildlink3.mk"
-.include "../../x11/qt4-tools/buildlink3.mk"
-.include "../../print/poppler-qt4/buildlink3.mk"
+.include "options.mk"
+
 .include "../../print/poppler-includes/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

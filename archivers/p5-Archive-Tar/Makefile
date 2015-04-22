@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.56 2014/02/06 12:25:52 abs Exp $
+# $NetBSD: Makefile,v 1.62 2014/12/31 14:40:17 wiz Exp $
 
-DISTNAME=	Archive-Tar-1.96
+DISTNAME=	Archive-Tar-2.04
 PKGNAME=	p5-${DISTNAME}
-SVR4_PKGNAME=	p5tar
 CATEGORIES=	archivers perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Archive/}
 
@@ -16,8 +15,6 @@ DEPENDS+=	{perl>=5.9.3,p5-IO-Zlib>=1.01}:../../devel/p5-IO-Zlib
 DEPENDS+=	{perl>=5.10.1,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress
 DEPENDS+=	p5-IO-String-[0-9]*:../../devel/p5-IO-String
 DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 MAKE_PARAMS+=		"-d"	# Text::Diff is a prerequisite
 PERL5_PACKLIST=		auto/Archive/Tar/.packlist

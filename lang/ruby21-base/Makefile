@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/03/30 17:15:01 taca Exp $
+# $NetBSD: Makefile,v 1.11 2015/03/08 15:52:51 taca Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
-PKGREVISION=	2
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -14,7 +13,6 @@ LICENSE=	${RUBY_LICENSE}
 
 RUBY_VERSION_SUPPORTED=	21
 
-MAKE_JOBS_SAFE=		no
 USE_LANGUAGES=		c
 USE_TOOLS+=		pax yacc
 GNU_CONFIGURE=		yes
@@ -51,7 +49,8 @@ CONFIGURE_ENV+=	ac_cv_prog_PKG_CONFIG=""
 CONFIGURE_ENV+=	ac_cv_func_getgrnam_r=no
 .endif
 
-.if ${OPSYS} == "Cygwin"
+# bmake doesn't like the codesign/POSTLINK constructs for Darwin.
+.if ${OPSYS} == "Cygwin" || ${OPSYS} == "Darwin"
 USE_TOOLS+=	gmake
 MAKE_FILE=	GNUmakefile
 .endif
@@ -78,7 +77,7 @@ SUBST_MESSAGE.conf=	Fixing configuration files.
 .if !empty(RUBY_SUFFIX)
 CONFIGURE_ARGS+= --program-suffix=${RUBY_SUFFIX}
 CONFIGURE_ARGS+= --with-soname=${RUBY_NAME}
-CONFIGURE_ARGS+= --with-ruby-version=${RUBY_VERSION}
+CONFIGURE_ARGS+= --with-ruby-version=${RUBY_VER_DIR}
 CONFIGURE_ARGS+= --with-ruby-pc="ruby-${RUBY_VERSION}.pc"
 .endif
 
@@ -140,6 +139,10 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 \
 			${RUBY_EG}/bigdecimal ${RUBY_EG}/pty
 # ${RUBY_ARCHINC} ${RUBY_ARCHLIB}
 EMPTY_DIRS=		generator/template markup/simple_markup
+
+post-extract:
+	${CP} ${FILESDIR}/AddTrustExternalCARoot-2048.pem \
+		${WRKSRC}/lib/rubygems/ssl_certs
 
 pre-configure:
 	${RM} -f ${WRKSRC}/ext/gdbm/extconf.rb

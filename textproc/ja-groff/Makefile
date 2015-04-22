@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2013/05/31 12:42:07 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/09/06 07:42:11 jperkin Exp $
 
 DISTNAME=	groff-1.10
 PKGNAME=	ja-groff-0.99
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	japanese textproc
 MASTER_SITES=	${MASTER_SITE_GNU:=groff/}
 
@@ -17,7 +17,7 @@ COMMENT=	Japanese enhancement of GNU groff
 
 MAKE_JOBS_SAFE=		no
 
-USE_TOOLS+=	gmake perl:run
+USE_TOOLS+=	gmake perl:run yacc
 USE_LANGUAGES=	c c++
 GNU_CONFIGURE=	yes
 CONFIGURE_HAS_MANDIR=	no

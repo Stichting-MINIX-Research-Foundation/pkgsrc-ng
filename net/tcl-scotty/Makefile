@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.32 2014/03/05 13:52:29 he Exp $
+# $NetBSD: Makefile,v 1.34 2014/10/09 14:06:48 wiz Exp $
 #
 
 DISTNAME=	scotty-${DIST_VERS}
 PKGNAME=	tcl-scotty-${DIST_VERS}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	net tcl
 MASTER_SITES=	ftp://ftp.ibr.cs.tu-bs.de/pub/local/tkined/
 
@@ -13,7 +13,6 @@ COMMENT=	Network management extensions to TCL
 
 LICENSE=	2-clause-bsd
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 PKG_DESTDIR_SUPPORT= destdir
 
 DIST_VERS=	2.1.11

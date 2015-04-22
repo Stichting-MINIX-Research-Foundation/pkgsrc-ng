@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2013/07/12 10:45:00 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2015/03/16 22:36:58 pettai Exp $
 #
 
-DISTNAME=		rancid-2.3.8
-PKGREVISION=		3
+DISTNAME=		rancid-3.2
 CATEGORIES=		net
 MASTER_SITES=		ftp://ftp.shrubbery.net/pub/rancid/
 
@@ -37,11 +36,15 @@ PKG_SHELL.${RC_USER}=	${SH}
 PKG_USERS_VARS+=	RC_USER
 PKG_GROUPS_VARS+=	RC_GROUP
 
+REPLACE_PERL=		lib/dell.pm.in
+
 EGDIR=			${PREFIX}/share/examples/rancid
 PKG_SYSCONFSUBDIR?=	rancid
 CONF_FILES_PERMS=	${EGDIR}/lg.conf.sample ${PKG_SYSCONFDIR}/lg.conf \
 			${ROOT_USER} ${ROOT_GROUP} 0644
 CONF_FILES_PERMS+=	${EGDIR}/rancid.conf.sample ${PKG_SYSCONFDIR}/rancid.conf \
+			${ROOT_USER} ${ROOT_GROUP} 0644
+CONF_FILES_PERMS+=	${EGDIR}/rancid.types.base ${PKG_SYSCONFDIR}/rancid.types.base \
 			${ROOT_USER} ${ROOT_GROUP} 0644
 
 MESSAGE_SUBST+=		PREFIX=${PREFIX}
@@ -68,5 +71,6 @@ CONFIGURE_ARGS+=	ac_cv_PING_PATH=/sbin/ping
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/etc/lg.conf.sample ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/etc/rancid.conf.sample ${DESTDIR}${EGDIR}
+	${INSTALL_DATA} ${WRKSRC}/etc/rancid.types.base ${DESTDIR}${EGDIR}
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2014/02/12 23:18:46 tron Exp $
+# $NetBSD: Makefile,v 1.11 2014/10/19 22:27:48 alnsn Exp $
 #
 
 DISTNAME=	lua-curl-0.2
 PKGNAME=	${LUA_PKGPREFIX}-curl-0.2
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	www
 MASTER_SITES=	http://luaforge.net/frs/download.php/2634/
 
@@ -21,5 +21,5 @@ AUTO_MKDIRS=	yes
 
 .include "../../www/curl/buildlink3.mk"
 .include "../../lang/lua/module.mk"
-
+.include "../../lang/lua/tool.mk"
 .include "../../mk/bsd.pkg.mk"

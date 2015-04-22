@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.27 2013/12/29 06:45:14 obache Exp $
+# $NetBSD: Makefile,v 1.29 2015/03/15 17:30:24 hiramatsu Exp $
 #
 
 DISTNAME=	ibus-input-pad-1.4.2
+PKGREVISION=	1
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://input-pad.googlecode.com/files/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/input-pad/
 COMMENT=	Input Pad for IBus
 LICENSE=	gnu-gpl-v2

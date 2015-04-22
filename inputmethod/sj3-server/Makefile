@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2013/10/30 06:49:54 dholland Exp $
+# $NetBSD: Makefile,v 1.17 2014/10/19 22:27:46 alnsn Exp $
 
 .include "../../inputmethod/sj3/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/sj3-/sj3-server-/}
-PKGREVISION=	3
+PKGREVISION=	5
 
 COMMENT=	SJ3 Japanese input method server
 

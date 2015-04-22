@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2013/05/31 12:40:12 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2015/02/08 07:00:04 mef Exp $
 
-DISTNAME=	Curses-UI-POE-0.035
-PKGNAME=	p5-Curses-UI-POE-0.03500
-PKGREVISION=	4
+DISTNAME=	Curses-UI-POE-0.04
+# 0.035 -> 0.03500, 0.04 -> 0.04000
+PKGNAME=	p5-${DISTNAME:C/[0-9.]+//}0.04000
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Curses/}
 
@@ -11,9 +11,8 @@ HOMEPAGE=	http://search.cpan.org/dist/Curses-UI-POE
 COMMENT=	Subclass for Curses::UI that enables it to work with POE
 LICENSE=	gnu-gpl-v2 OR artistic
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 DEPENDS+=	p5-Curses-UI>=0:../../devel/p5-Curses-UI
+DEPENDS+=	p5-POE>=0.11:../../devel/p5-POE
 
 PERL5_PACKLIST=		auto/Curses/UI/POE/.packlist
 

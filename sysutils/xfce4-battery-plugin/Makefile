@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.32 2013/10/10 14:41:52 ryoon Exp $
+# $NetBSD: Makefile,v 1.35 2015/01/04 09:35:23 dholland Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 XFCE4_VERSION=	0.5.1
 
 DISTNAME=	xfce4-battery-plugin-${XFCE4_VERSION}
-PKGREVISION=	23
+PKGREVISION=	25
 CATEGORIES=	sysutils
 MASTER_SITES=	http://goodies.xfce.org/releases/xfce4-battery-plugin/
-COMMENT=	Xfce battey monitor plugin
+COMMENT=	Xfce battery monitor plugin
 
 # On NetBSD/sparc64, apmvar.h is not exist in /usr/include/machine.
 # Reported in PR port-sparc64/36735.

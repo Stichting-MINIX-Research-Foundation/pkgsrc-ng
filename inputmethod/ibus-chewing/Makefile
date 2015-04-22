@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.35 2014/01/17 07:54:54 obache Exp $
+# $NetBSD: Makefile,v 1.41 2015/03/15 18:46:55 hiramatsu Exp $
 #
 
-DISTNAME=	ibus-chewing-1.4.7-Source
+DISTNAME=	ibus-chewing-1.4.12-Source
 PKGNAME=	${DISTNAME:S/-Source//}
 CATEGORIES=	inputmethod chinese
-MASTER_SITES=	http://ibus.googlecode.com/files/
+MASTER_SITES=	https://github.com/definite/ibus-chewing/releases/download/${PKGVERSION_NOREV}/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/ibus/
 COMMENT=	Chewing engine for IBus input platform
 LICENSE=	gnu-gpl-v2
@@ -19,13 +19,18 @@ USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		msgfmt pkg-config
 TOOLS_NOOP+=		msgmerge xgettext
 
-GCONF_SCHEMAS=	ibus-chewing.schemas
-CMAKE_ARGS+=	-DLIBEXEC_DIR=${PREFIX}/libexec
-CMAKE_ARGS+=	-DGCONF_SCHEMAS_INSTALLED_DIR:PATH=${GCONF_SCHEMAS_DIR}
-
 BUILD_TARGET=	all translations
 
-.include "../../devel/GConf/schemas.mk"
+SUBST_CLASSES+=		libexecdir
+SUBST_STAGE.libexecdir=	post-configure
+SUBST_FILES.libexecdir=	data/ibus-setup-chewing.desktop
+SUBST_SED.libexecdir=	-e 's,/usr/libexec/,${PREFIX}/libexec/,g'
+
+TEST_TARGET=	test
+
+.include "../../devel/glib2/schemas.mk"
+
+.include "../../devel/glib2/buildlink3.mk"
 .include "../../inputmethod/ibus/buildlink3.mk"
 .include "../../inputmethod/libchewing/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

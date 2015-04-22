@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.36 2013/12/31 11:37:09 obache Exp $
+# $NetBSD: Makefile,v 1.41 2015/03/15 20:13:24 hiramatsu Exp $
 
-DISTNAME=		rcairo-1.12.8
+DISTNAME=		rcairo-1.14.1
 PKGNAME=		${RUBY_PKGPREFIX}-${DISTNAME}
 CATEGORIES=		graphics
 MASTER_SITES=		http://cairographics.org/releases/
 
-MAINTAINER=		obache@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://cairographics.org/rcairo/
 COMMENT=		Ruby bindings for cairo
 LICENSE=		ruby-license OR gnu-gpl-v2

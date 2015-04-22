@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.23 2014/03/03 03:30:53 obache Exp $
+# $NetBSD: Makefile,v 1.25 2014/10/09 14:06:49 wiz Exp $
 
 PKGNAME=	p5-pkgsrc-Dewey-1.1
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	pkgtools perl5
 
 MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/docs/pkgsrc/
 COMMENT=	Perl module to compare pkgsrc Dewey numbers
 LICENSE=	${PERL5_LICENSE} OR 2-clause-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 CPPFLAGS+=	-DHAVE_CTYPE_H -DHAVE_STDLIB_H -DHAVE_STRING_H
 CPPFLAGS.NetBSD+=	-DHAVE_ERR_H

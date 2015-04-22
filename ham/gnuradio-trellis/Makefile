@@ -1,20 +1,18 @@
-# $NetBSD: Makefile,v 1.16 2014/01/25 10:45:19 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/01/16 12:56:41 mef Exp $
 
 PKGNAME=	gnuradio-trellis-${VERSION}
-PKGREVISION=	10
 COMMENT=	Trellis-based encoding and decoding algorithms for GNU Radio
 
-.include "../../meta-pkgs/gnuradio/Makefile.common"
+.include	"../../ham/gnuradio-core/Makefile.common"
+.include	"../../ham/gnuradio-core/Nocore.mk"
 
-CONFIGURE_ARGS+=--enable-gr-trellis
-CONFIGURE_ARGS+=--with-gnuradio-core --with-omnithread --with-gruel
-CONFIGURE_ENV+=XMLTO=no
+CMAKE_ARGS+=	-DENABLE_DEFAULT=False
+CMAKE_ARGS+=	-DENABLE_GR_TRELLIS=True
+CMAKE_ARGS+=	-DENABLE_GR_DIGITAL=True
 
-REPLACE_PYTHON+=	gr-trellis/doc/make_numbered_listing.py
-REPLACE_PYTHON+=	gr-trellis/doc/test_tcm.py
-REPLACE_PYTHON+=	gr-trellis/doc/test_viterbi_equalization1.py
-REPLACE_PYTHON+=	gr-trellis/src/python/qa_trellis.py
-REPLACE_PYTHON+=	gr-trellis/src/examples/*.py
+DEPENDS+=	gnuradio-digital-[0-9]*:../../ham/gnuradio-digital
+DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 
-.include "../../ham/gnuradio-core/buildlink3.mk"
-.include "../../mk/bsd.pkg.mk"
+PLIST_MINUS+=	digital
+
+.include	"../../mk/bsd.pkg.mk"

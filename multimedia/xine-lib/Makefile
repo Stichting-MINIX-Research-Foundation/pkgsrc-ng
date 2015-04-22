@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.121 2014/02/24 05:31:54 richard Exp $
+# $NetBSD: Makefile,v 1.136 2014/12/31 16:10:41 rumko Exp $
 
 .include "Makefile.common"
-
-PKGREVISION=		2
 
 COMMENT=		Multimedia player library
 
@@ -34,6 +32,18 @@ SUBST_MESSAGE.w32path=	Fixing win32 dll path.
 # Needed to fix build problems under, at least, NetBSD/amd64.
 BUILDLINK_API_DEPENDS.libcdio+=	libcdio>=0.75
 
+.if ${OPSYS} == "FreeBSD"
+PLIST_VARS+=	vidix
+.if ${MACHINE_ARCH} == "i386"
+PLIST.vidix=	yes
+.endif
+.endif
+
+PLIST_VARS+=	qtw32
+.if empty(MACHINE_PLATFORM:MDarwin-*-i386)
+PLIST.qtw32=	yes
+.endif
+
 .if ${OPSYS} == "SunOS"
 PLIST_VARS+=	oss
 .if ${OS_VERSION} == "5.11"
@@ -41,12 +51,18 @@ PLIST.oss=	yes
 .endif
 .endif
 
-CPPFLAGS.SunOS+=	-D__u32=uint32_t -DHAVE_SYSI86
+CPPFLAGS.SunOS+=	-D__u32=uint32_t -DHAVE_SYSI86 -DHAVE_MMX_FALSE
 LDFLAGS.SunOS+=		-lresolv
 
 # flac is supported internally; don't know what the plugin is good for
 # but until autodetection is turned off, force external flac for now.
 .include "../../audio/flac/buildlink3.mk"
+.include "../../audio/faac/buildlink3.mk"
+.include "../../audio/faad2/buildlink3.mk"
+.include "../../audio/liba52/buildlink3.mk"
+.include "../../audio/libdca/buildlink3.mk"
+.include "../../audio/libmad/buildlink3.mk"
+#.include "../../audio/libmpcdec/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../audio/speex/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
@@ -59,6 +75,8 @@ CONFIGURE_ARGS+=	--disable-opengl
 .include "../../graphics/mng/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../misc/libcdio/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-external-dvdnav
+.include "../../multimedia/libdvdnav/buildlink3.mk"
 .include "../../multimedia/libtheora/buildlink3.mk"
 .include "../../sysutils/vcdimager-devel/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

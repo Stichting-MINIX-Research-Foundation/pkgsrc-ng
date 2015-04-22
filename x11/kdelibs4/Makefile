@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.67 2014/02/12 23:18:53 tron Exp $
+# $NetBSD: Makefile,v 1.77 2014/11/30 03:30:25 markd Exp $
 
 DISTNAME=	kdelibs-${_KDE_VERSION}
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	1
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
 
@@ -15,6 +14,7 @@ COMMENT=	Support libraries for the KDE integrated X11 desktop
 CONFLICTS=	kdelibs-[0-9]*
 
 # BUILD_MAKE_FLAGS+= VERBOSE=1
+#CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 CMAKE_DEPENDENCIES_REWRITE= _KDE_build/KDELibsDependencies.cmake
 CMAKE_DEPENDENCIES_REWRITE+= _KDE_build/KDELibsDependenciesInternal.cmake
@@ -22,6 +22,8 @@ CMAKE_MODULE_PATH_OVERRIDE+= kjsembed/qtonly/CMakeLists.txt
 
 CMAKE_ARGS+=	-DKDE_DISTRIBUTION_TEXT:STRING="NetBSD pkgsrc"
 CMAKE_ARGS+=	-DWITH_Avahi:BOOL=off
+CMAKE_ARGS+=	-DWITH_Soprano:BOOL=off
+CMAKE_ARGS+=	-DWITH_SharedDesktopOntologies:BOOL=off
 
 CMAKE_ARGS+=	-DLIBLZMA_INCLUDE_DIR:PATH=${BUILDLINK_PREFIX.xz}/include
 CMAKE_ARGS+=	-DLIBLZMA_LIBRARY:FILEPATH=${BUILDLINK_PREFIX.xz}/lib/liblzma.so
@@ -83,13 +85,13 @@ BUILDLINK_DEPMETHOD.qt4-tools=		full
 .include "../../meta-pkgs/kde4/kde4.mk"
 
 BUILDLINK_API_DEPENDS.strigi+=	strigi>=0.5.11
-BUILDLINK_API_DEPENDS.soprano+=	soprano>=2.5.60
-BUILDLINK_API_DEPENDS.shared-desktop-ontologies+=	shared-desktop-ontologies>=0.10.0
+#BUILDLINK_API_DEPENDS.soprano+=	soprano>=2.5.60
+#BUILDLINK_API_DEPENDS.shared-desktop-ontologies+=	shared-desktop-ontologies>=0.10.0
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../sysutils/strigi/buildlink3.mk"
-.include "../../textproc/soprano/buildlink3.mk"
+#.include "../../textproc/soprano/buildlink3.mk"
 .include "../../databases/shared-mime-info/buildlink3.mk"
 .include "../../devel/grantlee/buildlink3.mk"
 .include "../../devel/libdbusmenu-qt/buildlink3.mk"
@@ -98,7 +100,7 @@ BUILDLINK_API_DEPENDS.shared-desktop-ontologies+=	shared-desktop-ontologies>=0.1
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
 .include "../../misc/attica/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
@@ -113,7 +115,7 @@ BUILDLINK_API_DEPENDS.shared-desktop-ontologies+=	shared-desktop-ontologies>=0.1
 .include "../../textproc/enchant/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
-.include "../../textproc/shared-desktop-ontologies/buildlink3.mk"
+#.include "../../textproc/shared-desktop-ontologies/buildlink3.mk"
 .include "../../x11/libXScrnSaver/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"

@@ -1,16 +1,13 @@
-# $NetBSD: Makefile,v 1.13 2013/04/06 03:45:05 rodent Exp $
+# $NetBSD: Makefile,v 1.16 2015/02/15 14:45:48 ryoon Exp $
 
-DISTNAME=	afio-2.5
-PKGREVISION=	2
+DISTNAME=	afio-2.5.1
 CATEGORIES=	archivers
-MASTER_SITES=	http://www.ibiblio.org/pub/Linux/system/backup/
+MASTER_SITES=	http://members.chello.nl/~k.holtman/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://freshmeat.net/projects/afio/
+HOMEPAGE=	http://members.chello.nl/~k.holtman/afio.html
 COMMENT=	Data corruption handling cpio-format archive creator
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILD_TARGET=	afio
 

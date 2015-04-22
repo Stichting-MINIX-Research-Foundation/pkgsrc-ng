@@ -1,6 +1,6 @@
 #! @WRAPPER_SHELL@
 #
-# $NetBSD: gen-transform.sh,v 1.8 2007/03/07 12:40:54 rillig Exp $
+# $NetBSD: gen-transform.sh,v 1.10 2014/12/30 15:13:20 wiz Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -40,7 +40,7 @@ shell_lib="@_WRAP_SHELL_LIB@"
 wrapperlog="${WRAPPER_LOG-@_WRAP_LOG@}"
 debug="${WRAPPER_DEBUG-no}"
 
-cat="@CAT@"
+echo="@ECHO@"
 test="@TEST@"
 
 . $shell_lib
@@ -71,16 +71,6 @@ gen()
 	_cmd="$1"; shift
 
 	case $_cmd in
-        ###############################################################
-	# depot:src:dst
-	#	Change "src/<dir>/*" into "dst/*", and the same in -I and
-	#	-L options.
-        ###############################################################
-	depot)
-		gen $_action "opt-depot:$1:$2"
-		gen $_action "opt-depot:-I$1:-I$2"
-		gen $_action "opt-depot:-L$1:-L$2"
-		;;
         ###############################################################
         # I:src:dst
         #       Change "src" into "dst" and "src/*" into "dst/*" in -I
@@ -148,20 +138,16 @@ gen()
 		case $_action in
 		transform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|^$1\(/[^$_sep]*\.la[$_sep]\)|$2\1|g
-s|^$1\(/[^$_sep]*\.la\)$|$2\1|g
-EOF
+			$echo "s|^$1\(/[^$_sep]*\.la[$_sep]\)|$2\1|g"
+			$echo "s|^$1\(/[^$_sep]*\.la\)$|$2\1|g"
 			;;
 		untransform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|\([$_sep]\)$1\(/[^$_sep]*\.la[$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1\(/[^$_sep]*\.la[$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1\(/[^$_sep]*\.la\)$|\1$2\2|g
-s|^$1\(/[^$_sep]*\.la[$_sep]\)|$2\1|g
-s|^$1\(/[^$_sep]*\.la\)$|$2\1|g
-EOF
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\.la[$_sep]\)|\1$2\2|g"
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\.la[$_sep]\)|\1$2\2|g"
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\.la\)$|\1$2\2|g"
+			$echo "s|^$1\(/[^$_sep]*\.la[$_sep]\)|$2\1|g"
+			$echo "s|^$1\(/[^$_sep]*\.la\)$|$2\1|g"
 			;;
 		esac
 		;;
@@ -212,45 +198,16 @@ EOF
 		case $_action in
 		transform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|^$1\([$_sep]\)|$2\1|g
-s|^$1$|$2|g
-EOF
+			$echo "s|^$1\([$_sep]\)|$2\1|g"
+			$echo "s|^$1$|$2|g"
 			;;
 		untransform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|\([$_sep]\)$1\([$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1\([$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1$|\1$2|g
-s|^$1\([$_sep]\)|$2\1|g
-s|^$1$|$2|g
-EOF
-			;;
-		esac
-		;;
-        ###############################################################
-	# opt-depot:src:dst
-	#	Change "src/<dir>/*" into "dst/*".
-        ###############################################################
-	opt-depot)
-		case $_action in
-		transform)
-			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|^$1/[^/$_sep]*\(/[^$_sep]*[$_sep]\)|$2\1|g
-s|^$1/[^/$_sep]*\(/[^$_sep]*\)$|$2\1|g
-EOF
-			;;
-		untransform)
-			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|\([$_sep]\)$1/[^/$_sep]*\(/[^$_sep]*[$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1/[^/$_sep]*\(/[^$_sep]*[$_sep]\)|\1$2\2|g
-s|\([$_sep]\)$1/[^/$_sep]*\(/[^$_sep]*\)$|\1$2\2|g
-s|^$1/[^/$_sep]*\(/[^$_sep]*[$_sep]\)|$2\1|g
-s|^$1/[^/$_sep]*\(/[^$_sep]*\)$|$2\1|g
-EOF
+			$echo "s|\([$_sep]\)$1\([$_sep]\)|\1$2\2|g"
+			$echo "s|\([$_sep]\)$1\([$_sep]\)|\1$2\2|g"
+			$echo "s|\([$_sep]\)$1$|\1$2|g"
+			$echo "s|^$1\([$_sep]\)|$2\1|g"
+			$echo "s|^$1$|$2|g"
 			;;
 		esac
 		;;
@@ -271,20 +228,16 @@ EOF
 		case $_action in
 		transform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|^$1\(/[^$_sep]*\)$2\([$_sep]\)|$3\1$4|g
-s|^$1\(/[^$_sep]*\)$2$|$3\1$4|g
-EOF
+			$echo "s|^$1\(/[^$_sep]*\)$2\([$_sep]\)|$3\1$4|g"
+			$echo "s|^$1\(/[^$_sep]*\)$2$|$3\1$4|g"
 			;;
 		untransform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|\([$_sep]\)$1\(/[^$_sep]*\)$2\([$_sep]\)|\1$3\2$4\3|g
-s|\([$_sep]\)$1\(/[^$_sep]*\)$2\([$_sep]\)|\1$3\2$4\3|g
-s|\([$_sep]\)$1\(/[^$_sep]*\)$2$|\1$3\2$4|g
-s|^$1\(/[^$_sep]*\)$2\([$_sep]\)|$3\1$4|g
-s|^$1\(/[^$_sep]*\)$2$|$3\1$4|g
-EOF
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\)$2\([$_sep]\)|\1$3\2$4\3|g"
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\)$2\([$_sep]\)|\1$3\2$4\3|g"
+			$echo "s|\([$_sep]\)$1\(/[^$_sep]*\)$2$|\1$3\2$4|g"
+			$echo "s|^$1\(/[^$_sep]*\)$2\([$_sep]\)|$3\1$4|g"
+			$echo "s|^$1\(/[^$_sep]*\)$2$|$3\1$4|g"
 			;;
 		esac
 		;;
@@ -330,20 +283,16 @@ EOF
 		case $_action in
 		transform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|^$1[^$_sep]*\([$_sep]\)|\1|g
-s|^$1[^$_sep]*$||g
-EOF
+			$echo "s|^$1[^$_sep]*\([$_sep]\)|\1|g"
+			$echo "s|^$1[^$_sep]*$||g"
 			;;
 		untransform)
 			$debug_log $wrapperlog "   (gen-transform) $_cmd: $@"
-			$cat << EOF
-s|\([$_sep]\)$1[^$_sep]*\([$_sep]\)|\1\2|g
-s|\([$_sep]\)$1[^$_sep]*\([$_sep]\)|\1\2|g
-s|\([$_sep]\)$1[^$_sep]*$|\1|g
-s|^$1[^$_sep]*\([$_sep]\)|\1|g
-s|^$1[^$_sep]*$||g
-EOF
+			$echo "s|\([$_sep]\)$1[^$_sep]*\([$_sep]\)|\1\2|g"
+			$echo "s|\([$_sep]\)$1[^$_sep]*\([$_sep]\)|\1\2|g"
+			$echo "s|\([$_sep]\)$1[^$_sep]*$|\1|g"
+			$echo "s|^$1[^$_sep]*\([$_sep]\)|\1|g"
+			$echo "s|^$1[^$_sep]*$||g"
 			;;
 		esac
 		;;

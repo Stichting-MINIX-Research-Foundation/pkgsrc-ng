@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.35 2014/03/26 13:24:52 jperkin Exp $
+# $NetBSD: Makefile,v 1.45 2015/02/27 21:15:48 markd Exp $
 
-DISTNAME=	kde-workspace-${_KDE_VERSION}
+DISTNAME=	kde-workspace-4.11.14
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	1
 CATEGORIES=	x11
 COMMENT=	Base workspace for the KDE 4 integrated X11 desktop
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 4.11.3
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 4.11.3
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -19,6 +18,9 @@ SITES.NetBSD-flag-1.0.png=	${MASTER_SITE_LOCAL}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 CMAKE_ARGS+=	-DKDE4_BUILD_TESTS:BOOL=OFF
+CMAKE_ARGS+=	-DWITH_NepomukCore:BOOL=OFF
+CMAKE_ARGS+=	-DWITH_Soprano:BOOL=OFF
+CMAKE_ARGS+=	-DWITH_libgps:BOOL=OFF
 
 # BUILD_MAKE_FLAGS+= VERBOSE=1
 
@@ -57,11 +59,15 @@ REPLACE_SH+=		libs/plasmagenericshell/widgetsexplorer/package/Messages.sh
 
 PY_PATCHPLIST=	yes
 
+PLIST_SUBST+=		KDE_VERSION=${_KDE_VERSION}
+
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
 PLIST_VARS+=	utempter noutempter
 .if ${OPSYS} == "Linux" && exists(/usr/include/utempter.h)
+PLIST.utempter=		yes
+.elif ${OPSYS} == "FreeBSD" && exists(/usr/include/utempter.h)
 PLIST.utempter=		yes
 .else
 PLIST.noutempter=	yes
@@ -143,8 +149,9 @@ BUILDLINK_DEPMETHOD.qt4-tools=	full
 .include "../../sysutils/pciutils/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/iso-codes/buildlink3.mk"
+.include "../../math/qalculate/buildlink3.mk"
 .include "../../misc/kdepimlibs4/buildlink3.mk"
-.include "../../misc/nepomuk-core/buildlink3.mk"
+#.include "../../misc/nepomuk-core/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
 .include "../../x11/py-kde4/buildlink3.mk"
 .include "../../x11/kactivities/buildlink3.mk"

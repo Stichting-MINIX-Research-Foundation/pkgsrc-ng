@@ -1,16 +1,17 @@
-# $NetBSD: Makefile,v 1.6 2012/11/10 10:11:59 ryoon Exp $
+# $NetBSD: Makefile,v 1.8 2014/11/13 11:08:13 obache Exp $
 #
 
 IPAEXVER=	00201
 DISTNAME=	IPAexfont${IPAEXVER}
 PKGNAME=	${DISTNAME:S/IPAexfont/ipaexfont-/}
+PKGREVISION=	1
 CATEGORIES=	fonts japanese
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=ipafonts/57330/} \
-		http://info.openlab.ipa.go.jp/ipafont/fontdata/
+		http://dl.ipafont.ipa.go.jp/IPAexfont/
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	http://ossipedia.ipa.go.jp/ipafont/
+HOMEPAGE=	http://ipafont.ipa.go.jp/
 COMMENT=	IPAex fonts (fixed JIS X0213 Kanji, and proportional ASCII)
 LICENSE=	ipafont
 
@@ -20,10 +21,10 @@ NO_BUILD=	YES
 
 DOCSDIR=	${PREFIX}/share/doc/${PKGBASE}
 
-INSTALLATION_DIRS=	lib/X11/fonts/TTF \
+INSTALLATION_DIRS=	share/fonts/X11/TTF \
 			${DOCSDIR}
 
-FONTDIR=	${PREFIX}/lib/X11/fonts/TTF
+FONTDIR=	${PREFIX}/share/fonts/X11/TTF
 FONTS_DIRS.ttf=	${FONTDIR}
 
 INSTALL_FONTS=	ipaexg.ttf \

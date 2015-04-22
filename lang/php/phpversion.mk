@@ -1,4 +1,4 @@
-# $NetBSD: phpversion.mk,v 1.58 2014/03/09 14:09:20 taca Exp $
+# $NetBSD: phpversion.mk,v 1.93 2015/03/20 16:31:47 taca Exp $
 #
 # This file selects a PHP version, based on the user's preferences and
 # the installed packages. It does not add a dependency on the PHP
@@ -10,7 +10,7 @@
 #	The PHP version to choose when more than one is acceptable to
 #	the package.
 #
-#	Possible: 53 54 55
+#	Possible: 54 55 56
 #	Default: 54
 #
 # === Infrastructure variables ===
@@ -27,12 +27,12 @@
 # PHP_VERSIONS_ACCEPTED
 #	The PHP versions that are accepted by the package.
 #
-#	Possible: 53 54 55
-#	Default: 54 53
+#	Possible: 54 55 56
+#	Default: 54
 #
 # PHP_CHECK_INSTALLED
-#	Check installed version of PHP.  Should be used lang/php53,
-#	lang/php54 and lang/php55 only.
+#	Check installed version of PHP.  Should be used by lang/php54,
+#	lang/php55 and lang/php56 only.
 #
 #	Possible: Yes No
 #	Default: Yes
@@ -42,7 +42,7 @@
 # PKG_PHP_VERSION
 #	The selected PHP version.
 #
-#	Possible: 53 54 55
+#	Possible: 54 55 56
 #	Default: ${PHP_VERSION_DEFAULT}
 #
 # PHP_BASE_VERS
@@ -66,7 +66,7 @@
 # PHP_PKG_PREFIX
 #	The prefix that is prepended to the package name.
 #
-#	Example: php53, php54, php55
+#	Example: php54, php55 php56
 #
 # PHP_EXTENSION_DIR
 #	Relative path to ${PREFIX} for PHP's extensions.  It is derived from
@@ -81,14 +81,14 @@
 PHPVERSION_MK=	defined
 
 # Define each PHP's version.
-PHP53_VERSION=	5.3.28
-PHP54_VERSION=	5.4.26
-PHP55_VERSION=	5.5.10
+PHP54_VERSION=	5.4.39
+PHP55_VERSION=	5.5.23
+PHP56_VERSION=	5.6.7
 
 # Define initial release of major version.
-PHP53_RELDATE=	20090630
 PHP54_RELDATE=	20120301
 PHP55_RELDATE=	20130620
+PHP56_RELDATE=	20140828
 
 _VARGROUPS+=	php
 _USER_VARS.php=	PHP_VERSION_DEFAULT
@@ -99,7 +99,7 @@ _SYS_VARS.php=	PKG_PHP_VERSION PKG_PHP PHPPKGSRCDIR PHP_PKG_PREFIX \
 .include "../../mk/bsd.prefs.mk"
 
 PHP_VERSION_DEFAULT?=		54
-PHP_VERSIONS_ACCEPTED?=		54 55 53
+PHP_VERSIONS_ACCEPTED?=		54 55 56
 
 # transform the list into individual variables
 .for pv in ${PHP_VERSIONS_ACCEPTED}
@@ -107,14 +107,14 @@ _PHP_VERSION_${pv}_OK=	yes
 .endfor
 
 # check what is installed
-.if exists(${LOCALBASE}/lib/php/20130620)
+.if exists(${LOCALBASE}/lib/php/20140828)
+_PHP_VERSION_56_INSTALLED=	yes
+_PHP_INSTALLED=			yes
+.elif exists(${LOCALBASE}/lib/php/20130620)
 _PHP_VERSION_55_INSTALLED=	yes
 _PHP_INSTALLED=			yes
 .elif exists(${LOCALBASE}/lib/php/20120301)
 _PHP_VERSION_54_INSTALLED=	yes
-_PHP_INSTALLED=			yes
-.elif exists(${LOCALBASE}/lib/php/20090626) || exists(${LOCALBASE}/include/php/Zend/zend_gc.h)
-_PHP_VERSION_53_INSTALLED=	yes
 _PHP_INSTALLED=			yes
 .endif
 
@@ -168,7 +168,7 @@ PHP_CHECK_INSTALLED?=	Yes
 # if installed PHP isn't compatible with required PHP, bail out
 .if empty(PHP_CHECK_INSTALLED:M[nN][oO])
 .if defined(_PHP_INSTALLED) && !defined(_PHP_VERSION_${_PHP_VERSION}_INSTALLED)
-PKG_SKIP_REASON+=	"Package accepts ${PKG_PHP}, but different version is installed"
+PKG_FAIL_REASON+=	"Package accepts ${PKG_PHP}, but different version is installed"
 .endif
 .endif
 
@@ -184,32 +184,40 @@ PHP_VERSION_REQD:=	${PKG_PHP_VERSION}
 #
 # set variables for the version we decided to use:
 #
-.if ${_PHP_VERSION} == "53"
-PHPPKGSRCDIR=		../../lang/php53
-PHP_BASE_VERS=		${PHP53_VERSION}
-PHP_PKG_PREFIX=		php53
-PHP_EXTENSION_DIR=	lib/php/${PHP53_RELDATE}
-.elif ${_PHP_VERSION} == "54"
+.if ${_PHP_VERSION} == "54"
 PHPPKGSRCDIR=		../../lang/php54
-PHP_BASE_VERS=		${PHP54_VERSION}
+PHP_VERSION=		${PHP54_VERSION}
+PHP_INITIAL_TEENY=	4
 PHP_PKG_PREFIX=		php54
 PHP_EXTENSION_DIR=	lib/php/${PHP54_RELDATE}
 .elif ${_PHP_VERSION} == "55"
 PHPPKGSRCDIR=		../../lang/php55
-PHP_BASE_VERS=		${PHP55_VERSION}
+PHP_VERSION=		${PHP55_VERSION}
+PHP_INITIAL_TEENY=	1
 PHP_PKG_PREFIX=		php55
 PHP_EXTENSION_DIR=	lib/php/${PHP55_RELDATE}
+.elif ${_PHP_VERSION} == "56"
+PHPPKGSRCDIR=		../../lang/php56
+PHP_VERSION=		${PHP56_VERSION}
+PHP_INITIAL_TEENY=	3
+PHP_PKG_PREFIX=		php56
+PHP_EXTENSION_DIR=	lib/php/${PHP56_RELDATE}
 .else
 # force an error
-PKG_SKIP_REASON+=	"${PKG_PHP} is not a valid package"
+PKG_FAIL_REASON+=	"${PKG_PHP} is not a valid package"
 .endif
+
+_PHP_VER_MAJOR=		${PHP_VERSION:C/([0-9]+)\.([0-9]+)\.([0-9]+)/\1/}
+_PHP_VER_MINOR=		${PHP_VERSION:C/([0-9]+)\.([0-9]+)\.([0-9]+)/\2/}
+
+PHP_BASE_VERS=	${_PHP_VER_MAJOR}.${_PHP_VER_MINOR}.${PHP_INITIAL_TEENY}
 
 #
 # check installed version aginst required:
 #
 .if !empty(PHP_CHECK_INSTALLED:M[nN][oO])
 .if defined(_PHP_VERSION_INSTALLED) && ${_PHP_VERSION} != ${_PHP_VERSION_INSTALLED}
-PKG_SKIP_REASON+=	"${PKGBASE} requires ${PKG_PHP}, but php-${_PHP_VERSION_INSTALLED} is already installed."
+PKG_FAIL_REASON+=	"${PKGBASE} requires ${PKG_PHP}, but php-${_PHP_VERSION_INSTALLED} is already installed."
 .endif
 .endif
 

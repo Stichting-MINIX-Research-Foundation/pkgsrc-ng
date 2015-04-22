@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.42 2014/01/06 17:43:50 tez Exp $
+# $NetBSD: Makefile,v 1.49 2015/03/26 14:16:12 sevan Exp $
 
-DISTNAME=	mdocml-1.12.3
+DISTNAME=	mdocml-1.13.3
 PKGREVISION=	1
 CATEGORIES=	textproc devel
 MASTER_SITES=	http://mdocml.bsd.lv/snapshots/
@@ -10,7 +10,7 @@ HOMEPAGE=	http://mdocml.bsd.lv/
 COMMENT=	Convert man pages from mdoc, man, and tbl to txt, html, ps, or pdf
 LICENSE=	2-clause-bsd # not exactly, but near enough
 
-MAKE_FLAGS+=	PREFIX=${PREFIX} DBLIB=${BDB_LIBS:Q}
+HAS_CONFIGURE=	yes
 
 CONFLICTS=	man-pages-[0-9]*
 
@@ -22,13 +22,21 @@ SUBST_SED.roff=		-e 's,Xr roff,Xr mandoc-roff,g'
 
 .include "../../mk/bsd.fast.prefs.mk"
 
+post-extract:
+	${ECHO} PREFIX=${PREFIX} > ${WRKSRC}/configure.local
+	${ECHO} MANDIR=${PREFIX}/${PKGMANDIR} >> ${WRKSRC}/configure.local
+	${ECHO} CFLAGS=\"${CFLAGS:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} DBLIB=\"${LDFLAGS} -lsqlite3\" >> ${WRKSRC}/configure.local
+	${ECHO} INSTALL=\"${INSTALL:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} INSTALL_PROGRAM=\"${INSTALL_PROGRAM:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} INSTALL_LIB=\"${INSTALL_DATA:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} INSTALL_MAN=\"${INSTALL_MAN:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} INSTALL_DATA=\"${INSTALL_DATA:Q}\" >> ${WRKSRC}/configure.local
+	${ECHO} MANM_ROFF="mandoc-roff" >> ${WRKSRC}/configure.local
 # Mac OS X and Solaris 10 and newer do not support static binaries.
 .if ${OPSYS} == "Darwin" || ${OPSYS} == "SunOS"
-MAKE_FLAGS+=	STATIC=
+	${ECHO} STATIC= >> ${WRKSRC}/configure.local
 .endif
 
-post-extract:
-	${CP} -p ${FILESDIR}/*.c ${WRKSRC}
-
-.include "../../mk/bdb.buildlink3.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

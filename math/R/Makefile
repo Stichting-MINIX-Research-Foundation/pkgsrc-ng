@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.147 2014/03/14 20:15:38 markd Exp $
+# $NetBSD: Makefile,v 1.153 2014/10/09 14:06:41 wiz Exp $
 
-DISTNAME=		R-3.0.3
+DISTNAME=		R-3.1.1
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_R_CRAN:=base/R-3/}
 
@@ -13,8 +13,6 @@ LICENSE=		gnu-gpl-v2
 NOT_FOR_PLATFORM=	NetBSD-1.[0-4]*-alpha NetBSD-1.5-alpha \
 			NetBSD-1.5.*-alpha NetBSD-1.5[A-U]-alpha
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_GCC_RUNTIME=	yes
 
 BUILD_TARGET=		all info
@@ -22,7 +20,6 @@ INSTALL_TARGET=		install install-info
 TEST_TARGET=		check
 USE_TOOLS+=		gmake gzip:run makeinfo perl:run sed unzip:run xmkmf
 USE_TOOLS+=		pkg-config
-USE_GNU_ICONV=		yes		# latin1 support, iconvlist
 USE_LANGUAGES=		c c++ fortran
 USE_LIBTOOL=		yes
 TEXINFO_REQD=		4.7
@@ -46,6 +43,10 @@ CONFIGURE_ARGS+=	--with-system-xz
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
 CONFIGURE_ARGS+=	--enable-long-double=no
+.endif
+
+.if ${OPSYS} != "Linux"
+USE_GNU_ICONV=		yes		# latin1 support, iconvlist
 .endif
 
 # Disable Mac OS specific support used by R.app
@@ -126,6 +127,10 @@ INSTALL_SCRIPT=		${INSTALL} ${COPY} -m ${BINMODE}
 #BUILD_DEPENDS+=		tex-mptopdf-[0-9]*:../../graphics/tex-mptopdf
 #BUILD_DEPENDS+=		tex-pdftex-def-[0-9]*:../../print/tex-pdftex
 
+SUBST_CLASSES+=		fixwrap
+SUBST_STAGE.fixwrap=	post-build
+SUBST_FILES.fixwrap=	libtool
+SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool-fortran,${PKG_LIBTOOL},g"
 
 BUILDLINK_API_DEPENDS.zlib+= zlib>=1.2.3
 BUILDLINK_API_DEPENDS.bzip2+= bzip2>=1.0.5

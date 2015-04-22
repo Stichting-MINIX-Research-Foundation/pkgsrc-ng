@@ -1,0 +1,70 @@
+$NetBSD: patch-Imakefile,v 1.1 2014/11/05 22:41:38 he Exp $
+
+- configure for pkgsrc
+- do ratty interpreter fixes (XXX: change to REPLACE_PERL)
+- use tail -n +2 instead of tail +2 to work around broken Linux userlands
+
+--- Imakefile.orig	1995-10-17 13:44:48.000000000 +0000
++++ Imakefile
+@@ -1,10 +1,10 @@
+ # Installation options
+ #=====================
+ # The place where you install local programs (not X)
+-NONXBINDIR = /local/bin
++NONXBINDIR = @LOCALBASE@/bin
+ #
+ # PERLLIBDIR should be the output from perl -e 'print "@INC[0]\n"'
+-PERLLIBDIR = /usr/lib/perl
++PERLLIBDIR = @X11BASE@/libexec/titrax
+ # PERL - where your Perl executable is located (is in sumtitrax)
+ PERL = $(NONXBINDIR)/perl
+ #
+@@ -12,7 +12,7 @@ PERL = $(NONXBINDIR)/perl
+ # XAWLIB = -lXaw3d
+ #
+ # If you want to stop UDP packets to the author, uncomment this
+-# CDEBUGFLAGS = -DDO_NOT_TELL_ABOUT_ME
++CDEBUGFLAGS = -DDO_NOT_TELL_ABOUT_ME
+ #
+ # If you have problems with undefined variables, you may have
+ # hit the linker bug with SunOS 4.1.2 and X11R4; uncomment this line
+@@ -44,13 +44,13 @@ LASTVERSION = V1_97
+ # functions that are declared, but not used
+ LINTOPTS = -az
+ 
+-all:: titrax sumtitra titrat
++all:: titrax sumtitra titrat weekno.perl
+ depend:: Titrax_ad.h
+ 
+ ComplexProgramTarget(titrax)
+ InstallAppDefaults(Titrax)
+-InstallProgram(sumtitra,$(NONXBINDIR))
+-InstallProgram(titrat,$(NONXBINDIR))
++InstallNamedProg(sumtitra,sumtitra,$(BINDIR))
++InstallNamedProg(titrat,titrat,$(BINDIR))
+ InstallManPage(sumtitra,$(MANDIR))
+ InstallNonExec(weekno.perl,$(PERLLIBDIR))
+ 
+@@ -61,14 +61,19 @@ titrax.o: Titrax_ad.h
+ # Modifying PERL scripts - technique courtesy of Lindsay (of Zircon fame)
+ sumtitra: Makefile
+ 	mv sumtitra sumtitra.tmp
+-	echo '#!$(PERL)' > sumtitra
+-	tail +2 sumtitra.tmp >> sumtitra
++	echo '#!$(PERL) -I$(PERLLIBDIR)' > sumtitra
++	tail -n +2 sumtitra.tmp >> sumtitra
+ 	rm sumtitra.tmp
+ titrat: Makefile
+ 	mv titrat titrat.tmp
+ 	echo '#!$(PERL)' > titrat
+-	tail +2 titrat.tmp >> titrat
++	tail -n +2 titrat.tmp >> titrat
+ 	rm titrat.tmp
++weekno.perl: Makefile
++	mv weekno.perl weekno.perl.tmp
++	echo '#!$(PERL)' > weekno.perl
++	tail -n +2 weekno.perl.tmp >> weekno.perl
++	rm weekno.perl.tmp
+ 
+ #------------------------------------------------------------------
+ # Everything below this line should be only for release and debugging,

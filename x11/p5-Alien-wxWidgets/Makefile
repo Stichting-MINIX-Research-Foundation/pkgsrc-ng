@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2013/10/10 14:42:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.34 2014/06/27 03:29:03 schmonz Exp $
 
 DISTNAME=	Alien-wxWidgets-0.60
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	12
+PKGREVISION=	15
 CATEGORIES=	x11 perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Alien/}
 
@@ -12,6 +12,7 @@ COMMENT=	Building, finding and using wxWidgets binaries
 LICENSE=	${PERL5_LICENSE}
 
 BUILD_DEPENDS+=	{perl>=5.10.1,p5-ExtUtils-CBuilder>=0.24}:../../devel/p5-ExtUtils-CBuilder
+DEPENDS+=	p5-Module-Pluggable>=2.6:../../devel/p5-Module-Pluggable
 
 USE_TOOLS+=		gmake pkg-config
 USE_LANGUAGES+=		c c++

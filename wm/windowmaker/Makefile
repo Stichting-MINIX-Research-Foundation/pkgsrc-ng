@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.105 2014/01/17 08:48:06 adam Exp $
+# $NetBSD: Makefile,v 1.111 2015/01/17 14:01:31 mef Exp $
 
-DISTNAME=	WindowMaker-0.95.5
+DISTNAME=	WindowMaker-0.95.6
 PKGNAME=	${DISTNAME:S/WindowMaker/windowmaker/}
 CATEGORIES=	x11 wm windowmaker
 MASTER_SITES=	http://windowmaker.info/pub/source/release/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.windowmaker.info/
+HOMEPAGE=	http://www.windowmaker.org/
 COMMENT=	GNUStep-compliant NEXTSTEP(tm) window manager clone
 LICENSE=	gnu-gpl-v2
 
@@ -43,6 +43,8 @@ CONFIGURE_ENV+=		ac_cv_c_inline_asm=no
 .if ${MACHINE_ARCH} == "arm" || ${MACHINE_ARCH} == "arm32"
 GCC_REQD+=	3.0
 .endif
+
+CFLAGS.SunOS+=		-D__EXTENSIONS__
 
 PKG_SYSCONFSUBDIR=	WindowMaker
 EGDIR=			${PREFIX}/share/examples/WindowMaker
@@ -95,8 +97,9 @@ post-install:
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
+.include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"

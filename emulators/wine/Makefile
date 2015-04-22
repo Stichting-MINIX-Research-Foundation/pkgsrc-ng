@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.181 2014/02/12 23:17:53 tron Exp $
+# $NetBSD: Makefile,v 1.185 2015/03/31 15:27:37 joerg Exp $
 
 DISTNAME=	wine-1.6.2
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	emulators
 MASTER_SITES=	http://ibiblio.org/pub/linux/system/emulators/wine/ \
 		${MASTER_SITE_SOURCEFORGE:=wine/}
@@ -40,14 +40,14 @@ LIBS+=			${LDFLAGS}
 # options are passed through as these values are used with winegcc
 # (which wrapper doesn't handle).
 .include "../../mk/bsd.prefs.mk"
-.if !empty(MACHINE_ARCH:Mi386)
+.if ${MACHINE_ARCH} == "i386"
 CONFIGURE_ENV+=		ac_cv_prog_CC=${CC:Q}\ -m32
 CONFIGURE_ENV+=		ac_cv_prog_CXX=${CXX:Q}\ -m32
 CONFIGURE_ENV+=		ac_cv_prog_AS=${AS:Q}\ --32
 CONFIGURE_ENV+=		ac_cv_prog_LD=${LD:Q}\ -m\ elf_i386
 .endif
 # Needs GCC >= 4.4
-.if !empty(MACHINE_ARCH:Mx86_64)
+.if ${MACHINE_ARCH} == "x86_64"
 CONFIGURE_ARGS+=	--disable-win16
 CONFIGURE_ARGS+=	--enable-win64
 .endif
@@ -61,7 +61,7 @@ CONFIGURE_ARGS+=	--enable-win64
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.80 2014/03/13 11:08:53 jperkin Exp $
+# $NetBSD: Makefile,v 1.82 2014/10/31 21:11:18 adam Exp $
 
 DISTNAME=	tk${TK_VERSION}-src
 PKGNAME=	tk-${TK_VERSION}
-PKGREVISION=	2
 CATEGORIES=	x11 lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tcl/}
 
@@ -12,8 +11,6 @@ COMMENT=	Graphical toolkit for TCL
 LICENSE=	2-clause-bsd
 
 .include "../../x11/tk/Makefile.version"
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 WRKSRC=			${WRKDIR}/tk${TK_VERSION}
 
@@ -48,7 +45,5 @@ PLIST_SUBST+=		SONUM=${TK_SONUM}
 PLIST_SUBST+=		BASEVER=${TK_BASEVER}
 
 .include "../../lang/tcl/buildlink3.mk"
-.include "../../x11/libX11/buildlink3.mk"
-.include "../../x11/libXext/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

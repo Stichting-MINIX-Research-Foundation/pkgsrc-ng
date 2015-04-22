@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.71 2014/03/03 02:37:23 obache Exp $
+# $NetBSD: Makefile,v 1.75 2014/10/09 14:06:50 wiz Exp $
 #
 
-PKGNAME=	url2pkg-2.18
+PKGNAME=	url2pkg-2.20
 CATEGORIES=	pkgtools
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/docs/pkgsrc/creating.html
 COMMENT=	Tool to automate initial steps in building a package
 LICENSE=	original-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 WRKSRC=		${WRKDIR}
 NO_BUILD=	yes

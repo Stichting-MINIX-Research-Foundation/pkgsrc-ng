@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2014/02/18 22:22:14 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2015/04/01 02:39:02 rodent Exp $
 
-DISTNAME=	logan-0.5.9.1
+DISTNAME=	logan-0.6.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	https://pypi.python.org/packages/source/l/logan/
@@ -10,8 +10,12 @@ HOMEPAGE=	http://github.com/dcramer/logan
 COMMENT=	Toolkit for building standalone Django applications
 LICENSE=	apache-2.0
 
+DEPENDS+=	${PYPKGPREFIX}-flake8-[0-9]*:../../devel/py-flake8
+
 USE_LANGUAGES=	# none
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.5.9.1
+PYTHON_VERSIONS_INCOMPATIBLE=	26
+
+.include "options.mk"
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

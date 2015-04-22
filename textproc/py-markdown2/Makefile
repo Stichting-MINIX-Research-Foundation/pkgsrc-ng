@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.7 2014/01/25 10:30:24 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2014/09/28 03:05:47 obache Exp $
 
-DISTNAME=	markdown2-2.2.0
+DISTNAME=	markdown2-2.2.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	textproc
 MASTER_SITES=	http://pypi.python.org/packages/source/m/markdown2/
 EXTRACT_SUFX=	.zip
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/trentm/python-markdown2
 COMMENT=	Fast and complete Python implementation of Markdown
 LICENSE=	mit

@@ -1,14 +1,31 @@
-$NetBSD: patch-aa,v 1.3 2012/01/13 12:12:48 ghen Exp $
+$NetBSD: patch-aa,v 1.5 2015/03/27 23:37:52 rodent Exp $
 
---- pdns/Makefile.in.orig	2012-01-05 14:27:41.000000000 +0000
+Handle CONF_FILES. `hostname -f` is not portable.
+
+Installation destination for example config file.
+--- pdns/Makefile.in.orig	2015-03-02 13:17:27.000000000 +0000
 +++ pdns/Makefile.in
-@@ -1012,15 +1012,15 @@ clean-libtool:
+@@ -1176,7 +1176,7 @@ misc.cc unix_utility.cc qtype.cc
+ pdns_control_LDFLAGS = $(THREADFLAGS)
+ @UNIT_TESTS_TRUE@TESTS_ENVIRONMENT = env BOOST_TEST_LOG_LEVEL=message
+ build_date = $(shell LC_TIME=C date '+%Y%m%d%H%M%S')
+-build_host = $(shell id -u -n)@$(shell hostname -f)
++build_host = $(shell id -u -n)@$(shell hostname)
+ # Do the test in shell, so we don't confuse automake with ifeq/ifneq.
+ @RELEASE_BUILD_FALSE@pdns_version = $(shell test -z "$(git_version)" && echo UNKNOWN || echo "git-$(git_version)")
+ @RELEASE_BUILD_TRUE@pdns_version = $(PACKAGE_VERSION)
+@@ -1632,18 +1632,18 @@ clean-libtool:
  	-rm -rf .libs _libs
  install-sysconfDATA: $(sysconf_DATA)
  	@$(NORMAL_INSTALL)
--	test -z "$(sysconfdir)" || $(MKDIR_P) "$(DESTDIR)$(sysconfdir)"
-+	test -z "$(EGDIR)" || $(MKDIR_P) "$(DESTDIR)$(EGDIR)"
- 	@list='$(sysconf_DATA)'; test -n "$(sysconfdir)" || list=; \
+-	@list='$(sysconf_DATA)'; test -n "$(sysconfdir)" || list=; \
++	@list='$(sysconf_DATA)'; test -n "$(EGDIR)" || list=; \
+ 	if test -n "$$list"; then \
+-	  echo " $(MKDIR_P) '$(DESTDIR)$(sysconfdir)'"; \
+-	  $(MKDIR_P) "$(DESTDIR)$(sysconfdir)" || exit 1; \
++	  echo " $(MKDIR_P) '$(DESTDIR)$(EGDIR)'"; \
++	  $(MKDIR_P) "$(DESTDIR)$(EGDIR)" || exit 1; \
+ 	fi; \
  	for p in $$list; do \
  	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
  	  echo "$$d$$p"; \

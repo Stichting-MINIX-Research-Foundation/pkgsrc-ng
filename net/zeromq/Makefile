@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2014/03/11 09:11:25 obache Exp $
+# $NetBSD: Makefile,v 1.20 2014/11/15 01:59:37 obache Exp $
 
-DISTNAME=	zeromq-4.0.4
+DISTNAME=	zeromq-4.0.5
 CATEGORIES=	net devel
 MASTER_SITES=	http://download.zeromq.org/
 
@@ -18,7 +18,18 @@ PKGCONFIG_OVERRIDE+=	src/libzmq.pc.in
 
 TEST_TARGET=	check
 
-.include "../../mk/bsd.prefs.mk"
+.include "../../mk/compiler.mk"
+
+.if !empty(CC_VERSION:Mgcc-*)
+CXXFLAGS+=	-std=gnu++0x
+.endif
+
+.if !empty(CC_VERSION:Mclang-*)
+CXXFLAGS+=	-std=gnu++11
+.endif
+
+.include "../../security/libsodium/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-libsodium=${BUILDLINK_PREFIX.libsodium}
 
 .if ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 .include "../../devel/libuuid/buildlink3.mk"

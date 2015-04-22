@@ -1,4 +1,4 @@
-$NetBSD: patch-awesomeConfig.cmake,v 1.2.6.1 2014/04/08 22:30:27 tron Exp $
+$NetBSD: patch-awesomeConfig.cmake,v 1.3 2014/04/06 05:46:14 obache Exp $
 
 --- awesomeConfig.cmake.orig	2013-04-01 11:44:46.000000000 +0000
 +++ awesomeConfig.cmake	2013-07-21 21:05:57.000000000 +0000

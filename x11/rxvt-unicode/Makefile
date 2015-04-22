@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.49 2013/11/30 23:24:10 morr Exp $
+# $NetBSD: Makefile,v 1.53 2015/01/05 22:44:17 morr Exp $
 
-DISTNAME=	rxvt-unicode-9.19
+DISTNAME=	rxvt-unicode-9.21
 CATEGORIES=	x11
 MASTER_SITES=	http://dist.schmorp.de/rxvt-unicode/ \
 		http://dist.schmorp.de/rxvt-unicode/Attic/
@@ -21,6 +21,8 @@ CONFIGURE_ENV+=		ac_cv_path_TIC=no
 CONFIGURE_ARGS+=	--enable-256-color
 
 INSTALLATION_DIRS+=	share/doc/rxvt-unicode share/examples/rxvt-unicode
+
+LIBS.SunOS+=	-lnsl -lsocket
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/README.FAQ \

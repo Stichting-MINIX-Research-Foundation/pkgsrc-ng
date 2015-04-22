@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.136 2014/03/30 12:57:54 spz Exp $
+# $NetBSD: Makefile,v 1.146 2015/03/23 09:38:50 nros Exp $
 
-DISTNAME=	curl-7.36.0
+DISTNAME=	curl-7.41.0
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	http://curl.haxx.se/download/ \
 		ftp://ftp.sunet.se/pub/www/utilities/curl/
@@ -12,11 +13,10 @@ COMMENT=	Client that groks URLs
 # not completely, but near enough
 LICENSE=	mit
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 # list it into IPv6-ready packages
 BUILD_DEFS+=	IPV6_READY
 
+USE_TOOLS+=		nroff
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}

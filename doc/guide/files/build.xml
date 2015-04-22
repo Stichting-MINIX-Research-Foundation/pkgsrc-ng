@@ -1,4 +1,4 @@
-<!-- $NetBSD: build.xml,v 1.64 2012/09/19 15:26:34 wiz Exp $ -->
+<!-- $NetBSD: build.xml,v 1.71 2014/05/31 21:08:50 asau Exp $ -->
 
 <chapter id="build">
   <title>The build process</title>
@@ -252,7 +252,8 @@ GTKDIR_DEFAULT= ${LOCALBASE}
 
       <para>The variable <varname>DISTFILES</varname> specifies
       the list of distfiles that have to be fetched. Its value
-      defaults to <literal>${DISTNAME}${EXTRACT_SUFX}</literal>,
+      defaults to <literal>${DEFAULT_DISTFILES}</literal> and
+      its value is <literal>${DISTNAME}${EXTRACT_SUFX}</literal>,
       so that most packages don't need to define it at all.
       <varname>EXTRACT_SUFX</varname> is
       <literal>.tar.gz</literal> by default, but can be changed
@@ -262,7 +263,7 @@ GTKDIR_DEFAULT= ${LOCALBASE}
       operator, but you have write for example:</para>
 
 <programlisting>
-DISTFILES=      ${DISTNAME}${EXTRACT_SUFX} additional-files.tar.gz
+DISTFILES=      ${DEFAULT_DISTFILES} additional-files.tar.gz
 </programlisting>
 
       <para>Each distfile is fetched from a list of sites, usually
@@ -298,8 +299,20 @@ MASTER_SITES=   http://www.example.com/download.cgi?file=
 </programlisting>
 
       <para> The exception to this rule are URLs starting with a dash.
-      In that case the URL is taken as is, fetched and the result stored
-      under the name of the distfile.</para>
+      In that case the URL is taken as is, fetched and the result
+      stored under the name of the distfile. You can use this style
+      for the case when the download URL style does not match the
+      above common case. For example, if permanent download URL is a
+      redirector to the real download URL, or the download file name
+      is offered by an HTTP Content-Disposition header. In the
+      following example, <filename>foo-1.0.0.tar.gz</filename> will be
+      created instead of the default
+      <filename>v1.0.0.tar.gz</filename>.</para>
+
+<programlisting>
+DISTNAME=       foo-1.0.0
+MASTER_SITES=   -http://www.example.com/archive/v1.0.0.tar.gz
+</programlisting>
 
       <para>There are some predefined values for
       <varname>MASTER_SITES</varname>, which can be used in
@@ -319,13 +332,18 @@ ${MASTER_SITE_GENTOO}
 ${MASTER_SITE_GNOME}
 ${MASTER_SITE_GNU}
 ${MASTER_SITE_GNUSTEP}
+${MASTER_SITE_HASKELL_HACKAGE}
 ${MASTER_SITE_IFARCHIVE}
 ${MASTER_SITE_KDE}
 ${MASTER_SITE_MOZILLA}
+${MASTER_SITE_MOZILLA_ALL}
+${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
+${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
+${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
 ${MASTER_SITE_SOURCEFORGE_JP}
@@ -334,6 +352,7 @@ ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
 ${MASTER_SITE_XCONTRIB}
 ${MASTER_SITE_XEMACS}
+${MASTER_SITE_XORG}
 </programlisting>
 
       <para>Some explanations for the less self-explaining ones:
@@ -1272,6 +1291,7 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
       </varlistentry>
 
       <varlistentry>
+	<!-- TODO: old bulk build? --> 
 	<term>bulk-package</term>
 
 	<listitem>
@@ -1279,7 +1299,7 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 	  package already exists, no action is taken. If not, this
 	  target will compile, install and package it (and its
 	  depends, if <varname>PKG_DEPENDS</varname> is set
-	  properly. See <xref linkend="binary.configuration"/>).
+	  properly. See <xref linkend="bulk"/>).
 	  After creating the binary package, the sources, the
 	  just-installed package and its required packages are
 	  removed, preserving free disk space.</para>

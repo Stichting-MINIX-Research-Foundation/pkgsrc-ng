@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.23 2013/08/03 04:26:01 ryoon Exp $
+# $NetBSD: Makefile,v 1.26 2014/12/07 00:05:11 ryoon Exp $
 #
 
-DISTNAME=	VLGothic-20130607
+DISTNAME=	VLGothic-20141206
 PKGNAME=	${DISTNAME:tl:S/-/-ttf-/}
 CATEGORIES=	fonts japanese
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=vlgothic/58961/}
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE_JP:=vlgothic/62375/}
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	yamajun@ofug.net
@@ -16,7 +16,7 @@ USE_X11BASE=	YES
 NO_BUILD=	YES
 NO_CONFIGURE=	YES
 
-FONTDIR=	${PREFIX}/lib/X11/fonts/TTF
+FONTDIR=	${PREFIX}/share/fonts/X11/TTF
 FONTS_DIRS.ttf+=${FONTDIR}
 WRKSRC=		${WRKDIR}/${DISTNAME:C/-[^-]*$//}
 

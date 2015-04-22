@@ -1,15 +1,17 @@
-@comment $NetBSD: PLIST,v 1.8 2014/02/03 16:46:13 wiz Exp $
+@comment $NetBSD: PLIST,v 1.10 2014/05/27 14:23:58 pho Exp $
 bin/hb-ot-shape-closure
 bin/hb-shape
 include/harfbuzz/hb-blob.h
 include/harfbuzz/hb-buffer.h
 include/harfbuzz/hb-common.h
+${PLIST.coretext}include/harfbuzz/hb-coretext.h
 include/harfbuzz/hb-deprecated.h
 include/harfbuzz/hb-face.h
 include/harfbuzz/hb-font.h
 include/harfbuzz/hb-ft.h
 include/harfbuzz/hb-glib.h
 ${PLIST.icu}include/harfbuzz/hb-icu.h
+include/harfbuzz/hb-ot-font.h
 include/harfbuzz/hb-ot-layout.h
 include/harfbuzz/hb-ot-shape.h
 include/harfbuzz/hb-ot-tag.h

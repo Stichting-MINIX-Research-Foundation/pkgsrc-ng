@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.49 2014/02/12 23:18:31 tron Exp $
+# $NetBSD: Makefile,v 1.52 2015/03/11 01:31:02 mef Exp $
 
-DISTNAME=	dirmngr-1.1.0
-PKGREVISION=	8
+DISTNAME=	dirmngr-1.1.1
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/dirmngr/
 EXTRACT_SUFX=	.tar.bz2
@@ -9,7 +8,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnupg.org/aegypten2/
 COMMENT=	X509 certificate and CRL downloader
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-gpl-v3
 
 DIRMNGR_USER?=		dirmngr
 DIRMNGR_GROUP?=		dirmngr
@@ -54,7 +53,7 @@ OWN_DIRS_PERMS+=	${PREFIX}/libdata/dirmngr/extra-certs ${DIRMNGR_PERMS}
 INSTALLATION_DIRS=	sbin
 
 post-build:
-	${SETENV} ${BUILDENV} ${CC} ${CFLAGS} -DDIRMNGR_USER='"${DIRMNGR_USER}"' -DDIRMNGR_PATH='"${PREFIX}/bin/dirmngr"' -o ${WRKDIR}/runDirmngr ${FILESDIR}/runDirmngr.c
+	${SETENV} ${MAKE_ENV} ${CC} ${CFLAGS} -DDIRMNGR_USER='"${DIRMNGR_USER}"' -DDIRMNGR_PATH='"${PREFIX}/bin/dirmngr"' -o ${WRKDIR}/runDirmngr ${FILESDIR}/runDirmngr.c
 
 post-install:
 	${INSTALL_PROGRAM} ${WRKDIR}/runDirmngr ${DESTDIR}${PREFIX}/sbin

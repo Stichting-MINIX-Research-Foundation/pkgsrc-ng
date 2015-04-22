@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2013/11/01 11:30:22 jaapb Exp $
+# $NetBSD: Makefile,v 1.7 2015/01/20 14:24:36 jaapb Exp $
 #
 
 DISTNAME=	boomerang-0.2-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	lang
 MASTER_SITES=	http://www.seas.upenn.edu/~harmony/download/
 

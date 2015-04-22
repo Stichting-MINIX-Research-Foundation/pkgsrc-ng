@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.138 2014/02/12 23:18:00 tron Exp $
+# $NetBSD: Makefile,v 1.146 2014/12/01 08:45:04 wiz Exp $
 
-DISTNAME=	graphviz-2.34.0
-PKGREVISION=	7
+DISTNAME=	graphviz-2.38.0
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.graphviz.org/pub/graphviz/stable/SOURCES/
 
@@ -9,8 +9,6 @@ MAINTAINER=	sno@NetBSD.org
 HOMEPAGE=	http://www.graphviz.org/
 COMMENT=	Graph Drawing Programs from AT&T Research and Lucent Bell Labs
 LICENSE=	epl-v1.0
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 CHECK_FILES_SKIP+=	${PREFIX}/lib/graphviz/config6
 

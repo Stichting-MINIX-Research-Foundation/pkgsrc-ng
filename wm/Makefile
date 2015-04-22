@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.122 2014/01/05 12:34:49 ryoon Exp $
+# $NetBSD: Makefile,v 1.126 2014/11/24 00:37:13 joerg Exp $
 #
 
 COMMENT=	X11 window managers, configuration tools, and themes
@@ -42,7 +42,6 @@ SUBDIR+=	fvwm-themes
 SUBDIR+=	fvwm1
 SUBDIR+=	golem
 SUBDIR+=	i3
-SUBDIR+=	icecc
 SUBDIR+=	icewm
 SUBDIR+=	icewm-imlib
 SUBDIR+=	icewm13
@@ -91,10 +90,11 @@ SUBDIR+=	wmctrl
 SUBDIR+=	wmextra
 SUBDIR+=	wmi
 SUBDIR+=	wmii
-SUBDIR+=	wmthemes
 SUBDIR+=	wmx
 SUBDIR+=	wmx-gnome
 SUBDIR+=	xfce4-wm
 SUBDIR+=	xfce4-wm-themes
+SUBDIR+=	xmonad
+SUBDIR+=	xmonad-contrib
 
 .include "../mk/misc/category.mk"

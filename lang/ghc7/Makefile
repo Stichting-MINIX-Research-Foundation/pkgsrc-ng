@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.9 2014/02/08 12:42:25 obache Exp $
+# $NetBSD: Makefile,v 1.20 2015/03/17 21:15:28 tnn Exp $
 # -----------------------------------------------------------------------------
 # Package metadata
 #
 DISTNAME=	ghc-7.6.3-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	1
+PKGREVISION=	6
 CATEGORIES=	lang
 MASTER_SITES=	http://www.haskell.org/ghc/dist/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,7 +20,7 @@ LICENSE=	modified-bsd
 # possible. So we have to prepare stripped-down binaries sufficient to
 # bootstrap compilers for each platforms. If you want to build them
 # yourself, follow an instruction in the ./TODO file.
-ONLY_FOR_PLATFORM= \
+BROKEN_EXCEPT_ON_PLATFORM+= \
 	Darwin-*-powerpc \
 	FreeBSD-*-i386 \
 	Linux-*-x86_64 \
@@ -33,18 +33,6 @@ ONLY_FOR_PLATFORM= \
 # Distfiles
 #
 DISTFILES=	${DEFAULT_DISTFILES}
-#.if make(distinfo)
-#DISTFILES+=	${PKGNAME_NOREV}-boot-i386-unknown-freebsd.tar.xz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-i386-unknown-netbsd.tar.xz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-powerpc-apple-darwin.tar.xz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-x86_64-unknown-linux.tar.xz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-x86_64-unknown-netbsd.tar.xz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-i386-unknown-solaris2.tar.gz
-#DISTFILES+=	${PKGNAME_NOREV}-boot-x86_64-unknown-solaris2.tar.xz
-#.else
-#DISTFILES+=	${BOOT_ARCHIVE}
-#.endif
-
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 # We don't want to extract all of the DISTFILEs.
@@ -54,28 +42,40 @@ EXTRACT_ONLY=	${DEFAULT_DISTFILES}
 # -----------------------------------------------------------------------------
 # Tools
 #
-USE_TOOLS+=			autoconf gmake perl:run
+USE_TOOLS+=			autoconf gmake gzip perl:run
 GNU_CONFIGURE=			yes
-USE_GNU_CONFIGURE_HOST=	no
+USE_GNU_CONFIGURE_HOST=		no
+USE_LIBTOOL=			yes
 
 CONFIGURE_ARGS+= \
 	--with-gcc=${CC:Q} \
-	--with-gmp-includes=${BUILDLINK_PREFIX.gmp:Q}/include \
-	--with-gmp-libraries=${BUILDLINK_PREFIX.gmp:Q}/lib \
-	--with-iconv-includes=${BUILDLINK_PREFIX.iconv:Q}/include \
-	--with-iconv-libraries=${BUILDLINK_PREFIX.iconv:Q}/lib
+	--with-gmp-includes=${BUILDLINK_PREFIX.gmp:Q}/${BUILDLINK_INCDIRS.gmp:Q} \
+	--with-gmp-libraries=${BUILDLINK_PREFIX.gmp:Q}/${BUILDLINK_LIBDIRS.gmp:Q} \
+	--with-iconv-includes=${BUILDLINK_PREFIX.iconv:Q}/${BUILDLINK_INCDIRS.iconv:Q} \
+	--with-iconv-libraries=${BUILDLINK_PREFIX.iconv:Q}/${BUILDLINK_LIBDIRS.iconv:Q}
 
 CONFIGURE_ENV+= \
-	CONF_CC_OPTS_STAGE0=${CFLAGS:Q} \
-	CONF_GCC_LINKER_OPTS_STAGE0=${LDFLAGS:Q} \
-	CONF_LD_LINKER_OPTS_STAGE0=${LDFLAGS:Q} \
-	CONF_CC_OPTS_STAGE1=${CFLAGS:Q} \
-	CONF_GCC_LINKER_OPTS_STAGE1=${LDFLAGS:Q} \
-	CONF_LD_LINKER_OPTS_STAGE1=${LDFLAGS:Q} \
-	CONF_CC_OPTS_STAGE2=${CFLAGS:Q} \
-	CONF_GCC_LINKER_OPTS_STAGE2=${LDFLAGS:Q} \
-	CONF_LD_LINKER_OPTS_STAGE2=${LDFLAGS:Q} \
+	ac_cv_path_fp_prog_ar=${AR:Q} \
 	PerlCmd=${PERL5:Q}
+
+# CFLAGS and LDFLAGS are currently not honored by "./configure". Since
+# LDFLAGS contains rpath flags it's very important to force GHC to
+# honor it. Otherwise neither GHC itself nor executables it produces
+# will have any rpaths so users will have to put "${PREFIX}/lib" into
+# their "/etc/ld-elf.so.conf". See
+# http://hackage.haskell.org/trac/ghc/ticket/2933
+.for stage in 0 1 2
+CONFIGURE_ENV+= \
+	CONF_CC_OPTS_STAGE${stage}=${CFLAGS:Q} \
+	CONF_GCC_LINKER_OPTS_STAGE${stage}=${LDFLAGS:Q}
+# Note that CONF_LD_LINKER_OPTS_STAGE{0,1,2} are only used for
+# creating static GHCi libraries (HS*.o). Setting them to ${LDFLAGS}
+# does more harm than good because our ${LDFLAGS} contains -Wl,*
+# flags. It's true that ../../mk/wrapper/cmd-sink-ld transforms them
+# but those flags will also be baked into the compiler (see
+# ${WRKSRC}/compiler/ghc.mk) so they cause problems when used outside
+# the buildlink.
+.endfor
 
 
 # -----------------------------------------------------------------------------
@@ -85,29 +85,26 @@ CONFIGURE_ENV+= \
 # We patch configure.ac in some directories.
 post-patch:
 	@${PHASE_MSG} "Regenerating configuration scripts for ${PKGNAME}"
+	${RUN} cd ${WRKSRC:Q}/libraries/base        && autoconf
 	${RUN} cd ${WRKSRC:Q}/libraries/integer-gmp && autoconf
 
 
 # Define the target "pre-configure" and non-standard "bootstrap".
 .include "../../lang/ghc7/bootstrap.mk"
 
-.for i in ${DISTFILES:M*-boot-*}
-SITES.${i}?=	${MASTER_SITE_LOCAL}
-.endfor
-
 # Our pre-configure phase installs a bindist of bootstrapping compiler
 # directly into TOOLS_DIR so that ./configure can find it.
 
-post-configure:
+
 # Here we generate mk/build.mk dynamically.
+post-configure:
 	${RUN} ${RM} -f ${WRKSRC:Q}/mk/build.mk
 
-# We need to tell the libraries/terminfo/configure that our ncurses is
-# in a non-standard path. Without that, the resulting GHC tries to
-# link programs by executing ld(1) without passing it -L${PREFIX:Q}/lib.
+# See https://ghc.haskell.org/trac/ghc/ticket/10096
 	${RUN} ${ECHO} "libraries/terminfo_CONFIGURE_OPTS += \
-		--configure-option=--with-curses-includes=${BUILDLINK_PREFIX.curses:Q}/include \
-		--configure-option=--with-curses-libraries=${BUILDLINK_PREFIX.curses:Q}/lib" >> ${WRKSRC:Q}/mk/build.mk
+		--configure-option=--with-curses-includes=${BUILDLINK_PREFIX.curses:Q}/${BUILDLINK_INCDIRS.curses:Q} \
+		--configure-option=--with-curses-libraries=${BUILDLINK_PREFIX.curses:Q}/${BUILDLINK_LIBDIRS.curses:Q}" \
+		>> ${WRKSRC:Q}/mk/build.mk
 
 # The ghc compiler does normally split the generated asm files into small
 # parts before sending them to gcc, to enable the linker to eliminate
@@ -119,8 +116,8 @@ post-configure:
 # Disable file splitting until pkgsrc gets improved.
 	${RUN} ${ECHO} "SplitObjs         = NO" >> ${WRKSRC:Q}/mk/build.mk
 
-# If there is HsColour is in the PATH, GHC's build system tries to use
-# it without even checking if it really works. That's not what we
+# If there is HsColour in the PATH, GHC's build system tries to use it
+# without even checking if it really works. That's not what we
 # appreciate.
 	${RUN} ${ECHO} "HSCOLOUR_SRCS     = NO" >> ${WRKSRC:Q}/mk/build.mk
 
@@ -171,10 +168,15 @@ GENERATE_PLIST+= \
 # There is an unused script which don't pass the portability test.
 CHECK_PORTABILITY_SKIP+=	distrib/prep-bin-dist-mingw
 
-# GHC currently *requires* ${PREFIX}/lib to be in
-# "/etc/ld-elf.so.conf". See
-# http://hackage.haskell.org/trac/ghc/ticket/2933
-CHECK_SHLIBS_SUPPORTED=	no
+# Dynamic Haskell libraries currently have no rpaths to any dependent
+# Haskell libraries so we must skip shlibs check for them. Note that
+# the situation seems to be changed in GHC 7.8.1 so we should
+# readdress this later. See
+# https://ghc.haskell.org/trac/ghc/ticket/8266 (slightly off-topic but
+# pho@ found no description for the -fuse-rpath flag.)
+.if !empty(PKGNAME:Mghc-7.6.*)
+CHECK_SHLIBS_SKIP+=		*/libHS*-ghc${PKGVERSION_NOREV}.*
+.endif
 
 
 # -----------------------------------------------------------------------------

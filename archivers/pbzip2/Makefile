@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.24 2012/09/11 19:46:59 asau Exp $
+# $NetBSD: Makefile,v 1.26 2015/03/08 01:16:36 mef Exp $
 #
 
-DISTNAME=		pbzip2-1.1.5
+DISTNAME=		pbzip2-1.1.12
 CATEGORIES=		archivers
 MASTER_SITES=		http://compression.ca/pbzip2/
+MASTER_SITES=		https://launchpad.net/pbzip2/1.1/1.1.12/+download/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://compression.ca/pbzip2/
@@ -26,7 +27,7 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/pbzip2
 do-build:
 	cd ${WRKSRC} && \
 	${CXX} ${CPPFLAGS} ${CXXFLAGS} ${LDFLAGS} -o pbzip2 pbzip2.cpp \
-		BZ2StreamScanner.cpp ${LIBS}
+		BZ2StreamScanner.cpp ErrorContext.cpp ${LIBS}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/pbzip2 \

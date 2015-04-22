@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2013/12/09 14:17:54 obache Exp $
+# $NetBSD: Makefile,v 1.43 2014/10/09 13:45:02 wiz Exp $
 #
 
 DISTNAME=	Apache-ASP-2.62
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
-SVR4_PKGNAME=	p5aas
+PKGREVISION=	3
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Apache/}
 
@@ -29,5 +28,5 @@ REPLACE_PERL+=	ASP.pm
 PERL5_PACKLIST=		auto/Apache/ASP/.packlist
 
 .include "../../lang/perl5/module.mk"
-.include "../../www/ap-perl/buildlink3.mk"
+.include "../../www/ap2-perl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2012/09/11 23:25:07 asau Exp $
-#
+# $NetBSD: Makefile,v 1.22 2014/11/06 12:25:36 joerg Exp $
 
-.include "Makefile.common"
+.include "../../shells/ast-ksh/Makefile.common"
+
+PKGREVISION=	1
 
 .include "../../mk/bsd.pkg.mk"

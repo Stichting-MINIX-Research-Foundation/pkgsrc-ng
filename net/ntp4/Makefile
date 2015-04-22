@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.78 2014/03/20 19:01:45 asau Exp $
+# $NetBSD: Makefile,v 1.84 2015/03/21 20:49:28 bsiegert Exp $
 #
 
-DISTNAME=	ntp-dev-4.2.7p410
+DISTNAME=	ntp-4.2.8p1
 PKGNAME=	${DISTNAME:S/-dev-/-/}
-PKGREVISION=	1
 CATEGORIES=	net time
-MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-dev/
+MASTER_SITES=	http://www.eecis.udel.edu/~ntp/ntp_spool/ntp4/ntp-4.2/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.ntp.org/
 COMMENT=	Network Time Protocol Version 4
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 CONFLICTS+=	openntpd-[0-9]*
 
@@ -23,7 +20,9 @@ CONFIGURE_ARGS+=--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=--with-locfile=loc/pkgsrc
 CONFIGURE_ENV+=	  PATH_PERL=${PERL5}
 
-DOCDIR=		${DESTDIR}${PREFIX}/share/doc/ntp4
+OVERRIDE_DIRDEPTH=	4
+
+DOCDIR=		${DESTDIR}${PREFIX}/share/doc/ntp
 EXAMPLESDIR=	${DESTDIR}${PREFIX}/share/examples/ntp4
 ALL_NTP_DOCS=	${DOCDIR} ${EXAMPLESDIR}
 

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2014/02/24 03:09:51 wen Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/11/06 06:57:47 wen Exp $
 
-DISTNAME=		HTML-FormFu-1.00
+DISTNAME=		HTML-FormFu-2.01
 PKGNAME=		p5-${DISTNAME}
 CATEGORIES=		www perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=HTML/}
@@ -10,8 +9,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://search.cpan.org/dist/HTML-FormFu/
 COMMENT=		HTML Form Creation, Rendering and Validation Framework
 LICENSE=		${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 DEPENDS+=	p5-Captcha-reCAPTCHA>=0.93:../../www/p5-Captcha-reCAPTCHA
 DEPENDS+=	p5-Class-Accessor-Chained-[0-9]*:../../devel/p5-Class-Accessor-Chained
@@ -35,7 +32,7 @@ DEPENDS+=	p5-Hash-Flatten-[0-9]*:../../devel/p5-Hash-Flatten
 DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
 DEPENDS+=	{perl>=5.10.0,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
 DEPENDS+=	{perl>=5.7.3,p5-Locale-Maketext-[0-9]*}:../../misc/p5-Locale-Maketext
-DEPENDS+=	{perl>=5.10.0,p5-Module-Pluggable-[0-9]*}:../../devel/p5-Module-Pluggable
+DEPENDS+=	p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
 DEPENDS+=	p5-Moose>=1.00:../../devel/p5-Moose
 DEPENDS+=	p5-MooseX-Attribute-Chained>=1.0.1:../../devel/p5-MooseX-Attribute-Chained
 DEPENDS+=	p5-MooseX-Aliases-[0-9]*:../../devel/p5-MooseX-Aliases

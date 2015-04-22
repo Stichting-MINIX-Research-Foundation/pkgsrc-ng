@@ -1,6 +1,10 @@
-$NetBSD: patch-src_minizip_ioapi.c,v 1.1 2012/11/19 10:57:45 ryoon Exp $
+$NetBSD: patch-src_minizip_ioapi.c,v 1.3 2015/02/09 12:57:41 wiz Exp $
 
---- src/minizip/ioapi.c.orig	2012-10-27 11:24:40.000000000 +0000
+Fix linking on NetBSD and DragonFly BSD, where fopen, fseek, and ftello
+are 64-bit filesize safe.
+https://github.com/nmoinvaz/minizip/pull/20
+
+--- src/minizip/ioapi.c.orig	2014-10-12 14:45:14.000000000 +0000
 +++ src/minizip/ioapi.c
 @@ -14,6 +14,12 @@
          #define _CRT_SECURE_NO_WARNINGS

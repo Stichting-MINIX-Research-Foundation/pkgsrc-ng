@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2014/01/24 11:15:29 jperkin Exp $
+# $NetBSD: Makefile,v 1.11 2014/08/01 15:55:07 fhajny Exp $
 #
 
-DISTNAME=	percona-toolkit-2.2.6
+DISTNAME=	percona-toolkit-2.2.9
 CATEGORIES=	databases
 MASTER_SITES=	http://www.percona.com/downloads/percona-toolkit/${PKGVERSION_NOREV}/
 

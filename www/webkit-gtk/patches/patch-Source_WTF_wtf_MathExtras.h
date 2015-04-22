@@ -1,15 +1,15 @@
-$NetBSD: patch-Source_WTF_wtf_MathExtras.h,v 1.1 2013/02/22 23:54:07 jperkin Exp $
+$NetBSD: patch-Source_WTF_wtf_MathExtras.h,v 1.3 2014/09/16 11:56:13 jperkin Exp $
 
-Remove bogus Solaris check.
+Avoid broken section for SunOS/gcc.
 
---- Source/WTF/wtf/MathExtras.h.orig	2012-10-16 15:22:38.000000000 +0000
+--- Source/WTF/wtf/MathExtras.h.orig	2014-08-25 12:50:32.000000000 +0000
 +++ Source/WTF/wtf/MathExtras.h
-@@ -288,7 +288,7 @@ inline bool isWithinIntRange(float x)
-     return x > static_cast<float>(std::numeric_limits<int>::min()) && x < static_cast<float>(std::numeric_limits<int>::max());
- }
+@@ -76,7 +76,7 @@ inline double wtf_ceil(double x) { retur
  
--#if !COMPILER(MSVC) && !COMPILER(RVCT) && !OS(SOLARIS)
-+#if !COMPILER(MSVC) && !COMPILER(RVCT)
- using std::isfinite;
- #if !COMPILER_QUIRK(GCC11_GLOBAL_ISINF_ISNAN)
- using std::isinf;
+ #endif
+ 
+-#if OS(SOLARIS)
++#if OS(notSOLARIS)
+ 
+ namespace std {
+ 

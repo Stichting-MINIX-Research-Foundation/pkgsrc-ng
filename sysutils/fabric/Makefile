@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.35 2014/02/15 07:27:34 gls Exp $
+# $NetBSD: Makefile,v 1.38 2014/08/13 20:05:14 gls Exp $
 
-VERSION=		1.8.2
+VERSION=		1.9.1
 DISTNAME=		Fabric-${VERSION}
 PKGNAME=		${DISTNAME:S/F/f/}
 CATEGORIES=		sysutils net
@@ -13,7 +13,7 @@ LICENSE=		2-clause-bsd
 
 DEPENDS+=		${PYPKGPREFIX}-paramiko>=1.10.0:../../security/py-paramiko
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-paramiko
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-paramiko
 
 USE_TOOLS+=		pax
 
@@ -28,8 +28,10 @@ INSTALLATION_DIRS+=	share/doc/fabric/usage
 post-install:
 	${INSTALL_MAN} files/fab.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/
 
-	cd ${WRKSRC}/docs && pax -wr -pma *.rst api/contrib/*.rst \
+	cd ${WRKSRC}/sites/docs && pax -wr -pma *.rst api/contrib/*.rst \
 		api/core/*.rst usage/* \
+		${DESTDIR}${PREFIX}/share/doc/fabric/.
+	cd ${WRKSRC}/sites/www && pax -wr -pma *.rst \
 		${DESTDIR}${PREFIX}/share/doc/fabric/.
 
 .include "../../lang/python/egg.mk"

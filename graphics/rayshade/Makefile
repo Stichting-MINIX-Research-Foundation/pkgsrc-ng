@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2013/02/16 11:22:26 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2015/03/15 19:09:44 tnn Exp $
 
 DISTNAME=	rayshade.4.0.6
 PKGNAME=	rayshade-4.0.6
-#KGREVISION=	8
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://graphics.stanford.edu/pub/rayshade/
 EXTRACT_SUFX=	.tar.Z
@@ -11,10 +10,9 @@ EXTRACT_SUFX=	.tar.Z
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Extensible system for creating ray-traced images
 
-NOT_FOR_BULK_PLATFORM=	HPUX-*-*
-
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	./Configure
+USE_TOOLS+=		lex yacc
 BUILD_TARGET=
 INSTALLATION_DIRS=	bin lib share/doc/rayshade share/examples/rayshade
 WRKSRC=		${WRKDIR}/rayshade.4.0

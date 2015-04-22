@@ -1,9 +1,9 @@
-# $NetBSD: options.mk,v 1.24 2014/02/04 08:28:06 obache Exp $
+# $NetBSD: options.mk,v 1.28 2014/12/07 08:45:59 obache Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.libpurple
 PKG_SUPPORTED_OPTIONS+=		avahi dbus debug farsight gnome gnutls
 PKG_SUPPORTED_OPTIONS+=		gstreamer perl sasl tcl
-PKG_SUGGESTED_OPTIONS+=		dbus farsight gnome gnutls gstreamer
+PKG_SUGGESTED_OPTIONS+=		dbus farsight gnome gstreamer
 
 .include "../../mk/bsd.options.mk"
 
@@ -44,6 +44,9 @@ CONFIGURE_ARGS+= --with-nss-libs=${BUILDLINK_PREFIX.nss}/lib/nss
 PLIST.perl=		yes
 CONFIGURE_ARGS+=	--enable-perl
 USE_TOOLS+=		perl:run
+PERL5_PACKLIST_DIR=	${PREFIX}/lib/purple-2/perl
+PERL5_PACKLIST=		auto/Purple/.packlist
+.  include "../../lang/perl5/packlist.mk"
 .  include "../../lang/perl5/buildlink3.mk"
 .endif
 
@@ -57,7 +60,6 @@ CONFIGURE_ARGS+=	--with-tclconfig=${BUILDLINK_PREFIX.tcl}/lib
 .if !empty(PKG_OPTIONS:Mdbus)
 CONFIGURE_ARGS+=	--enable-dbus
 CONFIGURE_ARGS+=	--with-python=${PYTHONBIN}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.10.8
 PLIST.dbus=		yes
 REPLACE_SH+=		libpurple/purple-send
 REPLACE_SH+=		libpurple/purple-send-async

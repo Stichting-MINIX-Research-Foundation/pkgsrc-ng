@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.75 2014/03/13 13:36:19 adam Exp $
+# $NetBSD: Makefile,v 1.92 2015/03/02 13:34:16 adam Exp $
 
-DISTNAME=	sqlite-autoconf-3080401
-PKGNAME=	sqlite3-3.8.4.1
+DISTNAME=	sqlite-autoconf-3080803
+PKGNAME=	sqlite3-3.8.8.3
 CATEGORIES=	databases
-MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2014/ \
-		http://www.sqlite.org/2014/
+MASTER_SITES=	http://www.hwaci.com/sw/sqlite/2015/ \
+		http://www.sqlite.org/2015/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.sqlite.org/
@@ -28,8 +28,9 @@ INSTALLATION_DIRS+=	${PKGMANDIR}/man1
 CFLAGS.NetBSD+=		-DUSE_PREAD
 
 # Darwin < 9 (Mac OS X < 10.5 "Leopard") doesn't have gethostuuid(2)
+# and lacks the zone memory allocator
 .if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
-CFLAGS+=		-DSQLITE_ENABLE_LOCKING_STYLE=0
+CFLAGS+=		-DSQLITE_ENABLE_LOCKING_STYLE=0 -DSQLITE_WITHOUT_ZONEMALLOC
 .endif
 
 # This define includes the sqlite3_unlock_notify() API in the build.
@@ -42,6 +43,10 @@ CFLAGS+=		-DSQLITE_ENABLE_LOAD_EXTENSION
 # Uses dlopen and friends but doesn't use -ldl on Linux.
 # See http://www.sqlite.org/cvstrac/tktview?tn=3555
 LIBS+=			${BUILDLINK_LDADD.dl}
+
+.if ${OS_VARIANT} == "SCOOSR5"
+LDFLAGS.SCO_SV+=	-lpthread
+.endif
 
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"

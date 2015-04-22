@@ -1,17 +1,4 @@
-# $NetBSD: Makefile.common,v 1.6 2014/03/27 20:57:55 adam Exp $
-#
-# used by databases/postgresql93-adminpack/Makefile
-# used by databases/postgresql93-client/Makefile
-# used by databases/postgresql93-datatypes/Makefile
-# used by databases/postgresql93-dblink/Makefile
-# used by databases/postgresql93-docs/Makefile
-# used by databases/postgresql93-fuzzystrmatch/Makefile
-# used by databases/postgresql93-pgcrypto/Makefile
-# used by databases/postgresql93-plperl/Makefile
-# used by databases/postgresql93-plpython/Makefile
-# used by databases/postgresql93-pltcl/Makefile
-# used by databases/postgresql93-server/Makefile
-# used by databases/postgresql93-upgrade/Makefile
+# $NetBSD: Makefile.common,v 1.10 2015/02/14 07:40:18 adam Exp $
 #
 # This Makefile fragment is included by all PostgreSQL packages built from
 # the main sources of the PostgreSQL distribution except jdbc-postgresql.
@@ -20,8 +7,23 @@
 # packages, is as follows:
 #	<lang>-postgresql	client-side interface to PostgreSQL
 #	postgresql-<lang>	server-side module for PostgreSQL backend
+#
+# used by databases/postgresql93-adminpack/Makefile
+# used by databases/postgresql93-client/Makefile
+# used by databases/postgresql93-datatypes/Makefile
+# used by databases/postgresql93-dblink/Makefile
+# used by databases/postgresql93-docs/Makefile
+# used by databases/postgresql93-fuzzystrmatch/Makefile
+# used by databases/postgresql93-monitoring/Makefile
+# used by databases/postgresql93-pgcrypto/Makefile
+# used by databases/postgresql93-plperl/Makefile
+# used by databases/postgresql93-plpython/Makefile
+# used by databases/postgresql93-pltcl/Makefile
+# used by databases/postgresql93-replicationtools/Makefile
+# used by databases/postgresql93-server/Makefile
+# used by databases/postgresql93-upgrade/Makefile
 
-DISTNAME=	postgresql-9.3.4
+DISTNAME=	postgresql-9.3.6
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=source/v${PKGVERSION_NOREV}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -37,7 +39,7 @@ CONFLICTS+=	postgresql9[0124-9]-[0-9]*
 .if !empty(PKGNAME:M*-*-*)
 module=		${PKGNAME:C/-[0-9].*$//:C/^.*-//}
 CONFLICTS+=	postgresql[0-8][0-9]-${module}-[0-9]*
-CONFLICTS+=	postgresql9[013-9]-${module}-[0-9]*
+CONFLICTS+=	postgresql9[0124-9]-${module}-[0-9]*
 .endif
 
 DISTINFO_FILE?=		${.CURDIR}/../../databases/postgresql93/distinfo

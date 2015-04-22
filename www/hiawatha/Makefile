@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2012/10/28 06:30:17 asau Exp $
+# $NetBSD: Makefile,v 1.31 2014/11/24 00:48:42 joerg Exp $
 #
 
 DISTNAME=	hiawatha
@@ -37,7 +37,7 @@ post-extract:
 	${SED}  -e "s,@PREFIX@,${PREFIX},g" \
 		-e "s,@PKG_SYSCONFDIR@,${PKG_SYSCONFDIR},g" \
 		< ${FILESDIR}/hiawatha.cfg > ${WRKDIR}/hiawatha.cfg
-	${CHMOD} -R go-w ${WRKSRC}
+	${CHMOD} -R go-w ${WRKSRC}/[A-Za-z0-9]*
 
 INSTALLATION_DIRS=	lib/java/hiawatha ${EGDIR}/WEBROOT/images
 
@@ -51,7 +51,7 @@ do-install:
 	cd ${WRKSRC} && pax -s '/^WEBROOT/pault.com/' -rw WEBROOT ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${FILESDIR}/index.xml ${DESTDIR}${EGDIR}/WEBROOT
 	${INSTALL_DATA} ${FILESDIR}/index.xsl ${DESTDIR}${EGDIR}/WEBROOT
-	${INSTALL_DATA} ${DISTDIR}/sitedrivenby.gif ${DESTDIR}${EGDIR}/WEBROOT/images
+	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/sitedrivenby.gif ${DESTDIR}${EGDIR}/WEBROOT/images
 
 .include "../../mk/java-vm.mk"
 .include "../../mk/bsd.pkg.mk"

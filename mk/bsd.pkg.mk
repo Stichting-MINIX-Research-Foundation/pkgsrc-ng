@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.1997 2014/03/11 14:07:04 jperkin Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.2011 2015/03/07 21:14:32 tnn Exp $
 #
 # This file is in the public domain.
 #
@@ -95,9 +95,12 @@ MAINTAINER=${OWNER}
 MAINTAINER?=		pkgsrc-users@NetBSD.org
 .endif
 PKGWILDCARD?=		${PKGBASE}-[0-9]*
-SVR4_PKGNAME?=		${PKGNAME}
 TOOL_DEPENDS?=		# empty
+.if defined(GITHUB_TAG)
+WRKSRC?=		${WRKDIR}/${GITHUB_PROJECT}-${GITHUB_TAG:C/^v//}
+.else
 WRKSRC?=		${WRKDIR}/${DISTNAME:U${PKGNAME_NOREV}}
+.endif
 
 # Override for SU_CMD user check
 _IS_ROOT_CMD?=		${TEST}	`${ID} -u` = `${ID} -u ${_SU_ROOT_USER}`
@@ -105,7 +108,7 @@ _SU_ROOT_USER?=		${ROOT_USER}
 REAL_ROOT_USER?=	${ROOT_USER}
 REAL_ROOT_GROUP?=	${ROOT_GROUP}
 
-.if (defined(INSTALL_UNSTRIPPED) && !empty(INSTALL_UNSTRIPPED:M[yY][eE][sS])) || defined(DEBUG_FLAGS)
+.if (defined(INSTALL_UNSTRIPPED) && !empty(INSTALL_UNSTRIPPED:M[yY][eE][sS]))
 _INSTALL_UNSTRIPPED=	# set (flag used by platform/*.mk)
 .endif
 
@@ -120,17 +123,6 @@ _INSTALL_UNSTRIPPED=	# set (flag used by platform/*.mk)
 .if defined(BUILDLINK_DEPTH) || defined(BUILDLINK_PACKAGES) || \
     defined(BUILDLINK_DEPENDS) || defined(BUILDLINK_ORDER)
 PKG_FAIL_REASON+=	"Out-dated buildlink3.mk detected, please update"
-.endif
-
-# PKG_INSTALLATION_TYPE can only be one of two values: "pkgviews" or
-# "overwrite".
-.if (${PKG_INSTALLATION_TYPE} != "pkgviews") && \
-    (${PKG_INSTALLATION_TYPE} != "overwrite")
-PKG_FAIL_REASON+=	"PKG_INSTALLATION_TYPE must be \`\`pkgviews'' or \`\`overwrite''."
-.endif
-
-.if empty(PKG_INSTALLATION_TYPES:M${PKG_INSTALLATION_TYPE})
-PKG_FAIL_REASON+=	"This package doesn't support PKG_INSTALLATION_TYPE=${PKG_INSTALLATION_TYPE}."
 .endif
 
 .if !defined(CATEGORIES)
@@ -215,10 +207,6 @@ _BUILD_DEFS+=		_USE_DESTDIR
 #
 .if defined(PKG_SUPPORTED_OPTIONS) && defined(PKG_OPTIONS)
 _BUILD_DEFS+=            PKG_OPTIONS
-.endif
-
-.if empty(DEPOT_SUBDIR)
-PKG_FAIL_REASON+=	"DEPOT_SUBDIR may not be empty."
 .endif
 
 # Store the build options for multi-packages, i.e. packages that can
@@ -315,13 +303,11 @@ OVERRIDE_DIRDEPTH?=	2
 #
 .include "alternatives.mk"
 
-# Support alternative init systems.
+# Handle alternative init systems
 #
-INIT_SYSTEM?=		rc.d
 .if ${INIT_SYSTEM} == "smf"
 .  include "smf.mk"
 .endif
-_BUILD_DEFS+=		INIT_SYSTEM
 
 # Define SMART_MESSAGES in /etc/mk.conf for messages giving the tree
 # of dependencies for building, and the current target.
@@ -352,19 +338,7 @@ FAIL?=			${SH} ${PKGSRCDIR}/mk/scripts/fail
 #
 PKG_SYSCONFVAR?=	${PKGBASE}
 PKG_SYSCONFSUBDIR?=	# empty
-.if ${PKG_INSTALLATION_TYPE} == "overwrite"
-PKG_SYSCONFDEPOTBASE=	# empty
 PKG_SYSCONFBASEDIR=	${PKG_SYSCONFBASE}
-.else
-.  if !empty(PKG_SYSCONFBASE:M${PREFIX}) || \
-      !empty(PKG_SYSCONFBASE:M${PREFIX}/*)
-PKG_SYSCONFDEPOTBASE=	# empty
-PKG_SYSCONFBASEDIR=	${PKG_SYSCONFBASE}
-.  else
-PKG_SYSCONFDEPOTBASE=	${PKG_SYSCONFBASE}/${DEPOT_SUBDIR}
-PKG_SYSCONFBASEDIR=	${PKG_SYSCONFDEPOTBASE}/${PKGNAME}
-.  endif
-.endif
 .if empty(PKG_SYSCONFSUBDIR)
 DFLT_PKG_SYSCONFDIR:=	${PKG_SYSCONFBASEDIR}
 .else
@@ -374,7 +348,6 @@ PKG_SYSCONFDIR=		${DFLT_PKG_SYSCONFDIR}
 .if defined(PKG_SYSCONFDIR.${PKG_SYSCONFVAR})
 PKG_SYSCONFDIR=		${PKG_SYSCONFDIR.${PKG_SYSCONFVAR}}
 PKG_SYSCONFBASEDIR=	${PKG_SYSCONFDIR.${PKG_SYSCONFVAR}}
-PKG_SYSCONFDEPOTBASE=	# empty
 .endif
 PKG_SYSCONFDIR_PERMS?=	${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
 
@@ -393,11 +366,6 @@ USE_TOOLS+=								\
 
 # bsd.wrapper.mk
 USE_TOOLS+=	expr
-
-# bsd.bulk-pkg.mk uses certain tools
-.if defined(BATCH)
-USE_TOOLS+=	tee tsort
-.endif
 
 # scripts/shlib-type
 .if ${_OPSYS_SHLIB_TYPE} == "ELF/a.out"
@@ -439,6 +407,10 @@ ${FAKEHOMEDIR}:
 	${RUN} ${MKDIR} ${.TARGET}
 
 .include "wrapper/bsd.wrapper.mk"
+
+.if ${USE_CWRAPPERS:tl} != "no"
+.include "cwrappers.mk"
+.endif
 
 .if defined(ABI_DEPENDS) || defined(BUILD_ABI_DEPENDS)
 .  if !empty(USE_ABI_DEPENDS:M[yY][eE][sS])
@@ -495,20 +467,20 @@ X11BASE:=		/usr
 
 .if !defined(NO_SKIP)
 .  if (defined(NO_BIN_ON_CDROM) && defined(FOR_CDROM))
-PKG_FAIL_REASON+= "${PKGNAME} may not be placed in binary form on a CDROM:" \
+PKG_SKIP_REASON+= "${PKGNAME} may not be placed in binary form on a CDROM:" \
          "    "${NO_BIN_ON_CDROM:Q}
 .  endif
 .  if (defined(NO_SRC_ON_CDROM) && defined(FOR_CDROM))
-PKG_FAIL_REASON+= "${PKGNAME} may not be placed in source form on a CDROM:" \
+PKG_SKIP_REASON+= "${PKGNAME} may not be placed in source form on a CDROM:" \
          "    "${NO_SRC_ON_CDROM:Q}
 .  endif
 .  if (defined(RESTRICTED) && defined(NO_RESTRICTED))
-PKG_FAIL_REASON+= "${PKGNAME} is restricted:" \
+PKG_SKIP_REASON+= "${PKGNAME} is restricted:" \
 	 "    "${RESTRICTED:Q}
 .  endif
 .  if !(${MKCRYPTO} == "YES" || ${MKCRYPTO} == yes)
 .    if defined(CRYPTO)
-PKG_FAIL_REASON+= "${PKGNAME} may not be built, because it utilizes strong cryptography"
+PKG_SKIP_REASON+= "${PKGNAME} may not be built, because it utilizes strong cryptography"
 .    endif
 .  endif
 .  if defined(USE_X11) && (${X11_TYPE} == "native") && !exists(${X11BASE})
@@ -520,7 +492,24 @@ PKG_FAIL_REASON+= "${PKGNAME} is marked as broken:" ${BROKEN:Q}
 
 .include "license.mk"
 
-# Define __PLATFORM_OK only if the OS matches the pkg's allowed list.
+#
+# Check for packages broken or inappropriate on this platform.
+# Set __PLATFORM_OK and __PLATFORM_WORKS only if the platform passes
+# both the NOT_FOR/ONLY_FOR and BROKEN_ON lists (respectively).
+#
+
+# 1. BROKEN_EXCEPT_ON_PLATFORM
+.  if defined(BROKEN_EXCEPT_ON_PLATFORM) && !empty(BROKEN_EXCEPT_ON_PLATFORM)
+.    for __tmp__ in ${BROKEN_EXCEPT_ON_PLATFORM}
+.      if ${MACHINE_PLATFORM:M${__tmp__}} != ""
+__PLATFORM_WORKS?=	yes
+.      endif	# MACHINE_PLATFORM
+.    endfor	# __tmp__
+.  else	# !BROKEN_EXCEPT_ON_PLATFORM
+__PLATFORM_WORKS?=	yes
+.  endif	# BROKEN_EXCEPT_ON_PLATFORM
+
+# 2. ONLY_FOR_PLATFORM
 .  if defined(ONLY_FOR_PLATFORM) && !empty(ONLY_FOR_PLATFORM)
 .    for __tmp__ in ${ONLY_FOR_PLATFORM}
 .      if ${MACHINE_PLATFORM:M${__tmp__}} != ""
@@ -530,15 +519,30 @@ __PLATFORM_OK?=	yes
 .  else	# !ONLY_FOR_PLATFORM
 __PLATFORM_OK?=	yes
 .  endif	# ONLY_FOR_PLATFORM
+
+# 3. BROKEN_ON_PLATFORM
+.  for __tmp__ in ${BROKEN_ON_PLATFORM}
+.    if ${MACHINE_PLATFORM:M${__tmp__}} != ""
+.      undef __PLATFORM_WORKS
+.    endif	# MACHINE_PLATFORM
+.  endfor	# __tmp__
+
+# 4. NOT_FOR_PLATFORM
 .  for __tmp__ in ${NOT_FOR_PLATFORM}
 .    if ${MACHINE_PLATFORM:M${__tmp__}} != ""
 .      undef __PLATFORM_OK
 .    endif	# MACHINE_PLATFORM
 .  endfor	# __tmp__
+
+# Check OK (NOT_FOR/ONLY_FOR) before WORKS (BROKEN_ON)
 .  if !defined(__PLATFORM_OK)
-PKG_FAIL_REASON+= "${PKGNAME} is not available for ${MACHINE_PLATFORM}"
+PKG_SKIP_REASON+= "${PKGNAME} is not available for ${MACHINE_PLATFORM}"
 .  endif	# !__PLATFORM_OK
-.endif
+.  if !defined(__PLATFORM_WORKS)
+PKG_FAIL_REASON+= "${PKGNAME} is marked broken on ${MACHINE_PLATFORM}"
+.  endif	# !__PLATFORM_WORKS
+
+.endif # NO_SKIP
 
 # Add these defs to the ones dumped into +BUILD_DEFS
 _BUILD_DEFS+=	PKGPATH
@@ -631,6 +635,7 @@ _ROOT_CMD=	cd ${.CURDIR} &&					\
 			PATH=${_PATH_ORIG:Q}:${SU_CMD_PATH_APPEND:Q}	\
 		${MAKE} ${MAKEFLAGS} _PKGSRC_BARRIER=yes		\
 			PKG_DEBUG_LEVEL=${PKG_DEBUG_LEVEL:Q}		\
+			${USE_CROSS_COMPILE:DUSE_CROSS_COMPILE=${USE_CROSS_COMPILE:Q}}	\
 			su-${.TARGET} ${MAKEFLAGS.su-${.TARGET}}
 
 .PHONY: su-target
@@ -665,9 +670,6 @@ lint:
 # List of flags to pass to pkg_add(1) for bin-install:
 
 BIN_INSTALL_FLAGS?= 	# -v
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-PKG_ARGS_ADD=		-W ${LOCALBASE} -w ${DEFAULT_VIEW}
-.endif
 _BIN_INSTALL_FLAGS=	${BIN_INSTALL_FLAGS}
 .if defined(_AUTOMATIC) && !empty(_AUTOMATIC:M[Yy][Ee][Ss])
 _BIN_INSTALL_FLAGS+=	-A
@@ -755,14 +757,6 @@ tags:
 
 .include "subst.mk"
 
-#
-# For bulk build targets (bulk-install, bulk-package), the
-# BATCH variable must be set in /etc/mk.conf:
-#
-.if defined(BATCH)
-.  include "bulk/bsd.bulk-pkg.mk"
-.endif
-
 # README generation code.
 .include "bsd.pkg.readme.mk"
 
@@ -817,7 +811,7 @@ ${_MAKEVARS_MK.${_phase_}}: ${WRKDIR}
 .  endif
 .endif
 
-.if defined(PKG_DEVELOPER) && ${PKG_DEVELOPER} != "no"
+.if ${PKG_DEVELOPER:Uno} != "no"
 .  include "misc/developer.mk"
 .endif
 .include "misc/show.mk"

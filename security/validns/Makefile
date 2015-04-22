@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2014/02/17 08:18:07 pettai Exp $
+# $NetBSD: Makefile,v 1.12 2015/03/15 16:45:04 tnn Exp $
 #
 
 DISTNAME=	validns-0.8
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	http://www.validns.net/download/
 
@@ -34,4 +35,6 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/validns.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
 .include "../../devel/libjudy/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

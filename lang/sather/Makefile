@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2014/01/11 14:42:04 adam Exp $
+# $NetBSD: Makefile,v 1.60 2015/03/31 15:46:18 joerg Exp $
 
 DISTNAME=		sather-1.2.3
-PKGREVISION=		7
+PKGREVISION=		10
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=sather/}
 
@@ -55,6 +55,7 @@ INSTALLATION_DIRS=	bin ${PKGINFODIR} ${PKGMANDIR}/man1 lib/sather \
 
 post-patch:
 	ln -s netbsd ${WRKSRC}/System/Platforms/dragonfly
+	ln -s netbsd ${WRKSRC}/System/Platforms/darwin
 
 post-build:
 	cd ${WRKSRC}/Emacs;						\
@@ -101,7 +102,10 @@ do-install:
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=return-type -Wno-comment -Wno-parentheses-equality
+CWRAPPERS_APPEND.cc+=	-Wno-error=return-type -Wno-comment -Wno-parentheses-equality
 .endif
+
+UNLIMIT_RESOURCES+=	datasize
 
 .include "../../devel/boehm-gc/buildlink3.mk"
 .include "../../x11/tk/buildlink3.mk"

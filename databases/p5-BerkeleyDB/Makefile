@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2013/05/31 12:39:48 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2014/12/04 06:02:16 mef Exp $
 
-DISTNAME=	BerkeleyDB-0.51
+DISTNAME=	BerkeleyDB-0.54
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
-SVR4_PKGNAME=	p5bdb
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=BerkeleyDB/}
 
@@ -11,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/BerkeleyDB/
 COMMENT=	Access Berkeley DB
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BDB_ACCEPTED=		db5 db4 db3 db2
 PERL5_PACKLIST=		auto/BerkeleyDB/.packlist

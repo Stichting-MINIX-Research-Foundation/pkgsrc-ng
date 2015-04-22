@@ -1,18 +1,19 @@
-# $NetBSD: Makefile,v 1.5 2012/09/11 19:47:00 asau Exp $
-#
+# $NetBSD: Makefile,v 1.8 2015/02/08 16:04:28 fhajny Exp $
 
-DISTNAME=	pigz-2.2.5
+DISTNAME=	pigz-2.3.3
 CATEGORIES=	archivers
 MASTER_SITES=	http://zlib.net/pigz/
 
-MAINTAINER=	wiz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://zlib.net/pigz/
 COMMENT=	Parallel implementation of gzip
 LICENSE=	modified-bsd
 
-INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/pigz
+USE_LANGUAGES=	c c99
+USE_TOOLS+=	gmake
 
 BUILD_TARGET=		pigz
+INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/pigz
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/pigz ${DESTDIR}${PREFIX}/bin

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.60 2014/01/19 13:05:04 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2015/01/17 09:20:54 wiz Exp $
 
-DISTNAME=	libsoup-2.44.2
+DISTNAME=	libsoup-2.48.1
 PKGNAME=	${DISTNAME:S/libsoup/libsoup24/}
 CATEGORIES=	net gnome
-MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.44/}
+MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libsoup/2.48/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -32,10 +32,12 @@ TEST_TARGET=	check
 CONFIGURE_ARGS+= 	--disable-more-warnings
 .elif !emptry(CC_VERSION:Mgcc-4.[8].*)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=format-zero-length
+CWRAPPERS_APPEND.cc+=	-Wno-error=format-zero-length
 .endif
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=format-nonliteral
+CWRAPPERS_APPEND.cc+=	-Wno-error=format-nonliteral
 .endif
 
 REPLACE_PYTHON= libsoup/tld-parser.py

@@ -1,8 +1,8 @@
-$NetBSD: patch-configure,v 1.3 2013/07/22 17:55:21 morr Exp $
+$NetBSD: patch-configure,v 1.5 2015/01/05 22:44:17 morr Exp $
 
 Don't use predefined CXXFLAGS.
 
---- configure.orig	2013-03-23 15:39:59.000000000 +0000
+--- configure.orig	2013-10-27 16:20:10.000000000 +0000
 +++ configure
 @@ -4474,32 +4474,6 @@ fi
  LINKER=$LINKER

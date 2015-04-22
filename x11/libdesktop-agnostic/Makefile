@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2014/01/25 10:30:31 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2014/11/25 11:58:53 wiz Exp $
 
 DISTNAME=	libdesktop-agnostic-0.3.92
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	x11
 MASTER_SITES=	https://launchpad.net/libdesktop-agnostic/0.4/0.3.92/+download/
 
@@ -19,7 +19,7 @@ CONFIGURE_ARGS=	--config-backends=keyfile,gconf	\
 		--desktop-entry-backends=glib
 
 PY_PATCHPLIST=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.3.92
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.3.92
 
 EGDIR=			${PREFIX}/share/examples/libdesktop-agnostic
 PKG_SYSCONFSUBDIR=	xdg
@@ -32,6 +32,7 @@ CONF_FILES+=	${EGDIR}/desktop-agnostic.ini	\
 
 WAF_ENV=	CC=${CC:Q} CXX=${CXX:Q} PREFIX=${PREFIX:Q} \
 		CFLAGS=${CFLAGS:Q} CXXFLAGS=${CXXFLAGS:Q} \
+		VALAC=${VALAC} VAPIGEN=${VAPIGEN} \
 		LINKFLAGS=${LDFLAGS:Q} DESTDIR=${DESTDIR:Q}
 
 do-configure:
@@ -48,7 +49,7 @@ post-install:
 	${CHMOD} a+x ${DESTDIR}${PREFIX}/lib/libdesktop-agnostic*.so.*
 	${CHMOD} a+x ${DESTDIR}${PREFIX}/${PYSITELIB}/desktopagnostic/*.so
 
-.include "../../lang/vala014/buildlink3.mk"
+.include "../../lang/vala/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../devel/GConf/buildlink3.mk"
 .include "../../devel/py-gobject/buildlink3.mk"

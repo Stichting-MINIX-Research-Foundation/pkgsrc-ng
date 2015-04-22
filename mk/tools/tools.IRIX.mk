@@ -1,4 +1,4 @@
-# $NetBSD: tools.IRIX.mk,v 1.21 2014/03/06 07:34:20 uebayasi Exp $
+# $NetBSD: tools.IRIX.mk,v 1.23 2015/02/01 08:48:56 obache Exp $
 #
 # System-supplied tools for the IRIX operating system.
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2012/10/25 20:59:46 he Exp $
+# $NetBSD: Makefile,v 1.11 2015/03/14 14:41:07 tnn Exp $
 
-VERSION=	1.6.15
+VERSION=	1.6.17
 DISTNAME=	ldns-${VERSION}
 PKGNAME=	drill-${VERSION}
 CATEGORIES=	net
@@ -15,11 +15,13 @@ USE_TOOLS+=	gmake
 
 GNU_CONFIGURE=		yes
 
-CONFIGURE_ARGS+=	--with-ldns=${PREFIX}
+CONFIGURE_ARGS+=	--with-ldns=${BUILDLINK_PREFIX.ldns}
+CONFIGURE_ARGS+=	--with-ssl=${BUILDLINK_PREFIX.openssl}
 
 WRKSRC=		${WRKDIR}/${DISTNAME}/drill
 
 BUILDLINK_API_DEPENDS.ldns+=    ldns>=${VERSION}
 
 .include "../../net/ldns/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

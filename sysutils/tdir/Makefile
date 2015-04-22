@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.22 2014/01/25 10:45:21 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2015/02/27 14:35:01 tnn Exp $
 #
 
 DISTNAME=	tdir-1.69
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.tundraware.com/Software/tdir/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Display directories with files ordered by ending "extension"
 LICENSE=	tdir-license
-
-NOT_FOR_BULK_PLATFORM=	HPUX-*-*
 
 USE_TOOLS+=		gunzip
 REPLACE_PYTHON=	tdir

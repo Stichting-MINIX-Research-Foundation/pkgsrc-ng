@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2013/11/20 20:04:38 adam Exp $
+# $NetBSD: Makefile,v 1.19 2014/11/07 19:39:34 adam Exp $
 #
 
-DISTNAME=	gource-0.38
-PKGREVISION=	7
+DISTNAME=	gource-0.40
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	http://gource.googlecode.com/files/
 
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v3
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
+USE_TOOLS+=	pkg-config
 
 CONFIGURE_ARGS=	--with-boost=${BUILDLINK_PREFIX.boost-libs}
 

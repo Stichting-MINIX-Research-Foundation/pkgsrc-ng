@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2013/05/31 12:41:39 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2015/02/21 09:43:54 mef Exp $
 #
 
-DISTNAME=	Net-Pcap-0.16
+DISTNAME=	Net-Pcap-0.17
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
 CATEGORIES=	net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 
@@ -22,6 +21,11 @@ PERL5_PACKLIST=	auto/Net/Pcap/.packlist
 
 MAKE_PARAMS+=	INC=-I${BUILDLINK_PREFIX.libpcap}/include
 MAKE_PARAMS+=	LIBS='-L${BUILDLINK_PREFIX.libpcap}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.libpcap}/lib -lpcap'
+
+SUBST_CLASSES+=		pcaplib
+SUBST_STAGE.pcaplib=	pre-configure
+SUBST_FILES.pcaplib=	Makefile.PL
+SUBST_SED.pcaplib=	-e 's,@PCAP_LIBDIR@,${BUILDLINK_PREFIX.libpcap}/lib,'
 
 .include "../../lang/perl5/module.mk"
 .include "../../net/libpcap/buildlink3.mk"

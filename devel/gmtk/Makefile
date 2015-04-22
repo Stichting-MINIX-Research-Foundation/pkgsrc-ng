@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.21 2013/11/25 12:00:45 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2015/03/15 17:30:24 hiramatsu Exp $
 #
 
-DISTNAME=	gmtk-1.0.8
-PKGREVISION=	6
+DISTNAME=	gmtk-1.0.9
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	http://gmtk.googlecode.com/files/
+MASTER_SITES=	http://gmtk.googlecode.com/svn/packages/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/gmtk/
 COMMENT=	Gnome-mplayer toolkit
 LICENSE=	gnu-gpl-v2

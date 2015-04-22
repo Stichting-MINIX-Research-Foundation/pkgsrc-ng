@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:41:14 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2015/03/15 17:20:19 hiramatsu Exp $
 
 DISTNAME=	im-151
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	mail
 MASTER_SITES=	http://tats.haun.org/im/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://tats.haun.org/im/
 COMMENT=	E-Mail and NetNews user interface commands
 LICENSE=	modified-bsd

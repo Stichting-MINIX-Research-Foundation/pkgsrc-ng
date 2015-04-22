@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.62 2013/07/10 02:54:04 schmonz Exp $
+# $NetBSD: Makefile,v 1.73 2015/01/23 06:52:03 obache Exp $
 
-VERS=		3.63
-DISTNAME=	CGI.pm-${VERS}
-PKGNAME=	p5-CGI-${VERS}
-SVR4_PKGNAME=	p5cgi
+DISTNAME=	CGI-4.13
+PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES+=	${MASTER_SITE_PERL_CPAN:=CGI/}
 
@@ -12,7 +10,9 @@ HOMEPAGE=	http://search.cpan.org/dist/CGI.pm/
 COMMENT=	Perl5 module for writing forms-based CGI programs
 LICENSE=	gnu-gpl-v2 OR artistic-2.0
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
+BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
+BUILD_DEPENDS+=	p5-Test-Warn-[0-9]*:../../devel/p5-Test-Warn
 
 USE_LANGUAGES=		# empty
 USE_TOOLS+=		perl
@@ -21,19 +21,16 @@ REPLACE_PERL+=		examples/*.pl
 REPLACE_PERL+=		examples/*.cgi
 
 HTMLDIR=		${PREFIX}/share/doc/p5-CGI
-DEPENDS+=		p5-FCGI>=0.67:../../www/p5-FCGI
+INSTALLATION_DIRS=	${HTMLDIR}/examples
 
 post-build:
 	cd ${WRKSRC}/examples && chmod +x *.cgi && perl make_links.pl
 
 post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${HTMLDIR}
-	${INSTALL_DATA_DIR} ${DESTDIR}${HTMLDIR}/examples
-	cd ${WRKSRC} && ${INSTALL_DATA} *.html ${DESTDIR}${HTMLDIR}
-	cd ${WRKSRC}/examples &&					\
-	${INSTALL_DATA} *.gif *.html *.txt *.xbm			\
-	${DESTDIR}${HTMLDIR}/examples && ${INSTALL_SCRIPT} *.cgi 	\
-	${DESTDIR}${HTMLDIR}/examples
+	cd ${WRKSRC}/examples && \
+	${INSTALL_DATA} *.gif *.html *.txt *.xbm \
+		${DESTDIR}${HTMLDIR}/examples && \
+	${INSTALL_SCRIPT} *.cgi ${DESTDIR}${HTMLDIR}/examples
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

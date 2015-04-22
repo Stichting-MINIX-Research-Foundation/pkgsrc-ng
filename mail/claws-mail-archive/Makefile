@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2013/10/29 14:43:02 richard Exp $
+# $NetBSD: Makefile,v 1.33 2015/01/21 09:12:41 obache Exp $
 #
 
 PLUGIN_NAME=    archive
+PKGREVISION=	2
 .include "../../mail/claws-mail/plugins.mk"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

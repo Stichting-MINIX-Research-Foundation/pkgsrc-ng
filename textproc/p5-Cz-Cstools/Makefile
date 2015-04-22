@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.17 2013/05/31 12:42:08 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2014/10/09 13:44:57 wiz Exp $
 #
 
 DISTNAME=	Cstools-3.42
 PKGNAME=	p5-Cz-${DISTNAME}
-PKGREVISION=	8
-SVR4_PKGNAME=	p5cst
+PKGREVISION=	9
 CATEGORIES=	textproc converters perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Cz/}
 

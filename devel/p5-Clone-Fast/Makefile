@@ -1,17 +1,17 @@
-# $NetBSD: Makefile,v 1.5 2013/05/31 12:40:10 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/01/30 10:24:13 obache Exp $
 
 DISTNAME=	Clone-Fast-0.96
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Clone/}
+# as of 2015-01-30, above doesn't make it
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/J/JJ/JJORE/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Clone-Fast/
 COMMENT=	Natively copying Perl data structures
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c
 PERL5_PACKLIST=		auto/Clone/Fast/.packlist

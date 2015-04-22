@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2014/03/06 11:28:41 obache Exp $
+# $NetBSD: Makefile,v 1.4 2014/12/31 14:07:40 wiz Exp $
 
-DISTNAME=	skytools-3.1.5
+DISTNAME=	skytools-3.2
+PKGREVISION=	1
 CATEGORIES=	databases
-MASTER_SITES=	http://pgfoundry.org/frs/download.php/3515/
+MASTER_SITES=	http://pgfoundry.org/frs/download.php/3622/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://pgfoundry.org/projects/skytools
@@ -19,9 +20,8 @@ USE_TOOLS+=	awk gmake grep sed
 
 PY_PATCHPLIST=	yes
 PY_NO_EGG=	no
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 3.2
 PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-PRINT_PLIST_AWK+=	{ gsub("-py${PYVERSSUFFIX}.egg-info", \
-				"-py$${PYVERSSUFFIX}.egg-info") }
 
 REPLACE_PYTHON+=	scripts/*.py
 REPLACE_PYTHON+=	python/*.py

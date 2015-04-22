@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2012/10/02 20:11:54 asau Exp $
+# $NetBSD: Makefile,v 1.39 2014/09/25 09:32:38 jperkin Exp $
 
 DISTNAME=		stalin-0.9
-PKGREVISION=		5
+PKGREVISION=		7
 CATEGORIES=		lang
 MASTER_SITES=		ftp://ftp.ecn.purdue.edu/qobi/
 EXTRACT_SUFX=		.tgz
@@ -13,7 +13,6 @@ COMMENT=		Aggressively optimizing Scheme compiler
 
 # Only ported to these 4 archs
 ONLY_FOR_PLATFORM=	*-*-i386 *-*-sparc *-*-alpha *-*-mips
-NOT_FOR_BULK_PLATFORM=	SunOS-*-*
 
 UNLIMIT_RESOURCES=	stacksize datasize
 

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2013/05/31 12:39:36 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/10/09 14:05:55 wiz Exp $
 
 DISTNAME=	flac2mp3
 PKGNAME=	flac2mp3-20041223
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	audio converters
 MASTER_SITES=	http://www.gurulabs.com/downloads/
 EXTRACT_SUFX=	.pl
@@ -14,8 +14,6 @@ COMMENT=	Script to convert flac to mp3
 DEPENDS+=	flac-[0-9]*:../../audio/flac
 DEPENDS+=	lame-[0-9]*:../../audio/lame
 DEPENDS+=	p5-MP3-Info-[0-9]*:../../audio/p5-MP3-Info
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 REPLACE_PERL=	flac2mp3.pl
 USE_TOOLS+=	perl:run

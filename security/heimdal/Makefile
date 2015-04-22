@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.111 2014/03/22 09:05:24 bsiegert Exp $
+# $NetBSD: Makefile,v 1.114 2014/10/07 16:47:14 adam Exp $
 
 DISTNAME=	heimdal-1.5.3
-PKGREVISION=	5
+PKGREVISION=	8
 CATEGORIES=	security
 MASTER_SITES=	http://www.h5l.org/dist/src/
 
@@ -19,7 +19,7 @@ CONFLICTS+=	kth-krb4-[0-9]*
 MAKE_JOBS_SAFE=	no
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		bison flex
+USE_TOOLS+=		bison flex:run
 PKGCONFIG_OVERRIDE+=	tools/heimdal-gssapi.pc.in
 MAKE_ENV+=		INSTALL_CATPAGES=no
 

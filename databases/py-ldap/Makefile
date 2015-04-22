@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2014/03/03 17:01:34 adam Exp $
+# $NetBSD: Makefile,v 1.61 2015/01/12 11:46:29 adam Exp $
 
-DISTNAME=	python-ldap-2.4.14
+DISTNAME=	python-ldap-2.4.19
 PKGNAME=	${DISTNAME:S/python/${PYPKGPREFIX}/}
 CATEGORIES=	databases python
 MASTER_SITES=	http://pypi.python.org/packages/source/p/python-ldap/
@@ -8,13 +8,12 @@ MASTER_SITES=	http://pypi.python.org/packages/source/p/python-ldap/
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python-ldap.org/
 COMMENT=	LDAP client API for Python
-
-EGG_NAME=	${DISTNAME:S/python-ldap/python_ldap/}
+LICENSE=	python-software-foundation
 
 PY_LDAP_LIBRARY_DIRS=		${BUILDLINK_PREFIX.openldap-client}/lib
 PY_LDAP_INCLUDE_DIRS=		${BUILDLINK_PREFIX.openldap-client}/include
 PY_LDAP_LIBS=			ldap_r lber ssl crypto
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.4.13
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.4.13
 
 .include "options.mk"
 
@@ -25,17 +24,12 @@ SUBST_SED.setup=	-e 's|@PY_LDAP_LIBRARY_DIRS@|${PY_LDAP_LIBRARY_DIRS:Q}|'
 SUBST_SED.setup+=	-e 's|@PY_LDAP_INCLUDE_DIRS@|${PY_LDAP_INCLUDE_DIRS:Q}|'
 SUBST_SED.setup+=	-e 's|@PY_LDAP_LIBS@|${PY_LDAP_LIBS}|'
 
-PY_LDAP_DOCDIR=		${PREFIX}/share/doc/py-ldap
-
 USE_TOOLS+=		pax
 
-INSTALLATION_DIRS=	${PY_LDAP_DOCDIR}
-
-post-install:
-	cd ${WRKSRC} && pax -s,.cvsignore,, -rw CHANGES README INSTALL TODO Demo \
-		${DESTDIR}${PY_LDAP_DOCDIR}
+REPLACE_PYTHON=		Lib/ldap/controls/readentry.py
 
 .include "../../databases/openldap-client/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+.include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

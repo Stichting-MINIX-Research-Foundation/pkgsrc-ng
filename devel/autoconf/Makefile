@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.87 2014/03/06 15:41:50 joerg Exp $
+# $NetBSD: Makefile,v 1.89 2014/10/09 14:06:07 wiz Exp $
 #
 # When updating this package, please update mk/gnu-config/config.guess,
 # mk/gnu-config/config.sub, and mk/gnu-config/missing as well.
 
 DISTNAME=		autoconf-2.69
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		devel
 MASTER_SITES=		${MASTER_SITE_GNU:=autoconf/}
 
@@ -25,8 +25,6 @@ CONFLICTS=		autoconf-devel-[0-9]*
 CONFLICTS+=		gdb<5.3
 CONFLICTS+=		gdb>6<6.2.1nb5
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=		# empty
 GNU_CONFIGURE=		YES
 CONFIGURE_ARGS+=	--without-lispdir
@@ -45,6 +43,5 @@ CHECK_WRKREF_SKIP+=	${PREFIX}/share/autoconf/autoconf/autoconf.m4f
 CHECK_WRKREF_SKIP+=	${PREFIX}/share/autoconf/autotest/autotest.m4f
 CHECK_WRKREF_SKIP+=	${PREFIX}/share/autoconf/m4sugar/m4sugar.m4f
 CHECK_WRKREF_SKIP+=	${PREFIX}/share/autoconf/m4sugar/m4sh.m4f
-
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2013/05/31 12:40:15 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/01/29 05:16:50 mef Exp $
 
-DISTNAME=	Devel-Gladiator-0.01
+DISTNAME=	Devel-Gladiator-0.07
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Devel/}
 

@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.69 2012/10/31 11:17:21 asau Exp $
+# $NetBSD: Makefile,v 1.71 2014/10/09 14:06:10 wiz Exp $
 #
 
 DISTNAME=	slang-1.4.9
 PKGNAME=	lib${DISTNAME}
-SVR4_PKGNAME=	lslan
 PKGREVISION=	7
 CATEGORIES=	devel
 MASTER_SITES=	ftp://space.mit.edu/pub/davis/slang/v1.4/ \
@@ -13,8 +12,6 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.s-lang.org/
 COMMENT=	Routines for rapid alpha-numeric terminal applications development
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 MAKE_JOBS_SAFE=		no
 

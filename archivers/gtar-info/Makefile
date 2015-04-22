@@ -1,18 +1,10 @@
-# $NetBSD: Makefile,v 1.33 2014/02/24 08:16:56 adam Exp $
+# $NetBSD: Makefile,v 1.35 2014/10/09 13:44:32 wiz Exp $
 
-DISTNAME=	tar-1.27.1
+.include "../../archivers/gtar/Makefile.common"
+
 PKGNAME=	${DISTNAME:S/tar/gtar-info/}
-SVR4_PKGNAME=	gtari
-CATEGORIES=	archivers
-MASTER_SITES=	${MASTER_SITE_GNU:=tar/}
-EXTRACT_SUFX=	.tar.bz2
-
-MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.gnu.org/software/tar/tar.html
 COMMENT=	Info format documentation for the GNU tape archiver
 LICENSE=	gnu-fdl-v1.1
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 NO_CONFIGURE=		yes
 NO_BUILD=		yes

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.83 2014/03/15 05:20:51 obache Exp $
+# $NetBSD: Makefile,v 1.96 2015/03/09 09:02:20 wiz Exp $
 #
 
-DISTNAME=	tellico-2.3.5
-PKGREVISION=	33
+DISTNAME=	tellico-2.3.9
+PKGREVISION=	2
 CATEGORIES=	misc
 MASTER_SITES=	http://tellico-project.org/files/
 EXTRACT_SUFX=	.tar.bz2
@@ -29,6 +29,7 @@ pre-build:
 .include "../../audio/taglib/buildlink3.mk"
 .include "../../devel/exempi/buildlink3.mk"
 .include "../../devel/qjson/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/libksane/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"
 .include "../../lang/python/application.mk"

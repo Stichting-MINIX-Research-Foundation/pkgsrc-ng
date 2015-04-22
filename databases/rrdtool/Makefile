@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.109 2013/10/10 14:41:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.116 2015/03/14 20:00:18 tnn Exp $
+#
+# Please, also update databases/ruby-rrdtool
 
-DISTNAME=	rrdtool-1.4.7
-PKGREVISION=	15
+DISTNAME=	rrdtool-1.4.9
 CATEGORIES=	databases graphics net
 MASTER_SITES=	http://oss.oetiker.ch/rrdtool/pub/
 
@@ -13,7 +14,7 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=		dejavu-ttf>=2.26:../../fonts/dejavu-ttf
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake pkg-config perl msgfmt intltool
+USE_TOOLS+=		gmake pkg-config perl msgfmt intltool groff nroff
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-perl-options=${MAKE_PARAMS:Q}
@@ -21,6 +22,7 @@ CONFIGURE_ARGS+=	--disable-tcl
 CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-ruby
 CONFIGURE_ARGS+=	--disable-lua
+CONFIGURE_ARGS+=	--disable-libdbi
 
 PTHREAD_OPTS+=		require
 PERL5_CONFIGURE=	no

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.14 2014/03/13 11:08:51 jperkin Exp $
+# $NetBSD: Makefile,v 1.21 2015/03/14 16:14:43 tnn Exp $
 
-PKGNAME=	ffmpeg010-20130731.${DISTVERSION}
+PKGNAME=	ffmpeg010-20150312.${DISTVERSION}
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
-COMMENT=	Decoding, encoding and streaming software
+COMMENT=	Decoding, encoding and streaming software (v0.10)
+LICENSE=	gnu-lgpl-v2.1
 
 USE_GCC_RUNTIME=	yes
 
@@ -29,22 +30,17 @@ CONF_FILES+=	${PREFIX}/share/examples/ffmpeg010/ffserver.conf \
 .include "../../mk/compiler.mk"
 
 # disable asm on i386 for non-gcc and gcc < 4.2
-# no alignment options needed for gcc >= 4.6 on i386
 
 .if ${MACHINE_ARCH} == "i386"
-.if !empty(MACHINE_PLATFORM:MDarwin-*-i386)
-CONFIGURE_ARGS+=	--disable-asm
-.elif !empty(CC_VERSION:Mgcc-4.[2345]*)
-CFLAGS+=-mstackrealign -mpreferred-stack-boundary=4
-.elif !empty(CC_VERSION:Mgcc-[123]*) \
-   || !empty(CC_VERSION:Mgcc-4.[01]*) \
+.if !empty(MACHINE_PLATFORM:MDarwin-*-i386) \
+   || !empty(CC_VERSION:Mgcc-[123]*) \
+   || !empty(CC_VERSION:Mgcc-4.[01].*) \
    || empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	--disable-asm
+.elif !empty(CC_VERSION:Mgcc-4.*)
+CFLAGS+=-mstackrealign -mpreferred-stack-boundary=4
 .endif
 .endif
-
-# "error: can't find a register in class 'GENERAL_REGS' while reloading 'asm'"
-CFLAGS.SunOS+=	-DBROKEN_RELOCATIONS=1
 
 TEST_TARGET=	check
 

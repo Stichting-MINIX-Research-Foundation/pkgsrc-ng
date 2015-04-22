@@ -1,13 +1,17 @@
-$NetBSD: patch-scheduler_dirsvc.c,v 1.1 2011/10/13 13:05:57 hans Exp $
+$NetBSD: patch-scheduler_dirsvc.c,v 1.5 2014/07/29 11:38:40 wiz Exp $
 
---- scheduler/dirsvc.c.orig	2011-01-22 01:07:22.000000000 +0100
-+++ scheduler/dirsvc.c	2011-09-20 19:08:50.512786064 +0200
-@@ -1332,7 +1332,7 @@ ldap_connect(void)
-     cupsdLogMessage(CUPSD_LOG_ERROR, "LDAP bind failed with error %d: %s",
-                     rc, ldap_err2string(rc));
+o net/mDNSResponder-258.14 does not define kDNSServiceErr_Timeout, just threat
+ it like kDNSServiceErr_Unknown.
+
+--- scheduler/dirsvc.c.orig	2014-06-09 18:33:24.000000000 +0000
++++ scheduler/dirsvc.c
+@@ -831,9 +833,6 @@ dnssdErrorString(int error)		/* I - Erro
  
--#  if defined(HAVE_LDAP_SSL) && defined (HAVE_MOZILLA_LDAP)
-+#  if defined(HAVE_LDAP_SSL) && defined (HAVE_MOZILLA_LDAP) && !defined(__sun)
-     if (ldap_ssl && (rc == LDAP_SERVER_DOWN || rc == LDAP_CONNECT_ERROR))
-     {
-       ssl_err = PORT_GetError();
+     case kDNSServiceErr_PollingMode :
+         return ("Service polling mode error.");
+-
+-    case kDNSServiceErr_Timeout :
+-        return ("Service timeout.");
+   }
+ 
+ #  else /* HAVE_AVAHI */

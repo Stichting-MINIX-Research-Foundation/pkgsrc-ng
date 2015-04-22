@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.69 2014/03/13 11:08:50 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.76 2015/02/21 00:10:21 joerg Exp $
 
 DISTNAME=	nspr-${NSPR_RELEASE}
-NSPR_RELEASE=	4.10.4
+NSPR_RELEASE=	4.10.8
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=nspr/releases/v${NSPR_RELEASE}/src/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.mozilla.org/projects/nspr/index.html
+HOMEPAGE=	https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR
 COMMENT=	Platform-neutral API for system level and libc like functions
 LICENSE=	mpl-2.0
 
@@ -16,12 +15,14 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/multinit/multinit.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/configure
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
 
+OVERRIDE_DIRDEPTH=	3
+
 GNU_CONFIGURE=		yes
 GNU_CONFIGURE_LIBSUBDIR=nspr
 CONFIGURE_DIRS=		nspr
 
 USE_GCC_RUNTIME=	yes
-USE_TOOLS+=		autoconf213 gmake perl
+USE_TOOLS+=		autoconf gmake perl
 REPLACE_PERL+=		nspr/pr/src/misc/compile-et.pl
 
 CONFIGURE_ARGS+=	--disable-debug
@@ -73,6 +74,12 @@ PLIST.sun4u_32=                yes
 .endif
 
 .if ${OPSYS} == "Linux"
+.  if defined(ABI) && ${ABI} == "64"
+CONFIGURE_ARGS+=	--enable-64bit
+.  endif
+.endif
+
+.if ${OPSYS} == "Darwin"
 .  if defined(ABI) && ${ABI} == "64"
 CONFIGURE_ARGS+=	--enable-64bit
 .  endif

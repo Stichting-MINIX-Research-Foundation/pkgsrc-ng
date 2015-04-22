@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2013/10/17 07:56:41 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/03/15 17:15:02 hiramatsu Exp $
 
 DISTNAME=		gmediaserver-0.13.0
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		multimedia net
 MASTER_SITES=		http://download.savannah.gnu.org/releases/gmediaserver/
 
-MAINTAINER=		obache@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.gnu.org/software/gmediaserver/
 COMMENT=		UPnP compatible media server for the GNU system
 LICENSE=		gnu-gpl-v3

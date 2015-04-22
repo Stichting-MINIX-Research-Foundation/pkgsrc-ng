@@ -1,10 +1,10 @@
-$NetBSD: distinfo,v 1.32 2014/01/09 19:03:08 jperkin Exp $
+$NetBSD: distinfo,v 1.35 2015/01/27 06:10:15 dbj Exp $
 
-SHA1 (PyQt-mac-gpl-4.10.2.tar.gz) = 40362e6b9f476683e4e35b83369e30a8dfff99ad
-RMD160 (PyQt-mac-gpl-4.10.2.tar.gz) = a2a829f41e0753dc93efaf0d9e4e76d2c54d6d2c
-Size (PyQt-mac-gpl-4.10.2.tar.gz) = 11277392 bytes
-SHA1 (PyQt-x11-gpl-4.10.2.tar.gz) = 9a90e74c73f7c3e4a91eeb6f268f323a5722d9b6
-RMD160 (PyQt-x11-gpl-4.10.2.tar.gz) = 530ec99325bade7c0451d3458da020e9ab981a1c
-Size (PyQt-x11-gpl-4.10.2.tar.gz) = 11280941 bytes
-SHA1 (patch-aa) = 726a9be11f0fa8a275daa61358557cf37a6bf531
+SHA1 (PyQt-mac-gpl-4.11.1.tar.gz) = 9d7478758957c60ac5007144a0dc7f157f4a5836
+RMD160 (PyQt-mac-gpl-4.11.1.tar.gz) = cba54dcbb6a41d5ccb45d9b38e7e2647696772f9
+Size (PyQt-mac-gpl-4.11.1.tar.gz) = 11117079 bytes
+SHA1 (PyQt-x11-gpl-4.11.1.tar.gz) = 83a0740545d51c179a1b316b664b0f9ff5e0f5af
+RMD160 (PyQt-x11-gpl-4.11.1.tar.gz) = 37f5dc06b4d06720a9f94dcd50f67a011c2dad78
+Size (PyQt-x11-gpl-4.11.1.tar.gz) = 11118850 bytes
+SHA1 (patch-configure.py) = 516da08fad535a7b743b400e9e613689982d057d
 SHA1 (patch-sip_QtCore_qlist.sip) = 4fb548d4ee755cbc955ec32a6b1702a71a9815f1

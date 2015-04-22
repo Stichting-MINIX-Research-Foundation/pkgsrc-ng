@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.37 2013/05/31 12:39:36 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2014/10/09 14:05:57 wiz Exp $
 #
 
 DISTNAME=	mserv-0.35
-PKGREVISION=	15
+PKGREVISION=	16
 CATEGORIES=	audio
 MASTER_SITES=	http://www.mserv.org/download/
 
 MAINTAINER=	martin@NetBSD.org
 HOMEPAGE=	http://www.mserv.org/
 COMMENT=	Local centralised music server environment
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/mserv

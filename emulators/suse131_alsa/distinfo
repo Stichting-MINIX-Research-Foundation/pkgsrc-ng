@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.1 2013/12/05 11:42:14 obache Exp $
+$NetBSD: distinfo,v 1.3 2014/11/03 09:04:20 obache Exp $
 
 SHA1 (suse131/alsa-1.0.27.2-3.5.1.i586.rpm) = 4adc0d62ab08589b3556c639dd8b8d863f97d2c9
 RMD160 (suse131/alsa-1.0.27.2-3.5.1.i586.rpm) = 79331029afa85f815bbea654b23a89be64e8022f
@@ -6,12 +6,12 @@ Size (suse131/alsa-1.0.27.2-3.5.1.i586.rpm) = 1154383 bytes
 SHA1 (suse131/alsa-1.0.27.2-3.5.1.x86_64.rpm) = 86542fcc52eb0bed875815e3e1dd19469a6c0873
 RMD160 (suse131/alsa-1.0.27.2-3.5.1.x86_64.rpm) = e9de1a5dd935cdc567daab339e79d57cf3681510
 Size (suse131/alsa-1.0.27.2-3.5.1.x86_64.rpm) = 1153491 bytes
-SHA1 (suse131/alsa-oss-1.0.25-8.1.2.i586.rpm) = 7a64b78d6d6e5f7bfc951aac2352f529bb1d2320
-RMD160 (suse131/alsa-oss-1.0.25-8.1.2.i586.rpm) = 243b192952c6f3e7a155a0716787eee6e33fc94d
-Size (suse131/alsa-oss-1.0.25-8.1.2.i586.rpm) = 33836 bytes
-SHA1 (suse131/alsa-oss-1.0.25-8.1.2.x86_64.rpm) = c665a44e5dc5fb3205a5cbf4e40facb7f50a77e0
-RMD160 (suse131/alsa-oss-1.0.25-8.1.2.x86_64.rpm) = 0ed5eed3493380cf375a154de41117cdadc8b9b0
-Size (suse131/alsa-oss-1.0.25-8.1.2.x86_64.rpm) = 35305 bytes
+SHA1 (suse131/alsa-oss-1.0.25-8.4.1.i586.rpm) = 44cdf19eb6cbc0fb3da07f747aad51154b096212
+RMD160 (suse131/alsa-oss-1.0.25-8.4.1.i586.rpm) = a5408bf0e06a78f631090bf915c1b929e5671d67
+Size (suse131/alsa-oss-1.0.25-8.4.1.i586.rpm) = 34010 bytes
+SHA1 (suse131/alsa-oss-1.0.25-8.4.1.x86_64.rpm) = ce8d9866cb1ff98578d4d27ea0debc52dde69d46
+RMD160 (suse131/alsa-oss-1.0.25-8.4.1.x86_64.rpm) = b17a7ce8a9cd6cd1aa5aa713d2112978ee3bce75
+Size (suse131/alsa-oss-1.0.25-8.4.1.x86_64.rpm) = 35426 bytes
 SHA1 (suse131/alsa-plugins-1.0.27-3.1.1.i586.rpm) = 05a119e0a0886ee8994e713580b3c36a17097c57
 RMD160 (suse131/alsa-plugins-1.0.27-3.1.1.i586.rpm) = e42d3b2353f5d2efcfb05290b66c86aebc5b2236
 Size (suse131/alsa-plugins-1.0.27-3.1.1.i586.rpm) = 50511 bytes
@@ -24,12 +24,12 @@ Size (suse131/alsa-plugins-pulse-1.0.27-3.1.1.i586.rpm) = 33447 bytes
 SHA1 (suse131/alsa-plugins-pulse-1.0.27-3.1.1.x86_64.rpm) = c464e67389e4b74046b2f739fe472cd8a64b5c39
 RMD160 (suse131/alsa-plugins-pulse-1.0.27-3.1.1.x86_64.rpm) = 262658a5c69d3a924948543ab4f740dba51e5236
 Size (suse131/alsa-plugins-pulse-1.0.27-3.1.1.x86_64.rpm) = 34303 bytes
-SHA1 (suse131/alsa-utils-1.0.27.2-4.2.1.i586.rpm) = 5fd7448de260b8f4c3a75fe1971db037647d2b2c
-RMD160 (suse131/alsa-utils-1.0.27.2-4.2.1.i586.rpm) = 14f63d2364837ef6de3c504ea672e7092e6ecd6d
-Size (suse131/alsa-utils-1.0.27.2-4.2.1.i586.rpm) = 979914 bytes
-SHA1 (suse131/alsa-utils-1.0.27.2-4.2.1.x86_64.rpm) = 82fbbaee85736104fbf27233880849863ae8b930
-RMD160 (suse131/alsa-utils-1.0.27.2-4.2.1.x86_64.rpm) = 9fc4334acb0efc6c97d3fc41994a8cdc9cfdcad2
-Size (suse131/alsa-utils-1.0.27.2-4.2.1.x86_64.rpm) = 988414 bytes
+SHA1 (suse131/alsa-utils-1.0.27.2-4.5.1.i586.rpm) = 597074803c1e3173221a0a6e25dee31f09c58c56
+RMD160 (suse131/alsa-utils-1.0.27.2-4.5.1.i586.rpm) = ffdf9085e150b79bb40694447d15ef4da0dbb087
+Size (suse131/alsa-utils-1.0.27.2-4.5.1.i586.rpm) = 980310 bytes
+SHA1 (suse131/alsa-utils-1.0.27.2-4.5.1.x86_64.rpm) = b2a8d5ad62f48d653d59b8bbeca3cd2b6391d870
+RMD160 (suse131/alsa-utils-1.0.27.2-4.5.1.x86_64.rpm) = c99abe30dea8d0e79199f5d76d02c51ce5fc4a1c
+Size (suse131/alsa-utils-1.0.27.2-4.5.1.x86_64.rpm) = 989216 bytes
 SHA1 (suse131/libasound2-1.0.27.2-3.5.1.i586.rpm) = 0bb0231abaaa710c893a30080462ec9b31e776a4
 RMD160 (suse131/libasound2-1.0.27.2-3.5.1.i586.rpm) = b1fab94ef976c848d974057093611954bd07cdc5
 Size (suse131/libasound2-1.0.27.2-3.5.1.i586.rpm) = 339647 bytes

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2014/02/19 09:44:56 jperkin Exp $
+# $NetBSD: Makefile,v 1.21 2015/03/02 09:36:24 adam Exp $
 
-DISTNAME=	xz-5.0.5
+DISTNAME=	xz-5.2.1
 CATEGORIES=	archivers
 MASTER_SITES=	http://tukaani.org/xz/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,8 +10,11 @@ HOMEPAGE=	http://tukaani.org/xz/
 COMMENT=	XZ utilities
 LICENSE=	public-domain AND gnu-gpl-v2
 
-GNU_CONFIGURE=		yes
+.include "../../mk/bsd.prefs.mk"
+.include "options.mk"
+
 USE_LIBTOOL=		yes
+GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	src/liblzma/liblzma.pc.in
 
 GCC_REQD+=		3.0
@@ -29,6 +32,5 @@ CONFIGURE_ENV+=		ac_cv_have_decl_optreset=no
 CONFIGURE_ENV+=		gl_cv_cc_visibility=no
 .endif
 
-.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

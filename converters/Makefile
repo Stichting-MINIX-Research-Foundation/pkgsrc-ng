@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.128 2014/02/05 21:43:39 abs Exp $
+# $NetBSD: Makefile,v 1.135 2015/02/04 17:33:17 ryoon Exp $
 #
 
 COMMENT=	Document format and character code converters
@@ -25,6 +25,8 @@ SUBDIR+=	fondu
 SUBDIR+=	fribidi
 SUBDIR+=	gbase
 SUBDIR+=	help2man
+SUBDIR+=	hs-aeson
+SUBDIR+=	hs-base64-bytestring
 SUBDIR+=	hztty
 SUBDIR+=	ish
 SUBDIR+=	ja-dvi2tty
@@ -37,8 +39,11 @@ SUBDIR+=	libe-book
 SUBDIR+=	libetonyek
 SUBDIR+=	libfreehand
 SUBDIR+=	libiconv
+SUBDIR+=	libkkc
 SUBDIR+=	libmspub
 SUBDIR+=	libmwaw
+SUBDIR+=	libpagemaker
+SUBDIR+=	librevenge
 SUBDIR+=	libvisio
 SUBDIR+=	libwpd
 SUBDIR+=	libwpg
@@ -47,6 +52,7 @@ SUBDIR+=	macfork
 SUBDIR+=	mpack
 SUBDIR+=	nkf
 SUBDIR+=	odt2txt
+SUBDIR+=	opencc
 SUBDIR+=	orcus
 SUBDIR+=	p5-Convert-BinHex
 SUBDIR+=	p5-Convert-Color
@@ -84,6 +90,7 @@ SUBDIR+=	php-iconv
 SUBDIR+=	php-mbstring
 SUBDIR+=	psiconv
 SUBDIR+=	pstotext
+SUBDIR+=	py-cairosvg
 SUBDIR+=	py-chardet
 SUBDIR+=	py-jpCodecs
 SUBDIR+=	py-simplejson

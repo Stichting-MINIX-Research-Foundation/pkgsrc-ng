@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2013/11/17 16:45:32 minskim Exp $
+# $NetBSD: Makefile,v 1.21 2015/02/21 00:12:51 joerg Exp $
 
-DISTNAME=	texlive-20130530-source
-PKGNAME=	kpathsea-6.1.1
+DISTNAME=	texlive-20140525-source
+PKGNAME=	kpathsea-6.2.0
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2013/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2014/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -23,6 +23,9 @@ INFO_FILES=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake
 WRKSRC=		${WRKDIR}/${DISTNAME}/texk/kpathsea
+
+CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
+CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
 
 MAKE_FLAGS+=	LIBTOOL=${LIBTOOL:Q}
 

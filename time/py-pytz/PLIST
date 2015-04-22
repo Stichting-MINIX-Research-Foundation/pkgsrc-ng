@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.13 2014/01/06 14:36:57 wiz Exp $
+@comment $NetBSD: PLIST,v 1.16 2014/11/09 16:13:15 wiz Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -7,21 +7,21 @@ ${PYSITELIB}/${EGG_INFODIR}/zip-safe
 ${PYSITELIB}/pytz/__init__.py
 ${PYSITELIB}/pytz/__init__.pyc
 ${PYSITELIB}/pytz/__init__.pyo
-${PYSITELIB}/pytz/exceptions.py
 ${PYSITELIB}/pytz/exceptions.pyc
 ${PYSITELIB}/pytz/exceptions.pyo
-${PYSITELIB}/pytz/lazy.py
 ${PYSITELIB}/pytz/lazy.pyc
 ${PYSITELIB}/pytz/lazy.pyo
-${PYSITELIB}/pytz/reference.py
 ${PYSITELIB}/pytz/reference.pyc
 ${PYSITELIB}/pytz/reference.pyo
-${PYSITELIB}/pytz/tzfile.py
 ${PYSITELIB}/pytz/tzfile.pyc
 ${PYSITELIB}/pytz/tzfile.pyo
-${PYSITELIB}/pytz/tzinfo.py
 ${PYSITELIB}/pytz/tzinfo.pyc
 ${PYSITELIB}/pytz/tzinfo.pyo
+${PYSITELIB}/pytz/exceptions.py
+${PYSITELIB}/pytz/lazy.py
+${PYSITELIB}/pytz/reference.py
+${PYSITELIB}/pytz/tzfile.py
+${PYSITELIB}/pytz/tzinfo.py
 ${PYSITELIB}/pytz/zoneinfo/Africa/Abidjan
 ${PYSITELIB}/pytz/zoneinfo/Africa/Accra
 ${PYSITELIB}/pytz/zoneinfo/Africa/Addis_Ababa
@@ -250,6 +250,7 @@ ${PYSITELIB}/pytz/zoneinfo/Antarctica/Palmer
 ${PYSITELIB}/pytz/zoneinfo/Antarctica/Rothera
 ${PYSITELIB}/pytz/zoneinfo/Antarctica/South_Pole
 ${PYSITELIB}/pytz/zoneinfo/Antarctica/Syowa
+${PYSITELIB}/pytz/zoneinfo/Antarctica/Troll
 ${PYSITELIB}/pytz/zoneinfo/Antarctica/Vostok
 ${PYSITELIB}/pytz/zoneinfo/Arctic/Longyearbyen
 ${PYSITELIB}/pytz/zoneinfo/Asia/Aden
@@ -268,6 +269,7 @@ ${PYSITELIB}/pytz/zoneinfo/Asia/Beirut
 ${PYSITELIB}/pytz/zoneinfo/Asia/Bishkek
 ${PYSITELIB}/pytz/zoneinfo/Asia/Brunei
 ${PYSITELIB}/pytz/zoneinfo/Asia/Calcutta
+${PYSITELIB}/pytz/zoneinfo/Asia/Chita
 ${PYSITELIB}/pytz/zoneinfo/Asia/Choibalsan
 ${PYSITELIB}/pytz/zoneinfo/Asia/Chongqing
 ${PYSITELIB}/pytz/zoneinfo/Asia/Chungking
@@ -325,6 +327,7 @@ ${PYSITELIB}/pytz/zoneinfo/Asia/Samarkand
 ${PYSITELIB}/pytz/zoneinfo/Asia/Seoul
 ${PYSITELIB}/pytz/zoneinfo/Asia/Shanghai
 ${PYSITELIB}/pytz/zoneinfo/Asia/Singapore
+${PYSITELIB}/pytz/zoneinfo/Asia/Srednekolymsk
 ${PYSITELIB}/pytz/zoneinfo/Asia/Taipei
 ${PYSITELIB}/pytz/zoneinfo/Asia/Tashkent
 ${PYSITELIB}/pytz/zoneinfo/Asia/Tbilisi
@@ -536,6 +539,7 @@ ${PYSITELIB}/pytz/zoneinfo/PRC
 ${PYSITELIB}/pytz/zoneinfo/PST8PDT
 ${PYSITELIB}/pytz/zoneinfo/Pacific/Apia
 ${PYSITELIB}/pytz/zoneinfo/Pacific/Auckland
+${PYSITELIB}/pytz/zoneinfo/Pacific/Bougainville
 ${PYSITELIB}/pytz/zoneinfo/Pacific/Chatham
 ${PYSITELIB}/pytz/zoneinfo/Pacific/Chuuk
 ${PYSITELIB}/pytz/zoneinfo/Pacific/Easter
@@ -605,3 +609,4 @@ ${PYSITELIB}/pytz/zoneinfo/iso3166.tab
 ${PYSITELIB}/pytz/zoneinfo/localtime
 ${PYSITELIB}/pytz/zoneinfo/posixrules
 ${PYSITELIB}/pytz/zoneinfo/zone.tab
+${PYSITELIB}/pytz/zoneinfo/zone1970.tab

@@ -1,6 +1,6 @@
-$NetBSD: patch-kldap_ber.h,v 1.1 2012/11/11 22:49:20 joerg Exp $
+$NetBSD: patch-kldap_ber.h,v 1.3 2014/11/14 22:23:40 joerg Exp $
 
---- kldap/ber.h.orig	2012-11-08 10:20:45.000000000 +0000
+--- kldap/ber.h.orig	2014-11-04 21:19:27.000000000 +0000
 +++ kldap/ber.h
 @@ -57,7 +57,8 @@ class KLDAP_EXPORT Ber
  

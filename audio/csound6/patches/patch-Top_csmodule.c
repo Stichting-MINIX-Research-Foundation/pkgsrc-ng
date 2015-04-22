@@ -1,7 +1,10 @@
-$NetBSD: patch-Top_csmodule.c,v 1.1 2014/03/06 10:16:53 mrg Exp $
+$NetBSD: patch-Top_csmodule.c,v 1.3 2014/08/06 06:17:07 mrg Exp $
 
---- Top/csmodule.c.orig	2014-01-07 08:54:20.000000000 -0800
-+++ Top/csmodule.c	2014-02-13 02:01:01.000000000 -0800
+Fix the installation path for csound6 plugins.
+Add NetBSD and DragonFlyBSD support.
+
+--- Top/csmodule.c.orig	2014-05-04 04:49:41.000000000 -0700
++++ Top/csmodule.c	2014-08-04 22:20:35.000000000 -0700
 @@ -89,7 +89,7 @@
  #endif
  
@@ -38,7 +41,7 @@ $NetBSD: patch-Top_csmodule.c,v 1.1 2014/03/06 10:16:53 mrg Exp $
        char ERRSTR[256];
 -#if !(defined(NACL)) && defined(LINUX)
 +#if !(defined(NACL)) && (defined(LINUX) || defined(__NetBSD__) || defined(__DragonFly__))
-       sprintf(ERRSTR, Str("could not open library '%s' (%s)"),
+       snprintf(ERRSTR, 256, Str("could not open library '%s' (%s)"),
                        libraryPath, dlerror());
   #else
 @@ -684,7 +684,7 @@

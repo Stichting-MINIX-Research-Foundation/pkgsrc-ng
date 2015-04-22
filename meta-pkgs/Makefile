@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.73 2013/12/05 11:42:12 obache Exp $
+# $NetBSD: Makefile,v 1.78 2015/03/15 14:49:28 taca Exp $
 #
 
 COMMENT=	Collections of other packages
@@ -15,7 +15,6 @@ SUBDIR+=	desktop-gnome
 SUBDIR+=	fxtv-capture
 SUBDIR+=	gimp-docs
 SUBDIR+=	gnome
-SUBDIR+=	gnome-admin
 SUBDIR+=	gnome-devtools
 SUBDIR+=	gnome-mobile
 SUBDIR+=	gnome-platform
@@ -31,19 +30,21 @@ SUBDIR+=	modular-xorg-drivers
 SUBDIR+=	modular-xorg-fonts
 SUBDIR+=	modular-xorg-libs
 SUBDIR+=	modular-xorg-protos
+SUBDIR+=	modular-xorg-utils
 SUBDIR+=	mono-gnome-bindings
 SUBDIR+=	netbsd-doc
 SUBDIR+=	netbsd-doc-print
 SUBDIR+=	netbsd-www
 SUBDIR+=	p5-gnome-bindings
-SUBDIR+=	php53-extensions
 SUBDIR+=	php54-extensions
 SUBDIR+=	php55-extensions
+SUBDIR+=	php56-extensions
 SUBDIR+=	pkg_developer
 SUBDIR+=	pkgsrc-guide-tools
 SUBDIR+=	pulseaudio-tools
 SUBDIR+=	py-gnome-bindings
 SUBDIR+=	ruby-gnome2
+SUBDIR+=	ruby-shoulda
 SUBDIR+=	suse100
 SUBDIR+=	suse121
 SUBDIR+=	suse131

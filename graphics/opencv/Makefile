@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.44 2013/10/10 14:42:15 ryoon Exp $
+# $NetBSD: Makefile,v 1.53 2015/03/02 23:28:13 sevan Exp $
 
-DISTNAME=	opencv-2.4.6.1
+DISTNAME=	opencv-2.4.9
 PKGREVISION=	2
 CATEGORIES=	graphics devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opencvlibrary/}
+EXTRACT_SUFX=	.zip
 
 MAINTAINER=	anthony.mallet@laas.fr
 HOMEPAGE=	http://code.opencv.org/projects/OpenCV/wiki/WikiStart
@@ -36,12 +37,14 @@ CHECK_WRKREF_SKIP=	${PREFIX}/lib/libopencv_core.*
 CXXFLAGS+=	-std=c++11
 .endif
 
+OPSYSVARS+=		CMAKE_ARGS
+CMAKE_ARGS+=		-DZLIB_ROOT=${BUILDLINK_PREFIX.zlib}
+CMAKE_ARGS.SunOS+=	-DENABLE_PRECOMPILED_HEADERS=NO
+
 PLIST_VARS+=	opencl
 
-.if ${OPSYS} == "Darwin"
+.if ${OPSYS} == "Darwin" || ${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS" || ${OPSYS} == "Linux" || ${OPSYS} == "FreeBSD"
 PLIST.opencl=	yes
-.else
-.include "../../x11/gtk2/buildlink3.mk"
 .endif
 
 .include "../../devel/zlib/buildlink3.mk"
@@ -50,4 +53,5 @@ PLIST.opencl=	yes
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
+.include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

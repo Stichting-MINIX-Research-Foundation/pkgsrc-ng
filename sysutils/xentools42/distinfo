@@ -1,11 +1,11 @@
-$NetBSD: distinfo,v 1.10 2014/02/22 01:28:23 prlw1 Exp $
+$NetBSD: distinfo,v 1.15 2015/03/13 09:43:41 spz Exp $
 
 SHA1 (ipxe-git-v1.0.0.tar.gz) = da052c8de5f3485fe0253c19cf52ed6d72528485
 RMD160 (ipxe-git-v1.0.0.tar.gz) = dcd9b6eaafa1ce05c1ebf2a15f2f73ad7a8c5547
 Size (ipxe-git-v1.0.0.tar.gz) = 1996881 bytes
-SHA1 (xen-4.2.4.tar.gz) = ab661bf0f64a18155f971343a9c07b7e7d1410f1
-RMD160 (xen-4.2.4.tar.gz) = b2210d3ff6a9fdf9cae1a5a38b829667dfd6fd2f
-Size (xen-4.2.4.tar.gz) = 15663999 bytes
+SHA1 (xen-4.2.5.tar.gz) = f42741e4ec174495ace70c4b17a6b9b0e60e798a
+RMD160 (xen-4.2.5.tar.gz) = 7d4f7f1b32ee541d341a756b1f8da02816438d19
+Size (xen-4.2.5.tar.gz) = 15671925 bytes
 SHA1 (patch-.._.._ipxe_src_Makefile.housekeeping) = 5ec8020a9705b2f64096c2942473a8de4db578bb
 SHA1 (patch-.._.._ipxe_src_arch_i386_include_librm.h) = 4549ac641b112321b4731a918d85219c3fce6808
 SHA1 (patch-.._.._ipxe_src_arch_i386_scripts_i386.lds) = 4c0cbb7f535be43e1b6f53c284340a8bafc37c0b
@@ -24,7 +24,9 @@ SHA1 (patch-.._docs_man_xl.pod.1) = 740ad6f53e113b755bc6b04abce4ec9ba08eb815
 SHA1 (patch-.._docs_man_xlcpupool.cfg.pod.5) = a693a79a1f1c16548f62f7da1fa58fa28030990f
 SHA1 (patch-.._docs_man_xm.pod.1) = 975b7570da4bf9fd9cb79539fbd36b8dfbcbd571
 SHA1 (patch-.._docs_man_xmdomain.cfg.pod.5) = 5563a72e203e789a86f4166c71ddb3fcff5215c6
+SHA1 (patch-CVE-2015-2152) = 676339abef9e79595f6c40de31ca740f8284c7a2
 SHA1 (patch-Makefile) = 37fbcd6d2f0279d4c04c91085b0e7f5611a5b92a
+SHA1 (patch-Rules.mk) = 51a2804e9a2a509a428392c0eb11243884bb7f22
 SHA1 (patch-blktap_drivers_Makefile) = 0906a5ec3a7450fc987b01289e2560e60966d00d
 SHA1 (patch-configure) = 7bf4183efb76bded94a9519bf2737fb1240ab0e7
 SHA1 (patch-examples_Makefile) = 8e89fab7817785b32d79ec0cad3a2645c6981f01
@@ -33,6 +35,7 @@ SHA1 (patch-firmware_etherboot_Makefile) = 1cb31183853c6069dafe47db8430e0577b214
 SHA1 (patch-firmware_etherboot_patches_boot__prompt__option.patch) = 7d14b60557b1e81de370b21544cd49643fa15f08
 SHA1 (patch-firmware_etherboot_patches_series) = cb653834fe14ff0b23fdfa525a20d3bcfe6e3819
 SHA1 (patch-firmware_hvmloader_Makefile) = 7d907fa33fa1f121b3d54116d905855529a020fd
+SHA1 (patch-firmware_hvmloader_util.h) = 6346ff8b33001dcecb7297b29c9df68be34af64d
 SHA1 (patch-hotplug_NetBSD_Makefile) = ab91c41ef6bbdd7f7f3d992b9f81e43056a765e2
 SHA1 (patch-hotplug_NetBSD_vif-bridge) = 663d0117612730960fd610b863d863d3abeea460
 SHA1 (patch-hotplug_NetBSD_vif-ip) = c8fa179f58f1e550ab64901afd4fca53c3d11ceb
@@ -53,7 +56,7 @@ SHA1 (patch-python_xen_xend_osdep.py) = 8da6bba38bd7677ea829ca35058f7d2d1d7acad4
 SHA1 (patch-python_xen_xm_create.py) = 7b25b3b3a8d58effae395d776f2a4b94d79acfcb
 SHA1 (patch-qemu-xen-traditional_Makefile) = 0fcd7d5342269e87f14ff76be05d8757151438bc
 SHA1 (patch-qemu-xen-traditional_block-raw-posix.c) = 6376edcc57313c2ffe9bb3d88043d160d1f644ec
-SHA1 (patch-qemu-xen-traditional_configure) = 8b14e6932441d0666092ef4f63d0acd99db0df51
+SHA1 (patch-qemu-xen-traditional_configure) = 0f09a0128762dc7d083e5986908fed5b7746a981
 SHA1 (patch-qemu-xen-traditional_hw_e1000.c) = a8faf95491867c19471690ae98df93ff1d73114a
 SHA1 (patch-qemu-xen-traditional_hw_ide.c) = d562c36627e861658e7a1d52514e59368871cbdb
 SHA1 (patch-qemu-xen-traditional_hw_pass-through.c) = d1f3a1842c595e2d261b997bac02bb71de41eaac

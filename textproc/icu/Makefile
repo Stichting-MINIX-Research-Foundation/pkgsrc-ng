@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.87 2013/12/04 21:02:23 richard Exp $
+# $NetBSD: Makefile,v 1.96 2015/03/06 14:43:15 spz Exp $
 
-DISTNAME=	icu4c-52_1-src
+DISTNAME=	icu4c-54_1-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
+PKGREVISION=	2
 CATEGORIES=	textproc
 MASTER_SITES=	http://download.icu-project.org/files/icu4c/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tgz
@@ -28,11 +29,8 @@ CONFIGURE_ARGS+=	--disable-threads
 
 .include "../../mk/compiler.mk"
 
-.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "MirBSD"
-PLIST_SUBST+=		MH_NAME=mh-bsd-gcc
-.elif ${OPSYS} == "Linux"
-PLIST_SUBST+=		MH_NAME=mh-linux
-.elif ${OPSYS} == "SunOS"
+# from ICU_CHECK_MH_FRAG in source/acinclude.m4
+.if ${OPSYS} == "SunOS"
 .  if !empty(CC_VERSION:Mgcc*)
 PLIST_SUBST+=		MH_NAME=mh-solaris-gcc
 .  else
@@ -42,12 +40,50 @@ PLIST_SUBST+=		MH_NAME=mh-solaris
 BUILDLINK_TRANSFORM+=	rm:-D__STDC__=0
 .  endif
 BUILDLINK_TRANSFORM+=	rm:-ansi
-.elif ${OPSYS} == "IRIX"
-PLIST_SUBST+=		MH_NAME=mh-irix
-.elif ${OPSYS} == "Darwin"
-PLIST_SUBST+=		MH_NAME=mh-darwin
+.elif !empty(MACHINE_PLATFORM:MLinux-*-alpha)
+.  if !empty(CC_VERSION:Mgcc*)
+PLIST_SUBST+=		MH_NAME=mh-alpha-linux-gcc
+.  else
+PLIST_SUBST+=		MH_NAME=mh-alpha-linux-cc
+.  endif
+.elif !empty(MACHINE_PLATFORM:MLinux-*-powerpc*)
+.  if !empty(CC_VERSION:Mgcc*)
+PLIST_SUBST+=		MH_NAME=mh-linux
+.  else
+PLIST_SUBST+=		MH_NAME=mh-linux-va
+.  endif
+.elif ${OPSYS} == "Linux" || ${OPSYS} == "GNUkFreeBSD"
+PLIST_SUBST+=		MH_NAME=mh-linux
 .elif ${OPSYS} == "Cygwin"
 PLIST_SUBST+=		MH_NAME=mh-cygwin
+.elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly"
+PLIST_SUBST+=		MH_NAME=mh-bsd-gcc
+.elif ${OPSYS} == "AIX"
+.  if !empty(CC_VERSION:Mgcc*)
+PLIST_SUBST+=		MH_NAME=mh-aix-gcc
+.  else
+PLIST_SUBST+=		MH_NAME=mh-aix-va
+.  endif
+.elif ${OPSYS} == "HPUX"
+.  if !empty(CC_VERSION:Mgcc*)
+PLIST_SUBST+=		MH_NAME=mh-hpux-gcc
+.  else
+PLIST_SUBST+=		MH_NAME=mh-hpux-acc
+.  endif
+.elif ${OPSYS} == "Darwin"
+PLIST_SUBST+=		MH_NAME=mh-darwin
+.elif ${OPSYS} == "Haiku"
+PLIST_SUBST+=		MH_NAME=mh-haiku
+.elif ${OPSYS} == "IRIX"
+PLIST_SUBST+=		MH_NAME=mh-irix
+.elif ${OPSYS} == "Cygwin"
+PLIST_SUBST+=		MH_NAME=mh-cygwin
+.elif ${OS_VARIANT} == "SCOOSR5"
+PLIST_SUBST+=		MH_NAME=mh-scoosr5
+.elif ${OPSYS} == "OSF1"
+PLIST_SUBST+=		MH_NAME=mh-alpha-osf
+.elif ${OPSYS} == "QNX"
+PLIST_SUBST+=		MH_NAME=mh-qnx
 .else
 # For unknown systems, set the filename to mh-unknown so that the user
 # gets a warning about missing files.
@@ -58,6 +94,14 @@ PLIST_SUBST+=		MH_NAME=mh-unknown
 INSTALL_UNSTRIPPED=	yes
 .endif
 
+PKGCONFIG_OVERRIDE+=	config/icu-i18n.pc
+PKGCONFIG_OVERRIDE+=	config/icu-io.pc
+PKGCONFIG_OVERRIDE+=	config/icu-le.pc
+PKGCONFIG_OVERRIDE+=	config/icu-lx.pc
+PKGCONFIG_OVERRIDE+=	config/icu-uc.pc
+PKGCONFIG_OVERRIDE+=	config/icu.pc
+PKGCONFIG_OVERRIDE_STAGE=	post-build
+
 # expect builtin gcc atomic functions for gcc>=4.1
 # (source/common/putilimp.h)
 .if !empty(CC_VERSION:Mgcc-*) &&	\
@@ -67,11 +111,26 @@ CFLAGS+=	-march=i486
 .  endif
 .endif
 
-INSTALLATION_DIRS=	bin
-
 .if ${OPSYS} == "Cygwin"
+SO_MAJOR=		${PKGVERSION_NOREV:R}
+.  for l in data i18n io le lx test tu uc
+GENERATE_PLIST+=	${ECHO} bin/cygicu${l}${SO_MAJOR}.dll;
+GENERATE_PLIST+=	${ECHO} lib/libicu${l}${SO_MAJOR}.dll.a;
+.  endfor
+
 post-install:
-	mv ${DESTDIR}${PREFIX}/lib/cygicudata.dll ${DESTDIR}${PREFIX}/bin/
+	mv ${DESTDIR}${PREFIX}/lib/cygicu*.dll ${DESTDIR}${PREFIX}/bin/
+.  for l in data i18n io le lx test tu uc
+	${LN} -s libicu${l}${SO_MAJOR}.dll.a ${DESTDIR}${PREFIX}/lib/libicu${l}.dll.a
+.  endfor
+
+SUBST_CLASSES+=		icu-config
+SUBST_STAGE.icu-config=	post-install
+SUBST_FILES.icu-config=	${DESTDIR}${PREFIX}/bin/icu-config
+SUBST_SED.icu-config+=	-e '/^ICUUC_FILE=/ s/libdir/bindir/'
+SUBST_SED.icu-config+=	-e 's/l$${LIBICU}/l$${ICUPREFIX}/g'
+SUBST_SED.icu-config+=	-e '/l$${ICUPREFIX}/ s/$${ICULIBSUFFIX_VERSION}//g'
+
 .endif
 
 .include "../../mk/bsd.pkg.mk"

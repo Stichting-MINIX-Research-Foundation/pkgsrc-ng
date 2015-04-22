@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.84 2014/02/07 13:27:36 wiz Exp $
+# $NetBSD: Makefile,v 1.86 2014/05/29 23:35:33 wiz Exp $
 
 .include "../../devel/GConf/Makefile.common"
 
-PKGREVISION=		8
+PKGREVISION=		9
 
 CONFIGURE_ARGS+=	--disable-gtk
 CONFIGURE_ARGS+=	ac_cv_header_ldap_h=no
@@ -18,7 +18,7 @@ OWN_DIRS+=	${PKG_SYSCONFDIR}/gconf.xml.system
 EGDIR=		${PREFIX}/share/examples/GConf
 CONF_FILES=	${EGDIR}/path ${PKG_SYSCONFDIR}/2/path
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.32.4
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.32.4
 REPLACE_PYTHON=	gsettings/gsettings-schema-convert
 
 # XXX: We need to use XML_CATALOGS here to register the installed DTD.

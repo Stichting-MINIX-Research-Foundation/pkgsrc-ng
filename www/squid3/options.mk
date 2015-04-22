@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.12 2014/02/28 12:28:32 obache Exp $
+# $NetBSD: options.mk,v 1.15 2015/01/22 09:32:49 obache Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.squid
 PKG_SUPPORTED_OPTIONS=	inet6 snmp ssl squid-backend-aufs squid-backend-diskd \
@@ -11,9 +11,9 @@ PKG_OPTIONS_LEGACY_OPTS+=	diskd:squid-backend-diskd \
 	arp-acl:squid-arp-acl pam-helper:squid-pam-helper carp:squid-carp
 
 PLIST_VARS+=	diskd snmp unlinkd
-PLIST_VARS+=	ba_LDAP ba_MSNT ba_NCSA ba_NIS ba_PAM ba_getpwnam
+PLIST_VARS+=	ba_LDAP ba_NCSA ba_NIS ba_PAM ba_getpwnam
 PLIST_VARS+=	da_file da_LDAP
-PLIST_VARS+=	na_SMB
+PLIST_VARS+=	na_sml_lm
 PLIST_VARS+=	ta_kerberos
 PLIST_VARS+=	eacl_file_userip eacl_LDAP_group eacl_unix_group
 PLIST_VARS+=	ssl
@@ -32,7 +32,8 @@ PKG_SUPPORTED_OPTIONS+=	squid-netfilter
 PKG_SUPPORTED_OPTIONS+=	squid-ipf
 .endif
 
-.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "DragonFly"
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || \
+    ${OPSYS} == "Darwin" || ${OPSYS} == "DragonFly"
 PKG_SUPPORTED_OPTIONS+=	squid-pf
 .endif
 
@@ -58,9 +59,9 @@ PKG_SUPPORTED_OPTIONS+=	squid-arp-acl
 .include "../../mk/bsd.options.mk"
 
 SQUID_BACKENDS?=		ufs
-SQUID_BASIC_AUTH_HELPERS?=	MSNT NCSA NIS getpwnam
+SQUID_BASIC_AUTH_HELPERS?=	NCSA NIS getpwnam
 SQUID_DIGEST_AUTH_HELPERS?=	file
-SQUID_NTLM_AUTH_HELPERS?=	fake
+SQUID_NTLM_AUTH_HELPERS?=	fake smb_lm
 SQUID_EXTERNAL_ACL_HELPERS?=	file_userip unix_group
 
 # squid's code has preference as:
@@ -91,10 +92,12 @@ CONFIGURE_ARGS+=	--disable-ipv6
 
 .if !empty(PKG_OPTIONS:Msquid-kerberos-helper)
 .include "../../mk/krb5.buildlink3.mk"
-CONFIGURE_ARGS+=	--with-krb5-config=${KRB5_CONFIG:Q}
+CONFIGURE_ENV+=		ac_cv_path_krb5_config=${KRB5_CONFIG:Q}
 SQUID_NEGOTIATE_AUTH_HELPERS+=	kerberos
 .else
-CONFIGURE_ARGS+=	--with-krb5-config=no
+CONFIGURE_ENV+=		ac_cv_path_krb5_config=no
+CONFIGURE_ARGS+=	--without-mit-krb5
+CONFIGURE_ARGS+=	--without-heimdal-krb5
 .endif
 
 .if !empty(PKG_OPTIONS:Msquid-ldap-helper)
@@ -189,8 +192,11 @@ squid-enable-helper-negotiate_auth:
 CONFIGURE_ARGS+=	--disable-auth-ntlm
 .else
 CONFIGURE_ARGS+=	--enable-auth-ntlm=${SQUID_NTLM_AUTH_HELPERS:Q}
+.PHONY: squid-enable-helper-ntlm_auth
+pre-configure: squid-enable-helper-ntlm_auth
+squid-enable-helper-ntlm_auth:
 .  for i in ${SQUID_NTLM_AUTH_HELPERS}
-PLIST.na_${i}=		yes
+	${ECHO} "exit 0" > ${WRKSRC}/helpers/ntlm_auth/${i}/config.test
 .  endfor
 .endif
 

@@ -1,23 +1,21 @@
-# $NetBSD: Makefile,v 1.22 2014/02/11 07:21:28 dholland Exp $
-#
+# $NetBSD: Makefile,v 1.27 2015/03/07 16:37:51 tnn Exp $
 
-DISTNAME=	libffi-3.0.13
+DISTNAME=	libffi-3.2.1
 CATEGORIES=	devel
 MASTER_SITES=	ftp://sourceware.org/pub/libffi/
 
 MAINTAINER=	asau@inbox.ru
-HOMEPAGE=	http://sources.redhat.com/libffi/
+HOMEPAGE=	https://www.sourceware.org/libffi/
 COMMENT=	Foreign function interface
 LICENSE=	mit
 
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS=	--includedir=${PREFIX}/include
-USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config
-USE_LANGUAGES=	c c++
-INFO_FILES=	yes
-
+USE_LANGUAGES=		c c++
+USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS=		--includedir=${PREFIX}/include
 PKGCONFIG_OVERRIDE+=	libffi.pc.in
+INFO_FILES=		yes
 
 .include "../../mk/compiler.mk"
 # The Compaq C frontend groks .s, but not .S. Assemble osf.S directly w/ as(1).
@@ -31,24 +29,25 @@ pre-build:
 
 .if !empty(PKGSRC_RUN_TEST:M[Yy][Ee][Ss])
 TEST_TARGET=	check
-TEST_ENV=	
+TEST_ENV=	# empty?
 BUILD_DEPENDS+=	dejagnu-[0-9]*:../../devel/dejagnu
 .endif
 
 # patch-aj uses m68k_sync_icache(2)
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-m68k)
-LIBS+=	-lm68k
+LIBS+=		-lm68k
 .endif
 
 # fix http://gnats.netbsd.org/42865
 .if !empty(MACHINE_PLATFORM:MSunOS-*-i386) && !empty(CC_VERSION:Mgcc-[23]*)
-CPPFLAGS += -D__PIC__
+CPPFLAGS+=	-D__PIC__
 .endif
 
 # irix fixes from PR 48587
 .if !empty(OPSYS:MIRIX)
-USE_TOOLS+=     bash gmake
-MAKE_FLAGS+=SHELL=${TOOLS_DIR}/bin/bash
+USE_TOOLS+=		bash gmake
+MAKE_FLAGS+=		SHELL=${TOOLS_DIR}/bin/bash
 .endif
 
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

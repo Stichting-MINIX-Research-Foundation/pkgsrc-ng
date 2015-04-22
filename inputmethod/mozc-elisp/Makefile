@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/02/12 23:18:04 tron Exp $
+# $NetBSD: Makefile,v 1.12 2014/08/07 03:03:32 obache Exp $
 #
 
 PKGNAME=	${EMACS_PKGNAME_PREFIX}${DISTNAME:S/mozc-/mozc-elisp-/}
-PKGREVISION=	2
 CATEGORIES=	inputmethod editors
 
 EMACS_MODULES=	base leim
@@ -12,7 +11,7 @@ EMACS_MODULES=	base leim
 INSTALLATION_DIRS=	${EMACS_LISPPREFIX} bin
 
 do-build:
-	cd ${WRKSRC} && env ${MAKE_ENV} \
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHONBIN} build_mozc.py build -c Release ${_MAKE_JOBS} \
 			unix/emacs/emacs.gyp:mozc_emacs_helper
 	cd ${WRKSRC}/unix/emacs && \

@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.29 2013/10/23 12:15:20 obache Exp $
+# $NetBSD: Makefile,v 1.32 2015/03/15 17:09:00 hiramatsu Exp $
 #
 
-DISTNAME=	ibus-handwrite-2.1.4
-PKGREVISION=	18
+DISTNAME=	ibus-handwrite-3.0.0
 CATEGORIES=	inputmethod
-MASTER_SITES=	http://ibus-handwrite.googlecode.com/files/
+MASTER_SITES=	https://github.com/microcai/ibus-handwrite/releases/download/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://code.google.com/p/ibus-handwrite/
 COMMENT=	Handwrite recognizer for ibus
 LICENSE=	gnu-gpl-v3
@@ -30,8 +29,7 @@ SUBST_FILES.locale_dir=	src/main.c
 SUBST_VARS.locale_dir=	_PKGLOCALEDIR
 
 .include "../../devel/gettext-lib/buildlink3.mk"
-.include "../../graphics/gtkglext/buildlink3.mk"
 .include "../../inputmethod/ibus/buildlink3.mk"
 .include "../../inputmethod/zinnia/buildlink3.mk"
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

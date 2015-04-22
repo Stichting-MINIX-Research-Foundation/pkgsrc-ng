@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.50 2013/12/14 08:26:30 dholland Exp $
+# $NetBSD: Makefile,v 1.52 2015/02/20 23:39:31 joerg Exp $
 
 DISTNAME=	wxhaskell-src-0.9.4
 PKGNAME=	${DISTNAME:S/-src//}
-PKGREVISION=	32
+PKGREVISION=	34
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=wxhaskell/}
 EXTRACT_SUFX=	.zip
@@ -33,7 +33,7 @@ pre-configure:
 
 INSTALL_TARGET=	install-files
 
-.include "../../lang/ghc/buildlink3.mk"
+.include "../../lang/ghc7/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../x11/wxGTK26/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

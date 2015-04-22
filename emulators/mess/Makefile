@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.32 2014/03/26 02:24:15 nat Exp $
+# $NetBSD: Makefile,v 1.40 2015/02/28 11:58:53 wiz Exp $
 
-DISTNAME=	mame0152s
+DISTNAME=	mame0159s
 PKGNAME=	${DISTNAME:S/mame0/mess-0./:S/s$//}
-PKGREVISION=	1
 MASTER_SITES=	http://mamedev.org/downloader.php?file=releases/
 
 COMMENT=	Multi Emulator Super System
@@ -12,11 +11,6 @@ CONFLICTS=		xmess-[0-9]* sdlmess-[0-9]*
 DOCDIR=			share/doc/mess
 SHAREDIR=		share/mess
 INSTALLATION_DIRS=	bin ${DOCDIR} ${SHAREDIR}/artwork ${SHAREDIR}/hash
-
-# mame source is double-zipped
-post-extract:
-	cd ${WRKDIR} && ${.CURDIR}/../../mk/extract/extract mame.zip
-	rm ${WRKDIR}/mame.zip
 
 # to build mess, not mame
 MAKE_FLAGS=		TARGET=mess

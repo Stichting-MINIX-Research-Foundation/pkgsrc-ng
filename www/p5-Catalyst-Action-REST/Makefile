@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2013/08/22 08:45:12 wen Exp $
+# $NetBSD: Makefile,v 1.18 2014/11/06 03:02:47 wen Exp $
 
-DISTNAME=	Catalyst-Action-REST-1.11
+DISTNAME=	Catalyst-Action-REST-1.17
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Catalyst/}
@@ -18,7 +18,7 @@ DEPENDS+=	p5-Data-Taxi-[0-9]*:../../devel/p5-Data-Taxi
 DEPENDS+=	p5-FreezeThaw-[0-9]*:../../devel/p5-FreezeThaw
 DEPENDS+=	p5-JSON>=2.12:../../converters/p5-JSON
 DEPENDS+=	p5-MRO-Compat>=0.10:../../devel/p5-MRO-Compat
-DEPENDS+=	{perl>=5.10,p5-Module-Pluggable-[0-9]*}:../../devel/p5-Module-Pluggable
+DEPENDS+=	p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
 DEPENDS+=	p5-Moose>=1.03:../../devel/p5-Moose
 DEPENDS+=	p5-PHP-Serialization-[0-9]*:../../devel/p5-PHP-Serialization
 DEPENDS+=	p5-Params-Validate>=0.76:../../devel/p5-Params-Validate

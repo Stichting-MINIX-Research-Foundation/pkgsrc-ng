@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.53 2013/09/05 07:07:46 adam Exp $
+# $NetBSD: Makefile,v 1.57 2014/08/13 09:08:55 adam Exp $
 
 PKGNAME=	subversion-${SVNVER}
 COMMENT=	Version control system, meta-package

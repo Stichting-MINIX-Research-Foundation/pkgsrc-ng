@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.48 2014/01/16 10:59:58 martin Exp $
+# $NetBSD: Makefile,v 1.56 2015/03/15 18:12:13 tnn Exp $
 #
 
 DISTNAME=		tme-0.8
-PKGREVISION=		23
+PKGREVISION=		25
 CATEGORIES=		emulators
 MASTER_SITES=		http://csail.mit.edu/~fredette/tme/
 
@@ -16,7 +16,7 @@ COMMENT=		The Machine Emulator
 USE_PKGLOCALEDIR=	yes
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		gmake perl:run pkg-config
+USE_TOOLS+=		gmake perl:run pkg-config yacc
 
 CONFIGURE_ARGS+=	--disable-debug
 
@@ -26,13 +26,29 @@ BUILDLINK_DEPMETHOD.libXt?=	build
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=tautological-compare \
 			-Wno-error=sometimes-uninitialized \
-			-Wno-error=unused-function
+			-Wno-error=unused-function \
+			-Wno-error=absolute-value \
+			-Wno-error=pointer-bool-conversion
+CWRAPPERS_APPEND.cc+=	-Wno-error=tautological-compare \
+			-Wno-error=sometimes-uninitialized \
+			-Wno-error=unused-function \
+			-Wno-error=absolute-value \
+			-Wno-error=pointer-bool-conversion
 .elif !empty(CC_VERSION:Mgcc-4.8.*)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-but-set-variable	\
 	-Wno-error=array-bounds					\
 	-fno-strict-aliasing
+CWRAPPERS_APPEND.cc+=	-Wno-error=unused-but-set-variable	\
+	-Wno-error=array-bounds					\
+	-fno-strict-aliasing
+
 .endif
 
+PLIST_VARS+=	bsd
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD" || \
+    ${OPSYS} == "OpenBSD" || ${OPSYS} == "DragonFly"
+PLIST.bsd=	yes
+.endif
 
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

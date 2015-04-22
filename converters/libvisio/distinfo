@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.9 2013/10/22 11:38:48 wiz Exp $
+$NetBSD: distinfo,v 1.11 2015/01/04 23:39:40 wiz Exp $
 
-SHA1 (libvisio-0.0.31.tar.xz) = c494799dac0931c97ec3e45569f92dcae2969b89
-RMD160 (libvisio-0.0.31.tar.xz) = df44c8952236dab7da2173c3da7484d6b3668945
-Size (libvisio-0.0.31.tar.xz) = 380632 bytes
+SHA1 (libvisio-0.1.1.tar.xz) = 2284866af215a56683bfe4d49a921a053eff4cf9
+RMD160 (libvisio-0.1.1.tar.xz) = 46bab63e5bcef89eea264411afdbe1b2fb716d61
+Size (libvisio-0.1.1.tar.xz) = 412752 bytes
+SHA1 (patch-configure) = 250b9fb13b9038b2de059d126e44411a664466ab

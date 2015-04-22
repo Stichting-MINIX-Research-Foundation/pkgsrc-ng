@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2013/12/23 11:57:04 wiz Exp $
+# $NetBSD: Makefile,v 1.70 2014/05/31 15:56:27 wiz Exp $
 
-DISTNAME=	imlib2-1.4.5
-PKGREVISION=	7
+DISTNAME=	imlib2-1.4.6
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=enlightenment/}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,9 +10,9 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://docs.enlightenment.org/api/imlib2/html/
 COMMENT=	Image manipulation library
 
+USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config
-USE_LIBTOOL=		YES
-GNU_CONFIGURE=		YES
+GNU_CONFIGURE=		yes
 
 PKGCONFIG_OVERRIDE=	imlib2.pc.in
 
@@ -43,8 +43,7 @@ SUBST_VARS.rpath=	COMPILER_RPATH_FLAG
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

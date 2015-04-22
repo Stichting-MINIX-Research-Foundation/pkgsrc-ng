@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2014/03/29 22:10:15 he Exp $
+# $NetBSD: Makefile,v 1.20 2015/03/16 00:26:31 taca Exp $
 
 #
 # We can't omit PKGNAME here to handle PKG_OPTIONS.
 #
-PKGNAME=		php-${PHP_BASE_VERS}
-PKGREVISION=		2
+PKGNAME=		php-${PHP_VERSION}
 CATEGORIES=		lang
 
 HOMEPAGE=		http://www.php.net/
@@ -27,6 +26,13 @@ MESSAGE_SUBST+=		CGIDIR=${CGIDIR}
 
 CONFIGURE_ENV+=		lt_cv_path_SED=${SED:Q}
 MAKE_ENV+=		INSTALL_ROOT=${DESTDIR}
+
+# Darwin < 9 (Mac OS X < 10.5 "Leopard") doesn't have gethostuuid(2)
+# and lacks the zone memory allocator
+.if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
+CFLAGS+=		-DSQLITE_ENABLE_LOCKING_STYLE=0 -DSQLITE_WITHOUT_ZONEMALLOC
+.endif
+
 
 CONF_FILES=		${EGDIR}/php.ini-production ${PKG_SYSCONFDIR}/php.ini
 PLIST_SUBST+=		PHPEXTDIR="${PHP_EXTENSION_DIR}"

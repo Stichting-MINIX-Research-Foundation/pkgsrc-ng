@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.31 2013/05/31 12:41:32 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2015/03/13 10:57:14 jmcneill Exp $
 
-DISTNAME=	ddclient-3.6.6
-PKGREVISION=	4
+DISTNAME=	ddclient-3.8.2
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ddclient/}
 EXTRACT_SUFX=	.tar.bz2
@@ -9,8 +9,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ddclient.sourceforge.net/
 COMMENT=	Client to update dynamic DNS entries
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=		perl:run
 USE_LANGUAGES=		# empty
@@ -22,6 +21,12 @@ RCD_SCRIPTS=		ddclient
 CONF_FILES_PERMS=	${EGDIR}/sample-etc_ddclient.conf		\
 			${PKG_SYSCONFDIR}/ddclient.conf			\
 			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0600
+
+REPLACE_INTERPRETER+=	sh
+REPLACE.sh.old=		.*/bin/bash
+REPLACE.sh.new=		/bin/sh
+REPLACE_FILES.sh=	sample-ddclient-wrapper.sh
+REPLACE_FILES.sh+=	sample-etc_rc.d_init.d_ddclient
 
 INSTALLATION_DIRS=	sbin share/doc/ddclient share/examples/ddclient
 
@@ -43,8 +48,11 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/ddclient ${DESTDIR}${PREFIX}/sbin
 	${INSTALL_DATA} ${WRKSRC}/COPYING ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/COPYRIGHT ${DESTDIR}${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.md ${DESTDIR}${DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/README.ssl ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.cisco ${DESTDIR}${DOCDIR}
 	${INSTALL_DATA} ${WRKSRC}/sample-* ${DESTDIR}${EGDIR}
+
+.include "options.mk"
 
 .include "../../mk/bsd.pkg.mk"

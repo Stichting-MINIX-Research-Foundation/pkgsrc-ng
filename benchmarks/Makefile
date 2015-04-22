@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.48 2013/11/30 20:31:30 tron Exp $
+# $NetBSD: Makefile,v 1.50 2015/02/28 23:09:27 prlw1 Exp $
 #
 
 COMMENT=	Benchmarking tools
@@ -15,6 +15,7 @@ SUBDIR+=	fib
 SUBDIR+=	filebench
 SUBDIR+=	flops
 SUBDIR+=	forkbomb
+SUBDIR+=	glmark2
 SUBDIR+=	hbench
 SUBDIR+=	heapsort
 SUBDIR+=	hint
@@ -31,6 +32,7 @@ SUBDIR+=	netpipe
 SUBDIR+=	nettest
 SUBDIR+=	nsieve
 SUBDIR+=	nttcp
+SUBDIR+=	p5-Benchmark-Timer
 SUBDIR+=	paranoia
 SUBDIR+=	phoronix-test-suite
 SUBDIR+=	pipebench

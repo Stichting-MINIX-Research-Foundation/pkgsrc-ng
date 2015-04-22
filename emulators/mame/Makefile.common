@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.14 2014/03/26 01:42:48 nat Exp $
+# $NetBSD: Makefile.common,v 1.20 2015/01/29 20:00:29 wiz Exp $
 #
 # used by emulators/mame/Makefile
 # used by emulators/mess/Makefile
@@ -14,15 +14,15 @@ RESTRICTED=		selling is not allowed
 NO_SRC_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_CDROM=	${RESTRICTED}
 
+BUILD_DEPENDS+=		dos2unix-[0-9]*:../../converters/dos2unix
 DEPENDS+=		liberation-ttf-[0-9]*:../../fonts/liberation-ttf
 
 WRKSRC=			${WRKDIR}
 
-# separate distinfos though, so don't forget 'make mdi' when
-# adding or changing patches
-#PATCHDIR=		${.CURDIR}/../../emulators/mame/patches
+PATCHDIR=		${.CURDIR}/../../emulators/mame/patches
+DISTINFO_FILE=		${.CURDIR}/../../emulators/mame/distinfo
 
-USE_LANGUAGES=		c c++
+USE_LANGUAGES=		c99 c++
 USE_TOOLS+=		gmake pkg-config
 UNLIMIT_RESOURCES+=	datasize
 MAKE_FILE=		makefile
@@ -34,6 +34,16 @@ MAKE_ENV+=		NO_USE_QTDEBUG=1
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=cast-align \
+			-Wno-error=constant-logical-operand \
+			-Wno-error=sometimes-uninitialized \
+			-Wno-error=shift-count-overflow \
+			-Wno-error=unused-private-field \
+			-Wno-error=tautological-constant-out-of-range-compare \
+			-Wno-error=tautological-compare \
+			-Wno-error=self-assign-field \
+			-Wno-error=unused-const-variable \
+			-Wno-error=unused-function
+CWRAPPERS_APPEND.cc+=	-Wno-error=cast-align \
 			-Wno-error=constant-logical-operand \
 			-Wno-error=sometimes-uninitialized \
 			-Wno-error=shift-count-overflow \
@@ -59,13 +69,26 @@ SUBST_STAGE.exe=	post-patch
 SUBST_MESSAGE.exe=	Fixing executable name.
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.151
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.151
+
+# mame source is double-zipped
+post-extract:
+	cd ${WRKDIR} && ${.CURDIR}/../../mk/extract/extract mame.zip
+	rm ${WRKDIR}/mame.zip
+	# This needs to be done for every file that is patched.
+	${RUN} for f in 3rdparty/mongoose/mongoose.c makefile src/osd/sdl/sdl.mak; do    \
+		${CP} ${WRKSRC}/$${f} ${WRKSRC}/$${f}.bak;              \
+		${CAT} ${WRKSRC}/$${f}.bak | dos2unix >${WRKSRC}/$${f}; \
+	done
 
 .include "../../lang/python/application.mk"
+.include "../../audio/flac/buildlink3.mk"
 .include "../../devel/GConf/buildlink3.mk"
-.include "../../devel/SDL/buildlink3.mk"
-.include "../../devel/SDL_ttf/buildlink3.mk"
+.include "../../devel/SDL2/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../databases/sqlite3/buildlink3.mk"
+.include "../../fonts/SDL2_ttf/buildlink3.mk"
+.include "../../graphics/jpeg/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

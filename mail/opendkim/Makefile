@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2014/02/12 23:18:09 tron Exp $
+# $NetBSD: Makefile,v 1.23 2015/03/15 23:02:34 pettai Exp $
 
-DISTNAME=	opendkim-2.9.0
-PKGREVISION=	1
+DISTNAME=	opendkim-2.10.1
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opendkim/}
 
@@ -28,6 +27,14 @@ PKG_GROUPS_VARS+=	DKIM_GROUP
 PKG_USERS_VARS+=	DKIM_USER
 OWN_DIRS_PERMS+=	${VARBASE}/run/opendkim \
 			${DKIM_USER} ${DKIM_GROUP} 0750
+OWN_DIRS_PERMS+=	${VARBASE}/db/opendkim \
+			${DKIM_USER} ${DKIM_GROUP} 0700
+
+SUBST_CLASSES+=		path
+SUBST_STAGE.path=	pre-configure
+SUBST_MESSAGE.path=	Fixing default paths
+SUBST_FILES.path=	opendkim/opendkim.conf.sample
+SUBST_SED.path=		-e 's,/var/db/dkim,${VARBASE}/db/opendkim,g'
 
 PKGCONFIG_OVERRIDE+=	libopendkim/opendkim.pc.in
 

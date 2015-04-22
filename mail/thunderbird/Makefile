@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.133 2014/03/21 01:43:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.147 2015/03/14 23:02:52 tnn Exp $
 
 DISTNAME=	# empty
 PKGNAME=	thunderbird-${TB_VER}
-TB_VER=		24.4.0
+TB_VER=		31.5.0
+PKGREVISION=	1
 #LIGHTNINGVER=	1.9
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=thunderbird/releases/${TB_VER}/source/}
@@ -15,8 +16,10 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mozillamessaging.com/en-US/thunderbird/
 COMMENT=	Organize, secure and customize your mail
 
+DIST_SUBDIR=	${PKGNAME_NOREV}
+
 USE_TOOLS+=	unzip pax
-WRKSRC=		${WRKDIR}/comm-esr24
+WRKSRC=		${WRKDIR}/comm-esr31
 MOZILLA_DIR=	mozilla/
 PLIST_SRC+=	${PLIST_SRC_DFLT}
 
@@ -56,18 +59,16 @@ CHECK_INTERPRETER_SKIP+=lib/thunderbird-sdk/sdk/bin/xpt.py
 #	${RM} -r ${EXTRACT_DIR.lightning-${LIGHTNINGVER}.source.tar.bz2}
 
 pre-configure:
+	cd ${WRKSRC} && mkdir ${OBJDIR}
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} autoconf
 	cd ${WRKSRC}/mozilla && ${SETENV} ${CONFIGURE_ENV} autoconf
 	cd ${WRKSRC}/mozilla/js/src && ${SETENV} ${CONFIGURE_ENV} autoconf
-	cd ${WRKSRC}/mozilla/nsprpub && ${SETENV} ${CONFIGURE_ENV} autoconf
 	cd ${WRKSRC}/ldap/sdks/c-sdk && ${SETENV} ${CONFIGURE_ENV} autoconf
-# XXX Makefile is broken? When libxul is provided from devel/xulrunner,
-# XXX please remove this.
-	mkdir ${WRKSRC}/mozilla/js/src/.deps
+	touch ${WRKSRC}/.mozconfig
 
 do-build:
 # XXX for some reason it doesn't work unless -j is explicitly specified
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} -j${MAKE_JOBS:U1}
+	cd ${WRKSRC}/${OBJDIR} && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} -j${MAKE_JOBS:U1}
 
 MOZILLA=thunderbird
 MOZILLA_NAME=Thunderbird
@@ -83,7 +84,7 @@ INSTALLATION_DIRS+=	share/applications share/pixmaps
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/desktop				\
 	  ${DESTDIR}${PREFIX}/share/applications/${MOZILLA}.desktop
-	${INSTALL_DATA} ${WRKSRC}/mozilla/dist/thunderbird/chrome/icons/default/default48.png	\
+	${INSTALL_DATA} ${WRKSRC}/${OBJDIR}/mozilla/dist/thunderbird/chrome/icons/default/default48.png	\
 	  ${DESTDIR}${PREFIX}/share/pixmaps/${MOZILLA}.png
 	@${STEP_MSG} "Installing bundled thunderbird extensions."
 	rm -rf ${WRKDIR}/extensions
@@ -98,7 +99,7 @@ post-install:
 	   ${DESTDIR}${PREFIX}/lib/${MOZILLA}/extensions/.
 	rm -rf ${WRKDIR}/extensions
 
-.include "../../www/firefox24/mozilla-common.mk"
+.include "../../www/firefox31/mozilla-common.mk"
 .include "options.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

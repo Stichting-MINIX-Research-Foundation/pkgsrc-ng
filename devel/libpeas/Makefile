@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2014/02/12 18:11:27 drochner Exp $
-#
+# $NetBSD: Makefile,v 1.23 2015/01/06 14:41:08 jperkin Exp $
 
-DISTNAME=	libpeas-1.8.1
+DISTNAME=	libpeas-1.12.1
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libpeas/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,14 +20,16 @@ PYTHON_VERSIONS_INCOMPATIBLE=	26 27
 
 .include "../../lang/python/pyversion.mk"
 CONFIGURE_ARGS+=	--disable-python2
-CONFIGURE_ENV+=		PYTHON3_CONFIG=/usr/pkg/bin/python${PYVERSSUFFIX}-config
+CONFIGURE_ENV+=		PYTHON3_CONFIG=${PYTHONCONFIG}
 
 PKGCONFIG_OVERRIDE+=	data/libpeas-gtk-1.0.pc.in
 PKGCONFIG_OVERRIDE+=	data/libpeas-1.0.pc.in
 
 .include "../../devel/glib2/buildlink3.mk"
+BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.39.0
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../devel/py-gobject3/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../lang/python/extension.mk"
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

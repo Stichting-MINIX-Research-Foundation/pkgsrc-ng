@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.87 2013/10/23 08:54:59 wiz Exp $
+# $NetBSD: Makefile,v 1.91 2014/11/09 03:22:57 obache Exp $
 
-DISTNAME=	make-4.0
+DISTNAME=	make-4.1
 PKGNAME=	g${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=make/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,7 +12,7 @@ HOMEPAGE=	http://www.gnu.org/software/make/make.html
 COMMENT=	GNU version of 'make' utility
 LICENSE=	gnu-gpl-v3
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+USE_FEATURES=		snprintf
 
 GNU_CONFIGURE=		yes
 TEXINFO_REQD+=		4.0

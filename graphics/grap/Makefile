@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.18 2012/10/06 14:10:57 asau Exp $
+# $NetBSD: Makefile,v 1.21 2014/10/09 14:06:35 wiz Exp $
 
-DISTNAME=	grap-1.41
-PKGREVISION=	1
+DISTNAME=	grap-1.45
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.lunabase.org/~faber/Vault/software/grap/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.lunabase.org/~faber/Vault/software/grap/
 COMMENT=	Language for typesetting graphs
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+LICENSE=	2-clause-bsd
 
 MAKE_JOBS_SAFE=		no
 

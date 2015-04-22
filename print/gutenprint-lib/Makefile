@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.50 2014/02/12 23:18:29 tron Exp $
+# $NetBSD: Makefile,v 1.54 2014/06/18 09:28:17 wiz Exp $
 
 VERSION=	5.2.9
 DISTNAME=	gutenprint-${VERSION}
 PKGNAME=	gutenprint-lib-${VERSION}
-PKGREVISION=	17
+PKGREVISION=	20
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gimp-print/}
 EXTRACT_SUFX=	.tar.bz2
@@ -106,6 +106,6 @@ TEST_TARGET=		check
 .include "../../x11/gtk2/buildlink3.mk"
 
 # gutenprint-cups: cups support
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

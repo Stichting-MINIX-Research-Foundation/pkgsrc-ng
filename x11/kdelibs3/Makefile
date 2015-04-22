@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.174 2014/02/12 23:18:53 tron Exp $
+# $NetBSD: Makefile,v 1.180 2014/10/19 22:27:48 alnsn Exp $
 
 DISTNAME=	kdelibs-${_KDE_VERSION}
-PKGREVISION=	31
+PKGREVISION=	36
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
 
@@ -90,6 +90,9 @@ post-install:
 .if ${MACHINE_ARCH} == "alpha"
 GCC_REQD+=		2.95
 .endif
+
+LUA_VERSIONS_ACCEPTED=	51
+.include "../../lang/lua/buildlink3.mk"
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 

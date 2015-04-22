@@ -1,12 +1,38 @@
-$NetBSD: patch-libjava_configure,v 1.1 2013/04/01 21:06:17 wiz Exp $
+$NetBSD: patch-libjava_configure,v 1.4 2014/11/28 09:57:32 obache Exp $
+
+Detect gethostbyname_r properly.
 
 Avoid a reference to the wrapped make in the pkgsrc work directory from
 showing up in an installed file.
 See: libjava/contrib/aotcompile.py.in
 
---- libjava/configure.orig	2012-03-22 07:37:39.000000000 +0000
+--- libjava/configure.orig	2014-04-04 13:53:39.000000000 +0000
 +++ libjava/configure
-@@ -24692,7 +24692,7 @@ $as_echo "Python modules dir: ${python_m
+@@ -20760,7 +20760,7 @@ case "$THREADS" in
+ 	# support for weak references to pthread_* functions ala gthr.h API.
+ 	THREADSPEC='%{!pthread: %{!shared: %eUnder this configuration, the user must provide -pthread when linking.}}'
+ 	;;
+-     *-*-freebsd*)
++     *-*-freebsd* | *-*-openbsd*)
+ 	# FreeBSD >=5.3 implements a model much closer to other modern UNIX
+ 	# systems which support threads and -lpthread.
+ 	THREADLDFLAGS=-pthread
+@@ -22020,6 +22020,14 @@ do :
+ if test "x$ac_cv_func_gethostbyname_r" = x""yes; then :
+   cat >>confdefs.h <<_ACEOF
+ #define HAVE_GETHOSTBYNAME_R 1
++#include <netdb.h>
++int
++main ()
++{
++gethostbyname_r("", 0, 0);
++;
++return 0;
++}
+ _ACEOF
+ 
+ 
+@@ -24873,7 +24881,7 @@ $as_echo "Python modules dir: ${python_m
  
  
  # needed for aot-compile-rpm

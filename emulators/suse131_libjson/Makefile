@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2013/12/05 11:42:16 obache Exp $
+# $NetBSD: Makefile,v 1.5 2015/02/16 10:15:48 jperkin Exp $
 
-DISTNAME=	suse_libjson-${SUSE_VERSION}
+PKGNAME=	suse_libjson-${SUSE_VERSION}
+PKGREVISION=	1
 CATEGORIES=	emulators
-RPMPKGS+=	libjson0-0.10-3.1.2.${SUSE_ARCH}
+RPMUPDPKGS+=	libjson0-0.10-3.4.1.${SUSE_ARCH}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Linux compatibility package for libjson

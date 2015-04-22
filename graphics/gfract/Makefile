@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.54 2013/10/10 14:42:13 ryoon Exp $
+# $NetBSD: Makefile,v 1.56 2014/10/09 14:06:35 wiz Exp $
 #
 
 DISTNAME=		gfract-0.32
-PKGREVISION=		21
+PKGREVISION=		22
 CATEGORIES=		graphics x11
 MASTER_SITES=		http://www.oskusoft.com/osku/gfract/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX} gfract-palettes-0.1.tar.gz
@@ -10,8 +10,6 @@ DISTFILES=		${DISTNAME}${EXTRACT_SUFX} gfract-palettes-0.1.tar.gz
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.oskusoft.com/osku/gfract/index.html
 COMMENT=		Gtk-based fractal program
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c++
 USE_TOOLS+=		gmake pkg-config

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2013/11/04 15:34:38 christos Exp $
+# $NetBSD: Makefile,v 1.27 2015/03/14 14:12:52 tnn Exp $
 
 DISTNAME=	mush-7.2.5
 PKGNAME=	mush-7.2.6.b4.pl1
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	mail
 MASTER_SITES=	# ftp://cse.ogi.edu/pub/mush/
 EXTRACT_SUFX=	.tar.Z
@@ -50,4 +50,5 @@ pre-configure:
 	${CP} ${WRKSRC}/config.h-dist ${WRKSRC}/config.h
 	${CP} ${WRKSRC}/${PLAT_MAKEFILE} ${WRKSRC}/Makefile
 
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

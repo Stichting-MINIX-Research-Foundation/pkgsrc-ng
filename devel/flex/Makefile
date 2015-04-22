@@ -1,32 +1,33 @@
-# $NetBSD: Makefile,v 1.38 2012/10/31 11:16:57 asau Exp $
+# $NetBSD: Makefile,v 1.43 2014/08/23 07:46:38 obache Exp $
 
-DISTNAME=		flex-2.5.36
-PKGREVISION=		1
-CATEGORIES=		lang
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=flex/}
+DISTNAME=	flex-2.5.39
+PKGREVISION=	2
+CATEGORIES=	lang
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=flex/}
+EXTRACT_SUFX=	.tar.xz
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://flex.sourceforge.net/
-COMMENT=		Fast clone of lex(1), the lexical scanner generator
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://flex.sourceforge.net/
+COMMENT=	Fast clone of lex(1), the lexical scanner generator
+LICENSE=	2-clause-bsd
 
-# needed for building flex.pdf, make it an option?
-#BUILD_DEPENDS+=		gtexinfo-[0-9]*:../../devel/gtexinfo
-#BUILD_DEPENDS+=		tex-tex-[0-9]*:../../print/tex-tex
-#BUILD_DEPENDS+=		tex-pdftex-[0-9]*:../../print/tex-pdftex
-#BUILD_DEPENDS+=		tex-latex-fonts-[0-9]*:../../fonts/tex-latex-fonts
-
-GNU_CONFIGURE=		YES
-USE_TOOLS+=		gm4:run makeinfo
-MAKE_JOBS_SAFE=		no
-TEST_TARGET=		check
+USE_LIBTOOL=		yes
+USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		gm4:run
+GNU_CONFIGURE=		yes
 INFO_FILES=		yes
+
+TEST_TARGET=		check
 LIBS.SunOS+=		-lm
-USE_PKGLOCALEDIR=	YES
 
 .include "../../mk/bsd.prefs.mk"
 
 .if ${LOWER_OPSYS} == "aix"
 CFLAGS+=		-D_LINUX_SOURCE_COMPAT
+.endif
+
+.if ${OS_VARIANT} == "SCOOSR5"
+LDFLAGS.SCO_SV+=	-lsocket
 .endif
 
 #.if !empty(PKGSRC_RUN_TEST:M[Yy][Ee][Ss])

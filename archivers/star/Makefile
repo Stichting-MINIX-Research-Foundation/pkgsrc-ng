@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2012/09/11 19:47:01 asau Exp $
+# $NetBSD: Makefile,v 1.33 2014/12/22 01:16:34 mef Exp $
 #
 
 DISTNAME=	star-1.4.3
@@ -8,12 +8,12 @@ MASTER_SITES=	ftp://ftp.berlios.de/pub/star/
 
 MAINTAINER=	uebayasi@NetBSD.org
 HOMEPAGE=	http://cdrecord.berlios.de/old/private/star.html
+HOMEPAGE=	http://freecode.com/projects/star
 COMMENT=	The fastest tar like archiver for UNIX
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=	gmake
 MAKE_FLAGS+=	INS_BASE=${DESTDIR}${PREFIX}
+MAKE_FLAGS+=	RUNPATH=
 MAKE_FLAGS+=	MANDIR=${PKGMANDIR}
 
 .include "../../mk/bsd.prefs.mk"
@@ -32,6 +32,8 @@ pre-build:
 		${LN} -s i586-linux-cc.rul x86_64-linux-cc.rul;	\
 		${LN} -s os-freebsd.id os-dragonfly.id;		\
 		${LN} -s i386-freebsd-gcc.rul x86_64-freebsd-gcc.rul;	\
-		${LN} -s i386-freebsd-cc.rul x86_64-freebsd-cc.rul
+		${LN} -s i386-freebsd-cc.rul x86_64-freebsd-cc.rul;	\
+		${LN} -s i386-freebsd-gcc.rul amd64-freebsd-gcc.rul;	\
+		${LN} -s i386-freebsd-cc.rul amd64-freebsd-cc.rul
 
 .include "../../mk/bsd.pkg.mk"

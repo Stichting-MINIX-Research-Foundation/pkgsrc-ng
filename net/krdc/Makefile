@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/02/12 23:18:22 tron Exp $
+# $NetBSD: Makefile,v 1.9 2014/11/13 11:50:26 markd Exp $
 
 DISTNAME=	krdc-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	net
 COMMENT=	KDE remote desktop client
 

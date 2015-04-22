@@ -1,20 +1,34 @@
-# $NetBSD: Makefile.common,v 1.8 2013/04/13 07:55:06 ghen Exp $
+# $NetBSD: Makefile.common,v 1.11 2015/03/27 23:37:52 rodent Exp $
 
-PDNS_VERSION=		2.9.22.5
+PDNS_VERSION=		3.4.3
 DISTNAME=		pdns-${PDNS_VERSION}
 CATEGORIES=		net
 MASTER_SITES=		http://downloads.powerdns.com/releases/
+EXTRACT_SUFX=		.tar.bz2
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.powerdns.com/
+LICENSE=		gnu-gpl-v2
 
-USE_TOOLS+=		gmake
+USE_TOOLS+=		bison flex gmake pkg-config
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 
+BUILD_DEPENDS+=		ragel-[0-9]*:../../devel/ragel
+
 GNU_CONFIGURE_LIBSUBDIR=pdns
 
+CONFIGURE_ARGS+=	--enable-pdns_server
+CONFIGURE_ARGS+=	--with-system-polarssl
+CONFIGURE_ARGS+=	--without-lua
+
+BUILDLINK_TRANSFORM+=	rm:-fstack-protector
+
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
+.include "../../devel/boost-libs/buildlink3.mk"
+.include "../../devel/gmp/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../security/polarssl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

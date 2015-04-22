@@ -1,19 +1,19 @@
-# $NetBSD: Makefile,v 1.20 2010/03/15 02:33:28 schmonz Exp $
+# $NetBSD: Makefile,v 1.22 2014/11/17 02:56:04 schmonz Exp $
 #
 
 DISTNAME=		qmail-qfilter-2.1
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		mail
 MASTER_SITES=		${HOMEPAGE}
 
 MAINTAINER=		schmonz@NetBSD.org
 HOMEPAGE=		http://untroubled.org/qmail-qfilter/
 COMMENT=		Multi-filter front end for qmail-queue
+LICENSE=		gnu-gpl-v2
 
 DEPENDS+=		qmail>=1.03nb9:../../mail/qmail
 
 PKG_DESTDIR_SUPPORT=	destdir
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 OWN_DIRS_PERMS+=	${QMAIL_QFILTER_TMPDIR} qmaild ${ROOT_GROUP} 700
 
@@ -38,7 +38,6 @@ DJB_MAKE_TARGETS=	NO
 .include "../../mk/bsd.prefs.mk"
 
 post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/examples/qmail-qfilter
 	for i in ${REPLACE_PERL}; do					\
 		${INSTALL_SCRIPT} ${WRKSRC}/$${i}			\
 			${DESTDIR}${PREFIX}/share/examples/qmail-qfilter; \

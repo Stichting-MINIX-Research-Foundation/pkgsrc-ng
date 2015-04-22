@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/02/25 09:18:25 adam Exp $
+# $NetBSD: Makefile,v 1.6 2015/01/18 09:20:21 mef Exp $
 
-DISTNAME=	isl-0.12.2
+DISTNAME=	isl-0.14
 CATEGORIES=	math
 MASTER_SITES=	http://isl.gforge.inria.fr/
 EXTRACT_SUFX=	.tar.bz2

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2013/07/15 02:02:25 ryoon Exp $
+# $NetBSD: Makefile,v 1.18 2015/03/15 14:47:36 tnn Exp $
 
 DISTNAME=		yap-6.3.3
+PKGREVISION=		1
 CATEGORIES=		lang
 # MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=yap/}
 MASTER_SITES=		http://www.dcc.fc.up.pt/~vsc/Yap/ \
@@ -24,4 +25,5 @@ CONFIGURE_ENV+=		INDENT=${TRUE:Q}
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

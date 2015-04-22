@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/03/03 03:30:55 obache Exp $
+# $NetBSD: Makefile,v 1.10 2014/11/20 09:33:29 wiz Exp $
 
-PKGNAME=	pkgsrc-todo-1.2
-PKGREVISION=	1
+PKGNAME=	pkgsrc-todo-1.3
 CATEGORIES=	pkgtools
 
 MAINTAINER=	wiz@NetBSD.org
@@ -13,7 +12,7 @@ DEPENDS+=	p5-pkgsrc-Dewey-[0-9]*:../../pkgtools/p5-pkgsrc-Dewey
 WRKSRC=		${WRKDIR}
 NO_BUILD=	yes
 USE_LANGUAGES=	# none
-USE_TOOLS+=	perl:build
+USE_TOOLS+=	perl:run
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

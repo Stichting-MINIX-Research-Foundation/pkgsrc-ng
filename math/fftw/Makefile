@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2013/07/09 15:46:45 tsutsui Exp $
+# $NetBSD: Makefile,v 1.49 2014/10/09 14:06:41 wiz Exp $
 
-DISTNAME=	fftw-3.3.3
-PKGREVISION=	2
+DISTNAME=	fftw-3.3.4
+PKGREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	ftp://ftp.fftw.org/pub/fftw/ \
 		http://www.fftw.org/
@@ -10,8 +10,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.fftw.org/
 COMMENT=	Collection of fast C routines to compute DFTs
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c
 USE_LIBTOOL=		yes

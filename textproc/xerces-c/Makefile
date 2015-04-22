@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.43 2012/12/31 09:24:46 obache Exp $
+# $NetBSD: Makefile,v 1.45 2015/03/26 21:02:31 bsiegert Exp $
 
-DISTNAME=	xerces-c-3.1.1
+DISTNAME=	xerces-c-3.1.2
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_APACHE:=xerces/c/3/sources/}
 
@@ -8,8 +8,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://xerces.apache.org/
 COMMENT=	Validating C++ XML parser with DOM and SAX support
 LICENSE=	apache-2.0
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes

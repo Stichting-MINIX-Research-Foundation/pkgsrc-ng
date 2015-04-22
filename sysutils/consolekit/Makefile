@@ -1,15 +1,13 @@
-# $NetBSD: Makefile,v 1.21 2013/05/31 12:41:59 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.25 2014/08/17 15:59:07 wiz Exp $
 
-CONSOLEKIT_VER=		0.3.0
+CONSOLEKIT_VER=		0.4.5
 DISTNAME=		ConsoleKit-${CONSOLEKIT_VER}
 PKGNAME=		consolekit-${CONSOLEKIT_VER}
-PKGREVISION=		11
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.freedesktop.org/software/ConsoleKit/dist/
 EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=	netbsd-desktop@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freedesktop.org/wiki/Software/ConsoleKit
 COMMENT=	Framework for defining and tracking users, login sessions, and seats
 LICENSE=	gnu-gpl-v2
@@ -40,6 +38,7 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 
 post-extract:
 	${CP} ${FILESDIR}/ck-sysdeps-netbsd.c ${WRKSRC}/src/
+	${CP} ${FILESDIR}/ck-sysdeps-openbsd.c ${WRKSRC}/src/
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -vi ${AUTORECONF_ARGS}
@@ -47,9 +46,9 @@ pre-configure:
 .include "../../mk/bsd.prefs.mk"
 .if ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
 post-install:
-	${CP} ${FILESDIR}/ck-get-x11-display-device.FreeBSD \
+	${INSTALL_SCRIPT} ${FILESDIR}/ck-get-x11-display-device.FreeBSD \
 		${DESTDIR}${PREFIX}/libexec/ck-get-x11-display-device
-	${CP} ${FILESDIR}/ck-get-x11-server-pid.FreeBSD \
+	${INSTALL_SCRIPT} ${FILESDIR}/ck-get-x11-server-pid.FreeBSD \
 		${DESTDIR}${PREFIX}/libexec/ck-get-x11-server-pid
 .endif
 

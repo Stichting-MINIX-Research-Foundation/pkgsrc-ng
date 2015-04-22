@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.117 2014/03/08 10:38:26 tron Exp $
+# $NetBSD: Makefile,v 1.130 2015/03/09 18:47:18 tron Exp $
 
-DISTNAME=	wireshark-1.10.6
+DISTNAME=	wireshark-1.10.13
 CATEGORIES=	net
-MASTER_SITES=	http://www.wireshark.org/download/src/ \
-		${MASTER_SITE_SOURCEFORGE:=wireshark/}
+MASTER_SITES=	https://www.wireshark.org/download/src/
 EXTRACT_SUFX=	.tar.bz2
 
 OWNER=		tron@NetBSD.org
@@ -33,7 +32,7 @@ CONFIGURE_ENV+=		ac_cv_path_LEXDUMMY=${TOOLS_PATH.lex}
 PTHREAD_OPTS+=		require
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.10.5
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.10.5
 REPLACE_PYTHON+=	help/faq.py
 REPLACE_PYTHON+=	tools/asn2deb
 REPLACE_PYTHON+=	tools/asn2wrs.py

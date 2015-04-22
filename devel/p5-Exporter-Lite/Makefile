@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2013/05/31 12:40:17 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2014/08/13 19:45:09 wiz Exp $
 
-DISTNAME=	Exporter-Lite-0.02
+DISTNAME=	Exporter-Lite-0.06
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Exporter/}
 

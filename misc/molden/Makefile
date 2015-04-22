@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.29 2013/04/06 13:01:26 rodent Exp $
+# $NetBSD: Makefile,v 1.32 2015/03/21 19:27:23 joerg Exp $
 
 DISTNAME=	molden4.6
 PKGNAME=	${DISTNAME:S/molden/&-/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	misc # chemistry
-MASTER_SITES=	ftp://ftp.cmbi.kun.nl/pub/molgraph/molden/
+MASTER_SITES=	ftp://ftp.cmbi.ru.nl/pub/molgraph/molden/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cmbi.ru.nl/molden/molden.html
@@ -18,7 +18,6 @@ NO_SRC_ON_FTP=		${RESTRICTED}
 NO_BIN_ON_FTP=		${RESTRICTED}
 
 DIST_SUBDIR=		${PKGNAME_NOREV}
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 MAKE_FILE=	makefile
 BUILD_TARGET=	molden
@@ -34,6 +33,11 @@ do-install:
 			${INSTALL_DATA} $${f} ${DESTDIR}${PREFIX}/share/molden/$${d} ; \
 		done ; \
 	done
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+CFLAGS+=	-Wno-return-type
+.endif
 
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

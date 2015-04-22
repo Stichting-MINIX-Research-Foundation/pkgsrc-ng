@@ -1,21 +1,26 @@
-# $NetBSD: Makefile,v 1.10 2012/09/11 23:59:23 asau Exp $
+# $NetBSD: Makefile,v 1.14 2014/09/24 11:10:38 jperkin Exp $
 #
 
-DISTNAME=	alsa-utils-1.0.22
+DISTNAME=	alsa-utils-1.0.27.2
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ftp.alsa-project.org/pub/utils/
+MASTER_SITES+=	ftp://gd.tuwien.ac.at/opsys/linux/alsa/utils/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	ftp://ftp.alsa-project.org/pub/utils/
-COMMENT=	Advanced Linux Sound Architecture (ALSA) utilities
+HOMEPAGE=	http://www.alsa-project.org/
+COMMENT=	Advanced Linux Sound Architecture (ALSA) CLI utilities
 
 GNU_CONFIGURE=		yes
-USE_TOOLS=		pkg-config gmake bash:run
+USE_TOOLS+=		pkg-config gmake gsed bash:run
 USE_PKGLOCALEDIR=	yes
 USE_NCURSES=		yes
 LDFLAGS.DragonFly=	-lm
 LDFLAGS.SunOS+=		-lm -lsocket -lnsl
+CPPFLAGS.NetBSD+=	-D__u32=uint32_t -D__u64=uint64_t
+CPPFLAGS.NetBSD+=	-Dbswap_16=bswap16 -Dbswap_32=bswap32
+
+CFLAGS+=		-g
 
 REPLACE_BASH=		alsaconf/alsaconf.in
 

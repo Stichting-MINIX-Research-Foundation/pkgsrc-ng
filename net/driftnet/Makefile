@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.29 2012/10/23 17:18:18 asau Exp $
-#
+# $NetBSD: Makefile,v 1.31 2014/05/31 15:56:28 wiz Exp $
 
 DISTNAME=	driftnet-0.1.6
-PKGREVISION=	10
+PKGREVISION=	12
 CATEGORIES=	net graphics
 MASTER_SITES=	http://www.ex-parrot.com/~chris/driftnet/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.ex-parrot.com/~chris/driftnet/
 COMMENT=	Real-time image sniffer
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	mpg123-[0-9]*:../../audio/mpg123
 
@@ -24,9 +24,8 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/driftnet ${DESTDIR}${PREFIX}/bin
 	${INSTALL_MAN} ${WRKSRC}/driftnet.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.include "../../mk/giflib.buildlink3.mk"
-.include "../../x11/gtk/buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
-
+.include "../../x11/gtk/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

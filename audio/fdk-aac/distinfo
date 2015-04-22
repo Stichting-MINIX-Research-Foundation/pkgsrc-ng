@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/03/12 21:31:19 adam Exp $
+
+SHA1 (fdk-aac-0.1.4.tar.gz) = 9215d19bdd911954fd5bc879c707ab571716ba0d
+RMD160 (fdk-aac-0.1.4.tar.gz) = 570aa87ba8e05884f79425794692b47352532603
+Size (fdk-aac-0.1.4.tar.gz) = 1986515 bytes

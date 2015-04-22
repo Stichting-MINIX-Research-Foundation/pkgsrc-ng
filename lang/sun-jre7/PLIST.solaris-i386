@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST.solaris-i386,v 1.5 2014/02/11 09:12:12 obache Exp $
+@comment $NetBSD: PLIST.solaris-i386,v 1.7 2014/06/06 14:28:40 ryoon Exp $
 bin/sun7-java
 bin/sun7-javaws
 bin/sun7-keytool
@@ -143,6 +143,7 @@ java/sun-7/lib/i386/client/libjvm_dtrace.so
 java/sun-7/lib/i386/headless/libmawt.so
 java/sun-7/lib/i386/jexec
 java/sun-7/lib/i386/jli/libjli.so
+java/sun-7/lib/i386/jspawnhelper
 java/sun-7/lib/i386/jvm.cfg.default
 java/sun-7/lib/i386/libJdbcOdbc.so
 java/sun-7/lib/i386/libawt.so
@@ -442,6 +443,7 @@ java/sun-7/lib/zi/Antarctica/Mawson
 java/sun-7/lib/zi/Antarctica/Palmer
 java/sun-7/lib/zi/Antarctica/Rothera
 java/sun-7/lib/zi/Antarctica/Syowa
+java/sun-7/lib/zi/Antarctica/Troll
 java/sun-7/lib/zi/Antarctica/Vostok
 java/sun-7/lib/zi/Asia/Aden
 java/sun-7/lib/zi/Asia/Almaty

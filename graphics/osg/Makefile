@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.42 2014/02/12 23:18:03 tron Exp $
+# $NetBSD: Makefile,v 1.53 2015/03/14 18:46:13 gdt Exp $
 
 DISTNAME=	OpenSceneGraph-3.0.1
 PKGNAME=	osg-3.0.1
-PKGREVISION=	24
+PKGREVISION=	35
 CATEGORIES=	graphics devel
 MASTER_SITES=	http://www.openscenegraph.org/downloads/stable_releases/OpenSceneGraph-${PKGVERSION_NOREV}/source/
 EXTRACT_SUFX=	.zip
@@ -35,7 +35,7 @@ PLIST.x11=	yes
 .include "../../multimedia/xine-lib/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXrandr/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .endif
 
@@ -45,7 +45,6 @@ PLIST.x11=	yes
 .include "../../graphics/jasper/buildlink3.mk"
 .include "../../graphics/librsvg/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
-.include "../../multimedia/ffmpeg/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-$NetBSD: patch-system_bin_sqldump,v 1.1.4.1 2014/04/09 11:10:15 tron Exp $
+$NetBSD: patch-system_bin_sqldump,v 1.2 2014/04/07 13:30:06 taca Exp $
 
 No bash specific function is needed here.
 

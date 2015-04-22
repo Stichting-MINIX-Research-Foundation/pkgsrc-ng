@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.57 2013/06/04 22:16:03 tron Exp $
+# $NetBSD: Makefile,v 1.59 2014/05/30 11:32:56 joerg Exp $
 
 DISTNAME=	asc-source-1.16.4.0
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=asc-hq/}
 EXTRACT_SUFX=	.tar.bz2
@@ -32,6 +32,11 @@ MAKE_ENV+=		top_src_dir=.
 
 # ../weaponguide.cpp:1205: virtual memory exhausted
 UNLIMIT_RESOURCES=	datasize
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mclang)
+CONFIGURE_ARGS+=	--disable-gcc296-detection
+.endif
 
 post-extract:
 	mv ${WRKDIR}/*.mp3 ${WRKSRC}/data/music

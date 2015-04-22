@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.54 2014/02/12 23:18:27 tron Exp $
+# $NetBSD: Makefile,v 1.58 2014/10/07 16:47:34 adam Exp $
 #
 
 DISTNAME=	vinagre-3.6.2
-PKGREVISION=	17
+PKGREVISION=	20
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vinagre/3.6/}
 EXTRACT_SUFX=	.tar.xz
@@ -17,9 +17,12 @@ BUILD_DEPENDS+=	itstool-[0-9]*:../../textproc/itstool
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake intltool pkg-config msgfmt
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c99 c++
 
 USE_PKGLOCALEDIR=	yes
+
+CFLAGS.SunOS+=	-D__EXTENSIONS__
+LDFLAGS.SunOS+=	-lnsl
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)

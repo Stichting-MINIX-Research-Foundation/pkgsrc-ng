@@ -1,4 +1,4 @@
-<!-- $NetBSD: introduction.xml,v 1.30 2013/08/22 13:54:51 ryoon Exp $ -->
+<!-- $NetBSD: introduction.xml,v 1.32 2014/12/06 03:28:07 ryoon Exp $ -->
 
 <chapter id="introduction">
   <title>What is pkgsrc?</title>

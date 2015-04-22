@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.82 2014/02/12 23:18:53 tron Exp $
+# $NetBSD: Makefile,v 1.91 2015/03/09 21:24:40 tnn Exp $
 
 DISTNAME=	xorg-server-1.12.4
 PKGNAME=	modular-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	11
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=xserver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -55,15 +55,15 @@ CONFIGURE_ARGS+=	--enable-xorg
 
 CONFIGURE_ARGS+=	--with-fontrootdir=${PREFIX}/share/fonts/X11
 
-LEGACY_FONT_PATH=
-DEFAULT_FONT_PATH=
+LEGACY_FONT_PATHS=
+DEFAULT_FONT_PATHS=
 .for f in misc TTF OTF Type1 100dpi 75dpi cyrillic
-DEFAULT_FONT_PATH+=	${PREFIX}/share/fonts/X11/${f}
-LEGACY_FONT_PATH+=	${PREFIX}/lib/X11/fonts/${f}
+DEFAULT_FONT_PATHS+=	${PREFIX}/share/fonts/X11/${f}
+LEGACY_FONT_PATHS+=	${PREFIX}/lib/X11/fonts/${f}
 .endfor
-FONT_PATH=		${DEFAULT_FONT_PATH} ${LEGACY_FONT_PATH}
+FONT_PATHS=		${DEFAULT_FONT_PATHS} ${LEGACY_FONT_PATHS}
 
-CONFIGURE_ARGS+=	--with-default-font-path=${FONT_PATH:ts,:Q}
+CONFIGURE_ARGS+=	--with-default-font-path=${FONT_PATHS:ts,:Q}
 
 CONFIGURE_ARGS+=	--disable-config-hal
 CONFIGURE_ARGS+=	--disable-dmx
@@ -104,17 +104,17 @@ INSTALLATION_DIRS+=	lib/xorg/modules/drivers lib/xorg/modules/input
 BUILDLINK_API_DEPENDS.MesaLib+=		MesaLib>=7.8.0
 BUILDLINK_API_DEPENDS.compositeproto+=	compositeproto>=0.4
 BUILDLINK_API_DEPENDS.fixesproto+=	fixesproto>=5.0
-BUILDLINK_API_DEPENDS.damageproto+=     damageproto>=1.1
-BUILDLINK_API_DEPENDS.xcmiscproto+=     xcmiscproto>=1.2.0
-BUILDLINK_API_DEPENDS.xtrans+=      	xtrans>=1.2.2
-BUILDLINK_API_DEPENDS.bigreqsproto+=    bigreqsproto>=1.1.0
-BUILDLINK_API_DEPENDS.xproto+=      	xproto>=7.0.22
-BUILDLINK_API_DEPENDS.xextproto+=      	xextproto>=7.1.99
-BUILDLINK_API_DEPENDS.recordproto+=     recordproto>=1.13.99.1
-BUILDLINK_API_DEPENDS.scrnsaverproto+=  scrnsaverproto>=1.1
-BUILDLINK_API_DEPENDS.resourceproto+=   resourceproto>=1.2.0
-BUILDLINK_API_DEPENDS.dri+=      	dri>=7.8
-BUILDLINK_API_DEPENDS.xfont+=      	xfont>=1.4.2
+BUILDLINK_API_DEPENDS.damageproto+=	damageproto>=1.1
+BUILDLINK_API_DEPENDS.xcmiscproto+=	xcmiscproto>=1.2.0
+BUILDLINK_API_DEPENDS.xtrans+=		xtrans>=1.2.2
+BUILDLINK_API_DEPENDS.bigreqsproto+=	bigreqsproto>=1.1.0
+BUILDLINK_API_DEPENDS.xproto+=		xproto>=7.0.22
+BUILDLINK_API_DEPENDS.xextproto+=	xextproto>=7.1.99
+BUILDLINK_API_DEPENDS.recordproto+=	recordproto>=1.13.99.1
+BUILDLINK_API_DEPENDS.scrnsaverproto+=	scrnsaverproto>=1.1
+BUILDLINK_API_DEPENDS.resourceproto+=	resourceproto>=1.2.0
+BUILDLINK_API_DEPENDS.dri+=		dri>=7.8
+BUILDLINK_API_DEPENDS.xfont+=		xfont>=1.4.2
 BUILDLINK_API_DEPENDS.glproto+=		glproto>=1.4.16
 BUILDLINK_API_DEPENDS.inputproto+=	inputproto>=2.1.99.6
 BUILDLINK_API_DEPENDS.kbproto+=		kbproto>=1.0.3
@@ -135,6 +135,7 @@ CONFIGURE_ENV+=		ac_cv_path_RAWCPP="${PREFIX}/bin/tradcpp -Uunix"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libpciaccess+=	libpciaccess>=0.11.0
+BUILDLINK_DEPMETHOD.libpciaccess=	full
 .include "../../sysutils/libpciaccess/buildlink3.mk"
 .include "../../x11/bigreqsproto/buildlink3.mk"
 .include "../../x11/compositeproto/buildlink3.mk"

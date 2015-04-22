@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2014/02/01 20:23:35 rodent Exp $
-
-DISTNAME=	trytond_stock-3.0.1
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/_/-/1}
+# $NetBSD: Makefile,v 1.6 2015/03/15 00:17:35 rodent Exp $
+TRYTON_MODULE_NAME=	trytond_stock
+.include "../../devel/py-trytond/Makefile.common"
 CATEGORIES=	misc python
-MASTER_SITES=	http://downloads.tryton.org/3.0/
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://www.tryton.org/
@@ -17,9 +15,7 @@ DEPENDS+=	${PYPKGPREFIX}-trytond-party-[0-9]*:../../misc/py-trytond-party
 DEPENDS+=	${PYPKGPREFIX}-python-sql-[0-9]*:../../databases/py-python-sql
 DEPENDS+=	${PYPKGPREFIX}-trytond-[0-9]*:../../devel/py-trytond
 
-USE_LANGUAGES=  # none
-
-PYTHON_VERSIONS_INCOMPATIBLE=   33 # XXX according to setup.py (v3.0.1)
+USE_LANGUAGES=	# none
 
 REPLACE_PYTHON+=	tests/test_stock.py
 

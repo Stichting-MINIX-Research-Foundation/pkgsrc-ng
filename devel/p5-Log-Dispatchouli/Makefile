@@ -1,9 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2013/05/31 12:40:28 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2015/01/18 12:37:43 wen Exp $
 
-DISTNAME=	Log-Dispatchouli-2.005
+DISTNAME=	Log-Dispatchouli-2.012
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
-SVR4_PKGNAME=	p5ldi
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Log/}
 
@@ -17,7 +15,7 @@ DEPENDS+=	p5-Log-Dispatch-Array-[0-9]*:../../devel/p5-Log-Dispatch-Array
 DEPENDS+=	p5-Params-Util-[0-9]*:../../devel/p5-Params-Util
 DEPENDS+=	p5-String-Flogger-[0-9]*:../../textproc/p5-String-Flogger
 DEPENDS+=	p5-Sub-Exporter-[0-9]*:../../devel/p5-Sub-Exporter
-DEPENDS+=	p5-Sub-Exporter-GlobExporter-[0-9]*:../../devel/p5-Sub-Exporter-GlobExporter
+DEPENDS+=	p5-Sub-Exporter-GlobExporter>=0.002:../../devel/p5-Sub-Exporter-GlobExporter
 DEPENDS+=	p5-Try-Tiny>=0.04:../../devel/p5-Try-Tiny
 
 BUILD_DEPENDS+= p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep

@@ -1,13 +1,16 @@
-$NetBSD: distinfo,v 1.13 2014/02/13 14:38:08 jperkin Exp $
+$NetBSD: distinfo,v 1.21 2015/02/07 19:23:40 adam Exp $
 
-SHA1 (mysql-5.6.16.tar.gz) = 64a3b4058e2039d2b812d23c8793f74b4f168cc0
-RMD160 (mysql-5.6.16.tar.gz) = 11d21eb50e63776876dccf3a72e19e5de4eec9c2
-Size (mysql-5.6.16.tar.gz) = 32821451 bytes
-SHA1 (patch-CMakeLists.txt) = b3d0bfc9a23ddbb1ea415e16c35c86e190857bba
+SHA1 (mysql-5.6.23.tar.gz) = 2d610ba01ab97df042d5946ba0da411da5547c5d
+RMD160 (mysql-5.6.23.tar.gz) = 90e1b18264493434d986f39962d249c176b8469a
+Size (mysql-5.6.23.tar.gz) = 33115859 bytes
+SHA1 (sphinx-2.2.7-release.tar.gz) = dedae28c0deafda90109745230dacbe0dc441e1a
+RMD160 (sphinx-2.2.7-release.tar.gz) = d9f0150f6779b43457e30c77be50aa9bc658b03a
+Size (sphinx-2.2.7-release.tar.gz) = 2969037 bytes
+SHA1 (patch-CMakeLists.txt) = 1b5dd5a965f87027a03c5f2eaa1c7e6a43395cff
 SHA1 (patch-client_completion_hash.cc) = b86ec80beac624b2aa21c7587e351ff126400ecb
 SHA1 (patch-client_mysqladmin.cc) = e1650ef3695675bcc01375bacdebcb7318218b93
 SHA1 (patch-client_sql_string.h) = f26aff4ce4cf6dfef44c85ef95120331ca8fef52
-SHA1 (patch-cmake_dtrace.cmake) = e54867464be28ec05534c9b3c38fd54533f652fb
+SHA1 (patch-cmake_dtrace.cmake) = d953fdf976f3a7e7f0c2c16a9a2d2615f2777396
 SHA1 (patch-cmake_libutils.cmake) = c3e5ab66d2bef43dc2308369e27550553e0f5356
 SHA1 (patch-cmake_plugin.cmake) = 03e7a7debd61e870bd76d5c5b253a620662b3595
 SHA1 (patch-cmake_readline.cmake) = f1ec8ccbebb5b7851199bec457d4029c8a9e63dc
@@ -19,7 +22,7 @@ SHA1 (patch-include_my_net.h) = b08aa36921efd023f9ecaac4cd3fb8a16d200abd
 SHA1 (patch-include_my_pthread.h) = ff3bf1fddd04edd7804d810f79de64387464b5ca
 SHA1 (patch-libmysql_CMakeLists.txt) = 229044de6d11b26ee99b25be99b628a9f146b795
 SHA1 (patch-mysql-test_CMakeLists.txt) = b7dd562d55678b13ac487aa0ee59bf2551af1f9d
-SHA1 (patch-mysys__ssl_CMakeLists.txt) = 8393fba7e834a7d97103ef7fc3925d134e018fbb
+SHA1 (patch-mysys__ssl_CMakeLists.txt) = e50bad459520be78ea2d5c4d0699cda8c1141884
 SHA1 (patch-mysys_stacktrace.c) = 27ddd012c9ca299cfe2b9935b9f99fe603415e7e
 SHA1 (patch-scripts_CMakeLists.txt) = 3f4621b3256034c5a3114e98c108658794f06008
 SHA1 (patch-scripts_mysqld_safe.sh) = 0784314227657aa0bc3f4a0b4e21c173a86fa94b

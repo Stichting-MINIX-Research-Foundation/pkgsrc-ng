@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.49 2014/02/12 23:17:58 tron Exp $
+# $NetBSD: Makefile,v 1.53 2015/03/14 18:46:12 gdt Exp $
 #
 
 DISTNAME=	merkaartor-0.17.2
-PKGREVISION=	25
+PKGREVISION=	28
 CATEGORIES=	geography
 MASTER_SITES=	http://merkaartor.be/attachments/download/253/
 EXTRACT_SUFX=	.tar.bz2
@@ -35,6 +35,7 @@ do-configure:
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CXX+=	-std=c++11
+CWRAPPERS_APPEND.cxx+=	-std=c++11
 .endif
 
 .include "../../devel/boost-headers/buildlink3.mk"

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.9.2.1 2014/04/09 14:10:59 tron Exp $
+@comment $NetBSD: PLIST,v 1.13 2015/02/17 14:03:30 ryoon Exp $
 share/doc/tomcat/LICENSE
 share/doc/tomcat/NOTICE
 share/doc/tomcat/RELEASE-NOTES
@@ -30,7 +30,7 @@ share/tomcat/lib/catalina-ant.jar
 share/tomcat/lib/catalina-ha.jar
 share/tomcat/lib/catalina-tribes.jar
 share/tomcat/lib/catalina.jar
-share/tomcat/lib/ecj-P20140317-1600.jar
+share/tomcat/lib/ecj-4.4.jar
 share/tomcat/lib/el-api.jar
 share/tomcat/lib/jasper-el.jar
 share/tomcat/lib/jasper.jar
@@ -130,6 +130,7 @@ share/tomcat/webapps/docs/config/realm.html
 share/tomcat/webapps/docs/config/resources.html
 share/tomcat/webapps/docs/config/server.html
 share/tomcat/webapps/docs/config/service.html
+share/tomcat/webapps/docs/config/sessionidgenerator.html
 share/tomcat/webapps/docs/config/systemprops.html
 share/tomcat/webapps/docs/config/valve.html
 share/tomcat/webapps/docs/connectors.html
@@ -298,6 +299,8 @@ share/tomcat/webapps/examples/WEB-INF/classes/num/NumberGuessBean.class
 share/tomcat/webapps/examples/WEB-INF/classes/num/NumberGuessBean.java
 share/tomcat/webapps/examples/WEB-INF/classes/sessions/DummyCart.class
 share/tomcat/webapps/examples/WEB-INF/classes/sessions/DummyCart.java
+share/tomcat/webapps/examples/WEB-INF/classes/util/CookieFilter.class
+share/tomcat/webapps/examples/WEB-INF/classes/util/CookieFilter.java
 share/tomcat/webapps/examples/WEB-INF/classes/util/HTMLFilter.class
 share/tomcat/webapps/examples/WEB-INF/classes/util/HTMLFilter.java
 share/tomcat/webapps/examples/WEB-INF/classes/validators/DebugValidator.class
@@ -403,12 +406,6 @@ share/tomcat/webapps/examples/jsp/cal/cal2.jsp
 share/tomcat/webapps/examples/jsp/cal/cal2.jsp.html
 share/tomcat/webapps/examples/jsp/cal/calendar.html
 share/tomcat/webapps/examples/jsp/cal/login.html
-share/tomcat/webapps/examples/jsp/chat/index.jsp
-share/tomcat/webapps/examples/jsp/chat/index.jsp.html
-share/tomcat/webapps/examples/jsp/chat/login.jsp
-share/tomcat/webapps/examples/jsp/chat/login.jsp.html
-share/tomcat/webapps/examples/jsp/chat/post.jsp
-share/tomcat/webapps/examples/jsp/chat/post.jsp.html
 share/tomcat/webapps/examples/jsp/checkbox/CheckTest.html
 share/tomcat/webapps/examples/jsp/checkbox/check.html
 share/tomcat/webapps/examples/jsp/checkbox/checkresult.jsp
@@ -566,6 +563,12 @@ share/tomcat/webapps/examples/jsp/tagplugin/notes.html
 share/tomcat/webapps/examples/jsp/xml/xml.html
 share/tomcat/webapps/examples/jsp/xml/xml.jsp
 share/tomcat/webapps/examples/jsp/xml/xml.jsp.html
+share/tomcat/webapps/examples/servlets/chat/index.jsp
+share/tomcat/webapps/examples/servlets/chat/index.jsp.html
+share/tomcat/webapps/examples/servlets/chat/login.jsp
+share/tomcat/webapps/examples/servlets/chat/login.jsp.html
+share/tomcat/webapps/examples/servlets/chat/post.jsp
+share/tomcat/webapps/examples/servlets/chat/post.jsp.html
 share/tomcat/webapps/examples/servlets/cookies.html
 share/tomcat/webapps/examples/servlets/helloworld.html
 share/tomcat/webapps/examples/servlets/images/code.gif

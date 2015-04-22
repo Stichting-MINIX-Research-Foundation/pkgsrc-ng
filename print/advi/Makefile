@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2014/02/12 23:18:28 tron Exp $
+# $NetBSD: Makefile,v 1.84 2015/02/10 21:10:14 joerg Exp $
 
-DISTNAME=		advi-1.10.1
-PKGREVISION=		32
+DISTNAME=		advi-1.10.2
+PKGREVISION=		1
 CATEGORIES=		print
 MASTER_SITES=		http://gallium.inria.fr/advi/
 
@@ -10,6 +10,7 @@ HOMEPAGE=		http://gallium.inria.fr/advi/
 COMMENT=		Active-DVI Presenter
 LICENSE=		gnu-lgpl-v2
 
+BUILD_DEPENDS+=		ImageMagick-[0-9]*:../../graphics/ImageMagick
 BUILD_DEPENDS+=		ocaml>=3.04:../../lang/ocaml
 BUILD_DEPENDS+=		ocaml-findlib>=1.2.6:../../devel/ocaml-findlib
 DEPENDS+=		camlimages>=4.0.0:../../graphics/camlimages
@@ -20,6 +21,7 @@ DEPENDS+=		camlimages>=4.0.0:../../graphics/camlimages
 DEPENDS+=		tex-fontinst>=1.933:../../fonts/tex-fontinst
 DEPENDS+=		tex-pstools>=1.68:../../graphics/tex-pstools
 DEPENDS+=		tex-cyrillic-bin>=2013:../../print/tex-cyrillic-bin
+DEPENDS+=		hevea-[0-9]*:../../textproc/hevea
 
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
@@ -58,9 +60,9 @@ post-install:
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../devel/nspr/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
-.include "../../x11/lablgtk/buildlink3.mk"
+.include "../../x11/ocaml-lablgtk/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"

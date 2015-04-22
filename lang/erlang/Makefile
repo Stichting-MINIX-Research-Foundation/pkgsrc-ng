@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.61 2014/03/11 14:34:37 jperkin Exp $
+# $NetBSD: Makefile,v 1.64 2015/02/19 11:56:18 jperkin Exp $
 
 DISTNAME=		otp_src_${DIST_VERSION_MAJOR}${DIST_VERSION_MINOR:D-${DIST_VERSION_MINOR}}
-PKGREVISION=		2
+PKGREVISION=		4
 PKGNAME=		erlang-${ERLANG_VERSION}
 CATEGORIES=		lang
 MASTER_SITES=		http://www.erlang.org/download/
@@ -29,7 +29,7 @@ CONFIGURE_ARGS+=	--enable-threads
 .include "../../mk/bsd.prefs.mk"
 
 # have gcc without the necessary atomic ops?
-.if !empty(MACHINE_PLATFORM:MNetBSD-5.*)
+.if !empty(MACHINE_PLATFORM:MNetBSD-[56].*)
 
 # a machine without native ethread implementation?
 .if	empty(MACHINE_PLATFORM:M*i386)	&&\

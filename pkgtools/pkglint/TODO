@@ -1,4 +1,4 @@
-$NetBSD: TODO,v 1.78 2013/10/12 18:09:59 rillig Exp $
+$NetBSD: TODO,v 1.80 2015/03/07 15:33:21 tnn Exp $
 
 Please add your own entries at the bottom of this file. If possible,
 include the name of an example package where a warning should occur.
@@ -29,21 +29,13 @@ include the name of an example package where a warning should occur.
 * If USE_TOOLS has autoconf213, and the package does stuff like
   cd ${WRKSRC} && autoconf, then an incorrect warning is issued.
 * LOCALBASE should not be used in normal Makefiles
-* complain if LICENSE definition is missing
 * don't complain about "procedure calls", like for pkg-build-options in
   the various buildlink3.mk files.
-
-%
-
-if package A conflicts with B, then B should also conflict with A.
-
-%
-
+* if package A conflicts with B, then B should also conflict with A.
 * When pkglint runs on a case-insensitive filesystem, it should still
   point out problems that only occur on case-sensitive filesystems. For
   example, devel/p5-Net-LDAP and devel/p5-Net-ldap should be considered
   different paths.
-
-%
-
 * Warn about using REPLACE_PYTHON without including application.mk.
+* Warn about MASTER_SITES containing "github.com", point user to
+  make help topic=github. Also don't complain about GH_* variables.

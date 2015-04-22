@@ -1,10 +1,10 @@
-$NetBSD: patch-CMakeLists.txt,v 1.2 2013/04/03 10:52:21 markd Exp $
+$NetBSD: patch-CMakeLists.txt,v 1.4 2014/11/13 10:53:49 markd Exp $
 
 Retain the python version number in sip install directory
 
---- CMakeLists.txt.orig	2013-03-01 06:38:30.000000000 +0000
+--- CMakeLists.txt.orig	2014-08-14 20:17:11.000000000 +0000
 +++ CMakeLists.txt
-@@ -20,6 +20,8 @@ option(PYKDEUIC4_ALTINSTALL "Enable para
+@@ -18,6 +18,8 @@ option(PYKDEUIC4_ALTINSTALL "Enable para
  
  set(CMAKE_MODULE_PATH ${pykde4_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
  
@@ -13,12 +13,12 @@ Retain the python version number in sip install directory
  find_package(PythonLibrary)
  
  set_package_properties(KDE4 PROPERTIES DESCRIPTION "The KDE libraries"
-@@ -241,7 +243,7 @@ endforeach (_X ${SIP_DISABLE_FEATURES})
+@@ -108,7 +110,7 @@ else ()
+ endif ()
+ set(SIP_DISABLE_FEATURES VendorID PyQt_NoPrintRangeBug)
  
- get_filename_component(LIB_DIR ${KDE4_LIB_DIR} NAME)
+-set(SIP_FILES_INSTALL_DIR ${SHARE_INSTALL_PREFIX}/sip)
++set(SIP_FILES_INSTALL_DIR ${SIP_DEFAULT_SIP_DIR})
  
--set (SIP_FILES_INSTALL_DIR ${SHARE_INSTALL_PREFIX}/sip)
-+set (SIP_FILES_INSTALL_DIR ${SIP_DEFAULT_SIP_DIR})
- 
- set(SIP_CONFIGURATION "
- kde_version_parts = '${KDE_VERSION}'.split('.')
+ # Use an extra option when compiling on Python 3.
+ if (PYTHON_VERSION_MAJOR GREATER 2)

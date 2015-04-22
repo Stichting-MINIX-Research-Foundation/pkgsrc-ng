@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.271 2014/02/12 23:18:09 tron Exp $
+# $NetBSD: Makefile,v 1.279 2015/02/10 14:20:42 taca Exp $
 
-DISTNAME=	postfix-2.11.0
-PKGREVISION=	1
+DISTNAME=	postfix-2.11.4
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.porcupine.org/mirrors/postfix-release/official/
 MASTER_SITES+=	http://postfix.it-austria.net/releases/official/
@@ -17,8 +16,6 @@ LICENSE=	cpl-1.0
 
 CONFLICTS+=	courier-mta-[0-9]* fastforward>=0.51nb2 sendmail-[0-9]*
 CONFLICTS+=	esmtp>=1.2 nullmailer-[0-9]*
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=	perl
 CHECK_HEADERS_SKIP+=	src/global/mail_params.h

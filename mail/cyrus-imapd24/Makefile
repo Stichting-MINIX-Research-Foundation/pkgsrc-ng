@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.35 2014/02/13 06:24:36 obache Exp $
+# $NetBSD: Makefile,v 1.39 2015/03/15 20:13:24 hiramatsu Exp $
 
 DISTNAME=	cyrus-imapd-2.4.17
-PKGREVISION=	7
+PKGREVISION=	10
 CATEGORIES=	mail
 MASTER_SITES=	http://cyrusimap.org/releases/ \
 		ftp://ftp.cyrusimap.org/cyrus-imapd/ \
 		ftp://ftp.cyrusimap.org/cyrus-imapd/OLD-VERSIONS/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cyrusimap.org/
 COMMENT=	Cyrus IMAP server
 #LICENSE=	original-bsd # like license

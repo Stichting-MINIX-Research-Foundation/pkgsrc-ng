@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/01/05 20:46:26 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/01 21:25:17 ryoon Exp $
 
-DISTNAME=	rt-4.2.1
+DISTNAME=	rt-4.2.10
 PKGNAME=	${DISTNAME:S/rt/rt4/}
 CATEGORIES=	devel
 MASTER_SITES=	http://download.bestpractical.com/pub/rt/release/
@@ -13,7 +13,7 @@ LICENSE=	gnu-gpl-v2
 # Dependency info. from sbin/rt-test-dependencies
 # Core dependencies
 DEPENDS+=	p5-Apache-Session>=1.53:../../www/p5-Apache-Session
-DEPENDS+=	{perl>=5.004,p5-CGI>=3.38}:../../www/p5-CGI
+DEPENDS+=	p5-CGI>=3.38:../../www/p5-CGI
 # CGI::Cookie is a part of p5-CGI.
 DEPENDS+=	p5-CGI-Emulate-PSGI-[0-9]*:../../www/p5-CGI-Emulate-PSGI
 DEPENDS+=	p5-CGI-PSGI-[0-9]*:../../www/p5-CGI-PSGI
@@ -23,6 +23,7 @@ DEPENDS+=	p5-Data-GUID-[0-9]*:../../devel/p5-Data-GUID
 DEPENDS+=	p5-CSS-Squish>=0.06:../../www/p5-CSS-Squish
 DEPENDS+=	p5-Date-Extract>=0.02:../../time/p5-Date-Extract
 DEPENDS+=	p5-Date-Manip-[0-9]*:../../devel/p5-Date-Manip
+DEPENDS+=	p5-Email-Address-List>=0.02:../../mail/p5-Email-Address-List
 DEPENDS+=	p5-DateTime>=0.44:../../time/p5-DateTime
 DEPENDS+=	p5-DateTime-Format-Natural>0.67:../../time/p5-DateTime-Format-Natural
 DEPENDS+=	p5-DateTime-Locale>=0.40:../../time/p5-DateTime-Locale
@@ -35,7 +36,7 @@ DEPENDS+=	{perl>=5.8.1,p5-Digest-MD5>=2.27}:../../security/p5-Digest-MD5
 DEPENDS+=	p5-Digest-SHA-[0-9]*:../../security/p5-Digest-SHA
 DEPENDS+=	p5-Email-Address>=1.897:../../mail/p5-Email-Address
 DEPENDS+=	p5-Email-Address-List-[0-9]*:../../mail/p5-Email-Address-List
-DEPENDS+=	{perl>=5.11.3,p5-Encode>=2.39}:../../textproc/p5-Encode
+DEPENDS+=	p5-Encode>=2.64:../../textproc/p5-Encode
 # Errno is a part of perl base.
 # File::Glob is a part of perl base.
 DEPENDS+=	p5-File-ShareDir-[0-9]*:../../devel/p5-File-ShareDir
@@ -51,7 +52,7 @@ DEPENDS+=	p5-HTML-Scrubber>=0.08:../../www/p5-HTML-Scrubber
 DEPENDS+=	p5-IPC-Run3-[0-9]*:../../devel/p5-IPC-Run3
 DEPENDS+=	p5-JSON-[0-9]*:../../converters/p5-JSON
 DEPENDS+=	p5-List-MoreUtils-[0-9]*:../../devel/p5-List-MoreUtils
-DEPENDS+=	p5-Locale-Maketext>=1.06:../../misc/p5-Locale-Maketext
+DEPENDS+=	{perl>=5.20.0,p5-Locale-Maketext>=1.06}:../../misc/p5-Locale-Maketext
 DEPENDS+=	p5-Locale-Maketext-Fuzzy-[0-9]*:../../misc/p5-Locale-Maketext-Fuzzy
 DEPENDS+=	p5-Locale-Maketext-Lexicon>=0.32:../../misc/p5-Locale-Maketext-Lexicon
 DEPENDS+=	p5-Log-Dispatch>=2.30:../../devel/p5-Log-Dispatch
@@ -71,12 +72,13 @@ DEPENDS+=	p5-Regexp-IPv6-[0-9]*:../../net/p5-Regexp-IPv6
 DEPENDS+=	p5-Role-Basic-[0-9]*:../../devel/p5-Role-Basic
 # Scalar::Util is a part of p5-Scalar-List-Utils.
 DEPENDS+=	p5-Scalar-List-Utils-[0-9]*:../../devel/p5-Scalar-List-Utils
-DEPENDS+=	p5-Storable>=2.08:../../devel/p5-Storable
+DEPENDS+=	{perl>=5.8.1,p5-Storable>=2.08}:../../devel/p5-Storable
 DEPENDS+=	p5-Symbol-Global-Name>=0.04:../../devel/p5-Symbol-Global-Name
 DEPENDS+=	{perl>=5.8.9,p5-Sys-Syslog>=0.16}:../../sysutils/p5-Sys-Syslog
 DEPENDS+=	p5-Text-Password-Pronounceable-[0-9]*:../../security/p5-Text-Password-Pronounceable
 DEPENDS+=	p5-Text-Quoted>=2.02:../../textproc/p5-Text-Quoted
 DEPENDS+=	p5-Text-Template>=1.44:../../textproc/p5-Text-Template
+DEPENDS+=	p5-Symbol-Global-Name>=0.05:../../devel/p5-Symbol-Global-Name
 DEPENDS+=	p5-Text-WikiFormat>=0.76:../../textproc/p5-Text-WikiFormat
 DEPENDS+=	p5-Text-Wrapper-[0-9]*:../../textproc/p5-Text-Wrapper
 DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
@@ -138,6 +140,7 @@ DEPENDS+=	p5-Crypt-X509-[0-9]*:../../security/p5-Crypt-X509
 DEPENDS+=	p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
 DEPENDS+=	p5-Convert-Color-[0-9]*:../../converters/p5-Convert-Color
 
+.include "dirs.mk"
 .include "options.mk"
 
 RT4DIR=		${PREFIX}/share/rt4
@@ -152,11 +155,27 @@ SUBST_MESSAGE.prefix=	Setting prefix.
 SUBST_FILES.prefix=	config.layout
 SUBST_VARS.prefix=	PREFIX PKG_SYSCONFDIR PKGMANDIR
 SUBST_VARS.prefix+=	RT4DIR
+SUBST_VARS.prefix+=	RT_VAR_DIR RT_LOCAL_DIR
+
+SUBST_CLASSES+=		etcpath
+SUBST_MESSAGE.etcpath=	Setting non-sysconfdir etcpath
+SUBST_FILES.etcpath=	sbin/rt-setup-database.in
+SUBST_FILES.etcpath+=	share/html/Install/Initialize.html
+SUBST_FILES.etcpath+=	lib/RT/Handle.pm
+SUBST_SED.etcpath=	-e 's,\$$RT::EtcPath,"${PREFIX}/share/rt4/etc",'
+SUBST_STAGE.etcpath=	pre-configure
+
+SUBST_CLASSES+=		egpath
+SUBST_FILES.egpath=	Makefile.in
+SUBST_SED.egpath=	-e 's,@CONFIG_FILE_PATH_R@,${RT_EXAMPLE_DIR},'
+SUBST_SED.egpath+=	-e 's,@RT_ETC_PATH_R@,${RT4DIR}/etc,'
+SUBST_STAGE.egpath=	pre-configure
 
 GNU_CONFIGURE=	yes
 NO_BUILD=	yes
 USE_LANGUAGES=	c
 USE_TOOLS+=	perl:run
+PKG_SYSCONFSUBDIR=	rt4
 
 USE_PKGLOCALEDIR=	yes
 
@@ -164,14 +183,26 @@ CONFIGURE_ARGS+=	--enable-layout=pkgsrc
 CONFIGURE_ARGS+=	--with-db-type=${RT_DB_TYPE}
 CONFIGURE_ARGS+=	--with-my-user-group
 
-CONF_FILES_PERMS=	share/rt4/etc/RT_SiteConfig.pm.dist \
-			share/rt4/etc/RT_SiteConfig.pm \
+RT_CONFIG_FILES=	RT_Config.pm RT_SiteConfig.pm
+
+.for _file_ in ${RT_CONFIG_FILES}
+CONF_FILES_PERMS+=	${RT_EXAMPLE_DIR}/${_file_} \
+			${PKG_SYSCONFDIR}/${_file_} \
 			${APACHE_USER} ${APACHE_GROUP} \
 			640
+.endfor
 
-post-install:
-	mv ${DESTDIR}${PREFIX}/share/rt4/etc/RT_SiteConfig.pm \
-		${DESTDIR}${PREFIX}/share/rt4/etc/RT_SiteConfig.pm.dist
-	rm ${DESTDIR}${PREFIX}/share/rt4/data/html/Install/Initialize.html.orig
+OWN_DIRS+=              ${RT_VAR_DIR} ${RT_LOCAL_DIR} ${RT_LOCAL_DIR}/etc
+OWN_DIRS+=              ${RT_LOCAL_DIR}/lib ${RT_LOCAL_DIR}/po ${RT_LOCAL_DIR}/plugins
+OWN_DIRS+=              ${RT_LOCAL_DIR}/html ${RT_LOCAL_DIR}/static
+
+OWN_DIRS_PERMS+=	${RT_VAR_DIR}/mason_data	${APACHE_USER}	${APACHE_GROUP}	0770
+OWN_DIRS_PERMS+=	${RT_VAR_DIR}/mason_data/cache	${APACHE_USER}	${APACHE_GROUP}	0770
+OWN_DIRS_PERMS+=	${RT_VAR_DIR}/mason_data/etc	${APACHE_USER}	${APACHE_GROUP}	0770
+OWN_DIRS_PERMS+=	${RT_VAR_DIR}/mason_data/obj	${APACHE_USER}	${APACHE_GROUP}	0770
+OWN_DIRS_PERMS+=	${RT_VAR_DIR}/session_data	${APACHE_USER}	${APACHE_GROUP}	0770
+
+REPLACE_PERL+=		etc/upgrade/shrink_cgm_table.pl etc/upgrade/shrink_transactions_table.pl
+REPLACE_PERL+=		etc/upgrade/time-worked-history.pl etc/upgrade/upgrade-mysql-schema.pl
 
 .include "../../mk/bsd.pkg.mk"

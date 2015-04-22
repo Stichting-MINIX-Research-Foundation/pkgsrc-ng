@@ -1,5 +1,6 @@
-@comment $NetBSD: PLIST,v 1.2 2014/03/14 17:13:14 taca Exp $
+@comment $NetBSD: PLIST,v 1.4 2015/03/08 15:17:20 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_EXTSDIR}/gem.build_complete
 ${GEM_EXTSDIR}/oily_png/oily_png.${RUBY_DLEXT}
 ${GEM_LIBDIR}/.gitignore
 ${GEM_LIBDIR}/.travis.yml
@@ -64,6 +65,7 @@ ${GEM_LIBDIR}/spec/resources/composited.png
 ${GEM_LIBDIR}/spec/resources/gray.png
 ${GEM_LIBDIR}/spec/resources/interlaced.png
 ${GEM_LIBDIR}/spec/resources/nonsquare.png
+${GEM_LIBDIR}/spec/resources/nonsquaretall.png
 ${GEM_LIBDIR}/spec/resources/operations.png
 ${GEM_LIBDIR}/spec/resources/replaced.png
 ${GEM_LIBDIR}/spec/resources/s01i3p01.png

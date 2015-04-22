@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2013/05/31 12:42:00 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2014/09/05 21:13:20 prlw1 Exp $
 
 .include "../../devel/glib2/Makefile.common"
 
 PKGNAME:=	${PKGNAME:S/glib2/gio-fam/}
-PKGREVISION=	1
 CATEGORIES=	sysutils
 
 COMMENT=	FAM backend for GIO, the glib VFS API

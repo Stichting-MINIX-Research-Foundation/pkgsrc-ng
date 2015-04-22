@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.115 2014/03/27 19:26:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.119 2015/02/26 17:31:23 tnn Exp $
 
 DISTNAME=		lsof_4.87
 PKGNAME=		${DISTNAME:S/_/-/}
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/  \
 			ftp://lsof.itap.purdue.edu/pub/tools/unix/lsof/NEW/ \
@@ -43,8 +44,6 @@ REPLACE_PERL+=	scripts/sort_res.perl5 scripts/count_pf.perl5 \
 		scripts/watch_a_file.perl
 USE_TOOLS+=	gtar pax perl:run
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 TEST_DIRS=		tests
 TEST_TARGET=		test
 INTERACTIVE_STAGE+=	test
@@ -57,10 +56,13 @@ REAL_GROUP=		${REAL_ROOT_GROUP}
 REAL_GROUP=		kmem
 CONFIGURE_ENV+=		NETBSD_SYS="${NETBSDSRCDIR}/sys"
 CPPFLAGS+=		-D_KMEMUSER
+CPPFLAGS+=		"-DVFS_PROTOS(fsname)="
 .elif ${OPSYS} == "FreeBSD"
 BUILDLINK_PASSTHRU_DIRS+=	/usr/src/sys
 .elif ${OPSYS} == "SunOS"
+REAL_GROUP=		sys
 MAKE_ENV+=		CPPFLAGS=
+CONFIGURE_ENV+=		LSOF_RANLIB="/bin/true"
 .endif
 INSTALLATION_DIRS=	${PKGMANDIR}/man8 sbin
 

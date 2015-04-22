@@ -1,100 +1,105 @@
-# $NetBSD: Makefile,v 1.183 2014/03/13 11:08:51 jperkin Exp $
+# $NetBSD: Makefile,v 1.203 2015/03/12 12:35:42 tnn Exp $
 
-DISTNAME=	netpbm-10.35.80
-PKGREVISION=	7
+DISTNAME=	netpbm-10.68.02
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=netpbm/}
-EXTRACT_SUFX=	.tgz
+MASTER_SITES=	#
+PKGREVISION=	1
+# manually created from svn checkout of
+# svn checkout http://svn.code.sf.net/p/netpbm/code/advanced netpbm
+# tar --exclude netpbm/.svn/\* -cvzf /archive/distfiles/netpbm-$VERSION.tar.gz netpbm
+# where VERSION comes from reading netpbm/doc/HISTORY
+# for the documentation:
+# svn checkout http://svn.code.sf.net/p/netpbm/code/userguide netpbm-userguide
+# cd netpbm-userguide && for i in *.html; do python2.7 ../netpbm/buildtools/makeman $i; done && cd ..
+# tar -cvzf /archive/distfiles/netpbm-docs-r${SVN_REVISION}.tar.gz netpbm-userguide/*.[0-9]
+DISTFILES=	${DISTNAME}${EXTRACT_SUFX} netpbm-docs-r2313${EXTRACT_SUFX}
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://netpbm.sourceforge.net/
 COMMENT=	Toolkit for conversion of images between different formats
 LICENSE=	gnu-gpl-v2
 
-MAKE_JOBS_SAFE=	no
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
-USE_TOOLS+=	bash:run gmake lex pax perl
+USE_TOOLS+=	gmake lex pax perl
 USE_FEATURES=	snprintf
-USE_GCC_RUNTIME=yes
 
 INSTALL_TARGET=	install-dev install-run
 MAKE_ENV+=	INSTALL=${INSTALL:Q} STRIPFLAG=${_STRIPFLAG_INSTALL:Q} \
 		pkgdir=${STAGEDIR:Q} MACHINE=${MACHINE:Q}
+MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR:Q}
 MAKE_FILE=	GNUmakefile
-REPLACE_PERL+=	editor/ppmfade editor/ppmshadow editor/pnmquant \
-		generator/ppmrainbow manweb editor/pnmflip editor/ppmquant
+REPLACE_PERL+=	converter/pbm/pbmtox10bm
+REPLACE_PERL+=	editor/pnmflip
+REPLACE_PERL+=	editor/pnmquant
+REPLACE_PERL+=	editor/ppmfade
+REPLACE_PERL+=	editor/ppmquant
+REPLACE_PERL+=	editor/ppmshadow
+REPLACE_PERL+=	generator/ppmrainbow
+REPLACE_PERL+=	manweb
 STAGEDIR=	${WRKDIR}/staging
-
-LIBS.SunOS+=	-lsocket -lnsl
-MAKE_ENV+=	NETWORKLD=${LIBS:Q}
-MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR}
+WRKSRC=		${WRKDIR}/netpbm
 
 WRAPPER_REORDER_CMDS+=	reorder:l:rle:netpbm
-
-# Several of the netpbm shell scripts use bashisms, so force using
-# bash for all of the shell scripts.
-REPLACE_INTERPRETER+=	bash
-REPLACE.bash.old=	.*/bin/sh
-REPLACE.bash.new=	${TOOLS_PATH.bash}
-REPLACE_FILES.bash=	converter/other/anytopnm
-REPLACE_FILES.bash+=	converter/other/pnmtoplainpnm
-REPLACE_FILES.bash+=	converter/ppm/hpcdtoppm/hpcdtoppm
-REPLACE_FILES.bash+=	converter/ppm/hpcdtoppm/pcdovtoppm
-REPLACE_FILES.bash+=	editor/pamstretch-gen
-REPLACE_FILES.bash+=	editor/pnmindex.sh
-REPLACE_FILES.bash+=	editor/pnmmargin
-REPLACE_FILES.bash+=	editor/ppmquantall
-REPLACE_FILES.bash+=	other/ppmtomap
 
 SUBST_CLASSES+=		rgb_txt
 SUBST_STAGE.rgb_txt=	post-patch
 SUBST_MESSAGE.rgb_txt=	Configure RGB_TXT
-SUBST_FILES.rgb_txt=	pm_config.in.h
-SUBST_SED.rgb_txt+=	-e 's,@@PREFIX@@,${PREFIX},'
+SUBST_FILES.rgb_txt=	config.mk
+SUBST_SED.rgb_txt+=	-e 's,/usr/share/netpbm/rgb.txt,${PREFIX}/share/netpbm/rgb.txt,'
 
 .include "../../mk/bsd.prefs.mk"
 
-# Fiasco fails to compile on Darwin-8.x.
-PLIST_VARS+=	fiasco
-.if !empty(MACHINE_PLATFORM:MDarwin-8.*-*)
-MAKE_ENV+=	BUILD_FIASCO=N
-.else
-PLIST.fiasco=	yes
+# only used if NEED_RUNTIME_PATH is set, so set it unconditionally
+MAKE_FLAGS+=	NETPBMLIB_RUNTIME_PATH=${PREFIX}
+
+.if ${OPSYS} == "NetBSD"
+MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
+.elif ${OPSYS} == "Darwin"
+MAKE_FLAGS+=	NETPBMLIBTYPE=dylib
+MAKE_FLAGS+=	NETPBMLIBSUFFIX=dylib
+.elif ${OPSYS} == "SunOS"
+MAKE_FLAGS+=	LDSHLIB=-shared
+MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
+MAKE_FLAGS+=	NETWORKLD="-lsocket -lnsl"
+.elif ${OS_VARIANT} == "SCOOSR5"
+MAKE_FLAGS+=	NETWORKLD="-lsocket -lresolv"
 .endif
 
+INSTALLATION_DIRS=	${PKGMANDIR}/man1 ${PKGMANDIR}/man3 ${PKGMANDIR}/man5 share/netpbm
+
+post-extract:
+	cd ${WRKSRC} && ${CP} config.mk.in config.mk
+	${ECHO} "CFLAGS_SHLIB = -fPIC" >> ${WRKSRC}/config.mk
+	${ECHO} "JPEGLIB = ${BUILDLINK_PREFIX.jpeg}/lib/libjpeg.so" >> ${WRKSRC}/config.mk
+	${ECHO} "JPEGHDR_DIR = ${BUILDLINK_PREFIX.jpeg}/include" >> ${WRKSRC}/config.mk
+	${ECHO} "TIFFLIB = ${BUILDLINK_PREFIX.tiff}/lib/libtiff.so" >> ${WRKSRC}/config.mk
+	${ECHO} "TIFFHDR_DIR = ${BUILDLINK_PREFIX.tiff}/include" >> ${WRKSRC}/config.mk
+	${ECHO} "ZLIB = ${BUILDLINK_PREFIX.zlib}/lib/libz.so" >> ${WRKSRC}/config.mk
+	${ECHO} "ZHDR_DIR = ${BUILDLINK_PREFIX.zlib}/include" >> ${WRKSRC}/config.mk
 .if ${OPSYS} == "Darwin"
-MAKE_ENV+=	NETPBMLIBTYPE="dylib" NETPBMLIBSUFFIX="dylib"
-.elif ${OPSYS} == "HPUX" && ${OBJECT_FMT} == "SOM"
-MAKE_ENV+=	NETPBMLIBTYPE="unixshared" NETPBMLIBSUFFIX="sl"
-.else
-MAKE_ENV+=	NETPBMLIBTYPE="unixshared" NETPBMLIBSUFFIX="so"
+	${ECHO} 'LDSHLIB=-dynamiclib -install_name $$(PREFIX)/lib/libnetpbm.$$(MAJ).dylib -compatibility_version $$(MAJ) -current_version $$(MAJ).$$(MIN)' >> ${WRKSRC}/config.mk
 .endif
-
-.if !empty(PKGSRC_COMPILER:Mido)
-CPPFLAGS+=	-DSGI_IDO_CC
-.endif
-
-INSTALLATION_DIRS=	${PKGMANDIR}/man1 share/netpbm
-
-pre-configure:
-	${CP} ${WRKSRC}/Makefile.config.in ${WRKSRC}/Makefile.config
 
 pre-install:
 	${RM} -fr ${STAGEDIR}
+	${MKDIR} -p ${STAGEDIR}/man/web
 
 post-install:
 	cd ${STAGEDIR} && 					\
-	${MV} link/* lib && 					\
-	${RM} -rf link man/web && 				\
+	${RM} -rf ${PKGMANDIR}/web && 				\
+	${RM} -rf man/web && 					\
 	${MKDIR} share &&					\
 	${MV} misc share/netpbm && 				\
 	${CHOWN} -R ${BINOWN}:${BINGRP} . &&			\
 	pax -rwpppm . ${DESTDIR}${PREFIX}
 	${RM} -fr ${STAGEDIR}
+	${INSTALL_DATA} ${WRKDIR}/netpbm-userguide/*.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	${INSTALL_DATA} ${WRKDIR}/netpbm-userguide/*.3 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3
+	${INSTALL_DATA} ${WRKDIR}/netpbm-userguide/*.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
+.include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

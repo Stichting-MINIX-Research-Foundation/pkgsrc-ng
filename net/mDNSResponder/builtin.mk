@@ -1,9 +1,9 @@
-# $NetBSD: builtin.mk,v 1.4 2014/03/25 13:54:26 prlw1 Exp $
+# $NetBSD: builtin.mk,v 1.7 2014/05/02 02:29:39 obache Exp $
 
 BUILTIN_PKG:=	mDNSResponder
 
-BUILTIN_FIND_FILES_VAR:=	H_DNSSD
-BUILTIN_FIND_FILES.H_DNSSD=	/usr/include/dns_sd.h
+BUILTIN_FIND_HEADERS_VAR:=	H_DNSSD
+BUILTIN_FIND_HEADERS.H_DNSSD=	dns_sd.h
 
 .include "../../mk/buildlink3/bsd.builtin.mk"
 
@@ -34,7 +34,11 @@ _BLTN_DNSSD_258_14!= \
 	${GREP} -c 2581400 ${H_DNSSD} || ${TRUE}
 _BLTN_DNSSD_320_5!= \
 	${GREP} -c 3200500 ${H_DNSSD} || ${TRUE}
-.  if ${_BLTN_DNSSD_320_5} == "1"
+_BLTN_DNSSD_320_16!= \
+	${GREP} -c 3201600 ${H_DNSSD} || ${TRUE}
+.  if ${_BLTN_DNSSD_320_16} == "1"
+BUILTIN_VERSION.mDNSResponder=	320.16
+.  elif ${_BLTN_DNSSD_320_5} == "1"
 BUILTIN_VERSION.mDNSResponder=	320.5
 .  elif ${_BLTN_DNSSD_258_14} == "1"
 BUILTIN_VERSION.mDNSResponder=	258.14

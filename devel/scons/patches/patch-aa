@@ -1,8 +1,10 @@
-$NetBSD: patch-aa,v 1.4 2012/02/02 11:49:55 obache Exp $
+$NetBSD: patch-aa,v 1.6 2014/07/19 12:30:49 adam Exp $
 
---- setup.py.orig	2010-07-25 23:15:11.000000000 +0000
+Use PKGMANDIR.
+
+--- setup.py.orig	2014-03-02 19:19:50.000000000 +0000
 +++ setup.py
-@@ -353,7 +353,7 @@ class install_data(_install_data):
+@@ -365,7 +362,7 @@ class install_data(_install_data):
              if is_win32:
                  dir = 'Doc'
              else:

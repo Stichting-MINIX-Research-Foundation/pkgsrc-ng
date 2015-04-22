@@ -1,46 +1,43 @@
-# $NetBSD: Makefile.common,v 1.62.2.2 2014/04/09 11:10:15 tron Exp $
+# $NetBSD: Makefile.common,v 1.95 2015/03/28 04:21:41 taca Exp $
 #
-# used by www/contao/Makefile.example"
-# used by www/contao211/Makefile
 # used by www/contao32/Makefile
-
-# Contao master site (on GitHub).
-CT_MASTER_SITE=	https://github.com/contao/core/archive/
+# used by www/contao34/Makefile
 
 # current release
-CT211_VERSION=	2.11.17
-CT32_VERSION=	3.2.9
+CT32_VERSION=	3.2.20
+CT34_VERSION=	3.4.5
 
-CT_VERS?=	211
+CT_VERS?=	32
 
-.if ${CT_VERS} == "211"
-CT_VERSION=	${CT211_VERSION}
-.elif ${CT_VERS} == "32"
+.if ${CT_VERS} == "32"
 CT_VERSION=	${CT32_VERSION}
+.elif ${CT_VERS} == "34"
+CT_VERSION=	${CT34_VERSION}
 .else
 .error "Illegal version specified: ${CT_VERS}"
 .endif
 
-.if ${CT_VERS} == "211"
-CT_FILES=	tl_files
+# Contao master site (on GitHub).
+.if ${CT_VERS} == "32"
+DIST_SUBDIR?=	contao
+CT_MASTER_SITE=	https://github.com/contao/core/archive/
+WRKSRC?=	${WRKDIR}/core-${CT_VERSION}
 .else
+CT_MASTER_SITE=	https://github.com/contao/core/releases/download/${CT_VERSION}/
+.endif
+
 CT_FILES=	files
 FILESDIR=	${.CURDIR}/../../www/contao/files
-.endif
 
 CT_VER=		${CT_VERSION:C/([0-9]+)\.([0-9]+)\..*/\1\2/}
 CT_VERBASE=	${CT_VERSION:C/([0-9]+)\.([0-9]+)\..*/\1.\2/}
 CT_PKGVER=	${CT_VERSION:S/.RC/rc/}
-
-DIST_SUBDIR?=	contao
 
 FILES_SUBST+=	PAX=${PAX} CT_EGDIR=${CT_EGDIR:Q} CT_WEBDIR=${CT_WEBDIR:Q} \
 		WWWGRP=${APACHE_GROUP:Q} WWWOWN=${APACHE_USER:Q}
 MESSAGE_SUBST+=	CT_VER=${CT_VER}
 PLIST_SUBST+=	CT_DOCDIR=${CT_DOCDIR:Q} CT_EGDIR=${CT_EGDIR:Q} \
 		CT_WEBDIR=${CT_WEBDIR:Q}
-
-WRKSRC?=	${WRKDIR}/core-${CT_VERSION}
 
 PRINT_PLIST_AWK+=	/^${CT_WEBDIR:S|/|\\/|g}/ \
 			{ gsub(/${CT_WEBDIR:S|/|\\/|g}/, "$${CT_WEBDIR}"); \

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2014/02/04 02:53:01 cheusov Exp $
+# $NetBSD: Makefile,v 1.19 2014/11/30 16:26:58 cheusov Exp $
 #
 
-DISTNAME=	mk-configure-0.26.0
+DISTNAME=	mk-configure-0.29.0
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mk-configure/} \
 		http://mova.org/~cheusov/pub/mk-configure/
@@ -23,6 +23,7 @@ MAKE_PROGRAM=		${PREFIX}/bin/bmake
 MAKE_ENV+=		MANDIR=${PREFIX}/${PKGMANDIR} \
 			SYSCONFDIR=${PKG_SYSCONFDIR} \
 			BMAKE=${PREFIX}/bin/bmake
+MAKE_FLAGS=		PROG.awk=${AWK:Q}
 
 AUTO_MKDIRS=		yes
 
@@ -35,6 +36,8 @@ post-install:
 	cp ${WRKSRC}/presentation/*.pdf ${DESTDIR}${PREFIX}/share/doc/mk-configure
 
 .include "../../mk/bsd.prefs.mk"
+
+CHECK_PERMS_SKIP=	*/foobar.in */hello_world3.in */prog1.awk.in
 
 .if ${OPSYS} == SunOS && exists(/usr/xpg4/bin/awk)
 REPLACE_INTERPRETER+=	awk

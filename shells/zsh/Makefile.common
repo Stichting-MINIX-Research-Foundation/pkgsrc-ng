@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.72 2014/01/08 16:30:01 ryoon Exp $
+# $NetBSD: Makefile.common,v 1.74 2015/02/02 13:54:59 jperkin Exp $
 # used by shells/zsh/Makefile
 # used by shells/zsh-current/Makefile
 
@@ -15,11 +15,10 @@ GNU_CONFIGURE=		yes
 
 CONFIGURE_ARGS+=	--enable-etcdir=${PKG_SYSCONFDIR:Q}
 
+USE_LANGUAGES=		c c99
 USE_TOOLS+=		makeinfo
 INFO_FILES=		yes
 TEXINFO_REQD=		4.0
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 .include "../../mk/bsd.prefs.mk"
 

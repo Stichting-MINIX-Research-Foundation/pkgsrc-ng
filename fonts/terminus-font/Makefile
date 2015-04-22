@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2013/05/31 12:41:02 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.16 2014/06/07 23:59:48 wiz Exp $
 
-DISTNAME=		terminus-font-4.38
-PKGREVISION=		1
+DISTNAME=		terminus-font-4.39
 CATEGORIES=		fonts
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=terminus-font/}
 
@@ -13,13 +11,13 @@ LICENSE=		ofl-v1.1
 
 USE_TOOLS+=		bdftopcf gmake gzip perl
 HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--x11dir=${PREFIX}/lib/X11/fonts/misc
+CONFIGURE_ARGS+=	--x11dir=${PREFIX}/share/fonts/X11/misc
 
 BUILD_TARGET=		pcf
 INSTALL_TARGET=		install-pcf
 
-FONTS_DIRS.x11=		${PREFIX}/lib/X11/fonts/misc
-REQD_DIRS+=		${PREFIX}/lib/X11/fonts/misc
+FONTS_DIRS.x11=		${PREFIX}/share/fonts/X11/misc
+REQD_DIRS+=		${PREFIX}/share/fonts/X11/misc
 
 USE_LANGUAGES=		# none
 

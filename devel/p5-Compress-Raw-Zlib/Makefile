@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2013/09/05 18:48:26 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2014/12/31 14:34:30 wiz Exp $
 
-DISTNAME=	Compress-Raw-Zlib-2.062
+DISTNAME=	Compress-Raw-Zlib-2.068
 PKGNAME=	p5-${DISTNAME}
-SVR4_PKGNAME=	p5crz
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Compress/}
 
@@ -10,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Compress-Raw-Zlib/
 COMMENT=	Perl5 module interface to the zlib compression library
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 BUILDLINK_API_DEPENDS.zlib+=	zlib>=1.2.3
 

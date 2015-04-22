@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2012/10/23 17:19:16 asau Exp $
+# $NetBSD: Makefile,v 1.14 2014/07/24 13:22:36 jperkin Exp $
 #
 
 DISTNAME=	unfs3-0.9.22
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=unfs3/}
 
@@ -12,11 +12,9 @@ COMMENT=	Userspace NFSv3 server
 LICENSE=	modified-bsd
 
 GNU_CONFIGURE=	yes
-USE_TOOLS+=	flex bison
+USE_TOOLS+=	flex:run bison
 
 .include "../../mk/bsd.prefs.mk"
-
-LIBS+=	-lfl
 
 CONF_FILES+=		${PREFIX}/share/examples/unfs3/exports \
 			    ${PKG_SYSCONFDIR}/exports
@@ -37,5 +35,4 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/exports \
 	    ${DESTDIR}${PREFIX}/share/examples/unfs3
 
-.include "../../devel/flex/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

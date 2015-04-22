@@ -1,41 +1,23 @@
-# $NetBSD: Makefile,v 1.2 2013/11/05 17:39:15 joerg Exp $
+# $NetBSD: Makefile,v 1.5 2015/01/20 16:12:12 jaapb Exp $
 
-DISTNAME=	optcomp-1.4
+VERSION=	1.6
+PKGREVISION=	1
+DISTNAME=	${VERSION}
+PKGNAME=	ocaml-optcomp-${VERSION}
 CATEGORIES=	devel
-MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1011/
+MASTER_SITES=	https://github.com/diml/optcomp/archive/
+DIST_SUBDIR=	ocaml-optcomp
+WRKSRC=	${WRKDIR}/optcomp-${VERSION}
 
 MAINTAINER=	jaapb@NetBSD.org
-HOMEPAGE=	http://optcomp.forge.ocamlcore.org/
+HOMEPAGE=	http://github.com/diml/optcomp/
 COMMENT=	OCaml syntax extension for optional compilation
 LICENSE=	modified-bsd
 
-HAS_CONFIGURE=	yes
-CONFIGURE_ARGS+=	--destdir "${DESTDIR}" --prefix "${PREFIX}"
-USE_LANGUAGES=	c
+SUPERSEDES=	optcomp-[0-9]*
 
-SUBST_CLASSES+=	destdir
-SUBST_STAGE.destdir=    post-configure
-SUBST_MESSAGE.destdir=  Changing install location to DESTDIR
-SUBST_FILES.destdir=    setup.ml
-SUBST_SED.destdir=      -e 's,"install" :: findlib_name,"install" :: "-destdir ${DESTDIR}${PREFIX}/lib/ocaml/site-lib" :: "-ldconf /dev/null" :: findlib_name,'
+OCAML_USE_OASIS=	yes
 
-INSTALLATION_DIRS=	lib/ocaml/site-lib/optcomp
-
-PLIST_VARS=     opt
-.if (${MACHINE_ARCH} == "i386") || (${MACHINE_ARCH} == "powerpc") || \
-    (${MACHINE_ARCH} == "sparc") || (${MACHINE_ARCH} == "x86_64")
-PLIST.opt=              yes
-.endif
-
-do-configure:
-	cd ${WRKSRC} && ocaml setup.ml -configure ${CONFIGURE_ARGS}
-
-do-build:
-	cd ${WRKSRC} && ocaml setup.ml -build
-
-do-install:
-	cd ${WRKSRC} && ocaml setup.ml -install
-
-.include "../../devel/ocaml-findlib/buildlink3.mk"
-.include "../../lang/ocaml/buildlink3.mk"
+.include "../../mk/ocaml.mk"
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

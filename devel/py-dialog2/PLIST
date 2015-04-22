@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2015/01/13 12:17:20 wiz Exp $
+${PYSITELIB}/dialog.py
+${PYSITELIB}/dialog.pyc
+${PYSITELIB}/dialog.pyo
+${PYSITELIB}/${EGG_FILE}

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2014/03/17 17:02:55 richard Exp $
+# $NetBSD: Makefile,v 1.35 2015/02/01 20:02:42 wiz Exp $
 #
 # Also update net/gst-plugins1-libnice when you update this!
 
-DISTNAME=	libnice-0.1.5
+DISTNAME=	libnice-0.1.10
 CATEGORIES=	net devel
 MASTER_SITES=	http://nice.freedesktop.org/releases/
 
@@ -30,6 +30,7 @@ BUILDLINK_TRANSFORM+=	rm:-Werror
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wunused-but-set-variable
+CWRAPPERS_APPEND.cc+=	-Wunused-but-set-variable
 .endif
 
 .include "../../devel/glib2/buildlink3.mk"

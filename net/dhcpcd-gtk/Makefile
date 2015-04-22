@@ -1,30 +1,21 @@
-# $NetBSD: Makefile,v 1.35 2013/10/10 14:42:26 ryoon Exp $
+# $NetBSD: Makefile,v 1.38 2014/10/06 20:12:30 roy Exp $
 #
 
-DISTNAME=		dhcpcd-ui-0.6.0
-PKGNAME=		dhcpcd-gtk-0.6.0
-PKGREVISION=		13
+PKGNAME=		dhcpcd-gtk-${DHCPCD_UI_VERSION}
 CATEGORIES=		net
-MASTER_SITES=		http://roy.marples.name/downloads/dhcpcd/
-MASTER_SITES+=		ftp://roy.marples.name/pub/dhcpcd/
-MASTER_SITES+=		http://roy.aydogan.net/dhcpcd/
-EXTRACT_SUFX=		.tar.bz2
 
-MAINTAINER=		roy@NetBSD.org
-HOMEPAGE=		http://roy.marples.name/projects/dhcpcd-ui/
-COMMENT=		GTK+ systray monitor for dhcpcd
-LICENSE=		modified-bsd
+COMMENT=		GTK+ system tray monitor for dhcpcd
 
-DEPENDS+=		dhcpcd-dbus>=0.6.0:../../net/dhcpcd-dbus
+DEPENDS+=	dhcpcd>=6.4.4:../../net/dhcpcd
+DEPENDS+=	dhcpcd-icons>=${DHCPCD_UI_VERSION}:../../net/dhcpcd-icons
 
-USE_LANGUAGES=		c99
+.include "../../net/dhcpcd-icons/Makefile.common"
+
 USE_TOOLS+=		pkg-config
-HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-gtk+
-CONFIGURE_ARGS+=	--mandir=${PREFIX:Q}/${PKGMANDIR:Q}
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
-.include "../../sysutils/dbus/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

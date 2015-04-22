@@ -1,27 +1,26 @@
-# $NetBSD: Makefile,v 1.20 2013/04/06 21:07:36 rodent Exp $
+# $NetBSD: Makefile,v 1.23 2015/01/20 14:24:38 jaapb Exp $
 
 .include "../../lang/ocaml/Makefile.common"
 DISTINFO_FILE= ${PKGDIR}/../../lang/ocaml/distinfo
 PATCHDIR= ${PKGDIR}/../../lang/ocaml/patches
 
 PKGNAME=		${DISTNAME:S/ocaml/ocaml-graphics/}
+PKGREVISION=	2
 
 COMMENT+=		(graphics library)
 
 CONFIGURE_ARGS+=	-x11include ${X11BASE}/include
 CONFIGURE_ARGS+=	-x11lib ${X11BASE}/lib
-CONFIGURE_ARGS+=	-no-tk
 
 BUILD_DIRS=		otherlibs/graph
 BUILD_TARGET=		all
 INSTALL_TARGET=		install
 
-PLIST_VARS+=		opt
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "powerpc" || \
-    ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "x86_64"
+.include "../../mk/ocaml.mk"
+
+.if ${OCAML_USE_OPT_COMPILER} == "yes"
 BUILD_TARGET+=		allopt
 INSTALL_TARGET+=	installopt
-PLIST.opt=		yes
 .endif
 
 PLIST_VARS+=		natdynlib
@@ -55,18 +54,17 @@ SUBST_FILES.mklib=	otherlibs/Makefile.shared
 SUBST_SED.mklib=	-e 's,^MKLIB=.*,MKLIB=ocamlmklib,g'
 SUBST_MESSAGE.mklib=	Fixing MKLIB in otherlibs/Makefile.shared.
 
-SUBST_CLASSES+=		comp
-SUBST_STAGE.comp=	post-patch
-SUBST_FILES.comp=	otherlibs/Makefile
-SUBST_SED.comp=		-e 's,^CAMLC=.*,CAMLC=ocamlc,g'
-SUBST_SED.comp+=	-e 's,^CAMLOPT=.*,CAMLOPT=ocamlopt,g'
-SUBST_MESSAGE.comp=	Fixing CAMLC OCAMLOPT in otherlibs/Makefile.
+SUBST_CLASSES+=               comp
+SUBST_STAGE.comp=     post-patch
+SUBST_FILES.comp=     otherlibs/Makefile
+SUBST_SED.comp=               -e 's,^CAMLC=.*,CAMLC=ocamlc,g'
+SUBST_SED.comp+=      -e 's,^CAMLOPT=.*,CAMLOPT=ocamlopt,g'
+SUBST_MESSAGE.comp=   Fixing CAMLC OCAMLOPT in otherlibs/Makefile.
 
 INSTALLATION_DIRS+=	lib/ocaml/stublibs
 
 post-build:
-	@${CP} ${PKGDIR}/PLIST ${WRKDIR}/.PLIST_SRC
+	${CP} ${PKGDIR}/PLIST ${WRKDIR}/.PLIST_SRC
 
-.include "../../lang/ocaml/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

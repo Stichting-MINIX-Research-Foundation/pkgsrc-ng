@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.4 2014/02/27 12:48:53 obache Exp $
+# $NetBSD: Makefile,v 1.6 2015/03/15 19:31:45 hiramatsu Exp $
 #
 
 DISTNAME=	ibus-libthai-0.1.2
+PKGREVISION=	1
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://linux.thai.net/pub/thailinux/software/libthai/ \
 		ftp://linux.thai.net/pub/ThaiLinux/software/libthai/
 EXTRACT_SUFX=	.tar.xz
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://linux.thai.net/projects/ibus-libthai
 COMMENT=	Thai imput method engine for IBus based on libthai library
 LICENSE=	gnu-gpl-v2

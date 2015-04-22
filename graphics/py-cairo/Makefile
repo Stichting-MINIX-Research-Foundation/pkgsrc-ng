@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2014/02/12 00:30:03 prlw1 Exp $
+# $NetBSD: Makefile,v 1.46 2014/05/09 07:37:07 wiz Exp $
 
 DISTNAME=		py2cairo-1.10.0
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/py2//}
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		graphics
 MASTER_SITES=		http://cairographics.org/releases/
 EXTRACT_SUFX=		.tar.bz2
@@ -20,7 +20,7 @@ CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
 PKGCONFIG_OVERRIDE+=	pycairo.pc.in
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34
 
 post-extract:
 	cd ${WRKSRC} && touch ChangeLog && aclocal && automake -a

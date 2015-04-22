@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2014/03/04 13:47:21 kleink Exp $
+# $NetBSD: Makefile,v 1.12 2014/12/31 13:57:33 wiz Exp $
 
-DISTNAME=	Flask-Script-0.6.7
+DISTNAME=	Flask-Script-2.0.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/F/Flask-Script/
@@ -11,8 +11,6 @@ COMMENT=	Scripting support for Flask
 LICENSE=	modified-bsd
 
 USE_LANGUAGES=	# empty
-
-EGG_NAME=	${DISTNAME:S/-/_/}
 
 DEPENDS+=	${PYPKGPREFIX}-flask-[0-9]*:../../www/py-flask
 

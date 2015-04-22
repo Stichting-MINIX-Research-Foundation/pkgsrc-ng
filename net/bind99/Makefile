@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2014/03/11 14:34:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.43 2015/02/26 10:14:10 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
-PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/ \
 		http://ftp.belnet.be/pub/mirror/ftp.isc.org/isc/bind9/${BIND_VERSION}/
@@ -15,7 +14,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.9.5
+BIND_VERSION=	9.9.7
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -33,6 +32,7 @@ CONFIGURE_ARGS+=	--sysconfdir=/etc
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE:Q}
 CONFIGURE_ARGS+=	--disable-openssl-version-check
 CONFIGURE_ARGS+=	--with-openssl=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--with-gssapi=${KRB5BASE:Q}
 CONFIGURE_ARGS+=	--with-python=no
 .if ${MACHINE_PLATFORM:MNetBSD-*-mipsel} != ""
 CONFIGURE_ARGS+=        --disable-atomic
@@ -56,7 +56,8 @@ PKG_HOME.${BIND_USER}=	${BIND_DIR}
 DOCS=			CHANGES FAQ README
 
 FILES_SUBST+=		BIND_GROUP=${BIND_GROUP:Q} \
-			BIND_USER=${BIND_USER:Q} PAX=${PAX:Q}
+			BIND_USER=${BIND_USER:Q} PAX=${PAX:Q} \
+			SSLBASE=${SSLBASE:Q}
 MESSAGE_SUBST+=		BIND_DIR=${BIND_DIR} BIND_USER=${BIND_USER}
 DOCDIR=			${DESTDIR}${PREFIX}/share/doc/bind9
 
@@ -69,7 +70,7 @@ PLIST.inet6=	yes
 RCD_SCRIPTS=		lwresd named9
 SMF_METHODS=		named
 
-INSTALLATION_DIRS=	${DOCDIR} share/doc/bind9/arm
+INSTALLATION_DIRS+=	${DOCDIR} share/doc/bind9/arm
 
 post-install:
 .for f in ${DOCS}
@@ -78,4 +79,5 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/arm/*.html ${DOCDIR}/arm
 
 .include "../../security/openssl/buildlink3.mk"
+.include "../../mk/krb5.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

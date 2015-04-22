@@ -1,19 +1,16 @@
-# $NetBSD: Makefile,v 1.13 2013/05/31 12:40:36 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/10/09 14:06:23 wiz Exp $
 
-DISTNAME=	OOTools-2.21
-PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
-SVR4_PKGNAME=	p5oot
+DISTNAME=	OOTools-2.3
+PKGNAME=	p5-${DISTNAME}0
 CATEGORIES=	devel perl5
-MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/D/DO/DOMIZIO/
+MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/S/SK/SKNPP/
 
 MAINTAINER=	hiramatu@boreas.dti.ne.jp
 HOMEPAGE=	http://search.cpan.org/~domizio/OOTools/
 COMMENT=	Perl module collection to easily create constructors methods
+LICENSE=	${PERL5_LICENSE}
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
-PERL5_PACKLIST=		auto/OOTools/.packlist
+PERL5_PACKLIST=		auto/Class/props/.packlist
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

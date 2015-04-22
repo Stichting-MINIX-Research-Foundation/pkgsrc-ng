@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.18 2013/10/28 15:40:09 wen Exp $
+$NetBSD: distinfo,v 1.21 2015/03/01 08:57:02 mef Exp $
 
-SHA1 (App-Cmd-0.322.tar.gz) = 85cda14ae5dd09521bd4902d9a953116a81e3679
-RMD160 (App-Cmd-0.322.tar.gz) = 1215275fd39b87d70e28e3e522ecd016389a06af
-Size (App-Cmd-0.322.tar.gz) = 38554 bytes
+SHA1 (App-Cmd-0.327.tar.gz) = c59423f9270fecd6e92bedba13f35ce5c8707ae4
+RMD160 (App-Cmd-0.327.tar.gz) = 1a9b7085ee010c01f16e43ffaa15c7d8042f071c
+Size (App-Cmd-0.327.tar.gz) = 44227 bytes

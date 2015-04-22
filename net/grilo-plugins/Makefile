@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2014/02/05 17:38:32 drochner Exp $
+# $NetBSD: Makefile,v 1.14 2014/10/07 16:47:32 adam Exp $
 #
 
 DISTNAME=	grilo-plugins-0.2.9
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.gnome.org/pub/gnome/sources/grilo-plugins/0.2/
 EXTRACT_SUFX=	.tar.xz
@@ -13,7 +14,7 @@ LICENSE=	gnu-lgpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config intltool
+USE_TOOLS+=	pkg-config intltool xgettext
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../net/grilo/buildlink3.mk"

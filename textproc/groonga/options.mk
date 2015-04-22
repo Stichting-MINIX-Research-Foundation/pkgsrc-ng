@@ -1,8 +1,8 @@
-# $NetBSD: options.mk,v 1.9 2014/03/15 04:55:21 obache Exp $
+# $NetBSD: options.mk,v 1.16 2014/12/12 01:13:40 obache Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.groonga
-PKG_SUPPORTED_OPTIONS=	mecab tests zlib lzo
+PKG_SUPPORTED_OPTIONS=	mecab tests zlib lz4
 PKG_SUPPORTED_OPTIONS+=	groonga-suggest-learner groonga-httpd
 PKG_SUGGESTED_OPTIONS=	mecab groonga-suggest-learner groonga-httpd
 
@@ -21,19 +21,9 @@ CONFIGURE_ARGS+=	--without-mecab
 
 .if !empty(PKG_OPTIONS:Mtests)
 CONFIGURE_ARGS+=	--with-cutter
-USE_TOOLS+=		gmake
 TEST_TARGET=		check
-TEST_ENV+=		RUBYOPT="-Ku"
-.include "../../lang/ruby/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cutter+=		cutter>=1.1.6
 .include "../../devel/cutter/buildlink3.mk"
-RUBY_JSON_REQD=		1.8.0:build
-BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-bundler-[0-9]*:../../misc/ruby-bundler
-BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-msgpack>=0.5.6:../../devel/ruby-msgpack
-BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-test-unit>=2.5.5:../../devel/ruby-test-unit
-BUILD_DEPENDS+=		${RUBY_PKGPREFIX}-test-unit-notify>=1.0.1:../../devel/ruby-test-unit-notify
-RUBY_JSON_REQD=		0:build
-.include "../../lang/ruby/json.mk"
 .else
 CONFIGURE_ARGS+=	--without-cutter
 .endif
@@ -45,11 +35,11 @@ CONFIGURE_ARGS+=	--with-zlib
 CONFIGURE_ARGS+=	--without-zlib
 .endif
 
-.if !empty(PKG_OPTIONS:Mlzo)
-CONFIGURE_ARGS+=	--with-lzo
-.include "../../archivers/lzo/buildlink3.mk"
+.if !empty(PKG_OPTIONS:Mlz4)
+CONFIGURE_ARGS+=	--with-lz4
+.include "../../archivers/lz4/buildlink3.mk"
 .else
-CONFIGURE_ARGS+=	--without-lzo
+CONFIGURE_ARGS+=	--without-lz4
 .endif
 
 .if !empty(PKG_OPTIONS:Mgroonga-suggest-learner)
@@ -72,6 +62,9 @@ CONFIGURE_ARGS+=	--enable-groonga-httpd
 PLIST.httpd=	yes
 OWN_DIRS+=	${PKG_SYSCONFDIR}/httpd/html
 OWN_DIRS+=	${PKG_SYSCONFDIR}/httpd
+OWN_DIRS+=	${VARBASE}/run/${PKGBASE}
+OWN_DIRS+=	${VARBASE}/log/${PKGBASE}/httpd
+BUILD_DEFS+=	VARBASE
 
 CONF_FILES+=	share/examples/${PKGBASE}/httpd/fastcgi.conf \
 		${PKG_SYSCONFDIR}/httpd/fastcgi.conf
@@ -98,7 +91,7 @@ CONF_FILES+=	share/examples/${PKGBASE}/httpd/win-utf \
 
 SUBST_CLASSES+=		confpath
 SUBST_STAGE.confpath=	post-configure
-SUBST_FILES.confpath=	vendor/nginx-1.4.4/objs/Makefile
+SUBST_FILES.confpath=	vendor/nginx-1.7.7/objs/Makefile
 SUBST_SED.confpath=	-e 's,\$$(DESTDIR)${PKG_SYSCONFDIR}/httpd,\$$(DESTDIR)${PREFIX}/share/examples/${PKGBASE}/httpd,g'
 .else
 CONFIGURE_ARGS+=	--disable-groonga-httpd

@@ -1,10 +1,7 @@
-# $NetBSD: Makefile,v 1.35.2.1 2014/04/08 19:49:59 tron Exp $
-
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.5.4
+# $NetBSD: Makefile,v 1.42 2014/07/31 10:03:14 obache Exp $
 
 .include "Makefile.common"
 
-PKGREVISION=	1
 COMMENT=	Intelligent Input Bus
 
 DEPENDS+=	${PYPKGPREFIX}-gobject3-[0-9]*:../../devel/py-gobject3
@@ -26,6 +23,7 @@ CONFIGURE_ARGS+=	--enable-gtk2
 CONFIGURE_ARGS+=	--enable-gtk3
 CONFIGURE_ARGS+=	--enable-surrounding-text
 CONFIGURE_ARGS+=	--enable-introspection=yes
+CONFIGURE_ARGS+=	--with-python=${PYTHONBIN}
 
 SUBST_CLASSES+=		dbus
 SUBST_STAGE.dbus=	post-configure
@@ -51,6 +49,7 @@ BUILDLINK_TRANSFORM+=	rm:-Wno-unused-but-set-variable
 BUILDLINK_API_DEPENDS.GConf+=		GConf>=2.12
 .include "../../devel/GConf/schemas.mk"
 .include "../../devel/glib2/schemas.mk"
+.include "../../devel/dconf/database.mk"
 .include "../../devel/dconf/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=0.9.6
 BUILDLINK_DEPMETHOD.gobject-introspection+=	build
@@ -64,8 +63,11 @@ PY_PATCHPLIST=	yes
 .include "../../textproc/iso-codes/buildlink3.mk"
 GTK2_IMMODULES=	yes
 .include "../../x11/gtk2/modules.mk"
+.include "../../x11/gtk2/buildlink3.mk"
 GTK3_IMMODULES=	yes
 .include "../../x11/gtk3/modules.mk"
+.include "../../x11/gtk3/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../lang/python/application.mk"
+.include "../../lang/python/extension.mk"
 .include "../../mk/bsd.pkg.mk"

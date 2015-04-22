@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2013/07/27 08:39:10 wen Exp $
+# $NetBSD: Makefile,v 1.14 2014/11/03 06:49:52 wen Exp $
 #
 
-DISTNAME=	MooseX-LazyRequire-0.10
+DISTNAME=	MooseX-LazyRequire-0.11
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}

@@ -1,13 +1,9 @@
-# $NetBSD: Makefile,v 1.109 2013/12/23 11:57:04 wiz Exp $
+# $NetBSD: Makefile,v 1.113 2015/01/16 09:50:47 wiz Exp $
 
-DISTNAME=	xsane-0.998
-PKGNAME=	xsane-0.99.8
-PKGREVISION=	18
+DISTNAME=	xsane-0.999
+PKGNAME=	xsane-0.99.9
 CATEGORIES=	graphics
-MASTER_SITES=	http://www.xsane.org/download/old/ \
-		ftp://ftp.u-aizu.ac.jp/pub/misc/device/scsi/scanner/sane/xsane/ \
-		ftp://sunsite.uio.no/pub/sane/xsane/ \
-		ftp://ftp.informatik.uni-oldenburg.de/pub/sane/xsane/
+MASTER_SITES=	http://www.xsane.org/download/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.xsane.org/
@@ -17,6 +13,8 @@ LICENSE=	gnu-gpl-v2
 USE_TOOLS+=		gmake msgfmt pkg-config
 USE_PKGLOCALEDIR=	YES
 GNU_CONFIGURE=		YES
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

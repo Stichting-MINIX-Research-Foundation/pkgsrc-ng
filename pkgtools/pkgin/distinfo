@@ -1,8 +1,6 @@
-$NetBSD: distinfo,v 1.32 2014/01/21 16:31:27 jperkin Exp $
+$NetBSD: distinfo,v 1.35 2015/03/25 02:10:01 rodent Exp $
 
-SHA1 (3859170568fbe4fe21b5660dbaeca8d65ac10f1b.tar.gz) = 58d06c5884dd490508f609c5320542c919afe0c7
-RMD160 (3859170568fbe4fe21b5660dbaeca8d65ac10f1b.tar.gz) = e783457044af3b41a784012f4d0961ed87e8c4af
-Size (3859170568fbe4fe21b5660dbaeca8d65ac10f1b.tar.gz) = 187873 bytes
-SHA1 (patch-Makefile.in) = 46f676a8e2bdb89f1d0f6f4e6c9cce55c56bb4bd
-SHA1 (patch-actions.c) = c7a630a2509ade9d913abb771a7bde4653a44e78
-SHA1 (patch-main.c) = 2faf9b225fdf30a997c5c0249cd40486d5d8d55c
+SHA1 (2e1630265953c9c01836a4b62acfa8397579346a.tar.gz) = 7c2256c6d3da3913735876ee98349714a3d3dd2e
+RMD160 (2e1630265953c9c01836a4b62acfa8397579346a.tar.gz) = c458ec864925694790cb6202acc4c042d437b401
+Size (2e1630265953c9c01836a4b62acfa8397579346a.tar.gz) = 197231 bytes
+SHA1 (patch-external_progressmeter.h) = 76c272c68eab4769d02e21748037933e5cea6c38

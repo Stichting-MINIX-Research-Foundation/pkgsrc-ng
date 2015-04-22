@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2013/06/14 11:09:09 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2014/09/10 15:59:34 jperkin Exp $
 #
 
 DISTNAME=	liboggz-1.1.1

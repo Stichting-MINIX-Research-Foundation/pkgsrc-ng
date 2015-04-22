@@ -1,18 +1,32 @@
-# $NetBSD: Makefile,v 1.24 2013/11/12 12:12:45 roy Exp $
+# $NetBSD: Makefile,v 1.26 2014/11/23 13:16:23 cheusov Exp $
 #
 
 DISTNAME=		dnsmasq-2.67
+PKGREVISION=		1
 CATEGORIES=		net
 MASTER_SITES=		http://www.thekelleys.org.uk/dnsmasq/
-LICENSE=		gnu-gpl-v3
 
 MAINTAINER=		roy@NetBSD.org
 HOMEPAGE=		http://www.thekelleys.org.uk/dnsmasq/doc.html
 COMMENT=		Lightweight, easy to configure DNS forwarder
+LICENSE=		gnu-gpl-v3
 
 RCD_SCRIPTS=		dnsmasq
 CONF_FILES=		${PREFIX}/share/examples/dnsmasq/dnsmasq.conf.example \
 			${PKG_SYSCONFDIR}/dnsmasq.conf
+
+.include "../../mk/bsd.prefs.mk"
+
+DNSMASQ_USER?=		dnsmasq
+.if ${OPSYS} == "Interix"
+DNSMASQ_GROUP?=		nogroup
+.else
+DNSMASQ_GROUP?=		dnsmasq
+.endif
+
+PKG_GROUPS=		${DNSMASQ_GROUP}
+PKG_USERS=		${DNSMASQ_USER}:${DNSMASQ_GROUP}
+PKG_GECOS.${DNSMASQ_USER}=	DNS\ forwarder\ user
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.dnsmasq
 PKG_SUPPORTED_OPTIONS=	dbus inet6
@@ -36,8 +50,8 @@ CFLAGS+=	-DNO_IPV6
 
 # Override the defaults
 AUTO_MKDIRS=yes
-CFLAGS+=		-DCONFFILE=\\\"${PKG_SYSCONFDIR}/dnsmasq.conf\\\"
-BUILD_MAKE_FLAGS+=	COPTS="${CFLAGS}"
+CFLAGS+=		-DCONFFILE='"${PKG_SYSCONFDIR}/dnsmasq.conf"'
+BUILD_MAKE_FLAGS+=	COPTS=${CFLAGS:Q}
 INSTALL_MAKE_FLAGS+=	PREFIX="${PREFIX}"
 INSTALL_MAKE_FLAGS+=	MANDIR="${PREFIX}/${PKGMANDIR}"
 INSTALL_MAKE_FLAGS+=	LOCALEDIR="${PREFIX}/${PKGLOCALEDIR}"

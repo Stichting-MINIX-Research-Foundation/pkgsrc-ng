@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.88 2013/07/12 10:44:53 jperkin Exp $
+# $NetBSD: Makefile,v 1.91 2014/09/08 21:24:44 wiz Exp $
 
 DISTNAME=	mgetty1.1.37-Jun05
 PKGNAME=	mgetty-1.1.37
-PKGREVISION=	9
+PKGREVISION=	12
 CATEGORIES=	comms
 MASTER_SITES=	ftp://alpha.greenie.net/pub/mgetty/source/1.1/
 
@@ -10,6 +10,8 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://mgetty.greenie.net/
 COMMENT=	Handle external logins, send and receive faxes
 LICENSE=	gnu-gpl-v2
+
+DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 
 MAKE_JOBS_SAFE=		no
 
@@ -86,8 +88,6 @@ SUBST_SED.prefix=	-e 's|/usr/local|${PREFIX}|'
 SUBST_SED.prefix+=	-e 's|/var/log|${VARBASE}/log|'
 SUBST_STAGE.prefix=	pre-configure
 SUBST_MESSAGE.prefix=	Fixing hardcoded installation prefix.
-
-.include "../../graphics/netpbm/buildlink3.mk"
 
 post-extract:
 	cd ${WRKSRC} && cp policy.h-dist policy.h

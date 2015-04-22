@@ -1,39 +1,54 @@
-# $NetBSD: Makefile,v 1.27 2013/09/13 08:49:48 mef Exp $
+# $NetBSD: Makefile,v 1.36 2014/10/13 13:49:43 mef Exp $
 #
 
 COMMENT=	Wireless communication tools and applications
-
 SUBDIR+=	7plus
+SUBDIR+=	chirp
+SUBDIR+=	codec2
 SUBDIR+=	cwtext
 SUBDIR+=	dpbox
 SUBDIR+=	fl_logbook
 SUBDIR+=	fldigi
+SUBDIR+=	freedv
 SUBDIR+=	gmfsk
-SUBDIR+=	gnuradio-audio-jack
-SUBDIR+=	gnuradio-audio-oss
-SUBDIR+=	gnuradio-audio-portaudio
+SUBDIR+=	gnuradio-atsc
+SUBDIR+=	gnuradio-channels
+SUBDIR+=	gnuradio-companion
 SUBDIR+=	gnuradio-core
-SUBDIR+=	gnuradio-core-docs
-SUBDIR+=	gnuradio-examples
-SUBDIR+=	gnuradio-gsm
-SUBDIR+=	gnuradio-howto
-SUBDIR+=	gnuradio-radio-astronomy
+SUBDIR+=	gnuradio-ctrlport
+SUBDIR+=	gnuradio-digital
+SUBDIR+=	gnuradio-doxygen
+SUBDIR+=	gnuradio-dtv
+SUBDIR+=	gnuradio-fcd
+SUBDIR+=	gnuradio-fec
+SUBDIR+=	gnuradio-noaa
+SUBDIR+=	gnuradio-pager
+SUBDIR+=	gnuradio-qtgui
 SUBDIR+=	gnuradio-trellis
-SUBDIR+=	gnuradio-usrp
+SUBDIR+=	gnuradio-uhd
+SUBDIR+=	gnuradio-utils
 SUBDIR+=	gnuradio-video-sdl
+SUBDIR+=	gnuradio-vocoder
+SUBDIR+=	gnuradio-wavelet
 SUBDIR+=	gnuradio-wxgui
+SUBDIR+=	gnuradio-zeromq
 SUBDIR+=	gpredict
+SUBDIR+=	gr-fcdproplus
+SUBDIR+=	gr-osmosdr
 SUBDIR+=	grig
+SUBDIR+=	hackrf
 SUBDIR+=	hamlib
+SUBDIR+=	libmirisdr
 SUBDIR+=	linpsk
 SUBDIR+=	locator
 SUBDIR+=	nec2c
+SUBDIR+=	osmo-sdr
+SUBDIR+=	rtl-sdr
 SUBDIR+=	tfkiss
 SUBDIR+=	tlf
 SUBDIR+=	tnt
 SUBDIR+=	trustedQSL
-SUBDIR+=	usrp
-SUBDIR+=	usrp-docs
+SUBDIR+=	uhd
 SUBDIR+=	wwl
 SUBDIR+=	xdx
 SUBDIR+=	xlog

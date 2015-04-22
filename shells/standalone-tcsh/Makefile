@@ -1,18 +1,19 @@
-# $NetBSD: Makefile,v 1.23 2012/05/22 08:46:53 marino Exp $
+# $NetBSD: Makefile,v 1.25 2015/03/15 18:32:12 tnn Exp $
 #
 
 # FIXME: This is because of PREFIX=/ below.
 CHECK_FILES_SUPPORTED=	no
+NOT_FOR_UNPRIVILEGED=	yes
 
 PKGNAME=		standalone-${DISTNAME}
 
 WRKSRC=			${WRKDIR}/${DISTNAME}
 PATCHDIR=		${.CURDIR}/../../shells/tcsh/patches
 
-# DragonFly already has native /bin/tcsh
-# This package is not restricted to ${LOCALBASE} and will replace system tcsh
-# Instead, see shells/tcsh which installs at ${LOCALBASE}/bin/tcsh
-NOT_FOR_PLATFORM+=	DragonFly-*-*
+# This package only makes sense on platforms that don't themselves ship tcsh
+# in /bin. Otherwise it clobbers the native copy, which really isn't what
+# anyone wants.
+ONLY_FOR_PLATFORM+=	NetBSD-*-* OpenBSD-*-* SunOS-*-*
 
 .include "../../shells/tcsh/Makefile"
 

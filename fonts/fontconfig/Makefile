@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.87 2014/02/06 09:41:08 obache Exp $
+# $NetBSD: Makefile,v 1.93 2014/10/09 14:06:33 wiz Exp $
 
-DISTNAME=	fontconfig-2.11.0
+DISTNAME=	fontconfig-2.11.1
+PKGREVISION=	1
 CATEGORIES=	fonts
 MASTER_SITES=	http://www.fontconfig.org/release/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,12 +11,10 @@ HOMEPAGE=	http://www.fontconfig.org/
 COMMENT=	Library for configuring and customizing font access
 #LICENSE=	x11?
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-default-fonts=${LOCALBASE}/lib/X11/fonts
+CONFIGURE_ARGS+=	--with-default-fonts=${LOCALBASE}/share/fonts/X11
 CONFIGURE_ARGS+=	--with-expat-includes=${BUILDLINK_PREFIX.expat}/include
 CONFIGURE_ARGS+=	--with-expat-lib=${BUILDLINK_PREFIX.expat}/lib
 CONFIGURE_ARGS+=	--with-baseconfigdir=${PKG_SYSCONFDIR}
@@ -27,18 +26,32 @@ PKGCONFIG_OVERRIDE=	fontconfig.pc.in
 
 PKG_SYSCONFSUBDIR=	fontconfig
 
+.include "../../mk/compiler.mk"
+# Workaround for GCC 4.2 bug, http://gcc.gnu.org/bugzilla/show_bug.cgi?id=46861
+# GCC 4.2 and -fPIC with visibility
+.if !empty(CC_VERSION:Mgcc-4.2.*)
+SUBST_CLASSES+=			visibility
+SUBST_STAGE.visibility=		pre-configure
+SUBST_MESSAGE.visibility=	Removing visibility
+SUBST_FILES.visibility=		src/makealias
+SUBST_SED.visibility=		-e 's/__attribute((visibility("hidden")))//g'
+SUBST_SED.visibility+=		-e 's/, visibility("default")//g'
+.endif
+
 .include "../../mk/bsd.prefs.mk"
 
-GSFONTS=	${PREFIX}/share/fonts/urw,${PREFIX}/share/ghostscript/fonts
+ADDFONTS=	${PREFIX}/share/fonts/urw,${PREFIX}/share/ghostscript/fonts,${PREFIX}/share/fonts/X11
 .if ${X11BASE} != ${LOCALBASE}
-CONFIGURE_ARGS+=	--with-add-fonts=${X11BASE}/lib/X11/fonts,${GSFONTS}
+ADDFONTS:=	${X11BASE}/share/fonts/X11,${ADDFONTS}
 .else
-CONFIGURE_ARGS+=	--with-add-fonts=${LOCALBASE}/share/fonts/X11,${GSFONTS}
+ADDFONTS:=	${LOCALBASE}/share/fonts/X11,${ADDFONTS}
 .endif
 
 .if ${OPSYS} == "Darwin"
+ADDFONTS:=	~/Library/Fonts,/Library/Fonts,/System/Library/Fonts,${ADDFONTS}
 CONFIGURE_ARGS+=	--with-arch=${MACHINE_ARCH}
 .endif
+CONFIGURE_ARGS+=	--with-add-fonts=${ADDFONTS}
 
 SUBST_CLASSES+= prefix
 SUBST_STAGE.prefix=	post-build
@@ -73,8 +86,7 @@ CONFIGURE_ENV+=	CC_FOR_BUILD=${NATIVE_CC:Q}
 .endif
 
 post-install:
-	${INSTALL_DATA} ${FILESDIR}/30-pkgsrc-aliases.conf \
-		${DESTDIR}${TMPLDIR}
+	${INSTALL_DATA} ${FILESDIR}/30-pkgsrc-aliases.conf ${DESTDIR}${TMPLDIR}
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

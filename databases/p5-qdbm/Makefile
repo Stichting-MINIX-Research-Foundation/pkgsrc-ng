@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.13 2013/05/31 12:39:55 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/15 18:31:53 hiramatsu Exp $
 #
 
 .include "../../databases/qdbm/Makefile.common"
 
 PKGNAME=	p5-qdbm-1.0.0.${QDBM_VERSION}
-PKGREVISION=	5
 CATEGORIES=	databases perl5
 
-MAINTAINER=	obache@NetBSD.org
-HOMEPAGE=	http://qdbm.sourceforge.net/
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://fallabs.com/qdbm/plspex.html
 COMMENT=	Perl interface of QDBM
 LICENSE=	gnu-lgpl-v2.1
 

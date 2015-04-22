@@ -1,8 +1,8 @@
-# $NetBSD: options.mk,v 1.19 2013/11/16 02:01:46 ryoon Exp $
+# $NetBSD: options.mk,v 1.24 2014/08/13 22:33:16 joerg Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.firefox
 PKG_SUPPORTED_OPTIONS=	official-mozilla-branding
-PKG_SUPPORTED_OPTIONS+=	alsa debug mozilla-jemalloc gnome pulseaudio webrtc
+PKG_SUPPORTED_OPTIONS+=	alsa debug debug-info mozilla-jemalloc gnome pulseaudio webrtc
 PLIST_VARS+=		gnome jemalloc debug
 
 .if ${OPSYS} == "Linux"
@@ -12,7 +12,7 @@ PKG_SUGGESTED_OPTIONS+= pulseaudio
 .endif
 
 # On NetBSD/amd64 6.99.21 libxul.so is invalid when --enable-webrtc is set.
-.if (${OPSYS} == "FreeBSD") || (${OPSYS} == "Linux") || (${OPSYS} == "OpenBSD")
+.if ${OPSYS} == "Linux"
 PKG_SUGGESTED_OPTIONS+=	webrtc
 .endif
 
@@ -45,19 +45,36 @@ CONFIGURE_ARGS+=	--enable-jemalloc
 CONFIGURE_ARGS+=	--disable-jemalloc
 .endif
 
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mgcc)
+.if ${CC_VERSION:S/gcc-//:S/.//g} >= 480
+# Modern gcc does not run any "tracking" passes when compiling with -O0,
+# which makes the generated debug info mostly useless. So explicitly
+# request them.
+O0TRACKING=-fvar-tracking-assignments -fvar-tracking
+.endif
+.endif
+
 .if !empty(PKG_OPTIONS:Mdebug)
-CONFIGURE_ARGS+=	--enable-debug="-g -O0" --enable-debug-symbols --disable-optimize
+CONFIGURE_ARGS+=	--enable-debug="-g -O0 ${O0TRACKING}" --enable-debug-symbols --disable-optimize
 CONFIGURE_ARGS+=	--disable-install-strip
 PLIST.debug=		yes
 .else
-CONFIGURE_ARGS+=	--disable-debug --disable-debug-symbols
+.if !empty(PKG_OPTIONS:Mdebug-info)
+CONFIGURE_ARGS+=	--enable-debug-symbols
+.else
+CONFIGURE_ARGS+=	--disable-debug-symbols
+.endif
+CONFIGURE_ARGS+=	--disable-debug
+CONFIGURE_ARGS+=	--enable-optimize=-O2
 CONFIGURE_ARGS+=	--enable-install-strip
-CONFIGURE_ARGS+=	--enable-optimize=-O2 
 .endif
 
 .if !empty(PKG_OPTIONS:Mpulseaudio)
 .include "../../audio/pulseaudio/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-pulseaudio
+.else
+CONFIGURE_ARGS+=	--disable-pulseaudio
 .endif
 # XXX end
 

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/02/12 23:18:14 tron Exp $
+# $NetBSD: Makefile,v 1.9 2014/11/13 19:19:07 markd Exp $
 
 DISTNAME=	ktux-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	misc
 COMMENT=	Tux Screen Saver
 

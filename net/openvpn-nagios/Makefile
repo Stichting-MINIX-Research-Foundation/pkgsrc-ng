@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2013/08/30 22:38:47 joerg Exp $
-#
+# $NetBSD: Makefile,v 1.4 2015/01/18 16:01:37 wiedi Exp $
 
 .include "../../net/openvpn/Makefile.common"
 
 DISTNAME=	openvpn-nagios-20130210
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${OPENVPN_DISTFILE}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.espci.fr/pub/openvpn-nagios/
 EXTRACT_SUFX=	.tgz
@@ -28,4 +27,5 @@ MESSAGE_SUBST+=	OPENVPN_PLUGINSDIR=${PREFIX:Q}/${OPENVPN_PLUGINSDIR:Q}
 
 DEPENDS+=	openvpn>=2.3.0:../../net/openvpn
 
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

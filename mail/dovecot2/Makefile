@@ -1,6 +1,10 @@
-# $NetBSD: Makefile,v 1.60 2014/03/11 14:34:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.72 2015/03/14 10:52:09 adam Exp $
+#
+# when updating to a new release, update ABI depends in
+# the buildlink3.mk file as well, since the plugins' version
+# must match (see PR 49563).
 
-DISTNAME=	dovecot-2.2.12
+DISTNAME=	dovecot-2.2.16
 CATEGORIES=	mail
 MASTER_SITES=	http://www.dovecot.org/releases/${PKGVERSION_NOREV:R}/
 
@@ -8,8 +12,6 @@ MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://www.dovecot.org/
 COMMENT=	Secure IMAP and POP3 server
 LICENSE=	mit AND gnu-lgpl-v2.1 AND modified-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake pkg-config rpcgen
@@ -51,7 +53,7 @@ CONF_FILES=		${EGDIR}/dovecot.conf ${PKG_SYSCONFDIR}/dovecot/dovecot-example.con
 CONF_FILES+=		${EGDIR}/${file:Q} ${PKG_SYSCONFDIR}/dovecot/${file:Q}
 .endfor
 
-INSTALLATION_DIRS=	libexec/dovecot sbin share/doc/dovecot
+INSTALLATION_DIRS+=	libexec/dovecot sbin share/doc/dovecot
 INSTALLATION_DIRS+=	share/examples/dovecot share/examples/dovecot/conf.d
 OWN_DIRS=		${PKG_SYSCONFDIR}/dovecot/
 OWN_DIRS+=		${PKG_SYSCONFDIR}/dovecot/conf.d

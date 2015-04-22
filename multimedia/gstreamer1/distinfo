@@ -1,7 +1,5 @@
-$NetBSD: distinfo,v 1.9 2013/12/17 11:39:38 jperkin Exp $
+$NetBSD: distinfo,v 1.14 2015/01/03 18:09:31 wiz Exp $
 
-SHA1 (gstreamer-1.0.10.tar.xz) = bb705d949ba470c4c647efae979066514cf6b013
-RMD160 (gstreamer-1.0.10.tar.xz) = b5f297880bf5c4b7bb8c0955d77983a85c570ac4
-Size (gstreamer-1.0.10.tar.xz) = 3140588 bytes
-SHA1 (patch-gst_gstdatetime.c) = dc5a1cd90a09792cd48b8c02fdd8ee60303346b6
-SHA1 (patch-gst_gsttaglist.c) = 7c72330e2177df0f6f40f10dad81e4c927008698
+SHA1 (gstreamer-1.4.5.tar.xz) = 6c0fa50d42c039eb26c1f2eb5f8dd86ab35118e7
+RMD160 (gstreamer-1.4.5.tar.xz) = 8e4717b6a824fb029dea344264a304e05adb9aba
+Size (gstreamer-1.4.5.tar.xz) = 3324052 bytes

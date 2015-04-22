@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.247 2014/03/17 14:01:57 taca Exp $
+# $NetBSD: Makefile,v 1.253 2015/02/24 09:54:47 taca Exp $
 
 DISTNAME=	samba-${VERSION}
 CATEGORIES=	net
@@ -9,7 +9,8 @@ HOMEPAGE=	http://www.samba.org/
 COMMENT=	SMB/CIFS protocol server suite
 LICENSE=	gnu-gpl-v3
 
-VERSION=	3.6.23
+VERSION=	3.6.25
+
 CONFLICTS+=	ja-samba-[0-9]* pam-smbpass-[0-9]* winbind-[0-9]*
 
 USE_GCC_RUNTIME=	yes
@@ -33,6 +34,8 @@ SAMBA_PRIVATE?=		${SAMBA_ETCDIR}/private
 SAMBA_STATEDIR?=	${SAMBA_VARDIR}/db/samba
 SAMBA_VARDIR?=		${VARBASE}
 WINBINDD_RCD_SCRIPT=	# empty
+
+SMF_INSTANCES=		smbd nmbd
 
 FILES_SUBST+=		SAMBA_ETCDIR=${SAMBA_ETCDIR}
 FILES_SUBST+=		SAMBA_LOCKDIR=${SAMBA_LOCKDIR}
@@ -70,12 +73,6 @@ CONFIGURE_ARGS+=	--enable-external-libtdb
 CONFIGURE_ARGS+=	--enable-merged-build=no
 
 .include "../../net/samba/options.mk"
-
-PLIST_VARS+=		macosx
-
-.if ${OPSYS} == "Darwin"
-PLIST.macosx=		yes
-.endif
 
 .if ${_OPSYS_SHLIB_TYPE} == "dylib"
 PLIST_SUBST+=	LIBEXT=dylib

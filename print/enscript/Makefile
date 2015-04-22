@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.50 2013/06/09 08:26:48 ryoon Exp $
+# $NetBSD: Makefile,v 1.52 2014/07/24 13:21:05 jperkin Exp $
 #
 
 DISTNAME=		enscript-1.6.6
+PKGREVISION=		1
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_GNU:=enscript/}
 
@@ -12,7 +13,7 @@ LICENSE=		gnu-gpl-v3
 
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake lex perl:run xgettext
+USE_TOOLS+=		gmake lex:run perl:run xgettext
 BROKEN_GETTEXT_DETECTION=	yes
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}

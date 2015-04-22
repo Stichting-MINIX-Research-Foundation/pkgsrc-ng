@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2013/08/07 14:05:15 gdt Exp $
+# $NetBSD: Makefile,v 1.51 2015/03/10 16:46:51 gdt Exp $
 #
 
-DISTNAME=	quagga-0.99.22.3
+DISTNAME=	quagga-0.99.24.1
 CATEGORIES=	net
 MASTER_SITES=	http://download.savannah.gnu.org/releases/quagga/
 
@@ -15,6 +15,8 @@ LICENSE=	gnu-gpl-v2
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gawk gmake perl
 USE_LIBTOOL=		YES
+
+TEST_TARGET=		check
 
 PKG_SYSCONFSUBDIR?=	zebra
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
@@ -41,6 +43,14 @@ CONF_FILES_PERMS+=	${PREFIX}/share/examples/quagga/log_syslog.conf \
 .endfor
 
 .include "options.mk"
+
+.if ${INIT_SYSTEM} == "smf"
+BUILD_DIRS=		. solaris
+SMF_INSTANCES=		bgp ospf ospf6 rip ripng zebra
+SMF_METHODS=		quagga
+SMF_METHOD_SRC.quagga=	${WRKSRC}/solaris/quagga.init
+FILES_SUBST+=		PKG_SMF_METHOD_DIR=${PKG_SMF_METHOD_DIR}
+.endif
 
 PLIST_CAT+=		${PKGDIR}/PLIST
 

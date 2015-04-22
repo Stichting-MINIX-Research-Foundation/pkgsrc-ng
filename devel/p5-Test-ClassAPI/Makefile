@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2013/05/31 12:40:47 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2014/10/09 14:06:28 wiz Exp $
 
 DISTNAME=		Test-ClassAPI-1.06
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		devel perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -14,8 +14,6 @@ LICENSE=		${PERL5_LICENSE}
 DEPENDS+=		p5-Class-Inspector>=1.12:../../devel/p5-Class-Inspector
 DEPENDS+=		p5-Config-Tiny>=2.0:../../devel/p5-Config-Tiny
 DEPENDS+=		p5-Params-Util>=1.00:../../devel/p5-Params-Util
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Test/ClassAPI/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.40 2014/02/01 18:11:45 rodent Exp $
+# $NetBSD: Makefile,v 1.49 2015/02/16 21:11:07 plunky Exp $
 #
 
 COMMENT=	Software for geographical-related uses
 
+SUBDIR+=	R-countrycode
 SUBDIR+=	cm2gpx
 SUBDIR+=	cmconvert
 SUBDIR+=	emerillon
@@ -20,13 +21,18 @@ SUBDIR+=	gpsd
 SUBDIR+=	gpsdrive
 SUBDIR+=	gpspoint
 SUBDIR+=	gpsutils
+SUBDIR+=	kplex
 SUBDIR+=	libchamplain04
 SUBDIR+=	libchamplain06
 SUBDIR+=	libchamplain08
 SUBDIR+=	libdrg
 SUBDIR+=	libgeotiff
+SUBDIR+=	libnova
 SUBDIR+=	mapserver
 SUBDIR+=	merkaartor
+SUBDIR+=	opencpn
+SUBDIR+=	opencpn-plugin-gshhs
+SUBDIR+=	opencpn-plugin-weather_routing
 SUBDIR+=	p5-Geo-Coordinates-UTM
 SUBDIR+=	p5-Geo-Distance
 SUBDIR+=	p5-Geo-Mercator
@@ -36,7 +42,10 @@ SUBDIR+=	p5-Geography-Countries
 SUBDIR+=	proj
 SUBDIR+=	proj-doc
 SUBDIR+=	proj-swig
+SUBDIR+=	py-geojson
+SUBDIR+=	py-google-maps-services-python
 SUBDIR+=	py-proj
+SUBDIR+=	py-pycountry
 SUBDIR+=	py-trytond-country
 SUBDIR+=	qgis
 SUBDIR+=	qlandkartegt

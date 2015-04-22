@@ -1,4 +1,4 @@
-# $NetBSD: rubyversion.mk,v 1.116 2014/03/14 19:54:23 taca Exp $
+# $NetBSD: rubyversion.mk,v 1.138 2015/03/15 14:00:57 taca Exp $
 #
 
 # This file determines which Ruby version is used as a dependency for
@@ -41,14 +41,14 @@
 # RUBY_VERSION_SUPPORTED
 #	The Ruby versions that are acceptable for the package.
 #
-#		Possible values: 18 193 200 21
-#		Default: 200 193 18 21
+#		Possible values: 18 193 200 21 22
+#		Default: 200 193 21
 #
 # RUBY_NOVERSION
 #	If "Yes", the package dosen't depend on any version of Ruby, such
 #	as editing mode for emacs.  In this case, package's name would begin
 #	with "ruby-".  Otherwise, the package's name is begin with
-#	${RUBY_PKGPREFIX}; "ruby18", "ruby193" or "ruby200".
+#	${RUBY_PKGPREFIX}.
 #
 #		Possible values: Yes No
 #		Default: No
@@ -69,7 +69,7 @@
 # RUBY_VER
 #	Really selected version of ruby.
 #
-#		Possible values: 18 193 200
+#		Possible values: 18 193 200 21
 #
 #	Use this variable in pkgsrc's Makefile
 #
@@ -77,6 +77,10 @@
 #	Prefix part for ruby based packages.  It is recommended that to
 #	use RUBY_PKGPREFIX with ruby related packages since you can supply
 #	different binary packages as each version of Ruby.
+#	The value of RUBY_PKGPREFIX is "ruby-" and concatination of Ruby's
+#	major, minor and teeny version unless RUBY_VER is "18".
+#
+#		Example values: ruby18 ruby193 ruby200 ruby212
 #
 # RUBY_ABI_VERSION
 #	Ruby's ABI version.
@@ -104,12 +108,22 @@
 #
 # RUBY_SUFFIX
 #	Extra string for each ruby commands; ruby, irb and so on.
+#	The value of RUBY_SUFFIX is concatination of Ruby's major, minor
+#	and teeny version unless RUBY_VER is "18".
+#
+#		Possible values: 18 193 200 212
 #
 # RUBY_VERSION
 #	Version of real Ruby's version excluding patchlevel.
 #
 # RUBY_VERSION_FULL
 #	Version of Ruby including patchlevel.
+#
+# RUBY_GEMS_PKGSRC_VERS
+#	Version of rubygems provided by misc/rubygems.
+#
+# RUBY_RDOC_PKGSRC_VERS
+#	Version of rdoc provided by devel/rdoc.
 #
 # RUBY_BASE
 #	Name of ruby base package's name.
@@ -203,10 +217,10 @@ _RUBYVERSION_MK=	# defined
 .if defined(PKGNAME_REQD)
 . if !empty(PKGNAME_REQD:Mruby[0-9][0-9][0-9]-*) || !empty(PKGNAME_REQD:Mruby[0-9][0-9]-*)
 _RUBY_VERSION_REQD:= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
-.  if ${_RUBY_VERSION_REQD} != "211"
-RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
-.  else
+.  if ${_RUBY_VERSION_REQD} == "18" || ${_RUBY_VERSION_REQD} == "193"
 RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9])[0-9]-.*/\1/}
+.  else
+RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
 .  endif
 . endif
 .endif
@@ -215,23 +229,33 @@ RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9])[0-9]-.*/\1/}
 RUBY18_VERSION=		1.8.7
 RUBY193_VERSION=	1.9.3
 RUBY200_VERSION=	2.0.0
-RUBY21_VERSION=		2.1.1
+RUBY21_VERSION=		2.1.5
+RUBY22_VERSION=		2.2.1
 
 # patch
 RUBY18_PATCHLEVEL=	pl374
-RUBY193_PATCHLEVEL=	p545
-RUBY200_PATCHLEVEL=	p451
+RUBY193_PATCHLEVEL=	p551
+RUBY200_PATCHLEVEL=	p643
+#RUBY21_PATCHLEVEL=	p273
+#RUBY22_PATCHLEVEL=	p85
 
 # current API compatible version; used for version of shared library
 RUBY18_API_VERSION=	1.8.7
 RUBY193_API_VERSION=	1.9.1
 RUBY200_API_VERSION=	2.0.0
 RUBY21_API_VERSION=	2.1.0
+RUBY22_API_VERSION=	2.2.0
+
+# pkgsrc's rubygems's version
+RUBY_GEMS_PKGSRC_VERS=	2.4.6
+
+# pkgsrc's rdoc's version
+RUBY_RDOC_PKGSRC_VERS=	4.2.0
 
 #
 RUBY_VERSION_DEFAULT?=	200
 
-RUBY_VERSION_SUPPORTED?= 200 193 18 21
+RUBY_VERSION_SUPPORTED?= 200 193 21 # 22
 
 .if defined(RUBY_VERSION_REQD)
 . for rv in ${RUBY_VERSION_SUPPORTED}
@@ -298,6 +322,20 @@ RUBY_RDOC_VERSION=	4.1.0
 RUBY_RAKE_VERSION=	10.1.0
 RUBY_JSON_VERSION=	1.8.1
 
+RUBY_SUFFIX=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}
+
+.elif ${RUBY_VER} == "22"
+RUBY_VERSION=		${RUBY22_VERSION}
+RUBY_VERSION_FULL=	${RUBY_VERSION}
+RUBY_ABI_VERSION=	${RUBY_VERSION}
+
+RUBY_GEMS_VERSION=	2.4.5
+RUBY_RDOC_VERSION=	4.2.0
+RUBY_RAKE_VERSION=	10.4.2
+RUBY_JSON_VERSION=	1.8.1
+
+RUBY_SUFFIX=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}
+
 .else
 PKG_FAIL_REASON+= "Unknown Ruby version specified: ${RUBY_VER}."
 .endif
@@ -343,8 +381,12 @@ RUBY_PKGPREFIX?=	${RUBY_NAME}
 
 .if ${RUBY_VER} == "18"
 RUBY_VER_DIR=		${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
-.else
+.else 
+. if ${RUBY_VER} == "193" || ${RUBY_VER} == "200"
 RUBY_VER_DIR=		${RUBY_VERSION}
+. else
+RUBY_VER_DIR=		${RUBY_API_VERSION}
+. endif
 .endif
 
 .if empty(RUBY_NOVERSION:M[nN][oO])
@@ -358,7 +400,9 @@ RUBY_BUILD_RI?=		Yes
 RUBY?=			${PREFIX}/bin/${RUBY_NAME}
 RDOC?=			${PREFIX}/bin/rdoc${RUBY_SUFFIX}
 
-RUBY_ARCH?= ${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}
+RUBY_ARCH?= ${MACHINE_GNU_ARCH}-${LOWER_OPSYS}${APPEND_ELF}${LOWER_OPSYS_VERSUFFIX}${APPEND_ABI}
+
+RUBY_MAJOR_MINOR=	${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
 
 #
 # Ruby shared and static library version handling.
@@ -476,7 +520,8 @@ RUBY_SITERIDIR?=	${RUBY_BASERIDIR}/site
 MAKE_ENV+=		RUBY=${RUBY:Q} RUBY_VER=${RUBY_VER:Q} \
 			RUBY_VERSION_DEFAULT=${RUBY_VERSION_DEFAULT:Q}
 
-MAKEFLAGS+=		RUBY_VERSION_DEFAULT=${RUBY_VERSION_DEFAULT:Q}
+MAKEFLAGS+=		RUBY_VER=${RUBY_VER:Q} \
+			RUBY_VERSION_DEFAULT=${RUBY_VERSION_DEFAULT:Q}
 
 #
 # PLIST_VARS for x11/ruby-tk package.
@@ -533,7 +578,8 @@ PLIST_SUBST+=		RUBY=${RUBY:Q} RUBY_VER=${RUBY_VER:Q} \
 			RUBY_SHLIBALIAS=${RUBY_SHLIBALIAS:Q} \
 			RUBY_STATICLIB=${RUBY_STATICLIB:Q} \
 			RUBY_ARCH=${RUBY_ARCH:Q} \
-			${PLIST_RUBY_DIRS:S,DIR="${PREFIX}/,DIR=",}
+			${PLIST_RUBY_DIRS:S,DIR="${PREFIX}/,DIR=",} \
+			RUBY_MAJOR_MINOR=${RUBY_MAJOR_MINOR}
 
 #
 # make dynamic PLIST
@@ -625,6 +671,10 @@ PRINT_PLIST_AWK+=	/^${RUBY_SITERIDIR:S|/|\\/|g}/ \
 			print; next; }
 PRINT_PLIST_AWK+=	/^${RUBY_SYSRIDIR:S|/|\\/|g}\// \
 			{ next; }
+
+# Insert part of PRINT_PLIST_AWK from gem.mk
+PRINT_PLIST_AWK+=	${_RUBY_PRINT_PLIST_GEM}
+
 PRINT_PLIST_AWK+=	/\/${RUBY_NAME}/ \
 			{ sub(/${RUBY_NAME}/, "$${RUBY_NAME}"); }
 PRINT_PLIST_AWK+=	/^${GEM_HOME:S|/|\\/|g:S|.|\\.|g}/ \

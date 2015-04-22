@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/03/13 22:17:59 pettai Exp $
+# $NetBSD: Makefile,v 1.14 2015/03/15 14:17:00 tnn Exp $
 #
 
-DISTNAME=	ykpers-1.15.1
+DISTNAME=	ykpers-1.16.1
 CATEGORIES=	security
 MASTER_SITES=	http://yubico.github.io/yubikey-personalization/releases/
 
@@ -18,4 +18,5 @@ PKGCONFIG_OVERRIDE+=	ykpers-1.pc.in
 
 .include "../../security/libyubikey/buildlink3.mk"
 .include "../../devel/libusb1/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

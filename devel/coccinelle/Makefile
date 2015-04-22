@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.20 2013/11/01 11:30:21 jaapb Exp $
+# $NetBSD: Makefile,v 1.24 2015/01/20 14:24:35 jaapb Exp $
 
 DISTNAME=	coccinelle-1.0.0-rc17
 PKGNAME=	${DISTNAME:S/-rc/rc/}
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	devel
 MASTER_SITES=	http://coccinelle.lip6.fr/distrib/
 EXTRACT_SUFX=	.tgz
@@ -38,5 +38,6 @@ BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:M*}
 
 BUILDLINK_API_DEPENDS.ocaml+=	ocaml>=3.11
 .include "../../lang/ocaml/buildlink3.mk"
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

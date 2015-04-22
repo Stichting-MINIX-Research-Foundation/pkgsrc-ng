@@ -1,4 +1,4 @@
-$NetBSD: patch-ab,v 1.2 2013/06/13 14:35:34 wiz Exp $
+$NetBSD: patch-ab,v 1.4 2014/11/26 22:31:41 wiz Exp $
 
 Add inttypes.h for PRIu64.
 

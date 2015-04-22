@@ -1,19 +1,13 @@
-$NetBSD: patch-Modules_socketmodule.c,v 1.1 2014/02/09 09:02:50 tron Exp $
+$NetBSD: patch-Modules_socketmodule.c,v 1.4 2014/07/17 15:26:49 ryoon Exp $
 
-Fix vulnerability reported in SA56624. Patch taken from here:
-
-http://hg.python.org/cpython/rev/87673659d8f7
-
---- Modules/socketmodule.c.orig	2013-11-10 07:36:41.000000000 +0000
-+++ Modules/socketmodule.c	2014-02-09 08:41:25.000000000 +0000
-@@ -2742,6 +2742,10 @@
-     if (recvlen == 0) {
-         /* If nbytes was not specified, use the buffer's length */
-         recvlen = buflen;
-+    } else if (recvlen > buflen) {
-+        PyErr_SetString(PyExc_ValueError,
-+                        "nbytes is greater than the length of the buffer");
-+        goto error;
-     }
+--- Modules/socketmodule.c.orig	2014-06-30 02:05:43.000000000 +0000
++++ Modules/socketmodule.c
+@@ -244,7 +244,7 @@ shutdown(how) -- shut down traffic in on
+ /* Irix 6.5 fails to define this variable at all. This is needed
+    for both GCC and SGI's compiler. I'd say that the SGI headers
+    are just busted. Same thing for Solaris. */
+-#if (defined(__sgi) || defined(sun)) && !defined(INET_ADDRSTRLEN)
++#if (defined(__sgi) || defined(sun) || defined(_SCO_DS)) && !defined(INET_ADDRSTRLEN)
+ #define INET_ADDRSTRLEN 16
+ #endif
  
-     readlen = sock_recvfrom_guts(s, buf.buf, recvlen, flags, &addr);

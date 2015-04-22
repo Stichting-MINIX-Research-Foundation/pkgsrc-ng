@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.185 2014/03/10 18:03:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.188 2015/03/17 14:08:01 tnn Exp $
 
 DISTNAME=	kdebase-${_KDE_VERSION}
-PKGREVISION=	35
+PKGREVISION=	37
 CATEGORIES=	x11
 COMMENT=	Base modules for the KDE 3 integrated X11 desktop
 
@@ -20,7 +20,7 @@ SITES.NetBSD-flag-1.0.png=	${MASTER_SITE_LOCAL}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 UNLIMIT_RESOURCES=	datasize
-USE_TOOLS+=		pkg-config mkfontdir bdftopcf
+USE_TOOLS+=		gzip pkg-config mkfontdir bdftopcf
 
 FONTS_DIRS.x11+=	${PREFIX}/share/kde/apps/konsole/fonts
 REQD_DIRS+=		${PREFIX}/share/kde/apps/konsole

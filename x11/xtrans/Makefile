@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2014/02/03 16:40:58 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2014/10/09 14:07:16 wiz Exp $
 
-DISTNAME=		xtrans-1.3.3
+DISTNAME=		xtrans-1.3.5
 CATEGORIES=		x11 net
 MASTER_SITES=		${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=		.tar.bz2
@@ -8,8 +8,6 @@ EXTRACT_SUFX=		.tar.bz2
 MAINTAINER=		joerg@NetBSD.org
 HOMEPAGE=		http://xorg.freedesktop.org/
 COMMENT=		Network API translation layer to insulate X
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		yes
 

@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/14 04:10:27 pho Exp $
+
+SHA1 (primitive-0.5.4.0.tar.gz) = 310a15ae1e01a656dacf06e874960298f20307d7
+RMD160 (primitive-0.5.4.0.tar.gz) = d00553ded014d7594dba01c777b9bc30755d3ae5
+Size (primitive-0.5.4.0.tar.gz) = 11966 bytes

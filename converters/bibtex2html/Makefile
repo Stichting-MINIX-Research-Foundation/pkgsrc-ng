@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2013/11/01 11:30:21 jaapb Exp $
+# $NetBSD: Makefile,v 1.39 2015/01/20 14:24:35 jaapb Exp $
 
-DISTNAME=	bibtex2html-1.97
-PKGREVISION=	4
+DISTNAME=	bibtex2html-1.98
+PKGREVISION=	1
 CATEGORIES=	converters
 MASTER_SITES=	http://www.lri.fr/~filliatr/ftp/bibtex2html/
 
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2
 BUILD_DEPENDS+=	hevea-[0-9]*:../../textproc/hevea
 BUILD_DEPENDS+=	tex-cm-super-[0-9]*:../../fonts/tex-cm-super
 BUILD_DEPENDS+=	tex-ec-[0-9]*:../../fonts/tex-ec
+BUILD_DEPENDS+=	tex-hyperref-[0-9]*:../../print/tex-hyperref
 BUILD_DEPENDS+=	tex-latex-[0-9]*:../../print/tex-latex
 BUILD_DEPENDS+=	tex-latex-bin-[0-9]*:../../print/tex-latex-bin
 BUILD_DEPENDS+=	tex-preprint-[0-9]*:../../print/tex-preprint

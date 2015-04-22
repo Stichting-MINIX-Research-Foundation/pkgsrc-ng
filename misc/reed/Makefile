@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2013/05/31 12:41:29 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2014/09/25 14:48:53 jperkin Exp $
 
 DISTNAME=	reed-5.4
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	misc
 MASTER_SITES=	http://www.sacredchao.net/software/reed/
 
@@ -19,6 +19,18 @@ REPLACE_PERL=		breed fix_bookmarks.pl wrap
 INCOMPAT_CURSES=	NetBSD-1.5-* NetBSD-1.5.*-* NetBSD-1.5[A-U]-*
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "SunOS"
+SUBST_CLASSES+=		sysdir1 sysdir2
+SUBST_STAGE.sysdir1=	pre-configure
+SUBST_FILES.sysdir1=	cfg.data
+SUBST_SED.sysdir1=	-e "s,sys/dir.h,,g"
+SUBST_STAGE.sysdir2=	pre-configure
+SUBST_FILES.sysdir2=	reed.c
+SUBST_SED.sysdir2=	-e "/sys\/dir.h/d"
+.endif
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/reed ${DESTDIR}${PREFIX}/bin

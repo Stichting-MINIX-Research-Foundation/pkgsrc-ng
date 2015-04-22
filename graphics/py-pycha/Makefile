@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2014/01/25 10:30:10 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2014/12/07 17:09:09 rodent Exp $
 
-DISTNAME=	pycha-0.6.0
-PKGREVISION=	1
+DISTNAME=	pycha-0.7.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	graphics python
 MASTER_SITES=	https://pypi.python.org/packages/source/p/pycha/
@@ -17,10 +16,10 @@ USE_LANGUAGES=	#none
 
 PYTHON_SELF_CONFLICT=	yes
 PYTHON_VERSIONED_DEPENDENCIES=	cairo
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	26 33 34 # py-gtk2
 
 post-install:
-	${CHMOD} ${SHAREMODE} ${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_NAME}-py${PYVERSSUFFIX}.egg-info/*
+	${CHMOD} ${SHAREMODE} ${DESTDIR}${PREFIX}/${PYSITELIB}/${EGG_INFODIR}/*
 
 .include "../../lang/python/egg.mk"
 .include "../../lang/python/versioned_dependencies.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.117 2013/08/17 15:42:28 joerg Exp $
+# $NetBSD: Makefile,v 1.122 2014/10/09 14:06:35 wiz Exp $
 
 DISTNAME=	imlib-1.9.15
-PKGREVISION=	16
+PKGREVISION=	20
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/imlib/1.9/}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,7 +10,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.nl.rasterman.com/imlib.html
 COMMENT=	Image manipulation library for X11
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 
 USE_TOOLS+=		gmake
 USE_LIBTOOL=		yes
@@ -60,8 +60,7 @@ BUILDLINK_DEPMETHOD.libXt?=	build
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
-.include "../../graphics/netpbm/buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

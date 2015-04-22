@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2013/11/24 09:57:03 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2015/02/08 03:00:35 mef Exp $
 
-DISTNAME=	IPC-Shareable-0.60
+DISTNAME=	IPC-Shareable-0.61
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	8
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=IPC/}
 
@@ -12,8 +11,6 @@ COMMENT=	Tie a variable to shared memory
 LICENSE=	gnu-gpl-v2
 
 #DEPENDS+=	p5-Storable>=1.0.14:../../devel/p5-Storable
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/IPC/Shareable/.packlist
 

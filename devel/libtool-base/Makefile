@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.106 2014/03/08 19:57:26 joerg Exp $
+# $NetBSD: Makefile,v 1.112 2014/12/02 10:56:24 joerg Exp $
 
 ###########################################################################
 ###########################################################################
@@ -26,8 +26,7 @@
 .include "../../devel/libtool/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-base-/}
-PKGREVISION=	6
-SVR4_PKGNAME=	ltoob
+PKGREVISION=	9
 
 COMMENT=	Generic shared library support script (the script itself)
 
@@ -67,8 +66,8 @@ USE_TOOLS+=		echo
 .PHONY: fix-libtool
 fix-libtool:
 	cd ${WRKSRC}; for f in libtool; do				\
-		${SED}	-e "s,-L${BUILDLINK_DIR}/lib *,,"		\
-			-e "s,${BUILDLINK_DIR}/lib *,,"			\
+		${SED}	-e "s,-L${BUILDLINK_DIR}/lib *,,g"		\
+			-e "s,${BUILDLINK_DIR}/lib *,,g"		\
 			$$f > $$f.new;					\
 		if [ -x $$f ]; then ${CHMOD} +x $$f.new; fi;		\
 		${MV} -f $$f.new $$f;					\

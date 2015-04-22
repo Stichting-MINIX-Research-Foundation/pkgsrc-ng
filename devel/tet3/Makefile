@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2013/05/31 12:40:57 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2015/01/04 09:53:10 dholland Exp $
 
 DISTNAME=	tet3.7-unsup.src
 PKGNAME=	tet3-3.7
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel
 MASTER_SITES=	http://tetworks.opengroup.org/tet/
 EXTRACT_SUFX=	.tgz
@@ -38,15 +38,15 @@ PLIST.java=	yes
 post-install:
 	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3
 	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3/bin
-	cd ${WRKSRC}/bin && pax -rwpe . ${DESTDIR}${PREFIX}/tet3/bin
+	cd ${WRKSRC}/bin && pax -rwpp . ${DESTDIR}${PREFIX}/tet3/bin
 	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/tet3/lib
-	cd ${WRKSRC}/lib && pax -rwpe . ${DESTDIR}${PREFIX}/tet3/lib
+	cd ${WRKSRC}/lib && pax -rwpp . ${DESTDIR}${PREFIX}/tet3/lib
 
 PTHREAD_OPTS+=	native	# only native threads make sense
 .include "../../mk/pthread.buildlink3.mk"
 
 .if defined(PTHREAD_TYPE) && ${PTHREAD_TYPE} != "native"
-PKG_FAIL_REASON+=	"Native threads are needed for this package"
+PKG_SKIP_REASON+=	"Native threads are needed for this package"
 .endif
 
 .include "../../mk/bsd.pkg.mk"

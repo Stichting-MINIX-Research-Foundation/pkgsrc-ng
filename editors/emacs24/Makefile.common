@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.7 2013/11/04 11:08:03 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.11 2014/10/28 12:45:57 wiz Exp $
 #
 # used by editors/emacs24/Makefile
 # used by editors/emacs24-nox11/Makefile
@@ -14,7 +14,6 @@ COMMENT=	GNU editing macros (editor)
 LICENSE=	gnu-gpl-v3
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/b$//}
-MAKE_JOBS_SAFE=		no
 
 GNU_CONFIGURE=	yes
 INFO_FILES=	yes
@@ -24,7 +23,7 @@ CONFIGURE_ARGS+=	--srcdir=${WRKSRC}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ENV+=		GAMEOWN=${GAMES_USER}
 
-SETGIDGAME=	yes
+USE_GAMESGROUP=		yes
 
 BUILD_DEFS+=		VARBASE
 BUILD_DEFS+=		GAMEDATAMODE
@@ -54,10 +53,6 @@ CHECK_WRKREF_SKIP+=	bin/emacs-${EMACS_VERSION}
 .include "../../mk/bsd.prefs.mk"
 
 .if (${OPSYS} == "Darwin")
-# Disable address randomization to fix build with Xcode 4.1.  This is from
-# upstream bug #8395.  Details in:
-# http://lists.gnu.org/archive/html/emacs-bug-tracker/2011-07/msg00445.html
-CFLAGS+=		-fno-pie
 # Avoid 'malformed object' errors with older Xcode.
 .  if ${OS_VERSION:R} < 11
 INSTALL_UNSTRIPPED=	yes
@@ -69,6 +64,7 @@ INSTALL_UNSTRIPPED=	yes
 # NetBSD with native Clang doesn't provide libgcc, everything is in libc.
 pre-configure: fake-libgcc
 
+.PHONY: fake-libgcc
 fake-libgcc:
 	${AR} q ${BUILDLINK_DIR}/lib/libgcc.a
 .endif
@@ -84,6 +80,5 @@ CPPFLAGS+=	-DTERMINFO
 .include "../../mk/oss.buildlink3.mk"
 
 post-extract:
-	cp ${.CURDIR}/../../editors/emacs23/files/site-init.el ${WRKSRC}/lisp
+	cp ${.CURDIR}/../../editors/emacs24/files/site-init.el ${WRKSRC}/lisp
 	${CHMOD} -R go-w ${WRKSRC}
-	${CHMOD} ugo+rx ${WRKSRC}/leim/ja-dic ${WRKSRC}/leim/quail

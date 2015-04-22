@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2014/02/02 07:28:11 ryoon Exp $
+# $NetBSD: Makefile,v 1.12 2015/01/16 09:02:29 wiz Exp $
 
-DISTNAME=	libe-book-0.0.2
+DISTNAME=	libe-book-0.1.2
 CATEGORIES=	converters
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libebook/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,7 +15,9 @@ TOOL_DEPENDS+=	gperf-[0-9]*:../../devel/gperf
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake pkg-config
-USE_LANGUAGES=	c++
+USE_LANGUAGES=	c c++
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
 
 CONFIGURE_ARGS+=	--disable-tests
 CONFIGURE_ARGS+=	--without-docs
@@ -23,6 +25,7 @@ CONFIGURE_ARGS+=	--without-docs
 PKGCONFIG_OVERRIDE+=	libe-book.pc.in
 
 .include "../../converters/libwpd/buildlink3.mk"
+.include "../../converters/librevenge/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"

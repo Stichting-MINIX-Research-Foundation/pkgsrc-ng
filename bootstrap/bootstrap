@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $NetBSD: bootstrap,v 1.204 2014/03/14 21:52:13 ryoon Exp $
+# $NetBSD: bootstrap,v 1.215 2014/12/04 10:36:02 jperkin Exp $
 #
 # Copyright (c) 2001-2011 Alistair Crooks <agc@NetBSD.org>
 # All rights reserved.
@@ -58,9 +58,11 @@ usage="Usage: $0 "'
     [ --binary-kit <tarball> ]
     [ --binary-macpkg <pkg> ]
     [ --compiler <compiler> ]
+    [ --cwrappers ]
     [ --full ]
     [ --gzip-binary-kit <tarball> ]
     [ --help ]
+    [ --make-jobs <num> ]
     [ --mk-fragment <mk.conf> ]
     [ --pkgdbdir <pkgdbdir> ]
     [ --pkginfodir <pkginfodir> ]
@@ -159,7 +161,9 @@ EOF
 
 	cat >${wrkdir}/$$.c <<EOF
 #ifdef __GNUC__
+#ifndef __clang__
 indeed
+#endif
 #endif
 EOF
 	compiler_is_gnu=`${testcc:-cc} -E ${wrkdir}/$$.c 2>/dev/null | grep -c indeed`
@@ -386,10 +390,12 @@ pkgmandir=
 sysconfdir=
 varbase=
 
-full=no
 compiler=""
-quiet=no
+cwrappers=no
+full=no
+make_jobs=1
 mk_fragment=
+quiet=no
 
 while [ $# -gt 0 ]; do
 	case $1 in
@@ -411,6 +417,7 @@ while [ $# -gt 0 ]; do
 	--compiler)	compiler="$2"; shift ;;
 	--abi=*)	abi=`get_optarg "$1"` ;;
 	--abi)		abi="$2"; shift ;;
+	--cwrappers)	cwrappers=yes ;;
 	--unprivileged | --ignore-user-check) unprivileged=yes ;;
 	--prefer-pkgsrc=*)
 			prefer_pkgsrc=`get_optarg "$1"` ;;
@@ -433,6 +440,8 @@ while [ $# -gt 0 ]; do
 			binary_macpkg=`get_optarg "$1"` ;;
 	--binary-macpkg)
 			binary_macpkg="$2"; shift ;;
+	--make-jobs=*)	make_jobs=`get_optarg "$1"` ;;
+	--make-jobs)	make_jobs="$2"; shift ;;
 	--full)		full=yes ;;
 	--quiet)	quiet=yes ;;
 	--help)		echo "$usage"; exit ;;
@@ -479,7 +488,6 @@ fi
 
 overpath=""
 root_user=root
-bmakexenv=
 bmakexargs=
 need_extras=no
 set_machine_arch=no
@@ -520,11 +528,12 @@ Darwin)
 	need_sed=no
 	set_opsys=no
 	machine_arch=`uname -p`
-	CC=${CC:-"gcc -isystem /usr/include"}; export CC
+	CC=${CC:-"cc -isystem /usr/include"}; export CC
+	check_compiler=yes
 	osrev=`uname -r`
 	macosx_version=`echo $osrev | awk -F . '{ print "10."$1-4; }'`
 	case "$macosx_version" in
-	10.[7-8])
+	10.[7-9])
 		packagemaker=/Applications/PackageMaker.app/Contents/MacOS/PackageMaker
 		;;
 	10.[0-4])
@@ -535,7 +544,7 @@ Darwin)
 		;;
 	esac
 	case "$macosx_version" in
-	10.[8-9])
+	10.[8-9]|10.10)
 		need_awk=yes
 		need_sed=yes
 		;;
@@ -614,8 +623,8 @@ Interix)
 		mkdir -p "$@" # allows umask to take effect
 	}
 	default_install_mode=0775
-	root_user=`id -u`
-	root_group=131616
+	root_user=`id -un`
+	root_group=+Administrators
 	case `uname -r` in
 	3.* | 5.*)
 		need_bsd_install=yes
@@ -658,7 +667,6 @@ IRIX*)
 	set_opsys=yes
 	machine_arch=mipseb
 	bmakexargs="MACHINE_ARCH=$machine_arch"
-	bmakexenv="MAKE=pmake"
 	check_compiler=yes
 	if [ `uname -r` -lt 6 ]; then
 # IRIX 5's mkdir bails out with an error when trying to create with the -p
@@ -842,6 +850,11 @@ no)
 	make_quiet_flags=""
 esac
 
+test ${make_jobs} -gt 0 2>/dev/null
+if [ $? -ne 0 ]; then
+	die "ERROR: --make-jobs must be a positive integer argument"
+fi
+
 # export OPSYS and MACHINE_ARCH for pkg_install. we only set
 # MACHINE_ARCH on platforms where we override bmake's value.
 OPSYS=${opsys}
@@ -981,6 +994,9 @@ clang)
 	echo "CC=			clang"     >> ${TARGET_MKCONF}
 	echo "CXX=			clang++"   >> ${TARGET_MKCONF}
 	echo "CPP=			\${CC} -E" >> ${TARGET_MKCONF}
+	if [ -z "$CLANGBASE" -a -f "/usr/bin/clang" ]; then
+		CLANGBASE="/usr"
+	fi
 	if [ -n "$CLANGBASE" -o -f "/bin/clang" ]; then
 		echo "CLANGBASE=		$CLANGBASE" >> ${TARGET_MKCONF}
 	fi
@@ -1018,6 +1034,13 @@ fi
 
 BOOTSTRAP_MKCONF=${wrkdir}/mk.conf
 cp ${TARGET_MKCONF} ${BOOTSTRAP_MKCONF}
+
+case "$cwrappers" in
+yes)
+	echo "USE_CWRAPPERS=		yes" >> ${TARGET_MKCONF}
+	echo "" >> ${TARGET_MKCONF}
+	;;
+esac
 
 # On all Debian GNU/kFreeBSD 7, /bin/sh is a symlink to /bin/dash, and
 # use /bin/bash.
@@ -1074,9 +1097,9 @@ $shprog ./bootstrap.sh)"
 bootstrap_bmake() {
 	echo_msg "Bootstrapping bmake"
 	copy_src $pkgsrcdir/devel/bmake/files bmake
-	run_cmd "chmod u+x $wrkdir/bmake/configure"
-	run_cmd "(cd $wrkdir/bmake && env $bmakexenv $shprog ./boot-strap $configure_quiet_flags -q -o bootstrap.$opsys --prefix=$wrkdir --sysconfdir=$wrkdir --mksrc none --with-default-sys-path="$wrkdir/share/mk" $bmakexargs)"
-	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/bmake/bootstrap.$opsys/bmake $wrkdir/bin/bmake"
+	run_cmd "(cd $wrkdir/bmake && $shprog configure $configure_quiet_flags --with-default-sys-path=$wrkdir/share/mk --prefix=$wrkdir $bmakexargs)"
+	run_cmd "(cd $wrkdir/bmake && $shprog make-bootstrap.sh)"
+	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/bmake/bmake $wrkdir/bin/bmake"
 }
 bootstrap_bmake
 
@@ -1085,14 +1108,14 @@ bmake="$wrkdir/bin/bmake $make_quiet_flags"
 # build libnbcompat
 echo_msg "Building libnbcompat"
 copy_src $pkgsrcdir/pkgtools/libnbcompat/files libnbcompat
-run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt --enable-db && $bmake $make_quiet_flags)"
+run_cmd "(cd $wrkdir/libnbcompat; $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --enable-bsd-getopt --enable-db && $bmake -j$make_jobs)"
 
 # bootstrap ksh if necessary
 case "$need_ksh" in
 yes)	echo_msg "Bootstrapping ksh"
 	copy_src $pkgsrcdir/shells/pdksh/files ksh
 	test -n "$CC" || CC=gcc	# default to gcc if no compiler is specified
-	run_cmd "(cd $wrkdir/ksh && env $BSTRAP_ENV $shprog ./configure $configure_quiet_flags --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir && $bmake)"
+	run_cmd "(cd $wrkdir/ksh && env $BSTRAP_ENV $shprog ./configure $configure_quiet_flags --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir && $bmake -j$make_jobs)"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/ksh/ksh $wrkdir/bin/pdksh"
 	echo "TOOLS_PLATFORM.sh?=		$prefix/bin/pdksh" >> ${TARGET_MKCONF}
 	echo "TOOLS_PLATFORM.sh?=		$wrkdir/bin/pdksh" >> ${BOOTSTRAP_MKCONF}
@@ -1110,7 +1133,7 @@ case "$need_awk" in
 yes)	echo_msg "Bootstrapping awk"
 	copy_src $pkgsrcdir/lang/nawk/files awk
 	test -n "$CC" || CC=gcc	# default to gcc if no compiler is specified
-	run_cmd "(cd $wrkdir/awk && $bmake -f Makefile CC=\"${CC}\" CFLAGS=\"${CFLAGS}\")"
+	run_cmd "(cd $wrkdir/awk && $bmake -j$make_jobs -f Makefile CC=\"${CC}\" CFLAGS=\"${CFLAGS}\")"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/awk/a.out $wrkdir/bin/nawk"
 	echo "TOOLS_PLATFORM.awk?=		$prefix/bin/nawk" >> ${TARGET_MKCONF}
 	echo "TOOLS_PLATFORM.awk?=		$wrkdir/bin/nawk" >> ${BOOTSTRAP_MKCONF}
@@ -1121,7 +1144,7 @@ esac
 case "$need_sed" in
 yes)	echo_msg "Bootstrapping sed"
 	copy_src $pkgsrcdir/textproc/nbsed/files sed
-	run_cmd "(cd $wrkdir/sed; env $BSTRAP_ENV CPPFLAGS='$CPPFLAGS -I../libnbcompat' LDFLAGS='$LDFLAGS -L../libnbcompat' LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --program-transform-name='s,sed,nbsed,' && $bmake)"
+	run_cmd "(cd $wrkdir/sed; env $BSTRAP_ENV CPPFLAGS='$CPPFLAGS -I../libnbcompat' LDFLAGS='$LDFLAGS -L../libnbcompat' LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C --prefix=$prefix --infodir=$infodir --mandir=$mandir --sysconfdir=$sysconfdir --program-transform-name='s,sed,nbsed,' && $bmake -j$make_jobs)"
 	run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/sed/sed $wrkdir/bin/sed"
 	echo "TOOLS_PLATFORM.sed?=		$prefix/bin/nbsed" >> ${TARGET_MKCONF}
 	echo "TOOLS_PLATFORM.sed?=		$wrkdir/bin/sed" >> ${BOOTSTRAP_MKCONF}
@@ -1136,7 +1159,7 @@ CPPFLAGS='$CPPFLAGS -I../libnbcompat -I../../libnbcompat' \
 LDFLAGS='$LDFLAGS -L../libnbcompat -L../../libnbcompat' \
 LIBS='$LIBS -lnbcompat' $shprog ./configure $configure_quiet_flags -C \
 --enable-bootstrap --prefix=$prefix --sysconfdir=$sysconfdir \
---with-pkgdbdir=$pkgdbdir --infodir=$infodir --mandir=$mandir $pkg_install_args && $bmake)"
+--with-pkgdbdir=$pkgdbdir --infodir=$infodir --mandir=$mandir $pkg_install_args && $bmake -j$make_jobs)"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/admin/pkg_admin $wrkdir/sbin/pkg_admin"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/create/pkg_create $wrkdir/sbin/pkg_create"
 run_cmd "$install_sh -c -o $user -g $group -m 755 $wrkdir/pkg_install/info/pkg_info $wrkdir/sbin/pkg_info"
@@ -1213,7 +1236,7 @@ echo ".endif			# end pkgsrc settings" >> ${BOOTSTRAP_MKCONF}
 # build and register packages
 # usage: build_package <packagedirectory> [additional arguments]
 build_package() {
-	run_cmd "(cd $pkgsrcdir/$1 && $bmake USE_DESTDIR=no -DPKG_PRESERVE MAKECONF=${BOOTSTRAP_MKCONF} install)"
+	run_cmd "(cd $pkgsrcdir/$1 && $bmake MAKE_JOBS=${make_jobs} USE_DESTDIR=no -DPKG_PRESERVE MAKECONF=${BOOTSTRAP_MKCONF} install)"
 }
 
 #

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.6 2013/10/09 09:35:42 adam Exp $
+$NetBSD: distinfo,v 1.8 2015/01/28 00:27:43 mef Exp $
 
-SHA1 (arping-2.13.tar.gz) = 974740a544dff7c11bcadf7b2655f06fe20ba462
-RMD160 (arping-2.13.tar.gz) = ec97cb8c78a5ff75c601b518147851a5bbc7640b
-Size (arping-2.13.tar.gz) = 254344 bytes
+SHA1 (arping-2.15.tar.gz) = e8dbf4a2827b1b9dc70a5c6df9ef0bf0870e424e
+RMD160 (arping-2.15.tar.gz) = 3f243122efa9922dc3f23ac9917e18b712c0ea05
+Size (arping-2.15.tar.gz) = 149061 bytes

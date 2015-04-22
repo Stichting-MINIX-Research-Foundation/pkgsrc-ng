@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2013/06/25 09:44:12 jperkin Exp $
+# $NetBSD: Makefile,v 1.19 2015/03/12 12:51:04 tnn Exp $
 
-DISTNAME=	gputils-1.2.0
+DISTNAME=	gputils-1.4.0
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gputils/}
 
@@ -11,7 +11,7 @@ COMMENT=	Collection of tools for Microchip's PIC micro-processors
 CONFLICTS=	gpasm-*
 
 GNU_CONFIGURE=	yes
-USE_TOOLS+=	gmake
+USE_TOOLS+=	bison flex gmake
 
 CONFIGURE_ARGS+=	--disable-html-doc
 

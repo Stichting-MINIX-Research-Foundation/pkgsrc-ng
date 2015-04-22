@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.6 2014/01/12 10:20:12 wen Exp $
-#
+# $NetBSD: Makefile,v 1.11 2015/02/18 12:25:47 mef Exp $
 
-DISTNAME=	Path-Tiny-0.051
+DISTNAME=	Path-Tiny-0.061
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/D/DA/DAGOLDEN/}
 
-MAINTAINER=	pkgsrc-p5-people@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Path-Tiny/
 COMMENT=	Perl5 file path utility
 LICENSE=	apache-2.0
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Path/Tiny/.packlist
 

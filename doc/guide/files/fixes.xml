@@ -1,4 +1,4 @@
-<!-- $NetBSD: fixes.xml,v 1.123 2013/08/24 16:55:21 bsiegert Exp $ -->
+<!-- $NetBSD: fixes.xml,v 1.130 2015/03/07 21:31:15 tnn Exp $ -->
 
 <chapter id="fixes"> <?dbhtml filename="fixes.html"?>
 <title>Making your package work</title>
@@ -476,31 +476,33 @@ DEPENDS+=	{perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
     <para>Your package may conflict with other packages a user might
     already have installed on his system, e.g. if your package
     installs the same set of files as another package in the pkgsrc
-    tree.</para>
+    tree or has the same <varname>PKGNAME</varname>.</para>
 
-    <para>In this case you can set <varname>CONFLICTS</varname> to a
+    <para>These cases are handled automatically by the packaging tools
+    at package installation time and do not need to be handled
+    manually.</para>
+   
+    <para>In case the conflicts can not be recognized automatically
+    (e.g., packages using the same config file location but no other
+    shared files), you can set <varname>CONFLICTS</varname> to a
     space-separated list of packages (including version string) your
     package conflicts with.</para>
 
-    <para>For example, <filename role="pkg">x11/Xaw3d</filename>
-    and <filename role="pkg">x11/Xaw-Xpm</filename>
-    install the same shared library, thus you set in
-    <filename>pkgsrc/x11/Xaw3d/Makefile</filename>:</para>
+    <para>For example, if both <filename role="pkg">foo/bar</filename>
+    and <filename role="pkg">foo/baz</filename>
+    use the same config file, you would set in
+    <filename>foo/bar/Makefile</filename>:</para>
 
     <programlisting>
-CONFLICTS=      Xaw-Xpm-[0-9]*
+CONFLICTS=      baz-[0-9]*
     </programlisting>
 
-    <para>and in <filename>pkgsrc/x11/Xaw-Xpm/Makefile</filename>:</para>
+    <para>and in <filename>pkgsrc/foo/baz/Makefile</filename>:</para>
 
     <programlisting>
-CONFLICTS=      Xaw3d-[0-9]*
+CONFLICTS=      bar-[0-9]*
     </programlisting>
 
-    <para>Packages will automatically conflict with other packages
-    with the name prefix and a different version
-    string. <quote>Xaw3d-1.5</quote> e.g. will automatically
-    conflict with the older version <quote>Xaw3d-1.3</quote>.</para>
   </sect2>
 
 
@@ -510,9 +512,20 @@ CONFLICTS=      Xaw3d-[0-9]*
     <para>There are several reasons why a package might be
     instructed to not build under certain circumstances.  If the
     package builds and runs on most platforms, the exceptions
-    should be noted with <varname>NOT_FOR_PLATFORM</varname>.  If
+    should be noted with <varname>BROKEN_ON_PLATFORM</varname>.  If
     the package builds and runs on a small handful of platforms,
-    set <varname>ONLY_FOR_PLATFORM</varname> instead.
+    set <varname>BROKEN_EXCEPT_ON_PLATFORM</varname> instead.
+    Both <varname>BROKEN_ON_PLATFORM</varname> and
+    <varname>BROKEN_EXCEPT_ON_PLATFORM</varname> are OS triples
+    (OS-version-platform) that can use glob-style
+    wildcards.</para>
+    <para>If a package is not appropriate for some platforms (as
+    oopposed to merely broken), a different set of variables should be
+    used as this affects failure reporting and statistics.
+    If the package is appropriate for most platforms, the exceptions
+    should be noted with <varname>NOT_FOR_PLATFORM</varname>.  If
+    the package is appropriate for only a small handful of platforms
+    (often exactly one), set <varname>ONLY_FOR_PLATFORM</varname> instead.
     Both <varname>ONLY_FOR_PLATFORM</varname> and
     <varname>NOT_FOR_PLATFORM</varname> are OS triples
     (OS-version-platform) that can use glob-style
@@ -764,6 +777,50 @@ FETCH_MESSAGE+= "manually from "${MASTER_SITES:Q}"."
     Furthermore, a mail to the package's authors seems appropriate
     telling them that changing distfiles after releases without
     changing the file names is not good practice.</para>
+  </sect2>
+  <sect2 id="build.fetch.github">
+    <title>Packages hosted on github.com</title>
+    <para>Helper methods exist for packages hosted on github.com which will often have distfile names that clash with other packages, for example <filename>1.0.tar.gz</filename>. Use one of the three recipes from below:
+    </para>
+    <sect3 id="build.fetch.github.tag">
+      <title>Fetch based on a tagged release</title>
+      <para>
+        If your distfile URL looks similar to <literal>http://github.com/username/exampleproject/archive/v1.0.zip</literal>, then you are packaging a tagged release.
+      </para>
+      <programlisting>
+DISTNAME=       exampleproject-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     v${PKGVERSION_NOREV}
+EXTRACT_SUFX=   .zip
+</programlisting>
+    </sect3>
+    <sect3 id="build.fetch.github.commit">
+      <title>Fetch based on a specific commit</title>
+      <para>
+        If your distfile URL looks similar to <literal>http://github.com/example/example/archive/988881adc9fc3655077dc2d4d757d480b5ea0e11.tar.gz</literal>, then you are packaging a specific commit not tied to a release.
+      </para>
+      <programlisting>
+DISTNAME=       example-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:example/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     988881adc9fc3655077dc2d4d757d480b5ea0e11
+      </programlisting>
+    </sect3>
+    <sect3 id="build.fetch.github.release">
+      <title>Fetch based on release</title>
+      <para>
+        If your distfile URL looks similar to <literal>http://github.com/username/exampleproject/releases/download/rel-1.6/offensive-1.6.zip</literal>, then you are packaging a release.
+      </para>
+      <programlisting>
+DISTNAME=       offensive-1.6
+PKGNAME=        ${DISTNAME:S/offensive/proper/}
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+GITHUB_PROJECT= exampleproject
+GITHUB_RELEASE= rel-${PKGVERSION_NOREV} # usually just set this to ${DISTNAME}
+EXTRACT_SUFX=   .zip
+      </programlisting>
+    </sect3>
   </sect2>
 </sect1>
 
@@ -1094,9 +1151,9 @@ pre-configure:
     and set <varname>REPLACE_PERL</varname> to ensure that the proper
     interpreter path is set. <varname>REPLACE_PERL</varname> should
     contain a list of scripts, relative to <varname>WRKSRC</varname>,
-    that you want adjusted.  Every occurrence of
-    <filename>*/bin/perl</filename> will be replaced with the full
-    path to the perl executable.</para>
+    that you want adjusted. Every occurrence of
+    <filename>*/bin/perl</filename> in a she-bang line will be
+    replaced with the full path to the perl executable.</para>
 
     <para>If a particular version of perl is needed, set the
     <varname>PERL5_REQD</varname> variable to the version number.  The
@@ -1114,6 +1171,10 @@ pre-configure:
     and <varname>REPLACE_KSH</varname> can be used to replace shell
     hash bangs in files. Please use the appropriate one, prefering
     <varname>REPLACE_SH</varname> in case this shell is sufficient.
+    Each should contain a list of scripts, relative to
+    <varname>WRKSRC</varname>, that you want adjusted. Every
+    occurrence of the matching shell in a she-bang line will be
+    replaced with the full path to the shell executable.
     When using <varname>REPLACE_BASH</varname>, don't forget to add
     <filename>bash</filename> to <varname>USE_TOOLS</varname>.</para>
   </sect2>
@@ -1187,6 +1248,7 @@ Haiku       __HAIKU__
 Interix     __INTERIX
 IRIX        __sgi (TODO: get a definite source for this)
 Linux       linux, __linux, __linux__
+Mac OS X    __APPLE__
 MirBSD      __MirBSD__ (__OpenBSD__ is also defined)
 Minix3      __minix
 NetBSD      __NetBSD__
@@ -1229,9 +1291,13 @@ SunPro C++  __SUNPRO_CC (0x580 for Sun C++ 5.8)
 	<para>Typically, a workaround involves testing the
         <varname>MACHINE_ARCH</varname> and compiler version, disabling
         optimisation for that combination of file,
-	<varname>MACHINE_ARCH</varname> and compiler, and documenting it
-	in <filename>pkgsrc/doc/HACKS</filename>. See that file for a
-	number of examples.</para>
+	<varname>MACHINE_ARCH</varname> and compiler.</para>
+
+	<para>This used to be a big problem in the past, but is rarely
+	needed now as compiler technology has matured. If you still need
+	to add a compiler specific workaround, please do so in the file
+	<filename>hacks.mk</filename> and describe the symptom and
+	compiler version as detailed as possible.</para>
 
 </sect2>
 

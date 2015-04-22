@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2014/01/01 11:52:22 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2014/11/30 21:51:44 spz Exp $
 
 DISTNAME=	mono-2.10.9
-PKGREVISION=	5
+PKGREVISION=	11
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/mono/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,8 +10,6 @@ MAINTAINER=	kefren@NetBSD.org
 HOMEPAGE=	http://www.mono-project.com/
 COMMENT=	Open source implementation of the .NET Development Framework (v2)
 
-MAKE_JOBS_SAFE=		no
-
 LICENSE=	mit AND gnu-gpl-v2 AND gnu-lgpl-v2 AND x11
 
 BUILD_DEPENDS+=	p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
@@ -19,6 +17,9 @@ BUILD_DEPENDS+=	p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
 CONFLICTS=	pnet-[0-9]* mcsim-[0-9]* lc-[0-9]*
 
 ALL_ENV+=		MONO_SHARED_DIR=${WRKDIR:Q} PLATFORM=
+
+# Occasional errors with net_2_0 dlls not being built before later dependents
+MAKE_JOBS_SAFE=	no
 
 USE_TOOLS+=		bison gmake perl:run pkg-config bash:run msgfmt
 USE_LIBTOOL=		yes

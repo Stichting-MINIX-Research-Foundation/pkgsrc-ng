@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.36 2014/02/08 12:14:32 obache Exp $
+# $NetBSD: Makefile,v 1.41 2015/03/15 17:30:24 hiramatsu Exp $
 #
 
-DISTNAME=	cutter-1.2.3
+DISTNAME=	cutter-1.2.4
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=cutter/}
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://cutter.sourceforge.net/
 COMMENT=	Unit Testing Framework for C and C++
 LICENSE=	gnu-lgpl-v3
@@ -31,10 +32,6 @@ TEST_TARGET=	check
 # PR#lib/39986
 .if !empty(CC_VERSION:Mgcc*) && !empty(MACHINE_PLATFORM:MNetBSD-[0-5].*-*)
 LDFLAGS.NetBSD+=	-lgcc_s
-.endif
-# needed to use C code with C++ exception 
-.if !empty(CC_VERSION:Mgcc*) || !empty(CC_VERSION:Mclang*)
-CFLAGS+=	-fexceptions
 .endif
 
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.16.0

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1.1.1 2014/02/05 21:43:11 abs Exp $
+# $NetBSD: Makefile,v 1.6 2014/12/09 14:14:08 mef Exp $
 
-DISTNAME=	JSON-MaybeXS-1.001000
+DISTNAME=	JSON-MaybeXS-1.003003
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5 converters
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=JSON/}
@@ -10,7 +10,7 @@ HOMEPAGE=	http://search.cpan.org/dist/JSON-MaybeXS/
 COMMENT=	Use Cpanel::JSON::XS with a fallback to JSON::PP
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	p5-JSON-PP>=2.27202:../../converters/p5-JSON-PP
+DEPENDS+=	{perl>=5.17.10,p5-JSON-PP>=2.27202}:../../converters/p5-JSON-PP
 
 PERL5_PACKLIST=		auto/JSON/MaybeXS/.packlist
 

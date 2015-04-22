@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.71 2014/03/14 10:02:53 pettai Exp $
+# $NetBSD: Makefile,v 1.74 2015/03/09 11:34:26 pettai Exp $
 
-DISTNAME=	nsd-4.0.3
+DISTNAME=	nsd-4.1.1
 CATEGORIES=	net
 MASTER_SITES=	http://www.nlnetlabs.nl/downloads/nsd/
 
@@ -9,7 +9,8 @@ HOMEPAGE=	http://www.nlnetlabs.nl/nsd/index.html
 COMMENT=	Authoritative-only DNS server
 LICENSE=	modified-bsd
 
-BUILD_DEFS+=	VARBASE
+BUILD_DEFS+=	VARBASE NSD_USER NSD_GROUP
+FILES_SUBST+=   NSD_USER=${NSD_USER} NSD_GROUP=${NSD_GROUP}
 
 BUILDLINK_API_DEPENDS.openssl+=	openssl>=0.9.7
 
@@ -40,7 +41,7 @@ CONFIGURE_ARGS+=--enable-ratelimit
 CONFIGURE_ARGS+=--disable-ratelimit
 .endif
 
-CONFIGURE_ARGS+=--with-pidfile=${VARBASE}/run/nsd.pid
+CONFIGURE_ARGS+=--with-pidfile=${VARBASE}/run/nsd/nsd.pid
 CONFIGURE_ARGS+=--with-user=${NSD_USER}
 CONFIGURE_ARGS+=--with-dbfile=${VARBASE}/nsd/nsd.db
 CONFIGURE_ARGS+=--with-xfrdfile=${VARBASE}/nsd/nsd-xfrd.state
@@ -56,6 +57,8 @@ PKG_GROUPS=	${NSD_GROUP}
 PKG_USERS=	${NSD_USER}:${NSD_GROUP}
 
 CONF_FILES+=	share/examples/nsd/nsd.conf ${PKG_SYSCONFDIR}/nsd.conf
+
+OWN_DIRS_PERMS+=        ${VARBASE}/nsd ${NSD_USER} ${NSD_GROUP} 755
 
 INSTALLATION_DIRS=	share/examples/nsd
 INSTALLATION_DIRS+=	${VARBASE}/nsd

@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.36 2012/10/03 00:02:38 asau Exp $
+# $NetBSD: Makefile,v 1.38 2014/09/30 08:59:58 jperkin Exp $
 #
 
-DISTNAME=	irssi-icb-0.14
-PKGREVISION=	22
+DISTNAME=	irssi-icb-0.15
 CATEGORIES=	chat
-MASTER_SITES=	http://www.irssi.org/files/plugins/icb/
+MASTER_SITES=	https://github.com/downloads/jperkin/irssi-icb/
 DISTFILES=	${DISTNAME}.tar.gz ${IRSSI_DISTFILE}
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	jperkin@joyent.com
 HOMEPAGE=	http://www.irssi.org/
 COMMENT=	Irssi plugin to access ICB networks
 LICENSE=	gnu-gpl-v2

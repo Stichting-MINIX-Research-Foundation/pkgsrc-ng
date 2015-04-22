@@ -1,9 +1,19 @@
-@comment $NetBSD: PLIST,v 1.2 2010/09/10 08:13:23 taca Exp $
-bin/hikidoc
-${RUBY_VENDORLIB}/hikidoc.rb
-${RUBY_DOC}/hikidoc/NEWS
-${RUBY_DOC}/hikidoc/NEWS.ja
-${RUBY_DOC}/hikidoc/README
-${RUBY_DOC}/hikidoc/README.ja
-${RUBY_DOC}/hikidoc/TextFormattingRules
-${RUBY_DOC}/hikidoc/TextFormattingRules.ja
+@comment $NetBSD: PLIST,v 1.4 2014/04/16 12:28:17 obache Exp $
+bin/hikidoc${RUBY_SUFFIX}
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/.gitignore
+${GEM_LIBDIR}/.travis.yml
+${GEM_LIBDIR}/COPYING
+${GEM_LIBDIR}/Gemfile
+${GEM_LIBDIR}/NEWS
+${GEM_LIBDIR}/NEWS.ja
+${GEM_LIBDIR}/README
+${GEM_LIBDIR}/README.ja
+${GEM_LIBDIR}/Rakefile
+${GEM_LIBDIR}/TextFormattingRules
+${GEM_LIBDIR}/TextFormattingRules.ja
+${GEM_LIBDIR}/bin/hikidoc
+${GEM_LIBDIR}/hikidoc.gemspec
+${GEM_LIBDIR}/lib/hikidoc.rb
+${GEM_LIBDIR}/test/hikidoc_test.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

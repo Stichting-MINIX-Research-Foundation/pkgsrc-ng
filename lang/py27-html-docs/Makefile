@@ -1,16 +1,17 @@
-# $NetBSD: Makefile,v 1.2 2012/10/02 20:11:50 asau Exp $
+# $NetBSD: Makefile,v 1.5 2014/07/17 11:34:42 obache Exp $
 #
 
-VERS=		2.7.2
+VERS=		2.7.8
 DISTNAME=	python-${VERS}-docs-html
 PKGNAME=	py27-html-docs-${VERS}
+PKGREVISION=	1
 CATEGORIES=	lang python
-MASTER_SITES=	http://docs.python.org/ftp/python/doc/${VERS}/
+MASTER_SITES=	https://www.python.org/ftp/python/doc/${VERS}/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python.org/doc/
-COMMENT=	HTML Documentation for Python
+COMMENT=	HTML Documentation for Python 2.7
 
 DIST_SUBDIR=	python
 
@@ -19,13 +20,11 @@ USE_TOOLS+=	pax
 NO_CONFIGURE=	yes
 NO_BUILD=	yes
 
-HTMLDIR=	share/doc/html/python2.7
-PLIST_SRC=	${WRKDIR}/.PLIST_SRC
+HTMLDIR=	share/doc/python2.7
 
 INSTALLATION_DIRS=	${HTMLDIR}
 
 do-install:
-	cd ${WRKSRC} && pax -rw -pe [a-z]* ${DESTDIR}${PREFIX}/${HTMLDIR}
-	cd ${DESTDIR}${PREFIX} && ${FIND} ${HTMLDIR} -type f -print >>${PLIST_SRC}
+	cd ${WRKSRC} && pax -rw -pp . ${DESTDIR}${PREFIX}/${HTMLDIR}
 
 .include "../../mk/bsd.pkg.mk"

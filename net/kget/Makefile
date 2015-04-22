@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.6 2014/02/12 23:18:21 tron Exp $
+# $NetBSD: Makefile,v 1.15 2014/11/30 03:11:12 markd Exp $
 
 DISTNAME=	kget-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	net
 COMMENT=	download manager for KDE
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
+
+CMAKE_ARGS+=	-DWITH_NepomukCore:BOOL=OFF
+CMAKE_ARGS+=	-DWITH_NepomukWidgets:BOOL=OFF
 
 REPLACE_PERL+= \
 	conf/kget_limitdownloads.pl \
@@ -16,8 +18,6 @@ REPLACE_PERL+= \
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../misc/kdepimlibs4/buildlink3.mk"
-.include "../../misc/nepomuk-core/buildlink3.mk"
-.include "../../misc/nepomuk-widgets/buildlink3.mk"
 # libmms-0.6 has a broken header file. comment out till 0.6.2 in pkgsrc
 ##BUILDLINK_API_DEPENDS.libmms+=  libmms>=0.6.2
 ##.include "../../net/libmms/buildlink3.mk"

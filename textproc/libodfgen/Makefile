@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/02/02 09:48:31 ryoon Exp $
+# $NetBSD: Makefile,v 1.5 2014/07/23 06:24:28 wiz Exp $
 
-DISTNAME=	libodfgen-0.0.3
+DISTNAME=	libodfgen-0.1.1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libwpd/libodfgen/libodfgen-${PKGVERSION}/}
-
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	jaapb@NetBSD.org
@@ -28,6 +27,7 @@ CONFIGURE_ARGS+=	--with-sharedptr=tr1
 .endif
 
 .include "../../converters/libetonyek/buildlink3.mk"
+.include "../../converters/librevenge/buildlink3.mk"
 .include "../../converters/libwpd/buildlink3.mk"
 .include "../../converters/libwpg/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

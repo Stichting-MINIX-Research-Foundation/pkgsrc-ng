@@ -1,4 +1,4 @@
-# $NetBSD: bsd.fetch-vars.mk,v 1.16 2014/03/02 08:54:41 obache Exp $
+# $NetBSD: bsd.fetch-vars.mk,v 1.19 2015/03/09 15:50:18 tnn Exp $
 #
 # This Makefile fragment is included separately by bsd.pkg.mk and
 # defines some variables which must be defined earlier than where
@@ -37,7 +37,14 @@ _SYS_VARS.fetch=	DEFAULT_DISTFILES
 
 _DISTDIR=		${DISTDIR}/${DIST_SUBDIR}
 .if defined(DISTNAME) && !empty(DISTNAME)
+.  if defined(GITHUB_TAG) && !empty(GITHUB_TAG:M[a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9][a-f0-9]*)
+# If the github tag is a git hash (7 or more hex digits), encode it in the
+# distfile name. It would be better to use ${_GITHUB_DEFAULT_DISTFILES} here,
+# but that gets assigned much later.
+DEFAULT_DISTFILES=	${DISTNAME}-${GITHUB_TAG}${EXTRACT_SUFX}
+.  else
 DEFAULT_DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
+.  endif
 .endif
 DISTFILES?=		${DEFAULT_DISTFILES}
 

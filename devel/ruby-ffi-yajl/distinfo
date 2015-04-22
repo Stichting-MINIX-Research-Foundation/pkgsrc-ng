@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/03/01 13:47:14 taca Exp $
+
+SHA1 (ffi-yajl-1.4.0.gem) = cebd353cbf7e1f864387364b9a611ad6ca321ae5
+RMD160 (ffi-yajl-1.4.0.gem) = 9588bcb81888c2fced1e82c7528f0fa63f6b626a
+Size (ffi-yajl-1.4.0.gem) = 140288 bytes

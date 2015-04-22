@@ -1,64 +1,66 @@
-# $NetBSD: Makefile,v 1.33 2014/02/12 23:17:45 tron Exp $
+# $NetBSD: Makefile,v 1.40 2014/11/29 00:47:35 joerg Exp $
 
-DISTNAME=		sqlrelay-0.43
-PKGREVISION=		10
-CATEGORIES=		databases
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=sqlrelay/}
+COMMENT=		Database connection pooling middleware and API
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://sqlrelay.sourceforge.net/
-COMMENT=		Enables pooling and sharing of database connections
-LICENSE=		gnu-gpl-v2 AND gnu-lgpl-v2
+.include "../../databases/sqlrelay/Makefile.common"
 
-GNU_CONFIGURE=		YES
-USE_LANGUAGES=		c c++
-USE_TOOLS+=		gmake
-USE_LIBTOOL=		YES
+.include "../../mk/bsd.prefs.mk"
 
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
-CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
-CONFIGURE_ARGS+=	--disable-db2
-CONFIGURE_ARGS+=	--disable-erlang
-CONFIGURE_ARGS+=	--disable-firebird
-CONFIGURE_ARGS+=	--disable-java
-CONFIGURE_ARGS+=	--disable-mdbtools
-CONFIGURE_ARGS+=	--disable-oracle
-CONFIGURE_ARGS+=	--disable-php
-CONFIGURE_ARGS+=	--disable-python
-CONFIGURE_ARGS+=	--disable-ruby
-CONFIGURE_ARGS+=	--disable-sybase
-CONFIGURE_ARGS+=	--disable-tcl
-CONFIGURE_ARGS+=	--disable-zope
-CONFIGURE_ARGS+=	--with-rudiments-prefix=${BUILDLINK_PREFIX.rudiments}
-MAKE_ENV+=		EXAMPLESDIR=${EGDIR:Q}
+CONFIGURE_ARGS+=	--disable-db2 --disable-erlang --disable-firebird	\
+			--disable-freetds --disable-java --disable-mdbtools	\
+			--disable-mysql --disable-odbc --disable-oracle		\
+			--disable-perl --disable-php --disable-postgresql	\
+			--disable-python --disable-ruby --disable-sqlite	\
+			--disable-sybase --disable-tcl
 
 PKG_SYSCONFSUBDIR=	sqlrelay
 EGDIR=			${PREFIX}/share/examples/sqlrelay
+INSTALL_MAKE_FLAGS+=	EXAMPLEDIR=${DESTDIR}${EGDIR}
 
-CONF_FILES+=		${EGDIR}/sqlrelay.conf.example \
-			${PKG_SYSCONFDIR}/sqlrelay.conf
-CONF_FILES+=		${EGDIR}/sqlrelay.dtd \
-			${PKG_SYSCONFDIR}/sqlrelay.dtd
-CONF_FILES+=		${EGDIR}/sqlrelay \
-			${PKG_SYSCONFDIR}/sqlrelay
+CONF_FILES+=		${EGDIR}/sqlrelay.conf ${PKG_SYSCONFDIR}/sqlrelay.conf
+CONF_FILES+=		${EGDIR}/sqlrelay.dtd ${PKG_SYSCONFDIR}/sqlrelay.dtd
+CONF_FILES+=		${EGDIR}/sqlrelay ${PKG_SYSCONFDIR}/sqlrelay
 
-INSTALLATION_DIRS=	${PREFIX}/share/examples/rc.d
-
+SQLR_USER?=		sqlrelay
+SQLR_GROUP?=		${SQLR_USER}
 SQLR_DATA?=		${VARBASE}/sqlrelay
-OWN_DIRS+=		${SQLR_DATA}
-OWN_DIRS+=		${SQLR_DATA}/tmp
-OWN_DIRS+=		${SQLR_DATA}/tmp/ipc
-OWN_DIRS+=		${SQLR_DATA}/tmp/pids
-OWN_DIRS+=		${SQLR_DATA}/tmp/sockets
 
-RCD_SCRIPTS+=		sqlrelay
-RCD_SCRIPT_SRC.sqlrelay=	${WRKSRC}/init/netbsd/rc.d/sqlrelay
+PKG_GROUPS+=		${SQLR_USER}
+PKG_USERS+=		${SQLR_USER}:${SQLR_GROUP}
+PKG_GECOS.${SQLR_USER}=	SQL Relay daemon user
+PKG_HOME.${SQLR_USER}=	${SQLR_DATA}
 
-.include "options.mk"
+OWN_DIRS_PERMS+=	${SQLR_DATA} ${SQLR_USER} ${SQLR_GROUP} 0775
+OWN_DIRS_PERMS+=	${SQLR_DATA}/tmp ${SQLR_USER} ${SQLR_GROUP} 0775
+OWN_DIRS_PERMS+=	${SQLR_DATA}/tmp/ipc ${SQLR_USER} ${SQLR_GROUP} 0775
+OWN_DIRS_PERMS+=	${SQLR_DATA}/tmp/pids ${SQLR_USER} ${SQLR_GROUP} 0775
+OWN_DIRS_PERMS+=	${SQLR_DATA}/tmp/sockets ${SQLR_USER} ${SQLR_GROUP} 0775
+
+SUBST_CLASSES+=		user
+SUBST_STAGE.user=	pre-configure
+SUBST_MESSAGE.user=	Fixing default nonprivileged user
+SUBST_FILES.user=	etc/sqlrelay.* src/common/defaults.h
+SUBST_SED.user=		-e '/runasuser/s/nobody/${SQLR_USER}/'
+SUBST_SED.user+=	-e '/runasgroup/s/nobody/${SQLR_GROUP}/'
+SUBST_SED.user+=	-e '/RUNASUSER/s/nobody/${SQLR_USER}/'
+SUBST_SED.user+=	-e '/RUNASGROUP/s/nobody/${SQLR_GROUP}/'
+
+FILES_SUBST+=		SQLR_USER=${SQLR_USER}
+FILES_SUBST+=		SQLR_GROUP=${SQLR_GROUP}
+FILES_SUBST+=		SQLR_DATA=${SQLR_DATA}
+
+RCD_SCRIPTS+=				sqlrelay sqlrcachemanager
+RCD_SCRIPT_SRC.sqlrelay=		${WRKSRC}/init/rc.sqlrelay
+RCD_SCRIPT_SRC.sqlrcachemanager=	${WRKSRC}/init/rc.sqlrcachemanager
+
+.include "../../mk/compiler.mk"
+
+.if !empty(PKGSRC_COMPILER:Mclang)
+_WRAP_EXTRA_ARGS.CXX+=	-Wno-error=unused-private-field -Wno-error=mismatched-tags
+CWRAPPERS_APPEND.cxx+=	-Wno-error=unused-private-field -Wno-error=mismatched-tags
+.endif
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/init/netbsd/sqlrelay ${DESTDIR}${EGDIR}/sqlrelay
+	${INSTALL_DATA} ${WRKSRC}/init/sqlrelay ${DESTDIR}${EGDIR}/sqlrelay
 
-.include "../../mk/readline.buildlink3.mk"
-.include "../../devel/rudiments/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

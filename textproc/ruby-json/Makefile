@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2014/03/14 18:11:45 taca Exp $
+# $NetBSD: Makefile,v 1.29 2015/03/10 16:18:54 taca Exp $
 
-DISTNAME=	json-1.8.1
+DISTNAME=	json-1.8.2
 CATEGORIES=	textproc
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -10,7 +10,7 @@ LICENSE=	ruby-license
 
 USE_GCC_RUNTIME=	yes
 
-GEM_CLEANBUILD=	ext/json/ext/generator/* ext/json/ext/parser/*
+RUBY_VERSION_SUPPORTED= 200 193 18 21
 
 post-extract:
 	cd ${WRKSRC}; ${FIND} . -xdev -type f -print | ${XARGS} ${CHMOD} g-w

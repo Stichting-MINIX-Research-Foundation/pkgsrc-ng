@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2013/12/14 17:09:27 joerg Exp $
+# $NetBSD: Makefile,v 1.32 2014/12/01 12:39:17 joerg Exp $
 
 DISTNAME=	gtkimageview-1.6.4
-PKGREVISION=	19
+PKGREVISION=	20
 CATEGORIES=	graphics
 MASTER_SITES= 	http://trac.bjourne.webfactional.com/chrome/common/releases/
 
@@ -30,6 +30,7 @@ TEST_TARGET=	check
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-function
+CWRAPPERS_APPEND.cc+=	-Wno-error=unused-function
 .endif
 
 .include "../../mk/bsd.pkg.mk"

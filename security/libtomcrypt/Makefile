@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2014/01/16 13:32:10 drochner Exp $
+# $NetBSD: Makefile,v 1.6 2014/12/16 02:58:20 mef Exp $
 
 DISTNAME=	crypt-1.17
 PKGNAME=	libtom${DISTNAME}
@@ -8,11 +8,9 @@ MASTER_SITES=	http://libtom.org/files/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	agc@NetBSD.org
-HOMEPAGE=	http://libtom.org/
+HOMEPAGE=	https://github.com/libtom/libtomcrypt
 COMMENT=	Tom St Denis's cryptographic library
 LICENSE=	public-domain
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 USE_LIBTOOL=	yes

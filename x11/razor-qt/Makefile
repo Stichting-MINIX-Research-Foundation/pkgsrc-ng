@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/02/12 23:18:56 tron Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/31 16:01:36 joerg Exp $
 
 DISTNAME=	razorqt-0.5.1
-PKGREVISION=	8
+PKGREVISION=	13
 CATEGORIES=	x11
 MASTER_SITES=	https://github.com/downloads/Razor-qt/razor-qt/
 EXTRACT_SUFX=	.tar.bz2
@@ -31,4 +31,5 @@ CHECK_PORTABILITY_SKIP=	razorqt-session/razor-session/resources/xdg-screensaver
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../x11/xscreensaver/buildlink3.mk"
 .include "../../x11/libXcomposite/buildlink3.mk"
+.include "../../x11/libXdamage/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

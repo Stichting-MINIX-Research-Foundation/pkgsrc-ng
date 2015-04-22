@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2014/02/12 23:18:37 tron Exp $
+# $NetBSD: Makefile,v 1.13 2014/11/10 22:25:40 pettai Exp $
 
-DISTNAME=	ykclient-2.11
-PKGREVISION=	1
+DISTNAME=	ykclient-2.13
 CATEGORIES=	security
 MASTER_SITES=	http://yubico.github.io/yubico-c-client/releases/
 
@@ -17,6 +16,7 @@ MAKE_JOBS_SAFE=	no
 
 GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config
 
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

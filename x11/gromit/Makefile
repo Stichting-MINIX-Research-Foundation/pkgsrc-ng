@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.32 2013/10/10 14:42:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.34 2014/08/21 09:40:02 jperkin Exp $
 #
 
 DISTNAME=		gromit-20041213
-PKGREVISION=		22
+PKGREVISION=		23
 CATEGORIES=		x11
 MASTER_SITES=		http://www.home.unix-ag.org/simon/gromit/
 
@@ -15,6 +15,7 @@ INSTALLATION_DIRS=	bin
 
 LDFLAGS+=		${X11_LDFLAGS} -lX11
 LDFLAGS.DragonFly=	-lm
+LDFLAGS.SunOS+=		-lm
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/gromit ${DESTDIR}${PREFIX}/bin

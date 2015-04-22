@@ -1,0 +1,75 @@
+$NetBSD: patch-makefile,v 1.1 2014/08/18 01:24:59 schmonz Exp $
+
+Use pkgsrc-provided paths and tools.
+
+--- makefile.orig	2013-06-27 20:36:48.000000000 +0000
++++ makefile
+@@ -7,7 +7,7 @@
+ DESTDIR =
+ 
+ # Root directory for final installation
+-PREFIX = /usr
++#PREFIX = /usr
+ 
+ # Location of the highlight data files:
+ data_dir = ${PREFIX}/share/highlight/
+@@ -16,7 +16,7 @@ data_dir = ${PREFIX}/share/highlight/
+ bin_dir = ${PREFIX}/bin/
+ 
+ # Location of the highlight man page:
+-man_dir = ${PREFIX}/share/man/man1/
++man_dir = ${PREFIX}/${PKGMANDIR}/man1/
+ 
+ # Location of the highlight documentation:
+ doc_dir = ${PREFIX}/share/doc/highlight/
+@@ -25,7 +25,8 @@ doc_dir = ${PREFIX}/share/doc/highlight/
+ examples_dir = ${doc_dir}examples/
+ 
+ # Location of the highlight config files:
+-conf_dir = /etc/highlight/
++#conf_dir = /etc/highlight/
++conf_dir = ${PREFIX}/share/examples/highlight/
+ #conf_dir = ${PREFIX}/etc/highlight/
+ 
+ # Location of additional gui files
+@@ -33,10 +34,10 @@ desktop_apps = ${PREFIX}/share/applicati
+ desktop_pixmaps = ${PREFIX}/share/pixmaps/
+ 
+ # Commands:
+-INSTALL_DATA=install -m644
+-INSTALL_PROGRAM=install -m755
+-MKDIR=mkdir -p -m 755
+-RMDIR=rm -r -f
++INSTALL_DATA=${BSD_INSTALL_DATA}
++INSTALL_PROGRAM=${BSD_INSTALL_PROGRAM}
++MKDIR=${BSD_INSTALL_DATA_DIR}
++RMDIR=${RM} -r -f
+ 
+ all cli:
+ 	${MAKE} -C ./src -f ./makefile HL_DATA_DIR=${data_dir} HL_CONFIG_DIR=${conf_dir}
+@@ -75,14 +76,14 @@ install:
+ 		${DESTDIR}${data_dir}themes \
+ 		${DESTDIR}${data_dir}langDefs \
+ 		${DESTDIR}${data_dir}plugins
+-	${MKDIR} ${DESTDIR}${man_dir}
++	${BSD_INSTALL_MAN_DIR} ${DESTDIR}${man_dir}
+ 	${MKDIR} ${DESTDIR}${bin_dir}
+ 
+ 	${INSTALL_DATA} ./langDefs/*.lang ${DESTDIR}${data_dir}langDefs/
+ 	${INSTALL_DATA} ./*.conf ${DESTDIR}${conf_dir}
+ 	${INSTALL_DATA} ./themes/*.theme ${DESTDIR}${data_dir}themes/
+ 	${INSTALL_DATA} ./plugins/*.lua ${DESTDIR}${data_dir}plugins/
+-	${INSTALL_DATA} ./man/highlight.1.gz ${DESTDIR}${man_dir}
++	${BSD_INSTALL_MAN} ./man/highlight.1.gz ${DESTDIR}${man_dir}
+ 	${INSTALL_DATA} ./AUTHORS ${DESTDIR}${doc_dir}
+ 	${INSTALL_DATA} ./README ${DESTDIR}${doc_dir}
+ 	${INSTALL_DATA} ./README_DE ${DESTDIR}${doc_dir}
+@@ -129,7 +130,7 @@ uninstall:
+ 	${RMDIR} ${DESTDIR}${doc_dir}
+ 	${RMDIR} ${DESTDIR}${conf_dir}
+ 	${RMDIR} ${DESTDIR}${examples_dir}
+-	rm -rf ${DESTDIR}${man_dir}highlight.1.gz
++	rm -rf ${DESTDIR}${man_dir}highlight.1*
+ 	rm -rf ${DESTDIR}${bin_dir}highlight
+ 	rm -rf ${DESTDIR}${bin_dir}highlight-gui
+ 	rm -rf ${DESTDIR}${desktop_apps}highlight.desktop

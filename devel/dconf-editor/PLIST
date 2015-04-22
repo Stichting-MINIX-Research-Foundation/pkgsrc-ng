@@ -1,6 +1,8 @@
-@comment $NetBSD: PLIST,v 1.6 2013/09/30 11:42:13 obache Exp $
+@comment $NetBSD: PLIST,v 1.8 2014/11/10 23:23:18 prlw1 Exp $
 bin/dconf-editor
-share/applications/dconf-editor.desktop
+share/appdata/ca.desrt.dconf-editor.appdata.xml
+share/applications/ca.desrt.dconf-editor.desktop
+share/dbus-1/services/ca.desrt.dconf-editor.service
 share/glib-2.0/schemas/ca.desrt.dconf-editor.gschema.xml
 share/icons/HighContrast/16x16/apps/dconf-editor.png
 share/icons/HighContrast/22x22/apps/dconf-editor.png

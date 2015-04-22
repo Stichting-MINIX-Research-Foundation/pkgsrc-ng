@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2014/03/10 15:42:19 fhajny Exp $
+# $NetBSD: Makefile,v 1.31 2015/01/29 08:44:44 fhajny Exp $
 
-DISTNAME=	node-v0.10.26
+DISTNAME=	node-v0.10.36
 CATEGORIES=	devel
 MASTER_SITES=	http://nodejs.org/dist/${DISTNAME:S/node-//}/
 PKGNAME=	${DISTNAME:S/-v/js-/}
@@ -11,11 +11,10 @@ COMMENT=	V8 JavaScript for clients and servers
 LICENSE=	mit
 
 HAS_CONFIGURE=	yes
-USE_TOOLS+=	pkg-config
-USE_TOOLS+=	gmake
+USE_TOOLS+=	gmake pkg-config
 USE_LANGUAGES=	c c++
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.10.24
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.10.24
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"

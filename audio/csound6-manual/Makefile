@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2014/03/12 19:31:32 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2015/03/12 19:17:55 tnn Exp $
 
 DISTNAME=		manual_src
 PKGNAME=		csound6-manual-${CSOUND_VERSION}
@@ -16,7 +16,7 @@ BUILD_DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 CSOUND_VERSION=		6.02
 WRKSRC=			${WRKDIR}/manual6
 DIST_SUBDIR=		${PKGNAME_NOREV}
-USE_TOOLS+=		gmake
+USE_TOOLS+=		gmake pax
 EXTRACT_USING=		bsdtar
 BUILD_TARGET=		html-dist
 
@@ -30,7 +30,7 @@ SUBST_FILES.python=	Makefile
 SUBST_STAGE.python=	pre-build
 SUBST_MESSAGE.python=	Fixing path to python.
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # as of 6.02
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # as of 6.02
 
 do-install:
 	cd ${WRKSRC}/html && pax -rw * ${DESTDIR}${PREFIX}/${DOCDIR}

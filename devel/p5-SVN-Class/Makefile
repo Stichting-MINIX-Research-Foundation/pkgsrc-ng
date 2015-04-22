@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2013/12/09 14:17:46 obache Exp $
+# $NetBSD: Makefile,v 1.12 2015/02/15 08:13:38 mef Exp $
 
-DISTNAME=	SVN-Class-0.17
+DISTNAME=	SVN-Class-0.18
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	devel perl5 scm
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=SVN/}
 
@@ -10,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/SVN-Class/
 COMMENT=	Manipulate Subversion workspaces with Perl objects
 LICENSE=	${PERL5_LICENSE}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 DEPENDS+=	p5-Data-Dump-[0-9]*:../../devel/p5-Data-Dump
 DEPENDS+=	{perl>=5.10.0,p5-IPC-Cmd>=0.40}:../../devel/p5-IPC-Cmd

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2012/10/08 09:20:59 asau Exp $
-# FreeBSD Id: ports/multimedia/dvd-slideshow/Makefile,v 1.12 2007/09/23 04:42:06 edwin Exp
+# $NetBSD: Makefile,v 1.17 2014/08/12 18:22:06 wiz Exp $
 
 DISTNAME=	dvd-slideshow-0.7.5
-PKGREVISION=	10
+PKGREVISION=	12
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dvd-slideshow/}
 
@@ -19,7 +18,7 @@ DEPENDS+=	dvd+rw-tools-[0-9]*:../../sysutils/dvd+rw-tools
 DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 # uses programs only (mplex, ffmpeg)
 DEPENDS+=	mjpegtools-[0-9]*:../../multimedia/mjpegtools
-DEPENDS+=	ffmpeg-[0-9]*:../../multimedia/ffmpeg
+DEPENDS+=	ffmpeg1-[0-9]*:../../multimedia/ffmpeg1
 
 USE_X11BASE=	yes
 USE_TOOLS+=	bash:run
@@ -39,7 +38,7 @@ REPLACE_BASH =	dir2slideshow dvd-burn dvd-encode dvd-iso dvd-menu \
 SUBST_CLASSES+=			fonts
 SUBST_STAGE.fonts=		post-configure
 SUBST_FILES.fonts=		dvd-menu dvd-slideshow
-SUBST_SED.fonts=		-e 's,/usr/share/fonts/,${X11BASE}/lib/X11/fonts/,g'
+SUBST_SED.fonts=		-e 's,/usr/share/fonts/,${PREFIX}/share/fonts/,g'
 SUBST_MESSAGE.fonts=	Fixing hardcoded fonts paths.
 
 SUBST_CLASSES+=			pipeline

@@ -1,4 +1,4 @@
-<!-- $NetBSD: pkginstall.xml,v 1.17 2012/05/16 16:46:43 wiz Exp $ -->
+<!-- $NetBSD: pkginstall.xml,v 1.19 2014/06/10 15:09:42 joerg Exp $ -->
 
 <chapter id="pkginstall"> <?dbhtml filename="pkginstall.html"?>
 <title>The pkginstall framework</title>
@@ -219,7 +219,7 @@ set based upon the following variables:</para>
     <filename>Makefile</filename> (i.e., it is not user-customizable).</para>
 
     <para>As an example, consider the Apache package,
-    <filename role="pkg">www/apache2</filename>, which places its
+    <filename role="pkg">www/apache24</filename>, which places its
     configuration files under the
     <filename>httpd/</filename> subdirectory of
     <varname>PKG_SYSCONFBASE</varname>.  This should be set in the package
@@ -538,7 +538,7 @@ installation prefix.  Consider the following example, taken from <filename
 role="pkg">fonts/dbz-ttf</filename>:</para>
 
 <programlisting>
-FONTS_DIRS.ttf= ${PREFIX}/lib/X11/fonts/TTF
+FONTS_DIRS.ttf= ${PREFIX}/share/fonts/X11/TTF
 </programlisting>
 
 <!-- ================================================================== -->

@@ -1,11 +1,14 @@
-$NetBSD: distinfo,v 1.26 2014/02/02 10:47:24 obache Exp $
+$NetBSD: distinfo,v 1.30 2014/05/31 22:41:32 ryoon Exp $
 
 SHA1 (uim-1.8.6.tar.bz2) = 43b9dbdead6797880e6cfc9c032ecb2d37d42777
 RMD160 (uim-1.8.6.tar.bz2) = 5f94218d82475ac463534ec681769f34547e5707
 Size (uim-1.8.6.tar.bz2) = 6500739 bytes
-SHA1 (patch-ab) = 56a7d5aadd2339f5bacae80b28ce520e6df3d1ab
-SHA1 (patch-ac) = 7c36bc67764925c9d87ad0aa963a53cfd1948224
-SHA1 (patch-ad) = 9c47fa28b6478bf2e720c1c0e7bf7793eb71fbab
-SHA1 (patch-ae) = 59944fc9c7256056125fa3a623aecf6a2e9dfe42
 SHA1 (patch-af) = 9f543b90bfefc5f560e1eaac97d60af70ffed5cc
 SHA1 (patch-fep_escseq.c) = 6c25c344e5b694542a3c5bc137ae1a1d36a8c835
+SHA1 (patch-scm_Makefile.am) = c3af52e2d9d06736911c0efd9a25e0aee2c62219
+SHA1 (patch-sigscheme_configure) = 2af99374a3af542d25124737bf8cd3b67f191c03
+SHA1 (patch-sigscheme_configure.in) = 9c5c48a477ea03263488e15565e4a568ba55a125
+SHA1 (patch-sigscheme_doc_Makefile.am) = 998b9a0844853c7996f333155dfe38a183c266f4
+SHA1 (patch-sigscheme_include_sigscheme_Makefile.am) = d54b38982c199b321c6ac0d8700bfe9c29084eee
+SHA1 (patch-uim_Makefile.am) = 6e3a37ee3ed2a68354b59e6dd7816017a95f15fd
+SHA1 (patch-uim_uim-module-manager.c) = 8c81edd3af3de7a2f7b7158d8c66e2082327b931

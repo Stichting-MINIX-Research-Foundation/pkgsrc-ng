@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2014/02/23 14:45:36 sno Exp $
+# $NetBSD: Makefile,v 1.4 2015/03/15 23:08:38 mef Exp $
 
-DISTNAME=	IO-Async-0.61
+DISTNAME=	IO-Async-0.65
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/P/PE/PEVANS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=IO/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://metacpan.org/release/IO-Async

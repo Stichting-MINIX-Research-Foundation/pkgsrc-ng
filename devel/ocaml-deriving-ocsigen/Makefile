@@ -1,30 +1,30 @@
-# $NetBSD: Makefile,v 1.4 2013/11/01 11:42:40 jaapb Exp $
+# $NetBSD: Makefile,v 1.7 2015/01/20 14:24:35 jaapb Exp $
 #
 
-DISTNAME=	deriving-ocsigen-0.5
-PKGNAME=	ocaml-${DISTNAME}
+VERSION=	0.7
+DISTNAME=	${VERSION}
+PKGNAME=	ocaml-deriving-ocsigen-${VERSION}
 COMMENT=	Extension to OCaml for deriving functions from type declarations
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	http://ocsigen.org/download/
+MASTER_SITES=	https://github.com/ocsigen/deriving/archive/
+DIST_SUBDIR=	ocaml-deriving-ocsigen
 
-MAINTAINER=	jaapb@kerguelen.org
-HOMEPAGE=	http://ocsigen.org/eliom/install/
+MAINTAINER=	jaapb@NetBSD.org
+HOMEPAGE=	http://github.com/ocsigen/deriving
 LICENSE=	mit
 
-DEPENDS+=	ocaml-findlib-[0-9]*:../../devel/ocaml-findlib
-
-USE_LANGUAGES=	c
+WRKSRC=	${WRKDIR}/deriving-${VERSION}
 USE_TOOLS=	gmake
+OCAML_USE_OASIS=	yes
 
-INSTALLATION_DIRS= lib/ocaml/site-lib
+post-patch:
+	cd ${WRKSRC} && oasis setup
 
-PLIST_VARS=	opt
-.if (${MACHINE_ARCH} == "i386") || (${MACHINE_ARCH} == "powerpc") || \
-    (${MACHINE_ARCH} == "sparc") || (${MACHINE_ARCH} == "x86_64")
-PLIST.opt=	yes
-.endif
-
-
+# Package actually needs ocaml-oasis to be installed
+.include "../../devel/ocaml-oasis/buildlink3.mk"
 .include "../../devel/ocaml-optcomp/buildlink3.mk"
-.include "../../lang/ocaml/buildlink3.mk"
+BUILDLINK_API_DEPENDS.ocaml-optcomp+=   ocaml-optcomp>=1.6
+.include "../../lang/camlp4/buildlink3.mk"
+.include "../../mk/ocaml.mk"
 .include "../../mk/bsd.pkg.mk"

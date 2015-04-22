@@ -1,17 +1,4 @@
-# $NetBSD: Makefile.common,v 1.20 2014/03/27 20:57:54 adam Exp $
-#
-# used by databases/postgresql91-adminpack/Makefile
-# used by databases/postgresql91-client/Makefile
-# used by databases/postgresql91-datatypes/Makefile
-# used by databases/postgresql91-dblink/Makefile
-# used by databases/postgresql91-docs/Makefile
-# used by databases/postgresql91-fuzzystrmatch/Makefile
-# used by databases/postgresql91-pgcrypto/Makefile
-# used by databases/postgresql91-plperl/Makefile
-# used by databases/postgresql91-plpython/Makefile
-# used by databases/postgresql91-pltcl/Makefile
-# used by databases/postgresql91-server/Makefile
-# used by databases/postgresql91-upgrade/Makefile
+# $NetBSD: Makefile.common,v 1.23 2015/02/14 12:06:49 adam Exp $
 #
 # This Makefile fragment is included by all PostgreSQL packages built from
 # the main sources of the PostgreSQL distribution except jdbc-postgresql.
@@ -20,8 +7,23 @@
 # packages, is as follows:
 #	<lang>-postgresql	client-side interface to PostgreSQL
 #	postgresql-<lang>	server-side module for PostgreSQL backend
+#
+# used by databases/postgresql91-adminpack/Makefile
+# used by databases/postgresql91-client/Makefile
+# used by databases/postgresql91-datatypes/Makefile
+# used by databases/postgresql91-dblink/Makefile
+# used by databases/postgresql91-docs/Makefile
+# used by databases/postgresql91-fuzzystrmatch/Makefile
+# used by databases/postgresql91-monitoring/Makefile
+# used by databases/postgresql91-pgcrypto/Makefile
+# used by databases/postgresql91-plperl/Makefile
+# used by databases/postgresql91-plpython/Makefile
+# used by databases/postgresql91-pltcl/Makefile
+# used by databases/postgresql91-replicationtools/Makefile
+# used by databases/postgresql91-server/Makefile
+# used by databases/postgresql91-upgrade/Makefile
 
-DISTNAME=	postgresql-9.1.13
+DISTNAME=	postgresql-9.1.15
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=source/v${PKGVERSION_NOREV}/}
 EXTRACT_SUFX=	.tar.bz2

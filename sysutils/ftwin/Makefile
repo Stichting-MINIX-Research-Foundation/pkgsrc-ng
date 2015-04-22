@@ -1,20 +1,25 @@
-# $NetBSD: Makefile,v 1.27 2014/02/12 23:18:38 tron Exp $
+# $NetBSD: Makefile,v 1.31 2015/01/23 10:11:47 wiz Exp $
 
 DISTNAME=	ftwin-0.8.8
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	sysutils
-MASTER_SITES=	http://download.meroware.org/ftwin/
+MASTER_SITES=	# http://download.meroware.org/ftwin/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	imil@gcu.info
-HOMEPAGE=	http://jok.is-a-geek.net/ftwin.php
+HOMEPAGE=	https://github.com/fpesce/ftwin
 COMMENT=	Ftwin finds duplicate files according to their content
+#LICENSE=	apache-2.0 AND lots of others
 
 GNU_CONFIGURE=		yes
 
 DOCDIR=			${PREFIX}/share/doc/ftwin
 
 INSTALLATION_DIRS+=	${DOCDIR} ${PKGMANDIR}/man8
+
+# 0.8.8 gives warnings with libarchive-3.x
+# https://github.com/fpesce/ftwin/issues/1
+BUILDLINK_TRANSFORM+=	rm:-Werror
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/EXAMPLES ${DESTDIR}${DOCDIR}

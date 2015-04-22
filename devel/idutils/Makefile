@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.9 2012/10/31 11:17:06 asau Exp $
+# $NetBSD: Makefile,v 1.12 2015/01/02 22:34:02 wiz Exp $
 
-DISTNAME=	idutils-4.2
-PKGREVISION=	3
+DISTNAME=	idutils-4.6
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=idutils/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnu.org/software/idutils/idutils.html
 COMMENT=	Classic Berkeley gid/lid tools for looking up variables in code
+LICENSE=	gnu-gpl-v3
 
 CONFLICTS=	sh-utils>=2.0nb2 coreutils-[0-9]*
 
@@ -23,12 +24,10 @@ MAKE_ENV+=		BSD_SETENV=${SETENV:Q}
 MAKE_FLAGS+=		elc_SCRIPTS=
 
 LISPDIR=		${PREFIX}/share/emacs/site-lisp
-
 INSTALLATION_DIRS=	${LISPDIR}
-
-.include "../../devel/gettext-lib/buildlink3.mk"
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/lisp/idutils.el ${DESTDIR}${LISPDIR}
 
+.include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

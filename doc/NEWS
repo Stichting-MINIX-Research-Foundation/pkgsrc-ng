@@ -1,4 +1,4 @@
-# $NetBSD: NEWS,v 1.8 2012/09/30 09:02:53 asau Exp $
+# $NetBSD: NEWS,v 1.11 2014/06/21 16:01:17 alnsn Exp $
 
 PKGSRC NEWS
 ===========
@@ -6,6 +6,14 @@ PKGSRC NEWS
   This file contains information about important infrastructural changes in
   pkgsrc. The intended readers are the pkgsrc developers as well as anyone
   tracking pkgsrc-current.
+
+Lua multiversion support [alnsn 2014-05-03]
+	Lua packages lang/lua51 and lang/lua52 have been modified
+	to coexist without conflicts, infrastructure for supporting
+	multiple versions of Lua has been put in place and all
+	dependent packages have been adapted to the new infrastructure.
+
+SMF support is introduced [jperkin 2014-03-11]
 
 Unprivileged staged installation is default [asau 2012-08-14]
 	pkgsrc has changed to use unprivileged staged installation by default.

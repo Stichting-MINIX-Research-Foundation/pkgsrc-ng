@@ -1,4 +1,4 @@
-/* $NetBSD: devinfo_mass.c,v 1.4 2010/12/26 20:59:31 markd Exp $ */
+/* $NetBSD: devinfo_mass.c,v 1.6 2015/01/31 12:08:55 wiz Exp $ */
 
 /*-
  * Copyright (c) 2008 Jared D. McNeill <jmcneill@invisible.ca>
@@ -230,7 +230,7 @@ devinfo_mass_add(HalDevice *parent, const char *devnode, char *devfs_path, char 
 	}
 	if (gparent_devnode && strstr (gparent_devnode, "umass") == gparent_devnode)
 		hal_device_property_set_string (d, "storage.bus", "usb");
-	else if (strstr (parent_devnode, "atabus") == parent_devnode)
+	else if (parent_devnode && strstr (parent_devnode, "atabus") == parent_devnode)
 		hal_device_property_set_string (d, "storage.bus", "ide");
 	else
 		hal_device_property_set_string (d, "storage.bus", "scsi");
@@ -387,20 +387,22 @@ devinfo_mass_disklabel_add(HalDevice *parent, const char *devnode, char *devfs_p
 	vid = volume_id_open_fd (fd);
 	if (vid) {
 		if (volume_id_probe_all (vid, 0, psize) == 0) {
-			char *type;
+			const char *type,*fstype;
 
 			hal_device_property_set_string (d, "volume.label", vid->label);
 			hal_device_property_set_string (d, "volume.partition.label", vid->label);
 			hal_device_property_set_string (d, "volume.uuid", vid->uuid);
 			hal_device_property_set_string (d, "volume.partition.uuid", vid->uuid);
 
-			if (volume_id_get_type (vid, &type) && type != NULL)
-				if (strcmp (type, "vfat") == 0) {
-					HAL_INFO (("%s disklabel reports %s but libvolume_id says it is "
-					    "%s, assuming disklabel is incorrect",
-					    devpath, devinfo_mass_get_fstype (part->p_fstype), type));
+			if ( type && volume_id_get_type (vid, &type)) {
+				fstype=devinfo_mass_get_fstype (part->p_fstype);
+				if (strcmp (type, fstype)) {
+					HAL_INFO (("%s disklabel reports [%s] but libvolume_id says it is "
+					    "[%s], assuming disklabel is incorrect",
+					    devpath, fstype, type));
 					hal_device_property_set_string (d, "volume.fstype", type);
 				}
+			}
 		}
 		volume_id_close (vid);
 	}

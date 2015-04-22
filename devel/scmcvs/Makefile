@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2013/10/14 06:51:02 adam Exp $
+# $NetBSD: Makefile,v 1.13 2014/10/09 14:06:31 wiz Exp $
 
 DISTNAME=	cvs-1.12.13
+PKGREVISION=	2
 CATEGORIES=	devel scm
 MASTER_SITES=	http://ftp.gnu.org/non-gnu/cvs/source/feature/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,13 +11,11 @@ HOMEPAGE=	http://cvs.nongnu.org/
 COMMENT=	Concurrent Versions System
 LICENSE=	gnu-gpl-v2
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
-USE_TOOLS+=		makeinfo
+USE_TOOLS+=		makeinfo autoconf
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-external-zlib
 CONFIGURE_ARGS+=	--with-rsh=ssh
-CONFIGURE_ENV+=		PERL=${TOOLS_PERL5}
+CONFIGURE_ENV+=		PERL=${TOOLS_PERL5} gl_cv_func_getcwd_null=yes
 
 CHECK_INTERPRETER_SKIP=	share/cvs/contrib/*
 INFO_FILES=		yes
@@ -29,6 +28,10 @@ CONFIGURE_ARGS+=	--enable-case-sensitivity
 .endif
 
 .include "options.mk"
+
+AUTOCONF_REQD=		2.50
+pre-configure:
+	cd ${WRKSRC} && autoconf
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

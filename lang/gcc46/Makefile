@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2014/01/25 13:38:47 ryoon Exp $
+# $NetBSD: Makefile,v 1.28 2015/01/01 01:29:56 ryoon Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc46-${GCC_VERSION}
+PKGREVISION=		3
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
@@ -27,6 +28,12 @@ CONFIG_SHELL=		${TOOLS_PATH.bash}
 NOT_FOR_PLATFORM=	Interix-*-* DragonFly-*-*
 UNLIMIT_RESOURCES+=	datasize
 UNLIMIT_RESOURCES+=	stacksize
+
+GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
+SUBST_CLASSES+=		vars
+SUBST_STAGE.vars=	pre-configure
+SUBST_FILES.vars=	gcc/Makefile.in
+SUBST_VARS.vars=	GCC_TARGET_MACHINE
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
@@ -78,6 +85,13 @@ MAKE_ENV+=		ac_cv_func_clock_gettime=yes
 .endif
 .if ${OPSYS} == "Linux"
 CONFIGURE_ARGS+=	--disable-libquadmath --disable-libquadmath-support
+.endif
+.if ${OPSYS} == "Darwin"
+# See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
+# create a stub library, not just to remove symbols, so we must not
+# let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
+# build fails for missing files.
+CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
 .endif
 
 CONFIGURE_ENV+=		CONFIG_SHELL=${CONFIG_SHELL}

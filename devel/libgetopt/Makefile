@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.35 2014/01/01 02:48:31 ryoon Exp $
+# $NetBSD: Makefile,v 1.37 2014/09/13 11:03:17 richard Exp $
 #
 
-DISTNAME=	libgetopt-1.4.5
+DISTNAME=	libgetopt-1.4.6
 CATEGORIES=	pkgtools sysutils
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -9,15 +9,16 @@ DISTFILES=	# empty
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Library for handling --long options
 
-CONFLICTS=		man-pages-[0-9]*
+CONFLICTS=	man-pages-[0-9]*
 
 USE_LIBTOOL=	YES
 WRKSRC=		${WRKDIR}/libgetopt
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "SunOS" || ${OPSYS} == "AIX" || ${OPSYS} == "HPUX" || \
-	${OPSYS} == "OSF1" || ${OPSYS} == "Linux"
+.if ${OPSYS} == "AIX" || ${OPSYS} == "HPUX" || \
+	${OPSYS} == "OSF1" || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
+	
 CFLAGS+=	-DREPLACE_GETOPT
 .endif
 CFLAGS.OSF1+=	-I.	# stdio.h includes <getopt.h>, make sure it's our copy

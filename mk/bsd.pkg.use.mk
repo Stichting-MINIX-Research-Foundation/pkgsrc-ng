@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.use.mk,v 1.56 2013/09/09 16:35:40 joerg Exp $
+#	$NetBSD: bsd.pkg.use.mk,v 1.58 2014/12/30 15:13:19 wiz Exp $
 #
 # Turn USE_* macros into proper depedency logic.  Included near the top of
 # bsd.pkg.mk, after bsd.prefs.mk.
@@ -46,11 +46,8 @@ PLIST_SUBST+=		IMAKE_MISCMAN_SUFFIX=${IMAKE_MISCMAN_SUFFIX:Q}
 PLIST_SUBST+=		IMAKE_MANNEWSUFFIX=${IMAKE_MANNEWSUFFIX:Q}
 .endif
 
-.if defined(USE_IMAKE) && empty(USE_TOOLS:Mitools)
-USE_X11BASE?=		implied
-.endif
-
 .if defined(USE_IMAKE)
+USE_X11BASE?=		implied
 MAKE_FLAGS+=		CC=${CC:Q} CXX=${CXX:Q}
 .endif
 
@@ -58,22 +55,14 @@ MAKE_FLAGS+=		CC=${CC:Q} CXX=${CXX:Q}
 .  include "x11.buildlink3.mk"
 .endif
 
-.if ${PKG_INSTALLATION_TYPE} == "pkgviews"
-PREFIX=			${DEPOTBASE}/${PKGNAME}
-.elif ${PKG_INSTALLATION_TYPE} == "overwrite"
-.  if defined(INSTALLATION_PREFIX)
+.if defined(INSTALLATION_PREFIX)
 PREFIX=			${INSTALLATION_PREFIX}
-.  elif defined(USE_X11BASE)
+.elif defined(USE_X11BASE)
 PREFIX=			${X11PREFIX}
-.  elif defined(USE_CROSSBASE)
+.elif defined(USE_CROSSBASE)
 PREFIX=			${CROSSBASE}
-.  else
+.else
 PREFIX=			${LOCALBASE}
-.  endif
-.endif
-
-.if (${PKG_INSTALLATION_TYPE} == "pkgviews") && defined(INSTALLATION_PREFIX)
-PKG_FAIL_REASON=	"INSTALLATION_PREFIX can't be used in a pkgviews package"
 .endif
 
 ############################################################################

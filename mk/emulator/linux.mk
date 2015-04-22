@@ -1,4 +1,4 @@
-# $NetBSD: linux.mk,v 1.23 2014/01/22 12:34:22 obache Exp $
+# $NetBSD: linux.mk,v 1.28 2015/03/02 18:20:23 tnn Exp $
 #
 # Linux binary emulation framework
 #
@@ -11,9 +11,13 @@ EMUL_TYPE.linux?=	none
 .  endif
 .else
 
-# NetBSD 6 or later default to 12.1, otherwise 10.0
+# Pick appropriate SuSE Linux version for NetBSD amd64 and i386.
 .if ${OPSYS} == "NetBSD" && ${EMUL_ARCH} != "powerpc"
-.  if empty(OS_VERSION:M[0-5].*) 
+# Use 13.1 under NetBSD 7.* and newer,
+.  if empty(OS_VERSION:M[0-6].*)
+SUSE_PREFER?=	13.1
+# 12.1 under NetBSD 6.*, and 10.0 otherwise.
+.  elif empty(OS_VERSION:M[0-5].*)
 SUSE_PREFER?=	12.1
 .  endif
 .endif
@@ -72,11 +76,16 @@ _EMUL_MODULES+=		fontconfig
 _EMUL_MODULES+=		freetype2
 _EMUL_MODULES+=		glib2
 _EMUL_MODULES+=		glx
+_EMUL_MODULES+=		gstreamer
 _EMUL_MODULES+=		gtk2
 _EMUL_MODULES+=		jpeg
 _EMUL_MODULES+=		krb5
+_EMUL_MODULES+=		libSDL
+_EMUL_MODULES+=		libaudiofile
+_EMUL_MODULES+=		libesd
 _EMUL_MODULES+=		libffi
 _EMUL_MODULES+=		libjson
+_EMUL_MODULES+=		libidn
 _EMUL_MODULES+=		libsigc++2
 _EMUL_MODULES+=		libsndfile
 _EMUL_MODULES+=		libssh
@@ -92,6 +101,7 @@ _EMUL_MODULES+=		pulseaudio
 _EMUL_MODULES+=		qt4
 _EMUL_MODULES+=		resmgr
 _EMUL_MODULES+=		slang
+_EMUL_MODULES+=		sqlite3
 _EMUL_MODULES+=		tiff
 _EMUL_MODULES+=		x11
 _EMUL_MODULES+=		xml2

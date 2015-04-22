@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.25 2013/12/16 09:11:28 jperkin Exp $
+@comment $NetBSD: PLIST,v 1.27 2015/01/25 12:21:33 pho Exp $
 lib/libboost_atomic.a
 lib/libboost_atomic.so
 lib/libboost_atomic.so.${BOOST_VERSION}
@@ -8,6 +8,9 @@ lib/libboost_chrono.so.${BOOST_VERSION}
 ${PLIST.context}lib/libboost_context.a
 ${PLIST.context}lib/libboost_context.so
 ${PLIST.context}lib/libboost_context.so.${BOOST_VERSION}
+lib/libboost_container.a
+lib/libboost_container.so
+lib/libboost_container.so.${BOOST_VERSION}
 lib/libboost_coroutine.a
 lib/libboost_coroutine.so
 lib/libboost_coroutine.so.${BOOST_VERSION}
@@ -39,18 +42,18 @@ lib/libboost_math_c99.so.${BOOST_VERSION}
 lib/libboost_math_c99f.a
 lib/libboost_math_c99f.so
 lib/libboost_math_c99f.so.${BOOST_VERSION}
-lib/libboost_math_c99l.a
-lib/libboost_math_c99l.so
-lib/libboost_math_c99l.so.${BOOST_VERSION}
+${PLIST.long_double_math}lib/libboost_math_c99l.a
+${PLIST.long_double_math}lib/libboost_math_c99l.so
+${PLIST.long_double_math}lib/libboost_math_c99l.so.${BOOST_VERSION}
 lib/libboost_math_tr1.a
 lib/libboost_math_tr1.so
 lib/libboost_math_tr1.so.${BOOST_VERSION}
 lib/libboost_math_tr1f.a
 lib/libboost_math_tr1f.so
 lib/libboost_math_tr1f.so.${BOOST_VERSION}
-lib/libboost_math_tr1l.a
-lib/libboost_math_tr1l.so
-lib/libboost_math_tr1l.so.${BOOST_VERSION}
+${PLIST.long_double_math}lib/libboost_math_tr1l.a
+${PLIST.long_double_math}lib/libboost_math_tr1l.so
+${PLIST.long_double_math}lib/libboost_math_tr1l.so.${BOOST_VERSION}
 lib/libboost_prg_exec_monitor.a
 lib/libboost_prg_exec_monitor.so
 lib/libboost_prg_exec_monitor.so.${BOOST_VERSION}

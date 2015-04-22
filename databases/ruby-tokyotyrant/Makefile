@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.17 2012/10/02 21:25:52 asau Exp $
+# $NetBSD: Makefile,v 1.19 2015/03/15 20:13:24 hiramatsu Exp $
 #
 
 DISTNAME=	tokyotyrant-ruby-1.13
@@ -6,7 +6,7 @@ PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/-ruby-/-/}
 CATEGORIES=	databases ruby
 MASTER_SITES=	${HOMEPAGE:S/rubydoc/rubypkg/}
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://fallabs.com/tokyotyrant/rubydoc/
 COMMENT=	Pure Ruby Interface of Tokyo Tyrant
 LICENSE=	gnu-lgpl-v2.1
@@ -26,7 +26,7 @@ do-test:
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}/${PREFIX}/${DOCDIR}
-	cd ${WRKSRC}/doc && pax -rwpe . ${DESTDIR}${PREFIX}/${DOCDIR}
+	cd ${WRKSRC}/doc && pax -rwpp . ${DESTDIR}${PREFIX}/${DOCDIR}
 	${RUBY_GENERATE_PLIST}
 
 .include "../../lang/ruby/modules.mk"

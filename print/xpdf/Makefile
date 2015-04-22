@@ -1,16 +1,11 @@
-# $NetBSD: Makefile,v 1.80 2013/06/04 22:17:01 tron Exp $
+# $NetBSD: Makefile,v 1.82 2015/03/07 15:30:58 mef Exp $
 
-DISTNAME=	xpdf-3.03
-#PKGNAME=	xpdf-3.02pl4
-#PKGREVISION=	4
-PKGREVISION=	4
+DISTNAME=	xpdf-3.04
 CATEGORIES=	print
 MASTER_SITES=	ftp://ftp.foolabs.com/pub/xpdf/ \
 		${MASTER_SITE_SUNSITE:=apps/graphics/viewers/X/xpdf/} \
 		http://gd.tuwien.ac.at/publishing/xpdf/
-#PATCH_SITES=	${MASTER_SITES}
-#PATCHFILES=	xpdf-3.02pl1.patch xpdf-3.02pl2.patch xpdf-3.02pl3.patch xpdf-3.02pl4.patch
-#PATCH_DIST_STRIP=	-p1
+PKGREVISION=	1
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.foolabs.com/xpdf/
@@ -28,7 +23,6 @@ USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--with-freetype2-includes=${BUILDLINK_PREFIX.freetype2}/include/freetype2
-CONFIGURE_ARGS+=	--with-t1-includes=${BUILDLINK_PREFIX.t1lib}/include
 CONFIGURE_ENV+=		CXXFLAGS=${CXXFLAGS:M*:Q}
 MAKE_ENV+=		SED=${SED:Q} ECHO=${ECHO:Q}
 
@@ -53,7 +47,6 @@ OWN_DIRS=		share/xpdf
 
 BUILDLINK_API_DEPENDS.freetype2+=	freetype2>=2.2.1
 
-.include "../../fonts/t1lib/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../mk/motif.buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.5 2014/01/13 09:59:16 adam Exp $
+# $NetBSD: options.mk,v 1.9 2014/06/04 14:24:37 richard Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.perl
 PKG_OPTIONS_REQUIRED_GROUPS=	perlbits
@@ -16,8 +16,12 @@ PERL5_BUILD_THREADS_SUPPORT=	yes
 PERL5_BUILD_THREADS_SUPPORT=	${DLOPEN_REQUIRE_PTHREADS}
 .endif
 
-# Needs to be include here for the broken-vax-pthreads hack
-.include "hacks.mk"
+### from KNOWN PROBLEMS in README.haiku
+### Perl cannot be compiled with threading support ATM.
+###
+.if !empty(MACHINE_PLATFORM:MHaiku-*-*)
+PERL5_BUILD_THREADS_SUPPORT=	no
+.endif
 
 .if !empty(PERL5_BUILD_THREADS_SUPPORT:M[yY][eE][sS])
 PKG_SUGGESTED_OPTIONS=		threads
@@ -38,7 +42,7 @@ PKG_SUGGESTED_OPTIONS+=		64bitauto
 .endif
 
 # Note: dtrace command on Darwin lacks required -G option
-.if ${OPSYS} == "SunOS" 
+.if !empty(MACHINE_PLATFORM:MSunOS-1[123456789].*-*)
 PKG_SUGGESTED_OPTIONS+=		dtrace
 .endif
 
@@ -66,8 +70,6 @@ CFLAGS+=		-DDEBUGGING
 
 .if !empty(PKG_OPTIONS:Mdtrace)
 CONFIGURE_ARGS+=	-Dusedtrace
-# perldtrace.h has incorrect dependencies, needs to be built first.
-BUILD_TARGET=		perldtrace.h all
 .endif
 
 .if !empty(PKG_OPTIONS:Mmstats)

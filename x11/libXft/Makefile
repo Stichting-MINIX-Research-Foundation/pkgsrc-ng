@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2013/06/06 12:53:41 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2014/10/09 14:07:14 wiz Exp $
 
-DISTNAME=	libXft-2.3.1
-PKGREVISION=	3
+DISTNAME=	libXft-2.3.2
 CATEGORIES=	fonts x11
 MASTER_SITES=	${MASTER_SITE_XORG:=lib/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,8 +10,6 @@ HOMEPAGE=	http://www.freedesktop.org/wiki/Software/Xft/
 COMMENT=	Library for configuring and customizing font access
 
 CONFLICTS+=	Xft2-[0-9]*
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES

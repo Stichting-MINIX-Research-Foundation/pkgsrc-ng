@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST.java,v 1.1 2013/04/01 21:06:15 wiz Exp $
+@comment $NetBSD: PLIST.java,v 1.3 2015/01/15 11:07:01 jperkin Exp $
 bin/${JAVA_NAME}-appletviewer
 bin/${JAVA_NAME}-jar
 bin/${JAVA_NAME}-jarsigner

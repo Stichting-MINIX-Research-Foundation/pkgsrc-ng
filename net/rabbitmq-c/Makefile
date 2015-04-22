@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/02/13 09:46:00 fhajny Exp $
+# $NetBSD: Makefile,v 1.6 2014/10/02 10:45:36 fhajny Exp $
 
-DISTNAME=	rabbitmq-c-0.5.0
+DISTNAME=	rabbitmq-c-0.5.2
 CATEGORIES=	net
 MASTER_SITES=	https://github.com/alanxz/rabbitmq-c/releases/download/v${PKGVERSION_NOREV}/
 
@@ -18,8 +18,8 @@ USE_TOOLS+=		pkg-config
 SUBST_CLASSES+=		man
 SUBST_STAGE.man=	pre-build
 SUBST_MESSAGE.man=	Fix man installation path
-SUBST_FILES.man=	tools/CMakeLists.txt
-SUBST_SED.man=		-e 's,share/man,${PKGMANDIR},'
+SUBST_FILES.man+=	tools/CMakeLists.txt tools/cmake_install.cmake
+SUBST_SED.man=		-e "s|share/man|${PKGMANDIR}|g"
 
 CMAKE_ARGS+=		-DBUILD_TOOLS=ON
 CMAKE_ARGS+=		-DBUILD_TOOLS_DOCS=ON

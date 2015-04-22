@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2008/09/03 09:42:45 obache Exp $
+# $NetBSD: Makefile,v 1.10 2015/02/16 10:15:44 jperkin Exp $
 
-DISTNAME=	suse_x11-${SUSE_VERSION}
+PKGNAME=	suse_x11-${SUSE_VERSION}
 PKGREVISION=	4
 CATEGORIES=	emulators
 DISTFILES=	xorg-x11-libs-6.8.2-100.13.${SUSE_ARCH}.rpm

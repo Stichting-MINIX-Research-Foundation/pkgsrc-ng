@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.42 2014/03/13 17:53:36 taca Exp $
+# $NetBSD: Makefile,v 1.49 2015/03/08 14:53:39 taca Exp $
 #
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
+PKGREVISION=	1
 CATEGORIES=	lang ruby
 MASTER_SITES=	${MASTER_SITE_RUBY}
 
@@ -13,7 +14,6 @@ LICENSE=	${RUBY_LICENSE}
 
 RUBY_VERSION_SUPPORTED=	193
 
-MAKE_JOBS_SAFE=		no
 USE_GCC_RUNTIME=	yes
 USE_LANGUAGES=		c
 USE_TOOLS+=		pax yacc
@@ -21,6 +21,10 @@ GNU_CONFIGURE=		yes
 TEST_TARGET=		test
 CONFIGURE_ARGS+=	--enable-shared
 WRKSRC=			${RUBY_WRKSRC}
+# --- ext/date/all ---
+# make[2]: make[2]: don't know how to make ../../.ext/common/date. Stop
+# make[2]: stopped in .../lang/ruby193-base/work/ruby-1.9.3-p550/ext/date
+MAKE_JOBS_SAFE=		no
 
 MAKE_DIRS=		${RUBY_SITEARCHLIB} ${RUBY_VENDORARCHLIB}
 
@@ -51,7 +55,8 @@ CONFIGURE_ENV+=	ac_cv_prog_PKG_CONFIG=""
 CONFIGURE_ENV+=	ac_cv_func_getgrnam_r=no
 .endif
 
-.if ${OPSYS} == "Cygwin"
+# bmake doesn't like the codesign/POSTLINK constructs for Darwin.
+.if ${OPSYS} == "Cygwin" || ${OPSYS} == "Darwin"
 USE_TOOLS+=	gmake
 MAKE_FILE=	GNUmakefile
 .endif

@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.22 2014/01/16 21:10:00 tron Exp $
+# $NetBSD: Makefile,v 1.26 2015/03/11 13:56:46 adam Exp $
 
-DISTNAME=		cacti-0.8.8b
-PKGREVISION=		1
-CATEGORIES=		net
-MASTER_SITES=		http://www.cacti.net/downloads/
+DISTNAME=	cacti-0.8.8c
+CATEGORIES=	net
+MASTER_SITES=	http://www.cacti.net/downloads/
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.cacti.net/
-COMMENT=		Frontend to rrdtool for monitoring systems and services
-LICENSE=		gnu-gpl-v2
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.cacti.net/
+COMMENT=	Frontend to rrdtool for monitoring systems and services
+LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=		# none
 USE_TOOLS+=		pax
@@ -35,22 +34,23 @@ BUILD_DEFS+=		PKG_SYSCONFBASE
 PKG_SYSCONFSUBDIR?=	httpd
 EGDIR=			${PREFIX}/share/examples/cacti
 CONF_FILES+=		${EGDIR}/httpd-cacti.conf ${PKG_SYSCONFDIR}/httpd-cacti.conf
+CONF_FILES+=		${EGDIR}/config.php ${CACTIDIR}/include/config.php
 CACTIDIR=		${PREFIX}/share/cacti
 CACTI_LOGDIR?=		${CACTIDIR}/log
 CACTI_RRADIR?=		${CACTIDIR}/rra
 
-REPLACE_INTERPRETER+=   php
-REPLACE.php.old=        .*php[^ ]*
-REPLACE.php.new=        ${PREFIX}/bin/php
-REPLACE_FILES.php=      cli/*.php
+REPLACE_INTERPRETER+=	php
+REPLACE.php.old=	.*php[^ ]*
+REPLACE.php.new=	${PREFIX}/bin/php
+REPLACE_FILES.php=	cli/*.php
 
-REPLACE_PERL+=         scripts/*.pl
+REPLACE_PERL+=		scripts/*.pl
 
-MESSAGE_SUBST+=         CACTIDIR=${CACTIDIR}
-MESSAGE_SUBST+=         CACTI_USER=${CACTI_USER}
-MESSAGE_SUBST+=         EGDIR=${EGDIR}
-MESSAGE_SUBST+=         PREFIX=${PREFIX}
-MESSAGE_SUBST+=         PKG_SYSCONFBASE=${PKG_SYSCONFBASE}
+MESSAGE_SUBST+=		CACTIDIR=${CACTIDIR}
+MESSAGE_SUBST+=		CACTI_USER=${CACTI_USER}
+MESSAGE_SUBST+=		EGDIR=${EGDIR}
+MESSAGE_SUBST+=		PREFIX=${PREFIX}
+MESSAGE_SUBST+=		PKG_SYSCONFBASE=${PKG_SYSCONFBASE}
 FILES_SUBST+=		CACTIDIR=${CACTIDIR}
 FILES_SUBST+=		CACTI_GROUP=${CACTI_GROUP}
 FILES_SUBST+=		CACTI_USER=${CACTI_USER}
@@ -95,8 +95,9 @@ post-extract:
 
 do-install:
 	${INSTALL_DATA} ${WRKDIR}/httpd-cacti.conf ${DESTDIR}${EGDIR}/httpd-cacti.conf
+	${INSTALL_DATA} ${WRKSRC}/include/config.php ${DESTDIR}${EGDIR}/config.php
 	${FIND} ${WRKSRC} -type f -name '*.orig' -exec ${RM} -f {} \;
-	cd ${WRKSRC} && ${PAX} -wr * ${DESTDIR}${CACTIDIR}
+	cd ${WRKSRC} && ${PAX} -rw -s ',\./include/config\.php,,' . ${DESTDIR}${CACTIDIR}
 	${INSTALL_SCRIPT} ${WRKDIR}/cacti-poller ${DESTDIR}${PREFIX}/bin
 
 .include "../../databases/rrdtool/buildlink3.mk"

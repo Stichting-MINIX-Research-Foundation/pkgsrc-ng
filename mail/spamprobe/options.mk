@@ -1,8 +1,8 @@
-# $NetBSD: options.mk,v 1.9 2011/03/27 00:59:53 hubertf Exp $
+# $NetBSD: options.mk,v 1.11 2014/09/25 14:24:07 jperkin Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.spamprobe
 PKG_SUPPORTED_OPTIONS=		bdb gif png jpeg
-PKG_SUGGESTED_OPTIONS=		gif png jpeg
+PKG_SUGGESTED_OPTIONS=		bdb gif png jpeg
 
 .include "../../mk/bsd.options.mk"
 
@@ -14,7 +14,7 @@ CONFIGURE_ARGS+=	--with-db=${BDBBASE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mgif)
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .endif
 
 .if !empty(PKG_OPTIONS:Mpng)

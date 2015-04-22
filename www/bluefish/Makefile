@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.113 2014/01/25 10:30:26 wiz Exp $
+# $NetBSD: Makefile,v 1.118 2014/11/24 05:03:43 mef Exp $
 
-DISTNAME=	bluefish-2.2.4
-PKGREVISION=	6
+DISTNAME=	bluefish-2.2.6
 CATEGORIES=	www
 MASTER_SITES=	http://bluefish.mrball.net/stable/source/               \
 		http://www.bennewitz.com/bluefish/stable/source/
@@ -10,6 +9,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://bluefish.openoffice.nl/
 COMMENT=	GTK HTML editor for the experienced web designer
+LICENSE=	gnu-gpl-v3
 
 DEPENDS+=		weblint-[0-9]*:../../www/weblint
 
@@ -28,7 +28,7 @@ REPLACE_PYTHON+=	data/cssmin.py data/jsmin.py
 CHECK_INTERPRETER_SKIP+= share/bluefish/plugins/*/*.py
 CHECK_INTERPRETER_SKIP+= share/bluefish/plugins/*/*/*.py
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.2.4
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.2.4
 
 # XXX this doesn't work
 #XML_CATALOGS=	${PREFIX}/share/xml/bluefish/catalog.xml
@@ -44,6 +44,7 @@ PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.2.4
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../fonts/gucharmap/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/enchant/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

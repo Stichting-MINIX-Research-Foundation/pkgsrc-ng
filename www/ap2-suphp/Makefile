@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2014/03/07 15:58:27 adam Exp $
+# $NetBSD: Makefile,v 1.20 2014/08/19 13:44:07 joerg Exp $
 
 DISTNAME=	suphp-0.7.2
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME}
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2
 USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		aclocal autoconf autoheader automake lex
+USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 GCC_REQD+=		3.0	# the C++ code uses the .at() method
 CONFIGURE_ARGS+=	APXS=${APXS}
@@ -27,7 +28,7 @@ EGDIR=			${PREFIX}/share/examples/suphp
 CONF_FILES=		${EGDIR}/suphp.conf ${PKG_SYSCONFDIR}/suphp.conf
 
 USE_APR=		yes
-PKG_APACHE_ACCEPTED=	apache2 apache22
+PKG_APACHE_ACCEPTED=	apache22
 
 SUBST_CLASSES+=		suphp
 SUBST_STAGE.suphp=	post-configure

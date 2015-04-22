@@ -1,22 +1,25 @@
-# $NetBSD: Makefile.common,v 1.2 2013/03/17 15:29:24 wiz Exp $
+# $NetBSD: Makefile.common,v 1.7 2015/01/10 20:48:58 wiz Exp $
+#
 # used by net/transmission/Makefile
 # used by net/transmission-gtk/Makefile
 # used by net/transmission-qt/Makefile
 
-DISTNAME=		transmission-2.77
-CATEGORIES=		net
-MASTER_SITES=		http://download.m0k.org/transmission/files/
-EXTRACT_SUFX=		.tar.bz2
+VERSION=	2.84
+DISTNAME=	transmission-${VERSION}
+CATEGORIES=	net
+MASTER_SITES=	http://download.m0k.org/transmission/files/
+EXTRACT_SUFX=	.tar.xz
 
-MAINTAINER=		wiz@NetBSD.org
-HOMEPAGE=		http://www.transmissionbt.com/
-COMMENT=		Free, lightweight BitTorrent client
+MAINTAINER=	wiz@NetBSD.org
+HOMEPAGE=	http://www.transmissionbt.com/
+COMMENT=	Free, lightweight BitTorrent client
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake pkg-config intltool msgfmt
 EXTRACT_USING=		bsdtar
 
+# optionally, gnu-gpl-v3 instead of gnu-gpl-v2
 LICENSE=		gnu-gpl-v2 AND mit
 
 PATCHDIR=		${.CURDIR}/../../net/transmission/patches
@@ -29,11 +32,16 @@ LDFLAGS+=		${BUILDLINK_LDADD.getopt} ${BUILDLINK_LDADD.gettext}
 .if !empty(OPSYS:M*BSD) || !empty(OPSYS:MDragonFly)
 CPPFLAGS+=		-DBSD
 .endif
+.if !empty(OPSYS:MDarwin)
+LDFLAGS+=		-framework CoreFoundation
+.endif
 
+ALL_ENV+=	LIBEVENT_CFLAGS=-I${BUILDLINK_PREFIX.libevent}/include
+ALL_ENV+=	LIBEVENT_LIBS="-L${BUILDLINK_PREFIX.libevent}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.libevent}/lib -levent"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=2.0.10
 .include "../../devel/libevent/buildlink3.mk"
-ALL_ENV+=		"OPENSSL_CFLAGS=-I${SSLBASE}/include"
-ALL_ENV+=		"OPENSSL_LIBS=-L${SSLBASE}/lib -lcrypto -lssl"
+ALL_ENV+=	"OPENSSL_CFLAGS=-I${SSLBASE}/include"
+ALL_ENV+=	"OPENSSL_LIBS=-L${SSLBASE}/lib -lcrypto -lssl"
 .include "../../devel/libgetopt/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

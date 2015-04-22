@@ -1,0 +1,5 @@
+$NetBSD: distinfo,v 1.2 2015/02/04 14:09:40 taca Exp $
+
+SHA1 (hashie-2.1.2.gem) = 2a872ff8c147c78d6bdd23d421394517842f7c97
+RMD160 (hashie-2.1.2.gem) = 953572eabd87d0e287bac18fd4b7ddb800b83fdc
+Size (hashie-2.1.2.gem) = 34816 bytes

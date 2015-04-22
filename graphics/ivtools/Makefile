@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.29 2013/01/26 21:37:51 adam Exp $
+# $NetBSD: Makefile,v 1.31 2014/12/25 05:10:38 obache Exp $
 
 DISTNAME=	ivtools-1.2.8
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ivtools/}
 EXTRACT_SUFX=	.tgz
@@ -13,10 +13,9 @@ COMMENT=	Drawing editors for PostScript, TeX, and web graphics
 CONFLICTS+=	dclock-[0-9]*
 
 DEPENDS+=	pstoedit>=3.0:../../graphics/pstoedit
-DEPENDS+=	wget>=1.0:../../net/wget
 
 USE_LANGUAGES=	c c++
-USE_TOOLS+=	imake bash:run
+USE_TOOLS+=	imake bash:run wget:run tar
 
 REPLACE_BASH+=	src/scripts/ivgetjpg.bash src/scripts/ivtiftopnm.bash
 

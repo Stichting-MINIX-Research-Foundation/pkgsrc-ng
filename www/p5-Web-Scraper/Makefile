@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2013/05/31 12:42:53 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/12 13:53:36 mef Exp $
 
-DISTNAME=	Web-Scraper-0.37
+DISTNAME=	Web-Scraper-0.38
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Web/}
 
@@ -13,6 +12,7 @@ LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST= auto/Web/Scraper/.packlist
+PERL5_MODULE_TYPE=	Module::Build::Tiny
 
 DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 DEPENDS+=	p5-HTML-Selector-XPath>=0.03:../../www/p5-HTML-Selector-XPath

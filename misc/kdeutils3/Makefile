@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.103 2014/02/12 23:18:13 tron Exp $
+# $NetBSD: Makefile,v 1.106 2014/08/22 11:24:38 wiz Exp $
 
 DISTNAME=	kdeutils-${_KDE_VERSION}
-PKGREVISION=	33
+PKGREVISION=	35
 COMMENT=	Utilities for the KDE integrated X11 desktop
 
 .include "../../meta-pkgs/kde3/Makefile.kde3"
@@ -37,7 +37,7 @@ CONFIGURE_ARGS+=	--with-snmp=no
 CONFIGURE_ARGS+=	--with-pythondir=${LOCALBASE}
 CONFIGURE_ENV+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 3.5.10
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 3.5.10
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../devel/gmp/buildlink3.mk"

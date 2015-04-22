@@ -1,13 +1,8 @@
-$NetBSD: patch-af,v 1.6 2013/08/15 08:15:04 jperkin Exp $
+$NetBSD: patch-af,v 1.8 2014/07/28 14:38:17 jperkin Exp $
 
-Run-time path fix for Solaris for the X client libraries.  Without this
-patch, libraries such as libXext.so will not contain a run-time link path
-to /usr/pkg/xorg/lib, causing run time link failures or possibly linking
-with other (non-Pkgsrc) X libraries on the system!
-
-Disable Solaris64bitSubdir, at least until multi-arch is supported.
-
-Use pkgsrc CC, CXX, CFLAGS and INSTALL.
+- Ensure all programs and libraries have a LOCALBASE rpath.
+- Disable Solaris64bitSubdir, at least until multi-arch is supported.
+- Use pkgsrc CC, CXX, CFLAGS and INSTALL.
 
 --- sun.cf.orig	2013-07-23 05:23:14.000000000 +0000
 +++ sun.cf
@@ -50,19 +45,28 @@ Use pkgsrc CC, CXX, CFLAGS and INSTALL.
 +#   define OptimizedCDebugFlags @@PKGSRC_CFLAGS@@
  #  endif
  #  if !defined(SharedLibraryLoadFlags) && !defined(SharedLibraryLdCmd)
- #   if OSMajorVersion == 5 && OSMinorVersion > 6 && defined(i386Architecture)
+-#   if OSMajorVersion == 5 && OSMinorVersion > 6 && defined(i386Architecture)
++#   if OSMajorVersion == 5 && OSMinorVersion > 6 && OSMinorVersion < 8 && defined(i386Architecture)
      /* This is to work around what appears to be a PIC bug in some gcc/egcs
         versions that shows up with the Solaris 7/x86 <ctype.h>. */
  #    define SharedLibraryLdCmd $(LD)
--#    define SharedLibraryLoadFlags -G -z textwarn
-+#    define SharedLibraryLoadFlags -G -z textwarn LibraryRpathLoadFlags
+ #    define SharedLibraryLoadFlags -G -z textwarn
  #   else
  #    define SharedLibraryLdCmd $(CC)
 -#    define SharedLibraryLoadFlags -shared -z text
-+#    define SharedLibraryLoadFlags -shared -z text LibraryRpathLoadFlags
++#    define SharedLibraryLoadFlags -shared -z text RpathLoadFlags
  #   endif
  #  endif
  # else
+@@ -836,7 +836,7 @@ XCOMM SunPro C++ CplusplusCompilerMajorV
+ MAPFILES_FOR_PROGS = Mapfile_BssAlign Mapfile_NoExStack
+ /* ExtraLoadFlags apply to all binaries - programs & libraries */
+ # ifndef ExtraLoadFlags
+-#  define ExtraLoadFlags LazyLoadFlag $(MAPFILES_FOR_ALL)
++#  define ExtraLoadFlags RpathLoadFlags LazyLoadFlag $(MAPFILES_FOR_ALL)
+ # endif
+ /* ExtraLoadOptions only apply to programs */
+ # ifndef ExtraLoadOptions
 @@ -853,7 +853,7 @@ MAPFILES_FOR_PROGS = Mapfile_BssAlign Ma
  # endif
  #endif

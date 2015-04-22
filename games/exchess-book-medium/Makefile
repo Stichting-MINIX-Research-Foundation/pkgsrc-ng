@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.16 2012/10/06 11:54:36 asau Exp $
+# $NetBSD: Makefile,v 1.18 2014/09/11 17:08:00 jperkin Exp $
 
 DISTNAME=		medium
-PKGNAME=		${CHESS_ENGINE}-book-${DISTNAME}-20000511
-PKGREVISION=		2
+PKGNAME=		${CHESS_ENGINE}-book-${DISTNAME}-20140911
 CATEGORIES=		games
 MASTER_SITES=		ftp://ftp.cis.uab.edu/pub/hyatt/common/${DISTNAME}/
 EXTRACT_SUFX=		.zip
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		Chess opening book for EXchess (medium)
+LICENSE=		public-domain
 
 DEPENDS+=		exchess-[0-9]*:../../games/exchess
 
@@ -29,13 +29,10 @@ BOOK_FILE=		open_bk.dat
 CMDFILE=		${WRKSRC}/exchess.input
 
 do-build:
-	@${ECHO} ""
-	@${ECHO} "  ** Get yourself a shower and a big mug of coffee,"
-	@${ECHO} "  ** this will take _very_ long!"
-	@${ECHO} ""
 	${RM} -f ${CMDFILE}
 	${ECHO} "build" > ${CMDFILE}
 	${ECHO} "${PGN_FILE}" >> ${CMDFILE}
+	${ECHO} "n" >> ${CMDFILE}
 	${ECHO} "60" >> ${CMDFILE}
 	${ECHO} "3" >> ${CMDFILE}
 	${ECHO} "${BOOK_FILE}" >> ${CMDFILE}

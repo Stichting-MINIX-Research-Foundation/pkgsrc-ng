@@ -1,22 +1,22 @@
-$NetBSD: patch-src_ip_Intercept.cc,v 1.2 2013/04/27 17:51:24 tron Exp $
+$NetBSD: patch-src_ip_Intercept.cc,v 1.4 2015/01/21 11:23:16 adam Exp $
 
 Avoid conflict with IP Fitler's debug().
 
---- src/ip/Intercept.cc.orig	2013-04-27 04:34:48.000000000 +0100
-+++ src/ip/Intercept.cc	2013-04-27 18:40:24.000000000 +0100
-@@ -38,6 +38,10 @@
+--- src/ip/Intercept.cc.orig	2015-01-13 12:52:01.000000000 +0000
++++ src/ip/Intercept.cc
+@@ -21,6 +21,10 @@
  
  #if IPF_TRANSPARENT
  
 +#ifdef debug
-+#undef debug			// XXX: IP Filter might declare debug().
++#undef debug		// XXX: IP Filter might declare debug().
 +#endif
 +
- #if HAVE_SYS_IOCTL_H
- #include <sys/ioctl.h>
+ #if !defined(IPFILTER_VERSION)
+ #define IPFILTER_VERSION        5000004
  #endif
-@@ -75,6 +79,10 @@
- #include <errno.h>
+@@ -68,6 +72,10 @@
+ #include <netinet/ip_nat.h>
  #endif
  
 +// Stolen from src/defines.h

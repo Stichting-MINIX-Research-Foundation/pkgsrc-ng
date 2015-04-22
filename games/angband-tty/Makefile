@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.35 2011/03/11 11:47:28 zafer Exp $
+# $NetBSD: Makefile,v 1.37 2015/03/14 13:33:46 tnn Exp $
 #
 
 DISTNAME=		angband-283
@@ -16,7 +16,7 @@ CONFLICTS=		angband-x11-[0-9]*
 
 PKG_DESTDIR_SUPPORT=	destdir
 
-USE_TOOLS+=	pax
+USE_TOOLS+=		gzip pax
 
 WRKSRC=			${WRKDIR}/${DISTNAME}/src
 EXTRACT_ONLY=		${DISTNAME}${EXTRACT_SUFX}
@@ -47,4 +47,5 @@ do-install:
 		${CHMOD} ${GAMEDIRMODE} apex bone data edit file help info save user xtra
 	${INSTALL_PROGRAM} ${WRKSRC}/angband ${DESTDIR}${PREFIX}/bin
 
+.include "../../devel/ncurses/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

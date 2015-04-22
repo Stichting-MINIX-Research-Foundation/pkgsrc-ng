@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.39 2014/01/25 10:29:57 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2014/05/09 07:36:55 wiz Exp $
 
 EGG_NAME=	Sonata-1.6.2.1
 DISTNAME=	${EGG_NAME:tl}
-PKGREVISION=	15
+PKGREVISION=	16
 CATEGORIES=	audio
 MASTER_SITES=	http://download.berlios.de/sonata/
 EXTRACT_SUFX=	.tar.bz2
@@ -15,7 +15,7 @@ LICENSE=	gnu-gpl-v3
 DEPENDS+=	${PYPKGPREFIX}-SOAPpy-[0-9]*:../../net/py-soappy
 DEPENDS+=	${PYPKGPREFIX}-mpd-[0-9]*:../../audio/py-mpd
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml via py-soappy, py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml via py-soappy, py-gtk2
 
 USE_TOOLS+=	pkg-config msgfmt
 

@@ -1,7 +1,9 @@
-@comment $NetBSD: PLIST,v 1.3 2013/12/28 02:53:46 obache Exp $
-${PYSITELIB}/PIL/ArgImagePlugin.py
-${PYSITELIB}/PIL/ArgImagePlugin.pyc
-${PYSITELIB}/PIL/ArgImagePlugin.pyo
+@comment $NetBSD: PLIST,v 1.6 2014/11/30 10:11:31 adam Exp $
+${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
+${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
+${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
+${PYSITELIB}/${EGG_INFODIR}/top_level.txt
+${PYSITELIB}/${EGG_INFODIR}/zip-safe
 ${PYSITELIB}/PIL/BdfFontFile.py
 ${PYSITELIB}/PIL/BdfFontFile.pyc
 ${PYSITELIB}/PIL/BdfFontFile.pyo
@@ -110,6 +112,9 @@ ${PYSITELIB}/PIL/ImageMath.pyo
 ${PYSITELIB}/PIL/ImageMode.py
 ${PYSITELIB}/PIL/ImageMode.pyc
 ${PYSITELIB}/PIL/ImageMode.pyo
+${PYSITELIB}/PIL/ImageMorph.py
+${PYSITELIB}/PIL/ImageMorph.pyc
+${PYSITELIB}/PIL/ImageMorph.pyo
 ${PYSITELIB}/PIL/ImageOps.py
 ${PYSITELIB}/PIL/ImageOps.pyc
 ${PYSITELIB}/PIL/ImageOps.pyo
@@ -146,6 +151,9 @@ ${PYSITELIB}/PIL/ImtImagePlugin.pyo
 ${PYSITELIB}/PIL/IptcImagePlugin.py
 ${PYSITELIB}/PIL/IptcImagePlugin.pyc
 ${PYSITELIB}/PIL/IptcImagePlugin.pyo
+${PYSITELIB}/PIL/Jpeg2KImagePlugin.py
+${PYSITELIB}/PIL/Jpeg2KImagePlugin.pyc
+${PYSITELIB}/PIL/Jpeg2KImagePlugin.pyo
 ${PYSITELIB}/PIL/JpegImagePlugin.py
 ${PYSITELIB}/PIL/JpegImagePlugin.pyc
 ${PYSITELIB}/PIL/JpegImagePlugin.pyo
@@ -161,9 +169,13 @@ ${PYSITELIB}/PIL/MicImagePlugin.pyo
 ${PYSITELIB}/PIL/MpegImagePlugin.py
 ${PYSITELIB}/PIL/MpegImagePlugin.pyc
 ${PYSITELIB}/PIL/MpegImagePlugin.pyo
+${PYSITELIB}/PIL/MpoImagePlugin.py
+${PYSITELIB}/PIL/MpoImagePlugin.pyc
+${PYSITELIB}/PIL/MpoImagePlugin.pyo
 ${PYSITELIB}/PIL/MspImagePlugin.py
 ${PYSITELIB}/PIL/MspImagePlugin.pyc
 ${PYSITELIB}/PIL/MspImagePlugin.pyo
+${PYSITELIB}/PIL/OleFileIO-README.md
 ${PYSITELIB}/PIL/OleFileIO.py
 ${PYSITELIB}/PIL/OleFileIO.pyc
 ${PYSITELIB}/PIL/OleFileIO.pyo
@@ -200,6 +212,9 @@ ${PYSITELIB}/PIL/PpmImagePlugin.pyo
 ${PYSITELIB}/PIL/PsdImagePlugin.py
 ${PYSITELIB}/PIL/PsdImagePlugin.pyc
 ${PYSITELIB}/PIL/PsdImagePlugin.pyo
+${PYSITELIB}/PIL/PyAccess.py
+${PYSITELIB}/PIL/PyAccess.pyc
+${PYSITELIB}/PIL/PyAccess.pyo
 ${PYSITELIB}/PIL/SgiImagePlugin.py
 ${PYSITELIB}/PIL/SgiImagePlugin.pyc
 ${PYSITELIB}/PIL/SgiImagePlugin.pyo
@@ -249,15 +264,8 @@ ${PYSITELIB}/PIL/_imaging.so
 ${PYSITELIB}/PIL/_imagingcms.so
 ${PYSITELIB}/PIL/_imagingft.so
 ${PYSITELIB}/PIL/_imagingmath.so
+${PYSITELIB}/PIL/_imagingmorph.so
 ${PYSITELIB}/PIL/_util.py
 ${PYSITELIB}/PIL/_util.pyc
 ${PYSITELIB}/PIL/_util.pyo
 ${PYSITELIB}/PIL/_webp.so
-${PYSITELIB}/PIL/tests.py
-${PYSITELIB}/PIL/tests.pyc
-${PYSITELIB}/PIL/tests.pyo
-${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
-${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
-${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
-${PYSITELIB}/${EGG_INFODIR}/top_level.txt
-${PYSITELIB}/${EGG_INFODIR}/zip-safe

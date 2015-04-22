@@ -1,10 +1,13 @@
-# $NetBSD: tools.FreeBSD.mk,v 1.40 2014/03/06 07:34:20 uebayasi Exp $
+# $NetBSD: tools.FreeBSD.mk,v 1.43 2015/02/01 08:48:56 obache Exp $
 #
 # System-supplied tools for the FreeBSD operating system.
 
 TOOLS_PLATFORM.[?=		[			# shell builtin
 TOOLS_PLATFORM.awk?=		/usr/bin/awk
 TOOLS_PLATFORM.basename?=	/usr/bin/basename
+.if empty(MACHINE_PLATFORM:MFreeBSD-[0-4].*-*) && empty(MACHINE_PLATFORM:MFreeBSD-5.[0-3]-*)
+TOOLS_PLATFORM.bsdtar?=		/usr/bin/tar
+.endif
 TOOLS_PLATFORM.byacc?=		/usr/bin/yacc
 TOOLS_PLATFORM.bzcat?=		/usr/bin/bzcat
 TOOLS_PLATFORM.bzip2?=		/usr/bin/bzip2

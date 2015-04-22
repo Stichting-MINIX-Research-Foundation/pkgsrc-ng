@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2007/07/29 05:18:41 jlam Exp $
+# $NetBSD: Makefile,v 1.8 2015/02/16 10:15:43 jperkin Exp $
 
-DISTNAME=	suse_expat-${SUSE_VERSION}
+PKGNAME=	suse_expat-${SUSE_VERSION}
 PKGREVISION=	2
 CATEGORIES=	emulators
 DISTFILES=	expat-1.95.8-5.${SUSE_ARCH}.rpm

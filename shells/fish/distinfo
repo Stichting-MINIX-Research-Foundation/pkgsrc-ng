@@ -1,9 +1,20 @@
-$NetBSD: distinfo,v 1.2 2013/10/20 17:53:26 joerg Exp $
+$NetBSD: distinfo,v 1.4 2015/03/18 15:03:43 joerg Exp $
 
-SHA1 (fish-1.23.1.tar.gz) = 7b839ffc5b260f1bd1782e4adf84300f5438f833
-RMD160 (fish-1.23.1.tar.gz) = b77fe7ffec4ae52b82c1c86b2dc7037306c5fede
-Size (fish-1.23.1.tar.gz) = 1152997 bytes
-SHA1 (patch-Makefile.in) = d92c531cb15e511f1a712d98a64e222b3316fcdd
-SHA1 (patch-configure) = 40a27c297ec56bdba7f34ff6f18a415ae88b504d
-SHA1 (patch-proc.h) = 7ac0b704f6ee1b1e966f0bfdc87dfa1e23e9c338
-SHA1 (patch-screen.c) = eae536bb965bd2a236a5cd3ff44e5ddbeb24f519
+SHA1 (fish-2.1.2.tar.gz) = f7f8d8d26721833be3458b8113c74b747296ec0b
+RMD160 (fish-2.1.2.tar.gz) = 109e3fbb07e36a6cf2b651b148d3a60eca9f8930
+Size (fish-2.1.2.tar.gz) = 1730198 bytes
+SHA1 (patch-Makefile.in) = b7a62d30095fd58cade131ba800b3124ccad29f2
+SHA1 (patch-builtin.cpp) = 8fcc2f9a38aaff0c2994d53788b81e789cf05670
+SHA1 (patch-common.cpp) = 7ea4e2aa2fed5ddec0916ecdafb49bc16142c491
+SHA1 (patch-common.h) = 93082e43847f1f94e00dc6fa991b28f919674d8f
+SHA1 (patch-configure) = 9153240e4037fda4ef03412c65b7f3bb5bfb0cd2
+SHA1 (patch-env.cpp) = ac3c188de1b24d4a0433d2516c2afa0a8b6f137d
+SHA1 (patch-exec.cpp) = 711c2ca4a7c100e40e7e1a2a9235546105d36098
+SHA1 (patch-fallback.h) = d2c4edb11877c1b7cf97362bb61fe03d535caef5
+SHA1 (patch-history.cpp) = d4d874bd805f9d9e547aebeb780c855a67be079b
+SHA1 (patch-output.cpp) = 5c44bec667f4aac0d88e5825a76be893f9852295
+SHA1 (patch-output.h) = c40ae78baf08c69e67365c2f032178b0aa12e844
+SHA1 (patch-parser.cpp) = e0d2b127e205c23664aab60f6dc0c7872de82dee
+SHA1 (patch-parser__keywords.cpp) = 3f8589db528a7e970d5f1bb61104e7db27435571
+SHA1 (patch-proc.h) = 3eaf2c20ad0c3a228f20067b1218bdca039bdab6
+SHA1 (patch-screen.cpp) = 057d357e312fe55965ff0b92f9ae935b31dfcf4b

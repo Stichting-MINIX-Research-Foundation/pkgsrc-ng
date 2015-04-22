@@ -1,10 +1,10 @@
-$NetBSD: patch-am,v 1.4 2013/06/15 09:31:05 jperkin Exp $
+$NetBSD: patch-am,v 1.7 2015/03/02 03:53:26 tnn Exp $
 
 Set username to pkgsrc.
 
---- jdk/make/common/shared/Defs.gmk.orig	2013-05-29 03:57:57.000000000 +0000
+--- jdk/make/common/shared/Defs.gmk.orig	2014-01-01 05:53:33.000000000 +0000
 +++ jdk/make/common/shared/Defs.gmk
-@@ -303,7 +303,7 @@ else
+@@ -301,7 +301,7 @@ ifndef BUILD_NUMBER
    BUILD_NUMBER = b00
    ifndef USER_RELEASE_SUFFIX
      BUILD_DATE := $(shell $(DATE) '+%Y_%m_%d_%H_%M')

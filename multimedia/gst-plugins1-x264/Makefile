@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2012/11/29 09:23:21 ryoon Exp $
-#
+# $NetBSD: Makefile,v 1.3 2014/08/08 21:31:08 wiz Exp $
 
 GST_PLUGINS1_NAME=	x264
 GST_PLUGINS1_DIRS=	ext/x264

@@ -1,4 +1,4 @@
-# $NetBSD: check-shlibs-elf.awk,v 1.6 2013/10/25 14:11:13 joerg Exp $
+# $NetBSD: check-shlibs-elf.awk,v 1.10 2014/10/03 19:12:16 jperkin Exp $
 #
 # Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
 # All rights reserved.
@@ -71,12 +71,17 @@ function shquote(IN, out) {
 function check_pkg(DSO, pkg, found) {
 	if (destdir == "")
 		return 0
-	cmd = pkg_info_cmd " -Fe " shquote(DSO) " 2> /dev/null"
-	if ((cmd | getline pkg) < 0) {
+	if (DSO in pkgcache) {
+		pkg = pkgcache[DSO]
+	} else {
+		cmd = pkg_info_cmd " -Fe " shquote(DSO) " 2> /dev/null"
+		if ((cmd | getline pkg) < 0) {
+			close(cmd)
+			return 0
+		}
 		close(cmd)
-		return 0
+		pkgcache[DSO] = pkg
 	}
-	close(cmd)
 	if (pkg == "")
 		return 0
 	found=0
@@ -96,16 +101,16 @@ function check_pkg(DSO, pkg, found) {
 	close(depends_file)
 }
 
-function checkshlib(DSO, needed, rpath, found, dso_rath, got_rpath) {
+function checkshlib(DSO, needed, rpath, found, dso_rath, got_rpath, nrpath) {
 	cmd = readelf " -Wd " shquote(DSO) " 2> /dev/null"
 	while ((cmd | getline) > 0) {
 		if ($2 == "(RPATH)" || $2 == "(RUNPATH)") {
 			sub("^[[:space:]]*0[xX][[:xdigit:]]+[[:space:]]+\\(RU?N?PATH\\)[[:space:]]+Library ru?n?path: \\[", "")
 			dso_rpath = substr($0, 1, length($0) - 1)
 			if (length(system_rpath) > 0)
-				split(dso_rpath ":" system_rpath, rpath, ":")
+				nrpath = split(dso_rpath ":" system_rpath, rpath, ":")
 			else
-				split(dso_rpath, rpath, ":")
+				nrpath = split(dso_rpath, rpath, ":")
 			got_rpath = 1
 		}
 		if ($2 == "(NEEDED)") {
@@ -114,7 +119,7 @@ function checkshlib(DSO, needed, rpath, found, dso_rath, got_rpath) {
 		}
 	}
 	if (!got_rpath)
-		split(system_rpath, rpath, ":")
+		nrpath = split(system_rpath, rpath, ":")
 	close(cmd)
 	for (p in rpath) {
 		if (rpath[p] == wrkdir ||
@@ -123,13 +128,21 @@ function checkshlib(DSO, needed, rpath, found, dso_rath, got_rpath) {
 		}
 	}
 	for (lib in needed) {
-		for (p in rpath) {
-			if (!system("test -f " shquote(cross_destdir rpath[p] "/" lib))) {
+		for (p = 1; p <= nrpath; p++) {
+			libfile = cross_destdir rpath[p] "/" lib
+			if (!(libfile in libcache)) {
+				libcache[libfile] = system("test -f " shquote(libfile))
+			}
+			if (!libcache[libfile]) {
 				check_pkg(rpath[p] "/" lib)
 				found = 1
 				break
 			}
-			if (!system("test -f " shquote(destdir rpath[p] "/" lib))) {
+			libfile = destdir rpath[p] "/" lib
+			if (!(libfile in libcache)) {
+				libcache[libfile] = system("test -f " shquote(libfile))
+			}
+			if (!libcache[libfile]) {
 				found = 1
 				break
 			}
@@ -145,7 +158,7 @@ BEGIN {
 	system_rpath = ENVIRON["PLATFORM_RPATH"]
 	cross_destdir = ENVIRON["CROSS_DESTDIR"]
 	destdir = ENVIRON["DESTDIR"]
-	readelf = ENVIRON["PLATFORM_READELF"]
+	readelf = ENVIRON["READELF"]
 	wrkdir = ENVIRON["WRKDIR"]
 	pkg_info_cmd = ENVIRON["PKG_INFO_CMD"]
 	depends_file = ENVIRON["DEPENDS_FILE"]

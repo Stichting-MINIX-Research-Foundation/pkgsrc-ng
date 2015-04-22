@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2013/11/01 11:30:23 jaapb Exp $
+# $NetBSD: Makefile,v 1.13 2015/01/20 14:24:37 jaapb Exp $
 #
 
-DISTNAME=		wyrd-1.4.5
-PKGREVISION=		1
+DISTNAME=		wyrd-1.4.6
+PKGREVISION=	1
 CATEGORIES=		time
 MASTER_SITES=		http://pessimization.com/software/wyrd/
 
@@ -25,4 +25,5 @@ CONF_FILES+=		${PREFIX}/share/examples/wyrd/wyrdrc \
 
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../lang/ocaml/buildlink3.mk"
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2013/05/31 12:40:15 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2015/03/01 09:11:23 mef Exp $
 
-DISTNAME=	Devel-NYTProf-4.09
+DISTNAME=	Devel-NYTProf-5.07
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Devel/}
 
@@ -17,7 +16,6 @@ DEPENDS+=	p5-JSON-XS-[0-9]*:../../converters/p5-JSON-XS
 
 PERL5_PACKLIST=		auto/Devel/NYTProf/.packlist
 REPLACE_PERL+=		lib/Devel/NYTProf/FileHandle.pm
-REPLACE_PERL+=		perftest.pl
 
 .include "options.mk"
 

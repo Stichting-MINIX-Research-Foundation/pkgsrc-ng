@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.53 2014/02/12 23:18:15 tron Exp $
+# $NetBSD: Makefile,v 1.57 2015/03/01 11:01:14 bsiegert Exp $
 
 DISTNAME=		root_v5.26.00b.source
 PKGNAME=		root-5.26
-PKGREVISION=		13
+PKGREVISION=		15
 CATEGORIES=		misc
 MASTER_SITES=		ftp://root.cern.ch/root/
 
@@ -12,20 +12,29 @@ COMMENT=		OO framework for data analysis and visualisation
 
 WRKSRC=			${WRKDIR}/root
 USE_TOOLS+=		gmake
-USE_LANGUAGES=		c c++ #fortran f2c lacks LOC()
-.include "../../lang/gcc3-f77/buildlink3.mk"
+USE_LANGUAGES=		c c++ fortran
+NOT_FOR_COMPILER+=	f2c #lacks LOC()
 
 CHECK_PORTABILITY_SKIP=	build/win/*.sh cint/tool/INSTALLBIN
 BUILD_TARGET=
+
+.include "../../mk/bsd.prefs.mk"
 
 .if (${MACHINE_ARCH} == "arm")
 BROKEN=	Compilation stops due to internal compiler error
 .endif
 
+ROOT_OPSYS=		${LOWER_OPSYS}
+.if ${ROOT_OPSYS} == "darwin"
+# MacOS. Use the pkgsrc config ("netbsd") - if this doesn't work,
+# try using "macosx".
+ROOT_OPSYS=		netbsd
+.endif
+
 INSTALLATION_DIRS=	bin
 
 HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	${LOWER_OPSYS}
+CONFIGURE_ARGS+=	${ROOT_OPSYS}
 CONFIGURE_ARGS+=	--prefix=${PREFIX} --mandir=${PREFIX}/${PKGMANDIR}/man1
 CONFIGURE_ENV+=		LOCALBASE=${LOCALBASE} X11BASE=${X11BASE}
 CONFIGURE_ARGS+=	--enable-soversion
@@ -45,7 +54,7 @@ CONFIGURE_ARGS+=	--disable-xml
 #CONFIGURE_ARGS+=	--disable-asimage
 .include "../../graphics/png/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 
 .include "../../math/gsl/buildlink3.mk"

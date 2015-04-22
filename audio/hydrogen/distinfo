@@ -1,7 +1,5 @@
-$NetBSD: distinfo,v 1.8 2014/03/06 10:16:15 mrg Exp $
+$NetBSD: distinfo,v 1.11 2014/09/10 20:08:42 mrg Exp $
 
-SHA1 (hydrogen-0.9.6-beta3.tar.gz) = 9d1f0b58e62ad5e14ca9ee9d2f38d68d2c1a2585
-RMD160 (hydrogen-0.9.6-beta3.tar.gz) = ecfd94480a5a1e70e587e242dea8e159f4bb0bbd
-Size (hydrogen-0.9.6-beta3.tar.gz) = 6217398 bytes
-SHA1 (patch-CMakeLists.txt) = 4557bc8c3fab79f1fc472b368655cecdda4bf12c
-SHA1 (patch-src_gui_src_PlayerControl.cpp) = 803dc5ee27f5e3f0124ab876116bbc1d0388d902
+SHA1 (hydrogen-0.9.6.1/0.9.6.1.tar.gz) = 3a288fbb06f65fd257e7f7648e07891276dbf56a
+RMD160 (hydrogen-0.9.6.1/0.9.6.1.tar.gz) = a5b3c969c51fdbd18d0fe7eadae3199e44b192aa
+Size (hydrogen-0.9.6.1/0.9.6.1.tar.gz) = 6626629 bytes

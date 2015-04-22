@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2014/02/12 23:18:43 tron Exp $
+# $NetBSD: Makefile,v 1.19 2014/05/17 16:10:49 wiz Exp $
 #
 
 DISTNAME=	aws-${AWS_VERSION}
-PKGREVISION=	2
+PKGREVISION=	6
 CATEGORIES=	www
 MASTER_SITES=	http://downloads.dragonlace.net/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -23,9 +23,12 @@ USE_LANGUAGES=  	c ada c++ fortran
 
 .include "options.mk"
 
-MAKE_ENV+=		ADA_PROJECT_PATH=${PREFIX}/lib/gnat
-MAKE_ENV+=		AWK=awk
-CONFIGURE_ARGS+=	LPATH=${PREFIX}/lib ZPATH=/usr/lib
+MY_MAKE_ENV+=		ADA_PROJECT_PATH=${PREFIX}/lib/gnat
+MY_MAKE_ENV+=		AWK=awk
+MY_MAKE_ENV+=		PATH=${PREFIX}/gcc-aux/bin:${PATH}
+MY_CONF_ENV+=		PATH=${PREFIX}/gcc-aux/bin:${PATH}
+CONFIGURE_ARGS+=	LPATH=${BUILDLINK_PREFIX.openssl}/lib
+CONFIGURE_ARGS+=	ZPATH=${BUILDLINK_PREFIX.zlib}/lib
 
 # Link options were added for the aws library
 # "-R" option disables all rpaths except adalib and compiler libs.  This is
@@ -37,27 +40,30 @@ SUBST_CLASSES+= 	rpath
 SUBST_STAGE.rpath=	pre-configure
 SUBST_MESSAGE.rpath=	Adjust rpaths of shared libraries
 SUBST_FILES.rpath=	src/src.gpr include/include.gpr \
-			demos/test_ldap/test_ldap.gpr
+			demos/test_ldap/test_ldap.gpr tools/tools.gpr
 SUBST_SED.rpath=	-e "s,@ADDITIONAL_RPATH@,${ADDITIONAL_RPATH}," \
-			-e "s,@PREFIX@,${PREFIX},g"
+			-e "s,@PREFIX@,${PREFIX},g" \
+			-e "s,@RFLAG@,${LINKER_RPATH_FLAG},g" \
+			-e "s,@SSL_RPATH@,${BUILDLINK_PREFIX.openssl}/lib,g"
 ADDITIONAL_RPATH=	${PREFIX}/lib:${PREFIX}/lib/aws/relocatable
 
 GENERATE_PLIST=  cd ${DESTDIR}${PREFIX};
 GENERATE_PLIST+= ${FIND} * -type f | ${SORT};
 
 do-configure:
-	cd ${WRKSRC} && ${GMAKE} setup ${CONFIGURE_ARGS}
+	cd ${WRKSRC} && ${SETENV} ${MY_CONF_ENV} \
+		${GMAKE} setup ${CONFIGURE_ARGS}
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${GMAKE} build build_doc
+	cd ${WRKSRC} && ${SETENV} ${MY_MAKE_ENV} \
+		${GMAKE} build build_doc
 
 do-test: install
-	cd ${WRKSRC}/regtests && ${SETENV} ${MAKE_ENV} \
+	cd ${WRKSRC}/regtests && ${SETENV} ${MY_MAKE_ENV} \
 		python${PYVERSSUFFIX} testsuite.py
 
 do-install:
 	cd ${WRKSRC} && ${SETENV} ${INSTALL_ENV} ${GMAKE} install
-	@cd ${DESTDIR}/${PREFIX} && ${FIND} * -type d -empty -exec rmdir {} \;
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/pyversion.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.8 2013/12/10 14:10:14 jperkin Exp $
+# $NetBSD: Makefile,v 1.10 2015/01/01 10:38:24 dholland Exp $
 #
 
 DISTNAME=	kegs.0.91
 PKGNAME=	kegs-0.91
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	emulators
 MASTER_SITES=	http://kegs.sourceforge.net/
 
@@ -11,10 +11,14 @@ MAINTAINER=	christtrekker@users.sourceforge.net
 HOMEPAGE=	http://kegs.sourceforge.net/
 COMMENT=	Apple IIgs emulator for Mac OS X, Win32, Linux, and Unix/X11
 
-# Official support
-ONLY_FOR_PLATFORM=	Linux-*-i386 Linux-*-powerpc SunOS-*-i386 SunOS-*-sparc Darwin-*-* HPUX-*-*
-# Probably work
-ONLY_FOR_PLATFORM+=	*-*-i386 *-*-powerpc *-*-x86_64 *-*-ia64 *-*-mips *-*-m68k
+# These platforms are officially supported
+BROKEN_EXCEPT_ON_PLATFORM=	Linux-*-i386 Linux-*-powerpc \
+				SunOS-*-i386 SunOS-*-sparc \
+				Darwin-*-* \
+				HPUX-*-*
+# These are hacked below.
+BROKEN_EXCEPT_ON_PLATFORM+=	*-*-i386 *-*-x86_64 *-*-ia64 \
+				*-*-powerpc *-*-mips *-*-m68k
 
 #WRKSRC=		${WRKDIR}/${DISTNAME}/src
 CONFIGURE_DIRS=	src

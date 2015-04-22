@@ -1,24 +1,23 @@
-# $NetBSD: Makefile,v 1.1 2014/02/11 14:13:38 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2014/11/29 16:41:25 adam Exp $
 
-DISTNAME=	mysql-connector-c++-1.1.3
+DISTNAME=	mysql-connector-c++-1.1.5
 CATEGORIES=	databases
-MASTER_SITES=	https://dev.mysql.com/get/Downloads/Connector-C++/
+MASTER_SITES=	${MASTER_SITE_MYSQL:=Connector-C++/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://dev.mysql.com/downloads/connector/cpp/
 COMMENT=	Standardized mysql database driver for C++ development
 LICENSE=	gnu-gpl-v2
 
-USE_CMAKE=	yes
-USE_LANGUAGES=	c c++
+USE_CMAKE=		yes
+USE_LANGUAGES=		c c++
 
 INSTALLATION_DIRS=	share/doc/mysql-connector-c++
 
 post-install:
-	cd ${DESTDIR}${PREFIX} && \
-		mv ANNOUNCEMENT COPYING INSTALL \
+	cd ${DESTDIR}${PREFIX} && mv ANNOUNCEMENT COPYING INSTALL README \
 		Licenses_for_Third-Party_Components.txt \
-		README share/doc/mysql-connector-c++
+		share/doc/mysql-connector-c++/
 
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../mk/mysql.buildlink3.mk"

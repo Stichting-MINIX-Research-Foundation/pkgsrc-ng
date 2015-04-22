@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.8 2013/05/31 12:41:58 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/01/20 14:24:37 jaapb Exp $
 #
 
-DISTNAME=	sks-1.1.4
-PKGREVISION=	1
+DISTNAME=	sks-1.1.5
+PKGREVISION=	2
 CATEGORIES=	security
-MASTER_SITES=	http://cdn.bitbucket.org/skskeyserver/sks-keyserver/downloads/
+MASTER_SITES=	https://bitbucket.org/skskeyserver/sks-keyserver/downloads/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -33,6 +33,7 @@ MAKE_ENV+=	LIBDB=-ldb4 \
 INSTALLATION_DIRS=	${PKGMANDIR}/man8 bin ${EGDIR}
 
 .include "../../lang/ocaml/buildlink3.mk"
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../databases/db4/buildlink3.mk"
 
 pre-build:

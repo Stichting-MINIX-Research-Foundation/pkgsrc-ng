@@ -1,5 +1,5 @@
 #! @PERL@
-# $NetBSD: pkglint.pl,v 1.866 2014/03/03 05:18:23 obache Exp $
+# $NetBSD: pkglint.pl,v 1.877 2015/03/11 19:05:58 rillig Exp $
 #
 
 # pkglint - static analyzer and checker for pkgsrc packages
@@ -291,9 +291,9 @@ our $program		= $0;
 # Commonly used regular expressions.
 #
 
-use constant regex_dependency_lge => qr"^((?:\$\{[\w_]+\}|[\w_\.]|-[^\d])+)[<>]=?(\d[^-*?\[\]]*)$";
+use constant regex_dependency_lge => qr"^((?:\$\{[\w_]+\}|[\w_\.+]|-[^\d])+)[<>]=?(\d[^-*?\[\]]*)$";
 use constant regex_dependency_wildcard
-				=> qr"^((?:\$\{[\w_]+\}|[\w_\.]|-[^\d\[])+)-(?:\[0-9\]\*|\d[^-]*)$";
+				=> qr"^((?:\$\{[\w_]+\}|[\w_\.+]|-[^\d\[])+)-(?:\[0-9\]\*|\d[^-]*)$";
 use constant regex_gnu_configure_volatile_vars
 				=> qr"^(?:.*_)?(?:CFLAGS||CPPFLAGS|CXXFLAGS|FFLAGS|LDFLAGS|LIBS)$";
 use constant regex_mk_comment	=> qr"^ *\s*#(.*)$";
@@ -545,6 +545,8 @@ sub get_regex_plurals() {
 		.*_SUBST
 		.*_TARGET
 		.*_TMPL
+		BROKEN_EXCEPT_ON_PLATFORM
+		BROKEN_ON_PLATFORM
 		BUILDLINK_DEPMETHOD
 		BUILDLINK_TRANSFORM
 		EVAL_PREFIX
@@ -807,7 +809,7 @@ sub load_dist_sites() {
 		} elsif ($text eq "MASTER_SITE_BACKUP?=\t\\") {
 			$ignoring = true;
 
-		} elsif ($text =~ m"^\t((?:http://|ftp://)\S+/)(?:|\s*\\)$"o) {
+		} elsif ($text =~ m"^\t((?:http://|https://|ftp://)\S+/)(?:|\s*\\)$"o) {
 			if (!$ignoring) {
 				if (defined($varname)) {
 					$url2name->{$1} = $varname;
@@ -1475,7 +1477,8 @@ sub resolve_relative_path($$) {
 	$relpath =~ s,\$\{PKGSRCDIR\},$cur_pkgsrcdir,;
 	$relpath =~ s,\$\{\.CURDIR\},.,;
 	$relpath =~ s,\$\{\.PARSEDIR\},.,;
-	$relpath =~ s,\$\{PHPPKGSRCDIR\},../../lang/php53,;
+	$relpath =~ s,\$\{LUA_PKGSRCDIR\},../../lang/lua52,;
+	$relpath =~ s,\$\{PHPPKGSRCDIR\},../../lang/php54,;
 	$relpath =~ s,\$\{SUSE_DIR_PREFIX\},suse100,;
 	$relpath =~ s,\$\{PYPKGSRCDIR\},../../lang/python27,;
 	$relpath =~ s,\$\{FILESDIR\},$filesdir, if defined($filesdir);
@@ -3896,7 +3899,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 				# Only works on IRIX, but is usually enclosed with
 				# the proper preprocessor conditional.
 
-			} elsif ($value =~ m"^-[OWfgm]") {
+			} elsif ($value =~ m"^-[OWfgm]|^-std=.*") {
 				$opt_debug_unchecked and $line->log_debug("Unchecked compiler flag ${value} in ${varname}.");
 
 			} elsif ($value =~ m"^-.*") {
@@ -3929,7 +3932,7 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 		},
 
 		Dependency => sub {
-			if ($value =~ m"^(${regex_pkgbase})(<|=|>|<=|>=|!=)(${regex_pkgversion})$") {
+			if ($value =~ m"^(${regex_pkgbase})(<|=|>|<=|>=|!=|-)(${regex_pkgversion})$") {
 				my ($depbase, $depop, $depversion) = ($1, $2, $3);
 
 			} elsif ($value =~ m"^(${regex_pkgbase})-(?:\[(.*)\]\*|(\d+(?:\.\d+)*(?:\.\*)?)(\{,nb\*\}|\*|)|(.*))?$") {
@@ -4048,7 +4051,18 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 			}
 		},
 
+		FetchURL => sub {
+			checkline_mk_vartype_basic($line, $varname, "URL", $op, $value, $comment, $list_context, $is_guessed);
 
+			my $sites = get_dist_sites();
+			foreach my $site (keys(%{$sites})) {
+				if (index($value, $site) == 0) {
+					my $subdir = substr($value, length($site));
+					$line->log_warning(sprintf("Please use \${%s:=%s} instead of \"%s\".", $sites->{$site}, $subdir, $value));
+					last;
+				}
+			}
+		},
 
 		Filename => sub {
 			if ($value_novar =~ m"/") {
@@ -4316,6 +4330,20 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 			}
 		},
 
+		PythonDependency => sub {
+			if ($value ne $value_novar) {
+				$line->log_warning("Python dependencies should not contain variables.");
+			}
+			if ($value_novar !~ m"^[+\-.0-9A-Z_a-z]+(?:|:link|:build)$") {
+				$line->log_warning("Invalid Python dependency \"${value}\".");
+				$line->explain_warning(
+"Python dependencies must be an identifier for a package, as specified",
+"in lang/python/versioned_dependencies.mk. This identifier may be",
+"followed by :build for a build-time only dependency, or by :link for",
+"a run-time only dependency.");
+			}
+		},
+
 		RelativePkgDir => sub {
 			checkline_relative_pkgdir($line, $value);
 		},
@@ -4331,14 +4359,6 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 "These variables are used to control which files may be mirrored on FTP",
 "servers or CD-ROM collections. They are not intended to mark packages",
 "whose only MASTER_SITES are on ftp.NetBSD.org.");
-			}
-		},
-
-		SVR4PkgName => sub {
-			if ($value =~ regex_unresolved) {
-				$line->log_error("SVR4_PKGNAME must not contain references to other variables.");
-			} elsif (length($value) > 5) {
-				$line->log_error("SVR4_PKGNAME must not be longer than 5 characters.");
 			}
 		},
 
@@ -4461,18 +4481,9 @@ sub checkline_mk_vartype_basic($$$$$$$$) {
 
 			} elsif ($value =~ m"^(https?|ftp|gopher)://([-0-9A-Za-z.]+)(?::(\d+))?/([-%&+,./0-9:=?\@A-Z_a-z~]|#)*$") {
 				my ($proto, $host, $port, $path) = ($1, $2, $3, $4);
-				my $sites = get_dist_sites();
 
 				if ($host =~ m"\.NetBSD\.org$"i && $host !~ m"\.NetBSD\.org$") {
 					$line->log_warning("Please write NetBSD.org instead of ${host}.");
-				}
-
-				foreach my $site (keys(%{$sites})) {
-					if (index($value, $site) == 0) {
-						my $subdir = substr($value, length($site));
-						$line->log_warning(sprintf("Please use \${%s:=%s} instead of \"%s\".", $sites->{$site}, $subdir, $value));
-						last;
-					}
 				}
 
 			} elsif ($value =~ m"^([0-9A-Za-z]+)://([^/]+)(.*)$") {
@@ -4939,7 +4950,6 @@ sub checklines_package_Makefile_varorder($) {
 				[ "DISTNAME", optional ],
 				[ "PKGNAME",  optional ],
 				[ "PKGREVISION", optional ],
-				[ "SVR4_PKGNAME", optional ],
 				[ "CATEGORIES", once ],
 				[ "MASTER_SITES", optional ],
 				[ "DIST_SUBDIR", optional ],
@@ -4979,6 +4989,8 @@ sub checklines_package_Makefile_varorder($) {
 		],
 		[ "Technical restrictions", optional,
 			[
+				[ "BROKEN_EXCEPT_ON_PLATFORM", many ],
+				[ "BROKEN_ON_PLATFORM", many ],
 				[ "NOT_FOR_PLATFORM", many ],
 				[ "ONLY_FOR_PLATFORM", many ],
 				[ "NOT_FOR_COMPILER", many ],
@@ -5225,14 +5237,8 @@ sub checklines_mk($) {
 			if ($includefile =~ m"/x11-links/buildlink3\.mk$") {
 				$line->log_error("${includefile} must not be included directly. Include \"../../mk/x11.buildlink3.mk\" instead.");
 			}
-			if ($includefile =~ m"/giflib/buildlink3\.mk$") {
-				$line->log_error("${includefile} must not be included directly. Include \"../../mk/giflib.buildlink3.mk\" instead.");
-			}
 			if ($includefile =~ m"/jpeg/buildlink3\.mk$") {
 				$line->log_error("${includefile} must not be included directly. Include \"../../mk/jpeg.buildlink3.mk\" instead.");
-			}
-			if ($includefile =~ m"/libungif/buildlink3\.mk$") {
-				$line->log_error("${includefile} must not be included directly. Include \"../../mk/giflib.buildlink3.mk\" instead.");
 			}
 			if ($includefile =~ m"/intltool/buildlink3\.mk$") {
 				$line->log_warning("Please say \"USE_TOOLS+= intltool\" instead of this line.");

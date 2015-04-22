@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.39 2014/03/15 04:05:18 obache Exp $
+# $NetBSD: Makefile,v 1.54 2015/03/15 19:42:33 hiramatsu Exp $
 #
 
-DISTNAME=	groonga-4.0.0
-PKGREVISION=	1
+DISTNAME=	groonga-4.1.1
 CATEGORIES=	textproc
 MASTER_SITES=	http://packages.groonga.org/source/groonga/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://groonga.org/
 COMMENT=	Fulltext search engine and column store
 LICENSE=	gnu-lgpl-v2.1
@@ -18,7 +17,7 @@ DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
-USE_TOOLS+=	pkg-config
+USE_TOOLS+=	gmake pkg-config
 # for long file name
 EXTRACT_USING=	bsdtar
 
@@ -26,7 +25,9 @@ EXTRACT_USING=	bsdtar
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
-CONFIGURE_ARGS+=	--with-ruby19=${RUBY}
+CONFIGURE_ARGS+=	--with-ruby=${RUBY}
+
+CFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
 
 PKGCONFIG_OVERRIDE+=	groonga.pc.in
 
@@ -38,6 +39,8 @@ INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 
 CONF_FILES+=		share/examples/${PKGBASE}/groonga.conf \
 			${PKG_SYSCONFDIR}/groonga.conf
+CONF_FILES+=		share/examples/groonga/synonyms.tsv \
+			${PKG_SYSCONFDIR}/synonyms.tsv
 
 OWN_DIRS+=		${VARBASE}/log/${PKGBASE}
 

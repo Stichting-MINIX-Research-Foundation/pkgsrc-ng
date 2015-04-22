@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2014/02/12 23:17:58 tron Exp $
+# $NetBSD: Makefile,v 1.42 2015/03/14 18:46:12 gdt Exp $
 
 DISTNAME=	qgis-1.7.4
-PKGREVISION=	21
+PKGREVISION=	25
 CATEGORIES=	geography
 MASTER_SITES=	http://qgis.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,8 @@ MAINTAINER=	brook@nmsu.edu
 HOMEPAGE=	http://www.qgis.org/
 COMMENT=	Geographic Information System (GIS)
 LICENSE=	gnu-gpl-v2
+
+BROKEN=		Doesn't build with QWT 5.2
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++ fortran77

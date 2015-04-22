@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/03/13 18:36:21 taca Exp $
+# $NetBSD: Makefile,v 1.11 2015/03/10 16:33:55 taca Exp $
 
 DISTNAME=	rake-${VERS}
 CATEGORIES=	devel
@@ -12,7 +12,9 @@ CONFLICTS+=	 rake-[0-9]*
 
 USE_TOOLS+=	gzip
 FIX_PERM=	doc/release_notes/rake-0.7.3.rdoc
-VERS=		10.1.1
+VERS=		10.4.2
+
+RUBY_VERSION_SUPPORTED= 200 193 18 21
 
 FILES_SUBST+=	GEM_NAME=${GEM_NAME} RAKE_HACK=${RAKE_HACK} RAKEBIN=${RAKEBIN}
 PLIST_SUBST+=	RAKE_HACK=${RAKE_HACK} RAKEBIN=${RAKEBIN}

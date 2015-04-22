@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.28 2013/04/13 07:55:05 ghen Exp $
+# $NetBSD: Makefile,v 1.32 2014/10/09 14:06:41 wiz Exp $
 
 DISTNAME=	spamprobe-1.4d
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=spamprobe/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://spamprobe.sourceforge.net/
 COMMENT=	Spam detector using Bayesian analysis of word counts
-
-PKG_INSTALLATION_TYPES= overwrite pkgviews
+LICENSE=	qpl-v1.0
 
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes

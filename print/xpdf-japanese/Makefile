@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2012/10/08 13:45:49 asau Exp $
+# $NetBSD: Makefile,v 1.23 2014/12/16 23:37:48 dholland Exp $
 #
 
-DISTNAME=	xpdf-japanese-2004-jul-27
-PKGNAME=	xpdf-japanese-20040727
-PKGREVISION=	2
+DISTNAME=	xpdf-japanese-2011-sep-02
+PKGNAME=	xpdf-japanese-20110902
+PKGREVISION=	1
 CATEGORIES=	print
 MASTER_SITES=	ftp://ftp.foolabs.com/pub/xpdf/ \
 		http://gd.tuwien.ac.at/publishing/xpdf/
@@ -11,6 +11,7 @@ MASTER_SITES=	ftp://ftp.foolabs.com/pub/xpdf/ \
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.foolabs.com/xpdf/
 COMMENT=	Xpdf support files for Japanese
+LICENSE=	gnu-gpl-v2 OR gnu-gpl-v3
 
 DEPENDS+=	xpdf>=2.02:../../print/xpdf
 

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.6 2013/11/24 03:52:19 wen Exp $
+$NetBSD: distinfo,v 1.10 2015/03/01 11:44:52 wiz Exp $
 
-SHA1 (strictures-1.005001.tar.gz) = 266506478cc1a9a1bc9426f48b2d9388435d80fa
-RMD160 (strictures-1.005001.tar.gz) = 4820a321f677701eff66197cb3fa977d2c258a3b
-Size (strictures-1.005001.tar.gz) = 9417 bytes
+SHA1 (strictures-2.000000.tar.gz) = 70207cb1c5ff028eca6fb0dd487e885a04fb4171
+RMD160 (strictures-2.000000.tar.gz) = d65e886f74180e01a35a824a22b69a2175bef2e7
+Size (strictures-2.000000.tar.gz) = 12389 bytes

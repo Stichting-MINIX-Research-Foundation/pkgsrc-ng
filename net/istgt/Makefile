@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2012/10/23 17:18:30 asau Exp $
+# $NetBSD: Makefile,v 1.14 2015/01/18 15:58:40 wiedi Exp $
 #
 
-DISTNAME=		istgt-20120811
+DISTNAME=		istgt-20141125
 CATEGORIES=		net
 MASTER_SITES=		http://www.peach.ne.jp/archives/istgt/
 
@@ -43,4 +43,5 @@ do-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/istgt.1 \
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/istgt.1
 
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

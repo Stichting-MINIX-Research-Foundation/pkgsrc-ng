@@ -1,4 +1,4 @@
-# $NetBSD: replace.mk,v 1.269 2014/03/13 17:06:43 taca Exp $
+# $NetBSD: replace.mk,v 1.274 2015/02/01 08:48:56 obache Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -940,6 +940,51 @@ TOOLS_PATH.${_t_}=		${TOOLS_PREFIX.${_t_}}/bin/${_t_}
 # These tools are all supplied by the lang/perl5 package if there is
 # no native tool available.
 #
+.if !empty(_TOOLS_USE_PKGSRC.perl:U:M[Nn][Oo]) &&  \
+	!defined(TOOLS_IGNORE.perl) && !empty(_USE_TOOLS:Mperl)
+.  if !empty(DEPENDS:Mp5-*) || !empty(BUILD_DEPENDS:Mp5-*) || !empty(TOOL_DEPENDS:Mp5-*)
+_TOOLS_USE_PKGSRC.perl=	yes
+.  endif
+.  include "../../lang/perl5/version.mk"
+_TOOLS_VERSION.perl!=							\
+	eval $$(${TOOLS_PLATFORM.perl} -V:version) && echo $$version
+_TOOLS_PKG.perl=		perl-${_TOOLS_VERSION.perl}
+.  if !empty(_TOOLS_USE_PKGSRC.perl:M[nN][oO])
+.    for _dep_ in perl>=${PERL5_REQD} 
+.      if !empty(_TOOLS_USE_PKGSRC.perl:M[nN][oO])
+_TOOLS_USE_PKGSRC.perl!=						\
+	if ${PKG_ADMIN} pmatch ${_dep_:Q} ${_TOOLS_PKG.perl:Q}; then \
+		${ECHO} no;						\
+	else								\
+		${ECHO} yes;						\
+	fi
+.      endif
+.    endfor
+.  endif
+.  if !empty(_TOOLS_USE_PKGSRC.perl:M[nN][oO])
+.    for _dep_ in ${DEPENDS:M{perl[><=-]*,*}\:*} \
+		${DEPENDS:M{*,perl[><=-]*}\:*} \
+		${BUILD_DEPENDS:M{perl[><=-]*,*}\:*} \
+		${BUILD_DEPENDS:M{*,perl[><=-]*}\:*} \
+		${TOOL_DEPENDS:M{perl[><=-]*,*}\:*} \
+		${TOOL_DEPENDS:M{*,perl[><=-]*}\:*}
+.      if !empty(_TOOLS_USE_PKGSRC.perl:M[nN][oO])
+_TOOLS_USE_PKGSRC.perl!=						\
+	if ${PKG_ADMIN} pmatch ${_dep_:S/:/ /g:[1]:Q} ${_TOOLS_PKG.perl:Q}; then \
+		${ECHO} no;						\
+	else								\
+		${ECHO} yes;						\
+	fi
+.      endif
+.    endfor
+.    if !empty(_TOOLS_USE_PKGSRC.perl:M[nN][oO])
+DEPENDS:=	${DEPENDS:N{perl[><=-]*,*}\:*:N{*,perl[><=-]*}\:*}
+BUILD_DEPENDS:=	${BUILD_DEPENDS:N{perl[><=-]*,*}\:*:N{*,perl[><=-]*}\:*}
+TOOL_DEPENDS:=	${TOOL_DEPENDS:N{perl[><=-]*,*}\:*:N{*,perl[><=-]*}\:*}
+.    endif
+.  endif
+.endif
+
 _TOOLS.perl=			perl perldoc pod2html pod2man pod2text
 
 .for _t_ in ${_TOOLS.perl}
@@ -1285,42 +1330,24 @@ TOOLS_PATH.xmessage=		${TOOLS_PREFIX.xmessage}/bin/xmessage
 _TOOLS.x11-imake=	imake mkdirhier xmkmf
 
 .for _t_ in ${_TOOLS.x11-imake}
-.  if !defined(TOOLS_IGNORE.${_t_}) && !empty(_USE_TOOLS:M${_t_})
-.    if !empty(PKGPATH:Mdevel/nbitools) || \
-	!empty(PKGPATH:Mx11/xorg-imake)
-MAKEFLAGS+=		TOOLS_IGNORE.${_t_}=
-.    elif !empty(_TOOLS_USE_PKGSRC.${_t_}:M[yY][eE][sS])
+.  if !defined(TOOLS_IGNORE.${_t_}) && !empty(_USE_TOOLS:M${_t_}) && \
+      !empty(_TOOLS_USE_PKGSRC.${_t_}:M[yY][eE][sS])
 TOOLS_CREATE+=		${_t_}
-.      if !empty(_USE_TOOLS:Mitools)
-TOOLS_DEPENDS.${_t_}?=	nbitools>=6.3nb4:../../devel/nbitools
-TOOLS_FIND_PREFIX+=	TOOLS_PREFIX.${_t_}=nbitools
-TOOLS_PATH.${_t_}=	${TOOLS_PREFIX.${_t_}}/libexec/itools/${_t_}
-.      else
 TOOLS_DEPENDS.${_t_}?=	imake-[0-9]*:../../devel/imake
 TOOLS_FIND_PREFIX+=	TOOLS_PREFIX.${_t_}=imake
 TOOLS_PATH.${_t_}=	${TOOLS_PREFIX.${_t_}}/bin/${_t_}
-.      endif
-.    endif
 .  endif
 .endfor
 
-.if !defined(TOOLS_IGNORE.makedepend) && !empty(_USE_TOOLS:Mmakedepend)
-.  if !empty(PKGPATH:Mdevel/nbitools) || \
-	!empty(PKGPATH:Mx11/xorg-imake)
-MAKEFLAGS+=		TOOLS_IGNORE.makedepend=
-.  elif !empty(_TOOLS_USE_PKGSRC.makedepend:M[yY][eE][sS])
+.if !defined(TOOLS_IGNORE.makedepend) && !empty(_USE_TOOLS:Mmakedepend) && \
+    !empty(_TOOLS_USE_PKGSRC.makedepend:M[yY][eE][sS])
 TOOLS_CREATE+=		makedepend
-.    if !empty(_USE_TOOLS:Mitools)
-TOOLS_DEPENDS.makedepend?=	nbitools>=6.3nb4:../../devel/nbitools
-TOOLS_FIND_PREFIX+=	TOOLS_PREFIX.makedepend=nbitools
-TOOLS_PATH.makedepend=	${TOOLS_PREFIX.makedepend}/libexec/itools/makedepend
-.    elif defined(X11_TYPE) && !empty(X11_TYPE:Mmodular)
+.  if defined(X11_TYPE) && !empty(X11_TYPE:Mmodular)
 TOOLS_DEPENDS.makedepend?=	makedepend-[0-9]*:../../devel/makedepend
 TOOLS_FIND_PREFIX+=	TOOLS_PREFIX.makedepend=makedepend
 TOOLS_PATH.makedepend=	${TOOLS_PREFIX.makedepend}/bin/makedepend
-.    else # !empty(X11_TYPE:Mnative)
+.  else # !empty(X11_TYPE:Mnative)
 TOOLS_PATH.makedepend=	${X11BASE}/bin/makedepend
-.    endif
 .  endif
 .endif
 

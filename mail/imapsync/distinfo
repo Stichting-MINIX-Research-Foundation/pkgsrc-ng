@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.5 2013/08/26 10:06:15 abs Exp $
+$NetBSD: distinfo,v 1.7 2015/01/16 09:56:27 wiz Exp $
 
-SHA1 (imapsync-1.564.tgz) = b2246e1f3bd24d7e896a135daf821f34ea2792c8
-RMD160 (imapsync-1.564.tgz) = 3df26ec1a058fbbf859fff22dfe672761886fcfb
-Size (imapsync-1.564.tgz) = 795480 bytes
+SHA1 (imapsync-1.607.tgz) = c9d6dd43cf10ba7f90a363900484085d9ce682a4
+RMD160 (imapsync-1.607.tgz) = a22b1577278097cb1a79edf3500eab983ab86601
+Size (imapsync-1.607.tgz) = 973467 bytes

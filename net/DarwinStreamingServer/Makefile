@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.15 2013/07/12 10:44:58 jperkin Exp $
+# $NetBSD: Makefile,v 1.17 2014/10/09 14:06:44 wiz Exp $
 
 DISTNAME=	DarwinStreamingSrvr5.5.5-Source
 PKGNAME=	DarwinStreamingServer-5.5.5
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	net multimedia
 MASTER_SITES=	http://static.macosforge.org/dss/downloads/
 
@@ -16,8 +16,6 @@ MAKE_JOBS_SAFE=	no
 RESTRICTED=	Under APSL (see http://www.opensource.apple.com/apsl/).
 NO_BIN_ON_CDROM=${RESTRICTED}
 NO_BIN_ON_FTP=	${RESTRICTED}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=	c c++
 

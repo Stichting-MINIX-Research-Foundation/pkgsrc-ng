@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2013/07/15 02:02:23 ryoon Exp $
+# $NetBSD: Makefile,v 1.13 2014/11/30 18:11:23 spz Exp $
 #
 
 DISTNAME=	js-1.6.20070208
 PKGNAME=	ossp-${DISTNAME}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	lang
-MASTER_SITES=	http://www.ossp.org/pkg/lib/js/
+MASTER_SITES=	ftp://ftp.ossp.org/pkg/lib/js/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.ossp.org/pkg/lib/js/

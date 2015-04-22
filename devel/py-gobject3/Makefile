@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.25 2014/02/12 18:06:05 drochner Exp $
+# $NetBSD: Makefile,v 1.27 2014/07/06 13:53:12 ryoon Exp $
 
 PYTHON_VERSIONS_INCOMPATIBLE=	26
 
@@ -12,7 +12,6 @@ TEST_TARGET=	check
 .include "Makefile.common"
 
 PKGNAME=		${PYPKGPREFIX}-gobject3-${VER}
-PKGREVISION=		1
 
 COMMENT=		Python bindings for glib2 gobject
 

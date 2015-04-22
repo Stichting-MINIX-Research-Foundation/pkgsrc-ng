@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.65 2014/02/24 22:40:44 richard Exp $
-#
+# $NetBSD: Makefile,v 1.69 2014/10/01 16:09:35 wiz Exp $
 
-DISTNAME=		xine-ui-0.99.7
-PKGREVISION=		11
+DISTNAME=		xine-ui-0.99.8
+PKGREVISION=		2
 CATEGORIES=		multimedia
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=xine/}
 EXTRACT_SUFX=		.tar.xz
@@ -10,6 +9,7 @@ EXTRACT_SUFX=		.tar.xz
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.xine-project.org/home
 COMMENT=		Skinned xlib-based xine GUI
+LICENSE=		gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	YES
 USE_TOOLS+=		msgfmt pkg-config gmake

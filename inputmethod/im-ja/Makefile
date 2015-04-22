@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.38 2014/02/12 23:18:04 tron Exp $
+# $NetBSD: Makefile,v 1.42 2015/03/15 17:09:00 hiramatsu Exp $
 #
 
 DISTNAME=	im-ja-1.5
-PKGREVISION=	36
+PKGREVISION=	39
 CATEGORIES=	inputmethod japanese
 MASTER_SITES=	http://im-ja.sourceforge.net/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://im-ja.sourceforge.net/
 COMMENT=	Japanese input module for GTK2 and XIM server
 #LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2 # AND bsd?

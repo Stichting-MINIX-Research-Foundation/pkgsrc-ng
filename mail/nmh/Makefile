@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.83 2014/02/12 23:18:08 tron Exp $
+# $NetBSD: Makefile,v 1.86 2014/09/21 00:09:24 dholland Exp $
 
-DISTNAME=		nmh-1.5
-PKGREVISION=		4
+DISTNAME=		nmh-1.6
 CATEGORIES=		mail
 MASTER_SITES=		http://savannah.nongnu.org/download/nmh/
+PKGREVISION=		1
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.nongnu.org/nmh/
@@ -37,27 +37,8 @@ NMH_MTA?=		smtp
 GNU_CONFIGURE=		yes
 
 GNU_CONFIGURE_LIBDIR=	${PREFIX}/libexec/nmh
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
-CONFIGURE_ARGS+=	--enable-nmh-pop
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-mts=${NMH_MTA:Q}
-
-.if defined(NMH_EDITOR)
-CONFIGURE_ARGS+=	--with-editor=${NMH_EDITOR:Q}
-.endif
-
-.if defined(NMH_PAGER)
-CONFIGURE_ARGS+=	--with-pager=${NMH_PAGER:Q}
-.endif
-
-.if defined(KERBEROS)
-PKG_USE_KERBEROS=	yes
-.if ${OPSYS} == "NetBSD"
-LIBS+=			-lroken -lcrypt -lcom_err
-.endif
-CONFIGURE_ARGS+=	--with-krb4
-.else
-CONFIGURE_ARGS+=	--without-krb4
-.endif
 
 DOCDIR=			share/doc/nmh
 EGDIR=			${PREFIX}/share/examples/nmh
@@ -96,6 +77,14 @@ CONF_FILES=		# empty
 CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
 
+# The configure script checks for arc4random(), but the program uses
+# arc4random_buf(); netbsd-5 (and presumably earlier) has the one but
+# not the other. Just disable it, because all it's using the
+# randomness for is message-ids.
+.if !empty(MACHINE_PLATFORM:MNetBSD-[1-5].*-*)
+CONFIGURE_ENV+=		ac_cv_func_arc4random=no
+.endif
+
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/mhn.defaults.dist \
 	    ${DESTDIR}${EGDIR}/mhn.defaults
@@ -108,5 +97,5 @@ CONFIGURE_ARGS+=	--with-ndbm='gdbm_compat -lgdbm'
 CONFIGURE_ARGS+=	--with-ndbmheader=ndbm.h
 .endif
 
-.include "../../mk/termcap.buildlink3.mk"
+.include "../../mk/terminfo.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

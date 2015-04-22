@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2014/02/12 23:17:47 tron Exp $
+# $NetBSD: Makefile,v 1.10 2014/11/14 08:03:31 markd Exp $
 
 DISTNAME=	kcachegrind-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	devel
 COMMENT=	Visualization of Performance Profiling Data
 
@@ -20,7 +19,7 @@ SUBST_FILES.php=	converters/pprof2calltree
 SUBST_SED.php=		-e 's,/usr/bin/env php,${PREFIX}/bin/php,'
 
 REPLACE_PYTHON+= \
-	converters/hotshot2calltree
+	converters/hotshot2calltree.cmake
 
 .include "../../meta-pkgs/kde4/kde4.mk"
 

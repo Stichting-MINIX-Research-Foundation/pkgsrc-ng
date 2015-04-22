@@ -1,7 +1,9 @@
-@comment $NetBSD: PLIST,v 1.2 2014/03/17 14:04:42 taca Exp $
+@comment $NetBSD: PLIST,v 1.6 2015/03/08 15:17:19 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_EXTSDIR}/gem.build_complete
 ${GEM_EXTSDIR}/msgpack/msgpack.${RUBY_DLEXT}
 ${GEM_LIBDIR}/.gitignore
+${GEM_LIBDIR}/.travis.yml
 ${GEM_LIBDIR}/ChangeLog
 ${GEM_LIBDIR}/Gemfile
 ${GEM_LIBDIR}/README.rdoc
@@ -12,6 +14,14 @@ ${GEM_LIBDIR}/doclib/msgpack/core_ext.rb
 ${GEM_LIBDIR}/doclib/msgpack/error.rb
 ${GEM_LIBDIR}/doclib/msgpack/packer.rb
 ${GEM_LIBDIR}/doclib/msgpack/unpacker.rb
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Buffer.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Decoder.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Encoder.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/ExtensionValue.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/MessagePackLibrary.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Packer.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Types.java
+${GEM_LIBDIR}/ext/java/org/msgpack/jruby/Unpacker.java
 ${GEM_LIBDIR}/ext/msgpack/buffer.c
 ${GEM_LIBDIR}/ext/msgpack/buffer.h
 ${GEM_LIBDIR}/ext/msgpack/buffer_class.c
@@ -38,15 +48,24 @@ ${GEM_LIBDIR}/lib/msgpack.rb
 ${GEM_LIBDIR}/lib/msgpack/msgpack.${RUBY_DLEXT}
 ${GEM_LIBDIR}/lib/msgpack/version.rb
 ${GEM_LIBDIR}/msgpack.gemspec
-${GEM_LIBDIR}/spec/buffer_io_spec.rb
-${GEM_LIBDIR}/spec/buffer_spec.rb
+${GEM_LIBDIR}/msgpack.org.md
 ${GEM_LIBDIR}/spec/cases.json
 ${GEM_LIBDIR}/spec/cases.msg
 ${GEM_LIBDIR}/spec/cases_compact.msg
 ${GEM_LIBDIR}/spec/cases_spec.rb
+${GEM_LIBDIR}/spec/cruby/buffer_io_spec.rb
+${GEM_LIBDIR}/spec/cruby/buffer_packer.rb
+${GEM_LIBDIR}/spec/cruby/buffer_spec.rb
+${GEM_LIBDIR}/spec/cruby/buffer_unpacker.rb
+${GEM_LIBDIR}/spec/cruby/packer_spec.rb
+${GEM_LIBDIR}/spec/cruby/unpacker_spec.rb
 ${GEM_LIBDIR}/spec/format_spec.rb
-${GEM_LIBDIR}/spec/packer_spec.rb
+${GEM_LIBDIR}/spec/jruby/benchmarks/shootout_bm.rb
+${GEM_LIBDIR}/spec/jruby/benchmarks/symbolize_keys_bm.rb
+${GEM_LIBDIR}/spec/jruby/msgpack/unpacker_spec.rb
+${GEM_LIBDIR}/spec/jruby/msgpack_spec.rb
+${GEM_LIBDIR}/spec/pack_spec.rb
 ${GEM_LIBDIR}/spec/random_compat.rb
 ${GEM_LIBDIR}/spec/spec_helper.rb
-${GEM_LIBDIR}/spec/unpacker_spec.rb
+${GEM_LIBDIR}/spec/unpack_spec.rb
 ${GEM_HOME}/specifications/${GEM_NAME}.gemspec

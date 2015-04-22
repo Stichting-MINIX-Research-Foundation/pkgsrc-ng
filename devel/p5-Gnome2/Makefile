@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.31 2014/02/12 23:17:49 tron Exp $
+# $NetBSD: Makefile,v 1.35 2015/02/12 05:45:42 mef Exp $
 #
 
-DISTNAME=	Gnome2-1.042
+DISTNAME=	Gnome2-1.045
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	29
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gtk2-perl/}
 
@@ -20,6 +19,9 @@ MAKE_JOBS_SAFE=	no
 USE_TOOLS+=	pkg-config
 
 PERL5_PACKLIST=	auto/Gnome2/.packlist
+
+post-extract:
+	${MKDIR} ${WRKSRC}/blib/lib/Gnome2
 
 .include "../../devel/libgnome/buildlink3.mk"
 .include "../../devel/libgnomeui/buildlink3.mk"

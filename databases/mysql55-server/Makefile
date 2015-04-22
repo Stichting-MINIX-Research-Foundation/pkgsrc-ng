@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2014/03/11 14:34:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.28 2015/03/22 07:44:43 fhajny Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
-PKGREVISION=	1
-SVR4_PKGNAME=	mysqs
+PKGREVISION=	2
 COMMENT=	MySQL 5, a free SQL database (server)
 
 CONFLICTS=	mysql3-server-[0-9]*
@@ -51,6 +50,7 @@ SMF_METHODS=		${RCD_SCRIPTS}
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q}
 FILES_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}
 FILES_SUBST+=		MYSQL_USER=${MYSQL_USER} MYSQL_GROUP=${MYSQL_GROUP}
+FILES_SUBST+=		MYSQL_PIDFILE=${MYSQL_PIDFILE}
 MESSAGE_SUBST+=		MYSQL_DATADIR=${MYSQL_DATADIR}
 MESSAGE_SUBST+=		MYSQL_USER=${MYSQL_USER} MYSQL_GROUP=${MYSQL_GROUP}
 BUILD_DEFS+=		MYSQL_DATADIR
@@ -67,7 +67,10 @@ REPLACE_PERL+=		mysql-test/suite/funcs_2/lib/gen_charset_utf8.pl
 REPLACE_PERL+=		mysql-test/mtr
 REPLACE_PERL+=		sql-bench/*.sh
 
-INSTALLATION_DIRS=	bin
+REPLACE_SH+=		mysql-test/t/long_tmpdir-master.sh
+REPLACE_SH+=		mysql-test/t/lowercase_mixed_tmpdir-master.sh
+
+INSTALLATION_DIRS+=	bin
 
 .include "../../mk/compiler.mk"
 

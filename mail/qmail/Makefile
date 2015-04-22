@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.67 2014/02/12 23:18:09 tron Exp $
+# $NetBSD: Makefile,v 1.73 2014/12/30 15:13:19 wiz Exp $
 #
 
 DISTNAME=		${PKGNAME_NOREV}
 PKGNAME=		qmail-1.03
-PKGREVISION=		17
+PKGREVISION=		19
 CATEGORIES=		mail
 MASTER_SITES=		http://qmail.org/
 
@@ -28,7 +28,6 @@ NOT_FOR_UNPRIVILEGED=	yes
 WRKSRC=			${WRKDIR}/${DISTNAME}
 
 PKG_DESTDIR_SUPPORT=	destdir
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 USE_TOOLS+=		nroff
 
 DJB_CONFIG_CMDS=	${ECHO} ${DESTDIR:Q}${QMAILDIR:Q} > conf-destdir
@@ -46,11 +45,11 @@ SHAREDIR=		${PREFIX}/share/qmail
 PLIST_SUBST+=		DARWINSUFX=${DARWINSUFX:Q}
 MESSAGE_SUBST+=		DOCDIR=${DOCDIR:Q} EGDIR=${EGDIR:Q}
 FILES_SUBST+=		DOCDIR=${DOCDIR:Q} EGDIR=${EGDIR:Q}
+FILES_SUBST+=		OPENSSL=${OPENSSL:Q}
 FILES_SUBST+=		PKGMANDIR=${PKGMANDIR:Q} SHAREDIR=${SHAREDIR:Q}
 FILES_SUBST+=		QMAILDIR=${QMAILDIR:Q}
 FILES_SUBST+=		QMAIL_QUEUE_DIR=${QMAIL_QUEUE_DIR:Q}
 FILES_SUBST+=		QMAIL_QUEUE_EXTRA=${QMAIL_QUEUE_EXTRA:Q}
-FILES_SUBST+=		VIRUSCAN_SIGS_SRCFILE=${VIRUSCAN_SIGS_SRCFILE:Q}
 FILES_SUBST+=		PKGNAME=${PKGNAME:Q}
 
 SETUP_PROGRAMS=		dnsfq dnsip dnsptr hostname install ipmeprint
@@ -90,6 +89,18 @@ SUBST_FILES.caseclash=	hier.c
 SUBST_SED.caseclash=	-e 's|"INSTALL"|"INSTALL${DARWINSUFX}"|g'
 SUBST_SED.caseclash+=	-e 's|"SENDMAIL"|"SENDMAIL${DARWINSUFX}"|g'
 
+SUBST_CLASSES+=		catpages
+SUBST_STAGE.catpages=	do-configure
+SUBST_FILES.catpages=	hier.c
+SUBST_SED.catpages=	-e 's|.*"man/cat[0-9]".*||g'
+SUBST_SED.catpages+=	-e 's|.*"tcp-environ\.5".*||g'	# also in ucspi-tcp
+
+SUBST_CLASSES+=		destdir
+SUBST_STAGE.destdir=	do-configure
+SUBST_FILES.destdir=	Makefile
+SUBST_SED.destdir=	-e 's|\(^load inst.*\.o\) auto_qmail\.o\(.*\)|\1 auto_destdir.o\2|g'
+SUBST_SED.destdir+=	-e 's|\(^	\./load inst.*\) auto_qmail\.o\(.*\)|\1 auto_destdir.o\2|g'
+
 SUBST_CLASSES+=		paths
 SUBST_STAGE.paths=	do-configure
 SUBST_FILES.paths=	README.pkgsrc
@@ -109,7 +120,18 @@ PKG_HOME.${user}=	${QMAILDIR}
 .endfor
 PKG_HOME.alias=		${QMAILDIR}/alias
 
+QMAIL_ROOT_ONLY_READABLES=	qmail-clean qmail-getpw qmail-local qmail-popup
+QMAIL_ROOT_ONLY_READABLES+=	qmail-pw2u qmail-remote qmail-rspawn qmail-send
+QMAIL_ROOT_ONLY_READABLES+=	splogger
+QMAIL_ROOT_ONLY_EVERYTHINGS=	qmail-lspawn qmail-newmrh qmail-newu qmail-start
+
 SPECIAL_PERMS+=		${PREFIX}/bin/qmail-queue qmailq qmail 4555
+.for f in ${QMAIL_ROOT_ONLY_READABLES}
+SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0711
+.endfor
+.for f in ${QMAIL_ROOT_ONLY_EVERYTHINGS}
+SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0700
+.endfor
 
 .if ${OPSYS} == "Darwin"
 DARWINSUFX=		.doc
@@ -117,7 +139,7 @@ DARWINSUFX=		.doc
 DARWINSUFX=		# empty
 .endif
 
-post-extract:
+post-extract: post-extract-viruscan
 	${CP} ${FILESDIR}/README.pkgsrc ${WRKSRC}
 .if ${OPSYS} == "Darwin"
 .	for i in INSTALL SENDMAIL
@@ -140,19 +162,22 @@ pre-install:
 	  ${LN} -s ${DESTDIR}${EGDIR}/users	${DESTDIR}${QMAILDIR}/users
 .	endif
 
-post-install:
+post-install: post-install-viruscan
+	# allow packaging as non-root, fix at install time with SPECIAL_PERMS
+	${CHMOD} 0755 ${DESTDIR}${PREFIX}/bin/qmail-queue
+.	for f in ${QMAIL_ROOT_ONLY_READABLES} ${QMAIL_ROOT_ONLY_EVERYTHINGS}
+	  ${CHMOD} 0755 ${DESTDIR}${PREFIX}/bin/${f}
+.	endfor
 	# qmail's installer sets strange permissions, set them back
-.	if (${PKG_INSTALLATION_TYPE} == "overwrite")
-.	  for i in bin boot
-	    ${CHGRP} ${BINGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	  endfor
-.	  for i in doc
-	    ${CHGRP} ${SHAREGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	  endfor
-.	  for i in ${MANDIRS}
-	    ${CHGRP} ${MANGRP} ${DESTDIR}${QMAILDIR}/${i}
-.	  endfor
-.	endif
+.	for i in bin boot
+	  ${CHGRP} ${BINGRP} ${DESTDIR}${QMAILDIR}/${i}
+.	endfor
+.	for i in doc
+	  ${CHGRP} ${SHAREGRP} ${DESTDIR}${QMAILDIR}/${i}
+.	endfor
+.	for i in ${MANDIRS}
+	  ${CHGRP} ${MANGRP} ${DESTDIR}${QMAILDIR}/${i}
+.	endfor
 
 	${INSTALL_DATA} ${WRKSRC}/README.pkgsrc ${DESTDIR}${DOCDIR}
 

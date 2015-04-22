@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.1 2013/09/01 08:28:08 wiz Exp $
+# $NetBSD: Makefile.common,v 1.4 2015/01/11 13:26:04 adam Exp $
 #
 # used by archivers/libunrar/Makefile
 # used by archivers/unrar/Makefile
 
-DISTNAME=	unrarsrc-5.0.7
+DISTNAME=	unrarsrc-5.2.4
 PKGNAME=	${DISTNAME:S/src//}
 CATEGORIES=	archivers
 MASTER_SITES=	http://www.rarlab.com/rar/
@@ -17,8 +17,6 @@ LICENSE=	unrar-license
 # Date: Wed, 10 Sep 2008 18:27:35 +0600
 # From: Eugene Roshal <roshal@rarlab.com>
 # You can redistribute either original or modified binaries or sources.
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 NO_CONFIGURE=	YES
 USE_LANGUAGES=	c++

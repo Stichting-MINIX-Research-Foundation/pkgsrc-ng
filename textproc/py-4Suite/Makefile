@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2014/01/25 10:30:23 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2014/12/31 13:57:29 wiz Exp $
 
 VER=		1.0.2
 DISTNAME=	4Suite-XML-${VER}
@@ -13,8 +13,6 @@ LICENSE=	apache-1.1
 
 BUILD_DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
-EGG_NAME=	${DISTNAME:S/-/_/}
-
 SUBST_CLASSES+=		python
 SUBST_FILES.python=	build/scripts.*/4xml
 SUBST_FILES.python+=	build/scripts.*/4xpath
@@ -27,7 +25,7 @@ SUBST_STAGE.python=	post-build
 SUBST_SED.python=	-e 's,\#![^ ]* python,\#! ${PYTHONBIN},'
 
 #PYTHON_SELF_CONFLICT=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.0.2
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.0.2
 
 do-configure:
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} \

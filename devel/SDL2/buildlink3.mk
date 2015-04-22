@@ -1,10 +1,11 @@
-# $NetBSD: buildlink3.mk,v 1.1 2013/08/15 10:26:16 adam Exp $
+# $NetBSD: buildlink3.mk,v 1.3 2015/02/11 14:00:45 jmcneill Exp $
 
 BUILDLINK_TREE+=	SDL2
 
 .if !defined(SDL2_BUILDLINK3_MK)
 SDL2_BUILDLINK3_MK:=
 
+BUILDLINK_ABI_DEPENDS.SDL2+=	SDL2>=2.0.3nb5
 BUILDLINK_API_DEPENDS.SDL2+=	SDL2>=2.0
 BUILDLINK_PKGSRCDIR.SDL2?=	../../devel/SDL2
 BUILDLINK_INCDIRS.SDL2+=	include/SDL2
@@ -18,10 +19,11 @@ pkgbase := SDL2
 
 .include "../../converters/libiconv/buildlink3.mk"
 
-.if ${OPSYS} != "Darwin"
-.  if !empty(PKG_BUILD_OPTIONS.SDL2:Mopengl)
-.  include "../../graphics/MesaLib/buildlink3.mk"
-.  endif
+.if !empty(PKG_BUILD_OPTIONS.SDL2:Mopengl) && empty(OPSYS:MDarwin)
+.include "../../graphics/MesaLib/buildlink3.mk"
+.endif
+
+.if !empty(PKG_BUILD_OPTIONS.SDL2:Mx11)
 .include "../../x11/xproto/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .endif
@@ -30,5 +32,9 @@ pkgbase := SDL2
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .endif	# SDL2_BUILDLINK3_MK
+
+.if !empty(PKG_BUILD_OPTIONS.SDL2:Mrpi)
+.include "../../misc/raspberrypi-userland/buildlink3.mk"
+.endif
 
 BUILDLINK_TREE+=	-SDL2

@@ -1,25 +1,10 @@
-# $NetBSD: Makefile,v 1.23 2014/02/21 20:26:03 joerg Exp $
+# $NetBSD: Makefile,v 1.26 2014/12/01 12:39:17 joerg Exp $
 
-DISTNAME=	exiv2-0.23
-PKGNAME=	exiv2-organize-0.23
-PKGREVISION=	5
-CATEGORIES=	graphics
-MASTER_SITES=	http://www.exiv2.org/
+.include "../../graphics/exiv2/Makefile.common"
 
-MAINTAINER=	gdt@NetBSD.org
-HOMEPAGE=	http://www.exiv2.org/
-COMMENT=	Image metadata manipulation
-LICENSE=	gnu-gpl-v2
+PKGNAME=	${DISTNAME:S/exiv2/exiv2-organize/}
 
-USE_LANGUAGES=		c c++
-USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake pkg-config
-GNU_CONFIGURE=		yes
-# The visibility feature seems complicated and causes problems on DragonFly
-# (reported by Matt Madden) and on Gentoo (http://bugs.gentoo.org/185907).
-CONFIGURE_ARGS+=	--disable-visibility
-
-GCC_REQD+=		3.3
+USE_TOOLS+=		pkg-config
 BUILD_DIRS=		contrib/organize
 INSTALLATION_DIRS=	bin
 
@@ -31,8 +16,10 @@ do-install:
 # GCC 4.4 and above needs this
 .if !empty(PKGSRC_COMPILER:Mgcc) && !empty(CC_VERSION:Mgcc-4.[4-9]*)
 _WRAP_EXTRA_ARGS.CXX+=	-std=c++0x
+CWRAPPERS_APPEND.cxx+=	-std=c++0x
 .elif !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CXX+=	-std=c++11
+CWRAPPERS_APPEND.cxx+=	-std=c++11
 .endif
 
 .include "../../graphics/exiv2/buildlink3.mk"

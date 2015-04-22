@@ -1,4 +1,4 @@
-$NetBSD: patch-ab,v 1.4.2.1 2014/04/11 11:50:10 tron Exp $
+$NetBSD: patch-ab,v 1.5 2014/04/10 12:04:16 obache Exp $
 
 * prevent to overwrite our CC/CFLAGS settings
 * libtoolize

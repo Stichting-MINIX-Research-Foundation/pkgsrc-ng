@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2013/11/17 16:56:47 minskim Exp $
+# $NetBSD: Makefile,v 1.16 2015/02/24 21:44:35 joerg Exp $
 
 DISTNAME=	texlive-20130530-source
 PKGNAME=	xdvik-22.86
@@ -26,6 +26,9 @@ MAKE_JOBS_SAFE=	no
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 WRKSRC=		${WRKDIR}/${DISTNAME}/texk/xdvik
+
+CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
+CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
 
 FIND_PREFIX:=	TEX_XDVI_PREFIX=tex-xdvi
 .include "../../mk/find-prefix.mk"
@@ -71,6 +74,7 @@ XDVI_PAPERSIZE=	a4
 .include "../../mk/xaw.buildlink3.mk"
 
 post-build:
+	${RM} ${WRKSRC}/texmf/XDvi
 	${MKDIR} -p ${WRKSRC}/texmf/xdvi
 	${CP} ${LOCALBASE}/share/texmf-dist/xdvi/XDvi ${WRKSRC}/texmf/xdvi
 	env TEXMFCONFIG=${LOCALBASE}/share/texmf \

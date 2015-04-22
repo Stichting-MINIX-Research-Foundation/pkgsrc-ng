@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.9 2014/02/12 23:18:26 tron Exp $
+# $NetBSD: Makefile,v 1.13 2015/01/10 20:48:58 wiz Exp $
 
-PKGNAME=	${DISTNAME:C:-:-gtk-:}
-PKGREVISION=	8
+PKGNAME=	transmission-gtk-${VERSION}
 
-USE_LANGUAGES+=		c c++
+USE_LANGUAGES=		c c++
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}${PREFIX}
 
-CONFIGURE_ARGS+=	--disable-cli --disable-daemon --with-gtk
+CONFIGURE_ARGS+=	--disable-cli
+CONFIGURE_ARGS+=	--disable-daemon
+CONFIGURE_ARGS+=	--disable-mac
+CONFIGURE_ARGS+=	--with-gtk
 
 CONFLICTS+=		Transmission-gui-[0-9]*
 

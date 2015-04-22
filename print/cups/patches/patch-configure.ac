@@ -1,0 +1,14 @@
+$NetBSD: patch-configure.ac,v 1.1 2015/01/02 02:03:42 christos Exp $
+
+libtoolize.
+
+--- configure.ac.orig	2013-07-08 21:15:13.000000000 +0000
++++ configure.ac
+@@ -21,7 +21,6 @@ sinclude(config-scripts/cups-directories
+ sinclude(config-scripts/cups-manpages.m4)
+ 
+ sinclude(config-scripts/cups-sharedlibs.m4)
+-sinclude(config-scripts/cups-libtool.m4)
+ sinclude(config-scripts/cups-compiler.m4)
+ 
+ sinclude(config-scripts/cups-network.m4)

@@ -1,17 +1,18 @@
-# $NetBSD: Makefile,v 1.25 2014/02/12 23:18:07 tron Exp $
+# $NetBSD: Makefile,v 1.29 2014/11/21 22:51:43 schmonz Exp $
 #
 
 DISTNAME=	freepops-0.2.9
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freepops/}
 
-MAINTAINER=	schmonz@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freepops.org/
 COMMENT=	POP3 gateway to AOL, Gmail, Hotmail, Juno, Yahoo, etc
 LICENSE=	gnu-gpl-v2
 
 MAKE_JOBS_SAFE=	no
+LUA_VERSIONS_ACCEPTED=	51
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -26,7 +27,7 @@ HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	configure.sh
 CONFIGURE_ARGS=		pkgsrc
 LDFLAGS+=		-lintl		# directly link, req. by ld 2.22
-LIBS.SunOS+=		-lsocket -lnsl
+LDFLAGS.SunOS+=		-lsocket -lnsl -lresolv
 
 PKG_SYSCONFSUBDIR=	freepops
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
@@ -60,6 +61,7 @@ PKG_GROUPS_VARS+=		FREEPOPSD_GROUP
 PKG_USERS_VARS+=		FREEPOPSD_USER
 
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../lang/lua/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

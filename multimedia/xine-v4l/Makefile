@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2013/06/04 22:16:51 tron Exp $
-#
+# $NetBSD: Makefile,v 1.15 2014/10/01 16:09:36 wiz Exp $
 
 .include "../../multimedia/xine-lib/Makefile.common"
 
 PKGNAME=	${XINE_PKGNAME:S/lib/v4l/}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	multimedia
 COMMENT=	The v4l input plugin for xine-lib
 

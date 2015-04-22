@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2013/11/01 11:30:23 jaapb Exp $
+# $NetBSD: Makefile,v 1.6 2015/01/20 14:24:37 jaapb Exp $
 #
 
 DISTNAME=	ocaml-http-0.1.5
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	www
 MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/545/
 
@@ -26,6 +26,7 @@ PLIST.opt=      yes
 BUILD_TARGET+=	opt
 .endif
 
+.include "../../lang/camlp4/buildlink3.mk"
 .include "../../lang/ocaml/buildlink3.mk"
 .include "../../devel/ocaml-findlib/buildlink3.mk"
 .include "../../devel/pcre-ocaml/buildlink3.mk"

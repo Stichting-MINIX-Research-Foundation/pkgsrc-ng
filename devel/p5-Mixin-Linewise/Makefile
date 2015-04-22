@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2014/02/24 10:41:52 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.12 2015/01/24 07:53:43 wen Exp $
 #
 
-DISTNAME=	Mixin-Linewise-0.105
+DISTNAME=	Mixin-Linewise-0.106
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/R/RJ/RJBS/}
@@ -11,7 +11,7 @@ HOMEPAGE=	http://search.cpan.org/dist/Mixin-Linewise/
 COMMENT=	Perl 5 linewise readers and writers for strings and filenames
 LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	p5-PerlIO-utf8_strict-[0-9]*:../../devel/p5-Sub-Exporter
+DEPENDS+=	p5-PerlIO-utf8_strict-[0-9]*:../../devel/p5-PerlIO-utf8_strict
 DEPENDS+=	p5-IO-String-[0-9]*:../../devel/p5-IO-String
 DEPENDS+=	p5-Sub-Exporter>=0.900:../../devel/p5-Sub-Exporter
 

@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.4 2014/03/12 18:14:41 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2015/01/14 08:30:41 wiz Exp $
 
-DISTNAME=	spectrwm-2.5.0
+DISTNAME=	spectrwm-2.5.1
 CATEGORIES=	wm
 MASTER_SITES=	https://opensource.conformal.com/snapshots/spectrwm/
 EXTRACT_SUFX=	.tgz
 
-MAINTAINER=	lsm5@fedoraproject.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://opensource.conformal.com/wiki/spectrwm
 COMMENT=	Small dynamic tiling window manager for X11
+LICENSE=	isc
 
 DEPENDS+=	dmenu-[0-9]*:../../x11/dmenu
 

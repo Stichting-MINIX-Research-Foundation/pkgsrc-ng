@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.60 2014/01/20 10:46:30 ryoon Exp $
+# $NetBSD: Makefile,v 1.68 2014/12/04 13:00:55 obache Exp $
 #
 
 COMMENT=	Input method tools and libraries
@@ -6,6 +6,7 @@ COMMENT=	Input method tools and libraries
 SUBDIR+=	Chinput
 SUBDIR+=	anthy
 SUBDIR+=	anthy-elisp
+SUBDIR+=	brise
 SUBDIR+=	canna
 SUBDIR+=	canna-canuum
 SUBDIR+=	canna-dict
@@ -23,12 +24,15 @@ SUBDIR+=	ibus-el
 SUBDIR+=	ibus-handwrite
 SUBDIR+=	ibus-hangul
 SUBDIR+=	ibus-input-pad
+SUBDIR+=	ibus-kkc
+SUBDIR+=	ibus-libpinyin
 SUBDIR+=	ibus-libthai
 SUBDIR+=	ibus-m17n
 SUBDIR+=	ibus-mozc
 SUBDIR+=	ibus-pinyin
 SUBDIR+=	ibus-python
 SUBDIR+=	ibus-qt
+SUBDIR+=	ibus-rime
 SUBDIR+=	ibus-skk
 SUBDIR+=	ibus-t9
 SUBDIR+=	ibus-table
@@ -50,6 +54,7 @@ SUBDIR+=	kinput2
 SUBDIR+=	libchewing
 SUBDIR+=	libchewing02
 SUBDIR+=	libhangul
+SUBDIR+=	librime
 SUBDIR+=	libskk
 SUBDIR+=	libtabe
 SUBDIR+=	m17n-im-config
@@ -122,6 +127,7 @@ SUBDIR+=	tegaki-zinnia-traditional-chinese-light
 SUBDIR+=	tomoe
 SUBDIR+=	tomoe-gtk
 SUBDIR+=	uim
+SUBDIR+=	uim-chewing
 SUBDIR+=	uim-elisp
 SUBDIR+=	uim-mozc
 SUBDIR+=	uim-tomoe-gtk

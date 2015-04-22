@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2014/02/27 14:50:30 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2014/06/01 16:35:36 wiz Exp $
 
-DISTNAME=	pixels-sagas-startrek-201312
+DISTNAME=	pixels-sagas-startrek-201404
+PKGREVISION=	1
 CATEGORIES=	fonts
 MASTER_SITES=	http://www.pixelsagas.com/files/
 DISTFILES+=	PS_Font_Fontana.zip
 DISTFILES+=	PS_Font_Jefferies.zip
 DISTFILES+=	PS_Font_Montalban.zip
+DISTFILES+=	PS_Font_Okuda.zip
 DISTFILES+=	PS_Font_Probert.zip
 DISTFILES+=	PS_Font_Roddenberry.zip
 DISTFILES+=	PS_Font_Sternbach.zip
@@ -23,14 +25,18 @@ NO_BIN_ON_FTP=	${RESTRICTED}
 NO_SRC_ON_FTP=	${RESTRICTED}
 
 WRKSRC=		${WRKDIR}
-TTFPATH=	lib/X11/fonts/TTF
+OTFPATH=	share/fonts/X11/OTF
+TTFPATH=	share/fonts/X11/TTF
+FONTS_DIRS.otf+=	${PREFIX}/${OTFPATH:Q}
 FONTS_DIRS.ttf+=	${PREFIX}/${TTFPATH:Q}
-INSTALLATION_DIRS=	${TTFPATH:Q}
+INSTALLATION_DIRS=	${OTFPATH:Q} ${TTFPATH:Q}
 NO_CONFIGURE=	yes
 NO_BUILD=	yes
 
 do-install:
+	${INSTALL_DATA_DIR} ${DESTDIR}${FONTS_DIRS.otf:Q}
 	${INSTALL_DATA_DIR} ${DESTDIR}${FONTS_DIRS.ttf:Q}
-	${INSTALL_DATA} ${WRKSRC}/*.[OoTt][Tt][Ff] ${DESTDIR}${FONTS_DIRS.ttf:Q}
+	${INSTALL_DATA} ${WRKSRC}/*.[Oo][Tt][Ff] ${DESTDIR}${FONTS_DIRS.otf:Q}
+	${INSTALL_DATA} ${WRKSRC}/*.[Tt][Tt][Ff] ${DESTDIR}${FONTS_DIRS.ttf:Q}
 
 .include "../../mk/bsd.pkg.mk"

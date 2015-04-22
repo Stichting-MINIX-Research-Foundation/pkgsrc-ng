@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2014/01/11 14:42:04 adam Exp $
+# $NetBSD: Makefile,v 1.41 2015/02/27 14:35:01 tnn Exp $
 #
 
 DISTNAME=	rad3R6P1
@@ -13,8 +13,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.radiance-online.org/
 COMMENT=	Physically-based, image-generating, backward raytracer
 LICENSE=	radiance-license
-
-NOT_FOR_BULK_PLATFORM=	HPUX-*-*
 
 USE_TOOLS+=	pax csh:run
 
@@ -66,6 +64,8 @@ PKGSRC_ARCH=	12
 PKGSRC_ARCH=	6
 .elif ${OPSYS} == "SunOS"
 PKGSRC_ARCH=	1
+.elif ${OPSYS} == "Darwin"
+PKGSRC_ARCH=	7
 .elif ${OPSYS} == "IRIX"
 PKGSRC_ARCH=	3
 PLIST.gl=	yes

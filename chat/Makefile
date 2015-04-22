@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.171 2014/01/10 09:50:55 wiz Exp $
+# $NetBSD: Makefile,v 1.179 2015/03/25 19:55:58 wiz Exp $
 #
 
 COMMENT=	Communication programs
 
-SUBDIR+=	amsn
 SUBDIR+=	anope
 SUBDIR+=	atheme
 SUBDIR+=	bitchbot
@@ -36,6 +35,7 @@ SUBDIR+=	gnomeicu
 SUBDIR+=	goofey
 SUBDIR+=	gossip
 SUBDIR+=	gtmess
+SUBDIR+=	hexchat
 SUBDIR+=	i2cb
 SUBDIR+=	i2cbd
 SUBDIR+=	icb
@@ -73,11 +73,8 @@ SUBDIR+=	licq-gui-qt
 SUBDIR+=	loudmouth
 SUBDIR+=	mcabber
 SUBDIR+=	meanwhile
-SUBDIR+=	msn-pecan
-SUBDIR+=	msnre
 SUBDIR+=	mu-conference
 SUBDIR+=	naim
-SUBDIR+=	navi2ch
 SUBDIR+=	ninja
 SUBDIR+=	p5-IRC-Utils
 SUBDIR+=	p5-Net-AIM
@@ -99,6 +96,7 @@ SUBDIR+=	pidgin-silc
 SUBDIR+=	pircbot
 SUBDIR+=	prosody
 SUBDIR+=	psi
+SUBDIR+=	psybnc
 SUBDIR+=	py-xmpppy
 SUBDIR+=	quirc
 SUBDIR+=	riece
@@ -111,6 +109,7 @@ SUBDIR+=	silc-server
 SUBDIR+=	sirc
 SUBDIR+=	smirk
 SUBDIR+=	spectrum
+SUBDIR+=	swift
 SUBDIR+=	telepathy-farsight
 SUBDIR+=	telepathy-gabble
 SUBDIR+=	telepathy-glib
@@ -124,7 +123,6 @@ SUBDIR+=	tkabber
 SUBDIR+=	tkicb
 SUBDIR+=	tkirc
 SUBDIR+=	tkirc2
-SUBDIR+=	tzc
 SUBDIR+=	unrealircd
 SUBDIR+=	vicq
 SUBDIR+=	weechat
@@ -136,8 +134,6 @@ SUBDIR+=	xchat-systray-integration
 SUBDIR+=	ysm
 SUBDIR+=	zenicb
 SUBDIR+=	zenirc
-SUBDIR+=	zephyr
-SUBDIR+=	zephyr-mode
 SUBDIR+=	zircon
 
 .include "../mk/misc/category.mk"

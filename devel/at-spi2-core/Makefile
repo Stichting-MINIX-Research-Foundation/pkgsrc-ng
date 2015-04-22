@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2013/12/08 13:40:20 prlw1 Exp $
+# $NetBSD: Makefile,v 1.18 2015/01/10 16:27:34 prlw1 Exp $
 
-DISTNAME=	at-spi2-core-2.10.2
+DISTNAME=	at-spi2-core-2.14.1
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/at-spi2-core/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -40,5 +40,6 @@ MAKE_DIRS+=	${default_sessiondir}
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
+.include "../../x11/libXevie/buildlink3.mk"
 .include "../../x11/libXtst/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

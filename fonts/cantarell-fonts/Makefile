@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2013/09/26 20:48:29 ryoon Exp $
+# $NetBSD: Makefile,v 1.5 2014/11/24 14:13:05 mef Exp $
 #
 
-DISTNAME=	cantarell-fonts-0.0.15
+DISTNAME=	cantarell-fonts-0.0.16
 CATEGORIES=	fonts
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/cantarell-fonts/0.0/}
 EXTRACT_SUFX=	.tar.xz
@@ -14,10 +14,10 @@ LICENSE=	ofl-v1.1
 NO_CONFIGURE=	YES
 NO_BUILD=	YES
 
-FONTDIR=	${PREFIX}/lib/X11/fonts/TTF
+FONTDIR=	${PREFIX}/share/fonts/X11/TTF
 FONTS_DIRS.ttf=	${FONTDIR}
 
-INSTALLATION_DIRS=	lib/X11/fonts/TTF
+INSTALLATION_DIRS=	share/fonts/X11/TTF
 
 INSTALL_FONTS=		Cantarell-Bold.otf \
 			Cantarell-Regular.otf

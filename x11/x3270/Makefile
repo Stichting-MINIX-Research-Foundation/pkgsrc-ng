@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.37 2014/02/12 23:18:56 tron Exp $
+# $NetBSD: Makefile,v 1.40 2015/03/15 15:18:17 tnn Exp $
 
-DISTNAME=	suite3270-3.3.13ga7-src
-PKGNAME=	x3270-3.3.13ga7
-PKGREVISION=	1
+DISTNAME=	suite3270-3.3.14ga11-src
+PKGNAME=	x3270-3.3.14ga11
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=x3270/}
 EXTRACT_SUFX=	.tgz
@@ -18,11 +17,11 @@ WRKSRC=		${WRKDIR}/x3270-3.3
 USE_IMAKE=	yes
 USE_TOOLS+=	bdftopcf
 
-FONTS_DIRS.x11+=	${PREFIX}/lib/X11/fonts/misc
-IMAKEOPTS+=		-DFontDir=${PREFIX}/lib/X11/fonts
+FONTS_DIRS.x11+=	${PREFIX}/share/fonts/X11/misc
+IMAKEOPTS+=		-DFontDir=${PREFIX}/share/fonts/X11
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
-CONFIGURE_ARGS+=	--with-fontdir=${PREFIX}/lib/X11/fonts/misc
+CONFIGURE_ARGS+=	--with-fontdir=${PREFIX}/share/fonts/X11/misc
 
 PKG_SYSCONFSUBDIR=	x3270
 
@@ -30,6 +29,7 @@ EGDIR=			${PREFIX}/share/examples/x3270
 CONF_FILES=		${EGDIR}/ibm_hosts ${PKG_SYSCONFDIR}/ibm_hosts
 INSTALLATION_DIRS+=	${EGDIR}
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../x11/libXaw/buildlink3.mk"
 .include "../../x11/libXt/buildlink3.mk"

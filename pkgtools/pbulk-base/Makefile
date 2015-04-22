@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2014/03/14 09:45:31 jperkin Exp $
+# $NetBSD: Makefile,v 1.15 2014/07/29 11:37:46 joerg Exp $
 
 DISTNAME=	pbulk-base-0.48
 COMMENT=	Core components of the modular bulk build framework
@@ -6,7 +6,7 @@ COMMENT=	Core components of the modular bulk build framework
 .include "../../pkgtools/pbulk/Makefile.common"
 
 USE_FEATURES=	nbcompat
-USE_TOOLS+=	groff nroff
+USE_TOOLS+=	nroff
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1
 USE_BSD_MAKEFILE=	yes
@@ -15,7 +15,11 @@ MAKE_FLAGS+=		CWARNFLAGS.clang=-Wno-error=missing-noreturn
 
 CONFLICTS=	pbulk<0.39
 
-.include "../../mk/bsd.prefs.mk"
+.include "../../mk/compiler.mk"
+
+.if !empty(CC_VERSION:Mgcc-4.8*)
+CPPFLAGS+=	-Wno-clobbered
+.endif
 
 .if ${OPSYS} == "SunOS"
 LDADD+=		-lsocket -lresolv

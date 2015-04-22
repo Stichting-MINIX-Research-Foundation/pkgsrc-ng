@@ -1,8 +1,8 @@
 #! /bin/sh
 
-# $NetBSD: chk.sh,v 1.1 2014/02/04 02:11:18 agc Exp $
+# $NetBSD: chk.sh,v 1.4 2015/02/05 00:21:57 agc Exp $
 
-# Copyright (c) 2013,2014 Alistair Crooks <agc@NetBSD.org>
+# Copyright (c) 2013,2014,2015 Alistair Crooks <agc@NetBSD.org>
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
@@ -34,8 +34,8 @@ die() {
 os=EdgeBSD
 osrev=6
 arch=amd64
-pkgsrc=pkgsrc-2013Q2
-keyring=""
+pkgsrc=pkgsrc-2013Q1
+keyring=pubring.gpg
 while [ $# -gt 0 ]; do
 	case "$1" in
 	--arch|-a)	arch=$2; shift ;;
@@ -48,12 +48,8 @@ while [ $# -gt 0 ]; do
 	shift
 done
 
-case "${keyring}" in
-"")	keyring=$HOME/.gnupg/pubring.gpg ;;
-esac
-
 #fetch file
-repo=ftp://ftp.edgebsd.org/pub/pkgsrc/packages/${os}/${arch}/${os}-${osrev}/${pkgsrc}/All/
+repo=ftp://ftp.edgebsd.org/pub/pkgsrc/packages/${os}/${os}-${osrev}/${arch}/${pkgsrc}/All/
 
 if [ ! -f $1 ]; then
 	case "${repo}" in
@@ -98,7 +94,8 @@ printf "end pkgsrc signature\n" >> ${dir}/calc
 diff ${dir}/+PKG_HASH ${dir}/calc || die "Bad hashes generated"
 
 # use netpgpverify to verify the signature
-if [ -x /usr/pkg/bin/netpgpverify ]; then
+if [ -x /usr/bin/netpgpverify -o -x /usr/pkg/bin/netpgpverify ]; then
+	echo "=== Using netpgpverify to verify the package signature ==="
 	# check the signature in +PKG_GPG_SIGNATURE
 	cp ${keyring} ${dir}/pubring.gpg
 	# calculate the sig file we want to verify
@@ -106,9 +103,10 @@ if [ -x /usr/pkg/bin/netpgpverify ]; then
 	echo "Hash: ${digest}" >> ${dir}/${name}.sig
 	echo "" >> ${dir}/${name}.sig
 	cat ${dir}/+PKG_HASH ${dir}/+PKG_GPG_SIGNATURE >> ${dir}/${name}.sig
-	(cd ${dir} && netpgpverify -k pubring.gpg ${name}.sig) || die "Bad signature"
+	(cd ${dir} && ${here}/netpgpverify -k pubring.gpg ${name}.sig) || die "Bad signature"
 else
-	gpg --recv 0x6F3AF5E2
+	echo "=== Using gpg to verify the package signature ==="
+	gpg --recv --keyserver pgp.mit.edu 0x6F3AF5E2
 	(cd ${dir} && gpg --verify --homedir=${dir} ./+PKG_GPG_SIGNATURE ./+PKG_HASH) || die "Bad signature"
 fi
 echo "Signatures match on ${name} package"

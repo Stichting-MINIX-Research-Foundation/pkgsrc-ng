@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2014/01/25 11:11:20 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2014/09/17 22:37:04 wiz Exp $
 #
 # any of ~* is fine, they are the same and just there for Ubuntu
 # so moneyguru's built for all releases
-DISTNAME=	2.7.1
+DISTNAME=	2.7.2
 PKGNAME=	moneyguru-${DISTNAME}
 CATEGORIES=	finance
 MASTER_SITES=	https://github.com/hsoft/moneyguru/archive/
@@ -27,6 +27,7 @@ USE_TOOLS=	pax
 
 PYTHON_VERSIONS_INCOMPATIBLE=	26 27 # 3.x only
 PY_PATCHPLIST=		yes
+PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 REPLACE_PYTHON+=	cocoa/waf
 REPLACE_PYTHON+=	cocoa/wscript
 REPLACE_PYTHON+=	psmtabbarcontrol/waf
@@ -44,9 +45,11 @@ do-build:
 	${CHMOD} +x ${WRKSRC}/run.py
 
 do-install:
-	cd ${WRKSRC} && pax -pe -rw ambuttonbar build cocoa cocoalib core data help hscommon images locale plugin_examples psmtabbarcontrol qt qtlib run.py ${DESTDIR}${PREFIX}/share/moneyguru
+	cd ${WRKSRC} && pax -pp -rw ambuttonbar build cocoa cocoalib core data help hscommon images locale plugin_examples psmtabbarcontrol qt qtlib run.py ${DESTDIR}${PREFIX}/share/moneyguru
 	${INSTALL_DATA} ${WRKSRC}/debian/moneyguru.desktop ${DESTDIR}${PREFIX}/share/applications
 	${LN} -s ${DESTDIR}${PREFIX}/share/moneyguru/run.py ${DESTDIR}${PREFIX}/bin/moneyguru
+# remove after patches/patch-hscommon_sphinxgen.py is gone
+	${RM} ${DESTDIR}${PREFIX}/share/moneyguru/hscommon/sphinxgen.py.orig
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

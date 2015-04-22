@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2013/12/11 17:01:06 jperkin Exp $
+# $NetBSD: Makefile,v 1.34 2015/03/16 14:07:41 jperkin Exp $
 
 BOOST_PACKAGE=		libs
 BOOST_COMMENT=		(binary libraries)
@@ -10,9 +10,9 @@ BOOST_INSTALL_LIBS=	yes
 INSTALLATION_DIRS+=	lib
 
 BJAM_ARGS+=		--without-python
-PLIST_VARS+=		context log
+PLIST_VARS+=		context log long_double_math
 
-.if !empty(OPSYS:MNetBSD) && !empty(MACHINE_ARCH:Msparc64)
+.if ${OPSYS} == "NetBSD" && ((${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "sparc64") || (!empty(MACHINE_ARCH:Mearm*) && !empty(PKGSRC_COMPILER:Mgcc)))
 BJAM_ARGS+=		pch=off
 .elif !empty(MACHINE_ARCH:Malpha) || !empty(MACHINE_ARCH:Mm68k)
 BJAM_ARGS+=		--without-context
@@ -29,7 +29,18 @@ BJAM_ARGS+=		--without-log
 PLIST.log=		yes
 .endif
 
+# Long double math functions are not available on Darwin. See
+# boost/math/tools/config.hpp:53
+.if ${OPSYS} != "Darwin" || !empty(MACHINE_PLATFORM:MDarwin-14.*)
+PLIST.long_double_math=	yes
+.endif
+
 UNLIMIT_RESOURCES+=	stacksize
+
+MAKE_ENV+=	BZIP2_INCLUDE=${BUILDLINK_PREFIX.bzip2}/include
+MAKE_ENV+=	BZIP2_LIBPATH=${BUILDLINK_PREFIX.bzip2}/lib
+MAKE_ENV+=	ZLIB_INCLUDE=${BUILDLINK_PREFIX.zlib}/include
+MAKE_ENV+=	ZLIB_LIBPATH=${BUILDLINK_PREFIX.zlib}/lib
 
 .include "../../devel/boost-jam/bjam.mk"
 
@@ -38,6 +49,7 @@ do-build: bjam-build
 do-install: boost-install-libs
 
 .include "../../archivers/bzip2/buildlink3.mk"
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

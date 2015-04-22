@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2013/05/31 12:41:30 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2015/03/14 14:27:28 tnn Exp $
 #
 
 PKGNAME=	dvb-apps-20110713
-PKGREVISION=	3
+PKGREVISION=	4
 DISTNAME=	148ede2a6809
 DIST_SUBDIR=	dvb-apps
 CATEGORIES=	multimedia
@@ -42,4 +42,5 @@ do-install:
 	cd ${WRKSRC}/util/szap && \
 		gmake DESTDIR=${DESTDIR} prefix=${PREFIX} install
 
+.include "../../converters/libiconv/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

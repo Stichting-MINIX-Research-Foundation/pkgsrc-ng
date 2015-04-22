@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.62 2012/10/02 20:11:39 asau Exp $
+# $NetBSD: Makefile,v 1.67 2015/02/27 14:35:01 tnn Exp $
 #
 
-DISTNAME=	Gauche-0.9.3.3
+DISTNAME=	Gauche-0.9.4
 #PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gauche/}
@@ -9,11 +9,9 @@ EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	enami@NetBSD.org
 HOMEPAGE=	http://practical-scheme.net/gauche/
-COMMENT=	R5RS Scheme implementation aimed to be a handy tool for daily works
+COMMENT=	R7RS Scheme implementation aimed to be a handy tool for daily works
 
 DEPENDS+=		slib-[0-9]*:../../devel/slib
-
-NOT_FOR_BULK_PLATFORM=	HPUX-*-*
 
 .include "options.mk"
 
@@ -31,10 +29,13 @@ CHECK_BUILTIN.iconv:=	no
 
 .if !empty(USE_BUILTIN.iconv:M[nN][oO])
 CONFIGURE_ARGS+=	--with-iconv-lib=${BUILDLINK_LIBNAME.iconv}
+ICONV_LDFLAGS=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.iconv}/lib \
+		-L${BUILDLINK_PREFIX.iconv}/lib
 ALL_ENV+=		\
-	ICONV_LDFLAGS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.iconv}/lib"
+	ICONV_LDFLAGS=${ICONV_LDFLAGS:Q}
 .endif
 
+USE_LANGUAGES=	c c99
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gzip makeinfo
 TEST_TARGET=	check
@@ -53,4 +54,5 @@ post-install:
 	gzip -d ${DESTDIR}${PREFIX}/${PKGINFODIR}/gauche-ref*gz
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

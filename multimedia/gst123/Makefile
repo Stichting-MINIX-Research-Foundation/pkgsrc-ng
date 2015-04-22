@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.25 2013/12/10 14:18:05 jperkin Exp $
-#
+# $NetBSD: Makefile,v 1.27 2014/10/01 14:32:59 wiz Exp $
 
 DISTNAME=	gst123-0.3.3
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	multimedia
 MASTER_SITES=	http://space.twc.de/~stefan/gst123/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	http://space.twc.de/~stefan/gst123.php
-COMMENT=	The gst123 is designed to be a more flexible command line player
+COMMENT=	Flexible command line player based on gstreamer
 LICENSE=	gnu-lgpl-v2
 
 GNU_CONFIGURE=	yes

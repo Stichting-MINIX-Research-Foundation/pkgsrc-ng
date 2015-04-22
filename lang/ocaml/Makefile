@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.90 2014/03/13 11:08:51 jperkin Exp $
+# $NetBSD: Makefile,v 1.94 2015/03/11 22:37:18 tnn Exp $
 
 .include "Makefile.common"
 
-PKGREVISION=	2
-
-CONFIGURE_ARGS+=	-no-tk
+#CONFIGURE_ARGS+=	-no-tk
 CONFIGURE_ARGS+=	-cc ${CC}
 CONFIGURE_ENV+=		disable_x11=yes
 
@@ -30,7 +28,7 @@ PLIST_SRC+=	${PKGDIR}/PLIST.stub
 
 # Optional components built only on certain platforms.
 .if (${MACHINE_ARCH} == "i386") || (${MACHINE_ARCH} == "powerpc") || \
-    (${MACHINE_ARCH} == "arm") || \
+    !empty(MACHINE_ARCH:M*arm*) || \
     (${MACHINE_ARCH} == "sparc") || (${MACHINE_ARCH} == "x86_64")
 BUILD_TARGET+=	opt opt.opt
 PLIST_SRC+=	${PKGDIR}/PLIST.opt
@@ -86,5 +84,6 @@ SUBST_STAGE.extra-rt-libs=	pre-configure
 do-test:
 	cd ${WRKSRC}/testsuite && ${MAKE_PROGRAM} all
 
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

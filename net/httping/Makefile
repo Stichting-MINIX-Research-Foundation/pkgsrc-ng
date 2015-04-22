@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2014/02/18 12:13:01 jperkin Exp $
+# $NetBSD: Makefile,v 1.23 2015/03/19 14:33:35 gdt Exp $
 
-DISTNAME=	httping-2.3.3
-PKGREVISION=	1
+DISTNAME=	httping-2.4
 CATEGORIES=	net
 MASTER_SITES=	http://www.vanheusden.com/httping/
 EXTRACT_SUFX=	.tgz
@@ -18,6 +17,7 @@ CONFIGURE_ARGS+=	--with-openssl
 
 .include "../../mk/bsd.prefs.mk"
 
+LDFLAGS.Darwin=		-lintl
 LDFLAGS.NetBSD=		-lintl
 LDFLAGS.SunOS=		-lnsl -lsocket -lresolv -lintl
 

@@ -1,19 +1,16 @@
-# $NetBSD: Makefile,v 1.9 2013/05/31 12:40:46 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/10/09 14:06:27 wiz Exp $
 #
 
 VERS=		0.11
 DISTNAME=	Term-ReadPassword-${VERS}
 PKGNAME=	p5-Term-ReadPassword-${VERS}
-PKGREVISION=	4
-SVR4_PKGNAME=	p5trk
+PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Term/}
 
 MAINTAINER=	lyngbol@wheel.dk
 HOMEPAGE=	http://search.cpan.org/~phoenix/Term-ReadPassword/
 COMMENT=	Asking the user for a password
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Term/ReadPassword/.packlist
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.20 2014/02/15 11:35:27 adam Exp $
+# $NetBSD: Makefile,v 1.31 2015/03/08 01:39:42 tnn Exp $
 
-DISTNAME=	help2man-1.44.1
+DISTNAME=	help2man-1.46.5
 CATEGORIES=	converters
 MASTER_SITES=	${MASTER_SITE_GNU:=help2man/}
 EXTRACT_SUFX=	.tar.xz
@@ -27,7 +27,7 @@ INFO_FILES=		yes
 .include "../../mk/bsd.prefs.mk"
 
 # XXX: will undoubtedly include more versions
-.if ${OPSYS} == "Darwin" && !empty(OS_VERSION:M9.*)
+.if ${OPSYS} == "Darwin" && !empty(OS_VERSION:M8.*) || !empty(OS_VERSION:M9.*)
 SUBST_CLASSES+=		shlibarg
 SUBST_STAGE.shlibarg=	pre-configure
 SUBST_FILES.shlibarg=	Makefile.in
@@ -36,15 +36,15 @@ SUBST_SED.shlibarg=	-e 's, -shared , -dynamiclib ,g'
 
 PLIST_VARS+=		nls
 
-.if ${OPSYS} == "Darwin" && ${OS_VERSION:M8.*} != ""
-CONFIGURE_ARGS+=	--disable-nls
-.else
-.  if ${OPSYS} == "Darwin"
+.if ${OPSYS} == "Darwin"
 _STRIPFLAG_INSTALL=
-.  endif
+.endif
 USE_PKGLOCALEDIR=	yes
 PLIST.nls=		yes
-.endif
+
+post-patch:
+	${TOUCH} -r ${WRKSRC}/help2man.PL.orig ${WRKSRC}/help2man.PL
 
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

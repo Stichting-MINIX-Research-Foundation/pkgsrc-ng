@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.38 2014/02/23 15:30:31 adam Exp $
+# $NetBSD: Makefile,v 1.42 2014/11/25 20:19:03 ryoon Exp $
 
-DISTNAME=	grep-2.18
+DISTNAME=	grep-2.21
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GNU:=grep/}
 EXTRACT_SUFX=	.tar.xz
@@ -22,6 +22,11 @@ TEXINFO_REQD=		4.0
 INSTALLATION_DIRS=	${PKGGNUDIR}bin ${PKGGNUDIR}${PKGMANDIR}/man1
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OS_VARIANT} == "SCOOSR5"
+# SCO OpenServer 5.0.7/3.2's pthread is builtin GNU pth.
+CONFIGURE_ARGS+=	--enable-threads=pth
+.endif
 
 post-install:
 .for g n in  bin/ggrep ${PKGGNUDIR}bin/grep bin/gegrep ${PKGGNUDIR}bin/egrep \

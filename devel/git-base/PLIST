@@ -1,32 +1,10 @@
-@comment $NetBSD: PLIST,v 1.4 2014/02/23 10:00:27 adam Exp $
+@comment $NetBSD: PLIST,v 1.8 2014/11/30 18:43:41 adam Exp $
 bin/git
 bin/git-cvsserver
 bin/git-receive-pack
 bin/git-shell
 bin/git-upload-archive
 bin/git-upload-pack
-${PERL5_SUB_INSTALLVENDORLIB}/Git.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/I18N.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/IndexInfo.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Editor.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Fetcher.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/GlobSpec.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Log.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Memoize/YAML.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Migration.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Prompt.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Ra.pm
-${PERL5_SUB_INSTALLVENDORLIB}/Git/SVN/Utils.pm
-${PERL5_SUB_INSTALLVENDORARCH}/auto/Git/.packlist
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::I18N.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Editor.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Fetcher.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Memoize::YAML.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Prompt.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Ra.3
-${PERL5_SUB_INSTALLVENDORMAN3DIR}/Git::SVN::Utils.3
 libexec/git-core/git
 libexec/git-core/git-add
 libexec/git-core/git-add--interactive
@@ -94,6 +72,7 @@ libexec/git-core/git-index-pack
 libexec/git-core/git-init
 libexec/git-core/git-init-db
 libexec/git-core/git-instaweb
+libexec/git-core/git-interpret-trailers
 libexec/git-core/git-log
 libexec/git-core/git-ls-files
 libexec/git-core/git-ls-remote
@@ -181,12 +160,14 @@ libexec/git-core/git-update-server-info
 libexec/git-core/git-upload-archive
 libexec/git-core/git-upload-pack
 libexec/git-core/git-var
+libexec/git-core/git-verify-commit
 libexec/git-core/git-verify-pack
 libexec/git-core/git-verify-tag
 libexec/git-core/git-web--browse
 libexec/git-core/git-whatchanged
 libexec/git-core/git-write-tree
 libexec/git-core/mergetools/araxis
+libexec/git-core/mergetools/bc
 libexec/git-core/mergetools/bc3
 libexec/git-core/mergetools/codecompare
 libexec/git-core/mergetools/deltawalker
@@ -196,6 +177,7 @@ libexec/git-core/mergetools/ecmerge
 libexec/git-core/mergetools/emerge
 libexec/git-core/mergetools/gvimdiff
 libexec/git-core/mergetools/gvimdiff2
+libexec/git-core/mergetools/gvimdiff3
 libexec/git-core/mergetools/kdiff3
 libexec/git-core/mergetools/kompare
 libexec/git-core/mergetools/meld
@@ -205,6 +187,7 @@ libexec/git-core/mergetools/tkdiff
 libexec/git-core/mergetools/tortoisemerge
 libexec/git-core/mergetools/vimdiff
 libexec/git-core/mergetools/vimdiff2
+libexec/git-core/mergetools/vimdiff3
 libexec/git-core/mergetools/xxdiff
 share/examples/git/git-completion.bash
 share/examples/git/git-prompt.sh
@@ -220,6 +203,7 @@ share/examples/git/templates/hooks/prepare-commit-msg.sample
 share/examples/git/templates/hooks/update.sample
 share/examples/git/templates/info/exclude
 share/locale/bg/LC_MESSAGES/git.mo
+share/locale/ca/LC_MESSAGES/git.mo
 share/locale/de/LC_MESSAGES/git.mo
 share/locale/fr/LC_MESSAGES/git.mo
 share/locale/is/LC_MESSAGES/git.mo

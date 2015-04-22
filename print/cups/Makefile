@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.201 2014/02/12 23:18:28 tron Exp $
+# $NetBSD: Makefile,v 1.217 2015/03/14 21:07:37 tnn Exp $
 #
 # The CUPS author is very good about taking back changes into the main
 # CUPS distribution.  The correct place to send patches or bug-fixes is:
@@ -6,14 +6,10 @@
 
 DISTNAME=	cups-${DIST_VERS}-source
 PKGNAME=	cups-${DIST_VERS:S/-/./g}
-BASE_VERS=	1.5.4
+BASE_VERS=	2.0.2
 DIST_VERS=	${BASE_VERS}
-
-PKGREVISION=	9
 CATEGORIES=	print
-MASTER_SITES=	http://ftp.easysw.com/pub/cups/${BASE_VERS}/ \
-		ftp://ftp.easysw.com/pub/cups/${BASE_VERS}/ \
-		ftp://ftp.funet.fi/pub/mirrors/ftp.easysw.com/pub/cups/${BASE_VERS}/
+MASTER_SITES=	http://www.cups.org/software/${BASE_VERS}/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	sbd@NetBSD.org
@@ -23,16 +19,12 @@ LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 CONFLICTS+=	LPRng-[0-9]* LPRng-core-[0-9]*
 
-#PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 WRKSRC=			${WRKDIR}/cups-${BASE_VERS}
 UNLIMIT_RESOURCES=	datasize memorysize
 USE_LANGUAGES=		c c++	# pdftops is a C++ application
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		aclocal autoconf automake gmake
 USE_LIBTOOL=		yes
-# patch-a[jkl] were added for 2.60
-AUTOCONF_REQD=		2.60
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--localedir=${PREFIX}/${PKGLOCALEDIR}/locale
@@ -46,13 +38,8 @@ CONFIGURE_ARGS+=	--with-cups-group=${CUPS_GROUP}
 CONFIGURE_ARGS+=	--with-system-groups=${CUPS_SYSTEM_GROUPS:Q}
 CONFIGURE_ARGS+=	--enable-libpaper
 CONFIGURE_ARGS+=	--enable-libtool
-CONFIGURE_ARGS+=	--enable-jpeg
-CONFIGURE_ARGS+=	--enable-png
-CONFIGURE_ARGS+=	--enable-tiff
 CONFIGURE_ARGS+=	--enable-ssl
 CONFIGURE_ARGS+=	--enable-openssl
-CONFIGURE_ARGS+=	--enable-bannertops
-CONFIGURE_ARGS+=	--enable-texttops
 CONFIGURE_ARGS+=	--with-manext=bsd
 CONFIGURE_ARGS+=	--without-icondir
 CONFIGURE_ARGS+=	--without-menudir
@@ -62,7 +49,6 @@ CONFIGURE_ARGS+=	--without-python
 CONFIGURE_ARGS+=	--without-java
 CONFIGURE_ARGS+=	--disable-gssapi
 CONFIGURE_ARGS+=	--disable-gnutls
-CONFIGURE_ARGS+=	--disable-ldap
 
 CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 
@@ -71,13 +57,20 @@ CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 
 .if ${OPSYS} == "SunOS"
 LIBS_SSP =		-lssp_nonshared -lssp
-CONFIGURE_ENV+=		LIBS_SSP=${LIBS_SSP:M*:Q}
-LIBS.SunOS+=		-liconv
+CONFIGURE_ENV+=	LIBS_SSP=${LIBS_SSP:M*:Q}
 .endif
+LIBS+=			${BUILDLINK_LDADD.iconv}
 
 PLIST_VARS+=		notmac
 .if ${OPSYS} != "Darwin"
 PLIST.notmac=		yes
+.endif
+
+# Avoid the following error when compiling with clang.
+# /usr/local/bin/ld: /usr/lib/crt1.o: relocation R_X86_64_32 against `_DYNAMIC'
+# can not be used when making a shared object; recompile with -fPIC
+.if ${OPSYS} == "FreeBSD"
+BUILDLINK_TRANSFORM+=	rm:-Wl,-pie
 .endif
 
 # CUPS_USER		user to run filter and CGI programs as
@@ -111,7 +104,8 @@ PKG_USERS=		${CUPS_USER}:${CUPS_GROUP}
 PKG_GECOS.${CUPS_USER}=	Common UNIX Printing System user
 PKG_SHELL.${CUPS_USER}=	${SH}
 
-CONF_FILES=		${EGDIR}/cupsd.conf ${CUPS_CONFDIR}/cupsd.conf
+CONF_FILES+=		${EGDIR}/cupsd.conf ${CUPS_CONFDIR}/cupsd.conf
+CONF_FILES+=		${EGDIR}/cups-files.conf ${CUPS_CONFDIR}/cups-files.conf
 CONF_FILES+=		${EGDIR}/snmp.conf ${CUPS_CONFDIR}/snmp.conf
 RCD_SCRIPTS=		cupsd
 
@@ -165,7 +159,7 @@ post-install:
 		${INSTALL_DATA} ${WRKSRC}/$${file}			\
 		     ${DESTDIR}${DOCDIR}/$${file}; \
 	done
-	${RUN} for file in cupsd.conf snmp.conf ; do			\
+	${RUN} for file in cupsd.conf cups-files.conf snmp.conf ; do	\
 		${INSTALL_DATA} ${WRKSRC}/conf/$${file}			\
 			${DESTDIR}${EGDIR}/$${file};			\
 	done

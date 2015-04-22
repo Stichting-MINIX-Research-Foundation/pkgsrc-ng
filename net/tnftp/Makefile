@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.34 2014/02/14 05:54:51 obache Exp $
+# $NetBSD: Makefile,v 1.38 2015/02/24 08:58:56 wiz Exp $
 
-DISTNAME=		tnftp-20070806
-SVR4_PKGNAME=		tnftp
+DISTNAME=		tnftp-20141104
 CATEGORIES=		net
 MASTER_SITES=		# empty
 DISTFILES=		# empty
@@ -11,11 +10,11 @@ DISTFILES=		# empty
 CONFLICTS+=		kth-krb4-[0-9]*
 CONFLICTS+=		lukemftp-[0-9]*
 
-MAINTAINER=		lukem@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		The enhanced FTP client in NetBSD
 LICENSE=		original-bsd
 
-BOOTSTRAP_PKG=	yes
+BOOTSTRAP_PKG=		yes
 
 GNU_CONFIGURE=		yes
 CHECK_PERMS=		no
@@ -55,5 +54,10 @@ CONFIGURE_ARGS+=	--disable-editcomplete
 .else
 .include "../../mk/termcap.buildlink3.mk"
 .endif
+
+post-install:
+	${MV} -f ${DESTDIR}${PREFIX}/bin/tnftp ${DESTDIR}${PREFIX}/bin/ftp
+	${MV} -f ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/tnftp.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/ftp.1
+
 
 .include "../../mk/bsd.pkg.mk"

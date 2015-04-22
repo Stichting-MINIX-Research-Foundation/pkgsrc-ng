@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/01/25 10:30:07 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2014/12/31 13:57:27 wiz Exp $
 
 VERSION=		0.2.1
 DISTNAME=		fuse-python-${VERSION}
@@ -11,12 +11,11 @@ HOMEPAGE=		http://sourceforge.net/apps/mediawiki/fuse/index.php?title=FusePython
 COMMENT=		Python bindings for FUSE and refuse
 LICENSE=		gnu-lgpl-v2.1
 
-EGG_NAME=		fuse_python-${VERSION}
 PYDISTUTILSPKG=		yes
 PY_PATCHLIST=		yes
 USE_TOOLS+=		pkg-config
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.2.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.2.1
 
 INSTALLATION_DIRS=	share/examples/fuse-python
 

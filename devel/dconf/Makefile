@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2013/12/21 11:31:33 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2014/11/10 23:23:17 prlw1 Exp $
 
 .include "Makefile.common"
 
@@ -23,8 +23,9 @@ BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 BUILDLINK_DEPMETHOD.vala= build
-.include "../../lang/vala018/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.35.2
+BUILDLINK_API_DEPENDS.vala+=	vala>=0.18.0
+.include "../../lang/vala/buildlink3.mk"
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.39.1
 .include "../../devel/glib2/modules.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

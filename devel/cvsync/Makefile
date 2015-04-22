@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.93 2014/02/12 23:17:46 tron Exp $
+# $NetBSD: Makefile,v 1.95 2015/03/05 22:40:54 tnn Exp $
 #
 
 DISTNAME=	cvsync-0.24.19
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	devel scm
 MASTER_SITES=	ftp://ftp.cvsync.org/pub/cvsync/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cvsync.org/
 COMMENT=	Portable incremental cvs repository syncer
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=	gmake
 USE_LANGUAGES=	c99
@@ -44,7 +42,7 @@ PKG_SUGGESTED_OPTIONS=	native
 ### Hash type
 ###
 .if !empty(PKG_OPTIONS:Mlibgcrypt)
-MAKE_ENV+=	HASH_TYPE="libgcyprt"
+MAKE_ENV+=	HASH_TYPE="libgcrypt"
 .include "../../security/libgcrypt/buildlink3.mk"
 .elif !empty(PKG_OPTIONS:Mmhash)
 MAKE_ENV+=	HASH_TYPE="mhash"

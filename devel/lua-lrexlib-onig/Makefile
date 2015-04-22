@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.3 2013/08/15 06:32:05 obache Exp $
+# $NetBSD: Makefile,v 1.5 2014/10/19 22:27:44 alnsn Exp $
 #
 
 ENGINE=		onig
 ENGINE_DIR=	oniguruma
 
 .include "../../devel/lua-lrexlib/Makefile.common"
-PKGREVISION=	1
+PKGREVISION=	3
 
 COMMENT=	Oniguruma regexp library for Lua (lrexlib project)
 MAINTAINER=	cheusov@NetBSD.org

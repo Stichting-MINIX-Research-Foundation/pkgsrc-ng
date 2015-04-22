@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2014/02/12 23:18:27 tron Exp $
+# $NetBSD: Makefile,v 1.31 2015/03/15 14:52:05 tnn Exp $
 #
 
 DISTNAME=		xorp-1.6
@@ -29,11 +29,10 @@ pre-build:
 	cd ${WRKSRC}/policy/test && ${MAKE} lex
 	cd ${WRKSRC}/rtrmgr && ${MAKE} lex
 
-.include "../../mk/compiler.mk"
-
-.if !empty(PKGSRC_COMPILER:Mclang)
+# This used to be set for clang only, but it's needed for gcc as well
+# these days. See PR 36974; also there are other warnings with gcc48.
 BUILDLINK_TRANSFORM+=	rm:-Werror
-.endif
 
 .include "../../security/openssl/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

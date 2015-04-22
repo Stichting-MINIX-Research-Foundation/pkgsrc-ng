@@ -1,23 +1,23 @@
-# $NetBSD: Makefile,v 1.21 2012/10/23 17:18:17 asau Exp $
+# $NetBSD: Makefile,v 1.25 2014/12/07 04:33:30 schmonz Exp $
 #
 
-DISTNAME=		djbdns-run-20050415
+DISTNAME=		djbdns-run-20141207
 CATEGORIES=		net
 MASTER_SITES=		# empty
 DISTFILES=		# empty
 
 MAINTAINER=		schmonz@NetBSD.org
 COMMENT=		Configures djbdns to cache and serve queries
+LICENSE=		2-clause-bsd
 
 DEPENDS_DJBDNS=		djbdns>=1.05nb5:../../net/djbdns
 DEPENDS+=		${DEPENDS_DJBDNS}
 DEPENDS+=		daemontools-[0-9]*:../../sysutils/daemontools
 DEPENDS+=		ucspi-tcp-[0-9]*:../../net/ucspi-tcp
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 WRKSRC=			${WRKDIR}
 NO_BUILD=		yes
+NO_CHECKSUM=		yes
 
 MAKE_DIRS+=		${PKG_SYSCONFDIR}/axfrdns
 MAKE_DIRS+=		${PKG_SYSCONFDIR}/dnscache/ip
@@ -49,6 +49,14 @@ PKG_SYSCONFDIR.djbdns-run!=						\
 MAKEVARS+=	PKG_SYSCONFDIR.djbdns-run
 .  endif
 .endif
+
+DJBDNS_TOOLS=		daemontools djbdns ucspi-tcp
+
+.for i in ${DJBDNS_TOOLS}
+DJBDNS_TOOL_VAR.${i}=	${i:S/-/_/g:tu}_PREFIX
+EVAL_PREFIX+=		${DJBDNS_TOOL_VAR.${i}}=${i}
+FILES_SUBST+=		${DJBDNS_TOOL_VAR.${i}}=${${DJBDNS_TOOL_VAR.${i}}:Q}
+.endfor
 
 do-install:
 	${INSTALL_DATA} ${FILESDIR}/README.pkgsrc ${DESTDIR}${PREFIX}/share/doc/djbdns-run

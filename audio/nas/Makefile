@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.93 2013/07/15 19:55:31 christos Exp $
+# $NetBSD: Makefile,v 1.95 2014/10/09 14:05:57 wiz Exp $
 
-DISTNAME=	nas-1.9.3.src
+DISTNAME=	nas-1.9.4.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=nas/}
 
@@ -10,8 +9,6 @@ MAINTAINER=	markd@NetBSD.org
 HOMEPAGE=	http://nas.sourceforge.net/
 COMMENT=	Network Audio System
 LICENSE=	mit # with no-advertisement clause
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 # 1) uses dia library before it is built
 # 2) make succeeds even with failures, making this problem non-obvious
@@ -78,8 +75,8 @@ PLIST_SRC+=	${PKGDIR}/PLIST.server
 EGDIR=		${PREFIX}/share/examples/nas
 CONF_FILES=	${EGDIR}/nasd.conf.eg ${PKG_SYSCONFDIR}/nasd.conf
 
-.  if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "OpenBSD" || \
-      ${OPSYS} == "DragonFly" || ${OPSYS} == "Linux" || ${OPSYS} == "UnixWare"
+.  if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "OpenBSD" \
+   || ${OPSYS} == "DragonFly" || ${OPSYS} == "Linux" || ${OPSYS} == "UnixWare"
 .  include "../../mk/oss.buildlink3.mk"
 .  endif
 .endif

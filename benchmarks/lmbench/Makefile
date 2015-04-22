@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.38 2013/05/31 12:39:38 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2014/10/09 14:05:59 wiz Exp $
 
 DISTNAME=		lmbench-2alpha11
 PKGNAME=		lmbench-2.11a
-PKGREVISION=		5
+PKGREVISION=		6
 CATEGORIES=		benchmarks
 MASTER_SITES=		# ftp://ftp.kreonet.re.kr/tools/benchmark/lmbench/old/
 EXTRACT_SUFX=		.tgz
@@ -10,8 +10,6 @@ EXTRACT_SUFX=		.tgz
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://lmbench.sourceforge.net/
 COMMENT=		Complete benchmark that gives a large amount of information
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=		gmake perl:run
 BUILD_TARGET=		build

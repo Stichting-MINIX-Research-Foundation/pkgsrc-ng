@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.34 2014/02/12 23:18:05 tron Exp $
+# $NetBSD: Makefile,v 1.39 2015/03/15 16:56:49 hiramatsu Exp $
 #
 
-DISTNAME=		scim-1.4.14
-PKGREVISION=		17
+DISTNAME=		scim-1.4.15
 CATEGORIES=		inputmethod
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scim/}
 
-MAINTAINER=		obache@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.scim-im.org/
 COMMENT=		Smart Common Input Method
 LICENSE=		gnu-lgpl-v2.1
@@ -21,6 +20,9 @@ USE_LIBTOOL=		yes
 USE_TOOLS+=		msgfmt pkg-config
 USE_TOOLS+=		gmake	# make scim-setup.desktop
 USE_TOOLS+=		perl intltool
+USE_TOOLS+=		autopoint autoconf automake
+
+BUILD_DEPENDS+=		gettext>=0.19.4:../../devel/gettext
 
 PKGCONFIG_OVERRIDE=	scim-gtkutils.pc.in
 PKGCONFIG_OVERRIDE+=	scim-x11utils.pc.in
@@ -48,6 +50,12 @@ LDFLAGS.SunOS+=		-lsocket -lnsl
 .elif ${OPSYS} == "NetBSD"
 CONFIGURE_ENV+=		ac_cv_func_gethostbyname_r=no
 .endif
+
+# unused test script
+CHECK_PORTABILITY_SKIP+=	extras/immodules/tests/test-exec.sh.in
+
+pre-configure:
+	${RUN}cd ${WRKSRC}; ${SETENV} ${CONFIGURE_ENV} ${SH} bootstrap
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"

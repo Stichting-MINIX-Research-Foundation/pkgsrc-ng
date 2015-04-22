@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/02/12 23:18:13 tron Exp $
+# $NetBSD: Makefile,v 1.26 2014/11/13 19:19:06 markd Exp $
 
 DISTNAME=	kde-wallpapers-${_KDE_VERSION}
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	1
 CATEGORIES=	misc
 COMMENT=	Wallpapers for the KDE integrated X11 desktop
 

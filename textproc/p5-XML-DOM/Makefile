@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.30 2013/05/31 12:42:19 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2014/10/09 14:07:05 wiz Exp $
 #
 
 DISTNAME=	XML-DOM-1.44
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
-SVR4_PKGNAME=	p5xdo
+PKGREVISION=	6
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=XML/}
 
@@ -17,8 +16,6 @@ DEPENDS+=	p5-libxml-[0-9]*:../../textproc/p5-libxml
 DEPENDS+=	p5-XML-RegExp-[0-9]*:../../textproc/p5-XML-RegExp
 
 CONFLICTS+=	p5-libxml-enno-[0-9]*
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/XML-DOM/.packlist
 

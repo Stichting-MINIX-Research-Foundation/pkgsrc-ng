@@ -1,16 +1,15 @@
-# $NetBSD: Makefile,v 1.6 2013/05/31 12:41:41 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/03/17 13:17:35 mef Exp $
 #
 
-DISTNAME=	RT-Client-REST-0.41
+DISTNAME=	RT-Client-REST-0.49
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
 CATEGORIES=	net devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=RT/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/RT-Client-REST/
 COMMENT=	Perl 5 module to talk to RT using REST protocol
-LICENSE=	${PERL5_LICENSE}
+LICENSE=	artistic
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/RT/Client/REST/.packlist

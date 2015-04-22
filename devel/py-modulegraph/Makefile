@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/02/10 00:12:10 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2014/08/07 01:45:27 rodent Exp $
 
-DISTNAME=	modulegraph-0.11
+DISTNAME=	modulegraph-0.12
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	devel python
 MASTER_SITES=	https://pypi.python.org/packages/source/m/modulegraph/
 

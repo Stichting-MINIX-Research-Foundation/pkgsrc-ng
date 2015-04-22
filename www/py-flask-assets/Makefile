@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2014/03/04 13:45:28 kleink Exp $
+# $NetBSD: Makefile,v 1.4 2014/12/31 13:57:32 wiz Exp $
 
-DISTNAME=	Flask-Assets-0.9
+DISTNAME=	Flask-Assets-0.10
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/F/Flask-Assets/
@@ -12,10 +12,8 @@ LICENSE=	modified-bsd
 
 USE_LANGUAGES=	# empty
 
-EGG_NAME=	${DISTNAME:S/-/_/}
-
 DEPENDS+=	${PYPKGPREFIX}-flask>=0.8:../../www/py-flask
-DEPENDS+=	${PYPKGPREFIX}-webassets>=0.9:../../www/py-webassets
+DEPENDS+=	${PYPKGPREFIX}-webassets>=0.10:../../www/py-webassets
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

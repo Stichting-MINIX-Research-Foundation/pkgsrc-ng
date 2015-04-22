@@ -1,4 +1,4 @@
-# $NetBSD: ext.mk,v 1.30 2013/07/21 17:29:47 taca Exp $
+# $NetBSD: ext.mk,v 1.39 2015/03/16 09:21:11 taca Exp $
 #
 # PHP extension package framework, for both PECL and bundled PHP extensions.
 #
@@ -32,18 +32,13 @@ PLIST_SUBST+=		MODNAME=${PKGMODNAME}
 
 .if !defined(PECL_VERSION)
 # bundled extension
-PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-${PHP_BASE_VERS}
+PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-${PHP_VERSION}
 EXTRACT_ELEMENTS?=	${DISTNAME}/ext/${PKGMODNAME}
 WRKSRC?=		${WRKDIR}/${EXTRACT_ELEMENTS}
 DISTINFO_FILE=		${.CURDIR}/${PHPPKGSRCDIR}/distinfo
 .else
 # PECL extension
-# WARINING: following fixed version number for PHP 5.3.x must not be bumped!
-.if defined(PECL_LEGACY_VERSION_SCHEME) && ${PKG_PHP_VERSION} == "53"
-PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-5.3.9.${PECL_VERSION}
-.else
 PKGNAME?=		${PHP_PKG_PREFIX}-${MODNAME}-${PECL_VERSION}
-.endif
 MASTER_SITES?=		http://pecl.php.net/get/
 PECL_DISTNAME?=		${MODNAME}-${PECL_VERSION}
 DISTNAME=		${PECL_DISTNAME}
@@ -70,6 +65,11 @@ PLIST_SRC+=		${.CURDIR}/../../lang/php/PLIST.module
 MESSAGE_SRC=		${.CURDIR}/../../lang/php/MESSAGE.module
 MESSAGE_SUBST+=		MODNAME=${PKGMODNAME}
 MESSAGE_SUBST+=		PHP_EXTENSION_DIR=${PHP_EXTENSION_DIR}
+.if !empty(PHP_ZEND_EXTENSION:U:M[Yy][Ye][Ss])
+MESSAGE_SUBST+=		EXTENSION_DIRECTIVE=zend_extension
+.else
+MESSAGE_SUBST+=		EXTENSION_DIRECTIVE=extension
+.endif
 
 # Also include extension-specific message
 .if exists(${.CURDIR}/MESSAGE)

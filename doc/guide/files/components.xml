@@ -1,4 +1,4 @@
-<!-- $NetBSD: components.xml,v 1.44 2012/10/17 16:16:32 abs Exp $ -->
+<!-- $NetBSD: components.xml,v 1.50 2014/11/28 12:11:24 bsiegert Exp $ -->
 
 <chapter id="components"> <?dbhtml filename="components.html"?>
 <title>Package components - files, directories and contents</title>
@@ -30,24 +30,15 @@ sections.</para>
     website.</para></listitem>
 
     <listitem><para><varname>PKGNAME</varname> is the name of the
-    package, as used by pkgsrc. You only need to provide it if
+    package, as used by pkgsrc. You need to provide it if
     <varname>DISTNAME</varname> (which is the default) is not a good
-    name for the package in pkgsrc.  Usually it is the pkgsrc
+    name for the package in pkgsrc or <varname>DISTNAME</varname> is not
+    provided (no distribution file is required).  Usually it is the pkgsrc
     directory name together with the version number. It must match the
     regular expression
     <varname>^[A-Za-z0-9][A-Za-z0-9-_.+]*$</varname>, that is, it
     starts with a letter or digit, and contains only letters, digits,
     dashes, underscores, dots and plus signs.</para></listitem>
-
-    <listitem><para><varname>SVR4_PKGNAME</varname> is the name of
-    the package file to create if the <varname>PKGNAME</varname>
-    isn't unique on a SVR4 system. The default is
-    <varname>PKGNAME</varname>, which may be shortened when you use
-    <filename role="pkg">pkgtools/gensolpkg</filename>. Only add
-    <varname>SVR4_PKGNAME</varname> if <varname>PKGNAME</varname>
-    does not produce an unique package name on a SVR4 system.
-    The length of <varname>SVR4_PKGNAME</varname> is limited to 5
-    characters.</para></listitem>
 
     <listitem><para><varname>CATEGORIES</varname> is a list of categories
     which the package fits in. You can choose any of the top-level
@@ -80,7 +71,7 @@ converters    games         mbone         print         x11
   <para>The second section contains information about separately
   downloaded patches, if any.
   <itemizedlist>
-    <listitem><para><varname>PATCHFILES:</varname>
+    <listitem><para><varname>PATCHFILES</varname>:
     Name(s) of additional files that contain distribution patches.
     There is no default. pkgsrc will look for them at
     <varname>PATCH_SITES</varname>.
@@ -90,7 +81,12 @@ converters    games         mbone         print         x11
     </listitem>
     <listitem><para><varname>PATCH_SITES</varname>:
     Primary location(s) for distribution patch files (see
-    <varname>PATCHFILES</varname> below) if not found locally.</para>
+    <varname>PATCHFILES</varname> above) if not found locally.</para>
+    </listitem>
+    <listitem><para><varname>PATCH_DIST_STRIP</varname>:
+    an argument to &man.patch.1; that sets the pathname strip count to
+    help find the correct files to patch. It defaults to
+    <command>-p0</command>.</para>
     </listitem>
   </itemizedlist></para>
   <para>The third section contains the following variables.
@@ -608,9 +604,21 @@ MESSAGE_SUBST+=  SOMEVAR="somevalue"
 	  </listitem>
 	</varlistentry>
 
-	<varlistentry><term><filename>ALTERNATIVES</filename></term>
-	<listitem><para>FIXME: There is no documentation on the
-	alternatives framework.</para></listitem></varlistentry>
+	<varlistentry>
+	  <term><filename>ALTERNATIVES</filename></term>
+
+	  <listitem>
+	    <para>This file is used by the alternatives framework.
+	    It creates, configures, and destroys generic wrappers used to
+	    run programs with similar interfaces.
+	    See pkg_alternatives(8) from pkgtools/pkg_alternatives
+            for more information.</para>
+
+	    <para>Each line of the file contains two filenames, first
+	    the wrapper and then the alternative provided by the package.
+	    Both paths are relative to <varname>PREFIX</varname>.</para>
+	  </listitem>
+	</varlistentry>
 
       </variablelist>
 

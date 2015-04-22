@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2012/10/08 09:57:40 asau Exp $
+# $NetBSD: Makefile,v 1.5 2014/10/09 14:06:43 wiz Exp $
 #
 
 DISTNAME=		wdic_wob_v3.0
@@ -10,9 +10,9 @@ MAINTAINER=		fox9@netb.co.kr
 HOMEPAGE=		http://kldp.net/projects/wdic/
 COMMENT=		English dictionary for Korean
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 WRKSRC=			${WRKDIR}
+
+LDFLAGS.SunOS+=		-lsocket -lnsl
 
 INSTALLATION_DIRS=	bin
 

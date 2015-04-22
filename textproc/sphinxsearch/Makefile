@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2014/03/05 13:44:23 fhajny Exp $
+# $NetBSD: Makefile,v 1.7 2015/03/24 12:49:15 fhajny Exp $
 #
 
-DISTNAME=	sphinx-2.1.6-release
+DISTNAME=	sphinx-2.2.8-release
 PKGNAME=	${DISTNAME:S/-/search-/:S/-release//}
 CATEGORIES=	textproc
 MASTER_SITES=	http://sphinxsearch.com/files/
@@ -59,6 +59,8 @@ CONFIGURE_DIRS+=	api/libsphinxclient
 
 CONFIGURE_ARGS+=	--with-libexpat
 CONFIGURE_ARGS+=        --with-iconv
+
+INSTALL_MAKE_FLAGS+=	sysconfdir=${EGDIR}
 
 LIBS.SunOS+=		-liconv -lsocket -lnsl
 

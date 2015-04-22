@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.128 2014/02/12 23:18:07 tron Exp $
+# $NetBSD: Makefile,v 1.138 2015/02/14 07:33:19 adam Exp $
 
-DISTNAME=	exim-4.82
-PKGREVISION=	1
+DISTNAME=	exim-4.85
 CATEGORIES=	mail net
 MASTER_SITES=	ftp://ftp.exim.org/pub/exim/exim4/ \
 		http://dl.ambiweb.de/mirrors/ftp.exim.org/exim/exim4/
@@ -35,6 +34,9 @@ PKG_USERS_VARS+=	EXIM_USER
 PKG_GECOS.${EXIM_USER}=	Exim mail server user
 PKG_HOME.${EXIM_USER}=	${VARBASE}/mail
 PKG_SHELL.${EXIM_USER}=	${NOLOGIN}
+
+FILES_SUBST+=		EXIM_GROUP=${EXIM_GROUP}
+FILES_SUBST+=		EXIM_USER=${EXIM_USER}
 
 PKG_SYSCONFSUBDIR=	exim
 EXAMPLESDIR=		${PREFIX}/share/examples/exim
@@ -112,7 +114,7 @@ post-build:
 	    ${FILESDIR}/mailer.conf.exim \
 	    > ${WRKDIR}/mailer.conf
 
-INSTALLATION_DIRS = ${PKGMANDIR}/man8 sbin share/examples/exim share/doc/exim
+INSTALLATION_DIRS+= ${PKGMANDIR}/man8 sbin share/examples/exim share/doc/exim
 
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/mailer.conf ${DESTDIR}${EXAMPLESDIR}

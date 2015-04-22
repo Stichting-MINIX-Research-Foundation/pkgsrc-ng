@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.45 2014/02/12 23:18:28 tron Exp $
+# $NetBSD: Makefile,v 1.52 2015/03/08 17:57:42 imil Exp $
 
-GHCOMMIT=		3859170568fbe4fe21b5660dbaeca8d65ac10f1b
+GHCOMMIT=		2e1630265953c9c01836a4b62acfa8397579346a
 DISTNAME=		${GHCOMMIT}
-PKGNAME=		pkgin-0.6.4
-PKGREVISION=		5
+PKGNAME=		pkgin-0.8.0
 CATEGORIES=		pkgtools
 MASTER_SITES=		https://github.com/NetBSDfr/pkgin/archive/
 
@@ -20,6 +19,9 @@ OWN_DIRS+=		${PKG_SYSCONFDIR}/${PKGBASE}
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1 ${EGDIR}
 
 WRKSRC=			${WRKDIR}/pkgin-${GHCOMMIT}
+
+BUILD_DEFS+=		PKGIN_REPOSITORY_URL
+BUILD_DEFS+=		VARBASE
 
 SUBST_CLASSES+=		path
 SUBST_STAGE.path=	pre-configure
@@ -52,7 +54,10 @@ MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 DEPENDS+=		pkg_install>=20130901:../../pkgtools/pkg_install
 
 # those have official repositories
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Minix"
+.if !empty(PKGIN_REPOSITORY_URL)
+pre-install:
+	${ECHO} ${PKGIN_REPOSITORY_URL} >> ${WRKSRC}/repositories.conf
+.elif ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Minix"
 pre-install:
 	${GREP} -i ${OPSYS} ${WRKSRC}/REPOSITORIES >> 			\
 		${WRKSRC}/repositories.conf
@@ -73,6 +78,8 @@ do-install:
 .endif
 	${INSTALL_DATA} ${WRKSRC}/repositories.conf			\
 		${DESTDIR}${EGDIR}/repositories.conf.example
+	${INSTALL_DATA} ${WRKSRC}/preferred.conf			\
+		${DESTDIR}${EGDIR}/preferred.conf.example
 
 # libfetch has no builtin.mk and is included in NetBSD>=5
 .if ${OPSYS} != "NetBSD" || \
@@ -82,5 +89,6 @@ do-install:
 
 .include "../../archivers/libarchive/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"
+.include "../../net/libfetch/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

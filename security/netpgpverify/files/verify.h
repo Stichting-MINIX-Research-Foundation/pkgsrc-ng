@@ -1,5 +1,5 @@
 /*-
- * Copyright (c) 2012 Alistair Crooks <agc@NetBSD.org>
+ * Copyright (c) 2012,2013,2014,2015 Alistair Crooks <agc@NetBSD.org>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,9 +23,9 @@
  * THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #ifndef NETPGP_VERIFY_H_
-#define NETPGP_VERIFY_H_	20140304
+#define NETPGP_VERIFY_H_	20150205
 
-#define NETPGPVERIFY_VERSION	"netpgpverify portable 20140304"
+#define NETPGPVERIFY_VERSION	"netpgpverify portable 20150205"
 
 #include <sys/types.h>
 
@@ -263,7 +263,7 @@ typedef struct pgpv_cursor_t {
 	char			*op;			/* operation we're doing */
 	char			*value;			/* value we're searching for */
 	void			*ptr;			/* for regexps etc */
-	PGPV_ARRAY(uint32_t,	 found);		/* array of matched subscripts */
+	PGPV_ARRAY(uint32_t,	 found);		/* array of matched pimary key subscripts */
 	PGPV_ARRAY(size_t,	 datacookies);		/* cookies to retrieve matched data */
 	int64_t			 sigtime;		/* time of signature */
 	char			 why[PGPV_REASON_LEN];	/* reason for bad signature */
@@ -286,6 +286,8 @@ int pgpv_read_ssh_pubkeys(pgpv_t */*pgp*/, const void */*keyring*/, ssize_t /*si
 
 size_t pgpv_verify(pgpv_cursor_t */*cursor*/, pgpv_t */*pgp*/, const void */*mem/file*/, ssize_t /*size*/);
 size_t pgpv_get_verified(pgpv_cursor_t */*cursor*/, size_t /*cookie*/, char **/*ret*/);
+int pgpv_get_cursor_element(pgpv_cursor_t */*cursor*/, size_t /*element*/);
+size_t pgpv_dump(pgpv_t */*pgp*/, char **/*data*/);
 
 size_t pgpv_get_entry(pgpv_t */*pgp*/, unsigned /*ent*/, char **/*ret*/, const char */*modifiers*/);
 

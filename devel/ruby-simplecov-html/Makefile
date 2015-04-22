@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2014/03/14 16:56:36 taca Exp $
+# $NetBSD: Makefile,v 1.6 2015/03/13 14:00:10 taca Exp $
 
-DISTNAME=	simplecov-html-0.8.0
+DISTNAME=	simplecov-html-0.9.0
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/colszowka/simplecov-html
 COMMENT=	Default HTML formatter for SimpleCov code coverage tool
-LICENSE=	gnu-gpl-v2 OR ruby-license
+LICENSE=	mit
 
 RUBY_VERSION_SUPPORTED=	21 200 193
 

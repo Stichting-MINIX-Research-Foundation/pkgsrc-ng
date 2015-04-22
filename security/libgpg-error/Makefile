@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.38 2013/07/03 08:12:24 wiz Exp $
+# $NetBSD: Makefile,v 1.46 2015/03/21 19:25:21 tron Exp $
 
-DISTNAME=	libgpg-error-1.12
+DISTNAME=	libgpg-error-1.18
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/libgpg-error/ \
 		ftp://ftp.ring.gr.jp/pub/net/gnupg/libgpg-error/ \
@@ -14,13 +14,13 @@ HOMEPAGE=	http://www.gnupg.org/
 COMMENT=	Definitions of common error values for all GnuPG components
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LIBTOOL=		yes
+USE_TOOLS+=		gmake
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 MAKE_ENV+=		LC_ALL="C"
 MAKE_JOBS_SAFE=		no
+INFO_FILES=		yes
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -32,9 +32,13 @@ CONFIGURE_ENV+=		CC_FOR_BUILD=${CC:Q}\ ${CFLAGS:M*:Q}
 
 # XXX See HACKS
 .if ${OPSYS} == "IRIX" || !empty(MACHINE_PLATFORM:MNetBSD-[3-9]*)
-USE_TOOLS+=		nawk
+USE_TOOLS+=		awk
 .else
 USE_TOOLS+=		gawk
+.endif
+
+.if !empty(MACHINE_PLATFORM:MSunOS-5.10-*)
+LIBS+=	-lrt
 .endif
 
 # On Dragonfly i386, Pkgsrc libintl segfaults on bindtextdomain function

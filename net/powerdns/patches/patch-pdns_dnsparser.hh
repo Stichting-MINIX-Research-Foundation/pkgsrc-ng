@@ -1,8 +1,9 @@
-$NetBSD: patch-pdns_dnsparser.hh,v 1.1 2013/05/09 20:06:53 joerg Exp $
+$NetBSD: patch-pdns_dnsparser.hh,v 1.3 2015/03/27 23:37:52 rodent Exp $
 
---- pdns/dnsparser.hh.orig	2013-05-09 15:25:37.000000000 +0000
+Resolve boost symbol ambiguity.
+--- pdns/dnsparser.hh.orig	2015-03-02 13:17:09.000000000 +0000
 +++ pdns/dnsparser.hh
-@@ -164,7 +164,7 @@ public:
+@@ -183,7 +183,7 @@ public:
      return record;
    }
  
@@ -11,7 +12,7 @@ $NetBSD: patch-pdns_dnsparser.hh,v 1.1 2013/05/09 20:06:53 joerg Exp $
  
    void doRecordCheck(const struct DNSRecord&){}
  
-@@ -291,9 +291,9 @@ public:
+@@ -327,9 +327,9 @@ public:
    //! All answers contained in this packet
    answers_t d_answers;
  

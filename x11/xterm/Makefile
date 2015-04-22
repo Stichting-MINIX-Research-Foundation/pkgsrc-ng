@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.87 2014/03/12 09:51:48 wiz Exp $
+# $NetBSD: Makefile,v 1.99 2015/03/12 13:29:02 tnn Exp $
 
-DISTNAME=	xterm-303
+DISTNAME=	xterm-316
 CATEGORIES=	x11
 MASTER_SITES=	ftp://invisible-island.net/xterm/ \
 		http://www.sfr-fresh.com/unix/misc/
@@ -58,7 +58,7 @@ post-install:
 
 .include "options.mk"
 
-.include "../../mk/termcap.buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/xaw.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

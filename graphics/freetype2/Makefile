@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.95 2014/03/15 01:43:05 obache Exp $
+# $NetBSD: Makefile,v 1.99 2015/02/11 10:51:09 adam Exp $
 
-DISTNAME=	freetype-2.5.3
+DISTNAME=	freetype-2.5.5
 PKGNAME=	${DISTNAME:S/-/2-/}
-PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=freetype/} \
 		http://download.savannah.gnu.org/releases/freetype/
@@ -13,15 +12,14 @@ HOMEPAGE=	http://www.freetype.org/
 COMMENT=	Font rendering engine and library API
 LICENSE=	gnu-gpl-v2
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LIBTOOL=		yes
-USE_TOOLS+=		grep gmake
+USE_TOOLS+=		grep gmake pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_DIRS=		builds/unix
 BUILD_DIRS=		.
 CONFIGURE_ARGS+=	--includedir=${PREFIX}/include
 CONFIGURE_ARGS+=	--enable-shared
+CONFIGURE_ARGS+=	--with-harfbuzz=no
 CONFIGURE_ENV+=		ac_cv_path_GREP=${GREP:Q} ac_cv_path_EGREP=${EGREP:Q}
 
 .if exists(/System/Library/Frameworks/Carbon.framework)

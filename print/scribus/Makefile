@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.94 2014/02/12 23:18:30 tron Exp $
+# $NetBSD: Makefile,v 1.100 2014/08/21 15:36:07 jperkin Exp $
 
 DISTNAME=		scribus-1.3.3.14
-PKGREVISION=		19
+PKGREVISION=		22
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scribus/}
 EXTRACT_SUFX=		.tar.bz2
@@ -20,8 +20,9 @@ SHLIBTOOL_OVERRIDE=	# empty
 USE_CMAKE=	yes
 
 LDFLAGS.DragonFly=	-lX11
+LDFLAGS.SunOS+=		-lX11
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.3.3.14
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.3.3.14
 
 CONFIGURE_ENV+=		FREETYPE_DIR=${BUILDLINK_PREFIX.freetype2}
 CONFIGURE_ARGS+=	--enable-cairo
@@ -38,7 +39,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/scribus/icons/scribus.png \
 		${DESTDIR}${PREFIX}/share/pixmaps
 
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 BUILDLINK_API_DEPENDS.libart+= libart>=2.3.19nb1

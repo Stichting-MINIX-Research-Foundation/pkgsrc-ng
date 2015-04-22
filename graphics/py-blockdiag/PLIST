@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.12 2013/12/06 11:26:55 obache Exp $
+@comment $NetBSD: PLIST,v 1.15 2015/01/20 10:36:19 obache Exp $
 bin/blockdiag
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
@@ -54,6 +54,9 @@ ${PYSITELIB}/blockdiag/imagedraw/utils/__init__.pyo
 ${PYSITELIB}/blockdiag/imagedraw/utils/ellipse.py
 ${PYSITELIB}/blockdiag/imagedraw/utils/ellipse.pyc
 ${PYSITELIB}/blockdiag/imagedraw/utils/ellipse.pyo
+${PYSITELIB}/blockdiag/imagedraw/utils/pillow.py
+${PYSITELIB}/blockdiag/imagedraw/utils/pillow.pyc
+${PYSITELIB}/blockdiag/imagedraw/utils/pillow.pyo
 ${PYSITELIB}/blockdiag/metrics.py
 ${PYSITELIB}/blockdiag/metrics.pyc
 ${PYSITELIB}/blockdiag/metrics.pyo
@@ -63,6 +66,9 @@ ${PYSITELIB}/blockdiag/noderenderer/__init__.pyo
 ${PYSITELIB}/blockdiag/noderenderer/actor.py
 ${PYSITELIB}/blockdiag/noderenderer/actor.pyc
 ${PYSITELIB}/blockdiag/noderenderer/actor.pyo
+${PYSITELIB}/blockdiag/noderenderer/base.py
+${PYSITELIB}/blockdiag/noderenderer/base.pyc
+${PYSITELIB}/blockdiag/noderenderer/base.pyo
 ${PYSITELIB}/blockdiag/noderenderer/beginpoint.py
 ${PYSITELIB}/blockdiag/noderenderer/beginpoint.pyc
 ${PYSITELIB}/blockdiag/noderenderer/beginpoint.pyo
@@ -138,9 +144,15 @@ ${PYSITELIB}/blockdiag/plugins/attributes.pyo
 ${PYSITELIB}/blockdiag/plugins/autoclass.py
 ${PYSITELIB}/blockdiag/plugins/autoclass.pyc
 ${PYSITELIB}/blockdiag/plugins/autoclass.pyo
+${PYSITELIB}/blockdiag/tests/VLGothic/LICENSE
+${PYSITELIB}/blockdiag/tests/VLGothic/LICENSE.en
+${PYSITELIB}/blockdiag/tests/VLGothic/LICENSE_E.mplus
+${PYSITELIB}/blockdiag/tests/VLGothic/LICENSE_J.mplus
+${PYSITELIB}/blockdiag/tests/VLGothic/VL-Gothic-Regular.ttf
 ${PYSITELIB}/blockdiag/tests/__init__.py
 ${PYSITELIB}/blockdiag/tests/__init__.pyc
 ${PYSITELIB}/blockdiag/tests/__init__.pyo
+${PYSITELIB}/blockdiag/tests/diagrams/README
 ${PYSITELIB}/blockdiag/tests/diagrams/auto_jumping_edge.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/background_url_image.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/beginpoint_color.diag
@@ -150,6 +162,7 @@ ${PYSITELIB}/blockdiag/tests/diagrams/circular_ref2.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/circular_ref_and_parent_node.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/circular_ref_to_root.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/circular_skipped_edge.diag
+${PYSITELIB}/blockdiag/tests/diagrams/debian-logo-256color-palettealpha.png
 ${PYSITELIB}/blockdiag/tests/diagrams/define_class.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/diagram_attributes.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/diagram_attributes_order.diag
@@ -172,6 +185,7 @@ ${PYSITELIB}/blockdiag/tests/diagrams/errors/node_follows_group.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_diagram_default_shape.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_diagram_edge_layout.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_diagram_orientation.diag
+${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_diagram_type.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_edge_class.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_edge_dir.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/errors/unknown_edge_hstyle.diag
@@ -276,6 +290,15 @@ ${PYSITELIB}/blockdiag/tests/diagrams/twin_forked.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/twin_multiple_parent_node.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/two_edges.diag
 ${PYSITELIB}/blockdiag/tests/diagrams/white.gif
+${PYSITELIB}/blockdiag/tests/rst/__init__.py
+${PYSITELIB}/blockdiag/tests/rst/__init__.pyc
+${PYSITELIB}/blockdiag/tests/rst/__init__.pyo
+${PYSITELIB}/blockdiag/tests/rst/test_base_directives.py
+${PYSITELIB}/blockdiag/tests/rst/test_base_directives.pyc
+${PYSITELIB}/blockdiag/tests/rst/test_base_directives.pyo
+${PYSITELIB}/blockdiag/tests/rst/test_blockdiag_directives.py
+${PYSITELIB}/blockdiag/tests/rst/test_blockdiag_directives.pyc
+${PYSITELIB}/blockdiag/tests/rst/test_blockdiag_directives.pyo
 ${PYSITELIB}/blockdiag/tests/test_boot_params.py
 ${PYSITELIB}/blockdiag/tests/test_boot_params.pyc
 ${PYSITELIB}/blockdiag/tests/test_boot_params.pyo
@@ -297,6 +320,9 @@ ${PYSITELIB}/blockdiag/tests/test_builder_node.pyo
 ${PYSITELIB}/blockdiag/tests/test_builder_separate.py
 ${PYSITELIB}/blockdiag/tests/test_builder_separate.pyc
 ${PYSITELIB}/blockdiag/tests/test_builder_separate.pyo
+${PYSITELIB}/blockdiag/tests/test_command.py
+${PYSITELIB}/blockdiag/tests/test_command.pyc
+${PYSITELIB}/blockdiag/tests/test_command.pyo
 ${PYSITELIB}/blockdiag/tests/test_generate_diagram.py
 ${PYSITELIB}/blockdiag/tests/test_generate_diagram.pyc
 ${PYSITELIB}/blockdiag/tests/test_generate_diagram.pyo
@@ -312,9 +338,9 @@ ${PYSITELIB}/blockdiag/tests/test_parser.pyo
 ${PYSITELIB}/blockdiag/tests/test_pep8.py
 ${PYSITELIB}/blockdiag/tests/test_pep8.pyc
 ${PYSITELIB}/blockdiag/tests/test_pep8.pyo
-${PYSITELIB}/blockdiag/tests/test_rst_directives.py
-${PYSITELIB}/blockdiag/tests/test_rst_directives.pyc
-${PYSITELIB}/blockdiag/tests/test_rst_directives.pyo
+${PYSITELIB}/blockdiag/tests/test_utils.py
+${PYSITELIB}/blockdiag/tests/test_utils.pyc
+${PYSITELIB}/blockdiag/tests/test_utils.pyo
 ${PYSITELIB}/blockdiag/tests/test_utils_fontmap.py
 ${PYSITELIB}/blockdiag/tests/test_utils_fontmap.pyc
 ${PYSITELIB}/blockdiag/tests/test_utils_fontmap.pyo
@@ -339,9 +365,9 @@ ${PYSITELIB}/blockdiag/utils/fontmap.pyo
 ${PYSITELIB}/blockdiag/utils/images.py
 ${PYSITELIB}/blockdiag/utils/images.pyc
 ${PYSITELIB}/blockdiag/utils/images.pyo
-${PYSITELIB}/blockdiag/utils/jpeg.py
-${PYSITELIB}/blockdiag/utils/jpeg.pyc
-${PYSITELIB}/blockdiag/utils/jpeg.pyo
+${PYSITELIB}/blockdiag/utils/logging.py
+${PYSITELIB}/blockdiag/utils/logging.pyc
+${PYSITELIB}/blockdiag/utils/logging.pyo
 ${PYSITELIB}/blockdiag/utils/myitertools.py
 ${PYSITELIB}/blockdiag/utils/myitertools.pyc
 ${PYSITELIB}/blockdiag/utils/myitertools.pyo

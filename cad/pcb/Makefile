@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.75 2013/10/10 14:42:01 ryoon Exp $
+# $NetBSD: Makefile,v 1.77 2014/10/09 14:06:01 wiz Exp $
 #
 
 DISTNAME=	pcb-20110918
-PKGREVISION=	15
+PKGREVISION=	16
 CATEGORIES=	cad
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pcb/}
 
@@ -10,8 +10,6 @@ MAINTAINER=	dmcmahill@NetBSD.org
 HOMEPAGE=	http://pcb.geda-project.org/
 COMMENT=	Printed circuit board layout system
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 DEPENDS+=	gettext-tools>=0.14.6:../../devel/gettext-tools
 

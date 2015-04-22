@@ -1,4 +1,4 @@
-# $NetBSD: tools.GNUkFreeBSD.mk,v 1.3 2014/03/06 07:34:20 uebayasi Exp $
+# $NetBSD: tools.GNUkFreeBSD.mk,v 1.5 2015/02/01 08:48:56 obache Exp $
 #
 # System-supplied tools for the Debian GNU/kFreeBSD operating system.
 

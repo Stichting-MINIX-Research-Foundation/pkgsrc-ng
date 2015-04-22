@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.56 2013/07/05 13:29:45 ryoon Exp $
+# $NetBSD: Makefile,v 1.59 2014/08/21 15:52:00 jperkin Exp $
 
 DISTNAME=		wdm-1.28
-PKGREVISION=		16
+PKGREVISION=		18
 CATEGORIES=		x11 windowmaker
 MASTER_SITES=		http://voins.program.ru/wdm/
 
@@ -15,6 +15,7 @@ USE_PKGLOCALEDIR=	YES
 GNU_CONFIGURE=		YES
 
 LDFLAGS.DragonFly=	-lintl -lfontconfig
+LDFLAGS.SunOS+=		-lintl -lresolv
 
 CONFIGURE_ARGS+=	--with-wdmdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ARGS+=	--with-nlsdir=${PREFIX}/${PKGLOCALEDIR}/locale
@@ -56,7 +57,7 @@ CONFIGURE_ARGS+=	--with-winmgr=${wmanager:Q}
 INSTALLATION_DIRS += share/pixmaps/wdm share/examples/wdm
 
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../wm/windowmaker/buildlink3.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2012/09/11 23:04:23 asau Exp $
+# $NetBSD: Makefile,v 1.6 2015/03/17 14:24:43 jperkin Exp $
 #
 
 DISTNAME=	lp_solve_5.5.2.0_source
@@ -10,6 +10,8 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://lpsolve.sourceforge.net/
 COMMENT=	Mixed Integer Linear Programming (MILP) solver
 #LICENSE=	LGPL, unclear which version (see lp_lib.h)
+
+USE_GCC_RUNTIME=	yes
 
 WRKSRC=		${WRKDIR}/lp_solve_5.5
 
@@ -24,7 +26,8 @@ SUBST_FILES.dl+=	demo/ccc
 
 .include "../../mk/bsd.fast.prefs.mk"
 
-.if ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "sparc64" || ${MACHINE_ARCH} == "x86_64"
+.if ${MACHINE_ARCH} == "alpha" || ${MACHINE_ARCH} == "sparc64" || \
+	${MACHINE_ARCH} == "x86_64" || ${MACHINE_ARCH} == "amd64"
 LPSOLVE_ARCH=	ux64
 .else
 LPSOLVE_ARCH=	ux32

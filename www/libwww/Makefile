@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.86 2014/02/12 23:18:45 tron Exp $
+# $NetBSD: Makefile,v 1.88 2014/10/09 14:07:09 wiz Exp $
 
 DISTNAME=		w3c-libwww-5.4.0
 PKGNAME=		libwww-5.4.0
-PKGREVISION=		13
+PKGREVISION=		14
 CATEGORIES=		www devel
 MASTER_SITES=		http://www.w3.org/Library/Distribution/
 EXTRACT_SUFX=		.tgz
@@ -11,8 +11,6 @@ DISTFILES=		${DISTNAME}${EXTRACT_SUFX} libwww-configure-5.4.0nb2.gz
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.w3.org/Library/
 COMMENT=		The W3C Reference Library
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 EXTRACT_ONLY=		${DISTNAME}${EXTRACT_SUFX}
 SITES.libwww-configure-5.4.0nb2.gz=	${MASTER_SITE_LOCAL}

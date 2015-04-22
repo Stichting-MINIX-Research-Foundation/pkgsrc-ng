@@ -1,25 +1,28 @@
-# $NetBSD: Makefile,v 1.202 2014/02/13 19:53:43 adam Exp $
+# $NetBSD: Makefile,v 1.215 2015/03/05 11:09:36 jperkin Exp $
 
 .include "Makefile.common"
 
 PKGNAME=	ImageMagick-${DISTVERSION}
+PKGREVISION=	1
 
 MAINTAINER=	adam@NetBSD.org
 COMMENT=	Package for display and interactive manipulation of images
 
 CONFLICTS=	geomview<1.8.1nb2  # used to have a program named 'animate'
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=		c c++ c99
-USE_TOOLS+=		gmake pkg-config
+USE_TOOLS+=		gmake pkg-config:run
 CONFIGURE_ARGS+=	--disable-assert
 CONFIGURE_ARGS+=	--with-fontconfig
 CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 CONFIGURE_ARGS+=	--with-xml=yes
+CONFIGURE_ARGS+=	--disable-openmp
 CONFIGURE_ARGS+=	--without-perl
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
+# This one used to be optional, but it depends on ghostscript even if it's
+# disabled so having a way to disable it seems pointless.
+CONFIGURE_ARGS+=	--with-gslib
 PKGCONFIG_OVERRIDE=	Magick++/lib/ImageMagick++.pc.in
 PKGCONFIG_OVERRIDE+=	Magick++/lib/Magick++.pc.in
 PKGCONFIG_OVERRIDE+=	magick/ImageMagick.pc.in
@@ -78,10 +81,10 @@ SUBST_SED.fix-etc=	-e 's,^configlibdir =.*,configlibdir = $$(DATA_DIR)/examples/
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"
-.include "../../graphics/openexr/buildlink3.mk"
 .include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../math/fftw/buildlink3.mk"
+.include "../../print/ghostscript/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2014/01/25 10:30:09 wiz Exp $
+# $NetBSD: Makefile,v 1.83 2014/05/09 07:37:07 wiz Exp $
 
 DISTNAME=	eog-2.32.1
-PKGREVISION=	19
+PKGREVISION=	20
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/eog/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -21,7 +21,7 @@ GCONF_SCHEMAS=	eog.schemas
 # XXX Python plugins do more harm than good for now
 #.include "../../lang/python/application.mk"
 #.include "../../x11/py-gtk2/buildlink3.mk"
-#PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2
+#PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
 .include "../../devel/GConf/schemas.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.15.3
 .include "../../devel/glib2/buildlink3.mk"

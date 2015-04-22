@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.37 2012/10/23 18:17:00 asau Exp $
+# $NetBSD: Makefile,v 1.41 2014/11/21 01:05:13 obache Exp $
 
 DISTNAME=	tcp_wrappers_7.6-ipv6.4
 PKGNAME=	${DISTNAME:S/_7.6-ipv6/-7.6/}
@@ -8,8 +8,6 @@ MASTER_SITES=	ftp://ftp.porcupine.org/pub/security/
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	ftp://ftp.porcupine.org/pub/security/index.html
 COMMENT=	Monitor and filter incoming requests for network services
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 
@@ -22,17 +20,22 @@ PKG_SUGGESTED_OPTIONS=	inet6
 BUILD_TARGET.${OPSYS}?=	generic		# good luck!
 BUILD_TARGET.Darwin=	netbsd
 BUILD_TARGET.Interix=	netbsd
+BUILD_TARGET.Haiku=	netbsd
 BUILD_TARGET.Linux=	${LOWER_OPSYS}
 .if !empty(OPSYS:M*BSD)
 BUILD_TARGET.${OPSYS}=	netbsd
 .endif
 BUILD_TARGET.SunOS=	sunos5
 BUILD_TARGET.IRIX=	irix5
+.if ${OS_VARIANT} == "SCOOSR5"
+BUILD_TARGET.SCO_SV=	sco-os5
+LDFLAGS.SCO_SV+=	-lsocket
+.endif
 BUILD_TARGET=		${BUILD_TARGET.${OPSYS}}
 
 .if !empty(PKG_OPTIONS:Minet6)
 .  if !empty(OPSYS:M*BSD) || ${OPSYS} == "DragonFly"
-MAKE_ENV+=	IPV6="-DHAVE_IPV6 -DUSE_GETHOSTBYNAME2"
+MAKE_ENV+=	IPV6="-DHAVE_IPV6 -DUSE_GETHOSTBYNAME2 -DUSE_STRERROR"
 .  elif ${OPSYS} != "Linux" && ${OPSYS} != "Interix"
 MAKE_ENV+=	IPV6=-DHAVE_IPV6
 .  endif

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.116 2013/09/21 18:47:05 dholland Exp $
+# $NetBSD: Makefile,v 1.118 2015/03/29 14:47:03 bsiegert Exp $
 
-DISTNAME=	tiff-4.0.3
-PKGREVISION=	6
+DISTNAME=	tiff-4.0.4beta
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.remotesensing.org/pub/libtiff/ \
 		http://libtiff.maptools.org/dl/
@@ -12,8 +11,6 @@ COMMENT=	Library and tools for reading and writing TIFF data files
 LICENSE=	mit
 
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes

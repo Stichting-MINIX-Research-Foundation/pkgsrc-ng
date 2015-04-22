@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2014/01/20 12:42:24 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/04/02 15:28:25 wiz Exp $
 
-DISTNAME=	dulwich-0.9.4
+DISTNAME=	dulwich-0.10.1a
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-EGG_NAME=	${DISTNAME}
 CATEGORIES=	devel python
 MASTER_SITES=	https://pypi.python.org/packages/source/d/dulwich/
 
@@ -11,7 +10,10 @@ HOMEPAGE=	http://www.samba.org/~jelmer/dulwich/
 COMMENT=	Python implementation of Git
 LICENSE=	gnu-gpl-v2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 0.9.4
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.9.4
+
+# due to trailing 'a'
+EGG_NAME=	${DISTNAME}0
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

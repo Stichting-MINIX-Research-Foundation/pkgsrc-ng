@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2013/12/09 14:17:44 obache Exp $
+# $NetBSD: Makefile,v 1.15 2015/01/29 12:42:01 mef Exp $
 
-DISTNAME=	ExtUtils-XSpp-0.1602
-PKGNAME=	p5-${DISTNAME:S/1602/16.02/}
-PKGREVISION=	5
+DISTNAME=	ExtUtils-XSpp-0.18
+#                                    0.1602               -> 0.16.02
+PKGNAME=	p5-${DISTNAME:C/([0-9].[0-9][0-9])([0-9][0-9])/\1.\2/}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=ExtUtils/}
 

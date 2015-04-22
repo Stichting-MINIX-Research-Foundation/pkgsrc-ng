@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.22 2014/03/11 14:34:39 jperkin Exp $
+# $NetBSD: Makefile,v 1.27 2015/03/22 19:38:12 rodent Exp $
 #
 
-DISTNAME=		nrpe-2.12
+DISTNAME=		nrpe-2.15
 PKGNAME=		nagios-${DISTNAME}
-PKGREVISION=		6
 CATEGORIES=		net sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=nagios/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://sourceforge.net/projects/nagios/
+HOMEPAGE=		http://www.nagios.org/
 COMMENT=		Nagios remote program execution daemon
 
 .include "../../mk/bsd.prefs.mk"
@@ -39,7 +38,7 @@ FILES_SUBST+=		NAGIOS_USER=${NAGIOS_USER}
 FILES_SUBST+=		NAGIOS_GROUP=${NAGIOS_GROUP}
 FILES_SUBST+=		NAGIOSDIR=${NAGIOSDIR}
 
-INSTALLATION_DIRS=	sbin libexec/nagios share/examples/nagios
+INSTALLATION_DIRS+=	sbin libexec/nagios share/examples/nagios
 
 .include "options.mk"
 

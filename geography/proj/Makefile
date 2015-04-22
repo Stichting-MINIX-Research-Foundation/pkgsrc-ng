@@ -1,6 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2012/10/04 09:19:20 asau Exp $
+# $NetBSD: Makefile,v 1.5 2015/03/14 18:52:30 tnn Exp $
 
-VERSION=	4.8.0
+VERSION_BASE=	4.9.1
+VERSION=	${VERSION_BASE}
+WRKSRC=		${WRKDIR}/proj-${VERSION_BASE}
 DISTNAME=	proj-${VERSION}
 CATEGORIES=	geography
 MASTER_SITES=	http://download.osgeo.org/proj/
@@ -28,6 +30,7 @@ DATUMGRID_FILES= 							\
 	prvi.lla stgeorge.lla stlrnc.lla stpaul.lla ntf_r93.gsb
 
 post-extract:
-	cd ${WRKDIR} &&	${LN} ${DATUMGRID_FILES} ${WRKDIR}/${PKGNAME}/nad
+	cd ${WRKDIR} &&	${LN} ${DATUMGRID_FILES} ${WRKSRC}/nad
 
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2012/09/11 23:59:26 asau Exp $
+# $NetBSD: Makefile,v 1.9 2015/01/23 00:16:03 mef Exp $
 #
 
-DISTNAME=	bml-0.5.0
+DISTNAME=	bml-0.8.0
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=buzztard/}
 
@@ -13,7 +13,7 @@ LICENSE=	gnu-lgpl-v2.1
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
-USE_LANGUAGES=	c c++
+USE_LANGUAGES=	c99 c++
 
 PKGCONFIG_OVERRIDE+=	libbml.pc.in
 

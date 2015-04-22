@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.68 2013/07/12 10:45:02 jperkin Exp $
+# $NetBSD: Makefile,v 1.70 2014/10/09 13:44:53 wiz Exp $
 
-PKGREVISION=	3
-SVR4_PKGNAME=	csasl
+PKGREVISION=	4
 COMMENT=	Simple Authentication and Security Layer
 
 .include "Makefile.common"

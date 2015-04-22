@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.73 2013/09/19 10:11:47 fhajny Exp $
-#
+# $NetBSD: Makefile,v 1.78 2015/03/08 23:29:23 joerg Exp $
 
-DISTNAME=	groff-1.20.1
-PKGREVISION=	12
+DISTNAME=	groff-1.22.3
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_GNU:=groff/}
 
@@ -15,25 +13,23 @@ CONFLICTS=		mdocml<1.12.0nb3 ja-groff-[0-9]*
 
 CHECK_PERMS=		NO
 MAKE_JOBS_SAFE=		NO
+OVERRIDE_DIRDEPTH=	4
 
 INSTALLATION_DIRS=	share/groff/site-tmac
 
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
 CONFIGURE_ENV+=		PERLPATH=${PERL5:Q}
-USE_TOOLS+=		perl:run sed:run awk:run
+USE_TOOLS+=		perl:run sed:run awk:run gmake
+EXTRACT_USING=		bsdtar
 USE_FEATURES=		getopt_long
 
 INFO_FILES=		YES
 
 REPLACE_AWK+=		font/devlj4/generate/special.awk
-REPLACE_PERL+=		contrib/chem/chem.pl
-REPLACE_PERL+=		contrib/groffer/perl/func.pl
-REPLACE_PERL+=		contrib/groffer/perl/groffer.pl
-REPLACE_PERL+=		contrib/groffer/perl/man.pl
-REPLACE_PERL+=		contrib/groffer/perl/perl_test.pl
-REPLACE_PERL+=		contrib/groffer/perl/roff2.pl
+REPLACE_PERL+=		contrib/*/*.pl
 REPLACE_PERL+=		src/roff/grog/grog.pl
+REPLACE_PERL+=		src/roff/grog/subs.pl
 
 REPLACE_INTERPRETER+=	sed
 REPLACE.sed.old=	.*/sed
@@ -54,20 +50,21 @@ CONFIGURE_ENV+=	PAGE=${PAPERSIZE:Q}
 
 .include "../../mk/compiler.mk"
 .if !empty(CC_VERSION:Mgcc-4.[6-9].*)
-CFLAGS.SunOS+=		-std=c99 -D_XOPEN_SOURCE=600
+CFLAGS.SunOS+=		-std=c99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 .endif
+
+post-extract:
+	${CP} -p ${FILESDIR}/*.c ${WRKSRC}
 
 # Usually the mdoc.local "volume-operating-system" definition is for
 # the operating system name often displayed on top of man pages. And
 # "operating-system" is for the default .Os value (operating system
 # and version/release) and is usually displayed at bottom of man page.
 # XXX Use "pkgsrc" as default .Os value.
-# Also, avoid having pre-patched groff.info-2 installed (install uses wildcard)
 post-patch:
 	${SED}	-e "s,@@VOLUME_OPERATING_SYSTEM@@,${OPSYS},g"	\
 		-e "s,@@OPERATING_SYSTEM@@,pkgsrc,g"	\
 		${FILESDIR}/mdoc.local > ${WRKDIR}/mdoc.local
-	${RM} ${WRKSRC}/doc/groff.info-2.orig
 
 # Groff installs its own man and ms macros as mgan and mgs if the
 # configure script thinks replacing the system ones is not safe. Since

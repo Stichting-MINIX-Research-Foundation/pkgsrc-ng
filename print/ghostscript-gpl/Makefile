@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2014/03/13 11:08:52 jperkin Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/11 20:58:26 spz Exp $
 
 DISTNAME=	ghostscript-${GS_VERSION}
 PKGNAME=	${DISTNAME:S/ghostscript/ghostscript-gpl/}
-PKGREVISION=	8
+PKGREVISION=	4
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ghostscript/}
 MASTER_SITES+=	http://ghostscript.com/releases/
@@ -12,9 +12,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ghostscript.sourceforge.net/
 COMMENT=	Postscript interpreter
 
-# iconfig.c compiled before gconfig.h is created
-MAKE_JOBS_SAFE=no
-
 # Plus adobe verbatim for Resources/CMap.
 LICENSE=	gnu-gpl-v3
 
@@ -23,10 +20,12 @@ LICENSE=	gnu-gpl-v3
 DEPENDS+=		ghostscript-fonts>=6.0:../../fonts/ghostscript-fonts
 
 CONFLICTS+=		ghostscript-afpl-[0-9]*
-CONFLICTS+=		ghostscript-esp{,-nox11}-[0-9]*
-CONFLICTS+=		ghostscript-gnu{,-nox11,-x11}-[0-9]*
+# To avoid flag from pkglint
+CONFLICTS+=		ghostscript-esp-[0-9]*
+CONFLICTS+=		ghostscript-esp-nox11-[0-9]*
+CONFLICTS+=		ghostscript-gnu-x11-[0-9]*
+CONFLICTS+=		ghostscript-gnu-nox11-[0-9]*
 
-USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		gmake perl:run lex pkg-config
 USE_LANGUAGES+=		c c++
 GNU_CONFIGURE=		yes
@@ -89,6 +88,11 @@ CONFIGURE_ENV+=	LPLIBDIR=${PREFIX}/lib
 # On OpenBSD 5.3, libxcb is required libXt.
 LDFLAGS.OpenBSD+=	-lxcb
 
+.if ${OS_VARIANT} == "SCOOSR5"
+# SCO OpenServer 5.0.7/3.2 has windows.h, and configure expacts it for MS Windows.
+CONFIGURE_ENV+=		ac_cv_header_windows_h=no
+.endif
+
 .include "options.mk"
 
 post-extract:
@@ -97,7 +101,10 @@ post-extract:
 #	${RM} -rf ${WRKSRC}/jasper
 	${RM} -rf ${WRKSRC}/libpng
 #	${RM} -rf ${WRKSRC}/tiff
-#	${RM} -rf ${WRKSRC}/zlib
+# UX:i386ld: ERROR: symbol: 'deflate_copyright' defined in two shared objects: libgs.so: size = 53, libz.so.1: size = 68
+.if ${OS_VARIANT} == "SCOOSR5"
+	${RM} -rf ${WRKSRC}/zlib
+.endif
 	${RM} -rf ${WRKSRC}/freetype
 #
 #  To allow outside customization, rename cidfmap

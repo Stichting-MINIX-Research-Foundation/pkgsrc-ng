@@ -1,16 +1,18 @@
-# $NetBSD: Makefile,v 1.69 2014/01/25 10:45:19 wiz Exp $
+# $NetBSD: Makefile,v 1.74 2014/12/31 14:09:36 wiz Exp $
 
-DISTNAME=	mailman-2.1.14-1
-PKGNAME=	mailman-2.1.14.1
-PKGREVISION=	4
+DISTNAME=	mailman-2.1.18-1
+PKGNAME=	mailman-2.1.18.1
+PKGREVISION=	1
 CATEGORIES=	mail www
-MASTER_SITES=	http://launchpad.net/mailman/2.1/2.1.14/+download/
+MASTER_SITES=	http://launchpad.net/mailman/2.1/2.1.18-1/+download/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.list.org/
 COMMENT=	The GNU Mailing List Manager
 LICENSE=	gnu-gpl-v2
+
+DEPENDS+=	${PYPKGPREFIX}-dns-[0-9]*:../../net/py-dns
 
 PKG_DESTDIR_SUPPORT=	destdir
 
@@ -69,7 +71,7 @@ RCD_SCRIPTS=		mailman
 INSTALL_TEMPLATES+=	${FILESDIR}/INSTALL
 DEINSTALL_TEMPLATES+=	${FILESDIR}/DEINSTALL
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.1.14.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.1.14.1
 REPLACE_PYTHON+=	Mailman/Archiver/pipermail.py
 REPLACE_PYTHON+=	Mailman/Post.py
 REPLACE_PYTHON+=	bin/msgfmt.py
@@ -89,9 +91,6 @@ CONFIGURE_ARGS+=	--without-permcheck
 CONFIGURE_ARGS+=	--with-mailhost=localhost
 CONFIGURE_ARGS+=	--with-urlhost=localhost
 
-# dont create egg-info files in pythonlib
-INSTALL_ENV+=		PKGSRC_PYTHON_NO_EGG=defined
-
 BUILD_DEFS+=		MAILMAN_DATADIR
 BUILD_DEFS+=		MAILMAN_CGIEXT
 
@@ -106,8 +105,11 @@ CHECK_PERMS=	no
 
 REPLACE_PYTHON+=	cron/senddigests tests/fblast.py tests/onebounce.py
 
+# for readme.sr:
+# https://bugs.launchpad.net/mailman/+bug/1360616
 post-extract:
 	${CP} ${FILESDIR}/mailman.conf.dist ${WRKDIR}/mailman.conf.dist
+	cd ${WRKSRC} && mv messages/sr/readme.sr messages/sr/README.sr
 
 post-patch:
 	${RM} -f ${WRKSRC}/[A-Z]*.orig

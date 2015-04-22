@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.4 2012/10/02 21:25:19 asau Exp $
+# $NetBSD: Makefile,v 1.6 2015/03/15 19:11:21 hiramatsu Exp $
 #
 
 .include "../../databases/qdbm/Makefile.common"
 
 PKGNAME=	java-qdbm-1.0.0.${QDBM_VERSION}
 CATEGORIES=	databases java
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=qdbm/}
 
-MAINTAINER=	obache@NetBSD.org
-HOMEPAGE=	http://qdbm.sourceforge.net/
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://fallabs.com/qdbm/jspex.html
 COMMENT=	Java API of QDBM
 LICENSE=	gnu-lgpl-v2.1
 

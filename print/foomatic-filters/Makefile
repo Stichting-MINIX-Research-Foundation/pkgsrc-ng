@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.24 2013/05/31 12:41:47 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2014/06/18 09:28:17 wiz Exp $
 
 .include "Makefile.common"
 
 DISTNAME=	foomatic-filters-${FOOMATIC_FILTERS_VERSION}
-PKGREVISION=	8
+PKGREVISION=	10
 MASTER_SITES=	http://www.linuxprinting.org/download/foomatic/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -43,7 +43,7 @@ INSTALL_TARGET=	install-bin install-man
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mcups)
-DEPENDS+=	{cups>=1.0,${TEXTTOPS_DEPENDS}}:../../print/cups
+DEPENDS+=	{cups>=1.0,${TEXTTOPS_DEPENDS}}:../../print/cups15
 .else
 DEPENDS+=	${TEXTTOPS_DEPENDS}:../../print/mpage
 .endif

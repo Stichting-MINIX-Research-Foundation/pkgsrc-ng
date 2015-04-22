@@ -1,0 +1,27 @@
+$NetBSD: patch-cgi_Makefile.in,v 1.1 2014/04/02 10:22:37 he Exp $
+
+Adjustments to build procedure.
+
+--- cgi/Makefile.in.orig	2010-10-23 10:00:59.000000000 +0000
++++ cgi/Makefile.in
+@@ -15,7 +15,7 @@ exec_prefix=@exec_prefix@
+ LOGDIR=@localstatedir@
+ CFGDIR=@sysconfdir@
+ BINDIR=@bindir@
+-CGIDIR=@sbindir@
++CGIDIR=@libexecdir@/cgi-bin
+ HTMLDIR=@datarootdir@
+ INSTALL=@INSTALL@
+ INSTALL_OPTS=@INSTALL_OPTS@
+@@ -201,9 +201,9 @@ install-unstripped:
+ 	$(MAKE) install-basic
+ 
+ install-basic:
+-	$(INSTALL) -m 775 $(INSTALL_OPTS) -d $(DESTDIR)$(CGIDIR)
++	[ -d $(DESTDIR)$(CGIDIR) ] || ${BSD_INSTALL_DATA_DIR} $(DESTDIR)$(CGIDIR)
+ 	for file in *.cgi; do \
+-		$(INSTALL) -m 775 $(INSTALL_OPTS) $$file $(DESTDIR)$(CGIDIR); \
++		$(BSD_INSTALL_SCRIPT) $$file $(DESTDIR)$(CGIDIR); \
+ 	done
+ 
+ strip-post-install:

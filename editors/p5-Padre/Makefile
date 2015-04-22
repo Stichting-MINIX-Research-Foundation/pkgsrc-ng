@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2013/12/09 14:17:47 obache Exp $
+# $NetBSD: Makefile,v 1.39 2014/12/12 10:51:42 joerg Exp $
 
 DISTNAME=	Padre-0.96
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	14
+PKGREVISION=	17
 CATEGORIES=	editors perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Padre/}
 
@@ -30,7 +30,7 @@ BUILD_DEPENDS+= p5-Test-Script>=1.07:../../devel/p5-Test-Script
 #DEPENDS+=	p5-ack>=1.86:../../textproc/p5-ack
 DEPENDS+=	p5-Algorithm-Diff>=1.1900:../../devel/p5-Algorithm-Diff
 DEPENDS+=	p5-App-cpanminus>=0.9923:../../devel/p5-App-cpanminus
-DEPENDS+=	{perl>=5.11.1,p5-CGI>=3.47}:../../www/p5-CGI
+DEPENDS+=	p5-CGI>=3.47:../../www/p5-CGI
 DEPENDS+=	p5-Capture-Tiny>=0.06:../../devel/p5-Capture-Tiny
 DEPENDS+=	p5-Class-Adapter>=1.05:../../devel/p5-Class-Adapter
 DEPENDS+=	p5-Class-Inspector>=1.22:../../devel/p5-Class-Inspector
@@ -44,7 +44,10 @@ DEPENDS+=	p5-Devel-Dumpvar>=0.04:../../devel/p5-Devel-Dumpvar
 DEPENDS+=	p5-Devel-Refactor>=0.05:../../devel/p5-Devel-Refactor
 # Encode 2.26 is in Perl 5.8.9, but Perl 5.10.0 contains "only" 2.23
 DEPENDS+=	{perl>=5.10.1,p5-Encode>=2.26}:../../textproc/p5-Encode
-DEPENDS+=	{perl>=5.12.0,p5-ExtUtils-MakeMaker>=6.56}:../../devel/p5-ExtUtils-MakeMaker
+# p5-ExtUtils-MakeMaker has the higher version, so it would be picked
+# by pbulk-resolve, but not at build time, since Perl is already installed
+# then. This forces unnecessary rebuilds.
+# DEPENDS+=	{perl>=5.12.0,p5-ExtUtils-MakeMaker>=6.56}:../../devel/p5-ExtUtils-MakeMaker
 DEPENDS+=       {perl>=5.10.1,p5-ExtUtils-Manifest>=1.56}:../../devel/p5-ExtUtils-Manifest
 DEPENDS+=       p5-File-Copy-Recursive>=0.37:../../sysutils/p5-File-Copy-Recursive
 DEPENDS+=	p5-File-Find-Rule-[0-9]*:../../devel/p5-File-Find-Rule

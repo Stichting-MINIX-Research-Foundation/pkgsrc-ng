@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2014/01/16 09:37:01 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2014/11/03 10:35:33 wiz Exp $
 
 ICC_MAJOR_VERSION=	11.1
 ICC_MINOR_VERSION=	080

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2012/10/06 14:11:06 asau Exp $
+# $NetBSD: Makefile,v 1.10 2015/03/17 13:55:40 jperkin Exp $
 
 DISTNAME=	libv4l-0.4.3
 PKGREVISION=	2
@@ -8,6 +8,8 @@ MASTER_SITES=	http://people.atrpms.net/~hdegoede/
 MAINTAINER=	tech-multimedia@NetBSD.org
 HOMEPAGE=	http://people.atrpms.net/~hdegoede/
 COMMENT=	Video4Linux userspace library
+
+USE_GCC_RUNTIME=	yes
 
 USE_TOOLS+=	gmake
 
@@ -35,4 +37,5 @@ PLIST_VARS=	needs_videoio
 
 CPPFLAGS.SunOS+=	-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1
 
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

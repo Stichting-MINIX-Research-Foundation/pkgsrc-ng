@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.57 2014/02/12 23:18:56 tron Exp $
+# $NetBSD: Makefile,v 1.59 2015/03/15 17:47:15 hiramatsu Exp $
 #
 
 DISTNAME=	x11vnc-0.9.13
-PKGREVISION=	21
+PKGREVISION=	22
 CATEGORIES=	x11 net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libvncserver/}
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.karlrunge.com/x11vnc/
 COMMENT=	VNC server for real X displays
 LICENSE=	gnu-gpl-v2

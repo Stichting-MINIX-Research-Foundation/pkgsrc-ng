@@ -1,4 +1,4 @@
-# $NetBSD: Interix.mk,v 1.71 2013/10/13 10:10:05 wiz Exp $
+# $NetBSD: Interix.mk,v 1.76 2015/02/16 10:42:00 jperkin Exp $
 #
 # Variable definitions for the Interix operating system.
 
@@ -55,7 +55,6 @@ MAKE_FLAGS+=	MKCATPAGES=no NOLINT=1
 ###
 
 # NetBSD's faster, vfork-capable shell (not yet in pkgsrc)
-#BULK_PREREQ+=		shells/nbsh
 .if exists(${PREFIX}/bin/nbsh)
 TOOLS_SHELL?=		${PREFIX}/bin/nbsh
 WRAPPER_SHELL?=		${PREFIX}/bin/nbsh
@@ -63,12 +62,6 @@ WRAPPER_SHELL?=		${PREFIX}/bin/nbsh
 
 INSTALL?=		${PREFIX}/bin/install-sh
 SED?=			${PREFIX}/bin/nbsed
-
-.if defined(BATCH)
-BULK_PREREQ+=		lang/perl5
-USE_BULK_BROKEN_CHECK?=	no
-USE_BULK_TIMESTAMPS?=	no
-.endif
 
 ###
 ### Platform definitions common to pkgsrc/mk/platform/*.mk
@@ -98,7 +91,7 @@ PKGDIRMODE?=		775
 # ROOT_USER might be numeric in the special case of Administrator; canonify it:
 ROOT_CMD?=		${SU} - "$$(id -un ${ROOT_USER})" -c
 ROOT_USER?=		${BINOWN}
-ROOT_GROUP?=		131616 # +Administrators or native language equivalent
+ROOT_GROUP?=		+Administrators # or native language equivalent
 TOUCH_FLAGS?=
 ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
@@ -146,3 +139,9 @@ CONFIGURE_ENV+=		${GNU_CONFIGURE:Dac_cv_func_hstrerror=yes}
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.
 _OPSYS_MAX_CMDLEN_CMD=	${ECHO} 262144
+
+#
+# Interix has dlopen(3) and family, they are provided by gcc (Interix-6.1).
+# pkgsrc'c check is broken.
+#
+IS_BUILTIN.dl=		yes

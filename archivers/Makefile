@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.132 2013/10/21 11:30:10 fhajny Exp $
+# $NetBSD: Makefile,v 1.136 2015/01/26 07:49:53 mef Exp $
 #
 
 COMMENT=	Archivers
@@ -31,6 +31,7 @@ SUBDIR+=	gzrecover
 SUBDIR+=	ha
 SUBDIR+=	heirloom-tar
 SUBDIR+=	hpack
+SUBDIR+=	hs-zlib
 SUBDIR+=	jamjar
 SUBDIR+=	lbrate
 SUBDIR+=	lcab
@@ -42,6 +43,7 @@ SUBDIR+=	liblzo
 SUBDIR+=	libunrar
 SUBDIR+=	libzip
 SUBDIR+=	lrzip
+SUBDIR+=	lz4
 SUBDIR+=	lzip
 SUBDIR+=	lziprecover
 SUBDIR+=	lzma
@@ -58,6 +60,7 @@ SUBDIR+=	ocaml-bz2
 SUBDIR+=	ocaml-zip
 SUBDIR+=	p5-Archive-Any
 SUBDIR+=	p5-Archive-Any-Lite
+SUBDIR+=	p5-Archive-Extract
 SUBDIR+=	p5-Archive-Peek
 SUBDIR+=	p5-Archive-Tar
 SUBDIR+=	p5-Archive-Zip
@@ -74,6 +77,7 @@ SUBDIR+=	php-zlib
 SUBDIR+=	pigz
 SUBDIR+=	ppmd
 SUBDIR+=	ppunpack
+SUBDIR+=	py-yuicompressor
 SUBDIR+=	rar
 SUBDIR+=	rox-archive
 SUBDIR+=	ruby-archive-tar-minitar

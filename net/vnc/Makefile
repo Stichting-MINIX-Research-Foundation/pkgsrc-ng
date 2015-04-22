@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.51 2013/05/31 12:41:44 wiz Exp $
+# $NetBSD: Makefile,v 1.53 2014/12/01 12:39:18 joerg Exp $
 
 DISTNAME=		vnc-3.3.3r2
 PKGNAME=		vnc-3.3.3.2
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		net x11
 MASTER_SITES=		ftp://ftp.uk.research.att.com/pub/vnc/dist/
 DISTFILES=		vnc-3.3.3r2_unixsrc.tgz \
@@ -58,6 +58,7 @@ INSTALLATION_DIRS=	bin share/doc/vnc
 
 .if ${OPSYS} == "SunOS"
 _WRAP_EXTRA_ARGS.CC+=	-D_POSIX_SOURCE
+CWRAPPERS_APPEND.cc+=	-D_POSIX_SOURCE
 SPECIAL_PERMS+=	bin/Xvnc ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 2555
 .endif
 

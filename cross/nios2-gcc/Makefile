@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2014/03/18 15:39:01 mef Exp $
+# $NetBSD: Makefile,v 1.6 2014/10/23 11:05:29 mef Exp $
 .include		"../../cross/nios2/Makefile.common"
 PKGNAME=		nios2-gcc-${PKG_VERSION}
 PKG_VERSION=		4.7.3
+PKGREVISION=		1
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		GNU gcc for Altera FPGA Nios2 processor
@@ -26,7 +27,7 @@ CONFIGURE_ARGS+=	--host=${MACHINE_ARCH}--${LOWER_OPSYS}
 CONFIGURE_ARGS+=	--build=${MACHINE_ARCH}--${LOWER_OPSYS}
 # See line :2760 of configure
 CONFIGURE_ARGS+=	--srcdir=.
-PKGSRC_MAKE_ENV+=	SH=/bin/ksh
+CONFIG_SHELL=		ksh
 CFLAGS+=		-g
 
 PLIST_VARS+=		doc

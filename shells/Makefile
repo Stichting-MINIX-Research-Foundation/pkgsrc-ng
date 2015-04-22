@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.51 2013/01/31 09:36:01 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2015/02/08 17:32:08 wiz Exp $
 #
 
 COMMENT=	Shells
 
 SUBDIR+=	ast-ksh
+SUBDIR+=	autojump
 SUBDIR+=	bash
 SUBDIR+=	bash-completion
 SUBDIR+=	bash2
@@ -13,10 +14,10 @@ SUBDIR+=	eltclsh
 SUBDIR+=	es
 SUBDIR+=	esh
 SUBDIR+=	fish
+SUBDIR+=	git-sh
 SUBDIR+=	heirloom-sh
 SUBDIR+=	lshell
 SUBDIR+=	mksh
-SUBDIR+=	mudsh
 SUBDIR+=	nologinmsg
 SUBDIR+=	osh
 SUBDIR+=	pdksh

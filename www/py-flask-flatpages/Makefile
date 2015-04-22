@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2013/04/04 18:20:35 kleink Exp $
+# $NetBSD: Makefile,v 1.5 2015/03/02 13:37:17 kleink Exp $
 
-DISTNAME=	Flask-FlatPages-0.5
+DISTNAME=	Flask-FlatPages-0.6
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/F/Flask-FlatPages/
@@ -10,7 +10,6 @@ HOMEPAGE=	https://github.com/SimonSapin/Flask-FlatPages
 COMMENT=	Provides flat static pages to a Flask application
 LICENSE=	modified-bsd
 
-EGG_NAME=	${DISTNAME:S/-/_/}
 USE_LANGUAGES=	# empty
 
 DEPENDS+=	${PYPKGPREFIX}-flask-[0-9]*:../../www/py-flask

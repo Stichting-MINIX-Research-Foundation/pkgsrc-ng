@@ -1,19 +1,17 @@
-# $NetBSD: Makefile,v 1.12 2013/05/31 12:40:33 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.16 2015/02/13 12:55:58 mef Exp $
 
-DISTNAME=	MooseX-Object-Pluggable-0.0011
+DISTNAME=	MooseX-Object-Pluggable-0.0014
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/MooseX-Object-Pluggable/
 COMMENT=	Perl 5 module to add plugin support to Moose classes via roles
-LICENSE=	gnu-gpl-v2 # OR artistic
+LICENSE=	${PERL5_LICENSE}
 
-DEPENDS+=	{perl>=5.10,p5-Module-Pluggable-[0-9]*}:../../devel/p5-Module-Pluggable
-DEPENDS+=	p5-Moose>=0.35:../../devel/p5-Moose
+DEPENDS+=	p5-Module-Pluggable-[0-9]*:../../devel/p5-Module-Pluggable
+DEPENDS+=	p5-Moose>=0:../../devel/p5-Moose
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST=	auto/MooseX/Object/Pluggable/.packlist

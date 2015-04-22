@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/05/31 12:42:29 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2014/11/05 22:41:38 he Exp $
 #
 
 DISTNAME=		titrax-1.98
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		x11 time
 MASTER_SITES=		${MASTER_SITE_XCONTRIB:=office/}
 
@@ -20,9 +20,9 @@ NO_BIN_ON_CDROM=	${RESTRICTED}
 USE_IMAKE=		YES
 USE_TOOLS+=		perl:run
 
-post-patch:
+pre-configure:
 	${MV} ${WRKSRC}/Imakefile ${WRKSRC}/Imakefile.bak
-	${SED}	-e "s|@LOCALBASE@|${LOCALBASE}|g"			\
+	${SED}	-e "s|@LOCALBASE@|${PREFIX}|g"			\
 		-e "s|@X11BASE@|${X11PREFIX}|g"				\
 		${WRKSRC}/Imakefile.bak > ${WRKSRC}/Imakefile
 

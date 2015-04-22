@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.35 2014/02/08 02:53:05 wiedi Exp $
-#
+# $NetBSD: Makefile,v 1.39 2014/11/12 15:24:16 wiz Exp $
 
-DISTNAME=		xfstt-1.9
+DISTNAME=		xfstt-1.9.1
 CATEGORIES=		x11 net fonts
-MASTER_SITES=		http://download.berlios.de/xfstt/
+MASTER_SITES=		http://archive.hadrons.org/software/xfstt/
+EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://developer.berlios.de/projects/xfstt/
+HOMEPAGE=		http://www.hadrons.org/software/xfstt/
 COMMENT=		TrueType font server for X11
 LICENSE=		gnu-gpl-v2
 
@@ -25,13 +25,13 @@ LDFLAGS.SunOS+=		-lsocket -lnsl
 RCD_SCRIPTS=		xfstt
 INSTALLATION_DIRS=	bin			\
 			${PKGMANDIR}/man1	\
-			lib/X11/fonts/TTF	\
+			share/fonts/X11/TTF	\
 			share/doc/xfstt		\
 			share/examples/xfstt
 
 SUBST_CLASSES+=		paths
-SUBST_FILES.paths=	doc/FAQ doc/xfstt.1x
-SUBST_SED.paths=	-e 's,@PREFIX@,${PREFIX},g'
+SUBST_FILES.paths=	doc/FAQ
+SUBST_SED.paths=	-e 's,/usr,${PREFIX},g'
 SUBST_STAGE.paths=	post-patch
 
 do-install:
@@ -47,5 +47,4 @@ do-install:
 
 .include "../../x11/fontsproto/buildlink3.mk"
 .include "../../x11/xproto/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

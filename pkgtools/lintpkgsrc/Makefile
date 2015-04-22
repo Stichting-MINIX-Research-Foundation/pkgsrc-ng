@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2014/03/03 03:30:53 obache Exp $
+# $NetBSD: Makefile,v 1.19 2015/01/10 20:12:24 wiz Exp $
 
-PKGNAME=	lintpkgsrc-4.86
-PKGREVISION=	1
+PKGNAME=	lintpkgsrc-4.88
 CATEGORIES=	pkgtools
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -10,8 +9,6 @@ COMMENT=	Sanity checks on the complete pkgsrc tree
 
 DEPENDS+=	digest>=20010101:../../pkgtools/digest
 CONFLICTS+=	pkglint<4.82
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=	perl:run
 

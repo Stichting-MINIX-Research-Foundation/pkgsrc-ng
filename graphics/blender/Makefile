@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.103 2014/02/12 23:17:59 tron Exp $
+# $NetBSD: Makefile,v 1.111 2014/11/07 19:39:34 adam Exp $
 
-DISTNAME=	blender-2.69
-PKGREVISION=	1
+DISTNAME=	blender-2.71
+PKGREVISION=	4
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.blender.org/source/
 
@@ -10,10 +10,12 @@ HOMEPAGE=	http://www.blender.org/
 COMMENT=	Fully integrated 3D graphics creation suite
 LICENSE=	gnu-gpl-v2
 
-USE_TOOLS+=		gmake
+#WRKSRC=		${WRKDIR}/blender-2.71
+
+USE_TOOLS+=		gmake sed
 USE_LANGUAGES=		c c++
 
-PYTHON_VERSIONS_ACCEPTED=	33
+PYTHON_VERSIONS_ACCEPTED=	34 33
 
 BUILD_DEPENDS+=		scons-[0-9]*:../../devel/scons
 
@@ -25,17 +27,17 @@ FIND_PREFIX:=		SCONSDIR=scons
 INSTALLATION_DIRS=	bin share/blender
 
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
-LDFLAGS+=	-lexecinfo
+PYLDFLAGS+=		'-lexecinfo',
 .endif
+PYLDFLAGS+=		'${COMPILER_RPATH_FLAG}${PREFIX}/lib', \
+			'${COMPILER_RPATH_FLAG}${X11BASE}/lib'
 
 # To pass LDFLAGS to compiler/linker
-MYLDFLAGS=	`printf "'%s'," ${LDFLAGS} | sed -e 's:,$$::'`
-pre-configure:
-	${CP} -f ${WRKSRC}/user-config.py ${WRKSRC}/user-config.py.1
-	${SED} \
-		-e "s|@MYLDFLAGS@|${MYLDFLAGS}|g" \
-		< ${WRKSRC}/user-config.py.1 > ${WRKSRC}/user-config.py
-	${RM} -f ${WRKSRC}/user-config.py.1
+SUBST_CLASSES+=		ldflags
+SUBST_STAGE.ldflags=	pre-configure
+SUBST_MESSAGE.ldflags=	Setting LDFLAGS
+SUBST_FILES.ldflags+=	build_files/scons/config/*-config.py
+SUBST_VARS.ldflags+=	PYLDFLAGS
 
 SCONS_ARGS+=	WITH_BF_JACK=False
 SCONS_ARGS+=	WITH_BF_OPENAL=False
@@ -44,7 +46,9 @@ SCONS_ARGS+=	WITH_BF_FFMPEG=False
 SCONS_ARGS+=	WITH_BF_3DMOUSE=False
 
 SCONS_ARGS+=	BF_PYTHON=${PREFIX}
+#SCONS_ARGS+=	BF_PYTHON_INC=${PREFIX}/include/python${PYVERSSUFFIX}
 SCONS_ARGS+=	BF_PYTHON_ABI_FLAGS=''
+SCONS_ARGS+=	BF_PYTHON_VERSION=${PYVERSSUFFIX}
 SCONS_ARGS+=	BF_SDL=${BUILDLINK_PREFIX.SDL}
 SCONS_ARGS+=	BF_OPENEXR=${BUILDLINK_PREFIX.openexr}
 SCONS_ARGS+=	BF_JPEG=${BUILDLINK_PREFIX.jpeg}
@@ -61,6 +65,8 @@ SCONS_ARGS+=	BF_PCRE=${BUILDLINK_PREFIX.pcre}
 #SCONS_ARGS+=	BF_FFMPEG_LIBPATH='${BUILDLINK_PREFIX.ffmpeg010}/lib/ffmpeg010'
 SCONS_ARGS+=	BF_FFTW3=${BUILDLINK_PREFIX.fftw}
 SCONS_ARGS+=	BF_INSTALLDIR=${DESTDIR}${PREFIX}/share/blender
+
+PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 # I cannot separate build and install...
 do-build:
@@ -83,6 +89,7 @@ post-install:
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/gettext-tools/buildlink3.mk"
+.include "../../devel/libexecinfo/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../graphics/Mesa/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"

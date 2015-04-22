@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2013/11/05 11:15:43 tonnerre Exp $
+# $NetBSD: Makefile,v 1.5 2014/10/09 14:06:02 wiz Exp $
 #
 
 DISTNAME=	App-KGB-1.31
 PKGNAME=	${DISTNAME:S/App-KGB/kgb-bot/}
-PKGREVISION=	2
+PKGREVISION=	3
 
 CATEGORIES=	chat perl5 scm
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=App/}
@@ -12,7 +12,6 @@ MAINTAINER=	tonnerre@NetBSD.org
 HOMEPAGE=	https://alioth.debian.org/projects/kgb/
 COMMENT=	Notify about VCS commits on IRC
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 USE_TOOLS+=	perl:run
 
 DEPENDS+=		p5-Class-Accessor-[0-9]*:../../devel/p5-Class-Accessor

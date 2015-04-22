@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.31 2013/06/06 12:55:20 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2015/02/08 18:12:49 tnn Exp $
 #
 
 DISTNAME=	mrxvt-0.5.4
@@ -9,10 +9,8 @@ PATCH_SITES=	${MASTER_SITES}
 PATCHFILES=	mrxvt-0.5.4-001-fix-segfault-when-wd-empty.patch
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://materm.sourceforge.net/
+HOMEPAGE=	https://code.google.com/p/mrxvt/
 COMMENT=	Multi-tabbed terminal emulator with Xft support
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		YES
 USE_TOOLS+=		gmake

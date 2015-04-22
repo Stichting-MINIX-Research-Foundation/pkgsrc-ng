@@ -1,8 +1,10 @@
-# $NetBSD: sites.mk,v 1.99 2014/01/25 09:29:42 obache Exp $
+# $NetBSD: sites.mk,v 1.126 2015/03/26 07:54:51 dsainty Exp $
 #
 # This Makefile fragment defines read-only MASTER_SITE_* variables
 # representing some well-known master distribution sites for software.
 #
+# When variables are added or removed, the pkgsrc guide (build.xml)
+# should also be updated.
 
 MASTER_SITE_XCONTRIB+=  \
 	ftp://ftp.gwdg.de/pub/x11/x.org/contrib/ \
@@ -17,9 +19,11 @@ MASTER_SITE_GNU+=       \
 	ftp://ftp.kddlabs.co.jp/pub/gnu/gnu/ \
 	ftp://ftp.dti.ad.jp/pub/GNU/ \
 	ftp://mirrors.kernel.org/gnu/ \
-	ftp://ftp.sunet.se/pub/gnu/ \
 	ftp://ftp.lip6.fr/pub/gnu/ \
 	http://gd.tuwien.ac.at/gnu/gnusrc/
+
+MASTER_SITE_GITHUB+=    \
+	https://github.com/
 
 MASTER_SITE_GNUSTEP+=   \
 	ftp://ftp.gnustep.org/pub/gnustep/
@@ -64,7 +68,6 @@ MASTER_SITE_SUNSITE+=   \
 MASTER_SITE_GNOME+=     \
 	http://ftp.gnome.org/pub/GNOME/ \
 	ftp://ftp.gnome.org/pub/GNOME/ \
-	ftp://ftp.sunet.se/pub/X11/GNOME/ \
 	http://ftp.tuwien.ac.at/hci/gnome.org/ \
 	ftp://ftp.cse.buffalo.edu/pub/Gnome/ \
 	ftp://ftp.dti.ad.jp/pub/X/gnome/ \
@@ -77,7 +80,7 @@ MASTER_SITE_KDE+=	\
 	http://www.dnsbalance.ring.gr.jp/archives/X/kde/stable/ \
 	ftp://ftp.kddlabs.co.jp/pub/X/kde/stable/ \
 	http://mirrors.isc.org/pub/kde/stable/ \
-	ftp://ftp.gtlib.cc.gatech.edu/pub/kde/stable/ \
+	ftp://ftp.gtlib.gatech.edu/pub/kde/stable/ \
 	ftp://kde.mirrors.tds.net/pub/kde/stable/ \
 	http://gd.tuwien.ac.at/kde/stable/ \
 	ftp://ftp.solnet.ch/mirror/KDE/stable/ \
@@ -89,17 +92,15 @@ MASTER_SITE_SOURCEFORGE+=	\
 	http://downloads.sourceforge.net/sourceforge/
 
 MASTER_SITE_SOURCEFORGE_JP+=	\
-	http://osdn.dl.sourceforge.jp/ \
 	http://jaist.dl.sourceforge.jp/ \
-	http://keihanna.dl.sourceforge.jp/ \
-	http://globalbase.dl.sourceforge.jp/ \
 	http://iij.dl.sourceforge.jp/ \
-	http://download.sourceforge.jp/
+	http://osdn.dl.sourceforge.jp/
+
 
 MASTER_SITE_SUSE+=	\
-	ftp://rpmfind.net/linux/SuSE-Linux/${MACHINE_ARCH}/update/${SUSE_VERSION}/ \
-	ftp://fr.rpmfind.net/linux/SuSE-Linux/${MACHINE_ARCH}/update/${SUSE_VERSION}/ \
-	ftp://fr2.rpmfind.net/linux/SuSE-Linux/${MACHINE_ARCH}/update/${SUSE_VERSION}/
+	ftp://rpmfind.net/linux/opensuse/update/${SUSE_VERSION}/${MACHINE_ARCH}/ \
+	ftp://fr.rpmfind.net/linux/opensuse/update/${SUSE_VERSION}/${MACHINE_ARCH}/ \
+	ftp://fr2.rpmfind.net/linux/opensuse/update/${SUSE_VERSION}/${MACHINE_ARCH}/
 
 MASTER_SITE_MOZILLA_ALL+=   \
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/ \
@@ -111,31 +112,20 @@ MASTER_SITE_MOZILLA_ALL+=   \
 MASTER_SITE_MOZILLA+=	\
 	http://releases.mozilla.org/pub/mozilla.org/ \
 	http://mirror.atlanticmetro.net/mozilla/ \
-	ftp://releases.mozilla.org/pub/mozilla.org/ \
-	http://www.artfiles.org/mozilla.org/ \
-	http://ftp.plusline.de/mozilla/ \
-	http://ftp.sunet.se/pub/www/clients/mozilla.org/ \
-	http://mirror.switch.ch/ftp/mirror/mozilla/ \
-	http://mozmirror01.true.nl/pub/mozilla.org/ \
-	http://mirror.yandex.ru/mozilla/ \
 	http://ftp.cvut.cz/mozilla/ \
-	http://ftp.pwr.wroc.pl/pub/mozilla/ \
 	http://ftp.heanet.ie/mirrors/ftp.mozilla.org/pub/mozilla.org/ \
-	http://mozilla.c3sl.ufpr.br/releases/ \
-	http://mozilla.mirror.ac.za/ \
-	http://mozilla-mirror.naist.jp/ \
 	http://mirror.waia.asn.au/pub/mozilla/ \
-	http://mozilla.mirror.ihug.co.nz/ \
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/
 
 # for Extended Support Release version
 MASTER_SITE_MOZILLA_ESR+=	\
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/ \
-	http://pv-mirror01.mozilla.org/pub/mozilla.org/ \
 	http://dm-download02.mozilla.org/pub/mozilla.org/ \
+	http://ftp.mozilla.org/pub/mozilla.org/ \
 	ftp://ftp.mozilla.org/pub/mozilla.org/
 
 MASTER_SITE_XEMACS+=    \
+	http://ftp.xemacs.org/pub/xemacs/ \
 	ftp://ftp.xemacs.org/pub/xemacs/ \
 	ftp://ftp.dti.ad.jp/pub/unix/editor/xemacs/ \
 	ftp://ftp.pasteur.fr/pub/computing/xemacs/ \
@@ -143,12 +133,13 @@ MASTER_SITE_XEMACS+=    \
 	ftp://mirror.cict.fr/xemacs/ \
 	ftp://ftp.dnsbalance.ring.gr.jp/pub/text/xemacs/
 
+# http://www.ibiblio.org/pub/mirrors/apache/ returns 200 for missing
+# files, which is incompatible with resuming transfers.
 MASTER_SITE_APACHE+=    \
 	http://www.apache.org/dist/ \
 	http://www.eu.apache.org/dist/ \
 	http://apache.mirror.aussiehq.net.au/ \
 	http://apache.oregonstate.edu/ \
-	http://www.ibiblio.org/pub/mirrors/apache/ \
 	http://mirror.nyi.net/apache/ \
 	http://apache.mirrors.tds.net/ \
 	http://ftp.unicamp.br/pub/apache/ \
@@ -165,8 +156,6 @@ MASTER_SITE_APACHE+=    \
 	ftp://ftp.twaren.net/Unix/Web/apache/
 
 MASTER_SITE_MYSQL+=	\
-	http://mysql.skynet.be/Downloads/ \
-	ftp://ftp.mysql.skynet.be/pub/ftp.mysql.com/Downloads/ \
 	http://mysql.mirror.kangaroot.net/Downloads/ \
 	ftp://mysql.mirror.kangaroot.net/pub/mysql/Downloads/ \
 	http://mysql.linux.cz/Downloads/ \
@@ -188,12 +177,9 @@ MASTER_SITE_MYSQL+=	\
 	http://ftp.heanet.ie/mirrors/www.mysql.com/Downloads/ \
 	ftp://ftp.heanet.ie/mirrors/www.mysql.com/Downloads/ \
 	http://na.mirror.garr.it/mirrors/MySQL/Downloads/ \
-	http://mysql.proserve.nl/Downloads/ \
 	http://mysql.nfsi.pt/Downloads/ \
 	ftp://ftp.nfsi.pt/pub/mysql/Downloads/ \
 	http://mirrors.xservers.ro/mysql/Downloads/ \
-	http://ftp.sunet.se/pub/unix/databases/relational/mysql/Downloads/ \
-	ftp://ftp.sunet.se/pub/unix/databases/relational/mysql/Downloads/ \
 	http://mysql.dataphone.se/Downloads/ \
 	ftp://mirror2.dataphone.se/pub/mysql/Downloads/ \
 	ftp://ftp.solnet.ch/mirror/mysql/Downloads/ \
@@ -211,17 +197,12 @@ MASTER_SITE_MYSQL+=	\
 	ftp://mirror.csclub.uwaterloo.ca/mysql/Downloads/ \
 	http://mirror.trouble-free.net/mysql_mirror/Downloads/ \
 	http://mysql.llarian.net/Downloads/ \
-	ftp://mysql.llarian.net/pub/mysql/Downloads/ \
 	ftp://mirror.anl.gov/pub/mysql/Downloads/ \
-	http://mirror.services.wisc.edu/mysql/Downloads/ \
-	ftp://mirror.services.wisc.edu/mirrors/mysql/Downloads/ \
 	http://mysql.he.net/Downloads/ \
 	http://mysql.mirrors.arminco.com/Downloads/ \
 	http://mysql.spd.co.il/Downloads/ \
 	http://ftp.iij.ad.jp/pub/db/mysql/Downloads/ \
 	ftp://ftp.iij.ad.jp/pub/db/mysql/Downloads/ \
-	http://mysql.oss.eznetsols.org/Downloads/ \
-	ftp://ftp.oss.eznetsols.org/mysql/Downloads/ \
 	http://mysql.cs.pu.edu.tw/Downloads/ \
 	http://mysql.ntu.edu.tw/Downloads/ \
 	ftp://ftp.ntu.edu.tw/pub/MySQL/Downloads/ \
@@ -264,16 +245,13 @@ MASTER_SITE_DEBIAN+= \
 MASTER_SITE_OPENOFFICE+=	\
 	http://mirrors.isc.org/pub/openoffice/ \
 	http://openoffice.mirrors.ilisys.com.au/ \
-	http://www.ibiblio.org/pub/mirrors/openoffice/ \
 	ftp://ftp.ussg.iu.edu/pub/openoffice/ \
 	http://gd.tuwien.ac.at/office/openoffice/ \
 	http://ftp.sh.cvut.cz/MIRRORS/OpenOffice/ \
 	ftp://ftp.funet.fi/pub/mirrors/openoffice.org/ \
 	ftp://sunsite.informatik.rwth-aachen.de/pub/mirror/OpenOffice/ \
 	ftp://ftp-stud.fht-esslingen.de/pub/Mirrors/ftp.openoffice.org/ \
-	ftp://ftp.join.uni-muenster.de/pub/software/OpenOffice/ \
 	http://ftp.ntua.gr/pub/OpenOffice/ \
-	http://ftp.rhnet.is/pub/OpenOffice/ \
 	http://na.mirror.garr.it/mirrors/openoffice/ \
 	http://vlaai.snt.utwente.nl/pub/software/openoffice/ \
 	http://niihau.student.utwente.nl/openoffice/ \
@@ -281,9 +259,7 @@ MASTER_SITE_OPENOFFICE+=	\
 	http://ftp.iasi.roedu.net/mirrors/openoffice.org/ \
 	ftp://ftp.arnes.si/packages/OpenOffice.org/ \
 	ftp://ftp.saix.net/pub/OpenOffice.org/ \
-	http://ftp.sunet.se/pub/Office/OpenOffice.org/ \
 	ftp://mirror.switch.ch/mirror/OpenOffice/ \
-	http://komo.vlsm.org/openoffice/ \
 	ftp://ftp.kddlabs.co.jp/office/openoffice/ \
 	ftp://ftp.dnsbalance.ring.gr.jp/pub/misc/openoffice/ \
 	ftp://ftp.kr.freebsd.org/pub/openoffice/
@@ -299,59 +275,8 @@ MASTER_SITE_IFARCHIVE+= \
 	http://ifarchive.heanet.ie/if-archive/ \
 	ftp://ftp.giga.or.at/pub/ifarchive/
 
-### PGSQL list was last updated on 20110328
 MASTER_SITE_PGSQL+=	\
-	ftp://ftp5.ca.postgresql.org/mirrors/postgresql/ \
-	http://ftp2.cz.postgresql.org/pub/postgresql/ \
-	ftp://ftp2.cz.postgresql.org/pub/postgresql/ \
-	http://ftp.dk.postgresql.org/postgresql/ \
-	ftp://ftp.dk.postgresql.org/postgresql/ \
-	http://ftp.ee.postgresql.org/pub/postgresql/ \
-	ftp://ftp.fi.postgresql.org/pub/postgresql/ \
-	http://ftp4.fr.postgresql.org/pub/mirrors/postgresql/ \
-	ftp://ftp4.fr.postgresql.org/pub/mirrors/postgresql/ \
-	http://ftp3.de.postgresql.org/pub/Mirrors/ftp.postgresql.org/ \
-	ftp://ftp3.de.postgresql.org/pub/Mirrors/ftp.postgresql.org/ \
-	http://ftp8.de.postgresql.org/pub/misc/pgsql/ \
-	ftp://ftp8.de.postgresql.org/pub/misc/pgsql/ \
-	ftp://ftp7.de.postgresql.org/pub/ftp.postgresql.org/ \
-	ftp://ftp9.de.postgresql.org/unix/databases/postgresql/ \
-	http://ftp.gr.postgresql.org/pub/databases/postgresql/ \
-	ftp://ftp.gr.postgresql.org/pub/databases/postgresql/ \
-	http://ftp3.gr.postgresql.org/ \
-	ftp://ftp3.gr.postgresql.org/mirrors/postgresql/ \
-	http://ftp.ie.postgresql.org/mirrors/ftp.postgresql.org/pub/ \
-	ftp://ftp.ie.postgresql.org/mirrors/ftp.postgresql.org/pub/ \
-	http://ftp2.ie.postgresql.org/mirrors/ftp.postgresql.org/ \
-	ftp://ftp2.ie.postgresql.org/mirrors/ftp.postgresql.org/ \
-	http://ftp2.it.postgresql.org/mirrors/postgres/ \
-	ftp://ftp2.it.postgresql.org/mirrors/postgres/ \
-	ftp://ftp3.jp.postgresql.org/pub/db/postgresql/ \
-	ftp://ftp.lv.postgresql.org/mirrors/ftp.postgresql.org/ \
-	http://ftp2.nl.postgresql.org/ \
-	ftp://ftp2.nl.postgresql.org/mirror/postgresql/ \
-	ftp://ftp.nz.postgresql.org/postgresql/ \
-	http://ftp6.pl.postgresql.org/pub/postgresql/ \
-	ftp://ftp6.pl.postgresql.org/pub/postgresql/ \
-	http://ftp8.pl.postgresql.org/pub/postgresql/ \
-	ftp://ftp8.pl.postgresql.org/pub/postgresql/ \
-	ftp://ftp7.pl.postgresql.org/pub/mirror/ftp.postgresql.org/ \
-	http://ftp.pt.postgresql.org/pub/postgresql/ \
-	ftp://ftp.pt.postgresql.org/pub/postgresql/ \
-	ftp://ftp6.ro.postgresql.org/pub/mirrors/ftp.postgresql.org/ \
-	ftp://ftp3.ru.postgresql.org/pub/mirror/postgresql/pub/ \
-	ftp://ftp.si.postgresql.org/pub/mirrors/postgresql/ \
-	ftp://ftp.za.postgresql.org/mirror/ftp.postgresql.org/ \
-	http://ftp.se.postgresql.org/pub/databases/relational/postgresql/ \
-	ftp://ftp.se.postgresql.org/pub/databases/relational/postgresql/ \
-	http://ftp2.ch.postgresql.org/pub/mirrors/postgresql/ \
-	ftp://ftp2.ch.postgresql.org/pub/mirrors/postgresql/ \
-	ftp://ftp.ch.postgresql.org/mirror/postgresql/ \
-	http://ftp3.tw.postgresql.org/postgresql/ \
-	ftp://ftp3.tw.postgresql.org/postgresql/ \
-	ftp://ftp5.us.postgresql.org/pub/PostgreSQL/ \
-	http://ftp2.uk.postgresql.org/sites/ftp.postgresql.org/ \
-	ftp://ftp2.uk.postgresql.org/sites/ftp.postgresql.org/
+	http://ftp.postgresql.org/pub/
 
 MASTER_SITE_GENTOO+= \
 	http://ftp-stud.fht-esslingen.de/pub/Mirrors/gentoo/ \
@@ -376,15 +301,13 @@ MASTER_SITE_GENTOO+= \
 MASTER_SITE_XORG+= \
 	http://xorg.freedesktop.org/releases/individual/ \
 	ftp://ftp.x.org/pub/individual/ \
-	ftp://ftp.sunet.se/pub/X11/ftp.x.org/individual/
+	ftp://mirror.switch.ch/mirror/X11/pub/individual/
 
 MASTER_SITE_FREEBSD+= \
-	ftp://ftp.FreeBSD.org/pub/FreeBSD/distfiles/ \
-	ftp://ftp.jp.FreeBSD.org/pub/FreeBSD/distfiles/
+	http://distcache.FreeBSD.org/ports-distfiles/
 
 MASTER_SITE_FREEBSD_LOCAL+= \
-	ftp://ftp.FreeBSD.org/pub/FreeBSD/ports/local-distfiles/ \
-	ftp://ftp.jp.FreeBSD.org/pub/FreeBSD/ports/local-distfiles/
+	http://distcache.FreeBSD.org/local-distfiles/
 
 MASTER_SITE_NETLIB+= \
 	http://netlib.org/ \
@@ -392,16 +315,20 @@ MASTER_SITE_NETLIB+= \
 	http://www.netlib.no/netlib/ \
 	http://www.mirrorservice.org/sites/netlib.bell-labs.com/netlib/
 
+MASTER_SITE_OPENBSD+= \
+	ftp://ftp.OpenBSD.org/pub/OpenBSD/ \
+	ftp://ftp3.usa.openbsd.org/pub/OpenBSD/ \
+	ftp://ftp.jaist.ac.jp/pub/OpenBSD/
+
 MASTER_SITE_RUBYGEMS+= \
-	http://rubygems.org/gems/ \
-	http://gems.rubyforge.org/gems/
+	http://rubygems.org/downloads/ \
 
 MASTER_SITE_HASKELL_HACKAGE+=	\
 	http://hackage.haskell.org/package/
 
 # The primary backup site.
 MASTER_SITE_BACKUP?=	\
-	ftp://ftp.fi.NetBSD.org/pub/NetBSD/packages/distfiles/ \
+	ftp://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
+	http://ftp.fr.NetBSD.org/pub/pkgsrc/distfiles/ \
 	ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/ \
-	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/ \
-	ftp://ftp.FreeBSD.org/pub/FreeBSD/distfiles/
+	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/

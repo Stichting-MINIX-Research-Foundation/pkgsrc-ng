@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2014/01/14 19:33:10 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2015/03/12 15:01:21 jperkin Exp $
 
 GCC_PKGNAME=	gcc48
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -8,7 +8,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC48_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc48 package so that with the dependence pattern
 ## '{gcc48,gcc48-libs}>=4.8.*' pkg_all will choose gcc48-libs over gcc48.
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -52,7 +52,7 @@ GENERATE_PLIST+= ${GREP} -q 'lib/' ${LIBRARY_FILES} || \
 ${LIBRARY_FILES}:
 	${PKG_INFO} -qL '${GCC_PKGNAME}-${GCC48_DIST_VERSION}*' |	\
 	${SED} -n -e's,^${LIBGCC_PREFIX}/,,' -e'/libexec\//d'		\
-		-e'/libgij/d;/libgcj/d;/libjvm/d'			\
+		-e'/libgcj/d;/libgij/d;/libgo\./d;/libjvm/d'		\
 		-e'/lib.*\.${SHLIB_EXT}/p' 		>${LIBRARY_FILES}
 
 do-install: ${LIBRARY_FILES}

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.36 2013/12/28 14:41:55 tron Exp $
+# $NetBSD: Makefile.common,v 1.44 2015/03/14 01:24:54 prlw1 Exp $
 #
 # used by devel/glib2/Makefile
 # used by devel/gdbus-codegen/Makefile
@@ -6,18 +6,16 @@
 
 # When updating this package, please apply patch-ak to configure.in and
 # then run a matching version of autoconf to regen patch-aa.
-DISTNAME=	glib-2.38.2
+DISTNAME=	glib-2.42.2
 PKGNAME=	${DISTNAME:S/glib/glib2/}
 CATEGORIES=	# empty; redefined in Makefile
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/glib/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	prlw1@cam.ac.uk
 HOMEPAGE=	http://developer.gnome.org/glib/
 COMMENT=	# empty; redefined in Makefile
 LICENSE=	gnu-lgpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config
@@ -40,12 +38,14 @@ CONFIGURE_ARGS+=	--disable-modular-tests
 # Avoid unnecessary autotools invocation.
 CONFIGURE_ARGS+=	--disable-maintainer-mode
 
-CONFIGURE_ARGS.gnu-iconv+=	--with-libiconv=gnu
+# When ICONV_TYPE=gnu ensure we explicitly use the GNU version, to avoid
+# conflicts between iconv.h from converters/libiconv and builtin libiconv
+# which may be non-GNU.
+CONFIGURE_ARGS.gnu-iconv=	--with-libiconv=gnu
 
 CONFIGURE_ENV+=		PERL_PATH=${PERL5:Q}
 
 .include "../../mk/bsd.prefs.mk"
-
 
 CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 CPPFLAGS+=		-DPKGLOCALEDIR="\"${PKGLOCALEDIR}\""
@@ -88,6 +88,7 @@ CONFIGURE_ARGS+=	--disable-threads
 .include "../../mk/pthread.buildlink3.mk"
 .endif
 
+BUILD_DEFS+=		VARBASE
 SUBST_CLASSES+=		dbusdb
 SUBST_MESSAGE.dbusdb=	Adjust dbus machine uuid path to dbus package
 SUBST_STAGE.dbusdb=	post-patch

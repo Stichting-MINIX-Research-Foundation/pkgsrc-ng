@@ -1,28 +1,45 @@
-# $NetBSD: bootstrap.mk,v 1.10 2013/10/16 16:51:00 richard Exp $
+# $NetBSD: bootstrap.mk,v 1.19 2015/03/06 12:11:54 tnn Exp $
+#
+# This file contains a map of available binary bootstrap toolchains
+# and which kit to use for each supported platform.
+#
+# Instructions for regenerating a bootstrap kit:
+#  1) Prepare a new chroot environment in which to build the kit
+#  2) If the running kernel version is not a release, use pkgtools/libkver
+#  3) Disable the x11 PKG_OPTION in openjdk7
+#  4) "make"
+#  5) cd $(make show-var VARNAME=BUILDDIR)
+#  6) mv j2sdk-image bootstrap
+#  7) cd bootstrap; rm -r demo man release sample src.zip
+#  8) When preparing kits for NetBSD 7 and above with gcc, copy libgcc_s.so.*
+#     and libstdc++.so.* from base to bootstrap/jre/lib/${LIBDIR_ARCH}.
+#     This will ensure that MKLLVM=yes/MKGCC=no user in the future can run
+#     the bootstrap toolchain. For targets that use jdk-zero-vm you need
+#     to include libffi.so.* as well.
+#  9) tar cf - bootstrap | xz -9c > bootstrap-xxx.tar.xz
+# 10) gpg2 -a --detach-sign bootstrap-xxx.tar.xz
+# 11) Upload archive and signature to ${MASTER_SITE_LOCAL:=openjdk7/}
+#
+# All binary kits from now on MUST have an accompanying PGP signature from
+# the person who prepared the kit. Unsigned binaries on ftp will be purged.
 
-ONLY_FOR_PLATFORM=	NetBSD-[56].*-i386 NetBSD-[56].*-x86_64
-ONLY_FOR_PLATFORM+=	DragonFly-[23].*-* SunOS-*-*
+ONLY_FOR_PLATFORM=	NetBSD-[567].*-i386 NetBSD-[567].*-x86_64
+ONLY_FOR_PLATFORM+=	NetBSD-7.*-sparc64 NetBSD-7.*-earmv[67]hf
+ONLY_FOR_PLATFORM+=	DragonFly-[34].*-* SunOS-*-* FreeBSD-10.*-x86_64
 
-BOOT.nb5-i386=		bootstrap-jdk7-bin-netbsd-5-i386-20110811.tar.bz2
-BOOT.nb5-amd64=		bootstrap-jdk7-bin-netbsd-5-amd64-20110811.tar.bz2
-BOOT.nb6-i386=		bootstrap-jdk7-bin-netbsd-6-i386-20110811.tar.bz2
-BOOT.nb6-amd64=		bootstrap-jdk7-bin-netbsd-6-amd64-20110811.tar.bz2
-BOOT.df213-i386=	bootstrap-jdk7-bin-dragonfly-2.13-i386-20110811A.tar.xz
-# 1.7 partial bootstrap:
-BOOT.df213-amd64=	bootstrap-jdk7-bin-dragonfly-2.13-amd64-20110811A.tar.xz
-BOOT.df33prebump-i386=	bootstrap-openjdk-7.9.05_2.dfly-3.3-i386.tar.xz
-BOOT.df33prebump-amd64=	bootstrap-openjdk-7.9.05_2.dfly-3.3-amd64.tar.xz
-BOOT.df35-i386=		bootstrap-openjdk-7.21.11.dfly-3.5-i386.tar.xz
-BOOT.df35-amd64=	bootstrap-openjdk-7.21.11.dfly-3.5-amd64.tar.xz
-BOOT.common-20110811=	bootstrap-jdk7-bin-common-20110811.tar.bz2
+BOOT.nb5-i386=		bootstrap-jdk-1.7.76-netbsd-5-i386-20150301.tar.xz
+BOOT.nb5-amd64=		bootstrap-jdk-1.7.76-netbsd-5-amd64-20150301.tar.xz
+BOOT.nb6-i386=		bootstrap-jdk-1.7.76-netbsd-6-i386-20150301.tar.xz
+BOOT.nb6-amd64=		bootstrap-jdk-1.7.76-netbsd-6-amd64-20150301.tar.xz
+BOOT.nb7-i386=		bootstrap-jdk-1.7.76-netbsd-7-i386-20150301.tar.xz
+BOOT.nb7-amd64=		bootstrap-jdk-1.7.76-netbsd-7-amd64-20150301.tar.xz
+BOOT.nb7-sparc64=	bootstrap-jdk-1.7.76-netbsd-7-sparc64-20150301.tar.xz
+BOOT.nb7-earmv6hf=	bootstrap-jdk-1.7.76-netbsd-7-earmv6hf-20150306.tar.xz
+BOOT.fbsd10-amd64=	bootstrap-jdk-1.7.76-freebsd-10-amd64-20150301.tar.xz
 
-DFBSDBOOTSTRAPSITE=	http://dl.wolfpond.org/openjdk7/
-SITES.bootstrap-jdk7-bin-dragonfly-2.13-i386-20110811A.tar.xz=	${DFBSDBOOTSTRAPSITE}
-SITES.bootstrap-jdk7-bin-dragonfly-2.13-amd64-20110811A.tar.xz=	${DFBSDBOOTSTRAPSITE}
-SITES.bootstrap-openjdk-7.9.05_2.dfly-3.3-i386.tar.xz=	${DFBSDBOOTSTRAPSITE}
-SITES.bootstrap-openjdk-7.9.05_2.dfly-3.3-amd64.tar.xz=	${DFBSDBOOTSTRAPSITE}
-SITES.bootstrap-openjdk-7.21.11.dfly-3.5-i386.tar.xz=	${DFBSDBOOTSTRAPSITE}
-SITES.bootstrap-openjdk-7.21.11.dfly-3.5-amd64.tar.xz=	${DFBSDBOOTSTRAPSITE}
+#XXX should be regenerated
+BOOT.dfly3.6-amd64=	bootstrap-jdk7u60-bin-dragonfly-3.6-amd64-20140719.tar.bz2
+BOOT.dfly3.8-amd64=	bootstrap-jdk7u60-bin-dragonfly-3.8-amd64-20140719.tar.bz2
 
 .if !empty(MACHINE_PLATFORM:MNetBSD-5.[0-8]*-i386) || make(distinfo)
 DISTFILES+=		${BOOT.nb5-i386}
@@ -34,63 +51,60 @@ DISTFILES+=		${BOOT.nb5-amd64}
 EXTRACT_ONLY+=		${BOOT.nb5-amd64}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MNetBSD-6.[0-8]*-i386) || make(distinfo) || \
-    !empty(MACHINE_PLATFORM:MNetBSD-5.99.*-i386) || \
-    !empty(MACHINE_PLATFORM:MNetBSD-6.99.*-i386)
+.if !empty(MACHINE_PLATFORM:MNetBSD-6.[0-8]*-i386) || make(distinfo)
 DISTFILES+=		${BOOT.nb6-i386}
 EXTRACT_ONLY+=		${BOOT.nb6-i386}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MNetBSD-6.[0-8]*-x86_64) || make(distinfo) || \
-    !empty(MACHINE_PLATFORM:MNetBSD-5.99.*-x86_64) || \
-    !empty(MACHINE_PLATFORM:MNetBSD-6.99.*-x86_64)
+.if !empty(MACHINE_PLATFORM:MNetBSD-6.[0-8]*-x86_64) || make(distinfo)
 DISTFILES+=		${BOOT.nb6-amd64}
 EXTRACT_ONLY+=		${BOOT.nb6-amd64}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-2.[0-9]*-i386) || \
-    !empty(MACHINE_PLATFORM:MDragonFly-3.[0-2]*-i386) || make(distinfo)
-DISTFILES+=		${BOOT.df213-i386}
-EXTRACT_ONLY+=		${BOOT.df213-i386}
+.if !empty(MACHINE_PLATFORM:MNetBSD-6.99*-i386) || !empty(MACHINE_PLATFORM:MNetBSD-7.*-i386) || make(distinfo)
+DISTFILES+=		${BOOT.nb7-i386}
+EXTRACT_ONLY+=		${BOOT.nb7-i386}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-2.[0-9]*-x86_64) || \
-    !empty(MACHINE_PLATFORM:MDragonFly-3.[0-2]*-x86_64) || make(distinfo)
-DISTFILES+=		${BOOT.df213-amd64}
-EXTRACT_ONLY+=		${BOOT.df213-amd64}
+.if !empty(MACHINE_PLATFORM:MNetBSD-6.99*-x86_64) || !empty(MACHINE_PLATFORM:MNetBSD-7.*-x86_64) || make(distinfo)
+DISTFILES+=		${BOOT.nb7-amd64}
+EXTRACT_ONLY+=		${BOOT.nb7-amd64}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-3.[3-4]*-i386) || make(distinfo)
-DISTFILES+=		${BOOT.df33prebump-i386}
-EXTRACT_ONLY+=		${BOOT.df33prebump-i386}
+.if !empty(MACHINE_PLATFORM:MNetBSD-7.*-sparc64) || make(distinfo)
+DISTFILES+=		${BOOT.nb7-sparc64}
+EXTRACT_ONLY+=		${BOOT.nb7-sparc64}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-3.[3-4]*-x86_64) || make(distinfo)
-DISTFILES+=		${BOOT.df33prebump-amd64}
-EXTRACT_ONLY+=		${BOOT.df33prebump-amd64}
+.if !empty(MACHINE_PLATFORM:MNetBSD-7.*-earmv[67]hf) || make(distinfo)
+DISTFILES+=		${BOOT.nb7-earmv6hf}
+EXTRACT_ONLY+=		${BOOT.nb7-earmv6hf}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-3.[5-9]*-i386) || make(distinfo)
-DISTFILES+=		${BOOT.df35-i386}
-EXTRACT_ONLY+=		${BOOT.df35-i386}
+.if !empty(MACHINE_PLATFORM:MDragonFly-3.6*-x86_64) || make(distinfo)
+DISTFILES+=		${BOOT.dfly3.6-amd64}
+EXTRACT_ONLY+=		${BOOT.dfly3.6-amd64}
 .endif
 
-.if !empty(MACHINE_PLATFORM:MDragonFly-3.[5-9]*-x86_64) || make(distinfo)
-DISTFILES+=		${BOOT.df35-amd64}
-EXTRACT_ONLY+=		${BOOT.df35-amd64}
+.if !empty(MACHINE_PLATFORM:MDragonFly-3.[8-9]*-x86_64) || !empty(MACHINE_PLATFORM:MDragonFly-4.*-x86_64) || make(distinfo)
+DISTFILES+=		${BOOT.dfly3.8-amd64}
+EXTRACT_ONLY+=		${BOOT.dfly3.8-amd64}
 .endif
 
-.if !empty(DISTFILES:M*20110811*) || make(distinfo)
-DISTFILES+=		${BOOT.common-20110811}
-EXTRACT_ONLY+=		${BOOT.common-20110811}
+.if !empty(MACHINE_PLATFORM:MFreeBSD-10.*-x86_64) || make(distinfo)
+DISTFILES+=		${BOOT.fbsd10-amd64}
+EXTRACT_ONLY+=		${BOOT.fbsd10-amd64}
 .endif
 
 .if ${OPSYS} == "SunOS"
 BUILDLINK_DEPMETHOD.sun-jdk7?=	build
 .include "../../lang/sun-jdk7/buildlink3.mk"
 #NB: sun-jdk7 includes sun-jre7/buildlink3.mk
-JDK_BOOTDIR=	${BUILDLINK_JAVA_PREFIX.sun-jre7:tA}
-MAKE_ENV+=		ALT_JDK_IMPORT_PATH=${JDK_BOOTDIR}
+post-extract: copy-bootstrap-jdk
+.PHONY: copy-bootstrap-jdk
+copy-bootstrap-jdk:
+	${MKDIR} ${ALT_BOOTDIR}
+	cd ${BUILDLINK_JAVA_PREFIX.sun-jre7:tA} && pax -rw . ${ALT_BOOTDIR}
 .endif
 
 ALT_BOOTDIR=		${WRKDIR}/bootstrap

@@ -1,12 +1,11 @@
-# $NetBSD: Makefile,v 1.37 2014/03/15 04:04:03 obache Exp $
+# $NetBSD: Makefile,v 1.41 2015/03/15 20:13:24 hiramatsu Exp $
 #
 
-DISTNAME=	milter-manager-2.0.2
-PKGREVISION=	2
+DISTNAME=	milter-manager-2.0.5
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=milter-manager/}
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://milter-manager.sourceforge.net/
 COMMENT=	Milter to use milters effectively
 
@@ -26,6 +25,12 @@ CONFIGURE_ARGS+=	--with-libev=${BUILDLINK_PREFIX.libev}
 CONFIGURE_ARGS+=	--with-ruby=${RUBY}
 CONFIGURE_ARGS+=	--enable-ruby-milter=${PREFIX}/${RUBY_VENDORLIB}
 CONFIGURE_ARGS+=	--with-bundled-ruby-glib2=no
+
+SUBST_CLASSES+=		libev_inc
+SUBST_STAGE.libev_inc=	pre-configure
+SUBST_MESSAGE.libev_inc=Adjust include path for libevent from pkgsrc.
+SUBST_FILES.libev_inc=	configure
+SUBST_SED.libev_inc=	's,/include/ev.h,/include/ev/ev.h,g'
 
 PKG_SYSCONFSUBDIR=	${PKGBASE}
 
@@ -78,10 +83,6 @@ BUILD_DEFS+=		MILTER_MANAGER_USER
 BUILD_DEFS+=		MILTER_MANAGER_GROUP
 BUILD_DEFS+=		MILTER_MANAGER_SOCKET_GROUP
 
-REPLACE_RUBY=		admin/public/dispatch.*
-REPLACE_RUBY+=		admin/script/*
-REPLACE_RUBY+=		admin/script/performance/*
-REPLACE_RUBY+=		admin/script/process/*
 REPLACE_RUBY+=		data/munin/milter_manager_
 REPLACE_RUBY+=		tool/milter-manager-log-analyzer
 REPLACE_RUBY+=		tool/milter-performance-check

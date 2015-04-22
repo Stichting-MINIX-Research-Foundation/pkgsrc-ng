@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.62 2014/02/12 23:17:35 tron Exp $
+# $NetBSD: Makefile,v 1.67 2014/10/07 16:47:10 adam Exp $
 
 DISTNAME=	empathy-2.34.0
-PKGREVISION=	37
+PKGREVISION=	41
 CATEGORIES=	chat gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/empathy/2.34/}
 
@@ -56,7 +56,7 @@ BUILDLINK_API_DEPENDS.gtk2+=		gtk2+>=2.12.0
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libunique/buildlink3.mk"
 # notyet
-#.include "../../www/webkit-gtk/buildlink3.mk"
+#.include "../../www/webkit1-gtk/buildlink3.mk"
 #.include "../../graphics/clutter-mx/buildlink3.mk"
 #.include "../../chat/telepathy-logger/buildlink3.mk"
 .include "../../mk/omf-scrollkeeper.mk"

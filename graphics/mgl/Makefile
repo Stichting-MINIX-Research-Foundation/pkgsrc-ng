@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.39 2013/02/16 11:22:17 wiz Exp $
+# $NetBSD: Makefile,v 1.41 2014/05/31 15:56:27 wiz Exp $
 #
 
 DISTNAME=	mgl2-alpha-020
 PKGNAME=	mgl-0.2.0a
-PKGREVISION=	10
+PKGREVISION=	12
 CATEGORIES=	graphics
 MASTER_SITES=	http://at.sakura.ne.jp/~suz/arc/
 
@@ -122,7 +122,7 @@ post-install:
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
-.include "../../mk/giflib.buildlink3.mk"
+.include "../../graphics/giflib/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXtst/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/01/25 10:30:01 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2015/01/18 06:18:58 mef Exp $
 
-DISTNAME=	libftdi1-1.0
+DISTNAME=	libftdi1-1.1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://www.intra2net.com/en/developer/libftdi/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -16,15 +17,12 @@ USE_CMAKE=	yes
 USE_TOOLS+=	pkg-config cmake
 USE_LANGUAGES=	c c++
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.0
 
 BUILD_DEPENDS+=libusb1-[0-9]*:../../devel/libusb1
 # It is better off to have doxygen, but
 # clang segfaults while packaging print/luatex
 #BUILD_DEPENDS+=doxygen-[0-9]*:../../devel/doxygen
-
-CONFIGURE_ARGS+=	--without-examples
-CONFIGURE_ARGS+=	--without-docs
 
 PKGCONFIG_OVERRIDE+=	libftdi1.pc.in
 PKGCONFIG_OVERRIDE+=	libftdipp1.pc.in
@@ -34,6 +32,8 @@ PLIST_SUBST+=	PYSITELIB=${PYSITELIB}
 do-configure:
 	(cd $(WRKSRC) ; \
 	cmake \
+	-DEXAMPLES:BOOL=off \
+	-DDOCUMENTATION:BOOL=off \
 	-DCMAKE_BUILD_WITH_INSTALL_RPATH=TRUE \
 	-DCMAKE_INSTALL_PREFIX=${PREFIX} \
 	-DCMAKE_INSTALL_RPATH=${PREFIX}/lib \
@@ -44,11 +44,12 @@ do-configure:
 
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
-.include "../../devel/libconfuse/buildlink3.mk"
+.include "../../devel/confuse/buildlink3.mk"
 .include "../../devel/libusb/buildlink3.mk"
 .include "../../devel/libusb1/buildlink3.mk"
 .include "../../devel/swig/buildlink3.mk"
 .include "../../lang/python/pyversion.mk"
 .include "../../lang/${PYPACKAGE}/buildlink3.mk"
+.include "../../lang/python/tool.mk"
 
 .include "../../mk/bsd.pkg.mk"

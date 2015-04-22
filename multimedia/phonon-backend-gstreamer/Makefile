@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2014/02/12 23:18:18 tron Exp $
+# $NetBSD: Makefile,v 1.20 2014/11/30 03:00:04 markd Exp $
 
-DISTNAME=	phonon-backend-gstreamer-4.7.1
-PKGREVISION=	1
+DISTNAME=	phonon-backend-gstreamer-4.8.0
 CATEGORIES=	multimedia
-MASTER_SITES=	${MASTER_SITE_KDE:=phonon/phonon-backend-gstreamer/4.7.1/}
+MASTER_SITES=	${MASTER_SITE_KDE:=phonon/phonon-backend-gstreamer/4.8.0/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	markd@NetBSD.org
@@ -26,8 +25,8 @@ pre-configure:
 	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/
 	${MKDIR} ${WRKSRC}/_build
 
-.include "../../multimedia/gstreamer0.10/buildlink3.mk"
-.include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
+.include "../../multimedia/gstreamer1/buildlink3.mk"
+.include "../../multimedia/gst-plugins1-base/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

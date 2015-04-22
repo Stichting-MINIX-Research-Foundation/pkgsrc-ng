@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.29 2013/11/13 22:51:37 joerg Exp $
+# $NetBSD: Makefile,v 1.32 2014/10/19 22:27:45 alnsn Exp $
 #
 
 DISTNAME=		stratagus-2.1-src
 PKGNAME=		${DISTNAME:S/-src//}
-PKGREVISION=		18
+PKGREVISION=		20
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=stratagus/}
 
@@ -21,8 +21,8 @@ USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 MAKE_ENV+=		X11_LDFLAGS=${X_LDFLAGS:M*:Q}
 
-CONFIGURE_ARGS+=	--with-flac --with-mad
-
+CONFIGURE_ARGS+=	--with-flac --with-mad --with-lua=${BUILDLINK_PREFIX.lua}
+CPPFLAGS+=		-I${BUILDLINK_PREFIX.lua}/${LUA_INCDIR}
 INSTALLATION_DIRS=	bin
 
 .include "../../mk/bsd.prefs.mk"

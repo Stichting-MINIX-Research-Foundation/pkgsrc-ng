@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.1 2014/01/17 13:22:51 obache Exp $
+$NetBSD: distinfo,v 1.5 2015/03/28 04:32:15 taca Exp $
 
-SHA1 (http-0.5.0.gem) = d3a076a190e3ca6e7ed54945ea84dfbfef6f1ae4
-RMD160 (http-0.5.0.gem) = ef008d93425f9f6ad69d22d1019637601cea094e
-Size (http-0.5.0.gem) = 20992 bytes
+SHA1 (http-0.7.3.gem) = ba3d8e819bc8ff0b111ea62cd4d23a8e3983e9ee
+RMD160 (http-0.7.3.gem) = 1c0a3f4e5006976f900350cf532e590de22d4254
+Size (http-0.7.3.gem) = 54784 bytes

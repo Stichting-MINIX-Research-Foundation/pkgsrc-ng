@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.8 2013/05/05 21:59:56 rodent Exp $
+# $NetBSD: Makefile,v 1.11 2014/08/06 12:21:03 obache Exp $
 #
 
 DISTNAME=	desktop-gnome-0.5
+PKGREVISION=	1
 CATEGORIES=	meta-pkgs x11 gnome
 MASTER_SITES=	# empty
 
-MAINTAINER=	netbsd-desktop@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Software stack for the NetBSD Desktop Project
 HOMEPAGE=	http://wiki.netbsd.se/Desktop_Project
 
@@ -14,7 +15,7 @@ META_PACKAGE=	yes
 # implements http://wiki.netbsd.se/Desktop_Phase_1
 #
 DEPENDS+=	pkgin-[0-9]*:../../pkgtools/pkgin
-DEPENDS+=	cups-[0-9]*:../../print/cups
+DEPENDS+=	cups-[0-9]*:../../print/cups15
 DEPENDS+=	firefox-[0-9]*:../../www/firefox
 DEPENDS+=	gnome-[0-9]*:../../meta-pkgs/gnome
 DEPENDS+=	gimp-[0-9]*:../../graphics/gimp

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2014/03/01 02:20:23 wen Exp $
+# $NetBSD: Makefile,v 1.5 2014/10/13 05:50:19 wen Exp $
 
-DISTNAME=	Mo-0.38
+DISTNAME=	Mo-0.39
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/C/CA/CARLOS/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/I/IN/INGY/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Mo/

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2014/02/15 13:46:12 mef Exp $
+# $NetBSD: Makefile,v 1.40 2014/10/09 14:06:02 wiz Exp $
 #
 
 DISTNAME=	verilog-0.9.7
@@ -9,8 +9,6 @@ MAINTAINER=	dmcmahill@NetBSD.org
 HOMEPAGE=	http://iverilog.icarus.com/
 COMMENT=	Verilog simulation and synthesis tool (stable release version)
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 CONFLICTS+=	verilog-current-[0-9]*
 
@@ -64,8 +62,13 @@ post-install:
 		disciplines.vams \
 	${DESTDIR}${PREFIX}/lib/ivl/include )
 
+#
+# 1. this should be BUILD_DEPENDS
+# 2. it doesn't actually run it during the build anyhow
+#
+#.include "../../devel/gperf/buildlink3.mk"
+
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
-.include "../../devel/gperf/buildlink3.mk"
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

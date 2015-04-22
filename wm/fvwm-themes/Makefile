@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2013/05/31 12:42:29 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/21 15:22:14 joerg Exp $
 #
 
 DISTNAME=	fvwm-themes-${THEM_VER}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	wm
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fvwm-themes/}
 EXTRACT_SUFX=	.tar.bz2
@@ -24,6 +24,7 @@ USE_X11BASE=	YES
 GNU_CONFIGURE=	YES
 
 CONFIGURE_ARGS+=	--with-ft-datadir=${PREFIX}/share/fvwm2
+CONFIGURE_ARGS+=	--x-includes=${X11BASE}/include --x-libraries=${X11BASE}/lib
 
 REPLACE_PERL+=	themes/cde/modules/create-buttonbar-config
 

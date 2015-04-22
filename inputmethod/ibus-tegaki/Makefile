@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.6 2014/01/25 10:30:11 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/03/15 17:00:29 hiramatsu Exp $
 
 DISTNAME=	ibus-tegaki-0.3.1
 PKGREVISION=	2
 CATEGORIES=	inputmethod
 MASTER_SITES=	http://www.tegaki.org/releases/${PKGVERSION_NOREV}/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tegaki.org/
 COMMENT=	Tegaki integration in ibus
 LICENSE=	gnu-gpl-v2
@@ -21,8 +21,7 @@ SUBST_STAGE.epython=	pre-configure
 SUBST_FILES.epython=	ibus-engine-tegaki.in
 SUBST_SED.epython=	-e 's;exec python;exec ${PYTHONBIN};g'
 
-EGG_NAME=		${DISTNAME:S/-/_/}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-gtk2 via py-ibus-python
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2 via py-ibus-python
 
 .include "../../lang/python/distutils.mk"
 .include "../../lang/python/application.mk"

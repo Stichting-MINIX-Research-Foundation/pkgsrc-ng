@@ -30,8 +30,8 @@
         The pkgsrc Developers
       </h3>
 </div></div>
-<div><p class="copyright">Copyright © 1994-2007 The NetBSD Foundation, Inc</p></div>
-<div><p class="pubdate">$NetBSD: pkgsrc.xml,v 1.26 2007/09/18 08:17:21 rillig Exp $</p></div>
+<div><p class="copyright">Copyright © 1994-2015 The NetBSD Foundation, Inc</p></div>
+<div><p class="pubdate">$NetBSD: pkgsrc.xml,v 1.28 2015/01/01 05:19:02 jnemeth Exp $</p></div>
 <div><div class="abstract">
 <p class="title"><b>Abstract</b></p>
 <p>pkgsrc is a centralized package management system for
@@ -45,7 +45,7 @@
 </div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="chapter"><a href="#introduction">1. What is pkgsrc?</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#introduction-section">1.1. Introduction</a></span></dt>
@@ -133,26 +133,12 @@
 <dt><span class="chapter"><a href="#bulk">7. Creating binary packages for everything in pkgsrc (bulk
 builds)</a></span></dt>
 <dd><dl>
-<dt><span class="sect1"><a href="#bulk.pre">7.1. Think first, build later</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.req">7.2. Requirements of a bulk build</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.old">7.3. Running an old-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#binary.configuration">7.3.1. Configuration</a></span></dt>
-<dt><span class="sect2"><a href="#other-environmental-considerations">7.3.2. Other environmental considerations</a></span></dt>
-<dt><span class="sect2"><a href="#operation">7.3.3. Operation</a></span></dt>
-<dt><span class="sect2"><a href="#what-it-does">7.3.4. What it does</a></span></dt>
-<dt><span class="sect2"><a href="#disk-space-requirements">7.3.5. Disk space requirements</a></span></dt>
-<dt><span class="sect2"><a href="#setting-up-a-sandbox">7.3.6. Setting up a sandbox for chrooted builds</a></span></dt>
-<dt><span class="sect2"><a href="#building-a-partial-set">7.3.7. Building a partial set of packages</a></span></dt>
-<dt><span class="sect2"><a href="#bulk-upload">7.3.8. Uploading results of a bulk build</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#bulk.pbulk">7.4. Running a pbulk-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#bulk.pbulk.prepare">7.4.1. Preparation</a></span></dt>
-<dt><span class="sect2"><a href="#bulk.pbulk.conf">7.4.2. Configuration</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#creating-cdroms">7.5. Creating a multiple CD-ROM packages collection</a></span></dt>
-<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.5.1. Example of cdpack</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="#bulk.pre">7.1. Preparations</a></span></dt>
+<dt><span class="sect1"><a href="#bulk.pbulk">7.2. Running a pbulk-style bulk build</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#bulk.pbulk.conf">7.2.1. Configuration</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="#bulk.req">7.3. Requirements of a full bulk build</a></span></dt>
+<dt><span class="sect1"><a href="#creating-cdroms">7.4. Creating a multiple CD-ROM packages collection</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.4.1. Example of cdpack</a></span></dt></dl></dd>
 </dl></dd>
 <dt><span class="chapter"><a href="#files">8. Directory layout of the installed files</a></span></dt>
 <dd><dl>
@@ -162,24 +148,23 @@ builds)</a></span></dt>
 <dt><span class="chapter"><a href="#faq">9. Frequently Asked Questions</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#mailing-list-pointers">9.1. Are there any mailing lists for pkg-related discussion?</a></span></dt>
-<dt><span class="sect1"><a href="#pkgviews-docs">9.2. Where's the pkgviews documentation?</a></span></dt>
-<dt><span class="sect1"><a href="#faq-pkgtools">9.3. Utilities for package management (pkgtools)</a></span></dt>
-<dt><span class="sect1"><a href="#non-root-pkgsrc">9.4. How to use pkgsrc as non-root</a></span></dt>
-<dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
-<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#faq-pkgtools">9.2. Utilities for package management (pkgtools)</a></span></dt>
+<dt><span class="sect1"><a href="#non-root-pkgsrc">9.3. How to use pkgsrc as non-root</a></span></dt>
+<dt><span class="sect1"><a href="#resume-transfers">9.4. How to resume transfers when fetching distfiles?</a></span></dt>
+<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.5. How can I install/use modular X.org from pkgsrc?</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-behind-firewall">9.6. How to fetch files from behind a firewall</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-https">9.7. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl></dd>
 </dl></dd>
 <dt><span class="part"><a href="#developers-guide">II. The pkgsrc developer's guide</a></span></dt>
@@ -189,7 +174,7 @@ builds)</a></span></dt>
 <dt><span class="sect1"><a href="#creating.common">10.1. Common types of packages</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#creating.perl-module">10.1.1. Perl modules</a></span></dt>
-<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE applications</a></span></dt>
+<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE3 applications</a></span></dt>
 <dt><span class="sect2"><a href="#creating.python-module">10.1.3. Python modules and programs</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#creating.examples">10.2. Examples</a></span></dt>
@@ -240,7 +225,8 @@ builds)</a></span></dt>
 <dt><span class="sect1"><a href="#manpage-compression">13.5. Man page compression</a></span></dt>
 <dt><span class="sect1"><a href="#using-PLIST_SRC">13.6. Changing PLIST source with <code class="varname">PLIST_SRC</code></a></span></dt>
 <dt><span class="sect1"><a href="#platform-specific-plist">13.7. Platform-specific and differing PLISTs</a></span></dt>
-<dt><span class="sect1"><a href="#faq.common-dirs">13.8. Sharing directories between packages</a></span></dt>
+<dt><span class="sect1"><a href="#build-plist">13.8. Build-specific PLISTs</a></span></dt>
+<dt><span class="sect1"><a href="#faq.common-dirs">13.9. Sharing directories between packages</a></span></dt>
 </dl></dd>
 <dt><span class="chapter"><a href="#buildlink">14. Buildlink methodology</a></span></dt>
 <dd><dl>
@@ -341,6 +327,7 @@ builds)</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#no-plain-download">19.2.1. Packages whose distfiles aren't available for plain downloading</a></span></dt>
 <dt><span class="sect2"><a href="#modified-distfiles-same-name">19.2.2. How to handle modified distfiles with the 'old' name</a></span></dt>
+<dt><span class="sect2"><a href="#build.fetch.github">19.2.3. Packages hosted on github.com</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#fixes.configure">19.3. Fixing problems in the <span class="emphasis"><em>configure</em></span> phase</a></span></dt>
 <dd><dl>
@@ -497,7 +484,7 @@ source packages</a></span></dt>
 <a name="introduction"></a>Chapter 1. What is pkgsrc?</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#introduction-section">1.1. Introduction</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#why-pkgsrc">1.1.1. Why pkgsrc?</a></span></dt>
@@ -801,7 +788,7 @@ minutes!</p>
 <a name="users-guide"></a>Part I. The pkgsrc user's guide</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="chapter"><a href="#getting">2. Where to get pkgsrc and how to keep it up-to-date</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#getting-first">2.1. Getting pkgsrc for the first time</a></span></dt>
@@ -875,26 +862,12 @@ minutes!</p>
 <dt><span class="chapter"><a href="#bulk">7. Creating binary packages for everything in pkgsrc (bulk
 builds)</a></span></dt>
 <dd><dl>
-<dt><span class="sect1"><a href="#bulk.pre">7.1. Think first, build later</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.req">7.2. Requirements of a bulk build</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.old">7.3. Running an old-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#binary.configuration">7.3.1. Configuration</a></span></dt>
-<dt><span class="sect2"><a href="#other-environmental-considerations">7.3.2. Other environmental considerations</a></span></dt>
-<dt><span class="sect2"><a href="#operation">7.3.3. Operation</a></span></dt>
-<dt><span class="sect2"><a href="#what-it-does">7.3.4. What it does</a></span></dt>
-<dt><span class="sect2"><a href="#disk-space-requirements">7.3.5. Disk space requirements</a></span></dt>
-<dt><span class="sect2"><a href="#setting-up-a-sandbox">7.3.6. Setting up a sandbox for chrooted builds</a></span></dt>
-<dt><span class="sect2"><a href="#building-a-partial-set">7.3.7. Building a partial set of packages</a></span></dt>
-<dt><span class="sect2"><a href="#bulk-upload">7.3.8. Uploading results of a bulk build</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#bulk.pbulk">7.4. Running a pbulk-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#bulk.pbulk.prepare">7.4.1. Preparation</a></span></dt>
-<dt><span class="sect2"><a href="#bulk.pbulk.conf">7.4.2. Configuration</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#creating-cdroms">7.5. Creating a multiple CD-ROM packages collection</a></span></dt>
-<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.5.1. Example of cdpack</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="#bulk.pre">7.1. Preparations</a></span></dt>
+<dt><span class="sect1"><a href="#bulk.pbulk">7.2. Running a pbulk-style bulk build</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#bulk.pbulk.conf">7.2.1. Configuration</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="#bulk.req">7.3. Requirements of a full bulk build</a></span></dt>
+<dt><span class="sect1"><a href="#creating-cdroms">7.4. Creating a multiple CD-ROM packages collection</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.4.1. Example of cdpack</a></span></dt></dl></dd>
 </dl></dd>
 <dt><span class="chapter"><a href="#files">8. Directory layout of the installed files</a></span></dt>
 <dd><dl>
@@ -904,24 +877,23 @@ builds)</a></span></dt>
 <dt><span class="chapter"><a href="#faq">9. Frequently Asked Questions</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#mailing-list-pointers">9.1. Are there any mailing lists for pkg-related discussion?</a></span></dt>
-<dt><span class="sect1"><a href="#pkgviews-docs">9.2. Where's the pkgviews documentation?</a></span></dt>
-<dt><span class="sect1"><a href="#faq-pkgtools">9.3. Utilities for package management (pkgtools)</a></span></dt>
-<dt><span class="sect1"><a href="#non-root-pkgsrc">9.4. How to use pkgsrc as non-root</a></span></dt>
-<dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
-<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#faq-pkgtools">9.2. Utilities for package management (pkgtools)</a></span></dt>
+<dt><span class="sect1"><a href="#non-root-pkgsrc">9.3. How to use pkgsrc as non-root</a></span></dt>
+<dt><span class="sect1"><a href="#resume-transfers">9.4. How to resume transfers when fetching distfiles?</a></span></dt>
+<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.5. How can I install/use modular X.org from pkgsrc?</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-behind-firewall">9.6. How to fetch files from behind a firewall</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-https">9.7. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl></dd>
 </dl>
 </div>
@@ -930,7 +902,7 @@ builds)</a></span></dt>
 <a name="getting"></a>Chapter 2. Where to get pkgsrc and how to keep it up-to-date</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#getting-first">2.1. Getting pkgsrc for the first time</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#getting-via-tar">2.1.1. As tar archive</a></span></dt>
@@ -960,14 +932,12 @@ and dashes.</p>
 	quarterly basis from the current branch and only gets modified
 	for security updates. The names of the stable branches are built
 	from the year and the quarter, for example
-	<code class="literal">2009Q1</code>.</p>
+	<code class="literal">2014Q3</code>.</p>
 <p>The second step is to decide <span class="emphasis"><em>how</em></span> you
 	want to download pkgsrc. You can get it as a tar file or via CVS.
 	Both ways are described here.</p>
 <p>Note that tar archive contains CVS working copy.
 	Thus you can switch to using CVS at any later time.</p>
-<p>Note also that quarterly branch is not frozen in stone.
-	It receives critical updates.</p>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
 <a name="getting-via-tar"></a>2.1.1. As tar archive</h3></div></div></div>
@@ -988,18 +958,18 @@ and dashes.</p>
 	respectively.
 	</p>
 <p>You can fetch the same files using FTP.</p>
-<p>The tar file for the stable branch 2013Q1 is in the
-	directory <code class="filename">pkgsrc-2013Q1</code> and is also called <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-2013Q1/pkgsrc.tar.gz" target="_top"><code class="filename">pkgsrc.tar.gz</code></a>.</p>
+<p>The tar file for the stable branch 2014Q3 is in the
+	directory <code class="filename">pkgsrc-2014Q3</code> and is also called <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/pkgsrc-2014Q3/pkgsrc.tar.gz" target="_top"><code class="filename">pkgsrc.tar.gz</code></a>.</p>
 <p>To download a pkgsrc stable tarball, run:</p>
 <pre class="screen">
 <code class="prompt">$</code> <strong class="userinput"><code>ftp ftp://ftp.NetBSD.org/pub/pkgsrc/<em class="replaceable"><code>pkgsrc-20xxQy</code></em>/pkgsrc.tar.gz</code></strong></pre>
 <p>Where <em class="replaceable"><code>pkgsrc-20xxQy</code></em> is the
 	stable branch to be downloaded, for example, 
-	<span class="quote">&#8220;<span class="quote">pkgsrc-2013Q1</span>&#8221;</span>.</p>
-<p>You can use fetch it also using "wget", "curl",
+	<span class="quote">&#8220;<span class="quote">pkgsrc-2014Q3</span>&#8221;</span>.</p>
+<p>If you prefer, you can also fetch it using "wget", "curl",
 	or your web browser.</p>
 <p>Then, extract it with:</p>
-<pre class="screen"><code class="prompt">$</code> <strong class="userinput"><code>tar -xzf <em class="replaceable"><code>pkgsrc-20xxQy</code></em>.tar.gz -C /usr</code></strong></pre>
+<pre class="screen"><code class="prompt">$</code> <strong class="userinput"><code>tar -xzf pkgsrc.tar.gz -C /usr</code></strong></pre>
 <p>This will create the directory <code class="filename">pkgsrc/</code>
 	in <code class="filename">/usr/</code> and all the package source will be 
 	stored under <code class="filename">/usr/pkgsrc/</code>.</p>
@@ -1013,14 +983,14 @@ and dashes.</p>
 <pre class="screen"><code class="prompt">$</code> <strong class="userinput"><code>cd /usr &amp;&amp; cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -r <em class="replaceable"><code>pkgsrc-20xxQy</code></em> -P pkgsrc</code></strong>
 </pre>
 <p>Where <em class="replaceable"><code>pkgsrc-20xxQy</code></em> is the stable 
-	branch to be checked out, for example, <span class="quote">&#8220;<span class="quote">pkgsrc-2009Q1</span>&#8221;</span></p>
+	branch to be checked out, for example, <span class="quote">&#8220;<span class="quote">pkgsrc-2014Q3</span>&#8221;</span></p>
 <p>This will create the directory <code class="filename">pkgsrc/</code> 
 	in your <code class="filename">/usr/</code> directory and all the package source 
 	will be stored under <code class="filename">/usr/pkgsrc/</code>.</p>
 <p>To fetch the pkgsrc current branch, run:</p>
 <pre class="screen"><code class="prompt">$</code> <strong class="userinput"><code>cd /usr &amp;&amp; cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -P pkgsrc</code></strong>
 </pre>
-<p>Refer to the <a class="ulink" href="http://www.NetBSD.org/mirrors/" target="_top">list of available mirrors</a> to choose a faster CVS mirror, if needed.</p>
+<p>Refer to the <a class="ulink" href="http://www.NetBSD.org/mirrors/#anoncvs" target="_top">list of available mirrors</a> to choose a faster CVS mirror, if needed.</p>
 <p>If you get error messages from <code class="literal">rsh</code>, you need to set CVS_RSH variable. E.g.:</p>
 <pre class="screen"><code class="prompt">$</code> <strong class="userinput"><code>cd /usr &amp;&amp; env CVS_RSH=ssh cvs -q -z2 -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -P pkgsrc</code></strong>
 </pre>
@@ -1070,8 +1040,8 @@ release -d
 </div>
 <p>Note that by default the distfiles and the binary packages
 	are saved in the pkgsrc tree, so don't forget to rescue them
-	before updating. You can also configure pkgsrc to use other than
-	the default directories by setting the
+	before updating. You can also configure pkgsrc to store distfiles
+        and packages in directories outside the pkgsrc tree by setting the
 	<code class="varname">DISTDIR</code> and <code class="varname">PACKAGES</code>
 	variables. See <a class="xref" href="#configuring" title="Chapter 5. Configuring pkgsrc">Chapter 5, <i>Configuring pkgsrc</i></a> for the details.</p>
 <p>To update pkgsrc from a tar file, download the tar file as
@@ -1097,7 +1067,7 @@ release -d
 	by adding the option <span class="quote">&#8220;<span class="quote">-A</span>&#8221;</span> after the
 	<span class="quote">&#8220;<span class="quote">update</span>&#8221;</span> keyword. To switch from the current branch
 	back to the stable branch, add the
-	<span class="quote">&#8220;<span class="quote">-rpkgsrc-2009Q3</span>&#8221;</span> option.</p>
+	<span class="quote">&#8220;<span class="quote">-rpkgsrc-2014Q3</span>&#8221;</span> option.</p>
 </div>
 <div class="sect3">
 <div class="titlepage"><div><div><h4 class="title">
@@ -1118,7 +1088,7 @@ release -d
 <a name="platforms"></a>Chapter 3. Using pkgsrc on systems other than NetBSD</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#binarydist">3.1. Binary distribution</a></span></dt>
 <dt><span class="sect1"><a href="#bootstrapping-pkgsrc">3.2. Bootstrapping pkgsrc</a></span></dt>
 <dt><span class="sect1"><a href="#platform-specific-notes">3.3. Platform-specific notes</a></span></dt>
@@ -1695,7 +1665,7 @@ WRAPPER_SHELL=  ${LOCALBASE}/bin/bash
 <a name="using"></a>Chapter 4. Using pkgsrc</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#using-pkg">4.1. Using binary packages</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#finding-binary-packages">4.1.1. Finding binary packages</a></span></dt>
@@ -1760,7 +1730,7 @@ and you can still use binary packages from someone else.</p>
 <div class="titlepage"><div><div><h3 class="title">
 <a name="installing-binary-packages"></a>4.1.2. Installing binary packages</h3></div></div></div>
 <p>In the directory from the last section, there is a
-    subdirectory called <code class="filename">All</code>, which contains all the
+    subdirectory called <code class="filename">All/</code>, which contains all the
     binary packages that are available for the platform, excluding those
     that may not be distributed via FTP or CDROM (depending on which
     medium you are using).</p>
@@ -1769,7 +1739,7 @@ and you can still use binary packages from someone else.</p>
     <span class="command"><strong>su</strong></span> to root first):</p>
 <pre class="screen">
 <code class="prompt">#</code> <strong class="userinput"><code>PATH="/usr/pkg/sbin:$PATH"</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>PKG_PATH="ftp://ftp.NetBSD.org/pub/pkgsrc/packages/<em class="replaceable"><code>OPSYS</code></em>/<em class="replaceable"><code>ARCH</code></em>/<em class="replaceable"><code>VERSIONS</code></em>/All"</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>PKG_PATH="ftp://ftp.NetBSD.org/pub/pkgsrc/packages/<em class="replaceable"><code>OPSYS</code></em>/<em class="replaceable"><code>ARCH</code></em>/<em class="replaceable"><code>VERSIONS</code></em>/All/"</code></strong>
 <code class="prompt">#</code> <strong class="userinput"><code>export PATH PKG_PATH</code></strong>
 </pre>
 <p>Instead of URLs, you can also use local paths, for example if
@@ -2132,7 +2102,7 @@ Version mismatch: 'tcsh' 6.09.00 vs 6.10.00
 <a name="configuring"></a>Chapter 5. Configuring pkgsrc</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#general-configuration">5.1. General configuration</a></span></dt>
 <dt><span class="sect1"><a href="#variables-affecting-build">5.2. Variables affecting the build process</a></span></dt>
 <dt><span class="sect1"><a href="#variables-affecting-installation">5.3. Variables affecting the installation process</a></span></dt>
@@ -2182,7 +2152,7 @@ works.</p>
 	    <code class="filename">${LOCALBASE}/cross</code>.</p></li>
 <li class="listitem"><p><code class="varname">X11BASE</code>: Where
 	    X11 is installed on the system. The default is
-	    <code class="filename">/usr/X11R6</code>.</p></li>
+	    <code class="filename">/usr/X11R7</code>.</p></li>
 <li class="listitem"><p><code class="varname">DISTDIR</code>: Where to store the
 	    downloaded copies of the original source distributions used
 	    for building pkgsrc packages. The default is
@@ -2249,8 +2219,11 @@ works.</p>
 <li class="listitem"><p><code class="varname">DEPENDS_TARGET</code>:
 	    By default, dependencies are only installed, and no binary
 	    package is created for them. You can set this variable to
-	    <code class="literal">package</code> to automatically create binary
-	    packages after installing dependencies.</p></li>
+	    <code class="literal">package-install</code> to automatically create binary
+	    packages after installing dependencies. Please note that the
+	    <code class="varname">PKGSRC_KEEP_BIN_PKGS</code> can be set to
+	    <code class="literal">yes</code> to preserve binary packages when
+	    using the <code class="literal">install</code> as well.</p></li>
 </ul></div>
 </div>
 <div class="sect1">
@@ -2271,14 +2244,6 @@ works.</p>
     you can set
     <code class="varname">USE_DESTDIR=no</code>; this setting will be deprecated though,
     so it's preferable to convert a package to DESTDIR instead.</p>
-<p>DESTDIR support changes the behaviour of various targets
-    slightly. To install a package after building it, use
-    <code class="literal">package-install</code>. <code class="literal">package</code> and
-    <code class="literal">install</code> don't do that any
-    longer. <code class="literal">package-install</code> can be used as
-    <code class="varname">DEPENDS_TARGET</code>.  <code class="literal">bin-install</code>
-    will ask for the root password to install the package and fail,
-    <code class="literal">package-install</code> will ask again.</p>
 <p>With basic DESTDIR support, <strong class="userinput"><code>make
     clean</code></strong> needs to be run as root.</p>
 <p>Considering the <code class="filename">foo/bar</code> package,
@@ -2298,7 +2263,7 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 
 </p>
 <pre class="programlisting">
-<code class="prompt">$</code> make USE_DESTDIR=yes install
+<code class="prompt">$</code> make stage-install
 </pre>
 <p>
 
@@ -2306,7 +2271,7 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 
 </p>
 <pre class="programlisting">
-<code class="prompt">$</code> make USE_DESTDIR=yes PACKAGES=$HOME/packages package
+<code class="prompt">$</code> make PACKAGES=$HOME/packages package
 </pre>
 <p>
 
@@ -2315,7 +2280,7 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 
 </p>
 <pre class="programlisting">
-<code class="prompt">$</code> make USE_DESTDIR=yes PACKAGES=$HOME/packages package-install
+<code class="prompt">$</code> make PACKAGES=$HOME/packages install
 </pre>
 <p>
 
@@ -2344,18 +2309,32 @@ uid=1000(myusername) gid=100(users) groups=100(users),0(wheel)
 	  compilers to invoke when building packages.  Valid values
 	  are:</p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p><code class="varname">distcc</code>:
-	    distributed C/C++ (chainable)</p></li>
+<li class="listitem"><p><code class="varname">ccc</code>:
+	    Compaq C Compilers (Tru64)</p></li>
 <li class="listitem"><p><code class="varname">ccache</code>:
 	    compiler cache (chainable)</p></li>
+<li class="listitem"><p><code class="varname">clang</code>:
+	    Clang C and Objective-C compiler</p></li>
+<li class="listitem"><p><code class="varname">distcc</code>:
+	    distributed C/C++ (chainable)</p></li>
+<li class="listitem"><p><code class="varname">f2c</code>:
+	    Fortran 77 to C compiler (chainable)</p></li>
+<li class="listitem"><p><code class="varname">icc</code>:
+	    Intel C++ Compiler (Linux)</p></li>
+<li class="listitem"><p><code class="varname">ido</code>:
+	    SGI IRIS Development Option cc (IRIX 5)</p></li>
 <li class="listitem"><p><code class="varname">gcc</code>:
 	    GNU C/C++ Compiler</p></li>
+<li class="listitem"><p><code class="varname">hp</code>:
+	    HP-UX C/aC++ compilers</p></li>
 <li class="listitem"><p><code class="varname">mipspro</code>:
 	    Silicon Graphics, Inc. MIPSpro (n32/n64)</p></li>
-<li class="listitem"><p><code class="varname">mipspro</code>:
+<li class="listitem"><p><code class="varname">mipspro-ucode</code>:
 	    Silicon Graphics, Inc. MIPSpro (o32)</p></li>
 <li class="listitem"><p><code class="varname">sunpro</code>:
 	    Sun Microsystems, Inc. WorkShip/Forte/Sun ONE Studio</p></li>
+<li class="listitem"><p><code class="varname">xlc</code>:
+	    IBM's XL C/C++ compiler suite (Darwin/MacOSX)</p></li>
 </ul></div>
 <p>The default is
 	  <span class="quote">&#8220;<span class="quote"><code class="varname">gcc</code></span>&#8221;</span>.  You can use
@@ -2412,7 +2391,7 @@ LDFLAGS+=        -your -linkerflags
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="developer-advanced-settings"></a>5.5. Developer/advanced settings</h2></div></div></div>
-<p>XXX
+<p>
       </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
 <li class="listitem">
@@ -2517,7 +2496,7 @@ PKG_OPTIONS.apache=     suexec </pre>
 <a name="binary"></a>Chapter 6. Creating binary packages</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#building-a-single-binary-package">6.1. Building a single binary package</a></span></dt>
 <dt><span class="sect1"><a href="#settings-for-creationg-of-binary-packages">6.2. Settings for creation of binary packages</a></span></dt>
 </dl>
@@ -2560,74 +2539,121 @@ PKG_OPTIONS.apache=     suexec </pre>
 builds)</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
-<dt><span class="sect1"><a href="#bulk.pre">7.1. Think first, build later</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.req">7.2. Requirements of a bulk build</a></span></dt>
-<dt><span class="sect1"><a href="#bulk.old">7.3. Running an old-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#binary.configuration">7.3.1. Configuration</a></span></dt>
-<dt><span class="sect2"><a href="#other-environmental-considerations">7.3.2. Other environmental considerations</a></span></dt>
-<dt><span class="sect2"><a href="#operation">7.3.3. Operation</a></span></dt>
-<dt><span class="sect2"><a href="#what-it-does">7.3.4. What it does</a></span></dt>
-<dt><span class="sect2"><a href="#disk-space-requirements">7.3.5. Disk space requirements</a></span></dt>
-<dt><span class="sect2"><a href="#setting-up-a-sandbox">7.3.6. Setting up a sandbox for chrooted builds</a></span></dt>
-<dt><span class="sect2"><a href="#building-a-partial-set">7.3.7. Building a partial set of packages</a></span></dt>
-<dt><span class="sect2"><a href="#bulk-upload">7.3.8. Uploading results of a bulk build</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#bulk.pbulk">7.4. Running a pbulk-style bulk build</a></span></dt>
-<dd><dl>
-<dt><span class="sect2"><a href="#bulk.pbulk.prepare">7.4.1. Preparation</a></span></dt>
-<dt><span class="sect2"><a href="#bulk.pbulk.conf">7.4.2. Configuration</a></span></dt>
-</dl></dd>
-<dt><span class="sect1"><a href="#creating-cdroms">7.5. Creating a multiple CD-ROM packages collection</a></span></dt>
-<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.5.1. Example of cdpack</a></span></dt></dl></dd>
+<dl class="toc">
+<dt><span class="sect1"><a href="#bulk.pre">7.1. Preparations</a></span></dt>
+<dt><span class="sect1"><a href="#bulk.pbulk">7.2. Running a pbulk-style bulk build</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#bulk.pbulk.conf">7.2.1. Configuration</a></span></dt></dl></dd>
+<dt><span class="sect1"><a href="#bulk.req">7.3. Requirements of a full bulk build</a></span></dt>
+<dt><span class="sect1"><a href="#creating-cdroms">7.4. Creating a multiple CD-ROM packages collection</a></span></dt>
+<dd><dl><dt><span class="sect2"><a href="#cdpack-example">7.4.1. Example of cdpack</a></span></dt></dl></dd>
 </dl>
 </div>
-<p>When you have multiple machines that should run the same packages,
-it is wasted time if they all build their packages themselves from
-source. There are two ways of getting a set of binary packages: The old
-bulk build system, or the new (as of 2007) parallel bulk build (pbulk)
-system. This chapter describes how to set them up so that the packages
+<p>For a number of reasons you may want to build binary packages
+for a large selected set of packages in pkgsrc or even for all pkgsrc packages.
+For instance, when you have multiple machines that should run the same software,
+it is wasted time if they all build their packages themselves from source.
+Or you may want to build a list of packages you want and check them before
+deploying onto production system.
+There is a way of getting a set of binary packages:
+The bulk build system, or pbulk ("p" stands for "parallel).
+This chapter describes how to set it up so that the packages
 are most likely to be usable later.</p>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bulk.pre"></a>7.1. Think first, build later</h2></div></div></div>
-<p>Since a bulk build takes several days or even weeks to finish, you
-should think about the setup before you start everything. Pay attention
-to at least the following points:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem">
-<p>If you want to upload the binary packages to
-ftp.NetBSD.org, make sure the setup complies to the requirements for binary
-packages:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: circle; ">
-<li class="listitem"><p>To end up on ftp.NetBSD.org, the packages must be built
-by a NetBSD developer on a trusted machine (that is, where you and only
-you have root access).</p></li>
-<li class="listitem"><p>Packages on ftp.NetBSD.org should only be created from
-the stable branches (like 2009Q1), so that users browsing the available
-collections can see at a glance how old the packages
-are.</p></li>
-<li class="listitem"><p>The packages must be built as root, since some packages
-require set-uid binaries at runtime, and creating those packages as
-unprivileged user doesn't work well at the moment.</p></li>
-</ul></div>
-</li>
-<li class="listitem"><p>Make sure that the bulk build cannot break anything in
-your system. Most bulk builds run as root, so they should be run at least
-in a chroot environment or something even more restrictive, depending on
-what the operating system provides. There have been numerous cases where
+<a name="bulk.pre"></a>7.1. Preparations</h2></div></div></div>
+<p>First of all, you have to decide whether you build all packages
+or a limited set of them. Full bulk builds usually consume a lot more resources,
+both space and time, than builds for some practical sets of packages.
+There exists a number of particularly heavy packages that are not actually
+interesting to a wide audience.
+
+For a limited bulk builds you need to make a list of packages you want to build.
+Note, that all their dependencies will be built, so you don't need to track them manually.
+</p>
+<p>During bulk builds various packages are installed and deinstalled
+in <code class="filename">/usr/pkg</code> (or whatever <code class="filename">LOCALBASE</code> is),
+so make sure that you don't need any package during the builds.
+Essentially, you should provide fresh system, either a chroot environment
+or something even more restrictive, depending on what the operating system provides,
+or dedicate the whole physical machine.
+As a useful side effect this makes sure that bulk builds cannot
+break anything in your system. There have been numerous cases where
 certain packages tried to install files outside the
 <code class="filename">LOCALBASE</code> or wanted to edit some files in
-<code class="filename">/etc</code>. Furthermore, the bulk builds install and
-deinstall packages in <code class="filename">/usr/pkg</code> (or whatever
-<code class="filename">LOCALBASE</code> is) during their operation, so be sure
-that you don't need any package during the build.</p></li>
-</ul></div>
+<code class="filename">/etc</code>.
+</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bulk.req"></a>7.2. Requirements of a bulk build</h2></div></div></div>
+<a name="bulk.pbulk"></a>7.2. Running a pbulk-style bulk build</h2></div></div></div>
+<p>Running a pbulk-style bulk build works roughly as follows:</p>
+<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
+<li class="listitem"><p>First, build the pbulk infrastructure in a fresh pkgsrc location.</p></li>
+<li class="listitem"><p>Then, build each of the packages from a clean installation directory using the infrastructure.</p></li>
+</ul></div>
+<div class="sect2">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="bulk.pbulk.conf"></a>7.2.1. Configuration</h3></div></div></div>
+<p>To simplify configuration we provide helper script <code class="filename">mk/pbulk/pbulk.sh</code>.</p>
+<p>In order to use it, prepare a clear system (real one, chroot environment, jail, zone, virtual machine).
+Configure network access to fetch distribution files.
+Create user with name "pbulk".</p>
+<p>Fetch and extract pkgsrc. Use a command like one of these:</p>
+<pre class="screen">
+<code class="prompt">#</code> <strong class="userinput"><code>(cd /usr &amp;&amp; ftp -o - http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc.tar.gz | tar -zxf-)</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>(cd /usr &amp;&amp; fetch -o - http://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc.tar.gz | tar -zxf-)</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>(cd /usr &amp;&amp; cvs -Q -z3 -d anoncvs@anoncvs.NetBSD.org:/cvsroot get -P pkgsrc)</code></strong>
+</pre>
+<p>Or any other way that fits (e.g., curl, wget).</p>
+<p>Deploy and configure pbulk tools, e.g.:</p>
+<pre class="screen">
+<code class="prompt">#</code> <strong class="userinput"><code>sh pbulk.sh -n # native (NetBSD)</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sh pbulk.sh -n -c mk.conf.frag # native, apply settings from given mk.conf fragment</code></strong>
+<code class="prompt">#</code> <strong class="userinput"><code>sh pbulk.sh -nlc mk.conf.frag # native, apply settings, configure for limited build</code></strong>
+</pre>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p><code class="filename">mk.conf.frag</code> is a fragment of
+<code class="filename">mk.conf</code> that contains settings you want to
+apply to packages you build. For instance,</p>
+<pre class="programlisting">
+PKG_DEVELOPER=		yes		# perform more checks
+X11_TYPE=		modular		# use pkgsrc X11
+SKIP_LICENSE_CHECK=	yes		# accept all licences (useful when building all packages)
+</pre>
+</div>
+<p>If configured for limited list, replace the list in <code class="filename">/usr/pbulk/etc/pbulk.list</code>
+with your list of packages one per line without empty lines or comments. E.g.:</p>
+<pre class="programlisting">
+www/firefox
+mail/thunderbird
+misc/libreoffice4
+</pre>
+<p>At this point you can also review configuration in <code class="filename">/usr/pbulk/etc</code>
+and make final amendments, if wanted.</p>
+<p>Start it:</p>
+<pre class="screen">
+<code class="prompt">#</code> <strong class="userinput"><code>/usr/pbulk/bin/bulkbuild</code></strong>
+</pre>
+<p>After it finishes, you'll have <code class="filename">/mnt</code> filled with distribution files, binary packages, and reports,
+plain text summary in <code class="filename">/mnt/bulklog/meta/report.txt</code>
+</p>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>The <code class="filename">pbulk.sh</code> script does not cover all possible use cases.
+While being ready to run, it serves as a good starting point to understand and build more complex setups.
+The script is kept small enough for better understanding.</p>
+</div>
+<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+<h3 class="title">Note</h3>
+<p>The <code class="filename">pbulk.sh</code> script supports running
+unprivileged bulk build and helps configuring distributed bulk builds.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="bulk.req"></a>7.3. Requirements of a full bulk build</h2></div></div></div>
 <p>A complete bulk build requires lots of disk space. Some of the
 disk space can be read-only, some other must be writable. Some can be on
 remote filesystems (such as NFS) and some should be local. Some can be
@@ -2636,451 +2662,14 @@ temporary filesystems, others must survive a sudden reboot.</p>
 <li class="listitem"><p>40 GB for the distfiles (read-write, remote, temporary)</p></li>
 <li class="listitem"><p>30 GB for the binary packages (read-write, remote, permanent)</p></li>
 <li class="listitem"><p>1 GB for the pkgsrc tree (read-only, remote, permanent)</p></li>
-<li class="listitem"><p>5 GB for <code class="filename">LOCALBASE</code> (read-write, local, temporary for pbulk, permanent for old-bulk)</p></li>
+<li class="listitem"><p>5 GB for <code class="filename">LOCALBASE</code> (read-write, local, temporary)</p></li>
 <li class="listitem"><p>10 GB for the log files (read-write, remote, permanent)</p></li>
 <li class="listitem"><p>5 GB for temporary files (read-write, local, temporary)</p></li>
 </ul></div>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bulk.old"></a>7.3. Running an old-style bulk build</h2></div></div></div>
-<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Note</h3>
-<p>There are two ways of doing a bulk build. The old-style
-one and the new-style <span class="quote">&#8220;<span class="quote">pbulk</span>&#8221;</span>. The latter is the recommended
-way.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="binary.configuration"></a>7.3.1. Configuration</h3></div></div></div>
-<div class="sect3">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="binary.bulk.build.conf"></a>7.3.1.1. <code class="filename">build.conf</code>
-</h4></div></div></div>
-<p>The <code class="filename">build.conf</code> file is the main
-	configuration file for bulk builds. You can configure how your
-	copy of pkgsrc is kept up to date, how the distfiles are
-	downloaded, how the packages are built and how the report is
-	generated. You can find an annotated example file in
-	<code class="filename">pkgsrc/mk/bulk/build.conf-example</code>. To use
-	it, copy <code class="filename">build.conf-example</code> to
-	<code class="filename">build.conf</code> and edit it, following the
-	comments in that file.</p>
-</div>
-<div class="sect3">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="binary.mk.conf"></a>7.3.1.2. <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>
-</h4></div></div></div>
-<p>You may want to set variables in <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>.
-	Look at <code class="filename">pkgsrc/mk/defaults/mk.conf</code> for
-	details of the default settings. You will want to ensure that
-	<code class="varname">ACCEPTABLE_LICENSES</code> meet your local policy.
-	As used in this example, <code class="varname">SKIP_LICENSE_CHECK=yes</code>
-	completely bypasses the license check.</p>
-<pre class="programlisting">
-PACKAGES?=      ${_PKGSRCDIR}/packages/${MACHINE_ARCH}
-WRKOBJDIR?=     /usr/tmp/pkgsrc   # build here instead of in pkgsrc
-BSDSRCDIR=      /usr/src
-BSDXSRCDIR=     /usr/xsrc         # for x11/xservers
-OBJHOSTNAME?=   yes               # use work.`hostname`
-FAILOVER_FETCH= yes               # insist on the correct checksum
-PKG_DEVELOPER?= yes
-SKIP_LICENSE_CHECK=    yes
-</pre>
-<p>Some options that are especially useful for bulk builds
-	can be found at the top lines of the file
-	<code class="filename">mk/bulk/bsd.bulk-pkg.mk</code>. The most useful
-	options of these are briefly described here.</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>If you are on a slow machine, you may want to
-	  set <code class="varname">USE_BULK_BROKEN_CHECK</code> to
-	  <span class="quote">&#8220;<span class="quote">no</span>&#8221;</span>.</p></li>
-<li class="listitem"><p>If you are doing bulk builds from a read-only
-	  copy of pkgsrc, you have to set <code class="varname">BULKFILESDIR</code>
-	  to the directory where all log files are created. Otherwise the
-	  log files are created in the pkgsrc directory.</p></li>
-<li class="listitem"><p>Another important variable is
-	  <code class="varname">BULK_PREREQ</code>, which is a list of packages that
-	  should be always available while building other
-	  packages.</p></li>
-</ul></div>
-<p>Some other options are scattered in the pkgsrc
-	infrastructure:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p><code class="varname">ALLOW_VULNERABLE_PACKAGES</code>
-	  should be set to <code class="literal">yes</code>. The purpose of the
-	  bulk builds is creating binary packages, no matter if they
-	  are vulnerable or not. Leaving this variable unset would
-	  prevent the bulk build system from even trying to build
-	  them, so possible building errors would not show
-	  up.</p></li>
-<li class="listitem"><p><code class="varname">CHECK_FILES</code>
-	  (<code class="filename">pkgsrc/mk/check/check-files.mk</code>) can be set to
-	  <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span> to check that the installed set of files
-	  matches the <code class="filename">PLIST</code>.</p></li>
-<li class="listitem"><p><code class="varname">CHECK_INTERPRETER</code>
-	  (<code class="filename">pkgsrc/mk/check/check-interpreter.mk</code>) can be set to
-	  <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span> to check that the installed
-	  <span class="quote">&#8220;<span class="quote">#!</span>&#8221;</span>-scripts will find their
-	  interpreter.</p></li>
-<li class="listitem"><p><code class="varname">PKGSRC_RUN_TEST</code> can be
-	  set to <span class="quote">&#8220;<span class="quote"><code class="literal">yes</code></span>&#8221;</span> to run each
-	  package's self-test before installing it. Note that some
-	  packages make heavy use of <span class="quote">&#8220;<span class="quote">good</span>&#8221;</span> random
-	  numbers, so you need to assure that the machine on which you
-	  are doing the bulk builds is not completely idle. Otherwise
-	  some test programs will seem to hang, while they are just
-	  waiting for new random data to be
-	  available.</p></li>
-</ul></div>
-</div>
-<div class="sect3">
-<div class="titlepage"><div><div><h4 class="title">
-<a name="pre-build.local"></a>7.3.1.3. <code class="filename">pre-build.local</code>
-</h4></div></div></div>
-<p>It is possible to configure the bulk build to perform
-	certain site-specific tasks at the end of the pre-build
-	stage.  If the file
-	<code class="filename">pre-build.local</code> exists in
-	<code class="filename">/usr/pkgsrc/mk/bulk</code>, it will be executed
-	(as a <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?sh+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">sh</span>(1)</span></a> script) at the end of the usual pre-build
-	stage.  An example use of
-	<code class="filename">pre-build.local</code> is to have the line:</p>
-<pre class="screen">echo "I do not have enough disk space to build this pig." \
-	&gt; misc/openoffice/$BROKENF</pre>
-<p>to prevent the system from trying to build a particular package
-	which requires nearly 3 GB of disk space.</p>
-</div>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="other-environmental-considerations"></a>7.3.2. Other environmental considerations</h3></div></div></div>
-<p>As <code class="filename">/usr/pkg</code> will be completely
-      deleted at the start of bulk builds, make sure your login
-      shell is placed somewhere else. Either drop it into
-      <code class="filename">/usr/local/bin</code> (and adjust your login
-      shell in the passwd file), or (re-)install it via
-      <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?pkg_add+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">pkg_add</span>(1)</span></a> from <code class="filename">/etc/rc.local</code>, so
-      you can login after a reboot (remember that your current
-      process won't die if the package is removed, you just can't
-      start any new instances of the shell any more).  Also, if you
-      use NetBSD earlier than 1.5, or you still want to use the pkgsrc
-      version of ssh for some reason, be sure to install ssh before
-      starting it from <code class="filename">rc.local</code>:</p>
-<pre class="programlisting">
-(cd /usr/pkgsrc/security/ssh &amp;&amp; make bulk-install)
-if [ -f /usr/pkg/etc/rc.d/sshd ]; then
-  /usr/pkg/etc/rc.d/sshd
-fi
-</pre>
-<p>Not doing so will result in you being not able to log in
-      via ssh after the bulk build is finished or if the machine
-      gets rebooted or crashes. You have been warned! :)</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="operation"></a>7.3.3. Operation</h3></div></div></div>
-<p>Make sure you don't need any of the packages still
-      installed.</p>
-<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
-<h3 class="title">Warning</h3>
-<p>During the bulk build, <span class="emphasis"><em>all packages, their
-	configuration files and some more files from
-	<code class="filename">/var</code>, <code class="filename">/home</code> and
-	possibly other locations will be removed! So don't run a bulk
-	build with privileges that might harm your
-	system.</em></span></p>
-</div>
-<p>Be sure to remove all other things that might
-      interfere with builds, like some libs installed in
-      <code class="filename">/usr/local</code>, etc. then become root and type:</p>
-<pre class="screen">
-<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/pkgsrc</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>sh mk/bulk/build</code></strong>
-      </pre>
-<p>If for some reason your last build didn't complete (power
-      failure, system panic, ...), you can continue it by
-      running:</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>sh mk/bulk/build restart</code></strong></pre>
-<p>At the end of the bulk build, you will get a summary via mail,
-      and find build logs in the directory specified by
-      <code class="varname">FTP</code> in the <code class="filename">build.conf</code>
-      file.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="what-it-does"></a>7.3.4. What it does</h3></div></div></div>
-<p>The bulk builds consist of three steps:</p>
-<div class="variablelist"><dl class="variablelist">
-<dt><span class="term">1. pre-build</span></dt>
-<dd><p>The script updates your pkgsrc tree via (anon)cvs, then
-	    cleans out any broken distfiles, and removes all
-	    packages installed.</p></dd>
-<dt><span class="term">2. the bulk build</span></dt>
-<dd><p>This is basically <span class="quote">&#8220;<span class="quote">make bulk-package</span>&#8221;</span> with
-	    an optimised order in which packages will be
-	    built. Packages that don't require other packages will
-	    be built first, and packages with many dependencies will
-	    be built later.</p></dd>
-<dt><span class="term">3. post-build</span></dt>
-<dd><p>Generates a report that's placed in the directory
-	    specified in the <code class="filename">build.conf</code> file
-	    named <code class="filename">broken.html</code>, a short version
-	    of that report will also be mailed to the build's
-	    admin.</p></dd>
-</dl></div>
-<p>During the build, a list of broken packages will be compiled
-      in <code class="filename">/usr/pkgsrc/.broken</code> (or
-      <code class="filename">.../.broken.${MACHINE}</code> if
-      <code class="varname">OBJMACHINE</code> is set), individual build logs
-      of broken builds can be found in the package's
-      directory. These files are used by the bulk-targets to mark
-      broken builds to not waste time trying to rebuild them, and
-      they can be used to debug these broken package builds
-      later.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="disk-space-requirements"></a>7.3.5. Disk space requirements</h3></div></div></div>
-<p>Currently, roughly the following requirements are valid for
-      NetBSD 6.99/amd64:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>40 GB - distfiles (NFS ok)</p></li>
-<li class="listitem"><p>30 GB - full set of all binaries (NFS ok)</p></li>
-<li class="listitem"><p>5 GB - temp space for compiling (local disk recommended)</p></li>
-</ul></div>
-<p>Note that all pkgs will be de-installed as soon as they are
-      turned into a binary package, and that sources are removed,
-      so there is no excessively huge demand to disk
-      space. Afterwards, if the package is needed again, it will
-      be installed via <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?pkg_add+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">pkg_add</span>(1)</span></a> instead of building again, so
-      there are no cycles wasted by recompiling.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="setting-up-a-sandbox"></a>7.3.6. Setting up a sandbox for chrooted builds</h3></div></div></div>
-<p>If you don't want all the packages nuked from a machine
-      (rendering it useless for anything but pkg compiling), there
-      is the possibility of doing the package bulk build inside a
-      chroot environment.</p>
-<p>The first step is to set up a chroot sandbox,
-      e.g. <code class="filename">/usr/sandbox</code>.  This can be done by
-      using null mounts, or manually.</p>
-<p>There is a shell script called
-      <code class="filename">mksandbox</code> installed by the <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/mksandbox/README.html" target="_top"><code class="filename">pkgtools/mksandbox</code></a> package, which will set
-      up the sandbox environment using null mounts. It will also
-      create a script called <code class="filename">sandbox</code> in the
-      root of the sandbox environment, which will allow the null
-      mounts to be activated using the <span class="command"><strong>sandbox
-      mount</strong></span> command and deactivated using the
-      <span class="command"><strong>sandbox umount</strong></span> command.</p>
-<p>To set up a sandbox environment by hand, after extracting all
-      the sets from a NetBSD installation or doing a <span class="command"><strong>make
-      distribution DESTDIR=/usr/sandbox</strong></span> in
-      <code class="filename">/usr/src/etc</code>, be sure the following items
-      are present and properly configured:</p>
-<div class="procedure"><ol class="procedure" type="1">
-<li class="step">
-<p>Kernel</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cp /netbsd /usr/sandbox</code></strong></pre>
-</li>
-<li class="step">
-<p><code class="filename">/dev/*</code></p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cd /usr/sandbox/dev ; sh MAKEDEV all</code></strong></pre>
-</li>
-<li class="step">
-<p><code class="filename">/etc/resolv.conf</code> (for <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/security/smtpd/README.html" target="_top"><code class="filename">security/smtpd</code></a> and mail):</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cp /etc/resolv.conf /usr/sandbox/etc</code></strong></pre>
-</li>
-<li class="step">
-<p>Working(!) mail config (hostname, sendmail.cf):</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>cp /etc/mail/sendmail.cf /usr/sandbox/etc/mail</code></strong></pre>
-</li>
-<li class="step">
-<p><code class="filename">/etc/localtime</code> (for <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/security/smtpd/README.html" target="_top"><code class="filename">security/smtpd</code></a>):</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ln -sf /usr/share/zoneinfo/UTC /usr/sandbox/etc/localtime</code></strong></pre>
-</li>
-<li class="step">
-<p><code class="filename">/usr/src</code> (system sources,
-          rarely used by packages if at all:</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>ln -s ../disk1/cvs .</code></strong>
-	  <code class="prompt">#</code> <strong class="userinput"><code>ln -s cvs/src-2.0 src</code></strong></pre>
-</li>
-<li class="step">
-<p>Create <code class="filename">/var/db/pkg</code> (not part of default install):</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir /usr/sandbox/var/db/pkg</code></strong></pre>
-</li>
-<li class="step">
-<p>Create <code class="filename">/usr/pkg</code> (not part of default install):</p>
-<pre class="screen"><code class="prompt">#</code> <strong class="userinput"><code>mkdir /usr/sandbox/usr/pkg</code></strong></pre>
-</li>
-<li class="step">
-<p>Checkout pkgsrc via cvs into
-	  <code class="filename">/usr/sandbox/usr/pkgsrc</code>:</p>
-<pre class="screen">
-<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/sandbox/usr</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>cvs -d anoncvs@anoncvs.NetBSD.org:/cvsroot checkout -d -P pkgsrc</code></strong>
-	  </pre>
-<p>Do not mount/link this to the copy of your pkgsrc tree
-	  you do development in, as this will likely cause problems!</p>
-</li>
-<li class="step"><p>Make
-	  <code class="filename">/usr/sandbox/usr/pkgsrc/packages</code> and
-	  <code class="filename">.../distfiles</code> point somewhere
-	  appropriate. NFS- and/or nullfs-mounts may come in handy!</p></li>
-<li class="step"><p>Edit <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>, see <a class="xref" href="#binary.mk.conf" title="7.3.1.2. mk.conf">Section 7.3.1.2, &#8220;<code class="filename">mk.conf</code>&#8221;</a>.</p></li>
-<li class="step"><p>Adjust <code class="filename">mk/bulk/build.conf</code> to suit your needs.</p></li>
-</ol></div>
-<p>When the chroot sandbox is set up, you can start
-      the build with the following steps:</p>
-<pre class="screen">
-<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/sandbox/usr/pkgsrc</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>sh mk/bulk/do-sandbox-build</code></strong>
-      </pre>
-<p>This will just jump inside the sandbox and start building.  At
-	the end of the build, mail will be sent with the results of
-	the build. Created binary pkgs will be in
-	<code class="filename">/usr/sandbox/usr/pkgsrc/packages</code>
-      (wherever that points/mounts to/from).</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="building-a-partial-set"></a>7.3.7. Building a partial set of packages</h3></div></div></div>
-<p>In addition to building a complete set of all packages in
-      pkgsrc, the <code class="filename">pkgsrc/mk/bulk/build</code> script
-      may be used to build a subset of the packages contained in
-      pkgsrc.  By setting <code class="varname">SPECIFIC_PKGS</code>
-      in <a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>, the variables</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>SITE_SPECIFIC_PKGS</p></li>
-<li class="listitem"><p>HOST_SPECIFIC_PKGS</p></li>
-<li class="listitem"><p>GROUP_SPECIFIC_PKGS</p></li>
-<li class="listitem"><p>USER_SPECIFIC_PKGS</p></li>
-</ul></div>
-<p>will define the set of packages which should be built.
-      The bulk build code will also include any packages which are
-      needed as dependencies for the explicitly listed packages.</p>
-<p>One use of this is to do a bulk build with
-      <code class="varname">SPECIFIC_PKGS</code> in a chroot sandbox
-      periodically to have a complete set of the binary packages
-      needed for your site available without the overhead of
-      building extra packages that are not needed.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="bulk-upload"></a>7.3.8. Uploading results of a bulk build</h3></div></div></div>
-<p>This section describes how pkgsrc developers can upload binary
-      pkgs built by bulk builds to ftp.NetBSD.org.</p>
-<p>If you would like to automatically create checksum files for the
-      binary packages you intend to upload, remember to set
-      <code class="varname">MKSUMS=yes</code> in your
-      <code class="filename">mk/bulk/build.conf</code>.</p>
-<p>If you would like to PGP sign the checksum files (highly
-      recommended!), remember to set
-      <code class="varname">SIGN_AS=username@NetBSD.org</code> in your
-      <code class="filename">mk/bulk/build.conf</code>.  This will prompt you for
-      your GPG password to sign the files before uploading everything.</p>
-<p>Then, make sure that you have <code class="varname">RSYNC_DST</code>
-      set properly in your <code class="filename">mk/bulk/build.conf</code>
-      file, i.e. adjust it to something like one of the following:</p>
-<pre class="screen">RSYNC_DST=ftp.NetBSD.org:/pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload</pre>
-<p>Please use appropriate values for "20xxQy" (the branch),
-      "a.b.c" (the OS version) and "arch" here. If your login on ftp.NetBSD.org
-      is different from your local login, write your login directly
-      into the variable, e.g. my local account is "feyrer", but for my
-      login "hubertf", I use:</p>
-<pre class="screen">RSYNC_DST=hubertf@ftp.NetBSD.org:/pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload</pre>
-<p>A separate <code class="filename">upload</code> directory is used
-      here to allow "closing" the directory during upload. To do
-      so, run the following command on ftp.NetBSD.org next:</p>
-<pre class="screen">nbftp% <strong class="userinput"><code>mkdir -p -m 750 /pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy/upload</code></strong></pre>
-<p>Before uploading the binary pkgs, ssh authentication needs
-      to be set up. This example shows how to set up temporary keys
-      for the root account <span class="emphasis"><em>inside the sandbox</em></span>
-      (assuming that no keys should be present there usually):</p>
-<pre class="screen">
-<code class="prompt">#</code> <strong class="userinput"><code>chroot /usr/sandbox</code></strong>
-chroot-<code class="prompt">#</code> <strong class="userinput"><code>rm $HOME/.ssh/id-dsa*</code></strong>
-chroot-<code class="prompt">#</code> <strong class="userinput"><code>ssh-keygen -t rsa</code></strong>
-chroot-<code class="prompt">#</code> <strong class="userinput"><code>cat $HOME/.ssh/id-rsa.pub</code></strong>
-      </pre>
-<p>Now take the output of <code class="filename">id-rsa.pub</code> and
-      append it to your <code class="filename">~/.ssh/authorized_keys</code>
-      file on ftp.NetBSD.org. You should remove the key after the
-      upload is done!</p>
-<p>Next, test if your ssh connection really works:</p>
-<pre class="screen">chroot-<code class="prompt">#</code> <strong class="userinput"><code>ssh ftp.NetBSD.org date</code></strong> </pre>
-<p>Use "-l yourNetBSDlogin" here as appropriate!</p>
-<p>Now after all this works, you can exit the sandbox and start
-      the upload:</p>
-<pre class="screen">
-chroot-<code class="prompt">#</code> <strong class="userinput"><code>exit</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>cd /usr/sandbox/usr/pkgsrc</code></strong>
-<code class="prompt">#</code> <strong class="userinput"><code>sh mk/bulk/do-sandbox-upload</code></strong>
-      </pre>
-<p>The upload process may take quite some time. Use <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?ls+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">ls</span>(1)</span></a> or
-      <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?du+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">du</span>(1)</span></a> on the FTP server to monitor progress of the
-      upload. The upload script will take care of not uploading
-      restricted packages.</p>
-<p>After the upload has ended, first thing is to revoke ssh access:</p>
-<pre class="screen">nbftp% <strong class="userinput"><code>vi ~/.ssh/authorized_keys</code></strong>
-      Gdd:x! </pre>
-<p>Use whatever is needed to remove the key you've entered
-      before! Last, move the uploaded packages out of the
-      <code class="filename">upload</code> directory to have them accessible
-      to everyone:</p>
-<pre class="screen">
-nbftp% <strong class="userinput"><code>cd /pub/pkgsrc/packages/NetBSD/arch/a.b.c-20xxQy</code></strong>
-nbftp% <strong class="userinput"><code>mv upload/* .</code></strong>
-nbftp% <strong class="userinput"><code>rmdir upload</code></strong>
-nbftp% <strong class="userinput"><code>chgrp -R netbsd .</code></strong>
-nbftp% <strong class="userinput"><code>find . -type d | xargs chmod 775</code></strong>
-      </pre>
-</div>
-</div>
-<div class="sect1">
-<div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bulk.pbulk"></a>7.4. Running a pbulk-style bulk build</h2></div></div></div>
-<p>Running a pbulk-style bulk build works roughly as follows:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p>First, build the pbulk infrastructure in a fresh pkgsrc location.</p></li>
-<li class="listitem"><p>Then, build each of the packages from a clean installation directory using the infrastructure.</p></li>
-</ul></div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="bulk.pbulk.prepare"></a>7.4.1. Preparation</h3></div></div></div>
-<p>First, you need to create a pkgsrc installation for the pbulk infrastructure. No matter on which platform you are (even on NetBSD), you should bootstrap into its own directory. Let's take the directory <code class="filename">/usr/pbulk</code> or <code class="filename">$HOME/pbulk</code> for it. This installation will be bootstrapped and all the tools that are required for the bulk build will be installed there.</p>
-<pre class="screen">
-$ <strong class="userinput"><code>cd /usr/pkgsrc</code></strong>
-$ <strong class="userinput"><code>./bootstrap/bootstrap --prefix=/usr/pbulk --varbase=/usr/pbulk/var --workdir=/tmp/pbulk-bootstrap</code></strong>
-$ <strong class="userinput"><code>rm -rf /tmp/pbulk-bootstrap</code></strong>
-</pre>
-<p>Now the basic environment for the pbulk infrastructure is installed. The specific tools are still missing. This is a good time to edit the pkgsrc configuration file <code class="filename">/usr/pbulk/etc/mk.conf</code> to fit your needs. Typical things you might set now are:</p>
-<div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p><code class="literal"><code class="varname">PKG_DEVELOPER</code>=yes</code>, to enable many consistency checks,</p></li>
-<li class="listitem"><p><code class="literal"><code class="varname">WRKOBJDIR</code>=/tmp/pbulk-outer</code>, to keep <code class="filename">/usr/pkgsrc</code> free from any modifications,</p></li>
-<li class="listitem"><p><code class="literal"><code class="varname">DISTDIR</code>=/distfiles</code>, to have only one directory in which all distfiles (for the infrastructure and for the actual packages) are downloaded,</p></li>
-<li class="listitem"><p><code class="literal"><code class="varname">ACCEPTABLE_LICENSES</code>+=...</code>, to select some licenses additional to the usual Free/Open Source licenses that are acceptable to you,</p></li>
-<li class="listitem"><p><code class="literal"><code class="varname">SKIP_LICENSE_CHECK</code>=yes</code>, to bypass the license checks.</p></li>
-</ul></div>
-<p>Now you are ready to build the rest of the pbulk infrastructure.</p>
-<pre class="screen">
-$ <strong class="userinput"><code>cd pkgtools/pbulk</code></strong>
-$ <strong class="userinput"><code>/usr/pbulk/bin/bmake install</code></strong>
-$ <strong class="userinput"><code>rm -rf /tmp/pbulk-outer</code></strong>
-</pre>
-<p>Now the pbulk infrastructure is built and installed. It still needs to be configured, and after some more preparation, we will be able to start the real bulk build.</p>
-</div>
-<div class="sect2">
-<div class="titlepage"><div><div><h3 class="title">
-<a name="bulk.pbulk.conf"></a>7.4.2. Configuration</h3></div></div></div>
-<p>TODO; see pkgsrc/doc/HOWTO-pbulk for more information.</p>
-<p>TODO: continue writing</p>
-</div>
-</div>
-<div class="sect1">
-<div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="creating-cdroms"></a>7.5. Creating a multiple CD-ROM packages collection</h2></div></div></div>
+<a name="creating-cdroms"></a>7.4. Creating a multiple CD-ROM packages collection</h2></div></div></div>
 <p>After your pkgsrc bulk-build has completed, you may wish to
     create a CD-ROM set of the resulting binary packages to assist
     in installing packages on other machines.  The
@@ -3091,7 +2680,7 @@ $ <strong class="userinput"><code>rm -rf /tmp/pbulk-outer</code></strong>
     CD as that package.</p>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="cdpack-example"></a>7.5.1. Example of cdpack</h3></div></div></div>
+<a name="cdpack-example"></a>7.4.1. Example of cdpack</h3></div></div></div>
 <p>Complete documentation for cdpack is found in the cdpack(1)
       man page. The following short example assumes that the binary
       packages are left in
@@ -3129,7 +2718,7 @@ $ <strong class="userinput"><code>rm -rf /tmp/pbulk-outer</code></strong>
 <a name="files"></a>Chapter 8. Directory layout of the installed files</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#files.localbase">8.1. File system layout in <code class="literal">${LOCALBASE}</code></a></span></dt>
 <dt><span class="sect1"><a href="#files.varbase">8.2. File system layout in <code class="literal">${VARBASE}</code></a></span></dt>
 </dl>
@@ -3270,26 +2859,25 @@ currently running.</p></dd>
 <a name="faq"></a>Chapter 9. Frequently Asked Questions</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#mailing-list-pointers">9.1. Are there any mailing lists for pkg-related discussion?</a></span></dt>
-<dt><span class="sect1"><a href="#pkgviews-docs">9.2. Where's the pkgviews documentation?</a></span></dt>
-<dt><span class="sect1"><a href="#faq-pkgtools">9.3. Utilities for package management (pkgtools)</a></span></dt>
-<dt><span class="sect1"><a href="#non-root-pkgsrc">9.4. How to use pkgsrc as non-root</a></span></dt>
-<dt><span class="sect1"><a href="#resume-transfers">9.5. How to resume transfers when fetching distfiles?</a></span></dt>
-<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.6. How can I install/use modular X.org from pkgsrc?</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-behind-firewall">9.7. How to fetch files from behind a firewall</a></span></dt>
-<dt><span class="sect1"><a href="#fetch-https">9.8. How to fetch files from HTTPS sites</a></span></dt>
-<dt><span class="sect1"><a href="#passive-ftp">9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
-<dt><span class="sect1"><a href="#fetching-all-distfiles">9.10. How to fetch all distfiles at once</a></span></dt>
-<dt><span class="sect1"><a href="#tmac.andoc-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<dt><span class="sect1"><a href="#faq-pkgtools">9.2. Utilities for package management (pkgtools)</a></span></dt>
+<dt><span class="sect1"><a href="#non-root-pkgsrc">9.3. How to use pkgsrc as non-root</a></span></dt>
+<dt><span class="sect1"><a href="#resume-transfers">9.4. How to resume transfers when fetching distfiles?</a></span></dt>
+<dt><span class="sect1"><a href="#x.org-from-pkgsrc">9.5. How can I install/use modular X.org from pkgsrc?</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-behind-firewall">9.6. How to fetch files from behind a firewall</a></span></dt>
+<dt><span class="sect1"><a href="#fetch-https">9.7. How to fetch files from HTTPS sites</a></span></dt>
+<dt><span class="sect1"><a href="#passive-ftp">9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</a></span></dt>
+<dt><span class="sect1"><a href="#fetching-all-distfiles">9.9. How to fetch all distfiles at once</a></span></dt>
+<dt><span class="sect1"><a href="#tmac.andoc-missing">9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
-<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.13. Using 'sudo' with pkgsrc</a></span></dt>
-<dt><span class="sect1"><a href="#faq.conf">9.14. How do I change the location of configuration files?</a></span></dt>
-<dt><span class="sect1"><a href="#audit-packages">9.15. Automated security checks</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-cflags">9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
-<dt><span class="sect1"><a href="#ufaq-fail">9.17. A package does not build.  What shall I do?</a></span></dt>
-<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#bsd.own.mk-missing">9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</a></span></dt>
+<dt><span class="sect1"><a href="#using-sudo-with-pkgsrc">9.12. Using 'sudo' with pkgsrc</a></span></dt>
+<dt><span class="sect1"><a href="#faq.conf">9.13. How do I change the location of configuration files?</a></span></dt>
+<dt><span class="sect1"><a href="#audit-packages">9.14. Automated security checks</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-cflags">9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</a></span></dt>
+<dt><span class="sect1"><a href="#ufaq-fail">9.16. A package does not build.  What shall I do?</a></span></dt>
+<dt><span class="sect1"><a href="#faq.rcs-conflicts">9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</a></span></dt>
 </dl>
 </div>
 <p>This section contains hints, tips &amp; tricks on special things in
@@ -3328,14 +2916,7 @@ it contains items for both pkgsrc users and developers.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="pkgviews-docs"></a>9.2. Where's the pkgviews documentation?</h2></div></div></div>
-<p>Pkgviews is tightly integrated with buildlink.  You can find a
-pkgviews User's guide in
-<code class="filename">pkgsrc/mk/buildlink3/PKGVIEWS_UG</code>.</p>
-</div>
-<div class="sect1">
-<div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq-pkgtools"></a>9.3. Utilities for package management (pkgtools)</h2></div></div></div>
+<a name="faq-pkgtools"></a>9.2. Utilities for package management (pkgtools)</h2></div></div></div>
 <p>The directory <code class="filename">pkgsrc/pkgtools</code> contains
 a number of useful utilities for both users and developers of pkgsrc.  This
 section attempts only to make the reader aware of the utilities and when
@@ -3411,7 +2992,7 @@ utilities)</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="non-root-pkgsrc"></a>9.4. How to use pkgsrc as non-root</h2></div></div></div>
+<a name="non-root-pkgsrc"></a>9.3. How to use pkgsrc as non-root</h2></div></div></div>
 <p>If you want to use pkgsrc as non-root user, you can set some
 variables to make pkgsrc work under these conditions.  At the very least,
 you need to set <code class="varname">UNPRIVILEGED</code> to <span class="quote">&#8220;<span class="quote">yes</span>&#8221;</span>; this
@@ -3432,7 +3013,7 @@ that allow finer tuning of the tree layout.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="resume-transfers"></a>9.5. How to resume transfers when fetching distfiles?</h2></div></div></div>
+<a name="resume-transfers"></a>9.4. How to resume transfers when fetching distfiles?</h2></div></div></div>
 <p>By default, resuming transfers in pkgsrc is disabled, but you can
 enable this feature by adding the option
 <code class="varname">PKG_RESUME_TRANSFERS=YES</code> into
@@ -3456,7 +3037,7 @@ FETCH_USING=	wget
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="x.org-from-pkgsrc"></a>9.6. How can I install/use modular X.org from pkgsrc?</h2></div></div></div>
+<a name="x.org-from-pkgsrc"></a>9.5. How can I install/use modular X.org from pkgsrc?</h2></div></div></div>
 <p>If you want to use modular X.org from pkgsrc instead of your system's own X11
 (<code class="filename">/usr/X11R6</code>, <code class="filename">/usr/openwin</code>, ...)
 you will have to add the following line into
@@ -3472,7 +3053,7 @@ X11_TYPE=modular
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="fetch-behind-firewall"></a>9.7. How to fetch files from behind a firewall</h2></div></div></div>
+<a name="fetch-behind-firewall"></a>9.6. How to fetch files from behind a firewall</h2></div></div></div>
 <p>If you are sitting behind a firewall which does not allow direct
 connections to Internet hosts (i.e. non-NAT), you may specify the
 relevant proxy hosts.  This is done using an environment variable in the
@@ -3487,7 +3068,7 @@ http_proxy=http://orpheus.amdahl.com:80/
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="fetch-https"></a>9.8. How to fetch files from HTTPS sites</h2></div></div></div>
+<a name="fetch-https"></a>9.7. How to fetch files from HTTPS sites</h2></div></div></div>
 <p>Some fetch tools are not prepared to support HTTPS by default
 (for example, the one in NetBSD 6.0), or the one installed by the
 pkgsrc bootstrap (to avoid an openssl dependency that low in the
@@ -3502,7 +3083,7 @@ installed before you can use them this way.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="passive-ftp"></a>9.9. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</h2></div></div></div>
+<a name="passive-ftp"></a>9.8. How do I tell <span class="command"><strong>make fetch</strong></span> to do passive FTP?</h2></div></div></div>
 <p>This depends on which utility is used to retrieve distfiles.  From
 <code class="filename">bsd.pkg.mk</code>, <code class="varname">FETCH_CMD</code> is assigned
 the first available command from the following list:</p>
@@ -3522,7 +3103,7 @@ transfers.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="fetching-all-distfiles"></a>9.10. How to fetch all distfiles at once</h2></div></div></div>
+<a name="fetching-all-distfiles"></a>9.9. How to fetch all distfiles at once</h2></div></div></div>
 <p>You would like to download all the distfiles in a single batch
 from work or university, where you can't run a <span class="command"><strong>make
 fetch</strong></span>.  There is an archive of distfiles on <a class="ulink" href="ftp://ftp.NetBSD.org/pub/pkgsrc/distfiles/" target="_top">ftp.NetBSD.org</a>,
@@ -3554,7 +3135,7 @@ by running:</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="tmac.andoc-missing"></a>9.11. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
+<a name="tmac.andoc-missing"></a>9.10. What does <span class="quote">&#8220;<span class="quote">Don't know how to make
 /usr/share/tmac/tmac.andoc</span>&#8221;</span> mean?</h2></div></div></div>
 <p>When compiling the <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/pkg_install/README.html" target="_top"><code class="filename">pkgtools/pkg_install</code></a>
 package, you get the error from make that it doesn't know how to make
@@ -3568,7 +3149,7 @@ environment or in <a class="link" href="#mk.conf"><code class="filename">mk.conf
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="bsd.own.mk-missing"></a>9.12. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</h2></div></div></div>
+<a name="bsd.own.mk-missing"></a>9.11. What does <span class="quote">&#8220;<span class="quote">Could not find bsd.own.mk</span>&#8221;</span> mean?</h2></div></div></div>
 <p>You didn't install the compiler set, <code class="filename">comp.tgz</code>,
 when you installed your NetBSD machine.  Please get and install it, by
 extracting it in <code class="filename">/</code>:</p>
@@ -3580,7 +3161,7 @@ the one that corresponds to your release (determine via <span class="command"><s
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="using-sudo-with-pkgsrc"></a>9.13. Using 'sudo' with pkgsrc</h2></div></div></div>
+<a name="using-sudo-with-pkgsrc"></a>9.12. Using 'sudo' with pkgsrc</h2></div></div></div>
 <p>When installing packages as non-root user and using the just-in-time
 <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?su+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">su</span>(1)</span></a> feature of pkgsrc, it can become annoying to type in the root
 password for each required package installed.  To avoid this, the sudo
@@ -3598,7 +3179,7 @@ SU_CMD=        ${LOCALBASE}/bin/sudo /bin/sh -c
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq.conf"></a>9.14. How do I change the location of configuration files?</h2></div></div></div>
+<a name="faq.conf"></a>9.13. How do I change the location of configuration files?</h2></div></div></div>
 <p>As the system administrator, you can choose where configuration files
 are installed.  The default settings make all these files go into
 <code class="filename">${PREFIX}/etc</code> or some of its subdirectories; this may
@@ -3620,7 +3201,7 @@ reinstall any affected packages.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="audit-packages"></a>9.15. Automated security checks</h2></div></div></div>
+<a name="audit-packages"></a>9.14. Automated security checks</h2></div></div></div>
 <p>Please be aware that there can often be bugs in third-party software,
 and some of these bugs can leave a machine vulnerable to exploitation by
 attackers.  In an effort to lessen the exposure, the NetBSD packages team
@@ -3653,7 +3234,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="ufaq-cflags"></a>9.16. Why do some packages ignore my <code class="varname">CFLAGS</code>?</h2></div></div></div>
+<a name="ufaq-cflags"></a>9.15. Why do some packages ignore my <code class="varname">CFLAGS</code>?</h2></div></div></div>
 <p>When you add your own preferences to the
 	<code class="varname">CFLAGS</code> variable in your
 	<a class="link" href="#mk.conf"><code class="filename">mk.conf</code></a>, these flags are passed in
@@ -3675,7 +3256,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="ufaq-fail"></a>9.17. A package does not build.  What shall I do?</h2></div></div></div>
+<a name="ufaq-fail"></a>9.16. A package does not build.  What shall I do?</h2></div></div></div>
 <div class="procedure"><ol class="procedure" type="1">
 <li class="step"><p>Make sure that your copy of pkgsrc is consistent. A
 	case that occurs often is that people only update pkgsrc in
@@ -3696,7 +3277,7 @@ check.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq.rcs-conflicts"></a>9.18. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</h2></div></div></div>
+<a name="faq.rcs-conflicts"></a>9.17. What does <span class="quote">&#8220;<span class="quote">Makefile appears to contain unresolved cvs/rcs/??? merge conflicts</span>&#8221;</span> mean?</h2></div></div></div>
 <p>You have modified a file from pkgsrc, and someone else has
 modified that same file afterwards in the CVS repository. Both changes
 are in the same region of the file, so when you updated pkgsrc, the
@@ -3720,13 +3301,13 @@ anymore, you can remove that file and run <span class="command"><strong>cvs -q u
 	like a reference manual for pkgsrc.</p>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="chapter"><a href="#creating">10. Creating a new pkgsrc package from scratch</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#creating.common">10.1. Common types of packages</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#creating.perl-module">10.1.1. Perl modules</a></span></dt>
-<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE applications</a></span></dt>
+<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE3 applications</a></span></dt>
 <dt><span class="sect2"><a href="#creating.python-module">10.1.3. Python modules and programs</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#creating.examples">10.2. Examples</a></span></dt>
@@ -3777,7 +3358,8 @@ anymore, you can remove that file and run <span class="command"><strong>cvs -q u
 <dt><span class="sect1"><a href="#manpage-compression">13.5. Man page compression</a></span></dt>
 <dt><span class="sect1"><a href="#using-PLIST_SRC">13.6. Changing PLIST source with <code class="varname">PLIST_SRC</code></a></span></dt>
 <dt><span class="sect1"><a href="#platform-specific-plist">13.7. Platform-specific and differing PLISTs</a></span></dt>
-<dt><span class="sect1"><a href="#faq.common-dirs">13.8. Sharing directories between packages</a></span></dt>
+<dt><span class="sect1"><a href="#build-plist">13.8. Build-specific PLISTs</a></span></dt>
+<dt><span class="sect1"><a href="#faq.common-dirs">13.9. Sharing directories between packages</a></span></dt>
 </dl></dd>
 <dt><span class="chapter"><a href="#buildlink">14. Buildlink methodology</a></span></dt>
 <dd><dl>
@@ -3878,6 +3460,7 @@ anymore, you can remove that file and run <span class="command"><strong>cvs -q u
 <dd><dl>
 <dt><span class="sect2"><a href="#no-plain-download">19.2.1. Packages whose distfiles aren't available for plain downloading</a></span></dt>
 <dt><span class="sect2"><a href="#modified-distfiles-same-name">19.2.2. How to handle modified distfiles with the 'old' name</a></span></dt>
+<dt><span class="sect2"><a href="#build.fetch.github">19.2.3. Packages hosted on github.com</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#fixes.configure">19.3. Fixing problems in the <span class="emphasis"><em>configure</em></span> phase</a></span></dt>
 <dd><dl>
@@ -3953,11 +3536,11 @@ anymore, you can remove that file and run <span class="command"><strong>cvs -q u
 <a name="creating"></a>Chapter 10. Creating a new pkgsrc package from scratch</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#creating.common">10.1. Common types of packages</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#creating.perl-module">10.1.1. Perl modules</a></span></dt>
-<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE applications</a></span></dt>
+<dt><span class="sect2"><a href="#creating.kde-app">10.1.2. KDE3 applications</a></span></dt>
 <dt><span class="sect2"><a href="#creating.python-module">10.1.3. Python modules and programs</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#creating.examples">10.2. Examples</a></span></dt>
@@ -4002,7 +3585,7 @@ Your package may then look like this:</p>
 <pre class="programlisting">
 [...]
 
-BUILD_DEPENDS+= lua&gt;=5.0:../../lang/lua
+BUILD_DEPENDS+= libxslt-[0-9]*:../../textproc/libxslt
 DEPENDS+=       screen-[0-9]*:../../misc/screen
 DEPENDS+=       screen&gt;=4.0:../../misc/screen
 
@@ -4060,10 +3643,10 @@ package from the set of installed files.</p></li>
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
-<a name="creating.kde-app"></a>10.1.2. KDE applications</h3></div></div></div>
-<p>KDE applications should always include
+<a name="creating.kde-app"></a>10.1.2. KDE3 applications</h3></div></div></div>
+<p>KDE3 applications should always include
 <code class="filename">meta-pkgs/kde3/kde3.mk</code>, which contains numerous
-settings that are typical of KDE packages.</p>
+settings that are typical of KDE3 packages.</p>
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
@@ -4352,7 +3935,7 @@ everything worked.</p>
 <a name="components"></a>Chapter 11. Package components - files, directories and contents</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#components.Makefile">11.1. <code class="filename">Makefile</code></a></span></dt>
 <dt><span class="sect1"><a href="#components.distinfo">11.2. <code class="filename">distinfo</code></a></span></dt>
 <dt><span class="sect1"><a href="#components.patches">11.3. patches/*</a></span></dt>
@@ -4397,23 +3980,15 @@ sections.</p>
     distribution file to be downloaded from the package's
     website.</p></li>
 <li class="listitem"><p><code class="varname">PKGNAME</code> is the name of the
-    package, as used by pkgsrc. You only need to provide it if
+    package, as used by pkgsrc. You need to provide it if
     <code class="varname">DISTNAME</code> (which is the default) is not a good
-    name for the package in pkgsrc.  Usually it is the pkgsrc
+    name for the package in pkgsrc or <code class="varname">DISTNAME</code> is not
+    provided (no distribution file is required).  Usually it is the pkgsrc
     directory name together with the version number. It must match the
     regular expression
     <code class="varname">^[A-Za-z0-9][A-Za-z0-9-_.+]*$</code>, that is, it
     starts with a letter or digit, and contains only letters, digits,
     dashes, underscores, dots and plus signs.</p></li>
-<li class="listitem"><p><code class="varname">SVR4_PKGNAME</code> is the name of
-    the package file to create if the <code class="varname">PKGNAME</code>
-    isn't unique on a SVR4 system. The default is
-    <code class="varname">PKGNAME</code>, which may be shortened when you use
-    <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/pkgtools/gensolpkg/README.html" target="_top"><code class="filename">pkgtools/gensolpkg</code></a>. Only add
-    <code class="varname">SVR4_PKGNAME</code> if <code class="varname">PKGNAME</code>
-    does not produce an unique package name on a SVR4 system.
-    The length of <code class="varname">SVR4_PKGNAME</code> is limited to 5
-    characters.</p></li>
 <li class="listitem">
 <p><code class="varname">CATEGORIES</code> is a list of categories
     which the package fits in. You can choose any of the top-level
@@ -4442,7 +4017,7 @@ converters    games         mbone         print         x11
   downloaded patches, if any.
   </p>
 <div class="itemizedlist"><ul class="itemizedlist" style="list-style-type: disc; ">
-<li class="listitem"><p><code class="varname">PATCHFILES:</code>
+<li class="listitem"><p><code class="varname">PATCHFILES</code>:
     Name(s) of additional files that contain distribution patches.
     There is no default. pkgsrc will look for them at
     <code class="varname">PATCH_SITES</code>.
@@ -4451,7 +4026,11 @@ converters    games         mbone         print         x11
     <code class="filename">.Z</code>.</p></li>
 <li class="listitem"><p><code class="varname">PATCH_SITES</code>:
     Primary location(s) for distribution patch files (see
-    <code class="varname">PATCHFILES</code> below) if not found locally.</p></li>
+    <code class="varname">PATCHFILES</code> above) if not found locally.</p></li>
+<li class="listitem"><p><code class="varname">PATCH_DIST_STRIP</code>:
+    an argument to <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?patch+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">patch</span>(1)</span></a> that sets the pathname strip count to
+    help find the correct files to patch. It defaults to
+    <span class="command"><strong>-p0</strong></span>.</p></li>
 </ul></div>
 <p>The third section contains the following variables.
   </p>
@@ -4869,8 +4448,16 @@ MESSAGE_SUBST+=  SOMEVAR="somevalue"
 	    exists.</p>
 </dd>
 <dt><span class="term"><code class="filename">ALTERNATIVES</code></span></dt>
-<dd><p>FIXME: There is no documentation on the
-	alternatives framework.</p></dd>
+<dd>
+<p>This file is used by the alternatives framework.
+	    It creates, configures, and destroys generic wrappers used to
+	    run programs with similar interfaces.
+	    See pkg_alternatives(8) from pkgtools/pkg_alternatives
+            for more information.</p>
+<p>Each line of the file contains two filenames, first
+	    the wrapper and then the alternative provided by the package.
+	    Both paths are relative to <code class="varname">PREFIX</code>.</p>
+</dd>
 </dl></div>
 </div>
 <div class="sect2">
@@ -4956,7 +4543,7 @@ FILESDIR=${.CURDIR}/../xemacs/files
 <a name="makefile"></a>Chapter 12. Programming in <code class="filename">Makefile</code>s</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#makefile.style">12.1. Caveats</a></span></dt>
 <dt><span class="sect1"><a href="#makefile.variables">12.2. <code class="filename">Makefile</code> variables</a></span></dt>
 <dd><dl><dt><span class="sect2"><a href="#makefile.variables.names">12.2.1. Naming conventions</a></span></dt></dl></dd>
@@ -5282,7 +4869,7 @@ VAR:=   ${VAR:N${_othervar_:C/-//}}
 <a name="plist"></a>Chapter 13. PLIST issues</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#rcs-id">13.1. RCS ID</a></span></dt>
 <dt><span class="sect1"><a href="#automatic-plist-generation">13.2. Semi-automatic <code class="filename">PLIST</code> generation</a></span></dt>
 <dt><span class="sect1"><a href="#print-PLIST">13.3. Tweaking output of <span class="command"><strong>make print-PLIST</strong></span></a></span></dt>
@@ -5290,7 +4877,8 @@ VAR:=   ${VAR:N${_othervar_:C/-//}}
 <dt><span class="sect1"><a href="#manpage-compression">13.5. Man page compression</a></span></dt>
 <dt><span class="sect1"><a href="#using-PLIST_SRC">13.6. Changing PLIST source with <code class="varname">PLIST_SRC</code></a></span></dt>
 <dt><span class="sect1"><a href="#platform-specific-plist">13.7. Platform-specific and differing PLISTs</a></span></dt>
-<dt><span class="sect1"><a href="#faq.common-dirs">13.8. Sharing directories between packages</a></span></dt>
+<dt><span class="sect1"><a href="#build-plist">13.8. Build-specific PLISTs</a></span></dt>
+<dt><span class="sect1"><a href="#faq.common-dirs">13.9. Sharing directories between packages</a></span></dt>
 </dl>
 </div>
 <p>The <code class="filename">PLIST</code> file contains a package's
@@ -5323,7 +4911,7 @@ VAR:=   ${VAR:N${_othervar_:C/-//}}
 <a name="print-PLIST"></a>13.3. Tweaking output of <span class="command"><strong>make print-PLIST</strong></span>
 </h2></div></div></div>
 <p>If you have used any of the *-dirs packages, as explained in
-    <a class="xref" href="#faq.common-dirs" title="13.8. Sharing directories between packages">Section 13.8, &#8220;Sharing directories between packages&#8221;</a>, you may have noticed that
+    <a class="xref" href="#faq.common-dirs" title="13.9. Sharing directories between packages">Section 13.9, &#8220;Sharing directories between packages&#8221;</a>, you may have noticed that
     <span class="command"><strong>make print-PLIST</strong></span> outputs a set of
     <code class="varname">@comment</code>s instead of real
     <code class="varname">@dirrm</code> lines.  You can also do this for
@@ -5389,9 +4977,10 @@ PRINT_PLIST_AWK+=       /^@dirrm share\/specific/ { print "@comment " $$0; next;
 </ul></div>
 </dd>
 </dl></div>
-<p>For a complete list of values which are replaced by
-    default, please look in <code class="filename">bsd.pkg.mk</code> (and
-    search for <code class="varname">PLIST_SUBST</code>).</p>
+<p>For a list of values which are replaced by
+    default, the output of <span class="command"><strong>make help topic=PLIST_SUBST</strong></span> as
+well as searching the <code class="filename">pkgsrc/mk</code> directory with <span class="command"><strong>grep</strong></span> for
+<code class="varname">PLIST_SUBST</code> should help.</p>
 <p>If you want to change other variables not listed above, you
     can add variables and their expansions to this variable in the
     following way, similar to <code class="varname">MESSAGE_SUBST</code> (see <a class="xref" href="#components.optional" title="11.5. Optional files">Section 11.5, &#8220;Optional files&#8221;</a>):</p>
@@ -5469,7 +5058,25 @@ ${PLIST.foo}@dirrm share/bar
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
-<a name="faq.common-dirs"></a>13.8. Sharing directories between packages</h2></div></div></div>
+<a name="build-plist"></a>13.8. Build-specific PLISTs</h2></div></div></div>
+<p>Some packages decide to generate hard-to-guess file names
+    during installation that are hard to wire down.</p>
+<p>In such cases, you can set the
+    <code class="varname">GENERATE_PLIST</code> variable to shell code
+    terminated (with a semicolon) that will output PLIST entries which
+    will be appended to the PLIST</p>
+<p>You can find one example in editors/xemacs:</p>
+<pre class="programlisting">
+      GENERATE_PLIST+=        ${ECHO} bin/${DISTNAME}-`${WRKSRC}/src/xemacs -sd`.dmp ;
+    </pre>
+<p>which will append something like
+    <code class="filename">bin/xemacs-21.4.23-54e8ea71.dmp</code> to the
+    <code class="filename">PLIST</code>.
+    </p>
+</div>
+<div class="sect1">
+<div class="titlepage"><div><div><h2 class="title" style="clear: both">
+<a name="faq.common-dirs"></a>13.9. Sharing directories between packages</h2></div></div></div>
 <p>A <span class="quote">&#8220;<span class="quote">shared directory</span>&#8221;</span> is a directory where
     multiple (and unrelated) packages install files.  These
     directories were problematic because you had to add special
@@ -5487,6 +5094,8 @@ ${PLIST.foo}@dirrm share/bar
 @pkgdir path/to/empty/directory
     </pre>
 <p>
+    or take a look at <code class="varname">MAKE_DIRS</code> and
+    <code class="varname">OWN_DIRS</code>.
     </p>
 </div>
 </div>
@@ -5495,7 +5104,7 @@ ${PLIST.foo}@dirrm share/bar
 <a name="buildlink"></a>Chapter 14. Buildlink methodology</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#converting-to-buildlink3">14.1. Converting packages to use buildlink3</a></span></dt>
 <dt><span class="sect1"><a href="#creating-buildlink3.mk">14.2. Writing <code class="filename">buildlink3.mk</code> files</a></span></dt>
 <dd><dl>
@@ -5737,13 +5346,11 @@ BUILDLINK_TREE+=	-tiff
 	    <code class="filename">+CONTENTS</code> input into a list of files
 	    relative to
 	    <code class="filename">${BUILDLINK_PREFIX.<em class="replaceable"><code>pkg</code></em>}</code>
-	    on stdout.  By default for overwrite packages,
+	    on stdout.  By default,
 	    <code class="varname">BUILDLINK_CONTENTS_FILTER.<em class="replaceable"><code>pkg</code></em></code>
 	    outputs the contents of the <code class="filename">include</code>
 	    and <code class="filename">lib</code> directories in the package
-	    <code class="filename">+CONTENTS</code>, and for pkgviews packages,
-	    it outputs any libtool archives in
-	    <code class="filename">lib</code> directories.</p></li>
+	    <code class="filename">+CONTENTS</code>.</p></li>
 <li class="listitem"><p><code class="varname">BUILDLINK_FNAME_TRANSFORM.<em class="replaceable"><code>pkg</code></em></code>
 	    (not shown above) is a list of sed arguments used to
 	    transform the name of the source filename into a
@@ -5985,7 +5592,7 @@ PREFER_NATIVE=  getopt skey tcp_wrappers
 <a name="pkginstall"></a>Chapter 15. The pkginstall framework</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#files-and-dirs-outside-prefix">15.1. Files and directories outside the installation prefix</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#dirs-outside-prefix">15.1.1. Directory manipulation</a></span></dt>
@@ -6159,7 +5766,7 @@ set based upon the following variables:</p>
     variable only makes sense in the package's
     <code class="filename">Makefile</code> (i.e., it is not user-customizable).</p>
 <p>As an example, consider the Apache package,
-    <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/www/apache2/README.html" target="_top"><code class="filename">www/apache2</code></a>, which places its
+    <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/www/apache24/README.html" target="_top"><code class="filename">www/apache24</code></a>, which places its
     configuration files under the
     <code class="filename">httpd/</code> subdirectory of
     <code class="varname">PKG_SYSCONFBASE</code>.  This should be set in the package
@@ -6372,7 +5979,7 @@ database files within each of those directories.  For convenience, if the
 directory path is relative, it is taken to be relative to the package's
 installation prefix.  Consider the following example, taken from <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/fonts/dbz-ttf/README.html" target="_top"><code class="filename">fonts/dbz-ttf</code></a>:</p>
 <pre class="programlisting">
-FONTS_DIRS.ttf= ${PREFIX}/lib/X11/fonts/TTF
+FONTS_DIRS.ttf= ${PREFIX}/share/fonts/X11/TTF
 </pre>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
@@ -6388,7 +5995,7 @@ environment variable to <code class="literal">NO</code>.</p>
 <a name="options"></a>Chapter 16. Options handling</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#global-default-options">16.1. Global default options</a></span></dt>
 <dt><span class="sect1"><a href="#converting-to-options">16.2. Converting packages to use <code class="filename">bsd.options.mk</code></a></span></dt>
 <dt><span class="sect1"><a href="#option-names">16.3. Option Names</a></span></dt>
@@ -6629,7 +6236,7 @@ details.</p>
 <a name="build"></a>Chapter 17. The build process</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#build.intro">17.1. Introduction</a></span></dt>
 <dt><span class="sect1"><a href="#build.prefix">17.2. Program location</a></span></dt>
 <dt><span class="sect1"><a href="#build.builddirs">17.3. Directories used during the build process</a></span></dt>
@@ -6853,7 +6460,8 @@ GTKDIR_DEFAULT= ${LOCALBASE}
       below.</p>
 <p>The variable <code class="varname">DISTFILES</code> specifies
       the list of distfiles that have to be fetched. Its value
-      defaults to <code class="literal">${DISTNAME}${EXTRACT_SUFX}</code>,
+      defaults to <code class="literal">${DEFAULT_DISTFILES}</code> and
+      its value is <code class="literal">${DISTNAME}${EXTRACT_SUFX}</code>,
       so that most packages don't need to define it at all.
       <code class="varname">EXTRACT_SUFX</code> is
       <code class="literal">.tar.gz</code> by default, but can be changed
@@ -6862,7 +6470,7 @@ GTKDIR_DEFAULT= ${LOCALBASE}
       additional filenames using the <code class="literal">+=</code>
       operator, but you have write for example:</p>
 <pre class="programlisting">
-DISTFILES=      ${DISTNAME}${EXTRACT_SUFX} additional-files.tar.gz
+DISTFILES=      ${DEFAULT_DISTFILES} additional-files.tar.gz
 </pre>
 <p>Each distfile is fetched from a list of sites, usually
       <code class="varname">MASTER_SITES</code>. If the package has multiple
@@ -6893,8 +6501,19 @@ http://www.somewhereelse.com/mirror/somehow/
 MASTER_SITES=   http://www.example.com/download.cgi?file=
 </pre>
 <p> The exception to this rule are URLs starting with a dash.
-      In that case the URL is taken as is, fetched and the result stored
-      under the name of the distfile.</p>
+      In that case the URL is taken as is, fetched and the result
+      stored under the name of the distfile. You can use this style
+      for the case when the download URL style does not match the
+      above common case. For example, if permanent download URL is a
+      redirector to the real download URL, or the download file name
+      is offered by an HTTP Content-Disposition header. In the
+      following example, <code class="filename">foo-1.0.0.tar.gz</code> will be
+      created instead of the default
+      <code class="filename">v1.0.0.tar.gz</code>.</p>
+<pre class="programlisting">
+DISTNAME=       foo-1.0.0
+MASTER_SITES=   -http://www.example.com/archive/v1.0.0.tar.gz
+</pre>
 <p>There are some predefined values for
       <code class="varname">MASTER_SITES</code>, which can be used in
       packages.  The names of the variables should speak for
@@ -6910,13 +6529,18 @@ ${MASTER_SITE_GENTOO}
 ${MASTER_SITE_GNOME}
 ${MASTER_SITE_GNU}
 ${MASTER_SITE_GNUSTEP}
+${MASTER_SITE_HASKELL_HACKAGE}
 ${MASTER_SITE_IFARCHIVE}
 ${MASTER_SITE_KDE}
 ${MASTER_SITE_MOZILLA}
+${MASTER_SITE_MOZILLA_ALL}
+${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
+${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
+${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
 ${MASTER_SITE_SOURCEFORGE_JP}
@@ -6925,6 +6549,7 @@ ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
 ${MASTER_SITE_XCONTRIB}
 ${MASTER_SITE_XEMACS}
+${MASTER_SITE_XORG}
 </pre>
 <p>Some explanations for the less self-explaining ones:
       <code class="varname">MASTER_SITE_BACKUP</code> contains backup sites
@@ -7621,7 +7246,8 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 	  package already exists, no action is taken. If not, this
 	  target will compile, install and package it (and its
 	  depends, if <code class="varname">PKG_DEPENDS</code> is set
-	  properly. See <a class="xref" href="#binary.configuration" title="7.3.1. Configuration">Section 7.3.1, &#8220;Configuration&#8221;</a>).
+	  properly. See <a class="xref" href="#bulk" title="Chapter 7. Creating binary packages for everything in pkgsrc (bulk builds)">Chapter 7, <i>Creating binary packages for everything in pkgsrc (bulk
+builds)</i></a>).
 	  After creating the binary package, the sources, the
 	  just-installed package and its required packages are
 	  removed, preserving free disk space.</p>
@@ -7656,7 +7282,7 @@ ${FETCH_CMD} ${FETCH_BEFORE_ARGS} ${site}${file} ${FETCH_AFTER_ARGS}
 <a name="tools"></a>Chapter 18. Tools needed for building or running</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#pkgsrc-tools">18.1. Tools for pkgsrc builds</a></span></dt>
 <dt><span class="sect1"><a href="#package-tools">18.2. Tools needed by packages</a></span></dt>
 <dt><span class="sect1"><a href="#platform-tools">18.3. Tools provided by platforms</a></span></dt>
@@ -7736,7 +7362,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
 <a name="tools.questions"></a>18.4. Questions regarding the tools</h2></div></div></div>
 <div class="qandaset">
-<a name="idm73061424"></a><dl>
+<a name="idm73164880"></a><dl>
 <dt>18.4.1. <a href="#tools.new">How do I add a new tool?</a>
 </dt>
 <dt>18.4.2. <a href="#tools.listall">How do I get a list of all available
@@ -7755,7 +7381,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.new"></a><a name="idm73061040"></a><p><b>18.4.1.</b></p>
+<a name="tools.new"></a><a name="idm73164496"></a><p><b>18.4.1.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I add a new tool?</p></td>
 </tr>
@@ -7765,7 +7391,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.listall"></a><a name="idm73060016"></a><p><b>18.4.2.</b></p>
+<a name="tools.listall"></a><a name="idm73163472"></a><p><b>18.4.2.</b></p>
 </td>
 <td align="left" valign="top"><p>How do I get a list of all available
 	tools?</p></td>
@@ -7776,7 +7402,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="tools.used"></a><a name="idm73058992"></a><p><b>18.4.3.</b></p>
+<a name="tools.used"></a><a name="idm73162448"></a><p><b>18.4.3.</b></p>
 </td>
 <td align="left" valign="top"><p>How can I get a list of all the tools that a
 	package is using while being built? I want to know whether it
@@ -7797,7 +7423,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <a name="fixes"></a>Chapter 19. Making your package work</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#general-operation">19.1. General operation</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#portability-of-packages">19.1.1. Portability of packages</a></span></dt>
@@ -7817,6 +7443,7 @@ TOOLS_PLATFORM.true?=           true                    # shell builtin
 <dd><dl>
 <dt><span class="sect2"><a href="#no-plain-download">19.2.1. Packages whose distfiles aren't available for plain downloading</a></span></dt>
 <dt><span class="sect2"><a href="#modified-distfiles-same-name">19.2.2. How to handle modified distfiles with the 'old' name</a></span></dt>
+<dt><span class="sect2"><a href="#build.fetch.github">19.2.3. Packages hosted on github.com</a></span></dt>
 </dl></dd>
 <dt><span class="sect1"><a href="#fixes.configure">19.3. Fixing problems in the <span class="emphasis"><em>configure</em></span> phase</a></span></dt>
 <dd><dl>
@@ -8265,25 +7892,26 @@ DEPENDS+=	{perl&gt;=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
 <p>Your package may conflict with other packages a user might
     already have installed on his system, e.g. if your package
     installs the same set of files as another package in the pkgsrc
-    tree.</p>
-<p>In this case you can set <code class="varname">CONFLICTS</code> to a
+    tree or has the same <code class="varname">PKGNAME</code>.</p>
+<p>These cases are handled automatically by the packaging tools
+    at package installation time and do not need to be handled
+    manually.</p>
+<p>In case the conflicts can not be recognized automatically
+    (e.g., packages using the same config file location but no other
+    shared files), you can set <code class="varname">CONFLICTS</code> to a
     space-separated list of packages (including version string) your
     package conflicts with.</p>
-<p>For example, <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/x11/Xaw3d/README.html" target="_top"><code class="filename">x11/Xaw3d</code></a>
-    and <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/x11/Xaw-Xpm/README.html" target="_top"><code class="filename">x11/Xaw-Xpm</code></a>
-    install the same shared library, thus you set in
-    <code class="filename">pkgsrc/x11/Xaw3d/Makefile</code>:</p>
+<p>For example, if both <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/foo/bar/README.html" target="_top"><code class="filename">foo/bar</code></a>
+    and <a href="ftp://ftp.NetBSD.org/pub/pkgsrc/current/pkgsrc/foo/baz/README.html" target="_top"><code class="filename">foo/baz</code></a>
+    use the same config file, you would set in
+    <code class="filename">foo/bar/Makefile</code>:</p>
 <pre class="programlisting">
-CONFLICTS=      Xaw-Xpm-[0-9]*
+CONFLICTS=      baz-[0-9]*
     </pre>
-<p>and in <code class="filename">pkgsrc/x11/Xaw-Xpm/Makefile</code>:</p>
+<p>and in <code class="filename">pkgsrc/foo/baz/Makefile</code>:</p>
 <pre class="programlisting">
-CONFLICTS=      Xaw3d-[0-9]*
+CONFLICTS=      bar-[0-9]*
     </pre>
-<p>Packages will automatically conflict with other packages
-    with the name prefix and a different version
-    string. <span class="quote">&#8220;<span class="quote">Xaw3d-1.5</span>&#8221;</span> e.g. will automatically
-    conflict with the older version <span class="quote">&#8220;<span class="quote">Xaw3d-1.3</span>&#8221;</span>.</p>
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
@@ -8291,9 +7919,20 @@ CONFLICTS=      Xaw3d-[0-9]*
 <p>There are several reasons why a package might be
     instructed to not build under certain circumstances.  If the
     package builds and runs on most platforms, the exceptions
-    should be noted with <code class="varname">NOT_FOR_PLATFORM</code>.  If
+    should be noted with <code class="varname">BROKEN_ON_PLATFORM</code>.  If
     the package builds and runs on a small handful of platforms,
-    set <code class="varname">ONLY_FOR_PLATFORM</code> instead.
+    set <code class="varname">BROKEN_EXCEPT_ON_PLATFORM</code> instead.
+    Both <code class="varname">BROKEN_ON_PLATFORM</code> and
+    <code class="varname">BROKEN_EXCEPT_ON_PLATFORM</code> are OS triples
+    (OS-version-platform) that can use glob-style
+    wildcards.</p>
+<p>If a package is not appropriate for some platforms (as
+    oopposed to merely broken), a different set of variables should be
+    used as this affects failure reporting and statistics.
+    If the package is appropriate for most platforms, the exceptions
+    should be noted with <code class="varname">NOT_FOR_PLATFORM</code>.  If
+    the package is appropriate for only a small handful of platforms
+    (often exactly one), set <code class="varname">ONLY_FOR_PLATFORM</code> instead.
     Both <code class="varname">ONLY_FOR_PLATFORM</code> and
     <code class="varname">NOT_FOR_PLATFORM</code> are OS triples
     (OS-version-platform) that can use glob-style
@@ -8518,6 +8157,54 @@ FETCH_MESSAGE+= "manually from "${MASTER_SITES:Q}"."
     Furthermore, a mail to the package's authors seems appropriate
     telling them that changing distfiles after releases without
     changing the file names is not good practice.</p>
+</div>
+<div class="sect2">
+<div class="titlepage"><div><div><h3 class="title">
+<a name="build.fetch.github"></a>19.2.3. Packages hosted on github.com</h3></div></div></div>
+<p>Helper methods exist for packages hosted on github.com which will often have distfile names that clash with other packages, for example <code class="filename">1.0.tar.gz</code>. Use one of the three recipes from below:
+    </p>
+<div class="sect3">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="build.fetch.github.tag"></a>19.2.3.1. Fetch based on a tagged release</h4></div></div></div>
+<p>
+        If your distfile URL looks similar to <code class="literal">http://github.com/username/exampleproject/archive/v1.0.zip</code>, then you are packaging a tagged release.
+      </p>
+<pre class="programlisting">
+DISTNAME=       exampleproject-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     v${PKGVERSION_NOREV}
+EXTRACT_SUFX=   .zip
+</pre>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="build.fetch.github.commit"></a>19.2.3.2. Fetch based on a specific commit</h4></div></div></div>
+<p>
+        If your distfile URL looks similar to <code class="literal">http://github.com/example/example/archive/988881adc9fc3655077dc2d4d757d480b5ea0e11.tar.gz</code>, then you are packaging a specific commit not tied to a release.
+      </p>
+<pre class="programlisting">
+DISTNAME=       example-1.0
+MASTER_SITES=   ${MASTER_SITE_GITHUB:example/}
+#GITHUB_PROJECT=        # can be omitted if same as DISTNAME
+GITHUB_TAG=     988881adc9fc3655077dc2d4d757d480b5ea0e11
+      </pre>
+</div>
+<div class="sect3">
+<div class="titlepage"><div><div><h4 class="title">
+<a name="build.fetch.github.release"></a>19.2.3.3. Fetch based on release</h4></div></div></div>
+<p>
+        If your distfile URL looks similar to <code class="literal">http://github.com/username/exampleproject/releases/download/rel-1.6/offensive-1.6.zip</code>, then you are packaging a release.
+      </p>
+<pre class="programlisting">
+DISTNAME=       offensive-1.6
+PKGNAME=        ${DISTNAME:S/offensive/proper/}
+MASTER_SITES=   ${MASTER_SITE_GITHUB:=username/}
+GITHUB_PROJECT= exampleproject
+GITHUB_RELEASE= rel-${PKGVERSION_NOREV} # usually just set this to ${DISTNAME}
+EXTRACT_SUFX=   .zip
+      </pre>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -8785,9 +8472,9 @@ pre-configure:
     and set <code class="varname">REPLACE_PERL</code> to ensure that the proper
     interpreter path is set. <code class="varname">REPLACE_PERL</code> should
     contain a list of scripts, relative to <code class="varname">WRKSRC</code>,
-    that you want adjusted.  Every occurrence of
-    <code class="filename">*/bin/perl</code> will be replaced with the full
-    path to the perl executable.</p>
+    that you want adjusted. Every occurrence of
+    <code class="filename">*/bin/perl</code> in a she-bang line will be
+    replaced with the full path to the perl executable.</p>
 <p>If a particular version of perl is needed, set the
     <code class="varname">PERL5_REQD</code> variable to the version number.  The
     default is <span class="quote">&#8220;<span class="quote">5.0</span>&#8221;</span>.</p>
@@ -8802,6 +8489,10 @@ pre-configure:
     and <code class="varname">REPLACE_KSH</code> can be used to replace shell
     hash bangs in files. Please use the appropriate one, prefering
     <code class="varname">REPLACE_SH</code> in case this shell is sufficient.
+    Each should contain a list of scripts, relative to
+    <code class="varname">WRKSRC</code>, that you want adjusted. Every
+    occurrence of the matching shell in a she-bang line will be
+    replaced with the full path to the shell executable.
     When using <code class="varname">REPLACE_BASH</code>, don't forget to add
     <code class="filename">bash</code> to <code class="varname">USE_TOOLS</code>.</p>
 </div>
@@ -8867,6 +8558,7 @@ Haiku       __HAIKU__
 Interix     __INTERIX
 IRIX        __sgi (TODO: get a definite source for this)
 Linux       linux, __linux, __linux__
+Mac OS X    __APPLE__
 MirBSD      __MirBSD__ (__OpenBSD__ is also defined)
 Minix3      __minix
 NetBSD      __NetBSD__
@@ -8905,9 +8597,12 @@ SunPro C++  __SUNPRO_CC (0x580 for Sun C++ 5.8)
 <p>Typically, a workaround involves testing the
         <code class="varname">MACHINE_ARCH</code> and compiler version, disabling
         optimisation for that combination of file,
-	<code class="varname">MACHINE_ARCH</code> and compiler, and documenting it
-	in <code class="filename">pkgsrc/doc/HACKS</code>. See that file for a
-	number of examples.</p>
+	<code class="varname">MACHINE_ARCH</code> and compiler.</p>
+<p>This used to be a big problem in the past, but is rarely
+	needed now as compiler technology has matured. If you still need
+	to add a compiler specific workaround, please do so in the file
+	<code class="filename">hacks.mk</code> and describe the symptom and
+	compiler version as detailed as possible.</p>
 </div>
 <div class="sect2">
 <div class="titlepage"><div><div><h3 class="title">
@@ -9276,7 +8971,7 @@ PERL5_PACKLIST= auto/Pg/.packlist
 	need to manually patch the package.</p></li>
 <li class="listitem"><p>Check the PLIST and remove any entries under the etc/gconf
 	directory, as they will be handled automatically.  See
-	<a class="xref" href="#faq.conf" title="9.14. How do I change the location of configuration files?">Section 9.14, &#8220;How do I change the location of configuration files?&#8221;</a> for more information.</p></li>
+	<a class="xref" href="#faq.conf" title="9.13. How do I change the location of configuration files?">Section 9.13, &#8220;How do I change the location of configuration files?&#8221;</a> for more information.</p></li>
 <li class="listitem"><p>Define the <code class="varname">GCONF_SCHEMAS</code> variable in
 	your <code class="filename">Makefile</code> with a list of all
 	<code class="filename">.schemas</code> files installed by the package, if
@@ -9632,7 +9327,7 @@ PERL5_PACKLIST= auto/Pg/.packlist
 <a name="submit"></a>Chapter 21. Submitting and Committing</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#submitting-binary-packages">21.1. Submitting binary packages</a></span></dt>
 <dt><span class="sect1"><a href="#submitting-your-package">21.2. Submitting source packages (for non-NetBSD-developers)</a></span></dt>
 <dt><span class="sect1"><a href="#general-notes-for-changes">21.3. General notes when adding, updating, or removing packages</a></span></dt>
@@ -9651,7 +9346,8 @@ PERL5_PACKLIST= auto/Pg/.packlist
 	protect our users! You're still free to put up your home-made
 	binary packages and tell the world where to get them. NetBSD
 	developers doing bulk builds and wanting to upload them please
-	see <a class="xref" href="#bulk-upload" title="7.3.8. Uploading results of a bulk build">Section 7.3.8, &#8220;Uploading results of a bulk build&#8221;</a>.</p>
+	see <a class="xref" href="#bulk" title="Chapter 7. Creating binary packages for everything in pkgsrc (bulk builds)">Chapter 7, <i>Creating binary packages for everything in pkgsrc (bulk
+builds)</i></a>.</p>
 </div>
 <div class="sect1">
 <div class="titlepage"><div><div><h2 class="title" style="clear: both">
@@ -9716,7 +9412,7 @@ PERL5_PACKLIST= auto/Pg/.packlist
   not the same as your NetBSD login name. The target also automatically
   removes possibly existing entries for the package in the
   <code class="filename">TODO</code> file. Don't forget to commit
-  the changes, e.g. by using <span class="command"><strong>make changes-entry-commit</strong></span>!
+  the changes, e.g. by using <span class="command"><strong>make commit-changes-entry</strong></span>!
   If you are not using a checkout directly from cvs.NetBSD.org, but e.g.
   a local copy of the repository, you can set USE_NETBSD_REPO=yes. This
   makes the cvs commands use the main repository.
@@ -9743,6 +9439,8 @@ you can check by running <span class="quote">&#8220;<span class="quote">cvs stat
 <code class="prompt">$</code> cd ..
 <code class="prompt">$</code> vi Makefile # add SUBDIRS+=pkgname line
 <code class="prompt">$</code> cvs commit Makefile
+<code class="prompt">$</code> cd pkgname
+<code class="prompt">$</code> make CTYPE=Added commit-changes-entry
 </pre>
 <p>The commit message of the initial import should include part of the
   <code class="filename">DESCR</code> file, so people reading the mailing lists know
@@ -9851,7 +9549,7 @@ place.</p></li>
 	and if you still don't have the answer, ask on the
 	<code class="literal">pkgsrc-users</code> mailing list.</p>
 <div class="qandaset">
-<a name="idm74589232"></a><dl>
+<a name="idm72614864"></a><dl>
 <dt>22.1. <a href="#devfaq.makeflags">What is the difference between
 	MAKEFLAGS, .MAKEFLAGS and
 	MAKE_FLAGS?</a>
@@ -9896,7 +9594,7 @@ do?</a>
 <tbody>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.makeflags"></a><a name="idm74588848"></a><p><b>22.1.</b></p>
+<a name="devfaq.makeflags"></a><a name="idm72614480"></a><p><b>22.1.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKEFLAGS</code>, <code class="varname">.MAKEFLAGS</code> and
@@ -9912,7 +9610,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.make"></a><a name="idm74584880"></a><p><b>22.2.</b></p>
+<a name="devfaq.make"></a><a name="idm72610384"></a><p><b>22.2.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">MAKE</code>, <code class="varname">GMAKE</code> and
@@ -9930,7 +9628,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.cc"></a><a name="idm74580400"></a><p><b>22.3.</b></p>
+<a name="devfaq.cc"></a><a name="idm72606032"></a><p><b>22.3.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">CC</code>, <code class="varname">PKG_CC</code> and
@@ -9948,7 +9646,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3flags"></a><a name="idm74576304"></a><p><b>22.4.</b></p>
+<a name="devfaq.bl3flags"></a><a name="idm72601808"></a><p><b>22.4.</b></p>
 </td>
 <td align="left" valign="top"><p>What is the difference between
 	<code class="varname">BUILDLINK_LDFLAGS</code>,
@@ -9961,7 +9659,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.bl3prefix"></a><a name="idm74574128"></a><p><b>22.5.</b></p>
+<a name="devfaq.bl3prefix"></a><a name="idm72599632"></a><p><b>22.5.</b></p>
 </td>
 <td align="left" valign="top"><p>Why does <span class="command"><strong>make show-var
 	VARNAME=BUILDLINK_PREFIX.<em class="replaceable"><code>foo</code></em></strong></span>
@@ -9977,7 +9675,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.master_sites"></a><a name="idm74570928"></a><p><b>22.6.</b></p>
+<a name="devfaq.master_sites"></a><a name="idm72596560"></a><p><b>22.6.</b></p>
 </td>
 <td align="left" valign="top"><p>What does
 	<code class="literal">${MASTER_SITE_SOURCEFORGE:=package/}</code> mean? I
@@ -10001,7 +9699,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.mailinglists"></a><a name="idm74554672"></a><p><b>22.7.</b></p>
+<a name="devfaq.mailinglists"></a><a name="idm74677456"></a><p><b>22.7.</b></p>
 </td>
 <td align="left" valign="top"><p>Which mailing lists are there for package
 	developers?</p></td>
@@ -10026,7 +9724,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.documentation"></a><a name="idm74550960"></a><p><b>22.8.</b></p>
+<a name="devfaq.documentation"></a><a name="idm74673616"></a><p><b>22.8.</b></p>
 </td>
 <td align="left" valign="top"><p>Where is the pkgsrc
 	documentation?</p></td>
@@ -10074,7 +9772,7 @@ do?</a>
 </tr>
 <tr class="question">
 <td align="left" valign="top">
-<a name="devfaq.too-much-time"></a><a name="idm74544432"></a><p><b>22.9.</b></p>
+<a name="devfaq.too-much-time"></a><a name="idm74667088"></a><p><b>22.9.</b></p>
 </td>
 <td align="left" valign="top"><p>I have a little time to kill.  What shall I
 do?</p></td>
@@ -10094,7 +9792,7 @@ anyway.</p>
     cleanups and enhancements for pkgsrc that would be nice to
     have.</p></li>
 <li class="listitem"><p>Review packages for which review was requested on
-    the <a class="ulink" href="http://pkgsrc-wip.sourceforge.net/" target="_top">pkgsrc-wip</a> review
+    the <a class="ulink" href="http://www.NetBSD.org/mailinglists/index.html#tech-pkg" target="_top">tech-pkg</a>
     mailing list.</p></li>
 </ul></div>
 </td>
@@ -10108,7 +9806,7 @@ anyway.</p>
 <a name="gnome"></a>Chapter 23. GNOME packaging and porting</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#meta-packages">23.1. Meta packages</a></span></dt>
 <dt><span class="sect1"><a href="#new-package">23.2. Packaging a GNOME application</a></span></dt>
 <dt><span class="sect1"><a href="#full-update">23.3. Updating GNOME to a newer version</a></span></dt>
@@ -10409,7 +10107,7 @@ details.</p>
 	need anything from this part.</p>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="chapter"><a href="#infr.design">24. Design of the pkgsrc infrastructure</a></span></dt>
 <dd><dl>
 <dt><span class="sect1"><a href="#infr.vardef">24.1. The meaning of variable definitions</a></span></dt>
@@ -10454,7 +10152,7 @@ details.</p>
 <a name="infr.design"></a>Chapter 24. Design of the pkgsrc infrastructure</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#infr.vardef">24.1. The meaning of variable definitions</a></span></dt>
 <dt><span class="sect1"><a href="#infr.vardef.problems">24.2. Avoiding problems before they arise</a></span></dt>
 <dt><span class="sect1"><a href="#infr.var">24.3. Variable evaluation</a></span></dt>
@@ -10727,7 +10425,7 @@ CFLAGS+=                -Wall
 <a name="regression"></a>Chapter 25. Regression tests</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#regression.descr">25.1. The regression tests framework</a></span></dt>
 <dt><span class="sect1"><a href="#regression.run">25.2. Running the regression tests</a></span></dt>
 <dt><span class="sect1"><a href="#regression.new">25.3. Adding a new regression test</a></span></dt>
@@ -10822,7 +10520,7 @@ CFLAGS+=                -Wall
 <a name="porting"></a>Chapter 26. Porting pkgsrc</h2></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#porting.opsys">26.1. Porting pkgsrc to a new operating system</a></span></dt>
 <dt><span class="sect1"><a href="#porting.compiler">26.2. Adding support for a new compiler</a></span></dt>
 </dl>
@@ -10855,23 +10553,6 @@ CFLAGS+=                -Wall
 	definitions that are used by pkgsrc. Start by copying one of the
 	other files and edit it to your
 	needs.</p></dd>
-<dt><span class="term"><code class="filename">mk/platform/<em class="replaceable"><code>MyOS</code></em>.pkg.dist</code></span></dt>
-<dd><p>This file contains a list of directories,
-	together with their permission bits and ownership. These
-	directories will be created automatically with every package
-	that explicitly sets <code class="varname">USE_MTREE</code>. This feature will
-	be removed.</p></dd>
-<dt><span class="term"><code class="filename">mk/platform/<em class="replaceable"><code>MyOS</code></em>.x11.dist</code></span></dt>
-<dd><p>Just copy one of the pre-existing x11.dist files
-	to your
-	<code class="filename"><em class="replaceable"><code>MyOS</code></em>.x11.dist</code>.</p></dd>
-<dt><span class="term"><code class="filename">mk/tools/bootstrap.mk</code></span></dt>
-<dd><p>On some operating systems, the tools that are
-	provided with the base system are not good enough for pkgsrc.
-	For example, there are many versions of <a class="citerefentry" href="http://netbsd.gw.com/cgi-bin/man-cgi?sed+1+NetBSD-5.0.1+i386"><span class="citerefentry"><span class="refentrytitle">sed</span>(1)</span></a> that have a
-	narrow limit on the line length they can process. Therefore
-	pkgsrc brings its own tools, which can be enabled
-	here.</p></dd>
 <dt><span class="term"><code class="filename">mk/tools/tools.<em class="replaceable"><code>MyOS</code></em>.mk</code></span></dt>
 <dd><p>This file defines the paths to all the tools
 	that are needed by one or the other package in pkgsrc, as well
@@ -10893,7 +10574,7 @@ CFLAGS+=                -Wall
 <a name="examples"></a>Appendix A. A simple example package: bison</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#example-files">A.1. files</a></span></dt>
 <dd><dl>
 <dt><span class="sect2"><a href="#example-Makefile">A.1.1. Makefile</a></span></dt>
@@ -11084,7 +10765,7 @@ Creating gzip'd tar ball in '/u/pkgsrc/lang/bison/bison-1.25.tgz'</pre>
 <a name="logs"></a>Appendix B. Build logs</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#logs.building">B.1. Building figlet</a></span></dt>
 <dt><span class="sect1"><a href="#logs.package">B.2. Packaging figlet</a></span></dt>
 </dl>
@@ -11199,7 +10880,7 @@ Registering depends:.
 <a name="ftp-layout"></a>Appendix C. Directory layout of the pkgsrc FTP server</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#ftp-distfiles">C.1. <code class="filename">distfiles</code>: The distributed source files</a></span></dt>
 <dt><span class="sect1"><a href="#ftp-misc">C.2. <code class="filename">misc</code>: Miscellaneous things</a></span></dt>
 <dt><span class="sect1"><a href="#ftp-packages">C.3. <code class="filename">packages</code>: Binary packages</a></span></dt>
@@ -11307,7 +10988,7 @@ source packages</h2></div></div></div>
 <a name="editing"></a>Appendix D. Editing guidelines for the pkgsrc guide</h1></div></div></div>
 <div class="toc">
 <p><b>Table of Contents</b></p>
-<dl>
+<dl class="toc">
 <dt><span class="sect1"><a href="#targets">D.1. Make targets</a></span></dt>
 <dt><span class="sect1"><a href="#procedure">D.2. Procedure</a></span></dt>
 </dl>

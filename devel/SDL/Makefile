@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.112 2013/11/25 12:00:47 wiz Exp $
+# $NetBSD: Makefile,v 1.121 2015/02/25 12:48:34 jmcneill Exp $
 
 DISTNAME=	SDL-1.2.15
-PKGREVISION=	8
+PKGREVISION=	16
 CATEGORIES=	devel games
 MASTER_SITES=	http://www.libsdl.org/release/
 
@@ -15,7 +15,6 @@ USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 PTHREAD_OPTS+=		require
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 CPPFLAGS+=		-DPREFIX="\"${PREFIX}\""
 CPPFLAGS+=		-DX11BASE="\"${X11BASE}\""

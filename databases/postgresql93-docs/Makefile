@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2013/09/10 15:32:33 adam Exp $
+# $NetBSD: Makefile,v 1.3 2014/07/25 22:14:56 adam Exp $
 
 PKGNAME=	${DISTNAME:C/-/93-docs-/}
 COMMENT=	PostgreSQL database documentation

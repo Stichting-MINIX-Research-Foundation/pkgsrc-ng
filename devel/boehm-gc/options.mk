@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.1 2009/08/11 18:04:48 minskim Exp $
+# $NetBSD: options.mk,v 1.3 2014/05/02 07:28:00 wiz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.boehm-gc
 PKG_SUPPORTED_OPTIONS=	threads

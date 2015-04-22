@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.45 2014/02/12 23:17:32 tron Exp $
+# $NetBSD: Makefile,v 1.51 2014/10/09 14:05:51 wiz Exp $
 
-DISTNAME=	dar-2.4.10
-PKGREVISION=	2
+DISTNAME=	dar-2.4.13
 CATEGORIES=	archivers sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dar/}
 
@@ -10,12 +9,10 @@ HOMEPAGE=	http://dar.linux.free.fr/
 COMMENT=	Disk archiver
 LICENSE=	gnu-gpl-v2
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake pkg-config bash:run
+USE_TOOLS+=		gmake groff gsed pkg-config bash:run
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--disable-dar-static
@@ -104,14 +101,15 @@ SUBST_FILES.static=	src/testing/Makefile.in
 SUBST_SED.static=	-e 's,-all-static,-static,g'
 .endif
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
 BUILDLINK_TRANSFORM=	l:execinfo:execinfo:elf
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"
+.include "../../devel/libexecinfo/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
-.include "../../security/openssl/buildlink3.mk"
+.include "../../security/libgcrypt/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

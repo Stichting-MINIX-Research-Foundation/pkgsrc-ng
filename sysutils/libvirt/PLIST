@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.7 2014/03/11 14:05:15 jperkin Exp $
+@comment $NetBSD: PLIST,v 1.11 2014/11/26 23:48:03 gdt Exp $
 bin/virsh
 bin/virt-host-validate
 bin/virt-pki-validate
@@ -7,7 +7,6 @@ include/libvirt/libvirt-lxc.h
 include/libvirt/libvirt-qemu.h
 include/libvirt/libvirt.h
 include/libvirt/virterror.h
-lib/charset.alias
 lib/libvirt-lxc.la
 lib/libvirt-qemu.la
 lib/libvirt.la
@@ -15,10 +14,15 @@ lib/libvirt/connection-driver/libvirt_driver_network.la
 lib/libvirt/connection-driver/libvirt_driver_qemu.la
 lib/libvirt/connection-driver/libvirt_driver_secret.la
 lib/libvirt/connection-driver/libvirt_driver_storage.la
+${PLIST.hal}lib/libvirt/connection-driver/libvirt_driver_nodedev.la
+${PLIST.xen}lib/libvirt/connection-driver/libvirt_driver_libxl.la
 lib/libvirt/lock-driver/lockd.la
+lib/pkgconfig/libvirt-lxc.pc
+lib/pkgconfig/libvirt-qemu.pc
 lib/pkgconfig/libvirt.pc
 libexec/libvirt-guests.sh
 libexec/libvirt_iohelper
+libexec/libvirt_leaseshelper
 man/man1/virsh.1
 man/man1/virt-host-validate.1
 man/man1/virt-pki-validate.1
@@ -83,6 +87,7 @@ share/doc/${PKGNAME}/html/footer_pattern.png
 share/doc/${PKGNAME}/html/format.html
 share/doc/${PKGNAME}/html/formatcaps.html
 share/doc/${PKGNAME}/html/formatdomain.html
+share/doc/${PKGNAME}/html/formatdomaincaps.html
 share/doc/${PKGNAME}/html/formatnetwork.html
 share/doc/${PKGNAME}/html/formatnode.html
 share/doc/${PKGNAME}/html/formatnwfilter.html
@@ -178,6 +183,7 @@ share/libvirt/libvirtLogo.png
 share/libvirt/schemas/basictypes.rng
 share/libvirt/schemas/capability.rng
 share/libvirt/schemas/domain.rng
+share/libvirt/schemas/domaincaps.rng
 share/libvirt/schemas/domaincommon.rng
 share/libvirt/schemas/domainsnapshot.rng
 share/libvirt/schemas/interface.rng
@@ -186,8 +192,7 @@ share/libvirt/schemas/networkcommon.rng
 share/libvirt/schemas/nodedev.rng
 share/libvirt/schemas/nwfilter.rng
 share/libvirt/schemas/secret.rng
-share/libvirt/schemas/storageencryption.rng
-share/libvirt/schemas/storagefilefeatures.rng
+share/libvirt/schemas/storagecommon.rng
 share/libvirt/schemas/storagepool.rng
 share/libvirt/schemas/storagevol.rng
 share/locale/af/LC_MESSAGES/libvirt.mo

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.47 2014/03/26 14:27:22 taca Exp $
+# $NetBSD: Makefile,v 1.50 2015/03/15 17:04:44 hiramatsu Exp $
 #
 
-DISTNAME=	rabbit-2.1.2
+DISTNAME=	rabbit-2.1.6
 CATEGORIES=	graphics ruby
 MASTER_SITES=	http://rabbit-shocker.org/download/
 
-MAINTAINER=	obache@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://rabbit-shocker.org/
 COMMENT=	RD-document-based presentation application
 LICENSE=	gnu-gpl-v2 # or later

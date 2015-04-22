@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.2 2014/01/25 05:06:38 obache Exp $
+# $NetBSD: Makefile,v 1.7 2015/02/16 10:15:50 jperkin Exp $
 
-DISTNAME=	suse_qt4-${SUSE_VERSION}
-PKGREVISION=	1
+PKGNAME=	suse_qt4-${SUSE_VERSION}
+PKGREVISION=	3
 CATEGORIES=	emulators
-RPMUPDPKGS+=	libqt4-4.8.5-5.9.2.${SUSE_ARCH}
-RPMUPDPKGS+=	libqt4-qt3support-4.8.5-5.9.2.${SUSE_ARCH}
-RPMUPDPKGS+=	libqt4-x11-4.8.5-5.9.2.${SUSE_ARCH}
+RPMUPDPKGS+=	libqt4-4.8.5-5.13.1.${SUSE_ARCH}
+RPMUPDPKGS+=	libqt4-qt3support-4.8.5-5.13.1.${SUSE_ARCH}
+RPMUPDPKGS+=	libqt4-x11-4.8.5-5.13.1.${SUSE_ARCH}
+RPMUPDPKGS+=	libQtWebKit4-4.8.5+2.3.3-2.6.1.${SUSE_ARCH}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-COMMENT=	Linux compatibility package for QT4
+COMMENT=	Linux compatibility package for Qt4
 
 EMUL_MODULES.linux=	x11 fontconfig png
 

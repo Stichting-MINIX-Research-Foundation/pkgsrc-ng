@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.35 2014/03/30 19:42:53 abs Exp $
+# $NetBSD: Makefile,v 1.51 2015/02/21 23:35:41 ryoon Exp $
 
 DISTNAME=	mlt-0.9.0
+PKGREVISION=	15
 CATEGORIES=	multimedia
 MASTER_SITES=	http://downloads.sourceforge.net/project/mlt/mlt/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=mlt/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mltframework.org/twiki/bin/view/MLT/
@@ -21,7 +23,7 @@ PKGCONFIG_OVERRIDE+=	mlt-0.8.6/mlt-framework.pc.in
 .include "../../audio/libvorbis/buildlink3.mk"
 .include "../../audio/sox/buildlink3.mk"
 .include "../../devel/SDL/buildlink3.mk"
-.include "../../multimedia/ffmpeg/buildlink3.mk"
+.include "../../multimedia/ffmpeg1/buildlink3.mk"
 .include "../../multimedia/libdv/buildlink3.mk"
 .include "../../multimedia/swfdec/buildlink3.mk"
 .include "../../multimedia/xine-lib/buildlink3.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2014/01/17 18:15:44 tsutsui Exp $
+# $NetBSD: Makefile,v 1.5 2015/03/13 15:05:50 taca Exp $
 #
 
-DISTNAME=	parallel-0.9.2
+DISTNAME=	parallel-1.4.1
 CATEGORIES=	misc
 
 MAINTAINER=	tsutsui@NetBSD.org

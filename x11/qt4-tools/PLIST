@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.33 2013/07/07 18:13:57 adam Exp $
+@comment $NetBSD: PLIST,v 1.35 2014/08/19 10:31:14 wiz Exp $
 lib/pkgconfig/QtCLucene.pc
 lib/pkgconfig/QtDesigner.pc
 lib/pkgconfig/QtDesignerComponents.pc
@@ -227,9 +227,8 @@ qt4/mkspecs/cygwin-g++/qmake.conf
 qt4/mkspecs/cygwin-g++/qplatformdefs.h
 qt4/mkspecs/darwin-g++/qmake.conf
 qt4/mkspecs/darwin-g++/qplatformdefs.h
-${PLIST.notSunOS}qt4/mkspecs/default
-${PLIST.SunOS}qt4/mkspecs/default/qmake.conf
-${PLIST.SunOS}qt4/mkspecs/default/qplatformdefs.h
+qt4/mkspecs/default/qmake.conf
+qt4/mkspecs/default/qplatformdefs.h
 qt4/mkspecs/features/build_pass.prf
 qt4/mkspecs/features/dbusadaptors.prf
 qt4/mkspecs/features/dbusinterfaces.prf
@@ -569,6 +568,10 @@ qt4/mkspecs/unsupported/macx-clang/Info.plist.app
 qt4/mkspecs/unsupported/macx-clang/Info.plist.lib
 qt4/mkspecs/unsupported/macx-clang/qmake.conf
 qt4/mkspecs/unsupported/macx-clang/qplatformdefs.h
+qt4/mkspecs/unsupported/macx-clang-libc++/Info.plist.app
+qt4/mkspecs/unsupported/macx-clang-libc++/Info.plist.lib
+qt4/mkspecs/unsupported/macx-clang-libc++/qmake.conf
+qt4/mkspecs/unsupported/macx-clang-libc++/qplatformdefs.h
 qt4/mkspecs/unsupported/macx-iosdevice-clang-legacy/qmake.conf
 qt4/mkspecs/unsupported/macx-iosdevice-clang-legacy/qplatformdefs.h
 qt4/mkspecs/unsupported/macx-iosdevice-clang/qmake.conf
@@ -632,6 +635,8 @@ qt4/mkspecs/win32-msvc2010/qmake.conf
 qt4/mkspecs/win32-msvc2010/qplatformdefs.h
 qt4/mkspecs/win32-msvc2012/qmake.conf
 qt4/mkspecs/win32-msvc2012/qplatformdefs.h
+qt4/mkspecs/win32-msvc2013/qmake.conf
+qt4/mkspecs/win32-msvc2013/qplatformdefs.h
 qt4/mkspecs/wince50standard-armv4i-msvc2005/default_post.prf
 qt4/mkspecs/wince50standard-armv4i-msvc2005/qmake.conf
 qt4/mkspecs/wince50standard-armv4i-msvc2005/qplatformdefs.h

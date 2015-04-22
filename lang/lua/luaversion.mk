@@ -1,4 +1,4 @@
-# $NetBSD: luaversion.mk,v 1.4 2013/11/05 11:26:44 obache Exp $
+# $NetBSD: luaversion.mk,v 1.9 2015/02/16 10:52:34 jperkin Exp $
 
 # This file determins which Lua version is used as a dependency for
 # a package.
@@ -8,7 +8,7 @@
 # LUA_VERSION_DEFAULT
 #	The preferred lua version to use.
 #
-#	Possible values: 51 52
+#	Possible values: 51 52 53
 #	Default: 52
 #
 # === Infrastructure variables ===
@@ -27,13 +27,13 @@
 #	is significant; those listed earlier are preferred over those
 #	listed later.
 #
-#	Possible values: 51 52
-#	Default: 52 51
+#	Possible values: 51 52 53
+#	Default: 52 53 51
 #
 # LUA_VERSIONS_INCOMPATIBLE
 #	The Lua versions that the package *cannot* build against.
 #
-#	Possible values: 51 52
+#	Possible values: 51 52 53
 #	Default: <empty>
 #
 # LUA_SELF_CONFLICT
@@ -47,11 +47,32 @@
 #
 #	Example: lua51
 #
+# LUA_INCDIR
+#	Relative path to include files.
+#
+#	Example: include/lua-51
+#
+# LUA_INTERPRETER
+#	Full path to Lua interpreter.
+#
+# LUA_COMPILER
+#	Full path to Lua bytecode compiler (luac).
+#
 # Keywords: Lua
 #
 
 .if !defined (LUA_LUAVERSION_MK)
 LUA_LUAVERSION_MK=	# defined
+
+# derive a Lua version from the package name if possible
+# optionally handled quoted package names
+.if defined(PKGNAME_REQD) && !empty(PKGNAME_REQD:Mlua[0-9][0-9]-*) || \
+    defined(PKGNAME_REQD) && !empty(PKGNAME_REQD:M*-lua[0-9][0-9]-*)
+LUA_VERSION_REQD?= ${PKGNAME_REQD:C/(^.*-|^)lua([0-9][0-9])-.*/\2/}
+.elif defined(PKGNAME_OLD) && !empty(PKGNAME_OLD:Mlua[0-9][0-9]-*) || \
+    defined(PKGNAME_OLD) && !empty(PKGNAME_OLD:M*-lua[0-9][0-9]-*)
+LUA_VERSION_REQD?= ${PKGNAME_OLD:C/(^.*-|^)lua([0-9][0-9])-.*/\2/}
+.endif
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -59,7 +80,7 @@ BUILD_DEFS+=		LUA_VERSION_DEFAULT
 BUILD_DEFS_EFFECTS+=	LUA_PACKAGE
 
 LUA_VERSION_DEFAULT?=	52
-LUA_VERSIONS_ACCEPTED?=	52 51
+LUA_VERSIONS_ACCEPTED?=	52 53 51
 LUA_VERSIONS_INCOMPATIBLE?=# empty
 
 #
@@ -111,6 +132,12 @@ LUA_PKGSRCDIR=		../../lang/lua52
 LUA_PKGPREFIX=		lua52
 LUA_BASEDEPENDS=	lua52>=5.2<5.3:${LUA_PKGSRCDIR}
 
+.elif ${_LUA_VERSION} == "53"
+LUA_PACKAGE=		lua53
+LUA_PKGSRCDIR=		../../lang/lua53
+LUA_PKGPREFIX=		lua53
+LUA_BASEDEPENDS=	lua53>=5.3<5.4:${LUA_PKGSRCDIR}
+
 .elif ${_LUA_VERSION} == "51"
 LUA_PACKAGE=		lua51
 LUA_PKGSRCDIR=		../../lang/lua51
@@ -126,5 +153,9 @@ PKG_FAIL_REASION+=	"No valid Lua version found"
 
 .include "${LUA_PKGSRCDIR}/version.mk"
 _LUA_DOT_VERSION=	${LUA_VERSION_MAJOR}.${LUA_VERSION_MINOR}
+
+LUA_INCDIR=		include/lua-${_LUA_DOT_VERSION}
+LUA_INTERPRETER=	${LOCALBASE}/bin/lua${_LUA_DOT_VERSION}
+LUA_COMPILER=		${LOCALBASE}/bin/luac${_LUA_DOT_VERSION}
 
 .endif  # LUA_LUAVERSION_MK

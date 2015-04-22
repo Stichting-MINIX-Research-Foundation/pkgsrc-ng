@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.60 2014/02/12 23:18:48 tron Exp $
+# $NetBSD: Makefile,v 1.64 2014/12/03 11:06:21 jmcneill Exp $
 
 DISTNAME=		gnome-terminal-2.32.1
-PKGREVISION=		21
+PKGREVISION=		23
 CATEGORIES=		x11 gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-terminal/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -24,7 +24,7 @@ CONFIGURE_ENV+=		ac_cv_path_GTK_BUILDER_CONVERT="${PYTHONBIN} ${BUILDLINK_PREFIX
 GCONF_SCHEMAS=	gnome-terminal.schemas
 
 PYTHON_FOR_BUILD_ONLY=	YES
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.32.1
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.32.1
 
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 BUILDLINK_API_DEPENDS.GConf+=	GConf>=2.14.0
@@ -38,6 +38,7 @@ BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.16.0
 .include "../../mk/omf-scrollkeeper.mk"
 BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.13.6
 .include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/libICE/buildlink3.mk"
 .include "../../x11/libSM/buildlink3.mk"
 .include "../../x11/libXft/buildlink3.mk"
 BUILDLINK_API_DEPENDS.startup-notification+=	startup-notification>=0.8

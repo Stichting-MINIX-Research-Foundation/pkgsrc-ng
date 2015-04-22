@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.79 2014/03/23 07:48:03 richard Exp $
+# $NetBSD: Makefile,v 1.92 2015/01/28 21:12:09 ryoon Exp $
 
 DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
-NSS_RELEASE=		3.16.0
+NSS_RELEASE=		3.17.4
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_RELEASE:S/.0$//:S/./_/g}_RTM/src/}
 
@@ -24,8 +24,7 @@ USE_TOOLS+=		gmake perl pax pkg-config
 SUBST_CLASSES+=			exec_path
 SUBST_STAGE.exec_path=		pre-configure
 SUBST_MESSAGE.exec_path=	Fixing @executable_path
-SUBST_FILES.exec_path=		nss/lib/freebl/config.mk
-SUBST_FILES.exec_path=		coreconf/Darwin.mk
+SUBST_FILES.exec_path=		nss/coreconf/Darwin.mk
 SUBST_SED.exec_path=		-e 's,@executable_path,${PREFIX}/lib/nss,g'
 .endif
 
@@ -86,6 +85,8 @@ do-install:
 	      ${BUILDLINK_LIBS.pthread:Q}; \
 	} >${DESTDIR}${PREFIX}/lib/pkgconfig/nss.pc
 
+# For consistency of libxul.so link in www/firefox.
+BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.8.4.2
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

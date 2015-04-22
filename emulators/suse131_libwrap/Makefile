@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2013/12/05 11:42:16 obache Exp $
+# $NetBSD: Makefile,v 1.4 2015/02/16 10:15:49 jperkin Exp $
 
-DISTNAME=	suse_libwrap-${SUSE_VERSION}
+PKGNAME=	suse_libwrap-${SUSE_VERSION}
 CATEGORIES=	emulators
 RPMPKGS+=	libwrap0-7.6-881.1.2.${SUSE_ARCH}
 

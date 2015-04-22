@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.57 2013/10/17 04:28:33 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2015/02/08 16:33:11 wiz Exp $
 
-DISTNAME=	shared-mime-info-1.2
-PKGREVISION=	2
+DISTNAME=	shared-mime-info-1.4
 CATEGORIES=	databases
 MASTER_SITES=	http://people.freedesktop.org/~hadess/
 EXTRACT_SUFX=	.tar.xz
@@ -10,8 +9,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freedesktop.org/wiki/Software/shared-mime-info
 COMMENT=	Core database of common types
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=		YES
 USE_LANGUAGES+=		c99

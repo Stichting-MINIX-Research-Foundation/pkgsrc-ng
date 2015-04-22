@@ -1,9 +1,9 @@
-# $NetBSD: Makefile.common,v 1.34 2014/02/01 11:16:03 adam Exp $
+# $NetBSD: Makefile.common,v 1.42 2015/02/07 10:13:59 adam Exp $
 #
 # used by databases/mysql55-client/Makefile
 # used by databases/mysql55-server/Makefile
 
-DISTNAME=	mysql-5.5.36
+DISTNAME=	mysql-5.5.42
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-5.5/}
 
@@ -25,11 +25,13 @@ USE_TOOLS+=		bash gmake perl:run
 # MYSQL_USER		username of the database administrator
 # MYSQL_GROUP		group of the database administrator
 # MYSQL_DATADIR		home directory (location of the databases)
+# MYSQL_PIDFILE		process ID file
 # MYSQL_CHARSET		default character set
 # MYSQL_EXTRA_CHARSET	additional character set to be compiled in
 MYSQL_USER?=		mysql
 MYSQL_GROUP?=		mysql
 MYSQL_DATADIR?=		${VARBASE}/mysql
+MYSQL_PIDFILE?=		${MYSQL_DATADIR}/${HOST}.pid
 MYSQL_CHARSET?=		latin1
 MYSQL_COLLATION?=	latin1_swedish_ci
 MYSQL_EXTRA_CHARSET?=	all
@@ -94,9 +96,15 @@ CFLAGS+=		-DHAVE_CURSES_H
 CXXFLAGS+=		-DHAVE_CURSES_H
 .endif
 
+# SCO OpenServer 5.0.7/3.2's readdir_r has 2 arguments and return struct dirent.
+.if ${OS_VARIANT} == "SCOOSR5"
+CMAKE_ARGS+=		-DHAVE_READDIR_R=OFF
+.endif
+
 .include "../../mk/pthread.buildlink3.mk"
 
-.if defined(PTHREAD_TYPE) && (${PTHREAD_TYPE} == "pth")
+.if (defined(PTHREAD_TYPE) && (${PTHREAD_TYPE} == "pth")) || \
+	${OS_VARIANT} == "SCOOSR5"
 CFLAGS+=		-DSIGNALS_DONT_BREAK_READ
 CXXFLAGS+=		-DSIGNALS_DONT_BREAK_READ
 .endif

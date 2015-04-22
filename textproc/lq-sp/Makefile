@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.13 2012/10/25 06:56:06 asau Exp $
+# $NetBSD: Makefile,v 1.15 2015/01/01 11:36:38 dholland Exp $
 #
 
 DISTNAME=	lq-sp-1.3.4.12
@@ -9,12 +9,7 @@ MAINTAINER=	norm@sandbox.org.uk
 HOMEPAGE=	http://www.htmlhelp.com/tools/validator/offline/
 COMMENT=	Modified SP package
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=	c c++
-
-# doesn't build (LP64 bugs)
-NOT_FOR_PLATFORM=	*-*-alpha
 
 SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Fixing hardcoded paths.

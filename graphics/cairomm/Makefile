@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2013/09/02 19:50:39 adam Exp $
+# $NetBSD: Makefile,v 1.32 2014/05/31 11:25:46 pho Exp $
 
 DISTNAME=	cairomm-1.10.0
-PKGREVISION=	9
+PKGREVISION=	12
 CATEGORIES=	graphics
 MASTER_SITES=	http://cairographics.org/releases/
 
@@ -32,18 +32,17 @@ PKGCONFIG_OVERRIDE+=	data/cairomm-xlib-xrender-1.0.pc.in
 
 CONFIGURE_ARGS+=	--disable-docs
 
-PLIST_VARS+=	quartz x11
+PLIST_VARS+=	x11 quartz
 
 .include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-PLIST.quartz=	yes
-.endif
 
 .include "../../devel/libsigc++/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.8
 .include "../../graphics/cairo/buildlink3.mk"
 .if !empty(PKG_BUILD_OPTIONS.cairo:Mx11)
 PLIST.x11=	yes
+.endif
+.if !empty(PKG_BUILD_OPTIONS.cairo:Mquartz)
+PLIST.quartz=	yes
 .endif
 .include "../../mk/bsd.pkg.mk"

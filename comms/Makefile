@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.95 2013/05/26 23:08:24 rodent Exp $
+# $NetBSD: Makefile,v 1.97 2014/12/06 03:20:41 rodent Exp $
 #
 
 COMMENT=	Communication utilities
@@ -64,7 +64,9 @@ SUBDIR+=	pilot-link
 SUBDIR+=	pilot-link-libs
 SUBDIR+=	pilotmgr
 SUBDIR+=	plp
+SUBDIR+=	py-colorama
 SUBDIR+=	py-gammu
+SUBDIR+=	py-python-termstyle
 SUBDIR+=	py-serial
 SUBDIR+=	qpage
 SUBDIR+=	ruby-termios

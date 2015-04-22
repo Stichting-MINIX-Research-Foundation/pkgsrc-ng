@@ -1,20 +1,27 @@
-# $NetBSD: Makefile,v 1.52 2014/02/12 23:17:32 tron Exp $
-#
+# $NetBSD: Makefile,v 1.61 2015/02/21 23:35:38 ryoon Exp $
 
-DISTNAME=		audacious-plugins-1.5.1
-PKGREVISION=		41
-CATEGORIES=		audio
-MASTER_SITES=		http://distfiles.atheme.org/
-EXTRACT_SUFX=		.tgz
+DISTNAME=	audacious-plugins-3.5.2
+PKGREVISION=	2
+CATEGORIES=	audio
+MASTER_SITES=	http://distfiles.audacious-media-player.org/
+EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=		jfranz@bsdprojects.net
-HOMEPAGE=		http://audacious-media-player.org/
-COMMENT=		Plugins for Audacious media player
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://audacious-media-player.org/
+COMMENT=	Plugins for Audacious media player
+LICENSE=	2-clause-bsd
 
-GNU_CONFIGURE=		yes
-USE_TOOLS+=		gmake intltool pkg-config msgfmt
-USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
+USE_TOOLS+=		gmake intltool pkg-config msgfmt
+GNU_CONFIGURE=		yes
+#CONFIGURE_ARGS+=	--disable-aac
+CONFIGURE_ARGS+=	--disable-amidiplug
+CONFIGURE_ARGS+=	--disable-evdevplug
+#CONFIGURE_ARGS+=	--disable-coreaudio
+CONFIGURE_ARGS+=	--disable-gnomeshortcuts
+CONFIGURE_ARGS+=	--disable-modplug
+CONFIGURE_ARGS+=	--disable-projectm
+CONFIGURE_ARGS+=	--with-ffmpeg=none
 
 .include "../../mk/compiler.mk"
 .if empty(PKGSRC_COMPILER:Mclang)
@@ -38,10 +45,6 @@ LDFLAGS+=		${LIBOSSAUDIO}
 
 # do not use pkgsrc' flac if it is installed
 CFLAGS+=	-I. -I../flacng -Ilibflacng
-
-CONFIGURE_ARGS+=	--disable-amidiplug --disable-evdevplug \
-			--disable-coreaudio --disable-projectm \
-			--disable-gnomeshortcuts
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
@@ -74,23 +77,23 @@ PLIST.oss=	yes
 .endif
 
 .include "../../audio/audacious/buildlink3.mk"
+.include "../../audio/faad2/buildlink3.mk"
+.include "../../audio/lame/buildlink3.mk"
 .include "../../audio/libcddb/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"
 .include "../../audio/libmpcdec/buildlink3.mk"
-.include "../../audio/libvorbis/buildlink3.mk"
 .include "../../audio/libsndfile/buildlink3.mk"
+.include "../../audio/libvorbis/buildlink3.mk"
+.include "../../audio/mpg123/buildlink3.mk"
 .include "../../audio/taglib/buildlink3.mk"
 .include "../../audio/wavpack/buildlink3.mk"
-.include "../../audio/lame/buildlink3.mk"
-.include "../../devel/libbinio/buildlink3.mk"
-.include "../../devel/libmtp/buildlink3.mk"
 .include "../../devel/SDL/buildlink3.mk"
+.include "../../devel/libbinio/buildlink3.mk"
 .include "../../graphics/imlib2/buildlink3.mk"
-.include "../../misc/libcdio/buildlink3.mk"
+.include "../../misc/libcdio-paranoia/buildlink3.mk"
 .include "../../multimedia/libogg/buildlink3.mk"
 .include "../../net/libmms/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../www/neon/buildlink3.mk"
-.include "../../x11/libXcomposite/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

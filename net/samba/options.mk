@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.30 2012/08/19 07:28:36 sbd Exp $
+# $NetBSD: options.mk,v 1.33 2015/01/20 23:49:52 wiz Exp $
 
 # Recommended package options for various setups:
 #
@@ -9,13 +9,17 @@
 #
 PKG_OPTIONS_VAR=	PKG_OPTIONS.samba
 PKG_SUPPORTED_OPTIONS=	ads cups fam ldap pam winbind
-PKG_SUGGESTED_OPTIONS=	ads ldap pam winbind
+PKG_SUGGESTED_OPTIONS=	ldap pam winbind
 
 .include "../../mk/bsd.fast.prefs.mk"
 
 SAMBA_ACL_OPSYS=	AIX Darwin FreeBSD HPUX IRIX Linux OSF1 SunOS
 .if !empty(SAMBA_ACL_OPSYS:M${OPSYS})
 PKG_SUPPORTED_OPTIONS+=	acl
+.endif
+
+.if empty(MACHINE_PLATFORM:MDarwin-1[1-9].*)
+PKG_SUGGESTED_OPTIONS+=	ads
 .endif
 
 .include "../../mk/bsd.options.mk"
@@ -59,7 +63,7 @@ CONFIGURE_ARGS+=	--with-acl-support
 ###
 PLIST_VARS+=		cups
 .if !empty(PKG_OPTIONS:Mcups)
-.  include "../../print/cups/buildlink3.mk"
+.  include "../../print/cups15/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-cups
 PLIST.cups=		yes
 INSTALLATION_DIRS+=	libexec/cups/backend
@@ -100,10 +104,11 @@ CONFIGURE_ARGS+=	--without-ldap
 ###
 PLIST_VARS+=		pam
 .if !empty(PKG_OPTIONS:Mpam)
-.  include "../../security/PAM/module.mk"
+.  include "../../mk/pam.buildlink3.mk"
+
 CONFIGURE_ARGS+=	--with-pam
 CONFIGURE_ARGS+=	--with-pam_smbpass
-CONFIGURE_ARGS+=	--with-pammodulesdir=${PAM_INSTMODULEDIR}
+CONFIGURE_ARGS+=	--with-pammodulesdir=${PREFIX}/lib/security
 PLIST.pam=		yes
 INSTALLATION_DIRS+=	${EGDIR}/pam_smbpass
 

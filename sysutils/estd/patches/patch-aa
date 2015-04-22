@@ -1,6 +1,9 @@
-$NetBSD: patch-aa,v 1.7 2011/03/16 05:09:16 macallan Exp $
+$NetBSD: patch-aa,v 1.10 2015/03/06 18:08:38 khorben Exp $
 
---- Makefile.orig	2007-12-15 15:51:02.000000000 +0000
+Use BSD_INSTALL_* instead of directly invoking install(1), add DESTDIR
+support and install all the files in the proper locations.
+
+--- Makefile.orig	2015-02-18 21:38:03.000000000 +0000
 +++ Makefile
 @@ -19,7 +19,8 @@ estd:	estd.c
  all: estd

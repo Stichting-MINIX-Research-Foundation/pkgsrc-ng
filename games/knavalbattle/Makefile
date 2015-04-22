@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2014/02/12 23:17:56 tron Exp $
+# $NetBSD: Makefile,v 1.16 2014/11/14 08:49:39 markd Exp $
 
 DISTNAME=	knavalbattle-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	games
 COMMENT=	a network-enabled implementation of the famous ship sinking game for KDE
 

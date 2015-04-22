@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.51 2013/05/31 12:40:50 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2014/10/09 14:06:28 wiz Exp $
 
-DISTNAME=		Test-Simple-0.98
+DISTNAME=		Test-Simple-1.001003
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		2
-SVR4_PKGNAME=		p5tsi
+PKGREVISION=		1
 CATEGORIES=		devel perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Test/}
 
@@ -13,8 +12,6 @@ COMMENT=		Perl5 module with a simple framework for writing tests
 LICENSE=		${PERL5_LICENSE}
 
 CONFLICTS+=		p5-Test-Builder-Tester-[0-9]*
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Test/Simple/.packlist
 

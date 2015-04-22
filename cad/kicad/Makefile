@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.1.1.1 2014/02/17 20:38:59 bouyer Exp $
+# $NetBSD: Makefile,v 1.5 2014/12/27 02:03:19 dholland Exp $
 #
 
 V=		20140214
 DISTNAME=	kicad-stable-${V}
 PKGNAME=	kicad-${V}
+PKGREVISION=	3
 CATEGORIES=	cad
 MASTER_SITES=	http://ftp.fr.NetBSD.org/~bouyer/kicad/
 
@@ -35,6 +36,18 @@ SUBST_FILES.macosx=	bitmap2component/CMakeLists.txt			\
 			pcb_calculator/CMakeLists.txt			\
 			pcbnew/CMakeLists.txt
 SUBST_SED.macosx=	-e 's/[[:<:]]MACOSX_BUNDLE[[:>:]]//'
+
+.include "../../mk/bsd.prefs.mk"
+
+# PR 48980: no fabsl on netbsd-5
+.if !empty(MACHINE_PLATFORM:MNetBSD-5.*)
+SUBST_CLASSES+=		netbsd5
+SUBST_STAGE.netbsd5=	pre-patch
+SUBST_MESSAGE.netbsd5=	Substituting fabs() for fabsl() for NetBSD-5
+SUBST_FILES.netbsd5=	pcbnew/legacy_plugin.cpp        \
+			tools/test-nm-biu-to-ascii-mm-round-tripping.cpp
+SUBST_SED.netbsd5=	-e 's/fabsl/fabs/g'
+.endif
 
 .include "../../devel/boost-libs/buildlink3.mk"
 .include "../../devel/cmake/buildlink3.mk"

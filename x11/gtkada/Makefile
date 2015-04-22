@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2013/10/10 14:41:48 ryoon Exp $
+# $NetBSD: Makefile,v 1.29 2014/09/02 08:32:36 jperkin Exp $
 #
 
 DISTNAME=	gtkada-${GTKADA_VERSION}
-PKGREVISION=	2
+PKGREVISION=	6
 CATEGORIES=	x11
 MASTER_SITES=	http://downloads.dragonlace.net/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +19,6 @@ DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake perl pkg-config
 USE_LANGUAGES=		c ada c++ fortran
-MAKE_JOBS_SAFE=		yes
 
 GTKADA_VERSION=		2.24.4.0
 PKGCONFIG_OVERRIDE+=	projects/gtkada.pc.in
@@ -37,6 +36,15 @@ SUBST_SED.lgnat=	-e 's|-largs|-largs -lgnat|'
 
 GENERATE_PLIST=	cd ${DESTDIR}${PREFIX}; \
 		${FIND} * \( -type f -or -type l \) | ${SORT};
+
+GTK2PC=		${BUILDLINK_DIR}/lib/pkgconfig/gtk+-2.0.pc
+
+post-wrapper:
+	# This hack works around missing gmodule entry in gtk2
+	# pkgconfig file.  Remove it when gtk2 is properly fixed
+	${CAT} ${GTK2PC} | ${SED} '/^Req/ s/$$/ gmodule-2.0/' > ${GTK2PC}.tmp
+	${RM} ${GTK2PC}
+	${MV} ${GTK2PC}.tmp ${GTK2PC}
 
 do-configure:
 	cd ${WRKSRC} && ${SETENV} ${MY_CONFIGURE_ENV} \

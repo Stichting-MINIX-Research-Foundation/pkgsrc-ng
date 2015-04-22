@@ -1,4 +1,4 @@
-$NetBSD: patch-src_class.h,v 1.1 2012/03/29 11:40:19 wiz Exp $
+$NetBSD: patch-src_class.h,v 1.3 2014/11/26 22:31:41 wiz Exp $
 
 Fix build with clang-3.1.
 

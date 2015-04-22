@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2014/02/20 00:37:46 rodent Exp $
+# $NetBSD: Makefile,v 1.19 2015/03/14 20:36:23 rodent Exp $
 
-DISTNAME=	haproxy-1.4.24
-PKGREVISION=	1
+DISTNAME=	haproxy-1.5.11
 CATEGORIES=	net www
-MASTER_SITES=	http://haproxy.1wt.eu/download/1.4/src/
+MASTER_SITES=	http://haproxy.1wt.eu/download/1.5/src/
 
 MAINTAINER=	morr@NetBSD.org
 HOMEPAGE=	http://haproxy.1wt.eu/
@@ -11,15 +10,17 @@ COMMENT=	Reliable, high performance TCP/HTTP load balancer
 LICENSE=	gnu-gpl-v2
 
 USE_TOOLS+=		gmake
-BUILD_MAKE_FLAGS+=	TARGET=${TARGET}
+BUILD_MAKE_FLAGS+=	TARGET=${TARGET} ADDLIB=${COMPILER_RPATH_FLAG}${PREFIX}/lib USE_ZLIB=1
 INSTALL_MAKE_FLAGS+=	TARGET=${TARGET}
 INSTALL_MAKE_FLAGS+=	PREFIX=${PREFIX}
 INSTALL_MAKE_FLAGS+=	DOCDIR=${PREFIX}/share/doc/${PKGBASE}
 INSTALL_MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
+.include "options.mk"
+
 RCD_SCRIPTS=		haproxy
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
-INSTALLATION_DIRS=	${EGDIR} share/examples/rc.d
+INSTALLATION_DIRS+=	${EGDIR}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -40,6 +41,8 @@ TARGET=linux24e
 .    else
 TARGET=linux24
 .    endif
+.  else
+TARGET=generic
 .  endif
 .else
 TARGET=generic
@@ -50,4 +53,5 @@ LIBS.SunOS+=		-lxnet
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/examples/haproxy.cfg ${DESTDIR}${EGDIR}/
 
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

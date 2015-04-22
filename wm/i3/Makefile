@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2013/10/17 22:41:12 tonnerre Exp $
+# $NetBSD: Makefile,v 1.7 2014/08/09 19:14:01 degroote Exp $
 #
 
-DISTNAME=	i3-4.6
+DISTNAME=	i3-4.8
 CATEGORIES=	wm
 MASTER_SITES=	http://i3wm.org/downloads/
 EXTRACT_SUFX=	.tar.bz2
@@ -55,8 +55,9 @@ do-install:
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../x11/xcb-util/buildlink3.mk"
-.include "../../x11/xcb-util-wm/buildlink3.mk"
+.include "../../x11/xcb-util-cursor/buildlink3.mk"
 .include "../../x11/xcb-util-keysyms/buildlink3.mk"
+.include "../../x11/xcb-util-wm/buildlink3.mk"
 .include "../../x11/libxcb/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXcursor/buildlink3.mk"

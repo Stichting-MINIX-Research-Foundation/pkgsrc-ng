@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2013/11/10 20:28:50 joerg Exp $
+# $NetBSD: Makefile,v 1.41 2015/01/04 03:31:07 dholland Exp $
 
 DISTNAME=		scheme48-1.9
 PKGREVISION=		1
@@ -10,8 +10,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://s48.org/
 COMMENT=		The Scheme Underground implementation of R5RS
 LICENSE=		modified-bsd
-
-NOT_FOR_PLATFORM=	*-*-alpha	# *severe* problems.  Bus error, alignment
 
 MAKE_JOBS_SAFE=		no
 
@@ -32,7 +30,7 @@ REPLACE.scheme.new=	${PREFIX}/bin/scheme-srfi-7
 REPLACE_FILES.scheme=	build/scheme48-config.in
 
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "DragonFly"
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
 SUBST_CLASSES+= 	pthr
 SUBST_STAGE.pthr=	post-patch
 SUBST_FILES.pthr=	configure
@@ -42,6 +40,8 @@ SUBST_SED.pthr= 	-e 's,pthreads_done=\"no\",pthreads_done=\"yes\"; CFLAGS=\"$$CF
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
+# -O2 needs more than 2GB memory, just disabling value propagation
+# results in segmentation faults during build.
 CFLAGS+= -O0
 .endif
 

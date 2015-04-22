@@ -1,0 +1,15 @@
+@comment $NetBSD: PLIST,v 1.2 2015/02/01 12:44:11 taca Exp $
+${GEM_HOME}/cache/${GEM_NAME}.gem
+${GEM_LIBDIR}/CHANGELOG.md
+${GEM_LIBDIR}/LICENSE
+${GEM_LIBDIR}/README.md
+${GEM_LIBDIR}/lib/toml.rb
+${GEM_LIBDIR}/lib/toml/generator.rb
+${GEM_LIBDIR}/lib/toml/key.rb
+${GEM_LIBDIR}/lib/toml/monkey_patch.rb
+${GEM_LIBDIR}/lib/toml/parser.rb
+${GEM_LIBDIR}/lib/toml/parslet.rb
+${GEM_LIBDIR}/lib/toml/table.rb
+${GEM_LIBDIR}/lib/toml/transformer.rb
+${GEM_LIBDIR}/lib/toml/version.rb
+${GEM_HOME}/specifications/${GEM_NAME}.gemspec

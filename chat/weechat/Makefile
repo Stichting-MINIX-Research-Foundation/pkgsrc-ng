@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2014/02/24 23:06:12 tonio Exp $
+# $NetBSD: Makefile,v 1.51 2015/03/31 11:35:58 jperkin Exp $
 
-DISTNAME=	weechat-0.4.3
+DISTNAME=	weechat-1.0
+PKGREVISION=	1
 CATEGORIES=	chat
 MASTER_SITES=	http://www.weechat.org/files/src/
 
@@ -18,9 +19,6 @@ USE_LANGUAGES=		c99
 USE_LIBTOOL=		yes
 USE_CMAKE=		yes
 
-CFLAGS.SunOS+=		-D_XOPEN_SOURCE=600 -D__EXTENSIONS__
-LDFLAGS.SunOS+=		-lsocket -lnsl -lintl
-
 CMAKE_ARGS+=		-DENABLE_ASPELL:BOOL=OFF
 CMAKE_ARGS+=		-DENABLE_GUILE:BOOL=OFF
 CMAKE_ARGS+=		-DENABLE_TCL:BOOL=OFF
@@ -28,10 +26,13 @@ CMAKE_ARGS+=		-DENABLE_MAN:BOOL=ON
 CMAKE_ARGS+=		-DMANDIR:STRING=${PKGMANDIR}
 CMAKE_ARGS+=		-DLOCALEDIR:STRING=${PKGLOCALEDIR}/locale
 
+LDFLAGS+=		${BUILDLINK_LDADD.gettext}
+
 .include "options.mk"
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+#.include "../../devel/readline/buildlink3.mk"
 .include "../../devel/libidn/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"

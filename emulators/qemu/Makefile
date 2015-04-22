@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.122 2014/01/25 10:30:07 wiz Exp $
+# $NetBSD: Makefile,v 1.135 2015/03/13 09:09:12 ryoon Exp $
 
-DISTNAME=	qemu-1.7.0
+DISTNAME=	qemu-2.2.1
 CATEGORIES=	emulators
 MASTER_SITES=	http://wiki.qemu.org/download/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,10 +11,10 @@ COMMENT=	CPU emulator using dynamic translation
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1 AND mit AND modified-bsd
 
 CONFLICTS+=		qemu-bin-[0-9]*
-NOT_FOR_PLATFORM=	NetBSD-1.[0-6]*-*
+NOT_FOR_PLATFORM+=	NetBSD-1.[0-6]*-*
 # qemu 1 does not work on NetBSD-5; see http://gnats.netbsd.org/46565.
 # As a workaround, use emulators/qemu0.
-NOT_FOR_PLATFORM=	NetBSD-5*-*
+NOT_FOR_PLATFORM+=	NetBSD-5*-*
 
 USE_TOOLS+=		bison gmake makeinfo perl:build pkg-config
 USE_NCURSES=		yes			# requires resize_term()
@@ -45,7 +45,7 @@ PKG_SYSCONFSUBDIR=	qemu
 
 REPLACE_PERL+=		scripts/texi2pod.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported yet as of 1.7.0
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported yet as of 1.7.0
 
 BUILDLINK_PASSTHRU_DIRS+= /usr/lib
 BUILDLINK_PASSTHRU_RPATHDIRS+= /usr/lib
@@ -54,7 +54,7 @@ INSTALLATION_DIRS=	${PKGMANDIR}/man1 share/doc/qemu
 
 UE_ARCHS+=		alpha arm armeb cris i386 m68k microblaze mips mipsel
 UE_ARCHS+=		or32 ppc ppc64 ppc64abi32 sh4 sh4eb sparc sparc32plus
-UE_ARCHS+=		sparc64 x86_64 microblazeel s390x unicore32
+UE_ARCHS+=		sparc64 x86_64 microblazeel s390x tricore unicore32
 
 .if ${OPSYS} == "NetBSD"
 .  if (!empty(OS_VERSION:M5.99.*) || !empty(OS_VERSION:M[6-9].*))
@@ -81,6 +81,7 @@ USER_EMUL=		${UE_ARCHS}
 PLIST.nbd=		YES
 .elif !empty(MACHINE_PLATFORM:MSunOS-5.11-*)
 PLIST.nbd=		YES
+CONFIGURE_ARGS+=	--disable-coroutine-pool
 .endif
 
 PLIST_VARS+=		${UE_ARCHS} nbd

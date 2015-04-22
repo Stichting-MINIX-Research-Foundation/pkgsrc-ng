@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/03/11 14:34:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.14 2014/06/14 10:13:05 wiedi Exp $
 
 DISTNAME=	amavisd-new-${VERSION}${PATCHLEVEL}
 PKGNAME=	amavisd-new-${VERSION}${PATCHLEVEL:S/-//}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail security
 MASTER_SITES=	http://www.ijs.si/software/amavisd/ \
 		http://mirrors.catpipe.net/amavisd-new/ \
@@ -117,7 +117,7 @@ SUBST_SED.amavisd+=	-e "s|@AMAVIS_QUARANTINE@|${AMAVIS_QUARANTINE}|g"
 SUBST_SED.amavisd+=	-e "s|@LOCALBASE@|${LOCALBASE}|g"
 SUBST_SED.amavisd+=	-e "s|@PREFIX@|${PREFIX}|g"
 
-INSTALLATION_DIRS=	sbin ${DOCDIR} ${EGDIR}
+INSTALLATION_DIRS+=	sbin ${DOCDIR} ${EGDIR}
 
 do-install:
 .if !empty(PKG_OPTIONS:Mmilter)

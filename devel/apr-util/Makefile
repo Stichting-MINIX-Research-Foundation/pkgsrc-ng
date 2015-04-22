@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2014/02/12 23:17:45 tron Exp $
+# $NetBSD: Makefile,v 1.40 2014/10/09 14:06:07 wiz Exp $
 
-DISTNAME=	apr-util-1.5.3
-PKGREVISION=	2
+DISTNAME=	apr-util-1.5.4
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_APACHE:=apr/}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,8 +10,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://apr.apache.org/
 COMMENT=	Apache Portable Runtime utilities
 LICENSE=	apache-2.0
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config

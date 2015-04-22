@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2013/12/02 13:02:23 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2015/01/28 02:46:36 mef Exp $
 
-DISTNAME=	ExtUtils-Manifest-1.63
+DISTNAME=	ExtUtils-Manifest-1.70
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/F/FL/FLORA/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETHER/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/ExtUtils-Manifest/

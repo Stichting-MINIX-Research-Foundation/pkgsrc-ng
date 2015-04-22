@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2013/09/28 06:32:08 obache Exp $
+# $NetBSD: Makefile,v 1.31 2014/10/09 14:06:30 wiz Exp $
 
 DISTNAME=	pkg-config-0.28
 CATEGORIES=	devel
@@ -8,8 +8,6 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://pkgconfig.freedesktop.org/
 COMMENT=	System for managing library compile/link flags
 LICENSE=	gnu-gpl-v2
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
@@ -32,6 +30,11 @@ post-configure:
 	cd ${WRKSRC}/glib; \
 	${GREP} -v HAVE_DTRACE config.h >config.h.new; \
 	${MV} config.h.new config.h
+.endif
+
+.if ${OS_VARIANT} == "SCOOSR5"
+# SCO OpenServer 5.0.7/3.2 has no IPv6 support.
+CONFIGURE_ENV+=		glib_cv_value_AF_INET6=yes
 .endif
 
 .if ${OPSYS} == "SunOS"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2014/02/18 22:20:03 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2014/07/14 17:09:36 jperkin Exp $
 
 DISTNAME=		lbdb_0.35.1
 PKGNAME=		${DISTNAME:S/_/-/}
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES=		databases
 MASTER_SITES=		http://www.spinnaker.de/debian/
 
@@ -25,6 +25,7 @@ CONFIGURE_ARGS+=	--without-pgpk
 
 CONFIGURE_ENV+=		SH=${TOOLS_SH:Q}
 CONFIGURE_ENV+=		AWK=${TOOLS_AWK:Q}
+CONFIGURE_ENV+=		ac_cv_path_TAC=NONE
 
 .include "options.mk"
 
@@ -33,6 +34,11 @@ WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 EGDIR=			${PREFIX}/share/examples/lbdb
 CONF_FILES+=		${EGDIR}/lbdb.rc ${PKG_SYSCONFDIR}/lbdb.rc
 CONF_FILES+=		${EGDIR}/lbdb_ldap.rc ${PKG_SYSCONFDIR}/lbdb_ldap.rc
+
+PLIST_VARS+=		finger
+.if ${OPSYS} != "SunOS" || exists(/usr/bin/finger)
+PLIST.finger=		yes
+.endif
 
 PLIST_VARS+=		yp
 .if ${OPSYS} != "Interix"

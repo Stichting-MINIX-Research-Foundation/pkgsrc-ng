@@ -1,15 +1,15 @@
-# $NetBSD: Makefile,v 1.28 2014/02/12 23:18:43 tron Exp $
+# $NetBSD: Makefile,v 1.32 2015/01/04 05:58:35 obache Exp $
 #
 
-DISTNAME=	mod_dnssd-0.5
+DISTNAME=	mod_dnssd-0.6
 PKGNAME=	${APACHE_PKG_PREFIX}-${DISTNAME:S/mod_//}
-PKGREVISION=	23
 CATEGORIES=	www
 MASTER_SITES=	http://0pointer.de/lennart/projects/mod_dnssd/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://0pointer.de/lennart/projects/mod_dnssd/
 COMMENT=	Apache module which adds Zeroconf support via DNS-SD using Avahi
+LICENSE=	apache-2.0
 
 GNU_CONFIGURE=	yes
 USE_TOOLS=	pkg-config gmake
@@ -18,8 +18,8 @@ USE_LIBTOOL=	yes
 CONFIGURE_ENV+=		APXS=${APXS:Q}
 CONFIGURE_ARGS+=	--disable-lynx
 
-PKG_APACHE_ACCEPTED=	apache22
 APACHE_MODULE_NAME=	mod_dnssd
+APACHE_MODULE=		yes
 
 INSTALLATION_DIRS+=	lib/httpd
 

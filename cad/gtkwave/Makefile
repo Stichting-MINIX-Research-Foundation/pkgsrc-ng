@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2014/02/15 16:21:15 mef Exp $
+# $NetBSD: Makefile,v 1.61 2014/12/02 12:37:25 mef Exp $
 #
 
-DISTNAME=		gtkwave-3.3.57
+DISTNAME=		gtkwave-3.3.64
 CATEGORIES=		cad
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gtkwave/}
 #MASTER_SITES=		http://home.nc.rr.com/gtkwave/
@@ -21,8 +21,8 @@ PTHREAD_AUTO_VARS=	yes
 CHECK_PORTABILITY_SKIP+= contrib/bundle_for_osx/launcher.sh
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gtkwave
-PKG_SUPPORTED_OPTIONS=	gtkwave-tcl
-#PKG_SUGGESTED_OPTIONS=	gtkwave-tcl
+PKG_SUPPORTED_OPTIONS=	gtkwave-tcl gconf
+PKG_SUGGESTED_OPTIONS=	gconf
 .include "../../mk/bsd.options.mk"
 
 .if !empty(PKG_OPTIONS:Mgtkwave-tcl)
@@ -30,6 +30,11 @@ PKG_SUPPORTED_OPTIONS=	gtkwave-tcl
 .include "../../x11/tk/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-tcl
+.endif
+
+.if !empty(PKG_OPTIONS:Mgconf)
+CONFIGURE_ARGS+=	--with-gconf
+.include "../../devel/gconfmm/buildlink3.mk"
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"

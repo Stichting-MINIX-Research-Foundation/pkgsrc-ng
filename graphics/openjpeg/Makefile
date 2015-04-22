@@ -1,18 +1,16 @@
-# $NetBSD: Makefile,v 1.8 2013/02/16 11:22:19 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/23 17:15:09 pho Exp $
 
-DISTNAME=	openjpeg-2.0.0
-PKGREVISION=	2
+DISTNAME=	openjpeg-2.1.0
 CATEGORIES=	graphics
-MASTER_SITES=	http://openjpeg.googlecode.com/files/
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=openjpeg.mirror/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.openjpeg.org/
 COMMENT=	JPEG 2000 library
 LICENSE=	2-clause-bsd
 
-USE_CMAKE=		yes
-
-CFLAGS+=	-DHAVE_POSIX_MEMALIGN
+USE_CMAKE=	yes
+CMAKE_ARGS+=	-DOPENJPEG_INSTALL_MAN_DIR=${PKGMANDIR}
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"

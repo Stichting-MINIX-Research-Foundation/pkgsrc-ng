@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.110 2014/02/19 17:43:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.120 2015/03/14 18:21:24 tnn Exp $
 
-DISTNAME=	doxygen-1.8.6.src
+DISTNAME=	doxygen-1.8.9.1.src
 PKGNAME=	${DISTNAME:S/.src//}
 PKGREVISION=	1
 CATEGORIES=	devel
@@ -31,7 +31,7 @@ MAKE_FLAGS+=		MAN1DIR=${PKGMANDIR}/man1
 
 REPLACE_PERL=		tmake/bin/tmake
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.8.6
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.8.6
 
 # Case Insensitive or Case Sensitive File System
 PLIST_VARS+=		ci cs
@@ -42,7 +42,7 @@ PLIST_VARS+=		pangocairo nopangocairo
 SUBST_CLASSES+=		path
 SUBST_STAGE.path=	pre-configure
 SUBST_FILES.path=	doc/Makefile.in
-SUBST_SED.path=		-e "s|@EPSTOPDF@|${LOCALBASE}/bin/epstopdf|g"
+SUBST_SED.path=		-e "s|@EPSTOPDF@|${PREFIX}/bin/epstopdf|g"
 
 SUBST_CLASSES+=		perlbin
 SUBST_STAGE.perlbin=	pre-configure
@@ -55,7 +55,7 @@ SUBST_STAGE.epstopdf=	pre-configure
 SUBST_MESSAGE.epstopdf=	Fixing path to epstopdf
 SUBST_FILES.epstopdf=	src/diagram.cpp src/docparser.cpp src/dot.cpp \
 			src/msc.cpp
-SUBST_SED.epstopdf=	-e 's,"epstopdf","${LOCALBASE}/bin/epstopdf",g'
+SUBST_SED.epstopdf=	-e 's,"epstopdf","${PREFIX}/bin/epstopdf",g'
 
 # Just install the binary and the man page.  (If the latex option
 # is enabled, this target will be augmented.)
@@ -73,9 +73,7 @@ PLIST.cs=		yes	# case-sensitive
 CONFIGURE_ARGS+=	-platform freebsd-g++
 .endif
 
-.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "OpenBSD"
 LDFLAGS+=		${BUILDLINK_LDADD.iconv}
-.endif
 
 post-patch:
 	touch ${WRKSRC}/src/doxytag.l

@@ -1,24 +1,23 @@
-$NetBSD: patch-lib_Mail_SpamAssassin_DnsResolver.pm,v 1.1 2013/12/04 15:14:19 jperkin Exp $
+$NetBSD: patch-lib_Mail_SpamAssassin_DnsResolver.pm,v 1.3 2014/10/01 11:37:31 tron Exp $
 
-Part of backport of bug#6937
+Make this work with Net::DNS 0.76 or newer.
 
---- lib/Mail/SpamAssassin/DnsResolver.pm.orig	2011-06-06 23:59:17.000000000 +0000
-+++ lib/Mail/SpamAssassin/DnsResolver.pm
-@@ -440,10 +440,16 @@ sub poll_responses {
-     { my $timer;  # collects timestamp when variable goes out of scope
-       if (!defined($timeout) || $timeout > 0)
-         { $timer = $self->{main}->time_method("poll_dns_idle") }
-+      $! = 0;
-       ($nfound, $timeleft) = select($rout=$rin, undef, undef, $timeout);
-     }
-     if (!defined $nfound || $nfound < 0) {
--      warn "dns: select failed: $!";
-+      if ($!) { warn "dns: select failed: $!\n" }
-+      else    { info("dns: select interrupted") }
-+      return;
-+    } elsif (!$nfound) {
-+      if (!defined $timeout) { warn("dns: select returned empty-handed\n") }
-+      elsif ($timeout > 0) { dbg("dns: select timed out %.3f s", $timeout) }
-       return;
-     }
- 
+Patch taken from SVN repository:
+
+https://svn.apache.org/viewvc/spamassassin/trunk/lib/Mail/SpamAssassin/DnsResolver.pm?r1=1603518&r2=1603517&pathrev=1603518
+
+--- lib/Mail/SpamAssassin/DnsResolver.pm.orig	2014-02-07 08:36:28.000000000 +0000
++++ lib/Mail/SpamAssassin/DnsResolver.pm	2014-10-01 09:35:33.000000000 +0100
+@@ -204,8 +204,10 @@
+     @ns_addr_port = @{$self->{conf}->{dns_servers}};
+     dbg("dns: servers set by config to: %s", join(', ',@ns_addr_port));
+   } elsif ($res) {  # default as provided by Net::DNS, e.g. /etc/resolv.conf
+-    @ns_addr_port = map(untaint_var("[$_]:" . $res->{port}),
+-                        @{$res->{nameservers}});
++    my @ns = $res->UNIVERSAL::can('nameservers') ? $res->nameservers
++                                                 : @{$res->{nameservers}};
++    my $port = $res->UNIVERSAL::can('port') ? $res->port : $res->{port};
++    @ns_addr_port = map(untaint_var("[$_]:" . $port), @ns);
+     dbg("dns: servers obtained from Net::DNS : %s", join(', ',@ns_addr_port));
+   }
+   return @ns_addr_port;

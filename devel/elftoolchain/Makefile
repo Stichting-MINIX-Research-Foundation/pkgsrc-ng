@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2013/09/10 14:16:52 joerg Exp $
+# $NetBSD: Makefile,v 1.9 2014/12/10 23:22:05 joerg Exp $
 
 DISTNAME=	elftoolchain-0.5.1
 PKGREVISION=	1
@@ -13,15 +13,15 @@ LICENSE=	modified-bsd
 
 CONFLICTS=	libelf-[0-9]*
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 MAKE_JOBS_SAFE=	no
 
 USE_BSD_MAKEFILE=	yes
 MAKE_ENV+=		${BSD_MAKE_ENV}
 MAKE_FLAGS+=		MKPROFILE=yes
 
-CWARNFLAGS.clang=	-Wno-error=missing-noreturn -Wno-error=constant-logical-operand
+CWARNFLAGS.clang=	-Wno-error=missing-noreturn \
+			-Wno-error=constant-logical-operand \
+			-Wno-error=conversion -Wno-error=cast-qual
 MAKE_FLAGS+=		CWARNFLAGS.clang=${CWARNFLAGS.clang:Q}
 
 INSTALLATION_DIRS=	bin lib

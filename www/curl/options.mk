@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.10 2012/12/17 23:26:47 agc Exp $
+# $NetBSD: options.mk,v 1.12 2015/01/08 19:23:53 wiz Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.curl
 PKG_SUPPORTED_OPTIONS=	inet6 libssh2 gssapi ldap rtmp libidn

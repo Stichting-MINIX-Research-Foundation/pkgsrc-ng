@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.22 2014/02/12 23:17:35 tron Exp $
+# $NetBSD: Makefile,v 1.26 2014/11/24 00:08:22 mef Exp $
 #
 
-DISTNAME=	centerim-4.22.9
-PKGREVISION=	11
+DISTNAME=	centerim-4.22.10
 CATEGORIES=	chat
 MASTER_SITES=	http://www.centerim.org/download/releases/ \
 		http://transacid.de/centerim/releases/
@@ -20,8 +19,10 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-ssl --with-openssl=${SSLBASE:Q}
 LIBS+=			${LDFLAGS}
 
-REPLACE_PERL=		misc/cimconv
+REPLACE_PERL=		misc/cimextracthistory.pl
+REPLACE_PERL+=		misc/cimconv
 REPLACE_PYTHON+=	misc/CenterIMLog2HTML.py
+REPLACE_AWK+=		misc/cimformathistory
 
 INCOMPAT_CURSES+=	NetBSD-1.[45]*-* NetBSD-1.6-* NetBSD-1.6.[1-9]-*
 INCOMPAT_CURSES+=	NetBSD-1.6_*-* NetBSD-1.6.[1-9]_*-* NetBSD-1.6[A-T]-*

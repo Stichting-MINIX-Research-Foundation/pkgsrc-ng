@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2014/02/18 15:01:09 joerg Exp $
+# $NetBSD: Makefile,v 1.7 2014/12/10 23:20:20 joerg Exp $
 
 PKGNAME=	bossa-20140109
 DISTNAME=	b-o-s-s-a-code-05bfcc39bc0453c3028b1161175b95a81af7a901
+PKGREVISION=	1
 CATEGORIES=	comms
 EXTRACT_SUFX=	.zip
 
@@ -11,6 +12,10 @@ COMMENT=	Open source SAM-BA compatible Atmel ARM programmer
 LICENSE=	gnu-gpl-v3
 
 INSTALLATION_DIRS=      bin
+
+LDFLAGS+=	${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.readline}/lib \
+		-L${BUILDLINK_PREFIX.readline}/lib
+ALL_ENV+=	COMMON_LDFLAGS=${LDFLAGS:Q}
 
 post-patch:
 	${CP} files/NetBSD* ${WRKSRC}/src/
@@ -24,7 +29,7 @@ USE_TOOLS=	gmake
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-Wno-error=tautological-compare
+CXXFLAGS+=	-Wno-error=tautological-compare -Wno-error=unused-local-typedef
 .endif
 
 .include "../../devel/readline/buildlink3.mk"

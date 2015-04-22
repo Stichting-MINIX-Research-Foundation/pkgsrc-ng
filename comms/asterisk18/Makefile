@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.80 2014/02/12 23:17:37 tron Exp $
+# $NetBSD: Makefile,v 1.92 2015/03/15 22:26:26 jnemeth Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
 
-DISTNAME=	asterisk-1.8.25.0
+DISTNAME=	asterisk-1.8.32.2
 DIST_SUBDIR=	${PKGNAME_NOREV}
 DISTFILES=	${DEFAULT_DISTFILES}
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
-PKGREVISION=	1
 CATEGORIES=	comms net audio
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/ \
@@ -19,7 +18,7 @@ COMMENT=	The Asterisk Software PBX
 LICENSE=	gnu-gpl-v2
 
 # known to have issues on i386, block the package until the bug is fixed
-NOT_FOR_PLATFORM=	NetBSD-*-i386
+BROKEN_ON_PLATFORM=	NetBSD-*-i386
 
 CONFLICTS+=	asterisk-sounds-extra-[0-9]*
 
@@ -114,7 +113,7 @@ PLIST.mgcp= yes
 .include "options.mk"
 
 # check sounds/Makefile for current version when upgrading package
-DISTFILES+=	asterisk-extra-sounds-en-gsm-1.4.13.tar.gz
+DISTFILES+=	asterisk-extra-sounds-en-gsm-1.4.15.tar.gz
 
 # Override default paths in config files
 SUBST_CLASSES+=		configs
@@ -138,10 +137,10 @@ SUBST_FILES.atomics=	include/asterisk/autoconfig.h
 SUBST_SED.atomics=	-e "s|^\#define HAVE_GCC_ATOMICS 1|\#undef HAVE_GCC_ATOMICS|"
 
 # XXX gross hack, IP_PKTINFO in NetBSD isn't compatible with anything else
-SUBST_CLASSES+=         pktinfo
-SUBST_STAGE.pktinfo=    post-configure
-SUBST_FILES.pktinfo=    include/asterisk/autoconfig.h
-SUBST_SED.pktinfo=      -e "s|^\#define HAVE_PKTINFO 1|\#undef HAVE_PKTINFO|"
+SUBST_CLASSES+=		pktinfo
+SUBST_STAGE.pktinfo=	post-configure
+SUBST_FILES.pktinfo=	include/asterisk/autoconfig.h
+SUBST_SED.pktinfo=	-e "s|^\#define HAVE_PKTINFO 1|\#undef HAVE_PKTINFO|"
 .endif
 
 RCD_SCRIPTS=		asterisk
@@ -205,9 +204,9 @@ post-patch:
 
 post-install:
 # check sounds directory for current versions when upgrading package
-	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.24.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
+	${TAR} xzf ${WRKSRC}/sounds/asterisk-core-sounds-en-gsm-1.4.26.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${TAR} xzf ${WRKSRC}/sounds/asterisk-moh-opsound-wav-2.03.tar.gz -C ${DESTDIR}${ASTDATADIR}/moh
-	${TAR} xzf ${DISTDIR}/${DIST_SUBDIR}/asterisk-extra-sounds-en-gsm-1.4.13.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
+	${TAR} xzf ${DISTDIR}/${DIST_SUBDIR}/asterisk-extra-sounds-en-gsm-1.4.15.tar.gz -C ${DESTDIR}${ASTDATADIR}/sounds/en
 	${INSTALL_DATA} ${WRKSRC}/BUGS ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/CHANGES ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}
 	${INSTALL_DATA} ${WRKSRC}/COPYING ${DESTDIR}${PREFIX}/share/doc/${PKGBASE}

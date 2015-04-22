@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.167 2014/02/12 23:18:18 tron Exp $
-#
+# $NetBSD: Makefile,v 1.180 2015/03/22 20:06:32 joerg Exp $
 
 DISTNAME=		vlc-${VLC_VERSION}
-PKGREVISION=		39
+PKGREVISION=		50
 CATEGORIES=		multimedia
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=vlc/} \
 			http://download.videolan.org/pub/videolan/vlc/${VLC_VERSION}/
@@ -28,6 +27,9 @@ CONFIGURE_ARGS+=	--with-kde-solid=${PREFIX}/share/kde/apps/solid/actions
 PTHREAD_OPTS+=		require
 USE_LANGUAGES=		c99 c++
 PLIST_VARS+=		x86simd altivec v4l2
+
+# Incompatible with current versions
+CONFIGURE_ARGS+=	--disable-live555
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
@@ -86,7 +88,7 @@ post-install:
 # Let's use dejavu-ttf as it has nice unicode support
 #
 ORIGFNT=		/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf
-DEFAULT_FONT?=		${PREFIX}/lib/X11/fonts/TTF/DejaVuSans.ttf
+DEFAULT_FONT?=		${PREFIX}/share/fonts/X11/TTF/DejaVuSans.ttf
 DEPENDS+=		dejavu-ttf>=2.26:../../fonts/dejavu-ttf
 
 SUBST_CLASSES+=		oss
@@ -109,7 +111,7 @@ REPLACE_SH+=		vlc-config.in.in
 CHECK_WRKREF_SKIP=	lib/libvlccore.a \
 			lib/libvlccore.so*
 
-.include "../../audio/libmpcdec/buildlink3.mk"
+.include "../../audio/musepack/buildlink3.mk"
 .include "../../audio/flac/buildlink3.mk"
 .include "../../audio/libmad/buildlink3.mk"
 .include "../../audio/libvorbis/buildlink3.mk"
@@ -122,7 +124,6 @@ CHECK_WRKREF_SKIP=	lib/libvlccore.a \
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
-.include "../../net/liblive/buildlink3.mk"
 .include "../../converters/fribidi/buildlink3.mk"
 .include "../../devel/libebml/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
@@ -135,6 +136,7 @@ CHECK_WRKREF_SKIP=	lib/libvlccore.a \
 .include "../../multimedia/ffmpeg010/buildlink3.mk"
 .include "../../multimedia/libdvdplay/buildlink3.mk"
 .include "../../multimedia/libdvbpsi0/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libdvdnav+=	libdvdnav>=5.0
 .include "../../multimedia/libdvdnav/buildlink3.mk"
 .include "../../multimedia/libdvdread/buildlink3.mk"
 .include "../../multimedia/libmatroska/buildlink3.mk"
@@ -148,6 +150,7 @@ BUILDLINK_API_DEPENDS.libX11+=	libX11>=1.3.5
 BUILDLINK_API_DEPENDS.x264-devel+= x264-devel>=20100201
 .include "../../multimedia/x264-devel/buildlink3.mk"
 
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

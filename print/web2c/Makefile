@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2013/12/07 16:50:02 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2015/03/09 09:02:21 wiz Exp $
 
 DISTNAME=	texlive-20130530-source
 PKGNAME=	web2c-2013
-PKGREVISION=	1
+PKGREVISION=	6
 CATEGORIES=	print
 MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2013/
 EXTRACT_SUFX=	.tar.xz
@@ -26,6 +26,9 @@ USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake lex yacc pkg-config
 WRKSRC=		${WRKDIR}/${DISTNAME}/texk/web2c
+
+CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
+CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
 
 CONFIGURE_ARGS+=	--disable-luatex
 CONFIGURE_ARGS+=	--disable-xetex

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.21 2013/10/02 10:53:24 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2015/03/08 01:09:43 mef Exp $
 
-DISTNAME=	Compress-Bzip2-2.17
+DISTNAME=	Compress-Bzip2-2.22
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	archivers perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../by-authors/id/R/RU/RURBAN/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Compress/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Compress-Bzip2/

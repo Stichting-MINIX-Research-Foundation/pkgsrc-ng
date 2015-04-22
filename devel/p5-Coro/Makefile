@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2013/09/02 13:16:26 obache Exp $
+# $NetBSD: Makefile,v 1.15 2015/02/13 14:00:02 mef Exp $
 #
 
-DISTNAME=	Coro-6.31
+DISTNAME=	Coro-6.42
 PKGNAME=	p5-${DISTNAME}
-CATEGORIES=	parallel
+CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Coro/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

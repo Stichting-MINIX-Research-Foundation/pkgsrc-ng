@@ -1,11 +1,11 @@
-# $NetBSD: options.mk,v 1.10 2011/02/27 10:51:51 wiz Exp $
+# $NetBSD: options.mk,v 1.14 2014/08/18 09:34:49 gls Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.cmus
 PKG_SUPPORTED_OPTIONS=		flac mad vorbis arts libao musepack faad wavpack pulseaudio
-PKG_SUPPORTED_OPTIONS+=		wide-curses ffmpeg
+PKG_SUPPORTED_OPTIONS+=		wide-curses ffmpeg opus jack
 PKG_OPTIONS_OPTIONAL_GROUPS=	mod
 PKG_OPTIONS_GROUP.mod=		modplug mikmod
-PKG_SUGGESTED_OPTIONS=		flac mad libao vorbis modplug
+PKG_SUGGESTED_OPTIONS=		flac libao mad modplug vorbis
 PKG_OPTIONS_LEGACY_OPTS=	ao:libao
 PKG_OPTIONS_LEGACY_OPTS=	mpcdec:musepack
 
@@ -55,6 +55,16 @@ PLIST.pulseaudio=		yes
 CONFIGURE_ARGS+=	CONFIG_PULSE=n
 .endif
 
+# JACK support
+#
+.if !empty(PKG_OPTIONS:Mjack)
+.include "../../audio/jack/buildlink3.mk"
+CONFIGURE_ARGS+=	CONFIG_JACK=y
+PLIST.jack=		yes
+.else
+CONFIGURE_ARGS+=	CONFIG_JACK=n
+.endif
+
 ###
 ### Codecs
 ###
@@ -92,7 +102,7 @@ CONFIGURE_ARGS+=	CONFIG_FLAC=n
 # MPCDEC support
 #
 .if !empty(PKG_OPTIONS:Mmusepack)
-.include "../../audio/libmpcdec/buildlink3.mk"
+.include "../../audio/musepack/buildlink3.mk"
 CONFIGURE_ARGS+=	CONFIG_MPC=y
 PLIST.musepack=		yes
 .else
@@ -112,7 +122,7 @@ CONFIGURE_ARGS+=	CONFIG_WAVPACK=n
 # FFMPEG support
 #
 .if !empty(PKG_OPTIONS:Mffmpeg)
-.include "../../multimedia/ffmpeg/buildlink3.mk"
+.include "../../multimedia/ffmpeg1/buildlink3.mk"
 CONFIGURE_ARGS+=	CONFIG_FFMPEG=y
 PLIST.ffmpeg=		yes
 .else
@@ -146,6 +156,16 @@ PLIST.faad=		yes
 .else
 CONFIGURE_ARGS+=	CONFIG_AAC=n
 CONFIGURE_ARGS+=	CONFIG_MP4=n
+.endif
+
+# Opus support
+#
+.if !empty(PKG_OPTIONS:Mopus)
+.include "../../audio/opusfile/buildlink3.mk"
+CONFIGURE_ARGS+=	CONFIG_OPUS=y
+PLIST.opus=		yes
+.else
+CONFIGURE_ARGS+=	CONFIG_OPUS=n
 .endif
 
 ###

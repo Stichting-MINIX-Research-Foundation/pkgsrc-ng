@@ -1,23 +1,20 @@
-# $NetBSD: Makefile,v 1.13 2014/02/12 23:17:37 tron Exp $
+# $NetBSD: Makefile,v 1.16 2014/11/23 08:57:42 mef Exp $
 #
 
-PKGVER=		8.1.18
+PKGVER=		8.2.0
 DISTNAME=	conserver-${PKGVER}
 PKGNAME=	conserver8-${PKGVER}
-#PKGREVISION=	1
-PKGREVISION=	2
 CATEGORIES=	comms
 MASTER_SITES=	http://www.conserver.com/
 
 MAINTAINER=	awrede@users.sourceforge.net
 HOMEPAGE=	http://www.conserver.com/
 COMMENT=	Application that allows multiple users to watch serial consoles
+#LICENSE=	# modified-bsd and more (see LICENSE file)
 
 CONFLICTS=	conserver-[0-9]*
 
 INSTALLATION_DIRS=	${EGDIR} ${DOCDIR}
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 GNU_CONFIGURE=	YES
 

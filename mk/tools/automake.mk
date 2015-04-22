@@ -1,4 +1,4 @@
-# $NetBSD: automake.mk,v 1.21 2013/11/30 06:24:38 richard Exp $
+# $NetBSD: automake.mk,v 1.27 2015/03/11 19:24:44 rillig Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -70,6 +70,8 @@
 #
 #	AUTOMAKE_OVERRIDE=    no
 #
+# Keywords: automake
+#
 
 # Only allow one of "automake" and "automake14" in USE_TOOLS.
 .if !empty(USE_TOOLS:C/:.*//:Mautomake) && \
@@ -78,8 +80,7 @@ PKG_FAIL_REASON+=	"\`\`automake'' and \`\`automake14'' conflict in USE_TOOLS."
 .endif
 
 # This is an exhaustive list of all of the scripts supplied by GNU
-# automake, up to but not including the current version as supplied
-# by the automake package itself.
+# automake.
 #
 _TOOLS_AM_NAMES=	aclocal		aclocal-1.4			\
 					aclocal-1.5			\
@@ -90,7 +91,9 @@ _TOOLS_AM_NAMES=	aclocal		aclocal-1.4			\
 					aclocal-1.10			\
 					aclocal-1.11			\
 					aclocal-1.12			\
-					aclocal-1.13
+					aclocal-1.13			\
+					aclocal-1.14			\
+					aclocal-1.15
 _TOOLS_AM_NAMES+=	automake	automake-1.4			\
 					automake-1.5			\
 					automake-1.6			\
@@ -100,7 +103,9 @@ _TOOLS_AM_NAMES+=	automake	automake-1.4			\
 					automake-1.10			\
 					automake-1.11			\
 					automake-1.12			\
-					automake-1.13
+					automake-1.13			\
+					automake-1.14			\
+					automake-1.15
 
 .for _t_ in ${_TOOLS_AM_NAMES}
 _TOOLS_AM_TYPE.${_t_}?=	TOOLS_GNU_MISSING
@@ -188,5 +193,5 @@ ${_TOOLS_AM_TYPE.${_t_}}+=	${_t_}
 .endif
 
 .if !empty(USE_TOOLS:Mgettext-m4)
-TOOL_DEPENDS+=	{gettext-0.10.35nb1,gettext-m4-[0-9]*}:../../devel/gettext-m4
+TOOL_DEPENDS+=	{gettext-m4-[0-9]*,gettext-0.10.35nb1}:../../devel/gettext-m4
 .endif

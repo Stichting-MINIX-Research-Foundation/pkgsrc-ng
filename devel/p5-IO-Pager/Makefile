@@ -1,18 +1,18 @@
-# $NetBSD: Makefile,v 1.10 2013/05/31 12:40:25 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2015/03/15 23:11:34 mef Exp $
 #
 
-DISTNAME=	IO-Pager-0.06
+DISTNAME=	IO-Pager-0.34
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
 CATEGORIES=	devel perl5
-MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/J/JP/JPIERCE/}
+MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=IO/}
 EXTRACT_SUFX=  .tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://search.cpan.org/dist/IO-Pager-0.06/
+HOMEPAGE=	http://search.cpan.org/dist/IO-Pager/
 COMMENT=	Perl module for paged I/O to the terminal
+LICENSE=	${PERL5_LICENSE}
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+DEPENDS+=	p5-File-Which-[0-9]*:../../devel/p5-File-Which
 
 PERL5_PACKLIST=		auto/IO/Pager/.packlist
 

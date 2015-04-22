@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/01/20 11:54:21 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2014/11/11 15:38:24 joerg Exp $
 
-DISTNAME=	audiotools-2.20
+DISTNAME=	audiotools-2.22
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=audiotools/2.18/}
@@ -12,16 +12,17 @@ LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	${PYPKGPREFIX}-urwid-[0-9]*:../../devel/py-urwid
 
-USE_LANGUAGES=	c
-
+USE_TOOLS+=	pkg-config
+USE_LANGUAGES=		c
 REPLACE_PYTHON+=	audiotools/*.py
 REPLACE_PYTHON+=	audiotools/py_decoders/*.py
 REPLACE_PYTHON+=	audiotools/py_encoders/*.py
 
-EGG_NAME=	Python_Audio_Tools-${PKGVERSION_NOREV}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 2.20
+PYTHON_VERSIONS_INCOMPATIBLE=	26 33 34 # not yet ported as of 2.20 or rejected
 
+.include "../../audio/lame/buildlink3.mk"
+.include "../../audio/libvorbis/buildlink3.mk"
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"
-.include "../../misc/libcdio/buildlink3.mk"
+.include "../../misc/libcdio-paranoia/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

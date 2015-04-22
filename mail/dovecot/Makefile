@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.170 2014/02/12 23:18:07 tron Exp $
+# $NetBSD: Makefile,v 1.176 2015/01/28 17:44:28 tron Exp $
 
 DOVECOT_VERSION=	1.2
 DOVECOT_SUBVERSION=	.17
 SIEVE_VERSION=		0.1.19
 MANAGESIEVE_VERSION=	0.11.13
 DISTNAME=		dovecot-${DOVECOT_VERSION}${DOVECOT_SUBVERSION}
-PKGREVISION=		12
+PKGREVISION=		15
 CATEGORIES=		mail
 MASTER_SITES=		http://www.dovecot.org/releases/${DOVECOT_VERSION}/
-DOVECOT_SIEVE_SITES=	http://www.rename-it.nl/dovecot/${DOVECOT_VERSION}/
+DOVECOT_SIEVE_SITES=	http://pigeonhole.dovecot.org/releases/${DOVECOT_VERSION}/
 
 MANAGESIEVE_PATCH=			dovecot-${DOVECOT_VERSION}${DOVECOT_SUBVERSION}-managesieve-${MANAGESIEVE_VERSION}.diff.gz
 SITES.${MANAGESIEVE_PATCH}=	${DOVECOT_SIEVE_SITES}
@@ -18,8 +18,6 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.dovecot.org/
 COMMENT=		Secure IMAP and POP3 server
 LICENSE=		mit AND gnu-lgpl-v2.1 AND modified-bsd
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pkg-config rpcgen
@@ -46,7 +44,7 @@ PKG_GECOS.${DOVECOT_USER}=	Dovecot IMAP/POP3 user
 EGDIR=		${PREFIX}/share/examples/dovecot
 CONF_FILES=	${EGDIR}/dovecot-example.conf ${PKG_SYSCONFDIR}/dovecot.conf
 
-INSTALLATION_DIRS=	libexec/dovecot sbin share/doc/dovecot		\
+INSTALLATION_DIRS+=	libexec/dovecot sbin share/doc/dovecot		\
 			share/examples/dovecot
 
 SUBST_CLASSES+=		paths

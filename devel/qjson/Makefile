@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2014/02/12 23:17:50 tron Exp $
+# $NetBSD: Makefile,v 1.16 2014/11/13 09:07:17 markd Exp $
 
-DISTNAME=	qjson-0.7.1
-PKGREVISION=	11
+DISTNAME=	qjson-0.8.1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=qjson/}
 EXTRACT_SUFX=	.tar.bz2
@@ -13,8 +12,6 @@ LICENSE=	gnu-lgpl-v2
 
 USE_LANGUAGES=	c c++
 USE_CMAKE=	yes
-
-WRKSRC=		${WRKDIR}/qjson
 
 PKGCONFIG_OVERRIDE+=	QJson.pc.in
 

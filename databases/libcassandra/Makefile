@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2014/02/12 23:17:38 tron Exp $
+# $NetBSD: Makefile,v 1.27 2014/11/07 19:39:27 adam Exp $
 #
 
 DISTNAME=		libcassandra-20101010
-PKGREVISION=		14
+PKGREVISION=		17
 CATEGORIES=		databases
 MASTER_SITES=		ftp://ftp.ancient-solutions.com/pub/bsdprojects/NetBSD/packages/distfiles/
 
@@ -31,11 +31,12 @@ GCC_REQD+=	4.4
 .include "../../devel/libthrift/buildlink3.mk"
 
 CONFIGURE_ARGS+=	CPPFLAGS="-I${BUILDLINK_PREFIX.libthrift}/include/thrift -I${BUILDLINK_PREFIX.boost-headers}/include/boost"
+CONFIGURE_ARGS+=	--disable-64bit
 MAKE_ENV+=		AM_DEFAULT_VERBOSITY=1
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CXXFLAGS+=	-Wno-c++11-extensions
+CXXFLAGS+=	-Wno-c++11-extensions -Wno-error=unused-local-typedef
 .endif
 
 .include "../../mk/bsd.pkg.mk"

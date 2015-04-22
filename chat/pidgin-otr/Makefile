@@ -1,13 +1,19 @@
-# $NetBSD: Makefile,v 1.45 2014/01/01 11:52:10 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2014/10/21 12:04:12 gdt Exp $
 
-DISTNAME=	pidgin-otr-4.0.0
-PKGREVISION=	16
+VERSION=	4.0.1
+DISTNAME=	pidgin-otr-${VERSION}
+PKGNAME=	pidgin-otr-${VERSION}
 CATEGORIES=	chat security
 MASTER_SITES=	http://www.cypherpunks.ca/otr/
 
 MAINTAINER=	gdt@NetBSD.org
 HOMEPAGE=	http://www.cypherpunks.ca/otr/
 COMMENT=	Plugin for pidgin to add OTR (Off-The-Record) encryption
+
+LICENSE=	gnu-gpl-v2
+
+# Work around rc tarballs that unpack to bare version.
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes

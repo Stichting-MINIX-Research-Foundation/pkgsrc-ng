@@ -1,12 +1,15 @@
-# $NetBSD: Makefile,v 1.27 2013/10/10 14:41:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.32 2015/02/20 23:37:51 joerg Exp $
 #
 
 .include "Makefile.common"
 
-PKGREVISION=		26
+PKGREVISION=		29
 COMMENT=		GTK-based implementation of the wxWidgets GUI library
 
 REPLACE_SH=		wx-config.in wx-config-inplace.in
+
+post-configure:
+	echo 'install_qadll: install_xmldll' >> ${WRKSRC}/Makefile
 
 post-build:
 	set -e; cd ${WRKSRC}/locale; \
@@ -24,7 +27,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/LICENCE.txt ${DESTDIR}${DOCDIR}/LICENSE
 
 # for backtrace
-.if ${OPSYS} == "NetBSD" && exists(/usr/include/execinfo.h)
+.if (${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD") && exists(/usr/include/execinfo.h)
 LIBS+=	-lexecinfo
 .endif
 

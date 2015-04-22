@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.34 2014/02/12 23:18:20 tron Exp $
+# $NetBSD: Makefile,v 1.38 2015/03/30 09:21:24 jperkin Exp $
 
 DISTNAME=	freeradius-server-${RADVER}
 PKGNAME=	${DISTNAME:S/-server//}
-PKGREVISION=	7
+PKGREVISION=	10
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.freeradius.org/pub/freeradius/
 EXTRACT_SUFX=	.tar.bz2
@@ -25,7 +25,7 @@ BUILD_DEFS+=		VARBASE
 FILES_SUBST+=		RADIUS_USER=${RADIUS_USER}
 FILES_SUBST+=		RADIUS_GROUP=${RADIUS_GROUP}
 PLIST_SUBST+=		RADVER=${RADVER}
-MESSAGE_SRC+=		${WRKDIR}/.MESSAGE_SRC
+MESSAGE_SRC+=		${PKGDIR}/MESSAGE
 MESSAGE_SUBST+=		CHOWN=${CHOWN:Q} CHMOD=${CHMOD:Q} VARBASE=${VARBASE}
 MESSAGE_SUBST+=		RADIUS_USER=${RADIUS_USER} XARGS=${XARGS:Q}
 MESSAGE_SUBST+=		RADIUS_GROUP=${RADIUS_GROUP} FIND=${FIND:Q}
@@ -129,16 +129,9 @@ CONF_FILES_PERMS+=	${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f} \
 
 .for d in ${EGDIRS}
 INSTALLATION_DIRS+=	${EGDIR}/${d}
+OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/${d} ${RADIUS_USER} \
+			${RADIUS_GROUP} 750
 .endfor
-
-OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/certs ${RADIUS_USER} \
-			${RADIUS_GROUP} 750
-OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/certs/demoCA ${RADIUS_USER} \
-			${RADIUS_GROUP} 750
-OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/modules ${RADIUS_USER} \
-			${RADIUS_GROUP} 750
-OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/sites-enabled ${RADIUS_USER} \
-			${RADIUS_GROUP} 750
 
 .include "../../mk/pthread.buildlink3.mk"
 
@@ -155,12 +148,6 @@ SUBST_SED.make+=	-e 's|@ldap_ldflags@|@ldap_ldflags@ \
 .if defined(PTHREAD_TYPE) && ${PTHREAD_TYPE} == "native"
 SUBST_SED.make+=	-e 's|@ldap_ldflags@|@ldap_ldflags@ \
 			${PTHREAD_LDFLAGS:M*:Q} ${PTHREAD_LIBS:M*:Q}|g'
-.endif
-
-post-build:
-	${CP} ${PKGDIR}/MESSAGE ${WRKDIR}/.MESSAGE_SRC
-.if !empty(PKG_OPTIONS:Mpam)
-	${CP} ${PKGDIR}/MESSAGE.pam ${WRKDIR}/.MESSAGE_SRC.pam
 .endif
 
 post-install:

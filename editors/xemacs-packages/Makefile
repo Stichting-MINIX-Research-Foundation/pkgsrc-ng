@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.60 2013/05/31 12:41:00 wiz Exp $
+# $NetBSD: Makefile,v 1.62 2015/03/17 17:48:19 tnn Exp $
 
 DISTNAME=	xemacs-packages
 PKGNAME=	xemacs-packages-1.16
-PKGREVISION=	4
+PKGREVISION=	5
 
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_XEMACS:=packages/}
@@ -141,7 +141,7 @@ DIST_SUBDIR=	${PKGBASE}
 EXTRACT_ONLY=	# empty
 NO_BUILD=	yes
 
-USE_TOOLS+=	printf gtar gawk
+USE_TOOLS+=	printf gtar gawk gzip
 
 FONTS_DIRS.x11+=	${PREFIX}/lib/xemacs/xemacs-packages/etc/x-symbol/fonts
 FONTS_DIRS.x11+=	${PREFIX}/lib/xemacs/xemacs-packages/etc/x-symbol/origfonts

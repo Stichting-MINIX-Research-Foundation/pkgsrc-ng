@@ -1,13 +1,17 @@
-$NetBSD: patch-ipc_ipdl_ipdl_lower.py,v 1.3 2014/02/20 13:19:03 ryoon Exp $
+$NetBSD: patch-ipc_ipdl_ipdl_lower.py,v 1.6 2014/07/24 14:57:12 ryoon Exp $
 
---- ipc/ipdl/ipdl/lower.py.orig	2013-01-04 23:44:34.000000000 +0000
+Part of https://bugzilla.mozilla.org/show_bug.cgi?id=1026499:
+Make sure storage provided for attributes is properly aligned
+in the generated C++ code.
+
+--- ipc/ipdl/ipdl/lower.py.orig	2014-07-17 01:45:18.000000000 +0000
 +++ ipc/ipdl/ipdl/lower.py
-@@ -1797,7 +1797,7 @@ def _generateMessageClass(clsname, msgid
-         StmtExpr(ExprCall(
-             ExprVar('StringAppendF'),
-             args=[ ExprAddrOf(msgvar),
--                   ExprLiteral.String('[time:%" PRId64 "][%d]'),
-+                   ExprLiteral.String('[time:%\\" PRId64 \\"][%d]'),
-                    ExprCall(ExprVar('PR_Now')),
-                    ExprCall(ExprVar('base::GetCurrentProcId')) ])),
-         appendToMsg(pfxvar),
+@@ -768,7 +768,7 @@ IPDL union type."""
+         if self.recursive:
+             return self.ptrToType()
+         else:
+-            return TypeArray(Type('char'), ExprSizeof(self.internalType()))
++            return TypeArray(Type('char'), ExprSizeof(self.internalType()), self.internalType())
+ 
+     def unionValue(self):
+         # NB: knows that Union's storage C union is named |mValue|

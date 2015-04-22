@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.144 2014/03/04 09:34:19 adam Exp $
+# $NetBSD: Makefile,v 1.152 2015/02/11 11:25:57 adam Exp $
 
-DISTNAME=	gnutls-3.2.12
+DISTNAME=	gnutls-3.2.21
 CATEGORIES=	security devel
 MASTER_SITES=	ftp://ftp.gnutls.org/gcrypt/gnutls/v3.2/
 EXTRACT_SUFX=	.tar.xz
@@ -10,12 +10,10 @@ HOMEPAGE=	http://www.gnutls.org/
 COMMENT=	GNU Transport Layer Security library
 LICENSE=	gnu-gpl-v3 AND gnu-lgpl-v2.1
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake perl pkg-config
+USE_TOOLS+=		gmake gsed perl pkg-config
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--without-p11-kit
 # this library duplicates (and conflicts with) openssl

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.44 2013/10/18 10:23:55 tron Exp $
+# $NetBSD: options.mk,v 1.47 2015/03/23 10:15:46 jperkin Exp $
 
 # Global and legacy options
 
@@ -9,7 +9,7 @@ PKG_SUPPORTED_OPTIONS=	debug gpgme idn ssl smime sasl
 PKG_SUPPORTED_OPTIONS+=	mutt-hcache tokyocabinet mutt-smtp
 # Comment the following line out on updates.
 #PKG_SUPPORTED_OPTIONS+=	mutt-compressed-mbox
-#PKG_SUPPORTED_OPTIONS+=	mutt-sidebar
+PKG_SUPPORTED_OPTIONS+=	mutt-sidebar
 #PKG_SUPPORTED_OPTIONS+=	mutt-xlabel
 PKG_SUGGESTED_OPTIONS=	ssl smime curses
 
@@ -44,6 +44,12 @@ CONFIGURE_ARGS+=	--with-sasl=${BUILDLINK_PREFIX.cyrus-sasl}
 ###
 .if !empty(PKG_OPTIONS:Mcurses)
 .  include "../../mk/curses.buildlink3.mk"
+.  if ${OPSYS} == "SunOS"
+BUILDLINK_PASSTHRU_DIRS+=	/usr/xpg4
+CONFIGURE_ARGS+=	--with-curses=/usr/xpg4
+LDFLAGS+=		-L/usr/xpg4/lib${LIBABISUFFIX}
+LDFLAGS+=		${COMPILER_RPATH_FLAG}/usr/xpg4/lib${LIBABISUFFIX}
+.  endif
 .endif
 
 ###
@@ -139,16 +145,10 @@ CONFIGURE_ARGS+=	--disable-smtp
 ### Sidebar support
 ###
 .if !empty(PKG_OPTIONS:Mmutt-sidebar)
-PATCH_SITES+=		http://spacehopper.org/mutt/
-PATCHFILES+=		sidebar-5302767aa6aa.gz
+PATCH_SITES+=		http://lunar-linux.org/~tchan/mutt/
+PATCHFILES+=		patch-1.5.23.sidebar.20140412.txt
 PATCH_DIST_STRIP=	-p1
 PATCH_FUZZ_FACTOR=	-F1
-SUBST_CLASSES+=		sidebar
-SUBST_MESSAGE.sidebar=	Patch Makefile.in to avoid autoreconf for sidebar
-SUBST_STAGE.sidebar=	post-patch
-SUBST_FILES.sidebar=	Makefile.in
-SUBST_SED.sidebar=	-e 's,lib.c \\,lib.c sidebar.c \\,'
-SUBST_SED.sidebar+=	-e 's, lib\.\(.(OBJEXT)\), lib.\1 sidebar.\1,'
 .endif
 
 ###

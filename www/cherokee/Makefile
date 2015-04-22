@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2014/02/12 23:18:44 tron Exp $
+# $NetBSD: Makefile,v 1.29 2014/08/11 23:09:46 wiz Exp $
 
 DISTNAME=	cherokee-1.2.101
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	www
 MASTER_SITES=	http://www.cherokee-project.com/download/1.2/${PKGVERSION_NOREV}/
 
@@ -33,7 +33,7 @@ RCD_SCRIPTS=		cherokee
 
 INSTALLATION_DIRS+=	${EGDIR}/pam.d
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.2.101
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.2.101
 
 .include "options.mk"
 

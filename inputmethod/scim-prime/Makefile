@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.22 2013/10/10 14:42:19 ryoon Exp $
+# $NetBSD: Makefile,v 1.24 2015/03/15 17:41:58 hiramatsu Exp $
 #
 
 DISTNAME=		scim-prime-1.0.1
-PKGREVISION=		19
+PKGREVISION=		20
 CATEGORIES=		inputmethod
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE_JP:=scim-imengine/29156/}
 
-MAINTAINER=		obache@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://scim-imengine.sourceforge.jp/
 COMMENT=		SCIM IMEngine module for PRIME
 LICENSE=		gnu-gpl-v2

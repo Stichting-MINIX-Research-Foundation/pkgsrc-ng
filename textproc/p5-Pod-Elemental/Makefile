@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2014/02/01 12:55:37 wen Exp $
+# $NetBSD: Makefile,v 1.11 2015/01/11 11:42:28 wen Exp $
 
-DISTNAME=	Pod-Elemental-0.103000
+DISTNAME=	Pod-Elemental-0.103004
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Pod/}
@@ -13,7 +13,6 @@ LICENSE=	${PERL5_LICENSE}
 DEPENDS+=	{perl>=5.10.1,p5-Encode-[0-9]*}:../../textproc/p5-Encode
 DEPENDS+=	p5-Mixin-Linewise-[0-9]*:../../devel/p5-Mixin-Linewise
 DEPENDS+=	p5-Moose>=0.90:../../devel/p5-Moose
-DEPENDS+=	p5-Moose-Autobox>=0.10:../../devel/p5-Moose-Autobox
 DEPENDS+=	p5-MooseX-Types-[0-9]*:../../devel/p5-MooseX-Types
 DEPENDS+=	p5-Pod-Eventual-[0-9]*:../../textproc/p5-Pod-Eventual
 DEPENDS+=	p5-String-RewritePrefix-[0-9]*:../../textproc/p5-String-RewritePrefix
@@ -24,8 +23,6 @@ DEPENDS+=	p5-namespace-autoclean-[0-9]*:../../devel/p5-namespace-autoclean
 
 BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 PERL5_PACKLIST=		auto/Pod/Elemental/.packlist
 

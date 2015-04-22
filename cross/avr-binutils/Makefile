@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2013/12/31 00:56:17 mef Exp $
+# $NetBSD: Makefile,v 1.26 2014/10/30 21:41:57 mef Exp $
 
-DISTNAME=		binutils-2.23.2
+DISTNAME=		binutils-2.24
 PKGNAME=		${DISTNAME:S/^/avr-/}
 CATEGORIES=		cross
 MASTER_SITES=		${MASTER_SITE_GNU:=binutils/}
@@ -16,6 +16,15 @@ USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
 USE_GNU_CONFIGURE_HOST=	no
+
+# follows to devel/binutils
+# PR pkg/48504, ksh is sufficient for NetBSD 5.2 and NetBSD 6.1
+.include "../../mk/bsd.prefs.mk"
+.if !empty(MACHINE_PLATFORM:MNetBSD-[5-6].*-*) && \
+	empty(MACHINE_PLATFORM:MNetBSD-6.99.*-*)
+USE_TOOLS+=		ksh
+CONFIG_SHELL=		ksh
+.endif
 
 CONFIGURE_ARGS+=	--disable-werror --target=avr --disable-nls
 
@@ -45,16 +54,6 @@ post-install:
 	${LIBTOOL} --mode install ${INSTALL_DATA} libbfd.la ${DESTDIR}${PREFIX}/avr/lib;	\
 	${INSTALL_DATA} bfd.h ${DESTDIR}${PREFIX}/avr/include;	\
 	)
-	# Rename to avoid conflict to native and other cross assembler.
-	# and clang differs its path so, (the same as h8300-elf-binutils).
-	# (SunOS 5.11 places at amd64 instead of x86_64)
-	(cd ${DESTDIR}${PREFIX};				\
-	for d in amd64/libiberty.a ${MACHINE_ARCH}/libiberty.a libiberty.a;	\
-	  do if [ -f lib/$$d ]; then				\
-		${MV}	lib/$$d	 avr/lib/libiberty.a;		\
-		break;						\
-	     fi;						\
-	  done;	)
 	# emulator/simulavr wants following header files
 	(cd ${WRKSRC}/include;					\
 	for f in ansidecl.h symcat.h; do			\

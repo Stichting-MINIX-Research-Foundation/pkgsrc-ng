@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2013/08/09 07:33:25 adam Exp $
+# $NetBSD: Makefile,v 1.7 2014/12/31 13:57:31 wiz Exp $
 
-DISTNAME=	django-mptt-0.6.0
+DISTNAME=	django-mptt-0.6.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
 MASTER_SITES=	http://pypi.python.org/packages/source/d/django-mptt/
@@ -11,7 +11,6 @@ COMMENT=	Utilities for implementing Modified Preorder Tree Traversal
 LICENSE=	mit
 
 USE_LANGUAGES=		# empty
-EGG_NAME=		${DISTNAME:S/-/_/}
 
 DEPENDS+=	${PYPKGPREFIX}-django-[0-9]*:../../www/py-django
 

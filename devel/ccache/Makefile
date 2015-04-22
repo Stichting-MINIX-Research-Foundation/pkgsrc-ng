@@ -1,25 +1,23 @@
-# $NetBSD: Makefile,v 1.21 2013/01/21 13:52:36 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2015/03/19 23:01:15 tnn Exp $
 
-DISTNAME=	ccache-3.1.9
+DISTNAME=	ccache-3.2.1
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	http://samba.org/ftp/ccache/
+# do not use xz distfile here, xz needs gettext-lib which leads to circular
+# dependencies on some platforms.
+#EXTRACT_SUFX=	.tar.gz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ccache.samba.org/
 COMMENT=	Cache for C/C++ compilers
 LICENSE=	gnu-gpl-v3 AND modified-bsd AND public-domain AND zlib
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
-
 GNU_CONFIGURE=		yes
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 
 .include "../../mk/bsd.prefs.mk"
-
-CCACHE_DEFAULT_MAXSIZE?=	1048576
-BUILD_DEFS+=			CCACHE_DEFAULT_MAXSIZE
-CPPFLAGS+=			-DDEFAULT_MAXSIZE=${CCACHE_DEFAULT_MAXSIZE}
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-$NetBSD: patch-NumbTh.h,v 1.1 2013/05/21 16:37:46 joerg Exp $
+$NetBSD: patch-NumbTh.h,v 1.3 2014/09/27 10:11:20 jperkin Exp $
 
 --- NumbTh.h.orig	2013-05-21 14:43:10.000000000 +0000
 +++ NumbTh.h

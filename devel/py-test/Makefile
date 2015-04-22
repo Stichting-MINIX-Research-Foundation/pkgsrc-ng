@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2014/03/21 23:58:47 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2014/10/27 08:44:12 wiz Exp $
 
-DISTNAME=	pytest-2.5.2
+DISTNAME=	pytest-2.6.4
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
-PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	https://pypi.python.org/packages/source/p/pytest/
 

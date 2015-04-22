@@ -1,21 +1,12 @@
-# $NetBSD: Makefile,v 1.39 2014/02/12 23:17:32 tron Exp $
-#
+# $NetBSD: Makefile,v 1.41 2015/01/17 12:44:47 adam Exp $
 
-DISTNAME=	libarchive-2.8.4
-PKGREVISION=	3
-CATEGORIES=	archivers
-MASTER_SITES=	# empty
-DISTFILES=	# empty
+.include "Makefile.common"
 
-MAINTAINER=	joerg@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/libarchive/
 COMMENT=	Library to read/create different archive formats
 
-GNU_CONFIGURE=	yes
-USE_LIBTOOL=	yes
-
-CONFIGURE_ARGS+=	--disable-bsdtar --without-expat --without-xml2 \
-			--disable-bsdcpio
+USE_LIBTOOL=		yes
+CONFIGURE_ARGS+=	--disable-bsdcpio
+CONFIGURE_ARGS+=	--disable-bsdtar
 
 do-extract:
 	${CP} -r ${FILESDIR} ${WRKSRC}
@@ -24,7 +15,7 @@ do-extract:
 
 .if ${OPSYS} == SunOS
 # workaround for pkg/45491
-CONFIGURE_ENV+=	ac_cv_header_ext2fs_ext2_fs_h=no
+CONFIGURE_ENV+=		ac_cv_header_ext2fs_ext2_fs_h=no
 .endif
 
 .include "../../archivers/bzip2/buildlink3.mk"

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.84 2013/03/25 11:46:07 wiz Exp $
+# $NetBSD: Makefile,v 1.89 2015/02/11 12:35:42 wiz Exp $
 
 DISTNAME=	unzip60
 PKGNAME=	unzip-6.0
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	archivers
 MASTER_SITES=	ftp://ftp.info-zip.org/pub/infozip/src/
 EXTRACT_SUFX=	.tgz
@@ -11,8 +11,6 @@ MAINTAINER=	wiz@NetBSD.org
 HOMEPAGE=	http://www.info-zip.org/UnZip.html
 COMMENT=	List, test and extract compressed files in a ZIP archive
 LICENSE=	info-zip
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 REPLACE_SH=	unix/zipgrep
 
@@ -33,7 +31,8 @@ CPPFLAGS+=	-DBSD
      ${OPSYS} == "AIX"  || \
      ${OPSYS} == "OpenBSD"  || \
      ${OPSYS} == "Cygwin"  || \
-    (${OPSYS} == "Darwin" && !empty(OS_VERSION:M[01234678].*)))
+    (${OPSYS} == "Darwin" && !empty(OS_VERSION:M[01234678].*))) || \
+     ${OS_VARIANT} == "SCOOSR5"
 CPPFLAGS+=	-DNO_LCHMOD
 .endif
 CPPFLAGS+=	-DUNIX -Dunix -DUSE_UNSHRINK -I.

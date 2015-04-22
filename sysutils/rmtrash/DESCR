@@ -1,0 +1,3 @@
+Move files and directories into the system-specific trash directory
+instead of deleting them outright, using two tools that have GNU
+rm(1) and rmdir(1) compatible syntax.

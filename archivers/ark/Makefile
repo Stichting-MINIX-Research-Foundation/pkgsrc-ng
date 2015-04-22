@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.25 2014/02/12 23:17:32 tron Exp $
+# $NetBSD: Makefile,v 1.31 2015/01/21 09:12:41 obache Exp $
 
 DISTNAME=	ark-${_KDE_VERSION}
 PKGREVISION=	1

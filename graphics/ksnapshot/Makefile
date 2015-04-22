@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2014/02/12 23:18:02 tron Exp $
+# $NetBSD: Makefile,v 1.26 2014/11/13 20:06:28 markd Exp $
 
 DISTNAME=	ksnapshot-${_KDE_VERSION}
-PKGREVISION=	1
 CATEGORIES=	graphics
 COMMENT=	KDE screen capture program
 

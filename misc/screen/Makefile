@@ -1,18 +1,19 @@
-# $NetBSD: Makefile,v 1.85 2012/10/08 09:57:37 asau Exp $
+# $NetBSD: Makefile,v 1.93 2015/02/18 20:01:49 joerg Exp $
 
-DISTNAME=	screen-4.0.3
-PKGREVISION=	5
+DISTNAME=	screen-4.2.1
+PKGREVISION=	1
 CATEGORIES=	misc shells
-MASTER_SITES=	ftp://ftp.uni-erlangen.de/pub/utilities/screen/ \
-		http://people.freebsd.org/~cy/distfiles/
-#		${MASTER_SITE_GNU:=screen/}
+MASTER_SITES=	${MASTER_SITE_GNU:=screen/}
 
 MAINTAINER=	kim@tac.nyc.ny.us
 HOMEPAGE=	http://www.gnu.org/software/screen/screen.html
 COMMENT=	Multi-screen window manager
 LICENSE=	gnu-gpl-v2
 
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
+# In file included from list_display.c:36:
+# In file included from ./screen.h:150:
+# ./display.h:154:19: error: use of undeclared identifier 'T_N'
+MAKE_JOBS_SAFE=	no
 
 .include "options.mk"
 
@@ -36,18 +37,23 @@ SUBST_SED.paths+=	-e 's,@EXAMPLES@,${PREFIX}/share/examples/screen,g'
 SUBST_STAGE.paths=	post-patch
 
 PLIST_VARS+=		terminfo
-.if (${OPSYS} == "SunOS") && exists(/usr/5bin/tic)
+
+.if ${OPSYS} == "SunOS"
+CPPFLAGS+=	-D_XOPEN_SOURCE=500
+.  if ${CURSES_DEFAULT} == "curses"
 INSTALLATION_DIRS+=	share/lib/terminfo
 PLIST.terminfo=		yes
 post-install: screen-terminfo
+.  endif
 .endif
+
+INSTALLATION_DIRS+=	share/examples/screen
 
 .if empty(UNPRIVILEGED:M[Yy][Ee][Ss])
 SPECIAL_PERMS+=		bin/${DISTNAME} ${SETUID_ROOT_PERMS}
 .endif
 
 post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/examples/screen
 	${INSTALL_DATA} ${WRKSRC}/etc/etcscreenrc			\
 		${DESTDIR}${PREFIX}/share/examples/screen/etcscreenrc
 	${INSTALL_DATA} ${WRKSRC}/etc/screenrc				\
@@ -60,7 +66,7 @@ post-install:
 screen-terminfo:
 	cd ${WRKSRC}/terminfo &&					\
 	${SETENV} TERMINFO=${DESTDIR}${PREFIX}/share/lib/terminfo	\
-		/usr/5bin/tic screeninfo.src
+		/usr/bin/tic screeninfo.src
 
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2013/05/31 08:24:06 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2014/10/09 14:07:14 wiz Exp $
 
 DISTNAME=	libXinerama-1.1.3
 CATEGORIES=	x11
@@ -8,8 +8,6 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://xorg.freedesktop.org/
 COMMENT=	X PanoramiX extension library
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes
@@ -28,6 +26,7 @@ CONFIGURE_ARGS+=	--disable-malloc0returnsnull
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
+BUILDLINK_API_DEPENDS.xineramaproto+=	xineramaproto>=1.1.99.1
 .include "../../x11/xineramaproto/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

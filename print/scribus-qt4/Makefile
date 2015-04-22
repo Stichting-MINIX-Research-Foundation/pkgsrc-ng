@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.30 2014/02/12 23:18:30 tron Exp $
+# $NetBSD: Makefile,v 1.35 2014/06/18 09:28:18 wiz Exp $
 
 DISTNAME=		scribus-1.4.3
-PKGREVISION=		1
+PKGREVISION=		4
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=scribus/}
 EXTRACT_SUFX=		.tar.xz
@@ -20,7 +20,7 @@ CMAKE_ARGS+=	-DPNG_LIBRARY_RELEASE=${LOCALBASE}/lib
 # XXX not yet
 #CMAKE_ARGS+=	-DWANT_HUNSPELL:BOOL=ON
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # not yet ported as of 1.4.3
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.4.3
 
 INSTALLATION_DIRS+=	share/pixmaps
 
@@ -34,7 +34,7 @@ post-install:
 		${DESTDIR}${PREFIX}/share/pixmaps
 
 .include "../../devel/boost-headers/buildlink3.mk"
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .include "../../print/podofo/buildlink3.mk"
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

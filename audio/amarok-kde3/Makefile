@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.49 2014/02/12 23:17:32 tron Exp $
+# $NetBSD: Makefile,v 1.60 2015/02/19 22:22:36 joerg Exp $
 
 DISTNAME=		amarok-${VERSION}
 VERSION=		1.4.10
-PKGREVISION=		46
+PKGREVISION=		56
 CATEGORIES=		audio kde
 MASTER_SITES=		${MASTER_SITE_KDE:=amarok/${VERSION}/src/}
 EXTRACT_SUFX=		.tar.bz2
@@ -11,6 +11,9 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://amarok.kde.org/
 COMMENT=		KDE3 audio player
 LICENSE=		gnu-gpl-v2
+
+# Race conditions involving uic output
+MAKE_JOBS_SAFE=		no
 
 USE_TOOLS+=		gmake pkg-config msgfmt unzip:run
 USE_LANGUAGES=		c c++

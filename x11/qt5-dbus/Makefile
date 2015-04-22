@@ -1,28 +1,32 @@
-# $NetBSD: Makefile,v 1.5 2014/02/12 23:18:55 tron Exp $
+# $NetBSD: Makefile,v 1.11 2014/12/30 17:23:45 adam Exp $
 
+DISTNAME=	qtbase-opensource-src-${QTVERSION}
 PKGNAME=	qt5-dbus-${QTVERSION}
-PKGREVISION=	3
 COMMENT=	Qt5 DBus support plugin
 
-.include "../../x11/qt5-qtbase/Makefile.common"
+BUILD_DIRS=		src/dbus
+BUILD_DIRS+=		src/tools/qdbuscpp2xml
+BUILD_DIRS+=		src/tools/qdbusxml2cpp
 
-BUILD_DIRS=		qtbase/src/dbus
+.include "../../x11/qt5-qtbase/Makefile.common"
 
 CFLAGS+=		-I${BUILDLINK_PREFIX.dbus}/include/dbus-1.0
 CFLAGS+=		-I${BUILDLINK_PREFIX.dbus}/lib/dbus-1.0/include/dbus
 CFLAGS+=		-I${BUILDLINK_PREFIX.qt5-qtbase}/qt5/include
 
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
+INSTALLATION_DIRS=	lib/pkgconfig
 
-INSTALLATION_DIRS=	${QTPREFIX}/bin lib/pkgconfig
-
-PC_FILES=		Qt5DBus.pc
+do-configure:
+	${RM} -f -r ${WRKSRC}/mkspecs
+.for d in ${BUILD_DIRS}
+	cd ${WRKSRC}/${d} && ${QTPREFIX}/bin/qmake -o Makefile
+.endfor
 
 post-install:
-.for i in ${PC_FILES}
-	${RM} -f ${DESTDIR}${PREFIX}/lib/pkgconfig/${i} && \
-		cd ${DESTDIR}${PREFIX}/lib/pkgconfig && \
-		${LN} -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
+.for i in Qt5DBus.pc
+	cd ${DESTDIR}${PREFIX}/lib/pkgconfig && \
+	${LN} -f -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
 .endfor
 
 .include "../../devel/gettext-lib/buildlink3.mk"

@@ -1,17 +1,4 @@
-# $NetBSD: Makefile.common,v 1.30 2014/03/27 20:57:54 adam Exp $
-#
-# used by databases/postgresql90-adminpack/Makefile
-# used by databases/postgresql90-client/Makefile
-# used by databases/postgresql90-datatypes/Makefile
-# used by databases/postgresql90-dblink/Makefile
-# used by databases/postgresql90-docs/Makefile
-# used by databases/postgresql90-fuzzystrmatch/Makefile
-# used by databases/postgresql90-pgcrypto/Makefile
-# used by databases/postgresql90-plperl/Makefile
-# used by databases/postgresql90-plpython/Makefile
-# used by databases/postgresql90-pltcl/Makefile
-# used by databases/postgresql90-server/Makefile
-# used by databases/postgresql90-upgrade/Makefile
+# $NetBSD: Makefile.common,v 1.34 2015/02/14 12:39:51 adam Exp $
 #
 # This Makefile fragment is included by all PostgreSQL packages built from
 # the main sources of the PostgreSQL distribution except jdbc-postgresql.
@@ -20,8 +7,23 @@
 # packages, is as follows:
 #	<lang>-postgresql	client-side interface to PostgreSQL
 #	postgresql-<lang>	server-side module for PostgreSQL backend
+#
+# used by databases/postgresql90-adminpack/Makefile
+# used by databases/postgresql90-client/Makefile
+# used by databases/postgresql90-datatypes/Makefile
+# used by databases/postgresql90-dblink/Makefile
+# used by databases/postgresql90-docs/Makefile
+# used by databases/postgresql90-fuzzystrmatch/Makefile
+# used by databases/postgresql90-monitoring/Makefile
+# used by databases/postgresql90-pgcrypto/Makefile
+# used by databases/postgresql90-plperl/Makefile
+# used by databases/postgresql90-plpython/Makefile
+# used by databases/postgresql90-pltcl/Makefile
+# used by databases/postgresql90-replicationtools/Makefile
+# used by databases/postgresql90-server/Makefile
+# used by databases/postgresql90-upgrade/Makefile
 
-DISTNAME=	postgresql-9.0.17
+DISTNAME=	postgresql-9.0.19
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=source/v${PKGVERSION_NOREV}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -103,6 +105,9 @@ USE_LIBLTDL?=		no
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 LIBS.SunOS+=		-lintl
+
+.include "../../mk/pthread.buildlink3.mk"
+CONFIGURE_FLAGS+=	acx_pthread_flags="${PTHREAD_LIBS} ${PTHREAD_LDFLAGS}"
 
 .if !defined(META_PACKAGE)
 post-extract:

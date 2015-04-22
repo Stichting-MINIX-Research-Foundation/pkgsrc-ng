@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2014/03/13 14:56:46 schnoebe Exp $
+# $NetBSD: Makefile,v 1.40 2015/03/02 02:20:49 khorben Exp $
 
-DISTNAME=		hplip-3.14.3
+DISTNAME=		hplip-3.14.6
+PKGREVISION=		2
 CATEGORIES=		print
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=hplip/}
 
@@ -17,7 +18,7 @@ FILES_SUBST+=           CUPS_GROUP=${CUPS_GROUP}
 PKG_GROUPS_VARS+=       CUPS_GROUP
 PKG_USERS_VARS+=        CUPS_USER
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
 
 BUILD_DEFS+=            CUPS_USER CUPS_GROUP VARBASE
 
@@ -96,6 +97,7 @@ SUBST_FILES.fix-paths-1=	check.py base/codes.py base/g.py base/utils.py
 SUBST_FILES.fix-paths-1+=	installer/core_install.py
 SUBST_FILES.fix-paths-1+=	fax/backend/hpfax.py prnt/cups.py
 SUBST_FILES.fix-paths-1+=	ui/devmgr4.py ui4/devmgr5.py
+SUBST_FILES.fix-paths-1+=	prnt/filters/hpps
 SUBST_FILES.fix-paths-1+=	prnt/hpcups/HPCupsFilter.cpp prnt/hpcups/Utils.cpp
 SUBST_FILES.fix-paths-1+=	prnt/hpijs/globals.cpp prnt/hpijs/hpcupsfax.cpp
 SUBST_FILES.fix-paths-1+=	prnt/hpijs/hpijs.cpp
@@ -175,7 +177,7 @@ post-install:
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../net/net-snmp/buildlink3.mk"
-.include "../../print/cups/buildlink3.mk"
+.include "../../print/cups15/buildlink3.mk"
 .include "../../print/ghostscript/buildlink3.mk"
 .include "../../devel/libusb1/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

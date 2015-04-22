@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2013/05/31 12:42:01 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2014/10/09 14:06:58 wiz Exp $
 
 DISTNAME=	mc-4.6.1
-PKGREVISION=	16
+PKGREVISION=	17
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/ \
 		${MASTER_SITE_SUNSITE:=utils/file/managers/mc/}
@@ -9,8 +9,6 @@ MASTER_SITES=	http://www.ibiblio.org/pub/Linux/utils/file/managers/mc/ \
 MAINTAINER=	pavel.arnost@clnet.cz
 HOMEPAGE=	http://www.ibiblio.org/mc/
 COMMENT=	User-friendly file manager and visual shell (old 4.6 branch)
-
-PKG_INSTALLATION_TYPES=	overwrite pkgviews
 
 USE_TOOLS+=		pkg-config unzip:run zip:run
 GNU_CONFIGURE=		YES

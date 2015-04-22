@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2014/02/12 23:18:28 tron Exp $
+# $NetBSD: Makefile,v 1.16 2015/03/19 19:15:37 joerg Exp $
 
 PKGNAME=	gridscheduler-2011.11
 DISTNAME=	GE2011.11
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	parallel sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gridscheduler/}
 
@@ -13,10 +13,12 @@ COMMENT=	Open Grid Scheduler/Grid Engine resource management system
 BUILD_DEPENDS+=	{standalone-tcsh,tcsh}-[0-9]*:../../shells/tcsh
 
 # Not 64-bit clean; crashes during build.
-NOT_FOR_PLATFORM=	${LP64PLATFORMS}
+BROKEN_ON_PLATFORM=	${LP64PLATFORMS}
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake perl:run
+
+OVERRIDE_DIRDEPTH=	6
 
 CFLAGS+=		-D${UPPER_OPSYS}
 CONFIGURE_ENV+=		REMOTE=sge
