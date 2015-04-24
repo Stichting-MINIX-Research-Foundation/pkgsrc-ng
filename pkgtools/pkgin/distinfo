@@ -4,3 +4,4 @@ SHA1 (pkgin-0.9.4.tar.gz) = ecae9164da8cafb1599aaa7e63b26722101ed83d
 RMD160 (pkgin-0.9.4.tar.gz) = 6c9b025deb648d223503e548d3a3e531beffb058
 SHA512 (pkgin-0.9.4.tar.gz) = c1fa629fb65f0f275d7fd5f4c85eb2cdb1a9e3917b15f9daeef175ba17bb4ade5c804af10cc0e7bb307cd18a04e47b6cf9f179d12051522224dea56b43420f97
 Size (pkgin-0.9.4.tar.gz) = 198399 bytes
+SHA1 (patch-zz-minix) = 6860ab8758fd7ae4f2dd427ae39aa3c37b3f8226

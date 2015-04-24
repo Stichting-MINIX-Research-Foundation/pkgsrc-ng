@@ -51,11 +51,19 @@ MAKE_ENV+=		MACHINE_ARCH=${MACHINE_ARCH}
 
 DEPENDS+=		pkg_install>=20130901:../../pkgtools/pkg_install
 
+.if (${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix")
+CONFIGURE_ENV += ac_cv_func_tcgetpgrp=no
+.endif
+
 # those have official repositories
 .if !empty(PKGIN_REPOSITORY_URL)
 pre-install:
 	${ECHO} ${PKGIN_REPOSITORY_URL} >> ${WRKSRC}/repositories.conf
-.elif ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "Minix"
+.elif ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+pre-install:
+	${GREP} -i Minix ${WRKSRC}/REPOSITORIES >> 			\
+		${WRKSRC}/repositories.conf
+.elif ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly"
 pre-install:
 	${GREP} -i ${OPSYS} ${WRKSRC}/REPOSITORIES >> 			\
 		${WRKSRC}/repositories.conf
@@ -78,6 +86,12 @@ do-install:
 		${DESTDIR}${EGDIR}/repositories.conf.example
 	${INSTALL_DATA} ${WRKSRC}/preferred.conf			\
 		${DESTDIR}${EGDIR}/preferred.conf.example
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+# LSC: We install this fragment only now, as it interfers with the bootstrap
+#      process otherwise.
+	${MKDIR} ${DESTDIR}${PREFIX}/etc
+	${INSTALL_DATA} ../../minix/mk.conf.minix ${DESTDIR}${PREFIX}/etc/mk.conf
+.endif
 
 # libfetch has no builtin.mk and is included in NetBSD>=5
 .if ${OPSYS} != "NetBSD" || \
