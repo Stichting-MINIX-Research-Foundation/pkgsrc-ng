@@ -1,0 +1,38 @@
+$NetBSD$
+
+--- gcc/config/rs6000/t-netbsd.orig	Tue Apr 21 19:03:23 2009
++++ gcc/config/rs6000/t-netbsd
+@@ -18,15 +18,12 @@
+ # along with GCC; see the file COPYING3.  If not see
+ # <http://www.gnu.org/licenses/>.
+ 
+-LIB2FUNCS_EXTRA = tramp.S
++LIB2FUNCS_EXTRA = $(srcdir)/config/rs6000/tramp.asm
+ 
+ LIB2FUNCS_STATIC_EXTRA = crtsavfpr.S crtresfpr.S \
+   crtsavgpr.S crtresgpr.S \
+   crtresxfpr.S crtresxgpr.S
+ 
+-tramp.S: $(srcdir)/config/rs6000/tramp.asm
+-	cat $(srcdir)/config/rs6000/tramp.asm > tramp.S
+-
+ crtsavfpr.S: $(srcdir)/config/rs6000/crtsavfpr.asm
+ 	cat $(srcdir)/config/rs6000/crtsavfpr.asm >crtsavfpr.S
+ 
+@@ -67,9 +64,6 @@ MULTILIB_EXCEPTIONS	=
+ MULTILIB_MATCHES	= ${MULTILIB_MATCHES_FLOAT}
+ 
+ LIBGCC = stmp-multilib
+-INSTALL_LIBGCC = install-multilib
+-EXTRA_MULTILIB_PARTS = crtbegin$(objext) crtend$(objext) \
+-  crtbeginS$(objext) crtendS$(objext) crtbeginT$(objext)
+ 
+ $(T)crtsavfpr$(objext): crtsavfpr.S
+ 	$(GCC_FOR_TARGET) $(GCC_CFLAGS) $(INCLUDES) $(MULTILIB_CFLAGS) -c crtsavfpr.S -o $(T)crtsavfpr$(objext)
+@@ -88,3 +82,6 @@ $(T)crtresxfpr$(objext): crtresxfpr.S
+ 
+ $(T)crtresxgpr$(objext): crtresxgpr.S
+ 	$(GCC_FOR_TARGET) $(GCC_CFLAGS) $(INCLUDES) $(MULTILIB_CFLAGS) -c crtresxgpr.S -o $(T)crtresxgpr$(objext)
++INSTALL_LIBGCC = install-multilib
++EXTRA_MULTILIB_PARTS = crtbegin$(objext) crtend$(objext) \
++  crtbeginS$(objext) crtendS$(objext) crtbeginT$(objext)

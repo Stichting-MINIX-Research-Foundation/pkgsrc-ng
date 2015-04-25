@@ -1,0 +1,10 @@
+$NetBSD$
+
+--- gcc/config/t-minix.orig	Wed May 21 19:49:00 2014
++++ gcc/config/t-minix
+@@ -0,0 +1,5 @@
++# Compile crtbeginS.o and crtendS.o with pic.
++CRTSTUFF_T_CFLAGS_S = $(CRTSTUFF_T_CFLAGS) -fPIC
++
++# Compile libgcc.a with pic.
++TARGET_LIBGCC2_CFLAGS += -fPIC

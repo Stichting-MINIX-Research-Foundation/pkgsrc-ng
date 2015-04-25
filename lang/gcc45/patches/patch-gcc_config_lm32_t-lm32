@@ -1,0 +1,8 @@
+$NetBSD$
+
+--- gcc/config/lm32/t-lm32.orig	Tue Mar 30 10:26:24 2010
++++ gcc/config/lm32/t-lm32
+@@ -1,2 +1,2 @@
+ # for multilib
+-MULTILIB_OPTIONS = mmultiply-enabled mbarrel-shift-enabled
++MULTILIB_OPTIONS = mbarrel-shift-enabled mmultiply-enabled mdivide-enabled msign-extend-enabled

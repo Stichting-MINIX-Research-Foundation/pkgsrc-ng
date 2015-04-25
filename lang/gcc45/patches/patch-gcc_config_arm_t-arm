@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- gcc/config/arm/t-arm.orig	Sun Jun 21 20:48:15 2009
++++ gcc/config/arm/t-arm
+@@ -41,6 +41,8 @@ s-config s-conditions s-flags s-codes s-constants s-em
+ 
+ $(srcdir)/config/arm/arm-tune.md: $(srcdir)/config/arm/gentune.sh \
+ 	$(srcdir)/config/arm/arm-cores.def
++	@echo "NOT REBUILDING $@"
++NetBSD_DISABLED_config_arm_arm-tune.md:
+ 	$(SHELL) $(srcdir)/config/arm/gentune.sh \
+ 		$(srcdir)/config/arm/arm-cores.def > \
+ 		$(srcdir)/config/arm/arm-tune.md

@@ -1,0 +1,12 @@
+$NetBSD$
+
+--- libcpp/configure.orig	Thu Apr 28 14:31:38 2011
++++ libcpp/configure
+@@ -6870,6 +6870,7 @@ fi
+ case $target in
+ 	alpha*-*-* | \
+ 	arm*-*-*eabi* | \
++	arm*-*-minix* | \
+ 	arm*-*-symbianelf* | \
+ 	x86_64-*-* | \
+ 	ia64-*-* | \

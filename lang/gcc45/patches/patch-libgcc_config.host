@@ -1,0 +1,22 @@
+$NetBSD$
+
+--- libgcc/config.host.orig	Wed May 21 19:48:59 2014
++++ libgcc/config.host
+@@ -203,6 +203,8 @@ arm-wrs-vxworks)
+ 	;;
+ arm*-*-freebsd*)
+ 	;;
++arm*-*-minix*)
++	;;
+ arm*-*-netbsdelf*)
+ 	;;
+ arm*-*-netbsd*)
+@@ -279,6 +281,8 @@ x86_64-*-darwin*)
+ i[34567]86-*-elf*)
+ 	;;
+ x86_64-*-elf*)
++	;;
++i[34567]86-*-minix*)
+ 	;;
+ i[34567]86-*-freebsd*)
+ 	;;

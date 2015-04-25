@@ -1,0 +1,103 @@
+--- libstdc++-v3/configure.orig	Mon May 26 15:34:21 2014
++++ libstdc++-v3/configure	Mon May 26 15:32:43 2014
+@@ -5845,7 +5845,7 @@ else
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
++  netbsd* | freebsd* | openbsd* | darwin* | dragonfly* | minix*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -6257,7 +6257,7 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu)
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd*)
++netbsd*|minix*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -9261,7 +9261,7 @@ _LT_EOF
+       fi
+       ;;
+ 
+-    netbsd*)
++    netbsd*|minix*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -9821,7 +9821,7 @@ rm -f core conftest.err conftest.$ac_objext \
+       link_all_deplibs=yes
+       ;;
+ 
+-    netbsd*)
++    netbsd*|minix*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -10801,6 +10801,18 @@ fi
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++minix*)
++  version_type=sunos
++  need_lib_prefix=no
++  need_version=no
++    library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++    soname_spec='${libname}${release}${shared_ext}$major'
++    dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -12824,7 +12836,7 @@ if test -z "$aix_libpath"; then aix_libpath="/usr/lib:
+ 	esac
+ 	;;
+ 
+-      netbsd*)
++      netbsd*|minix*)
+         if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	  archive_cmds_CXX='$LD -Bshareable  -o $lib $predep_objects $libobjs $deplibs $postdep_objects $linker_flags'
+ 	  wlarc=
+@@ -13560,7 +13572,7 @@ $as_echo_n "checking for $compiler option to produce P
+ 	    ;;
+ 	esac
+ 	;;
+-      netbsd*)
++      netbsd*|minix*)
+ 	;;
+       *qnx* | *nto*)
+         # QNX uses GNU C++, but need to define -shared option too, otherwise
+@@ -14488,6 +14500,18 @@ fi
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++minix*)
++  version_type=sunos
++  need_lib_prefix=no
++  need_version=no
++    library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++    soname_spec='${libname}${release}${shared_ext}$major'
++    dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -56606,7 +56630,7 @@ done
+   CXXFLAGS="$ac_save_CXXFLAGS"
+ 
+     ;;
+-  *-netbsd*)
++  *-netbsd*|*-minix*)
+     SECTION_FLAGS='-ffunction-sections -fdata-sections'
+ 
+ 

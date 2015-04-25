@@ -1,0 +1,63 @@
+$NetBSD$
+
+--- gcc/configure.orig	Fri Dec  3 12:35:37 2010
++++ gcc/configure
+@@ -4810,7 +4810,7 @@ fi
+ { $as_echo "$as_me:${as_lineno-$LINENO}: result: $acx_cv_cc_gcc_supports_ada" >&5
+ $as_echo "$acx_cv_cc_gcc_supports_ada" >&6; }
+ 
+-if test x$GNATBIND != xno && test x$GNATMAKE != xno && test x$acx_cv_cc_gcc_supports_ada != xno; then
++if test "x$GNATBIND" != xno && test "x$GNATMAKE" != xno && test x$acx_cv_cc_gcc_supports_ada != xno; then
+   have_gnat=yes
+ else
+   have_gnat=no
+@@ -22048,7 +22048,7 @@ x:      .long   25
+ 	tls_first_major=2
+ 	tls_first_minor=14
+ 	;;
+-  hppa*-*-linux*)
++  hppa*-*-linux* | hppa*-*-netbsd*)
+     conftest_s='
+ t1:	.reg	%r20
+ t2:	.reg	%r21
+@@ -22188,7 +22188,7 @@ x:
+ 	tls_first_minor=16
+ 	tls_as_opt='-32 --fatal-warnings'
+ 	;;
+-  m68k-*-*)
++  m68k-*-*|m5407-*-*)
+     conftest_s='
+ 	.section .tdata,"awT",@progbits
+ x:
+@@ -22301,7 +22301,7 @@ foo:	.long	25
+ 	tls_first_minor=14
+ 	tls_as_opt="-m64 -Aesame --fatal-warnings"
+ 	;;
+-  sh-*-* | sh[34]-*-*)
++  sh-*-* | sh[34]-*-* | sh*l*-*-*)
+     conftest_s='
+ 	.section ".tdata","awT",@progbits
+ foo:	.long	25
+@@ -24300,7 +24300,7 @@ case "$target" in
+   i?86*-*-* | mips*-*-* | alpha*-*-* | powerpc*-*-* | sparc*-*-* | m68*-*-* \
+   | x86_64*-*-* | hppa*-*-* | arm*-*-* \
+   | xstormy16*-*-* | cris-*-* | crisv32-*-* | xtensa*-*-* | bfin-*-* | score*-*-* \
+-  | spu-*-* | fido*-*-* | m32c-*-*)
++  | spu-*-* | fido*-*-* | m32c-*-* | m5407-*-*)
+     insn="nop"
+     ;;
+   ia64*-*-* | s390*-*-*)
+@@ -25005,7 +25005,7 @@ else
+ 	 # simply assert that glibc does provide this, which is true for all
+ 	 # realistically usable GNU/Hurd configurations.
+ 	 gcc_cv_libc_provides_ssp=yes;;
+-       *-*-darwin* | *-*-freebsd*)
++       *-*-darwin* | *-*-freebsd* | *-*-netbsd*)
+ 	 ac_fn_c_check_func "$LINENO" "__stack_chk_fail" "ac_cv_func___stack_chk_fail"
+ if test "x$ac_cv_func___stack_chk_fail" = x""yes; then :
+   gcc_cv_libc_provides_ssp=yes
+@@ -26973,4 +26973,3 @@ if test -n "$ac_unrecognized_opts" && test "$enable_op
+   { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: unrecognized options: $ac_unrecognized_opts" >&5
+ $as_echo "$as_me: WARNING: unrecognized options: $ac_unrecognized_opts" >&2;}
+ fi
+-

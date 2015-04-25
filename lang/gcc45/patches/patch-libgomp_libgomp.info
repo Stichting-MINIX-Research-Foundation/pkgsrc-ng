@@ -1,0 +1,11 @@
+$NetBSD$
+
+--- libgomp/libgomp.info.orig	Wed May 21 19:43:28 2014
++++ libgomp/libgomp.info
+@@ -1,5 +1,5 @@
+ This is libgomp.info, produced by makeinfo version 4.12 from
+-/space/rguenther/gcc-4.5.3/gcc-4.5.3/libgomp/libgomp.texi.
++/space/rguenther/gcc-4.5.4/gcc-4.5.4/libgomp/libgomp.texi.
+ 
+ Copyright (C) 2006, 2007, 2008 Free Software Foundation, Inc.
+ 

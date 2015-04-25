@@ -1,6 +1,6 @@
-$NetBSD: patch-libstdc++-v3_config_os_bsd_netbsd_ctype__inline.h,v 1.1 2013/04/29 21:34:49 joerg Exp $
+$NetBSD$
 
---- libstdc++-v3/config/os/bsd/netbsd/ctype_inline.h.orig	2009-04-09 15:00:19.000000000 +0000
+--- libstdc++-v3/config/os/bsd/netbsd/ctype_inline.h.orig	Thu Apr  9 15:00:19 2009
 +++ libstdc++-v3/config/os/bsd/netbsd/ctype_inline.h
 @@ -46,7 +46,7 @@ _GLIBCXX_BEGIN_NAMESPACE(std)
    is(const char* __low, const char* __high, mask* __vec) const

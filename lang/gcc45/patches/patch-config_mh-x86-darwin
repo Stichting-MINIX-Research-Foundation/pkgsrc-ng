@@ -1,0 +1,7 @@
+$NetBSD$
+
+--- config/mh-x86-darwin.orig	Wed May 21 19:48:53 2014
++++ config/mh-x86-darwin
+@@ -0,0 +1,2 @@
++# Ensure we don't try and use -pie, as it is incompatible with pch.
++BOOT_LDFLAGS += `case ${host} in *-*-darwin[1][1-9]*) echo -Wl,-no_pie ;; esac;`

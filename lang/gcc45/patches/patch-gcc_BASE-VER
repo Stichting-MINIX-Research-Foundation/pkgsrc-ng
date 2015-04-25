@@ -1,0 +1,7 @@
+$NetBSD$
+
+--- gcc/BASE-VER.orig	Thu Dec 16 14:34:03 2010
++++ gcc/BASE-VER
+@@ -1 +1 @@
+-4.5.3
++4.5.4

@@ -1,0 +1,49 @@
+$NetBSD$
+
+--- gcc/configure.ac.orig	Fri Dec  3 12:35:37 2010
++++ gcc/configure.ac
+@@ -2628,7 +2628,7 @@ x:      .long   25
+ 	tls_first_major=2
+ 	tls_first_minor=14
+ 	;;
+-  hppa*-*-linux*)
++  hppa*-*-linux* | hppa*-*-netbsd*)
+     conftest_s='
+ t1:	.reg	%r20
+ t2:	.reg	%r21
+@@ -2769,7 +2769,7 @@ x:
+ 	tls_first_minor=16
+ 	tls_as_opt='-32 --fatal-warnings'
+ 	;;
+-  m68k-*-*)
++  m68k-*-* | m5407-*-*)
+     conftest_s='
+ 	.section .tdata,"awT",@progbits
+ x:
+@@ -2882,7 +2882,7 @@ foo:	.long	25
+ 	tls_first_minor=14
+ 	tls_as_opt="-m64 -Aesame --fatal-warnings"
+ 	;;
+-  sh-*-* | sh[34]-*-*)
++  sh-*-* | sh[34]-*-* | sh*l*-*-*)
+     conftest_s='
+ 	.section ".tdata","awT",@progbits
+ foo:	.long	25
+@@ -3689,7 +3689,7 @@ case "$target" in
+   i?86*-*-* | mips*-*-* | alpha*-*-* | powerpc*-*-* | sparc*-*-* | m68*-*-* \
+   | x86_64*-*-* | hppa*-*-* | arm*-*-* \
+   | xstormy16*-*-* | cris-*-* | crisv32-*-* | xtensa*-*-* | bfin-*-* | score*-*-* \
+-  | spu-*-* | fido*-*-* | m32c-*-*)
++  | spu-*-* | fido*-*-* | m32c-*-* | m5407-*-*)
+     insn="nop"
+     ;;
+   ia64*-*-* | s390*-*-*)
+@@ -4127,7 +4127,7 @@ AC_CACHE_CHECK(__stack_chk_fail in target C library,
+ 	 # simply assert that glibc does provide this, which is true for all
+ 	 # realistically usable GNU/Hurd configurations.
+ 	 gcc_cv_libc_provides_ssp=yes;;
+-       *-*-darwin* | *-*-freebsd*)
++       *-*-darwin* | *-*-freebsd* | *-*-netbsd*)
+ 	 AC_CHECK_FUNC(__stack_chk_fail,[gcc_cv_libc_provides_ssp=yes],
+            [echo "no __stack_chk_fail on this target"])
+         ;;

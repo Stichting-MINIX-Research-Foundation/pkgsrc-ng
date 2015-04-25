@@ -1,61 +1,52 @@
-$NetBSD: patch-gcc_doc_invoke.texi,v 1.1 2014/03/26 11:07:27 jperkin Exp $
+$NetBSD$
 
-Texinfo 5 compatibility.
-
---- gcc/doc/invoke.texi.orig	2011-03-23 22:03:29.000000000 +0000
+--- gcc/doc/invoke.texi.orig	Wed Mar 23 22:03:29 2011
 +++ gcc/doc/invoke.texi
-@@ -4875,11 +4875,11 @@ Dump after duplicating the computed goto
- @option{-fdump-rtl-ce3} enable dumping after the three
- if conversion passes.
+@@ -404,6 +404,7 @@ Objective-C and Objective-C++ Dialects}.
+ -include @var{file}  -imacros @var{file} @gol
+ -iprefix @var{file}  -iwithprefix @var{dir} @gol
+ -iwithprefixbefore @var{dir}  -isystem @var{dir} @gol
++-cxx-isystem @var{dir} @gol
+ -imultilib @var{dir} -isysroot @var{dir} @gol
+ -M  -MM  -MF  -MG  -MP  -MQ  -MT  -nostdinc  @gol
+ -P  -fworking-directory  -remap @gol
+@@ -425,7 +426,8 @@ Objective-C and Objective-C++ Dialects}.
  
--@itemx -fdump-rtl-cprop_hardreg
-+@item -fdump-rtl-cprop_hardreg
- @opindex fdump-rtl-cprop_hardreg
- Dump after hard register copy propagation.
+ @item Directory Options
+ @xref{Directory Options,,Options for Directory Search}.
+-@gccoptlist{-B@var{prefix}  -I@var{dir}  -iquote@var{dir}  -L@var{dir}
++@gccoptlist{-B@var{prefix}  -I@var{dir}  -iquote@var{dir}
++-iremap@var{src}:@var{dst}  -L@var{dir}
+ -specs=@var{file}  -I- --sysroot=@var{dir}}
  
--@itemx -fdump-rtl-csa
-+@item -fdump-rtl-csa
- @opindex fdump-rtl-csa
- Dump after combining stack adjustments.
+ @item Target Options
+@@ -3246,11 +3248,11 @@ Furthermore, the prior value shall be read only to det
+ to be stored.''.  If a program breaks these rules, the results on any
+ particular implementation are entirely unpredictable.
  
-@@ -4890,11 +4890,11 @@ Dump after combining stack adjustments.
- @option{-fdump-rtl-cse1} and @option{-fdump-rtl-cse2} enable dumping after
- the two common sub-expression elimination passes.
+-Examples of code with undefined behavior are @code{a = a++;}, @code{a[n]
+-= b[n++]} and @code{a[i++] = i;}.  Some more complicated cases are not
+-diagnosed by this option, and it may give an occasional false positive
+-result, but in general it has been found fairly effective at detecting
+-this sort of problem in programs.
++Examples of code with undefined behavior are @code{a = a++;},
++@code{a[n] = b[n++]} and @code{a[i++] = i;}.  Some more complicated cases
++are not diagnosed by this option, and it may give an occasional false
++positive result, but in general it has been found fairly effective at
++detecting this sort of problem in programs.
  
--@itemx -fdump-rtl-dce
-+@item -fdump-rtl-dce
- @opindex fdump-rtl-dce
- Dump after the standalone dead code elimination passes.
+ The standard is worded confusingly, therefore there is some debate
+ over the precise meaning of the sequence point rules in subtle cases.
+@@ -8872,6 +8874,12 @@ Add the directory @var{dir} to the head of the list of
+ be searched for header files only for the case of @samp{#include
+ "@var{file}"}; they are not searched for @samp{#include <@var{file}>},
+ otherwise just like @option{-I}.
++
++@item -iremap @var{src}:@var{dst}
++@opindex iremap
++Replace the prefix @var{src} in __FILE__ with @var{dst} at expansion time.
++This option can be specified more than once.  Processing stops at the first
++match.
  
--@itemx -fdump-rtl-dbr
-+@item -fdump-rtl-dbr
- @opindex fdump-rtl-dbr
- Dump after delayed branch scheduling.
- 
-@@ -4939,7 +4939,7 @@ Dump after the initialization of the reg
- @opindex fdump-rtl-initvals
- Dump after the computation of the initial value sets.
- 
--@itemx -fdump-rtl-into_cfglayout
-+@item -fdump-rtl-into_cfglayout
- @opindex fdump-rtl-into_cfglayout
- Dump after converting to cfglayout mode.
- 
-@@ -4969,7 +4969,7 @@ Dump after removing redundant mode switc
- @opindex fdump-rtl-rnreg
- Dump after register renumbering.
- 
--@itemx -fdump-rtl-outof_cfglayout
-+@item -fdump-rtl-outof_cfglayout
- @opindex fdump-rtl-outof_cfglayout
- Dump after converting from cfglayout mode.
- 
-@@ -4981,7 +4981,7 @@ Dump after the peephole pass.
- @opindex fdump-rtl-postreload
- Dump after post-reload optimizations.
- 
--@itemx -fdump-rtl-pro_and_epilogue
-+@item -fdump-rtl-pro_and_epilogue
- @opindex fdump-rtl-pro_and_epilogue
- Dump after generating the function pro and epilogues.
- 
+ @item -L@var{dir}
+ @opindex L
