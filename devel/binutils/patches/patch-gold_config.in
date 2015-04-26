@@ -1,0 +1,15 @@
+--- gold/config.in.orig	Fri Jul 18 14:44:56 2014
++++ gold/config.in	Fri Jul 18 14:57:50 2014
+@@ -187,6 +187,12 @@
+ /* Define to 1 if you have the <unistd.h> header file. */
+ #undef HAVE_UNISTD_H
+ 
++/* Define to 1 if you have the <unordered_map> header file. */
++#undef HAVE_UNORDERED_MAP
++
++/* Define to 1 if you have the <unordered_set> header file. */
++#undef HAVE_UNORDERED_SET
++
+ /* Define to 1 if you have the <zlib.h> header file. */
+ #undef HAVE_ZLIB_H
+ 

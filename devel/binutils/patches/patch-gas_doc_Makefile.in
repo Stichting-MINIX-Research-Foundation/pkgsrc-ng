@@ -1,0 +1,31 @@
+$NetBSD$
+
+--- gas/doc/Makefile.in.orig	Tue Sep  4 12:53:45 2012
++++ gas/doc/Makefile.in
+@@ -374,6 +374,8 @@ clean-libtool:
+ 	-rm -rf .libs _libs
+ 
+ as.info: as.texinfo $(as_TEXINFOS)
++	@echo "NOT REBUILDING $@"
++NetBSD_DISABLED_as.info: as.texinfo $(as_TEXINFOS)
+ 	restore=: && backupdir="$(am__leading_dot)am$$$$" && \
+ 	rm -rf $$backupdir && mkdir $$backupdir && \
+ 	if ($(MAKEINFO) --version) >/dev/null 2>&1; then \
+@@ -756,6 +758,8 @@ uninstall-man: uninstall-man1
+ 
+ 
+ asconfig.texi: $(CONFIG).texi
++	@echo "NOT REBUILDING $@"
++NetBSD_DISABLED_asconfig.texi:
+ 	rm -f asconfig.texi
+ 	cp $(srcdir)/$(CONFIG).texi ./asconfig.texi
+ 	chmod u+w ./asconfig.texi
+@@ -773,6 +777,8 @@ info-local: $(MANS)
+ # The sed command removes the no-adjust Nroff command so that
+ # the man output looks standard.
+ as.1: $(srcdir)/as.texinfo asconfig.texi $(CPU_DOCS)
++	@echo "NOT REBUILDING $@"
++NetBSD_DISABLED_as.1:
+ 	touch $@
+ 	-$(TEXI2POD) $(MANCONF) < $(srcdir)/as.texinfo > as.pod
+ 	-($(POD2MAN) as.pod | \

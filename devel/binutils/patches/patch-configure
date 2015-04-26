@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- configure.orig	Thu Jun 28 11:50:52 2012
++++ configure
+@@ -2869,7 +2869,7 @@ case "${ENABLE_GOLD}" in
+       *-*-elf* | *-*-sysv4* | *-*-unixware* | *-*-eabi* | hppa*64*-*-hpux* \
+       | *-*-linux* | frv-*-uclinux* | *-*-irix5* | *-*-irix6* \
+       | *-*-netbsd* | *-*-openbsd* | *-*-freebsd* | *-*-dragonfly* \
+-      | *-*-solaris2* | *-*-nto* | *-*-nacl*)
++      | *-*-solaris2* | *-*-nto* | *-*-nacl* | *-*-minix*)
+         case "${target}" in
+           *-*-linux*aout* | *-*-linux*oldld*)
+             ;;

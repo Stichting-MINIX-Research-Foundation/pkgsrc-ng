@@ -1,0 +1,15 @@
+$NetBSD$
+
+--- bfd/doc/Makefile.in.orig	Mon Mar 25 09:08:08 2013
++++ bfd/doc/Makefile.in
+@@ -417,7 +417,9 @@ mostlyclean-libtool:
+ clean-libtool:
+ 	-rm -rf .libs _libs
+ 
+-bfd.info: bfd.texinfo $(bfd_TEXINFOS)
++bfd.info:
++	@echo "NOT REBUILDING $@"
++NetBSD_DISABLED_bfd.info: bfd.texinfo $(bfd_TEXINFOS)
+ 	restore=: && backupdir="$(am__leading_dot)am$$$$" && \
+ 	rm -rf $$backupdir && mkdir $$backupdir && \
+ 	if ($(MAKEINFO) --version) >/dev/null 2>&1; then \

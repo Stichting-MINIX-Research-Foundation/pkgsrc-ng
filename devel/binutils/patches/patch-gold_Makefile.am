@@ -1,0 +1,13 @@
+$NetBSD$
+
+--- gold/Makefile.am.orig	Wed May  2 21:37:23 2012
++++ gold/Makefile.am
+@@ -20,7 +20,7 @@ AM_CPPFLAGS = \
+ LIBIBERTY = ../libiberty/libiberty.a
+ 
+ if PLUGINS
+-LIBDL = -ldl
++LIBDL = @DLOPEN_LIBS@
+ endif
+ 
+ if THREADS

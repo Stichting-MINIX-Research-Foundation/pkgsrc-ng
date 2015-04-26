@@ -1,0 +1,42 @@
+$NetBSD$
+
+--- ld/Makefile.in.orig	Mon Mar 25 08:06:23 2013
++++ ld/Makefile.in
+@@ -450,6 +450,7 @@ ALL_EMULATION_SOURCES = \
+ 	earmelf_fbsd.c \
+ 	earmelf_linux.c \
+ 	earmelf_linux_eabi.c \
++	earmelf_minix.c \
+ 	earmelf_nacl.c \
+ 	earmelf_nbsd.c \
+ 	earmelf_vxworks.c \
+@@ -572,6 +573,7 @@ ALL_EMULATION_SOURCES = \
+ 	eelf_i386_chaos.c \
+ 	eelf_i386_fbsd.c \
+ 	eelf_i386_ldso.c \
++	eelf_i386_minix.c \
+ 	eelf_i386_nacl.c \
+ 	eelf_i386_sol2.c \
+ 	eelf_i386_vxworks.c \
+@@ -2189,6 +2191,10 @@ earmelf_linux_eabi.c: $(srcdir)/emulparams/armelf_linu
+   $(ELF_DEPS) $(srcdir)/emultempl/armelf.em \
+   $(srcdir)/scripttempl/elf.sc ${GEN_DEPENDS}
+ 	${GENSCRIPTS} armelf_linux_eabi "$(tdir_armelf_linux_abi)"
++earmelf_minix.c: $(srcdir)/emulparams/armelf_minix.sh \
++  $(srcdir)/emulparams/armelf.sh \
++  $(srcdir)/emultempl/elf32.em $(srcdir)/scripttempl/elf.sc ${GEN_DEPENDS}
++	${GENSCRIPTS} armelf_minix "$(tdir_armelf_minix)"
+ earmelf_nacl.c: $(srcdir)/emulparams/armelf_nacl.sh \
+   $(srcdir)/emulparams/armelf_linux_eabi.sh \
+   $(srcdir)/emulparams/armelf_linux.sh \
+@@ -2698,6 +2704,10 @@ eelf_i386_fbsd.c: $(srcdir)/emulparams/elf_i386_fbsd.s
+ eelf_i386_ldso.c: $(srcdir)/emulparams/elf_i386_ldso.sh \
+   $(ELF_DEPS) $(srcdir)/scripttempl/elf.sc ${GEN_DEPENDS}
+ 	${GENSCRIPTS} elf_i386_ldso "$(tdir_elf_i386_ldso)"
++eelf_i386_minix.c: $(srcdir)/emulparams/elf_i386_minix.sh \
++  $(srcdir)/emulparams/elf_i386.sh \
++  $(srcdir)/emultempl/elf32.em $(srcdir)/scripttempl/elf.sc ${GEN_DEPENDS}
++	${GENSCRIPTS} elf_i386_minix "$(tdir_elf_i386_minix)"
+ eelf_i386_nacl.c: $(srcdir)/emulparams/elf_i386_nacl.sh \
+   $(srcdir)/emulparams/elf_i386.sh \
+   $(srcdir)/emulparams/elf_nacl.sh \

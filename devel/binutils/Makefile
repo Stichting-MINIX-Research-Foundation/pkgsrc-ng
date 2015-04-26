@@ -1,6 +1,8 @@
-# $NetBSD: Makefile,v 1.69 2015/06/09 20:24:39 ryoon Exp $
+# $NetBSD: Makefile,v 1.57 2014/01/26 03:49:01 ryoon Exp $
 
-DISTNAME=	binutils-2.25
+# MINIX: We currently only support Binutils 2.23 as patched in our base system.
+#DISTNAME=	binutils-2.24
+DISTNAME=	binutils-2.23.2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=binutils/}
 
@@ -10,17 +12,17 @@ COMMENT=	GNU binary utilities
 LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND gnu-lgpl-v3
 EXTRACT_SUFX=	.tar.bz2
 
-# bfd.h used without depending on it
-MAKE_JOBS_SAFE=	no
-
 CONFLICTS=	avr-binutils<2.13.2.1nb1
+
+NOT_FOR_PLATFORM=	Darwin-*-* Interix-*-*
+
+MAKE_JOBS_SAFE=		no
 
 USE_PKGLOCALEDIR=	yes
 REPLACE_LOCALEDIR_PATTERNS+=	Make-in
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake
 
 # PR pkg/48504, ksh is sufficient for NetBSD 5.2 and NetBSD 6.1
 .include "../../mk/bsd.prefs.mk"
@@ -44,33 +46,39 @@ INSTALLATION_DIRS=	${PKGGNUDIR}bin ${PKGGNUDIR}${PKGMANDIR}/man1
 
 # gprof (XXX: and others?) cannot be built on all platforms
 #
-PLIST_VARS+=	gprof ld gold SunOS
+PLIST_VARS+=	gprof ld
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} != IRIX
+.if ${OPSYS} != "IRIX"
 PLIST.gprof=	yes
 EXTRA_FILES+=	gprof
 .endif
 
-.if ${OPSYS} != SunOS
+.if ${OPSYS} != "SunOS"
 PLIST.ld=	yes
 EXTRA_FILES+=	ld
 .endif
 
-.if ${OPSYS} == SunOS
-PLIST.SunOS=	yes
-.endif
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ARGS+= \
+	--with-sysroot=/ \
+	--enable-gold=yes \
+	--enable-ld=default \
+	--enable-plugins \
+	--enable-lto
 
-.if ${OPSYS} == DragonFly \
-	|| (${OPSYS} == FreeBSD && empty(OS_VERSION:M[12345678].*)) \
-	|| (${OPSYS} == OpenBSD && empty(OS_VERSION:M[1234].*)) \
-	|| (${OPSYS} == NetBSD && empty(OS_VERSION:M[12345].*))
-BUILD_GOLD=	yes
-PLIST.gold=	yes
-USE_TOOLS+=	bison
-EXTRA_FILES+=	dwp ld.gold
-CONFIGURE_ARGS+=--enable-gold --enable-plugins
+# LSC - Somehow configure doesn't find the installed ld when compiling inside
+#       a jail...
+CONFIGURE_ENV+= LD=/usr/bin/ld
+
+# BJG - gold requires bison
+USE_TOOLS+=		bison lex
+# BJG - there is a harmless warning in ld we need to ignore
+CFLAGS+=		-Wno-error
+# BJG - gcc expects binaries with this program prefix
+MINIX_PROGRAM_PREFIX=i586-elf32-minix-
+CPPFLAGS+= -DHAVE_DLFCN_H
 .endif
 
 CFLAGS.OpenBSD+=	-Wno-bounded
@@ -79,13 +87,7 @@ CFLAGS.OpenBSD+=	-Wno-bounded
 .if !empty(PKGSRC_COMPILER:Mclang)
 CFLAGS+=	-Wno-unused-value -Wno-format-security \
 		-Wno-uninitialized -Wno-format -Wno-string-plus-int \
-		-Wno-empty-body -Wno-self-assign -Wno-unused-function \
-		-Wno-error=unused-const-variable
-.endif
-
-# Issue is fixed in upstream binutils, remove this when upgraded past 2.24
-.if !empty(CC_VERSION:Mgcc-4.9.*)
-CONFIGURE_ARGS+=	--disable-werror
+		-Wno-empty-body -Wno-self-assign -Wno-unused-function
 .endif
 
 # Prevent the need to run texi2pod.pl and pod2man which would
@@ -107,9 +109,6 @@ SYMLINK_FILES+=	gprof
 .if defined(PLIST.ld)
 SYMLINK_FILES+=	ld
 .endif
-.if defined(BUILD_GOLD)
-SYMLINK_FILES+=	ld.gold dwp
-.endif
 
 post-install:
 	cd ${DESTDIR}${PREFIX} &&					\
@@ -120,6 +119,8 @@ post-install:
 	set -e; \
 	if [ -f ${DESTDIR}${PREFIX}/bin/g${f:Q} ]; then \
 	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/${PKGGNUDIR}bin/${f}; \
+	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/bin/${f}; \
+	    ${LN} -sf ${PREFIX}/bin/g${f} ${DESTDIR}${PREFIX}/bin/${MINIX_PROGRAM_PREFIX}${f}; \
 	fi
 	if [ -f ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/g${f:Q}.1 ]; then \
 	    ${LN} -sf ${PREFIX}/${PKGMANDIR}/man1/g${f}.1 \
@@ -127,5 +128,4 @@ post-install:
 	fi
 .endfor
 
-.include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
