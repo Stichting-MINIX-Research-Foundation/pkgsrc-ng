@@ -11,3 +11,5 @@ SHA1 (patch-converter_other_giftopnm.c) = d64d645307e12b32d3a9ce56885bbfb3a4a80d
 SHA1 (patch-lib_Makefile) = 3f93bd24c53aa1f22aa43545d7ca5422af8e78ca
 SHA1 (patch-pm__config.in.h) = 9cb3084371be4b354832581d47d552bfe9ff1ce1
 SHA1 (patch-wordaccess_be_aligned.h) = 7cc5cd1126f65b3307393c978ac9ff4a49d666de
+SHA1 (patch-zz-minix-a) = db1b60f7da452341869dd99142291f880481225a
+SHA1 (patch-zz-minix-b) = e932586f79b4112fa9768f297962b81f20bbde82

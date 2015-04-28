@@ -51,6 +51,10 @@ SUBST_SED.rgb_txt+=	-e 's,/usr/share/netpbm/rgb.txt,${PREFIX}/share/netpbm/rgb.t
 # only used if NEED_RUNTIME_PATH is set, so set it unconditionally
 MAKE_FLAGS+=	NETPBMLIB_RUNTIME_PATH=${PREFIX}
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+BUILDLINK_TRANSFORM+=	rm:-R/usr/pkg/lib
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 .if ${OPSYS} == "NetBSD"
 MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
 .elif ${OPSYS} == "Darwin"
