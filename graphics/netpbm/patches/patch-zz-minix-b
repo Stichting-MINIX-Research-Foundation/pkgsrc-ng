@@ -1,0 +1,29 @@
+--- config.mk.in.orig	Sun Oct 16 21:12:18 2016
++++ config.mk.in	Sun Oct 16 21:13:08 2016
+@@ -336,7 +336,7 @@
+ # the directory information in the executable at link time.
+ 
+ NEED_RUNTIME_PATH = N
+-# Solaris, SunOS, NetBSD, AIX:
++# Solaris, SunOS, Minix, NetBSD, AIX:
+ #NEED_RUNTIME_PATH = Y
+ 
+ # RPATHOPTNAME is the option you use on the link command to specify
+@@ -378,7 +378,7 @@
+ 
+ #TIFFLIB = libtiff.so
+ #TIFFHDR_DIR = /usr/include/libtiff
+-#NetBSD:
++# Minix, NetBSD:
+ #TIFFLIB = $(LOCALBASE)/lib/libtiff.so
+ #TIFFHDR_DIR = $(LOCALBASE)/include
+ # OSF, Tru64:
+@@ -448,7 +448,7 @@
+ PNGVER = 
+ #PNGLIB = libpng$(PNGVER).so
+ #PNGHDR_DIR = /usr/include/libpng$(PNGVER)
+-# NetBSD:
++# Minix, NetBSD:
+ #PNGLIB = $(LOCALBASE)/lib/libpng$(PNGVER).so
+ #PNGHDR_DIR = $(LOCALBASE)/include
+ # OSF/Tru64:

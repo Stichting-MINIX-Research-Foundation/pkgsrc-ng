@@ -63,6 +63,10 @@ MAKE_FLAGS.SunOS+=	LDSHLIB=-shared
 MAKE_FLAGS.SunOS+=	NEED_RUNTIME_PATH=Y
 MAKE_FLAGS.SunOS+=	NETWORKLD="-lsocket -lnsl"
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+BUILDLINK_TRANSFORM+=	rm:-R/usr/pkg/lib
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 .if ${OS_VARIANT} == "SCOOSR5"
 MAKE_FLAGS+=	NETWORKLD="-lsocket -lresolv"
 .endif

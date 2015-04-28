@@ -1,0 +1,20 @@
+--- pm_config.in.h.orig	Sun Oct 16 21:10:30 2016
++++ pm_config.in.h	Sun Oct 16 21:11:15 2016
+@@ -49,7 +49,7 @@
+ 
+    The problematic C libraries treat _XOPEN_SOURCE the same way.
+ */
+-#if defined(__OpenBSD__) || defined (__NetBSD__) || defined(__bsdi__) || defined(__APPLE__)
++#if defined(__OpenBSD__) || defined(__minix) || defined (__NetBSD__) || defined(__bsdi__) || defined(__APPLE__)
+ #define POSIX_IS_IMPLIED
+ #endif
+ 
+@@ -140,7 +140,7 @@
+ /* #define HAVE_SETMODE */
+ 
+ #if (defined(__GLIBC__) || defined(__GNU_LIBRARY__) || defined(__APPLE__)) \
+-	|| defined(__NetBSD__) || (defined(__SVR4) && defined (__sun))
++	|| defined(__minix) || defined(__NetBSD__) || (defined(__SVR4) && defined (__sun))
+   #define HAVE_VASPRINTF 1
+ #else
+   #define HAVE_VASPRINTF 0
