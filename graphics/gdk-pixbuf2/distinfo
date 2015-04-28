@@ -7,3 +7,5 @@ Size (gdk-pixbuf-2.34.0.tar.xz) = 2709320 bytes
 SHA1 (patch-ab) = a64a1c9a4dd4c51d918e3409d40d76fd63146150
 SHA1 (patch-ac) = c55b59e380cf58ae7e94c760dc0dbb32b6b5fb69
 SHA1 (patch-gdk-pixbuf_gdk-pixbuf-scaled-anim.c) = 486db8d3f352b0d72b7074ba48f14ccbfa09deda
+SHA1 (patch-zz-minix-a) = bbd174ab141074a872168c3949add0b32718f302
+SHA1 (patch-zz-minix-b) = 8fbebc3bdd244ab5fdd009ff008084993d8fe872
