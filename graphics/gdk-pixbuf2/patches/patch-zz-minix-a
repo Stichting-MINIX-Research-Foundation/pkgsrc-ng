@@ -1,0 +1,29 @@
+--- config.rpath.orig	Mon Oct 26 12:55:18 2015
++++ config.rpath	Mon Oct 26 12:55:54 2015
+@@ -203,7 +203,7 @@
+         ld_shlibs=no
+       fi
+       ;;
+-    netbsd*)
++    minix*|netbsd*)
+       ;;
+     solaris*)
+       if $LD -v 2>&1 | grep 'BFD 2\.8' > /dev/null; then
+@@ -405,7 +405,7 @@
+       hardcode_libdir_flag_spec='${wl}-rpath ${wl}$libdir'
+       hardcode_libdir_separator=:
+       ;;
+-    netbsd*)
++    minix*|netbsd*)
+       hardcode_libdir_flag_spec='-R$libdir'
+       hardcode_direct=yes
+       ;;
+@@ -582,7 +582,7 @@
+   knetbsd*-gnu)
+     library_names_spec='$libname$shrext'
+     ;;
+-  netbsd*)
++  minix*|netbsd*)
+     library_names_spec='$libname$shrext'
+     ;;
+   newsos6)
