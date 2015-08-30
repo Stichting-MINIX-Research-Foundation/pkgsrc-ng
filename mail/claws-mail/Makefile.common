@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.12 2013/07/24 15:26:11 drochner Exp $
+# $NetBSD: Makefile.common,v 1.14 2015/06/07 14:05:58 youri Exp $
 
 # used by mail/claws-mail/plugins.mk
 
@@ -6,8 +6,8 @@
 
 DISTNAME=	claws-mail-${CLAWS_VERSION}
 CATEGORIES=	mail news x11
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=sylpheed-claws/}
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=claws-mail/}
+EXTRACT_SUFX=	.tar.xz
 
 HOMEPAGE=	http://claws-mail.org/
 LICENSE=	gnu-gpl-v3
@@ -54,7 +54,7 @@ CONFIGURE_ARGS+=	--disable-perl-plugin
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../mail/libetpan/buildlink3.mk"
-#.include "../../net/libsoup24/buildlink3.mk"
+#.include "../../net/libsoup/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../textproc/enchant/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"

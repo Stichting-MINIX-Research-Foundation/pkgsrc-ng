@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.32 2014/10/07 16:47:33 adam Exp $
+# $NetBSD: Makefile,v 1.35 2015/06/07 14:05:59 youri Exp $
 
 DISTNAME=	libdmapsharing-2.1.9
-PKGREVISION=	29
+PKGREVISION=	31
 CATEGORIES=	net
 MASTER_SITES=	http://www.flyn.org/projects/libdmapsharing/
 
@@ -17,11 +17,11 @@ USE_TOOLS+=		gmake pkg-config
 PKGCONFIG_OVERRIDE=	libdmapsharing.pc.in
 
 BUILDLINK_ABI_DEPENDS.gst-plugins0.10-base+= gst-plugins0.10-base>=0.10.23.2
-BUILDLINK_ABI_DEPENDS.libsoup24+= libsoup24>=2.32
+BUILDLINK_ABI_DEPENDS.libsoup+= libsoup>=2.32
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
 .include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
 .include "../../net/avahi/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

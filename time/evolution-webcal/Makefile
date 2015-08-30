@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.79 2014/12/02 10:45:40 jmcneill Exp $
+# $NetBSD: Makefile,v 1.82 2015/06/07 14:05:59 youri Exp $
 #
 
 DISTNAME=	evolution-webcal-2.32.0
-PKGREVISION=	29
+PKGREVISION=	31
 CATEGORIES=	time gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-webcal/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -25,6 +25,6 @@ LDFLAGS.NetBSD+=	-lgthread-2.0
 .include "../../devel/GConf/schemas.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../mail/evolution-data-server/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

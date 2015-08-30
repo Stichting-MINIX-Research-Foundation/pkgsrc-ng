@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.sys.mk,v 1.1.1.1 2006/07/14 23:13:01 jlam Exp $
+#	$NetBSD: bsd.sys.mk,v 1.3 2015/06/04 17:11:33 ryoon Exp $
 #
 # Overrides used for NetBSD source tree builds.
 

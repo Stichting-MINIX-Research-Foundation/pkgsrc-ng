@@ -1,11 +1,9 @@
-# $NetBSD: Makefile,v 1.28 2014/10/07 16:47:24 adam Exp $
+# $NetBSD: Makefile,v 1.31 2015/06/10 09:02:04 wiz Exp $
 
-DISTNAME=	subvertpy-0.8.10
+DISTNAME=	subvertpy-0.9.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	13
 CATEGORIES=	devel scm
-MASTER_SITES=	http://launchpad.net/subvertpy/trunk/${PKGVERSION_NOREV}/+download/
-MASTER_SITES+=	http://samba.org/~jelmer/subvertpy/
+MASTER_SITES=	http://samba.org/~jelmer/subvertpy/
 
 MAINTAINER=	ddeus.pkgsrc@mailnull.com
 HOMEPAGE=	http://launchpad.net/subvertpy
@@ -14,8 +12,7 @@ LICENSE=	gnu-lgpl-v2.1
 
 MAKE_ENV+=	SVN_PREFIX=${BUILDLINK_PREFIX.subversion-base}
 
-PYTHON_SELF_CONFLICT=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.8.10
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.9.1
 
 .include "../../devel/subversion-base/buildlink3.mk"
 .include "../../lang/python/distutils.mk"

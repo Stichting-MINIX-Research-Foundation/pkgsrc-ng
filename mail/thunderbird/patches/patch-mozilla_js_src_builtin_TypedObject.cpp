@@ -1,8 +1,8 @@
-$NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.1 2014/10/17 16:47:22 joerg Exp $
+$NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.3 2015/06/08 13:40:58 joerg Exp $
 
---- mozilla/js/src/builtin/TypedObject.cpp.orig	2014-10-17 09:18:05.000000000 +0000
+--- mozilla/js/src/builtin/TypedObject.cpp.orig	2015-05-07 18:53:49.000000000 +0000
 +++ mozilla/js/src/builtin/TypedObject.cpp
-@@ -710,12 +710,12 @@ ArrayMetaTypeDescr::construct(JSContext 
+@@ -710,12 +710,12 @@ ArrayMetaTypeDescr::construct(JSContext*
      contents.append(")");
      RootedAtom stringRepr(cx, contents.finishAtom());
      if (!stringRepr)
@@ -16,8 +16,8 @@ $NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.1 2014/10/17 16:47:22 
 +        return false;
  
      // Create the instance of ArrayType
-     Rooted<UnsizedArrayTypeDescr *> obj(cx);
-@@ -728,7 +728,7 @@ ArrayMetaTypeDescr::construct(JSContext 
+     Rooted<UnsizedArrayTypeDescr*> obj(cx);
+@@ -728,7 +728,7 @@ ArrayMetaTypeDescr::construct(JSContext*
      if (!JSObject::defineProperty(cx, obj, cx->names().length,
                                    UndefinedHandleValue, nullptr, nullptr,
                                    JSPROP_READONLY | JSPROP_PERMANENT))
@@ -62,7 +62,7 @@ $NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.1 2014/10/17 16:47:22 
  
      args.rval().setObject(*obj);
      return true;
-@@ -1253,7 +1253,7 @@ DefineSimpleTypeDescr(JSContext *cx,
+@@ -1253,7 +1253,7 @@ DefineSimpleTypeDescr(JSContext* cx,
      Rooted<TypedProto*> proto(cx);
      proto = NewObjectWithProto<TypedProto>(cx, objProto, nullptr, TenuredObject);
      if (!proto)
@@ -122,7 +122,7 @@ $NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.1 2014/10/17 16:47:22 
  
      // Everything is setup, install module on the global object:
      RootedValue moduleValue(cx, ObjectValue(*module));
-@@ -1407,10 +1407,10 @@ GlobalObject::initTypedObjectModule(JSCo
+@@ -1407,7 +1407,7 @@ GlobalObject::initTypedObjectModule(JSCo
                                    nullptr, nullptr,
                                    0))
      {
@@ -130,12 +130,8 @@ $NetBSD: patch-mozilla_js_src_builtin_TypedObject.cpp,v 1.1 2014/10/17 16:47:22 
 +        return false;
      }
  
--    return module;
-+    return module != nullptr;
- }
- 
- JSObject *
-@@ -2466,7 +2466,7 @@ TypedObject::constructUnsized(JSContext 
+     return module;
+@@ -2466,7 +2466,7 @@ TypedObject::constructUnsized(JSContext*
          if (length < 0) {
              JS_ReportErrorNumber(cx, js_GetErrorMessage,
                                   nullptr, JSMSG_TYPEDOBJECT_BAD_ARGS);

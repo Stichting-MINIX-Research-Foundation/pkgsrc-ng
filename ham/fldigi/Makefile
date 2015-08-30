@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.50 2015/02/21 23:35:40 ryoon Exp $
+# $NetBSD: Makefile,v 1.55 2015/06/13 13:36:43 mef Exp $
 
-DISTNAME=	fldigi-3.22.05
-PKGREVISION=	1
+DISTNAME=	fldigi-3.22.10
 CATEGORIES=	ham
 MASTER_SITES=	http://www.w1hkj.com/downloads/fldigi/
 LICENSE=	gnu-gpl-v3

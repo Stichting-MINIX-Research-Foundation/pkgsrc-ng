@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2013/04/14 00:30:02 cheusov Exp $
+# $NetBSD: Makefile,v 1.8 2015/04/28 06:56:18 tnn Exp $
 #
 
 DISTNAME=	libva-1.1.0
+PKGREVISION=	2
 CATEGORIES=	multimedia
 MASTER_SITES=	http://www.freedesktop.org/software/vaapi/releases/libva/
 EXTRACT_SUFX=	.tar.bz2
@@ -25,10 +26,17 @@ CONFIGURE_ARGS+=	--with-drivers-path=${DRIVER_SEARCH_PATH:Q}
 
 LIBS+=			${BUILDLINK_LDADD.dl}
 
+PKGCONFIG_OVERRIDE+=	libva-drm.pc.in
+PKGCONFIG_OVERRIDE+=	libva-egl.pc.in
 PKGCONFIG_OVERRIDE+=	libva-glx.pc.in
 PKGCONFIG_OVERRIDE+=	libva-tpi.pc.in
 PKGCONFIG_OVERRIDE+=	libva-x11.pc.in
 PKGCONFIG_OVERRIDE+=	libva.pc.in
+
+PLIST_VARS+=		egl
+.if ${X11_TYPE} == "modular" || exists(${X11BASE}/include/EGL/egl.h)
+PLIST.egl=		yes
+.endif
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -i

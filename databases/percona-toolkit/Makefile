@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.11 2014/08/01 15:55:07 fhajny Exp $
+# $NetBSD: Makefile,v 1.13 2015/06/12 10:48:44 wiz Exp $
 #
 
-DISTNAME=	percona-toolkit-2.2.9
+DISTNAME=	percona-toolkit-2.2.14
+PKGREVISION=	1
 CATEGORIES=	databases
-MASTER_SITES=	http://www.percona.com/downloads/percona-toolkit/${PKGVERSION_NOREV}/
+MASTER_SITES=	http://www.percona.com/downloads/percona-toolkit/${PKGVERSION_NOREV}/tarball/
 
 MAINTAINER=	msporleder@gmail.com
 HOMEPAGE=	http://www.percona.com/software/percona-toolkit/

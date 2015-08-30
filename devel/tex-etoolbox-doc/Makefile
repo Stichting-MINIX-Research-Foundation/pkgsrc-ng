@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/10/27 23:22:19 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/06/14 10:16:08 markd Exp $
 
 DISTNAME=	etoolbox.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2.1
-TEXLIVE_REV=	20922
+PKGNAME=	tex-${DISTNAME:S/./-/}-2.2
+TEXLIVE_REV=	37189
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-etoolbox

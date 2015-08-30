@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2014/10/09 14:07:03 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2015/06/12 10:51:24 wiz Exp $
 
-DISTNAME=	Lingua-EN-Number-IsOrdinal-0.04
+DISTNAME=	Lingua-EN-Number-IsOrdinal-0.05
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

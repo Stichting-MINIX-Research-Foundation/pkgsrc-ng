@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2014/05/29 23:35:35 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2015/06/12 10:48:49 wiz Exp $
 
-DISTNAME=	gperftools-2.1
+DISTNAME=	gperftools-2.4
 PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	https://gperftools.googlecode.com/files/
+MASTER_SITES=	https://googledrive.com/host/0B6NtGsLhIcf7MWxMMF9JdTN3UVk/
 
 MAINTAINER=	cheusov@NetBSD.org
 HOMEPAGE=	https://code.google.com/p/gperftools/
@@ -18,6 +18,13 @@ USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
 
 CONFIGURE_ARGS+=	--enable-frame-pointers # per README
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/doc/heap_checker.html ${DESTDIR}${PREFIX}/share/doc/${PKGNAME}/heap_checker.html
+.endif
 
 # http://code.google.com/p/gperftools/issues/detail?id=609
 

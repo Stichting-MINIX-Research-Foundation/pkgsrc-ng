@@ -1,16 +1,8 @@
-$NetBSD: patch-toolkit_modules_GMPInstallManager.jsm,v 1.1 2014/10/15 13:43:32 ryoon Exp $
+$NetBSD: patch-toolkit_modules_GMPInstallManager.jsm,v 1.3 2015/05/12 22:48:54 ryoon Exp $
 
---- toolkit/modules/GMPInstallManager.jsm.orig	2014-10-11 09:06:48.000000000 +0000
+--- toolkit/modules/GMPInstallManager.jsm.orig	2015-05-04 00:43:33.000000000 +0000
 +++ toolkit/modules/GMPInstallManager.jsm
-@@ -107,6 +107,7 @@ let GMPPrefs = {
-    */
-   KEY_LOG_ENABLED: "media.gmp-manager.log",
-   KEY_ADDON_LAST_UPDATE: "media.{0}.lastUpdate",
-+  KEY_ADDON_PATH: "media.{0}.path",
-   KEY_ADDON_VERSION: "media.{0}.version",
-   KEY_ADDON_AUTOUPDATE: "media.{0}.autoupdate",
-   KEY_URL: "media.gmp-manager.url",
-@@ -888,9 +889,7 @@ GMPDownloader.prototype = {
+@@ -874,9 +874,7 @@ GMPDownloader.prototype = {
        let gmpAddon = this._gmpAddon;
        let installToDirPath = Cc["@mozilla.org/file/local;1"].
                            createInstance(Ci.nsIFile);
@@ -21,17 +13,17 @@ $NetBSD: patch-toolkit_modules_GMPInstallManager.jsm,v 1.1 2014/10/15 13:43:32 r
        installToDirPath.initWithPath(path);
        log.info("install to directory path: " + installToDirPath.path);
        let gmpInstaller = new GMPExtractor(zipPath, installToDirPath.path);
-@@ -899,10 +898,12 @@ GMPDownloader.prototype = {
+@@ -885,10 +883,12 @@ GMPDownloader.prototype = {
          // Success, set the prefs
          let now = Math.round(Date.now() / 1000);
-         GMPPrefs.set(GMPPrefs.KEY_ADDON_LAST_UPDATE, now, gmpAddon.id);
+         GMPPrefs.set(GMPPrefs.KEY_PLUGIN_LAST_UPDATE, now, gmpAddon.id);
 -        // Setting the version pref signals installation completion to consumers,
 -        // if you need to set other prefs etc. do it before this.
 +        // Setting the path pref signals installation completion to consumers,
 +        // so set the version and potential other information they use first.
-         GMPPrefs.set(GMPPrefs.KEY_ADDON_VERSION, gmpAddon.version,
+         GMPPrefs.set(GMPPrefs.KEY_PLUGIN_VERSION, gmpAddon.version,
                       gmpAddon.id);
-+        GMPPrefs.set(GMPPrefs.KEY_ADDON_PATH,
++        GMPPrefs.set(GMPPrefs.KEY_PLUGIN_PATH,
 +                     installToDirPath.path, gmpAddon.id);
          this._deferred.resolve(extractedPaths);
        }, err => {

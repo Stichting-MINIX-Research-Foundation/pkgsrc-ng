@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2014/12/06 07:41:16 obache Exp $
+# $NetBSD: Makefile,v 1.16 2015/06/07 14:06:00 youri Exp $
 #
 
 DISTNAME=	rest-0.7.92
 PKGNAME=	${DISTNAME:S/rest/librest07/}
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rest/0.7/}
 EXTRACT_SUFX=	.tar.xz
@@ -25,6 +26,6 @@ TEST_TARGET=	check
 .include "options.mk"
 
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

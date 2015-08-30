@@ -1,8 +1,8 @@
-$NetBSD: patch-js_src_builtin_TypedObject.cpp,v 1.1 2014/11/06 12:26:51 joerg Exp $
+$NetBSD: patch-js_src_builtin_TypedObject.cpp,v 1.3 2015/06/02 20:04:43 joerg Exp $
 
---- js/src/builtin/TypedObject.cpp.orig	2014-11-05 15:45:47.000000000 +0000
+--- js/src/builtin/TypedObject.cpp.orig	2015-05-30 18:52:27.000000000 +0000
 +++ js/src/builtin/TypedObject.cpp
-@@ -710,12 +710,12 @@ ArrayMetaTypeDescr::construct(JSContext 
+@@ -710,12 +710,12 @@ ArrayMetaTypeDescr::construct(JSContext*
      contents.append(")");
      RootedAtom stringRepr(cx, contents.finishAtom());
      if (!stringRepr)
@@ -16,8 +16,8 @@ $NetBSD: patch-js_src_builtin_TypedObject.cpp,v 1.1 2014/11/06 12:26:51 joerg Ex
 +        return false;
  
      // Create the instance of ArrayType
-     Rooted<UnsizedArrayTypeDescr *> obj(cx);
-@@ -728,7 +728,7 @@ ArrayMetaTypeDescr::construct(JSContext 
+     Rooted<UnsizedArrayTypeDescr*> obj(cx);
+@@ -728,7 +728,7 @@ ArrayMetaTypeDescr::construct(JSContext*
      if (!JSObject::defineProperty(cx, obj, cx->names().length,
                                    UndefinedHandleValue, nullptr, nullptr,
                                    JSPROP_READONLY | JSPROP_PERMANENT))
@@ -62,7 +62,7 @@ $NetBSD: patch-js_src_builtin_TypedObject.cpp,v 1.1 2014/11/06 12:26:51 joerg Ex
  
      args.rval().setObject(*obj);
      return true;
-@@ -1253,7 +1253,7 @@ DefineSimpleTypeDescr(JSContext *cx,
+@@ -1253,7 +1253,7 @@ DefineSimpleTypeDescr(JSContext* cx,
      Rooted<TypedProto*> proto(cx);
      proto = NewObjectWithProto<TypedProto>(cx, objProto, nullptr, TenuredObject);
      if (!proto)
@@ -131,7 +131,7 @@ $NetBSD: patch-js_src_builtin_TypedObject.cpp,v 1.1 2014/11/06 12:26:51 joerg Ex
      }
  
      return module;
-@@ -2466,7 +2466,7 @@ TypedObject::constructUnsized(JSContext 
+@@ -2466,7 +2466,7 @@ TypedObject::constructUnsized(JSContext*
          if (length < 0) {
              JS_ReportErrorNumber(cx, js_GetErrorMessage,
                                   nullptr, JSMSG_TYPEDOBJECT_BAD_ARGS);

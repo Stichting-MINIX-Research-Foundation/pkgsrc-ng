@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.18 2013/11/17 17:17:20 minskim Exp $
+# $NetBSD: Makefile,v 1.21 2015/06/14 12:50:05 markd Exp $
 
 DISTNAME=	pdftex
-PKGNAME=	tex-${DISTNAME}-1.40.11pl32132
-TEXLIVE_REV=	32132
+PKGNAME=	tex-${DISTNAME}-1.40.11pl37432
+TEXLIVE_REV=	37432
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/pdftex
 COMMENT=	TeX extension for direct creation of PDF
+LICENSE=	gnu-gpl-v2
 
 CONFLICTS+=	teTeX-bin<=3.0nb29
 DEPENDS+=	tex-dvips-[0-9]*:../../print/tex-dvips
@@ -22,6 +24,8 @@ REPLACE_SH=	bin/simpdftex
 INSTALLATION_DIRS+=	bin
 
 TEX_FORMATS+=		"pdftex pdftex language.def -translate-file=cp227.tcx *pdfetex.ini\\netex pdftex language.def -translate-file=cp227.tcx *etex.ini\\npdfetex pdftex language.def -translate-file=cp227.tcx *pdfetex.ini\\n"
+
+TEX_MAP_FILES+= dummy-space.map
 
 .include "../../print/texlive/package.mk"
 

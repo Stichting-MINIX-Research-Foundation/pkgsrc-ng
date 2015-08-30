@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.67 2014/10/07 16:47:23 adam Exp $
+# $NetBSD: Makefile,v 1.71 2015/06/17 20:43:40 joerg Exp $
 
-DISTNAME=	mono-tools-2.10
-PKGREVISION=	37
+DISTNAME=	mono-tools-3.10
 CATEGORIES=	devel
-MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/mono-tools/
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	http://download.mono-project.com/sources/mono-tools/
 
 MAINTAINER=	kefren@NetBSD.org
 HOMEPAGE=	http://www.mono-project.com/
@@ -14,14 +12,20 @@ PKGCONFIG_OVERRIDE+=	create-native-map/lib/pkgconfig/create-native-map.pc.in
 PKGCONFIG_OVERRIDE+=	gendarme/framework/gendarme-framework.pc.in
 
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		pkg-config gmake msgfmt
+USE_TOOLS+=		pkg-config gmake msgfmt zip
 
 MAKE_JOBS_SAFE=		no
 
 CONFIGURE_ARGS+=	--mandir=${PKGMANDIR}
 
+SUBST_CLASSES+=		fix-mcs
+SUBST_STAGE.fix-mcs=	post-patch
+SUBST_MESSAGE.fix-mcs=	Fix compiler name
+SUBST_FILES.fix-mcs=	configure
+SUBST_SED.fix-mcs=	-e 's,gmcs,mcs,'
+
 .include "../../graphics/libgdiplus/buildlink3.mk"
-.include "../../lang/mono2/buildlink3.mk"
+.include "../../lang/mono/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gnome-sharp/buildlink3.mk"
 .include "../../x11/gnome-desktop-sharp/buildlink3.mk"

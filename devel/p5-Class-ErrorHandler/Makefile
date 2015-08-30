@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2014/10/09 14:06:12 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2015/06/12 10:48:59 wiz Exp $
 
-DISTNAME=	Class-ErrorHandler-0.03
+DISTNAME=	Class-ErrorHandler-0.04
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -13,8 +13,6 @@ LICENSE=	${PERL5_LICENSE}
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=		auto/Class/ErrorHandler/.packlist
-
-PERL5_MODULE_TYPE=	Module::Build
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

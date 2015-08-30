@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2015/03/17 13:41:09 jperkin Exp $
+# $NetBSD: Makefile,v 1.6 2015/04/11 17:55:22 rodent Exp $
 #
 
 DISTNAME=	tap-plugins-0.7.2
@@ -19,5 +19,13 @@ SUBST_FILES.prefix=	Makefile
 SUBST_SED.prefix=	-e 's|/usr/local|${DESTDIR}${PREFIX}|'
 
 INSTALLATION_DIRS+=	lib/ladspa share/ladspa/rdf
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "OpenBSD"
+BUILDLINK_TRANSFORM+=	rm:-lrt
+.elif ${OPSYS} == "Darwin"
+BUILDLINK_TRANSFORM+=	rm:-Bsymbolic
+.endif
 
 .include "../../mk/bsd.pkg.mk"

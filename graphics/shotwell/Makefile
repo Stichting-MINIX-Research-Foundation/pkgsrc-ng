@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.63 2014/11/25 10:07:18 wiz Exp $
+# $NetBSD: Makefile,v 1.68 2015/06/07 14:05:58 youri Exp $
 
 DISTNAME=		shotwell-0.20.2
+PKGREVISION=		3
 CATEGORIES=		graphics
 MASTER_SITES=		https://download.gnome.org/sources/shotwell/0.20/
 EXTRACT_SUFX=		.tar.xz
@@ -13,7 +14,7 @@ LICENSE=		gnu-lgpl-v2.1
 BUILD_DEPENDS+=		gnome-doc-utils-[0-9]*:../../textproc/gnome-doc-utils
 
 HAS_CONFIGURE=		yes
-USE_TOOLS+=		gmake bash pkg-config msgfmt
+USE_TOOLS+=		gmake bash pkg-config m4 msgfmt
 
 CONFIG_SHELL=		bash
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
@@ -40,7 +41,7 @@ BUILDLINK_ABI_DEPENDS.libraw+= libraw>=0.13.2
 .include "../../graphics/librsvg/buildlink3.mk"
 BUILDLINK_DEPMETHOD.vala= build
 .include "../../lang/vala/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

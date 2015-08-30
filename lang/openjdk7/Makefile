@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.97 2015/03/02 03:53:26 tnn Exp $
+# $NetBSD: Makefile,v 1.102 2015/06/17 20:54:42 rodent Exp $
 
-DISTNAME=	openjdk-1.7.76-20150127
-PKGNAME=	openjdk7-1.7.76
-PKGREVISION=	3
+DISTNAME=	openjdk-1.7.80-20150609
+PKGNAME=	openjdk7-1.7.80
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://openjdk.java.net/
@@ -19,7 +18,7 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk7
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 MAKE_ENV+=		PKGSRC_ZIPEXE=${TOOLS_PATH.zip}
@@ -47,8 +46,12 @@ MAKE_ENV+=	ALT_COMPILER_PATH=${WRAPPER_DIR}/bin
 MAKE_ENV+=	ALT_PACKAGE_PATH=${PREFIX}
 MAKE_ENV+=	RHINO_JAR=${WRKDIR}/${RHINO}/js.jar
 
+MAKE_ENV+=	BUILDLINK_PREFIX.iconv=${BUILDLINK_PREFIX.iconv:Q}
+MAKE_ENV+=	ZLIB_LIBS="-L${BUILDLINK_PREFIX.zlib}/lib -lz"
+
 MAKE_ENV+=	ALT_PARALLEL_COMPILE_JOBS=${MAKE_JOBS:U1}
 MAKE_ENV+=	HOTSPOT_BUILD_JOBS=${MAKE_JOBS}
+MAKE_ENV+=	USE_PRECOMPILED_HEADER=0
 
 MAKE_ENV+=	HOTSPOT_BUILD_USER=pkgsrc
 MAKE_ENV+=	NO_DOCS=true
@@ -229,7 +232,7 @@ do-install:
 	ln -s ${LOWER_OPSYS}/jni_md.h					\
 	  ${DESTDIR}${JAVA_HOME}/include/jni_md.h
 
-.if ${OPSYS} == "NetBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
 TOOLS_PLATFORM.unzip=
 .endif
 
@@ -242,6 +245,7 @@ MAKE_ENV+=	STRIP=${PREFIX}/bin/gstrip
 .endif
 
 .include "../../converters/libiconv/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 BUILDLINK_DEPMETHOD.cups?=	build

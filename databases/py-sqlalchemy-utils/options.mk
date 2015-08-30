@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.1 2014/07/05 19:40:25 rodent Exp $
+# $NetBSD: options.mk,v 1.3 2015/04/13 23:12:40 rodent Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.py-sqlalchemy-utils
 PKG_SUPPORTED_OPTIONS=	arrow babel color furl intervals ipaddress json password

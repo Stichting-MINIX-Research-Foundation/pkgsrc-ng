@@ -1,14 +1,24 @@
-$NetBSD: patch-cgi_extinfo.c,v 1.1 2014/04/02 10:22:37 he Exp $
+$NetBSD: patch-cgi_extinfo.c,v 1.3 2015/04/12 23:33:06 rodent Exp $
 
-Fix off-by-one vulnerabilities, ref. http://secunia.com/advisories/55976/
+Fix build in SunOS.
 
---- cgi/extinfo.c.orig	2011-08-17 07:36:27.000000000 +0000
+--- cgi/extinfo.c.orig	2014-08-12 15:00:01.000000000 +0000
 +++ cgi/extinfo.c
-@@ -651,7 +651,6 @@ int process_cgivars(void) {
- 
- 		/* do some basic length checking on the variable identifier to prevent buffer overflows */
- 		if(strlen(variables[x]) >= MAX_INPUT_BUFFER - 1) {
--			x++;
- 			continue;
- 			}
+@@ -1739,7 +1739,7 @@ void show_all_comments(void) {
+ 	const char *bg_class = "";
+ 	int odd = 0;
+ 	char date_time[MAX_DATETIME_LENGTH];
+-	comment *temp_comment;
++	my_comment *temp_comment;
+ 	host *temp_host;
+ 	service *temp_service;
+ 	char *comment_type;
+@@ -2420,7 +2420,7 @@ void display_comments(int type) {
+ 	const char *bg_class = "";
+ 	int odd = 1;
+ 	char date_time[MAX_DATETIME_LENGTH];
+-	comment *temp_comment;
++	my_comment *temp_comment;
+ 	char *comment_type;
+ 	char expire_time[MAX_DATETIME_LENGTH];
  

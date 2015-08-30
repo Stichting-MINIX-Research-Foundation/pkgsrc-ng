@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.631 2015/03/13 15:59:08 taca Exp $
+# $NetBSD: Makefile,v 1.635 2015/06/11 12:22:56 abs Exp $
 #
 
 COMMENT=	System utilities
@@ -381,6 +381,7 @@ SUBDIR+=	p5-UPS-Nut
 SUBDIR+=	p5-Unix-ConfigFile
 SUBDIR+=	p5-Unix-Statgrab
 SUBDIR+=	p5-Unix-Syslog
+SUBDIR+=	p5-collectd
 SUBDIR+=	pciutils
 SUBDIR+=	pcmanfm
 SUBDIR+=	pcvt-utils
@@ -399,7 +400,9 @@ SUBDIR+=	pstree
 SUBDIR+=	puppet
 SUBDIR+=	pv
 SUBDIR+=	pwgen
+SUBDIR+=	py-attic
 SUBDIR+=	py-augeas
+SUBDIR+=	py-collectd
 SUBDIR+=	py-dbus
 SUBDIR+=	py-gnome-menus
 SUBDIR+=	py-kazoo
@@ -415,6 +418,7 @@ SUBDIR+=	qlogtools
 SUBDIR+=	radeontool
 SUBDIR+=	radmind
 SUBDIR+=	rconfig
+SUBDIR+=	rdfind
 SUBDIR+=	rdiff-backup
 SUBDIR+=	rename
 SUBDIR+=	rfstool
@@ -601,11 +605,14 @@ SUBDIR+=	xfce4-cpugraph-plugin
 SUBDIR+=	xfce4-diskperf-plugin
 SUBDIR+=	xfce4-fsguard-plugin
 SUBDIR+=	xfce4-genmon-plugin
+SUBDIR+=	xfce4-mount-plugin
 SUBDIR+=	xfce4-netload-plugin
 SUBDIR+=	xfce4-quicklauncher-plugin
 SUBDIR+=	xfce4-systemload-plugin
+SUBDIR+=	xfce4-taskmanager
 SUBDIR+=	xfce4-thunar
-SUBDIR+=	xfce4-volman
+SUBDIR+=	xfce4-thunar-vcs
+SUBDIR+=	xfce4-verve-plugin
 SUBDIR+=	xfce4-xarchiver
 SUBDIR+=	xfce4-xkb-plugin
 SUBDIR+=	xfe

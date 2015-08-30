@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2015/02/05 16:46:17 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2015/04/25 14:20:47 tnn Exp $
 
 DISTNAME=	retroarch-20150203
 PKGNAME=	retroarch-0.0.20150203
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	http://ftp.NetBSD.org/pub/NetBSD/misc/jmcneill/retroarch/
 EXTRACT_SUFX=	.zip
@@ -19,7 +20,7 @@ CONFIG_SHELL=	bash
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	bash pkg-config gmake
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26 27
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 REPLACE_PYTHON=	tools/cg2glsl.py
 
 EGDIR=		${PREFIX}/share/examples/retroarch

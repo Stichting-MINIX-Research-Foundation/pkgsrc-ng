@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.55 2014/05/29 23:37:04 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2015/06/12 10:50:42 wiz Exp $
 #
 
-DISTNAME=		nagios-3.5.1
+DISTNAME=		nagios-4.0.8
 PKGNAME=		${DISTNAME:S/-/-base-/}
-PKGREVISION=		2
+PKGREVISION=		1
 CATEGORIES=		net sysutils
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX}
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=nagios/}
@@ -14,6 +14,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.nagios.org/
 COMMENT=		Network monitor
 LICENSE=		gnu-gpl-v2
+
+PKG_DESTDIR_SUPPORT=	destdir
 
 .include "../../mk/bsd.prefs.mk"
 .include "../../net/nagios-base/Makefile.common"
@@ -50,6 +52,8 @@ BUILD_DEFS+=		NAGIOSDIR
 PKG_GROUPS+=		${NAGIOS_GROUP}
 PKG_GROUPS+=		${NAGIOSCMD_GROUP}
 
+USERGROUP_PHASE+=	pre-install
+
 PKG_USERS+=		${NAGIOS_USER}:${NAGIOS_GROUP}
 
 PKG_GECOS.${NAGIOS_USER}=	Nagios Runtime User
@@ -82,9 +86,6 @@ SUBST_FILES.files=	nagios.conf.dist
 SUBST_SED.files=	-e "s|@PREFIX@|${PREFIX}|g"
 SUBST_MESSAGE.files=	Fixing configuration files.
 
-post-extract:
-	${MV} ${WRKDIR}/nagios ${WRKSRC}
-
 pre-build:
 	${CP} ${FILESDIR}/nagios.conf.dist ${WRKSRC}/nagios.conf.dist
 
@@ -98,7 +99,12 @@ post-install:
 	    ${DESTDIR}/${PREFIX}/share/nagios/images/logos/
 	${INSTALL_DATA} ${WRKDIR}/netbsd40.png \
 	    ${DESTDIR}/${PREFIX}/share/nagios/images/logos/
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/jsonquery.html
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/rss-corefeed.html
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/share/nagios/rss-newsfeed.html
 
+.include "../../mk/dlopen.buildlink3.mk"
+.include "../../devel/libltdl/buildlink3.mk"
 .include "../../graphics/gd/buildlink3.mk"
 .include "../../lang/php/phpversion.mk"
 .include "${PHPPKGSRCDIR}/buildlink3.mk"

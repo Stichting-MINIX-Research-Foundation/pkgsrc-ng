@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.47 2014/10/07 16:47:17 adam Exp $
+# $NetBSD: Makefile,v 1.50 2015/06/07 14:05:57 youri Exp $
 #
 
 DISTNAME=	ario-1.5.1
-PKGREVISION=	31
+PKGREVISION=	33
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=ario-player/1.5.1/}
 
@@ -32,7 +32,7 @@ BUILDLINK_TRANSFORM+=	rm:-W${fl}
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 #.include "../../net/avahi/buildlink3.mk"
 .include "../../audio/taglib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libgcrypt+=	libgcrypt>=1.4.0

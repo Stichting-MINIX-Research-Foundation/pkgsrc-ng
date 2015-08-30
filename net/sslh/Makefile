@@ -1,12 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2015/01/09 14:34:20 joerg Exp $
-#
+# $NetBSD: Makefile,v 1.9 2015/06/10 09:15:48 wiz Exp $
 
-DISTNAME=	v1.16
-PKGNAME=	sslh-1.16
+DISTNAME=	sslh-1.17
+PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	https://github.com/yrutschle/sslh/archive/
-EXTRACT_SUFX=	.zip
-WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=yrutschle/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.rutschle.net/tech/sslh.shtml
@@ -34,7 +32,8 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/sslh-fork ${DESTDIR}${PREFIX}/sbin/sslh
 	${INSTALL_PROGRAM} ${WRKSRC}/sslh-select ${DESTDIR}${PREFIX}/sbin
 	${INSTALL_MAN} ${WRKSRC}/sslh.8.gz ${DESTDIR}${PREFIX}/${PKGMANDIR}/man8
-	${INSTALL_DATA} ${WRKSRC}/scripts/* ${DESTDIR}${EGDIR}/scripts
+	${INSTALL_DATA} ${WRKSRC}/scripts/*.* ${DESTDIR}${EGDIR}/scripts
+	${INSTALL_DATA} ${WRKSRC}/scripts/fail2ban/* ${DESTDIR}${EGDIR}/scripts/fail2ban
 	${INSTALL_DATA} ${WRKSRC}/example.cfg ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/basic.cfg ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/README.md ${DESTDIR}${PREFIX}/${DOCDIR}

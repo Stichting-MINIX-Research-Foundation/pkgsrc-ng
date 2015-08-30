@@ -1,4 +1,4 @@
-# $NetBSD: Linux.mk,v 1.60 2014/03/07 15:03:15 jperkin Exp $
+# $NetBSD: Linux.mk,v 1.62 2015/05/08 20:28:30 sevan Exp $
 #
 # Variable definitions for the Linux operating system.
 
@@ -42,6 +42,7 @@ SERIAL_DEVICES?=	/dev/null
 ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
+ULIMIT_CMD_cputime?=	ulimit -t `ulimit -H -t`
 USERADD?=		/usr/sbin/useradd
 
 _OPSYS_EMULDIR.linux=	# empty
@@ -107,6 +108,11 @@ _OPSYS_MAX_CMDLEN_CMD?=	/usr/bin/getconf ARG_MAX
 .endif
 
 .if ${MACHINE_ARCH} == "x86_64"
+ABI?=		64
+LIBABISUFFIX?=	64
+.endif
+
+.if ${MACHINE_ARCH} == "powerpc64le"
 ABI?=		64
 LIBABISUFFIX?=	64
 .endif

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.16 2015/02/24 21:44:35 joerg Exp $
+# $NetBSD: Makefile,v 1.18 2015/06/14 12:50:07 markd Exp $
 
-DISTNAME=	texlive-20130530-source
-PKGNAME=	xdvik-22.86
+DISTNAME=	texlive-20150521-source
+PKGNAME=	xdvik-22.87
+PKGREVISION=	1
 CATEGORIES=	print
-MASTER_SITES=	${MASTER_SITE_TEX_CTAN:=systems/texlive/Source/}
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -14,7 +15,7 @@ CONFLICTS+=	teTeX-bin<3.0nb25
 BUILD_DEPENDS+=	tex-texconfig-[0-9]*:../../print/tex-texconfig
 BUILD_DEPENDS+=	tex-xdvi-[0-9]*:../../print/tex-xdvi
 DEPENDS+=	dvipsk-[0-9]*:../../print/dvipsk
-DEPENDS+=	kpathsea>=6.0.1:../../print/kpathsea
+DEPENDS+=	kpathsea>=6.2.1:../../print/kpathsea
 
 EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 			${DISTNAME}/texk/xdvik
@@ -25,6 +26,7 @@ MAKE_JOBS_SAFE=	no
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
+USE_TOOLS+=	pkg-config
 WRKSRC=		${WRKDIR}/${DISTNAME}/texk/xdvik
 
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
@@ -34,9 +36,7 @@ FIND_PREFIX:=	TEX_XDVI_PREFIX=tex-xdvi
 .include "../../mk/find-prefix.mk"
 
 CONFIGURE_ARGS+=	--with-system-freetype2
-CONFIGURE_ARGS+=	--with-system-kpathsea \
-		--with-kpathsea-includes=${BUILDLINK_PREFIX.kpathsea}/include \
-		--with-kpathsea-libdir=${BUILDLINK_PREFIX.kpathsea}/lib
+CONFIGURE_ARGS+=	--with-system-kpathsea
 CONFIGURE_ARGS+=	--with-system-zlib \
 		--with-zlib-includes=${BUILDLINK_PREFIX.zlib}/include \
 		--with-zlib-libdir=${BUILDLINK_PREFIX.zlib}/lib
@@ -70,6 +70,7 @@ XDVI_PAPERSIZE=	a4
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../print/kpathsea/buildlink3.mk"
 .include "../../print/kpathsea/texmf.mk"
+.include "../../x11/libXi/buildlink3.mk"
 .include "../../x11/libXpm/buildlink3.mk"
 .include "../../mk/xaw.buildlink3.mk"
 

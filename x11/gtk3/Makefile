@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.58 2015/01/09 22:25:23 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2015/06/16 09:20:33 wiz Exp $
 
-DISTNAME=	gtk+-3.14.5
+DISTNAME=	gtk+-3.16.3
 PKGNAME=	${DISTNAME:S/gtk/gtk3/}
-PKGREVISION=	2
 CATEGORIES=	x11 gnome
 MASTER_SITES=	ftp://ftp.gtk.org/pub/gtk/${PKGVERSION_NOREV:R}/ \
 		${MASTER_SITE_GNOME:=sources/gtk+/${PKGVERSION_NOREV:R}/}
@@ -14,11 +13,12 @@ COMMENT=	GIMP Toolkit v3 - libraries for building X11 user interfaces
 LICENSE=	gnu-lgpl-v2.1
 
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake msgfmt perl pkg-config bash
+USE_TOOLS+=		gmake perl pkg-config bash
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 PTHREAD_AUTO_VARS=	yes
 BUILD_DEPENDS+=		gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
+TOOL_DEPENDS+=		gettext-tools>=0.19.4nb1:../../devel/gettext-tools
 
 GNU_CONFIGURE=		yes
 # XXX there is a subtle bashism in "configure" or a bug in NetBSD's sh
@@ -26,11 +26,8 @@ CONFIG_SHELL=		${TOOLS_PATH.bash}
 CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/libdata
 # Work around build problems, disable unstable PAPI, PR #41608:
 CONFIGURE_ARGS+=	--disable-papi
-# XXX for now, to avoid conflict
-CONFIGURE_ARGS+=	--enable-gtk2-dependency
 # Avoid regeneration of Makefile.in after configure.ac patch
 CONFIGURE_ARGS+=	--disable-maintainer-mode
-DEPENDS+=		gtk2+-[0-9]*:../../x11/gtk2
 MAKE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
 TEST_TARGET=		check
 
@@ -76,10 +73,10 @@ _BUILDING_GTK3=	yes
 .include "modules.mk"
 
 .include "../../databases/shared-mime-info/buildlink3.mk"
-BUILDLINK_API_DEPENDS.atk+=	atk>=2.12.0
+BUILDLINK_API_DEPENDS.atk+=	atk>=2.15.1
 .include "../../devel/atk/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.41.2
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.43.4
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gdk-pixbuf2+=	gdk-pixbuf2>=2.30.0
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
@@ -94,12 +91,12 @@ BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.39.0
 BUILDLINK_API_DEPENDS.pango+=	pango>=1.36.7
 .include "../../devel/pango/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
-BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.12.0
+BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.14.0
 .include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/cairo-gobject/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
-# gtk-update-icon-cache --source  is called during build
-NOOP_GTK_UPDATE_ICON_CACHE=
+BUILDLINK_API_DEPENDS.libepoxy+=	libepoxy>=1.2nb2
+.include "../../graphics/libepoxy/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 

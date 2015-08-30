@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2014/10/07 16:47:13 adam Exp $
+# $NetBSD: Makefile,v 1.25 2015/06/07 14:05:59 youri Exp $
 #
 
 DISTNAME=	libgdata-0.6.6
-PKGREVISION=	15
+PKGREVISION=	16
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libgdata/0.6/}
 EXTRACT_SUFX=	.tar.bz2
@@ -35,8 +35,8 @@ CONFIGURE_ARGS+=	--disable-gnome
 .include "../../devel/GConf/schemas.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.19.7
 .include "../../devel/glib2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libsoup24+=	libsoup24>=2.26.0
-.include "../../net/libsoup24/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libsoup+=	libsoup>=2.26.0
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../textproc/gtk-doc/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

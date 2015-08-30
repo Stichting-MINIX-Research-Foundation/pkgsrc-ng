@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2014/10/09 14:06:49 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2015/06/18 06:29:18 dholland Exp $
 
 PKGNAME=	p5-pkgsrc-Dewey-1.1
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	pkgtools perl5
 
 MAINTAINER=	wiz@NetBSD.org
@@ -13,6 +13,8 @@ CPPFLAGS+=	-DHAVE_CTYPE_H -DHAVE_STDLIB_H -DHAVE_STRING_H
 CPPFLAGS.NetBSD+=	-DHAVE_ERR_H
 
 USE_LANGUAGES=		c
+USE_FEATURES+=		err
+MAKE_ENV+=		LIBS=${LIBS:Q}
 
 PERL5_PACKLIST=		auto/pkgsrc/Dewey/.packlist
 

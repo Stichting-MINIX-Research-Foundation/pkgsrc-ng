@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.123 2014/11/21 23:22:18 mef Exp $
+# $NetBSD: Makefile,v 1.126 2015/06/07 14:05:57 youri Exp $
 
 DISTNAME=	rhythmbox-0.12.8
-PKGREVISION=	40
+PKGREVISION=	42
 CATEGORIES=	audio gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rhythmbox/0.12/}
 EXTRACT_SUFX=	.tar.bz2
@@ -37,7 +37,7 @@ PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2, py-gstreamer0.10
 .include "../../multimedia/gstreamer0.10/buildlink3.mk"
 .include "../../multimedia/gst-plugins0.10-base/buildlink3.mk"
 .include "../../multimedia/totem-pl-parser/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../sysutils/brasero/buildlink3.mk"

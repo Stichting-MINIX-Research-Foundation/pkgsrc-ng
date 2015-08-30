@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.49 2015/02/16 21:11:07 plunky Exp $
+# $NetBSD: Makefile,v 1.51 2015/06/10 01:50:09 wiedi Exp $
 #
 
 COMMENT=	Software for geographical-related uses
@@ -33,6 +33,7 @@ SUBDIR+=	merkaartor
 SUBDIR+=	opencpn
 SUBDIR+=	opencpn-plugin-gshhs
 SUBDIR+=	opencpn-plugin-weather_routing
+SUBDIR+=	osm2pgsql
 SUBDIR+=	p5-Geo-Coordinates-UTM
 SUBDIR+=	p5-Geo-Distance
 SUBDIR+=	p5-Geo-Mercator
@@ -44,6 +45,7 @@ SUBDIR+=	proj-doc
 SUBDIR+=	proj-swig
 SUBDIR+=	py-geojson
 SUBDIR+=	py-google-maps-services-python
+SUBDIR+=	py-obspy
 SUBDIR+=	py-proj
 SUBDIR+=	py-pycountry
 SUBDIR+=	py-trytond-country

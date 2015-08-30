@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2013/11/30 23:11:22 minskim Exp $
+# $NetBSD: Makefile,v 1.7 2015/05/05 18:20:28 wiz Exp $
 
 DISTNAME=	makeindex.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2.12
-PKGREVISION=	1
-TEXLIVE_REV=	29764
+PKGNAME=	tex-${DISTNAME:S/./-/}-2.15
+TEXLIVE_REV=	35872
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/makeindex
 COMMENT=	Documentation for tex-makeindex
 
 TEXLIVE_IGNORE_PATTERNS=	texmf-dist/doc/man

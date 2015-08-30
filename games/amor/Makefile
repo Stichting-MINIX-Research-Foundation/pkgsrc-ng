@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2014/11/14 08:49:41 markd Exp $
+# $NetBSD: Makefile,v 1.26 2015/04/25 14:22:52 tnn Exp $
 
 DISTNAME=	amor-${_KDE_VERSION}
+PKGREVISION=	2
 CATEGORIES=	games
 COMMENT=	KDE creature for your desktop
 

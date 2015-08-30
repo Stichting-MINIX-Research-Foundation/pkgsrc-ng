@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.27 2014/08/25 08:59:38 obache Exp $
+# $NetBSD: Makefile,v 1.29 2015/04/22 19:49:09 tnn Exp $
 
 DISTNAME=	xdm-1.1.11
 PKGREVISION=	5
@@ -43,14 +43,10 @@ CONFIGURE_ARGS+=	--with-authdir=${VARBASE}/lib/xdm
 OWN_DIRS_PERMS+=	${VARBASE}/lib/xdm \
 			  ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0755
 
-.include "../../mk/compiler.mk"
-
-.if !empty(CC_VERSION:Mgcc-[3-4]*)
-CFLAGS+=	-fno-strict-aliasing
-.endif
-
 TOOL_DEPENDS+=		tradcpp-[0-9]*:../../devel/tradcpp
 CONFIGURE_ENV+=		ac_cv_path_RAWCPP="${PREFIX}/bin/tradcpp -Uunix"
+
+.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "NetBSD"
 CONFIGURE_ARGS+=	--with-random-device=/dev/urandom

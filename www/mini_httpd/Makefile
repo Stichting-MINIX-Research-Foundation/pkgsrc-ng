@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2014/02/12 23:18:46 tron Exp $
+# $NetBSD: Makefile,v 1.25 2015/05/05 15:55:17 joerg Exp $
 
-DISTNAME=	mini_httpd-1.19
-PKGREVISION=	8
+DISTNAME=	mini_httpd-1.21
 CATEGORIES=	www
 MASTER_SITES=	http://www.acme.com/software/mini_httpd/
 
@@ -21,6 +20,8 @@ MAKE_ENV+=	PKG_LIBS=${LIBS:Q}
 
 .if ${OPSYS} == "SunOS"
 MAKE_ENV+=	SYSV_LIBS="-lnsl -lsocket"
+.elif ${OPSYS} == "NetBSD"
+MAKE_ENV+=	CRYPT_LIB=-lcrypt
 .endif
 
 SUBST_CLASSES=		htpasswd

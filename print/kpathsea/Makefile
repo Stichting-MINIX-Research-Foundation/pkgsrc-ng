@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.21 2015/02/21 00:12:51 joerg Exp $
+# $NetBSD: Makefile,v 1.25 2015/06/15 09:50:36 markd Exp $
 
-DISTNAME=	texlive-20140525-source
-PKGNAME=	kpathsea-6.2.0
+DISTNAME=	texlive-20150521-source
+PKGNAME=	kpathsea-6.2.1
+PKGREVISION=	2
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2014/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
-HOMEPAGE=	http://www.tug.org/kpathsea/
+HOMEPAGE=	http://ctan.org/pkg/kpathsea
 COMMENT=	Path searching library for TeX-related files
 LICENSE=	gnu-lgpl-v2.1
 
@@ -26,6 +27,7 @@ WRKSRC=		${WRKDIR}/${DISTNAME}/texk/kpathsea
 
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
 CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
+PKGCONFIG_OVERRIDE=	kpathsea.pc.in
 
 MAKE_FLAGS+=	LIBTOOL=${LIBTOOL:Q}
 

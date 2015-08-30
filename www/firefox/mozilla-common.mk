@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.51 2015/03/17 03:19:08 ryoon Exp $
+# $NetBSD: mozilla-common.mk,v 1.57 2015/06/26 11:16:41 szptvlfn Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -10,6 +10,10 @@ USE_TOOLS+=		pkg-config perl gmake autoconf213 unzip zip
 USE_LANGUAGES+=		c99 c++
 UNLIMIT_RESOURCES+=	datasize
 
+test:
+	cd ${WRKSRC}/${OBJDIR}/dist/bin &&	\
+	     ./run-mozilla.sh ${WRKSRC}/mach check-spidermonkey
+
 .include "../../mk/bsd.prefs.mk"
 # tar(1) of OpenBSD 5.5 has no --exclude command line option.
 .if ${OPSYS} == "OpenBSD"
@@ -17,7 +21,7 @@ TOOLS_PLATFORM.tar=	${TOOLS_PREFIX.bsdtar}/bin/bsdtar
 USE_TOOLS+=		bsdtar
 .endif
 # GCC 4.6 is required to support nullptr.
-GCC_REQD+=		4.6
+GCC_REQD+=		4.8
 .if ${MACHINE_ARCH} == "i386"
 # Fix for PR pkg/48152.
 CPPFLAGS+=		-march=i486
@@ -84,7 +88,6 @@ CONFIGURE_ARGS+=	--enable-url-classifier
 CONFIGURE_ARGS+=	--enable-shared-js
 CONFIGURE_ARGS+=	--with-system-ply
 CONFIGURE_ARGS+=	--disable-icf
-CONFIGURE_ARGS+=	--disable-necko-wifi
 CONFIGURE_ARGS+=	--disable-updater
 
 SUBST_CLASSES+=			fix-paths
@@ -208,16 +211,16 @@ PLIST_SUBST+=	DLL_SUFFIX=".so"
 #.include "../../audio/libopus/buildlink3.mk"
 #.include "../../audio/tremor/buildlink3.mk"
 #.include "../../audio/libvorbis/buildlink3.mk"
-BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.7.4
+BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.9
 CONFIGURE_ENV+=	ac_cv_sqlite_secure_delete=yes	# c.f. patches/patch-al
 .include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/libffi/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.6
+BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.8
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nss+=	nss>=3.17.4
+BUILDLINK_API_DEPENDS.nss+=	nss>=3.18.1
 .include "../../devel/nss/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

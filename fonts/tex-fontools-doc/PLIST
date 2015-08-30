@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2015/05/31 03:02:52 markd Exp $
+man/man1/afm2afm.1
+man/man1/autoinst.1
+man/man1/ot2kpx.1
+share/texmf-dist/doc/support/fontools/GPLv2.txt
+share/texmf-dist/doc/support/fontools/README

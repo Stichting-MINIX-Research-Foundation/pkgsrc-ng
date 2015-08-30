@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.217 2015/03/14 21:07:37 tnn Exp $
+# $NetBSD: Makefile,v 1.221 2015/06/19 08:20:43 wiz Exp $
 #
 # The CUPS author is very good about taking back changes into the main
 # CUPS distribution.  The correct place to send patches or bug-fixes is:
@@ -6,7 +6,8 @@
 
 DISTNAME=	cups-${DIST_VERS}-source
 PKGNAME=	cups-${DIST_VERS:S/-/./g}
-BASE_VERS=	2.0.2
+PKGREVISION=	1
+BASE_VERS=	2.0.3
 DIST_VERS=	${BASE_VERS}
 CATEGORIES=	print
 MASTER_SITES=	http://www.cups.org/software/${BASE_VERS}/
@@ -39,7 +40,6 @@ CONFIGURE_ARGS+=	--with-system-groups=${CUPS_SYSTEM_GROUPS:Q}
 CONFIGURE_ARGS+=	--enable-libpaper
 CONFIGURE_ARGS+=	--enable-libtool
 CONFIGURE_ARGS+=	--enable-ssl
-CONFIGURE_ARGS+=	--enable-openssl
 CONFIGURE_ARGS+=	--with-manext=bsd
 CONFIGURE_ARGS+=	--without-icondir
 CONFIGURE_ARGS+=	--without-menudir
@@ -56,8 +56,10 @@ CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 .include "options.mk"
 
 .if ${OPSYS} == "SunOS"
-LIBS_SSP =		-lssp_nonshared -lssp
-CONFIGURE_ENV+=	LIBS_SSP=${LIBS_SSP:M*:Q}
+LIBS_SSP=		-lssp_nonshared -lssp
+CONFIGURE_ENV+=		LIBS_SSP=${LIBS_SSP:M*:Q}
+# Explicitly disable epoll on illumos, it is provided for Linux compat only.
+CONFIGURE_ENV+=		ac_cv_func_epoll_create=no
 .endif
 LIBS+=			${BUILDLINK_LDADD.iconv}
 
@@ -163,6 +165,7 @@ post-install:
 		${INSTALL_DATA} ${WRKSRC}/conf/$${file}			\
 			${DESTDIR}${EGDIR}/$${file};			\
 	done
+	${CHMOD} g-w ${DESTDIR}${PREFIX}/libexec/cups/cgi-bin
 .if !empty(PKG_OPTIONS:Mpam)
 	${INSTALL_DATA} ${WRKDIR}/cups.pam ${DESTDIR}${EGDIR}
 .endif

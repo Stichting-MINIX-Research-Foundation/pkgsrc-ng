@@ -1,0 +1,13 @@
+$NetBSD: patch-ThunarBulkRename.in,v 1.2 2015/06/04 16:04:04 youri Exp $
+
+Look for the right thunar binary.
+--- ThunarBulkRename.in.orig	2015-05-22 13:25:36.000000000 +0000
++++ ThunarBulkRename.in
+@@ -20,6 +20,6 @@
+ # This is an ugly hack, required because xfdesktop simply
+ # strips off all parameters from the Exec field, and so
+ # we cannot just invoke Thunar --bulk-rename %F there
+-exec @bindir@/Thunar --bulk-rename "$@"
++exec @bindir@/thunar --bulk-rename "$@"
+ 
+ # vim:set ts=2 sw=2 et ai:

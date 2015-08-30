@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.213 2015/01/31 18:41:01 wiz Exp $
+# $NetBSD: Makefile,v 1.217 2015/06/12 10:50:05 wiz Exp $
 
-DISTNAME=		gnucash-2.6.5
+DISTNAME=		gnucash-2.6.6
+PKGREVISION=		3
 CATEGORIES=		finance
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gnucash/}
 EXTRACT_SUFX=		.tar.bz2
@@ -33,6 +34,7 @@ CONFIGURE_ARGS+=	--with-xdg-data-dirs=${PREFIX}/share
 REPLACE_PERL+=		src/quotes/gnc-fq-dump
 REPLACE_PERL+=		src/backend/xml/test/grab-types.pl
 REPLACE_PERL+=		src/quotes/Quote_example.pl
+REPLACE_PERL+=		src/gnc-test-env.pl
 
 PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.6.1
 REPLACE_PYTHON+=	src/python/pycons/*.py src/python/pycons/pycons

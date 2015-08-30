@@ -1,4 +1,4 @@
-# $NetBSD: bsd.buildlink3.mk,v 1.234 2015/03/15 21:18:32 joerg Exp $
+# $NetBSD: bsd.buildlink3.mk,v 1.236 2015/05/04 19:23:19 joerg Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -77,7 +77,7 @@
 .if ${PKG_DEBUG_LEVEL} > 0
 ECHO_BUILDLINK_MSG?=	${ECHO}
 .else
-ECHO_BUILDLINK_MSG?=	${ECHO_WRAPPER_MSG}
+ECHO_BUILDLINK_MSG?=	${TRUE}
 .endif
 BUILDLINK_DIR=		${WRKDIR}/.buildlink
 BUILDLINK_BINDIR=	${BUILDLINK_DIR}/bin
@@ -1069,8 +1069,6 @@ WRAPPER_TRANSFORM_CMDS+=	${_BLNK_TRANSFORM}
 .if defined(USE_LIBTOOL)
 WRAPPEES+=		LIBTOOL
 WRAPPEES+=		SHLIBTOOL
-_LIBTOOL=		${WRAPPER_LIBTOOL}
-_SHLIBTOOL=		${WRAPPER_SHLIBTOOL}
 .endif
 _WRAP_ALIASES.LIBTOOL=		libtool
 _WRAP_ALIASES.SHLIBTOOL=	shlibtool

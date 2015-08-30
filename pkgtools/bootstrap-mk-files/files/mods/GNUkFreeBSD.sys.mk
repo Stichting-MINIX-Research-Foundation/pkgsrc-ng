@@ -1,4 +1,4 @@
-#	$NetBSD: GNUkFreeBSD.sys.mk,v 1.1 2013/07/26 09:38:15 ryoon Exp $
+#	$NetBSD: GNUkFreeBSD.sys.mk,v 1.3 2015/06/11 09:20:56 joerg Exp $
 #	NetBSD: sys.mk,v 1.58 2000/08/22 17:38:49 bjh21 Exp 
 #	@(#)sys.mk	8.2 (Berkeley) 3/21/94
 
@@ -83,12 +83,6 @@ TSORT?= 	tsort
 YACC?=		yacc
 YFLAGS?=
 YACC.y?=	${YACC} ${YFLAGS}
-
-# At least Ubuntu 8.1 sets __attribute__((warn_unused_result)) on fwrite()
-# http://gcc.gnu.org/bugzilla/show_bug.cgi?id=25509
-.if !defined(NOGCCERROR)
-CFLAGS+= -Wno-error
-.endif
 
 # C
 .c:

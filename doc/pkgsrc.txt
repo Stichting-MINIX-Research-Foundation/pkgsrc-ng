@@ -551,45 +551,50 @@ platforms:
 
 Table 1.1. Platforms supported by pkgsrc
 
-+----------------------------------------------------------------+
-|                  Platform                   |Date Support Added|
-|---------------------------------------------+------------------|
-|NetBSD                                       |     Aug 1997     |
-|---------------------------------------------+------------------|
-|Solaris                                      |     Mar 1999     |
-|---------------------------------------------+------------------|
-|Linux                                        |     Jun 1999     |
-|---------------------------------------------+------------------|
-|Darwin (Mac OS X)                            |     Oct 2001     |
-|---------------------------------------------+------------------|
-|FreeBSD                                      |     Nov 2002     |
-|---------------------------------------------+------------------|
-|OpenBSD                                      |     Nov 2002     |
-|---------------------------------------------+------------------|
-|IRIX                                         |     Dec 2002     |
-|---------------------------------------------+------------------|
-|BSD/OS                                       |     Dec 2003     |
-|---------------------------------------------+------------------|
-|AIX                                          |     Dec 2003     |
-|---------------------------------------------+------------------|
-|Interix (Microsoft Windows Services for Unix)|     Mar 2004     |
-|---------------------------------------------+------------------|
-|DragonFlyBSD                                 |     Oct 2004     |
-|---------------------------------------------+------------------|
-|OSF/1                                        |     Nov 2004     |
-|---------------------------------------------+------------------|
-|HP-UX                                        |     Apr 2007     |
-|---------------------------------------------+------------------|
-|Haiku                                        |     Sep 2010     |
-|---------------------------------------------+------------------|
-|MirBSD                                       |     Jan 2011     |
-|---------------------------------------------+------------------|
-|Minix3                                       |     Nov 2011     |
-|---------------------------------------------+------------------|
-|Cygwin                                       |     Mar 2013     |
-|---------------------------------------------+------------------|
-|GNU/kFreeBSD                                 |     Jul 2013     |
-+----------------------------------------------------------------+
++-----------------------------------------------------------------------------+
+|               Platform               | Date Support  |        Notes         |
+|                                      |     Added     |                      |
+|--------------------------------------+---------------+----------------------|
+|NetBSD                                |   Aug 1997    |                      |
+|--------------------------------------+---------------+----------------------|
+|Solaris                               |   Mar 1999    |README.Solaris        |
+|--------------------------------------+---------------+----------------------|
+|Linux                                 |   Jun 1999    |README.Linux          |
+|--------------------------------------+---------------+----------------------|
+|Darwin (Mac OS X)                     |   Oct 2001    |README.MacOSX         |
+|--------------------------------------+---------------+----------------------|
+|FreeBSD                               |   Nov 2002    |README.FreeBSD        |
+|--------------------------------------+---------------+----------------------|
+|OpenBSD                               |   Nov 2002    |README.OpenBSD        |
+|--------------------------------------+---------------+----------------------|
+|IRIX                                  |   Dec 2002    |README.IRIX           |
+|                                      |               |README.IRIX5.3        |
+|--------------------------------------+---------------+----------------------|
+|BSD/OS                                |   Dec 2003    |                      |
+|--------------------------------------+---------------+----------------------|
+|AIX                                   |   Dec 2003    |README.AIX            |
+|--------------------------------------+---------------+----------------------|
+|Interix (Microsoft Windows Services   |   Mar 2004    |README.Interix        |
+|for Unix)                             |               |                      |
+|--------------------------------------+---------------+----------------------|
+|DragonFlyBSD                          |   Oct 2004    |                      |
+|--------------------------------------+---------------+----------------------|
+|OSF/1                                 |   Nov 2004    |README.OSF1           |
+|--------------------------------------+---------------+----------------------|
+|HP-UX                                 |   Apr 2007    |README.HPUX           |
+|--------------------------------------+---------------+----------------------|
+|Haiku                                 |   Sep 2010    |README.Haiku          |
+|--------------------------------------+---------------+----------------------|
+|MirBSD                                |   Jan 2011    |                      |
+|--------------------------------------+---------------+----------------------|
+|Minix3                                |   Nov 2011    |README.Minix3         |
+|--------------------------------------+---------------+----------------------|
+|Cygwin                                |   Mar 2013    |README.Cygwin         |
+|--------------------------------------+---------------+----------------------|
+|GNU/kFreeBSD                          |   Jul 2013    |README.GNUkFreeBSD    |
+|--------------------------------------+---------------+----------------------|
+|Bitrig                                |   Jun 2014    |README.Bitrig         |
++-----------------------------------------------------------------------------+
 
 
 1.2. Overview
@@ -3199,7 +3204,7 @@ If some Python versions are not supported by the software, set the
 PYTHON_VERSIONS_INCOMPATIBLE variable to the Python versions that are not
 supported, e.g.
 
-PYTHON_VERSIONS_INCOMPATIBLE=       26
+PYTHON_VERSIONS_INCOMPATIBLE=       27
 
 If the packaged software is a Python module, include "../../lang/python/
 extension.mk". In this case, the package directory should be called "
@@ -4184,13 +4189,6 @@ targets" for more information on this target.
 
 13.3. Tweaking output of make print-PLIST
 
-If you have used any of the *-dirs packages, as explained in Section 13.9,
-"Sharing directories between packages", you may have noticed that make
-print-PLIST outputs a set of @comments instead of real @dirrm lines. You can
-also do this for specific directories and files, so that the results of that
-command are very close to reality. This helps a lot during the update of
-packages.
-
 The PRINT_PLIST_AWK variable takes a set of AWK patterns and actions that are
 used to filter the output of print-PLIST. You can append any chunk of AWK
 scripting you like to it, but be careful with quoting.
@@ -4199,12 +4197,6 @@ For example, to get all files inside the libdata/foo directory removed from the
 resulting PLIST:
 
 PRINT_PLIST_AWK+=       /^libdata\/foo/ { next; }
-
-
-And to get all the @dirrm lines referring to a specific (shared) directory
-converted to @comments:
-
-PRINT_PLIST_AWK+=       /^@dirrm share\/specific/ { print "@comment " $$0; next; }
 
 
 13.4. Variable substitution in PLIST
@@ -4271,7 +4263,6 @@ man/man1/bar.1
 ${PLIST.foo}bin/foo
 ${PLIST.foo}man/man1/foo.1
 ${PLIST.foo}share/bar/foo.data
-${PLIST.foo}@dirrm share/bar
 
 
 13.5. Man page compression
@@ -5879,6 +5870,17 @@ bin-install
     is available anywhere. The arguments given to pkg_add can be set via
     BIN_INSTALL_FLAGS e.g., to do verbose operation, etc.
 
+install-clean
+
+    This target removes the state files for the "install" and later phases so
+    that the "install" target may be re-invoked. This can be used after editing
+    the PLIST to install the package without rebuilding it.
+
+build-clean
+
+    This target removes the state files for the "build" and later phases so
+    that the "build" target may be re-invoked.
+
 update
 
     This target causes the current package to be updated to the latest version.
@@ -6054,6 +6056,16 @@ show-installed-depends
 
     This target shows which installed packages match the current package's
     DEPENDS. Useful if out of date dependencies are causing build problems.
+
+print-build-depends-list
+
+    This target shows the list of packages that the current package depends on
+    for building.
+
+print-run-depends-list
+
+    This target shows the list of packages that the current package depends on
+    for running.
 
 check-shlibs
 
@@ -7257,10 +7269,11 @@ this problem you can try to tell the package to disable inlining of functions.
 
 Sometimes packages fail to build because the compiler runs into an operating
 system specific soft limit. With the UNLIMIT_RESOURCES variable pkgsrc can be
-told to unlimit the resources. Currently, the allowed values are "datasize" and
-"stacksize" (or both). Setting this variable is similar to running the shell
-builtin ulimit command to raise the maximum data segment size or maximum stack
-size of a process, respectively, to their hard limits.
+told to unlimit the resources. Currently, the allowed values are any
+combination of "cputime", "datasize", "memorysize", and "stacksize". Setting
+this variable is similar to running the shell builtin ulimit command to raise
+the maximum data segment size or maximum stack size of a process, respectively,
+to their hard limits.
 
 19.6. Fixing problems in the install phase
 

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.4 2013/12/17 01:43:29 minskim Exp $
+# $NetBSD: Makefile,v 1.6 2015/06/14 12:50:01 markd Exp $
 
 DISTNAME=	context.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2013
-TEXLIVE_REV=	31080
+PKGNAME=	tex-${DISTNAME:S/./-/}-2015
+TEXLIVE_REV=	37464
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/context
 COMMENT=	Documentation for tex-context
 
 CONFLICTS+=	teTeX-texmf<=3.0nb29

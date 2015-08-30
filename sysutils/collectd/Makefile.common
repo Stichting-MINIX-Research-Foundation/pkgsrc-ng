@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.5 2015/02/24 13:14:05 fhajny Exp $
+# $NetBSD: Makefile.common,v 1.9 2015/06/10 20:05:26 fhajny Exp $
 #
 # used by sysutils/collectd/Makefile
 # used by sysutils/collectd-amqp/Makefile
@@ -12,8 +12,10 @@
 # used by sysutils/collectd-postgresql/Makefile
 # used by sysutils/collectd-rrdtool/Makefile
 # used by sysutils/collectd-snmp/Makefile
+# used by sysutils/p5-collectd/Makefile
+# used by sysutils/py-collectd/Makefile
 
-DISTNAME=	collectd-5.4.1
+DISTNAME=	collectd-5.5.0
 MASTER_SITES=	http://collectd.org/files/
 CATEGORIES=	sysutils
 
@@ -70,8 +72,8 @@ CPPFLAGS.SunOS+=	-DSOLARIS2=${OS_VERSION:C/5.//}
 
 .include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
-CFLAGS+=	-Wno-error=tautological-pointer-compare
-
+CFLAGS+=	-Wno-error=tautological-pointer-compare \
+		-Wno-error=pointer-bool-conversion
 .endif
 
 .include "../../devel/libltdl/buildlink3.mk"

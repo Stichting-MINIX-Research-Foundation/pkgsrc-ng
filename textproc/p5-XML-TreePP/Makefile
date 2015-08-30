@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.9 2014/05/29 23:37:48 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/06/12 10:51:38 wiz Exp $
 
-DISTNAME=	XML-TreePP-0.42
+DISTNAME=	XML-TreePP-0.43
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

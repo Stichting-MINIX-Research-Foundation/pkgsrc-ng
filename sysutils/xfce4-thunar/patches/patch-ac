@@ -1,10 +1,11 @@
-$NetBSD: patch-ac,v 1.2 2009/09/16 01:15:34 reed Exp $
+$NetBSD: patch-ac,v 1.4 2015/06/04 16:04:04 youri Exp $
 
---- plugins/thunar-uca/Makefile.in.orig	2008-11-29 17:25:52.000000000 +0900
-+++ plugins/thunar-uca/Makefile.in	2008-11-29 17:27:26.000000000 +0900
-@@ -383,7 +383,7 @@
- 	-module								\
- 	$(PLATFORM_LDFLAGS)
+Adjust config path.
+--- plugins/thunar-uca/Makefile.in.orig	2015-05-22 20:47:31.000000000 +0000
++++ plugins/thunar-uca/Makefile.in
+@@ -496,7 +496,7 @@ thunar_uca_la_LIBADD = \
+ thunar_uca_la_DEPENDENCIES = \
+ 	$(top_builddir)/thunarx/libthunarx-$(THUNARX_VERSION_API).la
  
 -defaultsdir = $(sysconfdir)/xdg/Thunar
 +defaultsdir = $(datadir)/examples/xfce4/Thunar

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.30 2015/02/14 01:17:01 mef Exp $
+# $NetBSD: Makefile,v 1.32 2015/06/12 10:49:58 wiz Exp $
 #
 
 DISTNAME=	Pango-1.226
 PKGNAME=	p5-${DISTNAME:tl}
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/X/XA/XAOC/}
 

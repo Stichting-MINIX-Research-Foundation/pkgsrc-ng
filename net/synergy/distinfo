@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.16 2015/03/14 23:37:54 tnn Exp $
+$NetBSD: distinfo,v 1.18 2015/06/02 11:24:58 tnn Exp $
 
 SHA1 (synergy-1.7.0.tar.gz) = 8ec4dc9f888b6c551eacb23258549ed7681ed0c7
 RMD160 (synergy-1.7.0.tar.gz) = 49a542024cf6cfa8517a3b0fe4ced508d03ca3fa

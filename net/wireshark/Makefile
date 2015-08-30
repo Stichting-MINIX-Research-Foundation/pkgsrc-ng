@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.130 2015/03/09 18:47:18 tron Exp $
+# $NetBSD: Makefile,v 1.135 2015/06/19 07:29:37 tron Exp $
 
-DISTNAME=	wireshark-1.10.13
+DISTNAME=	wireshark-1.10.14
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	https://www.wireshark.org/download/src/
 EXTRACT_SUFX=	.tar.bz2
 
-OWNER=		tron@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.wireshark.org/
 COMMENT=	Network protocol analyzer
 LICENSE=	gnu-gpl-v2
@@ -55,6 +56,9 @@ REPLACE_PYTHON+=	tools/rdps.py
 .if !empty(MACHINE_PLATFORM:MDarwin-[567].*-*)
 USE_BUILTIN.libpcap=	no
 .endif
+
+# Extra post install targets are in options.mk
+post-install: ${POST_INSTALL_TARGETS}
 
 # wireshark no longer builds with NetBSD 3.x provided zlib
 BUILDLINK_API_DEPENDS.zlib=zlib>=1.2.1

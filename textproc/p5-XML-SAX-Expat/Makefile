@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2014/10/09 13:45:01 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2015/06/12 10:51:37 wiz Exp $
 
-DISTNAME=	XML-SAX-Expat-0.50
+DISTNAME=	XML-SAX-Expat-0.51
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

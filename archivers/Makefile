@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.136 2015/01/26 07:49:53 mef Exp $
+# $NetBSD: Makefile,v 1.139 2015/05/23 02:13:28 mef Exp $
 #
 
 COMMENT=	Archivers
@@ -32,6 +32,7 @@ SUBDIR+=	ha
 SUBDIR+=	heirloom-tar
 SUBDIR+=	hpack
 SUBDIR+=	hs-zlib
+SUBDIR+=	innoextract
 SUBDIR+=	jamjar
 SUBDIR+=	lbrate
 SUBDIR+=	lcab
@@ -63,6 +64,7 @@ SUBDIR+=	p5-Archive-Any-Lite
 SUBDIR+=	p5-Archive-Extract
 SUBDIR+=	p5-Archive-Peek
 SUBDIR+=	p5-Archive-Tar
+SUBDIR+=	p5-Archive-Tar-Wrapper
 SUBDIR+=	p5-Archive-Zip
 SUBDIR+=	p5-Compress-Bzip2
 SUBDIR+=	p5-Compress-LZMA-Simple
@@ -103,6 +105,7 @@ SUBDIR+=	unzip
 SUBDIR+=	unzoo
 SUBDIR+=	upx
 SUBDIR+=	xbin
+SUBDIR+=	xfce4-thunar-archive
 SUBDIR+=	xmill
 SUBDIR+=	xpk
 SUBDIR+=	xz

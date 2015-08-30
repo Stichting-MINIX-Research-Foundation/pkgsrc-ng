@@ -1,0 +1,12 @@
+$NetBSD: patch-gnu_config.h.in,v 1.1 2015/04/12 15:45:00 tnn Exp $
+
+--- gnu/config.h.in.orig	2004-04-17 10:33:38.000000000 +0000
++++ gnu/config.h.in
+@@ -4,6 +4,7 @@
+ #undef LIBC
+ #undef NP_SFX
+ #undef ELF_EXECUTABLES
++#undef HAVE_LCHOWN
+ #undef HAVE_MKDTEMP
+ #undef HAVE_FCLOSEALL
+ #undef HAVE_SETPRIORITY

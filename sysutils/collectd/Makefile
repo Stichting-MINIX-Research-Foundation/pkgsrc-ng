@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/07/30 12:28:18 fhajny Exp $
+# $NetBSD: Makefile,v 1.6 2015/06/12 10:51:12 wiz Exp $
 
+PKGREVISION= 1
 .include "../../sysutils/collectd/Makefile.common"
 
-PKGREVISION=	2
 COMMENT=	Statistics collection daemon base
 
 RCD_SCRIPTS=	collectd
@@ -21,6 +21,9 @@ DEFAULT_PLUGINS+=	aggregation apcups csv email exec filecount	\
 .for option in ${DEFAULT_PLUGINS}
 CONFIGURE_ARGS+=	--enable-${option}
 .endfor
+
+# Several libs not generated in time for linking collectd
+MAKE_JOBS_SAFE=		no
 
 .include "options.mk"
 

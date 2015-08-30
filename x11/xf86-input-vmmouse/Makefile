@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2014/05/05 00:48:34 ryoon Exp $
+# $NetBSD: Makefile,v 1.18 2015/04/27 14:47:49 jperkin Exp $
 
 DISTNAME=	xf86-input-vmmouse-13.0.0
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=driver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,7 @@ MAINTAINER=	joerg@NetBSD.org
 HOMEPAGE=	http://xorg.freedesktop.org/
 COMMENT=	Modular Xorg VMware virtual mouse driver
 
+USE_LANGUAGES=	c99
 USE_LIBTOOL=	YES
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake pkg-config

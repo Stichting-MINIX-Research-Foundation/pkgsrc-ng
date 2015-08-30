@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2014/10/09 13:44:59 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2015/06/12 10:51:34 wiz Exp $
 #
 
-DISTNAME=	Text-Wrapper-1.04
+DISTNAME=	Text-Wrapper-1.05
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

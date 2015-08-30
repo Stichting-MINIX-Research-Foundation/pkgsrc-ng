@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2015/03/05 16:35:49 tnn Exp $
+# $NetBSD: Makefile,v 1.16 2015/06/13 14:55:52 tnn Exp $
 
-DISTNAME=	openjdk-1.8.31-20150207
-PKGNAME=	openjdk8-1.8.31
-PKGREVISION=	4
+DISTNAME=	openjdk-1.8.45-20150610
+PKGNAME=	openjdk8-1.8.45
+PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
 EXTRACT_SUFX=	.tar.xz
@@ -20,7 +20,7 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk8
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 BUILD_DEPENDS+=		mozilla-rootcerts>=1.0.20140820nb2:../../security/mozilla-rootcerts
@@ -50,6 +50,7 @@ CONFIGURE_ARGS+=	--disable-freetype-bundling
 CONFIGURE_ARGS+=	--with-jobs=${MAKE_JOBS:U1}
 CONFIGURE_ARGS+=	--with-num-cores=${MAKE_JOBS:U1}
 CONFIGURE_ARGS+=	--with-memory-size=768
+CONFIGURE_ARGS+=	--disable-precompiled-headers
 CONFIGURE_ARGS+=	--disable-ccache
 CONFIGURE_ARGS+=	--with-user-release-suffix=pkgsrc_${PKGVERSION}
 CONFIGURE_ARGS+=	--with-update-version=u${PKGVERSION_NOREV:S/1.8.//}

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2015/03/18 15:05:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2015/04/29 14:23:58 jperkin Exp $
 
 PKGNAME=		cwrappers-20150318
 CATEGORIES=		pkgtools sysutils
@@ -15,14 +15,10 @@ INSTALLATION_DIRS=	libexec/cwrappers
 
 .include "../../mk/bsd.prefs.mk"
 
-USE_CWRAPPERS:=		no
 CHECK_PERMS=		no
 
 .if ${OPSYS} != "NetBSD" || !empty(MACHINE_PLATFORM:MNetBSD-[0-5].*)
 MAKE_ENV+=	NEED_MI_VECTOR_HASH=1
-.endif
-.if !empty(MACHINE_PLATFORM:MDarwin-9.*) || !empty(MACHINE_PLATFORM:MDarwin-10.*)
-MAKE_ENV+=	NEED_GETLINE=1
 .endif
 
 CFLAGS.FreeBSD+=	-D_WITH_GETLINE
@@ -30,5 +26,6 @@ CFLAGS.Linux+=	-D_GNU_SOURCE=1
 
 do-extract:
 	${CP} -R ${FILESDIR}/bin ${WRKSRC}
+	${TOUCH} ${WRKSRC}/transform-gcc.c
 
 .include "../../mk/bsd.pkg.mk"

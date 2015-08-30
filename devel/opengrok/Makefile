@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2014/10/31 03:59:58 ryoon Exp $
+# $NetBSD: Makefile,v 1.37 2015/05/01 12:55:14 ryoon Exp $
 
 DISTNAME=	OpenGrok-0.12.1
 PKGNAME=	${DISTNAME:tl:S/-rc/rc/}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	-https://github.com/OpenGrok/OpenGrok/archive/0.12.1.tar.gz
 

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/07/29 03:29:25 wen Exp $
+# $NetBSD: Makefile,v 1.14 2015/06/12 10:51:51 wiz Exp $
 
-DISTNAME=	AnyEvent-HTTP-2.21
+DISTNAME=	AnyEvent-HTTP-2.22
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=AnyEvent/}
 

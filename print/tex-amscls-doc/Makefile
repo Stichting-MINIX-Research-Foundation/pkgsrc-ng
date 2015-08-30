@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2011/01/20 16:37:17 minskim Exp $
+# $NetBSD: Makefile,v 1.6 2015/06/14 12:50:01 markd Exp $
 
 DISTNAME=	amscls.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2010.20248
-TEXLIVE_REV=	20248
+PKGNAME=	tex-${DISTNAME:S/./-/}-2015
+TEXLIVE_REV=	36804
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-amscls
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb18
 

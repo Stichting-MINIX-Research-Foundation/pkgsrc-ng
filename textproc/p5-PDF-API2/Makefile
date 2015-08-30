@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2014/05/29 23:37:38 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2015/06/12 10:51:25 wiz Exp $
 
-DISTNAME=	PDF-API2-2.021
+DISTNAME=	PDF-API2-2.023
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

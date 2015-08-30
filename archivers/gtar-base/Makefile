@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.87 2015/01/26 12:30:30 jperkin Exp $
+# $NetBSD: Makefile,v 1.90 2015/05/03 14:32:11 sevan Exp $
 #
 # Please run 'make files/gtar.1' when updating version of this package
 # to regenerate the man page. converters/help2man is needed.
@@ -12,7 +12,6 @@ LICENSE=	gnu-gpl-v3
 
 CONFLICTS=	gcpio-[0-9]*
 
-USE_FEATURES=		snprintf
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		msgfmt
 GNU_CONFIGURE=		yes
@@ -42,7 +41,7 @@ PLIST_VARS+=		gtar rmt
 TEST_TARGET=		check
 
 # don't include rmt if gtar won't build it
-.if ${OPSYS} != "Interix" && ${OPSYS} != "Darwin" && ${OS_VARIANT} != "SCOOSR5"
+.if ${OPSYS} != "Interix" && ${OPSYS} != "Darwin" && ${OS_VARIANT} != "SCOOSR5" && ${OPSYS} != "AIX"
 PLIST.rmt=		yes
 .endif
 
@@ -53,6 +52,11 @@ CONFIGURE_ENV+=		gt_cv_func_gnugettext3_libintl=yes
 
 .if ${OPSYS} == "MirBSD"
 CPPFLAGS+=		-Dstrtoimax=strtoll -Dstrtoumax=strtoull
+.endif
+
+.if ${OPSYS} == "AIX"
+#bug 20453 in bug-gzip list, passed onto gnulib
+CONFIGURE_ENV+= ac_cv_header_wctype_h=no
 .endif
 
 SYMLINKS=		bin/gtar ${PKGGNUDIR}bin/tar \

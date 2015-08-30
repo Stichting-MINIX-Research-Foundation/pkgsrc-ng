@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2015/03/31 15:20:53 joerg Exp $
+# $NetBSD: Makefile,v 1.25 2015/04/25 14:20:44 tnn Exp $
 #
 
 DISTNAME=	dgen-sdl-1.32
+PKGREVISION=	1
 CATEGORIES=	emulators
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dgen/}
 
@@ -18,7 +19,7 @@ DEPENDS+=	nasm-[0-9]*:../../devel/nasm
 PLIST_VARS+=	arm
 
 .if ${MACHINE_CPU:U} == "arm"
-PLIST_VAR.arm=	yes
+PLIST.arm=	yes
 .endif
 
 USE_LANGUAGES=	c c++

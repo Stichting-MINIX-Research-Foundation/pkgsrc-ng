@@ -1,4 +1,4 @@
-$NetBSD: distinfo,v 1.5 2013/10/04 18:32:07 joerg Exp $
+$NetBSD: distinfo,v 1.7 2015/06/07 22:42:49 joerg Exp $
 
 SHA1 (soci-3.2.2.tar.gz) = 0a63cdbe719793c37b328a95778451a550f22c0a
 RMD160 (soci-3.2.2.tar.gz) = d366c1773d23c551404a8e05791afc3a4b6acfdd

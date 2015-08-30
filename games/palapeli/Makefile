@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2014/11/14 08:49:41 markd Exp $
+# $NetBSD: Makefile,v 1.19 2015/04/25 14:23:01 tnn Exp $
 
 DISTNAME=	palapeli-${_KDE_VERSION}
+PKGREVISION=	2
 CATEGORIES=	games
 COMMENT=	a jigsaw puzzle game based on KDE technology
 

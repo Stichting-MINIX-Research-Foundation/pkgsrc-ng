@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.103 2014/08/12 15:57:13 hauke Exp $
+# $NetBSD: Makefile,v 1.106 2015/06/12 10:52:19 wiz Exp $
 
 COMMENT=	Screen saver and locker for the X window system
+PKGREVISION=	1
 
 CONFLICTS+=	xscreensaver-gnome<4.14
 
 .include "Makefile.common"
 .include "options.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-
-#PKGREVISION=	1
 
 CONFIGURE_ARGS+=	--without-gtk
 #CONFIGURE_ARGS+=	--with-xml=${BUILDLINK_PREFIX.libxml2}
@@ -20,7 +19,7 @@ MESSAGE_SUBST+=		EGDIR=${EGDIR:Q}
 # Remove useless locale files that have no translations in them.
 # use pipes from 5.17, the new version is too slow
 post-extract:
-	cd ${WRKSRC}/po && ${RM} -f ca.po pt_BR.po
+	cd ${WRKSRC}/po && ${RM} -f ca.po
 	${CP} ${FILESDIR}/pipes.c ${WRKSRC}/hacks/glx
 
 INSTALLATION_DIRS=	${EGDIR}/pam.d

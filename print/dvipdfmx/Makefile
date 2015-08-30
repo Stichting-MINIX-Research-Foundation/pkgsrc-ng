@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.44 2015/02/24 21:44:35 joerg Exp $
+# $NetBSD: Makefile,v 1.47 2015/06/14 12:50:00 markd Exp $
 
-DISTNAME=	texlive-20130530-source
-PKGNAME=	dvipdfmx-20130405
+DISTNAME=	texlive-20150521-source
+PKGNAME=	dvipdfmx-20150315
 CATEGORIES=	print converters
-MASTER_SITES=	${MASTER_SITE_TEX_CTAN:=systems/texlive/Source/}
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -12,28 +12,29 @@ COMMENT=	DVI to PDF converter with CID-keyed font support
 
 CONFLICTS+=	dvipdfm-[0-9]*
 CONFLICTS+=	ja-dvipdfm-[0-9]*
+CONFLICTS+=	xdvipdfm-[0-9]*
 DEPENDS+=	tex-dvipdfmx-[0-9]*:../../print/tex-dvipdfmx
 DEPENDS+=	tex-pdftex-[0-9]*:../../print/tex-pdftex
 DEPENDS+=	tex-texlive-scripts-[0-9]*:../../print/tex-texlive-scripts
 
 EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
-			${DISTNAME}/texk/dvipdfmx
+			${DISTNAME}/texk/dvipdfm-x
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
-WRKSRC=		${WRKDIR}/${DISTNAME}/texk/dvipdfmx
+WRKSRC=		${WRKDIR}/${DISTNAME}/texk/dvipdfm-x
 
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
 CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
 
-CONFIGURE_ARGS+=	--with-system-kpathsea \
-		--with-kpathsea-includes=${BUILDLINK_PREFIX.kpathsea}/include \
-		--with-kpathsea-libdir=${BUILDLINK_PREFIX.kpathsea}/lib
+CONFIGURE_ARGS+=	--with-system-kpathsea
 CONFIGURE_ARGS+=	--with-system-zlib \
 		--with-zlib-includes=${BUILDLINK_PREFIX.zlib}/include \
 		--with-zlib-libdir=${BUILDLINK_PREFIX.zlib}/lib
 CONFIGURE_ARGS+=	--with-system-libpng
-CONFIGURE_ARGS+=	--with-paper=${BUILDLINK_PREFIX.libpaper}
+CONFIGURE_ARGS+=	--with-system-libpaper \
+		--with-libpaper-includes=${BUILDLINK_PREFIX.libpaper}/include \
+		--with-libpaper-libdir=${BUILDLINK_PREFIX.libpaper}/lib
 
 PKG_SYSCONFSUBDIR=	texmf
 
@@ -53,6 +54,7 @@ TEX_TEXMF_DIRS+=	${PREFIX}/share/texmf-dist
 
 .include "../../graphics/png/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+BUILDLINK_API_DEPENDS.kpathsea+= kpathsea>=6.2.1
 .include "../../print/kpathsea/buildlink3.mk"
 .include "../../print/kpathsea/texmf.mk"
 .include "../../print/libpaper/buildlink3.mk"

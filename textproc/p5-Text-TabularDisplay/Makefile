@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2014/10/09 14:07:05 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2015/06/12 10:51:33 wiz Exp $
 #
 
-DISTNAME=	Text-TabularDisplay-1.35
+DISTNAME=	Text-TabularDisplay-1.38
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

@@ -1,17 +1,12 @@
-# $NetBSD: Makefile,v 1.2 2015/02/16 17:31:32 nros Exp $
+# $NetBSD: Makefile,v 1.4 2015/06/14 12:50:01 markd Exp $
 
-.include "../../print/tex-biblatex/Makefile.common"
+DISTNAME=	biblatex.doc
+PKGNAME=	tex-${DISTNAME:S/./-/}-3.0
+TEXLIVE_REV=	37083
 
-PKGNAME=	tex-${DISTNAME:S/.tds//:S/-/-doc-/}
-
+MAINTAINER=	markd@NetBSD.org
 COMMENT=	Documentation for tex-biblatex
+LICENSE=	lppl-1.3c
 
-do-install:
-	cd ${WRKSRC}/doc && \
-	${PAX} -rwpm latex \
-		${DESTDIR}${PREFIX}/share/texmf-dist/doc && \
-	${INSTALL_DATA} ${WRKSRC}/doc/biblatex.pdf \
-		${DESTDIR}${PREFIX}/share/texmf-dist/doc/latex/biblatex
-
-.include "../../print/kpathsea/texmf.mk"
+.include "../../print/texlive/package.mk"
 .include "../../mk/bsd.pkg.mk"

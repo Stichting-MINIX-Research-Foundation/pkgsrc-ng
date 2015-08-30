@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2015/04/02 19:29:38 tnn Exp $
+# $NetBSD: Makefile,v 1.12 2015/05/29 14:12:15 ryoon Exp $
 
-MOZ_BRANCH=		31.5
-MOZ_BRANCH_MINOR=	.3esr
+MOZ_BRANCH=		31.7
+MOZ_BRANCH_MINOR=	.0esr
 MOZ_VER=		${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
 DISTNAME=		firefox-${MOZ_VER}.source
 MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${MOZ_VER}/source/}
@@ -16,7 +16,6 @@ HOMEPAGE=	http://developer.mozilla.org/en/docs/XULRunner
 COMMENT=	XML User Interface Language runtime environment
 LICENSE=	mpl-1.1
 
-DIST_SUBDIR=	firefox31-31.5.3
 WRKSRC=		${WRKDIR}/mozilla-esr31
 
 DISTINFO_FILE=	${.CURDIR}/../../www/firefox31/distinfo
@@ -53,6 +52,9 @@ CHECK_INTERPRETER_SKIP+=lib/xulrunner31/sdk/bin/xpt.py
 
 .include "../../www/firefox31/mozilla-common.mk"
 .include "../../www/firefox31/options.mk"
+
+post-extract:
+	mv ${WRKSRC}/gfx/ycbcr/yuv_row_arm.s ${WRKSRC}/gfx/ycbcr/yuv_row_arm.S
 
 pre-configure:
 	cd ${WRKSRC} && mkdir ${OBJDIR}

@@ -1,13 +1,13 @@
-$NetBSD: patch-js_src_jit_MIR.cpp,v 1.1 2015/02/16 16:16:17 bad Exp $
+$NetBSD: patch-js_src_jit_MIR.cpp,v 1.3 2015/05/12 22:48:54 ryoon Exp $
 
---- js/src/jit/MIR.cpp.orig	2015-01-23 06:00:01.000000000 +0000
-+++ js/src/jit/MIR.cpp	2015-02-05 12:06:56.000000000 +0000
-@@ -68,7 +68,7 @@
-     const char *name = names[op];
+--- js/src/jit/MIR.cpp.orig	2015-05-04 00:43:27.000000000 +0000
++++ js/src/jit/MIR.cpp
+@@ -71,7 +71,7 @@ MDefinition::PrintOpcodeName(FILE* fp, M
+     const char* name = names[op];
      size_t len = strlen(name);
      for (size_t i = 0; i < len; i++)
 -        fprintf(fp, "%c", tolower(name[i]));
 +        fprintf(fp, "%c", tolower(((unsigned char)name[i])));
  }
  
- static MConstant *
+ const Value&

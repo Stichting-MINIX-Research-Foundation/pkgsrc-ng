@@ -1,0 +1,5 @@
+@comment $NetBSD: PLIST,v 1.2 2015/06/14 11:20:00 markd Exp $
+share/texmf-dist/doc/fonts/roboto/LICENSE.txt
+share/texmf-dist/doc/fonts/roboto/README
+share/texmf-dist/doc/fonts/roboto/samples.pdf
+share/texmf-dist/doc/fonts/roboto/samples.tex

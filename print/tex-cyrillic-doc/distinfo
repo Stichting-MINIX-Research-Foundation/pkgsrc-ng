@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.3 2010/11/16 17:55:15 minskim Exp $
+$NetBSD: distinfo,v 1.5 2015/06/14 12:50:02 markd Exp $
 
-SHA1 (tex-cyrillic-20254/cyrillic.doc.tar.xz) = 96748e90eee513bcdfdb91c75bc6e6f28f98bd48
-RMD160 (tex-cyrillic-20254/cyrillic.doc.tar.xz) = a8191de85280b10bfe65a83d605a797575118cbb
-Size (tex-cyrillic-20254/cyrillic.doc.tar.xz) = 901980 bytes
+SHA1 (tex-cyrillic-36834/cyrillic.doc.tar.xz) = 3f3bdd4b9974a31e906478f7d53117b70ba61699
+RMD160 (tex-cyrillic-36834/cyrillic.doc.tar.xz) = ea881cf8f5a5e0d78ece1ab3ddb1e5db6c7193e6
+Size (tex-cyrillic-36834/cyrillic.doc.tar.xz) = 924800 bytes

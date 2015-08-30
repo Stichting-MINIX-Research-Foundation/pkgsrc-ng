@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2014/02/25 11:51:32 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2015/06/25 07:43:09 joerg Exp $
 
 DISTNAME=	qt-creator-2.0.1-src
 PKGNAME=	${DISTNAME:S/qt-/qt4-/:S/-src//}
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	devel
 MASTER_SITES=	http://get.qt.nokia.com/qtcreator/
 EXTRACT_SUFX=	.tgz
@@ -40,9 +40,12 @@ do-install:
 	${LIBTOOL} --mode=install \
 		${INSTALL_PROGRAM} ${WRKSRC}/bin/qtcreator_process_stub \
 		${DESTDIR}${PREFIX}/bin/
+.for lib in Utils Aggregation ExtensionSystem QtConcurrent CPlusPlus Net7ssh \
+  DebuggingHelper QmlJS symbianutils
 	${LIBTOOL} --mode=install \
-		${INSTALL_LIB} ${WRKSRC}/lib/qtcreator/*.la \
+		${INSTALL_LIB} ${WRKSRC}/lib/qtcreator/lib${lib}.la \
 		${DESTDIR}${PREFIX}/lib/qtcreator/
+.endfor
 	${LIBTOOL} --mode=install \
 		${INSTALL_LIB} ${WRKSRC}/lib/qtcreator/plugins/Nokia/*.la \
 		${DESTDIR}${PREFIX}/lib/qtcreator/plugins/Nokia/

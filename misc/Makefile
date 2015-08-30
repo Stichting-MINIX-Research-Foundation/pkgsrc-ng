@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.451 2015/03/12 14:00:14 nros Exp $
+# $NetBSD: Makefile,v 1.454 2015/06/04 20:28:06 youri Exp $
 #
 
 COMMENT=	Miscellaneous utilities
@@ -40,6 +40,7 @@ SUBDIR+=	cowsay
 SUBDIR+=	cstream
 SUBDIR+=	cuecat
 SUBDIR+=	cuetools
+SUBDIR+=	cw
 SUBDIR+=	deskbar-applet
 SUBDIR+=	dgpsip
 SUBDIR+=	dialog
@@ -134,6 +135,7 @@ SUBDIR+=	kdeplasma-addons4
 SUBDIR+=	kdeutils3
 SUBDIR+=	kdrill
 SUBDIR+=	kgeography
+SUBDIR+=	khard
 SUBDIR+=	kig
 SUBDIR+=	kiten
 SUBDIR+=	klettres
@@ -333,6 +335,7 @@ SUBDIR+=	whohas
 SUBDIR+=	window
 SUBDIR+=	xchm
 SUBDIR+=	xdg-utils
+SUBDIR+=	xfce4-time-out-plugin
 SUBDIR+=	xfce4-weather-plugin
 SUBDIR+=	xjdic
 SUBDIR+=	xorg-docs

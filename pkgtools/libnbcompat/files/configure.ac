@@ -1,8 +1,8 @@
-dnl $NetBSD: configure.ac,v 1.83 2014/07/25 13:26:24 jperkin Exp $
+dnl $NetBSD: configure.ac,v 1.85 2015/06/08 00:44:46 joerg Exp $
 
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
-AC_INIT([libnbcompat], [20120702], [joerg@NetBSD.org])
+AC_INIT([libnbcompat], [20150419], [joerg@NetBSD.org])
 AC_CONFIG_HEADER(nbcompat/config.h)
 AC_ARG_PROGRAM
 
@@ -283,12 +283,17 @@ AC_C_BIGENDIAN
 AC_CHECK_SIZEOF(off_t, 0)
 
 # Checks for library functions.
-AC_FUNC_MALLOC
 AC_FUNC_STRERROR_R
 AC_FUNC_VFORK
-AC_FUNC_VPRINTF
 
-AC_CHECK_DECLS([snprintf, vasprintf], [], [], [#include <stdio.h>])
+AC_CHECK_DECLS([snprintf(char *, size_t, const char *, ...)],
+            [], [AC_LIBOBJ(snprintf)], [#include <stdio.h>])
+AC_CHECK_DECLS([asprintf(char **, const char *, ...)],
+            [], [AC_LIBOBJ(asprintf)],
+            [#define _GNU_SOURCE
+             #include <stdio.h>])
+AC_CHECK_DECLS([strdup(const char *)],
+            [], [AC_LIBOBJ(strdup)], [#include <string.h>])
 
 case $host_os in
 darwin*)
@@ -297,10 +302,13 @@ darwin*)
 	;;
 esac
 
-AC_REPLACE_FUNCS([asprintf err fgetln fnmatch fparseln getenv isblank \
-	lchflags lchmod lchown lutimes mkdtemp mkstemp setenv setgroupent \
-	setpassent setprogname shquote snprintf statvfs strdup strerror \
-	strlcat strlcpy strmode strsep strtoll unsetenv usleep utimes warn
+AC_CHECK_DECLS([isblank(int)], [], [AC_LIBOBJ(isblank)], [#include <ctype.h>])
+
+AC_REPLACE_FUNCS([err fgetln fnmatch fparseln getdelim getenv \
+	getline lchflags lchmod lchown lutimes mkdtemp mkstemp setenv \
+	setgroupent setpassent setprogname shquote statvfs \
+	strerror strlcat strlcpy strmode strsep strtoll unsetenv usleep \
+	utimes warn
 ])
 
 AC_SEARCH_LIBS(socket, [socket network])
@@ -348,7 +356,7 @@ if test $need_gettemp = yes; then
 	AC_LIBOBJ(gettemp)
 fi
 
-AC_CHECK_FUNCS([bcopy bzero memset memcpy setlocale])
+AC_CHECK_FUNCS([setlocale])
 
 need_setmode=no
 AC_CHECK_FUNCS([getmode setmode], [:], [need_setmode=yes])
@@ -420,7 +428,7 @@ if test $pkg_use_nbcompat_poll = yes; then
 	AC_LIBOBJ(poll)
 fi
 
-AC_CHECK_FUNCS([getpassphrase getpgrp memmove select])
+AC_CHECK_FUNCS([getpassphrase getpgrp select])
 
 AC_CHECK_FUNC(getpgrp, [AC_FUNC_GETPGRP])
 

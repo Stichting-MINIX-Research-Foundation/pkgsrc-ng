@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.58 2015/02/21 09:08:53 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2015/06/16 13:41:23 jperkin Exp $
 
-DISTNAME=	gnupg-2.0.27
+DISTNAME=	gnupg-2.0.28
 PKGNAME=	${DISTNAME:S/gnupg/gnupg2/}
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/gnupg/
@@ -20,17 +20,18 @@ CONFIGURE_ARGS+=	--sharedstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-pinentry-pgm=${BUILDLINK_PREFIX.pinentry}/bin/pinentry
 
+.include "../../mk/bsd.prefs.mk"
+
 # Sometimes wrong include file gets detected, e.g. for Clang
-.if exists(/usr/include/stdint.h)
+.if defined(OSX_SDK_PATH) && exists(${OSX_SDK_PATH:Q}/usr/include/stdint.h)
+CONFIGURE_ENV+=		gl_cv_absolute_stdint_h=${OSX_SDK_PATH:Q}/usr/include/stdint.h
+.elif exists(/usr/include/stdint.h)
 CONFIGURE_ENV+=		gl_cv_absolute_stdint_h=/usr/include/stdint.h
 .endif
 
 TEST_TARGET=		check
 
 .include "options.mk"
-
-BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.4
-BUILDLINK_API_DEPENDS.libksba+=		libksba>=1.0.2
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
@@ -40,8 +41,11 @@ BUILDLINK_API_DEPENDS.libksba+=		libksba>=1.0.2
 .include "../../mk/readline.buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/libassuan2/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libgcrypt+=	libgcrypt>=1.5.0
 .include "../../security/libgcrypt/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.4
 .include "../../security/libgpg-error/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libksba+=		libksba>=1.0.2
 .include "../../security/libksba/buildlink3.mk"
 .include "../../security/pinentry/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

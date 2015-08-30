@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.361 2015/03/14 17:37:19 sevan Exp $
+# $NetBSD: bsd.prefs.mk,v 1.365 2015/06/04 15:48:46 sevan Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -147,6 +147,13 @@ LOWER_VENDOR?=		ibm
 .elif ${OPSYS} == "BSDOS"
 LOWER_OPSYS?=		bsdi
 
+.elif ${OPSYS} == "Bitrig"
+LOWER_OPSYS?= 		bitrig
+LOWER_ARCH!= 		${UNAME} -p
+MACHINE_ARCH= 		${LOWER_ARCH}
+MAKEFLAGS+= 		LOWER_ARCH=${LOWER_ARCH:Q}
+LOWER_VENDOR?= 		unknown
+
 .elif ${OPSYS} == "Cygwin"
 LOWER_OPSYS?=		cygwin
 LOWER_VENDOR?=		pc
@@ -281,9 +288,12 @@ LOWER_VENDOR?=		dec
 
 .elif ${OPSYS} == "HPUX"
 OS_VERSION:=		${OS_VERSION:C/^B.//}
-.if ${MACHINE_ARCH} == "9000"
-MACHINE_ARCH=		hppa
-.endif
+.  if ${MACHINE_ARCH} == "9000"
+ABI?=			32
+MACHINE_ARCH.32=	hppa
+MACHINE_ARCH.64=	hppa64
+MACHINE_ARCH=		${MACHINE_ARCH.${ABI}}
+.  endif
 LOWER_OPSYS?=		hpux
 LOWER_OPSYS_VERSUFFIX?=	${OS_VERSION}
 LOWER_VENDOR?=		hp
@@ -417,9 +427,12 @@ OBJECT_FMT=	XCOFF
 .elif ${OPSYS} == "OSF1"
 OBJECT_FMT=	ECOFF
 .elif ${OPSYS} == "HPUX"
-.  if ${MACHINE_ARCH} == "ia64" || (defined(ABI) && ${ABI} == "64")
+.  if ${MACHINE_ARCH} == "ia64"
 OBJECT_FMT=	ELF
-.  else
+.  elif ${MACHINE_ARCH} == "hppa64"
+# it is ELF but for most purposes behaves like SOM (.sl suffix, ...)
+OBJECT_FMT=	SOM
+.  else # hppa
 OBJECT_FMT=	SOM
 .  endif
 .elif ${OPSYS} == "Cygwin"
@@ -477,6 +490,8 @@ DISTFILES=		# none
 PLIST_SRC=		# none
 CHECK_PERMS=		no
 USE_LANGUAGES=		# empty
+WRKSRC=			${WRKDIR}
+
 do-patch:
 	@${DO_NADA}
 do-install:
@@ -790,6 +805,13 @@ PREPEND_PATH+=		${LOCALBASE}/bin
 #
 INIT_SYSTEM?=		rc.d
 _BUILD_DEFS+=		INIT_SYSTEM
+
+# Enable cwrappers if requested unless we're building the wrappers themselves.
+.if ${USE_CWRAPPERS:tl} != "no" && empty(PKGPATH:Mpkgtools/cwrappers)
+_USE_CWRAPPERS=		yes
+.else
+_USE_CWRAPPERS=		no
+.endif
 
 # Wrapper framework definitions
 .include "wrapper/wrapper-defs.mk"

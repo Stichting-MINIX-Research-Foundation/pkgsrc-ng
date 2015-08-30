@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.46 2014/11/19 21:01:32 jmcneill Exp $
+# $NetBSD: Makefile,v 1.50 2015/06/24 10:54:38 sevan Exp $
 
 DISTNAME=	strigi-0.7.8
-PKGREVISION=	10
+PKGREVISION=	13
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.vandenoever.info/software/strigi/
 EXTRACT_SUFX=	.tar.bz2
@@ -27,6 +27,7 @@ RT_LIB_SCHED=	# empty
 
 LDFLAGS.Darwin+=	-lclucene-shared
 LDFLAGS.DragonFly+=	-lclucene-shared
+LDFLAGS.FreeBSD+=	-lclucene-shared
 LDFLAGS.NetBSD+=	-lclucene-shared
 
 CFLAGS.SunOS+=	-DCMAKE_HAVE_PTHREAD_CREATE

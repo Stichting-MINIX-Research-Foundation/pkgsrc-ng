@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.77 2014/11/30 03:30:25 markd Exp $
+# $NetBSD: Makefile,v 1.80 2015/04/25 14:25:13 tnn Exp $
 
 DISTNAME=	kdelibs-${_KDE_VERSION}
 PKGNAME=	${DISTNAME:S/-4/4-4/}
+PKGREVISION=	3
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
 
@@ -61,7 +62,8 @@ SUBST_SED.kdelibsfix=		-e 's:@LOCALBASE@:${LOCALBASE}:g'
 SUBST_CLASSES+=			phononrelpath
 SUBST_STAGE.phononrelpath=	post-configure
 SUBST_MESSAGE.phononrelpath=	Fixing phonon RELWITHDEBINFO path
-SUBST_FILES.phononrelpath=	_KDE_build/CMakeFiles/Export/${LOCALBASE:S^/^_^}/share/kde/apps/cmake/modules/KDELibs4LibraryTargets-${TARGET_NAME}.cmake
+SUBST_FILES.phononrelpath=	_KDE_build/CMakeFiles/Export/${LOCALBASE:S^/^_^}/share/kde/apps/cmake/modules/KDELibs4LibraryTargets-${TARGET_NAME}.cmake \
+				_KDE_build/experimental/libkdeclarative/CMakeFiles/Export/${LOCALBASE:S^/^_^}/lib/cmake/KDeclarative/KDeclarativeLibraryTargets-${TARGET_NAME}.cmake
 SUBST_SED.phononrelpath=	-e 's:[^"]*/\.buildlink/lib/libphonon\.so::'
 
 USE_TOOLS+=	flex gmake

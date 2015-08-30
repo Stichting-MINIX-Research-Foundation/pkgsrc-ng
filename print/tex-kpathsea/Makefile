@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.14 2013/11/17 17:12:19 minskim Exp $
+# $NetBSD: Makefile,v 1.17 2015/06/14 12:50:03 markd Exp $
 
 DISTNAME=	kpathsea
-PKGNAME=	tex-${DISTNAME}-2013
-TEXLIVE_REV=	30947
+PKGNAME=	tex-${DISTNAME}-2015
+TEXLIVE_REV=	37193
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/kpathsea
 COMMENT=	Translation tables for TeX
 LICENSE=	gnu-lgpl-v2.1
 

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.148 2014/10/07 16:47:12 adam Exp $
+# $NetBSD: Makefile,v 1.152 2015/06/08 23:29:43 joerg Exp $
 
 DISTNAME=	evolution-data-server-2.32.3
-PKGREVISION=	33
+PKGREVISION=	35
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-data-server/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -73,9 +73,10 @@ BUILDLINK_TRANSFORM+=	rm:-ldl
 .include "../../devel/libgweather/buildlink3.mk"
 .include "../../devel/nss/buildlink3.mk"
 .include "../../lang/python/application.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
 .include "../../net/libgdata/buildlink3.mk"
+.include "../../security/libgnome-keyring/buildlink3.mk"
 .include "../../textproc/gtk-doc/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libical+=	libical>=0.43

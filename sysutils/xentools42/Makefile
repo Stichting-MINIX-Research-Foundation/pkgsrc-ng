@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.26 2015/03/13 09:43:41 spz Exp $
+# $NetBSD: Makefile,v 1.30 2015/06/12 10:51:19 wiz Exp $
 
 VERSION=	4.2.5
 VERSION_IPXE=	1.0.0
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools42-${VERSION}
-PKGREVISION=		3
+PKGREVISION=		7
 CATEGORIES=		sysutils
 MASTER_SITES=		http://bits.xensource.com/oss-xen/release/${VERSION}/
 

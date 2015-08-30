@@ -1,4 +1,4 @@
-# $NetBSD: bsd.wrapper.mk,v 1.91 2014/11/25 18:27:49 joerg Exp $
+# $NetBSD: bsd.wrapper.mk,v 1.93 2015/04/27 19:59:07 jperkin Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -49,15 +49,6 @@
 
 .include "../../mk/wrapper/wrapper-defs.mk"
 
-# pkgsrc bmake does not (yet) correctly handle ${VAR} > 0 because
-# ${VAR} is treated as a string, so we must use a string comparison
-# operator.
-.if ${PKG_DEBUG_LEVEL} != "0" || defined(PKG_VERBOSE)
-ECHO_WRAPPER_MSG?=	${ECHO}
-.else
-ECHO_WRAPPER_MSG?=	${TRUE}
-.endif
-
 .PHONY: generate-wrappers
 
 .include "../../mk/buildlink3/bsd.buildlink3.mk"
@@ -65,9 +56,7 @@ ECHO_WRAPPER_MSG?=	${TRUE}
 # Prepend ${WRAPPER_BINDIR} to the PATH so that the wrappers are found
 # first when searching for executables.
 #
-.if ${USE_CWRAPPERS:tl} == "no"
 PREPEND_PATH+=		${WRAPPER_BINDIR}
-.endif
 
 ###
 ### BEGIN: after the barrier
@@ -451,8 +440,8 @@ ${_WRAP_COOKIE.${_wrappee_}}:						\
 		${_WRAP_TRANSFORM.${_wrappee_}}
 	${RUN} 								\
 	wrapper="${WRAPPER_${_wrappee_}:C/^/_asdf_/1:M_asdf_*:S/^_asdf_//}"; \
-	if [ -x "$$wrapper" ]; then ${ECHO_WRAPPER_MSG} "=> $$wrapper already exists. Skipping"; exit 0; fi; \
-	${ECHO_WRAPPER_MSG} "=> Creating ${_wrappee_} wrapper: $$wrapper"; \
+	if [ -x "$$wrapper" ]; then ${ECHO_BUILDLINK_MSG} "=> $$wrapper already exists. Skipping"; exit 0; fi; \
+	${ECHO_BUILDLINK_MSG} "=> Creating ${_wrappee_} wrapper: $$wrapper"; \
         gen_wrapper=yes;						\
 	wrappee="${PKG_${_wrappee_}:C/^/_asdf_/1:M_asdf_*:S/^_asdf_//}"; \
 	case $$wrappee in						\
@@ -476,7 +465,7 @@ ${_WRAP_COOKIE.${_wrappee_}}:						\
 		IFS="$$save_IFS";					\
 		if ${TEST} ! -x "$$wrappee"; then			\
 			gen_wrapper=no;					\
-			${ECHO_WRAPPER_MSG} "Warning: unable to generate ${_wrappee_} wrapper script: \`$$wrappee'"; \
+			${ECHO_BUILDLINK_MSG} "Warning: unable to generate ${_wrappee_} wrapper script: \`$$wrappee'"; \
 		fi;							\
 		;;							\
 	esac;								\
@@ -500,7 +489,7 @@ ${_alias_}: ${_WRAP_COOKIE.${_wrappee_}}
 	${RUN} 								\
 	wrapper="${WRAPPER_${_wrappee_}:C/^/_asdf_/1:M_asdf_*:S/^_asdf_//}"; \
 	if [ ! -x ${.TARGET} -a -x $$wrapper ]; then			\
-		${ECHO_WRAPPER_MSG} "=> Linking ${_wrappee_} wrapper: ${.TARGET}"; \
+		${ECHO_BUILDLINK_MSG} "=> Linking ${_wrappee_} wrapper: ${.TARGET}"; \
 		${LN} -f${WRAPPER_USE_SYMLINK:Ds} $$wrapper ${.TARGET};	\
 	fi
 .    endif

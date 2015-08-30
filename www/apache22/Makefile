@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.102 2014/09/09 08:11:48 adam Exp $
+# $NetBSD: Makefile,v 1.104 2015/06/12 10:51:48 wiz Exp $
 
 DISTNAME=	httpd-2.2.29
 PKGNAME=	${DISTNAME:S/httpd/apache/}
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
 		http://archive.apache.org/dist/httpd/ \
@@ -208,6 +209,10 @@ CONFIGURE_ARGS+=	${AP_CFG_ARGS.${ap_mod}}
 post-extract:
 	${TOUCH} ${WRKSRC}/build/libtool
 	${ECHO} "" >> ${WRKSRC}/docs/conf/extra/httpd-languages.conf.in
+
+pre-build:
+	${ECHO} "===>  Generating unique DH group to mitigate Logjam attack (this will take a while)"
+	(cd ${WRKSRC}/modules/ssl && ${PERL5} ssl_engine_dh.c)
 
 post-build:
 	${SED} "s#@PKG_SYSCONFDIR@#${PKG_SYSCONFDIR}#g"			\

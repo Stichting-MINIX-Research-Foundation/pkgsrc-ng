@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.53 2014/10/07 16:47:12 adam Exp $
+# $NetBSD: buildlink3.mk,v 1.56 2015/06/09 14:18:47 joerg Exp $
 
 BUILDLINK_TREE+=	evolution-data-server
 
@@ -6,17 +6,18 @@ BUILDLINK_TREE+=	evolution-data-server
 EVOLUTION_DATA_SERVER_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.evolution-data-server+=	evolution-data-server>=1.8.0
-BUILDLINK_ABI_DEPENDS.evolution-data-server+=	evolution-data-server>=2.32.3nb33
+BUILDLINK_ABI_DEPENDS.evolution-data-server+=	evolution-data-server>=2.32.3nb34
 BUILDLINK_PKGSRCDIR.evolution-data-server?=	../../mail/evolution-data-server
 
 BDB_ACCEPTED?=		db4 db5
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/GConf/buildlink3.mk"
 .include "../../devel/nss/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
 .include "../../net/libgdata/buildlink3.mk"
 .include "../../time/libical/buildlink3.mk"
+.include "../../security/libgnome-keyring/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bdb.buildlink3.mk"
 .endif # EVOLUTION_DATA_SERVER_BUILDLINK3_MK

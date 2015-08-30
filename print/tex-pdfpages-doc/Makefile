@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.2 2011/05/23 18:29:45 minskim Exp $
+# $NetBSD: Makefile,v 1.4 2015/06/14 12:50:05 markd Exp $
 
 DISTNAME=	pdfpages.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-0.4n
-TEXLIVE_REV=	21680
+PKGNAME=	tex-${DISTNAME:S/./-/}-0.4x
+TEXLIVE_REV=	37333
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-pdfpages
+LICENSE=	lppl-1.3c
 
 CONFLICTS=	teTeX-texmf<=3.0nb29
 

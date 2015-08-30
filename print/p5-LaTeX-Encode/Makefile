@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2014/05/29 23:37:16 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/06/12 10:50:58 wiz Exp $
 #
 
-DISTNAME=	LaTeX-Encode-0.06
+DISTNAME=	LaTeX-Encode-0.091.6
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
+PKGREVISION=	1
 CATEGORIES=	textproc
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=LaTeX/}
 
@@ -13,6 +13,8 @@ COMMENT=	Encode characters for LaTeX formatting
 LICENSE=	gnu-gpl-v2 # OR artistic
 
 DEPENDS+=		p5-Readonly>=0:../../devel/p5-Readonly
+# for make test
+BUILD_DEPENDS+=	p5-Carp-Always-[0-9]*:../../devel/p5-Carp-Always
 
 PERL5_PACKLIST=		auto/LaTeX/Encode/.packlist
 REPLACE_PERL+=		scripts/build-character-table scripts/format-encoding-reference

@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.12 2013/11/17 17:17:20 minskim Exp $
+# $NetBSD: Makefile,v 1.15 2015/06/14 12:50:05 markd Exp $
 
 DISTNAME=	pdftex.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-1.40.11pl32132
-TEXLIVE_REV=	32132
+PKGNAME=	tex-${DISTNAME:S/./-/}-1.40.11pl37432
+TEXLIVE_REV=	37432
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/pdftex
 COMMENT=	Documentation for tex-pdftex
+LICENSE=	gnu-gpl-v2
 
 TEXLIVE_IGNORE_PATTERNS=	texmf-dist/doc/man/man1/pdftex.1
 

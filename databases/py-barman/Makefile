@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2014/11/11 15:38:51 joerg Exp $
+# $NetBSD: Makefile,v 1.5 2015/06/09 15:06:39 fhajny Exp $
 
-DISTNAME=	barman-1.3.3
+DISTNAME=	barman-1.4.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	databases python
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pgbarman/}
@@ -17,8 +17,6 @@ DEPENDS+=	rsync-[0-9]*:../../net/rsync
 
 PYTHON_VERSIONED_DEPENDENCIES=	dateutil
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26
-
 USE_LANGUAGES=	# none
 
 CONF_FILES+=		share/examples/barman/barman.conf \
@@ -26,6 +24,8 @@ CONF_FILES+=		share/examples/barman/barman.conf \
 INSTALLATION_DIRS+=	share/examples/barman
 
 .include "../../mk/bsd.prefs.mk"
+
+BUILD_DEFS+=		VARBASE
 
 BARMAN_DIR?=		${VARBASE}/lib/barman
 BARMAN_LOG_DIR?=	${VARBASE}/log/barman

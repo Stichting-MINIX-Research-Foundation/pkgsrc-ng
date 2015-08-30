@@ -1,15 +1,14 @@
-# $NetBSD: Makefile.common,v 1.4 2015/02/17 14:44:40 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.7 2015/06/22 15:16:24 jperkin Exp $
 #
 # used by databases/mysql-cluster/Makefile
 
-DISTNAME=	mysql-cluster-gpl-7.3.8
+DISTNAME=	mysql-cluster-gpl-7.4.6
 CATEGORIES=	databases
-MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-Cluster-7.3/}
+MASTER_SITES=	${MASTER_SITE_MYSQL:=MySQL-Cluster-7.4/}
 
 MAINTAINER?=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mysql.com/products/cluster/
 LICENSE=	gnu-gpl-v2
-
 
 USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
@@ -90,7 +89,7 @@ CXXFLAGS+=		-fPIC -DPIC
 # and does not properly detect this, breaking the build later on.  Also
 # explicitly disable epoll support as it is Linux-specific.
 .if ${OPSYS} == "SunOS"
-CMAKE_ARGS+=		-DHAVE_SYS_EPOLL_H=NO
+CMAKE_ARGS+=		-DHAVE_SYS_EPOLL_H=NO -DHAVE_EPOLL_CREATE=NO
 CFLAGS+=		-DHAVE_CURSES_H
 CXXFLAGS+=		-DHAVE_CURSES_H
 .endif
@@ -117,6 +116,13 @@ SUBST_CLASSES+=		vars
 SUBST_STAGE.vars=	pre-configure
 SUBST_FILES.vars=	scripts/mysql_install_db.pl.in
 SUBST_VARS.vars=	PKG_SYSCONFDIR
+
+SUBST_CLASSES+=		fixpaths
+SUBST_STAGE.fixpaths=	post-install
+SUBST_FILES.fixpaths=	${DESTDIR}${PREFIX}/bin/mysqlbug
+SUBST_FILES.fixpaths+=	${DESTDIR}${PREFIX}/share/doc/mysql/INFO_BIN
+SUBST_SED.fixpaths=	-e "s,${WRAPPER_BINDIR}/gcc,${CCPATH},g"
+SUBST_SED.fixpaths+=	-e "s,${WRAPPER_BINDIR}/g++,${CXXPATH},g"
 
 .if ${_OPSYS_SHLIB_TYPE} == "dylib"
 SOEXT="dylib"

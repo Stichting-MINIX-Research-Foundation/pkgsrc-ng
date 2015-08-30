@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.15 2013/11/17 16:53:18 minskim Exp $
+# $NetBSD: Makefile,v 1.18 2015/06/14 12:50:02 markd Exp $
 
 DISTNAME=	dvips
-PKGNAME=	tex-${DISTNAME}-2013
-TEXLIVE_REV=	32132
+PKGNAME=	tex-${DISTNAME}-2015
+TEXLIVE_REV=	37432
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/dvips
 COMMENT=	Files for a DVI to PostScript driver
 LICENSE=	gnu-gpl-v2
 

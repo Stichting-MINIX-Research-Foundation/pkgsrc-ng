@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2015/01/06 14:41:08 jperkin Exp $
+# $NetBSD: Makefile,v 1.25 2015/04/25 14:20:36 tnn Exp $
 
 DISTNAME=	libpeas-1.12.1
+PKGREVISION=	1
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/libpeas/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -16,7 +17,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake intltool msgfmt pkg-config gsed
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26 27
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 .include "../../lang/python/pyversion.mk"
 CONFIGURE_ARGS+=	--disable-python2

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.76 2014/11/15 03:35:26 markd Exp $
+# $NetBSD: Makefile,v 1.79 2015/06/12 10:51:13 wiz Exp $
 
 DISTNAME=		k3b-2.0.3a
+PKGREVISION=		3
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_KDE:=k3b/}
 EXTRACT_SUFX=		.tar.xz

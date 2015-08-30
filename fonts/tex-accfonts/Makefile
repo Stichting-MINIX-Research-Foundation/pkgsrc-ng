@@ -1,0 +1,27 @@
+# $NetBSD: Makefile,v 1.2 2015/06/12 10:50:06 wiz Exp $
+
+DISTNAME=	accfonts
+PKGNAME=	tex-${DISTNAME}-0.25
+PKGREVISION=	1
+TEXLIVE_REV=	18835
+
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/accfonts
+COMMENT=	Utilities to derive new fonts from existing ones
+LICENSE=	gnu-gpl-v2
+
+DEPENDS+=	t1utils-[0-9]*:../../fonts/t1utils
+
+USE_TOOLS+=	perl:run
+REPLACE_PERL=	bin/mkt1font bin/vpl2ovp  bin/vpl2vpl
+
+INSTALLATION_DIRS+=	bin
+
+.include "../../print/texlive/package.mk"
+
+post-extract:
+	${MKDIR} ${WRKSRC}/bin
+	${MV} ${WRKSRC}/texmf-dist/scripts/accfonts/* ${WRKSRC}/bin/
+	${RM} -rf ${WRKSRC}/texmf-dist/scripts
+
+.include "../../mk/bsd.pkg.mk"

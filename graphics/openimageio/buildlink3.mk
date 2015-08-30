@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.19 2014/11/07 19:39:25 adam Exp $
+# $NetBSD: buildlink3.mk,v 1.21 2015/04/25 14:23:17 tnn Exp $
 
 BUILDLINK_TREE+=	openimageio
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	openimageio
 OPENIMAGEIO_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.openimageio+=	openimageio>=1.1.1
-BUILDLINK_ABI_DEPENDS.openimageio?=	openimageio>=1.4.10nb4
+BUILDLINK_ABI_DEPENDS.openimageio?=	openimageio>=1.4.10nb6
 BUILDLINK_PKGSRCDIR.openimageio?=	../../graphics/openimageio
 
 .include "../../devel/boost-libs/buildlink3.mk"

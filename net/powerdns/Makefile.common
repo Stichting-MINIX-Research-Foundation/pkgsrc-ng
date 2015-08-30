@@ -1,6 +1,6 @@
-# $NetBSD: Makefile.common,v 1.11 2015/03/27 23:37:52 rodent Exp $
+# $NetBSD: Makefile.common,v 1.13 2015/06/12 10:50:58 fhajny Exp $
 
-PDNS_VERSION=		3.4.3
+PDNS_VERSION=		3.4.5
 DISTNAME=		pdns-${PDNS_VERSION}
 CATEGORIES=		net
 MASTER_SITES=		http://downloads.powerdns.com/releases/
@@ -28,7 +28,5 @@ BUILDLINK_TRANSFORM+=	rm:-fstack-protector
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
-.include "../../devel/gmp/buildlink3.mk"
-.include "../../devel/zlib/buildlink3.mk"
-.include "../../security/polarssl/buildlink3.mk"
+.include "../../security/mbedtls/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

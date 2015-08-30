@@ -1,10 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2014/10/07 16:47:21 adam Exp $
+# $NetBSD: Makefile,v 1.8 2015/06/07 14:05:57 youri Exp $
 
-DISTNAME=	appdata_tools_0_1_7
-PKGNAME=	${DISTNAME:S/appdata_tools_/appdata-tools-/:S/_/./g}
-PKGREVISION=	2
+DISTNAME=	appdata_tools-0.1.7
+PKGREVISION=	3
 CATEGORIES=	devel
-MASTER_SITES=	https://github.com/hughsie/appdata-tools/archive/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=hughsie/}
+GITHUB_PROJECT=	appdata-tools
+# -0.1.7 into _0_1_7
+GITHUB_TAG=	${DISTNAME:S/./_/g:S/-/_/g}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/hughsie/appdata-tools/
@@ -14,7 +16,7 @@ LICENSE=	gnu-gpl-v2
 BUILD_DEPENDS+=	gettext-m4-[0-9]*:../../devel/gettext-m4
 DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 
-WRKSRC=		${WRKDIR}/appdata-tools-${DISTNAME}
+WRKSRC=		${WRKDIR}/appdata-tools-${GITHUB_TAG}
 USE_TOOLS+=	autoconf automake autoreconf gmake intltool intltoolize
 USE_TOOLS+=	pkg-config xgettext
 GNU_CONFIGURE=	yes
@@ -25,5 +27,5 @@ pre-configure:
 .include "../../lang/python/application.mk"
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/gdk-pixbuf2/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

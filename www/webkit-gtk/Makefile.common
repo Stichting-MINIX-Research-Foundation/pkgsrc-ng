@@ -1,13 +1,14 @@
-# $NetBSD: Makefile.common,v 1.40 2015/03/31 15:55:44 joerg Exp $
+# $NetBSD: Makefile.common,v 1.44 2015/06/17 03:12:02 dsainty Exp $
 # used by www/webkit-gtk/Makefile
 
-DISTNAME=	webkitgtk-2.4.8
+DISTNAME=	webkitgtk-2.4.9
 CATEGORIES=	www
 MASTER_SITES=	http://www.webkitgtk.org/releases/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.webkitgtk.org/
+LICENSE=	2-clause-bsd AND gnu-lgpl-v2
 
 DISTINFO_FILE=		${.CURDIR}/../../www/webkit-gtk/distinfo
 PATCHDIR=		${.CURDIR}/../../www/webkit-gtk/patches
@@ -19,6 +20,9 @@ USE_TOOLS+=	automake bison gmake perl:build pkg-config msgfmt
 # GCC >= 4.8 (for std::this_thread::yield() at least) or Clang >= 3.3
 GCC_REQD+=	4.8
 
+# gmake 3.81 enters a 100% CPU spin.
+GMAKE_REQD+=	4.1
+
 PKGCONFIG_OVERRIDE=	Source/WebKit/gtk/webkit.pc.in
 
 MAKE_FILE=	GNUmakefile
@@ -27,6 +31,11 @@ GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+=	--enable-x11-target \
 			--disable-geolocation \
 			--disable-gtk-doc-html
+
+.include "../../mk/compiler.mk"
+.if (!empty(PKGSRC_COMPILER:Mgcc) && !empty(_USE_PKGSRC_GCC:M[yY][eE][sS]))
+BUILDLINK_TRANSFORM+=	rm:-D_FORTIFY_SOURCE=2
+.endif
 
 .include "options.mk"
 
@@ -54,7 +63,6 @@ CONFIGURE_ENV+=	PYTHON=${PYTHONBIN}
 
 CXXFLAGS.SunOS+=	-fpermissive
 
-.include "../../mk/compiler.mk"
 .if !empty(PKGSRC_COMPILER:Mclang)
 CXXFLAGS+=	-std=c++11 -Wno-c++11-narrowing
 .endif
@@ -85,8 +93,8 @@ BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.0.3
 .include "../../multimedia/gstreamer1/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gst-plugins1-base+=	gst-plugins1-base>=1.0.3
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libsoup24+= libsoup24>=2.42.2nb3
-.include "../../net/libsoup24/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libsoup+= libsoup>=2.42.2nb3
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../security/libsecret/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"

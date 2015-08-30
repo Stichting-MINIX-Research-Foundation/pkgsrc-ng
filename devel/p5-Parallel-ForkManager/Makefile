@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2015/03/15 23:51:30 mef Exp $
+# $NetBSD: Makefile,v 1.13 2015/06/12 10:49:36 wiz Exp $
 
-DISTNAME=	Parallel-ForkManager-1.12
+DISTNAME=	Parallel-ForkManager-1.14
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	parallel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Parallel/}
 

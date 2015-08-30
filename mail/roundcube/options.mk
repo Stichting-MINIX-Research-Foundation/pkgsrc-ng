@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.8 2013/06/15 16:08:09 taca Exp $
+# $NetBSD: options.mk,v 1.10 2015/06/17 08:35:45 jperkin Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.roundcube
 
@@ -51,6 +51,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=4.3.1:../../converters/php-mbstring
 ###
 .if !empty(PKG_OPTIONS:Mldap)
 DEPENDS+=	${PHP_PKG_PREFIX}-ldap>=4.3.1:../../databases/php-ldap
+DEPENDS+=	pear-Net_LDAP3-[0-9]*:../../net/pear-Net_LDAP3
 .endif
 
 ###

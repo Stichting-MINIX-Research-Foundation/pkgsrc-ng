@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.93 2014/11/07 11:30:47 schmonz Exp $
+# $NetBSD: Makefile,v 1.95 2015/06/12 10:51:10 wiz Exp $
 
-DISTNAME=		stunnel-5.07
+DISTNAME=		stunnel-5.17
+PKGREVISION=		1
 CATEGORIES=		security
 MASTER_SITES=		http://www.stunnel.org/downloads/
 

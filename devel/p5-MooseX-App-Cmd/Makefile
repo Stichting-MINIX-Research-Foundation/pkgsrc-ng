@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.13 2015/02/13 12:47:45 mef Exp $
+# $NetBSD: Makefile,v 1.15 2015/06/12 10:49:29 wiz Exp $
 #
 
 DISTNAME=	MooseX-App-Cmd-0.30
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
 
@@ -26,7 +27,7 @@ DEPENDS+=	p5-namespace-clean>=0:../../devel/p5-namespace-clean
 BUILD_DEPENDS+=	p5-MooseX-ConfigFromFile>=0.08:../../devel/p5-MooseX-ConfigFromFile
 BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 BUILD_DEPENDS+=	p5-Test-Output-[0-9]*:../../devel/p5-Test-Output
-BUILD_DEPENDS+=	p5-Test-use-ok-[0-9]*:../../devel/p5-Test-use-ok
+BUILD_DEPENDS+=	p5-Test-Simple>=1.001014:../../devel/p5-Test-Simple
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

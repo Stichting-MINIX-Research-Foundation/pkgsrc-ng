@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.6 2014/05/29 23:36:41 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2015/06/12 10:50:13 wiz Exp $
 
 DISTNAME=	epstopdf
-PKGNAME=	tex-${DISTNAME}-2.20
+PKGNAME=	tex-${DISTNAME}-2.23
 PKGREVISION=	1
-TEXLIVE_REV=	31789
+TEXLIVE_REV=	36139
 
 MAINTAINER=	minskim@NetBSD.org
-COMMENT=	Convert EPS to 'encapsulated' PDF using GhostScript
+COMMENT=	Convert EPS to 'encapsulated' PDF using Ghostscript
 
 CONFLICTS=	texlive-pdftools<2011
 

@@ -1,6 +1,6 @@
 #! /bin/sh
 
-# $NetBSD: bootstrap,v 1.215 2014/12/04 10:36:02 jperkin Exp $
+# $NetBSD: bootstrap,v 1.218 2015/06/13 13:15:39 tron Exp $
 #
 # Copyright (c) 2001-2011 Alistair Crooks <agc@NetBSD.org>
 # All rights reserved.
@@ -498,9 +498,19 @@ AIX)
 	need_bsd_install=yes
 	need_awk=yes
 	need_sed=yes
+	need_ksh=yes
 	need_fixed_strip=yes
 	set_opsys=no
 	machine_arch=`get_machine_arch_aix`
+	;;
+Bitrig)
+	root_group=wheel
+	need_bsd_install=no
+	need_awk=no
+	need_sed=no
+	set_opsys=no
+	machine_arch=`uname -m`
+	check_compiler=yes
 	;;
 CYGWIN_*)
 	is_root () {
@@ -794,7 +804,7 @@ SunOS)
 	else
 		need_sed=yes
 	fi
-	if [ "`uname -r`" = "5.11" -a -x "/usr/bin/bash" ]; then
+	if [ -x "/usr/bin/bash" ]; then
 		bootstrap_sh=${SH:-/usr/bin/bash}
 		bootstrap_sh_set=set
 	else

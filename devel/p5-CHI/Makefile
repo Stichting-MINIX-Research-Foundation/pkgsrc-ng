@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.4 2015/01/26 06:44:35 mef Exp $
+# $NetBSD: Makefile,v 1.6 2015/06/12 10:48:56 wiz Exp $
 
 DISTNAME=	CHI-0.59
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=CHI/}
 
@@ -31,6 +32,13 @@ DEPENDS+=	p5-Time-Duration>=1.06:../../time/p5-Time-Duration
 DEPENDS+=	p5-Time-Duration-Parse>=0.03:../../time/p5-Time-Duration-Parse
 DEPENDS+=	{perl>=5.8.1,p5-Time-HiRes>=1.30}:../../time/p5-Time-HiRes
 DEPENDS+=	p5-Try-Tiny>=0.05:../../devel/p5-Try-Tiny
+
+# for make test
+BUILD_DEPENDS+=	p5-Test-Class-[0-9]*:../../devel/p5-Test-Class
+BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
+BUILD_DEPENDS+=	p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
+BUILD_DEPENDS+=	p5-Test-Warn-[0-9]*:../../devel/p5-Test-Warn
+BUILD_DEPENDS+=	p5-TimeDate-[0-9]*:../../time/p5-TimeDate
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

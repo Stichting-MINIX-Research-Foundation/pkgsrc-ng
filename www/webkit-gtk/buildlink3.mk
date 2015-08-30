@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.44 2014/10/07 16:47:15 adam Exp $
+# $NetBSD: buildlink3.mk,v 1.48 2015/06/17 02:48:46 dsainty Exp $
 
 BUILDLINK_TREE+=	webkit-gtk
 
@@ -6,8 +6,13 @@ BUILDLINK_TREE+=	webkit-gtk
 WEBKIT_GTK_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.webkit-gtk+=	webkit-gtk>=2.0
-BUILDLINK_ABI_DEPENDS.webkit-gtk?=	webkit-gtk>=2.4.5
+BUILDLINK_ABI_DEPENDS.webkit-gtk?=	webkit-gtk>=2.4.8nb2
 BUILDLINK_PKGSRCDIR.webkit-gtk?=	../../www/webkit-gtk
+
+# Linking with this library may require newer libstdc++ features than are
+# available under the native compiler, so possibly upgrade the compiler
+# used by dependent packages too.
+GCC_REQD+=	4.8
 
 pkgbase := webkit-gtk
 .include "../../mk/pkg-build-options.mk"
@@ -24,7 +29,7 @@ pkgbase := webkit-gtk
 .include "../../graphics/libwebp/buildlink3.mk"
 .include "../../multimedia/gstreamer1/buildlink3.mk"
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../security/libsecret/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"

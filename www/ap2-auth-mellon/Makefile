@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2015/04/01 14:08:13 manu Exp $
+# $NetBSD: Makefile,v 1.31 2015/04/13 08:10:29 manu Exp $
 #
 
 DISTNAME=	mod_auth_mellon-0.10.0
@@ -12,15 +12,13 @@ HOMEPAGE=	http://modmellon.googlecode.com/files/
 COMMENT=	SAML 2.0 authentication for Apache
 LICENSE=	gnu-gpl-v2 # or later
 
-PKG_DESTDIR_SUPPORT=	user-destdir
-
 GNU_CONFIGURE=	YES
 USE_LIBTOOL=	YES
 USE_TOOLS+=	pkg-config
 CFLAGS+=	-DLASSO_SERVER_LOAD_METADATA_FLAG_DEFAULT=0
 
 APACHE_MODULE=	YES
-PKG_APACHE_ACCEPTED=	apache22
+PKG_APACHE_ACCEPTED=	apache22 apache24
 .include "../../mk/apache.mk"
 BUILDLINK_API_DEPENDS.apache+=	apache>=2.0.47
 

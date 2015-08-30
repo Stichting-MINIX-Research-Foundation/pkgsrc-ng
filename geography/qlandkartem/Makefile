@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2015/03/14 18:46:13 gdt Exp $
+# $NetBSD: Makefile,v 1.35 2015/06/25 07:36:19 joerg Exp $
 #
 
 DISTNAME=	QLandkarteM.0.2.0
 PKGNAME=	qlandkartem-0.2.0
-PKGREVISION=	28
+PKGREVISION=	29
 CATEGORIES=	geography
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=qlandkartegt/}
 
@@ -38,6 +38,7 @@ DEPENDS+=		qt4-sqlite3>=4.4:../../x11/qt4-sqlite3
 .include "../../geography/gdal-lib/buildlink3.mk"
 .include "../../geography/proj/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
+.include "../../textproc/libxml2/buildlink3.mk"
 .include "../../x11/qt4-libs/buildlink3.mk"
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

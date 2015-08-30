@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.153 2014/10/09 14:06:41 wiz Exp $
+# $NetBSD: Makefile,v 1.158 2015/06/22 13:21:59 jperkin Exp $
 
-DISTNAME=		R-3.1.1
+DISTNAME=		R-3.2.0
+PKGREVISION=		2
 CATEGORIES=		math
 MASTER_SITES=		${MASTER_SITE_R_CRAN:=base/R-3/}
 
@@ -22,7 +23,7 @@ USE_TOOLS+=		gmake gzip:run makeinfo perl:run sed unzip:run xmkmf
 USE_TOOLS+=		pkg-config
 USE_LANGUAGES=		c c++ fortran
 USE_LIBTOOL=		yes
-TEXINFO_REQD=		4.7
+TEXINFO_REQD=		5.1
 INFO_FILES=		yes
 
 PTHREAD_AUTO_VARS=	yes
@@ -130,7 +131,7 @@ INSTALL_SCRIPT=		${INSTALL} ${COPY} -m ${BINMODE}
 SUBST_CLASSES+=		fixwrap
 SUBST_STAGE.fixwrap=	post-build
 SUBST_FILES.fixwrap=	libtool
-SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool-fortran,${PKG_LIBTOOL},g"
+SUBST_SED.fixwrap=	-e "s,${WRAPPER_BINDIR}/libtool,${PKG_LIBTOOL},g"
 
 BUILDLINK_API_DEPENDS.zlib+= zlib>=1.2.3
 BUILDLINK_API_DEPENDS.bzip2+= bzip2>=1.0.5

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2014/10/07 16:47:14 adam Exp $
+# $NetBSD: Makefile,v 1.18 2015/06/07 14:06:00 youri Exp $
 #
 
 DISTNAME=	rest-0.6
 PKGNAME=	librest-0.6
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	www
 MASTER_SITES=	http://moblin.org/sites/all/files/
 #http://meego.gitorious.org/meego-middleware/librest
@@ -20,6 +20,6 @@ USE_TOOLS+=	pkg-config
 PKGCONFIG_OVERRIDE+=	rest.pc.in
 
 .include "../../devel/glib2/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

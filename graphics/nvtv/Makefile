@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.32 2015/01/04 07:17:32 dholland Exp $
+# $NetBSD: Makefile,v 1.34 2015/05/03 19:45:48 joerg Exp $
 
 DISTNAME=	nvtv-0.4.7
-PKGREVISION=	26
+PKGREVISION=	27
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=nv-tv-out/}
 
@@ -11,8 +11,10 @@ COMMENT=	Tool to manipulate TV-Out settings on NVidia cards
 
 ONLY_FOR_PLATFORM=	*-*-i386	# uses iopl()
 ONLY_FOR_PLATFORM+=	*-*-x86_64	# may not build without some hacking
+NOT_FOR_PLATFORM+=	NetBSD-*-x86_64	# lack of x86_64_[gs]_set_ioperm.
 CONFLICTS=	nvtv-gtk2-[0-9]*
 
+USE_TOOLS+=		pkg-config
 GNU_CONFIGURE=		YES
 RCD_SCRIPTS=		nvtvd
 

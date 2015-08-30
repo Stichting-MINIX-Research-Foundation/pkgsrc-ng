@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.82 2015/03/22 20:09:09 joerg Exp $
+# $NetBSD: Makefile,v 1.84 2015/06/12 10:51:03 wiz Exp $
 
 DISTNAME=	krb5-1.10.7
 PKGNAME=	mit-${DISTNAME}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	security
 MASTER_SITES=	http://web.mit.edu/kerberos/dist/krb5/${PKGVERSION_NOREV:R}/
 EXTRACT_SUFX=	.tar
@@ -45,6 +45,7 @@ CONFIGURE_ARGS+=	--enable-kdc-replay-cache
 CONFIGURE_ARGS+=	--disable-thread-support
 CONFIGURE_ARGS+=	--without-tcl
 CONFIGURE_ARGS+=	--enable-pkgsrc-libtool
+CONFIGURE_ENV+=		BUILDLINK_PREFIX_OPENSSL=${BUILDLINK_PREFIX.openssl:Q}
 MAKE_ENV+=		ROOT_USER=${ROOT_USER}
 LIBS.SunOS=		-lrt
 

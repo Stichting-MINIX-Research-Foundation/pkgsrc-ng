@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2011/03/16 17:41:38 minskim Exp $
+# $NetBSD: Makefile,v 1.4 2015/06/14 12:50:02 markd Exp $
 
 DISTNAME=	eso-pic.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2.0c
-TEXLIVE_REV=	21515
+PKGNAME=	tex-${DISTNAME:S/./-/}-2.0e
+TEXLIVE_REV=	36994
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/eso-pic
 COMMENT=	Documentation for tex-eso-pic
+LICENSE=	lppl-1.2
 
 CONFLICTS=	teTeX-texmf<=3.0nb29
 

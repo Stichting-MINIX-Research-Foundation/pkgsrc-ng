@@ -1,4 +1,4 @@
-# $NetBSD: makevars.map,v 1.262 2015/03/11 19:05:58 rillig Exp $
+# $NetBSD: makevars.map,v 1.264 2015/05/03 15:20:24 bsiegert Exp $
 #
 
 # This file contains the guessed type of some variables, according to
@@ -151,6 +151,7 @@ BINGRP			UserGroupName [$system]
 BINMODE			FileMode [$system]
 BINOWN			UserGroupName [$system]
 BOOTSTRAP_DEPENDS	InternalList of DependencyWithPath [c:a,m:a,o:a,*.mk:a]
+BOOTSTRAP_PKG		YesNo [$package]
 BROKEN			Message []
 BROKEN_GETTEXT_DETECTION	YesNo [$package]
 BROKEN_EXCEPT_ON_PLATFORM	List of PlatformTriple [$package_list]
@@ -657,7 +658,7 @@ PTHREAD_OPTS		List of { native optional require } [m:as,c:a,b:a]
 PTHREAD_TYPE		Identifier [$system]
 # ^^ or "native" or "none".
 PY_PATCHPLIST		Yes [$package]
-PYPKGPREFIX		{ py26 py27 py33 } [*:pu, pyversion.mk:s, *:]
+PYPKGPREFIX		{ py27 py33 py34 } [*:pu, pyversion.mk:s, *:]
 PYTHON_FOR_BUILD_ONLY	Yes [$package]
 REPLACE_PYTHON	List of Pathmask [$package_list]
 PYTHON_VERSIONS_ACCEPTED List of Version [$package]
@@ -739,6 +740,7 @@ USE_BUILTIN.*		YesNo_Indirectly [builtin.mk:s]
 USE_CMAKE		Yes [$package]
 USE_CROSSBASE		Yes [m:s]
 USE_FEATURES		List of Identifier [$package]
+USE_GCC_RUNTIME		YesNo [$package]
 USE_GNU_CONFIGURE_HOST	YesNo [$package]
 USE_GNU_ICONV		Yes [m:s,c:s,o:s]
 USE_IMAKE		Yes [m:s]

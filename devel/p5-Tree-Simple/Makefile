@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2014/10/09 14:06:29 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2015/06/12 10:49:55 wiz Exp $
 #
 
-DISTNAME=	Tree-Simple-1.23
+DISTNAME=	Tree-Simple-1.25
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

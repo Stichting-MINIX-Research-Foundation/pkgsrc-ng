@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.1.1.1 2011/10/27 23:22:11 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/06/14 10:16:08 markd Exp $
 
 DISTNAME=	etoolbox
-PKGNAME=	tex-${DISTNAME}-2.1
-TEXLIVE_REV=	20922
+PKGNAME=	tex-${DISTNAME}-2.2
+TEXLIVE_REV=	37189
 
 MAINTAINER=	minskim@NetBSD.org
-COMMENT=	Tool-box for LaTeX programmers using e-TeX
+HOMEPAGE=	http://ctan.org/pkg/etoolbox
+COMMENT=	e-TeX tools for LaTeX
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-latex-bin-[0-9]*:../../print/tex-latex-bin
 DEPENDS+=	tex-etex-pkg-[0-9]*:../../print/tex-etex-pkg

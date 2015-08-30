@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.33 2015/03/16 22:28:38 wiz Exp $
+@comment $NetBSD: PLIST,v 1.39 2015/06/10 09:00:40 wiz Exp $
 bin/calibre
 bin/calibre-complete
 bin/calibre-customize
@@ -243,8 +243,13 @@ lib/calibre/calibre/ebooks/docx/to_html.py
 lib/calibre/calibre/ebooks/docx/toc.py
 lib/calibre/calibre/ebooks/docx/writer/__init__.py
 lib/calibre/calibre/ebooks/docx/writer/container.py
+lib/calibre/calibre/ebooks/docx/writer/fonts.py
 lib/calibre/calibre/ebooks/docx/writer/from_html.py
+lib/calibre/calibre/ebooks/docx/writer/images.py
+lib/calibre/calibre/ebooks/docx/writer/links.py
+lib/calibre/calibre/ebooks/docx/writer/lists.py
 lib/calibre/calibre/ebooks/docx/writer/styles.py
+lib/calibre/calibre/ebooks/docx/writer/tables.py
 lib/calibre/calibre/ebooks/docx/writer/utils.py
 lib/calibre/calibre/ebooks/epub/__init__.py
 lib/calibre/calibre/ebooks/epub/cfi/__init__.py
@@ -681,6 +686,8 @@ lib/calibre/calibre/gui2/convert/debug.py
 lib/calibre/calibre/gui2/convert/debug_ui.py
 lib/calibre/calibre/gui2/convert/docx_input.py
 lib/calibre/calibre/gui2/convert/docx_input_ui.py
+lib/calibre/calibre/gui2/convert/docx_output.py
+lib/calibre/calibre/gui2/convert/docx_output_ui.py
 lib/calibre/calibre/gui2/convert/epub_output.py
 lib/calibre/calibre/gui2/convert/epub_output_ui.py
 lib/calibre/calibre/gui2/convert/fb2_input.py
@@ -765,7 +772,6 @@ lib/calibre/calibre/gui2/dialogs/check_library.py
 lib/calibre/calibre/gui2/dialogs/choose_format.py
 lib/calibre/calibre/gui2/dialogs/choose_format_device.py
 lib/calibre/calibre/gui2/dialogs/choose_format_device_ui.py
-lib/calibre/calibre/gui2/dialogs/choose_format_ui.py
 lib/calibre/calibre/gui2/dialogs/choose_library.py
 lib/calibre/calibre/gui2/dialogs/choose_library_ui.py
 lib/calibre/calibre/gui2/dialogs/choose_plugin_toolbars.py
@@ -916,7 +922,6 @@ lib/calibre/calibre/gui2/search_box.py
 lib/calibre/calibre/gui2/search_restriction_mixin.py
 lib/calibre/calibre/gui2/shortcuts.py
 lib/calibre/calibre/gui2/shortcuts_ui.py
-lib/calibre/calibre/gui2/splash.py
 lib/calibre/calibre/gui2/store/__init__.py
 lib/calibre/calibre/gui2/store/basic_config.py
 lib/calibre/calibre/gui2/store/basic_config_widget_ui.py
@@ -1146,6 +1151,7 @@ lib/calibre/calibre/plugins/_patiencediff_c.so
 lib/calibre/calibre/plugins/_regex.so
 lib/calibre/calibre/plugins/bzzdec.so
 lib/calibre/calibre/plugins/cPalmdoc.so
+lib/calibre/calibre/plugins/certgen.so
 lib/calibre/calibre/plugins/chm_extra.so
 lib/calibre/calibre/plugins/chmlib.so
 lib/calibre/calibre/plugins/freetype.so
@@ -1172,6 +1178,26 @@ lib/calibre/calibre/spell/__init__.py
 lib/calibre/calibre/spell/break_iterator.py
 lib/calibre/calibre/spell/dictionary.py
 lib/calibre/calibre/spell/import_from.py
+lib/calibre/calibre/srv/__init__.py
+lib/calibre/calibre/srv/bonjour.py
+lib/calibre/calibre/srv/errors.py
+lib/calibre/calibre/srv/handler.py
+lib/calibre/calibre/srv/http_request.py
+lib/calibre/calibre/srv/http_response.py
+lib/calibre/calibre/srv/loop.py
+lib/calibre/calibre/srv/opts.py
+lib/calibre/calibre/srv/pool.py
+lib/calibre/calibre/srv/pre_activated.py
+lib/calibre/calibre/srv/routes.py
+lib/calibre/calibre/srv/sendfile.py
+lib/calibre/calibre/srv/standalone.py
+lib/calibre/calibre/srv/tests/__init__.py
+lib/calibre/calibre/srv/tests/base.py
+lib/calibre/calibre/srv/tests/http.py
+lib/calibre/calibre/srv/tests/loop.py
+lib/calibre/calibre/srv/tests/main.py
+lib/calibre/calibre/srv/tests/routes.py
+lib/calibre/calibre/srv/utils.py
 lib/calibre/calibre/startup.py
 lib/calibre/calibre/test_build.py
 lib/calibre/calibre/translations/__init__.py
@@ -1182,6 +1208,7 @@ lib/calibre/calibre/utils/__init__.py
 lib/calibre/calibre/utils/apsw_shell.py
 lib/calibre/calibre/utils/bibtex.py
 lib/calibre/calibre/utils/browser.py
+lib/calibre/calibre/utils/certgen.py
 lib/calibre/calibre/utils/chm/__init__.py
 lib/calibre/calibre/utils/chm/chm.py
 lib/calibre/calibre/utils/chm/chmlib.py
@@ -1286,6 +1313,7 @@ lib/calibre/calibre/utils/titlecase.py
 lib/calibre/calibre/utils/unrar.py
 lib/calibre/calibre/utils/unsmarten.py
 lib/calibre/calibre/utils/winreg/__init__.py
+lib/calibre/calibre/utils/winreg/dde.py
 lib/calibre/calibre/utils/winreg/default_programs.py
 lib/calibre/calibre/utils/winreg/lib.py
 lib/calibre/calibre/utils/wmf/__init__.py
@@ -1648,7 +1676,6 @@ share/calibre/images/plus.png
 share/calibre/images/plusplus.png
 share/calibre/images/polish.png
 share/calibre/images/previous.png
-share/calibre/images/print-preview.png
 share/calibre/images/print.png
 share/calibre/images/publisher.png
 share/calibre/images/random.png
@@ -1710,6 +1737,7 @@ share/calibre/mime.types
 share/calibre/quick_start/deu.epub
 share/calibre/quick_start/eng.epub
 share/calibre/quick_start/fra.epub
+share/calibre/quick_start/ita.epub
 share/calibre/recipes/10minutos.recipe
 share/calibre/recipes/180.recipe
 share/calibre/recipes/20_minutos.recipe
@@ -2050,6 +2078,7 @@ share/calibre/recipes/dilbert.recipe
 share/calibre/recipes/dilemaveche.recipe
 share/calibre/recipes/dingoo_a320.recipe
 share/calibre/recipes/discover_magazine.recipe
+share/calibre/recipes/discover_magazine_monthly.recipe
 share/calibre/recipes/disinformatico.recipe
 share/calibre/recipes/divahair.recipe
 share/calibre/recipes/dn_se.recipe
@@ -2599,7 +2628,6 @@ share/calibre/recipes/marketing_sensoriale.recipe
 share/calibre/recipes/mateusz_czytania.recipe
 share/calibre/recipes/matichon.recipe
 share/calibre/recipes/max_planck.recipe
-share/calibre/recipes/maximum_pc.recipe
 share/calibre/recipes/mayra.recipe
 share/calibre/recipes/mdj.recipe
 share/calibre/recipes/media2.recipe
@@ -2609,7 +2637,6 @@ share/calibre/recipes/mediapart.recipe
 share/calibre/recipes/medscape.recipe
 share/calibre/recipes/melbourne_herald_sun.recipe
 share/calibre/recipes/men24_gr.recipe
-share/calibre/recipes/menorca.recipe
 share/calibre/recipes/mens_health.recipe
 share/calibre/recipes/merco_press.recipe
 share/calibre/recipes/mesec.recipe
@@ -2627,6 +2654,7 @@ share/calibre/recipes/ming_pao.recipe
 share/calibre/recipes/ming_pao_toronto.recipe
 share/calibre/recipes/ming_pao_vancouver.recipe
 share/calibre/recipes/miradasalsur.recipe
+share/calibre/recipes/mit_technology_review.recipe
 share/calibre/recipes/mlody_technik_pl.recipe
 share/calibre/recipes/mmc_rtv.recipe
 share/calibre/recipes/mobile_bulgaria.recipe
@@ -3037,7 +3065,6 @@ share/calibre/recipes/sportowefakty.recipe
 share/calibre/recipes/sportsillustrated.recipe
 share/calibre/recipes/sportsillustrated_columnists.recipe
 share/calibre/recipes/st_louis_post_dispatch.recipe
-share/calibre/recipes/st_petersburg_times.recipe
 share/calibre/recipes/stackoverflow.recipe
 share/calibre/recipes/stamgasten.recipe
 share/calibre/recipes/standardmedia_ke.recipe
@@ -3122,6 +3149,7 @@ share/calibre/recipes/the_sun.recipe
 share/calibre/recipes/the_verge.recipe
 share/calibre/recipes/the_week_magazine_free.recipe
 share/calibre/recipes/the_workingham_times.recipe
+share/calibre/recipes/thecodelesscode.recipe
 share/calibre/recipes/thecultofghoul.recipe
 share/calibre/recipes/thedailywtf.recipe
 share/calibre/recipes/thedgesingapore.recipe
@@ -3513,4 +3541,3 @@ share/doc/calibre/Changelog.yaml
 share/doc/calibre/INSTALL
 share/doc/calibre/LICENSE.rtf
 share/doc/calibre/README.md
-@pkgdir lib/calibre/calibre/plugins/.libs

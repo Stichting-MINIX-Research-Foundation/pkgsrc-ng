@@ -1,8 +1,10 @@
-# $NetBSD: Makefile,v 1.16 2015/02/28 11:53:31 adam Exp $
+# $NetBSD: Makefile,v 1.21 2015/06/12 10:50:39 wiz Exp $
 
-DISTNAME=	mpv-0.8.2
+DISTNAME=	mpv-0.9.2
+PKGREVISION=	1
 CATEGORIES=	multimedia
-MASTER_SITES=	-https://github.com/mpv-player/mpv/archive/v${PKGVERSION_NOREV}${EXTRACT_SUFX}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=mpv-player/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	leot1990@users.sourceforge.net
 HOMEPAGE=	http://mpv.io/
@@ -14,7 +16,6 @@ BUILD_DEPENDS+=	${PYPKGPREFIX}-docutils>=0.12:../../textproc/py-docutils
 BUILD_DEPENDS+=	waf>=1.8.4:../../devel/waf
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-docutils
 
 USE_TOOLS+=	perl pkg-config
 

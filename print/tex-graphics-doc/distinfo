@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.5 2012/10/16 21:35:13 minskim Exp $
+$NetBSD: distinfo,v 1.7 2015/06/14 12:50:03 markd Exp $
 
-SHA1 (tex-graphics-25405/graphics.doc.tar.xz) = 853c08367fa0b26044b9a5e48f8eb985cb64a832
-RMD160 (tex-graphics-25405/graphics.doc.tar.xz) = 807f69da8ddf33ebbd7d423ac2eb57df61c99f2f
-Size (tex-graphics-25405/graphics.doc.tar.xz) = 676124 bytes
+SHA1 (tex-graphics-36834/graphics.doc.tar.xz) = 10545344f78a3ec13ec0fc5c244b37ffedaa90e0
+RMD160 (tex-graphics-36834/graphics.doc.tar.xz) = fcff44d7b4beac197b7f5259c3c518d14d2f20dc
+Size (tex-graphics-36834/graphics.doc.tar.xz) = 1628072 bytes

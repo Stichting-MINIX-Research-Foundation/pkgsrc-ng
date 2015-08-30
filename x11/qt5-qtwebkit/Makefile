@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2015/03/31 16:00:21 joerg Exp $
+# $NetBSD: Makefile,v 1.27 2015/04/25 14:25:18 tnn Exp $
 
 DISTNAME=	qtwebkit-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtwebkit-${QTVERSION}
-PKGREVISION=	1
+PKGREVISION=	4
 COMMENT=	Qt5 WebView module
 
 BUILD_DEPENDS+=		gperf-[0-9]*:../../devel/gperf
@@ -47,6 +47,7 @@ post-install:
 .include "../../x11/qt5-qtlocation/buildlink3.mk"
 .include "../../x11/qt5-qtmultimedia/buildlink3.mk"
 .include "../../x11/qt5-qtsensors/buildlink3.mk"
+.include "../../x11/qt5-qtwebchannel/buildlink3.mk"
 PYTHON_FOR_BUILD_ONLY=			yes
 .include "../../lang/python/tool.mk"
 .include "../../lang/ruby/buildlink3.mk"

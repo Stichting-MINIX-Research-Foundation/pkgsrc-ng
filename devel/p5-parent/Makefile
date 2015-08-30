@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.11 2014/05/29 23:36:28 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2015/06/12 10:49:58 wiz Exp $
 #
 
-DISTNAME=	parent-0.228
+DISTNAME=	parent-0.234
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

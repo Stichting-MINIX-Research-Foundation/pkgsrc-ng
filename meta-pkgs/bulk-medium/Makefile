@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2015/03/15 15:29:31 taca Exp $
+# $NetBSD: Makefile,v 1.27 2015/06/12 10:50:32 wiz Exp $
 
-DISTNAME=	bulk-medium-20150315
+DISTNAME=	bulk-medium-20150414
+PKGREVISION=	1
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -91,7 +92,6 @@ BUILD_DEPENDS+=	sun-jdk6-[0-9]*:../../lang/sun-jdk6
 BUILD_DEPENDS+=	sun-jre6-[0-9]*:../../lang/sun-jre6
 BUILD_DEPENDS+=	openjdk7-[0-9]*:../../lang/openjdk7
 BUILD_DEPENDS+=	openjdk8-[0-9]*:../../lang/openjdk8
-BUILD_DEPENDS+=	python26-[0-9]*:../../lang/python26
 BUILD_DEPENDS+=	python33-[0-9]*:../../lang/python33
 BUILD_DEPENDS+=	tcl-[0-9]*:../../lang/tcl
 BUILD_DEPENDS+=	fetchmail-[0-9]*:../../mail/fetchmail
@@ -185,7 +185,7 @@ BUILD_DEPENDS+=	boost-[0-9]*:../../meta-pkgs/boost
 BUILD_DEPENDS+=	ffmpeg2-[0-9]*:../../multimedia/ffmpeg2
 BUILD_DEPENDS+=	libogg-[0-9]*:../../multimedia/libogg
 BUILD_DEPENDS+=	libpcap-[0-9]*:../../net/libpcap
-BUILD_DEPENDS+=	libsoup24-[0-9]*:../../net/libsoup24
+BUILD_DEPENDS+=	libsoup-[0-9]*:../../net/libsoup
 BUILD_DEPENDS+=	poppler-[0-9]*:../../print/poppler
 BUILD_DEPENDS+=	poppler-includes-[0-9]*:../../print/poppler-includes
 BUILD_DEPENDS+=	cyrus-sasl-[0-9]*:../../security/cyrus-sasl

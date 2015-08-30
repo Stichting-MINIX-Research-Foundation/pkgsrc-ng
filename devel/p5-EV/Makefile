@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2015/02/02 10:25:35 jperkin Exp $
+# $NetBSD: Makefile,v 1.18 2015/06/12 10:48:21 wiz Exp $
 
 DISTNAME=	EV-4.18
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=../../authors/id/M/ML/MLEHMANN/}
 
@@ -17,8 +18,8 @@ PERL5_PACKLIST=	auto/EV/.packlist
 
 OPSYSVARS+=	MAKE_ENV
 
-# Explicitly disable inotify on SunOS, assumes Linux statfs.
-MAKE_ENV.SunOS+=	EV_INOTIFY=0
+# Explicitly disable epoll and inotify on illumos, assumes Linux statfs.
+MAKE_ENV.SunOS+=	EV_EPOLL=0 EV_INOTIFY=0
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

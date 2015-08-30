@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2014/11/13 19:24:23 markd Exp $
+# $NetBSD: Makefile,v 1.29 2015/04/25 14:23:29 tnn Exp $
 
 DISTNAME=	analitza-${_KDE_VERSION}
+PKGREVISION=	2
 CATEGORIES=	math
 COMMENT=	KDE library for mathematical features
 

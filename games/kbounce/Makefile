@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2014/11/14 08:49:38 markd Exp $
+# $NetBSD: Makefile,v 1.18 2015/04/25 14:22:57 tnn Exp $
 
 DISTNAME=	kbounce-${_KDE_VERSION}
+PKGREVISION=	2
 CATEGORIES=	games
 COMMENT=	single player arcade game with the elements of puzzle
 

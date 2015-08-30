@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.206 2015/01/22 09:19:47 jperkin Exp $
+# $NetBSD: Makefile,v 1.208 2015/04/21 00:28:19 joerg Exp $
 
 # Notes to package maintainers:
 #
@@ -151,8 +151,10 @@ LIBARCHIVE_LIBS=	${SED} -n -e 's/^Libs.private://p' \
     ${WRKDIR}/libarchive/build/pkgconfig/libarchive.pc 2>/dev/null || echo
 LIBS+=		${LIBARCHIVE_LIBS:sh}
 
-CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.guess
-CONFIG_SUB_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.sub
+CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.guess \
+			${WRKSRC}/config.guess
+CONFIG_SUB_OVERRIDE+=	${WRKDIR}/libarchive/build/autoconf/config.sub \
+			${WRKSRC}/config.sub
 
 .  if ${OPSYS} == "Cygwin"
 CPPFLAGS+=	-DLIBARCHIVE_STATIC
@@ -207,7 +209,8 @@ pre-configure:
 		${LIBARCHIVE_CONFIGURE_ARGS}
 	cd ${WRKDIR}/libarchive && ${BUILD_MAKE_CMD}
 .endif
-	cd ${WRKDIR}/libfetch && ${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}	\
+	cd ${WRKDIR}/libfetch && ${TOUCH} fetch.cat3 &&			\
+		${SETENV} ${MAKE_ENV} ${BSD_MAKE_ENV}			\
 		${MAKE_PROGRAM} ${MAKE_FLAGS} ${BUILD_MAKE_FLAGS}	\
 			-f ${MAKE_FILE} depend all
 

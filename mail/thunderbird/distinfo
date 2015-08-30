@@ -1,11 +1,11 @@
-$NetBSD: distinfo,v 1.156 2015/03/14 23:02:52 tnn Exp $
+$NetBSD: distinfo,v 1.159 2015/06/08 13:40:58 joerg Exp $
 
-SHA1 (thunderbird-31.5.0/enigmail-1.7.2.tar.gz) = e72eeff5a47491267981090129b0b2594b5dc96f
-RMD160 (thunderbird-31.5.0/enigmail-1.7.2.tar.gz) = 1dcd10e758321846eb20ac7f1d3ae6465c47bfe7
-Size (thunderbird-31.5.0/enigmail-1.7.2.tar.gz) = 1420346 bytes
-SHA1 (thunderbird-31.5.0/thunderbird-31.5.0.source.tar.bz2) = a0565a2d29fee09660041d04ea2bd73f6bc3fd05
-RMD160 (thunderbird-31.5.0/thunderbird-31.5.0.source.tar.bz2) = 443bcd3a3a9af8d115716300740ca54e6039312c
-Size (thunderbird-31.5.0/thunderbird-31.5.0.source.tar.bz2) = 171097061 bytes
+SHA1 (enigmail-1.7.2.tar.gz) = e72eeff5a47491267981090129b0b2594b5dc96f
+RMD160 (enigmail-1.7.2.tar.gz) = 1dcd10e758321846eb20ac7f1d3ae6465c47bfe7
+Size (enigmail-1.7.2.tar.gz) = 1420346 bytes
+SHA1 (thunderbird-31.7.0.source.tar.bz2) = 90e18f8ecccdaf1ee39493223a7e3ad8b3b7bede
+RMD160 (thunderbird-31.7.0.source.tar.bz2) = eae13adba96477ddaa3fa7732d94accdc8dab57f
+Size (thunderbird-31.7.0.source.tar.bz2) = 171059989 bytes
 SHA1 (patch-aa) = 764c6e8955d371d0869a9b145211f0a9d8709708
 SHA1 (patch-ak) = b47277baa1137a7610445b7c4dd147b331d5c5e6
 SHA1 (patch-al) = 81a733e9b13a47abfef818ecd10d7ef18a191855
@@ -91,11 +91,11 @@ SHA1 (patch-mozilla_ipc_glue_StringUtil.cpp) = f2bfc2a877554d64ab886d0159c9bdb4e
 SHA1 (patch-mozilla_ipc_ipdl_ipdl_cxx_ast.py) = d2ffbde2fb0744ab7acc279dcc9dfc430fb58dfc
 SHA1 (patch-mozilla_ipc_ipdl_ipdl_cxx_cgen.py) = 8c63e06ed257d059e9ff4da0b00e752bd694347e
 SHA1 (patch-mozilla_ipc_ipdl_ipdl_lower.py) = c3e0f719900b515554218b6312055f34ccbf9feb
-SHA1 (patch-mozilla_js_src_builtin_TypedObject.cpp) = 6c78f6331c0497663bce1f0c5327044df040b47b
+SHA1 (patch-mozilla_js_src_builtin_TypedObject.cpp) = 6ed299b2799aaf3bf789763657a8e54e9299b778
 SHA1 (patch-mozilla_js_src_ctypes_CTypes.h) = 852b14dc17cc29bdbf0b2cc407ba5780dd568d3a
-SHA1 (patch-mozilla_js_src_frontend_BytecodeCompiler.cpp) = 6b63d162ea8feffe819f505258dac694f29be4a7
+SHA1 (patch-mozilla_js_src_frontend_BytecodeCompiler.cpp) = 876d1438194becc19a01341af901b709c8892ed6
 SHA1 (patch-mozilla_js_src_frontend_ParseMaps.cpp) = d7f45bde1f819786c45225600697f14769bed946
-SHA1 (patch-mozilla_js_src_gc_Memory.cpp) = 48cf2ed708b8156efe978ad50741c123c747ea59
+SHA1 (patch-mozilla_js_src_gc_Memory.cpp) = b09074af9f08c142ba83a634a9c93672c1d9252d
 SHA1 (patch-mozilla_js_src_jsmath.cpp) = b02ecb4a64c6b486645ffdf0446430db9e2dcd71
 SHA1 (patch-mozilla_js_src_vm_SPSProfiler.cpp) = 35df0beb0c2f7d233d21c4214281002412b7d5dd
 SHA1 (patch-mozilla_media_libcubeb_src_Makefile.in) = 8c809178a1f427302d58fc8776a9371b78a7ca7e

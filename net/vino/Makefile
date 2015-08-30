@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.79 2014/10/07 16:47:34 adam Exp $
+# $NetBSD: Makefile,v 1.83 2015/06/12 10:50:54 wiz Exp $
 
 DISTNAME=	vino-2.32.2
-PKGREVISION=	11
+PKGREVISION=	14
 CATEGORIES=	net gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vino/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -28,7 +28,7 @@ GCONF_SCHEMAS=		vino-server.schemas
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../security/libgnome-keyring/buildlink3.mk"
 .include "../../security/gnutls/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"

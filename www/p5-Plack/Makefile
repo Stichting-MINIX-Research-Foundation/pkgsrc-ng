@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.33 2014/10/24 12:05:33 wen Exp $
+# $NetBSD: Makefile,v 1.36 2015/06/12 10:52:08 wiz Exp $
 
-DISTNAME=	Plack-1.0033
+DISTNAME=	Plack-1.0036
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Plack/}
 
@@ -26,6 +27,8 @@ DEPENDS+=	p5-HTTP-Body>=1.06:../../www/p5-HTTP-Body
 DEPENDS+=	p5-Test-TCP>=0.11:../../net/p5-Test-TCP
 DEPENDS+=	p5-Stream-Buffered>=0.02:../../devel/p5-Stream-Buffered
 DEPENDS+=	p5-Apache-LogFormat-Compiler>=0.12:../../www/p5-Apache-LogFormat-Compiler
+DEPENDS+=	p5-Cookie-Baker>=0.05:../../www/p5-Cookie-Baker
+DEPENDS+=	p5-HTTP-Headers-Fast>=0.17:../../www/p5-HTTP-Headers-Fast
 
 USE_LANGUAGES=	# empty
 PERL5_PACKLIST= auto/Plack/.packlist

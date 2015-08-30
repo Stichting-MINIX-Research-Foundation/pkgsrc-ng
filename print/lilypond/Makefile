@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.102 2014/05/29 23:37:16 wiz Exp $
+# $NetBSD: Makefile,v 1.105 2015/06/12 10:50:58 wiz Exp $
 
 DISTNAME=	lilypond-2.18.2
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	http://download.linuxaudio.org/lilypond/sources/v2.18/
 
@@ -26,6 +26,7 @@ BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
 BUILD_DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 
 DEPENDS+=	tex-cyrillic-[0-9]*:../../print/tex-cyrillic
+DEPENDS+=	tex-lh-[0-9]*:../../fonts/tex-lh
 DEPENDS+=	tex-psnfss-[0-9]*:../../fonts/tex-psnfss
 DEPENDS+=	tex-epsf-[0-9]*:../../print/tex-epsf
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics

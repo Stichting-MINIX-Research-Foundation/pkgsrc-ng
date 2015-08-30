@@ -74,6 +74,7 @@ catalog-mysql		Store Bacula catalog in MySQL database.
 catalog-pgsql		Store Bacula catalog in PostgreSQL database.
 catalog-sqlite		Store Bacula catalog in SQLite database.
 catalog-sqlite3		Store Bacula catalog in SQLite 3 database.
+cdb			Enable CDB support.
 cdparanoia		Use cdparanoia to rip CDDA media.
 cg			Add support for the Cg compiler.
 cgi			Enable CGI support.
@@ -97,6 +98,7 @@ curl			Enable curl support.
 curses			Enable curses support.
 cvs			Enable CVS support.
 cvsgraph		Enable cvsgraph support.
+cython			Enable Cython support.
 dar-int32		Use 32-bit integers for file lengths in Dar.
 dar-int64		Use 64-bit integers for file lengths in Dar.
 darwin			Build and/or run on Darwin and Mac OS X.
@@ -152,7 +154,6 @@ elinks-fastmem		Allow direct use of system memory allocation functions.
 elinks-html-highlight	Enable HTML highlighting using DOM engine.
 elinks-root-exec	Allow elinks to run as root.
 emacs-w3m		W3m browser extention.
-emacs-xaw3d		Emacs should use Xaw3D for the scrollbar.
 embedded-server		Enable embedded server support for MySQL.
 enchant			Add spell checking support using enchant.
 enchant-zemberek	Add spell checking support for Turkish.
@@ -264,6 +265,7 @@ halfops			Halfops are similar to plain ops, but can't kick/deop plain ops.
 hawknl			Enable HawkNL network API support.
 hping-suid		Install hping executable setuid root.
 hpn-patch		High Performance Enabled SSH/SCP for OpenSSH.
+http2			Add support for HTTP/2.
 hunspell		Add spell checking support using hunspell.
 i586-optimized		Optimize for i586 (only).
 ibus			Enable Intelligent Input Bus support.
@@ -310,6 +312,7 @@ javascript		Enable Javascript support.
 jdbc-mysql31		Enable MySQL JDBC driver.
 jdbc-mysql5		Enable MySQL JDBC driver.
 jpeg			Enable JPEG support.
+json			Enable JSON (JavaScript Object Notation) support.
 jwhois-enable-cache	Enable cache support.
 kde			Enable KDE support.
 kde3			Enable support for KDE 3.
@@ -405,6 +408,7 @@ libmp4v2		Enable MP4 support using libmp4v2.
 libmpdclient		Enable MPD client support.
 libmpg123		Enable mpg123 project's core decoder library support.
 libmtp			Enable MTP via libmtp support.
+libnotify		Enable libnotify support.
 libofa			Enable Open Fingerprint Architecture library support.
 libofx			Enable OFX support.
 libsmi			Use libsmi for SMI MIB support.
@@ -426,6 +430,7 @@ links-xz		Enable lzma support for the links WWW browser.
 links-zlib		Enable zlib support for the links WWW browser.
 lirc			Enable LIRC receiving and sending IR signals support.
 live			Enable live555 support.
+lmdb			Enable lmdb support.
 lprng-priv-ports	Connections must be made from privileged ports.
 lprng-suid		Install LPRng executables setuid root.
 lsof-less-secure-sockets	If 'lsof-more-secure' is set, allow all sockets to be viewed at all times.
@@ -515,6 +520,8 @@ nextstep		Enable Cocoa or GNUstep support.
 nfdump-ftconv		Build the flow-tools to nfdump converter.
 nfdump-nfprofile	Build the netflow profiler.
 nfdump-sflow		Build sflow collector sfcpad.
+nghttp2-asio		Build the nghttp2 ASIO C++ library.
+nghttp2-tools		Build the supplied nghttp2 apps and tools.
 ninja-build		Enable build by ninja-build.
 nls			Use native language support.
 nntp			Enable Network News Transport Protocol (NNTP) support.
@@ -618,6 +625,7 @@ scapy-pyx		Add in py-X support.
 sdl			Use SDL as display library.
 sdl2			Use SDL2 as display library.
 seamonkey		Use seamonkey as gecko rendering engine.
+secret			Enable libsecret support.
 sendmail-ffr-tls	Enable various FFR_TLS_* options.  FFR = For Future Release.
 sendmail-milter		Build the milter with support for the Sendmail MTA.
 sendmail-socketmap	Enable Sendmail SOCKETMAP support.
@@ -774,6 +782,7 @@ x265			Enable x265 support.
 xapian-flint-backend	Enable "Flint" format Xapian database support.
 xapian-quartz-backend	Enable "Quartz" format Xapian database support.
 xaw			Enable Xaw support.
+xaw3d			Enable Xaw3D support.
 xblast-mini		Use a 480x392 window instead a 960x784 window in xblast.
 xcb			Enable XCB (libxcb) support.
 xcursor			Enable Xcursor support.

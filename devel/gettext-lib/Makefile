@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.55 2014/10/09 13:44:36 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2015/04/11 18:27:32 bsiegert Exp $
 
 .include "../../devel/gettext/Makefile.common"
 
@@ -8,6 +8,7 @@ COMMENT=	Internationalized Message Handling Library (libintl)
 USE_LANGUAGES=		c
 CONFIGURE_ARGS+=	--with-included-gettext
 CONFIGURE_ARGS+=	--disable-csharp
+CONFIGURE_ARGS+=	--disable-c++
 CONFIGURE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
 MAKE_ENV+=		PKGLOCALEDIR=${PKGLOCALEDIR}
 
@@ -17,7 +18,7 @@ CFLAGS.gnu-iconv+=	-DHAVE_GNU_ICONV
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} localedir=${EGDIR}
 INSTALL_MAKE_FLAGS+=	includedir=${PREFIX}/include/gettext
 
-CONFIGURE_DIRS=		gettext-runtime
+#CONFIGURE_DIRS=		gettext-runtime
 BUILD_DIRS=		gettext-runtime/intl
 EGDIR=			${PREFIX}/share/examples/gettext
 LOCALEDIR=		${PREFIX}/${PKGLOCALEDIR}/locale

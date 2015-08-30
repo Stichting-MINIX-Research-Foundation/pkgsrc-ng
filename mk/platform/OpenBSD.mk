@@ -1,4 +1,4 @@
-# $NetBSD: OpenBSD.mk,v 1.37 2013/04/28 12:53:56 obache Exp $
+# $NetBSD: OpenBSD.mk,v 1.39 2015/05/21 17:15:48 sevan Exp $
 #
 # Variable definitions for the OpenBSD operating system.
 
@@ -9,8 +9,6 @@ LDD_ENV?=	LD_TRACE_LOADED_OBJECTS_FMT1='\t-l%o => %p\n' \
 IMAKE_MAKE?=	${MAKE}		# program which gets invoked by imake
 PKGLOCALEDIR?=	share
 PS?=		/bin/ps
-# XXX: default from defaults/mk.conf.  Verify/correct for this platform
-# and remove this comment.
 SU?=		/usr/bin/su
 TYPE?=		type				# Shell builtin
 
@@ -35,6 +33,7 @@ ROOT_GROUP?=	wheel
 ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
+ULIMIT_CMD_cputime?=	ulimit -t `ulimit -H -t`
 
 X11_TYPE?=		native
 

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.68 2014/06/09 14:18:07 ryoon Exp $
+# $NetBSD: Makefile,v 1.71 2015/06/12 10:50:17 wiz Exp $
 
 INSTALLATION_DIRS+=	${EGDIR}
 INSTALLATION_DIRS+=	share/claws-mail
 
+PKGREVISION= 2
 .include "Makefile.common"
 
 PKGNAME=	claws-mail-${CLAWS_VERSION}
-PKGREVISION=	5
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	X based e-mail and netnews client
@@ -60,10 +60,14 @@ CONFIGURE_ARGS+=	--enable-ipv6
 CONFIGURE_ARGS+=	--disable-ipv6
 .endif
 
+INSTALLATION_DIRS+=	share/applications
+
 post-install:
 	${INSTALL_DATA} ${FILESDIR}/mime.types ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${WRKSRC}/claws-mail*.png \
 		${DESTDIR}${PREFIX}/share/claws-mail
+	${INSTALL_DATA} ${WRKSRC}/claws-mail.desktop \
+		${DESTDIR}${PREFIX}/share/applications
 .if exists(files/shred.${OPSYS})
 	${INSTALL_SCRIPT} files/shred.${OPSYS} \
 		${DESTDIR}${PREFIX}/bin/claws-mail-shred

@@ -1,19 +1,18 @@
-# $NetBSD: Makefile,v 1.27 2014/10/09 13:44:42 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2015/06/12 10:49:22 wiz Exp $
 #
 
-DISTNAME=	perldap-1.2.2
-PKGNAME=	p5-LDAP-1.2.2
-PKGREVISION=	9
+DISTNAME=	perldap-1.4.1
+# remove 'per' and 'ldap' part into uppercase (perldap -> LDAP)
+PKGNAME=	p5-${DISTNAME:S/per//tu}
+PKGREVISION=	1
 CATEGORIES=	devel perl5 databases
 MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=directory/perldap/ancient/}
-EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mozilla.org/directory/perldap.html
 COMMENT=	Perl5 module to build LDAP clients with perl
 LICENSE=	mpl-1.0
 
-WRKSRC=		${WRKDIR}/perldap
 PERL5_PACKLIST=	auto/Mozilla/LDAP/API/.packlist
 
 MAKE_ENV+=	LDAPSDKDIR=${BUILDLINK_PREFIX.ldapsdk}

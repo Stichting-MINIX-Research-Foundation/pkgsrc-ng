@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.1.1.1 2012/03/04 01:13:54 minskim Exp $
+# $NetBSD: Makefile,v 1.3 2015/06/14 11:19:59 markd Exp $
 
 DISTNAME=	japanese-otf.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-1.7b4
+PKGNAME=	tex-${DISTNAME:S/./-/}-1.7b6.36953
 CATEGORIES=	fonts
-TEXLIVE_REV=	25453
+TEXLIVE_REV=	36953
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Documentation for tex-japanese-otf

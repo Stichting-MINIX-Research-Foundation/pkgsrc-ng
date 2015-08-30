@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.229 2015/03/02 19:37:59 tnn Exp $
+# $NetBSD: Makefile,v 1.232 2015/05/31 08:30:47 wiz Exp $
 #
 
 COMMENT=	Emulators for other operating systems
@@ -8,7 +8,6 @@ SUBDIR+=	Cygne-SDL
 SUBDIR+=	DatLib
 SUBDIR+=	DatUtil
 SUBDIR+=	MAMEDiff
-SUBDIR+=	NeoPop-SDL
 SUBDIR+=	ROMBuild
 SUBDIR+=	ROMInfo
 SUBDIR+=	ZIPIdent
@@ -41,6 +40,8 @@ SUBDIR+=	compat50-x11
 SUBDIR+=	compat51
 SUBDIR+=	compat51-x11
 SUBDIR+=	compat60
+SUBDIR+=	compat61
+SUBDIR+=	compat61-x11
 #SUBDIR+=	compat_netbsd		# only contains Makefile fragments
 SUBDIR+=	cygwin_esound
 SUBDIR+=	cygwin_lib
@@ -87,6 +88,7 @@ SUBDIR+=	libretro-fceumm
 SUBDIR+=	libretro-gambatte
 SUBDIR+=	libretro-mednafen-pce-fast
 SUBDIR+=	libretro-mupen64plus
+SUBDIR+=	libretro-nestopia
 SUBDIR+=	libretro-pcsx-rearmed
 SUBDIR+=	libretro-picodrive
 SUBDIR+=	libretro-snes9x-next

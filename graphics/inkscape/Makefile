@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.114 2015/03/09 09:02:19 wiz Exp $
+# $NetBSD: Makefile,v 1.118 2015/06/12 10:50:10 wiz Exp $
 
 DISTNAME=	inkscape-0.91
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	graphics
 #MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=inkscape/}
 MASTER_SITES=	https://inkscape.global.ssl.fastly.net/media/resources/file/
@@ -20,7 +20,7 @@ DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 
 EXTRACT_USING=		bsdtar
-GCC_REQD+=		3.0
+GCC_REQD+=		4.5.2
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes

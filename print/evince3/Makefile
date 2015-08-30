@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2015/03/14 01:47:12 prlw1 Exp $
+# $NetBSD: Makefile,v 1.41 2015/06/15 00:06:03 prlw1 Exp $
 
 .include "../../print/evince3/Makefile.common"
 

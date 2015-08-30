@@ -1,77 +1,83 @@
-# $NetBSD: Makefile,v 1.98 2015/03/09 19:54:44 tnn Exp $
+# $NetBSD: Makefile,v 1.104 2015/06/07 15:48:12 tnn Exp $
 
-PKGNAME=	MesaLib-${MESA_PKGVERSION}
-PKGREVISION=	6
-COMMENT=	Graphics library similar to SGI's OpenGL
+DISTNAME=	mesa-10.5.7
+PKGNAME=	${DISTNAME:S/mesa/MesaLib/}
+CATEGORIES=	graphics x11
+MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/${PKGVERSION_NOREV}/
+EXTRACT_SUFX=	.tar.xz
 
-CONFLICTS+=	xf86driproto<2.0.4
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.mesa3d.org/
+COMMENT=	The Mesa 3D Graphics Library
+LICENSE=	mit
 
-PLIST_VARS=		dri nodri
+GNU_CONFIGURE=	yes
+USE_TOOLS+=	pkg-config gmake
+USE_LANGUAGES=	c99 c++
+USE_LIBTOOL=	yes
 
+GCC_REQD+=	4.2
+
+PKGCONFIG_OVERRIDE+=	src/egl/main/egl.pc.in
+PKGCONFIG_OVERRIDE+=	src/egl/wayland/wayland-egl/wayland-egl.pc.in
+PKGCONFIG_OVERRIDE+=	src/gallium/targets/d3dadapter9/d3d.pc.in
+PKGCONFIG_OVERRIDE+=	src/gallium/targets/osmesa/osmesa.pc.in
+PKGCONFIG_OVERRIDE+=	src/gallium/targets/xa/xatracker.pc.in
+PKGCONFIG_OVERRIDE+=	src/gbm/main/gbm.pc.in
+PKGCONFIG_OVERRIDE+=	src/mapi/es1api/glesv1_cm.pc.in
+PKGCONFIG_OVERRIDE+=	src/mapi/es2api/glesv2.pc.in
+PKGCONFIG_OVERRIDE+=	src/mapi/vgapi/vg.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/drivers/dri/dri.pc.in
+PKGCONFIG_OVERRIDE+=	src/mesa/drivers/osmesa/osmesa.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/gl.pc.in
-PKGCONFIG_OVERRIDE+=	src/mesa/osmesa.pc.in
-PKGCONFIG_OVERRIDE+=	src/glw/glw.pc.in
 
-CONFIGURE_ARGS+=        --disable-glu
-CONFIGURE_ARGS+=        --disable-glut
-CONFIGURE_ARGS+=        --disable-motif
+# Work around a buildlink and/or libtool bug:
+# In the libtool install/relink stage, if we want to link with two static
+# archives named libglapi.la but in different directories, bad things happen.
+SUBST_CLASSES+=			wrapper-bug
+SUBST_STAGE.wrapper-bug=	pre-configure
+SUBST_MESSAGE.wrapper-bug=	Renaming glapi-shared/libglapi in Makefiles
+SUBST_FILES.wrapper-bug=	src/gbm/Makefile.in
+SUBST_FILES.wrapper-bug+=	src/glx/Makefile.in
+SUBST_FILES.wrapper-bug+=	src/mapi/Makefile.in
+SUBST_FILES.wrapper-bug+=	src/mesa/drivers/x11/Makefile.in
+SUBST_SED.wrapper-bug=		-e 's,shared-glapi/libglapi.la,shared-glapi/libglapi_shared.la,g'
+SUBST_SED.wrapper-bug+=		-e 's,libglapi.la,libglapi_static.la,g'
+SUBST_SED.wrapper-bug+=		-e 's,libglapi_shared.la,libglapi.la,g'
 
-.include "glx-config.mk"
-.include "../../graphics/Mesa/Makefile.lib"
+.include "../../mk/bsd.prefs.mk"
+.include "../../mk/compiler.mk"
 .include "options.mk"
 
-.if !empty(MACHINE_PLATFORM:MNetBSD-[12].*)
-##
-## NetBSD 2.x and earlier require pthread stubs
-##
-.  include "../../devel/pthread-stublib/buildlink3.mk"
-PTHREAD_STUBLIB= -L${PREFIX}/lib -Wl,-R${PREFIX}/lib -lpthstub
-.elif !empty(MACHINE_PLATFORM:MNetBSD-*)
-##
-## NetBSD 3.x and later have pthread stubs in libc
-##
-PTHREAD_STUBLIB=
-.else
-##
-## Other platforms may or may not have stubs provided by libc, but pulling in
-## threading support via the pthread.buildlink3.mk definitions will provide
-## all the necessary interfaces.  This matches the standard configuration for
-## most platforms as they appear in "${WRKSRC}/configs", and is necessary
-## for successful linking with libGL under many platforms.
-##
-.include "../../mk/pthread.buildlink3.mk"
-PTHREAD_STUBLIB= ${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}
-.endif
-PKGSRC_MAKE_ENV+=	PTHREAD_STUBLIB=${PTHREAD_STUBLIB:Q}
-MAKE_ENV+=		PTHREAD_STUBLIB=${PTHREAD_STUBLIB:Q}
-
-.if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
-MAKE_ENV+=	CROSS_COMPILING=yes
-.endif
-
-post-extract:
-.if !empty(PKG_OPTIONS:Mdri) && (${OPSYS} == "SunOS")
-	${CP} ${FILESDIR}/mapfile.externs ${WRKSRC}/src/mesa/drivers/dri/
-.endif
-	${CP} ${FILESDIR}/gen_matypes.awk ${WRKSRC}/src/mesa/x86
-	${CP} ${FILESDIR}/gen_matypes.sh ${WRKSRC}/src/mesa/x86
-	${CHMOD} a+x ${WRKSRC}/src/mesa/x86/gen_matypes.sh
-
-#
-# remove include files installed respectively by ../glu and ../glut
-#
-pre-install:
-	${RM} -f ${WRKSRC}/include/GL/glu*.h
-
-.include "../../mk/compiler.mk"
-
 .if !empty(PKGSRC_COMPILER:Mclang)
-CFLAGS+=	-no-integrated-as -fvisibility=hidden
+SUBST_CLASSES+=		tr1
+SUBST_STAGE.tr1=	pre-configure
+SUBST_MESSAGE.tr1=	Fixing TR1 C++ namespace
+SUBST_FILES.tr1=	src/gallium/drivers/nouveau/codegen/*.h
+SUBST_FILES.tr1+=	src/gallium/drivers/nouveau/codegen/*.cpp
+SUBST_SED.tr1=		-e 's,std::tr1::,std::,g'
+SUBST_SED.tr1+=		-e 's,include <tr1/,include <,g'
 .endif
 
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-fvisibility=hidden
+PYTHON_FOR_BUILD_ONLY=	yes
+BUILD_DEPENDS+=		${PYPKGPREFIX}-mako-[0-9]*:../../devel/py-mako
+.include "../../lang/python/tool.mk"
+
+# On NetBSD < 6 we need to compile with GCC from pkgsrc.
+# But GCC from pkgsrc does not add implicit -lc like base GCC does,
+# which breaks the build with -Wl,--no-undefined.
+# So we piggy back on -lpthread and inject -lc after it.
+.if !empty(MACHINE_PLATFORM:MNetBSD-[1-5].*-*)
+BUILDLINK_TRANSFORM+=   l:pthread:pthread:c
 .endif
 
+# Handle platforms without exp2
+.if !empty(MACHINE_PLATFORM:MNetBSD-[1-5].*-*)
+CPPFLAGS+=	-Dexp2\(x\)=exp\(\(x\)\*M_LN2\)
+CPPFLAGS+=	-Dexp2f\(x\)=expf\(\(x\)\*M_LN2\)
+.endif
+
+.include "../../x11/libX11/buildlink3.mk"
+.include "../../x11/libXext/buildlink3.mk"
+.include "../../x11/libxcb/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

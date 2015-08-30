@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2014/10/17 22:13:24 joerg Exp $
+# $NetBSD: Makefile,v 1.5 2015/06/24 18:09:59 khorben Exp $
 
 .include "../../devel/protobuf/Makefile.common"
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel
-MASTER_SITES=	http://protobuf.googlecode.com/files/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://code.google.com/p/protobuf/
@@ -14,6 +13,11 @@ LICENSE=	modified-bsd
 PYSETUPSUBDIR=	python
 
 PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+
+BUILD_DEPENDS+=	${PYPKGPREFIX}-gflags-[0-9]*:../../devel/py-gflags
+BUILD_DEPENDS+=	${PYPKGPREFIX}-google-apputils-[0-9]*:../../devel/py-google-apputils
+BUILD_DEPENDS+=	${PYPKGPREFIX}-dateutil-[0-9]*:../../time/py-dateutil
+BUILD_DEPENDS+=	${PYPKGPREFIX}-pytz-[0-9]*:../../time/py-pytz
 
 .include "../../devel/protobuf/buildlink3.mk"
 .include "../../lang/python/egg.mk"

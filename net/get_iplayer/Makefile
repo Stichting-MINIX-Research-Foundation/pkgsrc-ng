@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/03/14 00:29:09 prlw1 Exp $
+# $NetBSD: Makefile,v 1.7 2015/06/12 10:50:41 wiz Exp $
 
-DISTNAME=	get_iplayer-2.92
+DISTNAME=	get_iplayer-2.94
+PKGREVISION=	1
 CATEGORIES=	net multimedia
 MASTER_SITES=	ftp://ftp.infradead.org/pub/get_iplayer/
 
@@ -12,6 +13,7 @@ LICENSE=	gnu-gpl-v3
 DEPENDS+=	p5-HTML-Parser>=3.0:../../www/p5-HTML-Parser
 DEPENDS+=	p5-HTTP-Cookies>=6.0:../../www/p5-HTTP-Cookies
 DEPENDS+=	p5-HTTP-Date>=6.0:../../www/p5-HTTP-Date
+DEPENDS+=	p5-XML-Simple-[0-9]*:../../textproc/p5-XML-Simple
 DEPENDS+=	p5-libwww>=6.0:../../www/p5-libwww
 DEPENDS+=	rtmpdump>=1.8:../../net/rtmpdump
 DEPENDS+=	flvstreamer>=1.8:../../multimedia/flvstreamer

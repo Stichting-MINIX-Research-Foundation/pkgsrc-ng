@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2014/11/09 06:27:02 obache Exp $
+# $NetBSD: Makefile,v 1.9 2015/05/17 06:45:23 tsutsui Exp $
 #
 
 PKGNAME=		${RUBY_PKGPREFIX}-gnome2-cairo-gobject-${VERSION}

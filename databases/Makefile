@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.483 2015/03/15 14:51:36 taca Exp $
+# $NetBSD: Makefile,v 1.487 2015/06/13 15:28:22 fhajny Exp $
 
 COMMENT=	Databases
 
@@ -74,8 +74,11 @@ SUBDIR+=	lua-sqlite3
 SUBDIR+=	lua-tokyocabinet
 SUBDIR+=	luma
 SUBDIR+=	maatkit
+SUBDIR+=	mariadb55-client
+SUBDIR+=	mariadb55-server
 SUBDIR+=	metakit-lib
 SUBDIR+=	mongo-c-driver
+SUBDIR+=	mongodb
 SUBDIR+=	myodbc
 SUBDIR+=	mysql-cluster
 SUBDIR+=	mysql-connector-c++
@@ -228,6 +231,7 @@ SUBDIR+=	pgtclng
 SUBDIR+=	php-dba
 SUBDIR+=	php-dbx
 SUBDIR+=	php-ldap
+SUBDIR+=	php-mongo
 SUBDIR+=	php-mssql
 SUBDIR+=	php-mysql
 SUBDIR+=	php-mysqli
@@ -491,6 +495,7 @@ SUBDIR+=	tokyocabinet
 SUBDIR+=	tokyotyrant
 SUBDIR+=	unixodbc
 SUBDIR+=	virtuoso
+SUBDIR+=	vsqlite++
 SUBDIR+=	xsqlmenu
 SUBDIR+=	yap2lc
 SUBDIR+=	yasql

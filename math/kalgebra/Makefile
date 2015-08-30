@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2014/11/13 19:24:23 markd Exp $
+# $NetBSD: Makefile,v 1.28 2015/04/25 14:23:30 tnn Exp $
 
 DISTNAME=	kalgebra-${_KDE_VERSION}
+PKGREVISION=	2
 CATEGORIES=	math
 COMMENT=	KDE graph calculator
 

@@ -1,5 +1,5 @@
-$NetBSD: distinfo,v 1.7 2011/07/16 17:32:00 minskim Exp $
+$NetBSD: distinfo,v 1.9 2015/06/14 12:50:03 markd Exp $
 
-SHA1 (tex-koma-script-21983/koma-script.tar.xz) = 994ffa8e389cd54c1520359303f7c38116296a72
-RMD160 (tex-koma-script-21983/koma-script.tar.xz) = 6fed094469744402c02115252cf13feb50d029b4
-Size (tex-koma-script-21983/koma-script.tar.xz) = 5254828 bytes
+SHA1 (tex-koma-script-37384/koma-script.tar.xz) = 24451a196e2f0315a3653693be1518fe3f93dafa
+RMD160 (tex-koma-script-37384/koma-script.tar.xz) = 6a9b2a717daa9da4a8662a38866200f51daa499b
+Size (tex-koma-script-37384/koma-script.tar.xz) = 11375584 bytes

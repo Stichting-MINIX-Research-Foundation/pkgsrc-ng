@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.69 2015/01/21 09:12:42 obache Exp $
+# $NetBSD: Makefile,v 1.72 2015/06/07 14:05:59 youri Exp $
 #
 
 DISTNAME=	gvfs-1.6.7
-PKGREVISION=	14
+PKGREVISION=	16
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gvfs/1.6/}
 EXTRACT_SUFX=	.tar.bz2
@@ -76,8 +76,8 @@ BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.23.4
 .include "../../devel/glib2/modules.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../archivers/libarchive/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libsoup24+=	libsoup24>=2.26.0
-.include "../../net/libsoup24/buildlink3.mk"
+BUILDLINK_API_DEPENDS.libsoup+=	libsoup>=2.26.0
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../devel/GConf/buildlink3.mk"
 .include "../../security/libgnome-keyring/buildlink3.mk"

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.6 2015/01/09 14:36:06 joerg Exp $
+@comment $NetBSD: PLIST,v 1.8 2015/04/15 13:13:44 joerg Exp $
 lib/pkgconfig/Qt5Multimedia.pc
 lib/pkgconfig/Qt5MultimediaQuick_p.pc
 lib/pkgconfig/Qt5MultimediaWidgets.pc

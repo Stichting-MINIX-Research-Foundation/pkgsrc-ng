@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.123 2014/06/27 23:04:38 asau Exp $
+# $NetBSD: Makefile,v 1.128 2015/06/27 22:38:07 joerg Exp $
 
 DISTNAME=	octave-${OCTAVE_VER}
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_GNU:=octave/}
 MASTER_SITES+=	ftp://ftp.octave.org/pub/octave/
@@ -14,7 +14,11 @@ COMMENT=	High-level language, intended for numerical computations
 LICENSE=	gnu-gpl-v3
 
 BUILD_DEPENDS+=	gperf>=2.7:../../devel/gperf
-BUILD_DEPENDS+=	teTeX-[0-9]*:../../print/teTeX
+BUILD_DEPENDS+=	tex-latex-fonts-[0-9]*:../../fonts/tex-latex-fonts
+BUILD_DEPENDS+=	dvipsk-[0-9]*:../../print/dvipsk
+BUILD_DEPENDS+=	tex-epsf-[0-9]*:../../print/tex-epsf
+BUILD_DEPENDS+=	tex-tex-[0-9]*:../../print/tex-tex
+BUILD_DEPENDS+=	tex-pdftex-[0-9]*:../../print/tex-pdftex
 TOOL_DEPENDS+=	gtexinfo>=5.1:../../devel/gtexinfo
 DEPENDS+=	gnuplot>=3.7:../../graphics/gnuplot
 
@@ -38,6 +42,9 @@ CONFIGURE_ARGS+=	--enable-static
 CONFIGURE_ARGS+=	--enable-shared
 
 CONFIGURE_ARGS+=	--without-opengl
+
+# We use this to install .oct files so it doesn't strip them.
+CONFIGURE_ENV+=		INSTALL_LIB=${INSTALL_LIB:Q}
 
 .include "options.mk"
 

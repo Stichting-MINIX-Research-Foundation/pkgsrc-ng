@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2015/03/09 09:02:21 wiz Exp $
+# $NetBSD: Makefile,v 1.37 2015/06/15 09:45:39 markd Exp $
 
 DISTNAME=	luatex-beta-0.76.0-source
 PKGNAME=	${DISTNAME:S/-beta//:S/-source//}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	print
 MASTER_SITES=	https://foundry.supelec.fr/frs/download.php/file/15745/
 EXTRACT_SUFX=	.tar.bz2
@@ -102,6 +102,8 @@ CONFIGURE_ARGS+=--with-system-zlib \
 CONFIGURE_ARGS+=--with-system-zziplib
 CONFIGURE_DIRS+=. texk/web2c
 MAKE_FLAGS+=	LIBTOOL=${LIBTOOL:Q}
+
+CFLAGS+=	-I${BUILDLINK_PREFIX.kpathsea}/lib
 
 SUBST_CLASSES+=		prefix
 SUBST_STAGE.prefix=	post-configure

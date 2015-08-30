@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2015/01/11 13:52:42 cheusov Exp $
+# $NetBSD: Makefile,v 1.5 2015/04/18 18:27:16 cheusov Exp $
 
 DISTNAME=	0.9.0
+PKGREVISION=	1
 PKGNAME=	csvkit-${DISTNAME}
 CATEGORIES=	textproc
 MASTER_SITES=	https://github.com/onyxfish/csvkit/archive/
@@ -22,19 +23,14 @@ DEPENDS+=	${PYPKGPREFIX}-simplejson>=3.6.3:../../converters/py-simplejson
 DEPENDS+=	${PYPKGPREFIX}-six>=1.6.1:../../lang/py-six
 #DEPENDS+=		${PYPKGPREFIX}-tox>=1.3:../../*/py-tox
 
-PYTHON_VERSIONS_INCOMPATIBLE=	26
-
 # csvkit publishes files like "0.9.0.tar.gz"
 DIST_SUBDIR=	${PKGNAME_NOREV}
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 USE_LANGUAGES=	# none
 
-EGG_NAME=	${PKGNAME}
+EGG_NAME=	${PKGNAME_NOREV}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"
-.if ${PYPKGPREFIX} == "py26"
-DEPENDS+=	${PYPKGPREFIX}-ordereddict>=1.1:../../devel/py-ordereddict
-.endif
 .include "../../mk/bsd.pkg.mk"

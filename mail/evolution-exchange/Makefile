@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.85 2014/10/07 16:47:29 adam Exp $
+# $NetBSD: Makefile,v 1.88 2015/06/07 14:05:58 youri Exp $
 #
 
 DISTNAME=	evolution-exchange-2.32.2
 EE_VER=		2.32
-PKGREVISION=	32
+PKGREVISION=	34
 CATEGORIES=	mail gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/evolution-exchange/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -27,7 +27,7 @@ GCONF_SCHEMAS=		apps_exchange_addressbook-${EE_VER}.schemas
 .include "../../mail/evolution-data-server/buildlink3.mk"
 BUILDLINK_API_DEPENDS.evolution+= evolution>=2.32.2
 .include "../../mail/evolution/buildlink3.mk"
-.include "../../net/libsoup24/buildlink3.mk"
+.include "../../net/libsoup/buildlink3.mk"
 .include "../../net/ORBit2/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../mk/krb5.buildlink3.mk"

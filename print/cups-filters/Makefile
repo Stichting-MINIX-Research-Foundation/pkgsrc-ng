@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.18 2015/03/15 20:53:39 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2015/06/14 16:08:04 wiz Exp $
 
-DISTNAME=	cups-filters-1.0.67
+DISTNAME=	cups-filters-1.0.69
 CATEGORIES=	print
 MASTER_SITES=	http://openprinting.org/download/cups-filters/
 EXTRACT_SUFX=	.tar.xz
@@ -8,11 +8,12 @@ EXTRACT_SUFX=	.tar.xz
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters
 COMMENT=	Backends, filters, and other software for cups
-#LICENSE=	# TODO: (see mk/license.mk)
+LICENSE=	gnu-gpl-v2 AND gnu-gpl-v3 AND gnu-lgpl-v2 AND mit
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	bash:run pkg-config
+USE_TOOLS+=	autoconf
 USE_LANGUAGES=	c c++
 
 CONFLICTS+=	cups<1.6
@@ -25,11 +26,15 @@ REPLACE_BASH+=	filter/textonly
 
 CONFIGURE_ARGS+=	--with-rcdir=${PREFIX}/share/examples/rc.d
 CONFIGURE_ARGS+=	--with-rclevels=""
+CONFIGURE_ARGS+=	--with-shell=${TOOLS_PATH.bash}
 
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples/cups-filters
 
 CONF_FILES=		${PREFIX}/share/examples/cups-filters/fonts/conf.d/99pdftoopvp.conf ${PKG_SYSCONFDIR}/fonts/conf.d/99pdftoopvp.conf
 CONF_FILES=		${PREFIX}/share/examples/cups-filters/cups-browsed.conf ${PKG_SYSCONFDIR}/cups/cups-browsed.conf
+
+pre-configure:
+	cd ${WRKSRC} && autoconf
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/etc/cups/cups-browsed.conf ${DESTDIR}${PREFIX}/share/examples/cups-filters/cups-browsed.conf

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2014/11/07 19:39:40 adam Exp $
+# $NetBSD: Makefile,v 1.28 2015/06/15 09:21:56 joerg Exp $
 #
 
 DISTNAME=	choqok-1.4
-PKGREVISION=	6
+PKGREVISION=	9
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=choqok/}Choqok/
 EXTRACT_SUFX=	.tar.xz
@@ -11,6 +11,9 @@ MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://choqok.gnufolks.org/
 COMMENT=	Twitter and StatusNet client for KDE
 LICENSE=	gnu-gpl-v2
+
+# /data/scratch/net/choqok/work/choqok-1.4/plugins/shorteners/bit_ly/bit_ly_settings.h:64:5: error: unterminated /* comment
+MAKE_JOBS_SAFE=	no
 
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	perl msgfmt pkg-config

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2015/03/28 17:04:50 bsiegert Exp $
+# $NetBSD: Makefile,v 1.24 2015/06/12 10:52:19 wiz Exp $
 
 DISTNAME=	qtbase-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtbase-${QTVERSION}
-PKGREVISION=	1
+PKGREVISION=	5
 COMMENT=	C++ X GUI toolkit
 
 .include "../../x11/qt5-qtbase/Makefile.common"
@@ -17,6 +17,7 @@ CONFIGURE_ARGS+=	-optimized-qmake
 CONFIGURE_ARGS+=	-prefix "${QTPREFIX}"
 CONFIGURE_ARGS+=	${CFLAGS:M-I*} ${LDFLAGS:M-L*} ${LDFLAGS:M-l*}
 CONFIGURE_ARGS+=	-opensource -confirm-license
+CONFIGURE_ARGS+=	-sysconfdir "${PKG_SYSCONFDIR}/xdg"
 CONFIGURE_ARGS+=	-accessibility
 CONFIGURE_ARGS+=	-fontconfig
 CONFIGURE_ARGS+=	-icu
@@ -48,6 +49,11 @@ CONFIGURE_ARGS+=	-reduce-relocations
 .  endif
 .else
 QMAKE_CONF=		qmake.conf.mac
+.endif
+
+PLIST_VARS+=		egl
+.if ${X11_TYPE} == "modular" || exists(${X11BASE}/include/EGL/egl.h)
+PLIST.egl=		yes
 .endif
 
 .include "../../mk/compiler.mk"
@@ -83,7 +89,7 @@ LDFLAGS+=		-lresolv
 .  endif
 .elif ${OPSYS} == "Linux"
 LDFLAGS+=		-ldl
-.elif ${OPSYS} == "NetBSD"
+.elif ${OPSYS} == "NetBSD" || ${OPSYS} == "FreeBSD"
 .  if exists(/usr/lib/libexecinfo.so)
 LDFLAGS+=		-lexecinfo
 .  endif

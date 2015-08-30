@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2014/05/09 07:37:16 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2015/06/09 12:41:08 fhajny Exp $
 
 PKGNAME=		rabbitmq-${RMQ_VERSION}
 DISTNAME=		rabbitmq-server-${RMQ_VERSION}

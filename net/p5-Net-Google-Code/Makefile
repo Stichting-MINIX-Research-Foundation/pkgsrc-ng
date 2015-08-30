@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.7 2014/05/29 23:37:08 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2015/06/12 10:50:47 wiz Exp $
 #
 
 DISTNAME=	Net-Google-Code-0.19
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	net devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 
@@ -29,6 +29,9 @@ DEPENDS+=	p5-Params-Validate-[0-9]*:../../devel/p5-Params-Validate
 DEPENDS+=	p5-URI-[0-9]*:../../www/p5-URI
 DEPENDS+=	p5-WWW-Mechanize-[0-9]*:../../www/p5-WWW-Mechanize
 DEPENDS+=	p5-XML-FeedPP-[0-9]*:../../textproc/p5-XML-FeedPP
+
+# for make test
+BUILD_DEPENDS+=	p5-SUPER-[0-9]*:../../devel/p5-SUPER
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,11 +1,13 @@
-# $NetBSD: Makefile,v 1.5 2013/11/17 17:27:35 minskim Exp $
+# $NetBSD: Makefile,v 1.8 2015/06/14 12:50:02 markd Exp $
 
 DISTNAME=	dvipdfmx
-PKGNAME=	tex-${DISTNAME}-2013
-TEXLIVE_REV=	31830
+PKGNAME=	tex-${DISTNAME}-2015
+TEXLIVE_REV=	37159
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/dvipdfmx
 COMMENT=	Supplementary files for dvipdfmx
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	tex-glyphlist-[0-9]*:../../fonts/tex-glyphlist
 DEPENDS+=	tex-dvipdfmx-def-[0-9]*:../../print/tex-dvipdfmx-def

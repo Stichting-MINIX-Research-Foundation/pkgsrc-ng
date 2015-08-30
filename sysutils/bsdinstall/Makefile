@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.2 2013/09/05 12:19:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.4 2015/06/04 17:21:06 ryoon Exp $
 
 DISTNAME=	bsdinstall-20130905
 CATEGORIES=	sysutils
@@ -17,8 +17,14 @@ INSTALLATION_DIRS=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1
 
 do-extract:
 	@${CP} -R ${FILESDIR} ${WRKSRC}
+	@${TOUCH} ${WRKSRC}/bsdinstall.cat1
 
 CPPFLAGS+=	-D_PATH_DEVNULL=\"/dev/null\"
 CPPFLAGS+=	-DTARGET_STRIP=\"${TOOLS_PLATFORM.strip:Q}\"
+
+.include "../../mk/bsd.prefs.mk"
+.if !empty(MACHINE_PLATFORM:MSunOS-5.11-*)
+MAKE_ENV+=	NOGCCERROR=yes
+.endif
 
 .include "../../mk/bsd.pkg.mk"
