@@ -2070,14 +2070,19 @@ Job_CatchOutput(void)
     do {
 	nready = poll(fds + 1 - wantToken, nfds - 1 + wantToken, POLL_MSEC);
     } while (nready < 0 && errno == EINTR);
-
     if (nready < 0)
 	Punt("poll: %s", strerror(errno));
 
     if (nready > 0 && readyfd(&childExitJob)) {
 	char token = 0;
 	ssize_t count;
+#if defined(__minix)
+	do {
+		count = read(childExitJob.inPipe, &token, 1);
+	} while (count < 0 && errno == EAGAIN);
+#else
 	count = read(childExitJob.inPipe, &token, 1);
+#endif /* defined(__minix) */
 	switch (count) {
 	case 0:
 	    Punt("unexpected eof on token pipe");
