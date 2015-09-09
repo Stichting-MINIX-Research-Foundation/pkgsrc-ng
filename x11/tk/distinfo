@@ -6,3 +6,5 @@ SHA512 (tk8.6.6-src.tar.gz) = 223c72ab5a6f6040928c56843598b878efafab44ed4152a38e
 Size (tk8.6.6-src.tar.gz) = 4273737 bytes
 SHA1 (patch-unix_Makefile.in) = bfb693af19ace5386a73cebdfe09c92a356e14ea
 SHA1 (patch-unix_configure) = 05d47c85f889d53f326c7a64223e435411744771
+SHA1 (patch-zz-minix-a) = 911c7aeb696627faf39714b05b0a052201f8dd6c
+SHA1 (patch-zz-minix-b) = f0cb967fd4d85274c8c45690b628f04be98872bf
