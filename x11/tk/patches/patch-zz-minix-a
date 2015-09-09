@@ -1,0 +1,11 @@
+--- ./unix/tcl.m4.orig	Wed Sep  9 13:47:26 2015
++++ ./unix/tcl.m4	Wed Sep  9 13:48:06 2015
+@@ -1515,7 +1515,7 @@
+ 	    UNSHARED_LIB_SUFFIX='${TCL_TRIM_DOTS}.a'
+ 	    TCL_LIB_VERSIONS_OK=nodots
+ 	    ;;
+-	NetBSD-*)
++	Minix-*|NetBSD-*)
+ 	    # NetBSD has ELF and can use 'cc -shared' to build shared libs
+ 	    SHLIB_CFLAGS="-fPIC"
+ 	    SHLIB_LD='${CC} -shared ${SHLIB_CFLAGS}'

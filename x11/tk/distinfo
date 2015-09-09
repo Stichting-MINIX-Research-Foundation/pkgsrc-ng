@@ -5,3 +5,5 @@ RMD160 (tk8.6.4-src.tar.gz) = 83ee22124e6afffba535ac45e60b3f815a7aac9e
 Size (tk8.6.4-src.tar.gz) = 4266426 bytes
 SHA1 (patch-unix_Makefile.in) = 553800ef42c328618980962c6b78d478ab4d2e2b
 SHA1 (patch-unix_configure) = 97139ed28a2cb8528da5c53cfcbc8f8fb43670f6
+SHA1 (patch-zz-minix-a) = 911c7aeb696627faf39714b05b0a052201f8dd6c
+SHA1 (patch-zz-minix-b) = f0cb967fd4d85274c8c45690b628f04be98872bf
