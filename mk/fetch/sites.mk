@@ -1,4 +1,4 @@
-# $NetBSD: sites.mk,v 1.128 2015/05/16 20:02:21 tsutsui Exp $
+# $NetBSD: sites.mk,v 1.134 2015/08/11 23:41:41 ryoon Exp $
 #
 # This Makefile fragment defines read-only MASTER_SITE_* variables
 # representing some well-known master distribution sites for software.
@@ -26,6 +26,11 @@ MASTER_SITE_GITHUB+=    \
 
 MASTER_SITE_GNUSTEP+=   \
 	ftp://ftp.gnustep.org/pub/gnustep/
+
+MASTER_SITE_OSDN+=	\
+	http://jaist.dl.sourceforge.jp/ \
+	http://iij.dl.sourceforge.jp/ \
+	http://osdn.dl.osdn.jp/
 
 MASTER_SITE_PERL_CPAN+= \
 	ftp://cpan.pair.com/modules/by-module/ \
@@ -70,7 +75,8 @@ MASTER_SITE_GNOME+=     \
 	http://ftp.tuwien.ac.at/hci/gnome.org/ \
 	ftp://ftp.cse.buffalo.edu/pub/Gnome/ \
 	ftp://ftp.kddlabs.co.jp/pub/GNOME/ \
-	ftp://ftp.dit.upm.es/linux/gnome/
+	ftp://ftp.dit.upm.es/linux/gnome/ \
+	https://download.gnome.org/
 
 MASTER_SITE_KDE+=	\
 	http://download.kde.org/stable/ \
@@ -89,12 +95,6 @@ MASTER_SITE_KDE+=	\
 MASTER_SITE_SOURCEFORGE+=	\
 	http://downloads.sourceforge.net/sourceforge/
 
-MASTER_SITE_SOURCEFORGE_JP+=	\
-	http://jaist.dl.sourceforge.jp/ \
-	http://iij.dl.sourceforge.jp/ \
-	http://osdn.dl.sourceforge.jp/
-
-
 MASTER_SITE_SUSE+=	\
 	ftp://rpmfind.net/linux/opensuse/update/${SUSE_VERSION}/${MACHINE_ARCH}/ \
 	ftp://fr.rpmfind.net/linux/opensuse/update/${SUSE_VERSION}/${MACHINE_ARCH}/ \
@@ -103,8 +103,7 @@ MASTER_SITE_SUSE+=	\
 MASTER_SITE_MOZILLA_ALL+=   \
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/ \
 	http://dm-download02.mozilla.org/pub/mozilla.org/ \
-	http://ftp.mozilla.org/pub/mozilla.org/ \
-	ftp://ftp.mozilla.org/pub/mozilla.org/
+	http://ftp.mozilla.org/pub/mozilla.org/
 
 # see http://www.mozilla.org/mirrors.html
 MASTER_SITE_MOZILLA+=	\
@@ -119,8 +118,7 @@ MASTER_SITE_MOZILLA+=	\
 MASTER_SITE_MOZILLA_ESR+=	\
 	http://download-origin.cdn.mozilla.net/pub/mozilla.org/ \
 	http://dm-download02.mozilla.org/pub/mozilla.org/ \
-	http://ftp.mozilla.org/pub/mozilla.org/ \
-	ftp://ftp.mozilla.org/pub/mozilla.org/
+	http://ftp.mozilla.org/pub/mozilla.org/
 
 MASTER_SITE_XEMACS+=    \
 	http://ftp.xemacs.org/pub/xemacs/ \
@@ -318,7 +316,10 @@ MASTER_SITE_OPENBSD+= \
 	ftp://ftp.jaist.ac.jp/pub/OpenBSD/
 
 MASTER_SITE_RUBYGEMS+= \
-	http://rubygems.org/downloads/ \
+	http://rubygems.org/downloads/
+
+MASTER_SITE_PYPI+= \
+	https://pypi.python.org/packages/source/
 
 MASTER_SITE_HASKELL_HACKAGE+=	\
 	http://hackage.haskell.org/package/

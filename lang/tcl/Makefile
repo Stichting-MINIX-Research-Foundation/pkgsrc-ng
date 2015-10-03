@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.78 2014/10/31 21:11:18 adam Exp $
+# $NetBSD: Makefile,v 1.85 2015/09/07 04:27:41 dholland Exp $
 
 DISTNAME=	tcl${TCL_VERSION}-src
 PKGNAME=	tcl-${TCL_VERSION}
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=tcl/}
 
@@ -35,6 +36,10 @@ TEST_TARGET=		test
 CONFIGURE_ARGS+=	--enable-64bit
 .endif
 
+.if ${OPSYS} == "NetBSD"
+CONFIGURE_ARGS+=	ac_cv_func_gethostbyname_r=no
+.endif
+
 SUBST_CLASSES+=		tcl-config
 SUBST_STAGE.tcl-config=	post-build
 SUBST_FILES.tcl-config=	unix/tclConfig.sh
@@ -44,5 +49,21 @@ SUBST_SED.tcl-config+=	-e "s|${WRKSRC}|${PREFIX}/include/tcl|"
 PLIST_SUBST+=		SONUM=${TCL_SONUM}
 PLIST_SUBST+=		BASEVER=${TCL_BASEVER}
 
+CONFIGURE_ARGS+=	--with-system-sqlite
+SUBST_CLASSES+=		sqllink
+SUBST_STAGE.sqllink=	pre-configure
+SUBST_FILES.sqllink=	pkgs/sqlite3.8.8.3/configure
+SUBST_SED.sqllink=	-e "/LIBS=/s|-lsqlite3|-L${BUILDLINK_PREFIX.sqlite3}/lib ${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.sqlite3}/lib -lsqlite3|g"
+
+.if ${OPSYS} == "Darwin"
+post-build:
+.  for lib in tdbcmysql1.0.3/libtdbcmysql1.0.3.dylib \
+	      tdbcpostgres1.0.3/libtdbcpostgres1.0.3.dylib
+	install_name_tool -id ${PREFIX}/lib/${lib} ${WRKSRC}/unix/pkgs/${lib}
+.  endfor
+.endif
+
+BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.8.3
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

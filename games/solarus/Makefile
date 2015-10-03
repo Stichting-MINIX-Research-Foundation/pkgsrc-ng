@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.17 2015/04/25 14:23:04 tnn Exp $
+# $NetBSD: Makefile,v 1.19 2015/07/07 11:41:19 joerg Exp $
 
-VERSION=	1.3.1
+VERSION=	1.4.2
 DISTNAME=	solarus-${VERSION}-src
 PKGNAME=	${DISTNAME:S/-src//1}
-PKGREVISION=	3
 CATEGORIES=	games
 MASTER_SITES=	http://www.solarus-games.org/downloads/solarus/
 
@@ -16,9 +15,13 @@ WRKSRC=		${WRKDIR}/solarus-${VERSION}
 USE_CMAKE=	yes
 USE_LANGUAGES=	c c++
 
-.include "../../mk/bsd.fast.prefs.mk"
+.include "../../mk/bsd.prefs.mk"
 
+GCC_REQD+=	4.8
 LDFLAGS.SunOS+=	-lsocket -lnsl
+
+pre-install:
+	rm ${WRKSRC}/include/solarus/EntityData.h.orig
 
 .include "../../devel/physfs/buildlink3.mk"
 .include "../../lang/LuaJIT2/buildlink3.mk"

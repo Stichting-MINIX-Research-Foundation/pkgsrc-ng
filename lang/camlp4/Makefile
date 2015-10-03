@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2015/01/20 15:40:14 jaapb Exp $
+# $NetBSD: Makefile,v 1.10 2015/07/29 10:30:51 wiz Exp $
 
-DISTNAME=	4.02.0+1
-PKGNAME=	camlp4-${DISTNAME}
+DISTNAME=	4.02+6
+PKGNAME=	camlp4-${DISTNAME:S/+/./}
 PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	https://github.com/ocaml/camlp4/archive/
@@ -13,7 +13,7 @@ COMMENT=	Preprocessor and pretty printer for OCaml
 LICENSE=	gnu-lgpl-v2
 
 HAS_CONFIGURE=	yes
-WRKSRC=		${WRKDIR}/camlp4-4.02.0-1
+WRKSRC=		${WRKDIR}/camlp4-4.02-6
 MAKE_JOBS_SAFE=	no
 
 .include "../../mk/ocaml.mk"

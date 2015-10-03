@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.98 2015/04/03 22:31:32 rodent Exp $
+# $NetBSD: Makefile,v 1.101 2015/09/14 09:06:39 jnemeth Exp $
 #
 
 COMMENT=	Communication utilities
@@ -6,7 +6,6 @@ COMMENT=	Communication utilities
 SUBDIR+=	asterisk
 SUBDIR+=	asterisk-sounds-de-x9media
 SUBDIR+=	asterisk-sounds-native
-SUBDIR+=	asterisk10
 SUBDIR+=	asterisk18
 SUBDIR+=	binkd
 SUBDIR+=	birda
@@ -74,6 +73,7 @@ SUBDIR+=	ruby-termios
 SUBDIR+=	scmxx
 SUBDIR+=	snooper
 SUBDIR+=	spandsp
+SUBDIR+=	srtp
 SUBDIR+=	synce-librapi2
 SUBDIR+=	synce-libsynce
 SUBDIR+=	synce-rra
@@ -81,6 +81,7 @@ SUBDIR+=	synce-serial
 SUBDIR+=	tilp2
 SUBDIR+=	tkhylafax
 SUBDIR+=	tn3270
+SUBDIR+=	xfce4-modemlights-plugin
 SUBDIR+=	xisp
 SUBDIR+=	xtel
 

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2015/06/12 12:28:37 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2015/09/16 16:13:16 wiz Exp $
 
-DISTNAME=	reposurgeon-3.26
+DISTNAME=	reposurgeon-3.29
 CATEGORIES=	devel scm
 MASTER_SITES=	http://www.catb.org/~esr/reposurgeon/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.catb.org/~esr/reposurgeon/
@@ -12,6 +13,7 @@ LICENSE=	modified-bsd
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 
+USE_TOOLS+=	gmake
 USE_LANGUAGES=	# none
 MAKE_FLAGS+=	prefix=${PREFIX}
 MAKE_FLAGS+=	mandir=${PKGMANDIR}

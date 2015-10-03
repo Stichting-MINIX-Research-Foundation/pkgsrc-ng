@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2015/03/15 16:48:17 tnn Exp $
+# $NetBSD: Makefile,v 1.5 2015/07/23 10:55:17 joerg Exp $
 
-DISTNAME=	upower-0.99.2
+DISTNAME=	upower-0.99.3
 CATEGORIES=	sysutils
 MASTER_SITES=	http://upower.freedesktop.org/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -13,6 +13,8 @@ LICENSE=	gnu-gpl-v2
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake pkg-config intltool xgettext msgmerge msgfmt
 
+BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
+
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 
@@ -24,8 +26,21 @@ CONF_FILES+=		${EGDIR}/org.freedesktop.UPower.conf \
 			${PKG_SYSCONFBASE}/dbus-1/system.d/org.freedesktop.UPower.conf
 
 PKGCONFIG_OVERRIDE+=	upower-glib.pc.in
+USE_PKGLOCALEDIR=	yes
+
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "SunOS"
+BUILDLINK_TRANSFORM+=	opt:-Wl,--no-as-needed:-Wl,-zrecord
+BUILDLINK_TRANSFORM+=	opt:-Wl,--as-needed:-Wl,-zignore
+.endif
+
+TEST_TARGET=	check
+
+# with --nonet, xsltproc needs a helping hand finding some dtds
+XSLTPROC_PATH+=	${LOCALBASE}/share/doc/dbus
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../sysutils/dbus-glib/buildlink3.mk"
+.include "../../textproc/libxslt/xsltproc-nonet.mk"
 .include "../../mk/bsd.pkg.mk"

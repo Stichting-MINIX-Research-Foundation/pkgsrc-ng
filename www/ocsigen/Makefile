@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2015/06/27 22:38:33 joerg Exp $
+# $NetBSD: Makefile,v 1.18 2015/08/07 11:20:36 jaapb Exp $
 #
 
 VERSION=	2.5
 PKGNAME=	ocsigen-${VERSION}
+PKGREVISION=	2
 DISTNAME=	${VERSION}
 DIST_SUBDIR=	ocsigenserver
 CATEGORIES=	www

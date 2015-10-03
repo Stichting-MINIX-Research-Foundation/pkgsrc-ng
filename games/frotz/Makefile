@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2012/10/06 11:54:39 asau Exp $
+# $NetBSD: Makefile,v 1.30 2015/09/08 11:57:49 jperkin Exp $
 
 DISTNAME=	frotz-2.43
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=frotz/} \
 		ftp://ftp.ifarchive.org/if-archive/infocom/interpreters/frotz/
@@ -17,9 +17,6 @@ MAKE_ENV+=	SOUND_DEFS=-DOSS_SOUND
 MAKE_ENV+=	SOUND_LIB=${LIBOSSAUDIO}
 MAKE_ENV+=	SOUND_DEV=${DEVOSSSOUND}
 .endif
-
-# setscrreg()
-INCOMPAT_CURSES=	NetBSD-1.5-* NetBSD-1.5.*-* NetBSD-1.5[A-V]-*
 
 SAMPLEDIR=	${PREFIX}/share/examples/frotz
 DOCDIR=		${PREFIX}/share/doc/frotz

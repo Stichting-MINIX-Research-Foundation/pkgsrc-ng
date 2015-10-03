@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.56 2015/06/12 10:50:57 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2015/09/13 18:34:54 gdt Exp $
 
-VERSION=	5.2.9
+VERSION=	5.2.10
 DISTNAME=	gutenprint-${VERSION}
 PKGNAME=	gutenprint-lib-${VERSION}
-PKGREVISION=	22
+PKGREVISION=	1
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gimp-print/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +11,8 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	gdt@NetBSD.org
 COMMENT=	Drivers for Canon, Epson, Lexmark, and PCL printers
 HOMEPAGE=	http://gutenprint.sourceforge.net/
+
+LICENSE=	gnu-gpl-v2
 
 PREV_PKGPATH=	print/gutenprint51-lib
 
@@ -96,6 +98,9 @@ CONFIGURE_ARGS+=	--without-readline
 
 # XXX Make command.types be a CONF_FILE
 
+# Tests fail unless the package is installed because they use
+# /usr/pkg/libexec/cups/filter/rastertogutenprint.5.2 rather than
+# the pre-installed version.  Reported upstream 20150910.
 TEST_TARGET=		check
 
 # A libintl is optional in gutenprint.

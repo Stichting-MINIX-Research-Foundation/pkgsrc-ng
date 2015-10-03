@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.454 2015/06/04 20:28:06 youri Exp $
+# $NetBSD: Makefile,v 1.460 2015/09/08 21:51:35 kamil Exp $
 #
 
 COMMENT=	Miscellaneous utilities
@@ -7,6 +7,7 @@ SUBDIR+=	9menu
 SUBDIR+=	Addresses
 SUBDIR+=	JBidwatcher
 SUBDIR+=	JMdict
+SUBDIR+=	ansiweather
 SUBDIR+=	ascii
 SUBDIR+=	asr-manpages
 SUBDIR+=	astrolog
@@ -172,8 +173,10 @@ SUBDIR+=	libkgeomap
 SUBDIR+=	libkkc-data
 SUBDIR+=	libkvkontakte
 SUBDIR+=	libquantum
+SUBDIR+=	libreoffice
 SUBDIR+=	libreoffice4
 SUBDIR+=	libreoffice4-bin
+SUBDIR+=	libreoffice43
 SUBDIR+=	libutf
 SUBDIR+=	lile
 SUBDIR+=	linux-words
@@ -241,10 +244,15 @@ SUBDIR+=	py-carddav
 SUBDIR+=	py-stdnum
 SUBDIR+=	py-trytond-company
 SUBDIR+=	py-trytond-party
+SUBDIR+=	py-trytond-party-relationship
 SUBDIR+=	py-trytond-party-siret
 SUBDIR+=	py-trytond-product
+SUBDIR+=	py-trytond-product-attribute
+SUBDIR+=	py-trytond-production
 SUBDIR+=	py-trytond-stock
+SUBDIR+=	py-trytond-stock-inventory-location
 SUBDIR+=	py-trytond-stock-lot
+SUBDIR+=	py-trytond-stock-product-location
 SUBDIR+=	qbrew
 SUBDIR+=	qterm
 SUBDIR+=	raspberrypi-userland
@@ -335,6 +343,7 @@ SUBDIR+=	whohas
 SUBDIR+=	window
 SUBDIR+=	xchm
 SUBDIR+=	xdg-utils
+SUBDIR+=	xfce4-smartbookmark-plugin
 SUBDIR+=	xfce4-time-out-plugin
 SUBDIR+=	xfce4-weather-plugin
 SUBDIR+=	xjdic

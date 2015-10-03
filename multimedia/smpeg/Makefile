@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.28 2015/04/25 14:23:41 tnn Exp $
+# $NetBSD: Makefile,v 1.30 2015/09/05 11:39:51 jperkin Exp $
 #
 
 DISTNAME=	smpeg-0.4.4

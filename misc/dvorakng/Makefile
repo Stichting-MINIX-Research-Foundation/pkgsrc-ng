@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2014/10/09 14:06:42 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2015/08/18 07:31:13 wiz Exp $
 #
 
 DISTNAME=	dvorakng-0.6.0rc1
-PKGREVISION=	1
+PKGREVISION=	3
 WRKSRC=		${WRKDIR}/dvorakng
 CATEGORIES=	misc
 MASTER_SITES=	http://www.free.of.pl/n/nopik/

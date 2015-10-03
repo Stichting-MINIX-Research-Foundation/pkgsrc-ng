@@ -1,21 +1,19 @@
-# $NetBSD: Makefile,v 1.1 2014/10/13 13:05:36 mef Exp $
-#
-DISTNAME=		v0.5.3
-PKGNAME=		rtl-sdr-${DISTNAME:S/v//}
+# $NetBSD: Makefile,v 1.4 2015/09/02 20:56:23 mef Exp $
+
+DISTNAME=		rtl-sdr-0.5.3
 CATEGORIES=		ham
-MASTER_SITES=		-https://github.com/steve-m/librtlsdr/archive/${DISTNAME}${EXTRACT_SUFX}
-EXTRACT_SUFX=		.zip
+MASTER_SITES=		${MASTER_SITE_GITHUB:=steve-m/}
+GITHUB_PROJECT=		librtlsdr
+GITHUB_TAG=		v${PKGVERSION_NOREV}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://sdr.osmocom.org/trac/wiki/rtl-sdr
 COMMENT=		Turns your Realtek RTL2832 based DVB dongle into a SDR receiver
 LICENSE=		gnu-gpl-v2
 
-DIST_SUBDIR=		rtl-sdr
 USE_LANGUAGES+=		c c++
 USE_TOOLS+=		gmake
 USE_CMAKE=		yes
-WRKSRC=			${WRKDIR}/librtlsdr-${DISTNAME:S/v//}
 AUTO_MKDIRS=		yes
 
 ## CMake Error at CMakeLists.txt:69 (message):

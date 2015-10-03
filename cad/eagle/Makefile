@@ -1,15 +1,16 @@
-# $NetBSD: Makefile,v 1.24 2013/12/23 11:57:02 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2015/09/02 01:55:13 mef Exp $
 
-DISTNAME=		eagle-lin-eng-4.16r2
-PKGNAME=		${DISTNAME:S/-lin-eng//}
+DISTNAME=		eagle-lin32-7.4.0
+PKGNAME=		${DISTNAME:S/-lin32//}
 CATEGORIES=		cad
-MASTER_SITES=		ftp://ftp.cadsoft.de/eagle/program/${PKGVERSION}/
-EXTRACT_SUFX=		.tgz
+MASTER_SITES=		http://web.cadsoft.de/ftp/eagle/program/7.4/
+EXTRACT_SUFX=		.run
+EXTRACT_CMD=		tail +126 $$extract_file | ${TOOLS_PATH.bsdtar} -C ${WRKDIR} -xjf -
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.cadsoft.de/
 COMMENT=		Easy to use printed circuit board editor
-LICENSE=		fee-based-commercial-use
+LICENSE=		eagle-license
 
 RESTRICTED=		Redistribution not permitted
 NO_SRC_ON_FTP=		${RESTRICTED}
@@ -17,18 +18,21 @@ NO_SRC_ON_CDROM=	${RESTRICTED}
 NO_BIN_ON_FTP=		${RESTRICTED}
 NO_BIN_ON_CDROM=	${RESTRICTED}
 
+USE_TOOLS+=		bsdtar bzip2 pax
+NO_CONFIGURE=		yes
+WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 EMUL_PLATFORMS=		linux-i386
-EMUL_MODULES.linux=	x11
+EMUL_MODULES.linux=	x11 freetype2 fontconfig openssl cups krb5
 
-BUILD_DIRS=		# empty
-INSTALLATION_DIRS=	bin
+INSTALLATION_DIRS=	bin eagle
 
-do-configure:
-	${SED} -e "s:@@PREFIX@@:${PREFIX}:g" <${FILESDIR}/eagle >${WRKDIR}/eagle
+QT_XKB_CONFIG_ROOT=	${X11BASE}/share/X11/xkb
+
+do-build:
+	${SED} -e "s:@@PREFIX@@:${PREFIX}:g" -e "s:@@QT_XKB_CONFIG_ROOT@@:${QT_XKB_CONFIG_ROOT}:g" <${FILESDIR}/eagle >${WRKDIR}/eagle
 
 do-install:
-	${INSTALL_PROGRAM_DIR} ${DESTDIR}${PREFIX}/eagle
-	cd ${WRKSRC} && ${CP} -R ${WRKSRC}/* ${DESTDIR}${PREFIX}/eagle
+	cd ${WRKSRC} && ${PAX} -rw . ${DESTDIR}${PREFIX}/eagle/.
 	${INSTALL_SCRIPT} ${WRKDIR}/eagle ${DESTDIR}${PREFIX}/bin
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.47 2015/03/14 13:33:46 tnn Exp $
+# $NetBSD: Makefile,v 1.50 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=	angband-3.0.3
 PKGNAME=	angband-x11-3.0.3
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	games x11
 MASTER_SITES=	# ftp://clockwork.dementia.org/angband/Source/
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} ${SPOILERFILE}
@@ -20,9 +20,6 @@ EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 USE_TOOLS+=	gzip pax
 USE_GAMESGROUP=	yes
-
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-*
-INCOMPAT_CURSES+=	NetBSD-1.6[A-M]-*
 
 SPOILERFILE=	angband-spoilers.tar.gz
 

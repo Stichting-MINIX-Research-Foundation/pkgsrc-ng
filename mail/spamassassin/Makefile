@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.119 2015/06/12 10:50:26 wiz Exp $
+# $NetBSD: Makefile,v 1.121 2015/09/09 19:13:48 christos Exp $
 
-DISTNAME=	Mail-SpamAssassin-3.4.0
-PKGNAME=	spamassassin-3.4.0
-PKGREVISION=	4
+DISTNAME=	Mail-SpamAssassin-3.4.1
+PKGNAME=	spamassassin-3.4.1
+#PKGREVISION=	
 CATEGORIES=	mail perl5
 MASTER_SITES=	${MASTER_SITE_APACHE:=spamassassin/source/}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
 DISTFILES+=	${RULESARCHIVE}
-DISTFILES+=	${RULESARCHIVEASC}
-DISTFILES+=	${RULESARCHIVESHA}
+#DISTFILES+=	${RULESARCHIVEASC}
+#DISTFILES+=	${RULESARCHIVESHA}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -18,25 +18,25 @@ LICENSE=	apache-2.0
 
 .include "../../mk/bsd.prefs.mk"
 
-RULESARCHIVE=	Mail-SpamAssassin-rules-3.4.0.r1565117.tgz
-RULESARCHIVEASC=${RULESARCHIVE}.asc
-RULESARCHIVESHA=${RULESARCHIVE}.sha1
+RULESARCHIVE=	Mail-SpamAssassin-rules-3.4.1.r1675274.tgz
+#RULESARCHIVEASC=${RULESARCHIVE}.asc
+#RULESARCHIVESHA=${RULESARCHIVE}.sha1
 FILES_SUBST+=	RULESARCHIVE=${RULESDIR}/${RULESARCHIVE}
 PLIST_SUBST+=   RULESARCHIVE=${RULESARCHIVE:Q}
-PLIST_SUBST+=   RULESARCHIVEASC=${RULESARCHIVEASC:Q}
-PLIST_SUBST+=   RULESARCHIVESHA=${RULESARCHIVESHA:Q}
+#PLIST_SUBST+=   RULESARCHIVEASC=${RULESARCHIVEASC:Q}
+#PLIST_SUBST+=   RULESARCHIVESHA=${RULESARCHIVESHA:Q}
 
-DEPENDS+=	{perl>=5.9.3,p5-Archive-Tar>=1.23}:../../archivers/p5-Archive-Tar
-DEPENDS+=	{perl>=5,p5-DB_File-[0-9]*}:../../databases/p5-DB_File
+#DEPENDS+=	{perl>=5.9.3,p5-Archive-Tar>=1.23}:../../archivers/p5-Archive-Tar
+#DEPENDS+=	{perl>=5,p5-DB_File-[0-9]*}:../../databases/p5-DB_File
 DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
 DEPENDS+=	p5-HTML-Parser>=3.43:../../www/p5-HTML-Parser
-DEPENDS+=	{perl>=5.9.3,p5-IO-Compress-[0-9]*}:../../devel/p5-IO-Compress # Compress::Zlib>=0
-DEPENDS+=	{perl>=5.9.3,p5-IO-Zlib>=1.04}:../../devel/p5-IO-Zlib
+#DEPENDS+=	{perl>=5.9.3,p5-IO-Compress-[0-9]*}:../../devel/p5-IO-Compress # Compress::Zlib>=0
+#DEPENDS+=	{perl>=5.9.3,p5-IO-Zlib>=1.04}:../../devel/p5-IO-Zlib
 DEPENDS+=	p5-Mail-SPF-[0-9]*:../../mail/p5-Mail-SPF
-DEPENDS+=	{p5-MIME-Base64>=2.11,perl>=5.8.0}:../../converters/p5-MIME-Base64
+#DEPENDS+=	{p5-MIME-Base64>=2.11,perl>=5.8.0}:../../converters/p5-MIME-Base64
 DEPENDS+=	p5-NetAddr-IP>=4.007:../../net/p5-NetAddr-IP
 DEPENDS+=	p5-Net-DNS>=0.58:../../net/p5-Net-DNS
-DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.7.3,p5-Time-HiRes-[0-9]*}:../../time/p5-Time-HiRes
 DEPENDS+=	p5-libwww-[0-9]*:../../www/p5-libwww
 DEPENDS+=	re2c>=0.13.6:../../devel/re2c
 
@@ -199,10 +199,10 @@ post-install:
 	${INSTALL_DATA} ${FILESDIR}/netbsd_lists.cf ${DESTDIR}${EGDIR}
 	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${RULESARCHIVE} 	\
 		${DESTDIR}${RULESDIR}
-	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${RULESARCHIVEASC}	\
-		${DESTDIR}${RULESDIR}
-	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${RULESARCHIVESHA}	\
-		${DESTDIR}${RULESDIR}
+#	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${RULESARCHIVEASC}	\
+#		${DESTDIR}${RULESDIR}
+#	${INSTALL_DATA} ${DISTDIR}/${DIST_SUBDIR}/${RULESARCHIVESHA}	\
+#		${DESTDIR}${RULESDIR}
 
 # make sure we install the patched version of init.pre but can run the
 # tests with the original file

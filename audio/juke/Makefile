@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2012/09/12 00:24:40 asau Exp $
+# $NetBSD: Makefile,v 1.16 2015/09/08 11:57:48 jperkin Exp $
 #
 
 DISTNAME=	juke-0.7
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	audio
 MASTER_SITES=	http://www.moll.no/oyvind/distfiles/
 
@@ -11,9 +11,6 @@ MAINTAINER=	mob@bicekru.org
 COMMENT=	Simple ncurses based jukebox
 
 GNU_CONFIGURE=	YES
-
-# halfdelay()
-INCOMPAT_CURSES=	NetBSD-1.[45]*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-L]-*
 
 EGDIR=		${PREFIX}/share/examples/juke
 

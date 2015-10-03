@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2012/10/06 11:55:04 asau Exp $
+# $NetBSD: Makefile,v 1.19 2015/07/27 22:22:18 wiz Exp $
 
-DISTNAME=		xzip180
-PKGNAME=		xzip-1.8
-PKGREVISION=		1
+DISTNAME=		xzip182
+PKGNAME=		xzip-1.8.2
 CATEGORIES=		games x11
 MASTER_SITES=		http://www.eblong.com/zarf/ftp/
 EXTRACT_SUFX=		.tar.Z
@@ -12,7 +11,6 @@ HOMEPAGE=		http://www.eblong.com/zarf/xzip.html
 COMMENT=		Z-code interpreter for X11 (Infocom game format)
 
 WRKSRC=			${WRKDIR}/xzip
-USE_X11BASE=		yes
 BUILD_TARGET=		xzip
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man6
 

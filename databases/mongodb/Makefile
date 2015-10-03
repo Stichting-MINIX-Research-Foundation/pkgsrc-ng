@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/06/23 13:31:24 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2015/08/26 05:03:00 fhajny Exp $
 
-DISTNAME=	mongodb-src-r3.0.4
+DISTNAME=	mongodb-src-r3.0.6
 PKGNAME=	${DISTNAME:S/src-r//:S/-rc/rc/}
 CATEGORIES=	databases
 MASTER_SITES=	http://fastdl.mongodb.org/src/
@@ -15,8 +15,6 @@ USE_LANGUAGES=	c c++
 
 BUILD_DEPENDS+=	scons-[0-9]*:../../devel/scons
 
-GCC_REQD+=	4.8.2
-
 SCONS_BIN=	${PREFIX}/bin/scons
 SCONS_ARGS=	${_MAKE_JOBS}
 SCONS_ARGS+=	--c++11=on
@@ -30,7 +28,11 @@ SCONS_ARGS+=	--js-engine=v8-3.25
 # Avoid Argument list too long from mongod linking
 SCONS_ARGS+=	--variant-dir=pkgsrc
 
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet supported as of 3.0.4
+
 .include "../../mk/bsd.prefs.mk"
+
+GCC_REQD+=	4.8.2
 
 .if ${MACHINE_ARCH} == "x86_64"
 SCONS_ARGS+=	--64
@@ -121,7 +123,7 @@ post-install:
 
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
-.include "../../devel/boost-python/buildlink3.mk"
+.include "../../devel/py-boost/buildlink3.mk"
 .include "../../devel/libexecinfo/buildlink3.mk"
 .include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/snappy/buildlink3.mk"

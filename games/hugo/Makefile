@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2012/12/12 10:44:09 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=	hugov31_unix_source
 PKGNAME=	hugo-3.1.02.1
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_IFARCHIVE:=programming/hugo/source/}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX} hugolib.zip
@@ -16,9 +16,6 @@ SITES.hugolib.zip=${MASTER_SITE_IFARCHIVE:=programming/hugo/library/}
 
 DIST_SUBDIR=	${PKGNAME_NOREV}
 USE_TOOLS+=	gmake
-# uses halfkey (present since 1.6M)
-INCOMPAT_CURSES+=	NetBSD-1.4[Y-Z]*-* NetBSD-1.5*-* NetBSD-1.6-*
-INCOMPAT_CURSES+=	NetBSD-1.6.*-* NetBSD-1.6[A-L]*-*
 WRKSRC=		${WRKDIR}/hugov3.1.02
 
 LIBDIR=		${PREFIX}/share/hugo

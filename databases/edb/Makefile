@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.26 2014/09/11 07:22:46 dholland Exp $
+# $NetBSD: Makefile,v 1.28 2015/08/18 07:31:04 wiz Exp $
 
 DISTNAME=		edb-1.0.5
 CATEGORIES=		databases
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=enlightenment/}
-PKGREVISION=		2
+PKGREVISION=		4
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.enlightenment.org/Libraries/Edb/

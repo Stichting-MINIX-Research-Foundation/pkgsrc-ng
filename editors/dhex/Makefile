@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2013/01/23 22:00:06 wiz Exp $
+# $NetBSD: Makefile,v 1.3 2015/08/18 07:31:05 wiz Exp $
 
 DISTNAME=	dhex_0.68
 PKGNAME=	${DISTNAME:S/_/-/}
+PKGREVISION=	2
 CATEGORIES=	editors
 MASTER_SITES=	http://dettus.net/dhex/
 

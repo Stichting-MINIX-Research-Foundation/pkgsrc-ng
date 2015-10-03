@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.556 2015/06/14 07:28:43 pettai Exp $
+# $NetBSD: Makefile,v 1.561 2015/08/23 14:21:43 leot Exp $
 #
 
 COMMENT=	Security tools
@@ -88,6 +88,7 @@ SUBDIR+=	gnu-pw-mgr
 SUBDIR+=	gnupg
 SUBDIR+=	gnupg-pkcs11-scd
 SUBDIR+=	gnupg2
+SUBDIR+=	gnupg21
 SUBDIR+=	gnutls
 SUBDIR+=	go-oauth2
 SUBDIR+=	google-authenticator
@@ -98,7 +99,6 @@ SUBDIR+=	gpgme
 SUBDIR+=	gpshell
 SUBDIR+=	gsasl
 SUBDIR+=	gss
-SUBDIR+=	gtk-systrace
 SUBDIR+=	guardtime
 SUBDIR+=	hackbot
 SUBDIR+=	hashcash
@@ -356,6 +356,7 @@ SUBDIR+=	py-asn1
 SUBDIR+=	py-asn1-modules
 SUBDIR+=	py-backports.ssl_match_hostname
 SUBDIR+=	py-bcrypt
+SUBDIR+=	py-certifi
 SUBDIR+=	py-crack
 SUBDIR+=	py-cryptkit
 SUBDIR+=	py-crypto
@@ -469,7 +470,6 @@ SUBDIR+=	stegtunnel
 SUBDIR+=	stud
 SUBDIR+=	stunnel
 SUBDIR+=	sudo
-SUBDIR+=	systrace-policies
 SUBDIR+=	tacshell
 SUBDIR+=	tcl-tls
 SUBDIR+=	tcp_wrappers

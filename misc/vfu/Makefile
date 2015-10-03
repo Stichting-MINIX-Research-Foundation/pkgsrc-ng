@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2015/06/12 10:50:37 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2015/09/08 11:57:50 jperkin Exp $
 #
 
 DISTNAME=	vfu-3.04
-PKGREVISION=	7
+PKGREVISION=	9
 CATEGORIES=	misc
 MASTER_SITES=	http://cade.datamax.bg/vfu/ \
 		${MASTER_SITE_SUNSITE:=utils/file/managers/}
@@ -15,9 +15,6 @@ COMMENT=	Small, handy, easy-to-use file manager
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	perl:run
 REPLACE_PERL+=	rx/rx_*
-
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-*
-INCOMPAT_CURSES+=	NetBSD-1.6[A-U]-*
 
 DOCDIR=		${PREFIX}/share/doc/vfu
 EGDIR=		${PREFIX}/share/examples/vfu

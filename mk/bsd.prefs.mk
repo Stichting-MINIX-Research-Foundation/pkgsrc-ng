@@ -1,4 +1,4 @@
-# $NetBSD: bsd.prefs.mk,v 1.365 2015/06/04 15:48:46 sevan Exp $
+# $NetBSD: bsd.prefs.mk,v 1.369 2015/09/08 12:07:55 jperkin Exp $
 #
 # This file includes the mk.conf file, which contains the user settings.
 #
@@ -322,8 +322,10 @@ LOWER_OPSYS_VERSUFFIX=	2.${OS_VERSION:C/5.//}
 _UNAME_V!=		${UNAME} -v
 .  if !empty(_UNAME_V:Mjoyent_*)
 OS_VARIANT=		SmartOS
+LOWER_VARIANT_VERSION=	${_UNAME_V:C/joyent_//}
 .  elif !empty(_UNAME_V:Momnios-*)
 OS_VARIANT=		OmniOS
+LOWER_VARIANT_VERSION!= 	/usr/bin/awk '{ if (!seen) { print $$3; seen=1 } }' /etc/release
 .  endif
 
 .elif ${OPSYS} == "SCO_SV"
@@ -387,28 +389,6 @@ PKGPATH?=		${.CURDIR:C|.*/([^/]*/[^/]*)$|\1|}
 # Load the settings from MAKECONF, which is /etc/mk.conf by default.
 .include <bsd.own.mk>
 
-# /usr/share/mk/bsd.own.mk on NetBSD 1.3 does not define OBJECT_FMT
-.if !empty(MACHINE_PLATFORM:MNetBSD-1.3*)
-.  if ${MACHINE_ARCH} == "alpha" || \
-      ${MACHINE_ARCH} == "mipsel" || ${MACHINE_ARCH} == "mipseb" || \
-      ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64"
-OBJECT_FMT?=		ELF
-.  else
-OBJECT_FMT?=		a.out
-.  endif
-# override what bootstrap-pkgsrc sets, which isn't right for NetBSD
-# 1.4.
-# XXX other ELF platforms in 1.4 need to be added to here.
-.elif !empty(MACHINE_PLATFORM:MNetBSD-1.4*)
-.  if ${MACHINE_ARCH} == "alpha" || \
-      ${MACHINE_ARCH} == "mipsel" || ${MACHINE_ARCH} == "mipseb" || \
-      ${MACHINE_ARCH} == "powerpc" || ${MACHINE_ARCH} == "sparc64"
-OBJECT_FMT=		ELF
-.  else
-OBJECT_FMT=		a.out
-.  endif
-.endif
-
 .if ${OPSYS} == "OpenBSD"
 .  if defined(ELF_TOOLCHAIN) && ${ELF_TOOLCHAIN} == "yes"
 OBJECT_FMT?=	ELF
@@ -422,6 +402,8 @@ OBJECT_FMT=	ELF
 .elif ${OPSYS} == "MirBSD"
 OBJECT_FMT=	ELF
 MKPROFILE=	no
+.elif ${OPSYS} == "Linux"
+OBJECT_FMT=	ELF
 .elif ${OPSYS} == "AIX"
 OBJECT_FMT=	XCOFF
 .elif ${OPSYS} == "OSF1"
@@ -658,8 +640,6 @@ CROSSBASE?=	${LOCALBASE}/cross
 .if ${X11_TYPE} == "modular"
 X11BASE=		${LOCALBASE}
 .endif
-
-X11PREFIX=		${LOCALBASE}
 
 # Default directory for font encodings
 .if ${X11_TYPE} == "modular"

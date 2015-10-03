@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.83 2015/05/14 17:21:06 wiz Exp $
+# $NetBSD: Makefile,v 1.88 2015/09/23 06:56:57 ryoon Exp $
 
-DISTNAME=	dbus-1.8.18
+DISTNAME=	dbus-1.10.0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://dbus.freedesktop.org/releases/dbus/
 
@@ -31,24 +32,22 @@ MESSAGE_SRC+=	MESSAGE
 .include "../../mk/bsd.prefs.mk"
 
 CONFIGURE_ARGS+=	--localstatedir=${VARBASE:Q}
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 
 CONFIGURE_ARGS_GROUPS=	enable disable with without
 
 .if ${OPSYS} == "Darwin"
 # Prevent the configure script from picking up a per-user tmp
 # directory. See the commit message on revision 1.35
-CONFIGURE_ARGS.with+=	session-socket-dir=/tmp
+CONFIGURE_ARGS+=	--with-session-socket-dir=/tmp
 .endif
 
-CONFIGURE_ARGS.Linux=	abstract-sockets selinux
-CONFIGURE_ARGS.docs=	doxygen-docs xml-docs
+CONFIGURE_ARGS+=	--without-init-scripts
+CONFIGURE_ARGS+=	--disable-ansi
+CONFIGURE_ARGS+=	--disable-console-owner-file
+CONFIGURE_ARGS+=	--disable-doxygen-docs
+CONFIGURE_ARGS+=	--enable-checks
+CONFIGURE_ARGS+=	--enable-static
 
-CONFIGURE_ARGS.without+=	init-scripts
-CONFIGURE_ARGS.disable+=	ansi
-CONFIGURE_ARGS.disable+=	console-owner-file
-CONFIGURE_ARGS.disable+=	${CONFIGURE_ARGS.docs}
-CONFIGURE_ARGS.enable+=		checks static
 ###
 ### XXX the spawn test hangs, and some of these tests may be bogus
 ###
@@ -57,34 +56,25 @@ CONFIGURE_ARGS.enable+=		checks static
 #TEST_TARGET=			check
 #.endif
 
-CONFIGURE_ARGS.with+=	dbus-user=${DBUS_USER}
-CONFIGURE_ARGS.with+=	test-socket-dir=${WRKDIR:Q}
+CONFIGURE_ARGS+=	--with-dbus-user=${DBUS_USER}
+CONFIGURE_ARGS+=	--with-test-socket-dir=${WRKDIR:Q}
 
 PTHREAD_AUTO_VARS=	yes
 
 .if ${OPSYS} == "Linux"
 PLIST.linux=		yes
 .else
-CONFIGURE_ARGS.disable+=\
-			${CONFIGURE_ARGS.Linux}
+CONFIGURE_ARGS+=	--disable-abstract-sockets
+CONFIGURE_ARGS+=	--disable-selinux
 .endif
 
 PLIST_VARS+=    	linux launchd
 
-CONFIGURE_ARGS+=\
-	${CONFIGURE_ARGS_GROUPS:@.g.@			\
-		${CONFIGURE_ARGS.${.g.}:@.a.@		\
-			--${.g.}-${.a.}			\
-		@}					\
-	@:M*}
-
-MAKE_DIRS=		${PKG_SYSCONFDIR}/dbus-1/event.d
-MAKE_DIRS+=		${PKG_SYSCONFDIR}/dbus-1/system.d
-MAKE_DIRS+=		${PKG_SYSCONFDIR}/dbus-1/session.d
-
-EGDIR=			${PREFIX}/share/examples/dbus
-CONF_FILES=	${EGDIR}/session.conf ${PKG_SYSCONFDIR}/dbus-1/session.conf
-CONF_FILES+=	${EGDIR}/system.conf ${PKG_SYSCONFDIR}/dbus-1/system.conf
+DBUS_CONF_DIR+=		${PKG_SYSCONFBASE}/dbus-1
+OWN_DIRS+=		${DBUS_CONF_DIR}/services 
+OWN_DIRS+=		${DBUS_CONF_DIR}/system-services 
+OWN_DIRS+=		${DBUS_CONF_DIR}/session.d
+OWN_DIRS+=		${DBUS_CONF_DIR}/system.d
 
 RCD_SCRIPTS=		dbus
 
@@ -110,6 +100,14 @@ BUILDLINK_TRANSFORM+=	rm:-lrt
 .endif
 
 .include "options.mk"
+
+BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/doc/introspect.* \
+		${DESTDIR}${PREFIX}/share/doc/dbus/
+	${RM} ${DESTDIR}${PREFIX}/etc/dbus-1/s*.conf
+	${RMDIR} ${DESTDIR}${PREFIX}/etc/dbus-1
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

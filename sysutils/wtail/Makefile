@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.13 2012/10/23 19:51:35 asau Exp $
+# $NetBSD: Makefile,v 1.15 2015/08/18 07:31:18 wiz Exp $
 #
 
 DISTNAME=	wtail-0.2.2
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.teaser.fr/~amajorel/wtail/
 

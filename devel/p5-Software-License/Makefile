@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.16 2015/06/12 10:49:43 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2015/09/04 12:28:20 mef Exp $
 #
 
 DISTNAME=	Software-License-0.103010
@@ -13,10 +13,13 @@ HOMEPAGE=	http://search.cpan.org/dist/Software-License/
 COMMENT=	Perl 5 module which provide templated software licenses
 LICENSE=	${PERL5_LICENSE}
 
-BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=	{perl>=5.10.1,p5-Test-Simple>=0.88}:../../devel/p5-Test-Simple
 DEPENDS+=	p5-Data-Section-[0-9]*:../../devel/p5-Data-Section
 DEPENDS+=	p5-Sub-Install-[0-9]*:../../devel/p5-Sub-Install
 DEPENDS+=	p5-Text-Template-[0-9]*:../../textproc/p5-Text-Template
+
+# for make test
+BUILD_DEPENDS+=	p5-Try-Tiny-[0-9]*:../../devel/p5-Try-Tiny
 
 PERL5_PACKLIST=	auto/Software/License/.packlist
 PERL5_MODULE_TYPE=	Module::Install::Bundled

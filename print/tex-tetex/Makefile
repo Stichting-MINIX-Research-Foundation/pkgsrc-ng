@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/06/14 12:50:05 markd Exp $
+# $NetBSD: Makefile,v 1.24 2015/08/09 11:04:54 markd Exp $
 
 DISTNAME=	tetex
-PKGNAME=	tex-${DISTNAME}-3.0.37485
-TEXLIVE_REV=	37485
+PKGNAME=	tex-${DISTNAME}-3.0.38001
+TEXLIVE_REV=	38001
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Supplementary files for updmap
@@ -69,5 +69,6 @@ post-install:
 	${LN} -sf allcm ${DESTDIR}${PREFIX}/bin/allec
 	${LN} -sf kpsetool ${DESTDIR}${PREFIX}/bin/kpsepath
 	${LN} -sf kpsetool ${DESTDIR}${PREFIX}/bin/kpsexpand
+	${LN} -sf fmtutil ${DESTDIR}${PREFIX}/bin/mktexfmt
 
 .include "../../mk/bsd.pkg.mk"

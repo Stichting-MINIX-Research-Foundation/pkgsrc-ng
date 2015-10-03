@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2015/06/12 10:49:09 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2015/08/15 16:40:14 joerg Exp $
 
 DISTNAME=	Devel-Refactor-0.05
 PKGNAME=	p5-${DISTNAME}

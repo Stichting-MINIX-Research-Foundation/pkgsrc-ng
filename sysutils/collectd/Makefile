@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2015/06/12 10:51:12 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2015/09/12 19:04:56 he Exp $
 
-PKGREVISION= 1
+PKGREVISION= 8
 .include "../../sysutils/collectd/Makefile.common"
 
 COMMENT=	Statistics collection daemon base
@@ -29,6 +29,8 @@ MAKE_JOBS_SAFE=		no
 
 CONF_FILES+=		share/examples/collectd/collectd.conf 		\
 			${PKG_SYSCONFDIR}/collectd.conf
+
+BUILD_DEFS+=		VARBASE
 
 OWN_DIRS+=		${VARBASE}/db/collectd
 

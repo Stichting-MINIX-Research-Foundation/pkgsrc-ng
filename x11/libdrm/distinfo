@@ -1,13 +1,13 @@
-$NetBSD: distinfo,v 1.53 2015/05/07 06:31:06 wiz Exp $
+$NetBSD: distinfo,v 1.57 2015/08/18 22:19:38 wiz Exp $
 
-SHA1 (libdrm-2.4.61.tar.bz2) = fce70371540af0490541b05d96c6b6b43f1fab80
-RMD160 (libdrm-2.4.61.tar.bz2) = 4a318c1aa5a4da3249c2edf6a00a4a2c394278fc
-Size (libdrm-2.4.61.tar.bz2) = 600137 bytes
-SHA1 (patch-ab) = e28070e56924a68ecc3c4e27d479a5e8edc70913
+SHA1 (libdrm-2.4.64.tar.bz2) = 057492fa0742b778687757e241fff4ef39fcb7c3
+RMD160 (libdrm-2.4.64.tar.bz2) = a7ff0df732501e438315ae9d5821cd1d1fb0f332
+Size (libdrm-2.4.64.tar.bz2) = 640440 bytes
+SHA1 (patch-ab) = ebc345d7f1aeb583b3ebb883fb3b27abc5b8133c
 SHA1 (patch-ac) = 67c998df7dfc0dabc86320ea6d015cede3e464ea
+SHA1 (patch-amdgpu_amdgpu__cs.c) = 8c88901b92000eaee89d541982f14c0a5b49c66e
 SHA1 (patch-include_drm_drm.h) = 1cb10685b54a1c0ad71aef92edecbb0318fe4c99
 SHA1 (patch-intel_intel__bufmgr__gem.c) = bab22f43ba85c48fd063b6ac667369d1223f908f
-SHA1 (patch-libkms_linux.c) = 1ceed0691fb8d2c1066fb4dc8bfefec6ca0de3a4
 SHA1 (patch-libkms_vmwgfx.c) = d2204c0b79098c6c36b7f282b486c58c6354bd1d
 SHA1 (patch-radeon_radeon__bo__gem.c) = 4924fde172b2a2a713d47bf7b60a6b52851d7a8f
 SHA1 (patch-radeon_radeon__cs__gem.c) = 516b5dd6408c10a4f33f2815b3719e34a16d863a

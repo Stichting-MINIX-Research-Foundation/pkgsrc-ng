@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.10 2015/05/20 23:08:37 khorben Exp $
+# $NetBSD: Makefile,v 1.13 2015/08/26 22:34:03 khorben Exp $
 #
 
-DISTNAME=	libSystem-0.2.1
-PKGNAME=	deforaos-libsystem-0.2.1
+DISTNAME=	libSystem-0.2.2
+PKGNAME=	deforaos-libsystem-0.2.2
 CATEGORIES=	devel
-MASTER_SITES=	http://www.defora.org/os/download/download/4351/
+MASTER_SITES=	http://www.defora.org/os/download/download/4359/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -14,6 +14,8 @@ LICENSE=	gnu-lgpl-v3
 
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 MAKE_FLAGS+=	INSTALL=${INSTALL}
 AUTO_MKDIRS=	yes
 

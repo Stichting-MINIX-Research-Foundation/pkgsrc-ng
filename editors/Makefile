@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.167 2014/12/06 20:41:36 prlw1 Exp $
+# $NetBSD: Makefile,v 1.169 2015/08/05 13:11:36 ryoon Exp $
 #
 
 COMMENT=	Editors
@@ -6,7 +6,6 @@ COMMENT=	Editors
 SUBDIR+=	OmegaT
 SUBDIR+=	Sigil
 SUBDIR+=	TeXmacs
-SUBDIR+=	TeXmacs-devel
 SUBDIR+=	abiword
 SUBDIR+=	abiword-plugins
 SUBDIR+=	beav
@@ -162,6 +161,7 @@ SUBDIR+=	xjed
 SUBDIR+=	xournal
 SUBDIR+=	xvile
 SUBDIR+=	xwpe
+SUBDIR+=	yed
 SUBDIR+=	yudit
 SUBDIR+=	zile
 SUBDIR+=	zim

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.28 2013/10/14 13:20:06 roy Exp $
+# $NetBSD: Makefile,v 1.30 2015/09/08 11:57:48 jperkin Exp $
 #
 
 DISTNAME=	cmp3-2.0pre6
 PKGNAME=	cmp3-2.0.p6
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=cmp3/}
 
@@ -16,8 +16,6 @@ DEPENDS+=	vorbis-tools-[0-9]*:../../audio/vorbis-tools
 
 WRKSRC=			${WRKDIR}/cmp3-kenrevs
 USE_TOOLS+=		gmake
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-*
-INCOMPAT_CURSES+=	NetBSD-1.6[A-Z]-* NetBSD-1.6Z[A-H]*-*
 
 INSTALLATION_DIRS=	bin
 

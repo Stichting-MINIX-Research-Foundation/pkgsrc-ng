@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/06/12 10:48:26 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=	centerim-4.22.10
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	chat
 MASTER_SITES=	http://www.centerim.org/download/releases/ \
 		http://transacid.de/centerim/releases/
@@ -25,10 +25,7 @@ REPLACE_PERL+=		misc/cimconv
 REPLACE_PYTHON+=	misc/CenterIMLog2HTML.py
 REPLACE_AWK+=		misc/cimformathistory
 
-INCOMPAT_CURSES+=	NetBSD-1.[45]*-* NetBSD-1.6-* NetBSD-1.6.[1-9]-*
-INCOMPAT_CURSES+=	NetBSD-1.6_*-* NetBSD-1.6.[1-9]_*-* NetBSD-1.6[A-T]-*
-INCOMPAT_CURSES+=	NetBSD-2.*-* NetBSD-3.*-*	# see PR 29060
-INCOMPAT_CURSES+=	NetBSD-4.*-* NetBSD-5.*-*
+INCOMPAT_CURSES+=	NetBSD-[0-5].*-* # see PR 29060
 
 .include "options.mk"
 .include "../../mk/bsd.prefs.mk"

@@ -1,22 +1,18 @@
-# $NetBSD: Makefile,v 1.151 2015/05/26 12:34:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.156 2015/08/29 12:42:55 ryoon Exp $
 
 DISTNAME=	# empty
 PKGNAME=	thunderbird-${TB_VER}
-TB_VER=		31.7.0
-#LIGHTNINGVER=	1.9
+TB_VER=		38.2.0
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=thunderbird/releases/${TB_VER}/source/}
 DISTFILES=	thunderbird-${TB_VER}.source.tar.bz2
-#DISTFILES+=	lightning-${LIGHTNINGVER}.source.tar.bz2
-#SITES.lightning-${LIGHTNINGVER}.source.tar.bz2=	${MASTER_SITE_MOZILLA:=calendar/lightning/releases/${LIGHTNINGVER}/source/}
-#EXTRACT_DIR.lightning-${LIGHTNINGVER}.source.tar.bz2=	${WRKSRC}/lightning
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mozillamessaging.com/en-US/thunderbird/
 COMMENT=	Organize, secure and customize your mail
 
 USE_TOOLS+=	unzip pax
-WRKSRC=		${WRKDIR}/comm-esr31
+WRKSRC=		${WRKDIR}/comm-esr38
 MOZILLA_DIR=	mozilla/
 PLIST_SRC+=	${PLIST_SRC_DFLT}
 
@@ -81,7 +77,7 @@ INSTALLATION_DIRS+=	share/applications share/pixmaps
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/desktop				\
 	  ${DESTDIR}${PREFIX}/share/applications/${MOZILLA}.desktop
-	${INSTALL_DATA} ${WRKSRC}/${OBJDIR}/mozilla/dist/thunderbird/chrome/icons/default/default48.png	\
+	${INSTALL_DATA} ${WRKSRC}/${OBJDIR}/dist/thunderbird/chrome/icons/default/default48.png	\
 	  ${DESTDIR}${PREFIX}/share/pixmaps/${MOZILLA}.png
 	@${STEP_MSG} "Installing bundled thunderbird extensions."
 	rm -rf ${WRKDIR}/extensions
@@ -96,7 +92,7 @@ post-install:
 	   ${DESTDIR}${PREFIX}/lib/${MOZILLA}/extensions/.
 	rm -rf ${WRKDIR}/extensions
 
-.include "../../www/firefox31/mozilla-common.mk"
+.include "../../www/firefox38/mozilla-common.mk"
 .include "options.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

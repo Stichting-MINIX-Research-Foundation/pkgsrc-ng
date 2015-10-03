@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2015/05/26 12:36:29 ryoon Exp $
+# $NetBSD: Makefile,v 1.39 2015/08/29 12:44:26 ryoon Exp $
 #
 
-TB_VER=		31.7.0
+TB_VER=		38.2.0
 PKGNAME=	thunderbird-l10n-${TB_VER}
 DISTNAME=	# empty
 CATEGORIES=	mail
@@ -28,5 +28,5 @@ TB_LOCALES=	        ar be bn-BD br ca cs			\
 EXTENSIONS_DIR=		${PREFIX}/lib/thunderbird/extensions
 XPI_FILES=		${TB_LOCALES:=.xpi}
 
-.include "../../www/firefox31/xpi.mk"
+.include "../../www/firefox38/xpi.mk"
 .include "../../mk/bsd.pkg.mk"

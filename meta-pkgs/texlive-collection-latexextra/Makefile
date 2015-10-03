@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.7 2015/06/15 10:11:36 markd Exp $
+# $NetBSD: Makefile,v 1.11 2015/09/01 21:33:27 markd Exp $
 
 DISTNAME=	collection-latexextra
-PKGNAME=	texlive-${DISTNAME}-2015pre2
+PKGNAME=	texlive-${DISTNAME}-2015pre5
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	36739
+TEXLIVE_REV=	37946
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -73,6 +73,7 @@ DEPENDS+=	tex-appendix-[0-9]*:../../print/tex-appendix
 # depend beamerthemenirma
 # depend beamerthemephnompenh
 DEPENDS+=	tex-beton-[0-9]*:../../print/tex-beton
+# depend bewerbung
 # depend bez123
 DEPENDS+=	tex-bezos-[0-9]*:../../print/tex-bezos
 # depend bhcexam
@@ -178,6 +179,7 @@ DEPENDS+=	tex-cooking-[0-9]*:../../print/tex-cooking
 # depend coolthms
 # depend cooltooltips
 # depend coordsys
+# depend copyedit
 # depend copyrightbox
 # depend coseoul
 # depend counttexruns
@@ -189,7 +191,7 @@ DEPENDS+=	tex-cooking-[0-9]*:../../print/tex-cooking
 # depend crossreference
 DEPENDS+=	tex-csquotes-[0-9]*:../../print/tex-csquotes
 # depend csvsimple
-# depend cuisine
+DEPENDS+=	tex-cuisine-[0-9]*:../../print/tex-cuisine
 # depend currfile
 # depend currvita
 # depend cutwin
@@ -287,6 +289,7 @@ DEPENDS+=	tex-draftwatermark-[0-9]*:../../print/tex-draftwatermark
 # depend ean13isbn
 # depend easy
 # depend easy-todo
+DEPENDS+=	tex-easy-todo-[0-9]*:../../print/tex-easy-todo
 # depend easyfig
 # depend easylist
 # depend ebezier
@@ -297,6 +300,7 @@ DEPENDS+=	tex-draftwatermark-[0-9]*:../../print/tex-draftwatermark
 # depend eemeir
 # depend efbox
 # depend egplot
+# depend elements
 # depend ellipsis
 # depend elmath
 # depend elocalloc
@@ -317,7 +321,7 @@ DEPENDS+=	tex-enumitem-[0-9]*:../../print/tex-enumitem
 # depend enumitem-zref
 # depend envbig
 DEPENDS+=	tex-environ-[0-9]*:../../print/tex-environ
-# depend envlab
+DEPENDS+=	tex-envlab-[0-9]*:../../print/tex-envlab
 # depend epigraph
 # depend epiolmec
 # depend epyt
@@ -335,7 +339,7 @@ DEPENDS+=	tex-esint-[0-9]*:../../fonts/tex-esint
 # depend etoc
 DEPENDS+=	tex-etoolbox-[0-9]*:../../devel/tex-etoolbox
 # depend eukdate
-# depend europasscv
+DEPENDS+=	tex-europasscv-[0-9]*:../../print/tex-europasscv
 DEPENDS+=	tex-europecv-[0-9]*:../../print/tex-europecv
 # depend everyhook
 DEPENDS+=	tex-everypage-[0-9]*:../../print/tex-everypage
@@ -371,10 +375,10 @@ DEPENDS+=	tex-filecontents-[0-9]*:../../print/tex-filecontents
 # depend filemod
 # depend fink
 # depend finstrut
+# depend fithesis
 # depend fixfoot
 DEPENDS+=	tex-fixme-[0-9]*:../../print/tex-fixme
-# depend fixmetodonotes
-# depend fixocgx
+DEPENDS+=	tex-fixmetodonotes-[0-9]*:../../print/tex-fixmetodonotes
 # depend fjodor
 # depend flabels
 # depend flacards
@@ -385,7 +389,7 @@ DEPENDS+=	tex-fixme-[0-9]*:../../print/tex-fixme
 # depend flippdf
 DEPENDS+=	tex-floatflt-[0-9]*:../../print/tex-floatflt
 # depend floatrow
-# depend flowfram
+DEPENDS+=	tex-flowfram-[0-9]*:../../print/tex-flowfram
 # depend fmp
 DEPENDS+=	tex-fmtcount-[0-9]*:../../print/tex-fmtcount
 # depend fn2end
@@ -659,7 +663,7 @@ DEPENDS+=	tex-needspace-[0-9]*:../../print/tex-needspace
 # depend newcommand
 # depend newenviron
 # depend newfile
-# depend newlfm
+DEPENDS+=	tex-newlfm-[0-9]*:../../print/tex-newlfm
 # depend newspaper
 # depend newunicodechar
 # depend newvbtm
@@ -689,6 +693,7 @@ DEPENDS+=	tex-ntheorem-[0-9]*:../../print/tex-ntheorem
 # depend numprint
 # depend ocg-p
 # depend ocgx
+# depend ocgx2
 # depend ocr-latex
 DEPENDS+=	tex-octavo-[0-9]*:../../print/tex-octavo
 # depend oldstyle
@@ -727,6 +732,7 @@ DEPENDS+=	tex-pbox-[0-9]*:../../print/tex-pbox
 DEPENDS+=	tex-pdfcomment-[0-9]*:../../print/tex-pdfcomment
 # depend pdfcprot
 # depend pdfmarginpar
+# depend pdfpagediff
 # depend pdfscreen
 # depend pdfslide
 # depend pdfsync
@@ -755,7 +761,7 @@ DEPENDS+=	tex-preprint-[0-9]*:../../print/tex-preprint
 # depend prettyref
 DEPENDS+=	tex-preview-[0-9]*:../../print/tex-preview
 DEPENDS+=	tex-printlen-[0-9]*:../../print/tex-printlen
-# depend probsoln
+DEPENDS+=	tex-probsoln-[0-9]*:../../print/tex-probsoln
 DEPENDS+=	tex-program-[0-9]*:../../print/tex-program
 # depend progress
 # depend progressbar
@@ -830,6 +836,7 @@ DEPENDS+=	tex-sectsty-[0-9]*:../../print/tex-sectsty
 DEPENDS+=	tex-selectp-[0-9]*:../../print/tex-selectp
 # depend semantic
 # depend semioneside
+# depend semproc
 # depend sepfootnotes
 # depend seqsplit
 # depend sf298
@@ -878,14 +885,14 @@ DEPENDS+=	tex-srcltx-[0-9]*:../../print/tex-srcltx
 # depend sslides
 # depend stack
 # depend stackengine
-# depend standalone
+DEPENDS+=	tex-standalone-[0-9]*:../../print/tex-standalone
 # depend statistik
 DEPENDS+=	tex-stdclsdv-[0-9]*:../../print/tex-stdclsdv
 # depend stdpage
 # depend stex
 # depend storebox
 # depend storecmd
-# depend stringstrings
+DEPENDS+=	tex-stringstrings-[0-9]*:../../print/tex-stringstrings
 DEPENDS+=	tex-sttools-[0-9]*:../../print/tex-sttools
 # depend stubs
 # depend subdepth
@@ -893,7 +900,7 @@ DEPENDS+=	tex-sttools-[0-9]*:../../print/tex-sttools
 # depend subeqnarray
 DEPENDS+=	tex-subfigmat-[0-9]*:../../print/tex-subfigmat
 DEPENDS+=	tex-subfigure-[0-9]*:../../print/tex-subfigure
-# depend subfiles
+DEPENDS+=	tex-subfiles-[0-9]*:../../print/tex-subfiles
 # depend subfloat
 # depend substitutefont
 DEPENDS+=	tex-substr-[0-9]*:../../print/tex-substr
@@ -964,8 +971,8 @@ DEPENDS+=	tex-titlesec-[0-9]*:../../print/tex-titlesec
 DEPENDS+=	tex-tocbibind-[0-9]*:../../print/tex-tocbibind
 DEPENDS+=	tex-tocloft-[0-9]*:../../print/tex-tocloft
 # depend tocvsec2
-# depend todo
-# depend todonotes
+DEPENDS+=	tex-todo-[0-9]*:../../print/tex-todo
+DEPENDS+=	tex-todonotes-[0-9]*:../../print/tex-todonotes
 # depend tokenizer
 # depend toolbox
 # depend topfloat
@@ -1043,7 +1050,7 @@ DEPENDS+=	tex-xifthen-[0-9]*:../../devel/tex-xifthen
 # depend xpeek
 # depend xprintlen
 # depend xpunctuate
-# depend xstring
+DEPENDS+=	tex-xstring-[0-9]*:../../print/tex-xstring
 DEPENDS+=	tex-xtab-[0-9]*:../../print/tex-xtab
 # depend xwatermark
 # depend xytree

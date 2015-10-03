@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2015/06/12 10:50:36 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2015/09/08 11:57:50 jperkin Exp $
 
 DISTNAME=	reed-5.4
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	misc
 MASTER_SITES=	http://www.sacredchao.net/software/reed/
 
@@ -14,9 +14,6 @@ CONFIGURE_ARGS+=	-p ${PREFIX}
 HAS_CONFIGURE=		YES
 USE_TOOLS+=		perl:run
 REPLACE_PERL=		breed fix_bookmarks.pl wrap
-
-# wgetnstr()
-INCOMPAT_CURSES=	NetBSD-1.5-* NetBSD-1.5.*-* NetBSD-1.5[A-U]-*
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
 

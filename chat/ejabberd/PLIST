@@ -1,9 +1,8 @@
-@comment $NetBSD: PLIST,v 1.32 2015/05/04 14:40:38 fhajny Exp $
+@comment $NetBSD: PLIST,v 1.34 2015/09/01 11:36:59 fhajny Exp $
 lib/erlang/lib/${PKGNAME}/ebin/ELDAPv3.beam
 lib/erlang/lib/${PKGNAME}/ebin/XmppAddr.beam
 lib/erlang/lib/${PKGNAME}/ebin/acl.beam
 lib/erlang/lib/${PKGNAME}/ebin/adhoc.beam
-lib/erlang/lib/${PKGNAME}/ebin/bitmap.beam
 lib/erlang/lib/${PKGNAME}/ebin/cache_tab.beam
 lib/erlang/lib/${PKGNAME}/ebin/cache_tab_app.beam
 lib/erlang/lib/${PKGNAME}/ebin/cache_tab_sup.beam
@@ -12,8 +11,6 @@ lib/erlang/lib/${PKGNAME}/ebin/cyrsasl_anonymous.beam
 lib/erlang/lib/${PKGNAME}/ebin/cyrsasl_digest.beam
 lib/erlang/lib/${PKGNAME}/ebin/cyrsasl_plain.beam
 lib/erlang/lib/${PKGNAME}/ebin/cyrsasl_scram.beam
-lib/erlang/lib/${PKGNAME}/ebin/ehyperloglog.app
-lib/erlang/lib/${PKGNAME}/ebin/ehyperloglog.beam
 lib/erlang/lib/${PKGNAME}/ebin/ejabberd.app
 lib/erlang/lib/${PKGNAME}/ebin/ejabberd.beam
 lib/erlang/lib/${PKGNAME}/ebin/ejabberd_admin.beam
@@ -160,6 +157,7 @@ lib/erlang/lib/${PKGNAME}/ebin/mod_ip_blacklist.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_irc.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_irc_connection.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_last.beam
+lib/erlang/lib/${PKGNAME}/ebin/mod_mam.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_muc.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_muc_admin.beam
 lib/erlang/lib/${PKGNAME}/ebin/mod_muc_log.beam
@@ -347,19 +345,7 @@ lib/erlang/lib/${PKGNAME}/priv/msgs/zh.msg
 lib/erlang/lib/${PKGNAME}/priv/sql/lite.sql
 sbin/ejabberdctl
 share/doc/ejabberd/COPYING
-share/doc/ejabberd/dev.html
-share/doc/ejabberd/discorus.png
-share/doc/ejabberd/features.html
 share/doc/ejabberd/guide.html
-share/doc/ejabberd/guide.pdf
-share/doc/ejabberd/logo.png
-share/doc/ejabberd/msrl-dit-deep.png
-share/doc/ejabberd/msrl-dit-flat.png
-share/doc/ejabberd/msrl-roster-deep.png
-share/doc/ejabberd/msrl-roster-flat.png
-share/doc/ejabberd/webadmmain.png
-share/doc/ejabberd/webadmmainru.png
-share/doc/ejabberd/yozhikheader.png
 share/examples/ejabberd/ejabberd.yml
 share/examples/ejabberd/ejabberdctl.cfg
 share/examples/ejabberd/inetrc

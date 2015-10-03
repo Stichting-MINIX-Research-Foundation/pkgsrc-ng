@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2015/04/25 14:22:55 tnn Exp $
+# $NetBSD: Makefile,v 1.38 2015/08/18 07:31:08 wiz Exp $
 #
 
 DISTNAME=		freesci-0.3.5
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		games
 MASTER_SITES=		http://www-plan.cs.colorado.edu/reichenb/freesci/
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/05/31 13:20:42 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2015/09/02 11:03:12 wiz Exp $
 
-DISTNAME=	vdirsyncer-0.5.1
+DISTNAME=	vdirsyncer-0.6.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	time
 MASTER_SITES=	https://pypi.python.org/packages/source/v/vdirsyncer/
@@ -12,6 +12,7 @@ LICENSE=	mit
 
 EXTRACT_USING=	bsdtar	# gtar cannot handle pre-1970 timestamps
 
+BUILD_DEPENDS+=	${PYPKGPREFIX}-setuptools_scm-[0-9]*:../../devel/py-setuptools_scm
 DEPENDS+=	${PYPKGPREFIX}-atomicwrites-[0-9]*:../../devel/py-atomicwrites
 DEPENDS+=	${PYPKGPREFIX}-click>=2.0:../../devel/py-click
 DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
@@ -23,9 +24,6 @@ DEPENDS+=	${PYPKGPREFIX}-keyring-[0-9]*:../../security/py-keyring
 USE_LANGUAGES=	# none
 INSTALLATION_DIRS=	share/examples/${PKGBASE}
 PLIST_SUBST+=	PKGBASE=${PKGBASE}
-
-post-install:
-	${INSTALL_DATA} ${WRKSRC}/example.cfg ${DESTDIR}${PREFIX}/share/examples/${PKGBASE}/
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

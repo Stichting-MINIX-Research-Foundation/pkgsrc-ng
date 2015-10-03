@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2014/09/24 11:10:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.16 2015/08/18 07:31:01 wiz Exp $
 #
 
 DISTNAME=	alsa-utils-1.0.27.2
+PKGREVISION=	2
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ftp.alsa-project.org/pub/utils/
 MASTER_SITES+=	ftp://gd.tuwien.ac.at/opsys/linux/alsa/utils/

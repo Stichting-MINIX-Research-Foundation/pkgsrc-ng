@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.46 2015/06/05 01:32:38 wiedi Exp $
+# $NetBSD: Makefile,v 1.49 2015/08/18 07:31:06 wiz Exp $
 
-DISTNAME=	nano-2.4.1
+DISTNAME=	nano-2.4.2
+PKGREVISION=	2
 CATEGORIES=	editors
 MASTER_SITES=	http://www.nano-editor.org/dist/v2.4/
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	wiedi@frubar.net
 HOMEPAGE=	http://www.nano-editor.org/
 COMMENT=	Small and friendly text editor (a free replacement for Pico)
 LICENSE=		gnu-gpl-v3

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.464 2015/04/21 08:56:38 jperkin Exp $
+# $NetBSD: Makefile,v 1.470 2015/09/07 09:47:01 fhajny Exp $
 #
 
 COMMENT=	Electronic mail utilities
@@ -101,7 +101,6 @@ SUBDIR+=	fromto
 SUBDIR+=	getmail
 SUBDIR+=	gld
 SUBDIR+=	gmime
-SUBDIR+=	gmime20
 SUBDIR+=	gmime24
 SUBDIR+=	gnarwl
 SUBDIR+=	gnus
@@ -164,7 +163,6 @@ SUBDIR+=	mpop
 SUBDIR+=	msmtp
 SUBDIR+=	mush
 SUBDIR+=	mutt
-SUBDIR+=	mutt-devel
 SUBDIR+=	mutt-kz
 SUBDIR+=	netbiff
 SUBDIR+=	newmail
@@ -263,6 +261,13 @@ SUBDIR+=	popa3d
 SUBDIR+=	poppassd
 SUBDIR+=	poppy
 SUBDIR+=	postfix
+SUBDIR+=	postfix-cdb
+SUBDIR+=	postfix-ldap
+SUBDIR+=	postfix-lmdb
+SUBDIR+=	postfix-mysql
+SUBDIR+=	postfix-pcre
+SUBDIR+=	postfix-pgsql
+SUBDIR+=	postfix-sqlite
 SUBDIR+=	postgrey
 SUBDIR+=	prayer
 SUBDIR+=	procmail
@@ -304,6 +309,7 @@ SUBDIR+=	ruby-mime-types
 SUBDIR+=	ruby-mime-types1
 SUBDIR+=	ruby-tmail
 SUBDIR+=	safecat
+SUBDIR+=	seamonkey-enigmail
 SUBDIR+=	sendmail
 SUBDIR+=	sendmail-cidrexpand
 SUBDIR+=	sendmail-qtool
@@ -331,9 +337,12 @@ SUBDIR+=	sympa
 SUBDIR+=	t-prot
 SUBDIR+=	teapop
 SUBDIR+=	thunderbird
+SUBDIR+=	thunderbird-enigmail
 SUBDIR+=	thunderbird-l10n
 SUBDIR+=	thunderbird24
 SUBDIR+=	thunderbird24-l10n
+SUBDIR+=	thunderbird31
+SUBDIR+=	thunderbird31-l10n
 SUBDIR+=	tmda
 SUBDIR+=	tnef
 SUBDIR+=	tnef2txt

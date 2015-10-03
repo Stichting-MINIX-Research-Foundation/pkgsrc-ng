@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.25 2014/02/22 14:08:58 wiedi Exp $
+# $NetBSD: Makefile,v 1.28 2015/09/08 11:57:50 jperkin Exp $
 
 DISTNAME=	nap-1.4.4
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=nap/}
 
@@ -10,10 +10,6 @@ HOMEPAGE=	http://nap.sourceforge.net/
 COMMENT=	Terminal based Napster client similar to ircII
 
 GNU_CONFIGURE=		YES
-
-# newterm()
-INCOMPAT_CURSES=	NetBSD-1.4*-*
-INCOMPAT_CURSES+=	NetBSD-1.5-* NetBSD-1.5.*-* NetBSD-1.5[A-Z]-*
 
 INSTALLATION_DIRS+=	share/doc/nap share/examples/nap
 

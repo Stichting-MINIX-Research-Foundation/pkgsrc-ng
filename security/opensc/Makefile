@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2014/03/17 18:21:42 gdt Exp $
+# $NetBSD: Makefile,v 1.23 2015/09/07 19:59:42 gdt Exp $
 
-OPENSC_PKG_VERSION=	0.13.0
+OPENSC_PKG_VERSION=	0.15.0
 DISTNAME=		opensc-${OPENSC_PKG_VERSION}
-PKGREVISION=		1
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=opensc/OpenSC/opensc-0.13.0/}
 
@@ -10,6 +9,8 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		https://github.com/OpenSC/OpenSC/wiki
 COMMENT=		Smart Card drivers and middleware
 LICENSE=		gnu-lgpl-v2.1
+
+BUILD_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
@@ -39,7 +40,7 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
 CONFIGURE_ENV+=		PCSC_CFLAGS=-I${PREFIX}/include/PCSC
 
 # The stylesheets are not found without this.
-CONFIGURE_ARGS+=	--with-xsl-stylesheetsdir=${BUILDLINK_PREFIX.docbook-xsl}/share/xsl/docbook
+CONFIGURE_ARGS+=	--with-xsl-stylesheetsdir=${PREFIX}/share/xsl/docbook
 
 EGDIR=			${PREFIX}/share/examples/opensc
 CONF_FILES+=		${EGDIR}/opensc.conf ${PKG_SYSCONFDIR}/opensc.conf
@@ -50,7 +51,6 @@ post-install:
 
 # build tools for doc; should be TOOLS
 .include "../../textproc/libxslt/buildlink3.mk"
-.include "../../textproc/docbook-xsl/buildlink3.mk"
 
 # We avoid pthreads intentionally; tell dlopen not drag it in.
 DLOPEN_REQUIRE_PTHREADS=	no

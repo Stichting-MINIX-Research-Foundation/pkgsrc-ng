@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.54 2015/04/25 14:23:10 tnn Exp $
+# $NetBSD: Makefile,v 1.56 2015/09/16 12:52:53 richard Exp $
 
-DISTNAME=	gegl-0.2.0
-PKGREVISION=	19
+DISTNAME=	gegl-0.3.0
 CATEGORIES=	graphics
-MASTER_SITES=	# 
+MASTER_SITES=	http://download.gimp.org/pub/gegl/0.3/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	adam@NetBSD.org
@@ -31,16 +30,15 @@ PLIST_VARS+=	v4l
 PLIST.v4l=	yes
 .endif
 
-CFLAGS.SunOS+=		-std=c99
-
 .include "options.mk"
 
-BUILDLINK_API_DEPENDS.babl+=	babl>=0.1.4
+BUILDLINK_API_DEPENDS.babl+=	babl>=0.1.12
 .include "../../graphics/babl/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/jasper/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
+.include "../../textproc/json-glib/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

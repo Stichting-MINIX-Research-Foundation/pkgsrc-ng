@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.12 2014/03/09 11:02:28 roy Exp $
+# $NetBSD: Makefile,v 1.14 2015/09/08 11:57:50 jperkin Exp $
 #
 
 DISTNAME=	pfqueue-0.5.6
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pfqueue/}
 
@@ -13,7 +13,6 @@ LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
-INCOMPAT_CURSES=	NetBSD-1.*-*
 FAKE_NCURSES=	yes
 
 .include "options.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.136 2015/04/19 23:46:04 rodent Exp $
+# $NetBSD: Makefile,v 1.139 2015/09/08 19:42:57 wiz Exp $
 #
 
 COMMENT=	Document format and character code converters
@@ -48,12 +48,14 @@ SUBDIR+=	libvisio
 SUBDIR+=	libwpd
 SUBDIR+=	libwpg
 SUBDIR+=	libwps
+SUBDIR+=	libwps03
 SUBDIR+=	macfork
 SUBDIR+=	mpack
 SUBDIR+=	nkf
 SUBDIR+=	odt2txt
 SUBDIR+=	opencc
 SUBDIR+=	orcus
+SUBDIR+=	orcus0.8
 SUBDIR+=	p5-Convert-BinHex
 SUBDIR+=	p5-Convert-Color
 SUBDIR+=	p5-Convert-TNEF
@@ -88,6 +90,7 @@ SUBDIR+=	p5-nkf
 SUBDIR+=	pear-I18n_UnicodeNormalizer
 SUBDIR+=	php-iconv
 SUBDIR+=	php-mbstring
+SUBDIR+=	php-recode
 SUBDIR+=	psiconv
 SUBDIR+=	pstotext
 SUBDIR+=	py-cairosvg

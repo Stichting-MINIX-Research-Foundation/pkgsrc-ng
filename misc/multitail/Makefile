@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2014/01/09 11:16:18 jperkin Exp $
+# $NetBSD: Makefile,v 1.24 2015/08/18 07:31:13 wiz Exp $
 #
 
 DISTNAME=	multitail-4.0.6
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	misc sysutils
 MASTER_SITES=	http://www.vanheusden.com/multitail/
 EXTRACT_SUFX=	.tgz

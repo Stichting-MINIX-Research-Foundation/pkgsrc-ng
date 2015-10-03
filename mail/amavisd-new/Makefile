@@ -1,36 +1,38 @@
-# $NetBSD: Makefile,v 1.15 2015/06/12 10:50:17 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2015/09/08 10:58:46 fhajny Exp $
 
 DISTNAME=	amavisd-new-${VERSION}${PATCHLEVEL}
 PKGNAME=	amavisd-new-${VERSION}${PATCHLEVEL:S/-//}
-PKGREVISION=	6
 CATEGORIES=	mail security
 MASTER_SITES=	http://www.ijs.si/software/amavisd/ \
 		http://mirrors.catpipe.net/amavisd-new/ \
 		http://mirror.mainloop.se/amavisd/ \
 		http://mirror.cedratnet.com/amavisd-new/ \
 		http://mirror.omroep.nl/amavisd-new/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	spz@NetBSD.org
 HOMEPAGE=	http://www.ijs.si/software/amavisd/
 COMMENT=	Daemonized interface between MTA and content checkers
 LICENSE=	gnu-gpl-v2
 
-VERSION=	2.7.0
+VERSION=	2.10.1
 PATCHLEVEL=	# empty
 
-DEPENDS+=	{perl>=5.9.3,p5-Archive-Tar-[0-9]*}:../../archivers/p5-Archive-Tar
+#DEPENDS+=	{perl>=5.9.3,p5-Archive-Tar-[0-9]*}:../../archivers/p5-Archive-Tar
 DEPENDS+=	p5-Archive-Zip>=1.14:../../archivers/p5-Archive-Zip
 DEPENDS+=	p5-BerkeleyDB-[0-9]*:../../databases/p5-BerkeleyDB
-DEPENDS+=	{perl>=5.10.1,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Raw::Zlib>=2.017
+#DEPENDS+=	{perl>=5.10.1,p5-IO-Compress>=2.017}:../../devel/p5-IO-Compress	# Compress::Raw::Zlib>=2.017
 DEPENDS+=	p5-Convert-TNEF-[0-9]*:../../converters/p5-Convert-TNEF
 DEPENDS+=	p5-Convert-UUlib>=1.05:../../converters/p5-Convert-UUlib
-DEPENDS+=	{perl>=5.8.1,p5-Digest-MD5>=2.22}:../../security/p5-Digest-MD5
+#DEPENDS+=	{perl>=5.8.1,p5-Digest-MD5>=2.22}:../../security/p5-Digest-MD5
+DEPENDS+=	p5-File-LibMagic>=1.0:../../devel/p5-File-LibMagic
 DEPENDS+=	p5-Mail-DKIM>=0.31:../../mail/p5-Mail-DKIM
 DEPENDS+=	p5-MIME-tools>=5.417:../../mail/p5-MIME-tools
 DEPENDS+=	p5-MailTools>=1.58:../../mail/p5-MailTools
+DEPENDS+=	p5-Net-LibIDN-[0-9]*:../../net/p5-Net-LibIDN
 DEPENDS+=	p5-IO-stringy-[0-9]*:../../devel/p5-IO-stringy
 DEPENDS+=	p5-Net-Server>=0.88:../../net/p5-Net-Server
-DEPENDS+=	{perl>=5.8.1,p5-Time-HiRes>=1.49}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.8.1,p5-Time-HiRes>=1.49}:../../time/p5-Time-HiRes
 DEPENDS+=	p5-Unix-Syslog-[0-9]*:../../sysutils/p5-Unix-Syslog
 
 WRKSRC=		${WRKDIR}/amavisd-new-${VERSION}

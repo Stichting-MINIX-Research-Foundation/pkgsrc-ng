@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.21 2015/02/19 18:46:51 snj Exp $
+# $NetBSD: Makefile,v 1.23 2015/08/18 07:31:19 wiz Exp $
 
 DISTNAME=	urlview-0.9
-PKGREVISION=	5
+PKGREVISION=	7
 CATEGORIES=	textproc
 MASTER_SITES=	ftp://ftp.mutt.org/pub/mutt/contrib/ \
 		ftp://ftp.uib.no/pub/mutt/contrib/

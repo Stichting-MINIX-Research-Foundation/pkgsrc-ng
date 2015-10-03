@@ -1,8 +1,8 @@
-$NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
+$NetBSD: patch-aq,v 1.17 2015/07/18 11:11:53 adam Exp $
 
---- configure.orig	2013-06-07 05:16:41.000000000 +0000
+--- configure.orig	2015-05-07 14:14:56.000000000 +0000
 +++ configure
-@@ -3223,13 +3223,13 @@ if [ -z "${CFG_HOST_ARCH}" ]; then
+@@ -3227,13 +3227,13 @@ if [ -z "${CFG_HOST_ARCH}" ]; then
              CFG_HOST_ARCH=x86_64
          fi
          ;;
@@ -13,12 +13,12 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
          fi
          CFG_HOST_ARCH=powerpc
          ;;
--    *:*:ppc64)
+-    *:*:ppc64*)
 +    *:*:ppc64|*:*:powerpc64)
          if [ "$OPT_VERBOSE" = "yes" ]; then
              echo "    64-bit PowerPC (powerpc)"
          fi
-@@ -3253,6 +3253,19 @@ if [ -z "${CFG_HOST_ARCH}" ]; then
+@@ -3263,6 +3263,19 @@ if [ -z "${CFG_HOST_ARCH}" ]; then
          fi
          CFG_HOST_ARCH=sparc
          ;;
@@ -38,7 +38,7 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
      QNX:*:*)
          case "$UNAME_MACHINE" in
          x86pc)
-@@ -3561,7 +3574,7 @@ fi
+@@ -3571,7 +3584,7 @@ fi
  if [ "$PLATFORM_MAC" = "yes" ] && [ '!' -z "$CFG_SDK" ]; then
      # get the darwin version. 10.0.0 and up means snow leopard.
      VERSION=`uname -r | tr '.' ' ' | awk '{print $1}'`
@@ -47,7 +47,16 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
          echo
          echo "WARNING: The 10.4u SDK does not support gcc 4.2. Configure with -platform macx-g++40. "
          echo
-@@ -5058,7 +5071,7 @@ if true; then ###[ '!' -f "$outpath/bin/
+@@ -5009,7 +5022,7 @@ if true; then ###[ '!' -f "$outpath/bin/
+         fi
+         if [ "$BUILD_ON_MAC" = "yes" ]; then
+             case "$PLATFORM" in
+-            *macx-clang-libc++)
++            *macx-llvm)
+                 # Avoid overriding the default configuration settings when building with clang/libc++
+                 ;;
+             *)
+@@ -5078,7 +5091,7 @@ if true; then ###[ '!' -f "$outpath/bin/
      done
  
      QMAKE_BUILD_ERROR=no
@@ -56,7 +65,7 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
      [ '!' -z "$QCONFIG_H" ] && mv -f "$QCONFIG_H" "$QMAKE_QCONFIG_H" #move qmake's qconfig.h to qconfig.h.qmake
      [ '!' -z "$OLD_QCONFIG_H" ] && mv -f "${OLD_QCONFIG_H}.old" "$OLD_QCONFIG_H" #put back qconfig.h
      [ "$QMAKE_BUILD_ERROR" = "yes" ] && exit 2
-@@ -7158,7 +7171,7 @@ fi
+@@ -7203,7 +7216,7 @@ fi
  # select Carbon on 10.4 Tiger.
  if [ "$PLATFORM_MAC" = "yes" ]; then
      VERSION=`uname -r | tr '.' ' ' | awk '{print $1}'`
@@ -65,7 +74,34 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
          CFG_MAC_COCOA="no";
          CFG_MAC_CARBON="yes";
      fi
-@@ -8422,7 +8435,7 @@ QMakeVar set sql-plugins "$SQL_PLUGINS"
+@@ -7225,7 +7238,7 @@ fi
+ # set the global Mac deployment target. This is overridden on an arch-by-arch basis
+ # in some cases, see code further down
+ case "$PLATFORM,$CFG_MAC_COCOA" in
+-*macx-clang-libc++,yes)
++*macx-llvm,yes)
+     # Avoid overriding the default configuration setting when building with clang/libc++
+     ;;
+ macx*,yes)
+@@ -7713,7 +7726,7 @@ case "$XPLATFORM" in
+ 
+ 	# Check gcc's version
+ 	case "$(${QMAKE_CONF_COMPILER} -dumpversion)" in
+-	    4*)
++	    5*|4*)
+ 		;;
+ 	    3.4*)
+ 		canBuildQtXmlPatterns="no"
+@@ -7981,7 +7994,7 @@ fi
+ # env. variable.
+ if [ "$PLATFORM_MAC" = "yes" ] && [ "$CFG_MAC_XARCH" != "no" ]; then
+     case "$PLATFORM" in
+-    *macx-clang-libc++)
++    *macx-llvm)
+         # Avoid overriding the default settings when building clang/libc++.
+         ;;
+     *)
+@@ -8485,7 +8498,7 @@ QMakeVar set sql-plugins "$SQL_PLUGINS"
  [ "$CFG_EXCEPTIONS" = "no" ] && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_EXCEPTIONS"
  [ "$CFG_IPV6" = "no" ]       && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_IPV6"
  [ "$CFG_SXE" = "no" ]        && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_SXE"
@@ -74,7 +110,7 @@ $NetBSD: patch-aq,v 1.14 2013/07/07 18:13:56 adam Exp $
  
  if [ "$PLATFORM_QWS" != "yes" -a "$PLATFORM_QPA" != "yes" ]; then
      [ "$CFG_GRAPHICS_SYSTEM" = "raster" ] && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_GRAPHICSSYSTEM_RASTER"
-@@ -8638,6 +8651,7 @@ cat >>"$QTCONFIG.tmp" <<EOF
+@@ -8701,6 +8714,7 @@ cat >>"$QTCONFIG.tmp" <<EOF
  #configuration
  CONFIG += $QTCONFIG_CONFIG
  QT_ARCH = $CFG_ARCH

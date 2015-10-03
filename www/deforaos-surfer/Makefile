@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.22 2015/04/25 14:25:00 tnn Exp $
+# $NetBSD: Makefile,v 1.26 2015/08/27 09:16:55 khorben Exp $
 
-DISTNAME=	Surfer-0.2.7
-PKGNAME=	deforaos-surfer-0.2.7
-PKGREVISION=	2
+DISTNAME=	Surfer-0.2.8
+PKGNAME=	deforaos-surfer-0.2.8
 CATEGORIES=	www
-MASTER_SITES=	http://www.defora.org/os/download/download/4345/
+MASTER_SITES=	http://www.defora.org/os/download/download/4365/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -19,26 +18,34 @@ BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 AUTO_MKDIRS=	yes
 
 OPSYSVARS+=		MAKE_ENV
 MAKE_ENV.SunOS+=	LDFLAGSF="-lnsl -lresolv"
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${PKGMANDIR} != "share/man"
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/share/man/html1/download.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/download.html
+	${MV} ${DESTDIR}${PREFIX}/share/man/html1/htmlapp.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/htmlapp.html
 	${MV} ${DESTDIR}${PREFIX}/share/man/html1/helper.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/helper.html
 	${MV} ${DESTDIR}${PREFIX}/share/man/html1/surfer.html ${DESTDIR}${PREFIX}/${PKGMANDIR}/html1/surfer.html
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/download.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/download.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/helper.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/helper.1
+	${MV} ${DESTDIR}${PREFIX}/share/man/man1/htmlapp.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/htmlapp.1
 	${MV} ${DESTDIR}${PREFIX}/share/man/man1/surfer.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/surfer.1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man/html1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man/man1
 	${RMDIR} ${DESTDIR}${PREFIX}/share/man
+.endif
 
 .include "options.mk"
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../www/webkit1-gtk/buildlink3.mk"
+.include "../../www/webkit24-gtk/buildlink3.mk"
 .include "../../x11/deforaos-libdesktop/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

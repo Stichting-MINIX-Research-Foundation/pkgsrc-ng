@@ -1,4 +1,4 @@
-$NetBSD: patch-lib_libedit_src_unvis.c,v 1.2 2014/09/22 11:55:37 joerg Exp $
+$NetBSD: patch-lib_libedit_src_unvis.c,v 1.4 2015/09/17 17:12:19 joerg Exp $
 
 * Fix OpenBSD 5.5 build
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.60 2015/06/16 13:41:23 jperkin Exp $
+# $NetBSD: Makefile,v 1.63 2015/09/09 18:15:34 wiz Exp $
 
-DISTNAME=	gnupg-2.0.28
+DISTNAME=	gnupg-2.0.29
 PKGNAME=	${DISTNAME:S/gnupg/gnupg2/}
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/gnupg/
@@ -8,7 +8,7 @@ EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnupg.org/
-COMMENT=	GNUpg with OpenPGP and S/MIME capabilities
+COMMENT=	GnuPG with OpenPGP and S/MIME capabilities
 LICENSE=	gnu-gpl-v3
 
 INFO_FILES=		yes
@@ -31,6 +31,8 @@ CONFIGURE_ENV+=		gl_cv_absolute_stdint_h=/usr/include/stdint.h
 
 TEST_TARGET=		check
 
+DEPENDS+=	pinentry-[0-9]*:../../security/pinentry
+
 .include "options.mk"
 
 .include "../../archivers/bzip2/buildlink3.mk"
@@ -47,6 +49,5 @@ BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.4
 .include "../../security/libgpg-error/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libksba+=		libksba>=1.0.2
 .include "../../security/libksba/buildlink3.mk"
-.include "../../security/pinentry/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

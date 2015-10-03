@@ -1,12 +1,15 @@
-# $NetBSD: options.mk,v 1.2 2015/04/14 11:27:30 fhajny Exp $
+# $NetBSD: options.mk,v 1.6 2015/09/12 19:04:56 he Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.collectd
 PKG_SUPPORTED_OPTIONS=	cpu df interface load memory syslog uptime
 PKG_SUGGESTED_OPTIONS+=	cpu df interface load memory syslog uptime
 
 .if ${OPSYS} == "NetBSD"
-PKG_SUPPORTED_OPTIONS+=	contextswitch pf tcpconns users
-PKG_SUGGESTED_OPTIONS+=	contextswitch pf tcpconns users
+PKG_SUPPORTED_OPTIONS+=	contextswitch disk entropy irq pf netstat_udp
+PKG_SUPPORTED_OPTIONS+= processes swap tcpconns users
+
+PKG_SUGGESTED_OPTIONS+=	contextswitch disk entropy irq pf netstat_udp
+PKG_SUGGESTED_OPTIONS+= processes swap tcpconns users
 .endif
 
 .if ${OPSYS} == "FreeBSD"
@@ -28,8 +31,10 @@ PKG_SUGGESTED_OPTIONS+=	disk nfs swap users zfs-arc
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=		apple-sensors battery contextswitch cpu df disk		\
-			interface load memory nfs pf processes swap	\
+PLIST_VARS+=		apple-sensors battery contextswitch cpu entropy \
+			df disk		\
+			interface irq load netstat_udp \
+			memory nfs pf processes swap	\
 			syslog tcpconns uptime users zfs-arc
 
 .for option in ${PLIST_VARS}

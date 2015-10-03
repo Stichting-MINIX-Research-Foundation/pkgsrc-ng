@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.50 2015/04/25 14:23:08 tnn Exp $
+# $NetBSD: Makefile,v 1.52 2015/08/31 10:59:04 jperkin Exp $
 
-DISTNAME=	clutter-1.20.0
-PKGREVISION=	1
+DISTNAME=	clutter-1.22.2
 CATEGORIES=	graphics gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/clutter/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -23,16 +22,23 @@ PKGCONFIG_OVERRIDE+=	clutter/clutter.pc.in
 
 TEST_TARGET=	check
 
+# Broken compat symlinks which fail "test -f" check in mk/plist/shlib-dylib.awk
+# so they end up missing from PLIST.  We don't need them so just remove.
+.if ${OPSYS} == "Darwin"
+post-install:
+	rm -f ${DESTDIR}${PREFIX}/lib/libclutter-glx-1.0.so*
+.endif
+
 .include "../../devel/gettext-lib/buildlink3.mk"
 BUILDLINK_API_DEPENDS.atk+=	atk>=2.5.3
 .include "../../devel/atk/buildlink3.mk"
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.37.3
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.39.0
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.pango+=	pango>=1.30.0
 .include "../../devel/pango/buildlink3.mk"
-BUILDLINK_API_DEPENDS.cairo-gobject+=	cairo-gobject>=1.12.0
+BUILDLINK_API_DEPENDS.cairo-gobject+=	cairo-gobject>=1.14.0
 .include "../../graphics/cairo-gobject/buildlink3.mk"
-BUILDLINK_API_DEPENDS.cogl+=	cogl>=1.17.5
+BUILDLINK_API_DEPENDS.cogl+=	cogl>=1.20.0
 .include "../../graphics/cogl/buildlink3.mk"
 BUILDLINK_API_DEPENDS.json-glib+=	json-glib>=0.12.0
 .include "../../textproc/json-glib/buildlink3.mk"

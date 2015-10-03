@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.5 2014/01/02 18:50:03 wiz Exp $
+@comment $NetBSD: PLIST,v 1.7 2015/08/13 15:14:29 he Exp $
 bin/gnumeric
 bin/${PKGNAME}
 bin/ssconvert
@@ -89,6 +89,7 @@ include/libspreadsheet-1.12/spreadsheet/search.h
 include/libspreadsheet-1.12/spreadsheet/selection.h
 include/libspreadsheet-1.12/spreadsheet/session.h
 include/libspreadsheet-1.12/spreadsheet/sf-bessel.h
+include/libspreadsheet-1.12/spreadsheet/sf-dpq.h
 include/libspreadsheet-1.12/spreadsheet/sf-gamma.h
 include/libspreadsheet-1.12/spreadsheet/sf-trig.h
 include/libspreadsheet-1.12/spreadsheet/sheet-autofill.h
@@ -778,9 +779,9 @@ share/gnumeric/${PKGVERSION}/templates/purchase_order.gnumeric
 share/icons/hicolor/16x16/apps/gnumeric.png
 share/icons/hicolor/22x22/apps/gnumeric.png
 share/icons/hicolor/24x24/apps/gnumeric.png
+share/icons/hicolor/256x256/apps/gnumeric.png
 share/icons/hicolor/32x32/apps/gnumeric.png
 share/icons/hicolor/48x48/apps/gnumeric.png
-share/icons/hicolor/scalable/apps/gnumeric.svg
 share/locale/am/LC_MESSAGES/${PKGNAME}-functions.mo
 share/locale/am/LC_MESSAGES/${PKGNAME}.mo
 share/locale/ar/LC_MESSAGES/${PKGNAME}-functions.mo
@@ -791,6 +792,8 @@ share/locale/az/LC_MESSAGES/${PKGNAME}-functions.mo
 share/locale/az/LC_MESSAGES/${PKGNAME}.mo
 share/locale/bg/LC_MESSAGES/${PKGNAME}-functions.mo
 share/locale/bg/LC_MESSAGES/${PKGNAME}.mo
+share/locale/bs/LC_MESSAGES/${PKGNAME}-functions.mo
+share/locale/bs/LC_MESSAGES/${PKGNAME}.mo
 share/locale/ca/LC_MESSAGES/${PKGNAME}-functions.mo
 share/locale/ca/LC_MESSAGES/${PKGNAME}.mo
 share/locale/ca@valencia/LC_MESSAGES/${PKGNAME}-functions.mo

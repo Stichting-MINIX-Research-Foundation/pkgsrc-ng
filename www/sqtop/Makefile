@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2014/09/25 20:02:51 jperkin Exp $
+# $NetBSD: Makefile,v 1.7 2015/08/18 07:31:19 wiz Exp $
 
 DISTNAME=	sqtop-2013-12-17
 PKGNAME=	${DISTNAME:C/([0-9])-/\1/g}
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	http://sqtop.googlecode.com/files/
 EXTRACT_SUFX=	.tar.bz2

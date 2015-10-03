@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.304 2015/04/26 03:40:20 markd Exp $
+# $NetBSD: Makefile,v 1.306 2015/08/25 05:05:39 richard Exp $
 
 COMMENT=	Mathematics
 
@@ -167,6 +167,7 @@ SUBDIR+=	p5-Algorithm-Cluster
 SUBDIR+=	p5-Algorithm-Munkres
 SUBDIR+=	p5-Excel-Template
 SUBDIR+=	p5-Excel-Template-Plus
+SUBDIR+=	p5-Math-Base-Convert
 SUBDIR+=	p5-Math-Base36
 SUBDIR+=	p5-Math-Base85
 SUBDIR+=	p5-Math-BaseCnv
@@ -239,6 +240,7 @@ SUBDIR+=	py-pytables
 SUBDIR+=	py-roman
 SUBDIR+=	py-rpy
 SUBDIR+=	py-scipy
+SUBDIR+=	py-simpleeval
 SUBDIR+=	py-sympy
 SUBDIR+=	qalculate
 SUBDIR+=	qalculate-bases

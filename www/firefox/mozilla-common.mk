@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.57 2015/06/26 11:16:41 szptvlfn Exp $
+# $NetBSD: mozilla-common.mk,v 1.62 2015/09/23 06:44:41 ryoon Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -33,7 +33,9 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/libpkix/libpkix.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}security/nss/tests/multinit/multinit.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}js/src/tests/update-test262.sh
 CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}intl/icu/source/configure
+CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}browser/components/loop/run-all-loop-tests.sh
 
+CONFIGURE_ARGS+=	--enable-pie
 CONFIGURE_ARGS+=	--disable-tests
 CONFIGURE_ARGS+=	--disable-pedantic
 CONFIGURE_ARGS+=	--enable-crypto
@@ -66,7 +68,7 @@ CONFIGURE_ARGS+=	--with-system-bz2
 CONFIGURE_ARGS+=	--with-system-graphite2
 CONFIGURE_ARGS+=	--with-system-harfbuzz
 CONFIGURE_ARGS+=	--with-system-libevent=${BUILDLINK_PREFIX.libevent}
-CONFIGURE_ARGS+=	--enable-system-sqlite
+#CONFIGURE_ARGS+=	--enable-system-sqlite
 CONFIGURE_ARGS+=	--disable-crashreporter
 CONFIGURE_ARGS+=	--disable-libnotify
 CONFIGURE_ARGS+=	--disable-necko-wifi
@@ -84,8 +86,7 @@ CONFIGURE_ARGS+=	--enable-canvas
 CONFIGURE_ARGS+=	--disable-installer
 CONFIGURE_ARGS+=	--enable-url-classifier
 #CONFIGURE_ARGS+=	--enable-startup-notification
-# Disabled from https://bugzilla.mozilla.org/show_bug.cgi?id=977400
-CONFIGURE_ARGS+=	--enable-shared-js
+#CONFIGURE_ARGS+=	--enable-shared-js
 CONFIGURE_ARGS+=	--with-system-ply
 CONFIGURE_ARGS+=	--disable-icf
 CONFIGURE_ARGS+=	--disable-updater
@@ -211,16 +212,16 @@ PLIST_SUBST+=	DLL_SUFFIX=".so"
 #.include "../../audio/libopus/buildlink3.mk"
 #.include "../../audio/tremor/buildlink3.mk"
 #.include "../../audio/libvorbis/buildlink3.mk"
-BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.9
-CONFIGURE_ENV+=	ac_cv_sqlite_secure_delete=yes	# c.f. patches/patch-al
-.include "../../databases/sqlite3/buildlink3.mk"
+#BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.9
+#CONFIGURE_ENV+=	ac_cv_sqlite_secure_delete=yes	# c.f. patches/patch-al
+#.include "../../databases/sqlite3/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libevent+=	libevent>=1.1
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/libffi/buildlink3.mk"
 BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.10.8
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
-BUILDLINK_API_DEPENDS.nss+=	nss>=3.18.1
+BUILDLINK_API_DEPENDS.nss+=	nss>=3.19.2
 .include "../../devel/nss/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

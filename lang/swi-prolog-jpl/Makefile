@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2014/05/28 10:33:00 markd Exp $
+# $NetBSD: Makefile,v 1.4 2015/08/18 07:31:10 wiz Exp $
 
+PKGREVISION= 2
 .include "../../lang/swi-prolog-lite/Makefile.common"
 
 PKGNAME=		swi-prolog-jpl-${SWIPLVERS}
@@ -16,10 +17,12 @@ MAKE_JOBS_SAFE=		no
 CONFIGURE_ENV+=		PL=swi-prolog
 CONFIGURE_ENV+=		PLARCH=${MACHINE_GNU_PLATFORM}	# make PLIST consistent
 CONFIGURE_ENV+=		PKG=jpl
+CONFIGURE_ENV+=		JAVAC=${PKG_JAVA_HOME}/bin/javac
 
 CONFIGURE_DIRS+=	. packages
 BUILD_DIRS+=		packages/jpl
 INSTALL_DIRS+=		packages/jpl
+BUILD_TARGET=		libjpl.so jpl.jar
 
 INSTALLATION_DIRS=	lib/swi-prolog-${PKGVERSION_NOREV}/bin/${MACHINE_GNU_PLATFORM}
 

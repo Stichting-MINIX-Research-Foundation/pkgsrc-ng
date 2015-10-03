@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.9 2012/10/31 11:19:25 asau Exp $
+# $NetBSD: Makefile,v 1.11 2015/09/03 03:12:11 dsainty Exp $
 #
 
 PKGNAME=		picprg-2.3d
 DISTNAME=		${PKGNAME_NOREV:S/-//}
-PKGREVISION=		1
+PKGREVISION=		2
 CATEGORIES=		devel
 MASTER_SITES=		http://www.finitesite.com/d3jsys/
 
-MAINTAINER=		dsainty@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.finitesite.com/d3jsys/
 COMMENT=		Parallel port PIC programmer
 

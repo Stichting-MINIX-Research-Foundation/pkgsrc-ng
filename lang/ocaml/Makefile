@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.96 2015/04/17 09:12:12 jaapb Exp $
+# $NetBSD: Makefile,v 1.100 2015/09/08 18:54:41 joerg Exp $
 
 .include "Makefile.common"
+
 PKGREVISION=		2
 
 #CONFIGURE_ARGS+=	-no-tk
-CONFIGURE_ARGS+=	-cc ${CC}
+#CONFIGURE_ARGS+=	-cc ${CC}
 CONFIGURE_ENV+=		disable_x11=yes
 
 BUILD_TARGET=		world
@@ -37,8 +38,6 @@ PLIST_SRC+=	${PKGDIR}/PLIST.opt
       empty(MACHINE_PLATFORM:MSunOS-*-i386) && \
       empty(MACHINE_PLATFORM:MSunOS-*-x86_64) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-powerpc) && \
-      empty(MACHINE_PLATFORM:MNetBSD-*-x86_64) && \
-      empty(MACHINE_PLATFORM:MFreeBSD-*-x86_64) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-arm) && \
       empty(MACHINE_PLATFORM:MNetBSD-*-sparc)
 PLIST_SRC+=	${PKGDIR}/PLIST.prof
@@ -52,7 +51,7 @@ PLIST_SRC+=	${PKGDIR}/PLIST.prof
       !empty(MACHINE_PLATFORM:MFreeBSD-*-*) || \
       !empty(MACHINE_PLATFORM:MDragonFly-*-*) || \
       !empty(MACHINE_PLATFORM:MNetBSD-*-*) || \
-      !empty(MACHINE_PLATFORM:MDarwin-*-x86_64)
+      !empty(MACHINE_PLATFORM:MDarwin-*-*)
 PLIST_SRC+=	${PKGDIR}/PLIST.natdynlink
 .  endif
 .endif

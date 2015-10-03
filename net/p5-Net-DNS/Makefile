@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.63 2015/06/12 10:50:46 wiz Exp $
+# $NetBSD: Makefile,v 1.65 2015/07/12 18:56:26 wiz Exp $
 
-DISTNAME=		Net-DNS-0.83
+DISTNAME=		Net-DNS-1.01
 PKGNAME=		p5-${DISTNAME}
-PKGREVISION=		1
 CATEGORIES=		net perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Net/}		\
 			http://www.net-dns.org/download/
@@ -12,10 +11,10 @@ HOMEPAGE=		http://www.net-dns.org/
 COMMENT=		Perl5 module for DNS resolution
 LICENSE=		${PERL5_LICENSE}
 
-BUILD_DEPENDS+=		{p5-Test-Simple>=0.44,perl>=5.8.0}:../../devel/p5-Test-Simple
+#BUILD_DEPENDS+=		{p5-Test-Simple>=0.44,perl>=5.8.0}:../../devel/p5-Test-Simple
 DEPENDS+=		p5-Digest-HMAC>=1.0:../../security/p5-Digest-HMAC
-DEPENDS+=		{perl>=5.7.3,p5-Digest-MD5>=2.12}:../../security/p5-Digest-MD5
-DEPENDS+=		{perl>=5.7.3,p5-MIME-Base64>=2.11}:../../converters/p5-MIME-Base64
+#DEPENDS+=		{perl>=5.7.3,p5-Digest-MD5>=2.12}:../../security/p5-Digest-MD5
+#DEPENDS+=		{perl>=5.7.3,p5-MIME-Base64>=2.11}:../../converters/p5-MIME-Base64
 DEPENDS+=		p5-Net-IP>=1.20:../../net/p5-Net-IP
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.p5-Net-DNS

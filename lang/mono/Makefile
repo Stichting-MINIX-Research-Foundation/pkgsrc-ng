@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.163 2015/06/15 09:27:29 joerg Exp $
+# $NetBSD: Makefile,v 1.166 2015/09/14 16:07:57 wiz Exp $
 
-DISTNAME=	mono-4.0.1
-PKGREVISION=	3
+DISTNAME=	mono-4.0.4.1
+PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/mono/
 EXTRACT_SUFX=	.tar.bz2
@@ -14,6 +14,7 @@ LICENSE=	mit AND gnu-gpl-v2 AND gnu-lgpl-v2 AND apache-2.0
 BUILD_DEPENDS+=	p5-XML-Parser-[0-9]*:../../textproc/p5-XML-Parser
 CONFLICTS=	pnet-[0-9]* mcsim-[0-9]* lc-[0-9]*
 ALL_ENV+=	MONO_SHARED_DIR=${WRKDIR:Q} PLATFORM=
+WRKSRC=		${WRKDIR}/mono-4.0.4
 
 USE_TOOLS+=	bash:run bison gmake gtar msgfmt perl:run pkg-config
 USE_LIBTOOL=	yes
@@ -100,7 +101,9 @@ CONF_FILES+=	${EGDIR}/4.5/Browsers/Compat.browser \
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/2.0
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/2.0/Browsers
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/4.0
+MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/4.0/Browsers
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/4.5
+MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/4.5/Browsers
 MAKE_DIRS+=	${PKG_SYSCONFDIR}/mono/mconfig
 
 INSTALLATION_DIRS+=	share/examples/mono/4.5

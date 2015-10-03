@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.24 2013/04/06 15:46:36 rodent Exp $
+# $NetBSD: Makefile,v 1.27 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=	hnb-1.9.17
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hnb/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://hnb.sourceforge.net/
 COMMENT=	Hierarchical data organizer
-
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-U]-*
 
 USE_TOOLS+=		gmake
 

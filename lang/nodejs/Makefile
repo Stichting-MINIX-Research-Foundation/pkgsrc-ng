@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.36 2015/06/23 09:41:50 fhajny Exp $
+# $NetBSD: Makefile,v 1.42 2015/09/24 14:17:18 fhajny Exp $
 
-DISTNAME=	node-v0.12.5
+DISTNAME=	node-v4.1.1
 CATEGORIES=	devel
 MASTER_SITES=	http://nodejs.org/dist/${DISTNAME:S/node-//}/
 PKGNAME=	${DISTNAME:S/-v/js-/}
@@ -18,6 +18,8 @@ PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.10.24
 
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
+
+GCC_REQD+=		4.8
 
 SUBST_CLASSES+=		python
 SUBST_STAGE.python=	pre-configure
@@ -49,6 +51,8 @@ CHECK_INTERPRETER_SKIP+=	lib/node_modules/npm/*
 .if ${OPSYS} == "NetBSD"
 BUILD_DEPENDS+=	lockf-[0-9]*:../../sysutils/lockf
 .endif
+
+TEST_TARGET=		check
 
 pre-install:
 	${FIND} ${WRKSRC}/deps/npm -name '*.orig' | ${XARGS} ${RM} -f

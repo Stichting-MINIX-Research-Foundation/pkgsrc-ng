@@ -1,4 +1,4 @@
-# $NetBSD: Darwin.mk,v 1.67 2015/06/26 13:51:57 adam Exp $
+# $NetBSD: Darwin.mk,v 1.71 2015/09/07 11:48:35 jperkin Exp $
 #
 # Variable definitions for the Darwin operating system.
 
@@ -128,6 +128,9 @@ USE_BUILTIN.dl=		no	# Darwin-[56].* uses devel/dlcompat
 # Builtin defaults which make sense for this platform.
 _OPSYS_PREFER.linux-pam?=	native
 _OPSYS_PREFER.mit-krb5?=	native
+.if ${OS_VERSION:R} >= 11
+_OPSYS_PREFER.openssl?=		pkgsrc	# builtin deprecated from 10.7 onwards
+.endif
 
 # flags passed to the linker to extract all symbols from static archives.
 # this is GNU ld.
@@ -139,10 +142,14 @@ _OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
 _OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
 .endif
 
-_OPSYS_CAN_CHECK_SHLIBS=	no # can't use readelf in check/bsd.check-vars.mk
+_OPSYS_CAN_CHECK_SHLIBS=	yes # check shared libraries using otool(1)
 
+# OSX strip(1) tries to remove relocatable symbols and fails on certain
+# objects, resulting in non-zero exit status.  We can't modify strip arguments
+# (e.g. adding "-u -r" which would fix the issue) when using install -s so for
+# now stripping is disabled in that mode.
 _STRIPFLAG_CC?=		${_INSTALL_UNSTRIPPED:D:U-Wl,-x} # cc(1) option to strip
-_STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
+_STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U}	# install(1) option to strip
 
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.
@@ -158,7 +165,8 @@ CONFIGURE_ENV+=		ac_cv_func_poll=no
 .endif
 
 # Use "/bin/ksh" for buildlink3 wrapper script to improve build performance.
-.if (!empty(OS_VERSION:M9.*) || !empty(OS_VERSION:M1[0-9].*)) && \
+.if (!empty(OS_VERSION:M9.*) || !empty(OS_VERSION:M1[0-2].*) || \
+     !empty(OS_VERSION:M1[4-9].*)) && \
     exists(/bin/ksh)
 WRAPPER_BIN_SH?=	/bin/ksh
 .endif

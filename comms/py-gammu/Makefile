@@ -1,26 +1,21 @@
-# $NetBSD: Makefile,v 1.6 2014/11/23 10:06:41 mef Exp $
-#
+# $NetBSD: Makefile,v 1.9 2015/08/28 10:24:23 wiz Exp $
 
-.include "../../comms/gammu/Makefile.common"
+DISTNAME=	python-gammu-2.3
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/python-//}
+PKGREVISION=	1
+MASTER_SITES=	http://dl.cihar.com/python-gammu/
+CATEGORIES=	comms
 
-PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://wammu.eu/gammu/
 COMMENT=	Python bindings for gammu
+LICENSE=	gnu-gpl-v2
 
-DISTINFO_FILE=	${.CURDIR}/../../comms/gammu/distinfo
-PATCHDIR=	${.CURDIR}/../../comms/gammu/patches
+USE_TOOLS+=	pkg-config
 
-USE_TOOLS+=		pkg-config
-CONFLICTS=		gammu<=1.24.0
+# UnicodeDecodeError: 'ascii' codec can't decode byte 0xc4 in position 1648: ordinal not in range(128)
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34
 
-PYSETUPSUBDIR=		python
-PYSETUPBUILDTARGET=	build_ext
-PYSETUPBUILDARGS=	--gammu-incs=${BUILDLINK_PREFIX.gammu}/include/gammu
-PYSETUPBUILDARGS+=	--gammu-libs=${BUILDLINK_PREFIX.gammu}/lib
-
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.26.1
-
-EGG_NAME=	python_${DISTNAME}
-
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../comms/gammu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

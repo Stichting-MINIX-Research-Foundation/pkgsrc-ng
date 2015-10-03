@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/08/13 20:27:09 gls Exp $
+# $NetBSD: Makefile,v 1.6 2015/08/28 15:18:24 wiz Exp $
 
-DISTNAME=	gunicorn-19.1.0
+DISTNAME=	gunicorn-19.3.0
+PKGREVISION=	1
 CATEGORIES=	www
 MASTER_SITES=	https://pypi.python.org/packages/source/g/gunicorn/
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -15,6 +16,10 @@ USE_TOOLS+=	pax
 DOCDIR=		${PREFIX}/share/doc/py-gunicorn
 EXAMPLESDIR=	${PREFIX}/share/examples/py-gunicorn
 AUTO_MKDIRS=	yes
+
+# https://github.com/benoitc/gunicorn/issues/1108
+# according to upstream it is fine that one file does not
+# compile with python-2.x because it won't be used there
 
 post-install:
 	cd ${WRKSRC}/docs/source && pax -wr -pma *.rst	\

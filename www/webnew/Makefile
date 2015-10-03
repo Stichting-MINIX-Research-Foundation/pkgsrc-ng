@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2015/06/12 10:52:16 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.18 2015/08/21 08:18:26 wiz Exp $
 
 DISTNAME=		webnew-1.3
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		www
 MASTER_SITES=		http://oss.gw.com/people/kim/
 
@@ -13,9 +12,12 @@ COMMENT=		Retrieve modification times of web documents
 USE_TOOLS+=		perl:run
 
 NO_CONFIGURE=		yes
-BUILD_TARGET=		all DEST=${PREFIX} PERL=${PERL5}
+BUILD_TARGET=		all
+MAKE_FLAGS=		DEST=${PREFIX} PERL=${PERL5}
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1
+
+DEPENDS+=		p5-ParallelUserAgent-[0-9]*:../../www/p5-ParallelUserAgent
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/webnew ${DESTDIR}${PREFIX}/bin

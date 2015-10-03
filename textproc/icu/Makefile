@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.97 2015/04/06 07:22:54 adam Exp $
+# $NetBSD: Makefile,v 1.99 2015/09/07 12:02:06 jperkin Exp $
 
 DISTNAME=	icu4c-55_1-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
@@ -55,7 +55,7 @@ PLIST_SUBST+=		MH_NAME=mh-linux-va
 PLIST_SUBST+=		MH_NAME=mh-linux
 .elif ${OPSYS} == "Cygwin"
 PLIST_SUBST+=		MH_NAME=mh-cygwin
-.elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly"
+.elif !empty(OPSYS:M*BSD*) || ${OPSYS} == "DragonFly" || ${OPSYS} == "Bitrig"
 PLIST_SUBST+=		MH_NAME=mh-bsd-gcc
 .elif ${OPSYS} == "AIX"
 .  if !empty(CC_VERSION:Mgcc*)
@@ -89,7 +89,7 @@ PLIST_SUBST+=		MH_NAME=mh-qnx
 PLIST_SUBST+=		MH_NAME=mh-unknown
 .endif
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "Cygwin"
+.if ${OPSYS} == "Cygwin"
 INSTALL_UNSTRIPPED=	yes
 .endif
 

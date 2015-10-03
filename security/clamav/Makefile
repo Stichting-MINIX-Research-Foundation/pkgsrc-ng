@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2015/05/20 21:15:26 bouyer Exp $
+# $NetBSD: Makefile,v 1.26 2015/08/18 07:31:01 wiz Exp $
 
 DISTNAME=	clamav-${CLAMAV_VERSION}
 #PKGREVISION=	2
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=clamav/}
 

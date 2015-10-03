@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2015/01/13 20:25:13 he Exp $
+# $NetBSD: Makefile,v 1.8 2015/09/07 12:02:06 jperkin Exp $
 #
 
 DISTNAME=	dbeacon-0.3.9.1
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mbone
 MASTER_SITES=	http://fivebits.net/files/dbeacon/
 
@@ -18,8 +18,6 @@ BUILD_DEFS+=	IPV6_READY
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/examples/dbeacon
 INSTALLATION_DIRS+=	share/doc/dbeacon
-
-#INSTALL_UNSTRIPPED=	yes
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/dbeacon ${DESTDIR}${PREFIX}/bin

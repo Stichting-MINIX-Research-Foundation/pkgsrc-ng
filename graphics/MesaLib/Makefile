@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.104 2015/06/07 15:48:12 tnn Exp $
+# $NetBSD: Makefile,v 1.109 2015/09/15 00:24:26 tnn Exp $
 
-DISTNAME=	mesa-10.5.7
+DISTNAME=	mesa-10.6.7
+PKGREVISION=	2
 PKGNAME=	${DISTNAME:S/mesa/MesaLib/}
 CATEGORIES=	graphics x11
 MASTER_SITES=	ftp://ftp.freedesktop.org/pub/mesa/${PKGVERSION_NOREV}/
@@ -26,7 +27,6 @@ PKGCONFIG_OVERRIDE+=	src/gallium/targets/xa/xatracker.pc.in
 PKGCONFIG_OVERRIDE+=	src/gbm/main/gbm.pc.in
 PKGCONFIG_OVERRIDE+=	src/mapi/es1api/glesv1_cm.pc.in
 PKGCONFIG_OVERRIDE+=	src/mapi/es2api/glesv2.pc.in
-PKGCONFIG_OVERRIDE+=	src/mapi/vgapi/vg.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/drivers/dri/dri.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/drivers/osmesa/osmesa.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/gl.pc.in
@@ -45,6 +45,13 @@ SUBST_SED.wrapper-bug=		-e 's,shared-glapi/libglapi.la,shared-glapi/libglapi_sha
 SUBST_SED.wrapper-bug+=		-e 's,libglapi.la,libglapi_static.la,g'
 SUBST_SED.wrapper-bug+=		-e 's,libglapi_shared.la,libglapi.la,g'
 
+# Replace /etc/drirc with ${PREFIX}/etc/drirc
+SUBST_CLASSES+=			drirc
+SUBST_STAGE.drirc=		post-patch
+SUBST_MESSAGE.drirc=		Fixing hardcoded /etc/drirc references
+SUBST_FILES.drirc+=		src/mesa/drivers/dri/common/xmlconfig.c
+SUBST_SED.drirc+=		 -e 's|/etc/|${PREFIX}/etc/|g'
+
 .include "../../mk/bsd.prefs.mk"
 .include "../../mk/compiler.mk"
 .include "options.mk"
@@ -60,6 +67,7 @@ SUBST_SED.tr1+=		-e 's,include <tr1/,include <,g'
 .endif
 
 PYTHON_FOR_BUILD_ONLY=	yes
+PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # as of 10.6.7
 BUILD_DEPENDS+=		${PYPKGPREFIX}-mako-[0-9]*:../../devel/py-mako
 .include "../../lang/python/tool.mk"
 
@@ -68,7 +76,7 @@ BUILD_DEPENDS+=		${PYPKGPREFIX}-mako-[0-9]*:../../devel/py-mako
 # which breaks the build with -Wl,--no-undefined.
 # So we piggy back on -lpthread and inject -lc after it.
 .if !empty(MACHINE_PLATFORM:MNetBSD-[1-5].*-*)
-BUILDLINK_TRANSFORM+=   l:pthread:pthread:c
+BUILDLINK_TRANSFORM+=   l:pthread:pthread:c l:m:m:c
 .endif
 
 # Handle platforms without exp2
@@ -76,6 +84,11 @@ BUILDLINK_TRANSFORM+=   l:pthread:pthread:c
 CPPFLAGS+=	-Dexp2\(x\)=exp\(\(x\)\*M_LN2\)
 CPPFLAGS+=	-Dexp2f\(x\)=expf\(\(x\)\*M_LN2\)
 .endif
+
+INSTALLATION_DIRS+=	share/examples/MesaLib
+
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/src/mesa/drivers/dri/common/drirc ${DESTDIR}${PREFIX}/share/examples/MesaLib
 
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"

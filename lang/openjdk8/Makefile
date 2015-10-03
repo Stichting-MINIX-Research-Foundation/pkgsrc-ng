@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2015/06/13 14:55:52 tnn Exp $
+# $NetBSD: Makefile,v 1.20 2015/08/27 19:03:59 joerg Exp $
 
-DISTNAME=	openjdk-1.8.45-20150610
-PKGNAME=	openjdk8-1.8.45
+DISTNAME=	openjdk-1.8.51-20150806
+PKGNAME=	openjdk8-1.8.51
 PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
@@ -25,7 +25,7 @@ JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
 
 BUILD_DEPENDS+=		mozilla-rootcerts>=1.0.20140820nb2:../../security/mozilla-rootcerts
 
-GNU_CONFIGURE=		yes
+HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	common/autoconf/configure
 CONFIG_SHELL=		bash
 CONFIG_SUB_OVERRIDE+=	common/autoconf/build-aux/config.sub
@@ -40,6 +40,9 @@ PLIST_SRC+=		${PLIST_SRC_DFLT}
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin
 
+CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
+CONFIGURE_ARGS+=	--build=${MACHINE_GNU_PLATFORM:Q}
+CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM:Q}
 CONFIGURE_ARGS+=	--with-boot-jdk=${ALT_BOOTDIR}
 CONFIGURE_ARGS+=	--with-zlib=system
 CONFIGURE_ARGS+=	--with-giflib=bundled
@@ -71,7 +74,7 @@ MAKE_ENV+=	LD_LIBRARY_PATH=${LD_LIBRARY_PATH}
 BUILDLINK_PASSTHRU_RPATHDIRS+=	${PREFIX}/java/openjdk8/jre/lib/${LIBDIR_ARCH}
 
 PLIST_SUBST+=	ARCH=${LIBDIR_ARCH}
-PLIST_SUBST+=	LOWER_OPSYS=${LOWER_OPSYS}
+PLIST_SUBST+=	LOWER_OPSYS=${LOWER_OPSYS:S/sunos/solaris/}
 
 .include "../../mk/compiler.mk"
 
@@ -82,6 +85,11 @@ SUBST_VARS.libpath=	PREFIX
 
 CFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 CXXFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
+
+.if ${OPSYS} == "SunOS" && !empty(PKGSRC_COMPILER:Mgcc)
+MAKE_ENV+=	USE_GCC=1
+MAKE_ENV+=	ARCH_DATA_MODEL=${ABI:Q}
+.endif
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-return-type
@@ -125,8 +133,13 @@ SUBST_FILES.fontpaths+=		jdk/src/solaris/native/sun/awt/fontpath.c
 SUBST_SED.fontpaths=		-e 's|@PREFIX@|${PREFIX}|g'
 SUBST_SED.fontpaths+=		-e 's|@BUILDLINK_PREFIX.fontconfig@|${BUILDLINK_PREFIX.fontconfig}|g'
 
+PLIST_VARS+=	i386
+.if ${MACHINE_ARCH} == "i386"
+PLIST.i386=	yes
+.endif
+
 PLIST_VARS+=	sctp
-.if ${OPSYS} == "FreeBSD"
+.if ${OPSYS} == "FreeBSD" || ${OPSYS} == "SunOS"
 PLIST.sctp=	yes
 .endif
 
@@ -192,11 +205,18 @@ do-install:
 	${INSTALL_DATA} ${WRKDIR}/cacerts.out				\
 	  ${DESTDIR}${JAVA_HOME}/jre/lib/security/cacerts
 	rm -f ${DESTDIR}${JAVA_HOME}/include/jni_md.h
-	ln -s ${LOWER_OPSYS}/jni_md.h					\
+	ln -s ${LOWER_OPSYS:S/sunos/solaris/}/jni_md.h					\
 	  ${DESTDIR}${JAVA_HOME}/include/jni_md.h
 
 .if ${OPSYS} == "NetBSD"
 TOOLS_PLATFORM.unzip=
+.endif
+
+# Include binutils for objcopy and GNU strip on SmartOS
+.if ${OS_VARIANT} == "SmartOS"
+.include "../../devel/binutils/buildlink3.mk"
+BUILDLINK_DEPMETHOD.binutils?=	build
+MAKE_ENV+=	STRIP=${PREFIX}/bin/gstrip
 .endif
 
 # disabled the ALSA support for now on BSDs via patch

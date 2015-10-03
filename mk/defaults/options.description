@@ -143,6 +143,7 @@ dvdread			Enable reproduction of DVDs.
 dvi			Enable device independent file format (mostly TeX) support.
 eaccelerator-disassembler	Include disassembler.
 eaccelerator-doc-comment-inclusion	Retain doc-comments in internal php structures.
+eai			Enable EAI (Email Address Internationalization) support.
 eb			Enable EB dictionary library support.
 ecl			Use Embeddable Common Lisp.
 ecore			Enable ecore library support.
@@ -422,14 +423,11 @@ libvpx			Enable libvpx support.
 libwildmidi		Enable MIDI support using libwildmidi.
 libwww-aliases		Install aliases for p5-libwww (e.g. HEAD, GET etc.).
 libxml2			Use the libxml2 library for XML support.
-liferea-gtkhtml		Use libgtkhtml2 to render HTML.
-liferea-mozilla		Use xulrunner to render HTML.
 lilypond		Enable LilyPond music typesetter support.
 links			Use and enable support for the links browser.
-links-xz		Enable lzma support for the links WWW browser.
-links-zlib		Enable zlib support for the links WWW browser.
 lirc			Enable LIRC receiving and sending IR signals support.
 live			Enable live555 support.
+llvm			Enable run time generation with Low Level Virtual Machine.
 lmdb			Enable lmdb support.
 lprng-priv-ports	Connections must be made from privileged ports.
 lprng-suid		Install LPRng executables setuid root.
@@ -450,11 +448,8 @@ maintainer-zts		Enable the Zend Thread Safety option for PHP.
 manual			Include manual.			
 marble			Enable marble (virtual globe) support.
 mc-charset		Enable charset selection and conversion.
-mc-edit			Enable internal editor.
-mc-samba		Enable smb virtual file system.
-mc-subshell		Enable support for subshell.
-mc-vfs			Support for VFS (virtual file system).
 mecab			Use MeCab as the Japanese Morphological Analzer.
+memcached		Enable memcached support.
 mex			Enable matlab mex support (Linux and Solaris only).
 migemo			Enable migemo (Japanese text search tool/library) support.
 mikmod			Enable MikMod sound library.
@@ -474,7 +469,6 @@ modplug			Use for decoding mod-like music formats.
 motif			Enable motif support.
 motoya			Add motoya fonts.
 mozilla			Use mozilla as gecko rendering engine.
-mozilla-enigmail	Enable the Enigmail OpenPGP extension.
 mozilla-jemalloc	Enable building with Mozilla'a jemalloc.
 mozilla-jit		Enable nanojit javascript acceleration.
 mozilla-lightning	Enable the lightning calendar extension.
@@ -662,6 +656,7 @@ spamassassin-test-prefork	Enable spamd prefork test (kills processes containing 
 spandsp			Enable spandsp support.
 speex			Enable speex support.
 spf			Enable Sender Policy Framework support.
+sphinx			Enable Sphinx full-text search.
 sqlite			Enable SQLite support.
 sqlite3			Enable SQLite3 support.
 squid-arp-acl		Enable use of ARP ACL lists (ether address).

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.39 2015/06/12 10:52:16 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2015/09/11 16:23:03 jperkin Exp $
 
 DISTNAME=	wml-2.0.11
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	www perl5
 MASTER_SITES=	http://thewml.org/distrib/
 
@@ -17,16 +17,13 @@ BUILD_DEPENDS+=	lynx-[0-9]*:../../www/lynx
 
 .include "../../mk/bsd.prefs.mk"
 
-USE_TOOLS+=	automake
+USE_TOOLS+=	automake bash
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --with-perl=${PERL5:Q} \
 		--with-openworld \
 		--with-tidy=${LOCALBASE}/bin/tidy
-
+CONFIG_SHELL=	${TOOLS_PATH.bash}
 TEST_TARGET=	test
-
-INCOMPAT_CURSES=	NetBSD-1.5*-* NetBSD-1.6[-_.]*-*
-INCOMPAT_CURSES+=	NetBSD-1.6[A-Z]-* NetBSD-1.6Z[A-C]*-*
 
 PERL_ARCHNAME_cmd=	eval `${PERL5} -V:archname 2>/dev/null`; \
 			${ECHO} $${archname}

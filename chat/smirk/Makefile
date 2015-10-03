@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2012/10/03 00:02:44 asau Exp $
+# $NetBSD: Makefile,v 1.9 2015/08/18 07:31:03 wiz Exp $
 #
 
 DISTNAME=	smirk-20080111
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	chat
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 EXTRACT_SUFX=	.tar.bz2

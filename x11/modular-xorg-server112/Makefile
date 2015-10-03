@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2015/04/25 14:25:14 tnn Exp $
+# $NetBSD: Makefile,v 1.6 2015/09/20 16:39:18 tnn Exp $
 
 DISTNAME=	xorg-server-1.12.4
 PKGNAME=	modular-${DISTNAME}
-PKGREVISION=	13
+PKGREVISION=	15
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=xserver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -97,6 +97,11 @@ SUNOS_ARCH=		amd64
 .  elif ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64"
 SUNOS_ARCH=		sparcv8plus
 .  endif
+.endif
+
+PLIST_VARS+=		sparc
+.if !empty(MACHINE_ARCH:Msparc*)
+PLIST.sparc=		yes
 .endif
 
 # Workaround for PR#41556.

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.7 2015/06/12 10:48:44 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2015/08/23 20:34:07 wiz Exp $
 
-DISTNAME=	postgis-2.1.7
+DISTNAME=	postgis-2.1.8
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	databases geography
 MASTER_SITES=	http://download.osgeo.org/postgis/source/
 
@@ -13,6 +12,7 @@ COMMENT=	Spatial database capabilities for PostgreSQL
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=		postgresql${PGSQL_VERSION}-server>=0:../../databases/postgresql${PGSQL_VERSION}-server
+BUILD_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
 CONFLICTS=		postgis-[0-9]*
 
@@ -20,6 +20,9 @@ CONFLICTS=		postgis-[0-9]*
 # 1. File ticket upstream about make->$(MAKE) in doc/html/image_src/Makefile.
 # 2. Update to upstream with fixes for:
 #      http://trac.osgeo.org/postgis/ticket/2909
+# 3. Fix installation use of "install -o root" from pgxs.mk, when postgresql
+#    was built as root and postgis is built/installed as a non-root user.
+#    https://lists.osgeo.org/pipermail/postgis-devel/2015-July/025045.html
 
 # gmake complains about adding + to parent rule
 MAKE_JOBS_SAFE=		no
@@ -70,7 +73,6 @@ MAKE_ENV+=		"XSLTPROCFLAGS=--timing"
 # These are really all BUILD_DEPENDS.
 .include "../../graphics/ImageMagick/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
-.include "../../textproc/docbook-xsl/buildlink3.mk"
 
 # NORMAL DEPENDS
 .include "../../geography/gdal-lib/buildlink3.mk"

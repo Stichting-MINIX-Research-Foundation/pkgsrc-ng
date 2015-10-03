@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.24 2015/06/12 10:52:19 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2015/09/16 12:28:53 tnn Exp $
 
 DISTNAME=	qtbase-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtbase-${QTVERSION}
@@ -52,9 +52,6 @@ QMAKE_CONF=		qmake.conf.mac
 .endif
 
 PLIST_VARS+=		egl
-.if ${X11_TYPE} == "modular" || exists(${X11BASE}/include/EGL/egl.h)
-PLIST.egl=		yes
-.endif
 
 .include "../../mk/compiler.mk"
 
@@ -132,7 +129,6 @@ PC_FILES=		Qt5Bootstrap.pc Qt5Concurrent.pc Qt5Core.pc \
 pre-configure:
 	${SED}  -e 's:@LOCALBASE@:${LOCALBASE}:g' \
 		-e 's:@X11BASE@:${X11BASE}:g' \
-		-e 's:@X11PREFIX@:${X11PREFIX}:g' \
 		-e 's:@LIBTOOL@:${LIBTOOL:Q}:g' \
 		-e 's:@CC@:${CC:Q}:g' \
 		-e 's:@CXX@:${CXX:Q}:g' \
@@ -187,6 +183,9 @@ post-install:
 .include "../../textproc/icu/buildlink3.mk"
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/glu/buildlink3.mk"
+.if !empty(MESALIB_SUPPORTS_EGL:Myes)
+PLIST.egl=	yes
+.endif
 .include "../../x11/libxcb/buildlink3.mk"
 .include "../../x11/xcb-util/buildlink3.mk"
 .include "../../x11/xcb-util-image/buildlink3.mk"

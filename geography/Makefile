@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.51 2015/06/10 01:50:09 wiedi Exp $
+# $NetBSD: Makefile,v 1.57 2015/09/11 18:45:01 bouyer Exp $
 #
 
 COMMENT=	Software for geographical-related uses
@@ -22,20 +22,25 @@ SUBDIR+=	gpsdrive
 SUBDIR+=	gpspoint
 SUBDIR+=	gpsutils
 SUBDIR+=	kplex
+SUBDIR+=	libchamplain012
 SUBDIR+=	libchamplain04
 SUBDIR+=	libchamplain06
 SUBDIR+=	libchamplain08
 SUBDIR+=	libdrg
 SUBDIR+=	libgeotiff
+SUBDIR+=	libmemphis02
 SUBDIR+=	libnova
 SUBDIR+=	mapserver
 SUBDIR+=	merkaartor
 SUBDIR+=	opencpn
 SUBDIR+=	opencpn-plugin-gshhs
 SUBDIR+=	opencpn-plugin-weather_routing
+SUBDIR+=	osm-gps-map
 SUBDIR+=	osm2pgsql
 SUBDIR+=	p5-Geo-Coordinates-UTM
 SUBDIR+=	p5-Geo-Distance
+SUBDIR+=	p5-Geo-Ellipsoid
+SUBDIR+=	p5-Geo-Gpx
 SUBDIR+=	p5-Geo-Mercator
 SUBDIR+=	p5-Geo-ShapeFile
 SUBDIR+=	p5-Geo-Weather

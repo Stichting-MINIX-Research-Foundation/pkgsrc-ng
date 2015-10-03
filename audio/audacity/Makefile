@@ -1,30 +1,39 @@
-# $NetBSD: Makefile,v 1.92 2015/04/25 14:20:18 tnn Exp $
+# $NetBSD: Makefile,v 1.98 2015/09/18 21:19:07 mrg Exp $
 
 DISTNAME=		audacity-minsrc-2.1.0
 PKGNAME=		${DISTNAME:S/-minsrc//1}
-PKGREVISION=		1
+PKGREVISION=		6
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=audacity/}
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://audacity.sourceforge.net/
+HOMEPAGE=		http://audacityteam.org/
 COMMENT=		Audio editor
 LICENSE=		gnu-gpl-v2 # AND cc-by-v3.0-license
 
 USE_LIBTOOL=		yes
-USE_TOOLS+=		autoconf gmake intltool msgfmt msgmerge pkg-config
+USE_TOOLS+=		automake autoreconf
+USE_TOOLS+=		gmake intltool msgfmt msgmerge pkg-config
 USE_TOOLS+=		xgettext zip:run
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-expat=system --without-xaudio
-CONFIGURE_ARGS+=	--with-ffmpeg=system --with-libflac=system
-CONFIGURE_ARGS+=	--with-id3tag=system --with-libmad=system
-CONFIGURE_ARGS+=	--with-vorbis=system --with-sbsms=system
-CONFIGURE_ARGS+=	--with-libsamplerate=system --with-soundtouch=system
-CONFIGURE_ARGS+=	--with-twolame=system --with-lv2=system
-CONFIGURE_ARGS+=	--with-libsndfile=system --with-portaudio=local
-CONFIGURE_ARGS+=	--enable-nyquist=yes --with-midi=local
+CONFIGURE_ARGS+=	--enable-nyquist=yes
+CONFIGURE_ARGS+=	--with-expat=system
+CONFIGURE_ARGS+=	--with-ffmpeg=system
+CONFIGURE_ARGS+=	--with-id3tag=system
+CONFIGURE_ARGS+=	--with-libflac=system
+CONFIGURE_ARGS+=	--with-libmad=system
+CONFIGURE_ARGS+=	--with-libsamplerate=system
+CONFIGURE_ARGS+=	--with-libsndfile=system
+CONFIGURE_ARGS+=	--with-lv2=system
+CONFIGURE_ARGS+=	--with-midi=local
+CONFIGURE_ARGS+=	--with-portaudio=local
+CONFIGURE_ARGS+=	--with-sbsms=system
+CONFIGURE_ARGS+=	--with-soundtouch=system
+CONFIGURE_ARGS+=	--with-twolame=system
+CONFIGURE_ARGS+=	--with-vorbis=system
+CONFIGURE_ARGS+=	--without-xaudio
 
 CONFIG_GUESS_OVERRIDE=		\
 	config.guess */config.guess */*/config.guess */*/*/config.guess
@@ -33,6 +42,13 @@ CONFIG_SUB_OVERRIDE=		\
 
 PTHREAD_AUTO_VARS=	yes
 BUILDLINK_TRANSFORM+=	opt:-ldl:${BUILDLINK_LDADD.dl:M*}
+
+# regen Makefile.in to avoid being built as shared libraries
+pre-configure:
+	cd ${WRKSRC}/lib-src/FileDialog && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/portaudio-v19 && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/portmixer && ${PKGSRC_SETENV} autoreconf -fiv
+	cd ${WRKSRC}/lib-src/lib-widget-extra && autoreconf -fiv
 
 .include "options.mk"
 
@@ -57,13 +73,8 @@ BUILDLINK_API_DEPENDS.flac+=	flac>=1.3.0
 .include "../../audio/flac/buildlink3.mk"
 .include "../../multimedia/ffmpeg1/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
-.include "../../x11/wxGTK28/buildlink3.mk"
+.include "../../x11/wxGTK30/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
-
-# XXX Internal compiler error with -O2
-.if ${MACHINE_ARCH} == "alpha"
-CFLAGS+=	-O
-.endif

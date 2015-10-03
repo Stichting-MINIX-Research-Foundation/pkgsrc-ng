@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2015/07/10 17:51:02 khorben Exp $
+libexec/git-core/git-subtree
+man/man1/git-subtree.1

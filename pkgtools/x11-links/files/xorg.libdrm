@@ -1,6 +1,7 @@
-# $NetBSD: xorg.libdrm,v 1.8 2014/05/03 21:31:10 ryoon Exp $
+# $NetBSD: xorg.libdrm,v 1.10 2015/09/13 12:27:42 bouyer Exp $
 #
 include/libdrm/drm.h
+include/libdrm/drm_fourcc.h
 include/libdrm/drm_mode.h
 include/libdrm/drm_sarea.h
 include/libdrm/i915_drm.h
@@ -16,6 +17,7 @@ include/libdrm/radeon_cs.h
 include/libdrm/radeon_cs_gem.h
 include/libdrm/radeon_cs_int.h
 include/libdrm/radeon_drm.h
+include/libdrm/radeon_surface.h
 include/libdrm/savage_drm.h
 include/libdrm/sis_drm.h
 include/libdrm/via_drm.h
@@ -39,6 +41,7 @@ lib/libdrm_intel.a
 lib/libdrm_intel.so
 lib/libdrm_intel.so.0
 lib/libdrm_intel.so.0.0
+lib/libdrm_intel.so.0.1
 lib/libdrm_intel.so.1.3
 lib/libdrm_intel.so.3.1
 lib/libdrm_radeon.a

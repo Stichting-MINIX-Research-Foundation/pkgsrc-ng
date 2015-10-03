@@ -1,4 +1,4 @@
-# $NetBSD: license.mk,v 1.71 2015/05/08 10:37:32 wiz Exp $
+# $NetBSD: license.mk,v 1.74 2015/09/13 11:22:22 leot Exp $
 #
 # This file handles everything about the LICENSE variable. It is
 # included automatically by bsd.pkg.mk.
@@ -121,7 +121,7 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	ibm-public-license-1.0 \
 	ipafont \
 	isc \
-	lppl-1.2 lppl-1.3c \
+	lppl-1.0 lppl-1.2 lppl-1.3c \
 	lucent \
 	miros \
 	mit \
@@ -143,10 +143,15 @@ DEFAULT_ACCEPTABLE_LICENSES= \
 	w3c \
 	x11 \
 	zlib \
-	zpl
+	zpl-2.0 \
+	zpl-2.1
 
 # not approved by OSI, derived from BSD
 DEFAULT_ACCEPTABLE_LICENSES+=	info-zip
+
+# not approved by OSI, in line with Free Software principles but with rename
+# restrictions and typefaces can not be sold by itself.
+DEFAULT_ACCEPTABLE_LICENSES+=	vera-ttf-license
 
 ##### Variant spellings
 

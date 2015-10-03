@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2013/10/15 17:08:02 roy Exp $
+# $NetBSD: Makefile,v 1.26 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=	licq-1.3.5
-PKGREVISION=	1
+PKGREVISION=	3
 PKGNAME=	${DISTNAME:C/-/-gui-console-/}
 CATEGORIES=	chat
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=licq/}
@@ -23,8 +23,6 @@ USE_LIBTOOL=		YES
 SHLIBTOOL_OVERRIDE=	# empty
 CONFIGURE_DIRS=		plugins/console
 OVERRIDE_DIRDEPTH=	3
-
-INCOMPAT_CURSES=	NetBSD-1.4*-* NetBSD-1.5*-* NetBSD-1.6[-_.]*-* NetBSD-1.6[A-Q]-*
 
 # the cdk on NetBSD 4.0 isn't compatible; also force the check
 # initCDKScreen() to succeed, the configure script test fails due

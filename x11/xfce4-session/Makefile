@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.50 2015/04/25 14:25:25 tnn Exp $
+# $NetBSD: Makefile,v 1.52 2015/07/07 19:55:28 youri Exp $
 
-PKGREVISION= 1
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
-DISTNAME=		xfce4-session-4.10.1
+DISTNAME=		xfce4-session-4.12.1
 CATEGORIES=		x11
-MASTER_SITES+=		http://archive.xfce.org/src/xfce/xfce4-session/4.10/
+MASTER_SITES+=		http://archive.xfce.org/src/xfce/xfce4-session/4.12/
 
-HOMEPAGE=	http://docs.xfce.org/xfce/xfce4-session/start
+HOMEPAGE=		http://docs.xfce.org/xfce/xfce4-session/start
 COMMENT=		Xfce session manager
 
 PKGCONFIG_OVERRIDE+=	libxfsm/xfce4-session-2.0.pc.in
@@ -19,22 +18,19 @@ CONFIGURE_ARGS+=	ICEAUTH=${TOOLS_PATH.iceauth}
 
 USE_TOOLS+=		iceauth:run
 
+SUBST_CLASSES+=		xflock4
+SUBST_STAGE.xflock4=	pre-build
+SUBST_MESSAGE.xflock4=	Updating path in xflock4
+SUBST_FILES.xflock4=	scripts/xflock4
+SUBST_SED.xflock4=	-e 's,/bin:/usr/bin,${PREFIX}/bin,g'
+
 EGDIR=			${XFCE4_EGBASE}
 PKG_SYSCONFSUBDIR=	xdg
 
 MAKE_DIRS+=	${PKG_SYSCONFDIR} ${PKG_SYSCONFDIR}/autostart
-MAKE_DIRS+=	${PREFIX}/include/xfce4 ${PREFIX}/lib/xfce4
 MAKE_DIRS+=	${EGDIR} ${EGDIR}/autostart ${EGDIR}/xfconf
 MAKE_DIRS+=	${EGDIR}/xfconf/xfce-perchannel-xml
-MAKE_DIRS+=	${EGDIR}/share/themes/Default
-MAKE_DIRS+=	${PREFIX}/share/xfce4 ${PREFIX}/share/xfce4/doc
-MAKE_DIRS+=	${PREFIX}/share/xfce4/doc/C ${PREFIX}/share/xfce4/doc/C/images
-MAKE_DIRS+=	${PREFIX}/share/xfce4/doc/fr ${PREFIX}/share/xfce4/doc/fr/images
 
-#CONF_FILES=	${EGDIR}/applications/xfce-session-settings.desktop \
-		${PKG_SYSCONFDIR}/applications/xfce-session-settings.desktop
-#CONF_FILES+=	${EGDIR}/applications/xfce4-session-logout.desktop \
-		${PKG_SYSCONFDIR}/applications/xfce4-session-logout.desktop
 CONF_FILES=	${EGDIR}/autostart/xscreensaver.desktop \
 		${PKG_SYSCONFDIR}/autostart/xscreensaver.desktop
 CONF_FILES=	${EGDIR}/xfconf/xfce-perchannel-xml/xfce4-session.xml \

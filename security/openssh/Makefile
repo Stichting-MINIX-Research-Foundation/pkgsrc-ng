@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.230 2015/06/12 10:51:03 wiz Exp $
+# $NetBSD: Makefile,v 1.237 2015/09/03 21:05:24 sevan Exp $
 
-DISTNAME=		openssh-6.6p1
-PKGNAME=		openssh-6.6.1
-PKGREVISION=		7
+DISTNAME=		openssh-7.1p1
+PKGNAME=		${DISTNAME:S/p1/.1/}
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
 
@@ -15,9 +14,10 @@ CONFLICTS+=		ssh-[0-9]* ssh6-[0-9]*
 CONFLICTS+=		ssh2-[0-9]* ssh2-nox11-[0-9]*
 CONFLICTS+=		openssh+gssapi-[0-9]*
 CONFLICTS+=		lsh>2.0
+BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
 
 USE_GCC_RUNTIME=	yes
-USE_TOOLS+=		perl
+USE_TOOLS+=		autoconf perl
 
 CRYPTO=			yes
 
@@ -32,6 +32,11 @@ BUILD_DEFS+=		VARBASE
 INSTALL_TARGET=		install-nokeys
 
 .include "options.mk"
+
+.if ${OPSYS} == "Darwin"
+# fixes: dyld: Symbol not found: _allow_severity
+CONFIGURE_ARGS+=	--disable-strip
+.endif
 
 .if ${OPSYS} == "Interix"
 
@@ -114,14 +119,14 @@ CONFIGURE_ARGS+=	--disable-utmp --disable-wtmp
 CONFIGURE_ARGS+=	--enable-md5-password
 .endif
 
-# The ssh-askpass program is in ${X11BASE}/bin or ${X11PREFIX}/bin depending
+# The ssh-askpass program is in ${X11BASE}/bin or ${PREFIX}/bin depending
 # on if it's part of the X11 distribution, or if it's installed from pkgsrc
 # (security/ssh-askpass).
 #
 .if exists(${X11BASE}/bin/ssh-askpass)
 ASKPASS_PROGRAM=	${X11BASE}/bin/ssh-askpass
 .else
-ASKPASS_PROGRAM=	${X11PREFIX}/bin/ssh-askpass
+ASKPASS_PROGRAM=	${PREFIX}/bin/ssh-askpass
 .endif
 CONFIGURE_ENV+=		ASKPASS_PROGRAM=${ASKPASS_PROGRAM:Q}
 MAKE_ENV+=		ASKPASS_PROGRAM=${ASKPASS_PROGRAM:Q}
@@ -130,12 +135,12 @@ MAKE_ENV+=		ASKPASS_PROGRAM=${ASKPASS_PROGRAM:Q}
 .if exists(${X11BASE}/bin/xauth)
 CONFIGURE_ARGS+=	--with-xauth=${X11BASE}/bin/xauth
 .else
-CONFIGURE_ARGS+=	--with-xauth=${X11PREFIX}/bin/xauth
+CONFIGURE_ARGS+=	--with-xauth=${PREFIX}/bin/xauth
 .endif
 
 CONFS=			ssh_config sshd_config moduli
 
-PLIST_VARS+=		prng
+PLIST_VARS+=		darwin prng
 
 .if exists(/dev/urandom)
 .  if ${OPSYS} == "NetBSD"
@@ -148,7 +153,14 @@ PLIST.prng=		yes
 .endif
 
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
-CONF_FILES=		# empty
+
+# enable privsep patches
+.if ${OPSYS} == "Darwin"
+CONF_FILES+=		${EGDIR}/org.openssh.sshd.sb ${PKG_SYSCONFDIR}/org.openssh.sshd.sb
+CPPFLAGS+=		-D__APPLE_SANDBOX_NAMED_EXTERNAL__
+PLIST.darwin=		yes
+.endif
+
 .for f in ${CONFS}
 CONF_FILES+=		${EGDIR}/${f} ${PKG_SYSCONFDIR}/${f}
 .endfor
@@ -161,9 +173,9 @@ FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR:Q}
 
 SUBST_CLASSES+=		patch
 SUBST_STAGE.patch=	pre-configure
-SUBST_FILES.patch=	session.c
+SUBST_FILES.patch=	session.c sandbox-darwin.c
 SUBST_SED.patch=	-e '/channel_input_port_forward_request/s/0/ROOTUID/'
-SUBST_MESSAGE.patch=	More patch a file.
+SUBST_VARS.patch=	PKG_SYSCONFDIR
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
@@ -172,6 +184,9 @@ SUBST_MESSAGE.patch=	More patch a file.
 #
 # type of key "ecdsa" isn't always supported depends on OpenSSL.
 #
+pre-configure:
+	cd ${WRKSRC} && autoconf -i
+
 post-configure:
 	if ${EGREP} -q '^\#define[ 	]+OPENSSL_HAS_ECC' \
 	    ${WRKSRC}/config.h; then \
@@ -181,6 +196,9 @@ post-configure:
 		${SED} -e '/HAVE_ECDSA_START/,/HAVE_ECDSA_STOP/d' \
 			${FILESDIR}/sshd.sh > ${WRKDIR}/sshd.sh; \
 	fi
+	${SED} -e 's,@VARBASE@,${VARBASE:Q},g' \
+		< ${FILESDIR}/org.openssh.sshd.sb.in \
+		> ${WRKDIR}/org.openssh.sshd.sb
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${EGDIR}
@@ -190,6 +208,10 @@ post-install:
 .if !empty(PKG_OPTIONS:Mpam) && ${OPSYS} == "Linux"
 	${INSTALL_DATA} ${WRKSRC}/contrib/sshd.pam.generic \
 	  ${DESTDIR}${EGDIR}/sshd.pam
+.endif
+.if ${OPSYS} == "Darwin"
+	${INSTALL_DATA} ${WRKDIR}/org.openssh.sshd.sb \
+		${DESTDIR}${EGDIR}/org.openssh.sshd.sb
 .endif
 
 .include "../../mk/bsd.pkg.mk"

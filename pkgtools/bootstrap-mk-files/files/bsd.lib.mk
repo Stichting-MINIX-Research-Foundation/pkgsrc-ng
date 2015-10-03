@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.lib.mk,v 1.5 2011/11/26 15:54:44 dholland Exp $
+#	$NetBSD: bsd.lib.mk,v 1.7 2015/07/04 12:33:36 ryoon Exp $
 #	@(#)bsd.lib.mk	8.3 (Berkeley) 4/22/94
 
 .if !target(__initialized__)

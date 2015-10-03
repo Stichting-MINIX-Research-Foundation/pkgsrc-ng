@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.108 2015/04/25 22:08:40 brook Exp $
+# $NetBSD: Makefile,v 1.110 2015/08/17 08:15:40 wiz Exp $
 #
 
 COMMENT=	Tools for use in the packages collection
@@ -30,6 +30,7 @@ SUBDIR+=	p5-pkgsrc-Dewey
 SUBDIR+=	packagekit
 SUBDIR+=	pbulk
 SUBDIR+=	pbulk-base
+SUBDIR+=	pkg
 SUBDIR+=	pkg_alternatives
 SUBDIR+=	pkg_chk
 SUBDIR+=	pkg_comp
@@ -68,6 +69,5 @@ SUBDIR+=	shlock
 SUBDIR+=	url2pkg
 SUBDIR+=	verifypc
 SUBDIR+=	x11-links
-SUBDIR+=	xpkgwedge
 
 .include "../mk/misc/category.mk"

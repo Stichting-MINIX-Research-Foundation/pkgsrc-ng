@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.93 2015/02/18 20:01:49 joerg Exp $
+# $NetBSD: Makefile,v 1.96 2015/09/11 01:24:06 kim Exp $
 
-DISTNAME=	screen-4.2.1
-PKGREVISION=	1
+DISTNAME=	screen-4.3.1
+#PKGREVISION=	0
 CATEGORIES=	misc shells
 MASTER_SITES=	${MASTER_SITE_GNU:=screen/}
 
-MAINTAINER=	kim@tac.nyc.ny.us
+MAINTAINER=	kimmo@suominen.com
 HOMEPAGE=	http://www.gnu.org/software/screen/screen.html
 COMMENT=	Multi-screen window manager
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-gpl-v3
 
 # In file included from list_display.c:36:
 # In file included from ./screen.h:150:
@@ -26,6 +26,8 @@ CONFIGURE_ARGS+=	--with-sys-screenrc=${PKG_SYSCONFDIR}/screenrc
 CONFIGURE_ARGS+=	--enable-telnet
 
 PKG_SHELL=		bin/screen
+
+USE_TOOLS+=		makeinfo
 INFO_FILES=		YES
 
 .include "../../mk/bsd.prefs.mk"
@@ -39,7 +41,7 @@ SUBST_STAGE.paths=	post-patch
 PLIST_VARS+=		terminfo
 
 .if ${OPSYS} == "SunOS"
-CPPFLAGS+=	-D_XOPEN_SOURCE=500
+CPPFLAGS+=	-D_XOPEN_SOURCE=500 -D__EXTENSIONS__
 .  if ${CURSES_DEFAULT} == "curses"
 INSTALLATION_DIRS+=	share/lib/terminfo
 PLIST.terminfo=		yes

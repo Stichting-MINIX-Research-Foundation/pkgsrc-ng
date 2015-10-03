@@ -1,27 +1,29 @@
-# $NetBSD: Makefile,v 1.25 2015/06/12 10:51:49 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2015/08/30 06:56:19 ryoon Exp $
 
-PKGREVISION= 1
 .include "../../devel/git/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/git/gitweb/}
+PKGREVISION=	1
 CATEGORIES=	www
 
 COMMENT=	Web interface for GIT repositories
 
 #DEPENDS+=	apache{,2,22}-[0-9]*:../../www/apache22
 DEPENDS+=	git-base>=${GIT_VERSION}:../../devel/git-base
-DEPENDS+=	{perl>=5.15.8,p5-Time-HiRes>=1.9725}:../../time/p5-Time-HiRes
+#DEPENDS+=	{perl>=5.15.8,p5-Time-HiRes>=1.9725}:../../time/p5-Time-HiRes
+DEPENDS+=	p5-CGI-[0-9]*:../../www/p5-CGI
 
 USE_TOOLS+=	perl:run
 
 BUILD_DIRS=	gitweb
-BUILD_TARGET=	gitweb.cgi
+BUILD_TARGET=	gitweb.cgi static/gitweb.js
 MAKE_FLAGS=	prefix=${PREFIX}
 MAKE_FLAGS+=	GITWEB_FAVICON=/gitweb/git-favicon.png
 MAKE_FLAGS+=	GITWEB_CONFIG=${GITWEB_CONFIG}
 MAKE_FLAGS+=	GITWEB_CSS=/gitweb/gitweb.css
 MAKE_FLAGS+=	GITWEB_HOMETEXT=${GITWEB_HTDOCS}/indextext.html
 MAKE_FLAGS+=	GITWEB_LOGO=/gitweb/git-logo.png
+MAKE_FLAGS+=	GITWEB_JS=/gitweb/gitweb.js
 MAKE_FLAGS+=	PERL_PATH=${PERL5:Q}
 
 GITWEB_CONFIG=	${PKG_SYSCONFDIR}/gitweb.conf
@@ -38,7 +40,7 @@ INSTALLATION_DIRS=	libexec/cgi-bin share/doc/gitweb \
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/gitweb/gitweb.cgi ${DESTDIR}${GITWEB_CGIBIN}
-.for f in git-favicon.png git-logo.png gitweb.css
+.for f in git-favicon.png git-logo.png gitweb.css gitweb.js
 	${INSTALL_DATA} ${WRKSRC}/gitweb/static/${f} ${DESTDIR}${GITWEB_HTDOCS}
 .endfor
 	${INSTALL_DATA} ${WRKSRC}/gitweb/README \

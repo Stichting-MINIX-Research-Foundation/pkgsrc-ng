@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2014/02/12 23:17:36 tron Exp $
+# $NetBSD: Makefile,v 1.18 2015/09/08 11:57:49 jperkin Exp $
 #
 
 DISTNAME=		gtmess-0.91
-PKGREVISION=		7
+PKGREVISION=		8
 CATEGORIES=		chat
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gtmess/}
 
@@ -17,8 +17,6 @@ GNU_CONFIGURE=		yes
 
 CONFIGURE_ENV+=		ac_cv_search_iconv=${BUILDLINK_LDADD.iconv:Q}
 CFLAGS.SunOS+=		-D_POSIX_PTHREAD_SEMANTICS
-
-INCOMPAT_CURSES=	NetBSD-1.*-*
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

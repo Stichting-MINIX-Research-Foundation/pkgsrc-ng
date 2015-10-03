@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2015/01/20 16:31:26 jaapb Exp $
+# $NetBSD: Makefile,v 1.4 2015/08/07 11:20:32 jaapb Exp $
 
 VERSION=	2.5.0
 PKGNAME=	ocaml-ipaddr-${VERSION}
+PKGREVISION=	2
 DISTNAME=	${VERSION}
 DIST_SUBDIR=	ocaml-ipaddr
 CATEGORIES=	net

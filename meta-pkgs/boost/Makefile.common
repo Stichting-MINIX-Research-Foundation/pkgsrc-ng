@@ -1,15 +1,15 @@
-# $NetBSD: Makefile.common,v 1.52 2015/04/27 20:01:27 jperkin Exp $
+# $NetBSD: Makefile.common,v 1.55 2015/08/14 16:17:16 adam Exp $
 #
 # used by devel/boost-build/Makefile
 # used by devel/boost-docs/Makefile
 # used by devel/boost-jam/Makefile
 # used by devel/boost-headers/Makefile
 # used by devel/boost-libs/Makefile
-# used by devel/boost-python/Makefile
+# used by devel/py-boost/Makefile
 
 BOOST_PACKAGE?=		undefined
 BOOST_COMMENT?=		undefined
-BOOST_VERSION=		1.58.0
+BOOST_VERSION=		1.59.0
 BOOST_SHORT_VERSION=	${BOOST_VERSION:S/./_/:C/\..*$//}
 
 DISTNAME=		boost_${BOOST_VERSION:S/./_/g}
@@ -58,7 +58,8 @@ SUBST_CLASSES+=		darwin
 SUBST_STAGE.darwin=	pre-configure
 SUBST_MESSAGE.darwin=	Fixing install_name for Darwin.
 SUBST_FILES.darwin=	tools/build/src/tools/*darwin.jam
-SUBST_SED.darwin=	-e 's,-install_name ",-install_name "${PREFIX}/lib/,g'
+SUBST_SED.darwin=	-e 's,-install_name "@rpath,-install_name "${PREFIX}/lib,g'
+SUBST_SED.darwin+=	-e 's,-install_name "\$$,-install_name "${PREFIX}/lib/\$$,g'
 
 # On SunOS, extract using pkgsrc nbtar to avoid warnings from native gtar.
 .  if ${OPSYS} == "SunOS"

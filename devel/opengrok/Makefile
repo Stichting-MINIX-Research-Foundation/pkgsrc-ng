@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.37 2015/05/01 12:55:14 ryoon Exp $
+# $NetBSD: Makefile,v 1.41 2015/09/04 14:23:49 nonaka Exp $
 
-DISTNAME=	OpenGrok-0.12.1
+DISTNAME=	OpenGrok-0.12.1.5
 PKGNAME=	${DISTNAME:tl:S/-rc/rc/}
-PKGREVISION=	3
 CATEGORIES=	devel
-MASTER_SITES=	-https://github.com/OpenGrok/OpenGrok/archive/0.12.1.tar.gz
+MASTER_SITES=	${MASTER_SITE_GITHUB:=OpenGrok/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://opengrok.github.io/OpenGrok/
@@ -29,6 +28,8 @@ SUBST_FILES.conf+=	web/WEB-INF/web.xml
 SUBST_MESSAGE.conf=	Set configuration.xml location
 SUBST_STAGE.conf=	pre-configure
 SUBST_VARS.conf=	PREFIX
+
+MESSAGE_SUBST+=		PKG_JAVA_HOME=${PKG_JAVA_HOME}
 
 .include "options.mk"
 

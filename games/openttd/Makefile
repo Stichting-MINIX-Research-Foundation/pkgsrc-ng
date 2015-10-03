@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.57 2015/04/25 14:23:01 tnn Exp $
+# $NetBSD: Makefile,v 1.59 2015/09/12 23:38:23 tnn Exp $
 
-DISTNAME=	openttd-1.4.4-source
+DISTNAME=	openttd-1.5.2-source
 PKGNAME=	${DISTNAME:S/-source//}
-PKGREVISION=	2
 CATEGORIES=	games x11
 MASTER_SITES=	http://binaries.openttd.org/releases/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -54,6 +53,7 @@ CONFIGURE_ARGS+=	--without-osx-sysroot
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../fonts/fontconfig/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/icu/buildlink3.mk"

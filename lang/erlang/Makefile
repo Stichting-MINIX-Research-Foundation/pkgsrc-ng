@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.67 2015/06/12 10:50:15 wiz Exp $
+# $NetBSD: Makefile,v 1.71 2015/09/07 12:02:05 jperkin Exp $
 
 DISTNAME=		otp_src_${DIST_VERSION_MAJOR}.${DIST_VERSION_MINOR}
 PKGNAME=		${DISTNAME:S/otp_src_/erlang-/}
@@ -9,7 +9,7 @@ MASTER_SITES=		http://www.erlang.org/download/
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.erlang.org/
 COMMENT=		Concurrent functional programming language
-LICENSE=		erlang-public-license
+LICENSE=		apache-2.0
 
 DIST_SUBDIR=		erlang
 
@@ -45,7 +45,7 @@ MAKE_ENV+=		DESTDIR=${DESTDIR}
 
 REPLACE_INTERPRETER+=	escript
 REPLACE.escript.old=	.*escript
-REPLACE.escript.new=	${LOCALBASE}/bin/escript
+REPLACE.escript.new=	${PREFIX}/bin/escript
 REPLACE_FILES.escript=	\
 	lib/diameter/bin/diameterc \
 	lib/erl_docgen/priv/bin/codeline_preprocessing.escript \
@@ -73,7 +73,7 @@ CONFIGURE_ARGS+=	--disable-sctp
 ###
 ### XXX There may be others here.
 ###
-.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD" || ${OPSYS} == "Darwin"
 CONFIGURE_ARGS+=	--enable-kernel-poll
 .endif
 

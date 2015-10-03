@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.19 2015/04/25 14:24:45 tnn Exp $
+# $NetBSD: Makefile,v 1.21 2015/08/09 15:54:06 khorben Exp $
 #
 
 DISTNAME=	PDFViewer-0.0.1
 PKGNAME=	deforaos-pdfviewer-0.0.1
-PKGREVISION=	18
+PKGREVISION=	19
 CATEGORIES=	print
 MASTER_SITES=	http://www.defora.org/os/download/download/3686/
 
@@ -17,6 +17,7 @@ USE_TOOLS+=	pkg-config
 
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
 
 .include "options.mk"
 

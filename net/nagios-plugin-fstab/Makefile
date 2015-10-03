@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.2 2015/04/03 18:08:23 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2015/09/14 13:53:03 manu Exp $
 #
 
 PKGNAME=	nagios-plugin-fstab-${DISTNAME:C/.*-//}
-DISTNAME=	check_fstab-0.2
+DISTNAME=	check_fstab-0.3
 CATEGORIES=	net
 MASTER_SITES=	http://ftp.espci.fr/pub/nagios-local/
 EXTRACT_SUFX=	.tgz

@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2015/06/12 10:50:32 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2015/09/04 04:43:47 wiz Exp $
 
-DISTNAME=	bulk-medium-20150414
-PKGREVISION=	1
+DISTNAME=	bulk-medium-20150904
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -61,8 +60,8 @@ BUILD_DEPENDS+=	xchat-[0-9]*:../../chat/xchat
 BUILD_DEPENDS+=	xchat-perl-[0-9]*:../../chat/xchat-perl
 BUILD_DEPENDS+=	xchat-python-[0-9]*:../../chat/xchat-python
 BUILD_DEPENDS+=	fribidi-[0-9]*:../../converters/fribidi
-BUILD_DEPENDS+=	mysql-client>=5.1<5.5:../../databases/mysql51-client
-BUILD_DEPENDS+=	mysql-client>=5.5:../../databases/mysql55-client
+BUILD_DEPENDS+=	mysql-client>=5.5<5.6:../../databases/mysql55-client
+BUILD_DEPENDS+=	mysql-client>=5.6:../../databases/mysql56-client
 BUILD_DEPENDS+=	openldap-client-[0-9]*:../../databases/openldap-client
 BUILD_DEPENDS+=	git-[0-9]*:../../devel/git
 BUILD_DEPENDS+=	git-base-[0-9]*:../../devel/git-base
@@ -76,7 +75,7 @@ BUILD_DEPENDS+=	xemacs-packages-[0-9]*:../../editors/xemacs-packages
 BUILD_DEPENDS+=	qemu-[0-9]*:../../emulators/qemu
 BUILD_DEPENDS+=	simh-[0-9]*:../../emulators/simh
 BUILD_DEPENDS+=	tme-[0-9]*:../../emulators/tme
-BUILD_DEPENDS+=	wine-[0-9]*:../../emulators/wine
+BUILD_DEPENDS+=	wine>=1.6<1.7:../../emulators/wine
 BUILD_DEPENDS+=	ImageMagick-[0-9]*:../../graphics/ImageMagick
 BUILD_DEPENDS+=	gnuplot-[0-9]*:../../graphics/gnuplot
 BUILD_DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
@@ -105,7 +104,7 @@ BUILD_DEPENDS+=	bind>=9.9<9.10:../../net/bind99
 BUILD_DEPENDS+=	bind>=9.10<9.11:../../net/bind910
 BUILD_DEPENDS+=	clive-[0-9]*:../../net/clive
 BUILD_DEPENDS+=	nmap-[0-9]*:../../net/nmap
-BUILD_DEPENDS+=	samba>=3.6:../../net/samba
+BUILD_DEPENDS+=	samba>=4.2:../../net/samba4
 BUILD_DEPENDS+=	wpa_supplicant-[0-9]*:../../net/wpa_supplicant
 BUILD_DEPENDS+=	xymon-[0-9]*:../../net/xymon
 BUILD_DEPENDS+=	xymonclient-[0-9]*:../../net/xymonclient
@@ -116,7 +115,7 @@ BUILD_DEPENDS+=	ghostscript-agpl-[0-9]*:../../print/ghostscript-agpl
 BUILD_DEPENDS+=	poppler-utils-[0-9]*:../../print/poppler-utils
 BUILD_DEPENDS+=	xpdf-[0-9]*:../../print/xpdf
 BUILD_DEPENDS+=	gnupg-[0-9]*:../../security/gnupg
-BUILD_DEPENDS+=	gnupg2-[0-9]*:../../security/gnupg2
+BUILD_DEPENDS+=	gnupg2>=2.0<2.1:../../security/gnupg2
 BUILD_DEPENDS+=	desktop-file-utils-[0-9]*:../../sysutils/desktop-file-utils
 BUILD_DEPENDS+=	xe-guest-utilities-[0-9]*:../../sysutils/xe-guest-utilities
 BUILD_DEPENDS+=	xenkernel41-[0-9]*:../../sysutils/xenkernel41
@@ -200,7 +199,7 @@ BUILD_DEPENDS+=	tk-[0-9]*:../../x11/tk
 #
 # 4. Linux compat packages
 #
-BUILD_DEPENDS+=	suse>=12.1:../../meta-pkgs/suse121
+BUILD_DEPENDS+=	suse>=13.1:../../meta-pkgs/suse131
 
 #
 # 5. Desktop infrastructure and support services

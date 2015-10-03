@@ -1,13 +1,11 @@
-# $NetBSD: Makefile,v 1.29 2015/06/12 10:50:15 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2015/09/13 19:11:55 fhajny Exp $
 
 .include "version.mk"
 
 DISTNAME=	go${GO_VERSION}.src
 PKGNAME=	go-${GO_VERSION}
-PKGREVISION=	2
 CATEGORIES=	lang
 MASTER_SITES=	https://storage.googleapis.com/golang/
-PATCH_SITES=	https://codereview.appspot.com/download/
 
 MAINTAINER=	bsiegert@NetBSD.org
 HOMEPAGE=	http://golang.org/
@@ -26,42 +24,40 @@ BUILDLINK_PASSTHRU_DIRS+= ${TMPDIR}
 
 # bash script may use unportable bash constructs
 CHECK_PORTABILITY_SKIP=	lib/time/update.bash
+CHECK_PORTABILITY_SKIP=	misc/ios/clangwrap.sh
 
 GOROOT_FINAL=	${PREFIX}/go
 INSTALLATION_DIRS= bin
 
 REPLACE_BASH+=	doc/articles/wiki/test.bash
 REPLACE_BASH+=	doc/codewalk/run
-REPLACE_BASH+=	doc/progs/run
-REPLACE_BASH+=	doc/progs/update.bash
 REPLACE_BASH+=	lib/time/update.bash
 REPLACE_BASH+=	misc/arm/a
 REPLACE_BASH+=	misc/benchcmp
 REPLACE_BASH+=	misc/cgo/errors/test.bash
-REPLACE_BASH+=	misc/cgo/testcdefs/test.bash
+REPLACE_BASH+=	misc/cgo/testcarchive/test.bash
+REPLACE_BASH+=	misc/cgo/testcshared/test.bash
 REPLACE_BASH+=	misc/cgo/testgodefs/test.bash
-REPLACE_BASH+=	misc/cgo/testso/test.bash
-REPLACE_BASH+=	misc/makerelease/darwin/scripts/postinstall
-REPLACE_BASH+=	misc/makerelease/darwin/scripts/preinstall
 REPLACE_BASH+=	misc/nacl/go_nacl_386_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_amd64p32_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_arm_exec
 REPLACE_BASH+=	src/all.bash
 REPLACE_BASH+=	src/androidtest.bash
+REPLACE_BASH+=	src/bootstrap.bash
+REPLACE_BASH+=	src/buildall.bash
 REPLACE_BASH+=	src/clean.bash
-REPLACE_BASH+=	src/cmd/go/mkdoc.sh
-REPLACE_BASH+=	src/cmd/go/test.bash
+REPLACE_BASH+=	src/cmd/compile/internal/big/vendor.bash
+REPLACE_BASH+=	src/cmd/go/mkalldocs.sh
+REPLACE_BASH+=	src/iostest.bash
 REPLACE_BASH+=	src/make.bash
 REPLACE_BASH+=	src/nacltest.bash
 REPLACE_BASH+=	src/race.bash
 REPLACE_BASH+=	src/run.bash
 REPLACE_BASH+=	src/runtime/mknacl.sh
-REPLACE_BASH+=	src/sudo.bash
 REPLACE_BASH+=	src/syscall/mkall.sh
 REPLACE_BASH+=	src/syscall/mkerrors.sh
 REPLACE_BASH+=	src/syscall/mksysnum_plan9.sh
 REPLACE_BASH+=	test/bench/shootout/timing.sh
-REPLACE_BASH+=	test/run
 
 REPLACE_PERL+=	src/net/http/cgi/testdata/test.cgi
 REPLACE_PERL+=	src/regexp/syntax/make_perl_groups.pl
@@ -75,8 +71,15 @@ CHECK_INTERPRETER_SKIP+=	go/src/clean.rc
 CHECK_INTERPRETER_SKIP+=	go/src/make.rc
 CHECK_INTERPRETER_SKIP+=	go/src/run.rc
 
+BUILD_DEPENDS+=		go14-1.4*:../../lang/go14
+GOROOT_BOOTSTRAP=	${PREFIX}/go14
+
+pre-build:
+	cd ${WRKSRC}/src/syscall && ${PERL5} mksyscall_solaris.pl \
+		syscall_solaris.go syscall_solaris_amd64.go > zsyscall_solaris_amd64.go
+
 do-build:
-	cd ${WRKSRC}/src && env GOROOT_FINAL=${GOROOT_FINAL:Q} ${BASH} ./make.bash
+	cd ${WRKSRC}/src && env GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:Q} GOROOT_FINAL=${GOROOT_FINAL:Q} ${BASH} ./make.bash
 
 do-install:
 	cd ${WRKSRC} && rm -rf .hgignore .hgtags pkg/obj
@@ -85,5 +88,8 @@ do-install:
 .for cmd in go gofmt
 	cd ${DESTDIR}${PREFIX}/bin && ln -sf ../go/bin/${cmd} ${cmd}
 .endfor
+
+do-test:
+	cd ${WRKSRC}/src && GOROOT=${WRKSRC} PATH=${WRKSRC}/bin:${PATH} ${BASH} run.bash --no-rebuild --banner ""
 
 .include "../../mk/bsd.pkg.mk"

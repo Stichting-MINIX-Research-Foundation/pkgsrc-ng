@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2014/12/01 12:39:16 joerg Exp $
+# $NetBSD: Makefile,v 1.35 2015/09/14 03:07:12 dsainty Exp $
 
 DISTNAME=	libwpd-0.10.0
+PKGREVISION=	1
 CATEGORIES=	converters
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libwpd/}
 EXTRACT_SUFX=	.tar.bz2
@@ -17,6 +18,11 @@ GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--without-docs
 PKGCONFIG_OVERRIDE+=	libwpd.pc.in
 
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../converters/librevenge/buildlink3.mk"
+
+# Include all buildlink3.mk before compiler.mk, as the buildlink dependencies
+# may alter the compiler selection.
 .include "../../mk/compiler.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang)
@@ -24,6 +30,4 @@ _WRAP_EXTRA_ARGS.CXX+=	-Wno-unused-private-field
 CWRAPPERS_APPEND.cxx+=	-Wno-unused-private-field
 .endif
 
-.include "../../devel/zlib/buildlink3.mk"
-.include "../../converters/librevenge/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

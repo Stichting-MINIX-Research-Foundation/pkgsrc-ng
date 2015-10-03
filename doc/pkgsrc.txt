@@ -592,8 +592,6 @@ Table 1.1. Platforms supported by pkgsrc
 |Cygwin                                |   Mar 2013    |README.Cygwin         |
 |--------------------------------------+---------------+----------------------|
 |GNU/kFreeBSD                          |   Jul 2013    |README.GNUkFreeBSD    |
-|--------------------------------------+---------------+----------------------|
-|Bitrig                                |   Jun 2014    |README.Bitrig         |
 +-----------------------------------------------------------------------------+
 
 
@@ -3803,7 +3801,7 @@ MESSAGE
     MESSAGE_SUBST+=  SOMEVAR="somevalue"
 
     replaces "${SOMEVAR}" with "somevalue" in MESSAGE. By default, substitution
-    is performed for PKGNAME, PKGBASE, PREFIX, LOCALBASE, X11PREFIX, X11BASE,
+    is performed for PKGNAME, PKGBASE, PREFIX, LOCALBASE, X11BASE,
     PKG_SYSCONFDIR, ROOT_GROUP, and ROOT_USER.
 
     You can display a different or additional files by setting the MESSAGE_SRC
@@ -5322,33 +5320,13 @@ When choosing which of these variables to use, follow the following rules:
     installed. When looking for standard X11 includes (not those installed by a
     package), use "${X11BASE}".
 
-  * X11-based packages are special in that they may be installed in either
-    X11BASE or LOCALBASE.
+  * X11-based packages using imake must set USE_IMAKE to be installed correctly
+    under LOCALBASE.
 
-    Usually, X11 packages should be installed under LOCALBASE whenever
-    possible. Note that you will need to include ../../mk/x11.buildlink3.mk in
-    them to request the presence of X11 and to get the right compilation flags.
-
-    Even though, there are some packages that cannot be installed under
-    LOCALBASE: those that come with app-defaults files. These packages are
-    special and they must be placed under X11BASE. To accomplish this, set
-    either USE_X11BASE or USE_IMAKE in your package.
-
-    Some notes: If you need to find includes or libraries installed by a pkg
-    that has USE_IMAKE or USE_X11BASE in its pkg Makefile, you need to look in 
-    both ${X11BASE} and ${LOCALBASE}. To force installation of all X11 packages
-    in LOCALBASE, the pkgtools/xpkgwedge package is enabled by default.
-
-  * X11PREFIX should be used to refer to the installed location of an X11
-    package. X11PREFIX will be set to X11BASE if xpkgwedge is not installed,
-    and to LOCALBASE if xpkgwedge is installed.
-
-  * If xpkgwedge is installed, it is possible to have some packages installed
-    in X11BASE and some in LOCALBASE. To determine the prefix of an installed
-    package, the EVAL_PREFIX definition can be used. It takes pairs in the
-    format "DIRNAME=<package>", and the make(1) variable DIRNAME will be set to
-    the prefix of the installed package <package>, or "${X11PREFIX}" if the
-    package is not installed.
+  * To determine the prefix of an installed package, the EVAL_PREFIX definition
+    can be used. It takes pairs in the format "DIRNAME=<package>", and the make
+    (1) variable DIRNAME will be set to the prefix of the installed package
+    <package>, or "${PREFIX}" if the package is not installed.
 
     This is best illustrated by example.
 
@@ -5498,12 +5476,12 @@ ${MASTER_SITE_MOZILLA_ESR}
 ${MASTER_SITE_MYSQL}
 ${MASTER_SITE_NETLIB}
 ${MASTER_SITE_OPENOFFICE}
+${MASTER_SITE_OSDN}
 ${MASTER_SITE_PERL_CPAN}
 ${MASTER_SITE_PGSQL}
 ${MASTER_SITE_RUBYGEMS}
 ${MASTER_SITE_R_CRAN}
 ${MASTER_SITE_SOURCEFORGE}
-${MASTER_SITE_SOURCEFORGE_JP}
 ${MASTER_SITE_SUNSITE}
 ${MASTER_SITE_SUSE}
 ${MASTER_SITE_TEX_CTAN}
@@ -5670,10 +5648,9 @@ module.mk. To set any parameter for Makefile.PL use the MAKE_PARAMS variable
 (e.g., MAKE_PARAMS+=foo=bar
 
 If the program uses an Imakefile for configuration, the appropriate steps can
-be invoked by setting USE_IMAKE to "yes". (If you only want the package
-installed in ${X11PREFIX} but xmkmf not being run, set USE_X11BASE instead.)
-You can add variables to xmkmf's environment by adding them to the SCRIPTS_ENV
-variable.
+be invoked by setting USE_IMAKE to "yes". If you only need xmkmf, add it to
+USE_TOOLS. You can add variables to xmkmf's environment by adding them to the
+SCRIPTS_ENV variable.
 
 If the program uses cmake for configuration, the appropriate steps can be
 invoked by setting USE_CMAKE to "yes". You can add variables to cmake's
@@ -5759,6 +5736,10 @@ INSTALL_DATA_DIR
 INSTALL_MAN_DIR
 
     directories that contain man pages
+
+INSTALL_GAME_DIR
+
+    directories that contain data files for games
 
 INSTALL_PROGRAM
 
@@ -6606,16 +6587,6 @@ version numbers recognized by pkg_info(1).
     Section 19.1.10, "Handling packages with security problems" for more
     information.
 
- 7. If the package depends on either one of two (or more) packages, specify the
-    "pre-req-package-name" as a comma-separated list between curly braces.
-
-    As an example, take a package that depends on the Perl "version" module,
-    which has been part of Perl itself since version 5.10.0. This either/or
-    dependency is expressed as:
-
-    DEPENDS+=       {perl>=5.10.0,p5-version-[0-9]*}:../../devel/p5-version
-
-
 If your package needs files from another package to build, add the relevant
 distribution files to DISTFILES, so they will be extracted automatically. See
 the print/ghostscript package for an example. (It relies on the jpeg sources
@@ -7319,10 +7290,31 @@ work, the binaries need to be installed setgid and the score files owned by the
 appropriate group and/or owner (traditionally the "games" user/group). Set
 USE_GAMESGROUP to yes to support this. The following variables, documented in
 more detail in mk/defaults/mk.conf, control this behaviour: GAMEDATAMODE,
-GAMEDIRMODE, GAMES_GROUP, GAMEMODE, GAME_USER.
+GAMEDIRMODE, GAMES_GROUP, GAMEMODE, GAME_USER. Other useful variables are:
+GAMEDIR_PERMS, GAMEDATA_PERMS and SETGID_GAMES_PERMS.
+
+An example that illustrates some of the variables described above is games/
+moon-buggy. OWN_DIRS_PERMS is used to properly set directory permissions of the
+directory where the scorefile is saved, REQD_FILES_PERMS is used to create a
+dummy scorefile (mbscore) with the proper permissions and SPECIAL_PERMS is used
+to install setgid the game binary:
+
+USE_GAMESGROUP=         yes
+
+BUILD_DEFS+=            VARBASE
+
+OWN_DIRS_PERMS+=        ${VARBASE}/games/moon-buggy ${GAMEDIR_PERMS}
+REQD_FILES_PERMS+=      /dev/null ${VARBASE}/games/moon-buggy/mbscore ${GAMEDATA_PERMS}
+SPECIAL_PERMS+=         ${PREFIX}/bin/moon-buggy ${SETGID_GAMES_PERMS}
+
+
+Various INSTALL_* variables are also available: INSTALL_GAME to install setgid
+game binaries, INSTALL_GAME_DIR to install game directories that are needed to
+be accessed by setgid games and INSTALL_GAME_DATA to install scorefiles.
 
 A package should therefore never hard code file ownership or access permissions
-but rely on INSTALL_GAME and INSTALL_GAME_DATA to set these correctly.
+but rely on *_PERMS as described above or alternatively on INSTALL_GAME,
+INSTALL_GAME_DATA and INSTALL_GAME_DIR to set these correctly.
 
 19.6.4. Adding DESTDIR support to packages
 

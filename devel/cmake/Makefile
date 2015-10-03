@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.99 2015/06/12 18:42:25 richard Exp $
+# $NetBSD: Makefile,v 1.105 2015/09/15 13:08:37 joerg Exp $
 
-DISTNAME=	cmake-${CMAKE_API}.3
-PKGREVISION=	1
+DISTNAME=	cmake-${CMAKE_API}.1
 CATEGORIES=	devel
 MASTER_SITES=	http://www.cmake.org/files/v${CMAKE_API}/
 
-CMAKE_API=	3.2
+CMAKE_API=	3.3
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cmake.org/
@@ -14,7 +13,6 @@ LICENSE=	modified-bsd
 
 USE_TOOLS+=		gmake
 USE_LANGUAGES=		c c++
-USE_NCURSES=		yes
 HAS_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	bootstrap
 
@@ -60,6 +58,8 @@ SUBST_SED.flags=	-e 's,-O.,,'
 pre-configure:
 	${RM} -f ${WRKSRC}/Modules/*.orig ${WRKSRC}/Modules/Platform/*.orig
 	${LN} -f ${WRKSRC}/Modules/Platform/OpenBSD.cmake ${WRKSRC}/Modules/Platform/MirBSD.cmake
+
+INCOMPAT_CURSES=	NetBSD-[0-5].*
 
 BUILDLINK_API_DEPENDS.libarchive+=	libarchive>=3.0.0
 .include "../../archivers/libarchive/buildlink3.mk"

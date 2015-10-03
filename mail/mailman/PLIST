@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.24 2014/08/23 14:12:07 wiz Exp $
+@comment $NetBSD: PLIST,v 1.26 2015/09/06 05:02:15 markd Exp $
 lib/mailman/Mailman/Archiver/Archiver.py
 lib/mailman/Mailman/Archiver/Archiver.pyc
 lib/mailman/Mailman/Archiver/HyperArch.py
@@ -780,6 +780,7 @@ lib/mailman/templates/el/unsub.txt
 lib/mailman/templates/el/unsubauth.txt
 lib/mailman/templates/el/userpass.txt
 lib/mailman/templates/el/verify.txt
+lib/mailman/templates/en/adminaddrchgack.txt
 lib/mailman/templates/en/admindbdetails.html
 lib/mailman/templates/en/admindbpreamble.html
 lib/mailman/templates/en/admindbsummary.html
@@ -1231,6 +1232,7 @@ lib/mailman/templates/hu/unsub.txt
 lib/mailman/templates/hu/unsubauth.txt
 lib/mailman/templates/hu/userpass.txt
 lib/mailman/templates/hu/verify.txt
+lib/mailman/templates/ia/adminaddrchgack.txt
 lib/mailman/templates/ia/admindbdetails.html
 lib/mailman/templates/ia/admindbpreamble.html
 lib/mailman/templates/ia/admindbsummary.html
@@ -1693,6 +1695,7 @@ lib/mailman/templates/ro/unsub.txt
 lib/mailman/templates/ro/unsubauth.txt
 lib/mailman/templates/ro/userpass.txt
 lib/mailman/templates/ro/verify.txt
+lib/mailman/templates/ru/adminaddrchgack.txt
 lib/mailman/templates/ru/admindbdetails.html
 lib/mailman/templates/ru/admindbpreamble.html
 lib/mailman/templates/ru/admindbsummary.html
@@ -2253,4 +2256,3 @@ share/doc/mailman/mailman-member.ps
 share/doc/mailman/mailman-member.txt
 share/examples/mailman/crontab.in
 share/examples/mailman/mailman.conf
-@pkgdir lib/mailman/pythonlib

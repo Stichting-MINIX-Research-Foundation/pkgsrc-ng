@@ -1,11 +1,10 @@
-# $NetBSD: Makefile.common,v 1.75 2015/06/04 15:08:14 ryoon Exp $
+# $NetBSD: Makefile.common,v 1.78 2015/09/07 12:02:06 jperkin Exp $
 # used by shells/zsh/Makefile
-# used by shells/zsh-current/Makefile
 
 DISTNAME=	zsh-${ZSH_VERSION}
 CATEGORIES=	shells
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=zsh/}
-EXTRACT_SUFX=	.tar.bz2
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	${ZSH_MAINTAINER}
 HOMEPAGE=	http://zsh.sourceforge.net/
@@ -21,11 +20,6 @@ INFO_FILES=		yes
 TEXINFO_REQD=		4.0
 
 .include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-#CONFIGURE_ENV+=		INSTALL_PROGRAM=${INSTALL_LIB:Q}
-INSTALL_UNSTRIPPED=	yes
-.endif
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS]) && ${OPSYS} == "NetBSD"
 # These can't be detected automagically in cross-builds.
@@ -126,6 +120,13 @@ PLIST.dynamic=	yes
 ################################################################################
 
 .undef MANZ
+
+.if ${OPSYS} == "SunOS" || ${OPSYS} == "Interix"
+do-patch:
+	# $ sha1 files/patch-ac
+	# SHA1 (files/patch-ac) = 0ef6928bbb277dfbcd8aff4f6fde9bdf1c3de483
+	${PATCH} -d ${WRKSRC} -i ${FILESDIR}/patch-ac
+.endif
 
 pre-install:
 	cd ${WRKSRC}/Completion; ${FIND} . -name \*.orig -exec ${RM} \{\} \;
