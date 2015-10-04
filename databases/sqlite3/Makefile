@@ -54,6 +54,10 @@ LIBS+=			${BUILDLINK_LDADD.dl}
 LDFLAGS.SCO_SV+=	-lpthread
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+.include "../../mk/pthread.buildlink3.mk"
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
