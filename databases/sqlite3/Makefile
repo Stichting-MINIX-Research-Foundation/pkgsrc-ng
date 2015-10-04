@@ -48,6 +48,10 @@ LIBS+=			${BUILDLINK_LDADD.dl}
 LDFLAGS.SCO_SV+=	-lpthread
 .endif
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+.include "../../mk/pthread.buildlink3.mk"
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 .include "../../mk/readline.buildlink3.mk"
 .if ${READLINE_TYPE} == "editline" && ${IS_BUILTIN.editline} == "yes"
 LDFLAGS.NetBSD+=	-ledit
