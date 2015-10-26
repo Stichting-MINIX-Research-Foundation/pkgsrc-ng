@@ -1,0 +1,13 @@
+--- poppler/CachedFile.h.orig	Mon Oct 26 16:09:43 2015
++++ poppler/CachedFile.h	Mon Oct 26 16:10:27 2015
+@@ -23,6 +23,10 @@
+ 
+ #include <vector>
+ 
++#if defined(__minix)
++#undef read
++#endif
++
+ //------------------------------------------------------------------------
+ 
+ #define CachedFileChunkSize 8192 // This should be a multiple of cachedStreamBufSize
