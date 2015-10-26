@@ -10,3 +10,5 @@ SHA1 (patch-aq) = da845661ef7f7aca3072dbeebde0444b4d8f01aa
 SHA1 (patch-ar) = b064ff2dc9080ff5f1a1361e7798480ace11f3a3
 SHA1 (patch-as) = 1238357e57fa310ba9c9f00768c46074b8325739
 SHA1 (patch-qt5_src_Makefile.in) = 8bd1456b2cfc61ea25bbc1ae6fa10e2c9c482828
+SHA1 (patch-zz-minix-a) = 9253493849a4edb65bdea71dd750c90440ff69a5
+SHA1 (patch-zz-minix-b) = 8ad006b6ff4b932c352cc131b8508df44bf53ffb
