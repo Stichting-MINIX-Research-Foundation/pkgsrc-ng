@@ -68,6 +68,9 @@ ONLY_FOR_PLATFORM+=	NetBSD-[4-9]*-x86_64
 .endif
 
 .include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+BROKEN=	"Unsupported on MINIX"
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
 
 # _SUSE_ARCH.* is a table of ${EMUL_ARCH} to SuSE architectures.
 _SUSE_ARCH.${EMUL_ARCH}=	${EMUL_ARCH}
