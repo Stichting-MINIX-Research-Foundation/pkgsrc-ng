@@ -66,4 +66,6 @@ INSTALL_DIRS=	${WRKDIR}/${DISTNAME}/texk/web2c
 .include "../../print/poppler-includes/buildlink3.mk"
 .include "../../print/ptexenc/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
+#MINIX: poppler intorduces a dependency on pthread.h
+.include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"
