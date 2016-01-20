@@ -1,0 +1,11 @@
+--- configure.orig	Wed Jan 20 13:28:56 2016
++++ configure	Wed Jan 20 13:29:39 2016
+@@ -2807,7 +2807,7 @@
+ 
+   ## Minix systems
+   *-*-minix*)
+-    tcsh_config_file=minix
++    tcsh_config_file=bsd4.4
+   ;;
+ 
+   ## NetBSD systems

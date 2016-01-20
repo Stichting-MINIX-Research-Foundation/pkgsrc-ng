@@ -3,15 +3,15 @@ bin/tcsh
 man/man1/tcsh.1
 share/examples/tcsh/complete.tcsh
 share/examples/tcsh/csh-mode.el
-share/locale/C/LC_MESSAGES/tcsh.cat
-share/locale/de/LC_MESSAGES/tcsh.cat
-share/locale/es/LC_MESSAGES/tcsh.cat
-share/locale/et/LC_MESSAGES/tcsh.cat
-share/locale/fi/LC_MESSAGES/tcsh.cat
-share/locale/fr/LC_MESSAGES/tcsh.cat
-share/locale/gr/LC_MESSAGES/tcsh.cat
-share/locale/it/LC_MESSAGES/tcsh.cat
-share/locale/ja/LC_MESSAGES/tcsh.cat
-share/locale/pl/LC_MESSAGES/tcsh.cat
-share/locale/ru/LC_MESSAGES/tcsh.cat
-share/locale/ru_UA/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/C/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/de/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/es/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/et/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/fi/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/fr/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/gr/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/it/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/ja/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/pl/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/ru/LC_MESSAGES/tcsh.cat
+@comment MINIX: share/locale/ru_UA/LC_MESSAGES/tcsh.cat
