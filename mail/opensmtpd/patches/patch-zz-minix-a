@@ -1,0 +1,11 @@
+--- configure.ac.orig	Sun Mar 13 17:02:45 2016
++++ configure.ac	Sun Mar 13 17:08:12 2016
+@@ -411,7 +411,7 @@
+ 		;;
+ 	esac
+ 	;;
+-*-*-netbsd*)
++	*-*-netbsd*|*-*-minix*)
+ 	check_for_libcrypt_before=1
+ 	if test "x$withval" != "xno" ; then
+ 		need_dash_r=1

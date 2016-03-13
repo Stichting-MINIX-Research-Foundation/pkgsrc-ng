@@ -9,3 +9,5 @@ SHA1 (patch-mk_makemap_Makefile.am) = 51da0f13b1b32b3c364ae638a38d4b33efaf1ec7
 SHA1 (patch-mk_smtpd_Makefile.am) = ebc62819300d3ddd824178c08a5630ca85dc6fdc
 SHA1 (patch-smtpd_queue__fs.c) = f13d1bf1d26544b3c81e5e2c813d2fe5e917b96b
 SHA1 (patch-smtpd_smtp__session.c) = f9c034827519a02b97cadb3c034ad1e84abc805a
+SHA1 (patch-zz-minix-a) = 3c402b4c78c9d44728cabf2ce9193276b56f2989
+SHA1 (patch-zz-minix-b) = 189bc86f2d6cf93cb6946b6925bab9a65c8b8ac2

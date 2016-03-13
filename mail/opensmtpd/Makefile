@@ -56,6 +56,11 @@ SUBST_MESSAGE.exampledir=	Fixing exampledir path
 SUBST_FILES.exampledir=		mk/smtpd/Makefile.am
 SUBST_SED.exampledir+=		-e 's,@EXAMPLE_DIR@,${EXAMPLEDIR},'
 
+.include "../../mk/bsd.prefs.mk"
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CPPFLAGS+= -D_OPENBSD_SOURCE
+.endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 post-extract:
 	cp ${FILESDIR}/mailer.conf ${WRKDIR}/mailer.conf
 

@@ -1,0 +1,11 @@
+--- smtpd/queue_fs.c.orig	Thu Nov  3 01:23:02 2016
++++ smtpd/queue_fs.c	Thu Nov  3 01:23:52 2016
+@@ -32,7 +32,7 @@
+ #endif
+ #ifdef HAVE_SYS_STATVFS_H
+ #include <sys/statvfs.h>
+-#ifdef __NetBSD__
++#if defined(__minix) || defined(__NetBSD__)
+ #define statfs statvfs
+ #endif
+ #endif
