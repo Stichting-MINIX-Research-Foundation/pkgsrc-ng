@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2015/06/12 10:48:44 wiz Exp $
+# $NetBSD: Makefile,v 1.46 2016/06/08 19:22:31 wiz Exp $
 
+PKGREVISION= 1
 .include "../../lang/perl5/Makefile.common"
 PKGNAME=	p5-${DISTNAME:S/perl/gdbm/}
-PKGREVISION=	2
 CATEGORIES=	databases perl5
 
 #PATCHDIR=	${.CURDIR}/../../lang/perl5/patches

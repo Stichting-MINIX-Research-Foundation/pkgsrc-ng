@@ -1,21 +1,15 @@
-# $NetBSD: options.mk,v 1.8 2015/01/27 04:46:06 dbj Exp $
+# $NetBSD: options.mk,v 1.10 2016/04/19 12:44:40 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.${GCC_PKGNAME}
 PKG_SUPPORTED_OPTIONS=	nls gcc-inplace-math gcc-c++ gcc-fortran gcc-java \
 			gcc-go gcc-objc gcc-objc++ gcc-graphite
 PKG_SUGGESTED_OPTIONS=	gcc-c++ gcc-fortran gcc-objc gcc-objc++ gcc-graphite
 
-.if ${OPSYS} == "NetBSD" 
-PKG_SUGGESTED_OPTIONS+=	nls
-.elif ${OPSYS} == "Linux"
-PKG_SUGGESTED_OPTIONS+=	nls gcc-java
-.elif ${OPSYS} == "DragonFly"
-PKG_SUGGESTED_OPTIONS+= nls
-.elif ${OPSYS} == "SunOS"
-PKG_SUGGESTED_OPTIONS+=	gcc-inplace-math
-.else
-PKG_SUGGESTED_OPTIONS+= gcc-java
-.endif
+PKG_SUGGESTED_OPTIONS.DragonFly+=	nls
+PKG_SUGGESTED_OPTIONS.Linux+=		nls gcc-java
+PKG_SUGGESTED_OPTIONS.NetBSD+=		nls
+PKG_SUGGESTED_OPTIONS.SunOS+=		gcc-inplace-math
+PKG_SUGGESTED_OPTIONS.*+=		gcc-java
 
 ###
 ### Determine if multilib is avalible.
@@ -132,13 +126,11 @@ PLIST_SRC+=		PLIST.java
 PLIST_SUBST+=		JAVA_NAME=${JAVA_NAME:Q}
 PLIST_SUBST+=		JAVA_ARCH=${JAVA_ARCH:Q}
 
-.if ${OPSYS} == "Darwin"
-SUBST_CLASSES+=			fix-dylib
+SUBST_CLASSES.Darwin+=		fix-dylib
 SUBST_STAGE.fix-dylib=		pre-configure
 SUBST_MESSAGE.fix-dylib=	Fixing java dylib symlink
 SUBST_FILES.fix-dylib=		libjava/Makefile.in
 SUBST_SED.fix-dylib=		-e 's,libjvm.so,libjvm.dylib,g'
-.endif
 
 # Create a JPackage compatible SDK environment.
 CONFIGURE_ARGS+=	--enable-java-home
@@ -165,6 +157,9 @@ MAKE_ENV+=		PKGSRC_MAKE=${TOOLS_PATH.gmake}
 CONFIGURE_ENV+=		JAR=no
 MAKE_ENV+=		JAR=no
 MAKE_ENV+=		ac_cv_prog_JAR=no
+
+# Various libg[ci]j and libgcj-tools rpath failures.
+CHECK_SHLIBS_SUPPORTED=	no
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/application.mk"

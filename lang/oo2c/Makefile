@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.32 2015/06/12 10:50:16 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2016/07/09 06:38:26 wiz Exp $
 
 DISTNAME=		oo2c_${BITS}-2.0.11
 PKGNAME=		oo2c-2.0.11
-PKGREVISION=		14
+PKGREVISION=		15
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=ooc/}
 EXTRACT_SUFX=		.tar.bz2
@@ -14,19 +14,9 @@ COMMENT=		Optimizing Oberon-2 Compiler
 DEPENDS+=		libtool-base-[0-9]*:../../devel/libtool-base
 DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
 
-.if ${MACHINE_ARCH} == alpha || ${MACHINE_ARCH} == sparc64 \
-	|| ${MACHINE_ARCH} == x86_64
-BITS=64
-.else
-BITS=32
-.endif
-
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gmake perl:run
 USE_LIBTOOL=		yes
-
-EVAL_PREFIX+=		LIBTOOL_PREFIX=libtool-base
-LIBTOOL_PREFIX_DEFAULT=	${LOCALBASE}
 
 TEST_TARGET=		test
 
@@ -42,7 +32,16 @@ SUBST_SED.destdir+=	-e 's,>${PREFIX}/bin<,>${DESTDIR}${PREFIX}/bin<,g'
 SUBST_CLASSES+=		pkg-unwrap
 SUBST_STAGE.pkg-unwrap=	post-install
 SUBST_FILES.pkg-unwrap=	${DESTDIR}${PREFIX}/lib/oo2c/oo2crc.xml
-SUBST_SED.pkg-unwrap=	-e 's,${WRAPPER_DIR},${LIBTOOL_PREFIX},g'
+SUBST_SED.pkg-unwrap=	-e 's,${WRAPPER_DIR},${LOCALBASE},g'
+
+.include "../../mk/bsd.prefs.mk"
+
+BITS=32
+.for PLAT in ${LP64PLATFORMS}
+.  if !empty(MACHINE_PLATFORM:M${PLAT})
+BITS=64
+.  endif
+.endfor
 
 post-install:
 	${LN} -sf ${PREFIX}/lib/oo2c/oocdoc/html ${DESTDIR}${PREFIX}/share/doc/html/oo2c

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.43 2015/04/25 14:22:54 tnn Exp $
+# $NetBSD: Makefile,v 1.45 2016/05/17 10:32:07 fhajny Exp $
 #
 
 DISTNAME=		nethack_source_331_jtp_193
 PKGNAME=		falcons-eye-1.9.3
-PKGREVISION=		15
+PKGREVISION=		16
 CATEGORIES=		games
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=falconseye/}
 EXTRACT_SUFX=		.zip
@@ -39,36 +39,32 @@ SUBST_FILES.paths+=	sys/unix/nethack.sh
 SUBST_SED.paths=	-e "s,XXXPREFIXXXX,${PREFIX},g"
 SUBST_SED.paths+=	-e "s,@GZIP_PROGRAM@,${GZIP_CMD:M*gzip},g"
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		unixconf
+SUBST_CLASSES.NetBSD+=	unixconf
 SUBST_MESSAGE.unixconf=	Configuring to use NetBSD presets.
 SUBST_STAGE.unixconf=	post-patch
 SUBST_FILES.unixconf=	include/unixconf.h
 SUBST_SED.unixconf=	-e 's,^\/\* \#define BSD 1 \*\/,\#define BSD 1,'
 SUBST_SED.unixconf+=	-e 's,^\#define SYSV,\/\* \#define SYSV \*\/,'
 SUBST_SED.unixconf+=	-e 's,^\#define LINUX,\/\* \#define LINUX \*\/,'
-.endif
 
 EGDIR=			${PREFIX}/share/examples/falcons-eye
 SHAREDIR=		${PREFIX}/share/falcons-eye-dir
 
-CONF_FILES_PERMS+=	/dev/null ${SHAREDIR}/logfile ${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
-CONF_FILES_PERMS+=	/dev/null ${SHAREDIR}/record ${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+CONF_FILES_PERMS+=	/dev/null ${SHAREDIR}/logfile ${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+CONF_FILES_PERMS+=	/dev/null ${SHAREDIR}/record ${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 REQD_DIRS+=		${SHAREDIR}/config
-REQD_DIRS_PERMS+=	${SHAREDIR} ${ROOT_USER} ${GAMES_GROUP} ${GAMEDIRMODE}
-REQD_DIRS_PERMS+=	${SHAREDIR}/save ${ROOT_USER} ${GAMES_GROUP} 770
+REQD_DIRS_PERMS+=	${SHAREDIR} ${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDIRMODE}
+REQD_DIRS_PERMS+=	${SHAREDIR}/save ${REAL_ROOT_USER} ${GAMES_GROUP} 770
 CONF_FILES_PERMS+=	${EGDIR}/jtp_intr.txt ${SHAREDIR}/config/jtp_intr.txt \
-	${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+	${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 CONF_FILES_PERMS+=	${EGDIR}/jtp_keys.txt ${SHAREDIR}/config/jtp_keys.txt \
-	${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+	${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 CONF_FILES_PERMS+=	${EGDIR}/jtp_lit1.dat ${SHAREDIR}/config/jtp_lit1.dat \
-	${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+	${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 CONF_FILES_PERMS+=	${EGDIR}/jtp_opts.txt ${SHAREDIR}/config/jtp_opts.txt \
-	${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+	${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 CONF_FILES_PERMS+=	${EGDIR}/jtp_snds.txt ${SHAREDIR}/config/jtp_snds.txt \
-	${ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
+	${REAL_ROOT_USER} ${GAMES_GROUP} ${GAMEDATAMODE}
 SPECIAL_PERMS+=		${SHAREDIR}/falcons-eye ${SETGID_GAMES_PERMS}
 
 pre-configure:

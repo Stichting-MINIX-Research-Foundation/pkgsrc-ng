@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2015/06/12 10:48:22 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/07/09 06:37:47 wiz Exp $
 
 DISTNAME=	upx-3.91-src
 PKGNAME=	${DISTNAME:S/-src//1}
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=upx/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,12 +23,8 @@ MAKE_ENV+=	PREFIX=${PREFIX} UCLDIR=${PREFIX} LDLIBDIRS=-L${PREFIX}/lib
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/upx
 
-BUILDLINK_TRANSFORM+=	rm:-mcpu=i686
-
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-Wl,-Map rm:-Wl,upx.map
-.endif
+BUILDLINK_TRANSFORM+=		rm:-mcpu=i686
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Wl,-Map rm:-Wl,upx.map
 
 post-extract:
 	mkdir -p ${WRKSRC}/src/stub/src/c/lzma-sdk

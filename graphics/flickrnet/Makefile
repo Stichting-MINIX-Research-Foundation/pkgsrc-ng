@@ -1,15 +1,17 @@
-# $NetBSD: Makefile,v 1.2 2015/05/23 09:52:59 kefren Exp $
+# $NetBSD: Makefile,v 1.6 2016/04/11 19:01:53 ryoon Exp $
 
-DISTNAME=	3.16
+DISTNAME=	FlickrNet-3.17.0
+PKGNAME=	${DISTNAME:tl}
 PKGREVISION=	1
-PKGNAME=	flickrnet-${DISTNAME}
 CATEGORIES=	graphics
-MASTER_SITES=	${MASTER_SITE_GITHUB:=samjudson/flickr-net/archive/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=samjudson/}
+GITHUB_PROJECT=	flickr-net
+GITHUB_TAG=	${PKGVERSION_NOREV:S/.0//}
 
 COMMENT=	.NET library for accessing Flickr
 LICENSE=	gnu-lgpl-v2.1
 
-WRKSRC=		${WRKDIR}/flickr-net-${DISTNAME}
+WRKSRC=		${WRKDIR}/flickr-net-${PKGVERSION_NOREV:S/.0//}
 USE_TOOLS+=	pkg-config
 
 SUBST_CLASSES+=			fix-prefix
@@ -23,7 +25,7 @@ do-build:
 	xbuild FlickrNet/FlickrNet.csproj
 
 do-install:
-	mkdir ${DESTDIR}/${PREFIX}/lib/flickrnet &&
+	mkdir ${DESTDIR}/${PREFIX}/lib/flickrnet
 	install ${WRKSRC}/FlickrNet/bin/Debug/FlickrNet.* \
 		${DESTDIR}/${PREFIX}/lib/flickrnet
 	mkdir ${DESTDIR}/${PREFIX}/lib/pkgconfig

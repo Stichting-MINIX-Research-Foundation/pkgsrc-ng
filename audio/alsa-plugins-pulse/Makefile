@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2015/02/21 23:35:38 ryoon Exp $
-#
+# $NetBSD: Makefile,v 1.22 2016/08/04 17:03:32 ryoon Exp $
 
-DISTNAME=	alsa-plugins-1.0.27
+DISTNAME=	alsa-plugins-1.1.1
 PKGNAME=	${DISTNAME:S/plugins/plugins-pulse/}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ftp.alsa-project.org/pub/plugins/
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +10,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.alsa-project.org/
 COMMENT=	Advanced Linux Sound Architecture (ALSA) - PulseAudio plugin
+LICENSE=	gnu-lgpl-v2.1 OR gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_TOOLS=	pkg-config gmake

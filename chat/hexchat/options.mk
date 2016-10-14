@@ -1,11 +1,11 @@
-# $NetBSD: options.mk,v 1.2 2015/02/18 08:47:12 tnn Exp $
+# $NetBSD: options.mk,v 1.4 2016/08/16 08:30:14 tnn Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.hexchat
 PKG_SUPPORTED_OPTIONS=	dbus gtk2 inet6 libcanberra libnotify libpci libproxy
-PKG_SUPPORTED_OPTIONS+=	libsexy ntlm openssl perl python tests themes xft2
+PKG_SUPPORTED_OPTIONS+=	libsexy lua ntlm openssl perl python tests themes xft2
 PKG_SUGGESTED_OPTIONS+=	gtk2 inet6 libproxy libsexy openssl xft2
 
-PLIST_VARS+=		dbus gtk2 libpci perl python
+PLIST_VARS+=		dbus gtk2 libpci lua perl python
 
 .include "../../mk/bsd.options.mk"
 
@@ -59,6 +59,14 @@ PLIST.libpci=		yes
 CONFIGURE_ARGS+=	--disable-libproxy
 .endif
 
+.if !empty(PKG_OPTIONS:Mlua)
+.include "../../lang/lua/buildlink3.mk"
+CONFIGURE_ARGS+=	--enable-lua
+PLIST.lua=		yes
+.else
+CONFIGURE_ARGS+=	--disable-lua
+.endif
+
 .if !empty(PKG_OPTIONS:Mntlm)
 .include "../../devel/libntlm/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-ntlm=yes
@@ -77,7 +85,7 @@ CONFIGURE_ARGS+=	--enable-openssl=no
 USE_TOOLS+=		perl
 PLIST.perl=		yes
 .else
-CONFIGURE_ARGS+=        --disable-perl
+CONFIGURE_ARGS+=	--disable-perl
 .endif
 
 .if !empty(PKG_OPTIONS:Mpython)

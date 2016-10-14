@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2015/07/12 18:56:09 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2016/07/21 13:12:25 wiz Exp $
 
 .include "../../devel/git/Makefile.common"
 

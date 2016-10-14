@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/21 21:17:57 markd Exp $
+
+SHA1 (ki18n-5.25.0.tar.xz) = e75895157ba15f26efa552786746fd77e4d17e05
+RMD160 (ki18n-5.25.0.tar.xz) = 9f1f50134e49bc2e788b76d259f4edbd433a3e2e
+SHA512 (ki18n-5.25.0.tar.xz) = 368c2a470e16f2094a83e2d73a4c9580aa3607a7da1248ccec2b539e3feab07edcec86e285f1f299bbcd684cd730e33b05c7ba004b24d2dd7712199f467ff454
+Size (ki18n-5.25.0.tar.xz) = 603696 bytes

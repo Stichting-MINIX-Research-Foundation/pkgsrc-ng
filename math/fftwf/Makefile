@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2015/06/12 10:50:27 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/08/19 12:40:18 wiz Exp $
 
-DISTNAME=	fftw-3.3.2
+DISTNAME=	fftw-3.3.5
 PKGNAME=	${DISTNAME:C/fftw/fftwf/}
-PKGREVISION=	4
 CATEGORIES=	math
 MASTER_SITES=	ftp://ftp.fftw.org/pub/fftw/ \
 		http://www.fftw.org/
@@ -34,7 +33,22 @@ TEST_TARGET=		check
 INSTALLATION_DIRS=	${PKGMANDIR}/man1
 INSTALL_TARGET=		install-libLTLIBRARIES install-pkgconfigDATA
 
+
+PLIST_VARS+=		pthreads
+PTHREAD_OPTS=		native
+.include "../../mk/pthread.buildlink3.mk"
+.if !empty(PTHREAD_TYPE:Mnative)
+CONFIGURE_ARGS+=	--enable-threads
+PLIST.pthreads=		yes
+.endif
+
 post-install:
+.if !empty(PTHREAD_TYPE:Mnative)
+	cd ${WRKSRC}/threads &&						\
+	${SETENV} ${INSTALL_ENV} ${MAKE_ENV} 				\
+		${MAKE_PROGRAM} ${MAKE_FLAGS} ${INSTALL_MAKE_FLAGS}	\
+		install-libLTLIBRARIES
+.endif
 	cd ${WRKSRC}/tools &&						\
 	${SETENV} ${INSTALL_ENV} ${MAKE_ENV} 				\
 		${MAKE_PROGRAM} ${MAKE_FLAGS} ${INSTALL_MAKE_FLAGS}	\

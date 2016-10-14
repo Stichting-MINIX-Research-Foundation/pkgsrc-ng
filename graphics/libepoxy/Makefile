@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2015/09/16 12:28:53 tnn Exp $
+# $NetBSD: Makefile,v 1.16 2016/04/11 04:22:34 dbj Exp $
 
 DISTNAME=	libepoxy-1.3.1
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GITHUB:=anholt/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -13,36 +13,55 @@ LICENSE=	mit
 
 BUILD_DEPENDS+=	${PYPKGPREFIX}-expat>=0:../../textproc/py-expat
 
-USE_TOOLS+=	pkg-config autoconf autoreconf automake
-USE_LIBTOOL=	yes
-GNU_CONFIGURE=	yes
+USE_LIBTOOL=		yes
+USE_TOOLS+=		pkg-config autoconf autoreconf automake
+GNU_CONFIGURE=		yes
+PKGCONFIG_OVERRIDE+=	epoxy.pc.in
 PYTHON_FOR_BUILD_ONLY=	yes
 
-PKGCONFIG_OVERRIDE+=	epoxy.pc.in
+.include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=		egl glx
+
+PKG_OPTIONS_VAR=	PKG_OPTIONS.libepoxy
+PKG_SUPPORTED_OPTIONS=	x11
+PKG_SUGGESTED_OPTIONS=	x11
+
+.include "../../mk/bsd.options.mk"
+
+.if !empty(PKG_OPTIONS:Mx11)
+BUILD_GLX=	yes
+PLIST.glx=	yes
+.include "../../graphics/MesaLib/buildlink3.mk"
+.include "../../x11/libX11/buildlink3.mk"
+.  if ${OPSYS} == "Darwin"
+BUILD_EGL=	no
+.    if ${X11_TYPE} == "modular"
+CPPFLAGS+=	-DGLX_LIB=\"${PREFIX}/lib/libGL.dylib\"
+.    endif
+.  else # ! Darwin
+BUILD_EGL=	${MESALIB_SUPPORTS_EGL}
+.    if !empty(MESALIB_SUPPORTS_EGL:Myes)
+PLIST.egl=	yes
+.    endif
+.  endif
+.else # ! x11
+BUILD_GLX=	no
+BUILD_EGL=	no
+.  if !(${OPSYS} == "Darwin" && ${X11_TYPE} == "native")
+PKG_FAIL_REASON+=	"The x11 option must be enabled on this platform/configuration."
+.  endif
+.endif
+
+SUBST_CLASSES+=		gl
+SUBST_STAGE.gl=		pre-configure
+SUBST_MESSAGE.gl=	Configuring optional EGL and GLX build.
+SUBST_FILES.gl=		configure.ac
+SUBST_VARS.gl=		BUILD_EGL BUILD_GLX
 
 pre-configure:
 	cd ${WRKSRC} && autoreconf -vif
 
-.include "../../mk/bsd.prefs.mk"
-
-PLIST_VARS+=		egl
-CONFIGURE_ENV+=		PKGSRC_BUILD_EGL=${MESALIB_SUPPORTS_EGL}
-
-# This could be garbage collected, but it seems likely that there will
-# be more glx issues, so it seems easier to leave it.
-PLIST_VARS+=		glx
-.if ${OPSYS} != "Darwin"
-PLIST.glx=		yes
-.else
-# On Darwin, we patch upstream to enable this.
-PLIST.glx=		yes
-.endif
-
 .include "../../lang/python/tool.mk"
 .include "../../devel/xorg-util-macros/buildlink3.mk"
-.include "../../graphics/MesaLib/buildlink3.mk"
-.if !empty(MESALIB_SUPPORTS_EGL:Myes)
-PLIST.egl=		yes
-.endif
-.include "../../x11/libX11/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

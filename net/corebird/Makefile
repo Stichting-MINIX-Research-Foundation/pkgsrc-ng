@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2015/06/07 14:05:58 youri Exp $
+# $NetBSD: Makefile,v 1.17 2016/09/06 12:31:56 ryoon Exp $
 
-DISTNAME=	corebird-0.9
-PKGREVISION=	3
+DISTNAME=	corebird-1.3.1
 CATEGORIES=	net
 MASTER_SITES=	-https://github.com/baedert/corebird/archive/${PKGVERSION_NOREV}${EXTRACT_SUFX}
 
@@ -14,7 +13,7 @@ USE_LIBTOOL=	yes
 USE_LANGUAGES=	c
 GNU_CONFIGURE=	yes
 CONFIGURE_SCRIPT=	autogen.sh
-USE_TOOLS+=	autoconf automake intltool gettext-m4 pkg-config gmake msgfmt
+USE_TOOLS+=	autoconf automake autopoint gettext-m4 pkg-config gmake msgfmt
 
 .include "options.mk"
 

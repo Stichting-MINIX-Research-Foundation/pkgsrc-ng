@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.17 2015/07/13 15:08:55 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/05/13 20:47:32 adam Exp $
 
 BOOST_PACKAGE=	meta-pkg
 BOOST_COMMENT=	(meta package)

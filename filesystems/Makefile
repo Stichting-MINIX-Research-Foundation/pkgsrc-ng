@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.38 2014/05/20 22:51:26 joerg Exp $
+# $NetBSD: Makefile,v 1.41 2016/09/09 15:40:17 scole Exp $
 #
 
 COMMENT=	File systems, and file system related packages
@@ -25,7 +25,9 @@ SUBDIR+=	fuse-lzofs
 SUBDIR+=	fuse-mp3fs
 SUBDIR+=	fuse-ntfs-3g
 SUBDIR+=	fuse-obexfs
+SUBDIR+=	fuse-pcachefs
 SUBDIR+=	fuse-pod
+SUBDIR+=	fuse-sshfs
 SUBDIR+=	fuse-svnfs
 SUBDIR+=	fuse-unionfs
 SUBDIR+=	fuse-wdfs
@@ -41,6 +43,7 @@ SUBDIR+=	p5-Path-Tiny
 SUBDIR+=	perfuse
 SUBDIR+=	py-filesystem
 SUBDIR+=	py-fuse-bindings
+SUBDIR+=	squashfs
 SUBDIR+=	tahoe-lafs
 SUBDIR+=	u9fs
 

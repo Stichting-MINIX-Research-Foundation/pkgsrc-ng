@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2014/08/21 09:37:21 jperkin Exp $
+# $NetBSD: Makefile,v 1.5 2016/03/05 11:28:48 jperkin Exp $
 
 DISTNAME=	gnarwl-3.6
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	mail
 MASTER_SITES=	http://www.onyxbits.de/sites/default/files/upload_cck/node/526/
 EXTRACT_SUFX=	.tgz
@@ -12,6 +12,9 @@ COMMENT=	LDAP based mail autoresponder
 LICENSE=	gnu-gpl-v2
 
 PKG_DESTDIR_SUPPORT=	user-destdir
+
+# data/Makefile depends on legacy rule execution order
+MAKE_JOBS_SAFE=	no
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	gmake groff

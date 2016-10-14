@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2014/05/03 19:07:55 rodent Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/28 15:48:37 wiz Exp $
 
 DISTNAME=	uwsgitop-0.8
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	python www
-MASTER_SITES=	https://pypi.python.org/packages/source/u/uwsgitop/
+MASTER_SITES=	${MASTER_SITE_PYPI:=u/uwsgitop/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://projects.unbit.it/uwsgi/wiki/StatsServer
@@ -16,9 +16,6 @@ DEPENDS+=	${PYPKGPREFIX}-simplejson-[0-9]*:../../converters/py-simplejson
 DEPENDS+=	${PYPKGPREFIX}-curses-[0-9]*:../../devel/py-curses
 
 USE_LANGUAGES=	# none
-
-PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/uwsgitop \

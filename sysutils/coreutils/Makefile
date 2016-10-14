@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.68 2015/07/24 17:02:44 jperkin Exp $
+# $NetBSD: Makefile,v 1.71 2016/07/09 06:38:59 wiz Exp $
 
-PKGREVISION= 2
+PKGREVISION= 1
 .include "../../sysutils/coreutils/Makefile.common"
 
 CONFIGURE_ARGS+=	--without-gmp
@@ -36,12 +36,10 @@ PLIST.stdbuf=		yes
 
 # Ensure libstdbuf.so has a valid library name otherwise REQUIRES will
 # record the relative path of the object output file.
-.if ${OPSYS} == "Darwin"
-SUBST_CLASSES+=		libname
+SUBST_CLASSES.Darwin+=	libname
 SUBST_STAGE.libname=	pre-configure
 SUBST_FILES.libname=	Makefile.in
 SUBST_SED.libname=	-e '/^src_libstdbuf_so_LDFLAGS/s,$$, -install_name ${PREFIX}/libexec/coreutils/glibstdbuf.so,'
-.endif
 
 PROGS=	[ base64 basename cat chcon chgrp chmod chown chroot cksum comm \
 	cp csplit cut date dd df dir dircolors dirname du hostid echo env \

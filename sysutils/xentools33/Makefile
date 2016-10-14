@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.47 2015/08/18 07:31:18 wiz Exp $
+# $NetBSD: Makefile,v 1.52 2016/07/09 13:04:08 wiz Exp $
 
 VERSION=	3.3.2
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xentools33-${VERSION}
-PKGREVISION=	19
+PKGREVISION=	21
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -20,7 +20,7 @@ DEPENDS+=	${PYPKGPREFIX}-curses>=0nb4:../../devel/py-curses
 BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 
 PKG_SYSCONFSUBDIR=	xen
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xml
 
 ONLY_FOR_PLATFORM=	Linux-2.6*-i386 Linux-2.6*-x86_64
 ONLY_FOR_PLATFORM+=	NetBSD-[5-9].*-x86_64 NetBSD-[5-9].*-i386
@@ -115,17 +115,14 @@ SUBST_SED.prefix=	-e "s,@PREFIX@,${PREFIX},g"
 
 REPLACE_PYTHON+=	misc/xsview
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		proc
+SUBST_CLASSES.NetBSD+=	proc
 SUBST_STAGE.proc=	pre-configure
 SUBST_FILES.proc=	python/xen/xend/XendVnet.py
 SUBST_SED.proc=		-e "s|/proc|/kern|g"
-PROCPATH=		/kern
-.else
-PROCPATH=		/proc
-.endif
+
+OPSYSVARS+=		PROCPATH
+PROCPATH.NetBSD=	/kern
+PROCPATH.*=		/proc
 
 RCD_SCRIPTS=		xend xenbackendd xendomains
 FILES_SUBST+=		RCD_INTERPRETER=${PYTHONBIN:Q}
@@ -154,6 +151,8 @@ EXTRA_CFLAGS+=	-Wno-error=ignored-attributes -no-integrated-as \
 		-Wno-error=tautological-compare -Wno-error=null-dereference \
 		-Wno-error=self-assign -Wno-error=sometimes-uninitialized \
 		-Wno-error=unused-function
+.elif !empty(PKGSRC_COMPILER:Mgcc)
+EXTRA_CFLAGS+=	-Wno-error=unused-but-set-variable
 .endif
 
 MAKE_ENV+=	EXTRA_HOSTCFLAGS=${EXTRA_HOSTCFLAGS:Q} EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

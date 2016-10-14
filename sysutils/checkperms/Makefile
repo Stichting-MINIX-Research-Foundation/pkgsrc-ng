@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2013/09/08 16:33:59 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2016/02/26 10:24:11 jperkin Exp $
 #
 
 DISTNAME=	checkperms-1.11
+PKGREVISION=	1
 CATEGORIES=	sysutils
 MASTER_SITES=	http://www.roland-illig.de/checkperms/
 
@@ -14,6 +15,8 @@ AUTO_MKDIRS=		yes
 
 USE_BSD_MAKEFILE=	yes
 
+CPPFLAGS.SunOS+=	-D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE
+
 .include "../../mk/compiler.mk"
 
 MAKE_FLAGS+=		CWARNFLAGS.clang=-Wno-error=missing-noreturn
@@ -25,9 +28,7 @@ CHECK_PERMS=		no
 IGNORE_CCACHE=		yes
 IGNORE_DISTCC=		yes
 
-.if ${OPSYS} == "Linux"
-MAKE_ENV+=	NOGCCERROR=yes		# see PR 35930
-.endif
+MAKE_ENV.Linux+=	NOGCCERROR=yes		# see PR 35930
 
 # Avoid catpage regeneration
 post-extract:

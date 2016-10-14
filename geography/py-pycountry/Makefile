@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.1 2014/12/06 15:18:29 rodent Exp $
+# $NetBSD: Makefile,v 1.3 2016/06/09 05:53:39 wiz Exp $
 
 DISTNAME=	pycountry-1.10
 PKGNAME=        ${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	geography python
-MASTER_SITES=	https://pypi.python.org/packages/source/p/pycountry/
+MASTER_SITES=	${MASTER_SITE_PYPI:=p/pycountry/}
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	kamel.derouiche@gmail.com
-HOMEPAGE=	https://pypi.python.org/packages/source/p/pycountry/
+HOMEPAGE=	https://pypi.python.org/pypi/pycountry
 COMMENT=	ISO country, subdivision, language, currency and script
 LICENSE=	gnu-lgpl-v2.1
 

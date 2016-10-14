@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2015/06/12 10:50:32 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/07/09 06:38:34 wiz Exp $
 
 DISTNAME=		superlu_3.0
 PKGNAME=		superlu-3.0.1
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		math
 MASTER_SITES=		http://crd.lbl.gov/~xiaoye/SuperLU/
 
@@ -10,10 +10,10 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://crd.lbl.gov/~xiaoye/SuperLU/
 COMMENT=		ANSI C routine library for the solution of sparse linear systems
 
-DEPENDS+=		blas-[0-9]*:../../math/blas
+# /usr/bin/ar: ../libsuperlu.a: Error reading dlamch.o: File truncated
+MAKE_JOBS_SAFE=		no
 
-BLAS_PREFIX_DEFAULT=	${LOCALBASE}
-EVAL_PREFIX+=		BLAS_PREFIX=blas
+DEPENDS+=		blas-[0-9]*:../../math/blas
 
 DIST_SUBDIR=		${PKGNAME_NOREV}
 WRKSRC=			${WRKDIR}/SuperLU_3.0

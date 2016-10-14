@@ -1,21 +1,18 @@
-# $NetBSD: Makefile,v 1.2 2015/03/21 21:23:30 joerg Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/28 17:47:47 wiz Exp $
 
 DISTNAME=	pyfits-3.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
 CATEGORIES=	graphics
-MASTER_SITES=	https://pypi.python.org/packages/source/p/pyfits/
+MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyfits/}
 
 MAINTAINER=	kamelderouiche@yahoo.com
 HOMEPAGE=	http://www.stsci.edu/resources/software_hardware/pyfits
 COMMENT=	Python module for reading, writing, and manipulating FITS files
 LICENSE=	modified-bsd
 
-BROKEN=		Fetches stsci.distutils during build.
+BUILD_DEPENDS+=	${PYPKGPREFIX}-stsci.distutils-[0-9]*:../../devel/py-stsci.distutils
 
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 REPLACE_PYTHON=	lib/pyfits/core.py
-
-CONFLICTS=	${PYPKGPREFIX}-pyfits-[0-9]*
 
 post-install:
 	cd ${DESTDIR}${PREFIX}/bin && \

@@ -1,13 +1,9 @@
-# $NetBSD: Makefile,v 1.7 2014/05/09 07:37:19 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/07/09 13:04:06 wiz Exp $
 
-DISTNAME=	dbus-python-1.2.0
-PKGNAME=	dbus-python-common-1.2.0
+DISTNAME=	dbus-python-1.2.4
+PKGNAME=	${DISTNAME:S/python/python-common/}
 CATEGORIES=	sysutils
 MASTER_SITES=	http://dbus.freedesktop.org/releases/dbus-python/
-
-#BUILD_DEPENDS+= ${PYPKGPREFIX}-docutils>=0:../../textproc/py-docutils
-#DEPENDS+=	${PYPKGPREFIX}-pyrex>=0.9.3:../../lang/py-pyrex
-#PYTHON_VERSIONS_INCOMPATIBLE=33 34 # py-pyrex
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freedesktop.org/Software/dbus
@@ -17,19 +13,19 @@ LICENSE=	mit
 CONFLICTS+=	py[0-9]*-dbus<1.1.1
 
 PYTHON_FOR_BUILD_ONLY=	yes
+#BUILD_DEPENDS+= ${PYPKGPREFIX}-docutils>=0:../../textproc/py-docutils
+#DEPENDS+=	${PYPKGPREFIX}-pyrex>=0.9.3:../../lang/py-pyrex
+#PYTHON_VERSIONS_INCOMPATIBLE=34 35 # py-pyrex
 
 USE_TOOLS+=	pkg-config gmake
 GNU_CONFIGURE=	yes
 CONFIGURE_ARGS+= --disable-html-docs --disable-api-docs
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-std=c9x
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	rm:-std=c9x
 
 do-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/include/dbus-1.0/dbus
-	${INSTALL_DATA} ${WRKSRC}/include/dbus-python.h \
+	${INSTALL_DATA} ${WRKSRC}/include/dbus/dbus-python.h \
 		${DESTDIR}${PREFIX}/include/dbus-1.0/dbus
 	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/lib/pkgconfig
 	${INSTALL_DATA} ${WRKSRC}/dbus-python.pc \

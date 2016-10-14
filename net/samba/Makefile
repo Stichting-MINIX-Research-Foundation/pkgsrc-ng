@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.255 2015/06/12 10:50:52 wiz Exp $
+# $NetBSD: Makefile,v 1.259 2016/07/09 06:38:45 wiz Exp $
 
 DISTNAME=	samba-${VERSION}
 CATEGORIES=	net
@@ -10,7 +10,7 @@ COMMENT=	SMB/CIFS protocol server suite
 LICENSE=	gnu-gpl-v3
 
 VERSION=	3.6.25
-PKGREVISION=	2
+PKGREVISION=	4
 
 CONFLICTS+=	ja-samba-[0-9]* pam-smbpass-[0-9]* winbind-[0-9]*
 
@@ -151,6 +151,11 @@ post-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/script/updatesmbpasswd.sh \
 		${DESTDIR}${PREFIX}/${EGDIR}
 	${CHMOD} ${SHAREMODE} ${DESTDIR}${PREFIX}/include/*.h
+.if ${_OPSYS_SHLIB_TYPE} == "dylib"
+	cd ${DESTDIR}${PREFIX}; ${FIND} lib/samba lib/security -name "*.dylib" | while read lib; do \
+		install_name_tool -id ${PREFIX}/$${lib} $${lib}; \
+	done
+.endif
 
 .include "../../net/samba/Makefile.mirrors"
 

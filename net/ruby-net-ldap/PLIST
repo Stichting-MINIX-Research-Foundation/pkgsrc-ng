@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.2 2015/02/04 15:56:48 taca Exp $
+@comment $NetBSD: PLIST,v 1.4 2016/03/15 14:46:51 taca Exp $
 ${GEM_HOME}/cache/${GEM_NAME}.gem
 ${GEM_LIBDIR}/.gitignore
 ${GEM_LIBDIR}/.rubocop.yml
@@ -22,6 +22,10 @@ ${GEM_LIBDIR}/lib/net/ber/core_ext/integer.rb
 ${GEM_LIBDIR}/lib/net/ber/core_ext/string.rb
 ${GEM_LIBDIR}/lib/net/ber/core_ext/true_class.rb
 ${GEM_LIBDIR}/lib/net/ldap.rb
+${GEM_LIBDIR}/lib/net/ldap/auth_adapter.rb
+${GEM_LIBDIR}/lib/net/ldap/auth_adapter/gss_spnego.rb
+${GEM_LIBDIR}/lib/net/ldap/auth_adapter/sasl.rb
+${GEM_LIBDIR}/lib/net/ldap/auth_adapter/simple.rb
 ${GEM_LIBDIR}/lib/net/ldap/connection.rb
 ${GEM_LIBDIR}/lib/net/ldap/dataset.rb
 ${GEM_LIBDIR}/lib/net/ldap/dn.rb
@@ -34,6 +38,7 @@ ${GEM_LIBDIR}/lib/net/ldap/pdu.rb
 ${GEM_LIBDIR}/lib/net/ldap/version.rb
 ${GEM_LIBDIR}/lib/net/snmp.rb
 ${GEM_LIBDIR}/net-ldap.gemspec
+${GEM_LIBDIR}/script/changelog
 ${GEM_LIBDIR}/script/install-openldap
 ${GEM_LIBDIR}/script/package
 ${GEM_LIBDIR}/script/release
@@ -50,11 +55,13 @@ ${GEM_LIBDIR}/test/integration/test_ber.rb
 ${GEM_LIBDIR}/test/integration/test_bind.rb
 ${GEM_LIBDIR}/test/integration/test_delete.rb
 ${GEM_LIBDIR}/test/integration/test_open.rb
+${GEM_LIBDIR}/test/integration/test_password_modify.rb
 ${GEM_LIBDIR}/test/integration/test_return_codes.rb
 ${GEM_LIBDIR}/test/integration/test_search.rb
 ${GEM_LIBDIR}/test/support/vm/openldap/.gitignore
 ${GEM_LIBDIR}/test/support/vm/openldap/README.md
 ${GEM_LIBDIR}/test/support/vm/openldap/Vagrantfile
+${GEM_LIBDIR}/test/test_auth_adapter.rb
 ${GEM_LIBDIR}/test/test_dn.rb
 ${GEM_LIBDIR}/test/test_entry.rb
 ${GEM_LIBDIR}/test/test_filter.rb

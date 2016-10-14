@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.33 2014/12/22 01:16:34 mef Exp $
+# $NetBSD: Makefile,v 1.36 2016/01/23 03:43:11 zafer Exp $
 #
 
 DISTNAME=	star-1.4.3
 PKGREVISION=	4
 CATEGORIES=	archivers
-MASTER_SITES=	ftp://ftp.berlios.de/pub/star/
+MASTER_SITES=	http://downloads.sourceforge.net/project/s-tar/
 
 MAINTAINER=	uebayasi@NetBSD.org
 HOMEPAGE=	http://cdrecord.berlios.de/old/private/star.html
@@ -22,6 +22,10 @@ MAKE_FLAGS+=	MANDIR=${PKGMANDIR}
 MAKE_ENV+=	CCOM=gcc
 .endif
 
+# without this installing ploughs on case-insensitive fses
+post-extract:
+	cd ${WRKSRC} && mv INSTALL INSTALL.txt
+
 pre-build:
 	set -e; \
 	cd ${WRKSRC}/RULES && for i in arm mipsel x86_64 sparc64 powerpc; do \
@@ -34,6 +38,7 @@ pre-build:
 		${LN} -s i386-freebsd-gcc.rul x86_64-freebsd-gcc.rul;	\
 		${LN} -s i386-freebsd-cc.rul x86_64-freebsd-cc.rul;	\
 		${LN} -s i386-freebsd-gcc.rul amd64-freebsd-gcc.rul;	\
-		${LN} -s i386-freebsd-cc.rul amd64-freebsd-cc.rul
+		${LN} -s i386-freebsd-cc.rul amd64-freebsd-cc.rul;	\
+		${LN} -s x86_64-netbsd-cc.rul amd64-openbsd-cc.rul
 
 .include "../../mk/bsd.pkg.mk"

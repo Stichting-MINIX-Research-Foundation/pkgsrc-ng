@@ -1,33 +1,15 @@
-$NetBSD: patch-Makefile.SH,v 1.3 2014/10/01 07:17:02 adam Exp $
+$NetBSD: patch-Makefile.SH,v 1.5 2016/06/14 11:47:21 jperkin Exp $
 
-Due to bloody backward incompatible changes in recent dtrace on SunOS
-postpone invocation of dtrace to later with the actual probe objects.
+Do not generate DTrace objects for objects which do not contain DTrace probes.
 
-Ensure perldtrace.h is generated during makedepends in order to avoid
-compilation problems
-
---- Makefile.SH.orig	2014-05-26 13:34:18.000000000 +0000
+--- Makefile.SH.orig	2016-05-08 13:28:35.000000000 +0000
 +++ Makefile.SH
-@@ -225,10 +225,9 @@ dtrace_o=''
- minidtrace_o=''
- case "$usedtrace" in
- define|true)
--	dtrace_h='perldtrace.h' 
--	$dtrace -G -s perldtrace.d -o perldtrace.tmp >/dev/null 2>&1 \
--		&& rm -f perldtrace.tmp && dtrace_o='perldtrace$(OBJ_EXT)' \
--		&& minidtrace_o='miniperldtrace$(OBJ_EXT)'
-+	dtrace_h='perldtrace.h'
-+	dtrace_o='perldtrace$(OBJ_EXT)'
-+	minidtrace_o='miniperldtrace$(OBJ_EXT)'
- 	;;
- esac
+@@ -396,7 +396,7 @@ DTRACE_H = $dtrace_h
  
-@@ -1579,7 +1578,7 @@ nokfilenack:	utilities
+ DTRACE_PERLLIB_O = $dtrace_perllib_o # "dtrace -G" output for perllib_objs
+ DTRACE_MINI_O    = $dtrace_mini_o    # "dtrace -G" output for common and mini
+-DTRACE_MAIN_O    = $dtrace_main_o    # "dtrace -G" output for perlmain.o
++#DTRACE_MAIN_O    = $dtrace_main_o    # "dtrace -G" output for perlmain.o
  
- .PHONY: clist hlist
+ FIRSTMAKEFILE = $firstmakefile
  
--clist:	$(c)
-+clist:	$(c) $(DTRACE_H)
- 	echo $(c) | tr ' ' $(TRNL) >.clist
- 
- hlist:  $(h)

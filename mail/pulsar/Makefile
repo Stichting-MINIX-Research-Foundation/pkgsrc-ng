@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2014/02/12 23:18:09 tron Exp $
+# $NetBSD: Makefile,v 1.20 2016/04/04 17:34:12 joerg Exp $
 #
 
 DISTNAME=	pulsar-0.1.1
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pulsar/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,8 +15,6 @@ MAKE_JOBS_SAFE=		no
 
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	autoconf gmake
-
-MANCOMPRESSED=	yes
 
 CFLAGS.SunOS+=	-Du_int32_t=uint32_t
 LDFLAGS.SunOS+=	-lsocket -lnsl

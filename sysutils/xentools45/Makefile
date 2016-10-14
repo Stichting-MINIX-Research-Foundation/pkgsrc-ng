@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.15 2015/08/23 17:02:58 spz Exp $
+# $NetBSD: Makefile,v 1.39 2016/09/21 17:03:38 bouyer Exp $
 
-VERSION=	4.5.1
+VERSION=	4.5.5
+#PKGREVISION=	0
 VERSION_IPXE=	9a93db3f0947484e30e753bbd61a10b17336e20e
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools45-${VERSION}
-PKGREVISION=		5
 CATEGORIES=		sysutils
 MASTER_SITES=		http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -23,6 +23,7 @@ BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 .if !exists(/usr/bin/iasl)
 BUILD_DEPENDS+= acpica-utils-[0-9]*:../../sysutils/acpica-utils
 .endif
+DEPENDS+=   ${PYPKGPREFIX}-curses>=0:../../devel/py-curses
 
 PKG_SYSCONFSUBDIR=	xen
 
@@ -47,13 +48,11 @@ GNU_CONFIGURE=		YES
 #CONFIGURE_ARGS+=	--enable-xenapi
 CONFIGURE_ARGS+=	--disable-seabios
 
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE}
+
 MAKE_ENV+=		PREFIX=${prefix:Q} WRKSRC=${WRKSRC}
-MAKE_ENV+=		EGDIR=${EGDIR}
 MAKE_ENV+=		XEN_EXAMPLES_DIR=${EGDIR}
-MAKE_ENV+=		BASH_COMPLETION_DIR=${EGDIR}
 MAKE_ENV+=		MV=${MV:Q} PYTHON=${PYTHONBIN:Q} SED=${SED:Q}
-MAKE_ENV+=		VARBASE=${VARBASE}
-MAKE_ENV+=		XEN_CONFIG_DIR=${PKG_SYSCONFDIR}
 MAKE_ENV+=		V=YES
 MAKE_ENV+=		NO_WERROR=1
 
@@ -61,7 +60,7 @@ MAKE_ENV+=		NO_WERROR=1
 #MAKE_ENV+=		INSTALL_DATA=${BSD_INSTALL_DATA}
 #MAKE_ENV+=		INSTALL_PROG=${BSD_INSTALL_PROGRAM}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 PY_PATCHPLIST=		yes
 REPLACE_PYTHON+=	misc/sbdf2devicepath misc/xen-bugtool
@@ -105,21 +104,22 @@ SUBST_SED.pathsvar=	-e "s|/var/lib|${VARBASE}/run|g"
 SUBST_CLASSES+=		conf
 SUBST_STAGE.conf=	pre-configure
 SUBST_FILES.conf+=	ocaml/xenstored/define.ml
+SUBST_FILES.conf+=	libxl/xl_cmdtable.c
+SUBST_FILES.conf+=	../docs/misc/xl-disk-configuration.txt
 SUBST_SED.conf=		-e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g"
 
-.include "../../mk/bsd.prefs.mk"
+XEND_SCRIPTS=		block vif-bridge vif-ip qemu-ifup hotplugpath.sh locking.sh
 
-XEND_SCRIPTS=		block vif-bridge vif-ip qemu-ifup hotplugpath.sh
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		proc
+SUBST_CLASSES.NetBSD+=	proc
 SUBST_STAGE.proc=	pre-configure
 SUBST_FILES.proc+=	ocaml/xenstored/define.ml
 SUBST_SED.proc=		-e "s|/proc|/kern|g"
-PROCPATH=		/kern
-.else
-PROCPATH=		/proc
-.endif
+
+OPSYSVARS+=		PROCPATH
+PROCPATH.NetBSD=	/kern
+PROCPATH.*=		/proc
+
+.include "../../mk/bsd.prefs.mk"
 
 SUBST_CLASSES+=		procdev
 SUBST_STAGE.procdev=	pre-configure
@@ -158,30 +158,47 @@ pre-build:
 .for s in ${BLKTAP_FILES}
 	${CP} -f ${FILESDIR}/${s} ${WRKSRC}/blktap/drivers/
 .endfor
+	${CP} -f ${FILESDIR}/locking.sh  ${WRKSRC}/hotplug/NetBSD/
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
-		${XENTOP}/docs/man/xl.pod.1 |\
-	    pod2man >${WRKDIR}/xl.1
+		${XENTOP}/docs/man/xenstore-chmod.pod.1 |\
+	    pod2man -n xenstore-chmod >${WRKDIR}/xenstore-chmod.1
+	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
+		${XENTOP}/docs/man/xenstore-ls.pod.1 |\
+	    pod2man -n xenstore-ls >${WRKDIR}/xenstore-ls.1
+	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
+		${XENTOP}/docs/man/xenstore.pod.1 |\
+	    pod2man -n xenstore >${WRKDIR}/xenstore.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xl.cfg.5
+	    pod2man -n xl.cfg >${WRKDIR}/xl.cfg.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.conf.pod.5 |\
-	    pod2man >${WRKDIR}/xl.conf.5
+	    pod2man -n xl.conf >${WRKDIR}/xl.conf.5
+	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
+		${XENTOP}/docs/man/xl.pod.1 |\
+	    pod2man -n xl >${WRKDIR}/xl.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xlcpupool.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xlcpupool.cfg.5
+	    pod2man -n xlcpupool.cfg >${WRKDIR}/xlcpupool.cfg.5
 
 INSTALLATION_DIRS=	${EGDIR} ${PKGMANDIR}/man5
 
 BUILD_DEFS+=		VARBASE
 
 post-install:
-	${INSTALL_DATA} ${WRKDIR}/xl.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	${INSTALL_DATA} ${WRKDIR}/xenstore-chmod.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	${INSTALL_DATA} ${WRKDIR}/xenstore-ls.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
+	${INSTALL_DATA} ${WRKDIR}/xenstore.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_DATA} ${WRKDIR}/xl.cfg.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 	${INSTALL_DATA} ${WRKDIR}/xl.conf.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
+	${INSTALL_DATA} ${WRKDIR}/xl.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 	${INSTALL_DATA} ${WRKDIR}/xlcpupool.cfg.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
+	${INSTALL_DATA} ${XENTOP}/docs/misc/xen-command-line.markdown ${DESTDIR}${PREFIX}/share/doc/xen
+	${INSTALL_DATA} ${XENTOP}/docs/misc/xl-disk-configuration.txt ${DESTDIR}${PREFIX}/share/doc/xen
+	${INSTALL_DATA} ${XENTOP}/docs/misc/xl-network-configuration.markdown ${DESTDIR}${PREFIX}/share/doc/xen
 
-.if ${OPSYS} == "NetBSD" && !exists(/var/shm)
+.if (${OPSYS} == "NetBSD" && \
+    (empty(OS_VERSION:M6.99.[3-9]?) && empty(OS_VERSION:M[7-9].*)))
 CPPFLAGS+=	-Dshm_open=open -Dshm_unlink=unlink
 .endif
 

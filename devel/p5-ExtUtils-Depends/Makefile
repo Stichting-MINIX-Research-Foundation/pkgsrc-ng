@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2015/06/12 10:49:11 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2016/06/08 19:22:53 wiz Exp $
 
-DISTNAME=	ExtUtils-Depends-0.404
+DISTNAME=	ExtUtils-Depends-0.405
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2014/10/19 09:57:21 cheusov Exp $
+# $NetBSD: Makefile,v 1.3 2016/01/28 11:34:48 jperkin Exp $
 
-DISTNAME=	liblinear-1.94
+DISTNAME=	liblinear-2.1
+PKGREVISION=	1
 CATEGORIES=	math
 MASTER_SITES=	http://www.csie.ntu.edu.tw/~cjlin/liblinear/
 
@@ -10,6 +11,7 @@ COMMENT=	Library for large linear classification
 LICENSE=	modified-bsd
 
 USE_LANGUAGES=	c c++
+USE_LIBTOOL=	yes
 
 BUILD_TARGET=	all lib
 AUTO_MKDIRS=	yes
@@ -17,8 +19,7 @@ AUTO_MKDIRS=	yes
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/predict ${DESTDIR}${PREFIX}/bin/liblinear-predict
 	${INSTALL_PROGRAM} ${WRKSRC}/train ${DESTDIR}${PREFIX}/bin/liblinear-train
-	${INSTALL_LIB} ${WRKSRC}/liblinear.so.1 ${DESTDIR}${PREFIX}/lib
-	${LN} -s liblinear.so.1 ${DESTDIR}${PREFIX}/lib/liblinear.so
+	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/liblinear.la ${DESTDIR}${PREFIX}/lib
 	${INSTALL_DATA} ${WRKSRC}/linear.h ${DESTDIR}${PREFIX}/include
 	${INSTALL_DATA} ${WRKSRC}/README \
 		${DESTDIR}${PREFIX}/share/doc/${PKGBASE}

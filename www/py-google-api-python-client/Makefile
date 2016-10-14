@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.2 2014/12/31 13:57:33 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/09/01 16:56:36 wiz Exp $
 
-DISTNAME=	google-api-python-client-1.3.1
+DISTNAME=	google-api-python-client-1.5.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	net python
-MASTER_SITES=	-https://github.com/google/google-api-python-client/archive/v${PKGVERSION_NOREV}${EXTRACT_SUFX}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=google/}
+GITHUB_TAG=	v${PKGVERSION_NOREV}
+GITHUB_PROJECT=	${PKGBASE:C/^${PYPKGPREFIX}-//}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/google/google-api-python-client
@@ -11,10 +13,10 @@ COMMENT=	Python client library for Google's discovery based APIs
 LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-httplib2-[0-9]*:../../www/py-httplib2
-DEPENDS+=	${PYPKGPREFIX}-oauth2client-[0-9]*:../../security/py-oauth2client
+DEPENDS+=	${PYPKGPREFIX}-oauth2client>=1.4.6:../../security/py-oauth2client
 DEPENDS+=	${PYPKGPREFIX}-uritemplate-[0-9]*:../../textproc/py-uritemplate
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # as of 1.3.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # as of 1.3.1
 
 # doesn't work, but doesn't matter
 # see also https://github.com/google/google-api-python-client/issues/40

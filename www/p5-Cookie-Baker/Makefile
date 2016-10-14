@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/06/12 10:51:58 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/08 19:25:01 wiz Exp $
 
-DISTNAME=	Cookie-Baker-0.05
+DISTNAME=	Cookie-Baker-0.06
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	www perl5

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.33 2014/10/09 14:07:08 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2016/07/24 20:12:34 rillig Exp $
 #
 
 DISTNAME=	pwm-20060517
@@ -11,12 +11,15 @@ MAINTAINER=	salo@NetBSD.org
 HOMEPAGE=	http://modeemi.fi/~tuomov/ion/pwm.html
 COMMENT=	Window manager that frames multiple client windows in a single frame
 
+# pwm is linked against libtu.a before it is build.
+MAKE_JOBS_SAFE=	no
+
 CONFLICTS+=	ion<=20040729nb2
 
 USE_TOOLS+=	gmake
 
 CFLAGS+=	-DPKG_SYSCONFDIR="\"${PKG_SYSCONFDIR}\""
-MAKE_FLAGS+=	MANDIR=${PREFIX:Q}/${PKGMANDIR:Q}
+MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
 PKG_SYSCONFSUBDIR=	pwm
 

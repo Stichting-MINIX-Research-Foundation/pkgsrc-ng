@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.5 2016/07/26 17:15:37 kamil Exp $
+
+SHA1 (logswan-1.05.tar.gz) = 9e30cfc6363a69dd31e0639361b6ae3765b48d8f
+RMD160 (logswan-1.05.tar.gz) = 66856bf29d276a6b147bbb9e421bd6bea5628b05
+SHA512 (logswan-1.05.tar.gz) = 2db26988f672ffa472b2e888b2b564b0bfb037bb1a78f261f552739f98aae345a43177ee945823dc6354431ebdea46c427a4805d466feedf7b25288ae4adb76f
+Size (logswan-1.05.tar.gz) = 17392 bytes

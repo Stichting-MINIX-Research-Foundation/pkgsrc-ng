@@ -1,4 +1,4 @@
-# $NetBSD: bsd.buildlink3.mk,v 1.236 2015/05/04 19:23:19 joerg Exp $
+# $NetBSD: bsd.buildlink3.mk,v 1.238 2016/06/09 02:38:34 markd Exp $
 #
 # Copyright (c) 2004 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -968,6 +968,7 @@ _CWRAPPERS_TRANSFORM+=	L:/usr/lib/../libx32:/usr/libx32
 #
 .for _dir_ in ${COMPILER_INCLUDE_DIRS}
 _BLNK_TRANSFORM+=	opt-sub:-I${_dir_}:-I${_BLNK_MANGLE_DIR.${_dir_}}
+_BLNK_TRANSFORM+=	opt-sub:-isystem,${_dir_}:-isystem,${_BLNK_MANGLE_DIR.${_dir_}}
 _CWRAPPERS_TRANSFORM+=	I:${_dir_}:${_dir_}
 .endfor
 .for _dir_ in ${COMPILER_LIB_DIRS}
@@ -997,11 +998,11 @@ _CWRAPPERS_TRANSFORM+=	R:${_dir_}:${_dir_}
 # ${LOCALBASE} or ${X11BASE} into references into ${BUILDLINK_DIR}.
 #
 _BLNK_TRANSFORM+=	P:${LOCALBASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_DIR}}
-_CWRAPPERS_TRANSFORM+=	P:${X11BASE}:${BUILDLINK_X11_DIR}
 .if defined(USE_X11) && ${X11_TYPE} != "modular"
 _BLNK_TRANSFORM+=	P:${X11BASE}:${_BLNK_MANGLE_DIR.${BUILDLINK_X11_DIR}}
 _CWRAPPERS_TRANSFORM+=	P:${LOCALBASE}:${BUILDLINK_DIR}
 .endif
+_CWRAPPERS_TRANSFORM+=	P:${X11BASE}:${BUILDLINK_X11_DIR}
 #
 # Transform references to ${X11BASE} into ${BUILDLINK_X11_DIR}.
 # (do so before transforming references to ${LOCALBASE} unless the

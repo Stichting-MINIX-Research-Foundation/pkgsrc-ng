@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.24 2014/01/20 19:20:09 joerg Exp $
+# $NetBSD: Makefile,v 1.26 2016/03/25 21:02:26 joerg Exp $
 #
 
 DISTNAME=	Tix${TIX_VERSION}-src
 TIX_VERSION=	8.4.3
 PKGNAME=	tk-Tix-${TIX_VERSION}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	x11 tcl tk
 MASTER_SITES=	http://downloads.sourceforge.net/project/tix/tix/8.4.3/
 
@@ -23,18 +23,21 @@ CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-tcl=${BUILDLINK_PREFIX.tcl}/lib
 CONFIGURE_ARGS+=	--with-tk=${BUILDLINK_PREFIX.tk}/lib
 CONFIGURE_ARGS+=	--disable-stubs
-CONFIGURE_ARGS+=        --x-includes=${X11BASE:Q}/include
-CONFIGURE_ARGS+=        --x-libraries=${X11BASE:Q}/lib${LIBABISUFFIX:Q}
+CONFIGURE_ARGS+=	--x-includes=${X11BASE:Q}/include
+CONFIGURE_ARGS+=	--x-libraries=${X11BASE:Q}/lib${LIBABISUFFIX:Q}
 MAKE_ENV+=		TCL_DIR=${BUILDLINK_PREFIX.tcl}
 MAKE_ENV+=		TK_DIR=${BUILDLINK_PREFIX.tk}
 MAKE_ENV+=		LIBS=${X11_LDFLAGS:Q}
 INSTALL_MAKE_FLAGS+=	INSTALL_ROOT=${DESTDIR}
 TEST_TARGET=		test
-INSTALLATION_DIRS+= 	${PKGMANDIR}/mann
+INSTALLATION_DIRS+=	${PKGMANDIR}/mann
 INSTALLATION_DIRS+=	lib/Tix${TIX_VERSION}/docs
-USE_TOOLS+=		tar
+USE_TOOLS+=		tar autoconf
 
 CPPFLAGS+=	-DUSE_INTERP_RESULT
+
+pre-configure:
+	cd ${WRKSRC} && aclocal && autoconf
 
 post-install:
 	for f in ${WRKSRC}/man/*.n; do \

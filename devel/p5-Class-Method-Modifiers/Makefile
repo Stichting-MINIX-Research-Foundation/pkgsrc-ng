@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2015/06/12 10:49:00 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/06/08 19:22:41 wiz Exp $
 
-DISTNAME=	Class-Method-Modifiers-2.11
+DISTNAME=	Class-Method-Modifiers-2.12
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

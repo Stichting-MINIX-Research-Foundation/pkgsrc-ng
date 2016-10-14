@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.91 2014/11/09 03:22:57 obache Exp $
+# $NetBSD: Makefile,v 1.102 2016/09/08 20:39:37 joerg Exp $
 
 DISTNAME=	make-4.1
 PKGNAME=	g${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNU:=make/}
 EXTRACT_SUFX=	.tar.bz2
@@ -23,20 +23,16 @@ INFO_FILES=		yes
 # dependency
 TEST_TARGET=		check
 
-.include "../../mk/bsd.prefs.mk"
-
 CONFIGURE_ARGS+=	--program-prefix=g
+
+# workaround for broken strndup
+CONFIGURE_ARGS.MirBSD+=	ac_cv_func_strndup=no
 
 AUTO_MKDIRS=		yes
 
 PLIST_SRC=		${PKGDIR}/PLIST
 
 .include "options.mk"
-
-.if ${OPSYS} == "MirBSD"
-# workaround for broken strndup
-CONFIGURE_ARGS+=	ac_cv_func_strndup=no
-.endif
 
 post-install:
 	${CHMOD} g-s ${DESTDIR}${PREFIX}/bin/gmake

@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.26 2013/12/07 23:47:02 dholland Exp $
+$NetBSD: distinfo,v 1.28 2016/05/07 09:55:21 joerg Exp $
 
 SHA1 (anjuta-3.10.0.tar.xz) = bfa975641b3e25818b7eda34905c4d65eeb01152
 RMD160 (anjuta-3.10.0.tar.xz) = 871dbb7e6174296729eeefae6b8766591fff2ad0
+SHA512 (anjuta-3.10.0.tar.xz) = 32c3dd4e04f1efedf57b755775fc94293ec3d6eac2f2753bc16418c974cb9b35908179e22b4922b78257087e44b0b0aaacc5d7aa496ec433823c82b209edb174
 Size (anjuta-3.10.0.tar.xz) = 6468032 bytes
 SHA1 (patch-libanjuta_anjuta-plugin-manager.c) = cf8ec97d221ca9e091b4addd9ada24e3427bb025
 SHA1 (patch-libanjuta_anjuta-status.c) = 7541533e061a588ea9b6c404c8a7dd78710905f9
@@ -10,9 +11,11 @@ SHA1 (patch-libanjuta_anjuta-utils.c) = 6659d7a9bf6912f4fd96045cb326d4619f635fb6
 SHA1 (patch-libanjuta_anjuta-utils.h) = bc42909f3ea4afd2ca426fc614742e4063d9ba6c
 SHA1 (patch-libanjuta_tests_Makefile.in) = 7ad52876516f3a07a59fc21e12b94caf54b51146
 SHA1 (patch-plugins_am-project_projectparser.c) = 7502510bc4c6d564aecca76c4f7b68779b34aecd
-SHA1 (patch-plugins_build-basic-autotools_build.c) = 336c5811a2b3fde30e5c4539eadc1cf9ebd71854
+SHA1 (patch-plugins_build-basic-autotools_build.c) = 39387934df248c281e5ea2e25213b1db9b3e8cb6
 SHA1 (patch-plugins_build-basic-autotools_executer.c) = 4e89ea52eaaf41aa8804681cfc9bb6f407526748
 SHA1 (patch-plugins_build-basic-autotools_program.h) = 72247949ddbfa0b41acd934f566ffd80d7841db7
+SHA1 (patch-plugins_cvs-plugin_cvs-callbacks.c) = daef25e5f07c47affba5621e631b1f7ebaa19f21
+SHA1 (patch-plugins_cvs-plugin_cvs-execute.c) = a6b7258b83b6efd6a4436e12fae6d0f381c7fb1a
 SHA1 (patch-plugins_cvs-plugin_cvs-interface.c) = 19541f4ab3bd70245461d317ac6c182a7e0f7633
 SHA1 (patch-plugins_debug-manager_breakpoints.c) = 7ea483aeca934f1b105efac07a5ff1a29e6ed56f
 SHA1 (patch-plugins_debug-manager_queue.c) = a39e5adcc739f4eaff29138a21ad0e5375573f6d

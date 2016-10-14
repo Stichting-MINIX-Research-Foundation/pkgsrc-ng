@@ -1,20 +1,18 @@
-# $NetBSD: Makefile,v 1.100 2015/09/14 14:00:01 manu Exp $
+# $NetBSD: Makefile,v 1.103 2015/12/23 19:53:24 ryoon Exp $
 
-DISTNAME=	rsync-3.1.1
-PKGREVISION=	2
+DISTNAME=	rsync-3.1.2
 CATEGORIES=	net
 MASTER_SITES=	http://rsync.samba.org/ftp/rsync/ \
 		http://rsync.samba.org/ftp/rsync/old-versions/  \
 		ftp://ftp.fu-berlin.de/unix/network/rsync/
 
-MAINTAINER=	tron@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://rsync.samba.org/
 COMMENT=	Network file distribution/synchronisation utility
 LICENSE=	gnu-gpl-v3
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/man5 share/doc/rsync
 
-USE_TOOLS+=		perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-included-popt
 CONFIGURE_ARGS+=	--with-rsyncd-conf=${PKG_SYSCONFDIR}/rsyncd.conf

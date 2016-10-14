@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.6 2014/12/07 12:34:09 imil Exp $
+@comment $NetBSD: PLIST,v 1.8 2016/05/05 11:47:45 wiz Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -168,12 +168,18 @@ ${PYSITELIB}/requests/packages/urllib3/connectionpool.pyo
 ${PYSITELIB}/requests/packages/urllib3/contrib/__init__.py
 ${PYSITELIB}/requests/packages/urllib3/contrib/__init__.pyc
 ${PYSITELIB}/requests/packages/urllib3/contrib/__init__.pyo
+${PYSITELIB}/requests/packages/urllib3/contrib/appengine.py
+${PYSITELIB}/requests/packages/urllib3/contrib/appengine.pyc
+${PYSITELIB}/requests/packages/urllib3/contrib/appengine.pyo
 ${PYSITELIB}/requests/packages/urllib3/contrib/ntlmpool.py
 ${PYSITELIB}/requests/packages/urllib3/contrib/ntlmpool.pyc
 ${PYSITELIB}/requests/packages/urllib3/contrib/ntlmpool.pyo
 ${PYSITELIB}/requests/packages/urllib3/contrib/pyopenssl.py
 ${PYSITELIB}/requests/packages/urllib3/contrib/pyopenssl.pyc
 ${PYSITELIB}/requests/packages/urllib3/contrib/pyopenssl.pyo
+${PYSITELIB}/requests/packages/urllib3/contrib/socks.py
+${PYSITELIB}/requests/packages/urllib3/contrib/socks.pyc
+${PYSITELIB}/requests/packages/urllib3/contrib/socks.pyo
 ${PYSITELIB}/requests/packages/urllib3/exceptions.py
 ${PYSITELIB}/requests/packages/urllib3/exceptions.pyc
 ${PYSITELIB}/requests/packages/urllib3/exceptions.pyo

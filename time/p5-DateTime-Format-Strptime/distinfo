@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.10 2015/08/06 08:37:43 wiz Exp $
+$NetBSD: distinfo,v 1.15 2016/07/26 00:29:57 wen Exp $
 
-SHA1 (DateTime-Format-Strptime-1.56.tar.gz) = 5c599726f1b13ffae7a36e537796d0bc143ac758
-RMD160 (DateTime-Format-Strptime-1.56.tar.gz) = 262db72d39c9eeedad3866daa8d44c663374e877
-Size (DateTime-Format-Strptime-1.56.tar.gz) = 36863 bytes
+SHA1 (DateTime-Format-Strptime-1.68.tar.gz) = 970226965c2d07d3eaed5f6c316ab824624a22c1
+RMD160 (DateTime-Format-Strptime-1.68.tar.gz) = 7962e4335c2f8ab0ef78d4401a9bf21650eb095a
+SHA512 (DateTime-Format-Strptime-1.68.tar.gz) = a1ed7236b7d48615bf8664286c1764b3e9a881f38e87e9dea493f957896ad786f46f99c0f4e5f54063e60f59c936fd2f61da638ac0512a09d38a87b6ffee8e9c
+Size (DateTime-Format-Strptime-1.68.tar.gz) = 103125 bytes

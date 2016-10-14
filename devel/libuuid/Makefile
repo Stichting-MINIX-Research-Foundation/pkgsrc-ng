@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.14 2015/06/17 11:48:15 fhajny Exp $
+# $NetBSD: Makefile,v 1.20 2016/09/12 07:36:55 wiz Exp $
 
-DISTNAME=	util-linux-2.26.2
+DISTNAME=	util-linux-2.28.2
 PKGNAME=	${DISTNAME:S/util-linux/libuuid/}
 CATEGORIES=	devel
-MASTER_SITES=	http://www.kernel.org/pub/linux/utils/util-linux/v${PKGVERSION_NOREV:R}/
+MASTER_SITES=	http://www.kernel.org/pub/linux/utils/util-linux/v2.28/
 EXTRACT_SUFX=	.tar.xz
 EXTRACT_USING=	gtar
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://kernel.org/~kzak/util-linux-ng/
+HOMEPAGE=	https://github.com/karelzak/util-linux
 COMMENT=	Generate unique identifiers for objects
 LICENSE=	modified-bsd
 
@@ -23,12 +23,6 @@ BUILD_TARGET=		libuuid.la libuuid/uuid.pc
 INSTALLATION_DIRS+=	include/uuid lib/pkgconfig ${PKGMANDIR}/man3
 CONFIG_SHELL=		bash
 USE_TOOLS+=		bash:build
-
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-Wl,--version-script=./libuuid/src/libuuid.sym
-.endif
 
 do-install:
 	${LIBTOOL} --mode=install ${INSTALL_LIB} ${WRKSRC}/libuuid.la \

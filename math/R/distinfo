@@ -1,10 +1,11 @@
-$NetBSD: distinfo,v 1.69 2015/08/14 12:40:19 wen Exp $
+$NetBSD: distinfo,v 1.73 2016/07/26 04:53:33 wen Exp $
 
-SHA1 (R-3.2.2.tar.gz) = 68c74db1c5a2f2040280a03b8396e4d28a5a7617
-RMD160 (R-3.2.2.tar.gz) = 0e8bf2ecca48f0f2433f6b07f422b7730a76fbb4
-Size (R-3.2.2.tar.gz) = 29772864 bytes
-SHA1 (patch-ac) = 1dc842ca867a1efa4f757ec5cbdca68a6957dd55
-SHA1 (patch-ad) = 0a08f293bc1cdc130047868e5d574c2df1f4c6cf
-SHA1 (patch-src_include_GraphicsBase.h) = 5f999e4d124afd38d5c7e18d936942f2c6f27c86
-SHA1 (patch-src_library_stats_src_Makefile.in) = b468becd011fa4828e50f5d13d700825655c89e8
-SHA1 (patch-src_main_character.c) = bd6e9b5b633d86c913c98d9d87c66f982d1ca258
+SHA1 (R-3.3.1.tar.gz) = df853188d3e2b1c2d32393016401c432a5192c4d
+RMD160 (R-3.3.1.tar.gz) = 200071bfb126195f7bbc56ad7678227274d72f5b
+SHA512 (R-3.3.1.tar.gz) = d0ff85e99b9ec9cac672aa30d7d1a854778c6a610bcc5336e8c60c8c74f20856f2bfeae085af793fad646ff45cb4677d9d6dcbaa18212591f72f00a02339f4cd
+Size (R-3.3.1.tar.gz) = 29848329 bytes
+SHA1 (patch-ac) = 68c1943a352e6f8b2842331578ed746b1ac27bea
+SHA1 (patch-ad) = a43b4875a2ee4677b5f762abf3f9a623fd12cbb5
+SHA1 (patch-src_include_GraphicsBase.h) = eed25eaca982ca76bf75d199dd8bf48be2a99ac5
+SHA1 (patch-src_library_stats_src_Makefile.in) = 4eb93292858392792c37a706399e2cef91821bbe
+SHA1 (patch-src_main_character.c) = 1271cbd68ec57e28cf6a394398d21d6a18b6760b

@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.10 2014/08/31 06:49:41 wen Exp $
+$NetBSD: distinfo,v 1.13 2016/02/11 14:51:24 he Exp $
 
-SHA1 (PathTools-3.47.tar.gz) = e29c649d51405a63ea5c3255637411bbf82c96c2
-RMD160 (PathTools-3.47.tar.gz) = cb22b3776e9b7dec75079250a3733059de733c64
-Size (PathTools-3.47.tar.gz) = 143041 bytes
+SHA1 (PathTools-3.62.tar.gz) = 356530987ccfb61779ce038978a614aa64679d72
+RMD160 (PathTools-3.62.tar.gz) = 28d04689c65bf91f3154a43805e78d4a2bf11c3a
+SHA512 (PathTools-3.62.tar.gz) = c2c39bf57286d11131d027d97e4486698a4ffbb917a8b0fd7466a8c469c009fee1f70bfe4f51d5b6feef4d57de0c9be3145aa3a35625a5f26bbe7788c0ba66aa
+Size (PathTools-3.62.tar.gz) = 146566 bytes

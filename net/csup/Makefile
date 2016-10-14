@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2014/02/12 23:18:19 tron Exp $
+# $NetBSD: Makefile,v 1.11 2016/03/05 11:29:03 jperkin Exp $
 #
 
 DISTNAME=	csup-snap-20100404
 PKGNAME=	${DISTNAME:S/-snap//}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	net devel
 MASTER_SITES=	http://distfiles.aydogan.net/net/ \
 				http://www.plhk.ru/static/csup/
@@ -34,9 +34,7 @@ CFLAGS+=	-DHAVE_FFLAGS
 .endif
 
 # taken from ${WRKSRC}/GNUmakefile
-.if ${OPSYS} == "Linux"
-CFLAGS+=	-D_XOPEN_SOURCE -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64
-.endif
+CFLAGS.Linux+=	-D_XOPEN_SOURCE -D_GNU_SOURCE -D_FILE_OFFSET_BITS=64
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

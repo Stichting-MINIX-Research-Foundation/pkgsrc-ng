@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2015/07/27 19:47:55 asau Exp $
+# $NetBSD: Makefile,v 1.4 2016/08/03 10:22:32 adam Exp $
 
 PKGNAME=	gabedit-2.4.8
+PKGREVISION=	1
 DISTNAME=	GabeditSrc248
 CATEGORIES=	biology
 MASTER_SITES=	$(MASTER_SITE_SOURCEFORGE:=gabedit/)
@@ -16,6 +17,8 @@ INSTALLATION_DIRS=	bin
 # Skip check for example scripts:
 CHECK_PORTABILITY_SKIP=	utils/Dalton/SGE/submitDalton \
 			utils/Gamess/SGE/submitGamess
+
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
 do-configure:
 	cd $(WRKSRC) && cp platforms/CONFIG.unix CONFIG

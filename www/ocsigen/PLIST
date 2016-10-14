@@ -1,5 +1,4 @@
-@comment $NetBSD: PLIST,v 1.5 2015/02/11 13:45:02 jaapb Exp $
-@unexec %D/libexec/ocaml-findlib-register del %D/lib/ocaml/site-lib/ocsigenserver
+@comment $NetBSD: PLIST,v 1.7 2016/06/25 14:33:41 jaapb Exp $
 bin/ocsigenserver
 ${PLIST.ocaml-opt}bin/ocsigenserver.opt
 share/examples/ocsigen/ocsigenserver.conf
@@ -103,6 +102,8 @@ lib/ocaml/site-lib/ocsigenserver/ocsigen_messages.cmi
 lib/ocaml/site-lib/ocsigenserver/ocsigen_messages.mli
 lib/ocaml/site-lib/ocsigenserver/ocsigen_parseconfig.cmi
 lib/ocaml/site-lib/ocsigenserver/ocsigen_parseconfig.mli
+lib/ocaml/site-lib/ocsigenserver/ocsigen_request_info.cmi
+lib/ocaml/site-lib/ocsigenserver/ocsigen_request_info.mli
 lib/ocaml/site-lib/ocsigenserver/ocsigen_senders.cmi
 lib/ocaml/site-lib/ocsigenserver/ocsigen_senders.mli
 lib/ocaml/site-lib/ocsigenserver/ocsigen_server.cmi
@@ -182,4 +183,3 @@ share/ocsigen/www/ocsigenstuff/tgz.png
 share/ocsigen/www/ocsigenstuff/txt.png
 share/ocsigen/www/ocsigenstuff/unknown.png
 share/ocsigen/www/ocsigenstuff/video.png
-@exec %D/libexec/ocaml-findlib-register add %D/lib/ocaml/site-lib/ocsigenserver

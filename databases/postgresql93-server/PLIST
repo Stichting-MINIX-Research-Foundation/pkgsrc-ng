@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.5 2015/02/14 07:40:19 adam Exp $
+@comment $NetBSD: PLIST,v 1.8 2016/05/23 14:27:35 adam Exp $
 bin/postgres
 bin/postmaster
 include/postgresql/server/plpgsql.h
@@ -179,6 +179,7 @@ share/postgresql/timezone/America/Edmonton
 share/postgresql/timezone/America/Eirunepe
 share/postgresql/timezone/America/El_Salvador
 share/postgresql/timezone/America/Ensenada
+share/postgresql/timezone/America/Fort_Nelson
 share/postgresql/timezone/America/Fort_Wayne
 share/postgresql/timezone/America/Fortaleza
 share/postgresql/timezone/America/Glace_Bay
@@ -311,6 +312,7 @@ share/postgresql/timezone/Asia/Baghdad
 share/postgresql/timezone/Asia/Bahrain
 share/postgresql/timezone/Asia/Baku
 share/postgresql/timezone/Asia/Bangkok
+share/postgresql/timezone/Asia/Barnaul
 share/postgresql/timezone/Asia/Beirut
 share/postgresql/timezone/Asia/Bishkek
 share/postgresql/timezone/Asia/Brunei
@@ -382,6 +384,7 @@ share/postgresql/timezone/Asia/Tel_Aviv
 share/postgresql/timezone/Asia/Thimbu
 share/postgresql/timezone/Asia/Thimphu
 share/postgresql/timezone/Asia/Tokyo
+share/postgresql/timezone/Asia/Tomsk
 share/postgresql/timezone/Asia/Ujung_Pandang
 share/postgresql/timezone/Asia/Ulaanbaatar
 share/postgresql/timezone/Asia/Ulan_Bator
@@ -487,6 +490,7 @@ share/postgresql/timezone/Etc/Universal
 share/postgresql/timezone/Etc/Zulu
 share/postgresql/timezone/Europe/Amsterdam
 share/postgresql/timezone/Europe/Andorra
+share/postgresql/timezone/Europe/Astrakhan
 share/postgresql/timezone/Europe/Athens
 share/postgresql/timezone/Europe/Belfast
 share/postgresql/timezone/Europe/Belgrade
@@ -507,6 +511,7 @@ share/postgresql/timezone/Europe/Istanbul
 share/postgresql/timezone/Europe/Jersey
 share/postgresql/timezone/Europe/Kaliningrad
 share/postgresql/timezone/Europe/Kiev
+share/postgresql/timezone/Europe/Kirov
 share/postgresql/timezone/Europe/Lisbon
 share/postgresql/timezone/Europe/Ljubljana
 share/postgresql/timezone/Europe/London
@@ -534,6 +539,7 @@ share/postgresql/timezone/Europe/Stockholm
 share/postgresql/timezone/Europe/Tallinn
 share/postgresql/timezone/Europe/Tirane
 share/postgresql/timezone/Europe/Tiraspol
+share/postgresql/timezone/Europe/Ulyanovsk
 share/postgresql/timezone/Europe/Uzhgorod
 share/postgresql/timezone/Europe/Vaduz
 share/postgresql/timezone/Europe/Vatican

@@ -1,6 +1,7 @@
-$NetBSD: distinfo,v 1.6 2013/02/01 13:33:49 is Exp $
+$NetBSD: distinfo,v 1.11 2016/02/23 15:49:42 wiz Exp $
 
-SHA1 (security/libssh-0.5.4.tar.gz) = 4a372378db8fffaf28d5c79d80b2235843aa587c
-RMD160 (security/libssh-0.5.4.tar.gz) = a134cb99f57c544cd31d43bf28506b42b27131e2
-Size (security/libssh-0.5.4.tar.gz) = 321265 bytes
-SHA1 (patch-aa) = 76de63b15c0ef380cb2bc4ab5b96bf437a79faef
+SHA1 (security/libssh-0.7.3.tar.xz) = 9de2a8fde51aa7b7855008fafd5bf47ebb01289f
+RMD160 (security/libssh-0.7.3.tar.xz) = af73d82dad552233791aea8ac1198232e0fb0f68
+SHA512 (security/libssh-0.7.3.tar.xz) = 6797ea9492c9d07e0169163e6559a7880dd368ee763eff297b3cbddda5e892703cf32506f9513e7d9b5135984e1e888c4893b342df07da1b7ee30968c9185869
+Size (security/libssh-0.7.3.tar.xz) = 350464 bytes
+SHA1 (patch-aa) = 2f9a7c8a629188f40f3c94d4304b1e44720e45ae

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.2 2015/04/25 08:04:12 markd Exp $
+# $NetBSD: Makefile,v 1.4 2016/08/07 07:17:37 markd Exp $
 
 DISTNAME=	luaotfload
-PKGNAME=	tex-${DISTNAME}-2.5.4
-TEXLIVE_REV=	35328
+PKGNAME=	tex-${DISTNAME}-2.7.3
+TEXLIVE_REV=	41515
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/luaotfload
 COMMENT=	OpenType layout system for Plain TeX and LaTeX
 LICENSE=	gnu-gpl-v2
 

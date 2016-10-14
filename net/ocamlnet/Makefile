@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2015/08/07 11:20:34 jaapb Exp $
+# $NetBSD: Makefile,v 1.32 2016/08/03 10:23:17 adam Exp $
 #
 
-DISTNAME=		ocamlnet-3.7.7
-PKGNAME=	${DISTNAME} # in order to avoid prefixing with ocaml-
-PKGREVISION=	4
+DISTNAME=		ocamlnet-4.1.1
+PKGREVISION=	2
 CATEGORIES=		net
 MASTER_SITES=		http://download.camlcity.org/download/
 
@@ -15,23 +14,29 @@ LICENSE=		zlib AND gnu-gpl-v2
 MAKE_JOBS_SAFE=	no
 
 HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	-without-nethttpd -without-rpc-auth-dh -disable-tcl \
-	-disable-apache -enable-pcre
+CONFIGURE_ARGS+=	-without-nethttpd -disable-tcl -disable-apache \
+			-enable-pcre -enable-zip
 USE_TOOLS+=		gmake
 BUILD_TARGET=		all
 OCAML_USE_FINDLIB=	yes
+OCAML_FINDLIB_DIRS= \
+	equeue netcamlbox netcgi2-plex netcgi2 netclient netmulticore \
+	netplex netshm netstring-pcre netstring netsys netunidata \
+	netzip rpc-auth-local rpc-generator rpc
 
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_VARS+=		ssl xti
+PLIST_VARS+=		xti
 .if ${OCAML_USE_OPT_COMPILER} == "yes"
 BUILD_TARGET+=		opt
 .endif
 .if ${OPSYS} == "SunOS"
 PLIST.xti=		yes
+OCAML_FINDLIB_DIRS+=	rpc-xti
 .endif
 
 .include "options.mk"
 .include "../../devel/pcre-ocaml/buildlink3.mk"
+.include "../../archivers/ocaml-zip/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.33 2015/07/12 18:56:12 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2016/06/08 19:22:52 wiz Exp $
 
-DISTNAME=	Exception-Class-1.39
+DISTNAME=	Exception-Class-1.40
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

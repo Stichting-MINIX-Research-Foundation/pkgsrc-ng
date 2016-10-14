@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2015/08/17 16:42:53 leot Exp $
+# $NetBSD: Makefile,v 1.17 2016/03/05 11:28:10 jperkin Exp $
 #
 
-DISTNAME=	gammu-1.36.4
+DISTNAME=	gammu-1.37.0
+PKGREVISION=	1
 CATEGORIES=	comms
 MASTER_SITES=	http://dl.cihar.com/gammu/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -23,6 +24,7 @@ CMAKE_ARGS+=	-DINSTALL_MAN_DIR:STRING=${PKGMANDIR}
 CMAKE_ARGS+=	-DWITH_MySQL:BOOL=OFF
 CMAKE_ARGS+=	-DWITH_Postgres:BOOL=OFF
 CMAKE_ARGS+=	-DWITH_LibDBI:BOOL=OFF
+CMAKE_ARGS+=	-DWITH_Glib:BOOL=OFF
 # avoid installing bash completion scripts
 CMAKE_ARGS+=	-DBASH_BIN:FILEPATH=
 #CMAKE_ARGS+=	-DCMAKE_VERBOSE_MAKEFILE:BOOL=ON

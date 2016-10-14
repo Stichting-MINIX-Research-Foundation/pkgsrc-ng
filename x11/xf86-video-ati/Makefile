@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2015/09/13 04:59:35 tnn Exp $
+# $NetBSD: Makefile,v 1.39 2016/09/15 13:39:09 wiz Exp $
 
-DISTNAME=	xf86-video-ati-7.5.0
-PKGREVISION=	4
+DISTNAME=	xf86-video-ati-7.7.1
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=driver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -18,23 +17,14 @@ USE_LIBTOOL=	YES
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake pkg-config
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Linux" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
 CONFIGURE_ARGS+=	--enable-glamor
-.else
-CONFIGURE_ARGS+=	--disable-glamor
-.endif
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	DRIVER_MAN_SUFFIX=4
-.endif
 
-BUILDLINK_API_DEPENDS.modular-xorg-server+=	\
-	modular-xorg-server>=1.17.2nb5
+CONFIGURE_ENV.SunOS+=	DRIVER_MAN_SUFFIX=4
+
+BUILDLINK_API_DEPENDS.modular-xorg-server+=	modular-xorg-server>=1.18.1
 .include "../../x11/modular-xorg-server/buildlink3.mk"
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/fontsproto/buildlink3.mk"
 .include "../../x11/glproto/buildlink3.mk"
 BUILDLINK_API_DEPENDS.libdrm+=	libdrm>=2.4.58

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2015/07/26 18:07:55 nros Exp $
+# $NetBSD: Makefile,v 1.6 2016/09/11 17:03:27 taca Exp $
 #
 
 MODNAME=		ssh2
 PECL_VERSION=		0.12
-PKGREVISION=		2
+PKGREVISION=		3
 CATEGORIES+=		security
 
 MAINTAINER=		filip@joyent.com
@@ -12,6 +12,8 @@ COMMENT=		PHP bindings to the functions of libssh2
 LICENSE=		php
 
 CONFLICTS=		php-ssh2-[0-9]*
+
+PHP_VERSIONS_ACCEPTED=	56
 
 CONFIGURE_ARGS+=	--with-ssh2=${PREFIX}
 #WRKSRC=			${WRKDIR}/${MODNAME}-${PECL_VERSION}

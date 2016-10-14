@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.53 2015/08/23 14:30:36 wiz Exp $
+# $NetBSD: Makefile,v 1.57 2016/09/29 12:14:37 joerg Exp $
 #
 
 COMMENT=	LibPrelude libraries and c++ easy bindings
-PKGREVISION=	11
+PKGREVISION=	14
 
 .include "../../security/libprelude/Makefile.common"
 
@@ -12,6 +12,11 @@ CONF_FILES+=	${PREFIX}/share/examples/libprelude/idmef-client.conf ${PKG_SYSCONF
 CONF_FILES+=	${PREFIX}/share/examples/libprelude/tls.conf ${PKG_SYSCONFDIR}/default/tls.conf
 
 CONFIGURE_ARGS+=	--without-python --without-lua --without-perl --without-ruby
+
+# Work around mktime configure test failure leading to build issue
+.if !empty(MACHINE_PLATFORM:MDarwin-*-x86_64)
+CONFIGURE_ENV+=		ac_cv_func_working_mktime=yes
+.endif
 
 PKGCONFIG_OVERRIDE+=	src/libprelude.pc.in
 

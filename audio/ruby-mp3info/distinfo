@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.4 2015/08/02 15:48:23 taca Exp $
+$NetBSD: distinfo,v 1.7 2016/02/16 14:18:32 taca Exp $
 
-SHA1 (ruby-mp3info-0.8.7.gem) = 3d481d6b7c08aa8a0337a7ae70f0fb04e0f6680f
-RMD160 (ruby-mp3info-0.8.7.gem) = 8e9fd92f8166a5a2d8de4bea3d9ed08f0dac9cc9
-Size (ruby-mp3info-0.8.7.gem) = 91136 bytes
+SHA1 (ruby-mp3info-0.8.9.gem) = a33b74c40a22f10f0915745fe45c4e4a25ae08b0
+RMD160 (ruby-mp3info-0.8.9.gem) = 937f5672e12c9c4d625a5a13648fcbbb0ea292ef
+SHA512 (ruby-mp3info-0.8.9.gem) = 0aa1350de97aa440b3a232bb28c78eb72a3e70c070cf74a956645f2ae19d36bd4ef3480dc2ecf79ea1955eff92b35aff7f9df3877dab22cbf73ec09545a9a000
+Size (ruby-mp3info-0.8.9.gem) = 91136 bytes

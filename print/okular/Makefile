@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.45 2015/07/15 15:09:39 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/01 14:23:57 wiz Exp $
 
-DISTNAME=	okular-${_KDE_VERSION}
-PKGREVISION=	8
+DISTNAME=	okular-15.12.0
+PKGREVISION=	6
 CATEGORIES=	print
 COMMENT=	KDE universal document viewer
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 CFLAGS.SunOS+=	-D__EXTENSIONS__
 
@@ -14,6 +15,7 @@ CFLAGS.SunOS+=	-D__EXTENSIONS__
 .include "../../devel/chmlib/buildlink3.mk"
 .include "../../graphics/djvulibre-lib/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../graphics/libkexiv2/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../print/libspectre/buildlink3.mk"
@@ -21,7 +23,7 @@ CFLAGS.SunOS+=	-D__EXTENSIONS__
 .include "../../security/qca2/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/ebook-tools/buildlink3.mk"
-.include "../../x11/kactivities/buildlink3.mk"
+.include "../../x11/libkactivities4/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 .include "../../graphics/kdegraphics-mobipocket/buildlink3.mk"
 

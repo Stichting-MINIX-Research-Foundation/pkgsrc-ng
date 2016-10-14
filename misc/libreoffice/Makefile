@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.64 2015/09/24 03:18:34 ryoon Exp $
+# $NetBSD: Makefile,v 1.89 2016/09/20 11:12:23 wiz Exp $
 
-VERREL=		5.0.2
+VERREL=		5.1.5
 VERRC=		2
 VER=		${VERREL}.${VERRC}
 DISTNAME=	libreoffice-${VER}
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	http://download.documentfoundation.org/libreoffice/src/${VERREL}/
 EXTRACT_SUFX=	.tar.xz
@@ -19,11 +20,19 @@ LICENSE=	gnu-lgpl-v3
 BUILDLINK_TRANSFORM+=	opt:-O2:-O
 .endif
 
+.if !empty(MACHINE_PLATFORM:MNetBSD*)
+pre-build:
+	cd ${WRKSRC} && ${BUILD_MAKE_CMD} Executable_gengal && ${TOOLS_PLATFORM.paxctl} +m instdir/program/gengal.bin
+.endif
+
 GCC_REQD+=	4.6
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 
 CHECK_SHLIBS_SUPPORTED=	no
 # configure will be regenerated.
 CHECK_PORTABILITY_SKIP=configure
+
+NOT_PAX_MPROTECT_SAFE+=	${PKGNAME_NOREV}/lib/libreoffice/program/soffice.bin
 
 DIST_SUBDIR=	libreoffice
 
@@ -67,7 +76,7 @@ MORE_DISTFILES= \
 	e7a384790b13c29113e22e596ade9687-LinLibertineG-20120116.zip \
 	ec1941a74d3ef513c4ce57a9092b74e1-bsh-2.0b5-src.zip \
 	eeb2c7ddf0d302fba4bfc6e97eac9624-libbase-1.1.6.zip \
-	a4e565e220b5de082c23995e256e3c12-dejavu-fonts-ttf-2.34.zip \
+	d8b5214d35bcd2bfcb2cffa7795b351d-dejavu-fonts-ttf-2.35.zip \
 	f94d9870737518e3b597f9265f4e9803-libserializer-1.1.6.zip \
 	b63e6340a02ff1cacfeadb2c42286161-JLanguageTool-1.7.0.tar.bz2 \
 	a233181e03d3c307668b4c722d881661-mariadb_client-2.0.0-src.tar.gz \
@@ -115,7 +124,7 @@ USE_LIBTOOL=		yes
 # Use GNU find fron findutils.
 TOOLS_PLATFORM.find=	# empty
 # GUN tar is really needed. Some Makefiles depends on GNUTAR.
-USE_TOOLS+=		automake bash bison gmake gsed gtar perl pkg-config unzip zip
+USE_TOOLS+=		automake bash bison gmake gtar perl pkg-config unzip zip
 PTHREAD_OPTS+=		require
 
 HAS_CONFIGURE=		yes
@@ -123,6 +132,7 @@ HAS_CONFIGURE=		yes
 
 # Do not use /tmp, outside of WRKSRC.
 CONFIGURE_ENV+=		TMPDIR=${WRKSRC}/tmp
+CONFIGURE_ENV+=		ANT_LIB=${LOCALBASE}/lib/java/ant
 
 MAKE_JOBS_SAFE=		no # --with-parallelism conficts with -jN
 .if !empty(MAKE_JOBS)
@@ -140,8 +150,6 @@ CONFIGURE_ARGS+=	--disable-collada
 CONFIGURE_ARGS+=	--disable-epm
 CONFIGURE_ARGS+=	--disable-fetch-external
 CONFIGURE_ARGS+=	--disable-firebird-sdbc
-CONFIGURE_ARGS+=	--disable-gconf
-CONFIGURE_ARGS+=	--disable-gnome-vfs
 CONFIGURE_ARGS+=	--disable-odk
 CONFIGURE_ARGS+=	--disable-randr-link
 CONFIGURE_ARGS+=	--disable-systray
@@ -150,7 +158,6 @@ CONFIGURE_ARGS+=	--disable-crashdump
 # Enabling GIO causes error. losessioninstall.component not found.
 CONFIGURE_ARGS+=	--disable-gio
 CONFIGURE_ARGS+=	--enable-gstreamer-1-0
-CONFIGURE_ARGS+=	--enable-lockdown
 CONFIGURE_ARGS+=	--enable-python=system
 #CONFIGURE_ARGS+=	--enable-release-build
 CONFIGURE_ARGS+=	--enable-ext-wiki-publisher
@@ -254,7 +261,7 @@ BUILDLINK_API_DEPENDS.libetonyek+=	libetonyek>=0.1.2
 .include "../../converters/libwpg/buildlink3.mk"
 .include "../../converters/libwps/buildlink3.mk"
 .include "../../converters/libmwaw/buildlink3.mk"
-.include "../../converters/orcus0.8/buildlink3.mk"
+.include "../../converters/orcus/buildlink3.mk"
 .include "../../databases/db4/buildlink3.mk"
 .include "../../databases/openldap-client/buildlink3.mk"
 .include "../../databases/shared-mime-info/buildlink3.mk"

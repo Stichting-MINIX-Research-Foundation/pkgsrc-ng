@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/06/07 08:41:04 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/04/09 11:58:54 tnn Exp $
 
-DISTNAME=	CoinMP-1.8.2
+DISTNAME=	CoinMP-1.8.3
 PKGNAME=	${DISTNAME:tl}
 CATEGORIES=	math
 MASTER_SITES=	http://www.coin-or.org/download/source/CoinMP/
@@ -8,7 +8,7 @@ EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	ryoon@NetBSD.org
 HOMEPAGE=	https://projects.coin-or.org/CoinMP
-COMMENT=	CoinMP is a C-API library that supports CLP, CBC, and CGL
+COMMENT=	Linear Programming solver library
 LICENSE=	cpl-1.0
 
 GNU_CONFIGURE=	yes

@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.35 2014/02/12 23:18:36 tron Exp $
+# $NetBSD: Makefile,v 1.37 2016/07/26 20:33:35 alnsn Exp $
 
 DISTNAME=	scanssh-2.1
-PKGREVISION=	14
+PKGREVISION=	15
 CATEGORIES=	security
 MASTER_SITES=	http://monkey.org/~provos/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://monkey.org/~provos/scanssh/
 COMMENT=	SSH remote version scanner
+LICENSE=	original-bsd
 
 GNU_CONFIGURE=		YES
 USE_BUILTIN.libevent=	NO

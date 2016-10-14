@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/08/30 14:40:58 taca Exp $
+# $NetBSD: Makefile,v 1.33 2016/08/13 17:32:48 taca Exp $
 
 MODNAME=		yaz
-PECL_VERSION=		1.1.9
+PECL_VERSION=		1.2.1
 PECL_LEGACY_VERSION_SCHEME=	yes
 CATEGORIES+=		net
 

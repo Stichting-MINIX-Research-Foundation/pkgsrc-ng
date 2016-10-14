@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.56 2015/06/11 13:44:23 adam Exp $
+# $NetBSD: buildlink3.mk,v 1.59 2016/06/08 17:39:30 he Exp $
 
 BUILDLINK_TREE+=	perl
 
@@ -6,21 +6,19 @@ BUILDLINK_TREE+=	perl
 PERL_BUILDLINK3_MK:=
 
 .include "../../mk/bsd.fast.prefs.mk"
-PERL5_REQD+=			5.22.0
+PERL5_REQD+=			5.24.0
 .for _perl5_ver_ in ${PERL5_REQD}
 BUILDLINK_API_DEPENDS.perl+=	perl>=${_perl5_ver_}
 .endfor
-# Prevent p5-* etc. packages built for 5.22.0 to be used
+# Prevent p5-* etc. packages built for 5.24.0 to be used
 # with the next incompatible version of perl:
-BUILDLINK_API_DEPENDS.perl+=	perl<5.24.0
+BUILDLINK_API_DEPENDS.perl+=	perl<5.26.0
 
 BUILDLINK_PKGSRCDIR.perl?=	../../lang/perl5
 
 _TOOLS_USE_PKGSRC.perl=	yes
 
-FIND_PREFIX:=	PERLDIR=perl
-.include "../../mk/find-prefix.mk"
-PERL5=		${PERLDIR}/bin/perl
+PERL5=		${LOCALBASE}/bin/perl
 
 pkgbase := perl
 .include "../../mk/pkg-build-options.mk"
@@ -41,6 +39,7 @@ INSTALL_TEMPLATES+=	${.CURDIR}/../../lang/perl5/files/install_threads.tmpl
 #
 .include "../../lang/perl5/vars.mk"
 BUILDLINK_FILES.perl=	${PERL5_SUB_INSTALLARCHLIB}/CORE/*
+BUILDLINK_RPATHDIRS.perl+=	${PERL5_SUB_INSTALLARCHLIB}/CORE
 .endif # PERL_BUILDLINK3_MK
 
 BUILDLINK_TREE+=	-perl

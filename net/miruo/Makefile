@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.2 2015/05/21 13:20:57 ryoon Exp $
+# $NetBSD: Makefile,v 1.4 2016/07/09 03:43:13 ryoon Exp $
 
-DISTNAME=	miruo-0.9.6
+DISTNAME=	miruo-0.9.6b
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_GITHUB:=KLab/}
 GITHUB_PROJECT=	miruo
 GITHUB_TAG=	${PKGVERSION_NOREV}
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	${MASTER_SITE_GITHUB:=KLab/miruo/}
+HOMEPAGE=	https://github.com/KLab/miruo/
 COMMENT=	Pretty-print TCP session monitor/analyzer
 LICENSE=	gnu-gpl-v3
 

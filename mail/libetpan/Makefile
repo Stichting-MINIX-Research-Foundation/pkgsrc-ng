@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.41 2015/04/03 12:04:30 nros Exp $
+# $NetBSD: Makefile,v 1.43 2016/09/03 17:56:37 nros Exp $
 
-DISTNAME=	libetpan-1.6
+DISTNAME=	libetpan-1.7.2
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_GITHUB:=dinhviethoa/}
 EXTRACT_USING=	bsdtar
@@ -10,7 +10,7 @@ HOMEPAGE=	http://etpan.org/libetpan.html
 COMMENT=	Really nice mail library
 LICENSE=	modified-bsd
 
-BDB_ACCEPTED=		db3 db4 db5
+BDB_ACCEPTED=		db3 db4 db5 db6
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes

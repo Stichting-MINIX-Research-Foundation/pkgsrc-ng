@@ -1,0 +1,13 @@
+@comment $NetBSD: PLIST,v 1.2 2016/09/17 11:45:14 mef Exp $
+bin/cmark
+include/cmark.h
+include/cmark_export.h
+include/cmark_version.h
+lib/cmake/cmark-release.cmake
+lib/cmake/cmark.cmake
+lib/libcmark.a
+lib/libcmark.so
+lib/libcmark.so.${PKGVERSION}
+lib/pkgconfig/libcmark.pc
+man/man1/cmark.1
+man/man3/cmark.3

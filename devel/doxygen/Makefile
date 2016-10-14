@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.121 2015/06/12 10:48:48 wiz Exp $
+# $NetBSD: Makefile,v 1.126 2016/07/09 13:03:38 wiz Exp $
 
-DISTNAME=	doxygen-1.8.9.1.src
+DISTNAME=	doxygen-1.8.11.src
 PKGNAME=	${DISTNAME:S/.src//}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.stack.nl/pub/users/dimitri/ \
 		http://ftp.stack.nl/pub/users/dimitri/
@@ -17,32 +17,18 @@ UNLIMIT_RESOURCES+=	datasize
 # doxygen upstream uses this version of flex
 FLEX_REQD=		2.5.35
 USE_TOOLS+=		gmake gs:run perl:run bison flex
+USE_CMAKE=		yes
 USE_LANGUAGES=		c c++
-HAS_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--make ${GMAKE}
-CONFIGURE_ARGS+=	--perl ${PERL5}
-CONFIGURE_ARGS+=	--python ${PYTHONBIN}
-CONFIGURE_ARGS+=	--install ${INSTALL}
-CONFIGURE_ARGS+=	--dot ${PREFIX}/bin/dot
-CONFIGURE_ARGS+=	--prefix ${PREFIX}
-CONFIGURE_ARGS+=	--docdir ${PREFIX}/share/doc/doxygen
 MAKE_ENV+=		PKGSRC_CFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=		MAN1DIR=${PKGMANDIR}/man1
 
-REPLACE_PERL=		tmake/bin/tmake
-
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.8.6
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.8.6
 
 # Case Insensitive or Case Sensitive File System
 PLIST_VARS+=		ci cs
 
 # pangocairo: basic ps/pdf support via PKG_BUILD_OPTIONS.graphviz
 PLIST_VARS+=		pangocairo nopangocairo
-
-SUBST_CLASSES+=		path
-SUBST_STAGE.path=	pre-configure
-SUBST_FILES.path=	doc/Makefile.in
-SUBST_SED.path=		-e "s|@EPSTOPDF@|${PREFIX}/bin/epstopdf|g"
 
 SUBST_CLASSES+=		perlbin
 SUBST_STAGE.perlbin=	pre-configure
@@ -57,10 +43,6 @@ SUBST_FILES.epstopdf=	src/diagram.cpp src/docparser.cpp src/dot.cpp \
 			src/msc.cpp
 SUBST_SED.epstopdf=	-e 's,"epstopdf","${PREFIX}/bin/epstopdf",g'
 
-# Just install the binary and the man page.  (If the latex option
-# is enabled, this target will be augmented.)
-INSTALL_TARGET=		install
-
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Darwin"
@@ -69,23 +51,13 @@ PLIST.ci=		yes	# case-insensitive
 PLIST.cs=		yes	# case-sensitive
 .endif
 
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	-platform freebsd-g++
-.endif
+CONFIGURE_ARGS.DragonFly+=	-platform freebsd-g++
 
 LDFLAGS+=		${BUILDLINK_LDADD.iconv}
 
-post-patch:
-	touch ${WRKSRC}/src/doxytag.l
-
-# remove unnecessary files that leak tool paths
-post-install:
-	rm -f ${DESTDIR}${PREFIX}/share/doc/doxygen/examples/Makefile*
-
-BUILDLINK_API_DEPENDS.graphviz+=	graphviz>=2.12nb1
-
 .include "options.mk"
 .include "../../converters/libiconv/buildlink3.mk"
+BUILDLINK_API_DEPENDS.graphviz+=	graphviz>=2.12nb1
 .include "../../graphics/graphviz/buildlink3.mk"
 
 .if !empty(PKG_BUILD_OPTIONS.graphviz:Mpangocairo)

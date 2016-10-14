@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.4 2015/06/26 16:09:59 rodent Exp $
+# $NetBSD: Makefile,v 1.6 2016/08/28 15:48:28 wiz Exp $
 
 DISTNAME=	CairoSVG-1.0.15
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	converters graphics python
-MASTER_SITES=	https://pypi.python.org/packages/source/C/CairoSVG/
+MASTER_SITES=	${MASTER_SITE_PYPI:=C/CairoSVG/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://www.cairosvg.org/
@@ -15,7 +15,6 @@ DEPENDS+=	${PYPKGPREFIX}-cairocffi-[0-9]*:../../graphics/py-cairocffi
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/cairosvg \

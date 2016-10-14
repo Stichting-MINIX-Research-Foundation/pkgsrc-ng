@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.13 2015/09/05 15:32:19 wiedi Exp $
+# $NetBSD: Makefile.common,v 1.22 2016/08/09 11:55:41 fhajny Exp $
 # used by sysutils/rsyslog/Makefile
 # used by sysutils/rsyslog-dbi/Makefile
 # used by sysutils/rsyslog-elasticsearch/Makefile
@@ -12,7 +12,7 @@
 
 .include "../../mk/bsd.prefs.mk"
 
-DISTNAME=		rsyslog-8.12.0
+DISTNAME=		rsyslog-8.20.0
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.rsyslog.com/files/download/rsyslog/
 
@@ -27,9 +27,7 @@ PATCHDIR=		${.CURDIR}/../../sysutils/rsyslog/patches
 BUILD_DEPENDS+=		${PYPKGPREFIX}-docutils>=0.12:../../textproc/py-docutils
 CONFIGURE_ARGS+=	RST2MAN=${PREFIX}/bin/rst2man-${PYVERSSUFFIX}.py
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ARGS+=	ac_cv_func_epoll_create=no ac_cv_func_epoll_create1=no
-.endif
+CONFIGURE_ARGS.SunOS+=	ac_cv_func_epoll_create=no ac_cv_func_epoll_create1=no
 
 GNU_CONFIGURE=		yes
 
@@ -40,7 +38,8 @@ PYTHON_FOR_BUILD_ONLY=	yes
 EGDIR=			${PREFIX}/share/examples/rsyslog
 
 CONFIGURE_ARGS+=	--disable-libgcrypt --disable-testbench			\
-			--enable-diagtools --enable-usertools
+			--enable-diagtools --enable-usertools			\
+			--enable-generate-man-pages
 
 BUILDLINK_DEPMETHOD.libestr+=		build
 BUILDLINK_DEPMETHOD.liblogging+=	build
@@ -51,4 +50,4 @@ BUILDLINK_DEPMETHOD.libuuid+=		build
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../lang/python/pyversion.mk"
 .include "../../sysutils/liblogging/buildlink3.mk"
-.include "../../textproc/json-c/buildlink3.mk"
+.include "../../textproc/libfastjson/buildlink3.mk"

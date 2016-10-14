@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.38 2015/03/11 21:07:46 tnn Exp $
+# $NetBSD: Makefile,v 1.42 2016/08/14 10:24:44 mef Exp $
 
-DISTNAME=	tcpdump-4.7.3
+DISTNAME=	tcpdump-4.8.0
 CATEGORIES=	net
 MASTER_SITES=	http://www.tcpdump.org/release/
 
@@ -10,6 +10,7 @@ COMMENT=	Network monitoring tool
 LICENSE=	modified-bsd
 
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS.Darwin+=	--disable-universal
 
 .include "options.mk"
 

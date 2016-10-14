@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.100 2015/09/08 18:54:41 joerg Exp $
+# $NetBSD: Makefile,v 1.105 2016/07/13 15:01:42 jperkin Exp $
 
 .include "Makefile.common"
 
@@ -51,7 +51,8 @@ PLIST_SRC+=	${PKGDIR}/PLIST.prof
       !empty(MACHINE_PLATFORM:MFreeBSD-*-*) || \
       !empty(MACHINE_PLATFORM:MDragonFly-*-*) || \
       !empty(MACHINE_PLATFORM:MNetBSD-*-*) || \
-      !empty(MACHINE_PLATFORM:MDarwin-*-*)
+      !empty(MACHINE_PLATFORM:MDarwin-*-*) || \
+      !empty(MACHINE_PLATFORM:MSunOS-*-*)
 PLIST_SRC+=	${PKGDIR}/PLIST.natdynlink
 .  endif
 .endif
@@ -70,11 +71,9 @@ PLIST_SRC+=	${PKGDIR}/PLIST
 INSTALL_MAKE_FLAGS+=	SHELL=${SH:Q}
 .endif
 
-.if ${OPSYS} == "NetBSD"
-EXTRA_RT_LIBS=	-lcurses
-.else
-EXTRA_RT_LIBS=
-.endif
+OPSYSVARS+=		EXTRA_RT_LIBS
+EXTRA_RT_LIBS.NetBSD=	-lcurses
+EXTRA_RT_LIBS.*=
 
 SUBST_CLASSES+=		extra-rt-libs
 SUBST_FILES.extra-rt-libs=	bytecomp/bytelink.ml

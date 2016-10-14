@@ -1,13 +1,8 @@
-$NetBSD: distinfo,v 1.8 2015/01/24 23:01:29 adam Exp $
+$NetBSD: distinfo,v 1.16 2016/04/29 15:33:57 prlw1 Exp $
 
-SHA1 (psutil-2.1.3.tar.gz) = aae4725eb33cf56d4480bc60f50c147870d607ba
-RMD160 (psutil-2.1.3.tar.gz) = 4d5d0971c7acbd81cd883eceb237b688a60d3b80
-Size (psutil-2.1.3.tar.gz) = 224008 bytes
-SHA1 (patch-psutil_____init____.py) = 4036989d048542eb2b5649c6398146369d2793a5
-SHA1 (patch-psutil___psnetbsd.py) = 1a017104b6ac800de1a47ccb810d5a56b2bde66a
-SHA1 (patch-psutil___psutil__netbsd.c) = 00480e009800bb1970592c8bcfbef17d7ac79240
-SHA1 (patch-psutil___psutil__netbsd.h) = 33e3c857f764d8391db747068ade7ea333698ec0
-SHA1 (patch-psutil_arch_netbsd_process__info.c) = c384d12cc47514d6396d779d59c586ef2b42a89a
-SHA1 (patch-psutil_arch_netbsd_process__info.h) = b23075df15749e4e5274ccb9e21d67ac55fdd199
-SHA1 (patch-setup.py) = 3e87561b6dfd7e851e232342dab3b2e8ade28cfd
-SHA1 (patch-test_test__psutil.py) = c521f4fa30b24cb86115370e52979c2c7f7af4a3
+SHA1 (psutil-release-4.1.0.tar.gz) = 3f1c5f9c75fcaad72ce9f3465e77d7b9e191c732
+RMD160 (psutil-release-4.1.0.tar.gz) = c092eaff3d575c5e4f73206026d2f2087c2f025d
+SHA512 (psutil-release-4.1.0.tar.gz) = 98becc6d150de8580699ea348396f843f552f50a95acdebb42ff30c6a9d968a3b69b2e0162404fcb2e27a3573feaa1f03a12d1715899c0759c5aeb03f5635c43
+Size (psutil-release-4.1.0.tar.gz) = 292325 bytes
+SHA1 (patch-psutil___psutil__bsd.c) = 20665e0e5cf13280a61064a29a8b77eeb38a3ad4
+SHA1 (patch-psutil_arch_bsd_netbsd.c) = fbbabddd7a548e8ff1e8e958298f543c3fd1a4cd

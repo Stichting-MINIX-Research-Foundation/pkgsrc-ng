@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.59 2015/09/12 23:38:23 tnn Exp $
+# $NetBSD: Makefile,v 1.63 2016/04/11 19:01:51 ryoon Exp $
 
-DISTNAME=	openttd-1.5.2-source
+DISTNAME=	openttd-1.5.3-source
 PKGNAME=	${DISTNAME:S/-source//}
+PKGREVISION=	1
 CATEGORIES=	games x11
 MASTER_SITES=	http://binaries.openttd.org/releases/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.xz
@@ -35,11 +36,9 @@ CONFIGURE_ARGS+=	--with-lzo2=${BUILDLINK_PREFIX.lzo}/lib
 
 .include "../../mk/bsd.prefs.mk"
 
-.if (${OPSYS} == "DragonFly")
-CONFIGURE_ARGS+=	--os=FREEBSD
-.endif
+CONFIGURE_ARGS.DragonFly+=	--os=FREEBSD
 
-.if (${OPSYS} == "Darwin")
+.if ${OPSYS} == "Darwin"
 CONFIGURE_ARGS+=	--disable-cocoa-quickdraw
 CONFIGURE_ARGS+=	--with-cocoa
 CONFIGURE_ARGS+=	--without-application-bundle

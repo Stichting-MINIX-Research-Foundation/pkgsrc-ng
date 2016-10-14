@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/08/17 13:20:43 fhajny Exp $
+# $NetBSD: Makefile,v 1.28 2016/09/08 15:19:18 joerg Exp $
 
-DISTNAME=		puppet-3.8.2
+DISTNAME=		puppet-3.8.7
 CATEGORIES=		sysutils
 #MASTER_SITES=		http://puppetlabs.com/downloads/puppet/
 
@@ -9,16 +9,15 @@ HOMEPAGE=		http://www.puppetlabs.com/
 COMMENT=		Configuration management framework written in Ruby
 LICENSE=		apache-2.0
 
-DEPENDS+=		${RUBY_PKGPREFIX}-facter>=1.7.0<3:../../sysutils/ruby-facter
-DEPENDS+=		${RUBY_PKGPREFIX}-hiera>=1.0.0<3:../../databases/ruby-hiera
-DEPENDS+=		${RUBY_PKGPREFIX}-io-console>=0.3:../../devel/ruby-io-console
-DEPENDS+=		${RUBY_PKGPREFIX}-json-pure>=0:../../textproc/ruby-json-pure
-DEPENDS+=		${RUBY_PKGPREFIX}-minitest>=2.5.1:../../devel/ruby-minitest
-DEPENDS+=		${RUBY_PKGPREFIX}-shadow>=2.0.0:../../security/ruby-shadow
+DEPENDS+=	${RUBY_PKGPREFIX}-facter>=1.7.0<3:../../sysutils/ruby-facter
+DEPENDS+=	${RUBY_PKGPREFIX}-hiera>=1.0.0<3:../../databases/ruby-hiera
 
-RUBY_VERSION_SUPPORTED=	200 193 21
+RUBY_VERSIONS_ACCEPTED=	21
 
-CONFLICTS+=		ruby[1-9][0-9]-puppet-[0-9]* puppet-[0-9]*
+RUBY_JSON_REQD=		0
+OVERRIDE_GEMSPEC=	json_pure:json>0
+
+RUBYGEM_OPTIONS+=	--format-executable
 
 PKG_SYSCONFSUBDIR=	puppet
 RCD_SCRIPTS=		puppetd puppetmasterd
@@ -47,6 +46,12 @@ SUBST_FILES.prefix+=	spec/unit/util/selinux_spec.rb
 SUBST_FILES.prefix+=	spec/unit/indirector/catalog/static_compiler_spec.rb
 SUBST_SED.prefix=	-e "s|/etc/puppet|${PKG_SYSCONFDIR}|g"
 SUBST_SED.prefix+=	-e "s|/opt/csw/lib|${PREFIX}/lib|g"
+
+SUBST_CLASSES+=		sufx
+SUBST_STAGE.sufx=	pre-configure
+SUBST_MESSAGE.sufx=	Fixing command suffix
+SUBST_FILES.sufx=	lib/puppet/util/command_line.rb
+SUBST_VARS.sufx=	RUBY_SUFFIX
 
 EGDIR=			share/examples/${PKGBASE}
 CONF_FILES=		${EGDIR}/puppet.conf ${PKG_SYSCONFDIR}/puppet.conf
@@ -109,5 +114,6 @@ post-install:
 		${DESTDIR}${PREFIX}/lib/svc/method
 .endif
 
+.include "../../lang/ruby/json.mk"
 .include "../../lang/ruby/gem.mk"
 .include "../../mk/bsd.pkg.mk"

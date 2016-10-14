@@ -1,48 +1,49 @@
-# $NetBSD: options.mk,v 1.12 2015/09/13 04:59:35 tnn Exp $
+# $NetBSD: options.mk,v 1.15 2016/03/14 02:13:33 tnn Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.modular-xorg-server
-PKG_SUPPORTED_OPTIONS=	dri inet6 debug dtrace
-PKG_SUGGESTED_OPTIONS=	dri inet6
+PKG_SUPPORTED_OPTIONS=	inet6 debug dtrace
+PKG_SUGGESTED_OPTIONS=	inet6
+.if ${X11_TYPE} == "modular"
+PKG_SUPPORTED_OPTIONS+=	dri
+PKG_SUGGESTED_OPTIONS+=	dri
+.endif
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+=		dri dri3 dtrace glamor
+PLIST_VARS+=		dri dtrace
 
 .if !empty(PKG_OPTIONS:Mdri)
 .include "../../graphics/libepoxy/buildlink3.mk"
-BUILDLINK_API_DEPENDS.MesaLib+=	MesaLib>=10
+BUILDLINK_API_DEPENDS.MesaLib+=	MesaLib>=11
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/glproto/buildlink3.mk"
 .include "../../x11/dri2proto/buildlink3.mk"
+.include "../../x11/dri3proto/buildlink3.mk"
 .include "../../x11/libdrm/buildlink3.mk"
+.include "../../x11/libxshmfence/buildlink3.mk"
+.include "../../x11/presentproto/buildlink3.mk"
 .include "../../x11/xf86driproto/buildlink3.mk"
 PLIST.dri=		yes
 CONFIGURE_ARGS+=	--enable-dri
+CONFIGURE_ARGS+=	--enable-dri2
+CONFIGURE_ARGS+=	--enable-dri3
 CONFIGURE_ARGS+=	--enable-glx
 CONFIGURE_ARGS+=	--enable-aiglx
-.  if ${OPSYS} == "Linux" || ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
-PLIST.glamor=		yes
 CONFIGURE_ARGS+=	--enable-glamor
-.include "../../x11/libxshmfence/buildlink3.mk"
-.  endif
-# Linux supports dri3
-.  if ${OPSYS} == "Linux"
-PLIST.dri3=		yes
-.include "../../x11/dri3proto/buildlink3.mk"
-CONFIGURE_ARGS+=	--enable-dri3
-.  else
-CONFIGURE_ARGS+=	--disable-dri3
-.  endif
+CONFIGURE_ARGS+=	--enable-present
 .else
 ###
 ### XXX Perhaps we should allow for a built-in glx without dri enabled?
 ###
 CONFIGURE_ARGS+=	--disable-dri
+CONFIGURE_ARGS+=	--disable-dri2
+CONFIGURE_ARGS+=	--disable-dri3
 CONFIGURE_ARGS+=	--disable-glx
+CONFIGURE_ARGS+=	--disable-present
 pre-build: disable-modesetting
 .PHONY: disable-modesetting
 disable-modesetting:
-	(echo "all:"; echo "install:") > ${WRKSRC}/hw/xfree86/drivers/modesetting/Makefile
+	(${ECHO} "all:"; ${ECHO} "install:") > ${WRKSRC}/hw/xfree86/drivers/modesetting/Makefile
 .endif
 
 .if !empty(PKG_OPTIONS:Minet6)

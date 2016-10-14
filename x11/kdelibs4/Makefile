@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.80 2015/04/25 14:25:13 tnn Exp $
+# $NetBSD: Makefile,v 1.85 2016/03/11 16:51:33 jperkin Exp $
 
-DISTNAME=	kdelibs-${_KDE_VERSION}
+DISTNAME=	kdelibs-4.14.15
 PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	3
+PKGREVISION=	2
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 #PATCH_SITES=	ftp://ftp.kde.org/pub/kde/security_patches/ \
 #		http://mirrors.isc.org/pub/kde/security_patches/
@@ -53,23 +54,28 @@ CHECK_PORTABILITY_SKIP+=kate/tests/hl/highlight.sh
 SUBST_CLASSES+=			kdelibsfix
 SUBST_STAGE.kdelibsfix=		pre-configure
 SUBST_MESSAGE.kdelibsfix=	Fixing hardcoded paths.
-SUBST_FILES.kdelibsfix= \
-	kde3support/kdeui/k3sconfig.cpp \
-	kio/kssl/kopenssl.cpp
+SUBST_FILES.kdelibsfix=		kde3support/kdeui/k3sconfig.cpp
+SUBST_FILES.kdelibsfix+=	kio/kssl/kopenssl.cpp
 SUBST_SED.kdelibsfix=		-e 's:@LOCALBASE@:${LOCALBASE}:g'
 
-# XXX this is an ugly hack to avoid the WRKDIR path in the installed cmake file
+# Avoid the WRKDIR path in the installed cmake file
 SUBST_CLASSES+=			phononrelpath
 SUBST_STAGE.phononrelpath=	post-configure
 SUBST_MESSAGE.phononrelpath=	Fixing phonon RELWITHDEBINFO path
-SUBST_FILES.phononrelpath=	_KDE_build/CMakeFiles/Export/${LOCALBASE:S^/^_^}/share/kde/apps/cmake/modules/KDELibs4LibraryTargets-${TARGET_NAME}.cmake \
-				_KDE_build/experimental/libkdeclarative/CMakeFiles/Export/${LOCALBASE:S^/^_^}/lib/cmake/KDeclarative/KDeclarativeLibraryTargets-${TARGET_NAME}.cmake
-SUBST_SED.phononrelpath=	-e 's:[^"]*/\.buildlink/lib/libphonon\.so::'
+SUBST_FILES.phononrelpath=	_KDE_build/CMakeFiles/Export/${LOCALBASE:S^/^_^}/share/kde/apps/cmake/modules/KDELibs4LibraryTargets-${TARGET_NAME}.cmake
+SUBST_FILES.phononrelpath+=	_KDE_build/experimental/libkdeclarative/CMakeFiles/Export/${LOCALBASE:S^/^_^}/lib/cmake/KDeclarative/KDeclarativeLibraryTargets-${TARGET_NAME}.cmake
+SUBST_SED.phononrelpath=	-e 's:${BUILDLINK_DIR}:${PREFIX}:'
 
 USE_TOOLS+=	flex gmake
-PLIST_VARS+=	kgrantpty
+PLIST_VARS+=	kgrantpty mac notmac
 
 .include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+PLIST.mac=	yes
+.else
+PLIST.notmac=	yes
+.endif
 
 .if ${OPSYS} == "NetBSD"
 # make sure zone.tab is installed

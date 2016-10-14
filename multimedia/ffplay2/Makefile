@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2015/07/20 18:39:46 adam Exp $
+# $NetBSD: Makefile,v 1.15 2016/08/17 00:06:43 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffplay2/}
+PKGREVISION=	1
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
 COMMENT=	Simple SDL frontend for FFmpeg
@@ -29,6 +30,7 @@ INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/ffplay2 ${DESTDIR}${PREFIX}/bin
+	${INSTALL_MAN} ${WRKSRC}/doc/ffplay2.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
 .include "../../devel/SDL/buildlink3.mk"
 .include "../../multimedia/ffmpeg2/buildlink3.mk"

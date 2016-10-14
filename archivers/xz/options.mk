@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.1 2014/10/12 13:07:11 bsiegert Exp $
+# $NetBSD: options.mk,v 1.3 2015/10/03 14:57:10 tnn Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.xz
 PKG_SUPPORTED_OPTIONS=	nls

@@ -1,19 +1,21 @@
-# $NetBSD: Makefile,v 1.14 2014/01/21 08:38:04 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/08/28 15:48:33 wiz Exp $
 
-DISTNAME=	sympy-0.7.4.1
+DISTNAME=	sympy-1.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	math
-MASTER_SITES=	https://github.com/sympy/sympy/releases/download/${DISTNAME}/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=sympy/}
+GITHUB_RELEASE=	${DISTNAME}
+GITHUB_PROJECT=	sympy
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/sympy/
+HOMEPAGE=	http://www.sympy.org/
 COMMENT=	Python library for symbolic mathematics
 LICENSE=	modified-bsd
 
-USE_LANGUAGES=	# none
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
+DEPENDS+=	${PYPKGPREFIX}-mpmath>=0.19:../../math/py-mpmath
 
-REPLACE_PYTHON+=	sympy/mpmath/tests/runtests.py
+USE_LANGUAGES=	# none
+
 REPLACE_PYTHON+=	sympy/utilities/tests/diagnose_imports.py
 
 SUBST_CLASSES+=		manpath
@@ -33,5 +35,5 @@ post-install:
 			${PKGMANDIR}/man1/isympy${PYVERSSUFFIX}.1
 
 .include "../../lang/python/application.mk"
-.include "../../lang/python/distutils.mk"
+.include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.10 2015/08/30 14:42:03 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/09/22 06:44:09 wiz Exp $
 
-DISTNAME=	cffi-1.2.1
+DISTNAME=	cffi-1.8.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	devel
-MASTER_SITES=	https://pypi.python.org/packages/source/c/cffi/
+MASTER_SITES=	${MASTER_SITE_PYPI:=c/cffi/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://pypi.python.org/pypi/cffi/
@@ -11,6 +12,14 @@ COMMENT=	Foreign Function Interface for Python calling C code
 LICENSE=	mit
 
 USE_TOOLS+=	pkg-config
+
+DEPENDS+=	${PYPKGPREFIX}-cparser-[0-9]*:../../devel/py-cparser
+
+NOT_PAX_MPROTECT_SAFE=	${PYSITELIB}/_cffi_backend.so
+
+# tests don't run on MPROTECT enabled systems, and I haven't found
+# the magic to fix that, so workaround:
+# sysctl -w security.pax.mprotect.global=0
 
 .include "../../devel/libffi/buildlink3.mk"
 .include "../../lang/python/egg.mk"

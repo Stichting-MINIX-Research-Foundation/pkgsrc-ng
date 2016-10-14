@@ -1,4 +1,4 @@
-# $NetBSD: rubyversion.mk,v 1.147 2015/08/20 15:30:47 taca Exp $
+# $NetBSD: rubyversion.mk,v 1.165 2016/09/08 15:19:17 joerg Exp $
 #
 
 # This file determines which Ruby version is used as a dependency for
@@ -10,8 +10,8 @@
 # RUBY_VERSION_DEFAULT
 #	The preferered Ruby version to use.
 #
-#		Possible values: 18 193 200 21
-#		Default: 200
+#		Possible values: 18 21 22 23
+#		Default: 22
 #
 # RUBY_BUILD_RDOC
 #	Build rdoc of this package and so that install formated
@@ -33,16 +33,16 @@
 #	Ruby version to use. This variable should not be set in
 #	packages.  Normally it is used by bulk build tools.
 #
-#		Possible values: ${RUBY_VERSION_SUPPORTED}
+#		Possible values: ${RUBY_VERSIONS_ACCEPTED}
 #		Default:         ${RUBY_VERSION_DEFAULT}
 #
 # === Package-settable variables ===
 #
-# RUBY_VERSION_SUPPORTED
+# RUBY_VERSIONS_ACCEPTED
 #	The Ruby versions that are acceptable for the package.
 #
-#		Possible values: 18 193 200 21 22
-#		Default: 200 193 21
+#		Possible values: 18 21 22 23
+#		Default: 21 22 23
 #
 # RUBY_NOVERSION
 #	If "Yes", the package dosen't depend on any version of Ruby, such
@@ -69,7 +69,7 @@
 # RUBY_VER
 #	Really selected version of ruby.
 #
-#		Possible values: 18 193 200 21
+#		Possible values: 18 21 22 23
 #
 #	Use this variable in pkgsrc's Makefile
 #
@@ -77,10 +77,8 @@
 #	Prefix part for ruby based packages.  It is recommended that to
 #	use RUBY_PKGPREFIX with ruby related packages since you can supply
 #	different binary packages as each version of Ruby.
-#	The value of RUBY_PKGPREFIX is "ruby-" and concatination of Ruby's
-#	major, minor and teeny version unless RUBY_VER is "18".
 #
-#		Example values: ruby18 ruby193 ruby200 ruby212
+#		Example values: ruby18 ruby21 ruby22 ruby23
 #
 # RUBY_ABI_VERSION
 #	Ruby's ABI version.
@@ -108,10 +106,8 @@
 #
 # RUBY_SUFFIX
 #	Extra string for each ruby commands; ruby, irb and so on.
-#	The value of RUBY_SUFFIX is concatination of Ruby's major, minor
-#	and teeny version unless RUBY_VER is "18".
 #
-#		Possible values: 18 193 200 212
+#		Possible values: 18 21 22 23
 #
 # RUBY_VERSION
 #	Version of real Ruby's version excluding patchlevel.
@@ -217,7 +213,7 @@ _RUBYVERSION_MK=	# defined
 .if defined(PKGNAME_REQD)
 . if !empty(PKGNAME_REQD:Mruby[0-9][0-9][0-9]-*) || !empty(PKGNAME_REQD:Mruby[0-9][0-9]-*)
 _RUBY_VERSION_REQD:= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
-.  if ${_RUBY_VERSION_REQD} == "18" || ${_RUBY_VERSION_REQD} == "193"
+.  if ${_RUBY_VERSION_REQD} == "18"
 RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9])[0-9]-.*/\1/}
 .  else
 RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
@@ -227,42 +223,48 @@ RUBY_VERSION_REQD?= ${PKGNAME_REQD:C/ruby([0-9][0-9]+)-.*/\1/}
 
 # current supported Ruby's version
 RUBY18_VERSION=		1.8.7
-RUBY193_VERSION=	1.9.3
-RUBY200_VERSION=	2.0.0
-RUBY21_VERSION=		2.1.7
-RUBY22_VERSION=		2.2.3
+RUBY21_VERSION=		2.1.10
+RUBY22_VERSION=		2.2.5
+RUBY23_VERSION=		2.3.1
 
-# patch
+# patch level
 RUBY18_PATCHLEVEL=	pl374
-RUBY193_PATCHLEVEL=	p551
-RUBY200_PATCHLEVEL=	p647
+#RUBY21_PATCHLEVEL=	p492
+#RUBY22_PATCHLEVEL=	p319
+#RUBY23_PATCHLEVEL=	p112
 
 # current API compatible version; used for version of shared library
 RUBY18_API_VERSION=	1.8.7
-RUBY193_API_VERSION=	1.9.1
-RUBY200_API_VERSION=	2.0.0
 RUBY21_API_VERSION=	2.1.0
 RUBY22_API_VERSION=	2.2.0
+RUBY23_API_VERSION=	2.3.0
 
 # pkgsrc's rubygems's version
 RUBY_GEMS_PKGSRC_VERS=	2.4.8
 
 # pkgsrc's rdoc's version
-RUBY_RDOC_PKGSRC_VERS=	4.2.0
+RUBY_RDOC_PKGSRC_VERS=	4.2.2
 
 #
-RUBY_VERSION_DEFAULT?=	200
+RUBY_VERSION_DEFAULT?=	22
 
-RUBY_VERSION_SUPPORTED?= 200 193 21 22
+RUBY_VERSIONS_ACCEPTED?= 22 23 21
+RUBY_VERSIONS_INCOMPATIBLE?=
+
+.for rv in ${RUBY_VERSIONS_ACCEPTED}
+.  if empty(RUBY_VERSIONS_INCOMPATIBLE:M${rv})
+_RUBY_VERSIONS_ACCEPTED+=	${rv}
+.  endif
+.endfor
 
 .if defined(RUBY_VERSION_REQD)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if "${rv}" == ${RUBY_VERSION_REQD}
 RUBY_VER=	${rv}
 .  endif
 . endfor
 .elif !defined(RUBY_VER)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if "${rv}" == ${RUBY_VERSION_DEFAULT}
 RUBY_VER=	${rv}
 .  endif
@@ -270,7 +272,7 @@ RUBY_VER=	${rv}
 .endif
 
 .if !defined(RUBY_VER)
-. for rv in ${RUBY_VERSION_SUPPORTED}
+. for rv in ${_RUBY_VERSIONS_ACCEPTED}
 .  if !defined(RUBY_VER)
 RUBY_VER=	${rv}
 .  endif
@@ -290,26 +292,6 @@ RUBY_RDOC_VERSION=	1.0.1
 
 RUBY_SUFFIX=		${RUBY_VER}
 
-.elif ${RUBY_VER} == "193"
-RUBY_VERSION=		${RUBY193_VERSION}
-RUBY_VERSION_FULL=	${RUBY_VERSION}${RUBY_PATCHLEVEL}
-RUBY_ABI_VERSION=	${RUBY_VERSION}
-
-RUBY_GEMS_VERSION=	1.8.23
-RUBY_RDOC_VERSION=	3.9.4
-RUBY_RAKE_VERSION=	0.9.2.2
-RUBY_JSON_VERSION=	1.5.5
-
-.elif ${RUBY_VER} == "200"
-RUBY_VERSION=		${RUBY200_VERSION}
-RUBY_VERSION_FULL=	${RUBY_VERSION}${RUBY_PATCHLEVEL}
-RUBY_ABI_VERSION=	${RUBY_VERSION}
-
-RUBY_GEMS_VERSION=	2.0.3
-RUBY_RDOC_VERSION=	4.1.0
-RUBY_RAKE_VERSION=	0.9.6
-RUBY_JSON_VERSION=	1.7.7
-
 .elif ${RUBY_VER} == "21"
 RUBY_VERSION=		${RUBY21_VERSION}
 RUBY_VERSION_FULL=	${RUBY_VERSION}
@@ -319,6 +301,12 @@ RUBY_GEMS_VERSION=	2.2.2
 RUBY_RDOC_VERSION=	4.1.0
 RUBY_RAKE_VERSION=	10.1.0
 RUBY_JSON_VERSION=	1.8.1
+
+RUBY_BIGDECIMAL_VERSION=	1.2.4
+RUBY_IO_CONSOLE_VERSION=	0.4.3
+RUBY_PSYCH_VERSION=		2.0.5
+RUBY_MINITEST_VERSION=		4.7.5
+RUBY_TEST_UNIT_VERSION=		2.1.8.0
 
 RUBY_SUFFIX=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}
 
@@ -331,6 +319,34 @@ RUBY_GEMS_VERSION=	2.4.5
 RUBY_RDOC_VERSION=	4.2.0
 RUBY_RAKE_VERSION=	10.4.2
 RUBY_JSON_VERSION=	1.8.1
+
+RUBY_BIGDECIMAL_VERSION=	1.2.6
+RUBY_IO_CONSOLE_VERSION=	0.4.3
+RUBY_PSYCH_VERSION=		2.0.8
+RUBY_MINITEST_VERSION=		5.4.3
+RUBY_POWER_ASSERT_VERSION=	0.2.2
+RUBY_TEST_UNIT_VERSION=		3.0.8
+
+RUBY_SUFFIX=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}
+
+.elif ${RUBY_VER} == "23"
+RUBY_VERSION=		${RUBY23_VERSION}
+RUBY_VERSION_FULL=	${RUBY_VERSION}
+RUBY_ABI_VERSION=	${RUBY_VERSION}
+
+RUBY_GEMS_VERSION=	2.5.1
+RUBY_RDOC_VERSION=	4.2.1
+RUBY_RAKE_VERSION=	10.4.2
+RUBY_JSON_VERSION=	1.8.3
+
+RUBY_BIGDECIMAL_VERSION=	1.2.8
+RUBY_IO_CONSOLE_VERSION=	0.4.5
+RUBY_PSYCH_VERSION=		2.0.17
+RUBY_DID_YOU_MEAN_VERSION=	1.0.0
+RUBY_MINITEST_VERSION=		5.8.3
+RUBY_NET_TELNET_VERSION=	0.1.1
+RUBY_POWER_ASSERT_VERSION=	0.2.6
+RUBY_TEST_UNIT_VERSION=		3.1.5
 
 RUBY_SUFFIX=	${_RUBY_VER_MAJOR}${_RUBY_VER_MINOR}
 
@@ -350,7 +366,7 @@ MULTI+=	RUBY_VER=${RUBY_VERS:U${RUBY_VERSION_DEFAULT}}
 #	any specific version of ruby command.  In this case, package's
 #	name begin with "ruby-".
 #	If RUBY_NOVERSION is "No" (default), the package's name is begin
-#	with ${RUBY_NAME}; "ruby18", "ruby193",  and so on.
+#	with ${RUBY_NAME}; "ruby18", "ruby21",  and so on.
 #
 #	It also affects to RUBY_DOC, RUBY_EG...
 #
@@ -380,11 +396,7 @@ RUBY_PKGPREFIX?=	${RUBY_NAME}
 .if ${RUBY_VER} == "18"
 RUBY_VER_DIR=		${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
 .else 
-. if ${RUBY_VER} == "193" || ${RUBY_VER} == "200"
-RUBY_VER_DIR=		${RUBY_VERSION}
-. else
 RUBY_VER_DIR=		${RUBY_API_VERSION}
-. endif
 .endif
 
 .if empty(RUBY_NOVERSION:M[nN][oO])
@@ -437,7 +449,7 @@ RUBY_STATICLIB=		${RUBY_SUFFIX}.${RUBY_API_VERSION}-static.a
 _RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}
 .elif ${OPSYS} == "SunOS"
 RUBY_SHLIBVER=		${_RUBY_VER_MAJOR}
- _RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${_RUBY_API_MINOR}
+_RUBY_SHLIBALIAS=	${RUBY_SUFFIX}.${RUBY_SLEXT}.${_RUBY_VER_MAJOR}.${_RUBY_VER_MINOR}.${_RUBY_API_MINOR}
 .elif ${OPSYS} == "Cygwin"
 RUBY_SHLIB=		${RUBY_SUFFIX}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll.a
 RUBY_SHLIBALIAS=	bin/cygruby${RUBY_SUFFIX}${_RUBY_API_MAJOR}${_RUBY_API_MINOR}.dll
@@ -524,12 +536,9 @@ MAKEFLAGS+=		RUBY_VER=${RUBY_VER:Q} \
 #
 # PLIST_VARS for x11/ruby-tk package.
 #
-PLIST_VARS+=		ruby19 ruby200
+PLIST_VARS+=		ruby200
 .if ${RUBY_VER} != "18"
-PLIST.ruby19=		yes
-. if ${RUBY_VER} != "193"
 PLIST.ruby200=		yes
-. endif
 .endif
 
 PLIST_RUBY_DIRS=	RUBY_INC=${RUBY_INC:Q} RUBY_ARCHINC=${RUBY_ARCHINC:Q} \
@@ -607,7 +616,7 @@ RUBY_PLIST_COMMENT_CMD= \
 RUBY_PLIST_FILES_CMD= ( cd ${DESTDIR}${PREFIX}; \
 	${FIND} ${RUBY_DYNAMIC_DIRS} \( -type f -o -type l \) -print ) | \
 	${SORT} -u
-RUBY_GENERATE_PLIST =	( \
+RUBY_GENERATE_PLIST=	( \
 	${RUBY_PLIST_COMMENT_CMD}; \
 	${RUBY_PLIST_FILES_CMD} ) > ${RUBY_PLIST_DYNAMIC}
 .endif

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.73 2014/12/30 15:13:19 wiz Exp $
+# $NetBSD: Makefile,v 1.76 2016/04/10 16:39:28 joerg Exp $
 #
 
 DISTNAME=		${PKGNAME_NOREV}
 PKGNAME=		qmail-1.03
-PKGREVISION=		19
+PKGREVISION=		20
 CATEGORIES=		mail
 MASTER_SITES=		http://qmail.org/
 
@@ -133,11 +133,9 @@ SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0711
 SPECIAL_PERMS+=		${PREFIX}/bin/${f} root qmail 0700
 .endfor
 
-.if ${OPSYS} == "Darwin"
-DARWINSUFX=		.doc
-.else
-DARWINSUFX=		# empty
-.endif
+OPSYSVARS+=		DARWINSUFX
+DARWINSUFX.Darwin=	.doc
+DARWINSUFX.*=		# empty
 
 post-extract: post-extract-viruscan
 	${CP} ${FILESDIR}/README.pkgsrc ${WRKSRC}
@@ -148,19 +146,17 @@ post-extract: post-extract-viruscan
 .endif
 
 pre-install:
-.	if ${USE_DESTDIR} != "no"
-	  ${MKDIR} ${DESTDIR}${QMAILDIR}
-	  ${MKDIR} ${DESTDIR}${QMAIL_QUEUE_DIR}
-	  # keep in sync with INSTALL:PRE-INSTALL
-	  ${LN} -s ${DESTDIR}${EGDIR}/alias	${DESTDIR}${QMAILDIR}/alias
-	  ${LN} -s ${DESTDIR}${PREFIX}/bin	${DESTDIR}${QMAILDIR}/bin
-	  ${LN} -s ${DESTDIR}${EGDIR}/boot	${DESTDIR}${QMAILDIR}/boot
-	  ${LN} -s ${DESTDIR}${EGDIR}/control	${DESTDIR}${QMAILDIR}/control
-	  ${LN} -s ${DESTDIR}${DOCDIR}		${DESTDIR}${QMAILDIR}/doc
-	  ${LN} -s ${DESTDIR}${PREFIX}/${PKGMANDIR} ${DESTDIR}${QMAILDIR}/man
-	  ${LN} -s ${DESTDIR}${QMAIL_QUEUE_DIR}	${DESTDIR}${QMAILDIR}/queue
-	  ${LN} -s ${DESTDIR}${EGDIR}/users	${DESTDIR}${QMAILDIR}/users
-.	endif
+	${MKDIR} ${DESTDIR}${QMAILDIR}
+	${MKDIR} ${DESTDIR}${QMAIL_QUEUE_DIR}
+	# keep in sync with INSTALL:PRE-INSTALL
+	${LN} -s ${DESTDIR}${EGDIR}/alias	${DESTDIR}${QMAILDIR}/alias
+	${LN} -s ${DESTDIR}${PREFIX}/bin	${DESTDIR}${QMAILDIR}/bin
+	${LN} -s ${DESTDIR}${EGDIR}/boot	${DESTDIR}${QMAILDIR}/boot
+	${LN} -s ${DESTDIR}${EGDIR}/control	${DESTDIR}${QMAILDIR}/control
+	${LN} -s ${DESTDIR}${DOCDIR}		${DESTDIR}${QMAILDIR}/doc
+	${LN} -s ${DESTDIR}${PREFIX}/${PKGMANDIR} ${DESTDIR}${QMAILDIR}/man
+	${LN} -s ${DESTDIR}${QMAIL_QUEUE_DIR}	${DESTDIR}${QMAILDIR}/queue
+	${LN} -s ${DESTDIR}${EGDIR}/users	${DESTDIR}${QMAILDIR}/users
 
 post-install: post-install-viruscan
 	# allow packaging as non-root, fix at install time with SPECIAL_PERMS

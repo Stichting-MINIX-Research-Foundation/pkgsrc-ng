@@ -1,4 +1,4 @@
-PKGLINT(1)                  General Commands Manual                 PKGLINT(1)
+PKGLINT(1)              NetBSD General Commands Manual              PKGLINT(1)
 
 NNAAMMEE
      ppkkgglliinntt -- static analyzer for pkgsrc packages
@@ -10,13 +10,9 @@ DDEESSCCRRIIPPTTIIOONN
      ppkkgglliinntt attempts to detect features of the named pkgsrc packages that are
      likely to be bugs, or that are simply deprecated.
 
-
    OOppttiioonnss
      --CC{{[[nnoo--]]cchheecckk,,......}}  Enable or disable specific checks.  For a list of
                          checks, see below.
-
-     --DD{{[[nnoo--]]ddeebbuugg,,......}}  Enable or disable debugging categories.  For a list
-                         of categories, see below.
 
      --FF|----aauuttooffiixx        Repair trivial things automatically.
 
@@ -24,17 +20,14 @@ DDEESSCCRRIIPPTTIIOONN
                          all the files that are slurped in via `.include'
                          directives.  This flag is mainly for debugging.
 
-     --RR|----rrccssiiddssttrriinngg    Allow other RCS Id strings than NetBSD.  Multiple
-                         strings may be concatenated with `|'.
-
      --VV|----vveerrssiioonn        Print the current ppkkgglliinntt version number and exit.
 
      --WW{{[[nnoo--]]wwaarrnn,,......}}   Enable or disable specific warnings.  For a list of
                          warnings, see below.
 
-     --ee|----eexxppllaaiinn        Print further explanations for diagnostics.
-                         Sometimes the reasons for diagnostics are not obvious
-                         and need further explanation.
+     --dd|----ddeebbuugg          Enable or disable verbose log for debugging pkglint.
+
+     --ee|----eexxppllaaiinn        Print verbose explanations for diagnostics.
 
      --gg|----ggcccc--oouuttppuutt--ffoorrmmaatt
                          Use a format for the diagnostics that is understood
@@ -55,7 +48,8 @@ DDEESSCCRRIIPPTTIIOONN
 
      --ss|----ssoouurrccee         For all diagnostics having file and line number
                          information, show the source code along with the
-                         diagnostics.
+                         diagnostics.  This is especially useful together with
+                         the --ff|----sshhooww--aauuttooffiixx option.
 
    CChheecckkss
      aallll                 Enable all checks.
@@ -85,41 +79,6 @@ DDEESSCCRRIIPPTTIIOONN
 
      [[nnoo--]]ppaattcchheess        Check the pkgsrc specific patch files.
 
-   DDeebbuuggggiinngg OOppttiioonnss
-     aallll                 Enable all debugging options.
-
-     nnoonnee                Disable all debugging options.
-
-     [[nnoo--]]iinncclluuddee        Show the pathnames of the included Makefiles.
-
-     [[nnoo--]]mmiisscc           Some debugging stuff that hasn't made it into its own
-                         category.
-
-     [[nnoo--]]ppaattcchheess        Print the states of the patch file parser.
-
-     [[nnoo--]]qquuoottiinngg        Additional information about why variables should be
-                         quoted or not.
-
-     [[nnoo--]]sshheellll          Parser information from the shell word and the shell
-                         command parsers.
-
-     [[nnoo--]]ttoooollss          Additional information about the tools from the tools
-                         framework.
-
-     [[nnoo--]]ttrraaccee          Print the names of subroutines and their arguments as
-                         they are entered.
-
-     [[nnoo--]]uunncchheecckkeedd      Show the things that pkglint cannot currently check.
-                         These are mostly due to unresolved make variables.
-
-     [[nnoo--]]uunnuusseedd         Show which variables are detected as used, and so
-                         will not generate an ``unused variable'' warning.
-
-     [[nnoo--]]vvaarrttyyppeess       Additional information about the variable types.
-
-     [[nnoo--]]vvaarruussee         Information about the contexts in which variables are
-                         used.
-
    WWaarrnniinnggss
      aallll                 Enable all warnings.
 
@@ -131,33 +90,19 @@ DDEESSCCRRIIPPTTIIOONN
                          variable (e.g. sed instead of ${SED}).
 
      [[nnoo--]]eexxttrraa          Emit some additional warnings that are not enabled by
-                         default, for whatever reason.
+                         default.
 
      [[nnoo--]]oorrddeerr          Warn if Makefile variables are not in the preferred
                          order.
 
-     [[nnoo--]]ppeerrmm           Warn if a variable is used or defined outside its
-                         specified scope.  The available permissions are:
-                         append
-                              append something using +=
-                         default
-                              set a default value using ?=
-                         preprocess
-                              use a variable during preprocessing
-                         runtime
-                              use a variable at runtime
-                         set  set a variable using :=, =, !=
-                         unknown
-                              permissions for this variable currently not
-                              known
-                         A `?' means that it is not yet clear which
-                         permissions are allowed and which aren't.
+     [[nnoo--]]ppeerrmm           Warn if a variable is used or modified outside its
+                         specified scope.
 
      [[nnoo--]]pplliisstt--ddeepprr     Warn if deprecated pathnames are used in _P_L_I_S_T files.
                          This warning is disabled by default.
 
-     [[nnoo--]]pplliisstt--ssoorrtt     Warn if items of a PLIST file are not sorted
-                         alphabetically.  This warning is disabled by default.
+     [[nnoo--]]pplliisstt--ssoorrtt     Warn if items of a PLIST file are not sorted alpha-
+                         betically.  This warning is disabled by default.
 
      [[nnoo--]]qquuoottiinngg        Warn for possibly invalid quoting of make variables
                          in shell programs and shell variables themselves.
@@ -174,11 +119,11 @@ DDEESSCCRRIIPPTTIIOONN
                          ordered in the way it is described the pkgsrc guide.
 
    OOtthheerr aarrgguummeennttss
-           _d_i_r _._._.             The pkgsrc directories to be checked.  If
-                               omitted, the current directory is checked.
+           _d_i_r _._._.             The pkgsrc directories to be checked.  If omit-
+                               ted, the current directory is checked.
 
 FFIILLEESS
-     _p_k_g_s_r_c_/_m_k_/_*  Files from the pkgsrc infrastructure.
+     pkgsrc/mk/*  Files from the pkgsrc infrastructure.
 
 EEXXAAMMPPLLEESS
      ppkkgglliinntt --CCnnoonnee,,ppaattcchheess ..
@@ -187,10 +132,6 @@ EEXXAAMMPPLLEESS
      ppkkgglliinntt --WWaallll //uussrr//ppkkggssrrcc//ddeevveell
                  Checks the category Makefile and reports any warnings it can
                  find.
-
-     ppkkgglliinntt --rr --RR ''NNeettBBSSDD||IIdd'' //uussrr//ppkkggssrrcc
-                 Check the whole pkgsrc tree while allowing `NetBSD' or `Id'
-                 as the RCS Id.
 
 DDIIAAGGNNOOSSTTIICCSS
      Diagnostics are written to the standard output.
@@ -202,12 +143,10 @@ DDIIAAGGNNOOSSTTIICCSS
                    critical as errors.
 
 AAUUTTHHOORRSS
-     Roland Illig <rillig@NetBSD.org>
+     Roland Illig <_r_i_l_l_i_g_@_N_e_t_B_S_D_._o_r_g>
 
 BBUUGGSS
-     Many more checks could be added.
-
      If you don't understand the messages, feel free to ask on the
      <tech-pkg@NetBSD.org> mailing list.
 
-NetBSD 6.99.8                    July 14, 2012                   NetBSD 6.99.8
+NetBSD 7.0                       June 5, 2016                       NetBSD 7.0

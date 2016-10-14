@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.47 2015/09/12 20:03:00 tnn Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/30 15:23:23 schnoebe Exp $
 
 DISTNAME=		spectrum-1.4.8
-PKGREVISION=		29
+PKGREVISION=		34
 CATEGORIES=		chat
 MASTER_SITES=		https://cloud.github.com/downloads/hanzz/libtransport/
 
@@ -20,7 +20,7 @@ USE_LANGUAGES=		c++ c
 
 REPLACE_PYTHON+=	spectrumctl/spectrumctl.py
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xmpppy
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xmpppy
 
 BUILD_DEFS+=		JABBER_USER JABBER_GROUP
 BUILD_DEFS+=		SPECTRUM_RUN SPECTRUM_DB SPECTRUM_LOG

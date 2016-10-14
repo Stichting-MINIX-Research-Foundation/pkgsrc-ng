@@ -1,24 +1,26 @@
-# $NetBSD: Makefile,v 1.18 2015/08/07 11:20:34 jaapb Exp $
+# $NetBSD: Makefile,v 1.27 2016/06/25 14:18:35 jaapb Exp $
 #
 
-DISTNAME=	2.4.5
-PKGNAME=	ocaml-lwt-${DISTNAME}
-PKGREVISION=	3
+DISTNAME=	lwt-2.5.2
+PKGNAME=	ocaml-${DISTNAME}
+PKGREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	http://github.com/ocsigen/lwt/archive/
-DIST_SUBDIR=	ocaml-lwt
-
-WRKSRC=	${WRKDIR}/lwt-${DISTNAME}
+#MASTER_SITES=	http://github.com/ocsigen/lwt/archive/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=ocsigen/}
+GITHUB_PROJECT=	lwt
 
 MAINTAINER=	jaapb@NetBSD.org
 HOMEPAGE=	http://www.ocsigen.org/
 COMMENT=	Cooperative threading library for OCaml
 LICENSE=	gnu-lgpl-v2.1
 
-DEPENDS=	ocaml-react-[0-9]*:../../devel/ocaml-react
+DEPENDS+=	ocaml-ppx_tools-[0-9]*:../../devel/ocaml-ppx_tools
+DEPENDS+=	ocaml-react-[0-9]*:../../devel/ocaml-react
+BUILDLINK_API_DEPENDS.ocaml-ssl+=	ocaml-ssl>=0.5.0
 
 OCAML_USE_OASIS=	yes
-CONFIGURE_ARGS+=	--destdir "${DESTDIR}" --prefix "${PREFIX}" --enable-react --disable-text --disable-glib --disable-toplevel
+CONFIGURE_ARGS+=	--destdir "${DESTDIR}" --prefix "${PREFIX}" --enable-react \
+	--disable-glib
 
 SUBST_CLASSES+=		libev destdir
 SUBST_STAGE.libev=	post-configure
@@ -34,5 +36,4 @@ SUBST_SED.libev=	-e 's%"-lev"%"-lev -L${PREFIX}/lib/ev ${COMPILER_RPATH_FLAG}${P
 .include "../../mk/ocaml.mk"
 .include "../../devel/ocaml-findlib/buildlink3.mk"
 .include "../../devel/libev/buildlink3.mk"
-.include "../../lang/camlp4/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

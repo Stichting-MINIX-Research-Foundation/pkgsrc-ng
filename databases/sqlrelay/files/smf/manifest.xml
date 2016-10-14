@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE service_bundle SYSTEM "/usr/share/lib/xml/dtd/service_bundle.dtd.1">
-<service_bundle type="manifest" name="@SMF_NAME@">
+<service_bundle type="manifest" name="export">
   <service name="@SMF_PREFIX@/@SMF_NAME@" type="service" version="1">
     <dependency name="network" grouping="require_all" restart_on="error" type="service">
       <service_fmri value="svc:/milestone/network:default" />
@@ -32,7 +32,6 @@
       <exec_method type="method" name="start" exec="@PREFIX@/bin/sqlr-cachemanager" timeout_seconds="3600" />
       <exec_method type="method" name="stop" exec=":kill" timeout_seconds="3600" />
     </instance>
-    <stability value="Evolving" />
     <template>
       <common_name>
         <loctext xml:lang="C">SQL Relay</loctext>

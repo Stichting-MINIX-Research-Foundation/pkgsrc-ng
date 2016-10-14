@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2015/06/12 10:51:08 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/08/04 22:38:10 wiz Exp $
 #
 
 DISTNAME=	GSSAPI-0.28
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	security perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=LWP/AGROLMS/}
 
@@ -13,6 +13,7 @@ COMMENT=	Perl extension providing access to the GSSAPIv2 library
 LICENSE=	${PERL5_LICENSE}
 
 PERL5_PACKLIST=	auto/GSSAPI/.packlist
+MAKE_PARAMS+=	--gssapiimpl=${KRB5BASE}
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/krb5.buildlink3.mk"

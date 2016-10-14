@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.53 2015/08/05 14:05:46 ryoon Exp $
+# $NetBSD: Makefile,v 1.59 2016/03/31 13:56:46 ryoon Exp $
 #
 
-DISTNAME=	umefont_530
+DISTNAME=	umefont_610
 PKGNAME=	${DISTNAME:S/_/-ttf-0./}
 CATEGORIES=	fonts japanese
 MASTER_SITES=	${MASTER_SITE_OSDN:=ume-font/22212/}

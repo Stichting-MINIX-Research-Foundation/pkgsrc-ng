@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.26 2015/09/05 06:44:40 mef Exp $
+# $NetBSD: Makefile,v 1.28 2016/06/08 19:23:16 wiz Exp $
 #
 
-DISTNAME=	MooseX-Method-Signatures-0.48
+DISTNAME=	MooseX-Method-Signatures-0.49
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=MooseX/}
-#MASTER_SITES+=	${MASTER_SITE_PERL_CPAN:=../../authors/id/F/FL/FLORA/}
+#MASTER_SITES+=	${MASTER_SITE_PERL_CPAN:=../../authors/id/E/ET/ETHER/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/MooseX-Method-Signatures/

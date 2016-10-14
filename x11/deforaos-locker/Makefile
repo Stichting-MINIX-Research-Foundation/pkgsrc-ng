@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.17 2015/08/25 23:58:20 khorben Exp $
+# $NetBSD: Makefile,v 1.20 2016/08/03 10:22:20 adam Exp $
 
-DISTNAME=	Locker-0.3.1
-PKGNAME=	deforaos-locker-0.3.1
+DISTNAME=	Locker-0.4.0
+PKGNAME=	deforaos-locker-0.4.0
+PKGREVISION=	1
 CATEGORIES=	x11
-MASTER_SITES=	http://www.defora.org/os/download/download/4368/
+MASTER_SITES=	http://www.defora.org/os/download/download/4424/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -22,6 +23,8 @@ MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 AUTO_MKDIRS=	yes
+
+LDFLAGS.SunOS+=	-lXext
 
 .include "../../mk/bsd.prefs.mk"
 

@@ -1,16 +1,16 @@
-# $NetBSD: Makefile,v 1.2 2015/04/13 23:12:41 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2016/07/09 13:03:43 wiz Exp $
 
 DISTNAME=	singledispatch-3.4.0.3
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel
-MASTER_SITES=	https://pypi.python.org/packages/source/s/singledispatch/
+MASTER_SITES=	${MASTER_SITE_PYPI:=s/singledispatch/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://pypi.python.org/pypi/singledispatch
 COMMENT=	Library brings functools.singledispatch from Python 3.4
 LICENSE=	mit
 
-PYTHON_VERSIONS_ACCEPTED=	33 27 # included in 3.4+
+PYTHON_VERSIONS_ACCEPTED=	27 # included in 3.4+
 
 USE_LANGUAGES=	# none
 

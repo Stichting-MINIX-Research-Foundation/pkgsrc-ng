@@ -1,6 +1,7 @@
-$NetBSD: distinfo,v 1.1 2015/08/14 17:05:04 kleink Exp $
+$NetBSD: distinfo,v 1.4 2016/02/18 17:30:18 kleink Exp $
 
-SHA1 (WeasyPrint-0.24.tar.gz) = 9500a7511bb6c3b952d4ee7b5df16eec46761ddf
-RMD160 (WeasyPrint-0.24.tar.gz) = 7e33a4158544cf2571ef1ec4c16d8a8b73cf74dc
-Size (WeasyPrint-0.24.tar.gz) = 349200 bytes
+SHA1 (WeasyPrint-0.26.tar.gz) = c500a0910aab12cdcd28f14084eccbe4ae0f5ed8
+RMD160 (WeasyPrint-0.26.tar.gz) = c87decae9626ed7ce14edeb79132e64edfdd0aaf
+SHA512 (WeasyPrint-0.26.tar.gz) = 165ff0927cb644abd800fad1f31d2d302cf1a6e8cb2422a149ba41b0f8a6633e6f4d3a11f61c51be63dbb03244716327299feb45bd7737d44df29df5f2b8b0c8
+Size (WeasyPrint-0.26.tar.gz) = 352596 bytes
 SHA1 (patch-setup.py) = a3470aec4e7f32adb785cb7a731e802aeb7562c4

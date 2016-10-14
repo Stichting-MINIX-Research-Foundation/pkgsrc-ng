@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2015/09/20 16:39:18 tnn Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/05 11:29:47 jperkin Exp $
 
 DISTNAME=	xorg-server-1.12.4
 PKGNAME=	modular-${DISTNAME}
-PKGREVISION=	15
+PKGREVISION=	17
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=xserver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -92,7 +92,7 @@ PLIST_SUBST+=		SUNOS_ARCH=${SUNOS_ARCH}
 PLIST.sunos=		yes
 .  if ${MACHINE_ARCH} == "i386"
 SUNOS_ARCH=		ia32
-.  elif ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "x86_64"
+.  elif ${MACHINE_ARCH} == "x86_64"
 SUNOS_ARCH=		amd64
 .  elif ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64"
 SUNOS_ARCH=		sparcv8plus
@@ -106,9 +106,7 @@ PLIST.sparc=		yes
 
 # Workaround for PR#41556.
 # Avoid to use bsd_kqueue_apm, force to use bsd_apm instead.
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ENV+=		ac_cv_header_sys_event_h=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_header_sys_event_h=no
 
 INSTALLATION_DIRS+=	lib/xorg/modules/drivers lib/xorg/modules/input
 

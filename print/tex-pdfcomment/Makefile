@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.2 2015/04/23 12:46:09 markd Exp $
+# $NetBSD: Makefile,v 1.4 2016/08/07 09:09:40 markd Exp $
 
 DISTNAME=	pdfcomment
-PKGNAME=	tex-${DISTNAME}-2.3a
-TEXLIVE_REV=	27844
+PKGNAME=	tex-${DISTNAME}-2.4
+TEXLIVE_REV=	41484
 
 MAINTAINER=	minskim@NetBSD.org
+HOMEPAGE=	http://ctan.org/pkg/pdfcomment
 COMMENT=	User-friendly interface to pdf annotations
 LICENSE=	lppl-1.3c
 

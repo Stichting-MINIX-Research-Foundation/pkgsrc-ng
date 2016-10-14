@@ -1,15 +1,23 @@
-# $NetBSD: options.mk,v 1.31 2015/08/22 05:17:22 taca Exp $
+# $NetBSD: options.mk,v 1.33 2016/07/10 10:41:38 rillig Exp $
 
 .include "../../mk/bsd.prefs.mk"
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.openssh
-PKG_SUPPORTED_OPTIONS=	kerberos hpn-patch pam
+PKG_SUPPORTED_OPTIONS=	hpn-patch kerberos openssl pam
+PKG_SUGGESTED_OPTIONS=	openssl
 
 .include "../../mk/bsd.options.mk"
 
+.if !empty(PKG_OPTIONS:Mopenssl)
+.include "../../security/openssl/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-ssl-dir=${SSLBASE:Q}
+.else
+CONFIGURE_ARGS+=	--without-openssl
+.endif
+
 .if !empty(PKG_OPTIONS:Mkerberos)
 .  include "../../mk/krb5.buildlink3.mk"
-CONFIGURE_ARGS+=	--with-kerberos5=${KRB5BASE:Q}
+CONFIGURE_ARGS+=	--with-kerberos5=${KRB5BASE}
 .  if ${KRB5_TYPE} == "mit-krb5"
 CONFIGURE_ENV+=		ac_cv_search_k_hasafs=no
 .  endif
@@ -28,7 +36,7 @@ PLIST_VARS+=	pam
 CONFIGURE_ARGS+=	--with-pam
 MESSAGE_SRC+=		${.CURDIR}/MESSAGE.pam
 MESSAGE_SUBST+=		EGDIR=${EGDIR}
-.if ${OPSYS} == "Linux"
+.  if ${OPSYS} == "Linux"
 PLIST.pam=	yes
-.endif
+.  endif
 .endif

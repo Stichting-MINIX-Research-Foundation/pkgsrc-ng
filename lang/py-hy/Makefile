@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2014/11/09 19:31:56 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2016/08/28 15:48:32 wiz Exp $
 
 DISTNAME=	hy-0.10.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	lang python
-MASTER_SITES=	https://pypi.python.org/packages/source/h/hy/
+MASTER_SITES=	${MASTER_SITE_PYPI:=h/hy/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://hylang.org/
@@ -16,7 +16,6 @@ DEPENDS+=	${PYPKGPREFIX}-astor>=0.3:../../devel/py-astor
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/hy \

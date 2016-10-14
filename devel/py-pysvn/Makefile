@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.28 2015/04/06 08:17:26 adam Exp $
+# $NetBSD: Makefile,v 1.32 2016/04/11 19:01:49 ryoon Exp $
 #
 
 VERS=			1.7.6
 DISTNAME=		pysvn-${VERS}
 PKGNAME=		${PYPKGPREFIX}-pysvn-${VERS}
-PKGREVISION=		9
+PKGREVISION=		12
 CATEGORIES=		devel
 MASTER_SITES=	http://pysvn.barrys-emacs.org/source_kits/
 
@@ -17,11 +17,7 @@ DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
 USE_LANGUAGES=		c
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "DragonFly"
-BUILDLINK_TRANSFORM+=	rm:-lresolv
-.endif
+BUILDLINK_TRANSFORM.DragonFly+=	rm:-lresolv
 
 SUBST_CLASSES+=		rpath-flg
 SUBST_STAGE.rpath-flg=	pre-configure

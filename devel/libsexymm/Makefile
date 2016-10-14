@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/04/25 14:20:37 tnn Exp $
+# $NetBSD: Makefile,v 1.29 2016/08/03 10:22:11 adam Exp $
 #
 
 DISTNAME=	libsexymm-0.1.9
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	devel
 MASTER_SITES=	http://releases.chipx86.com/libsexy/libsexymm/
 
@@ -14,6 +14,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config gmake
 USE_LANGUAGES=	c c++
+CXXFLAGS+=	-std=c++11
 
 PKGCONFIG_OVERRIDE+=	libsexy/libsexymm.pc.in
 

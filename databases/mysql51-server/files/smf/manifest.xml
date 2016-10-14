@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
-<service_bundle type='manifest' name='@SMF_NAME@'>
+<service_bundle type='manifest' name='export'>
   <service name='@SMF_PREFIX@/@SMF_NAME@' type='service' version='1'>
     <create_default_instance enabled='false' />
     <single_instance />
@@ -18,13 +18,12 @@
     </method_context>
     <exec_method name='start' type='method' exec='@PREFIX@/@SMF_METHOD_FILE.mysqld@ start' timeout_seconds='18446744073709551615' />
     <exec_method name='stop' type='method' exec='@PREFIX@/@SMF_METHOD_FILE.mysqld@ stop' timeout_seconds='18446744073709551615' />
-    <stability value='Evolving' />
     <template>
       <common_name>
         <loctext xml:lang='C'>MySQL RDBMS</loctext>
       </common_name>
       <documentation>
-        <manpage title='MySQL 5.1' section='1' />
+        <manpage title='MySQL 5.1' section='1' manpath='@PREFIX@/@PKGMANDIR@'/>
         <doc_link name='mysql.com' uri='http://dev.mysql.com/docs' />
       </documentation>
     </template>

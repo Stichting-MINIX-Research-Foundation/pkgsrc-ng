@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2015/04/25 14:20:17 tnn Exp $
+# $NetBSD: Makefile,v 1.37 2016/07/01 17:55:22 jperkin Exp $
 
 DISTNAME=	ark-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	archivers
 COMMENT=	Manages various archive formats within the KDE environment
 
@@ -12,7 +12,7 @@ CMAKE_ARGS+=	-DWITH_QJSON:BOOL=OFF
 .include "../../meta-pkgs/kde4/kde4.mk"
 
 .include "../../archivers/bzip2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.libarchive+=  libarchive>=2.6.0
+BUILDLINK_API_DEPENDS.libarchive+=	libarchive>=2.6.0
 .include "../../archivers/libarchive/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

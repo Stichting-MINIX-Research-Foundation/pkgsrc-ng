@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:49:53 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/08 19:23:42 wiz Exp $
 
-DISTNAME=	Test-Warnings-0.021
+DISTNAME=	Test-Warnings-0.026
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

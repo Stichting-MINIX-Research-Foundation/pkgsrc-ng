@@ -1,8 +1,9 @@
-$NetBSD: distinfo,v 1.24 2015/06/12 13:58:07 jperkin Exp $
+$NetBSD: distinfo,v 1.27 2016/05/08 11:23:15 nonaka Exp $
 
-SHA1 (smartmontools-6.3.tar.gz) = 716c5dc339d408d628c55dbe69028b1561df4c7e
-RMD160 (smartmontools-6.3.tar.gz) = b51fa0dfd15820d33fb00506853b34bbebadd096
-Size (smartmontools-6.3.tar.gz) = 809790 bytes
-SHA1 (patch-aa) = 93a7725aa9e240d950d76f0da2d6b96f8d24f112
-SHA1 (patch-ag) = bbf85278f08390d51ac9bb428ac7026763e5ffcf
-SHA1 (patch-os__netbsd.cpp) = 9c197ae492ef377d72df009be40d0abc1a827a31
+SHA1 (smartmontools-6.5.tar.gz) = 7e788b429534a4ae627858fbcc826b93402cee7e
+RMD160 (smartmontools-6.5.tar.gz) = e62d15d406a92b75fa239603180c6b587f9d2aa8
+SHA512 (smartmontools-6.5.tar.gz) = dca7a6363ab7280ee4197155025f624c978886dcc94fc47b524f6f849138b62c471e966c0d4bf59c7bba50519dc122264618e5ded80a406863ddd10b43d928d3
+Size (smartmontools-6.5.tar.gz) = 855642 bytes
+SHA1 (patch-aa) = bd08aff267f0e9e9307ebc57858e61e35144bf16
+SHA1 (patch-ag) = 01b0b35d89d6d6a11b13b3c05a141c46a0c1590b
+SHA1 (patch-os__netbsd.cpp) = 28f78c08d7c7287165cfa38f8ee3467b3b03cb44

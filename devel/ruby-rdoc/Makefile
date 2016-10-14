@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2015/03/10 16:18:54 taca Exp $
+# $NetBSD: Makefile,v 1.15 2016/09/08 15:19:17 joerg Exp $
 
 DISTNAME=	rdoc-${RUBY_RDOC_PKGSRC_VERS}
 CATEGORIES=	devel
@@ -8,7 +8,8 @@ HOMEPAGE=	http://docs.seattlerb.org/rdoc
 COMMENT=	Produces HTML and command-line documentation for Ruby projects
 LICENSE=	gnu-gpl-v2 OR ruby-license
 
-RUBY_VERSION_SUPPORTED= 200 193 18 21
+# ruby23 has 4.2.1 in tree.
+RUBY_VERSIONS_ACCEPTED= 22 18 21
 
 RUBY_JSON_REQD=	1.4
 GEM_PATH=	${RUBYGEM_INSTALL_ROOT}${PREFIX}/${GEM_LIBDIR}:${PREFIX}/${GEM_HOME}

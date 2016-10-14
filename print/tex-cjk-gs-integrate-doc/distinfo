@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1 2015/09/02 11:17:24 markd Exp $
+$NetBSD: distinfo,v 1.3 2016/06/16 04:06:01 markd Exp $
 
-SHA1 (tex-cjk-gs-integrate-37266/cjk-gs-integrate.doc.tar.xz) = d78b7e430d619239177b065bfd74cf8c9e07ba95
-RMD160 (tex-cjk-gs-integrate-37266/cjk-gs-integrate.doc.tar.xz) = e54d84e9b983c41b2ee648ad66b1d7e08f56ab3c
-Size (tex-cjk-gs-integrate-37266/cjk-gs-integrate.doc.tar.xz) = 10064 bytes
+SHA1 (tex-cjk-gs-integrate-39391/cjk-gs-integrate.doc.tar.xz) = 552066a7e0e5659721298ca754c934072ff114cb
+RMD160 (tex-cjk-gs-integrate-39391/cjk-gs-integrate.doc.tar.xz) = bba12e08d9116c6b2204480a6e3366338319aea1
+SHA512 (tex-cjk-gs-integrate-39391/cjk-gs-integrate.doc.tar.xz) = b12d4e6a6f40f3fa9e3375ce8e8a91d7b6c5bdb0922771054450aefeb7656e8d78e44d306f96dbdebd82c5777cd95539285bcc963b5e90ce3476e0707dd30ece
+Size (tex-cjk-gs-integrate-39391/cjk-gs-integrate.doc.tar.xz) = 10660 bytes

@@ -1,16 +1,44 @@
-$NetBSD: patch-configure,v 1.2 2015/04/23 06:50:41 dbj Exp $
+$NetBSD: patch-configure,v 1.4 2016/09/28 02:54:15 maya Exp $
 
---- configure.orig	2013-02-21 20:21:49.000000000 +0000
+install .oct loadable modules with INSTALL_LIB to avoid stripping them
+
+we pass and assume a given MACHINE_GNU_PLATFORM, but this package did not
+use this value due to an error.
+the guess it had for linux (x86_64-unknown-linux-gnu), seems to trample
+over our own tools:
+https://mail-index.netbsd.org/pkgsrc-users/2014/03/26/msg019464.html
+
+--- configure.orig	2015-05-26 16:21:37.000000000 +0000
 +++ configure
-@@ -663,6 +663,7 @@ GPERF
- DEFAULT_PAGER
+@@ -1952,6 +1952,7 @@ DEFAULT_PAGER
  GNUPLOT
+ GHOSTSCRIPT
  DESKTOP_FILE_INSTALL
 +INSTALL_LIB
- YFLAGS
- YACC
- LFLAGS
-@@ -33819,7 +33820,12 @@ else
+ LN_S
+ TEXI2PDF
+ TEXI2DVI
+@@ -5870,7 +5871,7 @@ case $host_os in *\ *) host_os=`echo "$h
+     { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: configuring Octave for unknown system type" >&5
+ $as_echo "$as_me: WARNING: configuring Octave for unknown system type" >&2;}
+   fi
+-  canonical_host_type=$host
++  canonical_host_type=$host_alias
+ 
+   if test -z "$host_cpu"; then
+     host_cpu=unknown
+@@ -8620,7 +8621,9 @@ fi
+ 
+ 
+ 
+-INSTALL_SCRIPT='${INSTALL}'
++test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
++
++test -z "$INSTALL_LIB" && INSTALL_LIB='${INSTALL_SCRIPT}'
+ 
+ 
+ 
+@@ -14005,7 +14008,12 @@ else
  fi
  	  done
  	  ;;
@@ -24,14 +52,3 @@ $NetBSD: patch-configure,v 1.2 2015/04/23 06:50:41 dbj Exp $
  	    ac_exists=false
    for ac_i in $ac_cv_f77_libs; do
      if test x"$ac_arg" = x"$ac_i"; then
-@@ -60080,7 +60086,9 @@ fi
- 
- 
- 
--INSTALL_SCRIPT='${INSTALL}'
-+test -z "$INSTALL_SCRIPT" && INSTALL_SCRIPT='${INSTALL}'
-+
-+test -z "$INSTALL_LIB" && INSTALL_LIB='${INSTALL_SCRIPT}'
- 
- 
- # Extract the first word of "desktop-file-install", so it can be a program name with args.

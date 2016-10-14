@@ -1,28 +1,29 @@
-# $NetBSD: Makefile,v 1.43 2015/06/10 23:27:56 prlw1 Exp $
+# $NetBSD: Makefile,v 1.48 2016/04/08 19:49:26 adam Exp $
 
-DISTNAME=	gobject-introspection-1.44.0
+DISTNAME=	gobject-introspection-1.48.0
 CATEGORIES=	devel gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gobject-introspection/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://live.gnome.org/GObjectIntrospection
+HOMEPAGE=	http://wiki.gnome.org/Projects/GObjectIntrospection
 COMMENT=	GObject Introspection
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
+DEPENDS+=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.40.0 (Bug #728079)
-
-GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config flex bison gmake
 GMAKE_REQD=	3.81
+GNU_CONFIGURE=	yes
+CONFIGURE_ARGS+=	--disable-doctool
+CONFIGURE_ARGS+=	--disable-tests
 
 PKGCONFIG_OVERRIDE+=	gobject-introspection-1.0.pc.in
 PKGCONFIG_OVERRIDE+=	gobject-introspection-no-export-1.0.pc.in
 
-SUBST_CLASSES+=	timet
+SUBST_CLASSES+=		timet
 SUBST_STAGE.timet=	pre-configure
 SUBST_FILES.timet=	giscanner/ast.py
 SUBST_FILES.timet+=	tests/scanner/Regress-1.0-expected.gir
@@ -35,12 +36,15 @@ SUBST_SED.timet=	-e 's,@TIMET_TYPENAME@,TYPE_LONG,g'
 SUBST_SED.timet+=	-e 's,@TIMET_CTYPE@,glong,g'
 .endif
 
+#REPLACE_PYTHON+=	tools/g-ir-tool-template.in
+SUBST_CLASSES+=		pyenv
+SUBST_STAGE.pyenv+=	pre-configure
+SUBST_FILES.pyenv+=	tools/g-ir-tool-template.in
+SUBST_SED.pyenv+=	-e 's,/usr/bin/env ,,'
+
 # not executable
 CHECK_INTERPRETER_SKIP+= lib/gobject-introspection/giscanner/*.py
 
-PKGCONFIG_OVERRIDE+=	gobject-introspection-1.0.pc.in
-
-CONFIGURE_ARGS+=	--disable-doctool --disable-tests
 # needed for tests only
 #.include "../../graphics/cairo/buildlink3.mk"
 #.include "../../graphics/cairo-gobject/buildlink3.mk"

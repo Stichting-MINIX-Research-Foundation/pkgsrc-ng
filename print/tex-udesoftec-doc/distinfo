@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.2 2015/06/14 12:50:06 markd Exp $
+$NetBSD: distinfo,v 1.4 2016/06/16 04:06:17 markd Exp $
 
-SHA1 (tex-udesoftec-37399/udesoftec.doc.tar.xz) = 7a4ea806ce1bdd5f7031f9793f00517331b96b46
-RMD160 (tex-udesoftec-37399/udesoftec.doc.tar.xz) = 90e1bf9da8365f98ee721e65cc83882dd06ca694
-Size (tex-udesoftec-37399/udesoftec.doc.tar.xz) = 470940 bytes
+SHA1 (tex-udesoftec-40613/udesoftec.doc.tar.xz) = 011e8ca60f8e78a5587c70441b41fa26f5215e99
+RMD160 (tex-udesoftec-40613/udesoftec.doc.tar.xz) = ece776f041cb72cf4adaada1c70282803e7445ca
+SHA512 (tex-udesoftec-40613/udesoftec.doc.tar.xz) = 03d36acef49341e7ae17bc75d33440e5c9f7eca6231880a5924770d1ce2c28f8a3b1bc81f6b5f1ff5c13d3dab394c8e0c4b92531d3950630e1c67c5d455a1c8c
+Size (tex-udesoftec-40613/udesoftec.doc.tar.xz) = 486664 bytes

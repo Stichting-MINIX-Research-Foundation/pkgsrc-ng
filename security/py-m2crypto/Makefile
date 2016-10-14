@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.34 2014/06/01 23:51:25 rodent Exp $
+# $NetBSD: Makefile,v 1.38 2016/07/09 13:04:04 wiz Exp $
 
 DISTNAME=		M2Crypto-0.22.3
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:tl}
+PKGREVISION=		1
 CATEGORIES=		security python
-MASTER_SITES=		http://pypi.python.org/packages/source/M/M2Crypto/
+MASTER_SITES=		${MASTER_SITE_PYPI:=M/M2Crypto/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://chandlerproject.org/bin/view/Projects/MeTooCrypto
@@ -18,7 +19,7 @@ BUILDLINK_API_DEPENDS.openssl+=	openssl>=0.9.7i{,nb*}
 
 PYSETUPBUILDARGS=	build_ext --openssl=${BUILDLINK_PREFIX.openssl}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.21.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.21.1
 
 .include "../../lang/python/egg.mk"
 .include "../../devel/swig/buildlink3.mk"

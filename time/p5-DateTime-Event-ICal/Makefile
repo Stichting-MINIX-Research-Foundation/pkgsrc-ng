@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2015/06/12 10:51:42 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2016/06/08 19:24:49 wiz Exp $
 
-DISTNAME=		DateTime-Event-ICal-0.12
+DISTNAME=		DateTime-Event-ICal-0.13
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		time perl5

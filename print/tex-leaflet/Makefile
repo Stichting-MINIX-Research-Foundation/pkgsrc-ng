@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.3 2014/08/05 19:15:22 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/16 04:06:11 markd Exp $
 
 DISTNAME=	leaflet
-PKGNAME=	tex-${DISTNAME}-1.0e
-TEXLIVE_REV=	32093
+PKGNAME=	tex-${DISTNAME}-1.1a
+TEXLIVE_REV=	39683
 
 MAINTAINER=	leot1990@users.sourceforge.net
 COMMENT=	Create small handouts (flyers)
+LICENSE=	lppl-1.3c
 
 DEPENDS+=	tex-etex-pkg-[0-9]*:../../print/tex-etex-pkg
 DEPENDS+=	tex-graphics-[0-9]*:../../print/tex-graphics

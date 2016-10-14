@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.16 2015/01/04 04:13:26 dholland Exp $
+# $NetBSD: Makefile,v 1.18 2016/03/25 21:05:30 joerg Exp $
 #
 
 DISTNAME=		monit-5.8
+PKGREVISION=		1
 CATEGORIES=		sysutils
 MASTER_SITES=		http://mmonit.com/monit/dist/
 
@@ -54,6 +55,11 @@ SUBST_MESSAGE.monit=	Setting daemon interval
 SUBST_FILES.monit=	monitrc
 SUBST_SED.monit=	-e "s|^\# *set *daemon|set daemon|"
 SUBST_SED.monit+=	-e "s|include */etc/monit.d|include ${PKG_SYSCONFDIR}/monit.d|"
+
+.if ${OPSYS} == "NetBSD"
+_WRAP_EXTRA_ARGS.CC+=	-D_KERNTYPES
+CWRAPPERS_APPEND.cc+=	-D_KERNTYPES
+.endif
 
 # Perform configure substitutions on monit.1
 post-configure:

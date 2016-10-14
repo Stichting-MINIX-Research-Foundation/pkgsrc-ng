@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.6 2014/05/03 13:14:39 alnsn Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/12 21:53:39 tnn Exp $
 
 DISTNAME=	elementary-1.7.7
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	x11
 MASTER_SITES=	http://download.enlightenment.org/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -21,14 +21,14 @@ USE_TOOLS+=	gmake
 # override for hardcoded aclocal-1.13 in configure script
 CONFIGURE_ENV+=	ACLOCAL='aclocal'
 # override for hardcoded automake-1.13 in Makefiles
-MAKEFLAGS+=	AUTOMAKE="automake -af"
+MAKE_FLAGS+=	AUTOMAKE="automake -af"
 
 PKGCONFIG_OVERRIDE=	elementary
 
 # currently it is like it is
-MODULE_ARCH=	${LOWER_OPSYS}-${LOWER_ARCH}-1.7.7
+MODULE_ARCH=	${LOWER_OPSYS}-${MACHINE_ARCH}-1.7.7
 PLIST_SUBST=	MODULE_ARCH=${MODULE_ARCH}
-PRINT_PLIST_AWK+=        { gsub(/${MODULE_ARCH}/, "$${MODULE_ARCH}") }
+PRINT_PLIST_AWK+=	 { gsub(/${MODULE_ARCH}/, "$${MODULE_ARCH}") }
 
 MAKE_FLAGS+=	MODULE_ARCH=${MODULE_ARCH}
 

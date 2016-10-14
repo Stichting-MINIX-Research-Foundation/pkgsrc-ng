@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.5 2015/09/02 09:22:04 markd Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/07 11:09:32 markd Exp $
 
 DISTNAME=	collection-langenglish
-PKGNAME=	texlive-${DISTNAME}-2015
+PKGNAME=	texlive-${DISTNAME}-2016
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	37500
+TEXLIVE_REV=	41445
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -54,7 +54,6 @@ DEPENDS+=	tex-latexfileinfo-pkgs-[0-9]*:../../print/tex-latexfileinfo-pkgs
 # pictexsum is documentation only
 # plain-doc is documentation only
 # presentations-en is documentation only
-# pstricks-examples-en is documentation only
 # simplified-latex is documentation only
 # svg-inkscape is documentation only
 # tabulars-e is documentation only

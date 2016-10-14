@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/07/16 12:07:07 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2016/09/06 05:08:48 maya Exp $
 
 GCC_PKGNAME=	gcc5
 .include	"../../lang/${GCC_PKGNAME}/version.mk"
@@ -9,7 +9,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC5_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc5 package so that with the dependence pattern
 ## '{gcc5,gcc5-libs}>=5.1.*' pkg_add will choose gcc5-libs over gcc5.
-PKGREVISION=	1
+PKGREVISION=	3
 
 CATEGORIES=	lang
 MASTER_SITES=	# empty
@@ -30,11 +30,8 @@ BUILD_DEPENDS+=		${GCC_PKGNAME}-${GCC5_DIST_VERSION}{,nb[0-9]*}:../../lang/gcc5
 
 .include "../../mk/bsd.prefs.mk"
 
-FIND_PREFIX:=		GCC_PKG_PREFIX=${GCC_PKGNAME}-${GCC5_DIST_VERSION}*
-.include "../../mk/find-prefix.mk"
-
 LIBGCC_SUBPREFIX=	${GCC_PKGNAME}
-LIBGCC_PREFIX=		${GCC_PKG_PREFIX}/${LIBGCC_SUBPREFIX}
+LIBGCC_PREFIX=		${LOCALBASE}/${LIBGCC_SUBPREFIX}
 GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 

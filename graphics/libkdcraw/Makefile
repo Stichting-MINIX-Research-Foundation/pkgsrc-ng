@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.54 2015/04/25 14:23:16 tnn Exp $
+# $NetBSD: Makefile,v 1.56 2016/03/05 11:27:49 jperkin Exp $
 
-DISTNAME=	libkdcraw-${_KDE_VERSION}
-PKGREVISION=	2
+DISTNAME=	libkdcraw-15.08.3
+PKGREVISION=	1
 CATEGORIES=	graphics
 COMMENT=	KDE digital camera raw image library wrapper
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.08.3/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

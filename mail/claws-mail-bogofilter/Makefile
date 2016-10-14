@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.34 2015/04/25 14:23:27 tnn Exp $
+# $NetBSD: Makefile,v 1.39 2016/09/19 13:04:22 wiz Exp $
 #
 
 PLUGIN_NAME=	bogofilter

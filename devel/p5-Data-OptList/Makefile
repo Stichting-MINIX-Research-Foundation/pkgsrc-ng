@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2015/06/12 10:49:05 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/06/08 19:22:46 wiz Exp $
 
-DISTNAME=	Data-OptList-0.109
+DISTNAME=	Data-OptList-0.110
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

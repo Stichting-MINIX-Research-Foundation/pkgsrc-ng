@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/21 21:13:42 markd Exp $
+
+SHA1 (karchive-5.25.0.tar.xz) = 298351569bbd505568243a2475e2cfabcf71a836
+RMD160 (karchive-5.25.0.tar.xz) = 8b89f137e5d8af008af069b851e5b1d2ddcd4a38
+SHA512 (karchive-5.25.0.tar.xz) = 5109af21e1fb2257f1885813483d9ebcfaec99eb3dcce11b22619879753508c51d7cbaba1afb232d021febc46eabc14ba1ad3fc39fabe6a04f5833696034d1ff
+Size (karchive-5.25.0.tar.xz) = 110828 bytes

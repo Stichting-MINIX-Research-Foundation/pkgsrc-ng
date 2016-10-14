@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.2 2015/04/12 14:28:55 wiz Exp $
+$NetBSD: distinfo,v 1.8 2016/05/18 12:28:24 wiz Exp $
 
-SHA1 (enum34-1.0.4.tar.gz) = 10b77f1db47e54abbc4ce6f61df542590b9ad972
-RMD160 (enum34-1.0.4.tar.gz) = 4b00dd0628eaa1e6f96cc2691036564804463396
-Size (enum34-1.0.4.tar.gz) = 32944 bytes
+SHA1 (enum34-1.1.6.tar.gz) = 014ef5878333ff91099893d615192c8cd0b1525a
+RMD160 (enum34-1.1.6.tar.gz) = b6bf8846921ddbbd4c1a70de69e9036f0a41a9b4
+SHA512 (enum34-1.1.6.tar.gz) = 51652525adc37bd1af1d81933f965dba9c508838d9f759c80ca1392991515a29c2c0263264a4e175b37a6ba11dca68c354774e448b19ef1bdba96be5474d93ec
+Size (enum34-1.1.6.tar.gz) = 40048 bytes

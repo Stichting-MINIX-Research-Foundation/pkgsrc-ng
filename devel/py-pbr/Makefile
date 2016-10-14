@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2015/09/06 20:33:46 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/08/28 15:48:30 wiz Exp $
 
-DISTNAME=	pbr-1.6.0
+DISTNAME=	pbr-1.10.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
-MASTER_SITES=	https://pypi.python.org/packages/source/p/pbr/
+MASTER_SITES=	${MASTER_SITE_PYPI:=p/pbr/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://pypi.python.org/pypi/pbr
@@ -12,7 +12,6 @@ LICENSE=	apache-2.0
 
 DEPENDS+=	${PYPKGPREFIX}-pip-[0-9]*:../../devel/py-pip
 
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 REPLACE_PYTHON+=	pbr/tests/testpackage/setup.py
 
 post-install:

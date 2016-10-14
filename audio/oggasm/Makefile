@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.20 2015/06/12 10:48:23 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/07/09 06:37:49 wiz Exp $
 #
 
 DISTNAME=	oggasm_1.4.0
 PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 
@@ -11,6 +11,7 @@ MAINTAINER=	rxg@NetBSD.org
 # HOMEPAGE=	http://oggasm.sourceforge.net/
 # but see http://us.geocities.com/pvachusk/programs/index.html
 COMMENT=	Perform batch conversion of mp3s into oggs
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	mpg123>=0.59.18:../../audio/mpg123
 DEPENDS+=	vorbis-tools>=1.0.0.7:../../audio/vorbis-tools

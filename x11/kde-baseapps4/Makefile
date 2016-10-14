@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.32 2015/04/25 14:25:07 tnn Exp $
+# $NetBSD: Makefile,v 1.36 2016/05/08 10:53:14 markd Exp $
 
-DISTNAME=	kde-baseapps-${_KDE_VERSION}
-PKGNAME=	${DISTNAME:S/-4/4-4/}
-PKGREVISION=	2
+DISTNAME=	kde-baseapps-15.12.0
+PKGNAME=	${DISTNAME:S/-1/4-1/}
+PKGREVISION=	3
 CATEGORIES=	x11
 COMMENT=	Base modules for the KDE 4 integrated X11 desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
@@ -29,11 +30,11 @@ CHECK_INTERPRETER_SKIP=	share/kde/templates/.source/Program.desktop
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../graphics/qimageblitz/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
-.include "../../sysutils/baloo/buildlink3.mk"
+.include "../../sysutils/libbaloo4/buildlink3.mk"
 .include "../../sysutils/baloo-widgets/buildlink3.mk"
 .include "../../sysutils/kfilemetadata/buildlink3.mk"
 .include "../../textproc/xapian/buildlink3.mk"
-.include "../../x11/kactivities/buildlink3.mk"
+.include "../../x11/libkactivities4/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 .include "../../x11/kde-runtime4/buildlink3.mk"
 .include "../../x11/kde-workspace4/buildlink3.mk"

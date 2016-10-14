@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.68 2015/05/05 07:31:43 mef Exp $
+# $NetBSD: Makefile,v 1.74 2016/08/03 10:23:33 adam Exp $
 #
 
 DISTNAME=	fast-user-switch-applet-2.24.0
-PKGREVISION=	42
+PKGREVISION=	47
 CATEGORIES=	misc gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/fast-user-switch-applet/2.24/}
 EXTRACT_SUFX=	.tar.bz2
@@ -21,9 +21,7 @@ USE_X11=		yes
 
 .include "../../mk/bsd.prefs.mk"
 
-EVAL_PREFIX=		PREFIX.gdm
-PREFIX.gdm_DEFAULT=	${PREFIX}
-CONFIGURE_ARGS+=	--with-gdm-setup=${PREFIX.gdm}/sbin/gdmsetup
+CONFIGURE_ARGS+=	--with-gdm-setup=${LOCALBASE}/sbin/gdmsetup
 
 .if defined(PKG_SYSCONFDIR.gdm)
 CONFIGURE_ARGS+=	--with-gdm-config=${PKG_SYSCONFDIR.gdm}/custom.conf

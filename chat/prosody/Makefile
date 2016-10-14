@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2015/04/15 14:05:46 nros Exp $
+# $NetBSD: Makefile,v 1.26 2016/03/05 11:28:09 jperkin Exp $
 #
 
-DISTNAME=		prosody-0.9.8
+DISTNAME=		prosody-0.9.10
+PKGREVISION=		2
 CATEGORIES=		chat
 MASTER_SITES=		http://prosody.im/downloads/source/
 
@@ -45,12 +46,7 @@ PKG_SHELL.${PROSODY_USER}=	${NOLOGIN}
 PKG_SYSCONFSUBDIR=	${PKGBASE}
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 CONF_FILES+=		${EGDIR}/prosody.cfg.lua ${PKG_SYSCONFDIR}/prosody.cfg.lua
-CONF_FILES+=		${EGDIR}/certs/example.com.cnf ${PKG_SYSCONFDIR}/certs/example.com.cnf
-CONF_FILES+=		${EGDIR}/certs/example.com.crt ${PKG_SYSCONFDIR}/certs/example.com.crt
-CONF_FILES+=		${EGDIR}/certs/example.com.key ${PKG_SYSCONFDIR}/certs/example.com.key
 CONF_FILES+=		${EGDIR}/certs/localhost.cnf ${PKG_SYSCONFDIR}/certs/localhost.cnf
-CONF_FILES+=		${EGDIR}/certs/localhost.crt ${PKG_SYSCONFDIR}/certs/localhost.crt
-CONF_FILES+=		${EGDIR}/certs/localhost.key ${PKG_SYSCONFDIR}/certs/localhost.key
 
 REPLACE_LUA+=		prosody prosodyctl
 
@@ -64,14 +60,13 @@ SUBST_VARS.path=	EGDIR PROSODY_DATA PROSODY_LOG PROSODY_RUN
 CONFIGURE_ARGS+=	--cflags=${CFLAGS:Q}
 CONFIGURE_ARGS+=	--datadir=${PROSODY_DATA}
 CONFIGURE_ARGS+=	--ldflags="-L${PREFIX}/lib ${COMPILER_RPATH_FLAG}${PREFIX}/lib -shared"
+CONFIGURE_ARGS+=	--no-example-certs
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-lua-include=${PREFIX}/${LUA_INCDIR}
 
 CFLAGS+=		-fPIC -Wall -DLUA_COMPAT_MODULE
-.if ${OPSYS} == "SunOS"
-MAKE_ENV+=		SOCKET_LIB=-lsocket
-.endif
+MAKE_ENV.SunOS+=	SOCKET_LIB=-lsocket
 
 RCD_SCRIPTS=		prosody
 

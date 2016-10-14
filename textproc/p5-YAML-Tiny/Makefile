@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.22 2015/06/12 10:51:39 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2016/06/08 19:24:47 wiz Exp $
 
-DISTNAME=	YAML-Tiny-1.63
+DISTNAME=	YAML-Tiny-1.69
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	perl5 textproc

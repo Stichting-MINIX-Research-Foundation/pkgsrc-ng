@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.7 2012/09/15 10:06:21 obache Exp $
+# $NetBSD: buildlink3.mk,v 1.9 2016/06/18 21:54:43 youri Exp $
 
 BUILDLINK_TREE+=	consolekit
 

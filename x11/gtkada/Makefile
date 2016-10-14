@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.32 2015/09/24 02:38:33 tnn Exp $
+# $NetBSD: Makefile,v 1.35 2016/08/03 10:22:22 adam Exp $
 #
 
 DISTNAME=	gtkada-${GTKADA_VERSION}
-PKGREVISION=	8
+PKGREVISION=	10
 CATEGORIES=	x11
 MASTER_SITES=	http://downloads.dragonlace.net/src/
 EXTRACT_SUFX=	.tar.bz2
@@ -26,7 +26,7 @@ CONFIGURE_ARGS+=	--enable-nls \
 			--with-GL=no
 MAKE_ENV+=		PROCESSORS=${MAKE_JOBS}
 
-SUBST_CLASSES+= 	docs lgnat sphinx
+SUBST_CLASSES+=		docs lgnat sphinx
 SUBST_STAGE.docs=	post-patch
 SUBST_FILES.docs=	Makefile.in
 SUBST_SED.docs=		-e 's/^all: \(.*\)/all: \1 docs/g'

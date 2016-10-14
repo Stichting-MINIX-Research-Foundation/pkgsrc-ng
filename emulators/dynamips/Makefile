@@ -1,37 +1,27 @@
-# $NetBSD: Makefile,v 1.9 2015/03/12 16:48:40 tnn Exp $
+# $NetBSD: Makefile,v 1.11 2016/04/07 14:24:51 ryoon Exp $
 
-DISTNAME=	dynamips-0.2.8-RC2
-PKGNAME=	${DISTNAME:S/-RC/rc/}
-PKGREVISION=	1
+DISTNAME=	dynamips-0.2.16
 CATEGORIES=	emulators
-MASTER_SITES=	http://www.ipflow.utc.fr/dynamips/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=GNS3/}
+GITHUB_PROJECT=	dynamips
+GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	kefren@NetBSD.org
-HOMEPAGE=	http://www.ipflow.utc.fr/index.php/Cisco_7200_Simulator
+HOMEPAGE=	https://github.com/GNS3/dynamips
 COMMENT=	Cisco 3600 and 7200 MIPS emulator
 LICENSE=	gnu-gpl-v2
 
-MAKE_JOBS_SAFE=		no
-
 USE_TOOLS+=	gmake
-
-NO_CONFIGURE=	yes
-
-BUILD_TARGET=	# empty
+USE_CMAKE=	yes
 
 SUBST_CLASSES+=		libelf
 SUBST_STAGE.libelf=	post-patch
-SUBST_FILES.libelf=	dynamips.h rom2c.c
+SUBST_FILES.libelf=	common/dynamips.h common/rom2c.c
 SUBST_SED.libelf=	-e 's,<libelf.h>,<libelf/libelf.h>,'
 SUBST_MESSAGE.libelf=	Fix libelf header file path
 
-INSTALLATION_DIRS=	bin
-
-do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/dynamips ${DESTDIR}${PREFIX}/bin
-	${INSTALL_PROGRAM} ${WRKSRC}/nvram_export ${DESTDIR}${PREFIX}/bin
-
 .include "../../devel/libelf/buildlink3.mk"
+.include "../../devel/libuuid/buildlink3.mk"
 .include "../../net/libpcap/buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

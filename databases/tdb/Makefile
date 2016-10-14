@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.25 2015/01/16 09:31:33 adam Exp $
+# $NetBSD: Makefile,v 1.29 2016/07/09 13:03:36 wiz Exp $
 
-DISTNAME=	tdb-1.3.4
+DISTNAME=	tdb-1.3.8
 CATEGORIES=	databases
 MASTER_SITES=	http://www.samba.org/ftp/tdb/
 
@@ -24,9 +24,21 @@ PKGCONFIG_OVERRIDE=	tdb.pc.in
 
 PYTHON_FOR_BUILD_ONLY=	yes
 REPLACE_PYTHON+= buildtools/bin/waf
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.2.12
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.2.12
 
 USE_GCC_RUNTIME=	yes
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+post-build:
+	@install_name_tool -id ${PREFIX}/lib/libtdb.dylib \
+		${WRKSRC}/bin/default/libtdb.dylib
+
+post-install:
+	@install_name_tool -id ${PREFIX}/lib/libtdb.dylib \
+		${DESTDIR}${PREFIX}/lib/libtdb.${PKGVERSION_NOREV}.dylib
+.endif
 
 .include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

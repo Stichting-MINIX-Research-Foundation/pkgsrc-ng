@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2015/05/03 18:01:28 bsiegert Exp $
+# $NetBSD: Makefile,v 1.14 2016/08/28 15:48:30 wiz Exp $
 
 DISTNAME=	hgview-1.8.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel python
 MASTER_SITES=	http://download.logilab.org/pub/hgview/
 
@@ -17,8 +17,7 @@ BUILD_DEPENDS+=	asciidoc-[0-9]*:../../textproc/asciidoc
 BUILD_DEPENDS+=	xmlto-[0-9]*:../../textproc/xmlto
 
 REPLACE_PYTHON= *.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.8.0
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.8.0
 
 USE_TOOLS+=	gmake
 

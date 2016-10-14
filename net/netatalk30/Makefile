@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.7 2015/08/24 22:00:57 tron Exp $
+# $NetBSD: Makefile,v 1.11 2016/07/09 06:38:44 wiz Exp $
 
 DISTNAME=	netatalk-3.0.8
 PKGNAME=        ${DISTNAME:C/-/30-/}
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=netatalk/}
 EXTRACT_SUFX=	.tar.bz2
@@ -36,7 +36,7 @@ CONFLICTS+=		netatalk-asun-[0-9]* netatalk-umich-[0-9]*
 .include "../../mk/bsd.prefs.mk"
 
 BUILD_DEFS+=		VARBASE
-OWN_DIRS+=		${VARBASE}/db/netatalk/CNID ${ROOT_USER} ${ROOT_GROUP}
+OWN_DIRS+=		${VARBASE}/db/netatalk/CNID ${REAL_ROOT_USER} ${REAL_ROOT_GROUP}
 
 CONFIGURE_ARGS+=	--enable-overwrite
 CONFIGURE_ARGS+=	--enable-quota
@@ -72,9 +72,7 @@ PLIST_VARS+=		ea
 PLIST.ea=		yes
 .endif
 
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ARGS+=	--without-dtrace
-.endif
+CONFIGURE_ARGS.NetBSD+=	--without-dtrace
 
 .include "options.mk"
 

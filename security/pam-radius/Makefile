@@ -1,22 +1,24 @@
-# $NetBSD: Makefile,v 1.4 2012/10/23 18:16:48 asau Exp $
+# $NetBSD: Makefile,v 1.7 2016/04/12 13:15:14 fhajny Exp $
 
+DISTNAME=	pam_radius-1.4.0
 PKGNAME=	${DISTNAME:S/_/-/}
-DISTNAME=	pam_radius-1.3.16
 CATEGORIES=	security
-MASTER_SITES=	ftp://ftp.freeradius.org/pub/radius/
+MASTER_SITES=	ftp://ftp.freeradius.org/pub/freeradius/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.freeradius.org/pam_radius_auth/
 COMMENT=	PAM module for authentication against a RADIUS server
+LICENSE=	gnu-gpl-v2
 
-NO_CONFIGURE=	YES
-EXTRACT_SUFX=	.tar
+USE_TOOLS+=	gmake
+GNU_CONFIGURE=	yes
+EXTRACT_USING=	bsdtar
 
 INSTALLATION_DIRS=	lib/security share/doc/pam-radius share/examples/pam-radius
 
 do-install:
 	${INSTALL_DATA} ${WRKSRC}/INSTALL ${DESTDIR}${PREFIX}/share/doc/pam-radius
-	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/share/doc/pam-radius
+	${INSTALL_DATA} ${WRKSRC}/README.rst ${DESTDIR}${PREFIX}/share/doc/pam-radius
 	${INSTALL_DATA} ${WRKSRC}/USAGE ${DESTDIR}${PREFIX}/share/doc/pam-radius
 	${INSTALL_DATA} ${WRKSRC}/pam_radius_auth.conf \
 		${DESTDIR}${PREFIX}/share/examples/pam-radius

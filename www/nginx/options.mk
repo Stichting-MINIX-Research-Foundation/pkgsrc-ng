@@ -1,11 +1,12 @@
-# $NetBSD: options.mk,v 1.32 2015/09/24 06:13:50 wiz Exp $
+# $NetBSD: options.mk,v 1.36 2016/06/15 14:49:11 fhajny Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.nginx
 PKG_SUPPORTED_OPTIONS=	dav flv gtools inet6 luajit mail-proxy memcache naxsi \
 			pcre push realip ssl sub uwsgi image-filter \
-			debug status nginx-autodetect-cflags spdy echo \
+			debug status nginx-autodetect-cflags echo \
 			set-misc headers-more array-var encrypted-session \
-			form-input perl gzip
+			form-input perl gzip v2
+
 PKG_SUGGESTED_OPTIONS=	inet6 pcre ssl
 
 PLIST_VARS+=		naxsi perl uwsgi
@@ -15,7 +16,7 @@ PLIST_VARS+=		naxsi perl uwsgi
 # documentation says naxsi must be the first module
 .if !empty(PKG_OPTIONS:Mnaxsi)
 PLIST.naxsi=		yes
-CONFIGURE_ARGS+=	--add-module=../${NAXSI}/naxsi_src
+CONFIGURE_ARGS+=	--add-module=../${NAXSI_DISTNAME}/naxsi_src
 .endif
 
 .if !empty(PKG_OPTIONS:Mdebug)
@@ -44,8 +45,8 @@ CONFIGURE_ARGS+=	--with-http_dav_module
 CONFIGURE_ARGS+=	--with-http_flv_module
 .endif
 
-.if !empty(PKG_OPTIONS:Mspdy)
-CONFIGURE_ARGS+=	--with-http_spdy_module
+.if !empty(PKG_OPTIONS:Mv2)
+CONFIGURE_ARGS+=	--with-http_v2_module
 .endif
 
 .if !empty(PKG_OPTIONS:Msub)
@@ -54,6 +55,7 @@ CONFIGURE_ARGS+=	--with-http_sub_module
 
 .if !empty(PKG_OPTIONS:Mgtools)
 CONFIGURE_ARGS+=	--with-google_perftools_module
+.include "../../devel/gperftools/buildlink3.mk"
 .endif
 
 .if !empty(PKG_OPTIONS:Mmail-proxy)
@@ -65,9 +67,10 @@ CONFIGURE_ARGS+=	--without-http_memcached_module
 .endif
 
 .if !empty(PKG_OPTIONS:Mnaxsi) || make(makesum)
-NAXSI=				naxsi-0.53-2
-NAXSI_DISTFILE=			${NAXSI}.tar.gz
-SITES.${NAXSI_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+NAXSI_VERSION=			0.54
+NAXSI_DISTNAME=			naxsi-${NAXSI_VERSION}
+NAXSI_DISTFILE=			${NAXSI_DISTNAME}.tar.gz
+SITES.${NAXSI_DISTFILE}=	-https://github.com/nbs-system/naxsi/archive/${NAXSI_VERSION}.tar.gz
 DISTFILES+=			${NAXSI_DISTFILE}
 .endif
 
@@ -82,14 +85,15 @@ CONFIGURE_ARGS+=	--with-ipv6
 # NDK must be added once and before 3rd party modules needing it
 .for _ngx_mod in luajit set-misc array-var form-input encrypted-session
 .	if !defined(NEED_NDK) && !empty(PKG_OPTIONS:M${_ngx_mod}:O)
-CONFIGURE_ARGS+=	--add-module=../${NDK}
+CONFIGURE_ARGS+=	--add-module=../${NDK_DISTNAME}
 NEED_NDK=		yes
 .	endif
 .endfor
 .if defined(NEED_NDK) || make(makesum)
-NDK=			ngx_devel_kit-0.2.19
-NDK_DISTFILE=		${NDK}.tar.gz
-SITES.${NDK_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+NDK_VERSION=		0.3.0
+NDK_DISTNAME=		ngx_devel_kit-${NDK_VERSION}
+NDK_DISTFILE=		${NDK_DISTNAME}.tar.gz
+SITES.${NDK_DISTFILE}=	-https://github.com/simpl/ngx_devel_kit/archive/v${NDK_VERSION}.tar.gz
 DISTFILES+=		${NDK_DISTFILE}
 .endif
 
@@ -97,72 +101,79 @@ DISTFILES+=		${NDK_DISTFILE}
 .include "../../lang/LuaJIT2/buildlink3.mk"
 CONFIGURE_ENV+=		LUAJIT_LIB=${PREFIX}/lib
 CONFIGURE_ENV+=		LUAJIT_INC=${PREFIX}/include/luajit-2.0
-CONFIGURE_ARGS+=	--add-module=../${LUA}
+CONFIGURE_ARGS+=	--add-module=../${LUA_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mluajit) || make(makesum)
-LUA=			lua-nginx-module-0.9.5
-LUA_DISTFILE=		${LUA}.tar.gz
-SITES.${LUA_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+LUA_VERSION=		0.10.5
+LUA_DISTNAME=		lua-nginx-module-${LUA_VERSION}
+LUA_DISTFILE=		${LUA_DISTNAME}.tar.gz
+SITES.${LUA_DISTFILE}=	-https://github.com/openresty/lua-nginx-module/archive/v${LUA_VERSION}.tar.gz
 DISTFILES+=		${LUA_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mecho)
-CONFIGURE_ARGS+=	--add-module=../${ECHOMOD}
+CONFIGURE_ARGS+=	--add-module=../${ECHOMOD_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mecho) || make(makesum)
-ECHOMOD=		echo-nginx-module-0.51
-ECHOMOD_DISTFILE=	${ECHOMOD}.tar.gz
-SITES.${ECHOMOD_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+ECHOMOD_VERSION=	0.59
+ECHOMOD_DISTNAME=	echo-nginx-module-${ECHOMOD_VERSION}
+ECHOMOD_DISTFILE=	${ECHOMOD_DISTNAME}.tar.gz
+SITES.${ECHOMOD_DISTFILE}=	-https://github.com/openresty/echo-nginx-module/archive/v${ECHOMOD_VERSION}.tar.gz
 DISTFILES+=		${ECHOMOD_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mset-misc)
-CONFIGURE_ARGS+=	--add-module=../${SETMISC}
+CONFIGURE_ARGS+=	--add-module=../${SETMISC_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mset-misc) || make(makesum)
-SETMISC=		set-misc-nginx-module-0.24
-SETMISC_DISTFILE=	${SETMISC}.tar.gz
-SITES.${SETMISC_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+SETMISC_VERSION=	0.30
+SETMISC_DISTNAME=	set-misc-nginx-module-${SETMISC_VERSION}
+SETMISC_DISTFILE=	${SETMISC_DISTNAME}.tar.gz
+SITES.${SETMISC_DISTFILE}=	-https://github.com/openresty/set-misc-nginx-module/archive/v${SETMISC_VERSION}.tar.gz
 DISTFILES+=		${SETMISC_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Marray-var)
-CONFIGURE_ARGS+=	--add-module=../${ARRAYVAR}
+CONFIGURE_ARGS+=	--add-module=../${ARRAYVAR_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Marray-var) || make(makesum)
-ARRAYVAR=		array-var-nginx-module-0.03
-ARRAYVAR_DISTFILE=	${ARRAYVAR}.tar.gz
-SITES.${ARRAYVAR_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+ARRAYVAR_VERSION=	0.04
+ARRAYVAR_DISTNAME=	array-var-nginx-module-${ARRAYVAR_VERSION}
+ARRAYVAR_DISTFILE=	${ARRAYVAR_DISTNAME}.tar.gz
+SITES.${ARRAYVAR_DISTFILE}=	-https://github.com/openresty/array-var-nginx-module/archive/v${ARRAYVAR_VERSION}.tar.gz
 DISTFILES+=		${ARRAYVAR_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mencrypted-session)
-CONFIGURE_ARGS+=	--add-module=../${ENCSESS}
+CONFIGURE_ARGS+=	--add-module=../${ENCSESS_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mencrypted-session) || make(makesum)
-ENCSESS=		encrypted-session-nginx-module-0.03
-ENCSESS_DISTFILE=	${ENCSESS}.tar.gz
-SITES.${ENCSESS_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+ENCSESS_VERSION=	0.05
+ENCSESS_DISTNAME=	encrypted-session-nginx-module-${ENCSESS_VERSION}
+ENCSESS_DISTFILE=	${ENCSESS_DISTNAME}.tar.gz
+SITES.${ENCSESS_DISTFILE}=	-https://github.com/openresty/encrypted-session-nginx-module/archive/v${ENCSESS_VERSION}.tar.gz
 DISTFILES+=		${ENCSESS_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mform-input)
-CONFIGURE_ARGS+=	--add-module=../${FORMINPUT}
+CONFIGURE_ARGS+=	--add-module=../${FORMINPUT_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mform-input) || make(makesum)
-FORMINPUT=		form-input-nginx-module-0.07
-FORMINPUT_DISTFILE=	${FORMINPUT}.tar.gz
-SITES.${FORMINPUT_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+FORMINPUT_VERSION=	0.12
+FORMINPUT_DISTNAME=	form-input-nginx-module-${FORMINPUT_VERSION}
+FORMINPUT_DISTFILE=	${FORMINPUT_DISTNAME}.tar.gz
+SITES.${FORMINPUT_DISTFILE}=	-https://github.com/calio/form-input-nginx-module/archive/v${FORMINPUT_VERSION}.tar.gz
 DISTFILES+=		${FORMINPUT_DISTFILE}
 .endif
 
 .if !empty(PKG_OPTIONS:Mheaders-more)
-CONFIGURE_ARGS+=	--add-module=../${HEADMORE}
+CONFIGURE_ARGS+=	--add-module=../${HEADMORE_DISTNAME}
 .endif
 .if !empty(PKG_OPTIONS:Mheaders-more) || make(makesum)
-HEADMORE=		headers-more-nginx-module-0.25
-HEADMORE_DISTFILE=	${HEADMORE}.tar.gz
-SITES.${HEADMORE_DISTFILE}=	http://ftp.NetBSD.org/pub/pkgsrc/distfiles/
+HEADMORE_VERSION=	0.30
+HEADMORE_DISTNAME=	headers-more-nginx-module-${HEADMORE_VERSION}
+HEADMORE_DISTFILE=	${HEADMORE_DISTNAME}.tar.gz
+SITES.${HEADMORE_DISTFILE}=	-https://github.com/openresty/headers-more-nginx-module/archive/v${HEADMORE_VERSION}.tar.gz
 DISTFILES+=		${HEADMORE_DISTFILE}
 .endif
 
@@ -174,13 +185,13 @@ CONFIGURE_ARGS+=	--without-http_uwsgi_module
 .endif
 
 .if !empty(PKG_OPTIONS:Mpush)
-CONFIGURE_ARGS+=	--add-module=../${PUSH}
+CONFIGURE_ARGS+=	--add-module=../nchan-${PUSH_VERSION}
 .endif
 .if !empty(PKG_OPTIONS:Mpush) || make(makesum)
-PUSH=			nginx_http_push_module-0.692
-PUSH_DISTFILE=		${PUSH}.tar.gz
-SITES.${PUSH_DISTFILE}=	http://pushmodule.slact.net/downloads/
-
+PUSH_VERSION=		0.731
+PUSH_DISTNAME=		nginx_http_push_module-${PUSH_VERSION}
+PUSH_DISTFILE=		${PUSH_DISTNAME}.tar.gz
+SITES.${PUSH_DISTFILE}=	-https://github.com/slact/nginx_http_push_module/archive/v${PUSH_VERSION}.tar.gz
 DISTFILES+=		${PUSH_DISTFILE}
 .endif
 

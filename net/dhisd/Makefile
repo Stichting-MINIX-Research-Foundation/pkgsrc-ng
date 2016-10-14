@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2015/03/21 17:31:47 joerg Exp $
+# $NetBSD: Makefile,v 1.20 2015/12/18 19:54:14 wiedi Exp $
 #
 
 DISTNAME=	dhisd-5.5
@@ -13,13 +13,6 @@ LICENSE=	2-clause-bsd
 LDFLAGS.SunOS+=	-lsocket -lnsl
 
 INSTALLATION_DIRS=	bin share/examples/dhisd share/doc/dhisd
-
-SUBST_CLASSES+=		prefix
-SUBST_FILES.prefix=	Makefile
-SUBST_STAGE.prefix=	pre-configure
-SUBST_MESSAGE.prefix=	Convert /usr/local to ${PREFIX}
-SUBST_SED.prefix=	-e 's|/usr/local|${PREFIX}|;'
-SUBST_SED.prefix+=	-e '/LFLAGS/s|${PREFIX}|${PREFIX}/lib -Wl,-rpath,${PREFIX}|;'
 
 SUBST_CLASSES+=		varbase
 SUBST_FILES.varbase=	dhisd.h README

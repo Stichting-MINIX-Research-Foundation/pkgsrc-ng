@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.15 2015/06/12 10:50:40 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2016/07/09 06:38:41 wiz Exp $
 #
 
 DISTNAME=	dlint1.4.0
 PKGNAME=	dlint-1.4.0
-PKGREVISION=	5
+PKGREVISION=	6
 CATEGORIES=	net
 MASTER_SITES=	http://www.domtools.com/pub/
 
@@ -14,7 +14,7 @@ COMMENT=	Internet Domain Name System (DNS) error checking utility
 USE_TOOLS+=	perl:run
 NO_BUILD=	YES
 
-INSTALLATION_DIRS+=	bin man/man1
+INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1
 
 do-configure:
 	cd ${WRKSRC} ; \

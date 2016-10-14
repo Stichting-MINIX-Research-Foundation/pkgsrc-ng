@@ -1,10 +1,10 @@
-$NetBSD: patch-session.c,v 1.4 2015/07/09 16:14:23 taca Exp $
+$NetBSD: patch-session.c,v 1.7 2016/09/18 17:30:11 taca Exp $
 
-Interix support
+* Interix support.
 
---- session.c.orig	2015-07-01 02:35:31.000000000 +0000
+--- session.c.orig	2016-07-27 22:54:27.000000000 +0000
 +++ session.c
-@@ -1093,7 +1093,7 @@ read_etc_default_login(char ***env, u_in
+@@ -1120,7 +1120,7 @@ read_etc_default_login(char ***env, u_in
  	if (tmpenv == NULL)
  		return;
  
@@ -13,7 +13,7 @@ Interix support
  		var = child_get_env(tmpenv, "SUPATH");
  	else
  		var = child_get_env(tmpenv, "PATH");
-@@ -1202,7 +1202,7 @@ do_setup_env(Session *s, const char *she
+@@ -1230,7 +1230,7 @@ do_setup_env(Session *s, const char *she
  #  endif /* HAVE_ETC_DEFAULT_LOGIN */
  		if (path == NULL || *path == '\0') {
  			child_set_env(&env, &envsize, "PATH",
@@ -22,7 +22,7 @@ Interix support
  				SUPERUSER_PATH : _PATH_STDPATH);
  		}
  # endif /* HAVE_CYGWIN */
-@@ -1316,6 +1316,18 @@ do_setup_env(Session *s, const char *she
+@@ -1346,6 +1346,18 @@ do_setup_env(Session *s, const char *she
  		    strcmp(pw->pw_dir, "/") ? pw->pw_dir : "");
  		read_environment_file(&env, &envsize, buf);
  	}
@@ -41,7 +41,7 @@ Interix support
  	if (debug_flag) {
  		/* dump the environment */
  		fprintf(stderr, "Environment:\n");
-@@ -1510,11 +1522,13 @@ do_setusercontext(struct passwd *pw)
+@@ -1537,11 +1549,13 @@ do_setusercontext(struct passwd *pw)
  			perror("setgid");
  			exit(1);
  		}
@@ -55,7 +55,7 @@ Interix support
  		endgrent();
  #endif
  
-@@ -2356,7 +2370,7 @@ session_pty_cleanup2(Session *s)
+@@ -2388,7 +2402,7 @@ session_pty_cleanup2(Session *s)
  		record_logout(s->pid, s->tty, s->pw->pw_name);
  
  	/* Release the pseudo-tty. */

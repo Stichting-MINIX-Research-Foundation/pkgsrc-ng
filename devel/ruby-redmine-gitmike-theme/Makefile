@@ -1,15 +1,14 @@
-# $NetBSD: Makefile,v 1.1 2015/07/06 04:12:49 rodent Exp $
-#
+# $NetBSD: Makefile,v 1.3 2016/06/09 06:23:39 wiz Exp $
 
 GITHUB_TAG=	r7
 DISTNAME=	${GITHUB_TAG}
 GITHUB_PROJECT=	redmine-theme-gitmike
-PKGNAME=	${RUBY_PKGPREFIX}-redmine-gitmike-theme-${DISTNAME}
+PKGNAME=	${RUBY_PKGPREFIX}-redmine-gitmike-theme-${DISTNAME:S/r//}
 MASTER_SITES=	${MASTER_SITE_GITHUB:=makotokw/}
 DIST_SUBDIR=	ruby-redmine-gitmike-theme
 
 MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	${MASTER_SITES}${GITHUB_PROJECT}
+HOMEPAGE=	https://github.com/makotokw/redmine-theme-gitmike
 COMMENT=	Github-like theme for Redmine
 LICENSE=	gnu-gpl-v3
 

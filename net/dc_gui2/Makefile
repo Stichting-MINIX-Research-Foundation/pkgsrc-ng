@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2015/04/25 14:23:43 tnn Exp $
+# $NetBSD: Makefile,v 1.84 2016/09/18 18:37:53 wiedi Exp $
 
 DISTNAME=	dc_gui2-0.80
-PKGREVISION=	32
+PKGREVISION=	34
 CATEGORIES=	net
 MASTER_SITES=	http://ac2i.homelinux.com/dctc/
 
@@ -24,6 +24,8 @@ UNLIMIT_RESOURCES+=	datasize
 CPPFLAGS+=		-I${BDBBASE}/include/${BDB_TYPE}
 CPPFLAGS+=		-DNO_PRINTF_LOCALE
 BUILDLINK_TRANSFORM+=	l:db4:${BDB_TYPE}
+
+LDFLAGS.SunOS+=		-lsocket -lnsl
 
 post-configure:
 	${ECHO} '#ifndef MSG_NOSIGNAL' >> ${WRKSRC}/config.h

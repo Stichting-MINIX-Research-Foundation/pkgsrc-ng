@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.15 2014/10/13 12:51:10 mef Exp $
+# $NetBSD: Makefile,v 1.17 2016/07/20 23:59:56 gdt Exp $
 
 META_PACKAGE=	yes
 
 .include	"../../ham/gnuradio-core/Makefile.version"
 
 DISTNAME=       gnuradio-${VERSION}
+PKGREVISION=	1
 CATEGORIES=	meta-pkgs ham
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -14,7 +15,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.gnu.org/software/gnuradio/
 COMMENT=	Collection of GNU Radio (meta package, easy to install whole thing)
 
-# 21 package for now
+# 20 package for now
 DEPENDS+=	gnuradio-atsc-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-atsc
 DEPENDS+=	gnuradio-channels-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-channels
 DEPENDS+=	gnuradio-companion-${VERSION}{,nb[0-9]*}:../../ham/gnuradio-companion

@@ -4,6 +4,7 @@ acl			Enable POSIX ACL support.
 adobe-cidfonts		Select Adobe-fonts.
 adplug			Enable Adlib emulator support.
 ads			Enable Windows Active Directory support.
+afterstep		Enable afterstep support.
 agg			Enable agg support.
 alsa			Enable ALSA support.
 amanda-dump-snap	If dump supports -X, use it.
@@ -36,6 +37,7 @@ aria2-metalink		Enable Metalink support.
 arts			Use the aRts audio daemon.
 aspell			Add spell checking support using aspell.
 ass			Enable subtitle renderer for the ASS/SSA format
+asterisk-config		Control installation of Asterisk sample config files.
 aterm-big5		Enable Chinese support.
 aterm-greek		Enable Greek keyboard support.
 aterm-kanji		Enable kanji support.
@@ -67,6 +69,7 @@ bugzilla-xmlimportbugs	Bulk import/export of bugs in XML format.
 bzip2			Enable compression using bzip2.
 caca			Enable libcaca support.
 cairo			Enable cairo support.
+camlp4	Enable camlp4 support.
 camlzip			Enable camlzip support (for zip/gz/jar).
 canna			Use Canna as Japanese conversion program.
 cares			Use the c-ares library for asynchronous name resolution.
@@ -76,6 +79,7 @@ catalog-sqlite		Store Bacula catalog in SQLite database.
 catalog-sqlite3		Store Bacula catalog in SQLite 3 database.
 cdb			Enable CDB support.
 cdparanoia		Use cdparanoia to rip CDDA media.
+cerf			Enable libcerf support.
 cg			Add support for the Cg compiler.
 cgi			Enable CGI support.
 chasen			Use ChaSen as the Japanese Morphological Analzer.
@@ -136,6 +140,8 @@ dspam-verbose-debug	Enable verbose debugging support.
 dspam-virtualusers	Enable support for virtual users.
 dtrace			Enable DTrace support.
 dts			Enable DTS Coherent Acoustics support.
+duplicity-amazons3	Add Amazon S3 support.
+duplicity-dropbox	Add Dropbox support.
 dv			Enable usage of the libdv library.
 dvdcss			Enable CSS support for DVDs.
 dvdnav			Enable libdvdnav support to navigate DVDs.
@@ -145,6 +151,7 @@ eaccelerator-disassembler	Include disassembler.
 eaccelerator-doc-comment-inclusion	Retain doc-comments in internal php structures.
 eai			Enable EAI (Email Address Internationalization) support.
 eb			Enable EB dictionary library support.
+ecap			Enable eCAP support.
 ecl			Use Embeddable Common Lisp.
 ecore			Enable ecore library support.
 eekboard		Use eekboard for virtual keyboard support.
@@ -179,7 +186,9 @@ faac			Enable AAC decoding support using faac.
 faad			Enable AAC decoding support using faad2.
 fam			Support using File Alteration Monitor (FAM).
 farsight		Enable farsight2 support.
+farstream		Enable farstream support.
 fastcgi			Use FastCGI as the CGI manager.
+fax			Enable fax support
 fd-small		Build smaller misc/fd package.
 ffmpeg			Enable ffmpeg support.
 fftw			Use the fftw library for Discrete Fourier Transforms.
@@ -220,6 +229,7 @@ gdb6-tui		Build the tui application.
 gdbm			Use the GNU gdbm database library.
 gdk-pixbuf		Use gdk-pixbuf as imaging library.
 gdk-pixbuf2		Use gdk-pixbuf2 as imaging library.
+geoclue			Enable geoclue support.
 geoip			Enable IP-to-country-lookup using the GeoIP C library.
 ggi			Enable GGI support.
 ghostscript		Enable GhostScript support.
@@ -229,13 +239,17 @@ gimp1-helpbrowser	Link against gnome1 to get a help browser.
 git			Enable Git support.
 git-gui			Build the GUI in Tcl/Tk.
 glade			Enable Glade support
+glfw			Enable GLFW support
 gmp			Enable gmp (GNU Multiple Precision Arithmetic Library) support.
 gmp-fat			Build-in all x86 assembler code, detecting CPU at run-time.
 gnome			Enable GNOME support.
 gnome-keyring		Enable GNOME keyring support.
 gnomecanvas		Enable GNOME canvas support
 gnomevfs		Enable GNOME Virtual File System support.
+gnupg2			Use GNU Privacy Guard (GnuPG) Version 2.0
 gnupg2-gpgsm		Install gpgsm binary.
+gnupg21			Use GNU Privacy Guard (GnuPG) Version 2.1
+gnuplot-pdf-doc		Install PDF document.
 gnutls			Enable GNU TLS support.
 goffice			Enable goffice support.
 gopher			Enable support for the Gopher information system.
@@ -270,6 +284,7 @@ http2			Add support for HTTP/2.
 hunspell		Add spell checking support using hunspell.
 i586-optimized		Optimize for i586 (only).
 ibus			Enable Intelligent Input Bus support.
+iconv			Use iconv as chracter encoding conversion.
 icu			Enable icu support.
 id3			Enable id3 tagging support.
 idea			Enable support for the IDEA cryptographic algorithm (possible license+patent problems).
@@ -397,6 +412,8 @@ ldap			Enable LDAP support.
 lensfun			Enable lensfun (camera lens distortion rectifyer) support.
 libao			Enable the platform-independent 'ao' audio library.
 libchamplain		Enable libchamplain support (map widget).
+libdbi			Enable libdbi support (similar p5-DBI but for C).
+libdrm			Enable libdrm support.
 libgcrypt		Use GNU cryptographic library.
 libgme			Enable Game_Music_Emu video game music file library support.
 libgpod			Enable libgpod support.
@@ -418,6 +435,7 @@ libspiff		Use libspiff for XML shareable playlist support.
 libssh2			Use libssh2 for SSHv2 protocol support.
 libthai			Use libthai for Thai word segmentation.
 libusb			Enable USB access.
+libusb-1		Enable USB access via libusb-1.
 libvisual		Enable libvisual (audio visualisation) support.
 libvpx			Enable libvpx support.
 libwildmidi		Enable MIDI support using libwildmidi.
@@ -491,6 +509,7 @@ mplayer-ssse3		Enable SSSE3 support.
 mplayer-win32		Enable usage of Win32 DLLs (codecs).
 mrtg-snmpv3		Enable SNMPv3 support.
 mstats			Enable memory statistics.
+mtpz			Enable MTPZ support using libgcrypt.
 musepack		Enable the portable Musepack decoder library.
 musicbrainz		Enable musicbrainz support.
 musicpd-lastfm		Enable Last.FM support in musicpd.
@@ -504,6 +523,7 @@ mysqlmanager		Build mysqlmanager.
 mysqlnd			Support for MySQL Native Driver (mainly for php).
 nagios-nrpe-args	Enable argument passing via NRPE (possible security issues).
 nas			Enable usage of the Network Audio System.
+nautilus		Enable nautilus sub-menu option.
 ncurses			Enable ncurses support.
 ncursesw		Enable wide character ncurses support.
 ndb-cluster		Build NDB Cluster support.
@@ -516,6 +536,7 @@ nfdump-nfprofile	Build the netflow profiler.
 nfdump-sflow		Build sflow collector sfcpad.
 nghttp2-asio		Build the nghttp2 ASIO C++ library.
 nghttp2-tools		Build the supplied nghttp2 apps and tools.
+nginx			Enable support for Nginx web server.
 ninja-build		Enable build by ninja-build.
 nls			Use native language support.
 nntp			Enable Network News Transport Protocol (NNTP) support.
@@ -548,6 +569,8 @@ oss			Enable support for the Open Sound System audio library.
 osx-addressbook		Enable support for the Mac OS X Address Book.
 otr			Enable Off-the-record encrypted messaging.
 p0f			Enable support for passive OS fingerprinting.
+p5-module-build-dist-authoring		Enable building distfiles.
+p5-module-build-license-creation	Enable license creation.
 pam			Enable PAM support.
 pcb-motif		Use Motif for the gui instead of GTK for cad/pcb.
 pcre			Enable Perl-compatible regular expressions.
@@ -556,10 +579,12 @@ pdf			Enable PDF support.
 perl			Enable Perl support.
 pgadmin-db-designer	Enable pgAdmin database-designer functionality.
 pgsql			Enable PostgreSQL support.
+php-sockets		Enable php-sockets support.
 pim			Enable pim (personal information management) support.
 pinepwd			Enable $HOME/.pinepwd stored IMAP password file.
 pinfo-native-curses	Use NetBSD native curses rather than ncurses.
 pkcs11			Use certificate-on-a-stick (or card) support.
+plotutils		Enable plotutils support.
 png			Enable PNG support.
 poppler			Enable poppler-utils support.
 portals			Enable BSD Portals support
@@ -567,6 +592,7 @@ portaudio		Enable PortAudio audio library support.
 postfix-milter		Build the milter with support for the Postfix MTA.
 postfix-stress		Enable Postfix stress-adaptive behaviour.
 postgrey-targrey	Enable the Postgrey taRgrey tarpitting patch.
+ppx	Enable PPX support.
 prime			Use Prime for Kana-to-Kanji conversion.
 proftpd-readme		Enable mod_readme.
 psiconv			Enable psiconv support (for PSION 5 file formats).
@@ -616,6 +642,7 @@ saslauthd		Use the Cyrus saslauthd daemon for authentication.
 sbcl			Use Steel-Bank Common Lisp.
 scapy-crypto		Add in crypto support.
 scapy-pyx		Add in py-X support.
+scim			Enable Smart Common Input Method support.
 sdl			Use SDL as display library.
 sdl2			Use SDL2 as display library.
 seamonkey		Use seamonkey as gecko rendering engine.
@@ -630,6 +657,7 @@ sidplay			Enable support for the SID audio file format.
 sieve			Enable sieve support.
 sigver			Enable signature verification for debugging purposes.
 simd			Enable MMX/3DNOW/SSE/Altivec support.
+sit			Enable source identity token support.
 sj3			Use SJ3 for Kana-to-Kanji conversion.
 skey			Enable S/Key support.
 skk			Use SKK for Kana-to-Kanji conversion.
@@ -639,6 +667,7 @@ slp			Enable Service Location Protocol support.
 small-net		Tune for a smaller networks.
 smime			Enable S/MIME support.
 smokeping-speedycgi	Enable SpeedyCGI.
+snappy			Enable Snappy support.
 sndfile			Enable sndfile support.
 snmp			Enable SNMP support.
 snort-flexresp		Flexible responses on hostile connection attempts.
@@ -718,6 +747,7 @@ tokyocabinet		Enable Tokyo Cabinet support.
 tremor			Enable Tremor fixed point audio decoding library support.
 trn-inn			Use INN as NNTP client.
 trn-nntpclnt		Use nntpclnt as NNTP client.
+tuning			Specify server tuning for large.
 twolame			Enable MP2 support using twolame.
 ucspi-ssl-perl		Enable Perl support in ucspi-ssl.
 ucspi-tcp-nodefaultrbl	Remove the (nonexistent) default RBL from rblsmtpd.
@@ -756,6 +786,7 @@ vice-fullscreen		Enable full-screen support.
 vice-hwscaling		Enable hardware-assisted screen scaling.
 vidix			Enable VIDIX (Video Interface for *niX support).
 viewvc-php		Use php to colorize .php and .inc files.
+vlc-skins		Enable skins support in VLC.
 vorbis			Enable Ogg Vorbis support.
 w3m			Use and enable support for the w3m browser.
 w3m-image-gdk-pixbuf	Use gdk-pixbuf as imaging library for W3m.
@@ -766,16 +797,20 @@ w3m-lynx-key		Enable lynx-like key bindings.
 wavpack			Enable wavpack support.
 webkit-jit		Enable JIT compilation.
 webrtc			Enable web realtime communications API.
+websocket		Websocket protocol support (as specified in RFC6455)
 webvmail		Install CGI script for voicemail.
 wide-curses		Enable wide curses support.
 winbind			Enable name-service switch daemon support using Windows Servers.
+wiredtiger		Enable WiredTiger support.
 wmf			Enable WMF support.
 wnn4			Use wnn for Kana-to-Kanji conversion.
+wxwidgets		Enable wxWidgets support.
 x11			Enable X11 support.
 x264			Enable x264 support.
 x265			Enable x265 support.
 xapian-flint-backend	Enable "Flint" format Xapian database support.
 xapian-quartz-backend	Enable "Quartz" format Xapian database support.
+xatracker		Enable XA X Acceleration API support.
 xaw			Enable Xaw support.
 xaw3d			Enable Xaw3D support.
 xblast-mini		Use a 480x392 window instead a 960x784 window in xblast.

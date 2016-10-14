@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.167 2015/09/13 12:27:42 bouyer Exp $
+# $NetBSD: Makefile,v 1.172 2016/07/10 13:28:41 rillig Exp $
 #
 # NOTE:	If you update this package, then you'll likely need to also update
 #	the x11-links dependency in buildlink3.mk to the correct version,
 #	usually the most recent.
 
-PKGNAME=	x11-links-0.98
+PKGNAME=	x11-links-1.02
 CATEGORIES=	pkgtools x11
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -79,7 +79,7 @@ CREATE_X11LINK?=	${LN} -fs $$src $$dest
 do-build:
 	${MKDIR} ${X11_LINKS_BUILD_DIR}
 	${CHMOD} ${PKGDIRMODE} ${X11_LINKS_BUILD_DIR}
-	${FILES_LIST_CMD} | ${SED} -e "s,/[^/]*$$,," | ${SORT} -u |	\
+	${FILES_LIST_CMD} | ${SED} -e 's,/[^/]*$$,,' | ${SORT} -u |	\
 	while read dir; do						\
 		if [ -d ${X11BASE}/$$dir ]; then			\
 			${MKDIR} ${X11_LINKS_BUILD_DIR}/$$dir;		\
@@ -119,8 +119,7 @@ do-build:
 	done
 
 do-install:
-	${INSTALL_DATA_DIR} ${DESTDIR:Q}${X11_LINKS_DIR:Q}
-	cd  ${X11_LINKS_BUILD_DIR} && \
-		pax -rw .  ${DESTDIR:Q}${X11_LINKS_DIR:Q}
+	${INSTALL_DATA_DIR} ${DESTDIR}${X11_LINKS_DIR}
+	cd ${X11_LINKS_BUILD_DIR} && pax -rw . ${DESTDIR}${X11_LINKS_DIR}
 
 .include "../../mk/bsd.pkg.mk"

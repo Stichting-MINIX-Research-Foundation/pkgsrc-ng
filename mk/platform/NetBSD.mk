@@ -1,4 +1,4 @@
-# $NetBSD: NetBSD.mk,v 1.45 2015/08/10 21:44:34 khorben Exp $
+# $NetBSD: NetBSD.mk,v 1.48 2016/03/11 23:54:09 khorben Exp $
 #
 # Variable definitions for the NetBSD operating system.
 
@@ -76,11 +76,6 @@ _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-V simple --suffix # switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
 
-# flags passed to the linker to extract all symbols from static archives.
-# this is GNU ld.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
-
 # for programs which use dlopen()
 # not necessary since 1.6 (shared libs are linked against libgcc_pic)
 .if !empty(OS_VERSION:M1.5*)
@@ -128,19 +123,27 @@ FFLAGS+=	-mieee
 PKG_HAVE_KQUEUE=	# defined
 .endif
 
-.if ${PKGSRC_USE_FORT:Uno} != "no"
-# build with fortify
-_GCC_CFLAGS+=	-D_FORTIFY_SOURCE=2
+# Register support for FORTIFY (with GCC)
+_OPSYS_SUPPORTS_FORTIFY=yes
+
+# Register support for PIE on supported architectures (with GCC)
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_MKPIE=	yes
 .endif
 
-.if ${PKGSRC_USE_SSP:Uno} != "no"
-. if (${MACHINE_ARCH} != "alpha") && \
-	(${MACHINE_ARCH} != "hppa") && \
-	(${MACHINE_ARCH} != "ia64") && \
-	(${MACHINE_ARCH} != "mips")
-# build with stack protection (with GCC)
-_GCC_CFLAGS+=	-fstack-protector
-. endif
+# Register support for RELRO on supported architectures (with GCC)
+.if (${MACHINE_ARCH} == "i386") || \
+    (${MACHINE_ARCH} == "x86_64")
+_OPSYS_SUPPORTS_RELRO=	yes
+.endif
+
+# Register support for SSP on most architectures (with GCC)
+.if (${MACHINE_ARCH} != "alpha") && \
+    (${MACHINE_ARCH} != "hppa") && \
+    (${MACHINE_ARCH} != "ia64") && \
+    (${MACHINE_ARCH} != "mips")
+_OPSYS_SUPPORTS_SSP=	yes
 .endif
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # use readelf in check/bsd.check-vars.mk

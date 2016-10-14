@@ -1,11 +1,10 @@
-# $NetBSD: Makefile,v 1.11 2015/03/15 17:56:15 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.13 2016/03/15 15:15:49 taca Exp $
 
-DISTNAME=	oauth-0.4.7
+DISTNAME=	oauth-0.5.1
 CATEGORIES=	security
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://oauth.rubyforge.org/
-#HOMEPAGE=	http://github.com/oauth/oauth-ruby
+HOMEPAGE=	https://github.com/oauth-xx/oauth-ruby
 COMMENT=	OAuth Core Ruby implementation
 LICENSE=	mit
 

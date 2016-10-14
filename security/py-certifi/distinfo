@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1 2015/08/23 14:20:55 leot Exp $
+$NetBSD: distinfo,v 1.4 2016/02/16 13:44:50 leot Exp $
 
-SHA1 (certifi-2015.04.28.tar.gz) = d46ec2ce08c1590960173cede5e57e0a1356999e
-RMD160 (certifi-2015.04.28.tar.gz) = f7a5eaf21cc93b39adae6c11da530b249f1ba5d7
-Size (certifi-2015.04.28.tar.gz) = 370682 bytes
+SHA1 (certifi-2015.11.20.1.tar.gz) = e31ab9b9bee02511d91758e73c8598a82a0b3c35
+RMD160 (certifi-2015.11.20.1.tar.gz) = be5bdc04b35e9bcbdfc8a33a063c55dcdb245b2a
+SHA512 (certifi-2015.11.20.1.tar.gz) = e075c67ca134a34908ca775fb909e61c349fa3cf9f48b8c934b795c8295fc859753d65187c560e4bf11d05bcaead038212e22384524af2a296acdd6246fcc1b3
+Size (certifi-2015.11.20.1.tar.gz) = 365934 bytes

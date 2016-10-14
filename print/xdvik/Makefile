@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.18 2015/06/14 12:50:07 markd Exp $
+# $NetBSD: Makefile,v 1.21 2016/06/16 04:06:20 markd Exp $
 
-DISTNAME=	texlive-20150521-source
-PKGNAME=	xdvik-22.87
-PKGREVISION=	1
+DISTNAME=	texlive-20160523-source
+PKGNAME=	xdvik-22.87.03
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -31,9 +30,6 @@ WRKSRC=		${WRKDIR}/${DISTNAME}/texk/xdvik
 
 CONFIG_GUESS_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.guess
 CONFIG_SUB_OVERRIDE+=	${WRKDIR}/${DISTNAME}/build-aux/config.sub
-
-FIND_PREFIX:=	TEX_XDVI_PREFIX=tex-xdvi
-.include "../../mk/find-prefix.mk"
 
 CONFIGURE_ARGS+=	--with-system-freetype2
 CONFIGURE_ARGS+=	--with-system-kpathsea

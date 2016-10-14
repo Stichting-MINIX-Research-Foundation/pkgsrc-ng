@@ -1,17 +1,21 @@
-$NetBSD: distinfo,v 1.63 2015/09/20 15:32:38 tnn Exp $
+$NetBSD: distinfo,v 1.76 2016/07/19 20:04:04 wiz Exp $
 
-SHA1 (xorg-server-1.17.2.tar.bz2) = 56ac29a82b99bcf4c7ba2fca41a44cfa18748262
-RMD160 (xorg-server-1.17.2.tar.bz2) = bf575a269f1e7b729992a20989be84e09fcc88a2
-Size (xorg-server-1.17.2.tar.bz2) = 5767983 bytes
+SHA1 (xorg-server-1.18.4.tar.bz2) = ff088ee29dee46a2d68925c8df3f0515ef15ec52
+RMD160 (xorg-server-1.18.4.tar.bz2) = 6f58d84d3bbc59a773e6a2e1eafc208827a5923f
+SHA512 (xorg-server-1.18.4.tar.bz2) = 2055948caa1437547ea823a70d8b24584b65338bb9f1bbf75e3ad7fd60ec9684378facaffa05b7ce496d904213cd192085a43ba889a1476d5fbc813b7e41b56b
+Size (xorg-server-1.18.4.tar.bz2) = 6009508 bytes
 SHA1 (patch-configure) = b3c5ae8cd7aca96dbb5a237dda061e8c2569b2f2
-SHA1 (patch-exa_exa__render.c) = 4e144b977797d9cdc7e08c286aaedb303f1a1aa8
-SHA1 (patch-hw_xfree86_common_compiler.h) = c6f2a1ec352e3577dcd46acc8c9c45d81a0c3964
 SHA1 (patch-hw_xfree86_common_xf86sbusBus.h) = f56f87336b2f669413ebb1005a2b64568a111f92
 SHA1 (patch-hw_xfree86_dri2_dri2.c) = 0bf58305059321e10f6f58186301dbb7cb858c2a
+SHA1 (patch-hw_xfree86_os-support_bsd_arm__video.c) = 9c03b24f44eafc5fabe27e9d6cc6c54b607e47c3
+SHA1 (patch-hw_xfree86_os-support_bsd_bsd__VTsw.c) = 90343f694c27a6fdd5070e1167687943bd056a99
 SHA1 (patch-hw_xfree86_os-support_bsd_i386__video.c) = f2c72562a40c0e3109991453aff9c2c082526b1b
-SHA1 (patch-hw_xfree86_os-support_bsd_sparc64__video.c) = eddf15142e26f10f9028088f8e4e910bb6b5df59
 SHA1 (patch-hw_xfree86_os-support_bus_Sbus.c) = 74ddd0ce09b8d4426accca5a1a1d25bc6cea6524
+SHA1 (patch-hw_xfree86_os-support_xf86_OSproc.h) = e1c049857893d2f050d5fb297a3e8ef86f0b1d7e
 SHA1 (patch-hw_xfree86_os_support_bus_xf86Sbus.h) = 0e0a243b737f8f762c9f8f24a2265d1b6aefb544
-SHA1 (patch-os_WaitFor.c) = 6060455bd8d145116b4177c5b0f482cf39c741ea
-SHA1 (patch-os_connection.c) = 19189656fbcabb0a48b68a7606660bda33e5d605
-SHA1 (patch-os_io.c) = 42c41abee29d241e3d7e10d59764c573a2165d55
+SHA1 (patch-hw_xfree86_sdksyms.sh) = c403149ad35ffb70ee44f70de94b4497b751c118
+SHA1 (patch-os_WaitFor.c) = a76c5ef4e3725f5299fa3f0860183e89c6004a71
+SHA1 (patch-os_connection.c) = d6b9bbc1ab34cec6457aa68546105ea5deb6ded6
+SHA1 (patch-os_io.c) = 6216e35e780706a8d5aaa60652c9ae7b4ec8e6e6
+SHA1 (patch-os_xdmcp.c) = 3d0f3a1d8c7078f3c8752e5ca12929e41d76f899
+SHA1 (patch-os_xstrans.c) = 489a4f4b226ecd361b922895204fb9041b065d4e

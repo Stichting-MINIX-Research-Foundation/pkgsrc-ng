@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.21 2013/03/16 07:21:21 obache Exp $
+# $NetBSD: Makefile,v 1.24 2016/09/11 17:03:26 taca Exp $
 
 DISTNAME=	ingo-h3-${INGOVER}
 PKGNAME=	ingo-${INGOVER}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	mail www
 MASTER_SITES=	http://ftp.horde.org/pub/ingo/ \
 		ftp://ftp.horde.org/pub/ingo/
@@ -14,6 +14,7 @@ LICENSE=	apache-1.1
 
 DEPENDS+=	horde>=3.2:../../www/horde
 
+PHP_VERSIONS_ACCEPTED=	56
 PKG_DESTDIR_SUPPORT=	destdir
 
 .include "../../mk/bsd.prefs.mk"
@@ -50,16 +51,16 @@ BUILD_DEFS=		APACHE_USER
 CONF_FILES=		${EGDIR}/ingo.conf ${PKG_SYSCONFDIR}/ingo.conf
 CONF_FILES_PERMS+=	${INGODIR}/config/conf.xml.dist \
 			${INGODIR}/config/conf.xml \
-			${APACHE_USER} ${ROOT_GROUP} 0440
+			${APACHE_USER} ${REAL_ROOT_GROUP} 0440
 CONF_FILES_PERMS+=	${INGODIR}/config/backends.php.dist \
 			${INGODIR}/config/backends.php \
-			${APACHE_USER} ${ROOT_GROUP} 0440
+			${APACHE_USER} ${REAL_ROOT_GROUP} 0440
 CONF_FILES_PERMS+=	${INGODIR}/config/fields.php.dist \
 			${INGODIR}/config/fields.php \
-			${APACHE_USER} ${ROOT_GROUP} 0440
+			${APACHE_USER} ${REAL_ROOT_GROUP} 0440
 CONF_FILES_PERMS+=	${INGODIR}/config/prefs.php.dist \
 			${INGODIR}/config/prefs.php \
-			${APACHE_USER} ${ROOT_GROUP} 0440
+			${APACHE_USER} ${REAL_ROOT_GROUP} 0440
 
 .include "options.mk"
 

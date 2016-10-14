@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.1 2015/09/08 21:50:28 kamil Exp $
+# $NetBSD: Makefile,v 1.4 2016/06/09 06:23:40 wiz Exp $
 
-DISTNAME=	ansiweather-1.03
+DISTNAME=	ansiweather-1.06
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_GITHUB:=fcambus/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	${MASTER_SITE_GITHUB:=fcambus/ansiweather/}
+HOMEPAGE=	https://github.com/fcambus/ansiweather/
 COMMENT=	Display current weather conditions in your terminal
 LICENSE=	modified-bsd
 
@@ -30,10 +30,6 @@ SUBST_CLASSES+=		config shebang
 SUBST_FILES.config=	ansiweather
 SUBST_SED.config=	-e 's,~/.ansiweatherrc,${PKG_SYSCONFDIR}/ansiweatherrc,'
 SUBST_STAGE.config=	post-patch
-
-SUBST_FILES.shebang=	ansiweather
-SUBST_SED.shebang=	-e 's,/usr/bin/env sh,${SH},'
-SUBST_STAGE.shebang=	post-patch
 
 AUTO_MKDIRS=	yes
 

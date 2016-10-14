@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2015/06/12 10:50:29 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2016/06/08 19:24:02 wiz Exp $
 #
 
-DISTNAME=		Math-GMP-2.07
+DISTNAME=		Math-GMP-2.11
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		math perl5
@@ -17,6 +17,7 @@ LICENSE=		gnu-gpl-v2
 #BUILD_DEPENDS+= p5-Perl-Critic>0:../../devel/p5-Perl-Critic
 #BUILD_DEPENDS+= p5-Pod-Spell>0:../../textproc/p5-Pod-Spell
 #BUILD_DEPENDS+= p5-Test-Pod>=0.95:../../devel/p5-Test-Pod
+BUILD_DEPENDS+= p5-Devel-CheckLib>=0:../../devel/p5-Devel-CheckLib
 BUILD_DEPENDS+=	p5-Test-YAML-Meta>=0.03:../../devel/p5-Test-YAML-Meta
 
 PERL5_PACKLIST=		auto/Math/GMP/.packlist

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/04/06 08:17:13 adam Exp $
+# $NetBSD: Makefile,v 1.33 2016/07/09 13:03:33 wiz Exp $
 
 DISTNAME=	telepathy-logger-0.2.7
-PKGREVISION=	15
+PKGREVISION=	17
 CATEGORIES=	chat
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-logger/
 EXTRACT_SUFX=	.tar.bz2
@@ -23,12 +23,13 @@ PKGCONFIG_OVERRIDE+=	telepathy-logger/telepathy-logger-0.1.pc.in
 BUILD_DEPENDS=	${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
 PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.2.7
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.2.7
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/schemas.mk"
 .include "../../devel/GConf/buildlink3.mk"
 .include "../../lang/python/application.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../chat/telepathy-glib/buildlink3.mk"
 .include "../../databases/sqlite3/buildlink3.mk"

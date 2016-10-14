@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2015/06/12 10:49:05 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/08 19:22:46 wiz Exp $
 
-DISTNAME=	Data-Printer-0.36
+DISTNAME=	Data-Printer-0.38
 PKGNAME=	p5-${DISTNAME:S/_/./}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

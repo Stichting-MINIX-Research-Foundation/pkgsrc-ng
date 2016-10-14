@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.237 2015/09/03 21:05:24 sevan Exp $
+# $NetBSD: Makefile,v 1.249 2016/09/18 17:30:10 taca Exp $
 
-DISTNAME=		openssh-7.1p1
+DISTNAME=		openssh-7.3p1
 PKGNAME=		${DISTNAME:S/p1/.1/}
 CATEGORIES=		security
 MASTER_SITES=		${MASTER_SITE_OPENBSD:=OpenSSH/portable/}
@@ -14,7 +14,7 @@ CONFLICTS+=		ssh-[0-9]* ssh6-[0-9]*
 CONFLICTS+=		ssh2-[0-9]* ssh2-nox11-[0-9]*
 CONFLICTS+=		openssh+gssapi-[0-9]*
 CONFLICTS+=		lsh>2.0
-BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
+BROKEN_ON_PLATFORM+=	OpenBSD-*-*
 
 USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		autoconf perl
@@ -33,26 +33,23 @@ INSTALL_TARGET=		install-nokeys
 
 .include "options.mk"
 
-.if ${OPSYS} == "Darwin"
 # fixes: dyld: Symbol not found: _allow_severity
-CONFIGURE_ARGS+=	--disable-strip
-.endif
-
-.if ${OPSYS} == "Interix"
+CONFIGURE_ARGS.Darwin+=	--disable-strip
 
 # OpenSSH on Interix has some important caveats
+.if ${OPSYS} == "Interix"
 MESSAGE_SRC=		${.CURDIR}/MESSAGE.Interix
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/lib/bind
 CONFIGURE_ENV+=		ac_cv_func_openpty=no
 CONFIGURE_ENV+=		ac_cv_type_struct_timespec=yes
 CPPFLAGS+=		-DIOV_MAX=16 # default is INT_MAX, way too large
-.if exists(/usr/local/include/bind/resolv.h)
+.  if exists(/usr/local/include/bind/resolv.h)
 CPPFLAGS+=		-I/usr/local/include/bind
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/include/bind
-.elif exists(/usr/local/bind/include/resolv.h)
+.  elif exists(/usr/local/bind/include/resolv.h)
 CPPFLAGS+=		-I/usr/local/bind/include
 BUILDLINK_PASSTHRU_DIRS+= /usr/local/bind/include
-.endif
+.  endif
 LDFLAGS+=		-L/usr/local/lib/bind
 LIBS+=			-lbind -ldb -lcrypt
 
@@ -72,19 +69,22 @@ PKG_SYSCONFSUBDIR=	ssh
 
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--with-mantype=man
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
-CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR:Q}
-CONFIGURE_ARGS+=	--with-ssl-dir=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--with-pid-dir=${SSH_PID_DIR}
 CONFIGURE_ARGS+=	--with-tcp-wrappers=${BUILDLINK_PREFIX.tcp_wrappers}
 
 .if ${OPSYS} != "Interix"
 CONFIGURE_ARGS+=	--with-privsep-path=${OPENSSH_CHROOT:Q}
-CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER:Q}
+CONFIGURE_ARGS+=	--with-privsep-user=${OPENSSH_USER}
 .endif
 
 # pkgsrc already enforces a "secure" version of zlib via dependencies,
 # so skip this bogus version check.
 CONFIGURE_ARGS+=	--without-zlib-version-check
+
+.if ${_PKGSRC_MKPIE} != "no"
+CONFIGURE_ARGS+=	--with-pie
+.endif
 
 # the openssh configure script finds and uses ${LD} if defined and
 # defaults to ${CC} if not. we override LD here, since running the
@@ -110,14 +110,17 @@ CONFIGURE_ARGS+=	--disable-libutil
 # prior version don't have it.  So, disable use of strnvis(3) now.
 #
 CONFIGURE_ENV+=		ac_cv_func_strnvis=no
+#
+# workaround for ./configure problem, pkg/50936
+#
+CONFIGURE_ENV+=		ac_cv_func_reallocarray=no
 .endif
 
 .if (${OPSYS} == "SunOS") && (${OS_VERSION} == "5.8" || ${OS_VERSION} == "5.9")
 CONFIGURE_ARGS+=	--disable-utmp --disable-wtmp
 .endif
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--enable-md5-password
-.endif
+
+CONFIGURE_ARGS.Linux+=	--enable-md5-password
 
 # The ssh-askpass program is in ${X11BASE}/bin or ${PREFIX}/bin depending
 # on if it's part of the X11 distribution, or if it's installed from pkgsrc
@@ -169,7 +172,7 @@ RCD_SCRIPTS=		sshd
 RCD_SCRIPT_SRC.sshd=	${WRKDIR}/sshd.sh
 SMF_METHODS=		sshd
 
-FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR:Q}
+FILES_SUBST+=		SSH_PID_DIR=${SSH_PID_DIR}
 
 SUBST_CLASSES+=		patch
 SUBST_STAGE.patch=	pre-configure
@@ -178,7 +181,6 @@ SUBST_SED.patch=	-e '/channel_input_port_forward_request/s/0/ROOTUID/'
 SUBST_VARS.patch=	PKG_SYSCONFDIR
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../security/openssl/buildlink3.mk"
 .include "../../security/tcp_wrappers/buildlink3.mk"
 
 #
@@ -196,7 +198,7 @@ post-configure:
 		${SED} -e '/HAVE_ECDSA_START/,/HAVE_ECDSA_STOP/d' \
 			${FILESDIR}/sshd.sh > ${WRKDIR}/sshd.sh; \
 	fi
-	${SED} -e 's,@VARBASE@,${VARBASE:Q},g' \
+	${SED} -e 's,@VARBASE@,${VARBASE},g' \
 		< ${FILESDIR}/org.openssh.sshd.sb.in \
 		> ${WRKDIR}/org.openssh.sshd.sb
 

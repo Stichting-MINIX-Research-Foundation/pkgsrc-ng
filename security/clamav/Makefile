@@ -1,18 +1,12 @@
-# $NetBSD: Makefile,v 1.26 2015/08/18 07:31:01 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2016/09/10 23:23:21 szptvlfn Exp $
 
-DISTNAME=	clamav-${CLAMAV_VERSION}
-#PKGREVISION=	2
-PKGREVISION=	2
-CATEGORIES=	security
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=clamav/}
+.include "Makefile.common"
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.clamav.net/
 COMMENT=	Anti-virus toolkit
-LICENSE=	gnu-gpl-v2
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
+USE_TOOLS+=		gsed
 GNU_CONFIGURE=		yes
 SET_LIBDIR=		yes
 CONFIGURE_ARGS+=	--disable-clamav
@@ -24,6 +18,7 @@ CONFIGURE_ARGS+=	--with-libcurl=${BUILDLINK_PREFIX.curl}
 CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 CONFIGURE_ARGS+=	--with-openssl=${BUILDLINK_PREFIX.openssl}
+CONFIGURE_ARGS+=	--with-pcre=${BUILDLINK_PREFIX.pcre}
 CONFIGURE_ARGS+=	--with-xml=${BUILDLINK_PREFIX.libxml2}
 CONFIGURE_ARGS+=	--with-zlib=${BUILDLINK_PREFIX.zlib}
 # pkgsrc enforces a "secure" version of zlib, so don't let this check
@@ -40,6 +35,10 @@ CONFIGURE_ARGS+=	--disable-readdir-r
 CONFIGURE_ARGS+=	--enable-readdir_r
 .endif
 
+NOT_PAX_MPROTECT_SAFE+=	sbin/clamd
+NOT_PAX_MPROTECT_SAFE+=	bin/clamscan
+NOT_PAX_MPROTECT_SAFE+=	bin/freshclam
+
 CFLAGS.SunOS+=		-D__EXTENSIONS__
 
 BUILD_DEFS+=	CLAMAV_USER CLAMAV_GROUP CLAMAV_DBDIR
@@ -50,7 +49,7 @@ MESSAGE_SUBST+=	CLAMAV_USER=${CLAMAV_USER}
 
 SUBST_CLASSES+=		vars
 SUBST_STAGE.vars=	pre-configure
-SUBST_FILES.vars=	etc/clamd.conf.sample
+SUBST_FILES.vars=	etc/clamav-milter.conf.sample etc/clamd.conf.sample
 SUBST_VARS.vars=	CLAMAV_DBDIR
 
 RCD_SCRIPTS=	clamd freshclamd
@@ -81,10 +80,10 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/etc/${i}.sample ${DESTDIR}${EGDIR}/${i}
 .endfor
 
-.include "Makefile.common"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../devel/ncurses/buildlink3.mk"
+.include "../../devel/pcre/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../devel/gmp/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2015/08/09 10:17:05 markd Exp $
+# $NetBSD: Makefile,v 1.7 2016/07/10 10:35:19 rillig Exp $
 
 DISTNAME=	pdfpages
-PKGNAME=	tex-${DISTNAME}-0.5a
-TEXLIVE_REV=	37944
+PKGNAME=	tex-${DISTNAME}-0.5f
+TEXLIVE_REV=	40638
 
 MAINTAINER=	minskim@NetBSD.org
-HOMEPAPE=	http://ctan.org/pkg/pdfpages
+HOMEPAGE=	http://ctan.org/pkg/pdfpages
 COMMENT=	Include PDF documents in LaTeX
 LICENSE=	lppl-1.3c
 

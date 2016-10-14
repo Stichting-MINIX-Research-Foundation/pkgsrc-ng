@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:33 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/19 16:51:30 joerg Exp $
 
 DISTNAME=	Catalyst-Component-InstancePerContext-0.001001
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	8
 CATEGORIES=	www perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Catalyst/}
 
@@ -10,8 +10,9 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Catalyst-Component-InstancePerContext/
 COMMENT=	Return a new instance a component on each request
 
-DEPENDS+=	p5-Catalyst-Runtime>=0:../../www/p5-Catalyst-Runtime
-DEPENDS+=	p5-Moose>0:../../devel/p5-Moose
+DEPENDS+=	p5-Catalyst-Runtime-[0-9]*:../../www/p5-Catalyst-Runtime
+DEPENDS+=	p5-Moose-[0-9]*:../../devel/p5-Moose
+DEPENDS+=	p5-URI-ws>=0.03:../../www/p5-URI-ws
 #DEPENDS+=	{perl>=5.10,p5-Scalar-List-Utils-[0-9]*}:../../devel/p5-Scalar-List-Utils
 
 USE_LANGUAGES=	# empty

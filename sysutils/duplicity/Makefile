@@ -1,31 +1,26 @@
-# $NetBSD: Makefile,v 1.30 2015/09/17 17:53:35 joerg Exp $
+# $NetBSD: Makefile,v 1.39 2016/09/01 16:18:07 wiz Exp $
 
-DISTNAME=		duplicity-0.6.25
-PKGREVISION=		1
-CATEGORIES=		sysutils net
-MASTER_SITES=		http://code.launchpad.net/duplicity/0.6-series/${PKGVERSION_NOREV}/+download/
+DISTNAME=	duplicity-0.7.09
+PKGREVISION=	1
+CATEGORIES=	sysutils net
+MASTER_SITES=	http://code.launchpad.net/duplicity/0.7-series/${PKGVERSION_NOREV}/+download/
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		http://www.nongnu.org/duplicity/
-COMMENT=		Remote encrypting incremental backup utility
-LICENSE=		gnu-gpl-v2
+MAINTAINER=	pkgsrc-users@NetBSD.org
+HOMEPAGE=	http://www.nongnu.org/duplicity/
+COMMENT=	Remote encrypting incremental backup utility
+LICENSE=	gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	yes
 
-PKG_OPTIONS_VAR=	PKG_OPTIONS.duplicity
-PKG_SUPPORTED_OPTIONS=	gnupg2
-DEPENDS+=	${PYPKGPREFIX}-lockfile>=0.9.1:../../devel/py-lockfile
-.include "../../mk/bsd.options.mk"
-.if !empty(PKG_OPTIONS:Mgnupg2)
-DEPENDS+=	gnupg2-[0-9]*:../../security/gnupg2
-GPGPATH=	${LOCALBASE}/bin/gpg2
-.else
-DEPENDS+=	gnupg>=1.0.0:../../security/gnupg
-GPGPATH=	${LOCALBASE}/bin/gpg
-.endif
+.include "options.mk"
 
-REPLACE_PYTHON+=	bin/*
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.6.22
+DEPENDS+=	${PYPKGPREFIX}-lockfile>=0.9.1:../../devel/py-lockfile
+DEPENDS+=	${PYPKGPREFIX}-paramiko-[0-9]*:../../security/py-paramiko
+
+REPLACE_PYTHON+=	bin/duplicity \
+			bin/rdiffdir
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.6.22
+EGG_NAME=			${DISTNAME:S/09/9/}
 
 SUBST_CLASSES+=			fix-paths
 SUBST_STAGE.fix-paths=		pre-configure
@@ -39,11 +34,12 @@ SUBST_STAGE.gpgpath=		pre-configure
 SUBST_FILES.gpgpath=		duplicity/gpginterface.py
 SUBST_VARS.gpgpath=		GPGPATH
 
-# XXX in 0.6.21, doc files are mode 0600
+# XXX in 0.7.07, executable bit set on duplicity.1
 post-extract:
-	cd ${WRKSRC} && ${CHMOD} go+r *
+	${CHMOD} -x ${WRKSRC}/bin/duplicity.1
+	${CHMOD} go+r ${WRKSRC}/bin/*.1
 
-.include "../../net/librsync/buildlink3.mk"
-.include "../../lang/python/egg.mk"
 .include "../../lang/python/application.mk"
+.include "../../lang/python/egg.mk"
+.include "../../net/librsync/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

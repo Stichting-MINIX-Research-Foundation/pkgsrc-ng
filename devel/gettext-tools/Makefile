@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.30 2015/09/01 13:16:48 sevan Exp $
+# $NetBSD: Makefile,v 1.34 2016/02/25 12:12:47 jperkin Exp $
 
 .include "../../devel/gettext/Makefile.common"
 
 PKGNAME=	${DISTNAME:S/-/-tools-/}
-PKGREVISION=	1
 COMMENT=	Tools for providing messages in different languages
 
 DISTINFO_FILE=	${.CURDIR}/../../devel/gettext/distinfo
@@ -13,6 +12,7 @@ USE_LANGUAGES=		c c++
 USE_TOOLS+=		xz:run
 USE_PKGLOCALEDIR=	yes
 CONFIGURE_ARGS+=	--disable-csharp
+CONFIGURE_ARGS+=	--disable-java
 CONFIGURE_ARGS+=	--with-included-libcroco
 CONFIGURE_ARGS+=	--without-git
 CONFIGURE_ARGS+=	--with-xz
@@ -31,15 +31,10 @@ INFO_FILES=		yes
 BROKEN_GETTEXT_DETECTION=	yes
 USE_BUILTIN.gettext=	no # force use of pkgsrc gettext-lib
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Cygwin"
-BUILDLINK_TRANSFORM+=	rm:-Wl,--disable-auto-import
-.endif
+BUILDLINK_TRANSFORM.Cygwin+=	rm:-Wl,--disable-auto-import
 
-.if ${OPSYS} == "AIX"
 #bug 20453 in bug-gzip list, passed onto gnulib
-CONFIGURE_ENV+= ac_cv_header_wctype_h=no
-.endif
+CONFIGURE_ENV.AIX+=	ac_cv_header_wctype_h=no
 
 post-install:
 	cd ${WRKSRC}/gettext-tools/misc && ${MAKE} install DESTDIR=${DESTDIR}
@@ -49,6 +44,5 @@ post-install:
 		${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
 .include "../../devel/gettext-lib/buildlink3.mk"
-.include "../../textproc/expat/buildlink3.mk"
 .include "../../mk/termcap.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

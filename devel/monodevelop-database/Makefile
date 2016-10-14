@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.39 2015/04/25 14:20:37 tnn Exp $
+# $NetBSD: Makefile,v 1.44 2016/08/03 10:22:38 adam Exp $
 
 DISTNAME=	monodevelop-database-2.4
-PKGREVISION=	37
+PKGREVISION=	42
 CATEGORIES=	devel
 MASTER_SITES=	http://ftp.novell.com/pub/mono/sources/monodevelop-database/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +19,7 @@ MAKE_JOBS_SAFE=	no
 
 .include "../../devel/mono-addins/buildlink3.mk"
 .include "../../devel/monodevelop/buildlink3.mk"
-.include "../../lang/mono2/buildlink3.mk"
+.include "../../lang/mono/buildlink3.mk"
 .include "../../x11/gtk-sharp/buildlink3.mk"
 .include "../../x11/gnome-sharp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

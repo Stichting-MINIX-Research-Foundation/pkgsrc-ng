@@ -1,11 +1,15 @@
-# $NetBSD: options.mk,v 1.7 2015/02/12 08:54:15 adam Exp $
+# $NetBSD: options.mk,v 1.11 2016/05/05 07:03:47 leot Exp $
 
 # Global and legacy options
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.ffmpeg2
-PKG_SUPPORTED_OPTIONS=	ass faac fdk-aac gnutls lame libvpx opencore-amr \
-			openssl theora vorbis x264 x265 xvid
-PKG_SUGGESTED_OPTIONS=	lame ass libvpx theora vorbis x264 xvid
+PKG_SUPPORTED_OPTIONS=	ass doc faac fdk-aac fontconfig freetype gnutls lame \
+			libvpx opencore-amr openssl theora vorbis x264 x265 \
+			xcb xvid
+PKG_SUGGESTED_OPTIONS=	lame ass freetype fontconfig libvpx openssl \
+			theora vorbis x264 xvid
+
+PLIST_VARS+=		doc
 
 # Add VDPAU if it is available
 .include "../../multimedia/libvdpau/available.mk"
@@ -23,6 +27,24 @@ PKG_SUGGESTED_OPTIONS+=	vaapi
 
 .include "../../mk/bsd.options.mk"
 
+# Fontconfig
+.if !empty(PKG_OPTIONS:Mfontconfig)
+USE_TOOLS+=		pkg-config
+CONFIGURE_ARGS+=	--enable-fontconfig
+.include "../../fonts/fontconfig/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-fontconfig
+.endif
+
+# freetype option
+.if !empty(PKG_OPTIONS:Mfreetype)
+USE_TOOLS+=		pkg-config
+CONFIGURE_ARGS+=	--enable-libfreetype
+.include "../../graphics/freetype2/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-libfreetype
+.endif
+
 # ass option
 .if !empty(PKG_OPTIONS:Mass)
 USE_TOOLS+=		pkg-config
@@ -30,6 +52,15 @@ CONFIGURE_ARGS+=	--enable-libass
 .include "../../multimedia/libass/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-libass
+.endif
+
+# doc option
+.if !empty(PKG_OPTIONS:Mdoc)
+PLIST.doc=		yes
+USE_TOOLS+=		texi2html
+CONFIGURE_ARGS+=	--enable-htmlpages
+.else
+CONFIGURE_ARGS+=	--disable-htmlpages
 .endif
 
 # faac option
@@ -152,4 +183,15 @@ CONFIGURE_ARGS+=	--enable-libvpx
 .include "../../multimedia/libvpx/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-libvpx
+.endif
+
+# X11 screen capture support using libxcb
+.if !empty(PKG_OPTIONS:Mxcb)
+CONFIGURE_ARGS+=	--enable-libxcb
+CONFIGURE_ARGS+=	--enable-libxcb-shape
+CONFIGURE_ARGS+=	--enable-libxcb-shm
+CONFIGURE_ARGS+=	--enable-libxcb-xfixes
+.include "../../x11/libxcb/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-libxcb
 .endif

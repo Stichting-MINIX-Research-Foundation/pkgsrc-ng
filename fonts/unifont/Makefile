@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2015/09/12 18:22:22 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/31 09:14:49 wiz Exp $
 
-DISTNAME=	unifont-8.0.01
+DISTNAME=	unifont-9.0.02
 CATEGORIES=	fonts
 MASTER_SITES=	http://unifoundry.com/pub/${DISTNAME}/
 
@@ -15,6 +15,9 @@ MAKE_FLAGS+=	USRDIR=${PREFIX}
 MAKE_FLAGS+=	CONSOLEDEST=${DESTDIR}${PREFIX}/share/fonts/consolefonts
 MAKE_FLAGS+=	FONTDEST=${DESTDIR}${PREFIX}/share/fonts
 MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR}
+
+FONTS_DIRS.ttf+=	${PREFIX}/share/fonts/truetype/unifont
+FONTS_DIRS.x11+=	${PREFIX}/share/fonts/X11/misc
 
 MAKE_JOBS_SAFE=	no
 

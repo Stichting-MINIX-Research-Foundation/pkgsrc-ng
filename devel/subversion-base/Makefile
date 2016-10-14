@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.98 2015/08/13 20:47:42 adam Exp $
+# $NetBSD: Makefile,v 1.104 2016/05/01 00:48:32 ryoon Exp $
 
 PKGNAME=	subversion-base-${SVNVER}
 COMMENT=	Version control system, base programs and libraries
@@ -79,4 +79,5 @@ svn-build-outputs-hack:
 
 .include "../../devel/apr/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

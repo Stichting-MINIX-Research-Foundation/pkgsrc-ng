@@ -1,7 +1,7 @@
-$NetBSD: distinfo,v 1.21 2015/09/02 12:05:44 mef Exp $
+$NetBSD: distinfo,v 1.29 2016/08/26 14:37:11 mef Exp $
 
-SHA1 (ExtUtils-MakeMaker-7.06.tar.gz) = ebcb64a5dd6a066c74a627b2bd077c65ae3ecf3c
-RMD160 (ExtUtils-MakeMaker-7.06.tar.gz) = 714de8ba79946cdc07defb31b9fb436b800a6973
-Size (ExtUtils-MakeMaker-7.06.tar.gz) = 463252 bytes
-SHA1 (patch-ab) = ca366fd17fcb74b11aa15e9e4c5188d29c3538da
-SHA1 (patch-ad) = 0f75388bae10c21ad7c54c36947cd7cb5d45605a
+SHA1 (ExtUtils-MakeMaker-7.24.tar.gz) = 367b398bd086cf0280eba829f5cbe5fc82d7d6ff
+RMD160 (ExtUtils-MakeMaker-7.24.tar.gz) = a77174c6aed95a8736ecfc288fee89d15f830acb
+SHA512 (ExtUtils-MakeMaker-7.24.tar.gz) = f57f8407aea6101af964f105fb9ddd6567262fa2bad91456573c8fc019cdf1469563945029f5078e20d2f7d1d736a63586e7cde3bb72cb9ae80ad0b8ebe818d5
+Size (ExtUtils-MakeMaker-7.24.tar.gz) = 467714 bytes
+SHA1 (patch-ab) = 02e70f6a0ff56977d3ffa45d083412be7185d1cf

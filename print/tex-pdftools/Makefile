@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2015/06/14 12:50:05 markd Exp $
+# $NetBSD: Makefile,v 1.11 2016/07/09 06:38:52 wiz Exp $
 
 DISTNAME=	pdftools
 PKGNAME=	tex-${DISTNAME}-0.86
+PKGREVISION=	1
 TEXLIVE_REV=	37078
 
 MAINTAINER=	minskim@NetBSD.org
@@ -14,7 +15,6 @@ DEPENDS+=	tex-oberdiek>=2011:../../print/tex-oberdiek
 DEPENDS+=	tex-pst-pdf-[0-9]*:../../graphics/tex-pst-pdf
 DEPENDS+=	web2c-[0-9]*:../../print/web2c
 
-EVAL_PREFIX+=	EPSTOPDF_PREFIX=tex-epstopdf
 USE_TOOLS+=	perl:run
 
 REPLACE_PERL+=	bin/e2pall
@@ -23,7 +23,7 @@ SUBST_CLASSES+=		paths
 SUBST_MESSAGE.paths=	Setting paths to commands.
 SUBST_STAGE.paths=	pre-configure
 SUBST_FILES.paths=	bin/e2pall
-SUBST_SED.paths+=	-e 's,@EPSTOPDF@,${EPSTODPF_PREFIX}/bin/epstopdf,g'
+SUBST_SED.paths+=	-e 's,@EPSTOPDF@,${LOCALBASE}/bin/epstopdf,g'
 
 INSTALLATION_DIRS+=	bin
 TEX_TEXMF_DIRS=		# empty

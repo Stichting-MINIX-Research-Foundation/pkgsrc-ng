@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2015/01/01 01:29:56 ryoon Exp $
+# $NetBSD: Makefile,v 1.32 2016/09/06 13:57:02 maya Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc46-${GCC_VERSION}
-PKGREVISION=		3
+PKGREVISION=		5
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
@@ -70,29 +70,31 @@ REPLACE_BASH+= gcc/dbgcnt.def
 REPLACE_BASH+= gcc/testsuite/gcc.test-framework/gen_directive_tests
 REPLACE_BASH+= libstdc++-v3/scripts/run_doxygen
 
+.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
+# on NetBSD, use the native SSP code in libc
+CONFIGURE_ARGS+=	--disable-libssp
+.else
+CONFIGURE_ARGS+=	--enable-libssp
+.endif
 
 CONFIGURE_ARGS+=	--prefix=${GCC_PREFIX:Q}
 CONFIGURE_ARGS+=	--enable-languages=${LANGS:Q}
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
-CONFIGURE_ARGS+=	--enable-libssp
 CONFIGURE_ARGS+=	--enable-threads=posix
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ARGS+=	--with-gnu-ld --with-ld=/usr/bin/ld
-CONFIGURE_ARGS+=	--with-gnu-as --with-as=/usr/bin/as
-MAKE_ENV+=		ac_cv_func_clock_gettime=yes
-.endif
-.if ${OPSYS} == "Linux"
-CONFIGURE_ARGS+=	--disable-libquadmath --disable-libquadmath-support
-.endif
-.if ${OPSYS} == "Darwin"
+
+CONFIGURE_ARGS.NetBSD+=	--with-gnu-ld --with-ld=/usr/bin/ld
+CONFIGURE_ARGS.NetBSD+=	--with-gnu-as --with-as=/usr/bin/as
+MAKE_ENV.NetBSD+=	ac_cv_func_clock_gettime=yes
+
+CONFIGURE_ARGS.Linux+=	--disable-libquadmath --disable-libquadmath-support
+
 # See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
 # create a stub library, not just to remove symbols, so we must not
 # let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
 # build fails for missing files.
-CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
-.endif
+CONFIGURE_ARGS.Darwin+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
 
 CONFIGURE_ENV+=		CONFIG_SHELL=${CONFIG_SHELL}
 
@@ -111,7 +113,7 @@ CFLAGS+=		-I${BUILDLINK_DIR}/include
 
 # Someone should fix this so it will match the NetBSD system compiler
 #.if ${OPSYS} == "NetBSD"
-#GCC_PLATFORM=	${LOWER_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
+#GCC_PLATFORM=	${MACHINE_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
 #CONFIGURE_ARGS+=	--host=${GCC_PLATFORM:Q}
 #MAKE_ENV+=		AR=/usr/bin/ar
 #.endif # NetBSD

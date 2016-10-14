@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2015/04/25 14:25:19 tnn Exp $
+# $NetBSD: Makefile,v 1.17 2016/06/05 07:02:35 richard Exp $
 
 DISTNAME=	qtbase-opensource-src-${QTVERSION}
 PKGNAME=	qt5-sqlite3-${QTVERSION}
-PKGREVISION=	2
+PKGREVISION=	3
 COMMENT=	Qt5 SQLite3 plugin
 
 BUILD_DIRS=		src/plugins/sqldrivers
@@ -10,7 +10,9 @@ MAKE_ENV+=		QTDIR=${QTDIR}
 
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 
-CFLAGS.SunOS+=	-D__EXTENSIONS__	# posix_fallocate()
+OPSYSVARS+=    USE_LANGUAGES
+USE_LANGUAGES.SunOS+=	c99
+CFLAGS.SunOS+= -D__EXTENSIONS__        # posix_fallocate()
 
 .include "../../x11/qt5-qtbase/Makefile.common"
 

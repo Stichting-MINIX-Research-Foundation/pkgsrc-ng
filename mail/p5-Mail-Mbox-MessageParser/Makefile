@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/06/12 10:50:24 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2016/06/08 19:23:59 wiz Exp $
 
-DISTNAME=	Mail-Mbox-MessageParser-1.5002
+DISTNAME=	Mail-Mbox-MessageParser-1.5105
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	1
 CATEGORIES=	mail perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Mail/}
 
@@ -12,6 +12,8 @@ COMMENT=	Perl5 module for parsing mail messages
 LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	p5-FileHandle-Unget-[0-9]*:../../devel/p5-FileHandle-Unget
+DEPENDS+=	lzip>=0:../../archivers/lzip
+
 #DEPENDS+=	{perl>=5.10,p5-Storable-[0-9]*}:../../devel/p5-Storable
 
 BUILD_DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
@@ -26,6 +28,8 @@ SETTINGS+=	INSTALLDIRS=site
 SETTINGS+=	BZIP=/usr/bin/bzip2
 SETTINGS+=	BZIP2=/usr/bin/bzip2
 SETTINGS+=	DIFF=/usr/bin/diff
+SETTINGS+=	XZ=/usr/bin/xz
+SETTINGS+=	CAT=/bin/cat
 SETTINGS+=	GZIP=${GZIP_CMD}
 
 MAKE_PARAMS+=	--skipdeps ${SETTINGS}

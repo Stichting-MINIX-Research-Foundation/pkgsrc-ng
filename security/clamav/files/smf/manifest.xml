@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
-<service_bundle type='manifest' name='@SMF_NAME@'>
+<service_bundle type='manifest' name='export'>
   <service name='@SMF_PREFIX@/@SMF_NAME@' type='service' version='1'>
     <dependency name='fs-local' grouping='require_all' restart_on='none' type='service'>
       <service_fmri value='svc:/system/filesystem/local'/>
@@ -32,7 +32,7 @@
           <loctext xml:lang='C'>ClamAV anti-virus scanner daemon</loctext>
         </common_name>
         <documentation>
-          <manpage title='clamd' section='8' manpath='man'/>
+          <manpage title='clamd' section='8' manpath='@PREFIX@/@PKGMANDIR@'/>
         </documentation>
       </template>
     </instance>
@@ -48,10 +48,24 @@
           <loctext xml:lang='C'>ClamAV anti-virus database update daemon</loctext>
         </common_name>
         <documentation>
-          <manpage title='freshclam' section='1' manpath='man'/>
+          <manpage title='freshclam' section='1' manpath='@PREFIX@/@PKGMANDIR@'/>
         </documentation>
       </template>
     </instance>
-    <stability value='Unstable'/>
+    <instance name='clamav-milter' enabled='false'>
+      <dependency name='config-file' grouping='require_all' restart_on='refresh' type='path'>
+        <service_fmri value='file://localhost@PKG_SYSCONFDIR@/clamav-milter.conf'/>
+      </dependency>
+      <exec_method name='start' type='method' exec='@PREFIX@/sbin/clamav-milter' timeout_seconds='60'/>
+      <exec_method name='stop' type='method' exec=':kill' timeout_seconds='60'/>
+      <template>
+        <common_name>
+          <loctext xml:lang='C'>ClamAV anti-virus sendmail filter</loctext>
+        </common_name>
+        <documentation>
+          <manpage title='clamav-milter' section='8' manpath='@PREFIX@/@PKGMANDIR@'/>
+        </documentation>
+      </template>
+    </instance>
   </service>
 </service_bundle>

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.14 2014/10/31 21:11:18 adam Exp $
+@comment $NetBSD: PLIST,v 1.16 2016/09/03 11:58:02 adam Exp $
 bin/wish
 bin/wish${BASEVER}
 ${PLIST.aqua}include/X11/X.h
@@ -149,8 +149,6 @@ lib/tk${BASEVER}/fontchooser.tcl
 lib/tk${BASEVER}/iconlist.tcl
 lib/tk${BASEVER}/icons.tcl
 lib/tk${BASEVER}/images/README
-lib/tk${BASEVER}/images/lamp.png
-lib/tk${BASEVER}/images/lamp.svg
 lib/tk${BASEVER}/images/logo.eps
 lib/tk${BASEVER}/images/logo100.gif
 lib/tk${BASEVER}/images/logo64.gif

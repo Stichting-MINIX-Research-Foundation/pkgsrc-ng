@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.40 2015/07/04 16:18:39 joerg Exp $
+# $NetBSD: Makefile,v 1.42 2016/07/09 06:38:48 wiz Exp $
 #
 
 PKGNAME=		pkg_filecheck-0.4
-PKGREVISION=		4
+PKGREVISION=		6
 CATEGORIES=		pkgtools devel
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
@@ -14,6 +14,9 @@ WRKSRC=		${WRKDIR}
 USE_TOOLS+=	perl:run
 USE_FEATURES=	fts_open
 
+USE_FEATURES+=		       nbcompat	     
+NBCOMPAT_CONFIGURE_ARGS+=      --enable-db   
+                                             
 FILES_SUBST+=	PKG_DBDIR=${PKG_DBDIR:Q}
 CONF_FILES=	${PREFIX}/share/examples/pkg_filecheck/pkg_filecheck.conf \
 		${PKG_SYSCONFDIR}/pkg_filecheck.conf
@@ -50,6 +53,6 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/pkg_filecheck.conf \
 		${DESTDIR}${PREFIX}/share/examples/pkg_filecheck/pkg_filecheck.conf
 
-
-.include "../../mk/bdb.buildlink3.mk"
+# Must use the same libdb as pkg_install, which means the nbcompat one.
+#.include "../../mk/bdb.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2015/04/28 09:34:56 jperkin Exp $
+# $NetBSD: Makefile,v 1.18 2016/02/26 11:27:19 jperkin Exp $
 
 DISTNAME=	xf86-video-openchrome-0.3.3
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	x11
 MASTER_SITES=	http://www.openchrome.org/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -18,6 +18,8 @@ USE_TOOLS+=	pkg-config
 CONFIGURE_ARGS+=	--enable-maintainer-mode
 CONFIGURE_ARGS+=	--enable-dri
 
+CONFIGURE_ENV.SunOS+=	DRIVER_MAN_SUFFIX=4
+
 .include "../../mk/bsd.prefs.mk"
 
 PLIST_VARS+=		XvMC
@@ -25,12 +27,7 @@ PLIST_VARS+=		XvMC
 PLIST.XvMC=		yes
 .endif
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	DRIVER_MAN_SUFFIX=4
-.endif
-
 .include "../../x11/modular-xorg-server/buildlink3.mk"
-.include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../x11/libXvMC/buildlink3.mk"
 .include "../../x11/randrproto/buildlink3.mk"
 .include "../../x11/renderproto/buildlink3.mk"

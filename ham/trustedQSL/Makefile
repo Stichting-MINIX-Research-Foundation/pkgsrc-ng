@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.16 2015/06/12 10:50:14 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2016/07/09 06:38:23 wiz Exp $
 
-DISTNAME=		tqsl-2.0.3
-PKGREVISION=		2
+DISTNAME=		tqsl-2.2.1
+PKGREVISION=		1
 CATEGORIES=		ham
-MASTER_SITES=		http://sourceforge.net/projects/trustedqsl/files/TrustedQSL/v2.0.3/
+MASTER_SITES=		http://sourceforge.net/projects/trustedqsl/files/TrustedQSL/v${PKGVERSION_NOREV}/
 
 MAINTAINER=		makoto@ki.nu
 HOMEPAGE=		http://sourceforge.net/projects/trustedqsl/
@@ -25,7 +25,7 @@ USE_CMAKE=		yes
 # usage in Makefile.am, without matching -R.
 
 do-configure:
-	(cd $(WRKSRC) ; \
+	(cd ${WRKSRC} ; \
 	cmake \
 	-DBDB_PREFIX=${PREFIX} \
 	-DBDB_INCLUDE_DIR=${PREFIX}/include \
@@ -33,15 +33,19 @@ do-configure:
 	-DCMAKE_INSTALL_PREFIX=${PREFIX} \
 	-DCMAKE_INSTALL_RPATH=${PREFIX}/lib \
 	-DCMAKE_INSTALL_RPATH_USE_LINK_PATH=FALSE \
+	-DCMAKE_INSTALL_MANDIR:PATH=${PKGMANDIR} \
 	.)
 
 post-install:
 	(cd ${WRKSRC} ;\
 	${INSTALL_DATA} LICENSE.txt ${DESTDIR}${PREFIX}/share/TrustedQSL/ \
 	)
+	# Conflicting PLIST with wxGTK28-2.8.12nb8:
+	${RM} -f ${DESTDIR}${PREFIX}/share/locale/*/LC_MESSAGES/wxstd.mo
+
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../databases/db5/buildlink3.mk"
-.include "../../x11/wxGTK28/buildlink3.mk"
+.include "../../mk/wxGTK.mk"
 .include "../../www/curl/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

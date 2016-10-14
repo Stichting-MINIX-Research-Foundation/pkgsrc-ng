@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2015/04/25 14:20:29 tnn Exp $
+# $NetBSD: Makefile,v 1.46 2016/08/03 10:22:35 adam Exp $
 
 DISTNAME=	multisync-gui-0.91.0
-PKGREVISION=	32
+PKGREVISION=	35
 CATEGORIES=	comms
 MASTER_SITES=	http://www.opensync.org/raw-attachment/wiki/releases/0.2x/download/
 
@@ -13,7 +13,7 @@ USE_TOOLS+=	pkg-config
 HAS_CONFIGURE=	yes
 
 REPLACE_PYTHON= waf
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.91.0
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.91.0
 
 LDFLAGS.DragonFly=	-lgthread-2.0
 LDFLAGS.SunOS+=		-lgthread-2.0

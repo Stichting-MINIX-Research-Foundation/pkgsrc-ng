@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.29 2015/01/01 09:43:44 dholland Exp $
+# $NetBSD: Makefile,v 1.31 2016/07/09 13:03:34 wiz Exp $
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 4.0.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 4.0.1
 
 .include "../../databases/libpqxx/Makefile.common"
 

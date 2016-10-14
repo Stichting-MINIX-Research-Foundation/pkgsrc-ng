@@ -1,26 +1,27 @@
-# $NetBSD: Makefile,v 1.31 2015/09/06 20:53:24 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2016/08/03 08:50:17 leot Exp $
 
-DISTNAME=	mupdf-1.7a-source
+DISTNAME=	mupdf-1.9a-source
 PKGNAME=	${DISTNAME:S/-source//}
+PKGREVISION=	3
 CATEGORIES=	print
-MASTER_SITES=	http://mupdf.com/downloads/
+MASTER_SITES=	http://mupdf.com/downloads/archive/
 
-MAINTAINER=	leot1990@users.sourceforge.net
+MAINTAINER=	leot@NetBSD.org
 HOMEPAGE=	http://mupdf.com/
 COMMENT=	Lightweight PDF viewer and toolkit
 LICENSE=	gnu-agpl-v3
 
-USE_LANGUAGES+=	c99
+USE_LANGUAGES=	c99
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config gmake
 
 INSTALLATION_DIRS+=	bin include lib/pkgconfig
 INSTALL_MAKE_FLAGS+=	prefix=${PREFIX}
 INSTALL_MAKE_FLAGS+=	mandir=${PREFIX}/${PKGMANDIR}
-LDFLAGS=	${COMPILER_RPATH_FLAG}${X11BASE}/lib
-MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
-MAKE_FLAGS+=	XCFLAGS=${CFLAGS:Q}
-MAKE_FLAGS+=	build=release
+LDFLAGS=		${COMPILER_RPATH_FLAG}${X11BASE}/lib
+MAKE_FLAGS+=		LDFLAGS=${LDFLAGS:Q}
+MAKE_FLAGS+=		XCFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=		build=release
 
 CFLAGS+=	-DJBIG_NO_MEMENTO
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE=600
@@ -34,6 +35,8 @@ post-extract:
 	${RM} -fr \
 	    ${WRKSRC}/thirdparty/curl \
 	    ${WRKSRC}/thirdparty/freetype \
+	    ${WRKSRC}/thirdparty/glfw \
+	    ${WRKSRC}/thirdparty/harfbuzz \
 	    ${WRKSRC}/thirdparty/jbig2dec \
 	    ${WRKSRC}/thirdparty/jpeg \
 	    ${WRKSRC}/thirdparty/openjpeg \
@@ -46,6 +49,7 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/mupdf.pc ${DESTDIR}${PREFIX}/lib/pkgconfig
 
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../fonts/harfbuzz/buildlink3.mk"
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/jbig2dec/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

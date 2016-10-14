@@ -1,0 +1,3 @@
+@comment $NetBSD: PLIST,v 1.2 2016/04/28 10:10:52 leot Exp $
+bin/ffplay3
+man/man1/ffplay3.1

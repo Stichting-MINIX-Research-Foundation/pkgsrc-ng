@@ -1,4 +1,4 @@
-# $NetBSD: bsd.pkginstall.mk,v 1.63 2015/08/10 05:41:10 dholland Exp $
+# $NetBSD: bsd.pkginstall.mk,v 1.69 2016/06/17 08:53:42 jaapb Exp $
 #
 # This Makefile fragment is included by bsd.pkg.mk and implements the
 # common INSTALL/DEINSTALL scripts framework.  To use the pkginstall
@@ -19,6 +19,7 @@ _VARGROUPS+=		pkginstall
 _USER_VARS.pkginstall= \
 	FONTS_VERBOSE \
 	INFO_FILES_VERBOSE \
+	OCAML_FINDLIB_REGISTER_VERBOSE \
 	PKG_CREATE_USERGROUP \
 	PKG_CONFIG PKG_CONFIG_PERMS \
 	PKG_RCD_SCRIPTS \
@@ -179,11 +180,11 @@ FILES_SUBST+=		PKGBASE=${PKGBASE:Q}
 #
 # USERGROUP_PHASE is set to the phase just before which users and
 #	groups need to be created.  Valid values are "configure" and
-#	"build".  If not defined, then by default users and groups
-#	are created prior to installation by the pre-install-script
-#	target.  If this is defined, then the numeric UIDs and GIDs
-#	of users and groups required by this package are hardcoded
-#	into the +INSTALL script.
+#	"build" and "pre-install".
+#	If not defined, then by default users and groups are created
+#	as pare of the +INSTALL script.  If this is defined, then
+#	the numeric UIDs and GIDs of users and groups required by this
+#	package are hardcoded into the +INSTALL script.
 #
 PKG_GROUPS?=		# empty
 PKG_USERS?=		# empty
@@ -326,7 +327,7 @@ ${_INSTALL_USERGROUP_UNPACKER}:						\
 pre-configure: create-usergroup
 .  elif !empty(USERGROUP_PHASE:M*build)
 pre-build: create-usergroup
-.  elif !empty(USERGROUP_PHASE:Mpre-install) && ${_USE_DESTDIR} != "no"
+.  elif !empty(USERGROUP_PHASE:Mpre-install)
 pre-install: create-usergroup
 .  endif
 .endif
@@ -373,9 +374,8 @@ su-create-usergroup: ${_INSTALL_USERGROUP_UNPACKER}
 #	make certain files set-uid or to change the ownership or a
 #	directory.
 #
-#	Note that when USE_DESTDIR is in effect, the special permissions
-#	are not directly recorded (as file attributes) in the binary
-#	package file.
+#	The special permissions may not directly recorded (as file
+#	attributes) in the binary package file.
 #
 # SETUID_ROOT_PERMS is a convenience definition to note an executable is
 # meant to be setuid-root, and should be used as follows:
@@ -387,7 +387,7 @@ su-create-usergroup: ${_INSTALL_USERGROUP_UNPACKER}
 #
 #	SPECIAL_PERMS+=	/path/to/sgidgame ${SETGID_GAMES_PERMS}
 #
-# GAMEDATA_PERMS and GAMEDIR_PERMS are convenience defintiions for files
+# GAMEDATA_PERMS and GAMEDIR_PERMS are convenience definitions for files
 # that are meant to be accessed by things that are setgid games. Because
 # such files should normally be under ${VARBASE}, generally these 
 # definitions should be used roughly as follows:
@@ -786,6 +786,30 @@ install-script-data-info-files:
 	fi
 .endif
 
+# OCAML_FINDLIB_REGISTER
+_INSTALL_OFR_FILE=	${_PKGINSTALL_DIR}/ocaml-findlib-register
+_INSTALL_UNPACK_TMPL+=		${_INSTALL_OFR_FILE}
+
+${_INSTALL_OFR_FILE}: ../../mk/pkginstall/ocaml-findlib-register
+	${RUN}${MKDIR} ${.TARGET:H}
+.if !empty(OCAML_FINDLIB_REGISTER:M[Yy][Ee][Ss])
+	${RUN}${SED} ${FILES_SUBST_SED} \
+		../../mk/pkginstall/ocaml-findlib-register > ${.TARGET}
+.else
+	${RUN}${RM} -f ${.TARGET}; \
+	${TOUCH} ${TOUCH_ARGS} ${.TARGET}
+.endif
+
+.PHONY: install-script-data-ocaml-findlib-register
+install-script-data: install-script-data-ocaml-findlib-register
+install-script-data-ocaml-findlib-register:
+.if !empty(OCAML_FINDLIB_REGISTER:M[Yy][Ee][Ss])
+	${RUN} \
+	cd ${PKG_DB_TMPDIR} && ${PKGSRC_SETENV} ${INSTALL_SCRIPTS_ENV} \
+	${_PKG_DEBUG_SCRIPT} ${INSTALL_FILE} ${PKGNAME} \
+		UNPACK +OCAML_FINDLIB_REGISTER
+.endif
+
 # PKG_SHELL contains the pathname of the shell that should be added or
 #	removed from the shell database, /etc/shells.  If a pathname
 #	is relative, then it is taken to be relative to ${PREFIX}.
@@ -984,9 +1008,11 @@ ${_INSTALL_FONTS_FILE}: ../../mk/pkginstall/fonts
 .if ${PKG_DEVELOPER:Uno} != "no"
 FONTS_VERBOSE?=		YES
 INFO_FILES_VERBOSE?=	YES
+OCAML_FINDLIB_REGISTER_VERBOSE?=	YES
 .else
 FONTS_VERBOSE?=		NO
 INFO_FILES_VERBOSE?=	NO
+OCAML_FINDLIB_REGISTER_VERBOSE?=	NO
 .endif
 PKG_CREATE_USERGROUP?=	YES
 PKG_CONFIG?=		YES
@@ -1002,6 +1028,7 @@ FILES_SUBST+=		PKG_REGISTER_SHELLS=${PKG_REGISTER_SHELLS:Q}
 FILES_SUBST+=		PKG_UPDATE_FONTS_DB=${PKG_UPDATE_FONTS_DB:Q}
 FILES_SUBST+=		FONTS_VERBOSE=${FONTS_VERBOSE:Q}
 FILES_SUBST+=		INFO_FILES_VERBOSE=${INFO_FILES_VERBOSE:Q}
+FILES_SUBST+=		OCAML_FINDLIB_REGISTER_VERBOSE=${OCAML_FINDLIB_REGISTER_VERBOSE:Q}
 
 # Substitute for various programs used in the DEINSTALL/INSTALL scripts and
 # in the rc.d scripts.
@@ -1032,6 +1059,8 @@ FILES_SUBST+=		LN=${LN:Q}
 FILES_SUBST+=		LS=${LS:Q}
 FILES_SUBST+=		MKDIR=${MKDIR:Q}
 FILES_SUBST+=		MV=${MV:Q}
+FILES_SUBST+=		OCAML_FINDLIB_DIRS=${OCAML_FINDLIB_DIRS:Q}
+FILES_SUBST+=		OCAML_SITELIBDIR=${OCAML_SITELIBDIR:Q}
 FILES_SUBST+=		PERL5=${PERL5:Q}
 FILES_SUBST+=		PKG_ADMIN=${PKG_ADMIN_CMD:Q}
 FILES_SUBST+=		PKG_INFO=${PKG_INFO_CMD:Q}
@@ -1058,8 +1087,6 @@ PKG_REFCOUNT_DBDIR?=	${PKG_DBDIR}.refcount
 INSTALL_SCRIPTS_ENV=	PKG_PREFIX=${PREFIX}
 INSTALL_SCRIPTS_ENV+=	PKG_METADATA_DIR=${_PKG_DBDIR}/${PKGNAME}
 INSTALL_SCRIPTS_ENV+=	PKG_REFCOUNT_DBDIR=${PKG_REFCOUNT_DBDIR}
-
-.PHONY: pre-install-script post-install-script
 
 DEINSTALL_FILE=		${PKG_DB_TMPDIR}/+DEINSTALL
 INSTALL_FILE=		${PKG_DB_TMPDIR}/+INSTALL
@@ -1121,24 +1148,6 @@ ${_INSTALL_FILE}: ${INSTALL_SRC}
 	*)	${CAT} ${.ALLSRC} | ${SED} ${FILES_SUBST_SED} ;;	\
 	esac
 	${RUN}${CHMOD} +x ${.TARGET}
-
-pre-install-script:
-	${RUN}								\
-	if ${TEST} -x ${INSTALL_FILE}; then				\
-		${STEP_MSG} "Running PRE-INSTALL script actions";	\
-		cd ${PKG_DB_TMPDIR} && ${PKGSRC_SETENV} ${INSTALL_SCRIPTS_ENV} \
-		${_PKG_DEBUG_SCRIPT} ${INSTALL_FILE} ${PKGNAME}		\
-			PRE-INSTALL;					\
-	fi
-
-post-install-script:
-	${RUN}								\
-	if ${TEST} -x ${INSTALL_FILE}; then				\
-		${STEP_MSG} "Running POST-INSTALL script actions";	\
-		cd ${PKG_DB_TMPDIR} && ${PKGSRC_SETENV} ${INSTALL_SCRIPTS_ENV} \
-		${_PKG_DEBUG_SCRIPT} ${INSTALL_FILE} ${PKGNAME}		\
-			POST-INSTALL;					\
-	fi
 
 # rc.d scripts are automatically generated and installed into the rc.d
 # scripts example directory at the post-install step.  The following

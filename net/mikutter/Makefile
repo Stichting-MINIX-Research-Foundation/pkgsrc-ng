@@ -1,31 +1,32 @@
-# $NetBSD: Makefile,v 1.104 2015/09/20 14:20:04 tsutsui Exp $
+# $NetBSD: Makefile,v 1.126 2016/09/17 19:31:41 tsutsui Exp $
 #
 
-DISTNAME=	mikutter.3.2.8
+DISTNAME=	mikutter.3.4.3
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/./-/}
 CATEGORIES=	net
 MASTER_SITES=	http://mikutter.hachune.net/bin/
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
+MAINTAINER=	tsutsui@NetBSD.org
 HOMEPAGE=	http://mikutter.hachune.net/
 COMMENT=	Simple, powerful, and moeful twitter client
 LICENSE=	mit AND cc-by-sa-v3.0
 
-RUBY_VERSION_SUPPORTED=	200 21 22
-
 .include "../../lang/ruby/rubyversion.mk"
 
-DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gtk>=2.2.5:../../x11/ruby-gnome2-gtk
+DEPENDS+=	${RUBY_PKGPREFIX}-pluggaloid>=1.1.1:../../net/ruby-pluggaloid
+DEPENDS+=	${RUBY_PKGPREFIX}-gnome2-gtk>=3.0.8:../../x11/ruby-gnome2-gtk
 DEPENDS+=	${RUBY_PKGPREFIX}-gettext>=3.0.1:../../devel/ruby-gettext
-DEPENDS+=	${RUBY_PKGPREFIX}-oauth>=0.4:../../security/ruby-oauth
+DEPENDS+=	${RUBY_PKGPREFIX}-oauth>=0.5.1:../../security/ruby-oauth
 DEPENDS+=	${RUBY_PKGPREFIX}-addressable>=2.3:../../net/ruby-addressable
-DEPENDS+=	${RUBY_PKGPREFIX}-memoize>=1.3:../../devel/ruby-memoize
+DEPENDS+=	${RUBY_PKGPREFIX}-memoist-[0-9]*:../../devel/ruby-memoist
 DEPENDS+=	${RUBY_PKGPREFIX}-hmac>=0.4:../../security/ruby-hmac
 DEPENDS+=	${RUBY_PKGPREFIX}-typed-array>=0.1:../../misc/ruby-typed-array
 DEPENDS+=	${RUBY_PKGPREFIX}-delayer-[0-9]*:../../devel/ruby-delayer
+DEPENDS+=	${RUBY_PKGPREFIX}-delayer-deferred>=1.0.4:../../devel/ruby-delayer-deferred
 DEPENDS+=	${RUBY_PKGPREFIX}-nokogiri-[0-9]*:../../textproc/ruby-nokogiri
 DEPENDS+=	${RUBY_PKGPREFIX}-httpclient-[0-9]*:../../www/ruby-httpclient
 DEPENDS+=	${RUBY_PKGPREFIX}-moneta>=0.7:../../databases/ruby-moneta
+DEPENDS+=	${RUBY_PKGPREFIX}-twitter-text-[0-9]*:../../net/ruby-twitter-text
 
 WRKSRC=		${WRKDIR}/mikutter
 USE_LANGUAGES=	# none

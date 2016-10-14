@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/03/16 09:09:19 taca Exp $
+# $NetBSD: Makefile,v 1.6 2015/11/29 08:53:26 taca Exp $
 
 DISTNAME=	${PHP_PKG_PREFIX}-extensions-${PHP_VERSION}
 CATEGORIES=	meta-pkgs www
@@ -26,6 +26,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-gd>=${PHP_VERSION}<${NEXT_VERS}:../../graphics/php-g
 DEPENDS+=	${PHP_PKG_PREFIX}-gettext>=${PHP_VERSION}<${NEXT_VERS}:../../devel/php-gettext
 DEPENDS+=	${PHP_PKG_PREFIX}-gmp>=${PHP_VERSION}<${NEXT_VERS}:../../devel/php-gmp
 DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=${PHP_VERSION}<${NEXT_VERS}:../../converters/php-iconv
+DEPENDS+=	${PHP_PKG_PREFIX}-recode>=${PHP_VERSION}<${NEXT_VERS}:../../converters/php-recode
 DEPENDS+=	${PHP_PKG_PREFIX}-imap>=${PHP_VERSION}<${NEXT_VERS}:../../mail/php-imap
 DEPENDS+=	${PHP_PKG_PREFIX}-intl>=${PHP_VERSION}<${NEXT_VERS}:../../textproc/php-intl
 DEPENDS+=	${PHP_PKG_PREFIX}-json>=${PHP_VERSION}<${NEXT_VERS}:../../textproc/php-json

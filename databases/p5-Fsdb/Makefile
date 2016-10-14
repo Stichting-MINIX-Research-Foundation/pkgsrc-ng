@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.8 2015/06/12 10:48:41 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/06/08 19:22:28 wiz Exp $
 
-DISTNAME=	Fsdb-2.50
+DISTNAME=	Fsdb-2.58
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	databases

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2015/08/09 11:15:48 markd Exp $
+# $NetBSD: Makefile,v 1.16 2016/07/09 06:38:52 wiz Exp $
 
 DISTNAME=	texlive.infra
-PKGNAME=	tex-${DISTNAME}-2015.37738
-TEXLIVE_REV=	37738
+PKGNAME=	tex-${DISTNAME}-2016
+PKGREVISION=	1
+TEXLIVE_REV=	41280
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Basic TeX Live infrastructure

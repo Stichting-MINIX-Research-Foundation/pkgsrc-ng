@@ -1,0 +1,4 @@
+@comment $NetBSD: PLIST,v 1.2 2016/06/07 17:57:11 joerg Exp $
+include/stfl.h
+lib/libstfl.la
+lib/pkgconfig/stfl.pc

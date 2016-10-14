@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.21 2015/08/10 14:19:11 manu Exp $
+# $NetBSD: Makefile,v 1.24 2016/09/11 17:03:25 taca Exp $
 
 MODNAME=		mysql
 CATEGORIES+=		databases
@@ -8,6 +8,7 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 
 CONFLICTS=	php-mysql-[0-9]*
 
+PHP_VERSIONS_ACCEPTED=	56
 USE_PHP_EXT_PATCHES=	yes
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.php-mysql
@@ -19,7 +20,6 @@ PKG_SUGGESTED_OPTIONS=	# empty
 .if !empty(PKG_OPTIONS:Mmysqlnd)
 CONFIGURE_ARGS+=	--with-${MODNAME}=shared,mysqlnd
 .else
-EVAL_PREFIX+=		MYSQLDIR=mysql-client
 CONFIGURE_ARGS+=	--with-${MODNAME}=shared,${BUILDLINK_PREFIX.mysql-client}
 LDFLAGS+=		${COMPILER_RPATH_FLAG}${LOCALBASE}/lib/mysql
 .  include "../../mk/mysql.buildlink3.mk"

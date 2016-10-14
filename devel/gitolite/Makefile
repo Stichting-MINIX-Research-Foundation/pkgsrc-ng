@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2015/06/12 10:48:49 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2016/07/09 06:38:07 wiz Exp $
 
-GLVER=		3.6.3
+GLVER=		3.6.5
 DISTNAME=	gitolite-${GLVER}
 PKGREVISION=	1
 CATEGORIES=	devel net

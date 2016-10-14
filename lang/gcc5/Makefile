@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2015/08/25 12:23:13 sevan Exp $
+# $NetBSD: Makefile,v 1.14 2016/09/08 09:55:32 jperkin Exp $
 
 GCC_PKGNAME=		gcc5
+PKGREVISION=		2
 .include		"version.mk"
 
 DISTNAME=	gcc-${GCC5_DIST_VERSION}
@@ -8,7 +9,6 @@ PKGNAME=	${GCC_PKGNAME}-${GCC5_DIST_VERSION}
 ## When bumping the PKGREVISION of this package the PKGREVISION of
 ## lang/gcc5-libs needs to be bump to be at least 1 more than the
 ## PKGREVISION of this package!
-#PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC5_DIST_VERSION}/}
 EXTRACT_SUFX=	.tar.bz2
@@ -35,6 +35,7 @@ GCC_SUBPREFIX=		${GCC_PKGNAME}
 GCC_PREFIX=		${PREFIX}/${GCC_SUBPREFIX}
 GNU_CONFIGURE_PREFIX=	${GCC_PREFIX}
 INFO_FILES=		yes
+CONFIGURE_ARGS+=	--disable-libstdcxx-pch
 
 UNLIMIT_RESOURCES+=	datasize
 UNLIMIT_RESOURCES+=	stacksize
@@ -81,23 +82,24 @@ CONFIGURE_ARGS+=	--enable-languages=${LANGS:Q}
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
+.if !empty(MACHINE_PLATFORM:MNetBSD-*-*)
+# on NetBSD, use the native SSP code in libc
+CONFIGURE_ARGS+=	--disable-libssp
+.else
 CONFIGURE_ARGS+=	--enable-libssp
+.endif
 CONFIGURE_ARGS+=	--enable-threads=posix
 CONFIGURE_ARGS+=	--with-boot-ldflags=${BOOT_LDFLAGS:Q}
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ARGS+=	--with-gnu-ld --with-ld=/usr/bin/ld
-CONFIGURE_ARGS+=	--with-gnu-as --with-as=/usr/bin/as
-MAKE_ENV+=		ac_cv_func_clock_gettime=yes
-MAKE_ENV+=		ac_cv_func_gethostbyname_r=no
-MAKE_ENV+=		ac_cv_func_freelocale=no
-MAKE_ENV+=		ac_cv_func_newlocale=no
-MAKE_ENV+=		ac_cv_func_uselocale=no
-.endif
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	--disable-bootstrap
-.endif
 
+CONFIGURE_ARGS.NetBSD+=	--with-gnu-ld --with-ld=/usr/bin/ld
+CONFIGURE_ARGS.NetBSD+=	--with-gnu-as --with-as=/usr/bin/as
+MAKE_ENV.NetBSD+=	ac_cv_func_clock_gettime=yes
+MAKE_ENV.NetBSD+=	ac_cv_func_gethostbyname_r=no
+MAKE_ENV.NetBSD+=	ac_cv_func_freelocale=no
+MAKE_ENV.NetBSD+=	ac_cv_func_newlocale=no
+MAKE_ENV.NetBSD+=	ac_cv_func_uselocale=no
 
+CONFIGURE_ARGS.DragonFly+=	--disable-bootstrap
 
 .if !empty(MACHINE_PLATFORM:MNetBSD-*-i386) || !empty(MACHINE_PLATFORM:MLinux-*-i386)
 CONFIGURE_ARGS+=	--with-arch=i486 --with-tune=i486
@@ -138,6 +140,13 @@ CONFIGURE_ARGS+=	--with-gnu-as --with-as=${PREFIX}/bin/gas
 .  endif
 .endif
 
+.if ${OS_VARIANT} == "SmartOS"
+SUBST_CLASSES+=		ccs
+SUBST_STAGE.ccs=	pre-configure
+SUBST_FILES.ccs=	contrib/make_sunver.pl
+SUBST_SED.ccs=		-e 's,/usr/ccs/bin,/usr/bin,g'
+.endif
+
 pre-configure:
 	${RUN} cd ${WRKSRC} && ${MKDIR} ${OBJDIR}
 
@@ -153,7 +162,7 @@ pre-test:
 post-test:
 	${RUN} cd ${WRKSRC} && cd ${OBJDIR} &&		\
 	${SHELL} ${WRKSRC}/contrib/test_summary >${WRKDIR}/test_summary.log
-	@${INFO_MSG} "Test summary are available in ${WRKDIR}/test_summary.log"
+	${INFO_MSG} "Test summary are available in ${WRKDIR}/test_summary.log"
 
 post-install:
 	${TEST} -f ${DESTDIR}${GCC_PREFIX}/bin/cc || \

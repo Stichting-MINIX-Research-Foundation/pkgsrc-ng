@@ -1,36 +1,44 @@
-# $NetBSD: Makefile,v 1.15 2014/10/07 16:47:27 adam Exp $
+# $NetBSD: Makefile,v 1.21 2016/04/11 19:01:53 ryoon Exp $
 
-DISTNAME=	tesseract-ocr-3.02.02
-PKGNAME=	${DISTNAME:S/-ocr//}
+DISTNAME=	tesseract-3.04.01
 PKGREVISION=	1
 CATEGORIES=	graphics
-MASTER_SITES=	https://tesseract-ocr.googlecode.com/files/
-DISTFILES+=	${DISTNAME}.tar.gz
+MASTER_SITES=	${MASTER_SITE_GITHUB:=tesseract-ocr/}
+DISTFILES=	${DEFAULT_DISTFILES}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/tesseract-ocr/
-COMMENT=	Commercial quality open source OCR engine
+HOMEPAGE=	http://github.com/tesseract-ocr/tesseract/
+COMMENT=	Tesseract Open Source OCR Engine
 LICENSE=	apache-2.0
+
+LANGVER=				3.04.00
+DISTFILES+=				tessdata-${LANGVER}${EXTRACT_SUFX}
+SITES.tessdata-${LANGVER}.tar.gz=	-${MASTER_SITES:Q}tessdata/archive/${LANGVER}.tar.gz
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
-USE_TOOLS+=		gmake pax
+USE_TOOLS+=		gmake pax pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ENV+=		LIBLEPT_HEADERSDIR=${BUILDLINK_PREFIX.leptonica}/include
-MAKE_ENV+=		LANGS=${TESSERACT_LANGS:Q}
 
-WRKSRC=			${WRKDIR}/tesseract-ocr
+CONFIGURE_ENV+=		LIBLEPT_HEADERSDIR=${BUILDLINK_PREFIX.leptonica}/include
+
+INSTALL_TARGET=		install training-install
 
 INSTALLATION_DIRS=	libexec share/doc/tesseract share/tesseract
 
-TESSERACT_LANGS=	afr ara aze bel ben bul cat ces chi_sim chi_tra chr \
-			dan deu ell eng enm epo equ est eus fin fra frk frm \
-			glg grc heb hin hrv hun ind isl ita jpn kan kor lav \
-			lit mal mkd mlt msa nld nor pol por rus slk slv spa \
-			sqi srp swa swe tam tel tgl tha tur ukr vie
-.for l in ${TESSERACT_LANGS}
-DISTFILES+=	tesseract-ocr-3.02.${l}.tar.gz
-.endfor
+post-extract:
+	${MV} ${WRKDIR}/tessdata-${LANGVER}/* ${WRKSRC}/tessdata
 
+# Building the training tools requires that the base build is done
+post-build:
+	cd ${WRKSRC} && ${BUILD_MAKE_CMD} training
+
+post-install:
+	cd ${WRKSRC}/tessdata && ${SETENV} ${INSTALL_ENV} ${MAKE_ENV} \
+		${MAKE_PROGRAM} ${MAKE_FLAGS} ${INSTALL_MAKE_FLAGS} install-langs
+
+.include "../../devel/pango/buildlink3.mk"
+.include "../../graphics/cairo/buildlink3.mk"
 .include "../../graphics/leptonica/buildlink3.mk"
+.include "../../textproc/icu/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,12 +1,10 @@
-@comment $NetBSD: PLIST,v 1.20 2015/08/30 14:46:17 wiz Exp $
-bin/virtualenv
+@comment $NetBSD: PLIST,v 1.30 2016/08/19 15:35:22 wiz Exp $
 bin/virtualenv-${PYVERSSUFFIX}
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
 ${PYSITELIB}/${EGG_INFODIR}/entry_points.txt
 ${PYSITELIB}/${EGG_INFODIR}/not-zip-safe
-${PYSITELIB}/${EGG_INFODIR}/pbr.json
 ${PYSITELIB}/${EGG_INFODIR}/top_level.txt
 ${PYSITELIB}/virtualenv.py
 ${PYSITELIB}/virtualenv.pyc
@@ -14,7 +12,7 @@ ${PYSITELIB}/virtualenv.pyo
 ${PYSITELIB}/virtualenv_support/__init__.py
 ${PYSITELIB}/virtualenv_support/__init__.pyc
 ${PYSITELIB}/virtualenv_support/__init__.pyo
-${PYSITELIB}/virtualenv_support/argparse-1.3.0-py2.py3-none-any.whl
-${PYSITELIB}/virtualenv_support/pip-7.1.2-py2.py3-none-any.whl
-${PYSITELIB}/virtualenv_support/setuptools-18.2-py2.py3-none-any.whl
-${PYSITELIB}/virtualenv_support/wheel-0.24.0-py2.py3-none-any.whl
+${PYSITELIB}/virtualenv_support/argparse-1.4.0-py2.py3-none-any.whl
+${PYSITELIB}/virtualenv_support/pip-8.1.2-py2.py3-none-any.whl
+${PYSITELIB}/virtualenv_support/setuptools-22.0.5-py2.py3-none-any.whl
+${PYSITELIB}/virtualenv_support/wheel-0.29.0-py2.py3-none-any.whl

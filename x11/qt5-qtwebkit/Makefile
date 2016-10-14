@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/04/25 14:25:18 tnn Exp $
+# $NetBSD: Makefile,v 1.35 2016/08/04 17:03:32 ryoon Exp $
 
 DISTNAME=	qtwebkit-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtwebkit-${QTVERSION}
-PKGREVISION=	4
+PKGREVISION=	5
 COMMENT=	Qt5 WebView module
 
 BUILD_DEPENDS+=		gperf-[0-9]*:../../devel/gperf
@@ -37,6 +37,7 @@ post-install:
 .include "../../devel/libexecinfo/buildlink3.mk"
 .endif
 .include "../../graphics/libwebp/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .include "../../textproc/libxslt/buildlink3.mk"
 .if ${OPSYS} != "Darwin"

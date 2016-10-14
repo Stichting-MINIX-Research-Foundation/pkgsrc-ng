@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.25 2014/12/08 04:50:17 obache Exp $
+# $NetBSD: Makefile,v 1.31 2016/05/23 05:25:14 msaitoh Exp $
 
-DISTNAME=	pciutils-3.3.0
+DISTNAME=	pciutils-3.5.1
 CATEGORIES=	sysutils
 MASTER_SITES=	ftp://atrey.karlin.mff.cuni.cz/pub/linux/pci/ \
 		ftp://ftp.kernel.org/pub/software/utils/pciutils/
@@ -11,8 +11,11 @@ COMMENT=	PCI bus manipulation utility similar to NetBSD pcictl(8)
 LICENSE=	gnu-gpl-v2
 
 MAKE_JOBS_SAFE=		no
-ONLY_FOR_PLATFORM=	AIX-*-* FreeBSD-*-* Linux-*-* NetBSD-*-*
+ONLY_FOR_PLATFORM=	AIX-*-* Darwin-*-* FreeBSD-*-* Linux-*-* NetBSD-*-*
 ONLY_FOR_PLATFORM+=	DragonFly-*-* OpenBSD-*-* SunOS-5.11-* Haiku-*-*
+
+MAKE_FLAGS+=		CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=		LDFLAGS=${LDFLAGS:Q}
 
 INSTALL_TARGET=		install install-lib
 USE_TOOLS+=		gmake pkg-config
@@ -20,13 +23,9 @@ REPLACE_SH=		*.sh
 
 PKGCONFIG_OVERRIDE=	lib/libpci.pc.in
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-PCIUTILS_LIBNAME=	pciutils
-.else
-PCIUTILS_LIBNAME=	pci
-.endif
+OPSYSVARS+=			PCIUTILS_LIBNAME
+PCIUTILS_LIBNAME.NetBSD=	pciutils
+PCIUTILS_LIBNAME.*=		pci
 
 PLIST_SUBST+=		PCIUTILS_LIBNAME=${PCIUTILS_LIBNAME}
 
@@ -36,12 +35,10 @@ SUBST_MESSAGE.pc=	Fixing library link specification in pkg-config file.
 SUBST_STAGE.pc=		pre-configure
 SUBST_VARS.pc=		PCIUTILS_LIBNAME
 
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES=		dns
+SUBST_CLASSES.SunOS+=	dns
 SUBST_MESSAGE.dns=	Disabling DNS support on Solaris
 SUBST_STAGE.dns=	pre-configure
 SUBST_FILES.dns=	Makefile
 SUBST_SED.dns=		-e 's/^DNS=/DNS=no/'
-.endif
 
 .include "../../mk/bsd.pkg.mk"

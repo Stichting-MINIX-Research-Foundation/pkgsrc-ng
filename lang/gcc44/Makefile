@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.43 2014/08/12 08:33:31 prlw1 Exp $
+# $NetBSD: Makefile,v 1.47 2016/07/09 06:38:24 wiz Exp $
 
 DISTNAME=		gcc-${GCC_VERSION}
 PKGNAME=		gcc44-${GCC_VERSION}
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=gcc/gcc-${GCC_VERSION}/}
 EXTRACT_SUFX=		.tar.bz2
@@ -69,13 +69,12 @@ CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${GCC_PREFIX:Q}
 CONFIGURE_ARGS+=	--disable-libssp
 CONFIGURE_ARGS+=	--enable-threads=posix
-.if ${OPSYS} == "Darwin"
+
 # See ${WRKSRC}/libgcc/config/t-slibgcc-darwin: It uses strip(1) to
 # create a stub library, not just to remove symbols, so we must not
 # let strip(1) be a no-op regardless of ${INSTALL_UNSTRIPPED} or the
 # build fails for missing files.
-CONFIGURE_ARGS+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
-.endif
+CONFIGURE_ARGS.Darwin+=	STRIP_FOR_TARGET=${TOOLS_PLATFORM.strip}
 
 CONFIGURE_ENV+=		CONFIG_SHELL=${CONFIG_SHELL}
 
@@ -92,7 +91,7 @@ CFLAGS+=		-I${BUILDLINK_DIR}/include
 
 # Somone should fix this so it will match the NetBSD system compiler
 #.if ${OPSYS} == "NetBSD"
-#GCC_PLATFORM=	${LOWER_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
+#GCC_PLATFORM=	${MACHINE_ARCH}--${LOWER_OPSYS}${APPEND_ELF}
 #CONFIGURE_ARGS+=	--host=${GCC_PLATFORM:Q}
 #MAKE_ENV+=		AR=/usr/bin/ar
 #.endif # NetBSD
@@ -105,6 +104,8 @@ MAKE_ENV+=		ac_cv_func_gethostbyname_r=no
 
 LIBS.SunOS+=		-lgmp
 
+# Ignore missing rpaths in "fake" library.
+CHECK_SHLIBS_SKIP+=	${GCC_PKGNAME}/lib*/libgcj_bc.so*
 
 do-configure:
 	${MKDIR} ${WRKDIR}/obj

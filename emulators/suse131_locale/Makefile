@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2015/08/17 16:13:51 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/06/17 17:21:38 tsutsui Exp $
 
 PKGNAME=	suse_locale-${SUSE_VERSION}
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	emulators
-RPMUPDPKGS+=	glibc-locale-2.18-4.38.1.${SUSE_ARCH}
+RPMUPDPKGS+=	glibc-locale-2.18-4.44.1.${SUSE_ARCH}
 
 CONFLICTS=	linux-locale-[0-9]*
 

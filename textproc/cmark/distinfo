@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/09/17 11:45:14 mef Exp $
+
+SHA1 (cmark-0.26.1.tar.gz) = 2d697e4a4961db9d19e5f39b2d2e4dfe2d670830
+RMD160 (cmark-0.26.1.tar.gz) = 793fa4e972454dbcd283742a9eae43627213caa9
+SHA512 (cmark-0.26.1.tar.gz) = c10fe1a9450a97dafc09179c059773aa1ae1269b247785e67f0cce959a6b12a4b0fdf91a6ad22dd6a100b892777b5a48b59227bc7ada043828b26e2be73bc059
+Size (cmark-0.26.1.tar.gz) = 214151 bytes

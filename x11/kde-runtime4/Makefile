@@ -1,26 +1,32 @@
-# $NetBSD: Makefile,v 1.58 2015/06/30 09:57:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.68 2016/08/17 00:06:47 ryoon Exp $
 
-DISTNAME=	kde-runtime-${_KDE_VERSION}
-PKGNAME=	${DISTNAME:S/-4/4-4/}
+DISTNAME=	kde-runtime-15.12.0
+PKGNAME=	${DISTNAME:S/-1/4-1/}
 PKGREVISION=	5
 CATEGORIES=	x11
 COMMENT=	Runtime requirements for the KDE integrated X11 desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 
 # BUILD_MAKE_FLAGS+= VERBOSE=1
 CMAKE_ARGS+=	-DWITH_LibSSH:BOOL=OFF
+.include "../../mk/bsd.prefs.mk"
 CMAKE_ARGS+=	-DLIBLZMA_INCLUDE_DIR:PATH=${BUILDLINK_PREFIX.xz}/include
+.if ${OPSYS} == "Darwin"
+CMAKE_ARGS+=	-DLIBLZMA_LIBRARY:FILEPATH=${BUILDLINK_PREFIX.xz}/lib/liblzma.dylib
+.else
 CMAKE_ARGS+=	-DLIBLZMA_LIBRARY:FILEPATH=${BUILDLINK_PREFIX.xz}/lib/liblzma.so
+.endif
 
 DEPENDS+=	htdig>=3.2.0:../../www/htdig
 DEPENDS+=	oxygen-icons-[0-9]*:../../graphics/oxygen-icons
 
 USE_TOOLS+=		gmake
 
-LDFLAGS.SunOS+=	-lsocket
+CFLAGS.SunOS+=	-DPORTMAP
+LDFLAGS.SunOS+=	-lsocket -lnsl
 
-.include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
 # Some files are conditional on 'md5sum' or 'md5' being present.
@@ -30,6 +36,12 @@ PLIST_VARS+=	md5
 PLIST.md5=	yes
 .  endif
 .endfor
+
+PLIST_VARS+=	polkit x11
+.if ${OPSYS} != "Darwin"
+PLIST.polkit=	yes
+PLIST.x11=	yes
+.endif
 
 SUBST_CLASSES+=		htdig
 SUBST_STAGE.htdig=	post-patch
@@ -77,7 +89,7 @@ BUILDLINK_ABI_DEPENDS.attica?=	attica>=0.1.4
 .include "../../multimedia/xine-lib/buildlink3.mk"
 .include "../../net/openslp/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
-.include "../../x11/kactivities/buildlink3.mk"
+.include "../../x11/libkactivities4/buildlink3.mk"
 .include "../../x11/kdelibs4/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

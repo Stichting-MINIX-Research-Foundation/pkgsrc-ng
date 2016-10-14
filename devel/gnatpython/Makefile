@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/05/09 07:36:59 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2016/07/09 13:03:38 wiz Exp $
 
 DISTNAME=	gnatpython-${SNAPSHOT}
 PKGREVISION=	2
@@ -15,7 +15,7 @@ SNAPSHOT=	20110912
 
 EGG_NAME=	gnatpython-1.2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 20110912
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 20110912
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/distutils.mk"

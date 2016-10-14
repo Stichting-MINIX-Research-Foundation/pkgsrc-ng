@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/26 14:40:33 mef Exp $
+
+SHA1 (Devel-Confess-0.009001.tar.gz) = e0ec0424c1d904c9047b5a5e9fd66a203c41bbb2
+RMD160 (Devel-Confess-0.009001.tar.gz) = e418df8d488ad35fb5ac873055b79785463ccd74
+SHA512 (Devel-Confess-0.009001.tar.gz) = c4dae2d31c82f13b1499312fc5196755eb62ae8e47a20f8df6eab9d1d1b698ca70a7d53f08eba94483ce386af83ee3f37cd47bdb21c8d45781d08379b4a1a84c
+Size (Devel-Confess-0.009001.tar.gz) = 22503 bytes

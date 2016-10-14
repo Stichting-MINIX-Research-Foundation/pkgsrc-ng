@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/01/01 01:31:52 ryoon Exp $
+# $NetBSD: Makefile,v 1.3 2016/09/06 14:01:20 maya Exp $
 
 GCC_PKGNAME=	gcc46
 GCC46_DIST_VERSION:=	4.6.4
@@ -8,7 +8,7 @@ PKGNAME=	${GCC_PKGNAME}-libs-${GCC46_DIST_VERSION}
 ## The PKGREVISION of this package needs to be at least 1 more than the
 ## PKGREVISION of the lang/gcc46 package so that with the dependence pattern
 ## '{gcc46,gcc46-libs}>=4.6.*' pkg_all will choose gcc46-libs over gcc46.
-PKGREVISION=	4
+PKGREVISION=	6
 CATEGORIES=	lang
 MASTER_SITES=	# empty
 DISTFILES=	# empty
@@ -27,11 +27,8 @@ BUILD_DEPENDS+=		${GCC_PKGNAME}-${GCC46_DIST_VERSION}{,nb[0-9]*}:../../lang/gcc4
 
 .include "../../mk/bsd.prefs.mk"
 
-FIND_PREFIX:=		GCC_PKG_PREFIX=${GCC_PKGNAME}-${GCC46_DIST_VERSION}*
-.include "../../mk/find-prefix.mk"
-
 LIBGCC_SUBPREFIX=	${GCC_PKGNAME}
-LIBGCC_PREFIX=		${GCC_PKG_PREFIX}/${LIBGCC_SUBPREFIX}
+LIBGCC_PREFIX=		${LOCALBASE}/${LIBGCC_SUBPREFIX}
 GCC_TARGET_MACHINE?=	${MACHINE_GNU_PLATFORM}
 BUILD_DEFS+=		GCC_TARGET_MACHINE
 

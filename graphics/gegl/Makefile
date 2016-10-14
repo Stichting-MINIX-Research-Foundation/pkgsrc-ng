@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.56 2015/09/16 12:52:53 richard Exp $
+# $NetBSD: Makefile,v 1.58 2016/08/03 10:22:14 adam Exp $
 
-DISTNAME=	gegl-0.3.0
+DISTNAME=	gegl-0.3.4
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.gimp.org/pub/gegl/0.3/
 EXTRACT_SUFX=	.tar.bz2
@@ -19,7 +20,6 @@ CONFIGURE_ENV+=		ac_cv_path_ASCIIDOC=no
 CONFIGURE_ENV+=		ac_cv_path_ENSCRIPT=no
 CONFIGURE_ENV+=		ac_cv_path_SDL_CONFIG=no
 CONFIGURE_ENV+=		ac_cv_prog_RUBY=no
-
 PKGCONFIG_OVERRIDE+=	gegl.pc.in
 
 .include "../../mk/bsd.prefs.mk"

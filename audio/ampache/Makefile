@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.11 2014/04/19 01:14:41 asau Exp $
+# $NetBSD: Makefile,v 1.14 2016/09/11 17:03:25 taca Exp $
 #
 
 DISTNAME=	ampache-3.5.3
@@ -10,17 +10,18 @@ MAINTAINER=	abs@NetBSD.org
 HOMEPAGE=	http://ampache.org/
 COMMENT=	Web-based Audio file manager
 
-DEPENDS+=       ${APACHE_PKG_PREFIX}-${PHP_PKG_PREFIX}>=5.2:../../www/ap-php
-DEPENDS+=       ${PHP_PKG_PREFIX}-gettext>=0:../../devel/php-gettext
-DEPENDS+=       ${PHP_PKG_PREFIX}-iconv>=0:../../converters/php-iconv
-DEPENDS+=       ${PHP_PKG_PREFIX}-mbstring>=0:../../converters/php-mbstring
-DEPENDS+=       ${PHP_PKG_PREFIX}-mysql>=0:../../databases/php-mysql
+DEPENDS+=	${APACHE_PKG_PREFIX}-${PHP_PKG_PREFIX}>=5.2:../../www/ap-php
+DEPENDS+=	${PHP_PKG_PREFIX}-gettext>=0:../../devel/php-gettext
+DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=0:../../converters/php-iconv
+DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=0:../../converters/php-mbstring
+DEPENDS+=	${PHP_PKG_PREFIX}-mysql>=0:../../databases/php-mysql
 
+PHP_VERSIONS_ACCEPTED=	56
 NO_BUILD=		yes
 USE_LANGUAGES=		# none
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		pax
-LICENSE=       		gnu-gpl-v2
+LICENSE=		gnu-gpl-v2
 
 INSTDIR=		${PREFIX}/share/ampache
 EGDIR=			${PREFIX}/share/examples

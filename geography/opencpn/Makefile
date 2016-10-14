@@ -1,12 +1,16 @@
-# $NetBSD: Makefile,v 1.4 2015/04/25 14:23:06 tnn Exp $
+# $NetBSD: Makefile,v 1.8 2016/08/03 10:22:48 adam Exp $
 #
 
-VERSION=	4.0.0
-DISTNAME=	OpenCPN-${VERSION}-Source
+VERSION=	4.4.0
+#PKGREVISION=	0
+DISTNAME=	OpenCPN-${VERSION}
 PKGNAME=	opencpn-${VERSION}
 PKGREVISION=	1
 CATEGORIES=	geography
-MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opencpn/${VERSION}/}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=OpenCPN/}
+GITHUB_PROJECT=	OpenCPN
+GITHUB_TAG=	ec4fb21cf1f8f0a8e6bd6768a235699fc76848a2
+EXTRACT_SUFX=	.zip
 
 MAINTAINER=	bouyer@NetBSD.org
 HOMEPAGE=	http://www.opencpn.org/
@@ -19,12 +23,13 @@ USE_CMAKE=		yes
 
 CMAKE_ARGS+=	-DPREFIX:PATH=${PREFIX} -DPREFIX_PLUGINS:PATH=${PREFIX}/lib/opencpn
 CMAKE_ARGS+=	-DBUNDLE_DOCS=ON -DBUNDLE_GSHHS=CRUDE -DBUNDLE_TCDATA=ON
+CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Release
 CMAKE_MODULE_PATH_OVERRIDE = \
-		plugins/grib_pi/CMakeLists.txt \
-		plugins/demo_pi_sample/src/CMakeLists.txt \
-		plugins/demo_pi_sample/CMakeLists.txt \
-		plugins/dashboard_pi/CMakeLists.txt \
-		plugins/CMakeLists.txt
+	plugins/chartdldr_pi/CMakeLists.txt \
+	plugins/dashboard_pi/CMakeLists.txt \
+	plugins/grib_pi/CMakeLists.txt \
+	plugins/wmm_pi/CMakeLists.txt \
+	plugins/CMakeLists.txt
 
 SUBST_CLASSES+=		prefix
 SUBST_STAGE.prefix=	pre-configure
@@ -40,7 +45,7 @@ LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}
 
 .include "../../devel/cmake/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
-.include "../../x11/wxGTK28/buildlink3.mk"
+.include "../../x11/wxGTK30/buildlink3.mk"
 .include "../../graphics/MesaLib/buildlink3.mk"
 .include "../../graphics/glu/buildlink3.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
@@ -48,4 +53,5 @@ LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}
 .include "../../textproc/tinyxml/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

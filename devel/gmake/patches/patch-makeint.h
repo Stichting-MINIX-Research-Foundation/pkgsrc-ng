@@ -1,4 +1,4 @@
-$NetBSD: patch-makeint.h,v 1.1 2014/11/09 03:22:57 obache Exp $
+$NetBSD: patch-makeint.h,v 1.5 2016/09/08 22:46:58 joerg Exp $
 
 * [SV 43434] Handle NULL returns from ttyname().
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.30 2015/08/28 07:09:57 richard Exp $
+# $NetBSD: Makefile.common,v 1.33 2016/03/24 13:28:49 ryoon Exp $
 #
 # used by devel/ncurses/Makefile
 # used by devel/ncursesw/Makefile
@@ -38,9 +38,7 @@ SUBST_MESSAGE.rpath=	Fixing rpath in ncurses-config.
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-mixed-case
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-mixed-case
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 TOOL_DEPENDS+=		ncurses-${NC_VERS}:../../devel/ncurses
@@ -63,6 +61,12 @@ CONFIGURE_ARGS+=	--without-manpage-tbl
 
 .include "../../mk/compiler.mk"
 
+# Fix build under FreeBSD 10.2
+.if !empty(PKGSRC_COMPILER:Mclang)
+CONFIGURE_ENV+=		ac_cv_c_compiler_gnu=no
+CONFIGURE_ENV+=		ac_cv_cxx_compiler_gnu=no
+.endif
+
 .if ${OPSYS} == "SunOS"
 CONFIGURE_ARGS+=	--disable-const
 TERMINFO_SRC=	${WRKSRC}/misc/terminfo.src
@@ -81,3 +85,5 @@ CPPFLAGS+=	-P
 INSTALLATION_DIRS+=	${TERMINFODIR}
 
 PLIST_SUBST+=	TERMINFODIR=${TERMINFODIR}
+
+CHECK_WRKREF_SKIP+=	man/man?/*

@@ -1,7 +1,11 @@
-$NetBSD: distinfo,v 1.17 2015/02/11 13:25:25 jaapb Exp $
+$NetBSD: distinfo,v 1.20 2016/05/05 16:04:21 jaapb Exp $
 
-SHA1 (ocamlnet-3.7.7.tar.gz) = db88039adf941bf6aeaff453f4848b4407e7f560
-RMD160 (ocamlnet-3.7.7.tar.gz) = bb82d537d4bc4706c75c91bbc02da1996e896b9b
-Size (ocamlnet-3.7.7.tar.gz) = 3357674 bytes
+SHA1 (ocamlnet-4.1.1.tar.gz) = 16a5ba8e0155fa04c9fdb3de73db8b8417530ec5
+RMD160 (ocamlnet-4.1.1.tar.gz) = 04e74fea3478110d0fddaa3d0b4fe15bca6fcf58
+SHA512 (ocamlnet-4.1.1.tar.gz) = cd10f7fe622bed3208cc5ad66d65911c1c0992bdc6f4d1bc10d6e7ef197fe157226e6b8ca7857b91cd1c6d6103ac9c3d586d39f3cb32a9ccb9ab83e00bf4444d
+Size (ocamlnet-4.1.1.tar.gz) = 4561784 bytes
 SHA1 (patch-Makefile.rules) = ffe0b4a56e2b1f0449ee6ceedaeffdb5b5abbc9a
-SHA1 (patch-src_netsys_netsys__c.c) = 541f1d1b7466301c3f9010cb8e8308e68b863766
+SHA1 (patch-src_equeue_uq_engines_compat.ml) = 35ed1e404aafe5e34963dd6730c68c11e7903e86
+SHA1 (patch-src_netstring_netasn1.ml) = 4637b290ac05613a38e0d8c0853f07a904c7254c
+SHA1 (patch-src_netsys_netlog.ml) = 8de2d59aecd88c0e5fee000238efad625e28104b
+SHA1 (patch-src_netsys_netsys__c.c) = d83d7746267523456696057bdd2ade74a9313f01

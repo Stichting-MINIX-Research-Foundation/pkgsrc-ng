@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.27 2015/04/25 14:23:39 tnn Exp $
+# $NetBSD: Makefile,v 1.31 2016/08/04 17:03:37 ryoon Exp $
 
 DISTNAME=	kmix-${_KDE_VERSION}
-PKGREVISION=	3
+PKGREVISION=	6
 CATEGORIES=	multimedia
 COMMENT=	KDE's soundcard mixer program
+
+# lib/libkdeinit4_kmixctrl.so: undefined reference to `vtable for ControlAdaptor'
+MAKE_JOBS_SAFE=	no
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.15 2015/08/13 07:43:40 fhajny Exp $
+# $NetBSD: Makefile,v 1.23 2016/09/26 13:35:42 fhajny Exp $
 
-DISTNAME=	redis-3.0.3
+DISTNAME=	redis-3.2.4
 CATEGORIES=	databases
 MASTER_SITES=	http://download.redis.io/releases/
 
@@ -18,7 +18,7 @@ RCD_SCRIPTS+=		redis
 RCD_SCRIPT_SRC.redis=	${FILESDIR}/redis.sh
 
 DOCDIR=			share/doc/redis
-DOCFILES+=		00-RELEASENOTES BUGS COPYING README
+DOCFILES+=		00-RELEASENOTES BUGS COPYING README.md
 EGDIR=			${PREFIX}/share/examples/${PKGBASE}
 INSTALLATION_DIRS+=	bin ${DOCDIR} ${EGDIR} ${EGDIR}/utils ${EGDIR}/tests
 CONF_FILES=		${EGDIR}/redis.conf.example ${PKG_SYSCONFDIR}/redis.conf

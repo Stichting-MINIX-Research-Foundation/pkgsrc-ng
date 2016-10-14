@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2015/08/07 11:19:13 jaapb Exp $
+# $NetBSD: Makefile,v 1.26 2016/05/06 10:50:55 jaapb Exp $
 #
 
-DISTNAME=	camlp5-6.14
-PKGNAME=	${DISTNAME} # to avoid being called ocaml-camlp5
+DISTNAME=	camlp5-6.16
 CATEGORIES=	lang
 MASTER_SITES=	http://camlp5.gforge.inria.fr/distrib/src/
 EXTRACT_SUFX=	.tgz

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2015/08/05 12:34:52 ryoon Exp $
+# $NetBSD: Makefile,v 1.17 2016/03/04 00:31:49 youri Exp $
 
 DISTNAME=		libreoffice4-bin	# overridden below
 PKGNAME=		libreoffice4-bin-${OO_RELEASE}
@@ -18,10 +18,11 @@ CONFLICTS+=		openoffice3-[0-9]*
 CONFLICTS+=		openoffice3-bin-[0-9]*
 CONFLICTS+=		openoffice-linux-[0-9]*
 CONFLICTS+=		libreoffice3-bin-[0-9]*
+CONFLICTS+=		libreoffice5-bin-[0-9]*
 
 OO_VER=			4
 OO_BASEVER=		${OO_VER}.4
-OO_RELEASE=		${OO_BASEVER}.5
+OO_RELEASE=		${OO_BASEVER}.7
 OO_RELEASEV=		${OO_RELEASE}.2
 PLIST_SUBST+=		VER=${OO_VER:Q} BASEVER=${OO_BASEVER:Q}
 MESSAGE_SUBST+=		VER=${OO_VER:Q}
@@ -64,7 +65,7 @@ MASTER_SITES=		http://download.documentfoundation.org/libreoffice/stable/${OO_RE
 
 .include "options.mk"
 
-INSTALLATION_DIRS= bin
+INSTALLATION_DIRS= bin share/applications
 
 do-install:
 	${UNIQ} ${RPM2PKG_PLIST} | \
@@ -75,8 +76,10 @@ do-install:
 		-e "s|@@OO_BASEVER@@|${OO_BASEVER}|g" \
 		< ${FILESDIR}/soffice > ${DESTDIR}${PREFIX}/bin/soffice
 	${CHMOD} +x ${DESTDIR}${PREFIX}/bin/soffice
-.for i in scalc sdraw simpress smath swriter
+	${INSTALL_DATA} ${FILESDIR}/*.desktop ${DESTDIR}${PREFIX}/share/applications
+.for i in sbase scalc sdraw simpress smath swriter
 	${LN} -sf ../opt/libreoffice${OO_BASEVER}/program/${i} ${DESTDIR}${PREFIX}/bin/${i}
 .endfor
 
+.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/bsd.pkg.mk"

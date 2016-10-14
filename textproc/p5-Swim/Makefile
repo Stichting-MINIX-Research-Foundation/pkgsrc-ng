@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2015/06/12 10:51:29 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/08 19:24:35 wiz Exp $
 
-DISTNAME=		Swim-0.1.39
+DISTNAME=		Swim-0.1.43
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		textproc perl5

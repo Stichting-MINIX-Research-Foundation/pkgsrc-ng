@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2014/05/03 13:14:39 alnsn Exp $
+# $NetBSD: Makefile,v 1.39 2016/03/05 11:27:58 jperkin Exp $
 #
 
 DISTNAME=	enlightenment-0.17.3
-PKGREVISION=	6
+PKGREVISION=	7
 CATEGORIES=	x11
 MASTER_SITES=	http://download.enlightenment.org/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -35,14 +35,12 @@ BUILD_DEFS+=		PKG_SYSCONFBASE
 
 INSTALLATION_DIRS=	${EGDIR}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		solhost
+SUBST_CLASSES.SunOS+=	solhost
 SUBST_STAGE.solhost=	pre-configure
 SUBST_FILES.solhost=	configure
 SUBST_SED.solhost=	-e '/^MODULE_ARCH=/s/.host_os/solaris/'
-.endif
+
+.include "../../mk/bsd.prefs.mk"
 
 .if ${X11_TYPE} == "modular"
 CPPFLAGS+=	-DPKGSRC_X11BASE=\"${X11BASE:Q}\"
@@ -54,9 +52,9 @@ pre-install:
 
 PKGCONFIG_OVERRIDE=	enlightenment.pc.in
 
-MODULE_ARCH=	${LOWER_OPSYS}-${LOWER_ARCH}-${PKGVERSION_NOREV}
+MODULE_ARCH=	${LOWER_OPSYS}-${MACHINE_ARCH}-${PKGVERSION_NOREV}
 PLIST_SUBST=	MODULE_ARCH=${MODULE_ARCH}
-PRINT_PLIST_AWK+=        { gsub(/${MODULE_ARCH}/, "$${MODULE_ARCH}") }
+PRINT_PLIST_AWK+=	 { gsub(/${MODULE_ARCH}/, "$${MODULE_ARCH}") }
 
 .include "../../devel/ecore/buildlink3.mk"
 .include "../../devel/eet/buildlink3.mk"

@@ -1,8 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/04/22 10:57:15 joerg Exp $
-#
-# any of ~* is fine, they are the same and just there for Ubuntu
-# so moneyguru's built for all releases
-DISTNAME=	moneyguru-2.8.2
+# $NetBSD: Makefile,v 1.18 2016/08/28 15:48:31 wiz Exp $
+
+DISTNAME=	moneyguru-2.10.1
 CATEGORIES=	finance
 MASTER_SITES=	${MASTER_SITE_GITHUB:=hsoft/}
 
@@ -12,8 +10,8 @@ COMMENT=	Personal finance management application
 LICENSE=	modified-bsd
 
 DEPENDS+=	${PYPKGPREFIX}-polib-[0-9]*:../../devel/py-polib
-DEPENDS+=	${PYPKGPREFIX}-qt4-[0-9]*:../../x11/py-qt4
-DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
+DEPENDS+=	${PYPKGPREFIX}-qt5-[0-9]*:../../x11/py-qt5
+DEPENDS+=	${PYPKGPREFIX}-sphinx>=1.3.4nb1:../../textproc/py-sphinx
 DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 DEPENDS+=	${PYPKGPREFIX}-cElementTree-[0-9]*:../../textproc/py-cElementTree
 
@@ -24,9 +22,8 @@ WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 USE_LANGUAGES=	c
 USE_TOOLS=	pax
 
-PYTHON_VERSIONS_INCOMPATIBLE=	27 # 3.x only
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 PY_PATCHPLIST=		yes
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 REPLACE_PYTHON+=	cocoa/waf
 REPLACE_PYTHON+=	cocoa/wscript
 REPLACE_PYTHON+=	psmtabbarcontrol/waf
@@ -47,15 +44,12 @@ BASE_ARCH=	${MACHINE_ARCH}
 
 PLIST_SUBST+=	BASE_ARCH=${BASE_ARCH:Q}
 
-do-configure:
-	cd ${WRKSRC} && ${PYTHONBIN} configure.py
-
 do-build:
 	cd ${WRKSRC} && ${PYTHONBIN} build.py
 	${CHMOD} +x ${WRKSRC}/run.py
 
 do-install:
-	cd ${WRKSRC} && pax -pp -rw ambuttonbar build cocoa cocoalib core data help hscommon images locale plugin_examples psmtabbarcontrol qt qtlib run.py ${DESTDIR}${PREFIX}/share/moneyguru
+	cd ${WRKSRC} && pax -pp -rw ambuttonbar build cocoa cocoalib core data help hscommon images locale psmtabbarcontrol qt qtlib run.py ${DESTDIR}${PREFIX}/share/moneyguru
 	${INSTALL_DATA} ${WRKSRC}/debian/moneyguru.desktop ${DESTDIR}${PREFIX}/share/applications
 	${LN} -s ${DESTDIR}${PREFIX}/share/moneyguru/run.py ${DESTDIR}${PREFIX}/bin/moneyguru
 

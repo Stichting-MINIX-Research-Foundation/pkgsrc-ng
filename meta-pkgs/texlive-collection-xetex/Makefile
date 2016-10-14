@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.3 2015/08/02 03:22:01 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/07 11:33:39 markd Exp $
 
 DISTNAME=	collection-xetex
-PKGNAME=	texlive-${DISTNAME}-2015pre1
+PKGNAME=	texlive-${DISTNAME}-2016pre2
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	37812
+TEXLIVE_REV=	41611
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -19,6 +19,7 @@ DEPENDS+=	texlive-collection-basic-[0-9]*:../../meta-pkgs/texlive-collection-bas
 # depend bidishadowtext
 # depend bidipresentation
 # depend fixlatvian
+# depend font-change-xetex
 # depend fontbook
 # depend fontwrap
 # depend interchar
@@ -30,6 +31,7 @@ DEPENDS+=	tex-polyglossia-[0-9]*:../../print/tex-polyglossia
 DEPENDS+=	tex-realscripts-[0-9]*:../../print/tex-realscripts
 # depend ucharclasses
 # depend unisugar
+# depend xebaposter
 # depend xecjk
 # depend xecolor
 # depend xecyr
@@ -38,7 +40,6 @@ DEPENDS+=	tex-realscripts-[0-9]*:../../print/tex-realscripts
 # depend xesearch
 # depend xespotcolor
 DEPENDS+=	tex-xetex-[0-9]*:../../print/tex-xetex
-DEPENDS+=	tex-xetex-def-[0-9]*:../../print/tex-xetex-def
 DEPENDS+=	tex-xetexconfig-[0-9]*:../../print/tex-xetexconfig
 # depend xetex-itrans
 # depend xetex-pstricks

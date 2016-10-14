@@ -1,11 +1,20 @@
-$NetBSD: patch-aj,v 1.4 2013/02/09 19:59:44 ryoon Exp $
+$NetBSD: patch-aj,v 1.6 2016/02/14 09:22:48 jperkin Exp $
 
 Kill all of the overzealous optimization; if the user wants this,
 there is devel/cpuflags and mk.conf.
 
---- configure.orig	2011-09-28 13:10:13.000000000 +0000
+--- configure.orig	2014-01-22 20:23:47.000000000 +0000
 +++ configure
-@@ -15794,7 +15794,7 @@ rm -f core conftest.err conftest.$ac_obj
+@@ -14980,7 +14980,7 @@ eval as_val=\$$as_ac_Header
+ _ACEOF
+ 
+ else
+-  as_fn_error "*** a required header file is missing" "$LINENO" 5
++  : as_fn_error "*** a required header file is missing" "$LINENO" 5
+ fi
+ 
+ done
+@@ -15793,7 +15793,7 @@ rm -f core conftest.err conftest.$ac_obj
  
  $as_echo "#define x86 1" >>confdefs.h
  
@@ -14,7 +23,7 @@ there is devel/cpuflags and mk.conf.
  
  
      if test x$with_cpu_target != x ; then
-@@ -15832,7 +15832,7 @@ if test "x$enable_dynsimd" = xyes; then
+@@ -15828,7 +15828,7 @@ if test "x$enable_dynsimd" = xyes; then
  
  $as_echo "#define USE_DYNSIMD 1" >>confdefs.h
  

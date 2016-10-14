@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.10 2015/07/31 12:57:23 adam Exp $
+@comment $NetBSD: PLIST,v 1.14 2016/09/07 08:56:33 adam Exp $
 bin/git
 bin/git-cvsserver
 bin/git-receive-pack
@@ -149,6 +149,7 @@ libexec/git-core/git-stash
 libexec/git-core/git-status
 libexec/git-core/git-stripspace
 libexec/git-core/git-submodule
+libexec/git-core/git-submodule--helper
 libexec/git-core/git-svn
 libexec/git-core/git-symbolic-ref
 libexec/git-core/git-tag
@@ -176,6 +177,7 @@ libexec/git-core/mergetools/diffmerge
 libexec/git-core/mergetools/diffuse
 libexec/git-core/mergetools/ecmerge
 libexec/git-core/mergetools/emerge
+libexec/git-core/mergetools/examdiff
 libexec/git-core/mergetools/gvimdiff
 libexec/git-core/mergetools/gvimdiff2
 libexec/git-core/mergetools/gvimdiff3
@@ -201,6 +203,7 @@ share/examples/git/templates/hooks/pre-applypatch.sample
 share/examples/git/templates/hooks/pre-commit.sample
 share/examples/git/templates/hooks/pre-push.sample
 share/examples/git/templates/hooks/pre-rebase.sample
+share/examples/git/templates/hooks/pre-receive.sample
 share/examples/git/templates/hooks/prepare-commit-msg.sample
 share/examples/git/templates/hooks/update.sample
 share/examples/git/templates/info/exclude
@@ -210,6 +213,7 @@ share/locale/de/LC_MESSAGES/git.mo
 share/locale/fr/LC_MESSAGES/git.mo
 share/locale/is/LC_MESSAGES/git.mo
 share/locale/it/LC_MESSAGES/git.mo
+share/locale/ko/LC_MESSAGES/git.mo
 share/locale/pt_PT/LC_MESSAGES/git.mo
 share/locale/ru/LC_MESSAGES/git.mo
 share/locale/sv/LC_MESSAGES/git.mo

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.48 2015/09/04 08:49:41 mef Exp $
+# $NetBSD: Makefile,v 1.54 2016/09/16 15:28:17 mef Exp $
 
-DISTNAME=	Log-Dispatch-2.50
+DISTNAME=	Log-Dispatch-2.57
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Log/}
 
-MAINTAINER=	rhaen@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Log-Dispatch/
 COMMENT=	Perl module for logging messages to multiple outputs
 LICENSE=	artistic-2.0
@@ -18,6 +18,7 @@ DEPENDS+=	p5-Params-Validate>=1.03:../../devel/p5-Params-Validate
 
 # for make test
 BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
+BUILD_DEPENDS+=	p5-Test-Needs-[0-9]*:../../devel/p5-Test-Needs
 
 PERL5_PACKLIST=		auto/Log/Dispatch/.packlist
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2014/06/03 13:46:00 jperkin Exp $
+# $NetBSD: Makefile,v 1.3 2016/03/15 14:45:40 taca Exp $
 
-DISTNAME=	ipaddress-0.8.0
+DISTNAME=	ipaddress-0.8.3
 CATEGORIES=	net
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

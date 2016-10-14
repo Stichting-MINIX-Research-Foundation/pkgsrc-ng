@@ -1,15 +1,17 @@
-# $NetBSD: Makefile,v 1.9 2015/05/17 06:45:23 tsutsui Exp $
+# $NetBSD: Makefile,v 1.12 2016/04/16 17:41:03 tsutsui Exp $
 #
 
-PKGNAME=		${RUBY_PKGPREFIX}-gnome2-cairo-gobject-${VERSION}
+DISTNAME=		cairo-gobject-${VERSION}
+PKGNAME=		${RUBY_PKGPREFIX}-gnome2-${DISTNAME}
 COMMENT=		Ruby binding of cairo-gobject
 CATEGORIES=		graphics gnome
 
-RUBY_EXTCONF_SUBDIRS=	cairo-gobject
+DEPENDS+=		${RUBY_PKGPREFIX}-gnome2-glib>=${VERSION}:../../devel/ruby-gnome2-glib
+DEPENDS+=		${RUBY_PKGPREFIX}-cairo>=1.14.3:../../graphics/ruby-cairo
 
-BUILDLINK_API_DEPENDS.ruby-gnome2-glib+=	${RUBY_PKGPREFIX}-gnome2-glib>=${VERSION}
 .include "../../devel/ruby-gnome2-glib/buildlink3.mk"
-.include "../../graphics/ruby-rcairo/buildlink3.mk"
+.include "../../graphics/ruby-cairo/buildlink3.mk"
 .include "../../graphics/cairo-gobject/buildlink3.mk"
-.include "../../devel/ruby-pkg-config/tool.mk"
 .include "../../meta-pkgs/ruby-gnome2/Makefile.common"
+.include "../../lang/ruby/gem.mk"
+.include "../../mk/bsd.pkg.mk"

@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.2 2015/06/14 13:28:52 markd Exp $
+# $NetBSD: Makefile,v 1.4 2016/09/20 13:44:20 markd Exp $
 
 DISTNAME=	collection-langgreek
-PKGNAME=	texlive-${DISTNAME}-2015pre1
+PKGNAME=	texlive-${DISTNAME}-2016pre2
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	36842
+TEXLIVE_REV=	39121
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -21,9 +21,10 @@ DEPENDS+=	tex-cbfonts-fd-[0-9]*:../../fonts/tex-cbfonts-fd
 # depend gfsbaskerville
 # depend gfsporson
 # depend greek-fontenc
-# depend greek-inputenc
+DEPENDS+=	tex-greek-inputenc-[0-9]*:../../print/tex-greek-inputenc
 # depend greekdates
 # depend greektex
+# depend greektonoi
 DEPENDS+=	tex-hyphen-greek-[0-9]*:../../print/tex-hyphen-greek
 DEPENDS+=	tex-hyphen-ancientgreek-[0-9]*:../../print/tex-hyphen-ancientgreek
 # depend ibycus-babel

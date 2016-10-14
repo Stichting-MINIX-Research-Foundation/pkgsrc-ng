@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.99 2015/09/07 12:02:06 jperkin Exp $
+# $NetBSD: Makefile,v 1.104 2016/04/11 16:15:22 ryoon Exp $
 
-DISTNAME=	icu4c-55_1-src
+DISTNAME=	icu4c-57_1-src
 PKGNAME=	${DISTNAME:S/4c//:S/-src//:S/_/./g}
 CATEGORIES=	textproc
 MASTER_SITES=	http://download.icu-project.org/files/icu4c/${PKGVERSION_NOREV}/
@@ -30,7 +30,7 @@ CONFIGURE_ARGS+=	--disable-threads
 
 # from ICU_CHECK_MH_FRAG in source/acinclude.m4
 .if ${OPSYS} == "SunOS"
-.  if !empty(CC_VERSION:Mgcc*)
+.  if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
 PLIST_SUBST+=		MH_NAME=mh-solaris-gcc
 .  else
 PLIST_SUBST+=		MH_NAME=mh-solaris

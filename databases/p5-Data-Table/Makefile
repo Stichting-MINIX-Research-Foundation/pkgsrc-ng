@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/06/12 10:48:41 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/06/08 19:22:28 wiz Exp $
 
-DISTNAME=	Data-Table-1.72
+DISTNAME=	Data-Table-1.75
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	databases perl5

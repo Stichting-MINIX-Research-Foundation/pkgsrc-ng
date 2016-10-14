@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.36 2015/01/04 05:09:51 dholland Exp $
+# $NetBSD: Makefile,v 1.38 2016/04/10 15:26:57 richard Exp $
 
 DISTNAME=	libusb-0.1.12
-PKGREVISION=	3
+PKGREVISION=	4
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=libusb/}
 
@@ -40,7 +40,7 @@ CXXFLAGS+=		-Du_int32_t=uint32_t
 SED_TRANSFORMS=		-e 's,@BIGENDIAN@,0,' -e 's,@LINUX_API@,0,'
 SED_TRANSFORMS+=	-e 's,u_int8_t,uint8_t,g'
 SED_TRANSFORMS+=	-e 's,u_int16_t,uint16_t,g'
-SED_TRANSFORMS+=	-e 's,u_int32_t,uint32_t,g' 
+SED_TRANSFORMS+=	-e 's,u_int32_t,uint32_t,g'
 SED_TRANSFORMS+=	-e "s,@prefix@,${PREFIX},g"
 SED_TRANSFORMS+=	-e "s,@exec_prefix@,${PREFIX},g"
 SED_TRANSFORMS+=	-e "s,@LIBUSB_VERSION@,${PKGVERSION_NOREV},g"
@@ -55,6 +55,9 @@ do-configure:
 	cp ${FILESDIR}/libusbugen* ${WRKSRC}/
 
 do-build:
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} usb.h.in >usb.h
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb-config.in >libusb-config
+	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb.pc.in >libusb.pc
 	cd ${WRKSRC} && ${LIBTOOL} --mode=compile --tag=CC ${CC} ${CFLAGS} \
 	    -I. -c libusbugen.c
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CC ${CC} \
@@ -65,9 +68,6 @@ do-build:
 	cd ${WRKSRC} && ${LIBTOOL} --mode=link --tag=CXX ${CXX} \
 	    -rpath ${PREFIX}/lib -version-info 8:4:4 -release 0.1 \
 	    -o libusbpp.la usbpp.lo
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} usb.h.in >usb.h
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb-config.in >libusb-config
-	cd ${WRKSRC} && ${SED} ${SED_TRANSFORMS} libusb.pc.in >libusb.pc
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/libusb-config ${DESTDIR}${PREFIX}/bin

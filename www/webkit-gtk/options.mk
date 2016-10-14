@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.9 2015/07/12 00:44:46 wiz Exp $
+# $NetBSD: options.mk,v 1.11 2016/04/12 07:58:04 leot Exp $
 #
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.webkit-gtk
@@ -15,7 +15,7 @@ PKG_SUGGESTED_OPTIONS=	enchant opengl
  && empty(MACHINE_PLATFORM:MNetBSD-*-sparc64) \
  && empty(MACHINE_PLATFORM:MNetBSD-*-sparc) \
  && empty(MACHINE_PLATFORM:MSunOS-*)
-PKG_SUGGESTED_OPTIONS+= webkit-jit
+PKG_SUGGESTED_OPTIONS+=	webkit-jit
 .endif
 
 .include "../../mk/bsd.options.mk"
@@ -25,22 +25,16 @@ PKG_SUGGESTED_OPTIONS+= webkit-jit
 #
 .if !empty(PKG_OPTIONS:Mwebkit-jit)
 CMAKE_ARGS+=	-DENABLE_JIT=ON
-CMAKE_ARGS+=	-DENABLE_LLINT_C_LOOP=ON
 .else
 CMAKE_ARGS+=	-DENABLE_JIT=OFF
-CMAKE_ARGS+=	-DENABLE_LLINT_C_LOOP=OFF
 .endif
 
 #
 # OpenGL support: enable support for GLX, WebGL and accelerated compositing
 #
-# TODO: should we split them in multiple options?
-#
 .if !empty(PKG_OPTIONS:Mopengl)
-CMAKE_ARGS+=	-DENABLE_3D_RENDERING=ON
 CMAKE_ARGS+=	-DENABLE_WEBGL=ON
 .else
-CMAKE_ARGS+=	-DENABLE_3D_RENDERING=OFF
 CMAKE_ARGS+=	-DENABLE_WEBGL=OFF
 .endif
 

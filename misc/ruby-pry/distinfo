@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.2 2015/02/04 15:33:12 taca Exp $
+$NetBSD: distinfo,v 1.5 2015/12/12 14:50:16 taca Exp $
 
-SHA1 (pry-0.10.1.gem) = b920a5a3a55f610d7aa6f0509345e36acfeae468
-RMD160 (pry-0.10.1.gem) = f6941f3ec64aaed36e2228a3d057a0bdec5bc22e
-Size (pry-0.10.1.gem) = 135680 bytes
+SHA1 (pry-0.10.3.gem) = 20b919f2803b3a5b085e35e8d43240df77d6b6bd
+RMD160 (pry-0.10.3.gem) = 3440ddf4d2b8698e2d627d37e138033e08b48aaa
+SHA512 (pry-0.10.3.gem) = cd954a5d2162b74830851dea7120c24f2d4c44bb5d102b107b668f84d92c65f99ea11619a6f14bdfbeca1b3b2d8186072dc7ddc47c1b1b752641342eb83ad550
+Size (pry-0.10.3.gem) = 135680 bytes

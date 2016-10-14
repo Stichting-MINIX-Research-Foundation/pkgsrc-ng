@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.35 2015/04/25 14:23:26 tnn Exp $
+# $NetBSD: Makefile,v 1.37 2016/08/04 17:03:36 ryoon Exp $
 #
 
 SQUEAK_VERSION=	4.10.2.2614
 
 DISTNAME=	Squeak-${SQUEAK_VERSION}-src
 PKGNAME=	squeak-vm-${SQUEAK_VERSION:C/-/./}
-PKGREVISION=	10
+PKGREVISION=	11
 CATEGORIES=	lang
 MASTER_SITES=	http://squeakvm.org/unix/release/ \
 		http://ftp.squeak.org/3.10/unix-linux/
@@ -31,12 +31,8 @@ CMAKE_ARGS+=	-DDEVOSSAUDIO=${DEVOSSAUDIO}
 
 LDFLAGS.SunOS+=	-liconv -lsocket -lnsl -lm
 
-.include "../../mk/bsd.prefs.mk"
-
-.if $(OPSYS) == "NetBSD"
 # UUID routines are in libc:
-BUILDLINK_TRANSFORM+=	rm:-luuid
-.endif
+BUILDLINK_TRANSFORM.NetBSD+=	rm:-luuid
 
 PLIST_SUBST=	SQUEAK_VERSION=${SQUEAK_VERSION}
 

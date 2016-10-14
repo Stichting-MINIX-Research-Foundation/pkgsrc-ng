@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.32 2015/07/12 18:56:20 wiz Exp $
+# $NetBSD: Makefile,v 1.34 2016/06/08 19:23:44 wiz Exp $
 
-DISTNAME=	Tree-DAG_Node-1.26
+DISTNAME=	Tree-DAG_Node-1.29
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

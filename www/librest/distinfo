@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1.1.1 2011/01/18 19:11:01 drochner Exp $
+$NetBSD: distinfo,v 1.3 2016/01/28 13:04:08 mef Exp $
 
-SHA1 (rest-0.6.tar.gz) = 9ed2814ae123b73d15598ebd0b1457ab9b6208be
-RMD160 (rest-0.6.tar.gz) = 8b7b5bcfd20c66ecf1551bda7785276a27746566
-Size (rest-0.6.tar.gz) = 379628 bytes
+SHA1 (librest-0.6.tar.gz) = a1def4bcb0f5ac566cce1e25098b6cbdd59bf4f3
+RMD160 (librest-0.6.tar.gz) = 8091527ba1da4a435d3fd22b7885a6dd1c450202
+SHA512 (librest-0.6.tar.gz) = 693a0e34b9ea2fa9f16238b93694f7dc4813580304c444d5ad3cd17e2c47c09b5a42cb1eefbc2a5dabe2cac5d4dedaed4a39e2c01cc235a6de7a17751c4dde1d
+Size (librest-0.6.tar.gz) = 49370 bytes

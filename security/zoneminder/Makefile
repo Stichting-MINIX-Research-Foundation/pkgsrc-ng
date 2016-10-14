@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/07/12 18:56:29 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2016/09/11 17:03:28 taca Exp $
 
 PKGNAME=	${DISTNAME:S/ZoneMinder-/zoneminder-/}
 DISTNAME=	ZoneMinder-1.28.1
-PKGREVISION=	4
+PKGREVISION=	9
 CATEGORIES=	security
 MASTER_SITES=	${MASTER_SITE_GITHUB:=ZoneMinder/}
 GITHUB_PROJECT=	ZoneMinder
@@ -18,6 +18,8 @@ LICENSE=	gnu-gpl-v2
 EXTRACT_USING=  gtar
 
 DEPENDS+=	netpbm-[0-9]*:../../graphics/netpbm
+
+PHP_VERSIONS_ACCEPTED=	56
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.zoneminder
 PKG_SUPPORTED_OPTIONS=	apache
@@ -107,7 +109,7 @@ BUILD_DEFS+=		APACHE_USER APACHE_GROUP
 
 # This directory contains no useful state, so use MAKE_DIRS instead of
 # OWN_DIRS.
-MAKE_DIRS_PERMS+=	${VARBASE}/run/zm ${ROOT_USER} ${APACHE_GROUP} 775
+MAKE_DIRS_PERMS+=	${VARBASE}/run/zm ${REAL_ROOT_USER} ${APACHE_GROUP} 775
 
 CONFIGURE_ARGS+=	--with-webuser=${APACHE_USER}
 CONFIGURE_ARGS+=	--with-webgroup=${APACHE_GROUP}
@@ -121,10 +123,10 @@ DEPENDS+=	${PHP_PKG_PREFIX}-pdo_mysql-[0-9]*:../../databases/php-pdo_mysql
 
 # This directory contains state, so use OWN_DIRS instead of MAKE_DIRS.
 ZM_CACHE=	${VARBASE}/cache/zoneminder
-OWN_DIRS_PERMS+=	${ZM_CACHE} ${ROOT_USER} ${ROOT_GROUP} 755
-OWN_DIRS_PERMS+=	${ZM_CACHE}/temp ${ROOT_USER} ${APACHE_GROUP} 775
-OWN_DIRS_PERMS+=	${ZM_CACHE}/images ${ROOT_USER} ${APACHE_GROUP} 775
-OWN_DIRS_PERMS+=	${ZM_CACHE}/events ${ROOT_USER} ${APACHE_GROUP} 775
+OWN_DIRS_PERMS+=	${ZM_CACHE} ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 755
+OWN_DIRS_PERMS+=	${ZM_CACHE}/temp ${REAL_ROOT_USER} ${APACHE_GROUP} 775
+OWN_DIRS_PERMS+=	${ZM_CACHE}/images ${REAL_ROOT_USER} ${APACHE_GROUP} 775
+OWN_DIRS_PERMS+=	${ZM_CACHE}/events ${REAL_ROOT_USER} ${APACHE_GROUP} 775
 
 REPLACE_PERL+=	scripts/zmaudit.pl.in
 REPLACE_PERL+=	scripts/zmcamtool.pl.in

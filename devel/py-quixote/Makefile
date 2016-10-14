@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2014/05/09 07:37:02 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/07/09 13:03:43 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 DISTNAME=	Quixote-2.7
@@ -13,7 +13,7 @@ LICENSE=	mit
 REPLACE_PYTHON+= setup.py quixote/server/*.py quixote/test/*.py quixote/ptl/*.py
 REPLACE_PYTHON+= quixote/demo/*.py
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.7
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 2.7
 
 .include "../../lang/python/distutils.mk"
 .include "../../lang/python/application.mk"

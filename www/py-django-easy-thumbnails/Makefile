@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.4 2014/12/31 13:57:30 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2016/06/08 17:43:44 wiz Exp $
 
-DISTNAME=	easy-thumbnails-1.5
+DISTNAME=	easy-thumbnails-2.3
 PKGNAME=	${PYPKGPREFIX}-django-${DISTNAME}
 CATEGORIES=	www python
-MASTER_SITES=	http://pypi.python.org/packages/source/e/easy-thumbnails/
+MASTER_SITES=	${MASTER_SITE_PYPI:=e/easy-thumbnails/}
 
 MAINTAINER=	adam@NetBSD.org
-HOMEPAGE=	https://github.com/SmileyChris/easy-thumbnails
+HOMEPAGE=	https://github.com/SmileyChris/easy-thumbnails/
 COMMENT=	Easy thumbnails for Django
 LICENSE=	modified-bsd
 

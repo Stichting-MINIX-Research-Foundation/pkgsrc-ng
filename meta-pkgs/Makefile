@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.82 2015/08/24 14:49:43 richard Exp $
+# $NetBSD: Makefile,v 1.92 2016/09/11 16:56:27 taca Exp $
 #
 
 COMMENT=	Collections of other packages
@@ -21,9 +21,14 @@ SUBDIR+=	gnome-platform
 SUBDIR+=	gnuradio
 SUBDIR+=	gnustep
 SUBDIR+=	gstreamer0.10-plugins
+SUBDIR+=	kde-telepathy
 SUBDIR+=	kde3
 SUBDIR+=	kde4
+SUBDIR+=	kf5
+SUBDIR+=	libdbusmenu
+SUBDIR+=	lxde
 SUBDIR+=	matchbox
+SUBDIR+=	mate
 SUBDIR+=	modular-xorg
 SUBDIR+=	modular-xorg-apps
 SUBDIR+=	modular-xorg-drivers
@@ -37,9 +42,8 @@ SUBDIR+=	netbsd-doc
 SUBDIR+=	netbsd-doc-print
 SUBDIR+=	netbsd-www
 SUBDIR+=	p5-gnome-bindings
-SUBDIR+=	php54-extensions
-SUBDIR+=	php55-extensions
 SUBDIR+=	php56-extensions
+SUBDIR+=	php70-extensions
 SUBDIR+=	pkg_developer
 SUBDIR+=	pkgsrc-guide-tools
 SUBDIR+=	pulseaudio-tools

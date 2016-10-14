@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/21 21:29:45 markd Exp $
+
+SHA1 (kitemviews-5.25.0.tar.xz) = 6eba3745e37d0639a9fcb901c16668870a673206
+RMD160 (kitemviews-5.25.0.tar.xz) = 075c2a2f1594535fb5909682fecb642240ecd354
+SHA512 (kitemviews-5.25.0.tar.xz) = cbae54213146be8132e2d02bb8837482442893f63f97b6771a6b41b89610613d6936c95ccebb6d74f39510fbad1754f1c5d8a19a95cca00cf00474f878bb1a74
+Size (kitemviews-5.25.0.tar.xz) = 74048 bytes

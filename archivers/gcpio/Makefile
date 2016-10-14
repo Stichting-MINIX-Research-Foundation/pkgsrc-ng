@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.49 2014/10/09 14:05:51 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.51 2016/09/18 11:20:14 wiz Exp $
 
-DISTNAME=	cpio-2.11
+DISTNAME=	cpio-2.12
 PKGNAME=	g${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	archivers
 MASTER_SITES=	${MASTER_SITE_GNU:=cpio/}
 

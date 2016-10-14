@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.122 2015/06/12 10:48:47 wiz Exp $
+# $NetBSD: Makefile,v 1.127 2016/08/03 10:22:36 adam Exp $
 
 DISTNAME=	anjuta-3.10.0
-PKGREVISION=	13
+PKGREVISION=	17
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/anjuta/3.10/}
 EXTRACT_SUFX=	.tar.xz
@@ -66,6 +66,8 @@ BUILDLINK_API_DEPENDS.gtk2+=	gtk2+>=2.12.0
 .if ${OPSYS} == "NetBSD" && !exists(/var/shm)
 CPPFLAGS+=	-Dshm_open=open -Dshm_unlink=unlink
 .endif
+
+CFLAGS+=	-Wno-error=format-zero-length
 
 .include "../../databases/libgda/buildlink3.mk"
 #.include "../../devel/devhelp/buildlink3.mk"

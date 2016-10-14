@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.12 2015/09/13 05:15:13 taca Exp $
+$NetBSD: distinfo,v 1.16 2016/03/16 13:04:18 taca Exp $
 
-SHA1 (eventmachine-1.0.8.gem) = f1e0502c8d67edffbd35ad87b316c676bc992257
-RMD160 (eventmachine-1.0.8.gem) = 776b14717246eded84414cba526c58cfb6c4d8ef
-Size (eventmachine-1.0.8.gem) = 232960 bytes
+SHA1 (eventmachine-1.2.0.1.gem) = 60b6f1d8391cd374c6a2ef3977cb1397ed89055a
+RMD160 (eventmachine-1.2.0.1.gem) = 9068f407ecd9946fbd5839891ad80e9fa15ad5ce
+SHA512 (eventmachine-1.2.0.1.gem) = a861a2c5172b7cf2720bdb54f52ea96c311c10efdb2f54970054901674e044a72307a5b32210efbbdb78d0472a9b3fb6e898640e1c0b406bdad8b581970e30aa
+Size (eventmachine-1.2.0.1.gem) = 241152 bytes

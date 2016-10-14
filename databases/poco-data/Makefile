@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2014/02/12 23:17:40 tron Exp $
+# $NetBSD: Makefile,v 1.10 2016/03/05 11:27:43 jperkin Exp $
 #
 
 PKGNAME=	poco-data-${POCO_VERSION}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	databases
 
 COMMENT=	POCO C++ RDBMS Master Accessor libraries

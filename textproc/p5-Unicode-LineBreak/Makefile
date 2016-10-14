@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/06/12 10:51:34 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:41 wiz Exp $
 
-DISTNAME=	Unicode-LineBreak-2014.06
+DISTNAME=	Unicode-LineBreak-2016.003
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	perl5 textproc

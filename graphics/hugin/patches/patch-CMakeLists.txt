@@ -1,0 +1,44 @@
+$NetBSD: patch-CMakeLists.txt,v 1.2 2016/04/07 19:23:26 adam Exp $
+
+Correct 'man' path.
+Do not make an application bundle on OS X.
+
+--- CMakeLists.txt.orig	2016-01-23 08:37:46.000000000 +0000
++++ CMakeLists.txt
+@@ -2,10 +2,6 @@
+ # require at least cmake 2.8
+ cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR )
+ 
+-# prevent in-tree building
+-if("${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_BINARY_DIR}")
+-    message(FATAL_ERROR "In-source builds are not allowed.")
+-endif()
+ 
+ if(COMMAND cmake_policy)
+   cmake_policy(SET CMP0003 NEW)
+@@ -518,7 +514,7 @@ IF (NOT MANDIR AND NOT $ENV{MANDIR} STRE
+ ELSEIF(CMAKE_SYSTEM_NAME STREQUAL "FreeBSD" OR CMAKE_SYSTEM_NAME STREQUAL "NetBSD")
+     SET (MANDIR "man")
+ ELSE(NOT MANDIR AND NOT $ENV{MANDIR} STREQUAL "")
+-    SET (MANDIR "share/man")
++    SET (MANDIR "man")
+ ENDIF(NOT MANDIR AND NOT $ENV{MANDIR} STREQUAL "")
+ 
+ SET(LOCALEDIR share/locale) 
+@@ -543,16 +539,6 @@ IF (APPLE)
+   ENDIF (NOT MAC_SELF_CONTAINED_BUNDLE)
+ ENDIF (APPLE)
+ 
+-IF (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
+-  SET(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${LIBDIR}/hugin")
+-  SET(HUGIN_LIBS_PRIVATE_DIR "1" CACHE INTERNAL "Store internal
+-    libraries in private subdirectory" )
+-ELSE (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
+-  # On OS X files are moved around after make install, do not try to use
+-  # rpath or CMAKE_INSTALL_NAME_DIR
+-  SET(HUGIN_LIBS_PRIVATE_DIR "0" CACHE INTERNAL "Store internal
+-    libraries in private subdirectory" )
+-ENDIF (${HUGIN_SHARED} AND UNIX AND NOT APPLE)
+ 
+ IF (UNIX)
+   IF (${HUGIN_SHARED})

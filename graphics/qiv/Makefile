@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.51 2015/04/25 14:23:18 tnn Exp $
+# $NetBSD: Makefile,v 1.53 2016/08/03 10:22:56 adam Exp $
 
 DISTNAME=	qiv-2.3.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	graphics x11
 MASTER_SITES=	http://spiegl.de/qiv/download/
 EXTRACT_SUFX=	.tgz
@@ -22,6 +22,7 @@ INSTALLATION_DIRS+=	share/applications
 .include "../../graphics/libexif/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../sysutils/file/buildlink3.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:48:23 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/07/09 06:37:49 wiz Exp $
 
 DISTNAME=	nas-1.9.1.src
 PKGNAME=	nas-auscope-1.9.1
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	audio
 MASTER_SITES=	http://nas.codebrilliance.com/nas/
+LICENSE=	frink-license
 
 MAINTAINER=	markd@NetBSD.org
 HOMEPAGE=	http://radscan.com/nas.html
@@ -14,7 +15,7 @@ DEPENDS+=	p5-perl-headers-${OS_VERSION}{,nb*}:../../devel/p5-perl-headers
 
 WRKSRC=		${WRKDIR}/${DISTNAME:S/.src//}/clients/audio/auscope
 USE_TOOLS+=	perl:run
-REPLACE_PERL=   auscope
+REPLACE_PERL=	auscope
 
 NO_BUILD=	yes
 

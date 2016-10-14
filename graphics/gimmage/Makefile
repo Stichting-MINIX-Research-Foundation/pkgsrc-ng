@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2015/04/25 14:23:10 tnn Exp $
+# $NetBSD: Makefile,v 1.32 2016/09/17 21:43:51 wiedi Exp $
 #
 
 DISTNAME=	gimmage-0.2.3
-PKGREVISION=	25
+PKGREVISION=	27
 CATEGORIES=	graphics
 MASTER_SITES=	http://download.berlios.de/gimmage/
 
@@ -13,6 +13,7 @@ COMMENT=	GTKMM-based image viewing program
 GNU_CONFIGURE=		yes
 INSTALLATION_DIRS=	share/doc/gimmage
 USE_LANGUAGES=		c c++
+CXXFLAGS+=		-std=c++11
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		pkg-config
 
@@ -22,6 +23,7 @@ post-install:
 
 .include "../../graphics/cairomm/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../sysutils/file/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../x11/gtkmm/buildlink3.mk"
 

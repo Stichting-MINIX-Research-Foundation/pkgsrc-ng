@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.41 2015/04/25 14:20:18 tnn Exp $
+# $NetBSD: Makefile,v 1.44 2016/08/03 10:22:08 adam Exp $
 
 DISTNAME=	audacious-3.5.2
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	audio
 MASTER_SITES=	http://distfiles.audacious-media-player.org/
 EXTRACT_SUFX=	.tar.bz2
@@ -20,11 +20,8 @@ PKGCONFIG_OVERRIDE+=	audacious.pc.in
 
 BUILD_DEPENDS+=	gdbus-codegen-[0-9]*:../../devel/gdbus-codegen
 
-.include "../../mk/bsd.prefs.mk"
 # XXX does not solve linking problem completely
-.if ${OPSYS} == "Darwin"
-LDFLAGS+=	-flat_namespace -undefined suppress
-.endif
+LDFLAGS.Darwin+=	-flat_namespace -undefined suppress
 
 .include "../../devel/atk/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

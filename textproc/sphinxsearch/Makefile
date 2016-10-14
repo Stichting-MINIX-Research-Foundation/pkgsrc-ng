@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2015/06/09 14:26:20 fhajny Exp $
+# $NetBSD: Makefile,v 1.10 2016/08/09 09:40:40 fhajny Exp $
 #
 
-DISTNAME=	sphinx-2.2.9-release
+DISTNAME=	sphinx-2.2.11-release
 PKGNAME=	${DISTNAME:S/-/search-/:S/-release//}
 CATEGORIES=	textproc
 MASTER_SITES=	http://sphinxsearch.com/files/
@@ -30,7 +30,7 @@ SPHINX_LOG?=	${VARBASE}/log/sphinx
 EGDIR=		${PREFIX}/share/examples/sphinx
 CONF_FILES+=	${EGDIR}/sphinx-min.conf ${PKG_SYSCONFDIR}/sphinx.conf
 
-INSTALLATION_DIRS=	bin sbin ${EGDIR}
+INSTALLATION_DIRS=	bin ${EGDIR}
 OWN_DIRS+=		${SPHINX_DIR} ${SPHINX_RUN} ${SPHINX_LOG}
 OWN_DIRS_PERMS+=	${SPHINX_DIR} ${SPHINX_USER} ${SPHINX_GROUP} 0770
 OWN_DIRS_PERMS+=	${SPHINX_RUN} ${SPHINX_USER} ${SPHINX_GROUP} 0770

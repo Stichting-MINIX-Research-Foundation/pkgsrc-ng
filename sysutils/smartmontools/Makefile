@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.27 2015/06/12 13:58:07 jperkin Exp $
+# $NetBSD: Makefile,v 1.29 2016/05/08 11:23:15 nonaka Exp $
 
-DISTNAME=		smartmontools-6.3
-PKGREVISION=		1
+DISTNAME=		smartmontools-6.5
 CATEGORIES=		sysutils
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=smartmontools/}
 
@@ -27,7 +26,7 @@ CONF_FILES_PERMS=	${EGDIR}/smartd_warning.sh \
 RCD_SCRIPTS=		smartd
 
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--with-docdir=${PREFIX}/share/doc/smartmontools
+CONFIGURE_ARGS+=	--docdir=${PREFIX}/share/doc/smartmontools
 INSTALL_MAKE_FLAGS=	${MAKE_FLAGS} sysconfdir=${EGDIR}
 
 INSTALLATION_DIRS=	${EGDIR}

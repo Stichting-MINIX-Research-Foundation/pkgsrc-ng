@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.6 2015/06/12 10:49:18 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/06/08 19:23:01 wiz Exp $
 
 DISTNAME=	Hash-Merge-Simple-0.051
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Hash/}
 
@@ -17,6 +17,7 @@ PERL5_PACKLIST=	auto/Hash/Merge/Simple/.packlist
 DEPENDS+=	p5-Clone-[0-9]*:../../devel/p5-Clone
 
 BUILD_DEPENDS+=	p5-Test-Most-[0-9]*:../../devel/p5-Test-Most
+BUILD_DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

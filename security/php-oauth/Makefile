@@ -1,18 +1,20 @@
-# $NetBSD: Makefile,v 1.3 2015/09/03 06:19:26 fhajny Exp $
+# $NetBSD: Makefile,v 1.7 2016/05/07 10:09:07 joerg Exp $
 
 MODNAME=		oauth
-PKGREVISION=		2
-PECL_VERSION=		1.2.3
+PECL_VERSION=		2.0.1
 CATEGORIES+=		security
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		PHP oauth consumer extension
 LICENSE=		modified-bsd
 
+PHP_VERSIONS_ACCEPTED=	70
+
 USE_LANGUAGES=		c c++
 
 CONFIGURE_ARGS+=	--with-curl=${BUILDLINK_PREFIX.curl}
 
 .include "../../lang/php/ext.mk"
+.include "../../devel/pcre/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

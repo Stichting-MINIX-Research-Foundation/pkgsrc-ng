@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.14 2015/09/07 12:02:06 jperkin Exp $
+# $NetBSD: Makefile,v 1.19 2016/04/02 09:05:23 taca Exp $
 
 PKGNAME=	${PHP_PKG_PREFIX}-fpm-${PHP_VERSION}
 CATEGORIES=	www
@@ -32,6 +32,17 @@ EGDIR=			${PREFIX}/share/examples/php
 CONF_FILES=		${EGDIR}/php-fpm.conf ${PKG_SYSCONFDIR}/php-fpm.conf
 AUTO_MKDIRS=		yes
 
+.include "../../lang/php/phpversion.mk"
+
+PLIST_VARS+=		fpmdotd
+
+.if ${PKG_PHP_VERSION} >= 70
+CONF_FILES+=		${EGDIR}/php-fpm.d/www.conf ${PKG_SYSCONFDIR}/php-fpm.d/www.conf
+OWN_DIRS+=		${PKG_SYSCONFDIR}/php-fpm.d
+INSTALLATION_DIRS+=	${EGDIR}/php-fpm.d
+PLIST.fpmdotd=		yes
+.endif
+
 CONFIGURE_ARGS+=	--enable-fpm
 CONFIGURE_ARGS+=	--with-fpm-user=${FPM_USER}
 CONFIGURE_ARGS+=	--with-fpm-group=${FPM_GROUP}
@@ -45,8 +56,10 @@ do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/sapi/fpm/php-fpm ${DESTDIR}${PREFIX}/sbin/php-fpm
 	${INSTALL_MAN} ${WRKSRC}/sapi/fpm/php-fpm.8 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man8/
 	${INSTALL_DATA} ${WRKSRC}/sapi/fpm/php-fpm.conf ${DESTDIR}${EGDIR}
+.if ${PKG_PHP_VERSION} >= 70
+	${INSTALL_DATA} ${WRKSRC}/sapi/fpm/www.conf ${DESTDIR}${EGDIR}/php-fpm.d
+.endif
 
-.include "../../lang/php/phpversion.mk"
 .include "${PHPPKGSRCDIR}/Makefile.php"
 .include "${PHPPKGSRCDIR}/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

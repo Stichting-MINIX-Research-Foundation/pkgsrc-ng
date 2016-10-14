@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.129 2015/06/05 22:50:26 youri Exp $
+# $NetBSD: Makefile,v 1.132 2016/06/11 23:08:05 kamil Exp $
 #
 
 COMMENT=	X11 window managers, configuration tools, and themes
@@ -53,7 +53,9 @@ SUBDIR+=	larswm
 SUBDIR+=	libAppleWM
 SUBDIR+=	libWindowsWM
 SUBDIR+=	lwm
+SUBDIR+=	marco
 SUBDIR+=	matchbox-wm
+SUBDIR+=	mate-netbook
 SUBDIR+=	metacity
 SUBDIR+=	mlvwm
 SUBDIR+=	musca
@@ -69,6 +71,7 @@ SUBDIR+=	pekwm
 SUBDIR+=	piewm
 SUBDIR+=	pwm
 SUBDIR+=	py-tyle
+SUBDIR+=	quartz-wm
 SUBDIR+=	ratpoison
 SUBDIR+=	sawfish
 SUBDIR+=	selectwm
@@ -93,6 +96,7 @@ SUBDIR+=	wmctrl
 SUBDIR+=	wmextra
 SUBDIR+=	wmi
 SUBDIR+=	wmii
+SUBDIR+=	wmutils-core
 SUBDIR+=	wmx
 SUBDIR+=	wmx-gnome
 SUBDIR+=	xfce4-wm

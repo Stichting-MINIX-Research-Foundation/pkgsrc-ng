@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.2 2015/07/11 15:05:57 khorben Exp $
+$NetBSD: distinfo,v 1.4 2016/06/13 12:26:11 wiz Exp $
 
-SHA1 (valabind-0.9.2.tar.gz) = 90fc665c1b9ba7b7255f44ba6b918e89c2ace35a
-RMD160 (valabind-0.9.2.tar.gz) = 7a7e8eb5afa7abc14ce12f37b40ffdedd36e57e2
-Size (valabind-0.9.2.tar.gz) = 54037 bytes
-SHA1 (patch-valabind-cc) = 9d7eb7e63c5cea3aa6c1a45674247eb24752d975
+SHA1 (valabind-0.10.0.tar.gz) = b5e0c2a7255736630fba0eba6c32e48bbed611eb
+RMD160 (valabind-0.10.0.tar.gz) = 743ac6a7834dad24245daaca8bc4328371481ded
+SHA512 (valabind-0.10.0.tar.gz) = 7457e373ad09ff2bee43fcd5dafa72aa36286d43ffbe9df10201847d7cff2f530875db26afe2a80966611556fa0846c1ece352983726fb33f7586e481358a8fc
+Size (valabind-0.10.0.tar.gz) = 52046 bytes

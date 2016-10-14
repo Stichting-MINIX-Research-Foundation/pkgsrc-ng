@@ -1,0 +1,20 @@
+@comment $NetBSD: PLIST,v 1.2 2016/05/06 11:26:29 jaapb Exp $
+${OCAML_SITELIB}/ppx_tools/META
+${OCAML_SITELIB}/ppx_tools/ast_convenience.cmi
+${OCAML_SITELIB}/ppx_tools/ast_convenience.cmt
+${OCAML_SITELIB}/ppx_tools/ast_convenience.cmti
+${PLIST.ocaml-opt}${OCAML_SITELIB}/ppx_tools/ast_convenience.cmx
+${OCAML_SITELIB}/ppx_tools/ast_convenience.mli
+${OCAML_SITELIB}/ppx_tools/ast_mapper_class.cmi
+${OCAML_SITELIB}/ppx_tools/ast_mapper_class.cmt
+${OCAML_SITELIB}/ppx_tools/ast_mapper_class.cmti
+${PLIST.ocaml-opt}${OCAML_SITELIB}/ppx_tools/ast_mapper_class.cmx
+${OCAML_SITELIB}/ppx_tools/ast_mapper_class.mli
+${OCAML_SITELIB}/ppx_tools/dumpast
+${OCAML_SITELIB}/ppx_tools/genlifter
+${OCAML_SITELIB}/ppx_tools/ppx_metaquot
+${PLIST.ocaml-opt}${OCAML_SITELIB}/ppx_tools/ppx_tools.a
+${OCAML_SITELIB}/ppx_tools/ppx_tools.cma
+${PLIST.ocaml-opt}${OCAML_SITELIB}/ppx_tools/ppx_tools.cmxa
+${PLIST.ocaml-opt}${OCAML_SITELIB}/ppx_tools/ppx_tools.cmxs
+${OCAML_SITELIB}/ppx_tools/rewriter

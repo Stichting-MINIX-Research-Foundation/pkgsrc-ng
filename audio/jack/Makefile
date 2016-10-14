@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.31 2015/07/04 16:18:28 joerg Exp $
-#
+# $NetBSD: Makefile,v 1.35 2016/07/09 06:37:48 wiz Exp $
 
 DISTNAME=	jack-audio-connection-kit-${JACK_VERSION}
 PKGNAME=	jack-${JACK_VERSION}
@@ -13,7 +12,7 @@ HOMEPAGE=	http://www.jackaudio.org/
 COMMENT=	JACK audio connection kit
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
 
-JACK_VERSION=	0.121.3
+JACK_VERSION=	0.124.1
 
 BUILD_DEFS+=		JACKD_DEFAULT_TMPDIR
 BUILD_DEFS+=		JACKD_PROCFS_PATH
@@ -104,22 +103,30 @@ SUBST_VARS.jacksrc=	PREFIX JACKD_PROCFS_PATH X11BASE
 .if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 PKG_OPTIONS_VAR=	PKG_OPTIONS.jack
 PKG_SUPPORTED_OPTIONS=	simd
-PKG_SUGGESTED_OPTIONS=	simd
+# on 7.99.26/amd64:
+# ./simd.c: In function 'x86_3dnow_add2f':
+# ./simd.c:211:3: error: impossible constraint in 'asm'
+#   asm volatile (
+#PKG_SUGGESTED_OPTIONS=	simd
 
 .  include "../../mk/bsd.options.mk"
 
 .  if !empty(PKG_OPTIONS:Msimd)
-CONFIGURE_ARGS+=	--enable-simd
+CONFIGURE_ARGS+=	--enable-dynsimd
 .  else
-CONFIGURE_ARGS+=	--disable-simd
+CONFIGURE_ARGS+=	--disable-dynsimd
 .  endif
 .endif
+
+BUILDLINK_TRANSFORM+=	l:db:db4
 
 post-extract:
 	${RUN} ${MKDIR} ${WRKSRC}/config/os/netbsd && \
 		${CP} ${FILESDIR}/atomicity.h ${WRKSRC}/config/os/netbsd
 
 .include "../../audio/libsamplerate/buildlink3.mk"
+.include "../../devel/libuuid/buildlink3.mk"
+.include "../../databases/db4/buildlink3.mk"
 .include "../../mk/readline.buildlink3.mk"
 .include "../../mk/dlopen.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

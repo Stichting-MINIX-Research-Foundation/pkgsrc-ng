@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.9 2015/08/29 15:42:36 taca Exp $
+$NetBSD: distinfo,v 1.11 2016/05/07 10:10:09 joerg Exp $
 
 SHA1 (open-vm-tools-2008.08.08-109361.tar.gz) = 1c44c3524cd9cbc5870f1c6065b03a6b31859a25
 RMD160 (open-vm-tools-2008.08.08-109361.tar.gz) = 4ea0a6aa2edda2bc404c865dc5b58f3a177ae411
+SHA512 (open-vm-tools-2008.08.08-109361.tar.gz) = 52e4c453aa22f0efa4df36bd2f5fc08414da741e83c91d7d17102b914fc513370914801d66fdfd498b0947132c3967b82db027a5ea8341f7b87e50f070174c29
 Size (open-vm-tools-2008.08.08-109361.tar.gz) = 2971141 bytes
 SHA1 (patch-ac) = 141db2136d1068408ca3470e11d35233f936a11c
 SHA1 (patch-ad) = 4ec9292667918c23ef182ae05d5f8417d9af7673
@@ -59,6 +60,7 @@ SHA1 (patch-lib_guestApp_Makefile.am) = b6fb86b15fa58ff87285ab591be1870cf79a5d18
 SHA1 (patch-lib_hgfsServer_hgfsServer.c) = 68a3102d4f53626717f64284eb5e51bfb584e783
 SHA1 (patch-lib_hgfsServer_hgfsServerLinux.c) = ef5a3135a8e4dc9f16d93d6eb7d88b8194aa0907
 SHA1 (patch-lib_panic_panic.c) = f784479ef9000e67389c04ca80ad22da5e3a2165
+SHA1 (patch-lib_user_util.c) = 7048484864fb5f7a66a61dc2234b1ea8359328ae
 SHA1 (patch-lib_vmCheck_Makefile.am) = 5956c6e81d6ea5679d949083fcf60066d8374672
 SHA1 (patch-lib_vmSignal_Makefile.am) = 6c562e558f846666ed9da3298f15a9cd489bd75f
 SHA1 (patch-libguestlib_Makefile.am) = d46ae6b600831b3f7ecd39f675fbf480a7882e60

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.37 2015/08/14 20:07:34 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2016/08/24 10:45:38 wiz Exp $
 
-VERSION=	2.1
+VERSION=	2.4
 DISTNAME=	signing-party_${VERSION}.orig
 PKGNAME=	caff-${VERSION}
 CATEGORIES=	security
@@ -16,7 +16,6 @@ WRKSRC=		${WRKDIR}
 
 USE_TOOLS+=	gmake pod2man
 USE_TOOLS+=	perl:run
-USE_TOOLS+=	autoconf automake autoreconf
 
 DEPENDS+=	gnupg>=1.3.92:../../security/gnupg
 DEPENDS+=	p5-Text-Template-[0-9]*:../../textproc/p5-Text-Template
@@ -36,9 +35,6 @@ SUBST_FILES.paths=	caff/caff keylookup/keylookup.1
 SUBST_SED.paths=	-e 's,/usr/,${PREFIX}/,g'
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 share/doc/caff share/examples/caff
-
-pre-build:
-	cd ${WRKSRC}/keyanalyze/pgpring && touch NEWS README AUTHORS ChangeLog && autoreconf -fiv
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/caff/caff ${DESTDIR}${PREFIX}/bin

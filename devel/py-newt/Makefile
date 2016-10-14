@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.10 2014/05/09 07:37:02 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/07/09 13:03:42 wiz Exp $
 
 DISTNAME=	newt-0.52.16
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
@@ -19,7 +19,7 @@ USE_LIBTOOL=		yes
 PKGCONFIG_OVERRIDE+=	libnewt.pc.in
 
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 pre-configure:
 	cd ${WRKSRC}; \

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.52 2015/04/05 08:27:08 dsainty Exp $
+# $NetBSD: options.mk,v 1.55 2016/02/25 15:49:44 jperkin Exp $
 
 .if defined(PKGNAME) && empty(PKGNAME:Mmplayer-share*)
 
@@ -54,12 +54,9 @@ PKG_SUPPORTED_OPTIONS+=	faac lame
 # OS-specific options.
 .if ${OPSYS} == "FreeBSD" || ${OPSYS} == "Linux" || ${OPSYS} == "NetBSD"
 PKG_SUPPORTED_OPTIONS+=	cdparanoia
-.elif ${OPSYS} == "SunOS"
-PKG_SUPPORTED_OPTIONS+=	mlib
 .endif
-.if ${OPSYS} == "Linux"
-PKG_SUPPORTED_OPTIONS+=	vidix
-.endif
+PKG_SUPPORTED_OPTIONS.SunOS+=	mlib
+PKG_SUPPORTED_OPTIONS.Linux+=	vidix
 
 # TODO: v4l2 option probably could be supported on Linux and OpenBSD too
 .if ${OPSYS} == "NetBSD" && exists(/usr/include/sys/videoio.h)
@@ -100,9 +97,7 @@ PKG_SUPPORTED_OPTIONS+= xvid
 PKG_SUGGESTED_OPTIONS+=	${o}
 .  endif
 .endfor
-.if ${OPSYS} == "Linux"
-PKG_SUGGESTED_OPTIONS+=	vidix
-.endif
+PKG_SUGGESTED_OPTIONS.Linux+=	vidix
 
 # -------------------------------------------------------------------------
 # Handle extra libraries (part 1)
@@ -167,10 +162,7 @@ CONFIGURE_ARGS+=	--enable-libdv
 CONFIGURE_ARGS+=	--disable-libdv
 .endif
 
-CONFIGURE_ARGS+=	--disable-dvdread-internal
 .if !empty(PKG_OPTIONS:Mdvdread)
-CONFIGURE_ARGS+=	--enable-dvdread
-CONFIGURE_ARGS+=	--with-dvdread-config=${BUILDLINK_PREFIX.libdvdread}/bin/dvdread-config
 .  include "../../multimedia/libdvdread/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-dvdread
@@ -178,7 +170,6 @@ CONFIGURE_ARGS+=	--disable-dvdread
 
 .if !empty(PKG_OPTIONS:Mdvdnav)
 CONFIGURE_ARGS+=	--enable-dvdnav
-CONFIGURE_ARGS+=	--with-dvdnav-config=${BUILDLINK_PREFIX.libdvdnav}/bin/dvdnav-config
 .  include "../../multimedia/libdvdnav/buildlink3.mk"
 #CFLAGS+=		-I${BUILDLINK_PREFIX.libdvdnav}/include/dvdnav
 .else
@@ -326,7 +317,7 @@ CONFIGURE_ARGS+=	--disable-vidix
 .endif
 
 .if !empty(PKG_OPTIONS:Mvorbis)
-CONFIGURE_ARGS+=	--enable-libvorbis
+.  include "../../audio/libvorbis/buildlink3.mk"
 .else
 CONFIGURE_ARGS+=	--disable-libvorbis
 .endif

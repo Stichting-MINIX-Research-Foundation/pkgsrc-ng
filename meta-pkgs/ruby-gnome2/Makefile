@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.23 2014/11/09 06:27:02 obache Exp $
+# $NetBSD: Makefile,v 1.25 2016/04/16 17:41:04 tsutsui Exp $
 #
 
 PKGNAME=	${RUBY_PKGPREFIX}-gnome2-${VERSION}
@@ -31,3 +31,4 @@ META_PACKAGE=	yes
 
 .include "../../lang/ruby/rubyversion.mk"
 .include "Makefile.common"
+.include "../../mk/bsd.pkg.mk"

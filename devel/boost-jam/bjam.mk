@@ -1,4 +1,4 @@
-# $NetBSD: bjam.mk,v 1.15 2013/11/20 19:17:55 adam Exp $
+# $NetBSD: bjam.mk,v 1.17 2016/02/28 23:54:11 minskim Exp $
 
 .include "../../devel/boost-jam/buildlink3.mk"
 
@@ -25,6 +25,9 @@ CXXFLAGS+=		-std=c++0x
 .  elif !empty(CC_VERSION:Mgcc-4.[89]*)
 BJAM_ARGS+=		cxxflags=-std=c++11
 CXXFLAGS+=		-std=c++11
+.  elif !empty(CC_VERSION:Mgcc-5.[0-9]*)
+BJAM_ARGS+=		cxxflags=-std=c++14
+CXXFLAGS+=		-std=c++14
 .  endif
 .endif
 
@@ -42,14 +45,12 @@ BJAM_BUILD+=		link=shared,static
 
 BJAM_CMD=		${SETENV} ${MAKE_ENV} ${BJAM} ${BJAM_ARGS}
 
-.include "../../meta-pkgs/boost/options.mk"
-
 UNLIMIT_RESOURCES+=	datasize
 
 bjam-build:
-	${_ULIMIT_CMD}							\
+	${_ULIMIT_CMD} \
 	cd ${WRKSRC} && ${BJAM_CMD} --prefix=${PREFIX} stage
 
 bjam-install:
-	${_ULIMIT_CMD}							\
+	${_ULIMIT_CMD} \
 	cd ${WRKSRC} && ${BJAM_CMD} --prefix=${DESTDIR}${PREFIX} install

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.35 2015/08/23 16:17:12 spz Exp $
+# $NetBSD: Makefile,v 1.50 2016/07/09 13:04:08 wiz Exp $
 
 VERSION=	4.2.5
 VERSION_IPXE=	1.0.0
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools42-${VERSION}
-PKGREVISION=		12
+PKGREVISION=		18
 CATEGORIES=		sysutils
 MASTER_SITES=		http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -26,7 +26,7 @@ BUILD_DEPENDS+= acpica-utils-[0-9]*:../../sysutils/acpica-utils
 DEPENDS+=		${PYPKGPREFIX}-curses>=0nb4:../../devel/py-curses
 DEPENDS+=		${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xml
 
 PKG_SYSCONFSUBDIR=	xen
 
@@ -51,12 +51,13 @@ GNU_CONFIGURE=		YES
 #CONFIGURE_ARGS+=	--enable-xenapi
 CONFIGURE_ARGS+=	--disable-seabios
 
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE}
+
 MAKE_ENV+=		PREFIX=${prefix:Q} WRKSRC=${WRKSRC}
 MAKE_ENV+=		EGDIR=${EGDIR}
 MAKE_ENV+=		BASH_COMPLETION_DIR=${EGDIR}
 MAKE_ENV+=		MV=${MV:Q} PYTHON=${PYTHONBIN:Q} SED=${SED:Q}
 MAKE_ENV+=		VARBASE=${VARBASE}
-MAKE_ENV+=		XEN_CONFIG_DIR=${PKG_SYSCONFDIR}
 MAKE_ENV+=		V=YES
 MAKE_ENV+=		NO_WERROR=1
 
@@ -140,22 +141,23 @@ SUBST_CLASSES+=		conf
 SUBST_STAGE.conf=	pre-configure
 SUBST_FILES.conf+=	python/xen/xm/create.py
 SUBST_FILES.conf+=	ocaml/xenstored/define.ml
+SUBST_FILES.conf+=	libxl/xl_cmdtable.c
+SUBST_FILES.conf+=	../docs/misc/xl-disk-configuration.txt
 SUBST_SED.conf=		-e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g"
 
-.include "../../mk/bsd.prefs.mk"
+XEND_SCRIPTS=		block vif-bridge vif-ip qemu-ifup hotplugpath.sh locking.sh
 
-XEND_SCRIPTS=		block vif-bridge vif-ip qemu-ifup hotplugpath.sh
-
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		proc
+SUBST_CLASSES.NetBSD+=	proc
 SUBST_STAGE.proc=	pre-configure
 SUBST_FILES.proc=	python/xen/xend/XendVnet.py
 SUBST_FILES.proc+=	ocaml/xenstored/define.ml
 SUBST_SED.proc=		-e "s|/proc|/kern|g"
-PROCPATH=		/kern
-.else
-PROCPATH=		/proc
-.endif
+
+OPSYSVARS+=		PROCPATH
+PROCPATH.NetBSD=	/kern
+PROCPATH.*=		/proc
+
+.include "../../mk/bsd.prefs.mk"
 
 SUBST_CLASSES+=		procdev
 SUBST_STAGE.procdev=	pre-configure
@@ -198,27 +200,28 @@ pre-build:
 .for s in ${BLKTAP_FILES}
 	${CP} -f ${FILESDIR}/${s} ${WRKSRC}/blktap/drivers/
 .endfor
+	${CP} -f ${FILESDIR}/locking.sh  ${WRKSRC}/hotplug/NetBSD/
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.pod.1 |\
-	    pod2man >${WRKDIR}/xl.1
+	    pod2man -n xl >${WRKDIR}/xl.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xm.pod.1 |\
-	    pod2man >${WRKDIR}/xm.1
+	    pod2man -n xm >${WRKDIR}/xm.1
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xend-config.sxp.pod.5 |\
-	    pod2man >${WRKDIR}/xend-config.sxp.5
+	    pod2man -n xend-config.sxp >${WRKDIR}/xend-config.sxp.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xl.cfg.5
+	    pod2man -n xl.cfg >${WRKDIR}/xl.cfg.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xl.conf.pod.5 |\
-	    pod2man >${WRKDIR}/xl.conf.5
+	    pod2man -n xl.conf >${WRKDIR}/xl.conf.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xlcpupool.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xlcpupool.cfg.5
+	    pod2man -n xlcpupool.cfg >${WRKDIR}/xlcpupool.cfg.5
 	${SED} -e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g" \
 		${XENTOP}/docs/man/xmdomain.cfg.pod.5 |\
-	    pod2man >${WRKDIR}/xmdomain.cfg.5
+	    pod2man -n xmdomain.cfg >${WRKDIR}/xmdomain.cfg.5
 
 INSTALLATION_DIRS=	${EGDIR} ${PKGMANDIR}/man5
 
@@ -233,7 +236,8 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/xend-config.sxp.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 	${INSTALL_DATA} ${WRKDIR}/xmdomain.cfg.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 
-.if ${OPSYS} == "NetBSD" && !exists(/var/shm)
+.if (${OPSYS} == "NetBSD" && \
+    (empty(OS_VERSION:M6.99.[3-9]?) && empty(OS_VERSION:M[7-9].*)))
 CPPFLAGS+=	-Dshm_open=open -Dshm_unlink=unlink
 .endif
 
@@ -247,7 +251,7 @@ EXTRA_CFLAGS+=	-Wno-error=ignored-attributes -no-integrated-as \
 		-Wno-error=unused-function -Wno-error=format \
 		-Wno-error=unused-const-variable \
 		-Wno-error=gnu-designator -Wno-error=uninitialized \
-		-Wno-error=parentheses-equality
+		-Wno-error=parentheses-equality -Wno-error=enum-conversion
 BUILDLINK_TRANSFORM+=	rm:-falign-jumps=1 rm:-falign-loops=1 \
 			rm:-mpreferred-stack-boundary=2
 .endif

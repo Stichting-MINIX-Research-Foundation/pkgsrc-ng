@@ -1,18 +1,19 @@
-# $NetBSD: Makefile,v 1.54 2015/08/12 13:49:40 wen Exp $
+# $NetBSD: Makefile,v 1.61 2016/08/24 00:15:09 wen Exp $
 
 DISTNAME=	mediawiki-${VER}.${PVER}
 CATEGORIES=	www
-MASTER_SITES=	http://releases.wikimedia.org/mediawiki/${VER}/
+MASTER_SITES=	https://releases.wikimedia.org/mediawiki/${VER}/
 
 MAINTAINER=	wenheping@gmail.com
 HOMEPAGE=	http://www.mediawiki.org/
 COMMENT=	Free software wiki package originally written for Wikipedia
 LICENSE=	gnu-gpl-v2
 
-DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.3.2:../../textproc/php-dom
-DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.3.2:../../graphics/php-gd
-DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.3.2:../../textproc/php-intl
-DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.3.2:../../textproc/php-json
+DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.5.9:../../textproc/php-dom
+DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.5.9:../../graphics/php-gd
+DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.5.9:../../textproc/php-intl
+DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.5.9:../../textproc/php-json
+DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.5.9:../../converters/php-mbstring
 
 EGDIR=			share/examples/mediawiki
 MEDIAWIKI=		${PREFIX}/share/mediawiki
@@ -21,8 +22,8 @@ INSTALLATION_DIRS=	${EGDIR} share/mediawiki
 .include "../../mk/bsd.prefs.mk"
 .include "options.mk"
 
-VER=			1.25
-PVER=			2
+VER=			1.27
+PVER=			1
 
 APACHE_USER?=		www
 APACHE_GROUP?=		www
@@ -57,8 +58,6 @@ SUBST_STAGE.sh2=	post-patch
 SUBST_MESSAGE.sh2=	Fixing path to sh
 SUBST_FILES.sh2+=	maintenance/mwjsduck-gen
 SUBST_FILES.sh2+=	docs/kss/scripts/kss-node-check.sh
-SUBST_FILES.sh2+=	maintenance/resources/update-oojs-ui.sh
-SUBST_FILES.sh2+=	maintenance/resources/update-oojs.sh
 SUBST_SED.sh2=		-e "s|/usr/bin/env bash|${SH}|"
 
 SUBST_CLASSES+=		perl
@@ -79,13 +78,6 @@ SUBST_STAGE.python2=	post-patch
 SUBST_MESSAGE.python2=	Fixing python path
 SUBST_FILES.python2+=	maintenance/language/zhtable/Makefile.py
 SUBST_SED.python2=	-e "s,/usr/bin/env python,${PYTHONBIN},"
-
-SUBST_CLASSES+=		php
-SUBST_MESSAGE.php=	Fixing the path of php.
-SUBST_STAGE.php=	post-patch
-SUBST_FILES.php+=	includes/normal/UtfNormalTest2.php
-SUBST_FILES.php+=	maintenance/update.php
-SUBST_SED.php=          -e "s,/usr/bin/env php,${PREFIX}/bin/php,g"
 
 post-extract:
 	${CP} ${FILESDIR}/mediawiki.conf ${WRKDIR}/mediawiki.conf

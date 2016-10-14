@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/08/08 21:28:48 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2016/04/15 14:20:00 wiz Exp $
 
 USE_LANGUAGES=	c c++
 

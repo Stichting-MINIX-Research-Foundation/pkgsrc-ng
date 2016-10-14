@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.17 2014/03/05 11:14:00 darcy Exp $
+$NetBSD: distinfo,v 1.26 2016/09/13 23:59:37 wiz Exp $
 
-SHA1 (PyGreSQL-4.1.1.tgz) = eafd5b9ae92102bec088c7f2fe3ce3b359eb60c4
-RMD160 (PyGreSQL-4.1.1.tgz) = 5cd30aceb7cb82acb2e3a36045be30b21112dd3f
-Size (PyGreSQL-4.1.1.tgz) = 100883 bytes
-SHA1 (patch-setup.py) = 7b81bbd56e35b6449173480595bce4e74b2de641
+SHA1 (PyGreSQL-5.0.2.tar.gz) = c6c62fd355a8709f04c1b568964c8dc9f66228ae
+RMD160 (PyGreSQL-5.0.2.tar.gz) = ba19c7cac3a17c1070f5910a5ecf67ba040194cb
+SHA512 (PyGreSQL-5.0.2.tar.gz) = 5332f23754df47e121d7301de056f5ab4defd91cba9762ef9196d0c04279ee4d1fcc7c24d23fa5f3a025fad1914666207f90ec858efd09207806cd9af3d920eb
+Size (PyGreSQL-5.0.2.tar.gz) = 637713 bytes

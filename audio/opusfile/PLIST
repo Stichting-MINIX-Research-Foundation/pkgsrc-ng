@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2014/04/12 06:39:34 wiz Exp $
+@comment $NetBSD: PLIST,v 1.3 2016/03/13 08:04:06 tnn Exp $
 include/opus/opusfile.h
 lib/libopusfile.la
 lib/libopusurl.la

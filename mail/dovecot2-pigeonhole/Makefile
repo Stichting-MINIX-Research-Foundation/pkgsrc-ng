@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.25 2015/08/23 14:30:38 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2016/09/19 13:04:24 wiz Exp $
 
-DISTNAME=	dovecot-2.2-pigeonhole-0.4.8
+DISTNAME=	dovecot-2.2-pigeonhole-0.4.15
 PKGNAME=	${DISTNAME:S/-2.2-/-/}
 PKGREVISION=	1
 CATEGORIES=	mail

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2014/12/31 13:57:31 wiz Exp $
+# $NetBSD: Makefile,v 1.4 2016/06/08 17:43:49 wiz Exp $
 
-DISTNAME=	djangocms-inherit-0.1
+DISTNAME=	djangocms-inherit-0.1.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
-MASTER_SITES=	http://pypi.python.org/packages/source/d/djangocms-inherit/
+MASTER_SITES=	${MASTER_SITE_PYPI:=d/djangocms-inherit/}
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	https://github.com/divio/djangocms-inherit/

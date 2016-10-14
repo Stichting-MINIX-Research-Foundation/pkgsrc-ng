@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2015/09/07 12:02:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.12 2016/06/24 15:25:21 taca Exp $
 
 #
 # We can't omit PKGNAME here to handle PKG_OPTIONS.
@@ -33,7 +33,7 @@ PLIST_SUBST+=		PHPEXTDIR="${PHP_EXTENSION_DIR}"
 SUBST_CLASSES+=		path
 SUBST_MESSAGE.path=	Fixing common paths.
 SUBST_STAGE.path=	pre-configure
-SUBST_FILES.path=	configure ext/phar/phar/phar.php
+SUBST_FILES.path=	ext/phar/phar/phar.php
 SUBST_FILES.path+=	php.ini-development php.ini-production run-tests.php
 SUBST_FILES.path+=	sapi/cgi/Makefile.frag
 SUBST_SED.path=		-e 's,@CGIDIR@,${CGIDIR},g'
@@ -45,6 +45,12 @@ INSTALLATION_DIRS+=	${CGIDIR} ${PHP_EXTENSION_DIR} ${EGDIR} share/php
 # and lacks the zone memory allocator
 .if !empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
 CFLAGS+=	-DSQLITE_ENABLE_LOCKING_STYLE=0 -DSQLITE_WITHOUT_ZONEMALLOC
+.endif
+
+.include "../../mk/compiler.mk"
+
+.if ${OPSYS} == "SunOS" && ${PKGSRC_COMPILER} == "clang"
+CONFIGURE_ARGS+=	--disable-libgcc
 .endif
 
 post-extract:

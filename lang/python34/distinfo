@@ -1,9 +1,10 @@
-$NetBSD: distinfo,v 1.17 2015/03/16 13:53:05 tnn Exp $
+$NetBSD: distinfo,v 1.21 2016/07/02 15:23:33 adam Exp $
 
-SHA1 (Python-3.4.3.tar.xz) = 7ca5cd664598bea96eec105aa6453223bb6b4456
-RMD160 (Python-3.4.3.tar.xz) = fc0a8ce58c8b354f644db3527d838a77d2e27fba
-Size (Python-3.4.3.tar.xz) = 14421964 bytes
-SHA1 (patch-Lib_distutils_unixccompiler.py) = 39cb8d1e1e3e76e2b6b5dbc1a6b5e0815300b2ce
+SHA1 (Python-3.4.5.tar.xz) = 882e83e0286b253ee651aa3f9a5d27ebc46e6632
+RMD160 (Python-3.4.5.tar.xz) = 47604be01f37671a16c17e27316af327a1048fd6
+SHA512 (Python-3.4.5.tar.xz) = b548a5338d141b3086dea372fa2cc245ba5350ee9f0d1304ef6222dc45380b66d380b092e547d54206d56ca68563b95036f445f97f72bb0ef1d48f81a74a3d4c
+Size (Python-3.4.5.tar.xz) = 14516820 bytes
+SHA1 (patch-Lib_distutils_unixccompiler.py) = 7d6df07921ad3357757d4681a964256b560b3f57
 SHA1 (patch-aa) = 14359f8d0527eff08073c0aea60dfe8961d9255d
 SHA1 (patch-ah) = 1c4eec742ab26f77c6326b7d12e44e26be493c0f
 SHA1 (patch-al) = 7239d10b67c739c3ee33dd2fc95bb770360d152f

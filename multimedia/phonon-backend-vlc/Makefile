@@ -1,31 +1,11 @@
-# $NetBSD: Makefile,v 1.11 2015/09/01 22:23:07 markd Exp $
+# $NetBSD: Makefile,v 1.15 2016/04/26 09:02:14 markd Exp $
 
-DISTNAME=	phonon-backend-vlc-0.8.2
-CATEGORIES=	multimedia
-MASTER_SITES=	${MASTER_SITE_KDE:=phonon/phonon-backend-vlc/0.8.2/src/}
-EXTRACT_SUFX=	.tar.xz
+DISTNAME=	phonon-backend-vlc-0.9.0
 
-MAINTAINER=	markd@NetBSD.org
-HOMEPAGE=	http://phonon.kde.org/
 COMMENT=	Multimedia API for KDE and QT - VLC backend
-LICENSE=	gnu-lgpl-v2.1
 
-# BUILD_MAKE_FLAGS+= VERBOSE=1
+.include "Makefile.common"
 
-BUILD_DEPENDS+=	automoc4>=0.9.83:../../devel/automoc4
-
-USE_TOOLS+=	pkg-config
-USE_LANGUAGES=	c c++
-USE_CMAKE=	yes
-CMAKE_ARG_PATH=	..
-CONFIGURE_DIRS=	_build
-#CMAKE_ARGS+=	-DWITH_PulseAudio:BOOL=OFF
-
-pre-configure:
-	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/
-	${MKDIR} ${WRKSRC}/_build
-
-.include "../../multimedia/vlc2/buildlink3.mk"
 .include "../../multimedia/phonon/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

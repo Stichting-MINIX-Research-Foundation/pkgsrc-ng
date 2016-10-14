@@ -1,16 +1,14 @@
-# $NetBSD: Makefile,v 1.4 2014/05/09 07:36:56 wiz Exp $
+# $NetBSD: Makefile,v 1.6 2016/06/08 17:43:20 wiz Exp $
 
 DISTNAME=		pyserial-2.7
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/py//}
 CATEGORIES=		comms python
-MASTER_SITES=		http://pypi.python.org/packages/source/p/pyserial/
+MASTER_SITES=		${MASTER_SITE_PYPI:=p/pyserial/}
 
 MAINTAINER=		tsarna@NetBSD.org
 HOMEPAGE=		http://pyserial.sourceforge.net/
 COMMENT=		Python Serial Port Extension
 LICENSE=		python-software-foundation
-
-#PYTHON_VERSIONS_INCOMPATIBLE=	33 34
 
 CONFLICTS+=		${PYPKGPREFIX}-pyserial-[0-9]*
 

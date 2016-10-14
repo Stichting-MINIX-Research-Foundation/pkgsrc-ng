@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.30 2014/12/15 11:46:36 jperkin Exp $
+# $NetBSD: Makefile,v 1.32 2016/03/12 21:53:39 tnn Exp $
 #
 
 DISTNAME=	mMosaic-3.7.2
@@ -16,32 +16,20 @@ WRKSRC=		${WRKDIR}/mMosaic-src-3.7.2
 
 INSTALLATION_DIRS=	bin
 
+MAKE_FLAGS.DragonFly+=	sysconfigflags='-DFreeBSD -DMOTIF1_2'
+MAKE_FLAGS.FreeBSD+=	sysconfigflags='-DFreeBSD -DMOTIF1_2'
+MAKE_FLAGS.IRIX+=	sysconfigflags='-DSVR4 -DIRIX -DMOTIF1_2'
+MAKE_FLAGS.Linux+=	sysconfigflags='-DLINUX -Dlinux -DMOTIF1_2'
+MAKE_FLAGS.NetBSD+=	sysconfigflags='-DNETBSD -DMOTIF1_2'
+
+BUILDLINK_TRANSFORM.Darwin+=	opt:-shared:-c
+
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/mMosaic ${DESTDIR}${PREFIX}/bin/
 
 .include "../../devel/zlib/buildlink3.mk"
-.include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
+.include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/motif.buildlink3.mk"
-
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-MAKEFLAGS+=	sysconfigflags='-DNETBSD -DMOTIF1_2'
-
-.elif ${OPSYS} == "FreeBSD" || ${OPSYS} == "DragonFly"
-MAKEFLAGS+=	sysconfigflags='-DFreeBSD -DMOTIF1_2'
-
-.elif ${OPSYS} == "Linux"
-MAKEFLAGS+=	sysconfigflags='-DLINUX -Dlinux -DMOTIF1_2'
-
-.elif ${OPSYS:MIRIX*} != ""
-MAKEFLAGS+=	sysconfigflags='-DSVR4 -DIRIX -DMOTIF1_2'
-
-.elif ${OPSYS} == "Darwin"
-BUILDLINK_TRANSFORM+=	opt:-shared:-c
-.endif
-
 .include "../../x11/libXmu/buildlink3.mk"
-
 .include "../../mk/bsd.pkg.mk"

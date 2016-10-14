@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.14 2014/11/02 05:36:25 obache Exp $
+# $NetBSD: options.mk,v 1.16 2015/11/26 16:36:00 jperkin Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.unrealircd
 
@@ -17,7 +17,6 @@ PKG_SUGGESTED_OPTIONS=	unrealircd-showlistmodes unrealircd-prefixaq
 ###
 .if !empty(PKG_OPTIONS:Minet6)
 CONFIGURE_ARGS+=	--enable-inet6
-MESSAGE_SRC+=		MESSAGE_SRC.inet6
 .else
 CONFIGURE_ARGS+=	--disable-inet6
 CONFIGURE_ENV+=		ac_cv_ip6=no
@@ -28,7 +27,7 @@ CONFIGURE_ENV+=		ac_cv_ip6=no
 ###
 .if !empty(PKG_OPTIONS:Mssl)
 .	include "../../security/openssl/buildlink3.mk"
-CONFIGURE_ARGS+=	--enable-ssl=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--enable-ssl=${SSLBASE}
 .endif
 
 ###
@@ -43,7 +42,7 @@ CONFIGURE_ARGS+=	--enable-nospoof
 ### server <-> server with zlib.
 ###
 .if !empty(PKG_OPTIONS:Munrealircd-ziplinks)
-CONFIGURE_ARGS+=		--enable-ziplinks
+CONFIGURE_ARGS+=		--enable-ziplinks=${BUILDLINK_PREFIX.zlib}
 .	include "../../devel/zlib/buildlink3.mk"
 .endif
 
@@ -51,7 +50,7 @@ CONFIGURE_ARGS+=		--enable-ziplinks
 ### Compile in support for remote include files.
 ###
 .if !empty(PKG_OPTIONS:Munrealircd-remoteinc)
-CONFIGURE_ARGS+=		--enable-libcurl=${PREFIX:Q}
+CONFIGURE_ARGS+=		--enable-libcurl=${PREFIX}
 .	include "../../www/curl/buildlink3.mk"
 .	include "../../net/libcares/buildlink3.mk"
 .endif

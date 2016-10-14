@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.19 2009/03/20 19:25:28 joerg Exp $
+# $NetBSD: buildlink3.mk,v 1.21 2016/03/18 09:36:26 wiz Exp $
 
 BUILDLINK_TREE+=	expat
 

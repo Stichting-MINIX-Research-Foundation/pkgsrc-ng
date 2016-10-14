@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.1 2015/07/09 14:13:51 ryoon Exp $
+# $NetBSD: mozilla-common.mk,v 1.6 2016/07/09 13:04:13 wiz Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -17,7 +17,7 @@ test:
 .include "../../mk/bsd.prefs.mk"
 # tar(1) of OpenBSD 5.5 has no --exclude command line option.
 .if ${OPSYS} == "OpenBSD"
-TOOLS_PLATFORM.tar=	${TOOLS_PREFIX.bsdtar}/bin/bsdtar
+TOOLS_PLATFORM.tar=	${TOOLS_PATH.bsdtar}
 USE_TOOLS+=		bsdtar
 .endif
 # GCC 4.6 is required to support nullptr.
@@ -68,7 +68,6 @@ CONFIGURE_ARGS+=	--with-system-harfbuzz
 CONFIGURE_ARGS+=	--with-system-libevent=${BUILDLINK_PREFIX.libevent}
 CONFIGURE_ARGS+=	--enable-system-sqlite
 CONFIGURE_ARGS+=	--disable-crashreporter
-CONFIGURE_ARGS+=	--disable-libnotify
 CONFIGURE_ARGS+=	--disable-necko-wifi
 CONFIGURE_ARGS+=	--enable-chrome-format=flat
 CONFIGURE_ARGS+=	--disable-libjpeg-turbo
@@ -108,7 +107,7 @@ CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}/js/ctypes/libffi/config.sub
 
 PYTHON_VERSIONS_ACCEPTED=	27
 PYTHON_FOR_BUILD_ONLY=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-sqlite2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-sqlite2
 .include "../../lang/python/application.mk"
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
@@ -158,9 +157,7 @@ PLIST.mozglue=	yes
 
 # See ${WRKSRC}/security/sandbox/mac/Sandbox.mm: On Darwin, sandboxing
 # support is only available when the toolkit is cairo-cocoa.
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-sandbox
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-sandbox
 
 # See ${WRKSRC}/configure.in: It tries to use MacOS X 10.6 SDK by
 # default, which is not always possible.
@@ -186,13 +183,9 @@ create-rm-wrapper:
 	  ${WRAPPER_DIR}/bin/rm
 	chmod +x ${WRAPPER_DIR}/bin/rm
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
 # The configure test for __thread succeeds, but later we end up with:
 # dist/bin/libxul.so: undefined reference to `__tls_get_addr'
-CONFIGURE_ENV+=	ac_cv_thread_keyword=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_thread_keyword=no
 
 .if ${OPSYS} == "SunOS"
 # native libbz2.so hides BZ2_crc32Table

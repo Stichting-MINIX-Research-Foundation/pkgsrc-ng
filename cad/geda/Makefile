@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.102 2015/06/30 09:57:35 ryoon Exp $
+# $NetBSD: Makefile,v 1.110 2016/09/15 17:13:09 wiz Exp $
 
 DISTNAME=	geda-gaf-1.8.2
 PKGNAME=	${DISTNAME:S/-gaf-/-/}
-PKGREVISION=	7
+PKGREVISION=	12
 CATEGORIES=	cad
 MASTER_SITES=	http://ftp.geda-project.org/geda-gaf/stable/v1.8/1.8.2/
 
@@ -30,8 +30,6 @@ DEPENDS+=		gettext-tools>=0.14.6:../../devel/gettext-tools
 GNU_CONFIGURE=		YES
 USE_LIBTOOL=		YES
 USE_TOOLS+=		bash gmake msgfmt pkg-config
-CONFIGURE_ARGS+=	--disable-update-mime-database
-CONFIGURE_ARGS+=	--disable-update-desktop-database
 
 # let (f)lex rebuild this file.  The distributed one doesn't
 # always work.
@@ -48,11 +46,7 @@ REPLACE_PERL+=		utils/scripts/pads_backannotate \
 			utils/gxyrs/gxyrs.pl
 
 # needs GNU m4 for the PCBboard and gsch2pcb netlisters
-USE_TOOLS+=		gmake m4:run pkg-config
-
-EVAL_PREFIX+=	PCBDIR=pcb
-CONFIGURE_ARGS+=	--with-pcbm4dir=${PCBDIR}/share/pcb/m4
-CONFIGURE_ARGS+=	--with-pcbconfdir=${PKG_SYSCONFDIR}/pcb
+USE_TOOLS+=		gmake gm4:run pkg-config
 
 SUBST_CLASSES+=			python
 SUBST_STAGE.python=		pre-configure
@@ -64,8 +58,7 @@ REPLACE_SH+=		gnetlist/scripts/sch2eaglepos.sh
 USE_TOOLS+=		sh:run
 
 # for gsch2pcb
-EVAL_PREFIX+=		PCBDIR=pcb
-CONFIGURE_ARGS+=	--with-pcb-datadir=${PCBDIR}/share
+CONFIGURE_ARGS+=	--with-pcb-datadir=${LOCALBASE}/share
 USE_TOOLS+=		gawk:run lex perl:run pkg-config
 
 # disable groff for a consistent build
@@ -81,7 +74,7 @@ INFO_FILES=	yes
 .include "../../devel/libstroke/buildlink3.mk"
 .include "../../graphics/gd/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../lang/guile/buildlink3.mk"
+.include "../../lang/guile20/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

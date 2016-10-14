@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.62 2015/06/12 10:51:11 wiz Exp $
+# $NetBSD: Makefile,v 1.68 2016/07/09 06:38:58 wiz Exp $
 
-PKGREVISION=		7
+PKGREVISION=		12
 
 CONFLICTS+=		bacula-client-[0-9]* bacula-clientonly-[0-9]*
 
@@ -21,7 +21,7 @@ CONFIGURE_ARGS+=	--with-dir-user=${BACULA_DIR_USER}
 CONFIGURE_ARGS+=	--with-sd-group=${BACULA_GROUP}
 CONFIGURE_ARGS+=	--with-sd-user=${BACULA_SD_USER}
 
-OWN_DIRS_PERMS+=	${BACULA_WORKINGDIR} ${ROOT_USER} ${BACULA_GROUP} 770
+OWN_DIRS_PERMS+=	${BACULA_WORKINGDIR} ${REAL_ROOT_USER} ${BACULA_GROUP} 770
 
 PKG_USERS=		${BACULA_DIR_USER}:${BACULA_GROUP}
 PKG_USERS+=		${BACULA_SD_USER}:${BACULA_GROUP}
@@ -38,9 +38,7 @@ REPLACE_PERL+=		src/cats/make_catalog_backup.pl.in
 
 .include "Makefile.common"
 
-.if !empty(USE_DESTDIR:M[Yy][Ee][Ss])
 INSTALL_MAKE_FLAGS+=	dir_user= dir_group= sd_group=
-.endif
 
 post-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/chio-changer \

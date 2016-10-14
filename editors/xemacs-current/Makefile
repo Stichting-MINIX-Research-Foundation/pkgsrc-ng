@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.86 2014/02/12 23:17:52 tron Exp $
+# $NetBSD: Makefile,v 1.89 2016/03/05 11:28:28 jperkin Exp $
 
 PKGNAME?=	${DISTNAME}
 COMMENT?=	*BETA* XEmacs text editor version ${PKGVERSION_NOREV}
@@ -6,7 +6,7 @@ COMMENT?=	*BETA* XEmacs text editor version ${PKGVERSION_NOREV}
 DISTNAME=	xemacs-21.5.27
 EMACSVERSION=	21.5-b27
 EMACS_DISTNAME=	xemacs-${EMACSVERSION}
-PKGREVISION=	21
+PKGREVISION=	23
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_XEMACS:=${DISTNAME:C/[.][^.]*$//}/}
 
@@ -39,6 +39,7 @@ CONFIGURE_ARGS+=	--with-clash-detection
 CONFIGURE_ARGS+=	--with-mule
 CONFIGURE_ARGS+=	--with-zlib
 CONFIGURE_ARGS+=	--without-msw
+CONFIGURE_ARGS+=	--with-pdump
 CFLAGS+=		-Dunix
 
 # Newer gcc has big trouble with aliasing.  This should be fixed in the

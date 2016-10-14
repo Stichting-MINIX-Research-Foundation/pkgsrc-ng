@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2015/06/12 10:51:32 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2016/06/08 19:24:38 wiz Exp $
 
-DISTNAME=	Text-MicroTemplate-0.23
+DISTNAME=	Text-MicroTemplate-0.24
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	textproc perl5

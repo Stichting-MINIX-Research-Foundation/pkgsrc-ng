@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:26 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:16 wiz Exp $
 #
 
-DISTNAME=		WebService-Google-Reader-0.22
+DISTNAME=		WebService-Google-Reader-0.23
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		net perl5

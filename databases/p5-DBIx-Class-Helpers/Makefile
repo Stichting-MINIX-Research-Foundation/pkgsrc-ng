@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2015/07/31 23:39:32 wen Exp $
+# $NetBSD: Makefile,v 1.21 2016/08/24 03:09:28 wen Exp $
 
-DISTNAME=	DBIx-Class-Helpers-2.031000
+DISTNAME=	DBIx-Class-Helpers-2.033001
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
@@ -29,6 +29,7 @@ BUILD_DEPENDS+=	p5-DateTime-Format-SQLite>=0:../../time/p5-DateTime-Format-SQLit
 BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Exception-[0-9]*:../../devel/p5-Test-Exception
 BUILD_DEPENDS+=	p5-Test-Roo>=1.003:../../devel/p5-Test-Roo
+BUILD_DEPENDS+=	p5-DateTime-Format-Strptime>=0:../../time/p5-DateTime-Format-Strptime
 BUILD_DEPENDS+=	p5-aliased>=0.34:../../devel/p5-aliased
 
 PERL5_PACKLIST=		auto/DBIx/Class/Helpers/.packlist

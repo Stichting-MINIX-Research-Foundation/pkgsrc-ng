@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2015/04/19 19:18:22 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/09/11 14:39:27 mef Exp $
 
-DISTNAME=	pcre2-10.10
+DISTNAME=	pcre2-10.22
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.csx.cam.ac.uk/pub/software/programming/pcre/ \
 		${MASTER_SITE_SOURCEFORGE:=pcre/}
@@ -20,6 +20,13 @@ PKGCONFIG_OVERRIDE+=	libpcre2-posix.pc.in
 PKGCONFIG_OVERRIDE+=	libpcre2-8.pc.in
 PKGCONFIG_OVERRIDE+=	libpcre2-32.pc.in
 
+CONFIGURE_ARGS+=	--enable-pcre2-16
+CONFIGURE_ARGS+=	--enable-pcre2-32
+CONFIGURE_ARGS+=	--enable-pcre2grep-libz
+CONFIGURE_ARGS+=	--enable-pcre2grep-libbz2
+
 TEST_TARGET=		check
 
+.include "../../archivers/bzip2/buildlink3.mk"
+.include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

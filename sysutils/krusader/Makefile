@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2015/06/12 10:51:13 wiz Exp $
+# $NetBSD: Makefile,v 1.64 2016/07/09 06:39:00 wiz Exp $
 #
 
 DISTNAME=	krusader-1.90.0
-PKGREVISION=	36
+PKGREVISION=	38
 CATEGORIES=	kde sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=krusader/}
 
@@ -18,11 +18,7 @@ SET_LIBDIR=	YES
 
 SHLIBTOOL_OVERRIDE=	# empty
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+= --without-acl
-.endif
+CONFIGURE_ARGS.DragonFly+= --without-acl
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../x11/kdelibs3/buildlink3.mk"

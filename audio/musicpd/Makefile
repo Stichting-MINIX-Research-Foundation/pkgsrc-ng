@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.109 2015/07/01 09:23:30 wiz Exp $
+# $NetBSD: Makefile,v 1.129 2016/08/24 10:04:54 wiz Exp $
 
-DISTNAME=		mpd-0.19.10
+DISTNAME=		mpd-0.19.19
 PKGNAME=		${DISTNAME:S/mpd/musicpd/}
 CATEGORIES=		audio
 MASTER_SITES=		http://www.musicpd.org/download/mpd/0.19/
@@ -20,13 +20,10 @@ USE_TOOLS+=		pkg-config
 USE_LANGUAGES=		c c++
 
 # See ${WRKSRC}/src/Compiler.h: mpd requires gcc>=4.6
-GCC_REQD=		4.6
+GCC_REQD+=		4.6
 
 # MacOS X audio output is no longer enabled by default.
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--enable-osx
-.endif
+CONFIGURE_ARGS.Darwin+=	--enable-osx
 
 CPPFLAGS.SunOS+=	-std=gnu99 -D_XOPEN_SOURCE=600 -D__EXTENSIONS__
 
@@ -37,6 +34,12 @@ CONF_FILES=		${EGDIR}/mpd.conf ${PKG_SYSCONFDIR}/mpd.conf
 RCD_SCRIPTS=		mpd
 
 FILES_SUBST+=		DEVOSSAUDIO=${DEVOSSAUDIO:Q}
+
+SUBST_CLASSES+=		paths
+SUBST_STAGE.paths=	post-patch
+SUBST_FILES.paths=	mpd.conf
+SUBST_SED.paths=	-e 's,@DEVOSSAUDIO@,${DEVOSSAUDIO},'
+
 LDFLAGS+=		${LIBOSSAUDIO}
 
 INSTALLATION_DIRS=	${EGDIR}

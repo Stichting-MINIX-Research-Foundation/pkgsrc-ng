@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2015/09/06 00:24:46 leot Exp $
+# $NetBSD: Makefile,v 1.40 2016/09/10 23:23:20 szptvlfn Exp $
 
-DISTNAME=	mpv-0.10.0
+DISTNAME=	mpv-0.20.0
+PKGREVISION=	1
 CATEGORIES=	multimedia
 MASTER_SITES=	${MASTER_SITE_GITHUB:=mpv-player/}
 GITHUB_TAG=	v${PKGVERSION_NOREV}
@@ -8,11 +9,16 @@ GITHUB_TAG=	v${PKGVERSION_NOREV}
 MAINTAINER=	leot@NetBSD.org
 HOMEPAGE=	http://mpv.io/
 COMMENT=	Video player based on MPlayer and mplayer2
-LICENSE=	gnu-gpl-v2
+LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2.1
+
+# needs sem_timedwait(3)
+NOT_FOR_PLATFORM=	NetBSD-[1-6]*-*
+
+NOT_PAX_MPROTECT_SAFE+=	bin/mpv
 
 BUILD_DEPENDS+=	${PYPKGPREFIX}-docutils>=0.12:../../textproc/py-docutils
 # ${WRKSRC}/bootstrap.py mentions needed version
-BUILD_DEPENDS+=	waf>=1.8.4:../../devel/waf
+BUILD_DEPENDS+=	waf>=1.8.12:../../devel/waf
 
 PYTHON_FOR_BUILD_ONLY=	yes
 
@@ -54,7 +60,7 @@ post-install:
 .include "../../multimedia/libass/buildlink3.mk"
 .include "../../multimedia/libdvdnav/buildlink3.mk"
 .include "../../multimedia/libdvdread/buildlink3.mk"
-.include "../../multimedia/ffmpeg2/buildlink3.mk"
+.include "../../multimedia/ffmpeg3/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/jpeg.buildlink3.mk"

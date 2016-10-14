@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2015/04/25 14:20:45 tnn Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/03 10:22:43 adam Exp $
 
 DISTNAME=	free42
 PKGNAME=	${DISTNAME}-1.4.78
-PKGREVISION=	2
+PKGREVISION=	3
 DIST_SUBDIR=	${PKGNAME_NOREV}
 CATEGORIES=	emulators
 MASTER_SITES=	http://thomasokken.com/free42/download/
@@ -22,13 +22,8 @@ BUILD_DIRS=	gtk
 
 BUILD_TARGET=	free42${VARIANT}
 
-.include "../../mk/bsd.prefs.mk"
-
-.if (${OPSYS} == NetBSD)
-CXXFLAGS+=	-DNO_SINCOS
-.elif (${OPSYS} == Linux)
-MAKE_ENV+=	AUDIO_ALSA=1
-.endif
+CXXFLAGS.NetBSD+=	-DNO_SINCOS
+MAKE_ENV.Linux+=	AUDIO_ALSA=1
 
 INSTALLATION_DIRS+= bin
 INSTALLATION_DIRS+= share/doc/free42

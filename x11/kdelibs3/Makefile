@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.182 2015/06/12 10:52:18 wiz Exp $
+# $NetBSD: Makefile,v 1.186 2016/07/09 06:39:17 wiz Exp $
 
 DISTNAME=	kdelibs-${_KDE_VERSION}
-PKGREVISION=	38
+PKGREVISION=	40
 CATEGORIES=	x11
 COMMENT=	Support libraries for the KDE integrated X11 desktop
+
+# addressbook.h:29:23: fatal error: addressee.h: No such file or directory
+MAKE_JOBS_SAFE=	no
 
 .include "../../meta-pkgs/kde3/Makefile.kde3"
 
@@ -61,6 +64,10 @@ SPECIAL_PERMS+=	${PREFIX}/bin/kpac_dhcp_helper	${SETUID_ROOT_PERMS}
 # ${SETUID_ROOT_PERMS} doesn't work here because the locate() method used to
 # find the path to the kgrantpty expects it to have read permissions set.
 SPECIAL_PERMS+=	${PREFIX}/bin/kgrantpty	${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 4555
+
+# We require use of a recent enough libbz2 to have the BZ2_ prefixes
+# so force this as configure gets this wrong on Solaris 9
+CONFIGURE_ENV.SunOS+= ac_cv_lib_bzip2='no'
 
 .include "options.mk"
 
@@ -139,10 +146,4 @@ CONFIGURE_ENV+= CFLAGS=${CFLAGS:M*:Q}
 CONFIGURE_ENV+= ac_cv_func_getservbyname_r='no'
 CONFIGURE_ENV+= ac_cv_func_getservbyport_r='no'
 CONFIGURE_ENV+= ac_cv_func_getprotobyname_r='no'
-.endif
-
-.if ${OPSYS} == "SunOS"
-# We require use of a recent enough libbz2 to have the BZ2_ prefixes
-# so force this as configure gets this wrong on Solaris 9
-CONFIGURE_ENV+= ac_cv_lib_bzip2='no'
 .endif

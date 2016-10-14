@@ -1,0 +1,77 @@
+# $NetBSD: Makefile.common,v 1.10 2016/08/27 18:12:01 joerg Exp $
+# used by lang/nodejs/Makefile
+# used by lang/nodejs4/Makefile
+
+CATEGORIES=	devel
+MASTER_SITES=	http://nodejs.org/dist/${DISTNAME:S/node-//}/
+PKGNAME=	${DISTNAME:S/-v/js-/}
+
+MAINTAINER=	filip@joyent.com
+HOMEPAGE=	http://nodejs.org/
+COMMENT=	V8 JavaScript for clients and servers
+LICENSE=	mit
+
+HAS_CONFIGURE=	yes
+USE_TOOLS+=	bash gmake pkg-config
+USE_LANGUAGES=	c c++
+
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.10.24
+
+.include "../../mk/bsd.prefs.mk"
+.include "options.mk"
+
+GCC_REQD+=		4.8
+
+CONFIG_SHELL=		${PYTHONBIN}
+CONFIGURE_ARGS+=	--prefix=${PREFIX}
+CONFIGURE_ARGS+=	--shared-zlib
+CONFIGURE_ARGS+=	--with-intl=system-icu
+PTHREAD_AUTO_VARS=	yes
+
+CONFIGURE_ENV.NetBSD+=	GYP_DEFINES="OS=netbsd"
+MAKE_ENV.NetBSD+=	GYP_DEFINES="OS=netbsd"
+
+.if ${OPSYS} == "Linux" && !exists(/usr/bin/gold)
+CONFIGURE_ENV+=		GYP_DEFINES="linux_use_gold_flags=0"
+.endif
+
+REPLACE_PYTHON+=	configure
+REPLACE_PYTHON+=	tools/genv8constants.py
+REPLACE_PYTHON+=	tools/gyp/pylib/gyp/flock_tool.py
+
+CHECK_INTERPRETER_SKIP+=	lib/node_modules/npm/*
+
+.if ${OPSYS} == "NetBSD"
+BUILD_DEPENDS+=	lockf-[0-9]*:../../sysutils/lockf
+.endif
+
+TEST_TARGET=		check
+
+.if defined(TOOLS_PLATFORM.paxctl)
+post-configure:
+	${SED} 's|call do_cmd,link)|call do_cmd,link)\${.newline}	${TOOLS_PLATFORM.paxctl} +m $$@|' \
+	    < ${WRKSRC}/out/deps/v8/tools/gyp/mksnapshot.target.mk \
+	    > ${WRKSRC}/out/deps/v8/tools/gyp/mksnapshot.target.mk.tmp
+	${MV} ${WRKSRC}/out/deps/v8/tools/gyp/mksnapshot.target.mk.tmp \
+	      ${WRKSRC}/out/deps/v8/tools/gyp/mksnapshot.target.mk
+.endif
+
+pre-install:
+	${FIND} ${WRKSRC}/deps/npm -name '*.orig' | ${XARGS} ${RM} -f
+	${CHMOD} -R g-w ${WRKSRC}
+
+post-install:
+	cd ${DESTDIR}${PREFIX} && ${SETENV} ${BASH} \
+		./lib/node_modules/npm/scripts/relocate.sh ${PREFIX}/bin/node
+.if defined(TOOLS_PLATFORM.paxctl)
+	${TOOLS_PLATFORM.paxctl} +m ${DESTDIR}${PREFIX}/bin/node
+.endif
+
+.if ${OPSYS} != "Darwin"
+.include "../../devel/libexecinfo/buildlink3.mk"
+.endif
+.include "../../devel/zlib/buildlink3.mk"
+.include "../../lang/python/application.mk"
+.include "../../lang/python/tool.mk"
+.include "../../textproc/icu/buildlink3.mk"
+.include "../../mk/pthread.buildlink3.mk"

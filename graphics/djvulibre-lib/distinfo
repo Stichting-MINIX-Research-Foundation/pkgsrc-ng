@@ -1,10 +1,10 @@
-$NetBSD: distinfo,v 1.12 2012/12/19 12:51:26 joerg Exp $
+$NetBSD: distinfo,v 1.14 2015/11/03 21:33:55 agc Exp $
 
-SHA1 (djvulibre-3.5.25.3.tar.gz) = ad35056aabb1950f385360ff59520a82a6f779ec
-RMD160 (djvulibre-3.5.25.3.tar.gz) = f91befc4d118cd5426f84abaa4f20ede920a2a2e
-Size (djvulibre-3.5.25.3.tar.gz) = 2543949 bytes
-SHA1 (patch-aa) = c819c6b1218b3178983bb48e53c4d3c0f7dd0227
+SHA1 (djvulibre-3.5.27.tar.gz) = 99c4f2c621c063bf8c8a1626030539fe5a8675f9
+RMD160 (djvulibre-3.5.27.tar.gz) = 4ebfef0e402ee621f0080243f362510754ea8333
+SHA512 (djvulibre-3.5.27.tar.gz) = 62abcaa2fe7edab536477929ba38b882453dab1a06e119a3f838b38d5c61f5d8c252e4769e6534582b826e49bcfb490513179580fab9c3afa84aa92053ccebee
+Size (djvulibre-3.5.27.tar.gz) = 3648522 bytes
+SHA1 (patch-aa) = 8b06dff3f537cb9ec11073aba3e89dcfc114c947
 SHA1 (patch-ab) = 5e8f6d3b925da3a2a09b87a05d2b9564f9c2e7b4
-SHA1 (patch-ac) = 0c713031903aade12eda1d898595798a1468fd0a
-SHA1 (patch-ad) = 7fe0f2d2b7c242c44720e9b4b76aa665d2551e6b
+SHA1 (patch-ac) = 405aa89829ad6ecac359287b821c13b1d8139d69
 SHA1 (patch-libdjvu_miniexp.cpp) = d63236ac02aa48d68536b0771c0fc8e17626fd33

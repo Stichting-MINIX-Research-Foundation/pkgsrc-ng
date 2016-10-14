@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/09/03 21:07:10 sevan Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/01 11:47:39 wiz Exp $
 
-VERSION=	5.3.3p1
+VERSION=	5.7.3p2
 DISTNAME=	opensmtpd-${VERSION}
-PKGREVISION=	1
 CATEGORIES=	mail net
 MASTER_SITES=	http://www.opensmtpd.org/archives/
 
@@ -13,7 +12,7 @@ LICENSE=	isc AND modified-bsd AND 2-clause-bsd
 
 CONFLICTS+=	courier-mta-[0-9]* fastforward>=0.51nb2 sendmail-[0-9]*
 CONFLICTS+=	esmtp>=1.2 nullmailer-[0-9]* postfix-[0-9]*
-BROKEN_FOR_PLATFORM+=	OpenBSD-*-*
+BROKEN_FOR_PLATFORM=	OpenBSD-*-*
 
 BUILD_DEFS+=	VARBASE
 
@@ -25,12 +24,21 @@ USE_TOOLS+=	automake aclocal autoheader autoconf
 SMTPD_HOME=	${VARBASE}/chroot/smtpd
 OWN_DIRS=	${SMTPD_HOME}
 
-PKG_GROUPS=		_smtpd
-PKG_USERS=		_smtpd:_smtpd
+PKG_GROUPS=		_smtpd _smtpq
+PKG_USERS=		_smtpd:_smtpd _smtpq:_smtpq
 PKG_GECOS._smtpd=	OpenSMTPD pseudo-user
 PKG_HOME._smtpd=	${SMTPD_HOME}
+PKG_GECOS._smtpq=	OpenSMTPD pseudo-user
+PKG_HOME._smtpq=	${SMTPD_HOME}
 
 GNU_CONFIGURE=	yes
+USE_DB185=	yes
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR:Q}
+CONFIGURE_ARGS+=	--with-mantype=man
+CONFIGURE_ARGS+=	--with-privsep-path=${SMTPD_HOME}
+CONFIGURE_ARGS+=	--with-ssl-dir=${SSLBASE:Q}
+CONFIGURE_ARGS+=	--enable-table-db
+CONFIGURE_ARGS+=	--without-zlib-version-check
 
 EXAMPLEDIR=	${PREFIX}/share/examples/opensmtpd
 CONF_FILES=	${EXAMPLEDIR}/smtpd.conf ${PKG_SYSCONFDIR}/smtpd.conf
@@ -45,23 +53,26 @@ SUBST_STAGE.paths=	post-patch
 SUBST_CLASSES+=			exampledir
 SUBST_STAGE.exampledir=		pre-configure
 SUBST_MESSAGE.exampledir=	Fixing exampledir path
-SUBST_FILES.exampledir=		smtpd/Makefile.am
+SUBST_FILES.exampledir=		mk/smtpd/Makefile.am
 SUBST_SED.exampledir+=		-e 's,@EXAMPLE_DIR@,${EXAMPLEDIR},'
 
 post-extract:
 	cp ${FILESDIR}/mailer.conf ${WRKDIR}/mailer.conf
 
 pre-configure:
-	cd $(WRKSRC) && ${PREFIX}/bin/libtoolize --copy --force
-	cd $(WRKSRC) && ${TOOLS_CMD.aclocal}
-	cd $(WRKSRC) && ${TOOLS_CMD.autoconf}
-	cd $(WRKSRC) && ${TOOLS_CMD.autoheader}
-	cd $(WRKSRC) && ${TOOLS_CMD.automake} --foreign --add-missing --copy
+	cd ${WRKSRC} && ${PREFIX}/bin/libtoolize --copy --force
+	cd ${WRKSRC} && ${TOOLS_CMD.aclocal}
+	cd ${WRKSRC} && ${TOOLS_CMD.autoconf}
+	cd ${WRKSRC} && ${TOOLS_CMD.autoheader}
+	cd ${WRKSRC} && ${TOOLS_CMD.automake} --foreign --add-missing --copy
 
 post-install:
 	${INSTALL_DATA} ${WRKDIR}/mailer.conf \
 		${DESTDIR}${EXAMPLEDIR}/mailer.conf
 
+.include "../../databases/db5/buildlink3.mk"
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../net/libasr/buildlink3.mk"
+.include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

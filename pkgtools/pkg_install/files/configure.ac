@@ -1,4 +1,4 @@
-dnl $NetBSD: configure.ac,v 1.39 2015/01/22 18:15:39 pho Exp $
+dnl $NetBSD: configure.ac,v 1.42 2016/06/30 17:42:04 wiz Exp $
 dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ(2.52)
 AC_INIT([pkg_install], [20090911], [joerg@NetBSD.org])
@@ -64,12 +64,11 @@ AC_CHECK_LIB(db, __db185_open, , AC_SEARCH_LIBS(dbopen, [db db1]))
 
 dnl Checks for header files.
 AC_HEADER_STDC
-AC_CHECK_HEADERS([assert.h ctype.h dirent.h err.h errno.h fnctl.h \
+AC_CHECK_HEADERS([assert.h ctype.h dirent.h err.h errno.h fcntl.h \
 	fnmatch.h glob.h grp.h inttypes.h limits.h pwd.h signal.h \
 	stdarg.h stdio.h stdlib.h string.h time.h unistd.h vis.h])
-AC_CHECK_HEADERS([sys/cdefs.h sys/file.h sys/ioctl.h sys/param.h \
-	sys/queue.h sys/stat.h sys/time.h sys/types.h sys/utsname.h \
-	sys/wait.h])
+AC_CHECK_HEADERS([sys/cdefs.h sys/file.h sys/ioctl.h sys/queue.h \
+	sys/stat.h sys/time.h sys/types.h sys/utsname.h sys/wait.h])
 
 # Checks for library functions.
 AC_CHECK_FUNCS([vfork])
@@ -173,7 +172,7 @@ AC_SUBST(SYSCONFDIR)
 PKG_DBDIR="$pkgdbdir"
 AC_SUBST(PKG_DBDIR)
 
-AC_CONFIG_FILES([Makefile add/Makefile admin/Makefile bpm/bpm.sh \
+AC_CONFIG_FILES([Makefile add/Makefile admin/Makefile \
 	create/Makefile delete/Makefile info/Makefile \
 	lib/Makefile lib/pkg_install.conf.5 lib/pkg_install.conf.cat])
 AC_OUTPUT

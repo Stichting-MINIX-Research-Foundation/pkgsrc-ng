@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2015/08/02 15:48:23 taca Exp $
+# $NetBSD: Makefile,v 1.12 2016/02/16 14:18:32 taca Exp $
 #
 
-DISTNAME=	ruby-mp3info-0.8.7
+DISTNAME=	ruby-mp3info-0.8.9
 PKGNAME=	${DISTNAME:S/ruby-/${RUBY_PKGPREFIX}-/}
 CATEGORIES=	audio
 

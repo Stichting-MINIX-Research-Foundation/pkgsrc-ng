@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2015/08/18 07:31:17 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/03/05 11:29:29 jperkin Exp $
 #
 
 DISTNAME=	conky-1.9.0
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=conky/}
 EXTRACT_SUFX=	.tar.bz2
@@ -29,11 +29,7 @@ OWN_DIRS=	${PKG_SYSCONFDIR}/conky
 CONF_FILES=	${EGDIR}/conky.conf ${PKG_SYSCONFDIR}/conky/conky.conf
 CONF_FILES+=	${EGDIR}/conky_no_x11.conf ${PKG_SYSCONFDIR}/conky/conky_no_x11.conf
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-CPPFLAGS+=	-D_KMEMUSER
-.endif
+CPPFLAGS.NetBSD+=	-D_KMEMUSER
 
 # conky segfaults on system's curses
 PREFER_PKGSRC+=	ncurses

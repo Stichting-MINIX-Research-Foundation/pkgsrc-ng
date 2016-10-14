@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.107 2015/04/25 14:23:34 tnn Exp $
+# $NetBSD: Makefile,v 1.112 2016/07/09 13:03:56 wiz Exp $
 
 DISTNAME=	kdeutils-${_KDE_VERSION}
-PKGREVISION=	36
+PKGREVISION=	37
 COMMENT=	Utilities for the KDE integrated X11 desktop
 
 .include "../../meta-pkgs/kde3/Makefile.kde3"
@@ -12,16 +12,13 @@ COMMENT=	Utilities for the KDE integrated X11 desktop
 LDFLAGS+=		${EXPORT_SYMBOLS_LDFLAGS}
 MAKE_ENV+=		EXPORT_SYMBOLS_LDFLAGS=${EXPORT_SYMBOLS_LDFLAGS:Q}
 
-DEPENDS+=	gtar-base>=1.13.25:../../archivers/gtar-base
-
-EVAL_PREFIX+=		PREFIX.gtar=gtar
-PREFIX.gtar_DEFAULT=	${LOCALBASE}
+USE_TOOLS+=		gtar:run
 
 SUBST_CLASSES+=		tarexe
 SUBST_STAGE.tarexe=	pre-configure
 SUBST_MESSAGE.tarexe=	Use GNU tar in ark
 SUBST_FILES.tarexe=	ark/ark.kcfg
-SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${PREFIX.gtar}/bin/gtar</default>:'
+SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${TOOLS_PATH.gtar}</default>:'
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -29,15 +26,13 @@ SUBST_SED.tarexe=	-e 's:<default>tar</default>:<default>${PREFIX.gtar}/bin/gtar<
 CPPFLAGS+=		-D__NetBSD_APM__
 .endif
 
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ENV+= 	ac_cv_c_long_double=no
-.endif
+CONFIGURE_ENV.DragonFly+= 	ac_cv_c_long_double=no
 
 CONFIGURE_ARGS+=	--with-snmp=no
 CONFIGURE_ARGS+=	--with-pythondir=${LOCALBASE}
 CONFIGURE_ENV+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 3.5.10
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 3.5.10
 
 .include "../../meta-pkgs/kde3/kde3.mk"
 .include "../../devel/gmp/buildlink3.mk"

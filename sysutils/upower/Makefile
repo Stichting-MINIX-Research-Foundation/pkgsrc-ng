@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.5 2015/07/23 10:55:17 joerg Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/12 11:50:08 ryoon Exp $
 
-DISTNAME=	upower-0.99.3
+DISTNAME=	upower-0.99.4
 CATEGORIES=	sysutils
 MASTER_SITES=	http://upower.freedesktop.org/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -28,11 +28,8 @@ CONF_FILES+=		${EGDIR}/org.freedesktop.UPower.conf \
 PKGCONFIG_OVERRIDE+=	upower-glib.pc.in
 USE_PKGLOCALEDIR=	yes
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	opt:-Wl,--no-as-needed:-Wl,-zrecord
-BUILDLINK_TRANSFORM+=	opt:-Wl,--as-needed:-Wl,-zignore
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,--no-as-needed:-Wl,-zrecord
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,--as-needed:-Wl,-zignore
 
 TEST_TARGET=	check
 

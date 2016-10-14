@@ -1,17 +1,17 @@
-$NetBSD: patch-aa,v 1.4 2014/11/20 21:43:10 bsiegert Exp $
+$NetBSD: patch-aa,v 1.8 2016/09/07 08:56:33 adam Exp $
 
---- Makefile.orig	2014-05-30 21:38:10.000000000 +0000
+--- Makefile.orig	2016-09-03 01:59:09.000000000 +0000
 +++ Makefile
-@@ -354,8 +354,6 @@ GIT-VERSION-FILE: FORCE
- 
- CFLAGS = -g -O2 -Wall
+@@ -396,8 +396,6 @@ DEVELOPER_CFLAGS = -Werror \
+ 	-Wunused \
+ 	-Wvla
  LDFLAGS =
 -ALL_CFLAGS = $(CPPFLAGS) $(CFLAGS)
 -ALL_LDFLAGS = $(LDFLAGS)
  STRIP ?= strip
  
- # Among the variables below, these:
-@@ -396,13 +394,9 @@ htmldir_relative = $(patsubst $(prefix)/
+ # Create as necessary, replace existing, make ranlib unneeded.
+@@ -441,13 +439,9 @@ htmldir_relative = $(patsubst $(prefix)/
  
  export prefix bindir sharedir sysconfdir gitwebdir localedir
  
@@ -22,12 +22,12 @@ $NetBSD: patch-aa,v 1.4 2014/11/20 21:43:10 bsiegert Exp $
 -TAR = tar
  FIND = find
 -INSTALL = install
- RPMBUILD = rpmbuild
  TCL_PATH = tclsh
  TCLTK_PATH = wish
-@@ -1635,8 +1629,8 @@ ifdef DEFAULT_HELP_FORMAT
- BASIC_CFLAGS += -DDEFAULT_HELP_FORMAT='"$(DEFAULT_HELP_FORMAT)"'
- endif
+ XGETTEXT = xgettext
+@@ -1647,8 +1641,8 @@ PAGER_ENV_CQ = "$(subst ",\",$(subst \,\
+ PAGER_ENV_CQ_SQ = $(subst ','\'',$(PAGER_ENV_CQ))
+ BASIC_CFLAGS += -DPAGER_ENV='$(PAGER_ENV_CQ_SQ)'
  
 -ALL_CFLAGS += $(BASIC_CFLAGS)
 -ALL_LDFLAGS += $(BASIC_LDFLAGS)
@@ -36,10 +36,10 @@ $NetBSD: patch-aa,v 1.4 2014/11/20 21:43:10 bsiegert Exp $
  
  export DIFF TAR INSTALL DESTDIR SHELL_PATH
  
-@@ -2349,11 +2343,10 @@ install: all
+@@ -2341,11 +2335,10 @@ install: all
  ifndef NO_GETTEXT
-	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
-	(cd po/build/locale && $(TAR) cf - .) | \
+ 	$(INSTALL) -d -m 755 '$(DESTDIR_SQ)$(localedir_SQ)'
+ 	(cd po/build/locale && $(TAR) cf - .) | \
 -	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xof -)
 +	(cd '$(DESTDIR_SQ)$(localedir_SQ)' && umask 022 && $(TAR) xf -)
  endif

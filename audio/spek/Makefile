@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2015/06/30 09:57:34 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/17 00:06:41 ryoon Exp $
 
 DISTNAME=	spek-0.8.2
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	audio
 MASTER_SITES=	https://spek.googlecode.com/files/
 EXTRACT_SUFX=	.tar.xz
@@ -13,7 +13,7 @@ LICENSE=	gnu-gpl-v3
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c++
-USE_TOOLS+=	gmake intltool pkg-config
+USE_TOOLS+=	gmake intltool xgettext msgmerge msgfmt pkg-config
 MAKE_FLAGS+=	DATADIRNAME=${PKGLOCALEDIR}
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"

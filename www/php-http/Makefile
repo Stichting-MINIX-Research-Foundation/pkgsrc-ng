@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2015/08/30 08:24:42 taca Exp $
+# $NetBSD: Makefile,v 1.9 2016/09/11 17:03:29 taca Exp $
 
 MODNAME=		http
-PECL_VERSION=		2.5.1
+PECL_VERSION=		2.5.6
 CATEGORIES+=		www
 
 PECL_DISTNAME=		pecl_http-${PECL_VERSION}
@@ -12,6 +12,8 @@ COMMENT=		PHP extension for extended HTTP support
 LICENSE=		2-clause-bsd AND isc
 
 CONFLICTS=		php-http-[0-9]*
+
+PHP_VERSIONS_ACCEPTED=	56
 
 USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes

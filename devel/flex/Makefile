@@ -1,13 +1,12 @@
-# $NetBSD: Makefile,v 1.43 2014/08/23 07:46:38 obache Exp $
+# $NetBSD: Makefile,v 1.51 2016/08/12 10:12:23 mef Exp $
 
-DISTNAME=	flex-2.5.39
-PKGREVISION=	2
+DISTNAME=	flex-2.6.0
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=flex/}
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://flex.sourceforge.net/
+HOMEPAGE=	https://github.com/westes/flex
 COMMENT=	Fast clone of lex(1), the lexical scanner generator
 LICENSE=	2-clause-bsd
 
@@ -22,9 +21,7 @@ LIBS.SunOS+=		-lm
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${LOWER_OPSYS} == "aix"
-CFLAGS+=		-D_LINUX_SOURCE_COMPAT
-.endif
+CFLAGS.AIX+=		-D_LINUX_SOURCE_COMPAT
 
 .if ${OS_VARIANT} == "SCOOSR5"
 LDFLAGS.SCO_SV+=	-lsocket
@@ -32,6 +29,8 @@ LDFLAGS.SCO_SV+=	-lsocket
 
 #.if !empty(PKGSRC_RUN_TEST:M[Yy][Ee][Ss])
 USE_LANGUAGES=		c c++
+USE_TOOLS+=		bash:build
+REPLACE_BASH=		tests/testwrapper.sh tests/options.cn
 USE_TOOLS+=		gmake	# bmake has problems with the test suite
 #.endif
 

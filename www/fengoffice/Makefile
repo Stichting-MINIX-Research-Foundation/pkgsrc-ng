@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2015/03/19 15:38:24 taca Exp $
+# $NetBSD: Makefile,v 1.37 2016/09/11 17:03:28 taca Exp $
 #
 
-DISTNAME=	fengoffice-3.1.2.2
+DISTNAME=	fengoffice_3.2.2.1
 PKGNAME=	${DISTNAME:S/_/-/:C/.rc$/rc1/}
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=opengoo/}
@@ -21,7 +21,8 @@ DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.1.0:../../graphics/php-gd
 DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.1.0:../../textproc/php-dom
 DEPENDS+=	${PHP_PKG_PREFIX}-imap>=5.1.0:../../mail/php-imap
 
-EXTRACT_DIR=	${WRKSRC}
+PHP_VERSIONS_ACCEPTED=	56
+
 WRKSRC=		${WRKDIR}/fengoffice
 USE_TOOLS=	pax
 NO_BUILD=	yes
@@ -48,6 +49,12 @@ INSTALLATION_DIRS=	${FO_DIR}
 
 post-extract:
 	cd ${WRKSRC}; ${FIND} . -type f -exec ${CHMOD} -x {} \;
+	for f in environment/classes/encoding/EncodingConverter.class.php \
+		 public/assets/themes/default/stylesheets/og/co.css \
+		 plugins/mail/application/helpers/MailUtilities.class.php; do \
+		${TR} -d '\r' < ${WRKSRC}/$${f} > ${WRKSRC}/$${f}.new; \
+		${MV} ${WRKSRC}/$${f}.new ${WRKSRC}/$${f}; \
+	done
 
 pre-install:
 	${RM} -f ${WRKSRC}/config/empty.config.php

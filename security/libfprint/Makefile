@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.32 2014/12/30 08:26:08 plunky Exp $
+# $NetBSD: Makefile,v 1.35 2016/05/26 11:44:00 wiz Exp $
 
 DISTNAME=	libfprint-0.0.6
-PKGREVISION=	28
+PKGREVISION=	31
 CATEGORIES=	security devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=fprint/}
 EXTRACT_SUFX=	.tar.bz2
@@ -24,6 +24,6 @@ pre-configure:
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libusb/buildlink3.mk"
-.include "../../graphics/ImageMagick/buildlink3.mk"
+.include "../../graphics/ImageMagick6/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

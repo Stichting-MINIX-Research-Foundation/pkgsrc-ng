@@ -1,4 +1,4 @@
-# $NetBSD: Nocore.mk,v 1.7 2015/09/01 04:13:43 mef Exp $
+# $NetBSD: Nocore.mk,v 1.9 2016/07/12 11:36:46 mef Exp $
 
 DEPENDS+=	gnuradio-core-[0-9]*:../../ham/gnuradio-core
 
@@ -25,7 +25,15 @@ post-install:
 	    fi							\
 	  done							\
 	done							\
-	| ${AWK} ${_PLIST_SHLIB_AWK}				\
+	| ${PKGSRC_SETENV} ${_PLIST_AWK_ENV} ${AWK} ${_PLIST_SHLIB_AWK}				\
 	> ${WRKDIR}/.PLIST.minus;
 	(cd ${WRKDIR}/.destdir/${PREFIX};			\
 	${RM} -f $$(cat ${WRKDIR}/.PLIST.minus)	);
+# workaround for gnuradio-doxygen
+#  (the same target can't be set on gnuradio-doxygen side
+#
+	(cd ${WRKDIR}/.destdir/${PREFIX};			\
+	${RM} -f share/doc/gnuradio-${PKGVERSION}/html/_formulas.aux; \
+	${RM} -f share/doc/gnuradio-${PKGVERSION}/html/_formulas.log; \
+	${RM} -f share/doc/gnuradio-${PKGVERSION}/html/_formulas.dvi; \
+	)

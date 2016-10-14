@@ -1,17 +1,23 @@
-@comment $NetBSD: PLIST,v 1.1 2015/04/19 19:18:22 wiz Exp $
+@comment $NetBSD: PLIST,v 1.5 2016/09/11 14:39:27 mef Exp $
 bin/pcre2-config
 bin/pcre2grep
 bin/pcre2test
 include/pcre2.h
 include/pcre2posix.h
+lib/libpcre2-16.la
+lib/libpcre2-32.la
 lib/libpcre2-8.la
 lib/libpcre2-posix.la
+lib/pkgconfig/libpcre2-16.pc
+lib/pkgconfig/libpcre2-32.pc
 lib/pkgconfig/libpcre2-8.pc
 lib/pkgconfig/libpcre2-posix.pc
 man/man1/pcre2-config.1
 man/man1/pcre2grep.1
 man/man1/pcre2test.1
 man/man3/pcre2.3
+man/man3/pcre2_callout_enumerate.3
+man/man3/pcre2_code_copy.3
 man/man3/pcre2_code_free.3
 man/man3/pcre2_compile.3
 man/man3/pcre2_compile_context_copy.3
@@ -52,6 +58,7 @@ man/man3/pcre2_set_character_tables.3
 man/man3/pcre2_set_compile_recursion_guard.3
 man/man3/pcre2_set_match_limit.3
 man/man3/pcre2_set_newline.3
+man/man3/pcre2_set_offset_limit.3
 man/man3/pcre2_set_parens_nest_limit.3
 man/man3/pcre2_set_recursion_limit.3
 man/man3/pcre2_set_recursion_memory_management.3
@@ -95,6 +102,8 @@ share/doc/pcre2/html/README.txt
 share/doc/pcre2/html/index.html
 share/doc/pcre2/html/pcre2-config.html
 share/doc/pcre2/html/pcre2.html
+share/doc/pcre2/html/pcre2_callout_enumerate.html
+share/doc/pcre2/html/pcre2_code_copy.html
 share/doc/pcre2/html/pcre2_code_free.html
 share/doc/pcre2/html/pcre2_compile.html
 share/doc/pcre2/html/pcre2_compile_context_copy.html
@@ -135,6 +144,7 @@ share/doc/pcre2/html/pcre2_set_character_tables.html
 share/doc/pcre2/html/pcre2_set_compile_recursion_guard.html
 share/doc/pcre2/html/pcre2_set_match_limit.html
 share/doc/pcre2/html/pcre2_set_newline.html
+share/doc/pcre2/html/pcre2_set_offset_limit.html
 share/doc/pcre2/html/pcre2_set_parens_nest_limit.html
 share/doc/pcre2/html/pcre2_set_recursion_limit.html
 share/doc/pcre2/html/pcre2_set_recursion_memory_management.html

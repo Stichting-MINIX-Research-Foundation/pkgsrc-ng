@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.166 2015/09/14 16:07:57 wiz Exp $
+# $NetBSD: Makefile,v 1.170 2016/07/09 06:38:26 wiz Exp $
 
 DISTNAME=	mono-4.0.4.1
-PKGREVISION=	1
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	http://download.mono-project.com/sources/mono/
 EXTRACT_SUFX=	.tar.bz2
@@ -169,6 +169,12 @@ post-install:
 		${DESTDIR}${EGDIR}/4.5/settings.map
 	${INSTALL_DATA} ${WRKSRC}/data/net_4_5/web.config \
 		${DESTDIR}${EGDIR}/4.5/web.config
+.if ${OPSYS} == "Darwin"
+	for lib in mcs.exe.dylib mscorlib.dll.dylib; do \
+		install_name_tool -id ${PREFIX}/lib/mono/4.5/$$lib \
+		    ${DESTDIR}${PREFIX}/lib/mono/4.5/$$lib; \
+	done
+.endif
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../lang/python/application.mk"

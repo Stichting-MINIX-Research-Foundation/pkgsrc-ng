@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2015/04/25 14:25:15 tnn Exp $
+# $NetBSD: Makefile,v 1.26 2016/08/03 10:22:24 adam Exp $
 
 .include "../../x11/vte/Makefile.common"
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	17
+PKGREVISION=	18
 CATEGORIES=	x11 python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -20,7 +20,7 @@ CONFIGURE_ARGS+=	--enable-python
 CONFIGURE_ARGS+=	--disable-freetype-test
 CONFIGURE_ARGS+=	--enable-Bsymbolic=auto
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-gtk2
 
 BUILD_DIRS=	python
 

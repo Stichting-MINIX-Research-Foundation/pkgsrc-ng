@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.32 2015/06/30 09:57:37 ryoon Exp $
+# $NetBSD: Makefile,v 1.34 2016/08/03 10:22:55 adam Exp $
 #
 
 DISTNAME=	png2html-1.1
-PKGREVISION=	17
+PKGREVISION=	19
 CATEGORIES=	graphics www
 MASTER_SITES=	http://www.engr.mun.ca/~holden/
 

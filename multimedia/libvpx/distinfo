@@ -1,13 +1,14 @@
-$NetBSD: distinfo,v 1.29 2015/07/06 09:46:36 martin Exp $
+$NetBSD: distinfo,v 1.32 2016/08/16 23:53:25 ryoon Exp $
 
-SHA1 (libvpx-1.4.0.tar.gz) = 01dac42fffd20b59ebaec5ec1d2f10b991d5ce63
-RMD160 (libvpx-1.4.0.tar.gz) = 42e5e29b1ac70730856b1a07c95c6f5302d2290c
-Size (libvpx-1.4.0.tar.gz) = 2300044 bytes
-SHA1 (patch-aa) = 698114b0d5210a5905bd10b9273c2037b455fe9e
-SHA1 (patch-ab) = dfd61002748f01a5651dc58ce6f67a9906f9a456
-SHA1 (patch-ac) = 2086b1896c6c6a23ba7da75824375fae0bdb97d1
-SHA1 (patch-ad) = b2e204f131d908dd6592aa8e40ebfbf095282be2
-SHA1 (patch-build_make_gen_asm_deps.sh) = db7f9abcf1bdd1ccb8e48c695de3f2276bb5f891
-SHA1 (patch-configure) = de25f725eb4fb693b663022fdc977ed87c1863cd
-SHA1 (patch-test_sad__test.cc) = dc5c55bb7f7be062fc8195fd16bcccff46edec28
-SHA1 (patch-test_sixtap__predict__test.cc) = 12e195c60a25a98e85f215d3726b571da2d67940
+SHA1 (libvpx-1.6.0.tar.gz) = 959e4e8f28819e38fb1593cf3d294ef89f083b87
+RMD160 (libvpx-1.6.0.tar.gz) = 89f243ce65bb067c7103e4e1f9e49a8b2a084a41
+SHA512 (libvpx-1.6.0.tar.gz) = 1cbd8872517c79eb2815409fa080096e7dcbb3f018574d978871a58b96ca29e38d3a36efe9427913feda0fbf4ebce2669eb09c280e2cd9d55d4ed2dad8a7dbb1
+Size (libvpx-1.6.0.tar.gz) = 2476097 bytes
+SHA1 (patch-aa) = 297ef73d6491a70888c9e887424c009627d55400
+SHA1 (patch-ab) = fcf929c039acbd8b1787cd0d8ee0600df2d3751a
+SHA1 (patch-ac) = 17410f43ff9952d616be3211ca697f37c107610a
+SHA1 (patch-ad) = baa186625ee1cdab150827eed36402b096922e4b
+SHA1 (patch-build_make_gen_asm_deps.sh) = c55bd4d0e12176b73ba62c3c4741b58de77923e6
+SHA1 (patch-configure) = 3b3064995ca840e4d918e52e66a071ff4dfc05b2
+SHA1 (patch-test_sad__test.cc) = 139852577c9331860094d1822c8597e524bec842
+SHA1 (patch-test_sixtap__predict__test.cc) = 5ca4e4072ba16f185617dceb2c09e55eb74bb100

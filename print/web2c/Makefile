@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.46 2015/07/15 15:09:39 wiz Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/01 14:23:58 wiz Exp $
 
-DISTNAME=	texlive-20150521-source
-PKGNAME=	web2c-2015
+DISTNAME=	texlive-20160523-source
+PKGNAME=	web2c-2016
 PKGREVISION=	1
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	minskim@NetBSD.org
@@ -15,7 +15,7 @@ CONFLICTS+=	ja-ptex-bin-[0-9]*
 CONFLICTS+=	teTeX-bin<=3.0nb28
 CONFLICTS+=	texlive-tetex<2010
 DEPENDS+=	kpathsea>=6.2.1:../../print/kpathsea
-DEPENDS+=	ptexenc>=1.3.3:../../print/ptexenc
+DEPENDS+=	ptexenc>=1.3.4:../../print/ptexenc
 
 EXTRACT_ELEMENTS=	${DISTNAME}/build-aux \
 			${DISTNAME}/texk/web2c
@@ -33,6 +33,8 @@ PKGCONFIG_OVERRIDE=	synctexdir/synctex.pc.in
 
 CONFIGURE_ARGS+=	--disable-luatex
 CONFIGURE_ARGS+=	--disable-luajittex
+CONFIGURE_ARGS+=	--disable-mflua
+CONFIGURE_ARGS+=	--disable-mfluajit
 CONFIGURE_ARGS+=	--disable-xetex
 CONFIGURE_ARGS+=	--with-x=no
 CONFIGURE_ARGS+=	--without-mf-x-toolkit

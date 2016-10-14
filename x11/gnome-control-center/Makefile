@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.77 2015/04/25 14:25:04 tnn Exp $
+# $NetBSD: Makefile,v 1.84 2016/08/03 10:22:21 adam Exp $
 #
 
 DISTNAME=	gnome-control-center-2.32.1
-PKGREVISION=	38
+PKGREVISION=	44
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gnome-control-center/2.32/}
 EXTRACT_SUFX=	.tar.bz2
@@ -39,8 +39,6 @@ CONF_FILES+=		${EGDIR}/gnomecc.menu \
 			${PKG_SYSCONFDIR}/xdg/menus/gnomecc.menu
 
 .include "options.mk"
-
-_TOOLS_USE_MSGFMT_SH=	yes
 
 .include "../../audio/libcanberra/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

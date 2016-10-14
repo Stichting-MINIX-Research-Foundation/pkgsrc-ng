@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/07/24 10:24:27 jperkin Exp $
+# $NetBSD: Makefile,v 1.43 2016/09/26 07:06:11 jperkin Exp $
 
-DISTNAME=	salt-2014.7.2
-PKGREVISION=	1
+DISTNAME=	salt-2016.3.3
 CATEGORIES=	sysutils
-MASTER_SITES=	https://pypi.python.org/packages/source/s/salt/
+MASTER_SITES=	${MASTER_SITE_PYPI:=s/salt/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://saltstack.org/
@@ -19,24 +18,26 @@ DEPENDS+= ${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 DEPENDS+= ${PYPKGPREFIX}-jinja2-[0-9]*:../../textproc/py-jinja2
 DEPENDS+= ${PYPKGPREFIX}-apache-libcloud>=0.14.1:../../net/py-apache-libcloud
 DEPENDS+= ${PYPKGPREFIX}-requests>=2.5.0:../../devel/py-requests
+DEPENDS+= ${PYPKGPREFIX}-tornado>=4.3:../../www/py-tornado
 
 BUILD_DEFS+=	VARBASE
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-m2crypto
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-m2crypto
 
 PYSETUPINSTALLARGS+=	--salt-root-dir=${PREFIX}
 PYSETUPINSTALLARGS+=	--salt-config-dir=${PKG_SYSCONFDIR}
 PYSETUPINSTALLARGS+=	--salt-cache-dir=${VARBASE}/cache/salt
-PYSETUPINSTALLARGS+=	--salt-sock-dir==${VARBASE}/run/salt
+PYSETUPINSTALLARGS+=	--salt-sock-dir=${VARBASE}/run/salt
 PYSETUPINSTALLARGS+=	--salt-base-file-roots-dir=${PKG_SYSCONFDIR}/states
 PYSETUPINSTALLARGS+=	--salt-base-pillar-roots-dir=${PKG_SYSCONFDIR}/pillar
 PYSETUPINSTALLARGS+=	--salt-base-master-roots-dir=${PKG_SYSCONFDIR}/salt-master
 PYSETUPINSTALLARGS+=	--salt-logs-dir=${VARBASE}/log/salt
 PYSETUPINSTALLARGS+=	--salt-pidfile-dir=${VARBASE}/run
 
-REPLACE_PYTHON=	*.py */*.py */*/*.py
+REPLACE_PYTHON=		*.py */*.py */*/*.py
+REPLACE_SH=		salt/templates/git/ssh-id-wrapper
 
-RCD_SCRIPTS+=		salt_master salt_minion
+RCD_SCRIPTS+=		salt_master salt_minion salt_syndic
 SMF_INSTANCES=		master minion
 FILES_SUBST+=		PYTHON=${PYTHONBIN:Q}
 
@@ -57,11 +58,14 @@ SUBST_STAGE.fix-paths=	pre-configure
 SUBST_MESSAGE.fix-paths=Fixing hardcoded paths
 SUBST_FILES.fix-paths=	conf/*
 SUBST_FILES.fix-paths+=	doc/man/* salt/modules/munin.py setup.py
+SUBST_FILES.fix-paths+=	salt/utils/rsax931.py salt/grains/core.py
 SUBST_SED.fix-paths=	-e 's,/etc/salt,${PKG_SYSCONFDIR},g'
 SUBST_SED.fix-paths+=	-e 's,/srv/salt,${PKG_SYSCONFDIR}/states,g'
 SUBST_SED.fix-paths+=	-e 's,/srv/pillar,${PKG_SYSCONFDIR}/pillar,g'
 SUBST_SED.fix-paths+=	-e 's,/etc/munin,${PKG_SYSCONFBASEDIR}/munin,g'
-SUBST_SED.fix-paths+=	-e 's,share/man,man,g'
+SUBST_SED.fix-paths+=	-e 's,share/man,${PKGMANDIR},g'
+SUBST_SED.fix-paths+=	-e 's,/opt/local/lib,${PREFIX}/lib,g'
+SUBST_SED.fix-paths+=	-e 's,/opt/local/etc,${PKG_SYSCONFBASEDIR},g'
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/conf/master ${DESTDIR}${EGDIR}/

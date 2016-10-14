@@ -1,13 +1,13 @@
-$NetBSD: distinfo,v 1.6 2015/08/14 20:24:27 abs Exp $
+$NetBSD: distinfo,v 1.9 2016/05/29 22:32:11 abs Exp $
 
-SHA1 (inadyn-1.99.13.zip) = 1294b252979dccb6ecb926d9460d36fa54c97bfe
-RMD160 (inadyn-1.99.13.zip) = 09c4795277621128810f5342efd81a46fe555b8c
-Size (inadyn-1.99.13.zip) = 233771 bytes
-SHA1 (patch-include_ddns.h) = 3d5ae83a33eb848d755364c0d67d9e996bd0aa76
-SHA1 (patch-man_inadyn.8) = 66d66eeea6d59bd2c747083003215a124ed0b4d2
-SHA1 (patch-man_inadyn.conf.5) = 56dc41756aba768d18d057f0199d4f7a2dbc9b25
-SHA1 (patch-plugins_freedns.c) = befb431e0c4b2ae74735c2b9a6533b534e752b9a
-SHA1 (patch-src_Makefile.in) = 5ef9f6cb1a6623450e7ca6f144c777f4e11d9b2e
-SHA1 (patch-src_configure.ac) = 69eabc245c47a20c067bbd5b49dda70f08011aae
-SHA1 (patch-src_os.c) = bcbcf79661fe6d3efca02a0293901fa4f1eb2819
-SHA1 (patch-src_tcp.c) = c0890430c48ac268d8545376ad80feba0b593cf1
+SHA1 (inadyn-1.99.15.tar.xz) = 7c9e4fea2a881a4c7435bd0b98a8bc15d2a55256
+RMD160 (inadyn-1.99.15.tar.xz) = 90cf6e6c1f1118a2102f3651627c61b167e12d75
+SHA512 (inadyn-1.99.15.tar.xz) = b22844e27b6c28e4d4b59f7884ff0f9063715904a66d30998b8d9eba78f268cb1469c9581d0d110ecea587117f2d54a483f2fbc2a02391c8797c30ae426d3f41
+Size (inadyn-1.99.15.tar.xz) = 149152 bytes
+SHA1 (patch-Makefile.am) = d8c104c98f0f2e489bf44aad80117d66c8b6f822
+SHA1 (patch-include_ddns.h) = 9b12cd4bdb1ba715727e2dc5b5fdf6d6c553c5c6
+SHA1 (patch-plugins_freedns.c) = 401ef1026896efdeb617e20849c1dd69b0a1e461
+SHA1 (patch-src_Makefile.am) = 199559c036ba575c4a07da799d8a9383daa01197
+SHA1 (patch-src_configure.ac) = e21054454c7c68cb1ccc03939f24be8eb69e574c
+SHA1 (patch-src_os.c) = 695e0d2e403501f54bf2f68666913ba82dc83d35
+SHA1 (patch-src_tcp.c) = 1cf9de1d2a9bd2b440dd8cfc7ede701e8ec34766

@@ -1,22 +1,17 @@
-# $NetBSD: Makefile,v 1.2 2014/05/09 07:37:21 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/15 15:14:03 wiz Exp $
 
-DISTNAME=	jsoncpp-src-0.6.0rc2svn276
-PKGNAME=	${DISTNAME:C/-src//}
+DISTNAME=	jsoncpp-1.7.4
 CATEGORIES=	textproc
-MASTER_SITES=	# manually extracted from SVN
+MASTER_SITES=	${MASTER_SITE_GITHUB:=open-source-parsers/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://jsoncpp.sourceforge.net/
+HOMEPAGE=	https://github.com/open-source-parsers/jsoncpp
 COMMENT=	JSON reader and writer in C++
-LICENSE=	mit
+LICENSE=	public-domain OR mit
 
 USE_CMAKE=	yes
 USE_LANGUAGES=	c c++
-WRKSRC=		${WRKDIR}/jsoncpp
 
-# for tests
-PYTHON_FOR_BUILD_ONLY=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.6.0rc2nb20140217
+PKGCONFIG_OVERRIDE=	pkg-config/jsoncpp.pc.in
 
-.include "../../lang/python/application.mk"
 .include "../../mk/bsd.pkg.mk"

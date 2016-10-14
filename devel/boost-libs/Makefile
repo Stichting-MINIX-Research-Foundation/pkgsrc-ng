@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.36 2015/09/05 14:41:06 adam Exp $
+# $NetBSD: Makefile,v 1.44 2016/06/15 18:29:59 rumko Exp $
 
 BOOST_PACKAGE=		libs
 BOOST_COMMENT=		(binary libraries)
@@ -31,7 +31,8 @@ PLIST.log=		yes
 
 # Long double math functions are not available on Darwin. See
 # boost/math/tools/config.hpp:53
-.if ${OPSYS} != "Darwin" || !empty(MACHINE_PLATFORM:MDarwin-1[3-9].*)
+.if ${OPSYS} != "NetBSD" && ${OPSYS} != "FreeBSD" && \
+   (${OPSYS} != "Darwin" || !empty(MACHINE_PLATFORM:MDarwin-1[3-9].*))
 PLIST.long_double_math=	yes
 .endif
 
@@ -39,6 +40,9 @@ UNLIMIT_RESOURCES+=	stacksize
 
 MAKE_ENV+=	BZIP2_INCLUDE=${BUILDLINK_PREFIX.bzip2}/include
 MAKE_ENV+=	BZIP2_LIBPATH=${BUILDLINK_PREFIX.bzip2}/lib
+MAKE_ENV+=	EXPAT_INCLUDE=${BUILDLINK_PREFIX.expat}/include
+MAKE_ENV+=	EXPAT_LIBPATH=${BUILDLINK_PREFIX.expat}/lib
+MAKE_ENV+=	ICU_PATH=${BUILDLINK_PREFIX.icu}
 MAKE_ENV+=	ZLIB_INCLUDE=${BUILDLINK_PREFIX.zlib}/include
 MAKE_ENV+=	ZLIB_LIBPATH=${BUILDLINK_PREFIX.zlib}/lib
 
@@ -51,5 +55,7 @@ do-install: boost-install-libs
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+.include "../../textproc/expat/buildlink3.mk"
+.include "../../textproc/icu/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

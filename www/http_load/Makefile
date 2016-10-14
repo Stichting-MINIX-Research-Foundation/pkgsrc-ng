@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.23 2014/02/12 23:18:45 tron Exp $
+# $NetBSD: Makefile,v 1.25 2016/03/05 11:29:37 jperkin Exp $
 
 DISTNAME=	http_load-12mar2006
 PKGNAME=	http_load-20060312
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	www
 MASTER_SITES=	http://www.acme.com/software/http_load/
 
@@ -13,10 +13,7 @@ LICENSE=	2-clause-bsd
 
 MAKE_ENV+=	SSLBASE=${SSLBASE:Q}
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-MAKE_ENV+=	SYSV_LIBS="-lnsl -lsocket -lresolv"
-.endif
+MAKE_ENV.SunOS+=	SYSV_LIBS="-lnsl -lsocket -lresolv"
 
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

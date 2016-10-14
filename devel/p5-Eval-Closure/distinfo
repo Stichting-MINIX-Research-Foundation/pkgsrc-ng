@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.5 2015/05/23 00:02:17 mef Exp $
+$NetBSD: distinfo,v 1.7 2016/06/05 12:08:40 mef Exp $
 
-SHA1 (Eval-Closure-0.13.tar.gz) = 16b312cec11c4c932535eecb32e964f8459aa490
-RMD160 (Eval-Closure-0.13.tar.gz) = 8cb02f52bc13e86503bc2befeffc47db1d074e54
-Size (Eval-Closure-0.13.tar.gz) = 19735 bytes
+SHA1 (Eval-Closure-0.14.tar.gz) = b4e5c8f943caabc6811b10b283ce1a0d6d952939
+RMD160 (Eval-Closure-0.14.tar.gz) = b3b6150d8efaf41c8e92c5004839ca55a22d0f97
+SHA512 (Eval-Closure-0.14.tar.gz) = fc55206bd39c4cb39360d06b6f39a65743f34b5e59d1a1ce99bf5831b9d88a03fb6dadf32fa9f0868e140fce719d53a7b13027f397cdd7f6ca05cc81277bdc08
+Size (Eval-Closure-0.14.tar.gz) = 20128 bytes

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.36 2015/06/12 10:50:10 wiz Exp $
+# $NetBSD: Makefile,v 1.39 2016/08/03 10:22:53 adam Exp $
 #
 
 DISTNAME=	goocanvasmm-0.15.4
-PKGREVISION=	20
+PKGREVISION=	22
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/goocanvasmm/0.15/}
 
@@ -15,6 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake pkg-config perl
 USE_LANGUAGES=	c c++
+CXXFLAGS+=	-std=c++11
 
 PKGCONFIG_OVERRIDE+=	goocanvas/goocanvasmm.pc.in
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.53 2015/09/22 13:39:31 taca Exp $
+# $NetBSD: Makefile,v 1.68 2016/09/11 17:41:17 taca Exp $
 
-DISTNAME=	squid-3.5.9
+DISTNAME=	squid-3.5.21
 CATEGORIES=	www
 MASTER_SITES=	http://www.squid-cache.org/Versions/v3/${PKGVERSION_NOREV:R}/ \
 		ftp://ftp.squid-cache.org/pub/squid/ \
@@ -53,9 +53,7 @@ OWN_DIRS_PERMS+=${SQUID_DATADIR}/cache ${SQUID_USER} ${SQUID_GROUP} 0750 \
 .include "options.mk"
 
 # Incorrect check for <netinet/ip_icmp.h> on FreeBSD:
-.if $(OPSYS) == "FreeBSD"
-CONFIGURE_ENV+=	ac_cv_header_netinet_ip_icmp_h=yes
-.endif
+CONFIGURE_ENV.FreeBSD+=	ac_cv_header_netinet_ip_icmp_h=yes
 
 INSTALLATION_DIRS=	${EGDIR}
 

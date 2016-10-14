@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.3 2016/08/12 09:31:02 fhajny Exp $
+
+SHA1 (lager-3.2.1.tar.gz) = a27df5f2d86a701daf16f80cad28609a903ac454
+RMD160 (lager-3.2.1.tar.gz) = f312f1d2b7a3c2a50f96620b564ef9e983f07f7f
+SHA512 (lager-3.2.1.tar.gz) = 2b9f82224943fd196f8aa12f228618996c3dcb2e83c8bf2633375e38771a4817e791db1d54493ab02835382796444266b623fce5686c864e21e49affddabea32
+Size (lager-3.2.1.tar.gz) = 244701 bytes
+SHA1 (patch-rebar.config) = b88e0bf29a5579def617f2dba4f8a41d4918bc0d

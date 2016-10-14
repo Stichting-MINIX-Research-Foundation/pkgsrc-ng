@@ -1,20 +1,23 @@
-# $NetBSD: Makefile,v 1.10 2015/06/29 12:28:55 nils Exp $
+# $NetBSD: Makefile,v 1.14 2016/08/03 12:49:36 nils Exp $
 
-DISTNAME=		logrotate-3.9.1
+DISTNAME=		${GHCOMMIT}
+PKGNAME=		logrotate-3.10.0
 CATEGORIES=		sysutils
-MASTER_SITES=		https://fedorahosted.org/releases/l/o/logrotate/
+MASTER_SITES=		${MASTER_SITE_GITHUB:=logrotate/logrotate/archive/}
 
 MAINTAINER=		nils@NetBSD.org
-HOMEPAGE=		https://fedorahosted.org/logrotate/
+HOMEPAGE=		https://github.com/logrotate/logrotate/
 COMMENT=		Daemon to rotate, compress, remove and mail system log files
 LICENSE=		gnu-gpl-v2
 
+GHCOMMIT=		ca742b9dd72b7815e87cb53331f08d46fe21d86c
 USE_TOOLS+=		gmake gzip:run gunzip:run mail:run automake autoconf
 USE_LIBTOOL=		yes
 GNU_CONFIGURE=		yes
 HAS_CONFIGURE=		yes
 NO_EXPORT_CPP=		yes
 
+WRKSRC=			${WRKDIR}/logrotate-${GHCOMMIT}
 CONFIGURE_ENV+=		STATEFILE=\"${VARBASE}/db/logrotate.status\"
 CONFIGURE_ENV+=		DEFAULT_MAIL_COMMAND=\"${MAIL_CMD:Q}\"
 CONFIGURE_ENV+=		COMPRESS_COMMAND=\"${GZIP_CMD:[1]:Q}\"

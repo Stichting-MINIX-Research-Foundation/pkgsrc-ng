@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.17 2014/05/15 21:16:16 joerg Exp $
+$NetBSD: distinfo,v 1.20 2016/05/07 09:54:34 joerg Exp $
 
 SHA1 (firefox-10.0.12esr.source.tar.bz2) = d9086cabf06e04ef5200a8731288c0df27eb84d7
 RMD160 (firefox-10.0.12esr.source.tar.bz2) = b112325fa37435d62e5e2737f2e87caf58f25b3c
+SHA512 (firefox-10.0.12esr.source.tar.bz2) = 1422497606c7e9c01a231fab7f85fa7bf0d66164122cf8b4214e478b742375c2b089332f2c661fd65aad5f1d2aadc84835a1164190cd77142c07eff2e871f798
 Size (firefox-10.0.12esr.source.tar.bz2) = 75510903 bytes
 SHA1 (patch-aa) = 9e353d7fb8c8be593bfccf41da6260c91e336986
 SHA1 (patch-ab) = b1efa63d3f9e0dca0247037696839dbce756f88c
@@ -33,6 +34,7 @@ SHA1 (patch-bg) = 669ca920b137d5fdd10b621013a7a02f78bfba6b
 SHA1 (patch-bi) = 9e76596ab9a48abdab0bfbcd9f8bb3d067c6f7bd
 SHA1 (patch-build_autoconf_gcc-pr49911.m4) = d994d058116875255af451c4bf411929caf8c1a9
 SHA1 (patch-build_autoconf_nss.m4) = a4519ad6274102512f73eabce1c4821801aa7e77
+SHA1 (patch-config_system-headers) = ba92e292e159ab98423101db785545ddd44d34ad
 SHA1 (patch-content_svg_content_src_SVGNumberList.cpp) = e0541b67954f8e49c98302dccd74e63a22d579c4
 SHA1 (patch-content_svg_content_src_nsSVGFilters.cpp) = 2e1db9ff49bf209f395171f6324830254901c76d
 SHA1 (patch-content_svg_content_src_nsSVGFilters.h) = 15a1f1ccbdcf197983805e4393053cbd6e02562b
@@ -81,6 +83,7 @@ SHA1 (patch-ma) = 247368e8cd2a2ce6cb2d21a2ebd942dc5b410e7a
 SHA1 (patch-mb) = e2a63c095399de1f1dbd6abad08df09bbec446d7
 SHA1 (patch-md) = aa4edf887d1b2cfb29e845fa514dd0867f78d6bb
 SHA1 (patch-me) = c88f67ceedfb910f83f5a13d1696736386d54c93
+SHA1 (patch-media_libnestegg_src_align.h) = 9d5b11be15a24435f45a44a3df59dfa6d55782a6
 SHA1 (patch-media_libvpx_vpx__config.h) = e80d16bc127f4b06924e911aa60a74b2c533e73b
 SHA1 (patch-media_libvpx_vpx__config__c.c) = b099f480176225df5cc2f5776b35099dca0bbb4c
 SHA1 (patch-mf) = ab10485bd3f702ca0c5e2289342576193872abcf

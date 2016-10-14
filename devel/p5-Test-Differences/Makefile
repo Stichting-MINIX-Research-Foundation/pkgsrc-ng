@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.17 2015/06/12 10:49:48 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2016/06/08 19:23:36 wiz Exp $
 
-DISTNAME=	Test-Differences-0.63
+DISTNAME=	Test-Differences-0.64
 PKGNAME=	p5-${DISTNAME}00
 PKGREVISION=	1
 CATEGORIES=	devel perl5

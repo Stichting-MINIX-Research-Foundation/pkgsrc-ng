@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.20 2015/07/04 16:18:33 joerg Exp $
+# $NetBSD: Makefile,v 1.22 2016/04/04 17:33:38 joerg Exp $
 
 DISTNAME=	Ricty-3.2.4
 PKGNAME=	${DISTNAME:S/Ricty/ricty-ttf/}
@@ -12,6 +12,7 @@ HOMEPAGE=	https://github.com/yascentur/Ricty
 COMMENT=	Migu 1M and Inconsolata based TrueType fonts for programming
 LICENSE=	ipafont AND ofl-v1.1 AND 2-clause-bsd
 
+USE_TOOLS+=		bash
 BUILD_DEPENDS+=		fontforge-[0-9]*:../../fonts/fontforge
 BUILD_DEPENDS+=		migu-ttf-[0-9]*:../../fonts/migu-ttf
 BUILD_DEPENDS+=		inconsolata-ttf-[0-9]*:../../fonts/inconsolata-ttf
@@ -37,17 +38,14 @@ INSTALL_FONTS=	Ricty-Bold.ttf \
 
 USE_LANGUAGES=	# none
 
-FIND_PREFIX:=	INCONSOLATADIR=inconsolata-ttf
-FIND_PREFIX+=	MIGUDIR=migu-ttf
-.include "../../mk/find-prefix.mk"
-
 do-build:
 	set -e; \
 	cd ${WRKSRC}; \
-	${BASH} ./ricty_generator.sh \
-	${INCONSOLATADIR}/share/fonts/X11/TTF/Inconsolata.otf \
-	${MIGUDIR}/share/fonts/X11/TTF/migu-1m-regular.ttf \
-	${MIGUDIR}/share/fonts/X11/TTF/migu-1m-bold.ttf
+	${PKGSRC_SETENV} ${MAKE_ENV} \
+	${BASH} -x ./ricty_generator.sh \
+	${LOCALBASE}/share/fonts/X11/TTF/Inconsolata.otf \
+	${LOCALBASE}/share/fonts/X11/TTF/migu-1m-regular.ttf \
+	${LOCALBASE}/share/fonts/X11/TTF/migu-1m-bold.ttf
 
 post-build:
 	set -e; \

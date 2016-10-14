@@ -1,33 +1,11 @@
-# $NetBSD: Makefile,v 1.49 2015/09/01 22:14:20 markd Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/04 17:03:37 ryoon Exp $
 
-DISTNAME=	phonon-4.8.3
-CATEGORIES=	multimedia
-MASTER_SITES=	${MASTER_SITE_KDE:=phonon/4.8.3/src/}
-EXTRACT_SUFX=	.tar.xz
+DISTNAME=	phonon-4.9.0
 
-MAINTAINER=	markd@NetBSD.org
-HOMEPAGE=	http://phonon.kde.org/
 COMMENT=	Multimedia API for KDE and QT
-LICENSE=	gnu-lgpl-v2.1
+PKGREVISION=	1
 
-# BUILD_MAKE_FLAGS+= VERBOSE=1
-
-BUILD_DEPENDS+=	automoc4>=0.9.83:../../devel/automoc4
-
-USE_TOOLS+=	pkg-config gmake
-USE_LANGUAGES=	c c++
-USE_CMAKE=	yes
-CMAKE_ARG_PATH=	..
-CONFIGURE_DIRS=	_build
-CMAKE_ARGS+=	-DPHONON_INSTALL_QT_EXTENSIONS_INTO_SYSTEM_QT:BOOL=TRUE
-
-.include "options.mk"
-
-PKGCONFIG_OVERRIDE+=	phonon.pc.cmake
-
-pre-configure:
-	${LN} -sf ${QTDIR}/bin/qmake ${BUILDLINK_DIR}/bin/
-	${MKDIR} ${WRKSRC}/_build
+.include "Makefile.common"
 
 .include "../../x11/qt4-libs/buildlink3.mk"
 BUILDLINK_DEPMETHOD.qt4-tools=	full

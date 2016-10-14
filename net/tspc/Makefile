@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.21 2015/07/12 06:31:26 dholland Exp $
+# $NetBSD: Makefile,v 1.23 2016/02/25 16:20:53 jperkin Exp $
 
 DISTNAME=		tspc-2.1.1-src
 PKGNAME=		${DISTNAME:S/-src//}
@@ -11,18 +11,14 @@ MAINTAINER=		pkgsrc-users@NetBSD.org
 COMMENT=		Tunnel Setup Protocol Client for Freenet6
 HOMEPAGE=		http://www.hexago.com/
 
-BROKEN_EXCEPT_FOR_PLATFORM=	NetBSD-*-* OpenBSD-*-* FreeBSD-*-* Linux-*-* \
+BROKEN_EXCEPT_ON_PLATFORM=	NetBSD-*-* OpenBSD-*-* FreeBSD-*-* Linux-*-* \
 				Darwin-*-* SunOS-*-*
 
 AUTO_MKDIRS=		yes
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-TARGET=			solaris
-.else
-TARGET=			${LOWER_OPSYS}
-.endif
+OPSYSVARS+=		TARGET
+TARGET.SunOS=		solaris
+TARGET.*=		${LOWER_OPSYS}
 
 MAKE_ENV+=		target=${TARGET:Q}
 MAKE_ENV+=		configdir=${PREFIX}/share/tspc

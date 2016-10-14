@@ -1,4 +1,4 @@
-# $NetBSD: package.mk,v 1.24 2013/05/23 13:18:56 obache Exp $
+# $NetBSD: package.mk,v 1.26 2016/07/14 14:43:55 leot Exp $
 #
 # This file provides the code for the "package" phase.
 #
@@ -8,17 +8,10 @@
 #	Generates a binary package.
 #	It will acquire elevated privileges just-in-time.
 #
-#	XXX: From which files is the binary package generated? The
-#	installed files in LOCALBASE, or some files in WRKDIR/.destdir?
-#
 
 _PACKAGE_TARGETS+=	check-vulnerable
-.if make(replace) && ${_USE_DESTDIR} == "no"
-_PACKAGE_TARGETS+=	replace
-.else
 _PACKAGE_TARGETS+=	stage-install
 _PACKAGE_TARGETS+=	stage-package-create
-.endif
 _PACKAGE_TARGETS+=	acquire-package-lock
 _PACKAGE_TARGETS+=	${_COOKIE.package}
 _PACKAGE_TARGETS+=	release-package-lock
@@ -84,9 +77,6 @@ package-cookie:
 ### package-all is a helper target to create the binary package and
 ### generate any necessary warnings.
 ###
-.if ${_USE_DESTDIR} == "no"
-_PACKAGE_ALL_TARGETS+=	package-check-installed
-.endif
 _PACKAGE_ALL_TARGETS+=	package-create
 _PACKAGE_ALL_TARGETS+=	_package-warnings
 _PACKAGE_ALL_TARGETS+=	error-check
@@ -98,18 +88,6 @@ package-all: su-target
 package-all: su-package-all
 .endif
 su-package-all: ${_PACKAGE_ALL_TARGETS}
-
-######################################################################
-### package-check-installed (PRIVATE, override)
-######################################################################
-### package-check-installed verifies that the package is installed on
-### the system.  This should be overridden per package system format.
-###
-.if !target(package-check-installed)
-.PHONY: package-check-installed
-package-check-installed:
-	@${DO_NADA}
-.endif
 
 ######################################################################
 ### package-create (PRIVATE, override)

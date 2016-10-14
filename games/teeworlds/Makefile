@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/09/12 18:53:17 wiz Exp $
+# $NetBSD: Makefile,v 1.3 2016/07/09 13:03:49 wiz Exp $
 
 DISTNAME=	teeworlds-0.6.3-src
 PKGNAME=	${DISTNAME:S/-src//}
@@ -18,7 +18,7 @@ AUTO_MKDIRS=	yes
 
 CPIO=	cpio
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # hardcoded to 2.7 in a patch
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # hardcoded to 2.7 in a patch
 
 do-configure:
 	set -e; cd ${WRKSRC}; bam config

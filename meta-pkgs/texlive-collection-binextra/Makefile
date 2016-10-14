@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.4 2015/08/02 02:51:46 markd Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/07 10:57:56 markd Exp $
 
 DISTNAME=	collection-binextra
-PKGNAME=	texlive-${DISTNAME}-2014pre3
+PKGNAME=	texlive-${DISTNAME}-2016pre2
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	37751
+TEXLIVE_REV=	41779
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -19,6 +19,7 @@ DEPENDS+=	asymptote-[0-9]*:../../graphics/asymptote
 DEPENDS+=	tex-bibtex8-[0-9]*:../../print/tex-bibtex8
 # depend bibtexu
 # depend bundledoc
+# depend checklistings
 DEPENDS+=	chktex-[0-9]*:../../print/chktex
 # depend ctan_chk
 # depend ctanify
@@ -45,7 +46,7 @@ DEPENDS+=	dvipng-[0-9]*:../../graphics/dvipng
 DEPENDS+=	lacheck-[0-9]*:../../print/lacheck
 # depend latex-git-log
 # depend latex2man
-# depend latexdiff
+DEPENDS+=	tex-latexdiff-[0-9]*:../../textproc/tex-latexdiff
 # depend latexfileversion
 DEPENDS+=	latexmk-[0-9]*:../../print/latexmk
 # depend latexpand
@@ -55,18 +56,22 @@ DEPENDS+=	latexmk-[0-9]*:../../print/latexmk
 # depend listings-ext
 # depend make4ht
 # depend match_parens
+# depend mflua
 # depend mkjobtexmf
 # patgen entirely included in web2c
 # depend pdfbook2
 DEPENDS+=	tex-pdfcrop-[0-9]*:../../graphics/tex-pdfcrop
 DEPENDS+=	pdfjam-[0-9]*:../../print/pdfjam
+# depend pdflatexpicscale
 DEPENDS+=	tex-pdftools-[0-9]*:../../print/tex-pdftools
+# depend pdfxup
 # depend pfarrei
 DEPENDS+=	tex-pkfix-[0-9]*:../../print/tex-pkfix
 # depend pkfix-helper
 # depend purifyeps
 # depend pythontex
 DEPENDS+=	seetexk-[0-9]*:../../print/seetexk
+# depend srcredact
 # depend sty2dtx
 # depend synctex
 # depend tex4ebook
@@ -78,6 +83,7 @@ DEPENDS+=	tex-texdoc-[0-9]*:../../print/tex-texdoc
 # depend texfot
 # depend texliveonfly
 # depend texloganalyser
+# depend texosquery
 # texware entirely included in web2c
 # tie entirely included in web2c
 # depend tpic2pdftex

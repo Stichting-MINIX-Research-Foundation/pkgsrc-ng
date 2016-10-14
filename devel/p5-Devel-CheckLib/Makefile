@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/06/12 10:49:07 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/08 19:22:49 wiz Exp $
 
-DISTNAME=	Devel-CheckLib-1.03
+DISTNAME=	Devel-CheckLib-1.07
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

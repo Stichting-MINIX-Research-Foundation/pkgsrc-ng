@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.55 2015/06/11 17:37:09 taca Exp $
+# $NetBSD: Makefile,v 1.60 2016/09/11 16:06:53 taca Exp $
 #
 
-DISTNAME=	groonga-4.1.1
+DISTNAME=	groonga-6.0.8
 CATEGORIES=	textproc
 MASTER_SITES=	http://packages.groonga.org/source/groonga/
 
@@ -33,6 +33,7 @@ PKG_SYSCONFSUBDIR=	${PKGBASE}
 
 BUILD_DEFS+=		VARBASE
 
+INSTALL_DIRS=		${BUILD_DIRS} vendor/onigmo-source
 INSTALL_MAKE_FLAGS+=	sysconfdir=${PREFIX}/share/examples
 
 CONF_FILES+=		share/examples/${PKGBASE}/groonga.conf \

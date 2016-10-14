@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.64 2015/06/07 13:58:08 wiedi Exp $
+# $NetBSD: Makefile,v 1.66 2016/03/05 11:28:36 jperkin Exp $
 #
 
 DISTNAME=		aqsis-1.8.1
-PKGREVISION=		24
+PKGREVISION=		25
 CATEGORIES=		graphics
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=aqsis/}
 
@@ -37,10 +37,7 @@ pre-configure:
 # cmake from issuing -ldl.
 #CMAKE_ARGS+=		-D CMAKE_DL_LIBS:STRING='${DL_LIBS}'
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "NetBSD"
-BUILDLINK_TRANSFORM+=	rm:-ldl
-.endif
+BUILDLINK_TRANSFORM.NetBSD+=	rm:-ldl
 
 #
 # Forcibly reprogram cmake's rpath substitution.

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.23 2015/07/12 18:56:36 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2016/06/08 19:25:14 wiz Exp $
 
-DISTNAME=	Rose-HTML-Objects-0.621
+DISTNAME=	Rose-HTML-Objects-0.623
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

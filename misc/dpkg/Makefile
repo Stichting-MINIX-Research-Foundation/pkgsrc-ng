@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.33 2015/08/18 07:31:13 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2016/07/09 06:38:35 wiz Exp $
 #
 
-DISTNAME=	dpkg_1.16.10
+DISTNAME=	dpkg_1.16.17
 PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	4
+PKGREVISION=	1
 CATEGORIES=	misc
 MASTER_SITES=	${MASTER_SITE_DEBIAN:=pool/main/d/dpkg/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,7 +21,7 @@ BUILD_DEFS+=	VARBASE
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes
 USE_LANGUAGES=		c c++
-USE_TOOLS+=		gmake msgfmt perl:run gtar:run
+USE_TOOLS+=		gmake msgfmt perl:run gtar:run pod2man
 USE_NCURSES=		yes	# needs tigetstr()
 
 REPLACE_PERL=		scripts/*.pl
@@ -36,11 +36,7 @@ CONFIGURE_ARGS+=	--sysconfdir=${PREFIX}/share/dpkg
 # or uses GCC version specific warning flags unconditionally. 
 CONFIGURE_ARGS+=	--disable-compiler-warnings
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--enable-linker-optimisations=no
-.endif
+CONFIGURE_ARGS.Darwin+=	--enable-linker-optimisations=no
 
 SUBST_CLASSES+=		tool-path
 SUBST_STAGE.tool-path=	pre-build

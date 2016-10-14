@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2014/12/31 13:57:31 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/07/09 13:04:14 wiz Exp $
 
 DISTNAME=	django-photologue-2.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www python
-MASTER_SITES=	http://pypi.python.org/packages/source/d/django-photologue/
+MASTER_SITES=	${MASTER_SITE_PYPI:=d/django-photologue/}
 EXTRACT_SUFX=	.zip
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -16,7 +16,7 @@ DEPENDS+=	${PYPKGPREFIX}-django-south-[0-9]*:../../www/py-django-south
 DEPENDS+=	${PYPKGPREFIX}-django-tagging-[0-9]*:../../www/py-django-tagging
 
 USE_LANGUAGES=		# none
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-django-tagging, py-imaging
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-django-tagging, py-imaging
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

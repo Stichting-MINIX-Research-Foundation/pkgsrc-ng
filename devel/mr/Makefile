@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.19 2015/06/12 10:48:51 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/07/09 06:38:10 wiz Exp $
 #
 
-DISTNAME=		myrepos_1.20141024
+DISTNAME=		myrepos_1.20160123
 PKGNAME=		${DISTNAME:S/_/-/}
 PKGREVISION=		1
 CATEGORIES=		devel
@@ -16,7 +16,7 @@ DEPENDS+=		p5-libwww-[0-9]*:../../www/p5-libwww
 DEPENDS+=		p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 DEPENDS+=		p5-ack-[0-9]*:../../textproc/p5-ack
 
-WRKSRC=			${WRKDIR}/${PKGBASE}
+WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 USE_LANGUAGES=		# none
 
 BUILD_TARGET+=		build

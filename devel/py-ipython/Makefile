@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.12 2015/06/12 11:12:19 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2016/08/28 15:48:30 wiz Exp $
 
-DISTNAME=	ipython-2.0.0
+DISTNAME=	ipython-3.2.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
-PKGREVISION=	4
+PKGREVISION=	1
 CATEGORIES=	devel lang
-MASTER_SITES=	https://pypi.python.org/packages/source/i/ipython/
+MASTER_SITES=	${MASTER_SITE_PYPI:=i/ipython/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ipython.org/
@@ -12,6 +12,7 @@ COMMENT=	Interactive computing environment for Python
 LICENSE=	modified-bsd
 
 DEPENDS+=	${PYPKGPREFIX}-jinja2-[0-9]*:../../textproc/py-jinja2
+DEPENDS+=	${PYPKGPREFIX}-jsonschema-[0-9]*:../../textproc/py-jsonschema
 DEPENDS+=	${PYPKGPREFIX}-pexpect-[0-9]*:../../devel/py-pexpect
 DEPENDS+=	${PYPKGPREFIX}-pygments-[0-9]*:../../textproc/py-pygments
 DEPENDS+=	${PYPKGPREFIX}-readline-[0-9]*:../../devel/py-readline
@@ -23,6 +24,14 @@ DEPENDS+=	${PYPKGPREFIX}-zmq>=14.0.1:../../net/py-zmq
 USE_LANGUAGES=	# none
 
 REPLACE_PYTHON=	*/*/*.py */*/*/*.py
+
+post-install:
+	mv ${DESTDIR}${PREFIX}/bin/iptest ${DESTDIR}${PREFIX}/bin/iptest${PYVERSSUFFIX}
+	for f in ipcluster ipcontroller ipengine ipython ; \
+	do \
+		mv ${DESTDIR}${PREFIX}/bin/$$f ${DESTDIR}${PREFIX}/bin/$${f}${PYVERSSUFFIX}; \
+		mv ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/$${f}.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1/$${f}${PYVERSSUFFIX}.1; \
+	done
 
 .include "../../lang/python/distutils.mk"
 .include "../../lang/python/application.mk"

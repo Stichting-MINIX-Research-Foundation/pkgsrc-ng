@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1 2015/08/23 14:15:55 leot Exp $
+# $NetBSD: Makefile,v 1.3 2016/06/01 12:34:42 wiz Exp $
 
-DISTNAME=	pyperclip-1.5.11
+DISTNAME=	pyperclip-1.5.25
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyperclip/}

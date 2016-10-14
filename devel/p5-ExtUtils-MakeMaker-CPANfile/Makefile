@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.3 2015/08/20 14:01:42 mef Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/08 19:22:54 wiz Exp $
 
-DISTNAME=	ExtUtils-MakeMaker-CPANfile-0.06
+DISTNAME=	ExtUtils-MakeMaker-CPANfile-0.07
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

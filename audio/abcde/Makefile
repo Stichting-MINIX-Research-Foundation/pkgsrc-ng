@@ -1,12 +1,14 @@
-# $NetBSD: Makefile,v 1.56 2015/08/08 11:44:34 wiz Exp $
+# $NetBSD: Makefile,v 1.60 2016/07/09 06:37:47 wiz Exp $
 
-DISTNAME=	abcde-2.7
+DISTNAME=	abcde-2.7.2
+PKGREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	http://abcde.einval.com/download/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://abcde.einval.com/
 COMMENT=	Command-line utility to rip and encode an audio CD
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	cd-discid>=0.7:../../audio/cd-discid
 DEPENDS+=	eyeD3-[0-9]*:../../audio/eyeD3

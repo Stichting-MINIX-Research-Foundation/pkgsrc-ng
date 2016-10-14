@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.16 2015/09/14 13:36:29 joerg Exp $
+$NetBSD: distinfo,v 1.22 2016/09/12 13:22:39 maya Exp $
 
 SHA1 (xen-4.2.5.tar.gz) = f42741e4ec174495ace70c4b17a6b9b0e60e798a
 RMD160 (xen-4.2.5.tar.gz) = 7d4f7f1b32ee541d341a756b1f8da02816438d19
+SHA512 (xen-4.2.5.tar.gz) = 42c0fc241952fc55fc44480fb6752b004b54ae40e946159ec047adf229b65cbfbd810271d01b064ad8fdbddb73c640dcdcb6bc19f91e8968829889c129920dac
 Size (xen-4.2.5.tar.gz) = 15671925 bytes
 SHA1 (patch-CVE-2014-8594) = 8599e5007e8f15eddc1385aa1d90accf1690952e
 SHA1 (patch-CVE-2014-8595) = 46bd285b7eb8f2e23984f7917b12af2191bfef80
@@ -17,13 +18,25 @@ SHA1 (patch-CVE-2015-3340) = 9ff5e766c9e5e3358d8a896f805babc8fb9a41c4
 SHA1 (patch-CVE-2015-3456) = 8d54d33b81ef77056aa6f58ab123912948454020
 SHA1 (patch-CVE-2015-4163) = d8c9b95026c2316bfb57f644937fdb924902a3bf
 SHA1 (patch-CVE-2015-4164) = 9f9add821c4a13308fa4bfa1becd1b0d8fda6177
+SHA1 (patch-CVE-2015-5307) = bbd6833fc27ddc5efd307bd2e53934e260458b93
+SHA1 (patch-CVE-2015-7835) = 3fa639cebc9c264df51a410d0b9f94af42231d1d
+SHA1 (patch-CVE-2015-7969) = 43f1729fa24cc628beb231839b1412479c14928e
+SHA1 (patch-CVE-2015-7971) = 0d0d36ad99f313afb96111a832eb65ddeaf8010e
+SHA1 (patch-CVE-2015-8339) = 080bc4c04ee5ad832756b11a65b1598f12eae97e
+SHA1 (patch-CVE-2015-8555) = 594f85557efe137fb32a88c0dc589a1318184b66
 SHA1 (patch-Config.mk) = a43ed1b3304d6383dc093acd128a7f373d0ca266
+SHA1 (patch-XSA-166) = 24fccf8e30ccf910a128e5e0365800191a90524c
+SHA1 (patch-XSA-182) = f0325a6f7c7cc20c3f11367384628dbe25c90b2d
+SHA1 (patch-XSA-185) = a2313922aa4dad734b96c80f64fe54eca3c14019
+SHA1 (patch-XSA-187-1) = 55ea0c2d9c7d8d9476a5ab97342ff552be4faf56
+SHA1 (patch-XSA-187-2) = ed2d384b4cf429443560afbf71b42fb4123a279b
 SHA1 (patch-xen_Makefile) = e0d1b74518b9675ddc64295d1523ded9a8757c0a
 SHA1 (patch-xen_arch_x86_Rules.mk) = 6b9b4bfa28924f7d3f6c793a389f1a7ac9d228e2
 SHA1 (patch-xen_arch_x86_hvm_hvm.c) = b6bac1d466ba5bc276bc3aea9d4c9df37f2b9b0f
 SHA1 (patch-xen_arch_x86_mm_shadow_common.c) = 89dce860cc6aef7d0ec31f3137616b592490e60a
 SHA1 (patch-xen_arch_x86_x86_emulate_x86_emulate.c) = 8b906e762c8f94a670398b4e033d50a2fb012f0a
 SHA1 (patch-xen_common_spinlock.c) = 06f06b5e9b098262ebaa8af0be4837005fb5b8b4
+SHA1 (patch-xen_common_symbols.c) = 30cbffe56e71fe800d5a24d8ef21f233e52c9267
 SHA1 (patch-xen_drivers_passthrough_vtd_x86_ats.c) = 5ab0bb0d1fd63abf8ef8d1f073f83a5f1f9f159a
 SHA1 (patch-xen_include_asm-arm_spinlock.h) = fe2e35a5ebec4c551df5d1680c93e6ad19348d93
 SHA1 (patch-xen_include_asm-x86_atomic.h) = d406c6071ea3823c25113a801dd77ff32146d162

@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2015/04/30 08:35:38 markd Exp $
+# $NetBSD: Makefile,v 1.3 2016/06/16 04:05:59 markd Exp $
 
 DISTNAME=	aleph
-PKGNAME=	tex-${DISTNAME}-0.2
-TEXLIVE_REV=	33736
+PKGNAME=	tex-${DISTNAME}-0.2.40768
+TEXLIVE_REV=	40768
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Extended TeX
+LICENSE=	gnu-gpl-v2
 
 CONFLICTS+=	teTeX-bin<=3.0nb57
 DEPENDS+=	tex-latex>=2010:../../print/tex-latex

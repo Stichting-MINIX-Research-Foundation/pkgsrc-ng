@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2015/06/12 10:50:08 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2016/07/09 06:38:19 wiz Exp $
 
-DISTNAME=	cairomm-1.10.0
-PKGREVISION=	14
+DISTNAME=	cairomm-1.12.0
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	http://cairographics.org/releases/
 
@@ -15,6 +15,9 @@ USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake perl pkg-config
 GNU_CONFIGURE=		yes
+# long file name, does not extract correctly with NetBSD tar(1):
+# classhash__load__check__resize__trigger__size__base__inherit__graph.png
+EXTRACT_USING=		bsdtar
 
 PKGCONFIG_OVERRIDE+=	data/cairomm-1.0.pc.in
 PKGCONFIG_OVERRIDE+=	data/cairomm-ft-1.0.pc.in
@@ -36,6 +39,7 @@ PLIST_VARS+=	x11 quartz
 
 .include "../../mk/bsd.prefs.mk"
 
+BUILDLINK_ABI_DEPENDS.libsigcpp+=	libsigc++>=2.5.1
 .include "../../devel/libsigc++/buildlink3.mk"
 BUILDLINK_API_DEPENDS.cairo+=	cairo>=1.8
 .include "../../graphics/cairo/buildlink3.mk"

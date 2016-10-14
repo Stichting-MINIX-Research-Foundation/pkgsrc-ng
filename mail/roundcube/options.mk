@@ -1,14 +1,15 @@
-# $NetBSD: options.mk,v 1.13 2015/09/13 14:39:37 taca Exp $
+# $NetBSD: options.mk,v 1.15 2016/09/13 15:56:01 taca Exp $
 
 PKG_OPTIONS_VAR=		PKG_OPTIONS.roundcube
 
-PKG_OPTIONS_REQUIRED_GROUPS=	db converters webserver
+PKG_OPTIONS_REQUIRED_GROUPS=	db webserver
 PKG_OPTIONS_GROUP.db=		mysql pgsql sqlite
-PKG_OPTIONS_GROUP.converters=	iconv multibyte
 PKG_OPTIONS_GROUP.webserver=	apache nginx
 
-PKG_SUPPORTED_OPTIONS=		ldap sockets gd
-PKG_SUGGESTED_OPTIONS=		mysql iconv sockets gd apache
+PKG_SUPPORTED_OPTIONS=		ldap iconv php-sockets gd
+PKG_SUGGESTED_OPTIONS=		mysql iconv php-sockets gd apache
+
+PKG_OPTIONS_LEGACY_OPTS+=	sockets:php-sockets
 
 .include "../../mk/bsd.options.mk"
 
@@ -38,13 +39,6 @@ DEPENDS+=	${PHP_PKG_PREFIX}-pdo_sqlite-[0-9]*:../../databases/php-pdo_sqlite
 ###
 .if !empty(PKG_OPTIONS:Miconv)
 DEPENDS+=	${PHP_PKG_PREFIX}-iconv>=4.3.1:../../converters/php-iconv
-.endif
-
-###
-### Use mbstring.
-###
-.if !empty(PKG_OPTIONS:Mmultibyte)
-DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=4.3.1:../../converters/php-mbstring
 .endif
 
 ###

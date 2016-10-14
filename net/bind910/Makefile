@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2015/09/03 00:33:31 taca Exp $
+# $NetBSD: Makefile,v 1.24 2016/09/27 17:12:34 taca Exp $
 
 DISTNAME=	bind-${BIND_VERSION}
 PKGNAME=	${DISTNAME:S/-P/pl/}
 CATEGORIES=	net
-MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/ \
-		http://ftp.belnet.be/pub/mirror/ftp.isc.org/isc/bind9/${BIND_VERSION}/
+MASTER_SITES=	ftp://ftp.isc.org/isc/bind9/${BIND_VERSION}/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.isc.org/software/bind/
@@ -14,7 +13,7 @@ CONFLICTS+=	host-[0-9]*
 
 MAKE_JOBS_SAFE=	no
 
-BIND_VERSION=	9.10.2-P4
+BIND_VERSION=	9.10.4-P3
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -39,9 +38,7 @@ CONFIGURE_ARGS+=	--disable-atomic
 .if ${MACHINE_PLATFORM:MNetBSD-*-powerpc} != ""
 CONFIGURE_ARGS+=	--disable-threads
 .endif
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	--disable-kqueue
-.endif
+CONFIGURE_ARGS.DragonFly+=	--disable-kqueue
 
 PKG_GROUPS_VARS+=	BIND_GROUP
 PKG_USERS_VARS=		BIND_USER
@@ -59,12 +56,6 @@ FILES_SUBST+=		BIND_GROUP=${BIND_GROUP} \
 			SSLBASE=${SSLBASE}
 MESSAGE_SUBST+=		BIND_DIR=${BIND_DIR} BIND_USER=${BIND_USER}
 DOCDIR=			${DESTDIR}${PREFIX}/share/doc/bind9
-
-# include/isc/ipv6.h is installed on non-ipv6 platforms
-PLIST_VARS+=	inet6
-.if !empty(MISSING_FEATURES:Minet6)
-PLIST.inet6=	yes
-.endif
 
 RCD_SCRIPTS=		lwresd named9
 SMF_METHODS=		named

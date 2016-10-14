@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.51 2012/11/23 17:35:00 drochner Exp $
+# $NetBSD: Makefile,v 1.53 2015/11/23 12:54:53 szptvlfn Exp $
 
 DISTNAME=	libcroco-0.6.8
 CATEGORIES=	textproc

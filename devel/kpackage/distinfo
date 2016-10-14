@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/21 21:17:58 markd Exp $
+
+SHA1 (kpackage-5.25.0.tar.xz) = c4091b2a6b2d90aea1489a509d7677dd62c52f75
+RMD160 (kpackage-5.25.0.tar.xz) = 1b0aa7014c2f59b68bdfc49abc51e5ebcff2e423
+SHA512 (kpackage-5.25.0.tar.xz) = d5b338f32adc7884d22e7c5eeb242435dddf1247d3f524d5a552a5202ee22eb463b5a0022dd99d8e0d39d7748c377d92c5cb7c8037f2d9e530ea31bb6dc80ad1
+Size (kpackage-5.25.0.tar.xz) = 112268 bytes

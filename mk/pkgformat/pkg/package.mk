@@ -1,4 +1,4 @@
-# $NetBSD: package.mk,v 1.11 2015/09/07 11:02:28 jperkin Exp $
+# $NetBSD: package.mk,v 1.15 2016/05/09 00:07:23 joerg Exp $
 
 .if defined(PKG_SUFX)
 WARNINGS+=		"PKG_SUFX is deprecated, please use PKG_COMPRESSION"
@@ -13,30 +13,9 @@ WARNINGS+=		"Unsupported value for PKG_SUFX"
 PKG_SUFX?=		.tgz
 FILEBASE?=		${PKGBASE}
 PKGFILE?=		${PKGREPOSITORY}/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
-.if ${_USE_DESTDIR} == "no"
-. if !empty(SIGN_PACKAGES:Mgpg)
 STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
-. elif !empty(SIGN_PACKAGES:Mx509)
-STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
-. else
-STAGE_PKGFILE?=		${PKGFILE}
-. endif
-.else
-STAGE_PKGFILE?=		${WRKDIR}/.packages/${FILEBASE}-${PKGVERSION}${PKG_SUFX}
-.endif
 PKGREPOSITORY?=		${PACKAGES}/${PKGREPOSITORYSUBDIR}
 PKGREPOSITORYSUBDIR?=	All
-
-######################################################################
-### package-check-installed (PRIVATE, pkgsrc/mk/package/package.mk)
-######################################################################
-### package-check-installed verifies that the package is installed on
-### the system.
-###
-.PHONY: package-check-installed
-package-check-installed:
-	${RUN} ${PKG_INFO} -qe ${PKGNAME} \
-	|| ${FAIL_MSG} "${PKGNAME} is not installed."
 
 ######################################################################
 ### package-create (PRIVATE, pkgsrc/mk/package/package.mk)
@@ -44,7 +23,7 @@ package-check-installed:
 ### package-create creates the binary package.
 ###
 .PHONY: package-create
-package-create: ${PKGFILE} package-links
+package-create: ${PKGFILE}
 
 ######################################################################
 ### stage-package-create (PRIVATE, pkgsrc/mk/package/package.mk)
@@ -52,48 +31,42 @@ package-create: ${PKGFILE} package-links
 ### stage-package-create creates the binary package for stage install.
 ###
 .PHONY: stage-package-create
-.if ${_USE_DESTDIR} == "no"
-stage-package-create:	package-create
-.else
 stage-package-create:	stage-install ${STAGE_PKGFILE}
-.endif
 
 _PKG_ARGS_PACKAGE+=	${_PKG_CREATE_ARGS}
 _PKG_ARGS_PACKAGE+=	-F ${PKG_COMPRESSION}
-.if ${_USE_DESTDIR} == "no"
-_PKG_ARGS_PACKAGE+=	-p ${PREFIX}
-.else
 _PKG_ARGS_PACKAGE+=	-I ${PREFIX} -p ${DESTDIR}${PREFIX}
-.  if ${_USE_DESTDIR} == "user-destdir"
+.if ${_USE_DESTDIR} == "user-destdir"
 _PKG_ARGS_PACKAGE+=	-u ${REAL_ROOT_USER} -g ${REAL_ROOT_GROUP}
-.  endif
 .endif
 
 ${STAGE_PKGFILE}: ${_CONTENTS_TARGETS}
-	${RUN} ${MKDIR} ${.TARGET:H}
 	@${STEP_MSG} "Creating binary package ${.TARGET}"
-	${RUN} ${_ULIMIT_CMD} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
-	if ${PKG_CREATE} ${_PKG_ARGS_PACKAGE} "$$tmpname"; then		\
-		${MV} -f "$$tmpname" ${.TARGET};			\
-	else								\
+	${RUN} ${MKDIR} ${.TARGET:H}; ${_ULIMIT_CMD}			\
+	tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};		\
+	if ! ${PKG_CREATE} ${_PKG_ARGS_PACKAGE} "$$tmpname"; then	\
 		exitcode=$$?; ${RM} -f "$$tmpname"; exit $$exitcode;	\
 	fi
+.if !empty(SIGN_PACKAGES:U:Mgpg)
+	@${STEP_MSG} "Signing binary package ${.TARGET} (GPG)"
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${PKG_ADMIN} gpg-sign-package "$$tmpname" ${.TARGET}
+.elif !empty(SIGN_PACKAGES:U:Mx509)
+	@${STEP_MSG} "Signing binary package ${.TARGET} (X509)"
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${PKG_ADMIN} x509-sign-package "$$tmpname" ${.TARGET}		\
+		${X509_KEY} ${X509_CERTIFICATE}
+.else
+	${RUN} tmpname=${.TARGET:S,${PKG_SUFX}$,.tmp${PKG_SUFX},};	\
+	${MV} -f "$$tmpname" ${.TARGET}
+.endif
 
 .if ${PKGFILE} != ${STAGE_PKGFILE}
 ${PKGFILE}: ${STAGE_PKGFILE}
-	${RUN} ${MKDIR} ${.TARGET:H}
-. if !empty(SIGN_PACKAGES:U:Mgpg)
-	@${STEP_MSG} "Creating signed binary package ${.TARGET} (GPG)"
-	${PKG_ADMIN} gpg-sign-package ${STAGE_PKGFILE} ${PKGFILE}
-. elif !empty(SIGN_PACKAGES:U:Mx509)
-	@${STEP_MSG} "Creating signed binary package ${.TARGET} (X509)"
-	${PKG_ADMIN} x509-sign-package ${STAGE_PKGFILE} ${PKGFILE}	\
-		${X509_KEY} ${X509_CERTIFICATE}
-. else
 	@${STEP_MSG} "Creating binary package ${.TARGET}"
-	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null || \
+	${RUN} ${MKDIR} ${.TARGET:H};					\
+	${LN} -f ${STAGE_PKGFILE} ${PKGFILE} 2>/dev/null ||		\
 		${CP} -pf ${STAGE_PKGFILE} ${PKGFILE}
-. endif
 .endif
 
 ######################################################################
@@ -116,31 +89,6 @@ stage-package-remove:
 	${RUN} ${RM} -f ${STAGE_PKGFILE}
 
 ######################################################################
-### package-links (PRIVATE)
-######################################################################
-### package-links creates symlinks to the binary package from the
-### non-primary categories to which the package belongs.
-###
-package-links: delete-package-links
-.for _dir_ in ${CATEGORIES:S/^/${PACKAGES}\//}
-	${RUN} ${MKDIR} ${_dir_:Q}
-	${RUN} [ -d ${_dir_:Q} ]					\
-	|| ${FAIL_MSG} "Can't create directory "${_dir_:Q}"."
-	${RUN} ${RM} -f ${_dir_:Q}/${PKGFILE:T}
-	${RUN} ${LN} -s ../${PKGREPOSITORYSUBDIR}/${PKGFILE:T} ${_dir_:Q}
-.endfor
-
-######################################################################
-### delete-package-links (PRIVATE)
-######################################################################
-### delete-package-links removes the symlinks to the binary package from
-### the non-primary categories to which the package belongs.
-###
-delete-package-links:
-	${RUN} ${FIND} ${PACKAGES}/*/${PKGFILE:T} -type l -print	\
-		2>/dev/null | ${XARGS} ${RM} -f
-
-######################################################################
 ### tarup (PUBLIC)
 ######################################################################
 ### tarup is a public target to generate a binary package from an
@@ -149,7 +97,7 @@ delete-package-links:
 _PKG_TARUP_CMD= ${LOCALBASE}/bin/pkg_tarup
 
 .PHONY: tarup
-tarup: package-remove tarup-pkg package-links
+tarup: package-remove tarup-pkg
 
 ######################################################################
 ### tarup-pkg (PRIVATE)
@@ -185,20 +133,15 @@ stage-package-install: stage-package-create real-package-install
 stage-package-install: barrier
 .endif
 
-.if ${_USE_DESTDIR} != "no"
-.  if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
+.if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 real-package-install: su-real-package-install
-.  else
-real-package-install: su-target
-.  endif
 .else
-real-package-install:
-	@${DO_NADA}
+real-package-install: su-target
 .endif
 
 MAKEFLAGS.su-real-package-install=	PKGNAME_REQD=${PKGNAME_REQD:Q}
 su-real-package-install:
-	@${PHASE_MSG} "Install binary package of "${PKGNAME:Q}
+	@${PHASE_MSG} "Installing binary package of "${PKGNAME:Q}
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 	@${MKDIR} ${_CROSS_DESTDIR}${PREFIX}
 	${PKG_ADD} -m ${MACHINE_ARCH} -I -p ${_CROSS_DESTDIR}${PREFIX} ${STAGE_PKGFILE}

@@ -1,19 +1,17 @@
-@comment $NetBSD: PLIST,v 1.6 2015/08/24 20:01:48 fhajny Exp $
+@comment $NetBSD: PLIST,v 1.10 2016/05/06 09:45:09 fhajny Exp $
 bin/pwiz.py
-${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
-${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
-${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
-${PYSITELIB}/${EGG_INFODIR}/top_level.txt
 ${PYSITELIB}/peewee.py
 ${PYSITELIB}/peewee.pyc
 ${PYSITELIB}/peewee.pyo
 ${PYSITELIB}/playhouse/__init__.py
 ${PYSITELIB}/playhouse/__init__.pyc
 ${PYSITELIB}/playhouse/__init__.pyo
+${PYSITELIB}/playhouse/_speedups.so
+${PYSITELIB}/playhouse/_sqlite_ext.so
+${PYSITELIB}/playhouse/_sqlite_udf.so
 ${PYSITELIB}/playhouse/apsw_ext.py
 ${PYSITELIB}/playhouse/apsw_ext.pyc
 ${PYSITELIB}/playhouse/apsw_ext.pyo
-${PYSITELIB}/playhouse/berkeley_build.sh
 ${PYSITELIB}/playhouse/berkeleydb.py
 ${PYSITELIB}/playhouse/berkeleydb.pyc
 ${PYSITELIB}/playhouse/berkeleydb.pyo
@@ -56,9 +54,6 @@ ${PYSITELIB}/playhouse/pool.pyo
 ${PYSITELIB}/playhouse/postgres_ext.py
 ${PYSITELIB}/playhouse/postgres_ext.pyc
 ${PYSITELIB}/playhouse/postgres_ext.pyo
-${PYSITELIB}/playhouse/proxy.py
-${PYSITELIB}/playhouse/proxy.pyc
-${PYSITELIB}/playhouse/proxy.pyo
 ${PYSITELIB}/playhouse/read_slave.py
 ${PYSITELIB}/playhouse/read_slave.pyc
 ${PYSITELIB}/playhouse/read_slave.pyo
@@ -77,6 +72,9 @@ ${PYSITELIB}/playhouse/sqlcipher_ext.pyo
 ${PYSITELIB}/playhouse/sqlite_ext.py
 ${PYSITELIB}/playhouse/sqlite_ext.pyc
 ${PYSITELIB}/playhouse/sqlite_ext.pyo
+${PYSITELIB}/playhouse/sqlite_udf.py
+${PYSITELIB}/playhouse/sqlite_udf.pyc
+${PYSITELIB}/playhouse/sqlite_udf.pyo
 ${PYSITELIB}/playhouse/test_utils.py
 ${PYSITELIB}/playhouse/test_utils.pyc
 ${PYSITELIB}/playhouse/test_utils.pyo

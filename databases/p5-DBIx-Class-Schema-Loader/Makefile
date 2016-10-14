@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2015/08/01 00:24:56 wen Exp $
+# $NetBSD: Makefile,v 1.30 2016/06/08 19:22:27 wiz Exp $
 
-DISTNAME=	DBIx-Class-Schema-Loader-0.07043
+DISTNAME=	DBIx-Class-Schema-Loader-0.07045
 PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	databases perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DBIx/}
 
@@ -21,6 +22,7 @@ BUILD_DEPENDS+=	p5-Moose>=1.1200:../../devel/p5-Moose
 BUILD_DEPENDS+=	p5-MooseX-MarkAsMethods>=0.13:../../devel/p5-MooseX-MarkAsMethods
 BUILD_DEPENDS+=	p5-MooseX-NonMoose>=0.16:../../devel/p5-MooseX-NonMoose
 #BUILD_DEPENDS+=	{perl>=5.18.0,p5-Pod-Simple>=3.22}:../../textproc/p5-Pod-Simple
+BUILD_DEPENDS+=	p5-Text-Unidecode>=0:../../textproc/p5-Text-Unidecode
 BUILD_DEPENDS+=	p5-Test-Exception>=0.31:../../devel/p5-Test-Exception
 # BUILD_DEPENDS+=	p5-Test-Kwalitee-[0-9]*:../../devel/p5-Test-Kwalitee
 #BUILD_DEPENDS+=	{perl>=5.12.0,p5-Test-Simple>=0.94}:../../devel/p5-Test-Simple
@@ -49,6 +51,12 @@ DEPENDS+=	p5-String-ToIdentifier-EN>=0.05:../../textproc/p5-String-ToIdentifier-
 DEPENDS+=	p5-Task-Weaken-[0-9]*:../../devel/p5-Task-Weaken
 DEPENDS+=	p5-Try-Tiny-[0-9]*:../../devel/p5-Try-Tiny
 DEPENDS+=	p5-namespace-clean>=0.23:../../devel/p5-namespace-clean
+
+# for make test
+BUILD_DEPENDS+=	p5-DBD-SQLite2-[0-9]*:../../databases/p5-DBD-SQLite2
+BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
+BUILD_DEPENDS+=	p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
+BUILD_DEPENDS+=	p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
 
 # Avoid complaints if we do not have DB2, Oracle, Pg and mysql
 MAKE_ENV+=	DBIC_FEATURE_NOQUESTIONS=1

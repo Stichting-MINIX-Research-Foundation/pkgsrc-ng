@@ -1,4 +1,4 @@
-# $NetBSD: mozilla-common.mk,v 1.10 2014/12/06 06:09:22 khorben Exp $
+# $NetBSD: mozilla-common.mk,v 1.13 2016/07/09 13:04:13 wiz Exp $
 #
 # common Makefile fragment for mozilla packages based on gecko 2.0.
 #
@@ -92,7 +92,7 @@ CONFIG_SUB_OVERRIDE+=		${MOZILLA_DIR}/js/ctypes/libffi/config.sub
 
 PYTHON_VERSIONS_ACCEPTED=	27
 PYTHON_FOR_BUILD_ONLY=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-sqlite2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-sqlite2
 .include "../../lang/python/application.mk"
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN:Q}
 
@@ -144,13 +144,9 @@ create-rm-wrapper:
 	  ${WRAPPER_DIR}/bin/rm
 	chmod +x ${WRAPPER_DIR}/bin/rm
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
 # The configure test for __thread succeeds, but later we end up with:
 # dist/bin/libxul.so: undefined reference to `__tls_get_addr'
-CONFIGURE_ENV+=	ac_cv_thread_keyword=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_thread_keyword=no
 
 .if ${OPSYS} == "SunOS"
 # native libbz2.so hides BZ2_crc32Table

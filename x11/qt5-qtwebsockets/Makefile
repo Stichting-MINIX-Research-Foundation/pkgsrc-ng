@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2015/04/25 14:25:18 tnn Exp $
+# $NetBSD: Makefile,v 1.9 2016/05/03 07:32:54 markd Exp $
 
 DISTNAME=	qtwebsockets-opensource-src-${QTVERSION}
 PKGNAME=	qt5-websockets-${QTVERSION}
-PKGREVISION=	2
+PKGREVISION=	4
 COMMENT=	Qt5 module for websockets
 
 MAKE_ENV+=		QTDIR=${QTDIR}
@@ -12,7 +12,7 @@ INSTALLATION_DIRS+=	lib/pkgconfig
 .include "../../x11/qt5-qtbase/Makefile.common"
 
 post-install:
-.for i in Qt5Websockets.pc
+.for i in Qt5WebSockets.pc
 	cd ${DESTDIR}${PREFIX}/lib/pkgconfig && \
 	ln -f -s ${QTPREFIX}/lib/pkgconfig/${i} ${i}
 .endfor

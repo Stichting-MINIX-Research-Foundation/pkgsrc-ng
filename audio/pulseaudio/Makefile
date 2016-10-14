@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.98 2015/04/25 14:20:23 tnn Exp $
+# $NetBSD: Makefile,v 1.113 2016/09/04 18:33:03 maya Exp $
 
-DISTNAME=	pulseaudio-6.0
-PKGREVISION=	1
+DISTNAME=	pulseaudio-9.0
 CATEGORIES=	audio
 MASTER_SITES=	http://freedesktop.org/software/pulseaudio/releases/
 EXTRACT_SUFX=	.tar.xz
@@ -12,6 +11,7 @@ COMMENT=	Sound server for POSIX and Win32 systems
 LICENSE=	gnu-lgpl-v2.1 AND gnu-gpl-v2
 
 LIBTOOL_REQD=	2.4
+GCC_REQD+=	4.8
 
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
@@ -21,12 +21,13 @@ USE_LANGUAGES=	c c++
 REPLACE_BASH=	shell-completion/bash/pulseaudio git-version-gen
 
 .include "../../mk/bsd.prefs.mk"
+
 # Some tests are incompatible for NetBSD at least
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ARGS+=	--disable-default-build-tests
-.endif
-.if ${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[45].*)
+CONFIGURE_ARGS.NetBSD+=	--disable-default-build-tests
+
 # broken test for TLS
+.if ((${OPSYS} == "NetBSD" && !empty(OS_VERSION:M[45].*)) || \
+     (${OPSYS} == "Darwin" && ${PKGSRC_COMPILER} == "clang"))
 CONFIGURE_ENV+=		ac_cv_tls=none
 .endif
 
@@ -34,9 +35,7 @@ CONFIGURE_ENV+=		DATADIRNAME=${PKGLOCALEDIR}
 USE_PKGLOCALEDIR=	yes
 
 # Wrong sys/capability.h assumptions, incompatible implementation:
-.if ${OPSYS} == "FreeBSD"
-CONFIGURE_ARGS+=       --without-caps
-.endif
+CONFIGURE_ARGS.FreeBSD+=	--without-caps
 
 CONFIGURE_ENV+=		EGDIR=${EGDIR}
 MAKE_ENV+=		EGDIR=${EGDIR}
@@ -57,6 +56,11 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR:Q}
 # Build module-mmkbd-evdev.so under Linux
 .if ${OPSYS} == "Linux" && exists(/usr/include/linux/input.h)
 PLIST.evdev=		yes
+.endif
+
+.if ${OPSYS} == "Linux"
+PLIST.alsa=		yes
+.include "../../audio/alsa-lib/buildlink3.mk"
 .endif
 
 .include "options.mk"
@@ -85,9 +89,10 @@ CONF_FILES+=	${EGDIR}/system.pa ${PKG_SYSCONFDIR}/system.pa
 CONF_FILES+=	${EGDIR}/pulseaudio-system.conf \
 		${PKG_SYSCONFBASE}/dbus-1/system.d/pulseaudio-system.conf
 
-PLIST_VARS+=		bonjour coreaudio evdev oss sun
+PLIST_VARS+=		alsa bonjour coreaudio evdev oss sun
 
 .if ${OPSYS} == "SunOS"
+USE_LANGUAGES+=		c99
 PLIST.sun=		yes
 .  if ${OS_VERSION} == "5.11"
 PLIST.oss=		yes
@@ -118,7 +123,6 @@ pre-configure:
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
-.include "../../security/policykit/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"
 .include "../../textproc/json-c/buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"

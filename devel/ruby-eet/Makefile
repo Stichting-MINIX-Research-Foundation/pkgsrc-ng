@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.14 2014/02/12 23:17:50 tron Exp $
+# $NetBSD: Makefile,v 1.16 2016/09/08 15:19:16 joerg Exp $
 
 DISTNAME=	ruby-eet-0.1.4
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/ruby-//}
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	devel
 MASTER_SITES=	ftp://code-monkey.de/pub/ruby-eet/
 
@@ -11,7 +11,7 @@ HOMEPAGE=	http://code-monkey.de/pages/ruby-eet
 COMMENT=	Ruby module to read and write EET files
 LICENSE=	mit
 
-RUBY_VERSION_SUPPORTED= 18
+RUBY_VERSIONS_ACCEPTED= 18
 
 RUBY_RDOC_REQD=	2.0.0
 USE_RAKE=	YES

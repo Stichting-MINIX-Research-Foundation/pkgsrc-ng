@@ -1,28 +1,27 @@
-# $NetBSD: Makefile,v 1.134 2015/09/21 05:03:45 ryoon Exp $
+# $NetBSD: Makefile,v 1.147 2016/08/17 00:06:47 ryoon Exp $
 
-DISTNAME=	# empty
+DISTNAME=	seamonkey-${SM_VER}.source
 PKGNAME=	seamonkey-${SM_VER:S/b/beta/}
-SM_VER=		2.35
-#LIGHTNINGVER=	1.9
+PKGREVISION=	5
+SM_VER=		2.40
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=seamonkey/releases/${SM_VER}/source/}
-#MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=seamonkey/releases/${SM_VER}/source/}
-DISTFILES=	seamonkey-${SM_VER}.source.tar.bz2
-#		lightning-${LIGHTNINGVER}.source.tar.bz2
-#SITES.lightning-${LIGHTNINGVER}.source.tar.bz2=	${MASTER_SITE_MOZILLA:=calendar/lightning/releases/${LIGHTNINGVER}/source/}
-EXTRACT_DIR.lightning-${LIGHTNINGVER}.source.tar.bz2=	${WRKSRC}/lightning
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.seamonkey-project.org/
 COMMENT=	Full-featured gecko-based browser
 
-WRKSRC=		${WRKDIR}/comm-release
+WRKSRC=		${WRKDIR}/${DISTNAME:S/.source//}
 MOZILLA_DIR=	mozilla/
 PLIST_SRC+=	${PLIST_SRC_DFLT}
 USE_LANGUAGES+=	c c++
 USE_TOOLS+=	unzip pax
 
-.include "../../www/firefox38/mozilla-common.mk"
+NOT_PAX_MPROTECT_SAFE+=	lib/seamonkey/seamonkey
+NOT_PAX_MPROTECT_SAFE+=	lib/seamonkey/seamonkey-bin
+
+.include "../../www/firefox45/mozilla-common.mk"
 .include "options.mk"
 
 # Workaround to fix pixman.h detection
@@ -57,21 +56,13 @@ SUBST_MESSAGE.sys-dic=	Reference to system hunspell dictionaries.
 SUBST_FILES.sys-dic=	mozilla/extensions/spellcheck/hunspell/src/mozHunspell.cpp
 SUBST_VARS.sys-dic=	PREFIX
 
-#post-extract:
-#	cd ${WRKSRC} && ${RM} -r calendar
-#	${CP} -r ${EXTRACT_DIR.lightning-${LIGHTNINGVER}.source.tar.bz2}/comm-beta/calendar ${WRKSRC}
-#	${RM} -r ${EXTRACT_DIR.lightning-${LIGHTNINGVER}.source.tar.bz2}
-
 pre-configure:
 	cd ${WRKSRC} && mkdir ${OBJDIR}
 	cd ${WRKSRC} && ${SETENV} ${CONFIGURE_ENV} autoconf
 	cd ${WRKSRC}/mozilla && ${SETENV} ${CONFIGURE_ENV} autoconf
 	cd ${WRKSRC}/mozilla/js/src && ${SETENV} ${CONFIGURE_ENV} autoconf
-#	cd ${WRKSRC}/mozilla/nsprpub && ${SETENV} ${CONFIGURE_ENV} autoconf
-	cd ${WRKSRC}/ldap/sdks/c-sdk && ${SETENV} ${CONFIGURE_ENV} autoconf
-#	mkdir ${WRKSRC}/mozilla/js/src/.deps
 # If there is no .mozconfig, codegen.pp target fails.
-	touch ${WRKSRC}/.mozconfig
+#	touch ${WRKSRC}/.mozconfig
 
 post-install:
 #	${TOUCH} ${TOUCH_FLAGS} \

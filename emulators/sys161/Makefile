@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2015/08/08 18:44:32 dholland Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/07 05:53:29 dholland Exp $
 
-DISTNAME=	sys161-2.0.3
+DISTNAME=	sys161-2.0.8
 CATEGORIES=	emulators
-MASTER_SITES=	http://www.eecs.harvard.edu/~dholland/os161/download/
+MASTER_SITES=	http://os161.eecs.harvard.edu/download/
 
 MAINTAINER=	dholland@NetBSD.org
-HOMEPAGE=	http://www.eecs.harvard.edu/~dholland/os161/\#sys161
+HOMEPAGE=	http://os161.eecs.harvard.edu/\#sys161
 COMMENT=	System/161 MIPS emulator
 LICENSE=	modified-bsd
 

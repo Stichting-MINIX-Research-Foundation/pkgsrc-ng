@@ -1,13 +1,14 @@
-# $NetBSD: Makefile,v 1.52 2015/04/25 14:20:24 tnn Exp $
+# $NetBSD: Makefile,v 1.56 2016/08/03 10:22:31 adam Exp $
 
 DISTNAME=		solfege-3.14.1
-PKGREVISION=		24
+PKGREVISION=		25
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=solfege/}
 
 MAINTAINER=		schmonz@NetBSD.org
 HOMEPAGE=		http://www.solfege.org/
 COMMENT=		Practice several musical ear training exercises
+LICENSE=		gnu-gpl-v3
 
 BUILD_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 BUILD_DEPENDS+=		txt2man-[0-9]*:../../converters/txt2man
@@ -26,7 +27,7 @@ USE_TOOLS+=		gmake gm4 makeinfo pkg-config msgfmt bash:run
 REPLACE_BASH=		lesson-files/bin/csound-play-harmonic-interval.sh
 
 REPLACE_PYTHON=	*.py *.py.in */*.py */*.py.in
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-gtk2
 
 SUBST_CLASSES+=		sound
 SUBST_STAGE.sound=	do-configure

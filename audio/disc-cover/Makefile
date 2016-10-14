@@ -1,14 +1,15 @@
-# $NetBSD: Makefile,v 1.28 2015/06/12 10:48:22 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2016/07/09 06:37:47 wiz Exp $
 #
 
 DISTNAME=	disc-cover-1.5.6
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	audio
 MASTER_SITES=	http://www.vanhemert.co.uk/files/
 
 MAINTAINER=	drochner@NetBSD.org
 HOMEPAGE=	http://www.vanhemert.co.uk/disc-cover.html
 COMMENT=	Generation of CD covers
+LICENSE=	gnu-gpl-v2
 
 DEPENDS+=	p5-Audio-CD>=0.05:../../audio/p5-Audio-CD
 

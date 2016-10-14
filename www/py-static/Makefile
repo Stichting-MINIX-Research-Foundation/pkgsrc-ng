@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2014/08/20 13:44:58 wiz Exp $
+# $NetBSD: Makefile,v 1.3 2016/08/28 15:48:36 wiz Exp $
 
 DISTNAME=	static-1.0.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www
-MASTER_SITES=	https://pypi.python.org/packages/source/s/static/
+MASTER_SITES=	${MASTER_SITE_PYPI:=s/static/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://pypi.python.org/pypi/static
@@ -11,7 +11,6 @@ COMMENT=	Serve static or templated content via WSGI or stand-alone
 LICENSE=	mit
 
 USE_LANGUAGES=	# none
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/static ${DESTDIR}${PREFIX}/bin/static-${PYVERSSUFFIX}

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.31 2015/07/05 18:24:10 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2016/08/22 12:32:11 wiz Exp $
 
-DISTNAME=	libksba-1.3.3
+DISTNAME=	libksba-1.3.5
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/libksba/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.g10code.com/p-libksba.html
+HOMEPAGE=	https://www.gnupg.org/(fr)/related_software/libksba/index.html
 COMMENT=	X.509 library
 LICENSE=	gnu-lgpl-v3 AND gnu-gpl-v2
 

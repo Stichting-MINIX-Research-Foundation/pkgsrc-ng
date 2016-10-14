@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.3 2015/04/23 12:22:10 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/16 04:06:12 markd Exp $
 
 DISTNAME=	microtype.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2.5a
-TEXLIVE_REV=	30755
+PKGNAME=	tex-${DISTNAME:S/./-/}-2.6a
+TEXLIVE_REV=	41127
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-microtype
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb17
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.27 2014/05/30 15:28:06 schmonz Exp $
+# $NetBSD: Makefile,v 1.29 2016/07/09 13:03:54 wiz Exp $
 
 
 DISTNAME=	offlineimap-6.5.6
@@ -19,7 +19,7 @@ INSTALLATION_DIRS=	share/examples/offlineimap
 
 EGG_NAME=	${PKGNAME_NOREV}
 REPLACE_PYTHON=	offlineimap/imaplib2.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 6.5.5
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 6.5.5
 
 post-install:
 .for f in offlineimap.conf offlineimap.conf.minimal

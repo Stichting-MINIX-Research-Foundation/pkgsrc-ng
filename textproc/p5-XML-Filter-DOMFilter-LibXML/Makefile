@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:51:35 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:43 wiz Exp $
 
-DISTNAME=	XML-Filter-DOMFilter-LibXML-0.02
+DISTNAME=	XML-Filter-DOMFilter-LibXML-0.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	7
+PKGREVISION=	1
 CATEGORIES=	textproc perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=XML/}
 
@@ -10,7 +10,10 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/XML-Filter-DOMFilter-LibXML/
 COMMENT=	Perl5 module SAX filter allowing DOM processing
 
+BUILD_DEPENDS=	p5-XML-SAX-Writer>=0:../../textproc/p5-XML-SAX-Writer
 DEPENDS+=	p5-XML-LibXML>=1.53:../../textproc/p5-XML-LibXML
+
+EXTRACT_USING=	gtar
 
 USE_LANGUAGES=		# empty
 PERL5_PACKLIST=	auto/XML/Filter/DOMFilter/LibXML/.packlist

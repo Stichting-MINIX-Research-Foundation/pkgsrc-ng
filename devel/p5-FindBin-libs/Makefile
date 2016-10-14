@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.10 2015/06/12 10:49:16 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/06/08 19:22:59 wiz Exp $
 #
 
-DISTNAME=		FindBin-libs-2.12
+DISTNAME=		FindBin-libs-2.15
 PKGNAME=        	p5-${DISTNAME}
 PKGREVISION=        	1
 CATEGORIES=		devel perl5

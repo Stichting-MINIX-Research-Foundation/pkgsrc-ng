@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.43 2015/04/25 14:23:22 tnn Exp $
+# $NetBSD: Makefile,v 1.46 2016/08/03 10:22:59 adam Exp $
 #
 
 DISTNAME=	ibus-chewing-1.4.12-Source
 PKGNAME=	${DISTNAME:S/-Source//}
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	inputmethod chinese
 MASTER_SITES=	https://github.com/definite/ibus-chewing/releases/download/${PKGVERSION_NOREV}/
 

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.10 2015/06/12 10:50:40 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/07/09 06:38:41 wiz Exp $
 
-DISTNAME=	dhcpd-pools-2.16
-PKGREVISION=	5
+DISTNAME=	dhcpd-pools-2.27
+PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dhcpd-pools/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	adam@NetBSD.org
 HOMEPAGE=	http://dhcpd-pools.sourceforge.net/
@@ -27,4 +28,5 @@ SUBST_SED.fix-name=	-e 's,program_invocation_short_name,"dhcpd-pools",g'
 
 LDFLAGS.SunOS+=	-lnsl
 
+.include "../../devel/uthash/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

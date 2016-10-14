@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.76 2015/04/25 14:25:15 tnn Exp $
+# $NetBSD: Makefile,v 1.82 2016/08/28 15:48:37 wiz Exp $
 
 PKGNAME=	${PYPKGPREFIX}-qt4-${PYQT_VERSION}
-PKGREVISION=	1
-PYQT_VERSION=	4.11.1
+PYQT_VERSION=	4.11.4
+PKGREVISION=	3
 CATEGORIES=	x11 python
 #MASTER_SITES=	http://www.riverbankcomputing.com/static/Downloads/PyQt4/
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqt/}
@@ -10,6 +10,7 @@ MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=pyqt/}
 MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	Python binding for Qt4
 HOMEPAGE=	http://www.riverbankcomputing.com/software/pyqt/intro
+LICENSE=	gnu-gpl-v3
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake pkg-config
@@ -25,7 +26,6 @@ CONFIGURE_ARGS+=	--qsci-api
 INSTALL_ENV+=		INSTALL_ROOT=${DESTDIR}
 
 PY_PATCHPLIST=		yes
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 
 BUILDLINK_TRANSFORM+=	rm:-Wl,-R${WRKSRC}/qpy/QtCore
 BUILDLINK_TRANSFORM+=	rm:-Wl,-R${WRKSRC}/qpy/QtDeclarative
@@ -53,15 +53,40 @@ SUBST_MESSAGE.PIC=	Adding -fPIC to CXXFLAGS.
 
 .include "../../mk/bsd.prefs.mk"
 
-PLIST_SRC=		${PKGDIR}/PLIST.common
+.if ${OPSYS} == "Darwin"
+DISTNAME=		PyQt-mac-gpl-${PYQT_VERSION}
+.else
 DISTNAME=		PyQt-x11-gpl-${PYQT_VERSION}
-PLIST_SRC+=		${PKGDIR}/PLIST.X11
+.endif
+
 .include "../../lang/python/extension.mk"
 
+# configure-ng.py has Darwin specific code to avoid using sys.executable
+# that assumes the builtin python when configuring the path in pyuic/pyuic4.
+# Instead of patching that out, just do a manual replace-interpreter
+# on the configured result
+SUBST_CLASSES.Darwin+=		fix-pyuic4
+SUBST_STAGE.fix-pyuic4=		post-configure
+SUBST_MESSAGE.fix-pyuic4=	Fixing python interpreter path in pyuic4
+SUBST_FILES.fix-pyuic4=		pyuic/pyuic4
+SUBST_SED.fix-pyuic4=		-e 's,python[^ ]*,${PYTHONBIN},'
+
 CONFIGURE_ARGS+=	--verbose
+
 do-configure:
 	(cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
 		${PYTHONBIN} configure.py ${CONFIGURE_ARGS})
+
+.if !empty(PYVERSSUFFIX:M2*)
+UIC_PORT_REMOVE=port_v3
+.endif
+.if !empty(PYVERSSUFFIX:M3*)
+UIC_PORT_REMOVE=port_v2
+.endif
+
+post-install:
+	rm -rf ${DESTDIR}${PREFIX}/${PYSITELIB}/PyQt4/uic/${UIC_PORT_REMOVE}
+	${PY_COMPILE_ALL} ${DESTDIR}${PREFIX}/${PYSITELIB}/PyQt4
 
 .include "../../x11/py-sip/buildlink3.mk"
 .include "../../sysutils/dbus/buildlink3.mk"

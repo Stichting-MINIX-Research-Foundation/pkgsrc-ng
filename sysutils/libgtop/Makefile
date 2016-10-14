@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.49 2015/06/12 10:51:14 wiz Exp $
+# $NetBSD: Makefile,v 1.53 2016/07/09 06:39:01 wiz Exp $
 
 DISTNAME=		libgtop-2.28.4
-PKGREVISION=		8
+PKGREVISION=		10
 CATEGORIES=		sysutils gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/libgtop/2.28/}
 EXTRACT_SUFX=		.tar.bz2
@@ -42,13 +42,11 @@ PRINT_PLIST_AWK+=	/^bin\/libgtop_server2$$/ \
 PRINT_PLIST_AWK+=	/^include\/libgtop-2.0\/glibtop_suid.h$$/ \
 				{ print "$${LIBGTOP_SUID_H}" $$0; next }
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == NetBSD
-CONFIGURE_ENV+=	fu_cv_sys_mounted_getmntinfo=yes
+CONFIGURE_ENV.NetBSD+=	fu_cv_sys_mounted_getmntinfo=yes
 # needed since about 6.99.16
-CPPFLAGS+=	-D_KMEMUSER
-.endif
+CPPFLAGS.NetBSD+=	-D_KMEMUSER
+
+.include "../../mk/bsd.prefs.mk"
 
 INSTALL_MAKE_FLAGS+=	libgtop_postinstall=true
 PLIST_VARS+=	server suid.h
@@ -56,7 +54,7 @@ PLIST_VARS+=	server suid.h
 PLIST.server=	yes
 PLIST.suid.h=	yes
 SPECIAL_PERMS=	bin/libgtop_server2 ${REAL_ROOT_USER} system 2755
-.elif ${OPSYS} == "Darwin" || ${OPSYS} == "DragonFly" || \
+.elif ${OPSYS} == "DragonFly" || \
       ${OPSYS} == "FreeBSD" || ${OPSYS} == "NetBSD" || \
       ${OPSYS} == "OpenBSD"
 PLIST.server=	yes
@@ -68,6 +66,8 @@ SPECIAL_PERMS=	bin/libgtop_server2 ${REAL_ROOT_USER} kmem 2755
 .elif ${OPSYS} == "SunOS"
 PLIST.server=	yes
 SPECIAL_PERMS=	bin/libgtop_server2 ${REAL_ROOT_USER} sys 2755
+.elif ${OPSYS} == "Darwin"
+PLIST.server=	yes
 .else
 PLIST.server=	yes
 PLIST.suid.h=	yes

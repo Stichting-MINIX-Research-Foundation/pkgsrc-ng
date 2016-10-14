@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.7 2014/10/08 14:11:09 wen Exp $
+# $NetBSD: Makefile,v 1.10 2016/07/09 13:04:10 wiz Exp $
 #
 
 DISTNAME=	Whoosh-2.5.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	textproc devel
-MASTER_SITES=	http://pypi.python.org/packages/source/W/Whoosh/
+MASTER_SITES=	${MASTER_SITE_PYPI:=W/Whoosh/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://whoosh.ca/
@@ -13,7 +13,7 @@ LICENSE=	apache-2.0
 
 USE_LANGUAGES=		# none
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

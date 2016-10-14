@@ -1,20 +1,23 @@
-# $NetBSD: Makefile,v 1.41 2015/06/12 10:48:24 wiz Exp $
+# $NetBSD: Makefile,v 1.47 2016/08/04 17:03:34 ryoon Exp $
 #
 
 DISTNAME=	paprefs-0.9.10
-PKGREVISION=	15
+PKGREVISION=	18
 CATEGORIES=	audio
-MASTER_SITES=	http://0pointer.de/lennart/projects/paprefs/
+MASTER_SITES=	http://freedesktop.org/software/pulseaudio/paprefs/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://0pointer.de/lennart/projects/paprefs/
+HOMEPAGE=	https://freedesktop.org/software/pulseaudio/paprefs/
 COMMENT=	Configuration dialog for the PulseAudio sound server
+LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config gmake intltool perl msgfmt
 
 CONFIGURE_ARGS+=	--disable-lynx
+
+CXXFLAGS+=		-std=c++11
 
 .include "../../audio/pulseaudio/buildlink3.mk"
 .include "../../converters/libiconv/buildlink3.mk"

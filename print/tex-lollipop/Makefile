@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2015/05/31 06:45:33 markd Exp $
+# $NetBSD: Makefile,v 1.3 2016/08/07 09:09:39 markd Exp $
 
 DISTNAME=	lollipop
-PKGNAME=	tex-${DISTNAME}-1.03
-TEXLIVE_REV=	33676
+PKGNAME=	tex-${DISTNAME}-1.07
+TEXLIVE_REV=	41438
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ctan.org/pkg/lollipop
