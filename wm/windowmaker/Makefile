@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.112 2015/06/12 10:51:47 wiz Exp $
+# $NetBSD: Makefile,v 1.115 2016/07/09 06:39:10 wiz Exp $
 
-DISTNAME=	WindowMaker-0.95.6
+DISTNAME=	WindowMaker-0.95.7
 PKGNAME=	${DISTNAME:S/WindowMaker/windowmaker/}
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	x11 wm windowmaker
 MASTER_SITES=	http://windowmaker.info/pub/source/release/
 
@@ -13,15 +13,15 @@ LICENSE=	gnu-gpl-v2
 
 BROKEN_GETTEXT_DETECTION=	yes
 
-USE_TOOLS+=		msgfmt pkg-config xgettext
 USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
+USE_TOOLS+=		msgfmt pkg-config xgettext
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-usermenu
 CONFIGURE_ARGS+=	--enable-xinerama
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 CONFIGURE_ARGS+=	--with-gnustepdir=${PREFIX}/share/GNUstep
-CONFIGURE_ARGS+=	--with-nlsdir=${PREFIX}/${PKGLOCALEDIR}/locale
+#CONFIGURE_ARGS+=	--with-nlsdir=${PREFIX}/${PKGLOCALEDIR}/locale
 CONFIGURE_ENV+=		LINGUAS="bg ca cs cz da de el es et fi fr gl he hr hu it ja ko nl ms no pl pt ro ru se sk sl sv tr zh_CN zh_TW"
 CONFIGURE_ENV+=		CPP_PATH=${CPP:Q}
 USE_TOOLS+=		perl:run
@@ -83,18 +83,10 @@ pre-configure:
 		 ${WRKSRC}/WindowMaker/Defaults/WMWindowAttributes \
 		 ${WRKSRC}/WindowMaker/Defaults/WindowMaker \
 		 ${WRKSRC}/po/zh_TW.Big5.po
-	set -e; \
-	for manfile in ${WRKSRC}/doc/*.1x ${WRKSRC}/doc/*/*.1x; \
-	do \
-		${MV} "$$manfile" `${ECHO} "$$manfile" | ${SED} "s/1x$$/1/"`; \
-	done;
 
 post-install:
 	${TOUCH} ${DESTDIR}${PREFIX}/share/WindowMaker/SoundSets/.directory
 	${TOUCH} ${DESTDIR}${PREFIX}/share/WindowMaker/Sounds/.directory
-	cd ${WRKSRC} && \
-	${INSTALL_DATA} README README.definable-cursor FAQ FAQ.I18N \
-		${DESTDIR}${PREFIX}/share/doc/WindowMaker
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

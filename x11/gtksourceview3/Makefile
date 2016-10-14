@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2015/06/15 01:03:11 prlw1 Exp $
+# $NetBSD: Makefile,v 1.29 2016/08/03 10:22:22 adam Exp $
 
-DISTNAME=	gtksourceview-3.16.1
+DISTNAME=	gtksourceview-3.20.4
 PKGNAME=	${DISTNAME:S/gtksourceview/gtksourceview3/}
+PKGREVISION=	1
 CATEGORIES=	x11 gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/gtksourceview/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -21,11 +22,13 @@ CONFIGURE_ARGS+=	--disable-vala
 
 PKGCONFIG_OVERRIDE+=	gtksourceview-3.0.pc.in
 
-BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.44
+BUILD_DEPENDS+=		itstool-[0-9]*:../../textproc/itstool
+
+BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.48
 .include "../../devel/glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=1.42.0
 .include "../../devel/gobject-introspection/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.16
+BUILDLINK_API_DEPENDS.gtk3+=	gtk3+>=3.20
 .include "../../x11/gtk3/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

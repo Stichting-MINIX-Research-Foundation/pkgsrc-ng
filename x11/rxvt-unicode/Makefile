@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2015/06/12 10:52:19 wiz Exp $
+# $NetBSD: Makefile,v 1.56 2016/06/08 19:25:20 wiz Exp $
 
-DISTNAME=	rxvt-unicode-9.21
+DISTNAME=	rxvt-unicode-9.22
 PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	http://dist.schmorp.de/rxvt-unicode/ \

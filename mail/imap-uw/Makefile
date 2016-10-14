@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.141 2014/07/18 10:40:28 ryoon Exp $
+# $NetBSD: Makefile,v 1.143 2016/03/05 11:27:50 jperkin Exp $
 #
 # ATTENTION:
 # The Kerberos support in this software is known to be problematic. If you
@@ -11,7 +11,7 @@
 
 DISTNAME=	imap-2007f
 PKGNAME=	${DISTNAME:S/-/-uw-/}
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	mail
 MASTER_SITES=	ftp://ftp.cac.washington.edu/imap/
 EXTRACT_SUFX=	.tar.Z
@@ -33,9 +33,6 @@ WRKSRC=		${WRKDIR}/${DISTNAME:S/2$//}
 MAKE_JOBS_SAFE=	no
 
 .include "../../mk/bsd.prefs.mk"
-
-# Each platform has its own special target in the imap Makefiles.
-OPSYSVARS+=		BUILD_TARGET
 
 .include "../../mk/compiler.mk"
 .  if empty(CC_VERSION:Mgcc-)

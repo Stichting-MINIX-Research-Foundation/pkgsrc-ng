@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2012/10/06 14:25:10 asau Exp $
+# $NetBSD: Makefile,v 1.16 2015/10/25 12:17:36 tsutsui Exp $
 
-PKGREVISION=	3
+PKGREVISION=	1
 CANNA_MODULE=	lib
 
 .include "../../inputmethod/canna/Makefile.common"
@@ -15,7 +15,7 @@ post-patch:
 		${WRKSRC}/Imakefile.orig > ${WRKSRC}/Imakefile
 .for f in forcpp kpdic
 	@${MV} ${WRKSRC}/cmd/${f}/Imakefile ${WRKSRC}/cmd/${f}/Imakefile.orig
-	@${SED} -e '/InstallProgram/d' ${WRKSRC}/cmd/${f}/Imakefile.orig \
+	@${SED} -e '/^#define TargetName/a\${.newline}#define DontInstallProgram' ${WRKSRC}/cmd/${f}/Imakefile.orig \
 		> ${WRKSRC}/cmd/${f}/Imakefile
 .endfor
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:49:11 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:22:53 wiz Exp $
 
-DISTNAME=	Exporter-Lite-0.06
+DISTNAME=	Exporter-Lite-0.08
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

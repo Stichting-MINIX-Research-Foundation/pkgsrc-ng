@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/09/23 06:43:47 mef Exp $
+# $NetBSD: Makefile,v 1.21 2016/06/08 19:22:56 wiz Exp $
 
-DISTNAME=	File-LibMagic-1.13
+DISTNAME=	File-LibMagic-1.15
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -18,7 +18,8 @@ BUILD_DEPENDS+=	p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal
 
 # incompatible change in MakeMaker 7.06 vs. 7.04.1 in object file location
 # => enforce the new behaviour
-BUILD_DEPENDS+= p5-ExtUtils-MakeMaker>=7.06:../../devel/p5-ExtUtils-MakeMaker
+# Behavior back to 7.04.1
+BUILD_DEPENDS+= p5-ExtUtils-MakeMaker>=7.10:../../devel/p5-ExtUtils-MakeMaker
 
 # cannot open LibMagic.xs: No such file or directory
 MAKE_JOBS_SAFE=	no

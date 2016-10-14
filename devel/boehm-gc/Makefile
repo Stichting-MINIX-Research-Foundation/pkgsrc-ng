@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.81 2015/02/16 08:07:20 tnn Exp $
+# $NetBSD: Makefile,v 1.84 2016/09/28 08:15:30 jperkin Exp $
 
-DISTNAME=	gc-7.4.2
+DISTNAME=	gc-7.6.0
 PKGNAME=	${DISTNAME:S/gc/boehm-gc/}
 PKGREVISION=	1
 CATEGORIES=	devel
@@ -23,15 +23,11 @@ TEST_TARGET=		check
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin" && empty(OS_VERSION:M[1-9].*)
+.if !empty(MACHINE_PLATFORM:MDarwin-10.6*)
 CFLAGS+=		-D_XOPEN_SOURCE
 .endif
 
 .include "options.mk"
-
-# https://github.com/ivmai/bdwgc/issues/65
-post-extract:
-	mv ${WRKSRC}/src/* ${WRKSRC}
 
 post-install:
 	${INSTALL_MAN} ${WRKSRC}/doc/gc.man ${DESTDIR}${PREFIX}/${PKGMANDIR}/man3/gc.3

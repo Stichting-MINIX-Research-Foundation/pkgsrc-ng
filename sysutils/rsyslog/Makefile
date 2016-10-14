@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/04/23 09:30:49 jperkin Exp $
+# $NetBSD: Makefile,v 1.8 2016/04/22 16:52:14 jperkin Exp $
 #
 
 BUILDLINK_DEPMETHOD.libestr=	full
@@ -9,7 +9,7 @@ BUILDLINK_DEPMETHOD.libuuid=	full
 
 COMMENT=		The enhanced syslogd for Unix
 
-CONFIGURE_ARGS+=	--disable-testbench --enable-cached-man-pages		\
+CONFIGURE_ARGS+=	--disable-testbench					\
 			--enable-diagtools --enable-usertools --enable-uuid	\
 			--enable-imdiag --enable-imfile	--enable-impstats	\
 			--enable-mail --enable-mmjsonparse --enable-mmnormalize	\
@@ -31,6 +31,13 @@ PLIST.klog=		yes
 RSYSLOG_SYSMOD=		imklog
 .endif
 
+# needs to be able to do compare-and-swap on time_t (cmpxchg8b)
+.if ${MACHINE_ARCH} == "i386"
+CFLAGS+=		-march=i586
+.endif
+
+BUILDLINK_TRANSFORM.Darwin+=	rm:-luuid
+
 BUILD_DEFS+=		VARBASE RSYSLOG_PIDDIR RSYSLOG_WRKDIR
 RSYSLOG_PIDDIR?=	${VARBASE}/run
 RSYSLOG_WRKDIR?=	${VARBASE}/lib/rsyslog
@@ -44,6 +51,11 @@ SUBST_VARS.paths=	RSYSLOG_PIDDIR RSYSLOG_SYSMOD
 SUBST_SED.paths=	-e "s|/etc|${PKG_SYSCONFDIR}|g"
 SUBST_MESSAGE.paths=	Setting default paths and options.
 
+SUBST_CLASSES.Darwin+=	ldargs
+SUBST_STAGE.ldargs=	pre-configure
+SUBST_FILES.ldargs=	tools/Makefile.in
+SUBST_SED.ldargs=	-e '/whole-archive.*librsyslog/d'
+
 RCD_SCRIPTS=		rsyslogd
 
 CONF_FILES+=		share/examples/rsyslog/rsyslog.conf 			\
@@ -54,6 +66,6 @@ post-install:
 	${INSTALL_DATA} ${WRKSRC}/platform/redhat/rsyslog.conf			\
 		${DESTDIR}${EGDIR}/rsyslog.conf
 
-BUILDLINK_ABI_DEPENDS.liblognorm+=	liblognorm>=1.0.2
+BUILDLINK_API_DEPENDS.liblognorm+=	liblognorm>=1.1.2
 .include "../../sysutils/liblognorm/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

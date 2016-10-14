@@ -1,4 +1,4 @@
-# $NetBSD: bsd.wrapper.mk,v 1.93 2015/04/27 19:59:07 jperkin Exp $
+# $NetBSD: bsd.wrapper.mk,v 1.97 2016/03/11 23:03:31 khorben Exp $
 #
 # Copyright (c) 2005 The NetBSD Foundation, Inc.
 # All rights reserved.
@@ -311,6 +311,9 @@ _WRAP_TRANSFORM.CXX=	${_WRAP_TRANSFORM.CC}
 .if !empty(PKGSRC_COMPILER:Mgcc)
 _WRAP_TRANSFORM.CC=	${WRAPPER_TMPDIR}/transform-gcc
 _WRAP_TRANSFORM.CXX=	${_WRAP_TRANSFORM.CC}
+. if ${_PKGSRC_MKPIE} != "no"
+_WRAP_CMD_SINK.CC=	${WRAPPER_TMPDIR}/cmd-sink-mkpie-gcc
+. endif
 .endif
 
 _WRAP_CMD_SINK.LD=		${WRAPPER_TMPDIR}/cmd-sink-ld
@@ -514,6 +517,7 @@ generate-wrappers: ${_target_}
 	cmd-sink-irix-ld \
 	cmd-sink-interix-gcc \
 	cmd-sink-ld \
+	cmd-sink-mkpie-gcc \
 	cmd-sink-osf1-cc \
 	cmd-sink-osf1-ld \
 	cmd-sink-hpux-cc \
@@ -688,7 +692,7 @@ SUBST_MESSAGE.unwrap=	Unwrapping files-to-be-installed.
 SUBST_FILES.unwrap=	${_UNWRAP_FILES}
 SUBST_SED.unwrap=	${_UNWRAP_SED}
 .if defined(_WRAPPER_DEBUG) && !empty(_WRAPPER_DEBUG:M[yY][eE][sS])
-SUBST_POSTCMD.unwrap=	${DO_NADA}
+_SUBST_KEEP.unwrap=	${CP} -f "$$file" "$$file.before-unwrap"
 .endif
 
 .endif

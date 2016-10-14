@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.3 2015/08/02 11:37:31 szptvlfn Exp $
+# $NetBSD: Makefile,v 1.6 2016/01/10 11:49:09 szptvlfn Exp $
 
-DISTNAME=	haskell-src-exts-1.16.0.1
-PKGREVISION=	2
+DISTNAME=	haskell-src-exts-1.17.1
+PKGREVISION=	1
 CATEGORIES=	devel
 
 MAINTAINER=	pho@cielonegro.org
 COMMENT=	Manipulating Haskell source
 LICENSE=	modified-bsd
 
-BUILD_DEPENDS+=	happy>=1.17:../../devel/happy
+BUILD_DEPENDS+=	happy>=1.19:../../devel/happy
 
 .include "../../mk/haskell.mk"
 .include "../../devel/hs-cpphs/buildlink3.mk"

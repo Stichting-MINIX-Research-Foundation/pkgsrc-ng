@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.68 2015/06/12 10:48:27 wiz Exp $
+# $NetBSD: Makefile,v 1.73 2016/09/22 09:07:08 maya Exp $
 
 DISTNAME=		${IRSSI_DISTNAME}
-PKGREVISION=		1
 CATEGORIES=		chat
 EXTRACT_SUFX=		${IRSSI_EXTRACT_SUFX}
+PKGREVISION=		1
 
-MAINTAINER=		pkgsrc-users@NetBSD.org
+MAINTAINER=		maya@NetBSD.org
 HOMEPAGE=		http://www.irssi.org/
 COMMENT=		Secure and modular IRC client with text mode user interface
 LICENSE=		gnu-gpl-v2

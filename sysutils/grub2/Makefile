@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.7 2014/09/05 12:14:24 gsutre Exp $
+# $NetBSD: Makefile,v 1.9 2016/05/17 10:32:09 fhajny Exp $
 
 DISTNAME=		grub-2.00
 PKGNAME=		${DISTNAME:S/grub/grub2/}
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		sysutils
 MASTER_SITES=		ftp://ftp.gnu.org/gnu/grub/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX}
 
-MAINTAINER=		gsutre@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.gnu.org/software/grub/
 COMMENT=		GRand Unified Bootloader, version 2
 LICENSE=		gnu-gpl-v3
@@ -89,7 +89,7 @@ EGFILES+=		10_linux
 EGFILES+=		10_netbsd
 .endif
 .for file in ${EGFILES}
-CONF_FILES_PERMS+=	${EGDIR}/${file} ${PKG_SYSCONFDIR}/${file} ${ROOT_USER} ${ROOT_GROUP} 0755
+CONF_FILES_PERMS+=	${EGDIR}/${file} ${PKG_SYSCONFDIR}/${file} ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0755
 .endfor
 CONF_FILES+=		${EGDIR}/README ${PKG_SYSCONFDIR}/README
 CONF_FILES+=		${EGDIR}/default.conf.sample ${PKG_SYSCONFDIR}/default.conf

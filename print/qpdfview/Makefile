@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.25 2015/07/15 15:09:39 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2016/09/19 12:15:35 wiedi Exp $
 
-VER=		0.4
+VER=		0.4.16
 DISTNAME=	qpdfview-${VER}
-PKGREVISION=	16
+PKGREVISION=	5
 CATEGORIES=	print
 MASTER_SITES=	https://launchpad.net/qpdfview/trunk/${VER}/+download/
 
@@ -14,21 +14,19 @@ LICENSE=	gnu-gpl-v2
 DEPENDS+=	poppler-data-[0-9]*:../../print/poppler-data
 DEPENDS+=	qt4-sqlite3-[0-9]*:../../x11/qt4-sqlite3
 
-SUBST_CLASSES+=		prefix
-SUBST_STAGE.prefix=	pre-configure
-SUBST_MESSAGE.prefix=	Fix install path
-SUBST_FILES.prefix+=	qpdfview.pri
-SUBST_VARS.prefix+=	DESTDIR PREFIX PKGMANDIR
-
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config
 USE_LIBTOOL=	yes
 
+INSTALL_MAKE_FLAGS+=    INSTALL_ROOT=${DESTDIR}
+
 do-configure:
-	cd ${WRKSRC} && QTDIR=${QTDIR} \
+	cd ${WRKSRC} && env ${CONFIGURE_ENV} PKGMANDIR=${PKGMANDIR} \
 		${QTDIR}/bin/qmake qpdfview.pro
 
 .include "../../graphics/djvulibre-lib/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../graphics/librsvg/buildlink3.mk"
 .include "../../print/cups15/buildlink3.mk"
 .include "../../print/libspectre/buildlink3.mk"
 .include "../../print/poppler-qt4/buildlink3.mk"
@@ -36,4 +34,5 @@ do-configure:
 .include "../../x11/qt4-qdbus/buildlink3.mk"
 .include "../../x11/qt4-tools/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../sysutils/file/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

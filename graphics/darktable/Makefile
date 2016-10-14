@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.56 2015/09/23 11:52:15 joerg Exp $
+# $NetBSD: Makefile,v 1.63 2016/08/03 10:22:50 adam Exp $
 
 DISTNAME=	darktable-1.2.3
-PKGREVISION=	11
+PKGREVISION=	16
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=darktable/}
 EXTRACT_SUFX=	.tar.xz
@@ -49,8 +49,12 @@ GCC_REQD+=	4.2
 CFLAGS+=	-mstackrealign -msse2 -march=i686
 .endif
 
-.if ${OPSYS} == "NetBSD"
-CFLAGS+=	-D_NETBSD_SOURCE
+CFLAGS.NetBSD+=	-D_NETBSD_SOURCE
+
+.include "../../mk/compiler.mk"
+.if !empty(PKGSRC_COMPILER:Mgcc)
+# gdk_pixbuf_new_from_inline
+CFLAGS+=	-Wno-error=deprecated-declarations
 .endif
 
 CHECK_PORTABILITY_SKIP+= packaging/macosx/start

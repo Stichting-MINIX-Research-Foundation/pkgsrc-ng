@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.38 2015/07/27 14:35:35 mef Exp $
+# $NetBSD: Makefile,v 1.42 2016/09/17 13:39:36 mef Exp $
 
-DISTNAME=	AnyEvent-7.11
+DISTNAME=	AnyEvent-7.13
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=AnyEvent/}
 
-MAINTAINER=	rhaen@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://software.schmorp.de/pkg/AnyEvent.html
 COMMENT=	Simple API for io, timer and completion callbacks
 LICENSE=	${PERL5_LICENSE}

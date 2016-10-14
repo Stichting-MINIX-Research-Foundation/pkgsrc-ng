@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.40 2015/07/29 12:21:32 jperkin Exp $
+# $NetBSD: Makefile,v 1.42 2015/11/04 13:27:59 tnn Exp $
 
 DISTNAME=		rcs-5.9.4
 CATEGORIES=		devel scm
@@ -10,18 +10,18 @@ HOMEPAGE=		http://www.cs.purdue.edu/homes/trinkle/RCS/
 COMMENT=		GNU Revision Control System - version control software
 LICENSE=		gnu-gpl-v3
 
-USE_TOOLS+=		gmake gsoelim
+GNU_CONFIGURE=		yes
+USE_TOOLS+=		gmake gsoelim diff:run diff3:run
 
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS" || ${OPSYS} == "OSF1" || ${OPSYS} == "AIX" || ${OPSYS} == "Minix"
-DEPENDS+=		diffutils>=2.7:../../devel/diffutils
-CONFIGURE_ARGS+=	--with-diffutils
-# the native diff/diff3 is not sufficient for rcs
-TOOLS_PLATFORM.diff=	${LOCALBASE}/bin/gdiff
-.endif
 
-GNU_CONFIGURE=		yes
-CONFIGURE_ENV+=		PATH=${LOCALBASE}/bin:"$$PATH"
+# the native diff/diff3 is not sufficient for rcs
+.if ${OPSYS} == "SunOS" || ${OPSYS} == "OSF1" || ${OPSYS} == "AIX" || ${OPSYS} == "Minix"
+TOOLS_PLATFORM.diff=
+TOOLS_PLATFORM.diff3=
+.endif
+# DIFF is already in CONFIGURE_ENV
+CONFIGURE_ENV+=		DIFF3=${TOOLS_PATH.diff3}
 
 REPLACE_SH=		build-aux/extract-help
 

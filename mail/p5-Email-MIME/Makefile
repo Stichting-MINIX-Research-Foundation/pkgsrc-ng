@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.23 2015/08/03 03:28:09 wen Exp $
+# $NetBSD: Makefile,v 1.27 2016/06/08 19:23:56 wiz Exp $
 
-DISTNAME=		Email-MIME-1.934
+DISTNAME=		Email-MIME-1.937
 PKGNAME=		p5-${DISTNAME}
+PKGREVISION=		1
 CATEGORIES=		mail perl5
 MASTER_SITES=		${MASTER_SITE_PERL_CPAN:=Email/}
 
-MAINTAINER=		rhaen@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://search.cpan.org/dist/Email-MIME/
 COMMENT=		Perl module for easy MIME message parsing
 LICENSE=		${PERL5_LICENSE}

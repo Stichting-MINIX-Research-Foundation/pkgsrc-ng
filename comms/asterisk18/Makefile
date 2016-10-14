@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.99 2015/08/18 07:31:03 wiz Exp $
+# $NetBSD: Makefile,v 1.108 2016/08/03 10:22:35 adam Exp $
 #
 # NOTE: when updating this package, there are two places that sound
 #       tarballs need to be checked
@@ -7,7 +7,7 @@ DISTNAME=	asterisk-1.8.32.3
 DIST_SUBDIR=	${PKGNAME_NOREV}
 DISTFILES=	${DEFAULT_DISTFILES}
 EXTRACT_ONLY=	${DISTNAME}.tar.gz
-PKGREVISION=	5
+PKGREVISION=	10
 CATEGORIES=	comms net audio
 MASTER_SITES=	http://downloads.asterisk.org/pub/telephony/asterisk/ \
 		http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/ \
@@ -96,17 +96,23 @@ BUILDLINK_TRANSFORM+=	rm:-march=i386
 .endif
 
 PLIST_VARS+=	kqueue
-.if exists(/usr/include/sys/event.h)
+.for dir in ${COMPILER_INCLUDE_DIRS}
+.  if exists(${dir}/sys/event.h)
 PLIST.kqueue=	yes
-.endif
+.  endif
+.endfor
 
 PLIST_VARS+=	mgcp
 # NOSIGPIPE is a temp variable, since PLIST.mgcp MUST remain undefined
 # if the grep fails
-NOSIGPIPE!=	${GREP} SO_NOSIGPIPE /usr/include/sys/socket.h || echo ""
-.if ${NOSIGPIPE} != ""
+.for dir in ${COMPILER_INCLUDE_DIRS}
+.  if (exists(${dir}/sys/socket.h))
+NOSIGPIPE!=	${GREP} SO_NOSIGPIPE ${dir}/sys/socket.h || echo ""
+.    if ${NOSIGPIPE} != ""
 PLIST.mgcp= yes
-.endif
+.    endif
+.  endif
+.endfor
 
 .include "options.mk"
 
@@ -127,19 +133,17 @@ SUBST_SED.configs+=	-e "s|/usr/local/man|${ASTMANDIR}|"
 SUBST_SED.configs+=	-e "s|/usr/local|${PREFIX}|"
 SUBST_SED.configs+=	-e "s|/var|${VARBASE}|"
 
-.if (${OPSYS} == "NetBSD")
 # XXX gross hack, remove when atomics properly implemented
-SUBST_CLASSES+=		atomics
+SUBST_CLASSES.NetBSD+=	atomics
 SUBST_STAGE.atomics=	post-configure
 SUBST_FILES.atomics=	include/asterisk/autoconfig.h
 SUBST_SED.atomics=	-e "s|^\#define HAVE_GCC_ATOMICS 1|\#undef HAVE_GCC_ATOMICS|"
 
 # XXX gross hack, IP_PKTINFO in NetBSD isn't compatible with anything else
-SUBST_CLASSES+=		pktinfo
+SUBST_CLASSES.NetBSD+=	pktinfo
 SUBST_STAGE.pktinfo=	post-configure
 SUBST_FILES.pktinfo=	include/asterisk/autoconfig.h
 SUBST_SED.pktinfo=	-e "s|^\#define HAVE_PKTINFO 1|\#undef HAVE_PKTINFO|"
-.endif
 
 RCD_SCRIPTS=		asterisk
 OWN_DIRS_PERMS+=	${ASTDBDIR} ${ASTERISK_USER} ${ASTERISK_GROUP} 0755
@@ -195,9 +199,13 @@ CONF_FILES_PERMS+=		${ASTEXAMPLEDIR}/${f:Q} ${PKG_SYSCONFDIR}/${f:Q} ${ASTERISK_
 
 PTHREAD_OPTS+=	require native
 
-.if (${OPSYS} == "Darwin" && exists(/usr/include/sys/poll.h))
 post-patch:
+.if ${OPSYS} == "Darwin"
+.  for dir in ${COMPILER_INCLUDE_DIRS}
+.    if exists(${dir}/sys/poll.h)
 	${ECHO} "#include <sys/poll.h>" > ${WRKSRC}/include/asterisk/poll-compat.h
+.    endif
+.  endfor
 .endif
 
 post-install:

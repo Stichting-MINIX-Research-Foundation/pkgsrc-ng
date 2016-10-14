@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.1 2014/06/08 22:36:22 rodent Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/09 13:04:00 wiz Exp $
 
-DISTNAME=	gevent-1.0.1
+DISTNAME=	gevent-1.0.2
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	net python
-MASTER_SITES=	https://pypi.python.org/packages/source/g/gevent/
+MASTER_SITES=	${MASTER_SITE_PYPI:=g/gevent/}
 
 MAINTAINER=	kamel.derouiche@gmail.com
 HOMEPAGE=	http://www.gevent.org/
@@ -14,7 +15,7 @@ DEPENDS+=	${PYPKGPREFIX}-greenlet>=0.4.1:../../devel/py-greenlet
 
 USE_LANGUAGES=	c c++
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 do-test:
 	${RUN} cd ${WRKSRC}/greentest; ${SETENV} ${TEST_ENV} ${PYTHONBIN} testrunner.py

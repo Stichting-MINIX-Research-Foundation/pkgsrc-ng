@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/06/12 10:50:57 wiz Exp $
+# $NetBSD: Makefile,v 1.30 2016/07/09 06:38:50 wiz Exp $
 
 DISTNAME=	foomatic-filters-4.0.17
-PKGREVISION=	8
+PKGREVISION=	9
 CATEGORIES=	print
 MASTER_SITES=	http://www.openprinting.org/download/foomatic/
 
@@ -37,8 +37,7 @@ INSTALL_TARGET=	install-bin install-man
 
 .if !empty(PKG_OPTIONS:Mcups)
 DEPENDS+=	cups>=1.0:../../print/cups15
-EVAL_PREFIX+=	CUPS_PREFIX=cups
-CUPS_FILTERDIR=	${CUPS_PREFIX:Q}/libexec/cups/filter
+CUPS_FILTERDIR=	${LOCALBASE}/libexec/cups/filter
 CONFIGURE_ENV+=	CUPS_FILTERS=${CUPS_FILTERDIR}
 FILES_SUBST+=	CUPS_FILTERDIR=${CUPS_FILTERDIR}
 DEINSTALL_TEMPLATES+=	${.CURDIR}/../../print/foomatic-filters-cups/DEINSTALL

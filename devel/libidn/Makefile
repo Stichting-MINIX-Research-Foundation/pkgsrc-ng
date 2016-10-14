@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.94 2015/08/06 07:54:57 wiz Exp $
+# $NetBSD: Makefile,v 1.97 2016/07/21 11:51:28 wiz Exp $
 
-DISTNAME=	libidn-1.32
+DISTNAME=	libidn-1.33
 CATEGORIES=	devel
 MASTER_SITES=	ftp://alpha.gnu.org/pub/gnu/libidn/ \
 		${MASTER_SITE_GNU:=libidn/}
@@ -21,11 +21,7 @@ CONFIGURE_ARGS+=	--disable-csharp --disable-java
 CONFIGURE_ARGS+=	--with-packager=pkgsrc
 CONFIGURE_ARGS+=	--with-packager-bug-reports=http://www.NetBSD.org/cgi-bin/sendpr.cgi?gndb=netbsd
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Interix"
-CONFIGURE_ARGS+=	--disable-ld-version-script
-.endif
+CONFIGURE_ARGS.Interix+=	--disable-ld-version-script
 
 PKGCONFIG_OVERRIDE+=	libidn.pc.in
 TEST_TARGET=		check

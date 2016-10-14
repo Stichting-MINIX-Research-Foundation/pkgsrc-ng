@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.213 2015/08/31 19:49:44 wiz Exp $
+# $NetBSD: Makefile,v 1.227 2016/09/26 12:27:55 jperkin Exp $
 
-DISTNAME=	openssl-1.0.2d
+DISTNAME=	openssl-1.0.2j
 CATEGORIES=	security
 MASTER_SITES=	https://www.openssl.org/source/
 
@@ -17,10 +17,8 @@ BUILD_DEPENDS+=	p5-Perl4-CoreLibs-[0-9]*:../../devel/p5-Perl4-CoreLibs
 
 USE_GCC_RUNTIME=	yes
 
-.include "../../mk/bsd.prefs.mk"
-.include "../../mk/compiler.mk"
-
-USE_TOOLS+=		fgrep gmake perl
+USE_TOOLS+=		fgrep gmake perl:run
+BUILD_TARGET=		depend all
 TEST_TARGET=		tests
 MAKE_JOBS_SAFE=		no
 
@@ -31,9 +29,19 @@ CONFIGURE_ARGS+=	--install_prefix=${DESTDIR}
 CONFIGURE_ARGS+=	--openssldir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	shared no-fips
 
+.include "../../mk/compiler.mk"
+
+# Avoid dependency on 'makedepend' on platforms where the default CC is set
+# to 'cc' not 'gcc' in boostrap-mk-files.  OpenSSL only supports the latter.
+.if ${PKGSRC_COMPILER} == "gcc" && ${CC} == "cc"
+CC=			gcc
+.endif
+
 .if ${OPSYS} == "SunOS"
 .  if ${MACHINE_ARCH} == "sparc"
-OPENSSL_MACHINE_ARCH=	${SPARC_TARGET_ARCH}
+OPENSSL_MACHINE_ARCH=	sparcv7
+.  elif ${MACHINE_ARCH} == "sparc64"
+OPENSSL_MACHINE_ARCH=	sparcv9
 .  elif ${MACHINE_ARCH} == "i386"
 OPENSSL_MACHINE_ARCH=	x86
 .  elif ${MACHINE_ARCH} == "x86_64"
@@ -43,7 +51,7 @@ OPENSSL_MACHINE_ARCH=	${MACHINE_ARCH}
 # back to ./config's autodetection if not.
 .  if defined(OPENSSL_MACHINE_ARCH) && !empty(OPENSSL_MACHINE_ARCH)
 CONFIGURE_SCRIPT=	./Configure
-.    if !empty(CC_VERSION:Mgcc*)
+.    if ${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc"
 CONFIGURE_ARGS+=	solaris${${ABI}==64:?64:}-${OPENSSL_MACHINE_ARCH}-gcc
 .    else
 CONFIGURE_ARGS+=	solaris${${ABI}==64:?64:}-${OPENSSL_MACHINE_ARCH}-cc
@@ -123,6 +131,9 @@ CONFIGURE_ARGS+=	hpux-ia64-${CC}
 .  if ${MACHINE_ARCH} == "powerpc64"
 CONFIGURE_SCRIPT=	./Configure
 CONFIGURE_ARGS+=	linux-ppc64
+.  elif ${MACHINE_ARCH} == "i386"
+CONFIGURE_SCRIPT=	./Configure
+CONFIGURE_ARGS+=	linux-elf
 .  endif
 .elif ${OS_VARIANT} == "SCOOSR5"
 # SIGILL in _sha1_block_data_order_ssse3().

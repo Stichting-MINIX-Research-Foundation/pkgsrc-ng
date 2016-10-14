@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.26 2015/08/27 09:16:55 khorben Exp $
+# $NetBSD: Makefile,v 1.34 2016/09/19 18:09:33 wiedi Exp $
 
-DISTNAME=	Surfer-0.2.8
-PKGNAME=	deforaos-surfer-0.2.8
+DISTNAME=	Surfer-0.2.10
+PKGNAME=	deforaos-surfer-0.2.10
+PKGREVISION=	3
 CATEGORIES=	www
-MASTER_SITES=	http://www.defora.org/os/download/download/4365/
+MASTER_SITES=	http://www.defora.org/os/download/download/4430/
 
 MAINTAINER=	khorben@defora.org
 HOMEPAGE=	http://www.defora.org/
@@ -16,14 +17,13 @@ USE_TOOLS+=	xgettext
 BUILD_DEPENDS+=	libxslt-[0-9]*:../../textproc/libxslt
 BUILD_DEPENDS+=	docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 
+LDFLAGS.SunOS+=	-lsocket -lnsl
+
 MAKE_FLAGS+=	DESTDIR=${DESTDIR}
 MAKE_FLAGS+=	PREFIX=${PREFIX}
 MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
 MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 AUTO_MKDIRS=	yes
-
-OPSYSVARS+=		MAKE_ENV
-MAKE_ENV.SunOS+=	LDFLAGSF="-lnsl -lresolv"
 
 .include "../../mk/bsd.prefs.mk"
 

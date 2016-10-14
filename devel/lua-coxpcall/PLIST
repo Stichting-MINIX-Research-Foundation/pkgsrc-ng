@@ -1,0 +1,6 @@
+@comment $NetBSD: PLIST,v 1.2 2016/06/05 10:03:21 alnsn Exp $
+${LUA_DOCDIR}/coxpcall.png
+${LUA_DOCDIR}/doc.css
+${LUA_DOCDIR}/index.html
+${LUA_DOCDIR}/license.html
+${LUA_LDIR}/coxpcall.lua

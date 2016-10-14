@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.26 2015/06/30 09:57:34 ryoon Exp $
+# $NetBSD: Makefile,v 1.31 2016/08/17 00:06:41 ryoon Exp $
 
-DISTNAME=	picard-1.3.1
+DISTNAME=	picard-1.3.2
 PKGREVISION=	1
 CATEGORIES=	audio
 MASTER_SITES=	ftp://ftp.musicbrainz.org/pub/musicbrainz/picard/
@@ -10,15 +10,15 @@ HOMEPAGE=	http://musicbrainz.org/doc/Picard_Tagger
 COMMENT=	Audio file tagger
 LICENSE=	gnu-gpl-v2
 
-WRKSRC=		${WRKDIR}/picard-release-1.3.1
+WRKSRC=		${WRKDIR}/picard-release-${PKGVERSION_NOREV}
 
 DEPENDS+=	${PYPKGPREFIX}-qt4>=4.5:../../x11/py-qt4
 DEPENDS+=	${PYPKGPREFIX}-mutagen>=1.20:../../audio/py-mutagen
 
-USE_LANGUAGES=	c c++
-USE_TOOLS+=	msgfmt pkg-config
+USE_LANGUAGES=		c c++
+USE_TOOLS+=		msgfmt pkg-config
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.3.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.3.1
 
 HAS_CONFIGURE=		yes
 CONFIG_SHELL=		${PYTHONBIN}
@@ -29,8 +29,7 @@ CONFIGURE_ARGS+=	config
 .include "../../lang/python/distutils.mk"
 .include "../../audio/libofa/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-.include "../../multimedia/ffmpeg1/buildlink3.mk"
+.include "../../multimedia/ffmpeg2/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
-
 .include "../../mk/bsd.pkg.mk"

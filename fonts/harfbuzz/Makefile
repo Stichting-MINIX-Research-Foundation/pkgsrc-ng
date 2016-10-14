@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2015/09/06 20:30:26 wiz Exp $
+# $NetBSD: Makefile,v 1.70 2016/09/12 07:34:41 wiz Exp $
 
-DISTNAME=	harfbuzz-1.0.3
+DISTNAME=	harfbuzz-1.3.1
 CATEGORIES=	fonts
 MASTER_SITES=	http://www.freedesktop.org/software/harfbuzz/release/
 EXTRACT_SUFX=	.tar.bz2
@@ -26,9 +26,7 @@ LDFLAGS.OpenBSD+=	-lz
 .include "../../mk/bsd.prefs.mk"
 
 # gcc too old
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-fvisibility-inlines-hidden
-.endif
+BUILDLINK_TRANSFORM.MirBSD+=	rm:-fvisibility-inlines-hidden
 
 PLIST_VARS+=	coretext
 

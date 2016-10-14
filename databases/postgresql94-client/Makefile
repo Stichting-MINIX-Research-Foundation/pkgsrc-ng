@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.1 2015/01/14 21:01:18 adam Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/14 16:56:30 is Exp $
 
 PKGNAME=	${DISTNAME:C/-/94-client-/}
+PKGREVISION=	#
 COMMENT=	PostgreSQL database client programs
 
 .include "../../databases/postgresql94/Makefile.common"
@@ -8,6 +9,10 @@ COMMENT=	PostgreSQL database client programs
 USE_TOOLS+=		gzip tar
 CONFIGURE_ARGS+=	--with-openssl
 CONFIGURE_ARGS+=	--with-zlib
+
+# Override INSTALL script to avoid unprivileged user/group
+# leaking into the binary package
+CONFIGURE_ARGS+=	INSTALL=${INSTALL:Q}\ -c
 
 .include "../../mk/bsd.prefs.mk"
 

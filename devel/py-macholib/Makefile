@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2014/08/07 01:40:00 rodent Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/28 15:48:30 wiz Exp $
 
 DISTNAME=	macholib-1.7
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
-MASTER_SITES=	https://pypi.python.org/packages/source/m/macholib/
+MASTER_SITES=	${MASTER_SITE_PYPI:=m/macholib/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://bitbucket.org/ronaldoussoren/macholib
@@ -16,7 +16,6 @@ USE_LANGUAGES=	# none
 
 REPLACE_PYTHON+=	macholib/macho_dump.py macholib/macho_find.py
 REPLACE_PYTHON+=	macholib/macho_standalone.py
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/macho_dump \

@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.41 2015/06/12 10:51:12 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2016/07/09 06:38:58 wiz Exp $
 
 DISTNAME=	cfengine-2.2.10
-PKGREVISION=	6
+PKGREVISION=	8
 CATEGORIES=	sysutils net
 MASTER_SITES=	http://www.cfengine.org/tarballs/ \
 		http://ftp.osuosl.org/pub/cfengine/ \
 		ftp://sunsite.uio.no/pub/cfengine/
 
-MAINTAINER=	rhaen@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cfengine.org/
 COMMENT=	Automate configuration and administration of large systems
 LICENSE=	gnu-gpl-v2

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.40 2015/09/23 12:00:11 joerg Exp $
+# $NetBSD: Makefile,v 1.44 2016/08/28 15:48:33 wiz Exp $
 
 DISTNAME=	ScientificPython-2.8.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/Python//}
+PKGREVISION=	1
 CATEGORIES=	math python
 MASTER_SITES=	http://sourcesup.cru.fr/frs/download.php/4411/
 
@@ -13,10 +14,9 @@ CONFLICTS+=	py-Scientific-[0-9]*
 
 MAKE_ENV+=	NETCDF_PREFIX=${BUILDLINK_PREFIX.netcdf}
 
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX:Q}
 PLIST_SUBST+=	OSNAME=${LOWER_OPSYS:S/solaris/sunos/}
 PLIST_SUBST+=	OSVER=${OS_VERSION:C/^(.).*/\1/}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.8.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 2.8.1
 
 INSTALLATION_DIRS=	bin
 

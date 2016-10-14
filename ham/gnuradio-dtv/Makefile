@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/09/01 04:14:54 mef Exp $
+# $NetBSD: Makefile,v 1.6 2016/07/12 11:36:47 mef Exp $
 
 PKGNAME=	gnuradio-dtv-${VERSION}
 COMMENT=	Various digital television standards of GNU Radio
@@ -12,5 +12,6 @@ CMAKE_ARGS+=	-DENABLE_GR_FEC=True
 
 PLIST_MINUS+=	fec
 .include	"../../ham/gnuradio-fec/buildlink3.mk"
+.include	"../../math/gsl/buildlink3.mk"
 
 .include	"../../mk/bsd.pkg.mk"

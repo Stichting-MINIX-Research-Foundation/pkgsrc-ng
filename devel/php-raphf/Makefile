@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2015/08/30 08:22:53 taca Exp $
+# $NetBSD: Makefile,v 1.6 2016/09/11 17:03:26 taca Exp $
 
 MODNAME=	raphf
-PECL_VERSION=	1.1.0
+PECL_VERSION=	1.1.2
 CATEGORIES=	devel
 
 MAINTAINER=	rodent@NetBSD.org
@@ -11,6 +11,8 @@ LICENSE=	2-clause-bsd
 
 BUILD_DEPENDS+=	re2c>=0.13.0.4:../../devel/re2c
 
+PHP_VERSIONS_ACCEPTED=	56
+
 USE_LANGUAGES=	c c++
 USE_LIBTOOL=	yes
 
@@ -19,6 +21,8 @@ PLIST_SRC+=		PLIST
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/php_raphf.h \
+		${DESTDIR}${PREFIX}/include/php/ext/raphf
+	${INSTALL_DATA} ${WRKSRC}/src/php_raphf_api.h \
 		${DESTDIR}${PREFIX}/include/php/ext/raphf
 
 .include "../../lang/php/ext.mk"

@@ -1,14 +1,15 @@
-$NetBSD: patch-src_hugin1_icpfind_AutoCtrlPointCreator.cpp,v 1.1 2013/06/27 15:51:49 joerg Exp $
+$NetBSD: patch-src_hugin1_icpfind_AutoCtrlPointCreator.cpp,v 1.3 2016/04/07 19:23:26 adam Exp $
 
---- src/hugin1/icpfind/AutoCtrlPointCreator.cpp.orig	2013-06-25 22:01:10.000000000 +0000
+Fix building with Clang.
+
+--- src/hugin1/icpfind/AutoCtrlPointCreator.cpp.orig	2016-02-19 22:03:11.000000000 +0000
 +++ src/hugin1/icpfind/AutoCtrlPointCreator.cpp
-@@ -28,9 +28,6 @@
+@@ -28,7 +28,7 @@
  #include "panoinc.h"
  
  #include <fstream>
--#ifdef __GNUC__
--#include <ext/stdio_filebuf.h>
--#endif
+-#if defined (__GNUC__) && !defined (__FreeBSD__)
++#if defined(__GNUC__) && !defined(__FreeBSD__) && !defined(__clang__)
+ #include <ext/stdio_filebuf.h>
+ #endif
  
- #include "PT/Panorama.h"
- #include "PT/ImageGraph.h"

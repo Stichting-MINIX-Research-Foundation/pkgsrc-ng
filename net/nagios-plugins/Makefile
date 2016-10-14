@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2015/06/12 10:50:43 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2016/07/09 06:38:43 wiz Exp $
 #
 
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	net sysutils
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -9,7 +9,7 @@ HOMEPAGE=	http://sourceforge.net/projects/nagiosplug/
 COMMENT=	Nagios plugins
 LICENSE=	gnu-gpl-v2
 
-PKG_DESTDIR_SUPPORT=	destdir
+PKG_DESTDIR_SUPPORT=	user-destdir
 
 .include "../../net/nagios-plugins/Makefile.common"
 

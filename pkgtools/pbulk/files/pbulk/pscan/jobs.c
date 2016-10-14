@@ -1,4 +1,4 @@
-/* $NetBSD: jobs.c,v 1.7 2012/11/30 16:22:49 joerg Exp $ */
+/* $NetBSD: jobs.c,v 1.9 2016/06/20 17:54:43 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -296,6 +296,28 @@ add_job_full(const char *location)
 	++len_jobs;
 }
 
+int
+has_job(void)
+{
+	size_t i;
+	struct scan_entry *e;
+	struct scan_job * job;
+
+	for (i = first_undone_job; i < len_jobs; ++i) {
+		job = &jobs[i];
+		if (job->state != JOB_OPEN)
+			continue;
+		e = find_old_scan(job->pkg_location);
+		if (e == NULL)
+			return 1;
+		job->scan_output = xstrdup(e->data);
+		process_job(job, JOB_DONE);
+		i = first_undone_job - 1;
+	}
+
+	return 0;
+}
+
 struct scan_job *
 get_job(void)
 {
@@ -320,10 +342,31 @@ get_job(void)
 	return NULL;
 }
 
+static void
+parse_full_tree(char *data) {
+	char *eol;
+
+	while (*data) {
+		eol = strchr(data, '\n');
+		if (eol == NULL)
+			err(1, "Incomplete line in full tree list");
+		if (data == eol)
+			continue;
+		*eol = '\0';
+		add_job_full(data);
+		data = eol + 1;
+	}
+}
+
 void
 process_job(struct scan_job *job, enum job_state state)
 {
 	job->state = state;
+
+	if (state == JOB_DONE &&
+	    strcmp(job->pkg_location, "find_full_tree") == 0) {
+		parse_full_tree(job->scan_output);
+	}
 
 	for (; first_undone_job < len_jobs; ++first_undone_job) {
 		if (jobs[first_undone_job].state != JOB_DONE)
@@ -489,6 +532,8 @@ write_jobs(const char *output_file)
 			warnx("%s was not processed", jobs[i].pkg_location);
 			continue;
 		}
+		if (strcmp(jobs[i].pkg_location, "find_full_tree") == 0)
+			continue;
 		if (jobs[i].scan_output == NULL) {
 			warnx("Scan failed for %s", jobs[i].pkg_location);
 			continue;

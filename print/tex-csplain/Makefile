@@ -1,14 +1,16 @@
-# $NetBSD: Makefile,v 1.3 2015/08/09 09:28:47 markd Exp $
+# $NetBSD: Makefile,v 1.6 2016/08/07 09:09:37 markd Exp $
 
 DISTNAME=	csplain
-PKGNAME=	tex-${DISTNAME}-2015.37901
-TEXLIVE_REV=	37901
+PKGNAME=	tex-${DISTNAME}-2016.41764
+TEXLIVE_REV=	41764
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ctan.org/pkg/csplain
 COMMENT=	Plain TeX multilanguage support
 #LICENSE=	other-free
 
+DEPENDS+=	tex-cs-[0-9]*:../../fonts/tex-cs
+DEPENDS+=	tex-enctex-[0-9]*:../../print/tex-enctex
 DEPENDS+=	tex-tex-[0-9]*:../../print/tex-tex
 
 INSTALLATION_DIRS+=	bin

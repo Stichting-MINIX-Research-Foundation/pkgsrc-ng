@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/07 09:09:41 markd Exp $
+
+SHA1 (tex-unicode-data-41521/unicode-data.tar.xz) = 24f5b45a15987a95c4369dbf70126fe2fd1ac112
+RMD160 (tex-unicode-data-41521/unicode-data.tar.xz) = c3fd30b01b320dda90ac17e5752fe72fbb2cc97f
+SHA512 (tex-unicode-data-41521/unicode-data.tar.xz) = a4140d7de4c728245b8d223ba1447f45e5ca3d70b8fc3eeeef587cf65e11bb99bbe8c3811ebb741f64f09bf32ab263df6fe1294e6083a91aaa5fccadec991be8
+Size (tex-unicode-data-41521/unicode-data.tar.xz) = 221648 bytes

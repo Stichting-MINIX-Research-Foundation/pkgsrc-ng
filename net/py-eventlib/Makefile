@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.6 2015/04/13 23:12:43 rodent Exp $
+# $NetBSD: Makefile,v 1.10 2016/08/28 15:48:34 wiz Exp $
 
 DISTNAME=	eventlib-0.1.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	net python
-MASTER_SITES=	https://pypi.python.org/packages/source/e/eventlib/
+MASTER_SITES=	${MASTER_SITE_PYPI:=e/eventlib/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://travis-ci.org/Yipit/eventlib/
@@ -19,8 +19,7 @@ DEPENDS+=	${PYPKGPREFIX}-django>=1.4.1:../../www/py-django
 USE_LANGUAGES=	# none
 
 PY_PATCHPLIST=	yes
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
-PYTHON_VERSIONS_INCOMPATIBLE+=	33 34	# not yet ported as of 0.1.5
+PYTHON_VERSIONS_INCOMPATIBLE+=	34 35	# not yet ported as of 0.1.5
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/eventlib \

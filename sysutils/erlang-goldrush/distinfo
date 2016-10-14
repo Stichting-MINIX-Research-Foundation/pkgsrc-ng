@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/01/16 17:33:51 fhajny Exp $
+
+SHA1 (goldrush-0.1.8.tar.gz) = 381854868a26adb5f46dd3fcc03683b96857c2a8
+RMD160 (goldrush-0.1.8.tar.gz) = e688d66b5c8315f5085fa2528a235d6d1a3481e4
+SHA512 (goldrush-0.1.8.tar.gz) = 7b0ad5bfdd2f817cef70ef6552770fd1afa3f6fcf67b2f3b391ea157e46f1574779e9ef9037876b6a017f7f229c0cb12099ef22160c2e3fd91f71ea500210c2f
+Size (goldrush-0.1.8.tar.gz) = 21914 bytes

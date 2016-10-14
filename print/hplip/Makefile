@@ -1,16 +1,17 @@
-# $NetBSD: Makefile,v 1.46 2015/08/27 23:53:24 khorben Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/02 18:57:36 schnoebe Exp $
 
-DISTNAME=		hplip-3.15.7
-PKGREVISION=		2
-CATEGORIES=		print
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=hplip/}
+DISTNAME=	hplip-3.16.7
+CATEGORIES=	print
+MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=hplip/}
 
-MAINTAINER=		schnoebe@NetBSD.org
-HOMEPAGE=		http://hplipopensource.com/
-COMMENT=		HP Linux Imaging and Printing
-LICENSE=		gnu-gpl-v2 AND mit AND modified-bsd
+MAINTAINER=	schnoebe@NetBSD.org
+HOMEPAGE=	http://hplipopensource.com/
+COMMENT=	HP Linux Imaging and Printing
+LICENSE=	gnu-gpl-v2 AND mit AND modified-bsd
 
 CONFLICTS+=		hpijs-[0-9]*
+
+DEPENDS+=		wget-[0-9]*:../../net/wget
 
 FILES_SUBST+=           CUPS_USER=${CUPS_USER}
 FILES_SUBST+=           CUPS_GROUP=${CUPS_GROUP}
@@ -20,17 +21,16 @@ PKG_USERS_VARS+=        CUPS_USER
 
 BUILD_DEFS+=            CUPS_USER CUPS_GROUP VARBASE
 
-GNU_CONFIGURE=		yes
 USE_LIBTOOL=		yes
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		aclocal autoconf automake gmake pkg-config
 USE_TOOLS+=		perl:run
-
-CONFIGURE_ARGS=		--sysconfdir=${PKG_SYSCONFDIR} \
-			--localstatedir=${VARBASE} \
-			--with-cupsbackenddir=${PREFIX}/libexec/cups/backend \
-			--with-cupsfilterdir=${PREFIX}/libexec/cups/filter \
-			--with-hpppddir=${PREFIX}/share/hplip/ppd/HP
+GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
+CONFIGURE_ARGS+=	--with-cupsbackenddir=${PREFIX}/libexec/cups/backend
+CONFIGURE_ARGS+=	--with-cupsfilterdir=${PREFIX}/libexec/cups/filter
+CONFIGURE_ARGS+=	--with-hpppddir=${PREFIX}/share/hplip/ppd/HP
 CONFIGURE_ARGS+=	--enable-network-build
 CONFIGURE_ARGS+=	--disable-pp-build
 CONFIGURE_ARGS+=	--enable-hpcups-install
@@ -53,7 +53,6 @@ INSTALL_MAKE_FLAGS+=	mimedir=${EGDIR}/cups
 OWN_DIRS+=		${PKG_SYSCONFDIR}/hp
 OWN_DIRS+=		${VARBASE}/lib/hp
 OWN_DIRS+=		${PREFIX}/share/examples/hplip/log/hp
-
 OWN_DIRS_PERMS+=	${PREFIX}/share/examples/hplip/log/hp ${CUPS_USER} ${CUPS_GROUP} 0774
 
 PLIST_SRC=		PLIST.base
@@ -68,7 +67,7 @@ CONF_FILES+=
 REPLACE_PYTHON=		*.py */*.py */*/*.py
 REPLACE_PYTHON+=	fax/filters/pstotiff
 REPLACE_PYTHON+=	prnt/filters/hpps
-REPLACE_PERL=		prnt/filters/hpcac prnt/hpijs/foomatic-rip-hplip
+REPLACE_PERL=		prnt/hpijs/foomatic-rip-hplip
 
 PY_PATCHPLIST=		yes
 
@@ -174,7 +173,6 @@ post-install:
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"
-.include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../net/net-snmp/buildlink3.mk"
 .include "../../print/cups15/buildlink3.mk"

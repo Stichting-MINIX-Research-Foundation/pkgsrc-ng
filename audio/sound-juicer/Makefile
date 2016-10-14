@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.80 2015/08/25 07:13:03 richard Exp $
+# $NetBSD: Makefile,v 1.86 2016/08/03 10:22:31 adam Exp $
 #
 
 DISTNAME=		sound-juicer-2.32.0
+PKGREVISION=		5
 CATEGORIES=		audio
 MASTER_SITES=		http://www.burtonini.com/computing/ \
 			${MASTER_SITE_GNOME:=sources/sound-juicer/2.32/}
@@ -9,6 +10,7 @@ MASTER_SITES=		http://www.burtonini.com/computing/ \
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.burtonini.com/computing/
 COMMENT=		CD ripping tool
+LICENSE=		gnu-gpl-v2
 
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes

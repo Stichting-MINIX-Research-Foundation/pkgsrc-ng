@@ -1,13 +1,15 @@
-# $NetBSD: Makefile,v 1.21 2015/09/06 12:30:34 taca Exp $
+# $NetBSD: Makefile,v 1.26 2016/09/19 13:04:20 wiz Exp $
 
 MODNAME=		mssql
 CATEGORIES+=		databases
 COMMENT=		PHP extension for MS SQL databases
+PKGREVISION=		1
 
 USE_PHP_EXT_PATCHES=	yes
 
 CONFLICTS=	php-mssql-[0-9]*
 
+PHP_VERSIONS_ACCEPTED=	56
 CONFIGURE_ARGS+=	--with-${MODNAME}=shared,${BUILDLINK_DIR}
 
 .include "../../lang/php/ext.mk"

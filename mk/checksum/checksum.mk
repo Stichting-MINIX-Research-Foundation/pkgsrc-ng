@@ -1,9 +1,9 @@
-# $NetBSD: checksum.mk,v 1.20 2013/11/16 15:29:39 jakllsch Exp $
+# $NetBSD: checksum.mk,v 1.22 2016/01/06 07:38:25 dholland Exp $
 #
 # See bsd.checksum.mk for helpful comments.
 #
 
-_DIGEST_ALGORITHMS?=		SHA1 RMD160
+_DIGEST_ALGORITHMS?=		SHA1 RMD160 SHA512
 _PATCH_DIGEST_ALGORITHMS?=	SHA1
 
 # These variables are set by pkgsrc/mk/fetch/bsd.fetch-vars.mk.
@@ -41,7 +41,7 @@ checksum checksum-phase:
 	case ${.TARGET:Q} in						\
 	*-phase)	${TEST} ! -f ${_COOKIE.checksum} || exit 0 ;;	\
 	esac;								\
-	if cd ${DISTDIR} && ${_CHECKSUM_CMD} ${DISTINFO_FILE} ${_CKSUMFILES}; then \
+	if cd ${DISTDIR} && ${_CHECKSUM_CMD} ${DISTINFO_FILE:tA} ${_CKSUMFILES}; then \
 		${TRUE};						\
 	else								\
 		${ERROR_MSG} "Make sure the Makefile and checksum file (${DISTINFO_FILE})"; \

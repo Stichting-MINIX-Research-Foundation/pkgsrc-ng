@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2015/02/08 23:04:22 snj Exp $
+# $NetBSD: Makefile,v 1.43 2016/05/16 14:03:40 he Exp $
 
 DISTNAME=	jasper-1.900.1
-PKGREVISION=	10
+PKGREVISION=	12
 CATEGORIES=	graphics
 MASTER_SITES=	http://www.ece.uvic.ca/~mdadams/jasper/software/
 EXTRACT_SUFX=	.zip
@@ -18,7 +18,6 @@ CONFIGURE_ARGS+=	--enable-shared --without-x --disable-opengl
 
 # The solaris stdbool.h requires c99 which is fine for jasper, but
 # not so good for things that depend upon jasper.  See PR#43901
-OPSYSVARS+=		CONFIGURE_ENV
 CONFIGURE_ENV.SunOS+=	ac_cv_header_stdbool_h=no
 
 INSTALLATION_DIRS+=	share/doc/jasper

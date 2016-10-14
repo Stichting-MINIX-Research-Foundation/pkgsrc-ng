@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.21 2014/02/01 11:38:48 adam Exp $
+@comment $NetBSD: PLIST,v 1.23 2016/05/09 17:55:35 adam Exp $
 awstats/bin/awstats_buildstaticpages.pl
 awstats/bin/awstats_configure.pl
 awstats/bin/awstats_exportlib.pl
@@ -122,6 +122,7 @@ awstats/cgi-bin/plugins/clusterinfo.pm
 awstats/cgi-bin/plugins/decodeutfkeys.pm
 awstats/cgi-bin/plugins/export_to_csv.pm
 awstats/cgi-bin/plugins/geoip.pm
+awstats/cgi-bin/plugins/geoip6.pm
 awstats/cgi-bin/plugins/geoip_asn_maxmind.pm
 awstats/cgi-bin/plugins/geoip_city_maxmind.pm
 awstats/cgi-bin/plugins/geoip_isp_maxmind.pm
@@ -165,6 +166,7 @@ awstats/icon/browser/dillo.png
 awstats/icon/browser/doris.png
 awstats/icon/browser/dreamcast.png
 awstats/icon/browser/ecatch.png
+awstats/icon/browser/edge.png
 awstats/icon/browser/encompass.png
 awstats/icon/browser/epiphany.png
 awstats/icon/browser/ericsson.png
@@ -563,6 +565,7 @@ awstats/icon/mime/mdb.png
 awstats/icon/mime/notavailable.png
 awstats/icon/mime/ooffice.png
 awstats/icon/mime/other.png
+awstats/icon/mime/package.png
 awstats/icon/mime/page.png
 awstats/icon/mime/pdf.png
 awstats/icon/mime/php.png
@@ -634,6 +637,8 @@ awstats/icon/os/linuxzenwalk.png
 awstats/icon/os/mac.png
 awstats/icon/os/macintosh.png
 awstats/icon/os/macosx.png
+awstats/icon/os/macosx10.png
+awstats/icon/os/macosx11.png
 awstats/icon/os/macosx4.png
 awstats/icon/os/macosx5.png
 awstats/icon/os/macosx6.png
@@ -660,6 +665,7 @@ awstats/icon/os/vms.png
 awstats/icon/os/webtv.png
 awstats/icon/os/wii.png
 awstats/icon/os/win.png
+awstats/icon/os/win10.png
 awstats/icon/os/win16.png
 awstats/icon/os/win2000.png
 awstats/icon/os/win2003.png
@@ -667,6 +673,8 @@ awstats/icon/os/win2008.png
 awstats/icon/os/win7.png
 awstats/icon/os/win8.1.png
 awstats/icon/os/win8.png
+awstats/icon/os/win80.png
+awstats/icon/os/win81.png
 awstats/icon/os/win95.png
 awstats/icon/os/win98.png
 awstats/icon/os/wince.png

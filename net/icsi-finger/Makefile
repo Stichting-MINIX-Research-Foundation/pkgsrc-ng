@@ -1,10 +1,8 @@
-# $NetBSD: Makefile,v 1.27 2014/09/11 21:27:09 dholland Exp $
-#
+# $NetBSD: Makefile,v 1.30 2016/04/24 10:34:44 wiz Exp $
 
 DISTNAME=	icsi-finger-1.0.29
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.icsi.berkeley.edu/pub/ai/stolcke/software/
-MASTER_SITES+=	http://ftp.sunet.se/pub/nir/finger/icsi-finger/
 EXTRACT_SUFX=	.tar.Z
 
 MAINTAINER=	is@NetBSD.org
@@ -23,15 +21,12 @@ INSTALLATION_DIRS+=	share/examples/icsi-finger/targets
 TOOL_DEPENDS+=	tradcpp-[0-9]*:../../devel/tradcpp
 
 .include "../../mk/compiler.mk"
-.include "../../mk/bsd.prefs.mk"
 
 .if !empty(PKGSRC_COMPILER:Mclang)
 CPPFLAGS+=	-Wno-error=return-type
 .endif
 
-.if ${OPSYS} == "SunOS"
-MAKE_ENV+=	CPP_ARGS=-DSVR4
-.endif
+MAKE_ENV.SunOS+=	CPP_ARGS=-DSVR4
 
 pre-configure:
 		chmod +w ${WRKSRC}/config.h

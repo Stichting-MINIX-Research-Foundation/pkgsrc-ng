@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2014/02/12 23:18:27 tron Exp $
+# $NetBSD: Makefile,v 1.15 2016/09/18 23:50:23 wiedi Exp $
 
 DISTNAME=	unworkable-0.53
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://unworkable.googlecode.com/files/
 
@@ -10,9 +10,12 @@ HOMEPAGE=	http://code.google.com/p/unworkable/
 COMMENT=	BSD-licensed command-line torrent client
 LICENSE=	isc
 
-USE_TOOLS+=	yacc
+USE_TOOLS+=	yacc nroff
 WRKSRC=		${WRKDIR}/unworkable
 MAKE_FILE=	BSDmakefile
+
+CPPFLAGS.SunOS+=	-Du_int8_t=uint8_t -Du_int16_t=uint16_t -Du_int32_t=uint32_t -Du_int64_t=uint64_t
+LDFLAGS.SunOS+=		-lsocket -lnsl
 
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/cat1
 

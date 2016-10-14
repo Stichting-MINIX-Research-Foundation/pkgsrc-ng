@@ -1,5 +1,5 @@
 #!/bin/sh
-# $NetBSD: mkreadme,v 1.27 2015/06/13 12:09:32 spz Exp $
+# $NetBSD: mkreadme,v 1.30 2016/08/19 12:17:26 wiz Exp $
 #
 # Script for README.html generation
 #
@@ -265,23 +265,16 @@ echo "Starting README.html generation: `date`"
 ######################################################################
 
 echo " "
-echo "Extracting tool variables:"
-echo " "
+echo "Extracting tool variables"
 if [ -d ${PKGSRCDIR}/pkgtools/prereq-readme ]; then
     cd ${PKGSRCDIR}/pkgtools/prereq-readme
     eval "`${BMAKE} show-tools`"
-    for v in AWK CMP ECHO EXPR FGREP FIND GREP GZIP_CMD SED SETENV SORT
-    do
-	eval "echo '---->'  ${v}=\"\${${v}}\""
-    done
 else
     echo "Error:   ${PKGSRCDIR}/pkgtools/prereq-readme does not seem to exist"
     exit 1
 fi
 
-echo " "
-echo "Extracting configuration variables:"
-echo " "
+echo "Extracting configuration variables"
 if [ -d ${PKGSRCDIR}/pkgtools/prereq-readme ]; then
     cd ${PKGSRCDIR}/pkgtools/prereq-readme
     for v in CDROM_PKG_URL_HOST CDROM_PKG_URL_DIR DISTDIR \
@@ -294,7 +287,6 @@ if [ -d ${PKGSRCDIR}/pkgtools/prereq-readme ]; then
 	    echo "Failed.  This is a fatal error"
 	    clean_and_exit
 	fi
-	echo "---->  ${v}=\"${val}\""
 	eval "${v}=\"${val}\""
     done
 else
@@ -381,6 +373,7 @@ if [ "x$restart" = "xno" ] ; then
 		    		echo "          but the directory does not exist.  Please fix this!" > /dev/stderr
 	    		else
 		    		cd ${PKGSRCDIR}/${c}/${pkgdir}
+				o=`${BMAKE} show-options | ${AWK} -f ${PKGSRCDIR}/mk/scripts/htmloptions.awk`
 		    		l=`${BMAKE} print-summary-data`
 		    		if [ $? != 0 ]; then
 			    		echo "WARNING (printdepends):  the package in ${c}/${pkgdir} had problem with" \
@@ -391,6 +384,7 @@ if [ "x$restart" = "xno" ] ; then
 			    		${BMAKE} print-summary-data  2>&1 > /dev/stderr
 		    		else
 			    		echo "$l" >> $DATABASEFILE
+					echo "htmloptions ${c}/${pkgdir} $o" >> $DATABASEFILE
 		    		fi
 	    		fi
 			if [ "x$quiet" = "xno" ]; then

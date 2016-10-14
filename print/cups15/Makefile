@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.7 2015/09/05 13:03:22 jperkin Exp $
+# $NetBSD: Makefile,v 1.13 2016/07/09 06:38:50 wiz Exp $
 #
 # The CUPS author is very good about taking back changes into the main
 # CUPS distribution.  The correct place to send patches or bug-fixes is:
@@ -8,7 +8,7 @@ DISTNAME=	cups-${DIST_VERS}-source
 PKGNAME=	cups-${DIST_VERS:S/-/./g}
 BASE_VERS=	1.5.4
 DIST_VERS=	${BASE_VERS}
-PKGREVISION=	14
+PKGREVISION=	16
 
 # Fix for https://www.cups.org/str.php?L4609
 PATCH_SITES=	http://www.cups.org/strfiles.php/3482/
@@ -90,9 +90,7 @@ PLIST.notmac=		yes
 # Avoid the following error when compiling with clang.
 # /usr/local/bin/ld: /usr/lib/crt1.o: relocation R_X86_64_32 against `_DYNAMIC'
 # can not be used when making a shared object; recompile with -fPIC
-.if ${OPSYS} == "FreeBSD"
-BUILDLINK_TRANSFORM+=	rm:-Wl,-pie
-.endif
+BUILDLINK_TRANSFORM.FreeBSD+=	rm:-Wl,-pie
 
 # CUPS_USER		user to run filter and CGI programs as
 # CUPS_GROUP		group to run filter and CGI programs as
@@ -194,6 +192,7 @@ post-install:
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../print/libpaper/buildlink3.mk"

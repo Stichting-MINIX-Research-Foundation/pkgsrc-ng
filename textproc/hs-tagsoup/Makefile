@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.7 2015/08/02 11:27:05 szptvlfn Exp $
+# $NetBSD: Makefile,v 1.9 2016/03/15 13:45:17 szptvlfn Exp $
 
-DISTNAME=	tagsoup-0.13.1
-PKGREVISION=	6
+DISTNAME=	tagsoup-0.13.9
 CATEGORIES=	textproc
 
 MAINTAINER=	pho@cielonegro.org

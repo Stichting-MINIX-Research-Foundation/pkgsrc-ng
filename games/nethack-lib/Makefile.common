@@ -1,4 +1,4 @@
-# $NetBSD: Makefile.common,v 1.28 2012/10/06 11:54:47 asau Exp $
+# $NetBSD: Makefile.common,v 1.30 2016/02/25 13:19:47 jperkin Exp $
 #
 # used by games/nethack/Makefile
 # used by games/nethack-lib/Makefile
@@ -13,7 +13,7 @@ NETHACK_DIR=		nethackdir340
 
 DISTNAME=		nethack-${NETHACK_DISTVER}-src
 CATEGORIES=		games
-MASTER_SITES=		ftp://ftp.sourceforge.net/pub/sourceforge/n/ne/nethack/
+MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=nethack/${NETHACK_BASEVER}/}
 EXTRACT_SUFX=		.tgz
 
 MAINTAINER=		pooka@NetBSD.org
@@ -31,19 +31,18 @@ USE_TOOLS+=		gzip yacc lex awk
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin" || ${OPSYS} == "Linux"
-SUBST_CLASSES+=		ttylib
+SUBST_CLASSES.Darwin+=	ttylib
+SUBST_CLASSES.Linux+=	ttylib
 SUBST_MESSAGE.ttylib=	Configuring to use ncurses
 SUBST_STAGE.ttylib=	post-patch
 SUBST_FILES.ttylib=	sys/unix/Makefile.src
 SUBST_SED.ttylib=	-e 's,^WINTTYLIB = -ltermlib,WINTTYLIB = -lncurses,'
-.endif
+
 .include "../../mk/curses.buildlink3.mk"
 
-.if ${OPSYS} == "Linux"
-NETHACK_OS=		SYSV
-.endif
-NETHACK_OS?=		BSD
+OPSYSVARS+=		NETHACK_OS
+NETHACK_OS.Linux=	SYSV
+NETHACK_OS.*=		BSD
 
 SUBST_CLASSES+=		os
 SUBST_MESSAGE.os=	Configuring for ${NETHACK_OS}

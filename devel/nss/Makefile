@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.100 2015/08/20 10:54:24 ryoon Exp $
+# $NetBSD: Makefile,v 1.117 2016/07/09 06:38:11 wiz Exp $
 
 DISTNAME=		nss-${NSS_RELEASE:S/.0$//}
-NSS_RELEASE=		3.20.0
+NSS_RELEASE=		3.25.0
+PKGREVISION=		1
 CATEGORIES=		security
-MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_RELEASE:S/.0$//:S/./_/g}_RTM/src/}
+MASTER_SITES=		${MASTER_SITE_MOZILLA_ALL:=security/nss/releases/NSS_${NSS_MAJOR_VERSION}_${NSS_MINOR_VERSION}_RTM/src/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.mozilla.org/projects/security/pki/nss/
@@ -17,20 +18,28 @@ CHECK_PORTABILITY_SKIP+=${MOZILLA_DIR}configure
 
 USE_GCC_RUNTIME=	yes
 USE_TOOLS+=		gmake perl pax pkg-config
+MAKE_JOBS_SAFE=		no
+
+BUILD_DIRS=		nss
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
-SUBST_CLASSES+=			exec_path
+SUBST_CLASSES.Darwin+=		exec_path
 SUBST_STAGE.exec_path=		pre-configure
 SUBST_MESSAGE.exec_path=	Fixing @executable_path
 SUBST_FILES.exec_path=		nss/coreconf/Darwin.mk
 SUBST_SED.exec_path=		-e 's,@executable_path,${PREFIX}/lib/nss,g'
-.endif
 
-.if ${OPSYS} == "Linux"
-MAKE_ENV+=	FREEBL_NO_DEPEND=0
-.endif
+SUBST_CLASSES+=			zlib
+SUBST_STAGE.zlib=		pre-configure
+SUBST_MESSAGE.zlib=		Use ZLIB_LIBS from environment
+SUBST_FILES.zlib=		nss/coreconf/*.mk
+SUBST_SED.zlib=			-e 's,^ZLIB_LIBS,\#ZLIB_LIBS,g'
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
+BUILDLINK_TRANSFORM+=	rm:-ansi
+
+MAKE_ENV.Linux+=	FREEBL_NO_DEPEND=0
 
 .if ${OBJECT_FMT} == "ELF"
 SO_SUFFIX=		so
@@ -41,7 +50,7 @@ SO_SUFFIX=		so.1.0
 .endif
 PLIST_SUBST+=		SO_SUFFIX=${SO_SUFFIX:Q}
 
-.if ${OPSYS} == "SunOS" && !empty(PKGSRC_COMPILER:Mgcc)
+.if ${OPSYS} == "SunOS" && (${PKGSRC_COMPILER} == "clang" || ${PKGSRC_COMPILER} == "gcc")
 MAKE_ENV+=	NS_USE_GCC=YES
 .endif
 
@@ -55,17 +64,38 @@ MAKE_ENV+=	BUILD_OPT=1
 #MAKE_ENV+=	OPTIMIZER=${CFLAGS:Q}
 MAKE_ENV+=	INCLUDES=-I${BUILDLINK_PREFIX.nspr}/include/nspr
 MAKE_ENV+=	NSS_USE_SYSTEM_SQLITE=1
-MAKE_ENV+=	EXTRA_SHARED_LIBS="-Wl,-R${BUILDLINK_PREFIX.nspr}/lib/nspr -Wl,-R,${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
+MAKE_ENV+=	ZLIB_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.zlib}/lib -L${BUILDLINK_PREFIX.zlib}/lib -lz"
+MAKE_ENV+=	USE_SYSTEM_ZLIB=1
+MAKE_ENV+=	EXTRA_SHARED_LIBS="${COMPILER_RPATH_FLAG}${BUILDLINK_PREFIX.nspr}/lib/nspr ${COMPILER_RPATH_FLAG}${PREFIX}/lib/nss -L${BUILDLINK_PREFIX.nspr}/lib/nspr -lplc4 -lplds4 -lnspr4"
+MAKE_ENV+=	NSS_DISABLE_GTESTS=yes
+.include "../../mk/compiler.mk"
+.if !empty(CC_VERSION:Mgcc-4.[0-7]*)
+CFLAGS+=	-DNSS_NO_GCC48
+.endif
+
+NSS_MAJOR_VERSION=	${NSS_RELEASE:C/\.[0-9.]*//}
+NSS_MINOR_VERSION=	${NSS_RELEASE:S/3.//:C/\.[0-9]*//}
+NSS_PATCH_VERSION=	${NSS_RELEASE:C/[0-9.]*\.//}
+
+SUBST_CLASSES+=		config
+SUBST_SED.config+=	-e "s,@PREFIX@,${PREFIX},g"
+SUBST_SED.config+=	-e "s,@NSS_MAJOR_VERSION@,${NSS_MAJOR_VERSION},"
+SUBST_SED.config+=	-e "s,@NSS_MINOR_VERSION@,${NSS_MINOR_VERSION},"
+SUBST_SED.config+=	-e "s,@NSS_PATCH_VERSION@,${NSS_PATCH_VERSION},"
+SUBST_SED.config+=	-e "s!@COMPILER_RPATH_FLAG@!${COMPILER_RPATH_FLAG}!"
+SUBST_SED.config+=	-e "s,@PTHREAD@,${BUILDLINK_LIBS.pthread:Q},"
+SUBST_STAGE.config=	pre-build
+SUBST_MESSAGE.config=	Preparing *-config files.
+SUBST_FILES.config+=	nss.pc nss-config
+
+INSTALLATION_DIRS=	bin include/nss lib/nss lib/pkgconfig
+DIST=	${WRKSRC}/dist
 
 post-extract:
 	find ${WRKSRC} -type f | xargs ${CHMOD} 644
 	find ${WRKSRC} -type d | xargs ${CHMOD} 755
-
-do-build:
-	cd ${WRKSRC}/nss && ${SETENV} ${MAKE_ENV} ${MAKE_PROGRAM} all
-
-INSTALLATION_DIRS=	include/nss lib/nss lib/pkgconfig
-DIST=	${WRKSRC}/dist
+	${CP} ${FILESDIR}/nss.pc.in ${WRKSRC}/nss.pc
+	${CP} ${FILESDIR}/nss-config.in ${WRKSRC}/nss-config
 
 do-install:
 	(cd ${DIST}/public && pax -Lrw . ${DESTDIR}${PREFIX}/include/nss/ )
@@ -73,21 +103,13 @@ do-install:
 		pax -Lrw *.${SO_SUFFIX} ${DESTDIR}${PREFIX}/lib/nss/ )
 	${INSTALL_LIB} ${DIST}/*_OPT.OBJ/lib/libcrmf.a \
 		${DESTDIR}${PREFIX}/lib/nss/
-	set -e; \
-	{ ${ECHO} "Name: NSS"; \
-	  ${ECHO} "Description: Mozilla Network Security Services"; \
-	  ${ECHO} "Version: ${NSS_RELEASE}"; \
-	  ${ECHO} "Requires: nspr >= 4.10.3"; \
-	  ${ECHO} "Cflags: -I${PREFIX}/include/nss/nss -I${PREFIX}/include/nss"; \
-	  ${ECHO} "Libs: -L${PREFIX}/lib/nss" \
-	      "${COMPILER_RPATH_FLAG}${PREFIX}/lib/nss" \
-	      "-lnss3 -lsmime3 -lssl3 -lsoftokn3 -lnssutil3" \
-	      ${BUILDLINK_LIBS.pthread:Q}; \
-	} >${DESTDIR}${PREFIX}/lib/pkgconfig/nss.pc
+	${INSTALL_DATA} ${WRKSRC}/nss.pc ${DESTDIR}${PREFIX}/lib/pkgconfig/nss.pc
+	${INSTALL_SCRIPT} ${WRKSRC}/nss-config ${DESTDIR}${PREFIX}/bin/nss-config
 
 # For consistency of libxul.so link in www/firefox.
-BUILDLINK_API_DEPENDS.sqlite3+= sqlite3>=3.8.4.2
+BUILDLINK_API_DEPENDS.sqlite3+=	sqlite3>=3.8.4.2
 .include "../../databases/sqlite3/buildlink3.mk"
+BUILDLINK_API_DEPENDS.nspr+=	nspr>=4.12
 .include "../../devel/nspr/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"

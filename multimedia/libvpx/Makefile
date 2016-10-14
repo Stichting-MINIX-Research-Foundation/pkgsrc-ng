@@ -1,14 +1,13 @@
-# $NetBSD: Makefile,v 1.59 2015/07/11 23:40:49 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2016/08/16 23:53:25 ryoon Exp $
 
-DISTNAME=	libvpx-1.4.0
+DISTNAME=	libvpx-1.6.0
 CATEGORIES=	multimedia
-PKGREVISION=	1
 MASTER_SITES=	${MASTER_SITE_GITHUB:=webmproject/}
 GITHUB_PROJECT=	libvpx
 GITHUB_TAG=	v${PKGVERSION_NOREV}
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/webm/
+HOMEPAGE=	https://chromium.googlesource.com/webm/libvpx
 COMMENT=	On2 VP8 library from Google
 LICENSE=	modified-bsd
 
@@ -25,8 +24,7 @@ CONFIGURE_ARGS+=	--disable-unit-tests
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64" || \
-	${MACHINE_ARCH} == "amd64"
+.if ${MACHINE_ARCH} == "i386" || ${MACHINE_ARCH} == "x86_64"
 .  if ${PKGSRC_COMPILER} == "gcc" && (${OPSYS} == "NetBSD" || ${OPSYS} == "SunOS")
 # PR pkg/48508: GCC 4.4 or later is required to compile ssse3 code on NetBSD & Solaris.
 GCC_REQD+=	4.4
@@ -111,27 +109,26 @@ CONFIGURE_ARGS+=	--target=mips32-linux-gcc
 CONFIGURE_ARGS+=	--disable-runtime-cpu-detect
 .endif
 
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-lrt
+BUILDLINK_TRANSFORM.MirBSD+=	rm:-lrt
 # Compiler is too old for these newfangled features
-CONFIGURE_ENV+=		sse2=no sse3=no ssse3=no sse4_1=no
+CONFIGURE_ENV.MirBSD+=		sse2=no sse3=no ssse3=no sse4_1=no
 # runtime_cpu_detect=no
-CONFIGURE_ENV+=		RTCD_OPTIONS='--disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4_1'
-CONFIGURE_ARGS+=	--disable-runtime-cpu-detect
-.endif
+CONFIGURE_ENV.MirBSD+=		RTCD_OPTIONS='--disable-sse2 --disable-sse3 --disable-ssse3 --disable-sse4_1'
+CONFIGURE_ARGS.MirBSD+=		--disable-runtime-cpu-detect
 
 # Under Solaris 10 its /usr/xpg4/bin/tr is not sufficient. PR pkg/48508
 .if !empty(MACHINE_PLATFORM:MSunOS-5.10*)
 BUILD_DEPENDS=		coreutils-[0-9]*:../../sysutils/coreutils
-FIND_PREFIX:=		GTRDIR=coreutils
-.include "../../mk/find-prefix.mk"
-TOOLS_PLATFORM.tr=	${GTRDIR}/bin/gtr
+TOOLS_PLATFORM.tr=	${LOCALBASE}/bin/gtr
 .endif
 
 BUILD_TARGET=	# none
 
 post-extract:
 	${CP} ${FILESDIR}/strip_fPIC.sh ${WRKSRC}
+
+PKGCONFIG_OVERRIDE+=		vpx.pc
+PKGCONFIG_OVERRIDE_STAGE=	post-build
 
 # PR pkg/48508: newer gas from binutils is required to compile ssse3 code.
 .if !empty(MACHINE_PLATFORM:MNetBSD-5.*) || \

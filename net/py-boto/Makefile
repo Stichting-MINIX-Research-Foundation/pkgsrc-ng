@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2015/04/05 21:38:32 hiramatsu Exp $
+# $NetBSD: Makefile,v 1.25 2016/08/28 15:48:33 wiz Exp $
 
 DISTNAME=	boto-2.37.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	net python www
-MASTER_SITES=	https://pypi.python.org/packages/source/b/boto/
+MASTER_SITES=	${MASTER_SITE_PYPI:=b/boto/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/boto/boto/
@@ -16,7 +16,6 @@ REPLACE_PYTHON+=	bin/* boto/pyami/launch_ami.py boto/services/bs.py
 REPLACE_PYTHON+=	boto/services/result.py
 
 PY_PATCHPLIST=			yes
-PLIST_SUBST+=			PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/asadmin \

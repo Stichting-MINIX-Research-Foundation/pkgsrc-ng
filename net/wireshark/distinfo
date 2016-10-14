@@ -1,12 +1,9 @@
-$NetBSD: distinfo,v 1.83 2015/09/12 19:03:59 tnn Exp $
+$NetBSD: distinfo,v 1.94 2016/09/29 20:11:08 markd Exp $
 
-SHA1 (wireshark-1.12.7.tar.bz2) = bed365bacfd0b5c653d8568ad25e52957659bd9f
-RMD160 (wireshark-1.12.7.tar.bz2) = 4a36875d9203112045c41a9adf312b0a4f83bd49
-Size (wireshark-1.12.7.tar.bz2) = 29202490 bytes
-SHA1 (patch-aa) = 237c60ae1bd860bdc3ee42a17a46b4e212b97c0f
-SHA1 (patch-ac) = 470a2a32a5577f16aef4ba3e638eb6b97c483ba3
-SHA1 (patch-ba) = f2fa69d1254b94c7b6b28d5e056c211a019d1db9
-SHA1 (patch-bb) = 2f6b72aeb99d87821ee6917d6c4c29a276d2e3a8
-SHA1 (patch-bc) = 052ede4ba58502117fe7b355e22a906ff65b773e
-SHA1 (patch-ca) = 08c4ae23739fbec238b02a2d0398b4a157f9c077
-SHA1 (patch-help_Makefile.in) = 8d7c27aa5d2c8b7998e4f7235fefaedd52059386
+SHA1 (wireshark-2.2.0.tar.bz2) = 4b47bf8e2053073585318646e27d2aa9dc7c7238
+RMD160 (wireshark-2.2.0.tar.bz2) = bfcd77da458dc9f427cd423876a60968e8fa66ad
+SHA512 (wireshark-2.2.0.tar.bz2) = 03dd1ce686b0e012d3498d6966382db1ff39844e2b03286eded5d77062a958d2dc939b00558708ae37b8e354d95ee6c4aa32023477d862b35bff4e2a0f8f3326
+Size (wireshark-2.2.0.tar.bz2) = 32141141 bytes
+SHA1 (patch-epan_dissectors_packet-kerberos.c) = 8069e9cdf997b1e32c149e3351ec39e400c3c81b
+SHA1 (patch-epan_dissectors_packet-kerberos.h) = ef0d17c9d7b7f49677abd32b87f3767b5c194a9a
+SHA1 (patch-extcap.c) = 70615218f803d24c89ad8237d6ede2119606a21b

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.82 2015/07/12 00:39:56 wiz Exp $
+# $NetBSD: Makefile,v 1.92 2016/08/03 10:23:32 adam Exp $
 
-DISTNAME=	midori_0.5.9_all_
+DISTNAME=	midori_0.5.11_all_
 PKGNAME=	${DISTNAME:S/_all_//:S/_/-/}
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	www
 MASTER_SITES=	http://midori-browser.org/downloads/
 
@@ -42,8 +42,7 @@ CONF_FILES+=	${EGDIR}/extensions/adblock/config \
 
 CONFIGURE_ENV=	VALAC=${VALAC}
 
-pre-configure:
-	${RM} ${WRKSRC}/extensions/history-list.vala.orig
+.include "options.mk"
 
 .include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
@@ -54,9 +53,8 @@ pre-configure:
 #.include "../../security/gnome-keyring/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../textproc/libxml2/buildlink3.mk"
-.include "../../www/webkit24-gtk/buildlink3.mk"
 .include "../../sysutils/libnotify/buildlink3.mk"
-.include "../../x11/gtk2/buildlink3.mk"
+.include "../../x11/libXScrnSaver/buildlink3.mk"
 BUILDLINK_DEPMETHOD.vala= build
 .include "../../lang/vala/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

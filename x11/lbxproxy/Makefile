@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.13 2015/07/04 18:06:37 richard Exp $
+# $NetBSD: Makefile,v 1.15 2015/11/01 19:42:14 markd Exp $
 
 DISTNAME=	lbxproxy-1.0.3
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=app/}
 EXTRACT_SUFX=	.tar.bz2
@@ -13,6 +14,7 @@ LICENSE=	x11 # XXX and others
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
 
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASE:Q}
 PKG_SYSCONFSUBDIR=	X11/lbxproxy
 EGDIR=		${PREFIX}/share/examples/lbxproxy
 CONF_FILES+=	${EGDIR}/AtomControl ${PKG_SYSCONFDIR}/AtomControl

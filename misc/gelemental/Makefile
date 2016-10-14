@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.28 2015/07/03 12:46:10 joerg Exp $
+# $NetBSD: Makefile,v 1.30 2016/08/03 10:23:08 adam Exp $
 #
 
 DISTNAME=	gelemental-1.2.0
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	misc
 MASTER_SITES=	http://www.kdau.com/files/
 EXTRACT_SUFX=	.tar.bz2
@@ -15,6 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config intltool gmake msgfmt
 USE_LANGUAGES=	c c++
+CXXFLAGS+=	-std=c++11
 
 PKGCONFIG_OVERRIDE+=	data/libelemental.pc.in
 

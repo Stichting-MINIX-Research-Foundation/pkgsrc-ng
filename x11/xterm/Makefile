@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.104 2015/08/30 14:32:37 wiz Exp $
+# $NetBSD: Makefile,v 1.110 2016/06/12 14:40:27 wiz Exp $
 
-DISTNAME=	xterm-320
+DISTNAME=	xterm-325
 CATEGORIES=	x11
-MASTER_SITES=	ftp://invisible-island.net/xterm/ \
-		http://www.sfr-fresh.com/unix/misc/
+MASTER_SITES=	ftp://invisible-island.net/xterm/
 EXTRACT_SUFX=	.tgz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

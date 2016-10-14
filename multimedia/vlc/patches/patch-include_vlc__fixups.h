@@ -1,31 +1,54 @@
-$NetBSD: patch-include_vlc__fixups.h,v 1.1 2013/09/08 16:28:27 joerg Exp $
+$NetBSD: patch-include_vlc__fixups.h,v 1.3 2016/06/21 17:58:05 joerg Exp $
 
---- include/vlc_fixups.h.orig	2013-05-15 20:39:43.000000000 +0000
+on NetBSD-current, just define "uselocale", nothing else
+fixes build
+
+static_assert: Assume that a compiler in C11 or C++11 frontend mode
+has the _Static_assert keyword, but define the macro if it is missing
+from the headers.
+
+--- include/vlc_fixups.h.orig	2015-04-13 19:54:35.000000000 +0000
 +++ include/vlc_fixups.h
-@@ -177,25 +177,7 @@ static inline char *getenv (const char *
- #   define ATTR_ALIGN(align)
+@@ -218,16 +218,28 @@ int posix_memalign (void **, size_t, siz
+ 
+ /* locale.h */
+ #ifndef HAVE_USELOCALE
++#ifdef __NetBSD__
++#include <sys/param.h>
++#if __NetBSD_Version__ >= 699002300
++/* NetBSD-current has locale_t but no uselocale */
++#define NetBSD_LOCALE_HACK
++#endif
++#endif
++#ifdef NetBSD_LOCALE_HACK
++#include <locale.h>
++#else
+ #define LC_ALL_MASK      0
+ #define LC_NUMERIC_MASK  0
+ #define LC_MESSAGES_MASK 0
+ #define LC_GLOBAL_LOCALE ((locale_t)(uintptr_t)1)
+ typedef void *locale_t;
++#endif
+ static inline locale_t uselocale(locale_t loc)
+ {
+     (void)loc;
+     return NULL;
+ }
++#ifndef NetBSD_LOCALE_HACK
+ static inline void freelocale(locale_t loc)
+ {
+     (void)loc;
+@@ -238,9 +250,12 @@ static inline locale_t newlocale(int mas
+     return NULL;
+ }
+ #endif
++#endif
+ 
+-#if !defined (HAVE_STATIC_ASSERT)
++#if !defined (static_assert)
++# if !(__STDC_VERSION__ - 0 >= 201112L || __cplusplus >= 201103L)
+ # define _Static_assert(x, s) ((void) sizeof (struct { unsigned:-!(x); }))
++# endif
+ # define static_assert _Static_assert
  #endif
  
--#ifndef HAVE_USELOCALE
--#define LC_NUMERIC_MASK  0
--#define LC_MESSAGES_MASK 0
--typedef void *locale_t;
--static inline locale_t uselocale(locale_t loc)
--{
--    (void)loc;
--    return NULL;
--}
--static inline void freelocale(locale_t loc)
--{
--    (void)loc;
--}
--static inline locale_t newlocale(int mask, const char * locale, locale_t base)
--{
--    (void)mask; (void)locale; (void)base;
--    return NULL;
--}
--#endif
-+#include <locale.h>
- 
- #ifdef WIN32
- # include <dirent.h>

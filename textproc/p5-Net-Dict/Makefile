@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2015/06/12 10:51:25 wiz Exp $
-#
+# $NetBSD: Makefile,v 1.17 2016/06/09 13:26:43 mef Exp $
 
-DISTNAME=		Net-Dict-2.19
+DISTNAME=		Net-Dict-2.21
 PKGNAME=		p5-${DISTNAME}
 PKGREVISION=		1
 CATEGORIES=		net textproc
@@ -20,6 +19,9 @@ DEPENDS+=		p5-AppConfig-Std-[0-9]*:../../devel/p5-AppConfig-Std
 DEPENDS+=		p5-Tk-[0-9]*:../../x11/p5-Tk
 # only for make test
 DEPENDS+=		p5-Test-Differences-[0-9]*:../../devel/p5-Test-Differences
+# for make test
+BUILD_DEPENDS+=		p5-Test-RequiresInternet-[0-9]*:../../net/p5-Test-RequiresInternet
+BUILD_DEPENDS+=		p5-Text-Diff-[0-9]*:../../textproc/p5-Text-Diff
 
 REPLACE_PERL+=		dict
 REPLACE_PERL+=		tkdict

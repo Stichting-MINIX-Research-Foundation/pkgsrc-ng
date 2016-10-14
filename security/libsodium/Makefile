@@ -1,19 +1,18 @@
-# $NetBSD: Makefile,v 1.7 2015/01/16 11:39:32 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/02/07 10:59:18 adam Exp $
 
-DISTNAME=	libsodium-1.0.1
+DISTNAME=	libsodium-1.0.8
 CATEGORIES=	security
-MASTER_SITES=	http://download.libsodium.org/libsodium/releases/
+MASTER_SITES=	https://download.libsodium.org/libsodium/releases/
 
-MAINTAINER=	csosstudy@gmail.com
-HOMEPAGE=	https://github.com/jedisct1/libsodium
+MAINTAINER=	pkgsrc@NetBSD.org
+HOMEPAGE=	https://download.libsodium.org/doc/
 COMMENT=	Library for build higher-level cryptographic tools
 LICENSE=	isc
 
-GNU_CONFIGURE=	yes
-USE_LIBTOOL=	yes
+USE_LIBTOOL=		yes
+GNU_CONFIGURE=		yes
+PKGCONFIG_OVERRIDE=	libsodium.pc.in
 
 TEST_TARGET=	check
-
-PKGCONFIG_OVERRIDE=	libsodium.pc.in
 
 .include "../../mk/bsd.pkg.mk"

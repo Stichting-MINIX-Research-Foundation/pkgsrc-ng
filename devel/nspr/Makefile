@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.78 2015/08/20 10:53:13 ryoon Exp $
+# $NetBSD: Makefile,v 1.86 2016/07/09 06:38:11 wiz Exp $
 
-DISTNAME=	nspr-${NSPR_RELEASE}
-NSPR_RELEASE=	4.10.9
+DISTNAME=	nspr-${NSPR_RELEASE:S/.0$//}
+NSPR_RELEASE=	4.12.0
+PKGREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=nspr/releases/v${NSPR_RELEASE}/src/}
+MASTER_SITES=	${MASTER_SITE_MOZILLA_ALL:=nspr/releases/v${NSPR_RELEASE:S/.0$//}/src/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://developer.mozilla.org/en-US/docs/Mozilla/Projects/NSPR
@@ -37,17 +38,20 @@ SUBST_MESSAGE.nspr-config=	Fixing nspr-config run path
 SUBST_FILES.nspr-config=	nspr/config/nspr-config.in
 SUBST_SED.nspr-config=		-e 's|-L$$libdir|"${COMPILER_RPATH_FLAG}$$libdir -L$$libdir"|g'
 
+SUBST_CLASSES+=			nspr-rpath
+SUBST_STAGE.nspr-rpath=		pre-configure
+SUBST_FILES.nspr-rpath=		nspr/lib/libc/src/Makefile.in nspr/lib/ds/Makefile.in
+SUBST_SED.nspr-rpath=		-e 's|$$$$ORIGIN|${PREFIX}/lib/nspr|g'
+
 .if ${OPSYS} == "OpenBSD"
 CHECK_SHLIBS_SUPPORTED= no
 .endif
 
-.if ${OPSYS} == "Darwin"
-SUBST_CLASSES+=			exec_path
+SUBST_CLASSES.Darwin+=		exec_path
 SUBST_STAGE.exec_path=		pre-configure
 SUBST_MESSAGE.exec_path=	Fixing @executable_path
 SUBST_FILES.exec_path=		nspr/configure.in
 SUBST_SED.exec_path=		-e 's,@executable_path,${PREFIX}/lib/nspr,g'
-.endif
 
 .if ${OBJECT_FMT} == "ELF"
 SO_SUFFIX=		so
@@ -80,6 +84,8 @@ CONFIGURE_ARGS+=	--enable-64bit
 .endif
 
 .if ${OPSYS} == "Darwin"
+# Avoid using invalid deployment targets.
+CONFIGURE_ARGS+=	--with-macos-sdk=/nonexistent
 .  if defined(ABI) && ${ABI} == "64"
 CONFIGURE_ARGS+=	--enable-64bit
 .  endif

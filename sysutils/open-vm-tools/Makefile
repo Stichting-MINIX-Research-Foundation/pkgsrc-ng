@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.52 2015/08/29 15:42:36 taca Exp $
+# $NetBSD: Makefile,v 1.58 2016/08/03 10:23:25 adam Exp $
 
 DISTNAME=	open-vm-tools-2008.08.08-109361
 PKGNAME=	open-vm-tools-2008.08.08.109361
-PKGREVISION=	41
+PKGREVISION=	45
 CATEGORIES=	sysutils
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=open-vm-tools/}
 
@@ -39,6 +39,9 @@ pre-configure:
 .if !empty(PKGSRC_COMPILER:Mclang)
 _WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-local-typedef
 CWRAPPERS_APPEND.cc+=	-Wno-error=unused-local-typedef
+.elif !empty(PKGSRC_COMPILER:Mgcc) && empty(CC_VERSION:U:Mgcc-[1-3].*) && empty(CC_VERSION:U:Mgcc-4.[0-7]*)
+_WRAP_EXTRA_ARGS.CC+=	-Wno-error=unused-local-typedefs -Wno-error=unused-but-set-variable
+CWRAPPERS_APPEND.cc+=	-Wno-error=unused-local-typedefs -Wno-error=unused-but-set-variable
 .endif
 
 .include "../../net/libdnet/buildlink3.mk"

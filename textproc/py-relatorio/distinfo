@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2015/03/17 23:14:32 rodent Exp $
+$NetBSD: distinfo,v 1.6 2016/08/17 14:56:56 richard Exp $
 
-SHA1 (relatorio-0.6.1.tar.gz) = 7504caa4e53c38f50f44e5b8f49399fe94065b08
-RMD160 (relatorio-0.6.1.tar.gz) = 4a1673763109ef7f1160c739a05b71a5ddd5f6cf
-Size (relatorio-0.6.1.tar.gz) = 274741 bytes
+SHA1 (relatorio-0.6.3.tar.gz) = 25a196d6bf2e7475be25af5828ea1f243ff2282f
+RMD160 (relatorio-0.6.3.tar.gz) = ead4f376b9c4ffee08aee0fab9309c5451bd8e7e
+SHA512 (relatorio-0.6.3.tar.gz) = deaf2f45866325e85c30f16a17acf3a5b1058c4f74a5961dcd7b6db1c311a130a013033552f7208825fa2b6346b412b23941383856275bea035727e5f3607425
+Size (relatorio-0.6.3.tar.gz) = 949863 bytes

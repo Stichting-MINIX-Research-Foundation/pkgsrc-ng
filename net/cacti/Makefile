@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.27 2015/04/25 14:23:43 tnn Exp $
+# $NetBSD: Makefile,v 1.30 2016/09/11 17:03:27 taca Exp $
 
-DISTNAME=	cacti-0.8.8c
-PKGREVISION=	1
+DISTNAME=	cacti-0.8.8h
+#PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	http://www.cacti.net/downloads/
 
@@ -19,6 +19,8 @@ DEPENDS+=		${PHP_PKG_PREFIX}-snmp-[0-9]*:../../net/php-snmp
 DEPENDS+=		${PHP_PKG_PREFIX}-sockets-[0-9]*:../../net/php-sockets
 DEPENDS+=		${APACHE_PKG_PREFIX}-${PHP_PKG_PREFIX}-[0-9]*:../../www/ap-php
 
+PHP_VERSIONS_ACCEPTED=	56
+
 .include "../../mk/bsd.prefs.mk"
 .include "../../lang/php/phpversion.mk"
 .include "../../mk/apache.mk"
@@ -31,14 +33,14 @@ PKG_SHELL.${CACTI_USER}=	${SH}
 PKG_USERS_VARS+=	CACTI_USER
 PKG_GROUPS_VARS+=	CACTI_GROUP
 
-BUILD_DEFS+=		PKG_SYSCONFBASE
+BUILD_DEFS+=		PKG_SYSCONFBASE VARBASE
 PKG_SYSCONFSUBDIR?=	httpd
 EGDIR=			${PREFIX}/share/examples/cacti
 CONF_FILES+=		${EGDIR}/httpd-cacti.conf ${PKG_SYSCONFDIR}/httpd-cacti.conf
 CONF_FILES+=		${EGDIR}/config.php ${CACTIDIR}/include/config.php
 CACTIDIR=		${PREFIX}/share/cacti
-CACTI_LOGDIR?=		${CACTIDIR}/log
-CACTI_RRADIR?=		${CACTIDIR}/rra
+CACTI_LOGDIR?=		${VARBASE}/log/cacti
+CACTI_RRADIR?=		${VARBASE}/db/cacti-rra
 
 REPLACE_INTERPRETER+=	php
 REPLACE.php.old=	.*php[^ ]*
@@ -51,6 +53,7 @@ MESSAGE_SUBST+=		CACTIDIR=${CACTIDIR}
 MESSAGE_SUBST+=		CACTI_USER=${CACTI_USER}
 MESSAGE_SUBST+=		EGDIR=${EGDIR}
 MESSAGE_SUBST+=		PREFIX=${PREFIX}
+MESSAGE_SUBST+=		VARBASE=${VARBASE}
 MESSAGE_SUBST+=		PKG_SYSCONFBASE=${PKG_SYSCONFBASE}
 FILES_SUBST+=		CACTIDIR=${CACTIDIR}
 FILES_SUBST+=		CACTI_GROUP=${CACTI_GROUP}
@@ -72,6 +75,10 @@ SUBST_SED.docs=		-e 's,/var/www/html/cacti,${CACTIDIR},g'
 
 OWN_DIRS_PERMS+=	${CACTI_LOGDIR} ${CACTI_USER} ${CACTI_GROUP} 755
 OWN_DIRS_PERMS+=	${CACTI_RRADIR} ${CACTI_USER} ${CACTI_GROUP} 755
+REQD_FILES_PERMS+=	${CACTIDIR}/log/.htaccess ${CACTI_LOGDIR}/.htaccess \
+			${CACTI_USER} ${CACTI_GROUP} 644
+REQD_FILES_PERMS+=	${CACTIDIR}/rra/.htaccess ${CACTI_RRADIR}/.htaccess \
+			${CACTI_USER} ${CACTI_GROUP} 644
 
 INSTALLATION_DIRS=	bin
 INSTALLATION_DIRS+=	share/examples/cacti
@@ -95,10 +102,13 @@ post-extract:
 	fi
 
 do-install:
-	${INSTALL_DATA} ${WRKDIR}/httpd-cacti.conf ${DESTDIR}${EGDIR}/httpd-cacti.conf
-	${INSTALL_DATA} ${WRKSRC}/include/config.php ${DESTDIR}${EGDIR}/config.php
+	${INSTALL_DATA} ${WRKDIR}/httpd-cacti.conf \
+		${DESTDIR}${EGDIR}/httpd-cacti.conf
+	${INSTALL_DATA} ${WRKSRC}/include/config.php \
+		${DESTDIR}${EGDIR}/config.php
 	${FIND} ${WRKSRC} -type f -name '*.orig' -exec ${RM} -f {} \;
-	cd ${WRKSRC} && ${PAX} -rw -s ',\./include/config\.php,,' . ${DESTDIR}${CACTIDIR}
+	cd ${WRKSRC} && ${PAX} -rw -s ',\./include/config\.php,,' \
+		. ${DESTDIR}${CACTIDIR}
 	${INSTALL_SCRIPT} ${WRKDIR}/cacti-poller ${DESTDIR}${PREFIX}/bin
 
 .include "../../databases/rrdtool/buildlink3.mk"

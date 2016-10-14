@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2015/06/30 09:57:41 ryoon Exp $
+# $NetBSD: Makefile,v 1.16 2016/08/17 00:06:45 ryoon Exp $
 
 .include "../../multimedia/xine-lib/Makefile.common"
 
 PKGNAME=	${XINE_PKGNAME:S/lib/v4l2/}
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	multimedia
 COMMENT=	The v4l2 input plugin for xine-lib
 

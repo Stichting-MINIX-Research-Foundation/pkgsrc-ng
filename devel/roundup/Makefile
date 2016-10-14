@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.47 2015/07/15 18:19:54 wiz Exp $
+# $NetBSD: Makefile,v 1.50 2016/07/09 13:03:45 wiz Exp $
 
 DISTNAME=	roundup-1.4.19
 PKGREVISION=	2
 CATEGORIES=	devel
-MASTER_SITES=	http://pypi.python.org/packages/source/r/roundup/
+MASTER_SITES=	${MASTER_SITE_PYPI:=r/roundup/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://roundup.sourceforge.net/
@@ -13,7 +13,7 @@ LICENSE=	mit AND zpl-2.0
 USE_LANGUAGES=	# empty
 USE_TOOLS+=	pax
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.4.19
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.4.19
 REPLACE_PYTHON+=	cgi-bin/roundup.cgi demo.py roundup/admin.py
 REPLACE_PYTHON+=	frontends/roundup.cgi
 REPLACE_PYTHON+=	roundup/backends/locking.py

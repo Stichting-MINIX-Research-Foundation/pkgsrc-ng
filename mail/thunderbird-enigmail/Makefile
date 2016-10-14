@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/07/01 12:54:32 ryoon Exp $
+# $NetBSD: Makefile,v 1.7 2016/07/21 13:00:40 wiz Exp $
 
 .include "Makefile.common"
 
@@ -7,7 +7,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	GnuPG support for mail/thunderbird
 
 # Minimal requirements are here: https://www.enigmail.net/download/source.php
-DEPENDS+=		thunderbird>=31:../../mail/thunderbird
+DEPENDS+=		thunderbird>=38:../../mail/thunderbird
 
 # Path used during the install stage
 XPIDIR=		${PREFIX}/lib/thunderbird/extensions

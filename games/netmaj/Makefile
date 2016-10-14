@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/08/17 17:11:23 wiz Exp $
+# $NetBSD: Makefile,v 1.24 2016/07/09 06:38:18 wiz Exp $
 #
 
 DISTNAME=		netmaj-2.0.7
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		games
 MASTER_SITES=		http://www.sfc.wide.ad.jp/~kusune/netmaj/files/
 
@@ -23,7 +23,7 @@ DOCDIR=			${PREFIX}/share/doc/netmaj
 pre-configure:
 	cp ${FILESDIR}/configure.sh ${WRKSRC}/configure
 	chmod +x ${WRKSRC}/configure
-	chmod -x ${WRKSRC}/auto.pf
+	chmod a-x ${WRKSRC}/auto.pf
 
 post-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${DOCDIR}

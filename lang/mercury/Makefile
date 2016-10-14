@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.57 2015/08/18 07:31:10 wiz Exp $
+# $NetBSD: Makefile,v 1.59 2016/07/09 06:38:26 wiz Exp $
 
 DISTNAME=		mercury-srcdist-14.01.1
 PKGNAME=		mercury-14.01.1
-PKGREVISION=		6
+PKGREVISION=		7
 CATEGORIES=		lang
 MASTER_SITES=		http://dl.mercurylang.org/release/ \
 			ftp://ftp.mercury.cs.mu.oz.au/pub/mercury/ \
@@ -31,7 +31,7 @@ CONFIGURE_ENV+=		CC=gcc
 CONFIGURE_ENV+=		HOSTNAMECMD=${TOOLS_HOSTNAME_CMD:Q}
 USE_TOOLS+=		hostname
 
-MAKE_ENV+=		READLINE_PREFIX=${BUILDLINK_PREFIX.readline}
+ALL_ENV+=		READLINE_PREFIX=${BUILDLINK_PREFIX.readline}
 
 INSTALL_PREFIX=		${WRKSRC}/tmp
 BUILD_MAKE_FLAGS=	${MAKE_FLAGS}

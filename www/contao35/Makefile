@@ -1,29 +1,32 @@
-# $NetBSD: Makefile,v 1.2 2015/07/26 17:18:35 taca Exp $
+# $NetBSD: Makefile,v 1.17 2016/09/24 13:23:23 taca Exp $
 #
 
 DISTNAME=	contao-${CT_PKGVER}
-PKGNAME=	contao${CT_VER}-${CT_PKGVER}
+PKGNAME=	${PHP_PKG_PREFIX}-contao${CT_VER}-${CT_PKGVER}
 CATEGORIES=	www
-MASTER_SITES=	${CT_MASTER_SITE}
+MASTER_SITES=	${MASTER_SITE_GITHUB:=contao/}
+GITHUB_PROJECT=	core
+GITHUB_RELEASE=	${CT_VERSION}
 
 MAINTAINER=	taca@NetBSD.org
-HOMEPAGE=	http://www.contao.org/
+HOMEPAGE=	https://contao.org/
 COMMENT=	Contao Open Source CMS ${CT_VERSION}
 LICENSE=	gnu-lgpl-v3
 
 DEPENDS+=	${PHP_PKG_PREFIX}-dom>=5.4.0:../../textproc/php-dom
 DEPENDS+=	${PHP_PKG_PREFIX}-gd>=5.4.0:../../graphics/php-gd
 DEPENDS+=	${PHP_PKG_PREFIX}-mbstring>=5.4.0:../../converters/php-mbstring
-DEPENDS+=	${PHP_PKG_PREFIX}-{mysql,mysqli}>=5.4.0:../../databases/php-mysqli
+DEPENDS+=	${PHP_PKG_PREFIX}-mysqli>=5.4.0:../../databases/php-mysqli
 DEPENDS+=	${PHP_PKG_PREFIX}-mcrypt>=5.4.0:../../security/php-mcrypt
 DEPENDS+=	${PHP_PKG_PREFIX}-soap>=5.4.0:../../net/php-soap
 DEPENDS+=	${PHP_PKG_PREFIX}-curl>=5.4.0:../../www/php-curl
 DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.4.0:../../archivers/php-zlib
 DEPENDS+=	bash>=4.0:../../shells/bash
 
-CT_VERS=	35
+CT_VERSION=	3.5.17
 USE_TOOLS=	bash pax
 NO_BUILD=	yes
+FILESDIR?=	${.CURDIR}/files
 
 EG_CONFIG=	ace.php agents.php constants.php countries.php \
 		languages.php mimetypes.php tcpdf.php timezones.php \
@@ -65,7 +68,7 @@ REPLACE_FILES.php=	system/bin/automator system/bin/filesync \
     vendor/bin/pscss vendor/leafo/scssphp/bin/pscss \
     vendor/oyejorge/less.php/bin/lessc \
     vendor/swiftmailer/swiftmailer/lib/swiftmailer_generate_mimes_config.php \
-    vendor/tecnick.com/tcpdf/tools/tcpdf_addfont.php
+    vendor/tecnickcom/tcpdf/tools/tcpdf_addfont.php
 
 SUBST_CLASSES+=		conf
 SUBST_FILES.conf+=	${WRKDIR}/contao.conf
@@ -87,7 +90,6 @@ pre-configure:
 	${CP} ${FILESDIR}/contao.conf ${WRKDIR}
 
 pre-install:
-	cd ${WRKSRC}; ${RM} -fr files/music_academy templates/music_academy.sql
 	${FIND} ${WRKSRC} -name "*.orig*" -exec ${RM} -f {} \;
 
 do-install:

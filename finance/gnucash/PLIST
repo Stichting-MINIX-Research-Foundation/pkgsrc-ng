@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.55 2015/07/01 11:50:17 wiz Exp $
+@comment $NetBSD: PLIST,v 1.61 2016/08/30 04:13:13 jnemeth Exp $
 bin/gnc-fq-check
 bin/gnc-fq-dump
 bin/gnc-fq-helper
@@ -23,7 +23,6 @@ include/gnucash/Split.h
 include/gnucash/TransLog.h
 include/gnucash/Transaction.h
 include/gnucash/account-quickfill.h
-include/gnucash/assistant-utils.h
 include/gnucash/assistant-xml-encoding.h
 include/gnucash/basiccell.h
 include/gnucash/business-helpers.h
@@ -224,6 +223,7 @@ include/gnucash/window-main-summarybar.h
 include/gnucash/window-report.h
 lib/gnucash/libgncmod-app-utils-python.la
 lib/gnucash/libgncmod-app-utils.la
+${PLIST.dbi}lib/gnucash/libgncmod-backend-dbi.la
 lib/gnucash/libgncmod-backend-xml.la
 lib/gnucash/libgncmod-bi_import.la
 lib/gnucash/libgncmod-business-gnome.la
@@ -392,7 +392,6 @@ ${PYSITELIB}/gnucash/gnucash_core.py
 ${PYSITELIB}/gnucash/gnucash_core_c.py
 libexec/gnucash/overrides/gnucash-env
 libexec/gnucash/overrides/gnucash-make-guids
-libexec/gnucash/overrides/guile
 libexec/gnucash/src/libqof/qof/test/kvp_frame.h
 libexec/gnucash/src/libqof/qof/test/qofbook.h
 libexec/gnucash/src/libqof/qof/test/qofinstance.h
@@ -407,6 +406,10 @@ share/applications/gnucash.desktop
 share/doc/gnucash/AUTHORS
 share/doc/gnucash/COPYING
 share/doc/gnucash/ChangeLog
+share/doc/gnucash/ChangeLog.1999
+share/doc/gnucash/ChangeLog.2000
+share/doc/gnucash/ChangeLog.2001
+share/doc/gnucash/ChangeLog.2002
 share/doc/gnucash/ChangeLog.2003
 share/doc/gnucash/ChangeLog.2004
 share/doc/gnucash/ChangeLog.2005
@@ -419,6 +422,7 @@ share/doc/gnucash/ChangeLog.2011
 share/doc/gnucash/ChangeLog.2012
 share/doc/gnucash/ChangeLog.2013
 share/doc/gnucash/ChangeLog.2014
+share/doc/gnucash/ChangeLog.2015
 share/doc/gnucash/DOCUMENTERS
 share/doc/gnucash/HACKING
 share/doc/gnucash/INSTALL
@@ -589,6 +593,7 @@ share/gnucash/accounts/es_MX/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/es_MX/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/fi_FI/acctchrt_common.gnucash-xea
 share/gnucash/accounts/fi_FI/acctchrt_ry.gnucash-xea
+share/gnucash/accounts/fi_FI/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_actifsfixes.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_automobile.gnucash-xea
 share/gnucash/accounts/fr_CA/acctchrt_basecommune.gnucash-xea
@@ -733,6 +738,7 @@ share/gnucash/accounts/nb/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/nb/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/nl/acctchrt_checkbook.gnucash-xea
 share/gnucash/accounts/nl/acctchrt_full.gnucash-xea
+share/gnucash/accounts/nl/acctchrt_rgs_1.1.gnucash-xea
 share/gnucash/accounts/pl/acctchrt_brokerage.gnucash-xea
 share/gnucash/accounts/pl/acctchrt_business.gnucash-xea
 share/gnucash/accounts/pl/acctchrt_carloan.gnucash-xea
@@ -799,8 +805,10 @@ share/gnucash/accounts/sk/acctchrt_spouseinc.gnucash-xea
 share/gnucash/accounts/sk/acctchrt_spouseretire.gnucash-xea
 share/gnucash/accounts/sv_AX/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_AX/acctchrt_rf.gnucash-xea
+share/gnucash/accounts/sv_AX/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/sv_FI/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_FI/acctchrt_rf.gnucash-xea
+share/gnucash/accounts/sv_FI/acctchrt_sbr-xbrl.gnucash-xea
 share/gnucash/accounts/sv_SE/acctchrt_common.gnucash-xea
 share/gnucash/accounts/sv_SE/bas_2012.gnucash-xea
 share/gnucash/accounts/tr_TR/acctchrt_TEKDUZ.gnucash-xea
@@ -889,6 +897,7 @@ share/gnucash/gtkbuilder/dialog-userpass.glade
 share/gnucash/gtkbuilder/dialog-vendor.glade
 share/gnucash/gtkbuilder/gnc-date-format.glade
 share/gnucash/gtkbuilder/gnc-frequency.glade
+${PLIST.ofx}share/gnucash/ui/gnc-plugin-ofx-ui.xml
 share/gnucash/gtkbuilder/gnc-plugin-page-budget.glade
 share/gnucash/gtkbuilder/gnc-plugin-page-register.glade
 share/gnucash/gtkbuilder/gnc-plugin-page-register2.glade
@@ -1122,7 +1131,6 @@ share/gnucash/ui/gnc-plugin-csv-import-ui.xml
 share/gnucash/ui/gnc-plugin-customer_import-ui.xml
 share/gnucash/ui/gnc-plugin-file-history-ui.xml
 share/gnucash/ui/gnc-plugin-log-replay-ui.xml
-${PLIST.ofx}share/gnucash/ui/gnc-plugin-ofx-ui.xml
 share/gnucash/ui/gnc-plugin-page-account-tree-ui.xml
 share/gnucash/ui/gnc-plugin-page-account-tree2-ui.xml
 share/gnucash/ui/gnc-plugin-page-budget-ui.xml
@@ -1158,6 +1166,7 @@ share/icons/hicolor/96x96/apps/gnucash-icon.png
 share/icons/hicolor/scalable/apps/gnucash-icon.svg
 share/locale/ar/LC_MESSAGES/gnucash.mo
 share/locale/as/LC_MESSAGES/gnucash.mo
+share/locale/az/LC_MESSAGES/gnucash.mo
 share/locale/bg/LC_MESSAGES/gnucash.mo
 share/locale/brx/LC_MESSAGES/gnucash.mo
 share/locale/ca/LC_MESSAGES/gnucash.mo

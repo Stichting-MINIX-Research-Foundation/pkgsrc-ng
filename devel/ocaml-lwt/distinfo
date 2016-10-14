@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.8 2014/10/09 21:13:36 jaapb Exp $
+$NetBSD: distinfo,v 1.11 2016/05/06 15:39:36 jaapb Exp $
 
-SHA1 (ocaml-lwt/2.4.5.tar.gz) = 863b651a3917880a0a44e09bce153ca4bb31a84d
-RMD160 (ocaml-lwt/2.4.5.tar.gz) = dfe2f0d257064f6fc31dd72be7b55b219b2a0833
-Size (ocaml-lwt/2.4.5.tar.gz) = 298612 bytes
+SHA1 (lwt-2.5.2.tar.gz) = 99c0653e5422a5b80dc470f8abb83956b5628e5f
+RMD160 (lwt-2.5.2.tar.gz) = d394b854d69f39f5b1977e6b864ce317a9b29193
+SHA512 (lwt-2.5.2.tar.gz) = 83c7a9d9798fe12e0bdd618e7f69ac357065a9b26e2abb644240c420cb1d507a3b558549b2f82ecc9c3fbc9ca5952e8d7cb32b6832713bfb6fffcb58975d5449
+Size (lwt-2.5.2.tar.gz) = 268168 bytes

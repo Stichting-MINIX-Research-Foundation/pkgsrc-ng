@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.6 2015/02/01 16:13:09 taca Exp $
+# $NetBSD: Makefile,v 1.8 2015/10/04 12:21:26 taca Exp $
 
-DISTNAME=	pathname2-1.7.3
+DISTNAME=	pathname2-1.7.4
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://rubyforge.org/projects/shards
+HOMEPAGE=	https://github.com/djberg96/pathname2
 COMMENT=	Alternate implementation of the Pathname library
 LICENSE=	artistic-2.0
 

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.35 2015/02/09 18:35:12 gdt Exp $
+# $NetBSD: Makefile,v 1.37 2016/02/29 05:50:40 mlelstv Exp $
 #
 
 PKGNAME=		amanda-plot-${AMANDA_VERSION}
-PKGREVISION=		2
+PKGREVISION=		3
 
 COMMENT=		Visualizes the behavior of Amanda, a network backup system
 
@@ -13,13 +13,10 @@ MANPAGES+=		amplot.8
 
 .include "../../sysutils/amanda-common/Makefile.common"
 
-FIND_PREFIX:=		GNUPLOT_PREFIX=gnuplot
-.include "../../mk/find-prefix.mk"
-
 CONFIGURE_ARGS+=	--without-client
 CONFIGURE_ARGS+=	--without-restore
 CONFIGURE_ARGS+=	--without-amrecover
-CONFIGURE_ENV+=		GNUPLOT="${GNUPLOT_PREFIX}/bin/gnuplot"
+CONFIGURE_ENV+=		GNUPLOT="${LOCALBASE}/bin/gnuplot"
 
 BUILD_DIRS=		amplot
 

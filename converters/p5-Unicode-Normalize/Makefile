@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/06/12 10:48:34 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/08 19:22:22 wiz Exp $
 
-DISTNAME=	Unicode-Normalize-1.18
+DISTNAME=	Unicode-Normalize-1.25
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	converters perl5

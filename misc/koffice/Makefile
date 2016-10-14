@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.172 2015/09/12 16:50:00 joerg Exp $
+# $NetBSD: Makefile,v 1.181 2016/08/03 10:23:09 adam Exp $
 
 DISTNAME=	koffice-1.6.3
-PKGREVISION=	64
+PKGREVISION=	70
 CATEGORIES=	misc kde
 MASTER_SITES=	${MASTER_SITE_KDE:=koffice-1.6.3/src/}
 EXTRACT_SUFX=	.tar.bz2
@@ -11,6 +11,7 @@ HOMEPAGE=	http://www.koffice.org/
 COMMENT=	KDE Office Suite
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
+# moc use is not serialised with all consumers
 MAKE_JOBS_SAFE=		no
 
 PATCH_SITES=	ftp://ftp.kde.org/pub/kde/security_patches/
@@ -43,7 +44,7 @@ REPLACE_PERL+=		tools/scripts/gdb_output_to_text.pl
 REPLACE_PERL+=		tools/thesaurus/extract.pl
 REPLACE_PERL+=		kpresenter/kprconverter.pl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.6.3
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.6.3
 
 # Ensure we export symbols in the linked shared object.
 LDFLAGS+=	${EXPORT_SYMBOLS_LDFLAGS}

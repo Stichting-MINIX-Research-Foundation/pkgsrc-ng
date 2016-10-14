@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2015/06/12 10:49:20 wiz Exp $
+# $NetBSD: Makefile,v 1.17 2016/06/08 19:23:03 wiz Exp $
 #
 
-DISTNAME=	IO-Pager-0.34
+DISTNAME=	IO-Pager-0.36
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

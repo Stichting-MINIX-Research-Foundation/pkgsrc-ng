@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.26 2015/07/30 14:39:18 adam Exp $
+# $NetBSD: Makefile,v 1.31 2016/09/08 09:38:08 abs Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
 COMMENT=	MySQL 5, a free SQL database (server)
@@ -36,6 +36,8 @@ PLIST.auth_socket=	yes
 
 PTHREAD_OPTS+=		require
 
+CONF_FILES+=		share/mysql/my-default.cnf ${PKG_SYSCONFDIR}/my.cnf
+
 PKG_GROUPS=		${MYSQL_GROUP}
 PKG_USERS=		${MYSQL_USER}:${MYSQL_GROUP}
 
@@ -64,6 +66,7 @@ REPLACE_PERL+=		mysql-test/suite/engines/rr_trx/run_stress_tx_rr.pl
 REPLACE_PERL+=		mysql-test/suite/funcs_1/lib/DataGen_local.pl
 REPLACE_PERL+=		mysql-test/suite/funcs_1/lib/DataGen_modify.pl
 REPLACE_PERL+=		mysql-test/suite/funcs_2/lib/gen_charset_utf8.pl
+REPLACE_PERL+=		mysql-test/suite/opt_trace/validate_json.pl
 REPLACE_PERL+=		mysql-test/suite/rpl/extension/bhs.pl
 REPLACE_PERL+=		mysql-test/suite/rpl/extension/checksum.pl
 

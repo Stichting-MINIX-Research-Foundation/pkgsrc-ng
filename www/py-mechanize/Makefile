@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.12 2014/05/09 07:37:25 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2016/07/09 13:04:14 wiz Exp $
 
 DISTNAME=	mechanize-0.2.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	www
-MASTER_SITES=	http://pypi.python.org/packages/source/m/mechanize/ \
+MASTER_SITES=	${MASTER_SITE_PYPI:=m/mechanize/} \
 		http://wwwsearch.sourceforge.net/mechanize/src/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -12,7 +12,7 @@ COMMENT=	Stateful programmatic web browsing in Python
 
 USE_LANGUAGES=	# none
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.2.5
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.2.5
 
 do-test:
 	${RUN}cd ${WRKSRC}; ${PYTHONBIN} test.py

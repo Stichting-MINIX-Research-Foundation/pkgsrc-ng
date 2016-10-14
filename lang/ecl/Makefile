@@ -1,17 +1,14 @@
-# $NetBSD: Makefile,v 1.20 2015/08/30 10:12:29 kamil Exp $
+# $NetBSD: Makefile,v 1.22 2016/03/11 20:32:30 asau Exp $
 
-DISTNAME=		ecl-13.5.1
-PKGREVISION=		2
+DISTNAME=		ecl-16.1.2
 CATEGORIES=		lang
-MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=ecls/}
+MASTER_SITES=		https://common-lisp.net/project/ecl/files/release/$(PKGVERSION_NOREV)/
 EXTRACT_SUFX=		.tgz
 
 MAINTAINER=		asau@inbox.ru
 HOMEPAGE=		https://common-lisp.net/project/ecl/
 COMMENT=		Embeddable Common Lisp
 LICENSE=		gnu-lgpl-v2
-
-MAKE_JOBS_SAFE=		no
 
 USE_PKGLOCALEDIR=	yes
 GNU_CONFIGURE=		yes

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.68 2015/08/27 21:58:42 wiz Exp $
+# $NetBSD: Makefile,v 1.71 2016/09/19 13:04:19 wiz Exp $
 
 DISTNAME=		bitlbee-3.4.1
+PKGREVISION=		1
 CATEGORIES=		chat
 MASTER_SITES=		http://get.bitlbee.org/src/
 
@@ -10,7 +11,7 @@ COMMENT=		IRC to other chat networks gateway
 LICENSE=		gnu-gpl-v2
 
 BUILD_DEPENDS+=		xmlto-[0-9]*:../../textproc/xmlto
-BUILD_DEPENDS+=		links-[0-9]*:../../www/links
+BUILD_DEPENDS+=		w3m-[0-9]*:../../www/w3m
 BUILD_DEPENDS+=		${PYPKGPREFIX}-expat-[0-9]*:../../textproc/py-expat
 
 HAS_CONFIGURE=		yes

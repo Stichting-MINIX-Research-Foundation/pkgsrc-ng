@@ -1,46 +1,55 @@
-# $NetBSD: Makefile,v 1.146 2015/07/11 15:12:27 sevan Exp $
-#
+# $NetBSD: Makefile,v 1.152 2016/09/12 17:12:24 taca Exp $
 
-DISTNAME=		sudo-1.7.10p9
-#PKGREVISION=		0
-CATEGORIES=		security
-MASTER_SITES=		http://www.sudo.ws/dist/ \
-			ftp://ftp.sudo.ws/pub/sudo/ \
-			ftp://ftp.uwsg.indiana.edu/pub/security/sudo/ \
-			ftp://ftp.twaren.net/Unix/Security/Sudo/ \
-			http://ftp.tux.org/pub/security/sudo/
+DISTNAME=	sudo-1.8.17p1
+CATEGORIES=	security
+MASTER_SITES=	http://www.sudo.ws/dist/ \
+		ftp://ftp.sudo.ws/pub/sudo/ \
+		ftp://ftp.uwsg.indiana.edu/pub/security/sudo/ \
+		ftp://ftp.twaren.net/Unix/Security/Sudo/ \
+		http://ftp.tux.org/pub/security/sudo/
 
-MAINTAINER=		kim@tac.nyc.ny.us
-HOMEPAGE=		http://www.sudo.ws/
-COMMENT=		Allow others to run commands as root
-LICENSE=		isc AND modified-bsd
+MAINTAINER=	kim@tac.nyc.ny.us
+HOMEPAGE=	http://www.sudo.ws/
+COMMENT=	Allow others to run commands as root
+LICENSE=	isc AND modified-bsd
 
 USE_LIBTOOL=		yes
-OWN_DIRS+=		${VARBASE}/run
 GNU_CONFIGURE=		yes
-BUILD_DEFS+=		VARBASE
-PLIST_VARS+=		ldap noexec
-
-.include "../../mk/bsd.prefs.mk"
-
+CONFIGURE_ARGS+=	--disable-path-info
+CONFIGURE_ARGS+=	--disable-root-mailer
+CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
+CONFIGURE_ARGS+=	--with-exampledir=${PREFIX}/${EGDIR}
+CONFIGURE_ARGS+=	--with-ignore-dot
+CONFIGURE_ARGS+=	--with-nbsdops
+CONFIGURE_ARGS+=	--libexecdir=${PREFIX}/lib # for a bunch of shared libs
+CONFIGURE_ARGS+=	--with-rundir=${VARBASE}/run/sudo
+CONFIGURE_ARGS+=	--with-logpath=${VARBASE}/log/sudo.log
 # to always install man instead of cat
 CONFIGURE_ENV+=		NROFFPROG=${CAT:Q}
 CONFIGURE_ENV+=		mansectsu=8
 CONFIGURE_ENV+=		mansectform=5
-CONFIGURE_ARGS+=	--disable-root-mailer --with-ignore-dot
-CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
-CONFIGURE_ARGS+=	--with-timedir=${VARBASE}/run/sudo
-CONFIGURE_ARGS+=	--with-logpath=${VARBASE}/log/sudo.log
+
+.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Darwin"
 CONFIGURE_ARGS+=	--with-noexec=no
+CONFIGURE_ENV+=		ax_cv_check_cflags___static_libgcc=no
 .else
 PLIST.noexec=		yes
 .endif
 
+.if !empty(MACHINE_PLATFORM:MNetBSD-[7-9].*-*)
+CFLAGS+=	-D_OPENBSD_SOURCE=1
+.endif
+.if !empty(MACHINE_PLATFORM:MNetBSD-[5-6].*-*)
+CFLAGS+=	-D_INCOMPLETE_XOPEN_C063=1
+.endif
+
 .include "options.mk"
 
-CONFIGURE_ARGS+=	--with-nbsdops --disable-path-info
+OWN_DIRS+=		${VARBASE}/run
+BUILD_DEFS+=		VARBASE
+PLIST_VARS+=		ldap nls noexec
 
 DOCDIR=			share/doc/${PKGBASE}
 EGDIR=			share/examples/${PKGBASE}
@@ -54,8 +63,8 @@ INSTALLATION_DIRS+=	${DOCDIR} ${EGDIR}
 NOT_FOR_UNPRIVILEGED=	yes
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/UPGRADE ${DESTDIR}${PREFIX}/${DOCDIR}
-	${INSTALL_DATA} ${WRKSRC}/sudoers ${DESTDIR}${PREFIX}/${EGDIR}/sudoers
+	${INSTALL_DATA} ${WRKSRC}/doc/UPGRADE ${DESTDIR}${PREFIX}/${DOCDIR}
+	${INSTALL_DATA} ${WRKSRC}/plugins/sudoers/sudoers ${DESTDIR}${PREFIX}/${EGDIR}/sudoers
 	${INSTALL_DATA} ${WRKSRC}/README ${DESTDIR}${PREFIX}/${DOCDIR}
 
 .include "../../devel/zlib/buildlink3.mk"

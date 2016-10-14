@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.29 2014/08/28 10:58:18 jperkin Exp $
+# $NetBSD: Makefile,v 1.31 2016/07/09 11:50:36 rillig Exp $
 
 DISTNAME=	host-20070128
 CATEGORIES=	net
@@ -9,30 +9,28 @@ HOMEPAGE=	http://www.weird.com/~woods/projects/host.html
 COMMENT=	Powerful DNS query and testing tool
 
 INSTALLATION_DIRS=	bin ${PKGMANDIR}/man1 ${PKGMANDIR}/cat1
-NO_CONFIGURE =	yes
+NO_CONFIGURE=		yes
 
 CONFLICTS+=	bind-[0-9]*
 
 USE_BSD_MAKEFILE=	yes
-MAKE_FILE=	Makefile.BSD
-MAKE_FLAGS+=	__NetBSD__=1
+MAKE_FILE=		Makefile.BSD
+MAKE_FLAGS+=		__NetBSD__=1
 
 USE_TOOLS+=	nroff
 
+BUILDLINK_TRANSFORM.Darwin+=	rm:-Wl,--warn-common
+BUILDLINK_TRANSFORM.Darwin+=	rm:-static
+CPPFLAGS.Darwin+=		-DBIND_8_COMPAT
+
+BUILDLINK_TRANSFORM.SunOS+=	rm:-static
+LDFLAGS.SunOS+=			-lresolv -lsocket -lnsl
+
+BUILDLINK_TRANSFORM.Linux+=	rm:-static
+LDFLAGS.Linux+=			-lresolv
+
 .include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "Darwin"
-CPPFLAGS+=	-DBIND_8_COMPAT
-BUILDLINK_TRANSFORM+=	rm:-Wl,--warn-common
-BUILDLINK_TRANSFORM+=	rm:-static
-.endif
-.if ${OPSYS} == "SunOS"
-LDFLAGS+=	-lresolv -lsocket -lnsl
-BUILDLINK_TRANSFORM+=	rm:-static
-.endif
-.if ${OPSYS} == "Linux"
-LDFLAGS+=		-lresolv
-BUILDLINK_TRANSFORM+=	rm:-static
-.endif
+
 .if !empty(MACHINE_PLATFORM:MIRIX-5*)
 CPPFLAGS+=	-DIRIX5
 .endif

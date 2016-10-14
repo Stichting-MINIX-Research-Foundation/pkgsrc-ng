@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.8 2015/07/12 18:56:17 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2016/06/08 19:23:26 wiz Exp $
 #
 
-DISTNAME=	Pod-Usage-1.66
+DISTNAME=	Pod-Usage-1.69
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel
@@ -12,7 +12,9 @@ HOMEPAGE=	http://search.cpan.org/dist/Pod-Usage/
 COMMENT=	Print a usage message from embedded pod documentation
 LICENSE=	${PERL5_LICENSE}
 
-#DEPENDS+=	{perl>=5.17.9,p5-Pod-Parser>=1.60}:../../textproc/p5-Pod-Parser
+DEPENDS+=	p5-podlators>=4.0:../../textproc/p5-podlators
+
+EXTRACT_USING=	gtar
 
 PERL5_PACKLIST=	auto/Pod/Usage/.packlist
 USE_LANGUAGES=	# none

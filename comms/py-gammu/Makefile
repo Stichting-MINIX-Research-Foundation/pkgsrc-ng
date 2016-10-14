@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.9 2015/08/28 10:24:23 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/07/09 13:03:34 wiz Exp $
 
-DISTNAME=	python-gammu-2.3
+DISTNAME=	python-gammu-2.5
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/python-//}
-PKGREVISION=	1
 MASTER_SITES=	http://dl.cihar.com/python-gammu/
 CATEGORIES=	comms
 
@@ -14,7 +13,7 @@ LICENSE=	gnu-gpl-v2
 USE_TOOLS+=	pkg-config
 
 # UnicodeDecodeError: 'ascii' codec can't decode byte 0xc4 in position 1648: ordinal not in range(128)
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 .include "../../lang/python/egg.mk"
 .include "../../comms/gammu/buildlink3.mk"

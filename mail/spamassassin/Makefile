@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.121 2015/09/09 19:13:48 christos Exp $
+# $NetBSD: Makefile,v 1.125 2016/07/09 06:38:32 wiz Exp $
 
 DISTNAME=	Mail-SpamAssassin-3.4.1
 PKGNAME=	spamassassin-3.4.1
-#PKGREVISION=	
+PKGREVISION=	3
 CATEGORIES=	mail perl5
 MASTER_SITES=	${MASTER_SITE_APACHE:=spamassassin/source/}
 DISTFILES=	${DISTNAME}${EXTRACT_SUFX}
@@ -70,6 +70,7 @@ PERL5_CONFIGURE_DIRS=	${WRKSRC}
 
 # test t/meta needs this
 REPLACE_PERL+=		build/parse-rules-for-masses
+REPLACE_PERL+=		sa-update.raw
 
 MAKE_PARAMS+=		CONTACT_ADDRESS=${SPAMASSASSIN_CONTACT_ADDRESS:Q}
 MAKE_PARAMS+=		DEFRULESDIR="${RULESDIR}"

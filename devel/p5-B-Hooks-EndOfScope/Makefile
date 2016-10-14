@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/06/12 10:48:55 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/06/08 19:22:35 wiz Exp $
 
-DISTNAME=	B-Hooks-EndOfScope-0.15
+DISTNAME=	B-Hooks-EndOfScope-0.21
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

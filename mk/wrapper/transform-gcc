@@ -1,4 +1,4 @@
-# $NetBSD: transform-gcc,v 1.29 2013/12/31 13:56:35 tron Exp $
+# $NetBSD: transform-gcc,v 1.32 2016/03/14 20:11:56 markd Exp $
 #
 # This file handles the transformations needed for gcc that can be done
 # looking at only one argument at a time.
@@ -43,15 +43,20 @@ case $arg in
 -fomit-frame-pointer	|\
 -fPIC			|\
 -fpic			|\
+-fPIE			|\
+-fpie			|\
 -fpcc-struct-return	|\
 -freg-struct-return	|\
 -frename-registers	|\
 -fsigned-char		|\
+-fstack-protector	|\
+-fstack-protector-all	|\
 -funroll-loops		|\
 -funsigned-char		|\
 -fweb			|\
 -fwrapv			|\
 -ggdb			|\
+-isystem,*		|\
 -M			|\
 -M[DFMPT]		|\
 -MMD			|\
@@ -68,12 +73,15 @@ case $arg in
 -O[23s]			|\
 -pedantic		|\
 -pedantic-errors	|\
+-pie			|\
 -pipe			|\
 -pthread		|\
 -print-prog-name=*	|\
 -print-search-dirs	|\
 -S			|\
 -shared			|\
+-shared-gcc		|\
+-shared-libgcc		|\
 -static			|\
 -std=c99		|\
 -std=gnu89		|\
@@ -90,6 +98,7 @@ case $arg in
 -Werror			|\
 -Werror-implicit-function-declaration |\
 -Wformat*		|\
+-Winline		|\
 -Wmissing-declarations	|\
 -Wmissing-format-attribute |\
 -Wmissing-prototypes	|\
@@ -110,12 +119,14 @@ case $arg in
 -Wno-write-strings	|\
 -Wparentheses		|\
 -Wpointer-arith		|\
+-Wredundant-decls	|\
 -Wreturn-type		|\
 -Wshadow		|\
 -Wsign-compare		|\
 -Wstrict-aliasing	|\
 -Wstrict-prototypes	|\
 -Wswitch		|\
+-Wtrigraphs		|\
 -Wunused		|\
 -Wundef			|\
 -Wwrite-strings		) transform_pass ;;

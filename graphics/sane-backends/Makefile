@@ -1,5 +1,6 @@
-# $NetBSD: Makefile,v 1.62 2015/08/16 20:24:23 leot Exp $
+# $NetBSD: Makefile,v 1.67 2016/04/09 14:19:25 richard Exp $
 
+PKGREVISION=	4
 .include "Makefile.common"
 COMMENT=	API for access to scanners, digital cameras, frame grabbers, etc
 
@@ -40,13 +41,13 @@ EGDIR=		${PREFIX}/share/examples/sane
 artec_eplus48u.conf avision.conf bh.conf canon.conf canon630u.conf \
 canon_dr.conf cardscan.conf coolscan.conf coolscan2.conf coolscan3.conf \
 dc210.conf dc240.conf dc25.conf dell1600n_net.conf dll.conf dmc.conf \
-epson.conf epjitsu.conf epson2.conf fujitsu.conf \
+epjitsu.conf epson.conf epson2.conf epsonds.conf fujitsu.conf \
 genesys.conf gt68xx.conf hp.conf hp3900.conf \
 hp4200.conf hp5400.conf hs2p.conf ibm.conf kodak.conf leo.conf lexmark.conf \
 ma1509.conf matsushita.conf \
 microtek.conf microtek2.conf mustek.conf mustek_usb.conf \
 nec.conf net.conf \
-p5.conf pie.conf pixma.conf plustek.conf plustek_pp.conf \
+p5.conf pie.conf pieusb.conf pixma.conf plustek.conf plustek_pp.conf \
 ricoh.conf rts8891.conf \
 s9036.conf saned.conf sceptre.conf sharp.conf sm3840.conf snapscan.conf \
 sp15c.conf st400.conf stv680.conf \
@@ -62,10 +63,8 @@ CONF_FILES+=	${EGDIR}/${f} ${PKG_SYSCONFDIR}/sane.d/${f}
 .endif
 
 .include "options.mk"
-.if (${OPSYS} != "SunOS")
 .include "../../devel/libusb1/buildlink3.mk"
 CONFIGURE_ARGS+=	--enable-libusb_1_0
-.endif
 .if (${OPSYS} == "Linux")
 .include "../../graphics/libv4l/buildlink3.mk"
 .endif

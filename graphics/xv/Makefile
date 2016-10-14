@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.87 2013/02/16 11:22:35 wiz Exp $
+# $NetBSD: Makefile,v 1.90 2016/08/13 23:40:38 dholland Exp $
 
 DISTNAME=	xv-3.10a
-PKGREVISION=	21
+PKGREVISION=	23
 CATEGORIES=	graphics x11
 MASTER_SITES=	ftp://ftp.cis.upenn.edu/pub/xv/
 DISTFILES=	${DEFAULT_DISTFILES} ${JUMBO_PATCHES}
@@ -11,6 +11,8 @@ JUMBO_PATCHES=	xv-3.10a-jumbo-patches-20070520.tar.gz
 PATCH_DIST_CAT.${JUMBO_PATCHES}=	${CAT} ${WRKDIR}/*-patch-*
 PATCH_DIST_STRIP.${JUMBO_PATCHES}=	-p1
 SITES.${JUMBO_PATCHES}=	${MASTER_SITE_SOURCEFORGE:=png-mng/}
+PATCHFILES+=	xv-3.10a-enhancements.20070520-20081216.diff
+PATCH_SITES=	http://www.gregroelofs.com/code/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.trilon.com/xv/
@@ -19,6 +21,7 @@ COMMENT=	X11 program that displays images of various formats
 LICENSE=	xv-license
 
 USE_IMAKE=	YES
+USE_TOOLS+=	gs:run
 
 # See the end of README in work/xv-3.10a for details.
 RESTRICTED=	Distribution of modified copies and commercial distribution is not permitted.
@@ -42,15 +45,13 @@ INSTALLATION_DIRS+= share/doc/xv
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		ccflags
+SUBST_CLASSES.SunOS+=	ccflags
 SUBST_FILES.ccflags=	Makefile
 SUBST_SED.ccflags=	-e 's| CC = .*| CC = ${CC:Q}|'
 SUBST_SED.ccflags+=	-e 's| CCOPTIONS = .*| CCOPTIONS = ${CFLAGS:Q}|'
 SUBST_SED.ccflags+=	-e 's| CDEBUGFLAGS = .*| CDEBUGFLAGS =|'
 SUBST_STAGE.ccflags=	post-configure
 SUBST_MESSAGE.ccflags=	Fixing compiler flags for Solaris.
-.endif
 
 .if ${OPSYS} == "SunOS" || !empty(MACHINE_PLATFORM:MIRIX-5*)
 CPPFLAGS+=	-DNEED_ALLOCA_H

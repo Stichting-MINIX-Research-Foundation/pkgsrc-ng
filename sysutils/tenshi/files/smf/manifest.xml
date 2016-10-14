@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
-<service_bundle type='manifest' name='@SMF_NAME@'>
+<service_bundle type='manifest' name='export'>
   <service name='@SMF_PREFIX@/@SMF_NAME@' type='service' version='1'>
     <create_default_instance enabled="false" />
     <single_instance />
@@ -24,7 +24,7 @@
         <loctext xml:lang='C'>tenshi log analysis and reporting tool</loctext>
       </common_name>
       <documentation>
-        <manpage title='tenshi' section='8' />
+        <manpage title='tenshi' section='8' manpath='@PREFIX@/@PKGMANDIR@'/>
         <doc_link name='tenshi' uri='http://www.inversepath.com/tenshi.html' />
       </documentation>
     </template>

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.46 2014/10/09 14:07:13 wiz Exp $
+# $NetBSD: Makefile,v 1.49 2016/08/03 10:23:33 adam Exp $
 #
 
 DISTNAME=	aterm-1.0.0
-PKGREVISION=	11
+PKGREVISION=	13
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=aterm/}
 EXTRACT_SUFX=	.tar.bz2
@@ -44,7 +44,7 @@ CONFIGURE_ARGS+=	--enable-ttygid
 SPECIAL_PERMS=		${PREFIX}/bin/aterm ${SETUID_ROOT_PERMS}
 .endif
 
-BUILDLINK_DEPMETHOD.libXt?=	build
+BUILDLINK_DEPMETHOD.libXt=	build
 
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"

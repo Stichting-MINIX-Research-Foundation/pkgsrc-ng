@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2016/04/20 16:10:14 leot Exp $
+
+SHA1 (h2-2.2.3.tar.gz) = 0c6c3ce06169b54217ff144ef4680953feb25e10
+RMD160 (h2-2.2.3.tar.gz) = 12b1e8ed50e0772239be638ac830590820f8c82f
+SHA512 (h2-2.2.3.tar.gz) = 103ea2b4b48d0407f3e5075ed29e7bd3c5ca3e62b0655c051bf3410e828ce25dd7e7401667ff6d10c425656d1a2b53aebe0a505165f1d8d8232cc9927ce6dafa
+Size (h2-2.2.3.tar.gz) = 60811 bytes
+SHA1 (patch-setup.py) = f1b4b724e17bbe03a8ef64b4cdfe71cad4b46da6

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2015/04/03 07:38:35 wiz Exp $
+# $NetBSD: Makefile,v 1.44 2016/07/09 13:03:33 wiz Exp $
 
 DISTNAME=	telepathy-glib-0.24.1
-PKGREVISION=	2
+PKGREVISION=	4
 CATEGORIES=	chat
 MASTER_SITES=	http://telepathy.freedesktop.org/releases/telepathy-glib/
 
@@ -22,7 +22,7 @@ PKGCONFIG_OVERRIDE+=	telepathy-glib/telepathy-glib.pc.in
 PYTHON_FOR_BUILD_ONLY=	yes
 CONFIGURE_ENV+=		ac_cv_prog_PYTHON=${PYTHONBIN}
 REPLACE_PYTHON+=	tests/all-errors-documented.py
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.24.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.24.1
 TEST_TARGET=		check
 
 BUILDLINK_API_DEPENDS.glib2+=		glib2>=2.36

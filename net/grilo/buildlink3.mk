@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.10 2015/06/07 14:14:04 youri Exp $
+# $NetBSD: buildlink3.mk,v 1.12 2016/05/03 11:40:06 prlw1 Exp $
 
 BUILDLINK_TREE+=	grilo
 
@@ -6,7 +6,7 @@ BUILDLINK_TREE+=	grilo
 GRILO_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.grilo+=	grilo>=0.2.2
-BUILDLINK_ABI_DEPENDS.grilo?=	grilo>=0.2.7nb3
+BUILDLINK_ABI_DEPENDS.grilo?=	grilo>=0.2.7nb6
 BUILDLINK_PKGSRCDIR.grilo?=	../../net/grilo
 
 .include "../../devel/glib2/buildlink3.mk"

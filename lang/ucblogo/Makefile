@@ -1,28 +1,37 @@
-# $NetBSD: Makefile,v 1.25 2015/08/18 07:31:11 wiz Exp $
+# $NetBSD: Makefile,v 1.28 2015/11/09 07:18:34 dholland Exp $
 
-DISTNAME=	ucblogo-5.3
-PKGREVISION=	5
+DISTNAME=	ucblogo
+PKGNAME=	${DISTNAME}-6.0
+PKGREVISION=	1
 CATEGORIES=	lang
-MASTER_SITES=	ftp://ftp.cs.berkeley.edu/pub/ucblogo/
+MASTER_SITES=	http://www.cs.berkeley.edu/~bh/downloads/
 # Not at GNU mirrors yet
 # ${MASTER_SITE_GNU:=non-gnu/ucblogo/}
+DIST_SUBDIR=	${PKGNAME_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://http.cs.berkeley.edu/~bh/logo.html
 COMMENT=	Brian Harvey's logo language interpreter
 
+WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
+
 MAKE_FILE=	makefile
+BUILD_TARGET=	# empty
 GNU_CONFIGURE=	yes
+# otherwise ./configure might find wxgtk
+CONFIGURE_ARGS+=	--wx-disable
 # otherwise ./configure guesses -L incorrectly
 LIBS+=		-L${X11BASE}/lib
 
-post-install:
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/ucblogo
-	${INSTALL_DATA}	${WRKSRC}/usermanual ${DESTDIR}${PREFIX}/share/doc/ucblogo/usermanual.txt
-	${INSTALL_DATA_DIR} ${DESTDIR}${PREFIX}/share/doc/ucblogo/html
-	${CP} ${WRKSRC}/emacs/docs/*.html ${DESTDIR}${PREFIX}/share/doc/ucblogo/html/
+USE_TOOLS+=	makeinfo
+INSTALLATION_DIRS=	info
+INFO_FILES=	yes
 
-BUILDLINK_DEPMETHOD.libXt?=	build
+post-extract:
+	${RM} ${WRKSRC}/config.cache
+	${RM} -rf ${WRKSRC}/csls/CVS
+
+BUILDLINK_DEPMETHOD.libXt=	build
 
 .include "../../devel/ncurses/buildlink3.mk"
 .include "../../x11/libX11/buildlink3.mk"

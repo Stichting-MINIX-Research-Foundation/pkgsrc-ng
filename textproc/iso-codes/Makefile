@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.44 2015/09/01 23:36:13 mef Exp $
+# $NetBSD: Makefile,v 1.54 2016/09/01 16:06:44 wiz Exp $
 
-DISTNAME=	iso-codes-3.61
+DISTNAME=	iso-codes-3.70
 CATEGORIES=	textproc
 MASTER_SITES=	https://pkg-isocodes.alioth.debian.org/downloads/
 EXTRACT_SUFX=	.tar.xz
@@ -19,7 +19,24 @@ GNU_CONFIGURE=		yes
 PKGCONFIG_OVERRIDE=	iso-codes.pc.in
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 
-REPLACE_PYTHON=		iso2pot.py
+REPLACE_PYTHON+=	bin/check_valid_utf8.py
+REPLACE_PYTHON+=	bin/pot_from_json.py
+REPLACE_PYTHON+=	bin/validate_json_data.py
+REPLACE_PYTHON+=	bin/xml_from_json.py
+
+SUBST_CLASSES+=		python3
+SUBST_SED.python3+=	-e "s,python3,${PYTHONBIN},"
+SUBST_FILES.python3+=	common.mk
+SUBST_FILES.python3+=	iso_15924/Makefile.in
+SUBST_FILES.python3+=	iso_3166-1/Makefile.in
+SUBST_FILES.python3+=	iso_3166-2/Makefile.in
+SUBST_FILES.python3+=	iso_3166-3/Makefile.in
+SUBST_FILES.python3+=	iso_4217/Makefile.in
+SUBST_FILES.python3+=	iso_639-2/Makefile.in
+SUBST_FILES.python3+=	iso_639-3/Makefile.in
+SUBST_FILES.python3+=	iso_639-5/Makefile.in
+SUBST_STAGE.python3=	pre-configure
+SUBST_MESSAGE.python3=	Fixing path to python binary.
 
 PYTHON_FOR_BUILD_ONLY=		yes
 

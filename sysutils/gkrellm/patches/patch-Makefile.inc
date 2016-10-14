@@ -1,10 +1,22 @@
-$NetBSD: patch-Makefile.inc,v 1.2 2013/02/26 16:16:09 jperkin Exp $
+$NetBSD: patch-Makefile.inc,v 1.4 2016/09/17 14:28:59 richard Exp $
 
 Match OPSYS with what pkgsrc uses.
 Add an explicit -lm and -lgmodule-2.0 for Solaris.
+And -lX11, -lm and -lgmodule-2.0 for Linux
 
---- Makefile.inc.orig	2013-02-26 15:55:55.253179839 +0000
+--- Makefile.inc.orig	2016-09-17 12:12:43.663376387 +0000
 +++ Makefile.inc
+@@ -8,8 +8,8 @@ INSTALLDIR?=	$(INSTALLROOT)/bin
+ INCLUDEDIR?=	$(INSTALLROOT)/include
+ LOCALEDIR?=	$(INSTALLROOT)/share/locale
+ PKGCONFIGDIR?=	$(INSTALLROOT)/lib/pkgconfig
+-MANDIR?=	$(INSTALLROOT)/man/man1
+-SMANDIR?=	$(INSTALLROOT)/man/man1
++MANDIR?=	$(INSTALLROOT)/$(PKGMANDIR)/man1
++SMANDIR?=	$(INSTALLROOT)/$(PKGMANDIR)/man1
+ SINSTALLDIR?=	$(INSTALLROOT)/bin
+ 
+ # Ownership and mode options
 @@ -66,7 +66,7 @@ endif
  
  ifeq ($(GTOP),)
@@ -37,3 +49,16 @@ Add an explicit -lm and -lgmodule-2.0 for Solaris.
        else
  SYS_LIBS+=	-lnsl
        endif
+@@ -134,6 +134,12 @@ BINGROUP=	kmem
+ NEED_MD5=	no
+ MD5_LIBS=	-lmd
+ SYS_LIBS=	-lkvm -lkinfo -ldevstat -lX11 -lm -lgmodule-2.0
++      else
++	ifeq (${OPSYS},Linux)
++	  ifeq ($(MODULE),src)
++SYS_LIBS+=	-lX11 -lm -lgmodule-2.0
++	  endif
++	endif
+       endif
+     endif
+    endif

@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.104 2013/11/13 22:49:31 joerg Exp $
+# $NetBSD: Makefile,v 1.108 2016/09/19 11:21:11 wiz Exp $
 
 DISTNAME=		guile-1.8.8
-PKGREVISION=		6
+PKGREVISION=		8
 CATEGORIES=		lang
 MASTER_SITES=		${MASTER_SITE_GNU:=guile/}
 
 MAINTAINER=		gdt@NetBSD.org
-HOMEPAGE=		http://www.gnu.org/software/guile/guile.html
+HOMEPAGE=		https://www.gnu.org/software/guile/
 COMMENT=		GNU's Ubiquitous Intelligent Language for Extension
 LICENSE=		gnu-lgpl-v2.1
 
@@ -18,6 +18,11 @@ USE_LIBTOOL=		YES
 PTHREAD_AUTO_VARS=	YES
 INFO_FILES=		YES
 PKGCONFIG_OVERRIDE=	guile-1.8.pc.in
+
+GUILE_PREFIX=   		${PREFIX}/guile/1.8
+GNU_CONFIGURE_PREFIX=		${GUILE_PREFIX}
+BUILDLINK_PASSTHRU_DIRS+=	${GUILE_PREFIX}
+LDFLAGS+=			${COMPILER_RPATH_FLAG}${GUILE_PREFIX}/lib
 
 # XXX Make this conditional on the problematic systems.
 # couldn't figure out how to work around an error on solaris-2.9/sparc with gcc when
@@ -48,9 +53,7 @@ post-patch:
 	${ECHO} "(define-module (ice-9 slib))" > ${WRKSRC}/ice-9/slib.scm
 	${ECHO} "(load-from-path \"slib/guile.init\")" >> ${WRKSRC}/ice-9/slib.scm
 
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	ac_cv_type_complex_double=no
-.endif
+CONFIGURE_ARGS.DragonFly+=	ac_cv_type_complex_double=no
 
 .if ${OPSYS} == "Darwin"
 #This define has been reported to break builds on 10.8.

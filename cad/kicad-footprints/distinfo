@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/09/08 09:32:28 bouyer Exp $
+
+SHA1 (kicad-footprints-4.0.4.tar.gz) = 5071f58a39308ca6e2fdafa592e0c9ed98eeedb2
+RMD160 (kicad-footprints-4.0.4.tar.gz) = 8e1a714809ee67659da5fa55c7f0487c8fc4bb89
+SHA512 (kicad-footprints-4.0.4.tar.gz) = 7d42eea2c7c84961e05e0e61d6380e3d294d696e1321bb4406391125379fd6a3dc2b38e7ff8be51b684786bed892738452218f4c5a95c547319f1eaafc0cea6e
+Size (kicad-footprints-4.0.4.tar.gz) = 1400434 bytes

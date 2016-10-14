@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2015/03/22 20:09:28 joerg Exp $
+# $NetBSD: Makefile,v 1.6 2016/07/09 13:04:10 wiz Exp $
 #
 
 DISTNAME=	generateDS-2.14a
@@ -6,7 +6,7 @@ PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 PKGREVISION=	1
 EGG_NAME=	generateDS-${PKGVERSION_NOREV}0
 CATEGORIES=	textproc
-MASTER_SITES=	https://pypi.python.org/packages/source/g/generateDS/
+MASTER_SITES=	${MASTER_SITE_PYPI:=g/generateDS/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.davekuhlman.org/generateDS.html
@@ -17,7 +17,7 @@ LICENSE=	mit
 PY_PATCHPLIST=	yes
 PYDISTUTILSPKG=	yes
 # TODO: explain
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xml
 
 REPLACE_PYTHON=	generateDS.py libgenerateDS/gui/*.py libgenerateDS/*.py
 

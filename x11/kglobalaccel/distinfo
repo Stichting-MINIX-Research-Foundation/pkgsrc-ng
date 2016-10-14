@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/08/21 21:29:45 markd Exp $
+
+SHA1 (kglobalaccel-5.25.0.tar.xz) = 6c957eac5cff7d52653b65f3d22a64a8e9234fd7
+RMD160 (kglobalaccel-5.25.0.tar.xz) = ac8e81b92a6bfe5bf9802325eed6008527a7b582
+SHA512 (kglobalaccel-5.25.0.tar.xz) = 17622310fd7a01e4ebb2b7377bdce878b4995ffadd7c40329e27a120cb98f8bd5ef029c330974b9a489ab11cd515107a25b4c1cea90bce49a30b7923a26331ec
+Size (kglobalaccel-5.25.0.tar.xz) = 83340 bytes

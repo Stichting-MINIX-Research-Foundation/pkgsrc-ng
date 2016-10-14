@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.1.1.1 2015/07/03 09:56:55 abs Exp $
+# $NetBSD: Makefile,v 1.5 2016/09/20 12:59:25 wiz Exp $
 
-DISTNAME=	yEd-3.14.2
+DISTNAME=	yEd-3.15.0.2
 PKGNAME=	${DISTNAME:C:E:e:}
 CATEGORIES=	editors
 MASTER_SITES=	http://www.yworks.com/products/yed/demo/
@@ -37,5 +37,4 @@ do-install:
 
 	${INSTALL_DATA} ${WRKSRC}/license.html ${DESTDIR}${PREFIX}/share/doc/java/yed
 
-# url2pkg-marker (please do not remove this line.)
 .include "../../mk/bsd.pkg.mk"

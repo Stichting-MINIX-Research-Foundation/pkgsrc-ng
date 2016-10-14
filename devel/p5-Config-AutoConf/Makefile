@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2015/07/12 18:56:11 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/06/08 19:22:43 wiz Exp $
 
-DISTNAME=	Config-AutoConf-0.311
+DISTNAME=	Config-AutoConf-0.313
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

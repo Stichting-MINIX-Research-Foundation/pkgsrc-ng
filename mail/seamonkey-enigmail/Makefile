@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/07/01 12:55:53 ryoon Exp $
+# $NetBSD: Makefile,v 1.5 2016/05/05 12:06:38 wiz Exp $
 
 .include "../../mail/thunderbird-enigmail/Makefile.common"
 
@@ -7,7 +7,7 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 COMMENT=	GnuPG support for www/seamonkey
 
 # Minimal requirements are here: https://www.enigmail.net/download/source.php
-DEPENDS+=		seamonkey>=2.29:../../www/seamonkey
+DEPENDS+=		seamonkey>=2.35:../../www/seamonkey
 
 # Path used during the install stage
 XPIDIR=		${PREFIX}/lib/seamonkey/extensions

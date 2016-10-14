@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1.1.1 2014/02/17 20:40:48 bouyer Exp $
+$NetBSD: distinfo,v 1.4 2016/09/08 09:32:28 bouyer Exp $
 
-SHA1 (kicad-doc-20140214.tar.gz) = 7ec2a792e00c81c0f8f7b6ab6fb133b7f68e86b7
-RMD160 (kicad-doc-20140214.tar.gz) = f01289b88416e35e474d137ab24c5ecd366d3da5
-Size (kicad-doc-20140214.tar.gz) = 148427187 bytes
+SHA1 (kicad-doc-4.0.4.tar.gz) = af92fd762d2fa4573d2f9d73c21e492ce95a6742
+RMD160 (kicad-doc-4.0.4.tar.gz) = d1430ae61c0c656debaf4e7202758e32381f5958
+SHA512 (kicad-doc-4.0.4.tar.gz) = ff882013924d489454f605fcb458be56b9e7a722a12973f091546dc55bb4b825d494ebece934d8862931ce04bbdd821073b1684b60df084bd2e9bcc3101df83c
+Size (kicad-doc-4.0.4.tar.gz) = 199208625 bytes

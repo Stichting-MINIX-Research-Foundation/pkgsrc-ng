@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.14 2015/08/14 17:12:35 wiz Exp $
+@comment $NetBSD: PLIST,v 1.18 2016/07/24 19:25:39 wiz Exp $
 ${PLIST.arm}include/freedreno/freedreno_drmif.h
 ${PLIST.arm}include/freedreno/freedreno_ringbuffer.h
 include/libdrm/amdgpu.h
@@ -13,7 +13,14 @@ ${PLIST.intel}include/libdrm/intel_bufmgr.h
 ${PLIST.intel}include/libdrm/intel_debug.h
 include/libdrm/mach64_drm.h
 include/libdrm/mga_drm.h
-include/libdrm/nouveau.h
+include/libdrm/nouveau/nouveau.h
+include/libdrm/nouveau/nvif/cl0080.h
+include/libdrm/nouveau/nvif/cl9097.h
+include/libdrm/nouveau/nvif/class.h
+include/libdrm/nouveau/nvif/if0002.h
+include/libdrm/nouveau/nvif/if0003.h
+include/libdrm/nouveau/nvif/ioctl.h
+include/libdrm/nouveau/nvif/unpack.h
 include/libdrm/nouveau_drm.h
 include/libdrm/qxl_drm.h
 include/libdrm/r128_drm.h
@@ -29,7 +36,11 @@ include/libdrm/radeon_surface.h
 include/libdrm/savage_drm.h
 include/libdrm/sis_drm.h
 include/libdrm/tegra_drm.h
+include/libdrm/vc4_drm.h
+${PLIST.arm}include/libdrm/vc4_packet.h
+${PLIST.arm}include/libdrm/vc4_qpu_defines.h
 include/libdrm/via_drm.h
+include/libdrm/virtgpu_drm.h
 include/libdrm/vmwgfx_drm.h
 include/xf86drm.h
 include/xf86drmMode.h
@@ -45,3 +56,4 @@ ${PLIST.arm}lib/pkgconfig/libdrm_freedreno.pc
 ${PLIST.intel}lib/pkgconfig/libdrm_intel.pc
 lib/pkgconfig/libdrm_nouveau.pc
 lib/pkgconfig/libdrm_radeon.pc
+${PLIST.arm}lib/pkgconfig/libdrm_vc4.pc

@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.2 2015/07/02 21:08:08 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/09 06:38:35 wiz Exp $
 
 DISTNAME=	collection-pstricks
-PKGNAME=	texlive-${DISTNAME}-2015pre1
+PKGNAME=	texlive-${DISTNAME}-2016pre1
+PKGREVISION=	1
 CATEGORIES=	meta-pkgs
 MASTER_SITES=	# empty
-TEXLIVE_REV=	34995
+TEXLIVE_REV=	40724
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.tug.org/texlive/
@@ -33,6 +34,7 @@ DEPENDS+=	tex-pst-barcode-[0-9]*:../../graphics/tex-pst-barcode
 DEPENDS+=	tex-pst-blur-[0-9]*:../../graphics/tex-pst-blur
 # depend pst-bspline
 # depend pst-calendar
+# depend pst-cie
 DEPENDS+=	tex-pst-circ-[0-9]*:../../graphics/tex-pst-circ
 DEPENDS+=	tex-pst-coil-[0-9]*:../../graphics/tex-pst-coil
 # depend pst-cox
@@ -71,7 +73,7 @@ DEPENDS+=	tex-pst-node-[0-9]*:../../graphics/tex-pst-node
 # depend pst-optexp
 # depend pst-optic
 DEPENDS+=	tex-pst-osci-[0-9]*:../../graphics/tex-pst-osci
-# depend pst-ovl
+DEPENDS+=	tex-pst-ovl-[0-9]*:../../graphics/tex-pst-ovl
 # depend pst-pad
 # depend pst-pdgr
 # depend pst-perspective
@@ -92,7 +94,7 @@ DEPENDS+=	tex-pst-slpe-[0-9]*:../../graphics/tex-pst-slpe
 # depend pst-support
 DEPENDS+=	tex-pst-text-[0-9]*:../../graphics/tex-pst-text
 # depend pst-thick
-# depend pst-tools
+DEPENDS+=	tex-pst-tools-[0-9]*:../../graphics/tex-pst-tools
 DEPENDS+=	tex-pst-tree-[0-9]*:../../graphics/tex-pst-tree
 # depend pst-tvz
 DEPENDS+=	tex-pst-uml-[0-9]*:../../devel/tex-pst-uml

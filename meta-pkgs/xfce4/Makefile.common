@@ -1,8 +1,7 @@
-# $NetBSD: Makefile.common,v 1.57 2015/07/31 09:03:36 youri Exp $
+# $NetBSD: Makefile.common,v 1.61 2016/08/03 10:59:00 adam Exp $
 #
 # used by archivers/xfce4-thunar-archive/Makefile
 # used by audio/xfce4-mixer/Makefile
-# used by audio/xfce4-pulseaudio-plugin/Makefile
 # used by audio/xfce4-xmms-plugin/Makefile
 # used by devel/xfce4-conf/Makefile
 # used by devel/xfce4-dev-tools/Makefile
@@ -10,6 +9,7 @@
 # used by editors/xfce4-mousepad/Makefile
 # used by mail/xfce4-mailwatch-plugin/Makefile
 # used by meta-pkgs/xfce4-extras/Makefile
+# used by misc/xfce4-calculator-plugin/Makefile
 # used by misc/xfce4-smartbookmark-plugin/Makefile
 # used by misc/xfce4-time-out-plugin/Makefile
 # used by misc/xfce4-weather-plugin/Makefile
@@ -36,7 +36,6 @@
 # used by textproc/xfce4-dict/Makefile
 # used by time/xfce4-datetime-plugin/Makefile
 # used by time/xfce4-orage/Makefile
-# used by time/xfce4-stopwatch-plugin/Makefile
 # used by time/xfce4-timer-plugin/Makefile
 # used by wm/xfce4-wm-themes/Makefile
 # used by wm/xfce4-wm/Makefile
@@ -51,6 +50,7 @@
 # used by x11/xfce4-garcon/Makefile
 # used by x11/xfce4-kbdleds-plugin/Makefile
 # used by x11/xfce4-gtk2-engine/Makefile
+# used by x11/xfce4-indicator-plugin/Makefile
 # used by x11/xfce4-notes-plugin/Makefile
 # used by x11/xfce4-notifyd/Makefile
 # used by x11/xfce4-panel/Makefile
@@ -79,10 +79,6 @@ USE_TOOLS+=		gmake pkg-config msgfmt perl intltool
 
 XFCE4_EGBASE=		${PREFIX}/share/examples/xfce4
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--disable-visibility
-.endif
+CONFIGURE_ARGS.Darwin+=	--disable-visibility
 
 .include "../../x11/gtk2/buildlink3.mk"

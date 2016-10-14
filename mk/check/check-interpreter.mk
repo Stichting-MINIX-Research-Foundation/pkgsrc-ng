@@ -1,4 +1,4 @@
-# $NetBSD: check-interpreter.mk,v 1.29 2015/04/29 13:05:28 jperkin Exp $
+# $NetBSD: check-interpreter.mk,v 1.31 2016/03/11 21:11:47 dholland Exp $
 #
 # This file checks that after installation, all files of the package
 # that start with a "#!" line will find their interpreter. Files that
@@ -56,12 +56,15 @@ _check-interpreter: error-check .PHONY
 		if [ ! -x "$$file" ]; then				\
 			continue;					\
 		fi;							\
+		if [ -d "$$file" ]; then				\
+			continue;					\
+		fi;							\
 		if [ ! -r "$$file" ]; then				\
 			${DELAYED_WARNING_MSG} "[check-interpreter.mk] File \"${DESTDIR}${PREFIX}/$$file\" cannot be read."; \
 			continue;					\
 		fi;							\
 		${SHCOMMENT} "[$$file]";				\
-		interp=`${SED} -n -e '1s/^#![[:space:]]*\([^[:space:]]*\).*/\1/p' -e '1q' < "$$file"` \
+		interp=`LC_ALL=C ${SED} -n -e '1s/^#![[:space:]]*\([^[:space:]]*\).*/\1/p' -e '1q' < "$$file"` \
 		|| {	${DELAYED_WARNING_MSG} "[check-interpreter.mk] sed(1) failed for \"${DESTDIR}${PREFIX}/$$file\"."; \
 			continue;					\
 		};							\

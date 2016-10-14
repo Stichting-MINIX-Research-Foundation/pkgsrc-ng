@@ -1,6 +1,6 @@
-$NetBSD: distinfo,v 1.1 2013/04/19 07:57:12 wiz Exp $
+$NetBSD: distinfo,v 1.4 2016/06/05 13:50:21 mef Exp $
 
-SHA1 (entr-1.9.tar.gz) = b339dd1710addac2e69885681e95f19129ec6576
-RMD160 (entr-1.9.tar.gz) = ab55f7b6d17cb21d319062d3c79433d08d0d890a
-Size (entr-1.9.tar.gz) = 8680 bytes
-SHA1 (patch-Makefile.bsd) = 87d9a4474a819fc3840b616dfb31a2632dacf685
+SHA1 (entr-3.5.tar.gz) = 090bdba2fb28e43ee6d675227f472850d2cf4b32
+RMD160 (entr-3.5.tar.gz) = 8a77db01bca0a586f580d73e58825158f58013ed
+SHA512 (entr-3.5.tar.gz) = dea5a201dd945fb25daf80030f8fae424dce2f51e6ce294bd1e609ff152547ea4bf4a555ad1b15f3b4fbca2e17ff34b2276b226790834f14a6f567bfb0cb4508
+Size (entr-3.5.tar.gz) = 22222 bytes

@@ -1,4 +1,6 @@
-$NetBSD: patch-aa,v 1.3 2007/01/05 16:48:58 obache Exp $
+$NetBSD: patch-aa,v 1.5 2016/01/06 07:21:31 dholland Exp $
+
+Don't bomb if SO_NOSIGPIPE isn't defined.
 
 --- native/jni/native-lib/cpnet.c.orig	2006-09-17 07:31:43.000000000 +0000
 +++ native/jni/native-lib/cpnet.c

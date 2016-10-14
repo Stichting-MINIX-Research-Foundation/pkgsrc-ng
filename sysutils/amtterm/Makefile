@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.23 2015/06/12 10:51:11 wiz Exp $
+# $NetBSD: Makefile,v 1.26 2016/08/03 10:23:21 adam Exp $
 
-DISTNAME=		amtterm-1.3
-PKGREVISION=		18
+DISTNAME=		amtterm-1.4
+PKGREVISION=		2
 CATEGORIES=		sysutils
 MASTER_SITES=		http://www.kraxel.org/releases/amtterm/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
-HOMEPAGE=		# empty
+HOMEPAGE=		https://www.kraxel.org/blog/linux/amtterm/
 COMMENT=		Active Management Technology (AMT) tools
 LICENSE=		gnu-gpl-v2
 

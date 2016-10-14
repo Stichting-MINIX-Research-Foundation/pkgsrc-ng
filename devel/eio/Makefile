@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2014/02/12 23:17:46 tron Exp $
+# $NetBSD: Makefile,v 1.5 2016/04/18 15:13:30 jperkin Exp $
 #
 
 DISTNAME=	eio-1.7.7
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://download.enlightenment.org/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -17,6 +17,8 @@ PKG_DESTDIR_SUPPORT=	user-destdir
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
+
+CONFIGURE_ARGS.SunOS+=	--disable-inotify
 
 INSTALLATION_DIRS=	share/doc/eio
 

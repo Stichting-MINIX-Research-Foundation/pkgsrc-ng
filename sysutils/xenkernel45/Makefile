@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.9 2015/06/23 17:45:33 bouyer Exp $
+# $NetBSD: Makefile,v 1.22 2016/09/21 17:03:37 bouyer Exp $
 
-VERSION=	4.5.1
+VERSION=	4.5.5
 DISTNAME=	xen-${VERSION}
 PKGNAME=	xenkernel45-${VERSION}
+#PKGREVISION=	0
 CATEGORIES=	sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -19,7 +20,7 @@ NO_CONFIGURE=	yes
 USE_TOOLS+=	gmake
 
 PYTHON_FOR_BUILD_ONLY=		YES
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 MAKE_ENV+=	OCAML_TOOLS=no
 
@@ -34,6 +35,9 @@ EXTRA_CFLAGS+=	-Qunused-arguments -no-integrated-as -Wno-error=format \
 		-Wno-error=parentheses-equality -Wno-error=enum-conversion \
 		-Wno-error=unused-function -Wno-error=unused-const-variable \
 		-Wno-error=ignored-attributes -Wno-error=initializer-overrides
+.endif
+.if !empty(PKGSRC_COMPILER:Mgcc) && empty(CC_VERSION:Mgcc-[1-4].*)
+EXTRA_CFLAGS+=	-Wno-error=maybe-uninitialized
 .endif
 
 MAKE_ENV+=	EXTRA_CFLAGS=${EXTRA_CFLAGS:Q}

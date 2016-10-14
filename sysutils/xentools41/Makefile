@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.56 2015/08/18 07:31:18 wiz Exp $
+# $NetBSD: Makefile,v 1.63 2016/07/09 13:04:08 wiz Exp $
 #
 # VERSION is set in version.mk as it is shared with other packages
 .include		"version.mk"
 
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools41-${VERSION}
-PKGREVISION=		13
+PKGREVISION=		16
 CATEGORIES=		sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -13,7 +13,7 @@ DISTFILES=		${DISTNAME}.tar.gz
 DISTFILES+=		ipxe-git-v${VERSION_IPXE}.tar.gz
 SITES.ipxe-git-v${VERSION_IPXE}.tar.gz +=	http://xenbits.xensource.com/xen-extfiles/
 
-MAINTAINER=		cegger@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://xen.org/
 COMMENT=		Userland Tools for Xen 4.1.x
 
@@ -28,7 +28,7 @@ BUILD_DEPENDS+= dev86-[0-9]*:../../devel/dev86 # needed to build firmware
 BUILD_DEPENDS+= acpica-utils-[0-9]*:../../sysutils/acpica-utils
 .endif
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xml
 
 PKG_SYSCONFSUBDIR=	xen
 
@@ -107,20 +107,19 @@ SUBST_FILES.conf+=	python/xen/xm/create.py
 SUBST_FILES.conf+=	ocaml/xenstored/define.ml
 SUBST_SED.conf=		-e "s,@XENDCONFDIR@,${PKG_SYSCONFDIR},g"
 
-.include "../../mk/bsd.prefs.mk"
-
 XEND_SCRIPTS=		block vif-bridge vif-ip qemu-ifup hotplugpath.sh
 
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		proc
+SUBST_CLASSES.NetBSD+=	proc
 SUBST_STAGE.proc=	pre-configure
 SUBST_FILES.proc=	python/xen/xend/XendVnet.py
 SUBST_FILES.proc+=	ocaml/xenstored/define.ml
 SUBST_SED.proc=		-e "s|/proc|/kern|g"
-PROCPATH=		/kern
-.else
-PROCPATH=		/proc
-.endif
+
+OPSYSVARS+=		PROCPATH
+PROCPATH.NetBSD=	/kern
+PROCPATH.*=		/proc
+
+.include "../../mk/bsd.prefs.mk"
 
 SUBST_CLASSES+=		procdev
 SUBST_STAGE.procdev=	pre-configure
@@ -175,7 +174,8 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/xmdomain.cfg.5 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man5
 	${INSTALL_DATA} ${WRKDIR}/xm.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 
-.if ${OPSYS} == "NetBSD" && !exists(/var/shm)
+.if (${OPSYS} == "NetBSD" && \
+    (empty(OS_VERSION:M6.99.[3-9]?) && empty(OS_VERSION:M[7-9].*)))
 CPPFLAGS+=	-Dshm_open=open -Dshm_unlink=unlink
 .endif
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.2 2015/06/12 10:49:17 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/08 19:23:00 wiz Exp $
 
-DISTNAME=	Git-Repository-Plugin-AUTOLOAD-1.001
+DISTNAME=	Git-Repository-Plugin-AUTOLOAD-1.003
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel
@@ -12,6 +12,9 @@ COMMENT=	Git subcommands as Git::Repository methods
 LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Git-Repository>=1.309:../../devel/p5-Git-Repository
+# for make test
+BUILD_DEPENDS+=	p5-Test-Requires-Git-[0-9]*:../../devel/p5-Test-Requires-Git
+BUILD_DEPENDS+=	p5-namespace-clean-[0-9]*:../../devel/p5-namespace-clean
 
 PERL5_PACKLIST=	auto/Git/Repository/Plugin/AUTOLOAD/.packlist
 USE_LANGUAGES=	# none

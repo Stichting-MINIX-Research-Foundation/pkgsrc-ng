@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.64 2015/07/26 14:01:42 youri Exp $
+# $NetBSD: Makefile,v 1.67 2016/08/03 10:23:07 adam Exp $
 
 META_PACKAGE=	yes
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
-PKGREVISION=	2
+PKGREVISION=	3
 DISTNAME=	xfce4-extras-${XFCE4_VERSION}
 CATEGORIES=	meta-pkgs
 COMMENT=	Xfce extras
@@ -20,12 +20,14 @@ DEPENDS+=	xfce4-cpugraph-plugin>=1.0.5:../../sysutils/xfce4-cpugraph-plugin
 DEPENDS+=	xfce4-wavelan-plugin>=0.5.11:../../net/xfce4-wavelan-plugin
 
 DEPENDS+=	xfce4-battery-plugin>=1.0.5:../../sysutils/xfce4-battery-plugin
+DEPENDS+=	xfce4-calculator-plugin>=0.5.2:../../misc/xfce4-calculator-plugin
 DEPENDS+=	xfce4-clipman-plugin>=1.2.6:../../x11/xfce4-clipman-plugin
 DEPENDS+=	xfce4-datetime-plugin>=0.6.2:../../time/xfce4-datetime-plugin
 DEPENDS+=	xfce4-dict>=0.7.1:../../textproc/xfce4-dict
 DEPENDS+=	xfce4-eyes-plugin>=4.4.3:../../x11/xfce4-eyes-plugin
 DEPENDS+=	xfce4-fsguard-plugin>=1.0.1:../../sysutils/xfce4-fsguard-plugin
 DEPENDS+=	xfce4-genmon-plugin>=3.4:../../sysutils/xfce4-genmon-plugin
+DEPENDS+=	xfce4-indicator-plugin>=2.3.3:../../x11/xfce4-indicator-plugin
 DEPENDS+=	xfce4-mailwatch-plugin>=1.2.0:../../mail/xfce4-mailwatch-plugin
 DEPENDS+=	xfce4-mixer>=4.10.0:../../audio/xfce4-mixer
 DEPENDS+=	xfce4-mount-plugin>=0.6.7:../../sysutils/xfce4-mount-plugin

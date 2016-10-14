@@ -1,9 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2014/12/21 00:43:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.10 2016/05/08 16:09:38 khorben Exp $
 #
 
-DISTNAME=	dev86-0.16.21
+VER=		0.16.21
+DISTNAME=	dev86-${VER}
 CATEGORIES=	devel
-MASTER_SITES=	-https://github.com/lkundrak/dev86/archive/v0.16.21.tar.gz
+MASTER_SITES=	${MASTER_SITE_GITHUB:=lkundrak/}
+GITHUB_TAG=	v${VER}
 
 MAINTAINER=	pierrick@bs-network.net
 HOMEPAGE=	http://www.debath.co.uk/
@@ -15,6 +17,8 @@ CONFLICTS+=	bin86-[0-9]*
 
 WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
+MAKE_FLAGS+=	CFLAGS=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS=${LDFLAGS:Q}
 MAKE_FLAGS+=	MANDIR=${PREFIX}/${PKGMANDIR}
 
 DESTDIR_VARNAME=	DIST

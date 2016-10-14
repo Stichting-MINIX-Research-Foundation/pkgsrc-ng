@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.24 2015/08/18 07:31:02 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2016/07/10 09:42:07 rillig Exp $
 #
 
 DISTNAME=	herrie-2.2
-PKGREVISION=	11
+PKGREVISION=	12
 CATEGORIES=	audio
 MASTER_SITES=	http://herrie.info/distfiles/
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://herrie.info/
 COMMENT=	Minimalistic, ncurses-based audio player
+LICENSE=	2-clause-bsd AND gnu-gpl-v2
 
 HAS_CONFIGURE=		yes
 USE_LIBTOOL=		yes
@@ -21,7 +22,7 @@ CONFIGURE_ARGS+=	verbose
 EGDIR=			${PREFIX}/share/examples/herrie
 CONF_FILES=		${EGDIR}/herrie.conf ${PKG_SYSCONFDIR}/herrie.conf
 
-CONFIGURE_ENV+=		CONFDIR=${PKG_SYSCONFDIR:Q}
+CONFIGURE_ENV+=		CONFDIR=${PKG_SYSCONFDIR}
 CONFIGURE_ENV+=		MANDIR=${PREFIX}/${PKGMANDIR}
 CONFIGURE_ENV+=		TRANSDIR=${PREFIX}/${PKGLOCALEDIR}/locale
 

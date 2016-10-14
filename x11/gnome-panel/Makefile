@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.177 2015/06/12 10:52:17 wiz Exp $
+# $NetBSD: Makefile,v 1.187 2016/08/03 10:22:21 adam Exp $
 
 DISTNAME=		gnome-panel-2.32.1
-PKGREVISION=		44
+PKGREVISION=		50
 CATEGORIES=		x11 gnome
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/gnome-panel/2.32/}
 EXTRACT_SUFX=		.tar.bz2
@@ -22,7 +22,7 @@ USE_LIBTOOL=		YES
 PKGCONFIG_OVERRIDE+=	bonobo/libpanel-applet/libpanelapplet-2.0.pc.in
 PKGCONFIG_OVERRIDE+=	libpanel-applet/libpanelapplet-3.0.pc.in
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN}
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-ORBit via py-gnome2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-ORBit via py-gnome2
 
 # XXX this pkg installs a gio module to ${PREFIX}/lib/gnome-panel/modules
 # but there are two problems with this:
@@ -52,6 +52,11 @@ BUILDLINK_API_DEPENDS.libgnome+=	libgnome>=2.13.0
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gnome-panel
 PKG_SUPPORTED_OPTIONS=	evolution
 PKG_SUGGESTED_OPTIONS=	evolution
+
+SUBST_CLASSES.Darwin+=	noundef
+SUBST_STAGE.noundef=	pre-configure
+SUBST_FILES.noundef=	bonobo/panel-module/Makefile.in
+SUBST_SED.noundef=	-e 's/ -no-undefined//g'
 
 .include "../../mk/bsd.options.mk"
 

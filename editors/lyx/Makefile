@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.48 2015/06/12 10:50:01 wiz Exp $
+# $NetBSD: Makefile,v 1.55 2016/07/09 13:03:46 wiz Exp $
 
 DISTNAME=		lyx-2.1.2.2
-PKGREVISION=		3
+PKGREVISION=		5
 CATEGORIES=		editors
 MASTER_SITES=		ftp://ftp.lyx.org/pub/lyx/stable/2.1.x/ \
 			http://gd.tuwien.ac.at/publishing/tex/lyx/stable/2.1.x/ \
@@ -62,12 +62,13 @@ UNLIMIT_RESOURCES+=	datasize
 
 USE_LANGUAGES=		c c++
 GNU_CONFIGURE=		YES
-USE_TOOLS+=		gmake perl:run pkg-config
+USE_TOOLS+=		gmake perl:run pkg-config xgettext
 USE_LIBTOOL=		YES
 USE_PKGLOCALEDIR=	YES
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 1.6.10
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 1.6.10
 
 CXXFLAGS.Linux+=	-fpermissive
+LDFLAGS.SunOS+=		-liconv
 
 CONFIGURE_ARGS+=	--without-included-mythes
 CONFIGURE_ARGS+=	--without-included-boost
@@ -186,8 +187,5 @@ SUBST_SED.python+=	-e 's,command("python -tt,command("${PYTHONBIN} -tt,'
 
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
-
-CXXFLAGS+= ${CLANG_NO_VALUE_PROPAGATION_PASS}
-
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

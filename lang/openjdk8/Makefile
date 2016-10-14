@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2015/08/27 19:03:59 joerg Exp $
+# $NetBSD: Makefile,v 1.41 2016/09/20 11:12:23 wiz Exp $
 
-DISTNAME=	openjdk-1.8.51-20150806
-PKGNAME=	openjdk8-1.8.51
+DISTNAME=	openjdk-1.8.102-20160811
+PKGNAME=	openjdk8-1.8.102
 PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
@@ -20,26 +20,29 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk8
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jcmd jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 BUILD_DEPENDS+=		mozilla-rootcerts>=1.0.20140820nb2:../../security/mozilla-rootcerts
 
-HAS_CONFIGURE=		yes
+GNU_CONFIGURE=		yes
 CONFIGURE_SCRIPT=	common/autoconf/configure
 CONFIG_SHELL=		bash
 CONFIG_SUB_OVERRIDE+=	common/autoconf/build-aux/config.sub
 CONFIG_GUESS_OVERRIDE+=	common/autoconf/build-aux/config.guess
+CONFIG_SUB_OVERRIDE+=	common/autoconf/build-aux/autoconf-config.sub
 CONFIG_GUESS_OVERRIDE+=	common/autoconf/build-aux/autoconf-config.guess
 USE_LANGUAGES=		c c++
 USE_TOOLS+=		bash gmake pax pkg-config unzip:run zip:run
 UNLIMIT_RESOURCES=	datasize stacksize
 WRKSRC=			${WRKDIR}/openjdk
 PLIST_SRC+=		${PLIST_SRC_DFLT}
+CHECK_SHLIBS_SKIP+=	java/openjdk8/jre/lib/${LIBDIR_ARCH}/libinstrument.so
 
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin
 
+CONFIGURE_ARGS+=	--disable-option-checking # for --with-libiconv-prefix
 CONFIGURE_ARGS+=	--prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--build=${MACHINE_GNU_PLATFORM:Q}
 CONFIGURE_ARGS+=	--host=${MACHINE_GNU_PLATFORM:Q}
@@ -56,9 +59,16 @@ CONFIGURE_ARGS+=	--with-memory-size=768
 CONFIGURE_ARGS+=	--disable-precompiled-headers
 CONFIGURE_ARGS+=	--disable-ccache
 CONFIGURE_ARGS+=	--with-user-release-suffix=pkgsrc_${PKGVERSION}
-CONFIGURE_ARGS+=	--with-update-version=u${PKGVERSION_NOREV:S/1.8.//}
+CONFIGURE_ARGS+=	--with-update-version=${PKGVERSION_NOREV:S/1.8.//}
 
 CHECK_PORTABILITY_SKIP+=	hotspot/test/runtime/*/*.sh
+
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/[a-ik-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/j[b-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/jar*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/java
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/bin/java[a-z]*
+NOT_PAX_MPROTECT_SAFE+= java/openjdk8/jre/bin/*
 
 # Avoid build errors when JAVA_HOME and CLASSPATH are defined by user.
 MAKE_ENV+=	JAVA_HOME=
@@ -133,6 +143,11 @@ SUBST_FILES.fontpaths+=		jdk/src/solaris/native/sun/awt/fontpath.c
 SUBST_SED.fontpaths=		-e 's|@PREFIX@|${PREFIX}|g'
 SUBST_SED.fontpaths+=		-e 's|@BUILDLINK_PREFIX.fontconfig@|${BUILDLINK_PREFIX.fontconfig}|g'
 
+SUBST_CLASSES+=			zlibpath
+SUBST_STAGE.zlibpath=		pre-build
+SUBST_FILES.zlibpath=		jdk/make/CompileLaunchers.gmk jdk/make/lib/CoreLibraries.gmk
+SUBST_VARS.zlibpath=		COMPILER_RPATH_FLAG BUILDLINK_PREFIX.zlib
+
 PLIST_VARS+=	i386
 .if ${MACHINE_ARCH} == "i386"
 PLIST.i386=	yes
@@ -152,6 +167,13 @@ post-extract:
 .if exists(/usr/lib/libstdc++.so.7)
 	${RM} -f ${ALT_BOOTDIR}/jre/lib/${LIBDIR_ARCH}/libstdc++.so*
 .endif
+.if defined(TOOLS_PLATFORM.paxctl)
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/[a-ik-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/j[b-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/jar*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java[a-z]*
+.endif
 
 do-build: ${WRKDIR}/stage3-done
 
@@ -167,6 +189,13 @@ ${WRKDIR}/stage1-done:
 
 # stage 1.5 reconfigures, since the bootstrap JDK major version might have changed now
 ${WRKDIR}/stage1_5-done: ${WRKDIR}/stage1-done
+.if defined(TOOLS_PLATFORM.paxctl)
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/[a-ik-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/j[b-z]*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/jar*
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java
+	${PAXCTL} +m ${WRKDIR}/bootstrap/bin/java[a-z]*
+.endif
 .if defined(BATCH)
 	@${RECURSIVE_MAKE} ${MAKEFLAGS} apply-va-hack
 .endif

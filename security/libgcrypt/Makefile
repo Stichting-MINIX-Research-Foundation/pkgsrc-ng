@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.73 2015/09/09 18:02:15 wiz Exp $
+# $NetBSD: Makefile,v 1.84 2016/09/01 10:19:30 fhajny Exp $
 
-DISTNAME=	libgcrypt-1.6.4
+DISTNAME=	libgcrypt-1.7.3
+PKGREVISION=	1
 CATEGORIES=	security
 MASTER_SITES=	ftp://ftp.gnupg.org/gcrypt/libgcrypt/ \
 		http://gd.tuwien.ac.at/privacy/gnupg/libgcrypt/
@@ -20,6 +21,7 @@ TEXINFO_REQD=		4.0
 INFO_FILES=		yes # PLIST
 
 .include "../../mk/bsd.prefs.mk"
+.include "../../mk/compiler.mk"
 
 .if empty(MACHINE_PLATFORM:MNetBSD-*-i386) && \
     empty(MACHINE_PLATFORM:MNetBSD-*-alpha) && \
@@ -28,6 +30,11 @@ INFO_FILES=		yes # PLIST
 CONFIGURE_ARGS+=	--disable-asm
 .endif
 CONFIGURE_ARGS+=	--disable-aesni-support
+
+.if !empty(MACHINE_PLATFORM:MLinux-*-i386) || \
+    !empty(MACHINE_PLATFORM:MSunOS-*-i386)
+CONFIGURE_ARGS+=	--disable-pclmul-support
+.endif
 
 # SCO OpenServer 5.0.7/3.2 has no socklen_t, but it is defined in pthread.h
 # from builtin GNU pth.
@@ -40,10 +47,23 @@ CONFIGURE_ENV+=		gl_cv_socklen_t_equiv=int
 CFLAGS+=		-fheinous-gnu-extensions
 .endif
 
+.if (${MACHINE_ARCH} == "x86_64")
+.  if !empty(CC_VERSION:Mgcc-4.[45].*)
+CONFIGURE_ARGS+=	--disable-avx2-support
+CONFIGURE_ARGS+=	--disable-avx-support
+CONFIGURE_ENV+=		gcry_cv_gcc_inline_asm_avx=no
+.  endif
+.endif
+
+SUBST_CLASSES+=		rpath
+SUBST_FILES.rpath=	src/libgcrypt-config.in
+SUBST_STAGE.rpath=	pre-configure
+SUBST_MESSAGE.rpath=	Fixing rpath flags
+SUBST_VARS.rpath=	COMPILER_RPATH_FLAG
 
 .include "options.mk"
 
-BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.11
+BUILDLINK_API_DEPENDS.libgpg-error+=	libgpg-error>=1.13
 .include "../../security/libgpg-error/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

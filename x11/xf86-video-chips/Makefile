@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2015/04/25 14:25:22 tnn Exp $
-#
+# $NetBSD: Makefile,v 1.17 2016/02/26 11:27:18 jperkin Exp $
 
-DISTNAME=	xf86-video-chips-1.2.5
-PKGREVISION=	3
+DISTNAME=	xf86-video-chips-1.2.6
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=driver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -15,11 +14,7 @@ USE_LIBTOOL=	yes
 GNU_CONFIGURE=	yes
 USE_TOOLS+=	pkg-config
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	DRIVER_MAN_SUFFIX=4
-.endif
+CONFIGURE_ENV.SunOS+=	DRIVER_MAN_SUFFIX=4
 
 #
 # it appears the 1.2.5 tarball forgot something

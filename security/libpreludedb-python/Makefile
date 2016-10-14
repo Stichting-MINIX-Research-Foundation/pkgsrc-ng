@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.16 2015/08/23 14:30:41 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2016/09/19 13:04:27 wiz Exp $
 
 PKGNAME=		libpreludedb-python-${VERSION}
-PKGREVISION=		11
+PKGREVISION=		13
 COMMENT=		Python bindings for LibPreludeDB libraries
 
 .include "../../security/libpreludedb/Makefile.common"
@@ -16,7 +16,7 @@ PYBINMODULE=		yes
 PY_PATCHPLIST=		yes
 BUILD_DIRS=		bindings
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.9.24.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.9.24.1
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/extension.mk"

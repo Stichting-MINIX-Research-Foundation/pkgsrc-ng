@@ -1,9 +1,10 @@
-# $NetBSD: options.mk,v 1.16 2015/05/04 09:13:34 adam Exp $
+# $NetBSD: options.mk,v 1.20 2016/06/28 10:31:42 prlw1 Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.squid
-PKG_SUPPORTED_OPTIONS=	inet6 snmp ssl squid-backend-aufs squid-backend-diskd \
-		squid-backend-rock squid-backend-ufs squid-carp squid-unlinkd \
-		squid-kerberos-helper squid-ldap-helper squid-pam-helper
+PKG_SUPPORTED_OPTIONS=	ecap inet6 snmp ssl squid-backend-aufs \
+		squid-backend-diskd squid-backend-rock squid-backend-ufs \
+		squid-carp squid-unlinkd squid-kerberos-helper \
+		squid-ldap-helper squid-pam-helper
 PKG_OPTIONS_LEGACY_OPTS+=	diskd:squid-backend-diskd \
 	null:squid-backend-null ufs:squid-backend-ufs \
 	linux-netfilter:squid-netfilter ipf-transparent:squid-ipf \
@@ -42,14 +43,10 @@ PKG_SUPPORTED_OPTIONS+=	squid-pf
 PKG_SUGGESTED_OPTIONS+=	squid-ipf
 .endif
 
-.if ${OPSYS} == "OpenBSD"
-PKG_SUGGESTED_OPTIONS+=	squid-pf
-.endif
+PKG_SUGGESTED_OPTIONS.OpenBSD+=	squid-pf
 
-.if ${OPSYS} == "Darwin"
-PKG_SUPPORTED_OPTIONS+=	squid-ipfw
-PKG_SUGGESTED_OPTIONS+=	squid-ipfw
-.endif
+PKG_SUPPORTED_OPTIONS.Darwin+=	squid-ipfw
+PKG_SUGGESTED_OPTIONS.Darwin+=	squid-ipfw
 
 # limited platform support squid-arp-acl
 .if !empty(OPSYS:MFreeBSD) || !empty(OPSYS:MNetBSD) || !empty(OPSYS:MOpenBSD) || !empty(OPSYS:MLinux) || !empty(OPSYS:MSunOS)
@@ -73,6 +70,9 @@ SQUID_EXTERNAL_ACL_HELPERS?=	file_userip unix_group
 CONFIGURE_ARGS+=	--enable-linux-netfilter
 .elif !empty(PKG_OPTIONS:Msquid-pf)
 CONFIGURE_ARGS+=	--enable-pf-transparent
+.if ${OPSYS} == "NetBSD"
+CONFIGURE_ARGS+=	--with-nat-devpf
+.endif
 .elif !empty(PKG_OPTIONS:Msquid-ipf)
 CONFIGURE_ARGS+=	--enable-ipf-transparent
 .elif !empty(PKG_OPTIONS:Msquid-ipfw)
@@ -85,6 +85,16 @@ CONFIGURE_ARGS+=	--enable-arp-acl
 
 .if !empty(PKG_OPTIONS:Msquid-carp)
 CONFIGURE_ARGS+=	--enable-carp
+.endif
+
+.if !empty(PKG_OPTIONS:Mecap)
+CONFIGURE_ARGS+=	--enable-ecap
+USE_TOOLS+=		pkg-config
+CHECK_WRKREF_SKIP+=	sbin/squid
+CXXFLAGS+=		-std=c++11
+.include "../../www/libecap/buildlink3.mk"
+.else
+CONFIGURE_ARGS+=	--disable-ecap
 .endif
 
 .if !empty(PKG_SUPPORTED_OPTIONS:Minet6) && empty(PKG_OPTIONS:Minet6)

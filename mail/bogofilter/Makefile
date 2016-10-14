@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.58 2015/06/12 10:50:17 wiz Exp $
+# $NetBSD: Makefile,v 1.61 2016/07/09 06:38:27 wiz Exp $
 
 DISTNAME=	bogofilter-1.2.4
-PKGREVISION=	2
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=bogofilter/}
 EXTRACT_SUFX=	.tar.bz2

@@ -1,0 +1,15 @@
+$NetBSD: patch-configure,v 1.4 2016/06/12 16:06:01 taca Exp $
+
+Portability fixes.
+
+--- configure.orig	2016-04-22 16:19:50.000000000 +0000
++++ configure
+@@ -16835,7 +16835,7 @@ $as_echo "yes" >&6; }
+ 	HAVE_LIBCHECK=yes
+ fi
+ 
+-if test "X$HAVE_LIBCHECK" == "Xyes"; then
++if test "X$HAVE_LIBCHECK" = "Xyes"; then
+     CHECK_CPPFLAGS=$CHECK_CFLAGS
+ else
+ 

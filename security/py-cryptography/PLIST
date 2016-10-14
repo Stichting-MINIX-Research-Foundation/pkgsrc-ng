@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.11 2015/08/17 15:55:28 wiz Exp $
+@comment $NetBSD: PLIST,v 1.15 2016/09/12 18:34:31 wiz Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -57,12 +57,18 @@ ${PYSITELIB}/cryptography/hazmat/backends/openssl/ciphers.pyo
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/cmac.py
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/cmac.pyc
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/cmac.pyo
+${PYSITELIB}/cryptography/hazmat/backends/openssl/decode_asn1.py
+${PYSITELIB}/cryptography/hazmat/backends/openssl/decode_asn1.pyc
+${PYSITELIB}/cryptography/hazmat/backends/openssl/decode_asn1.pyo
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/dsa.py
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/dsa.pyc
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/dsa.pyo
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/ec.py
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/ec.pyc
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/ec.pyo
+${PYSITELIB}/cryptography/hazmat/backends/openssl/encode_asn1.py
+${PYSITELIB}/cryptography/hazmat/backends/openssl/encode_asn1.pyc
+${PYSITELIB}/cryptography/hazmat/backends/openssl/encode_asn1.pyo
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/hashes.py
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/hashes.pyc
 ${PYSITELIB}/cryptography/hazmat/backends/openssl/hashes.pyo
@@ -81,9 +87,12 @@ ${PYSITELIB}/cryptography/hazmat/backends/openssl/x509.pyo
 ${PYSITELIB}/cryptography/hazmat/bindings/__init__.py
 ${PYSITELIB}/cryptography/hazmat/bindings/__init__.pyc
 ${PYSITELIB}/cryptography/hazmat/bindings/__init__.pyo
-${PYSITELIB}/cryptography/hazmat/bindings/_constant_time.so
-${PYSITELIB}/cryptography/hazmat/bindings/_openssl.so
-${PYSITELIB}/cryptography/hazmat/bindings/_padding.so
+${PLIST.py2x}${PYSITELIB}/cryptography/hazmat/bindings/_constant_time.so
+${PLIST.py2x}${PYSITELIB}/cryptography/hazmat/bindings/_openssl.so
+${PLIST.py2x}${PYSITELIB}/cryptography/hazmat/bindings/_padding.so
+${PLIST.py3x}${PYSITELIB}/cryptography/hazmat/bindings/_constant_time.abi3.so
+${PLIST.py3x}${PYSITELIB}/cryptography/hazmat/bindings/_openssl.abi3.so
+${PLIST.py3x}${PYSITELIB}/cryptography/hazmat/bindings/_padding.abi3.so
 ${PYSITELIB}/cryptography/hazmat/bindings/commoncrypto/__init__.py
 ${PYSITELIB}/cryptography/hazmat/bindings/commoncrypto/__init__.pyc
 ${PYSITELIB}/cryptography/hazmat/bindings/commoncrypto/__init__.pyo
@@ -159,9 +168,18 @@ ${PYSITELIB}/cryptography/hazmat/primitives/kdf/concatkdf.pyo
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/hkdf.py
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/hkdf.pyc
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/hkdf.pyo
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/kbkdf.py
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/kbkdf.pyc
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/kbkdf.pyo
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/pbkdf2.py
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/pbkdf2.pyc
 ${PYSITELIB}/cryptography/hazmat/primitives/kdf/pbkdf2.pyo
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/x963kdf.py
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/x963kdf.pyc
+${PYSITELIB}/cryptography/hazmat/primitives/kdf/x963kdf.pyo
+${PYSITELIB}/cryptography/hazmat/primitives/keywrap.py
+${PYSITELIB}/cryptography/hazmat/primitives/keywrap.pyc
+${PYSITELIB}/cryptography/hazmat/primitives/keywrap.pyo
 ${PYSITELIB}/cryptography/hazmat/primitives/padding.py
 ${PYSITELIB}/cryptography/hazmat/primitives/padding.pyc
 ${PYSITELIB}/cryptography/hazmat/primitives/padding.pyo

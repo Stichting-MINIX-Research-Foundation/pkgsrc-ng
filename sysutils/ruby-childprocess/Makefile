@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.5 2015/04/11 03:46:00 rodent Exp $
+# $NetBSD: Makefile,v 1.7 2016/03/15 15:18:26 taca Exp $
 
-DISTNAME=	childprocess-0.5.6
+DISTNAME=	childprocess-0.5.9
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME}
 CATEGORIES=	ruby sysutils
 
 MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	http://github.com/jarib/childprocess
+HOMEPAGE=	https://github.com/jarib/childprocess
 COMMENT=	Simple and reliable solution for controlling external programs
 LICENSE=	mit
 

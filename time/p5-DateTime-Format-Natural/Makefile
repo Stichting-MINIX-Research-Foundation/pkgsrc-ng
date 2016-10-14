@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.18 2015/06/12 10:51:43 wiz Exp $
+# $NetBSD: Makefile,v 1.22 2016/09/18 15:01:03 mef Exp $
 
-DISTNAME=	DateTime-Format-Natural-1.02
+DISTNAME=	DateTime-Format-Natural-1.04
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	3
 CATEGORIES=	time perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=DateTime/}
 
@@ -21,6 +20,8 @@ BUILD_DEPENDS+=	p5-Test-MockTime-[0-9]*:../../time/p5-Test-MockTime
 
 # recommended
 DEPENDS+=	p5-Date-Calc-[0-9]*:../../devel/p5-Date-Calc
+# for make test
+BUILD_DEPENDS+=	p5-Clone-[0-9]*:../../devel/p5-Clone
 
 PERL5_MODULE_TYPE=  	Module::Build
 USE_LANGUAGES=	#

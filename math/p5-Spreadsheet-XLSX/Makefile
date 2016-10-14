@@ -1,15 +1,16 @@
-# $NetBSD: Makefile,v 1.11 2015/06/12 10:50:31 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:04 wiz Exp $
 #
 
-DISTNAME=	Spreadsheet-XLSX-0.13-withoutworldwriteables
-PKGNAME=	p5-${DISTNAME:S/-withoutworldwriteables//}
-PKGREVISION=	6
+DISTNAME=	Spreadsheet-XLSX-0.15
+PKGNAME=	p5-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	math perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Spreadsheet/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/Spreadsheet-XLSX/
 COMMENT=	Perl 5 module to read MS Excel 2007 files
+LICENSE=	${PERL5_LICENSE}
 
 DEPENDS+=	p5-Archive-Zip-[0-9]*:../../archivers/p5-Archive-Zip
 DEPENDS+=	p5-Spreadsheet-ParseExcel-[0-9]*:../../math/p5-Spreadsheet-ParseExcel

@@ -1,4 +1,4 @@
-#	$NetBSD: bsd.pkg.mk,v 1.2013 2015/04/29 14:23:23 jperkin Exp $
+#	$NetBSD: bsd.pkg.mk,v 1.2021 2016/08/26 16:51:56 joerg Exp $
 #
 # This file is in the public domain.
 #
@@ -139,6 +139,9 @@ PKG_FAIL_REASON+='Please unset PKG_PATH before doing pkgsrc work!'
 
 # Allow variables to be set on a per-OS basis
 OPSYSVARS+=	CFLAGS CXXFLAGS CPPFLAGS LDFLAGS LIBS
+OPSYSVARS+=	CMAKE_ARGS CONFIGURE_ARGS CONFIGURE_ENV
+OPSYSVARS+=	BUILDLINK_TRANSFORM SUBST_CLASSES
+OPSYSVARS+=	BUILD_TARGET MAKE_ENV MAKE_FLAGS USE_TOOLS
 .for _var_ in ${OPSYSVARS:O}
 .  if defined(${_var_}.${OPSYS})
 ${_var_}+=	${${_var_}.${OPSYS}}
@@ -177,6 +180,7 @@ ALL_ENV+=	LINKER_RPATH_FLAG=${LINKER_RPATH_FLAG:Q}
 ALL_ENV+=	PATH=${PATH:Q}:${LOCALBASE}/bin:${X11BASE}/bin
 ALL_ENV+=	PREFIX=${PREFIX}
 ALL_ENV+=	MAKELEVEL=0
+ALL_ENV+=	CONFIG_SITE=
 
 # This variable can be added to MAKE_ENV to ease installation of packages
 # that use BSD-style Makefiles.
@@ -360,7 +364,7 @@ _BUILD_DEFS+=		PKG_SYSCONFBASEDIR PKG_SYSCONFDIR
 #
 USE_TOOLS+=								\
 	[ awk basename cat chgrp chmod chown cmp cp cut dirname echo	\
-	egrep env false find grep head hostname id install ln ls	\
+	egrep env false fgrep find grep head hostname id install ln ls	\
 	mkdir mv printf pwd rm rmdir sed sh sort			\
 	tail test touch tr true wc xargs
 
@@ -420,12 +424,6 @@ BUILD_DEPENDS+=		${BUILD_ABI_DEPENDS}
 .  else
 _BUILD_DEFS+=		USE_ABI_DEPENDS
 .  endif
-.endif
-
-# Find out the PREFIX of dependencies where the PREFIX is needed at build time.
-.if defined(EVAL_PREFIX)
-FIND_PREFIX:=	${EVAL_PREFIX}
-.  include "find-prefix.mk"
 .endif
 
 .if !defined(_PATH_ORIG)
@@ -580,7 +578,7 @@ all: ${_PKGSRC_BUILD_TARGETS}
 .endif
 
 .PHONY: makedirs
-makedirs: ${WRKDIR}
+makedirs: ${WRKDIR} ${FAKEHOMEDIR}
 
 ${WRKDIR}:
 .if !defined(KEEP_WRKDIR)
@@ -681,23 +679,34 @@ _SHORT_UNAME_R=	${:!${UNAME} -r!:C@\.([0-9]*)[_.-].*@.\1@} # n.n[_.]anything => 
 
 .include "install/bin-install.mk"
 
+# Handle PaX flags
+#
+.include "pax.mk"
+
 .PHONY: show-pkgtools-version
 .if !target(show-pkgtools-version)
 show-pkgtools-version:
 	@${ECHO} ${PKGTOOLS_VERSION}
 .endif
 
-# convenience target, to display make variables from command line
-# i.e. "make show-var VARNAME=var", will print var's value
+# show-var:
+# show-vars:
+# show-subdir-var:
+#	Convenience targets, to display make variables from the command
+#	line. Examples:
 #
-# See also:
-#	show-vars, show-subdir-var
+#	make show-var VARNAME=PKGNAME
+#	make show-vars VARNAMES="PKGNAME PKGVERSION PKGREVISION"
+#	make show-subdir-var VARNAME=DISTFILES
 #
+#	In category directories, show-var and show-vars descend
+#	recursively into each subdirectory, printing the variables of
+#	the individual packages. To show a variable from the category
+#	itself, use show-subdir-var.
 .PHONY: show-var
 show-var:
 	@${ECHO} ${${VARNAME}:Q}
 
-# enhanced version of target above, to display multiple variables
 .PHONY: show-vars
 show-vars:
 .for VARNAME in ${VARNAMES}

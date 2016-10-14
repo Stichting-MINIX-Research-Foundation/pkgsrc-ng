@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.6 2015/06/22 13:52:10 taca Exp $
+# $NetBSD: Makefile,v 1.8 2016/02/01 13:46:12 taca Exp $
 
 DISTNAME=	activerecord-${RUBY_RAILS_VERSION}
 CATEGORIES=	databases
@@ -12,7 +12,7 @@ LICENSE=	mit
 #DEPENDS+=	${RUBY_ACTIVESUPPORT_DEPENDS}
 DEPENDS+=	${RUBY_ACTIVEMODEL_DEPENDS}
 DEPENDS+=	${RUBY_PKGPREFIX}-arel30>=3.0.2<3.1:../../databases/ruby-arel30
-DEPENDS+=	${RUBY_PKGPREFIX}-tzinfo>=0.3.29<0.4:../../time/ruby-tzinfo
+DEPENDS+=	${RUBY_PKGPREFIX}-tzinfo03>=0.3.29<0.4:../../time/ruby-tzinfo03
 
 RUBY_RAILS_SUPPORTED=	32
 RUBY_RAILS_STRICT_DEP=	yes

@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.29 2015/08/20 17:13:47 wiz Exp $
+# $NetBSD: Makefile,v 1.31 2016/07/09 06:38:09 wiz Exp $
 
 DISTNAME=	libstatgrab-0.91
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	ftp://ftp.uk.i-scream.org/pub/i-scream/libstatgrab/ \
 		ftp://ftp.i-scream.org/pub/i-scream/libstatgrab/ \
@@ -14,6 +15,8 @@ COMMENT=	Provides a useful interface to system statistics
 LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 .include "options.mk"
+
+CPPFLAGS.NetBSD+=	-D_KERNTYPES
 
 USE_TOOLS+=		pkg-config perl:run
 USE_LANGUAGES=		c c++

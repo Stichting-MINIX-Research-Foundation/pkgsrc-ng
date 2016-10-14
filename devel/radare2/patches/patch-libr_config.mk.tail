@@ -1,19 +1,20 @@
-$NetBSD: patch-libr_config.mk.tail,v 1.1 2015/08/30 08:27:37 dholland Exp $
+$NetBSD: patch-libr_config.mk.tail,v 1.3 2016/09/16 14:46:25 jperkin Exp $
 
-Add config entries for dragonfly and bitrig.
+Support SunOS.
 
---- libr/config.mk.tail~	2014-09-17 09:33:48.000000000 +0000
+--- libr/config.mk.tail.orig	2016-05-24 23:34:34.000000000 +0000
 +++ libr/config.mk.tail
-@@ -100,6 +100,12 @@ endif
- ifeq (${OSTYPE},freebsd)
- OSTYPE=bsd
+@@ -181,6 +181,13 @@ EXT_SO=so
+ EXT_EXE=
+ TH_LIBS=
  endif
-+ifeq (${OSTYPE},dragonfly)
-+OSTYPE=bsd
++ifeq (${OSTYPE},solaris)
++CFLAGS+=-D__UNIX__=1
++EXT_AR=a
++EXT_SO=so
++EXT_EXE=
++TH_LIBS=
 +endif
-+ifeq (${OSTYPE},bitrig)
-+OSTYPE=bsd
-+endif
- # Output
- ifeq (${OSTYPE},windows)
- CFLAGS+=-D__WINDOWS__=1
+ 
+ ifeq (${EXT_SO},)
+ main:

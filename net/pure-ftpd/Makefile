@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2014/02/12 23:18:25 tron Exp $
+# $NetBSD: Makefile,v 1.35 2016/03/05 11:29:11 jperkin Exp $
 
 DISTNAME=	pure-ftpd-1.0.35
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	net
 MASTER_SITES=	ftp://ftp.pureftpd.org/pub/pure-ftpd/releases/ \
 		http://download.pureftpd.org/pub/pure-ftpd/releases/ \
@@ -26,11 +26,7 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 
 BUILD_DEFS+=		VARBASE
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Interix"
-CONFIGURE_ARGS+=	--without-privsep
-.endif
+CONFIGURE_ARGS.Interix+=	--without-privsep
 
 .include "options.mk"
 

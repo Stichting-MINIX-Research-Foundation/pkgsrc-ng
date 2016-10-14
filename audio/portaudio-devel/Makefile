@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.9 2014/07/21 10:17:54 wiz Exp $
+# $NetBSD: Makefile,v 1.11 2016/02/25 10:15:46 jperkin Exp $
 
 DISTNAME=	pa_stable_v19_20140130
 PKGNAME=	portaudio-devel-20140130
@@ -26,12 +26,12 @@ WRKSRC=			${WRKDIR}/portaudio
 
 INSTALLATION_DIRS=	include/portaudio2 lib/portaudio2 lib/pkgconfig
 
-SUBST_CLASSES+=         pthread
-SUBST_STAGE.pthread=    pre-configure
-SUBST_MESSAGE.pthread=  Fixing -lpthread references.
-SUBST_FILES.pthread=    configure
-SUBST_SED.pthread=      -e 's/-D_REENTRANT/${PTHREAD_CFLAGS}/g'
-SUBST_SED.pthread+=     -e 's/-lpthread/${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}/g'
+SUBST_CLASSES+=		pthread
+SUBST_STAGE.pthread=	pre-configure
+SUBST_MESSAGE.pthread=	Fixing -lpthread references.
+SUBST_FILES.pthread=	configure
+SUBST_SED.pthread=	-e 's/-D_REENTRANT/${PTHREAD_CFLAGS}/g'
+SUBST_SED.pthread+=	-e 's/-lpthread/${PTHREAD_LDFLAGS} ${PTHREAD_LIBS}/g'
 
 SUBST_CLASSES+=		pc
 SUBST_STAGE.pc=		pre-configure
@@ -39,11 +39,7 @@ SUBST_MESSAGE.pc=	Fixing pkgconfig directory
 SUBST_FILES.pc=		Makefile.in
 SUBST_SED.pc=		-e 's/$$(libdir)\/pkgconfig/$$(prefix)\/lib\/pkgconfig/g'
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "Darwin"
-CFLAGS+=		-Wno-deprecated-declarations
-.endif
+CFLAGS.Darwin+=		-Wno-deprecated-declarations
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/oss.buildlink3.mk"

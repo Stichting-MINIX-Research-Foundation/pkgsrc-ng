@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.79 2015/06/12 10:48:51 wiz Exp $
+# $NetBSD: Makefile,v 1.84 2016/08/03 10:22:12 adam Exp $
 
 MD_VERSION=	5.0.1
 DISTNAME=	monodevelop-${MD_VERSION}-0
 PKGNAME=	monodevelop-${MD_VERSION}
-PKGREVISION=	1
+PKGREVISION=	6
 CATEGORIES=	devel
 MASTER_SITES=	http://download.mono-project.com/sources/monodevelop/
 EXTRACT_SUFX=	.tar.bz2

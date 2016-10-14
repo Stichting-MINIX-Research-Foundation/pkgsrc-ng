@@ -1,11 +1,12 @@
-# $NetBSD: Makefile,v 1.7 2015/04/23 12:41:30 markd Exp $
+# $NetBSD: Makefile,v 1.10 2016/08/07 09:09:40 markd Exp $
 
 DISTNAME=	oberdiek.doc
-PKGNAME=	tex-${DISTNAME:S/./-/}-2014
-TEXLIVE_REV=	33322
+PKGNAME=	tex-${DISTNAME:S/./-/}-2016.41346
+TEXLIVE_REV=	41346
 
 MAINTAINER=	minskim@NetBSD.org
 COMMENT=	Documentation for tex-oberdiek
+LICENSE=	lppl-1.3c
 
 CONFLICTS+=	teTeX-texmf<=3.0nb13
 

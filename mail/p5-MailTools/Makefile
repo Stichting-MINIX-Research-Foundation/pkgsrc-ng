@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.64 2015/06/12 10:50:24 wiz Exp $
+# $NetBSD: Makefile,v 1.69 2016/06/08 19:24:00 wiz Exp $
 
-DISTNAME=	MailTools-2.14
+DISTNAME=	MailTools-2.18
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	mail perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Mail/}
 
-MAINTAINER=	rhaen@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://search.cpan.org/dist/MailTools/
 COMMENT=	Perl5 modules related to mail applications
 LICENSE=	${PERL5_LICENSE}

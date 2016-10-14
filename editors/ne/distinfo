@@ -1,16 +1,7 @@
-$NetBSD: distinfo,v 1.5 2013/10/24 09:35:10 jperkin Exp $
+$NetBSD: distinfo,v 1.7 2016/06/19 17:25:31 prlw1 Exp $
 
-SHA1 (ne-1.31/ne-1.31.tar.gz) = 25642fa74c720bef7ba56f96673d2d2d554f2f57
-RMD160 (ne-1.31/ne-1.31.tar.gz) = a3c2d90d289737b67a66ae7d79005ac665ebba53
-Size (ne-1.31/ne-1.31.tar.gz) = 342567 bytes
-SHA1 (ne-1.31/ne.manpage.1) = b252b2c55fa057f7aaf2e092bbc9acec5e263373
-RMD160 (ne-1.31/ne.manpage.1) = cc46ad47ea8a26b668d15d9a2a63f74859a003d5
-Size (ne-1.31/ne.manpage.1) = 4578 bytes
-SHA1 (ne-1.31/NE.spec.ascii) = 83a4acfea7c5e01a3efdf67105596af77d968f2f
-RMD160 (ne-1.31/NE.spec.ascii) = 7d972e836458912ce17c2a16dd8a1152ff33a5a0
-Size (ne-1.31/NE.spec.ascii) = 318118 bytes
-SHA1 (ne-1.31/NE.changes.spec) = 587a72694b34763b324bd694549f951250e3d309
-RMD160 (ne-1.31/NE.changes.spec) = a619a2d8a80054138cb97198fbb2d6e8f473a178
-Size (ne-1.31/NE.changes.spec) = 7380 bytes
-SHA1 (patch-aa) = 83fe227f538774e6268126c39bc31cdf188b15f1
-SHA1 (patch-sysunix.c) = 942bcfa3aa4be33b06d018d0ce3b546db99849f2
+SHA1 (ne-3.02.tar.gz) = 7e93213780a668856b8bda0e80bad0dd8a6e543b
+RMD160 (ne-3.02.tar.gz) = 9c97a88759871e0139b3b0a5f122628e24a836bc
+SHA512 (ne-3.02.tar.gz) = 18414f32967c99a29a22587daa1c24de86df3677b238b1bbc88c1a5c888e5a025a5bbcee00f8ea74e9f4591f60d544c82151a1e295f4dcb3ace6aafa55cce0bb
+Size (ne-3.02.tar.gz) = 601076 bytes
+SHA1 (patch-Makefile.in) = 9f10a8a6ab8569e417fa01dfb430e62993094a0d

@@ -1,5 +1,6 @@
-@comment $NetBSD: PLIST,v 1.22 2014/05/27 01:57:14 taca Exp $
+@comment $NetBSD: PLIST,v 1.24 2016/09/07 21:13:44 szptvlfn Exp $
 bin/sylpheed
+include/sylpheed/plugin-types.h
 include/sylpheed/plugin.h
 include/sylpheed/sylph/account.h
 include/sylpheed/sylph/base64.h
@@ -57,6 +58,7 @@ share/locale/eu/LC_MESSAGES/sylpheed.mo
 share/locale/fi/LC_MESSAGES/sylpheed.mo
 share/locale/fr/LC_MESSAGES/sylpheed.mo
 share/locale/gl/LC_MESSAGES/sylpheed.mo
+share/locale/he/LC_MESSAGES/sylpheed.mo
 share/locale/hr/LC_MESSAGES/sylpheed.mo
 share/locale/hu/LC_MESSAGES/sylpheed.mo
 share/locale/it/LC_MESSAGES/sylpheed.mo

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.64 2015/04/25 14:20:28 tnn Exp $
+# $NetBSD: Makefile,v 1.67 2016/08/03 10:22:34 adam Exp $
 
 COMMENT=		Multi-protocol Instant Messaging client GTK frontend
 PKGREVISION=		1
@@ -18,11 +18,16 @@ CHECK_WRKREF_SKIP=	bin/pidgin
 .include "options.mk"
 
 pre-build:
-	# XXX Find a cleaner way.
+#	XXX Find a cleaner way.
 	${TEST} -r ${WRKSRC}/libpurple/libpurple.la || \
 	  ln -s ${BUILDLINK_DIR}/lib/libpurple.la ${WRKSRC}/libpurple/.
 
 INSTALL_DIRS=		pidgin doc
+
+# was an option, but is not as of 2.10.12
+.  include "../../multimedia/gstreamer1/buildlink3.mk"
+.  include "../../multimedia/gst-plugins1-base/buildlink3.mk"
+.  include "../../chat/farstream/buildlink3.mk"
 
 .include "../../chat/libpurple/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"

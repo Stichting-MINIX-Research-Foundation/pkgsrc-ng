@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2014/10/09 13:12:01 wiz Exp $
+$NetBSD: distinfo,v 1.6 2016/06/30 17:44:38 wiz Exp $
 
-SHA1 (List-AllUtils-0.09.tar.gz) = 2e5389520513071ee88c0f939efc662be0a56d72
-RMD160 (List-AllUtils-0.09.tar.gz) = 7a55c7e571091ff729938228fdfde072552088f4
-Size (List-AllUtils-0.09.tar.gz) = 25846 bytes
+SHA1 (List-AllUtils-0.11.tar.gz) = 5f5cd80d72da1434f38dc18f3eba4174cfed465f
+RMD160 (List-AllUtils-0.11.tar.gz) = c832ecd411e23b7afcc4cff8dd79c4dafd506dc6
+SHA512 (List-AllUtils-0.11.tar.gz) = c74d6d3094fa690b23f49ad6f2c6d2312092b47ca6f206c2bd14019eaa37d6b8831899506e8b68f6821559524add39c4b80392c427097a36c22d8f0b0b0a0e9d
+Size (List-AllUtils-0.11.tar.gz) = 43715 bytes

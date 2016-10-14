@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.72 2015/08/23 14:30:36 wiz Exp $
+# $NetBSD: Makefile,v 1.81 2016/09/19 13:04:19 wiz Exp $
 
 DISTNAME=	empathy-2.34.0
-PKGREVISION=	44
+PKGREVISION=	50
 CATEGORIES=	chat gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/empathy/2.34/}
 
@@ -10,7 +10,7 @@ HOMEPAGE=	http://live.gnome.org/Empathy
 COMMENT=	Gnome instant messenger client
 LICENSE=	gnu-gpl-v2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 GNU_CONFIGURE=		yes
 USE_TOOLS+=		gawk gmake gsed intltool msgfmt pkg-config
@@ -61,7 +61,6 @@ BUILDLINK_API_DEPENDS.gtk2+=		gtk2+>=2.12.0
 .include "../../x11/libX11/buildlink3.mk"
 .include "../../x11/libunique/buildlink3.mk"
 # notyet
-#.include "../../www/webkit1-gtk/buildlink3.mk"
 #.include "../../graphics/clutter-mx/buildlink3.mk"
 #.include "../../chat/telepathy-logger/buildlink3.mk"
 .include "../../mk/omf-scrollkeeper.mk"

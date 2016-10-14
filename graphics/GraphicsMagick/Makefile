@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.70 2015/06/12 10:50:08 wiz Exp $
+# $NetBSD: Makefile,v 1.78 2016/09/07 06:29:31 wiz Exp $
 
-PKGREVISION= 1
 .include "Makefile.common"
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
@@ -17,7 +16,7 @@ USE_FEATURES=		vsnprintf	# optional but recommended for security
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-modules=yes
-CONFIGURE_ARGS+=	--with-gs-font-dir=${URW_FONTS_DIR}/share/fonts/urw
+CONFIGURE_ARGS+=	--with-gs-font-dir=${LOCALBASE}/share/fonts/urw
 CONFIGURE_ARGS+=	--with-ltdl-include=${BUILDLINK_PREFIX.libltdl}/include
 CONFIGURE_ARGS+=	--with-ltdl-lib=${BUILDLINK_PREFIX.libltdl}/lib
 CONFIGURE_ARGS+=	--without-perl
@@ -28,9 +27,6 @@ PKGCONFIG_OVERRIDE+=	Magick++/lib/GraphicsMagick++.pc.in
 
 TEST_TARGET=	check
 
-FIND_PREFIX:=	URW_FONTS_DIR=urw-fonts
-.include "../../mk/find-prefix.mk"
-
 .include "options.mk"
 
 .include "../../devel/libltdl/buildlink3.mk"
@@ -39,6 +35,7 @@ FIND_PREFIX:=	URW_FONTS_DIR=urw-fonts
 .include "../../graphics/jbigkit/buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"
+.include "../../graphics/libwebp/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

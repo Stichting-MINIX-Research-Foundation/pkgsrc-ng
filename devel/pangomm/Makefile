@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.39 2015/06/12 10:49:59 wiz Exp $
+# $NetBSD: Makefile,v 1.42 2016/07/09 06:38:11 wiz Exp $
 
-DISTNAME=	pangomm-2.34.0
-PKGREVISION=	10
+DISTNAME=	pangomm-2.40.0
+PKGREVISION=	1
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/pangomm/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -18,8 +18,9 @@ USE_LIBTOOL=		yes
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake pkg-config perl:run
 GNU_CONFIGURE=		yes
-
 PKGCONFIG_OVERRIDE+=	pango/pangomm.pc.in
+
+CXXFLAGS+=		-std=c++11
 
 BUILDLINK_API_DEPENDS.pango+=	pango>=1.26.0
 

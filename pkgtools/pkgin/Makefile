@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.60 2015/09/04 19:37:13 jperkin Exp $
+# $NetBSD: Makefile,v 1.68 2016/07/01 17:55:23 jperkin Exp $
 
-GHCOMMIT=		b08581b094980b6fc32beb304b8d3dda0689cc82
-DISTNAME=		${GHCOMMIT}
-PKGNAME=		pkgin-0.9.3
+DISTNAME=		pkgin-0.9.4
+GITHUB_TAG=		v${PKGVERSION_NOREV}
+PKGREVISION=		3
 CATEGORIES=		pkgtools
-MASTER_SITES=		${MASTER_SITE_GITHUB:=NetBSDfr/pkgin/archive/}
+MASTER_SITES=		${MASTER_SITE_GITHUB:=NetBSDfr/}
 
 MAINTAINER=		imil@NetBSD.org
 HOMEPAGE=		http://pkgin.net/
@@ -17,8 +17,6 @@ CONF_FILES=		${EGDIR}/repositories.conf.example		\
 
 OWN_DIRS+=		${PKG_SYSCONFDIR}/${PKGBASE}
 INSTALLATION_DIRS+=	bin ${PKGMANDIR}/cat1 ${PKGMANDIR}/man1 ${EGDIR}
-
-WRKSRC=			${WRKDIR}/pkgin-${GHCOMMIT}
 
 BUILD_DEFS+=		PKGIN_REPOSITORY_URL
 BUILD_DEFS+=		VARBASE
@@ -41,13 +39,11 @@ USE_TOOLS+=		nroff
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "NetBSD"
-SUBST_CLASSES+=		osrel
+SUBST_CLASSES.NetBSD+=	osrel
 SUBST_STAGE.osrel=	pre-configure
 SUBST_MESSAGE.osrel=	Adjusting repository OS release
 SUBST_FILES.osrel=	REPOSITORIES
 SUBST_SED.osrel=	-e "s|@OSREL@|${OS_VERSION:C/_.*//}|"
-.endif
 
 CFLAGS.SunOS+=		-D_FILE_OFFSET_BITS=64
 

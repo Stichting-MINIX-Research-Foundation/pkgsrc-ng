@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.24 2015/09/23 11:53:27 joerg Exp $
+# $NetBSD: Makefile,v 1.29 2016/08/03 10:22:59 adam Exp $
 
 PKGNAME=	ibus-${DISTNAME}
+PKGREVISION=	1
 
 INSTALLATION_DIRS+=	libexec share/ibus share/ibus/component \
 			share/ibus-mozc
@@ -10,12 +11,9 @@ DEPENDS+=	mozc-renderer-[0-9]*:../../inputmethod/mozc-renderer
 DEPENDS+=	mozc-server-[0-9]*:../../inputmethod/mozc-server
 DEPENDS+=	mozc-tool-[0-9]*:../../inputmethod/mozc-tool
 
-# ../../session/key_info_util.cc:43:10: fatal error: 'protocol/commands.pb.h' file not found
-MAKE_JOBS_SAFE=	no
-
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} \
-		${PYTHONBIN} build_mozc.py build -c ${MOZC_BUILD_MODE} ${_MAKE_JOBS} \
+		${PYTHONBIN} build_mozc.py build -c ${MOZC_BUILD_MODE} \
 			unix/ibus/ibus.gyp:ibus_mozc_lib \
 			unix/ibus/ibus.gyp:ibus_mozc
 

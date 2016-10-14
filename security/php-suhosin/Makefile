@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2015/08/30 14:54:49 taca Exp $
+# $NetBSD: Makefile,v 1.14 2016/09/11 17:03:27 taca Exp $
 #
 
 MODNAME=		suhosin
@@ -14,6 +14,8 @@ MAINTAINER=		cg@cgall.de
 HOMEPAGE=		http://www.suhosin.org/
 COMMENT=		Advanced protection system for PHP installations
 LICENSE=		php
+
+PHP_VERSIONS_ACCEPTED=	56
 
 CONFIGURE_ARGS=		--enable-${MODNAME}
 

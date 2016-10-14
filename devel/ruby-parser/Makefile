@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.18 2015/09/13 10:20:12 taca Exp $
+# $NetBSD: Makefile,v 1.23 2016/03/08 14:30:43 taca Exp $
 
-DISTNAME=	ruby_parser-3.7.1
+DISTNAME=	ruby_parser-3.8.1
 PKGNAME=	${RUBY_PKGPREFIX}-${DISTNAME:S/ruby_//}
 CATEGORIES=	devel
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://rubyforge.org/projects/parsetree/
+HOMEPAGE=	https://github.com/seattlerb/ruby_parser
 COMMENT=	Ruby parser written in pure ruby
 LICENSE=	mit
 

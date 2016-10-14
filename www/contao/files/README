@@ -1,4 +1,4 @@
-$NetBSD: README,v 1.2 2013/06/27 16:08:30 taca Exp $
+$NetBSD: README,v 1.4 2015/12/16 09:23:54 taca Exp $
 
 1. First, create a database for Contao Open Source CMS.
 
@@ -16,9 +16,7 @@ $NetBSD: README,v 1.2 2013/06/27 16:08:30 taca Exp $
 
 	Include ${PKG_SYSCONFDIR}/contao.conf
 
-   Then reload or restart apache.
+4. Set DocumentRoot to ${CT_WEBDIR}/web, then reload or restart Apache.
 
-4. Start setup from Contao installer.  If you setup Contao first
-   time, simply access your URL as http://www.example.org/.  If
-   you update previous version, access the installer's URL with
-   http://www.example.org/contao/install.php.
+5. Start setup from Contao installer, the installer's URL is
+   http://www.example.org/install.php.

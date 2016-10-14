@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.41 2014/02/12 23:17:58 tron Exp $
+# $NetBSD: Makefile,v 1.44 2016/03/05 11:28:36 jperkin Exp $
 
 DISTNAME=	GMT4.1.4
 PKGNAME=	GMT-4.1.4
-PKGREVISION=	4
+PKGREVISION=	7
 CATEGORIES=	graphics
 MASTER_SITES=	ftp://ftp.scc.u-tokai.ac.jp/pub/gmt/4/	\
 				ftp://ftp.iris.washington.edu/pub/gmt/4/
@@ -29,8 +29,8 @@ USE_TOOLS+=	pax
 CONFIGURE_ARGS+=--includedir=${PREFIX}/include/gmt
 CONFIGURE_ARGS+=--datadir=${PREFIX}/share/gmt
 CONFIGURE_ARGS+=--enable-eps
-CONFIGURE_ARGS+=--enable-netcdf=${BUILDLINK_PREFIX.netcdf:Q}
-CONFIGURE_ARGS+=--enable-www=${PREFIX}/share/doc/html
+CONFIGURE_ARGS+=--enable-netcdf=${BUILDLINK_PREFIX.netcdf}
+CONFIGURE_ARGS+=--enable-www=${PREFIX}/share/doc
 CONFIGURE_ARGS+=--enable-mansect=1
 CONFIGURE_ARGS+=--disable-mex
 
@@ -39,7 +39,6 @@ INSTALL_TARGET= install-all
 LIBS+=		${X11_LDFLAGS} # XXX: LDFLAGS doesn't work
 
 post-extract:
-	${MV} -f ${WRKSRC}/www/gmt/doc/pdf ${WRKSRC}
 	${RM} -f ${WRKSRC}/examples/*.bat ${WRKSRC}/examples/*/*.bat
 
 INSTALLATION_DIRS=	share/doc/gmt share/examples/gmt/tutorial share/gmt
@@ -50,17 +49,14 @@ pre-install:
 	rm -f ${WRKSRC}/share/gmt.conf.orig
 
 post-install:
-	cd ${WRKSRC}/pdf && ${INSTALL_DATA} GMT_Docs.pdf		\
-		 GMT_Tutorial.pdf ${DESTDIR}${PREFIX}/share/doc/gmt
-	ln -sf ../../../gmt ${DESTDIR}${PREFIX}/share/doc/html/gmt/doc/pdf
 	cd ${WRKSRC}/tutorial && ${INSTALL_DATA} bermuda.nc quakes.cpt	\
 		ship.xyz us.nc data quakes.ngdc topo.cpt		\
-		${DESTDIR}${PREFIX}/share/examples/gmt/tutorial;
+		${DESTDIR}${PREFIX}/share/examples/gmt/tutorial
 	cd ${WRKSRC}/share && pax -rw . ${DESTDIR}${PREFIX}/share/gmt
 	cd ${WRKDIR}/share && pax -rw . ${DESTDIR}${PREFIX}/share/gmt
 	cd ${WRKSRC}/examples && pax -rw . ${DESTDIR}${PREFIX}/share/examples/gmt
 
 .include "../../devel/netcdf/buildlink3.mk"
 .include "../../x11/libXaw/buildlink3.mk"
-.include "../../x11/libXp/buildlink3.mk"
+#.include "../../x11/libXp/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

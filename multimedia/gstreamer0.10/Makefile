@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.56 2015/06/12 10:50:38 wiz Exp $
+# $NetBSD: Makefile,v 1.58 2016/07/09 06:38:39 wiz Exp $
 #
 
 DISTNAME=		gstreamer-0.10.36
 PKGNAME=		${DISTNAME:S/gstreamer/gstreamer0.10/}
-PKGREVISION=		8
+PKGREVISION=		9
 CATEGORIES=		multimedia gnome
 MASTER_SITES=		http://gstreamer.freedesktop.org/src/gstreamer/
 EXTRACT_SUFX=		.tar.bz2
@@ -42,16 +42,13 @@ PKGCONFIG_OVERRIDE+=	pkgconfig/gstreamer.pc.in
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "FreeBSD"
-CONFIGURE_ENV+=		ac_cv_func_register_printf_function="no"
-.endif
+CONFIGURE_ENV.FreeBSD+=	ac_cv_func_register_printf_function="no"
 
 .if ${OPSYS} == "NetBSD"
 # We must have a glib2 compiled with the RTLD_GLOBAL fix; if not, plugins
 # won't work at all.
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.4.0nb1
 .endif
-.undef f
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.gstreamer
 PKG_SUPPORTED_OPTIONS=	gstcheck

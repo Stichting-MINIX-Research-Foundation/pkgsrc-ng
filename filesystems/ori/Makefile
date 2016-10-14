@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.2 2014/02/18 03:00:52 gdt Exp $
+# $NetBSD: Makefile,v 1.5 2016/03/25 21:13:51 joerg Exp $
 
 DISTNAME=	ori-0.8.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	filesystems
 MASTER_SITES=	https://bitbucket.org/orifs/ori/downloads/
 EXTRACT_SUFX=	.tar.xz
@@ -22,11 +22,21 @@ SUBST_FILES.man+=	SConstruct
 SUBST_STAGE.man=	pre-build
 SUBST_MESSAGE.man=	Fixing man page installation path.
 
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "NetBSD"
+_WRAP_EXTRA_ARGS.CXX+=	-D_KERNTYPES
+CWRAPPERS_APPEND.cxx+=	-D_KERNTYPES
+.endif
+
 do-build:
 	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${PREFIX}/bin/scons
 
 do-install:
 	cd ${WRKSRC} && ${SETENV} ${INSTALL_ENV} ${PREFIX}/bin/scons install PREFIX=${DESTDIR}${PREFIX}
+
+# configure script demands libevent 2.0 or greater
+BUILDLINK_API_DEPENDS.libevent+=	libevent>=2.0
 
 .include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/boost-headers/buildlink3.mk"

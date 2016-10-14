@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/06/12 10:48:56 wiz Exp $
+# $NetBSD: Makefile,v 1.12 2016/06/08 19:22:37 wiz Exp $
 
-DISTNAME=	CPAN-Meta-YAML-0.016
+DISTNAME=	CPAN-Meta-YAML-0.018
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

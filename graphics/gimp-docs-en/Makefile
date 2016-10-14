@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2015/06/12 10:50:10 wiz Exp $
+# $NetBSD: Makefile,v 1.7 2016/07/09 06:38:21 wiz Exp $
 
 HELPLANGUAGE=		en
 
 PKGNAME=		gimp-docs-${HELPLANGUAGE}-${DISTNAME:S/gimp-help-//:S/-html-${HELPLANGUAGE}//}
-PKGREVISION=		2
+PKGREVISION=		1
 
 .include "../../graphics/gimp-docs-en/Makefile.common"
 

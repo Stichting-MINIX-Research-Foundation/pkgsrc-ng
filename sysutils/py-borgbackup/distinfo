@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.4 2016/08/19 22:34:14 wiz Exp $
+
+SHA1 (borgbackup-1.0.7.tar.gz) = 55d8eb92b57c22d274ab4847ae44c8d880d8b5c1
+RMD160 (borgbackup-1.0.7.tar.gz) = 95e6c45232097159983ffe76ae29cf5138826c4c
+SHA512 (borgbackup-1.0.7.tar.gz) = 750e85597043049775a2480fb32df5a10e4ba581a91911e93eeb29dbc517db43f537b54206f8f2ce8fa51530866ed9e490c31e6c35d181853481fb3e6269d8af
+Size (borgbackup-1.0.7.tar.gz) = 462509 bytes

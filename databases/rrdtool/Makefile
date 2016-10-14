@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.119 2015/08/18 12:29:44 mef Exp $
+# $NetBSD: Makefile,v 1.124 2016/08/27 06:42:43 dholland Exp $
 #
 # Please, also update databases/ruby-rrdtool
 
-DISTNAME=	rrdtool-1.5.4
+DISTNAME=	rrdtool-1.6.0
+PKGREVISION=	2
 CATEGORIES=	databases graphics net
 MASTER_SITES=	http://oss.oetiker.ch/rrdtool/pub/
 
@@ -18,10 +19,7 @@ USE_TOOLS+=		gmake pkg-config perl msgfmt intltool groff nroff
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-shared
 CONFIGURE_ARGS+=	--with-perl-options=${MAKE_PARAMS:Q}
-CONFIGURE_ARGS+=	--disable-tcl
-CONFIGURE_ARGS+=	--disable-python
 CONFIGURE_ARGS+=	--disable-ruby
-CONFIGURE_ARGS+=	--disable-lua
 CONFIGURE_ARGS+=	--disable-libdbi
 
 PTHREAD_OPTS+=		require
@@ -38,8 +36,25 @@ SUBST_MESSAGE.prefix=	Fixing $${prefix} in scripts.
 SUBST_FILES.prefix=	examples/cgi-demo.cgi
 SUBST_SED.prefix=	-e '1s,^\#! \$${prefix},\#! ${PREFIX},'
 
-REPLACE_PYTHON=		examples/stripes.py
-TEST_TARGET=		# *** No rule to make target 'test'. 
+TEST_TARGET=		# *** No rule to make target 'test'.
+
+RCD_SCRIPTS=		rrdcached
+
+# rrd_config.h is needed for databases/ruby-rrdtool
+post-install:
+	${INSTALL_DATA} ${WRKSRC}/src/rrd_config.h ${DESTDIR}${PREFIX}/include/
+
+.include "../../mk/bsd.prefs.mk"
+.include "options.mk"
+
+RRDCACHED_USER?=	rrdcached
+RRDCACHED_GROUP?=	${RRDCACHED_USER}
+
+PKG_USERS_VARS=		RRDCACHED_USER
+PKG_GROUPS_VARS=	RRDCACHED_GROUP
+PKG_GROUPS=		${RRDCACHED_GROUP}
+PKG_USERS=		${RRDCACHED_USER}:${RRDCACHED_GROUP}
+PKG_GECOS.${RRDCACHED_USER}=	RRDCacheD daemon user
 
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/glib2/buildlink3.mk"
@@ -51,7 +66,6 @@ TEST_TARGET=		# *** No rule to make target 'test'.
 .include "../../textproc/libxml2/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
 .include "../../lang/perl5/module.mk"
-.include "../../lang/python/application.mk"
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

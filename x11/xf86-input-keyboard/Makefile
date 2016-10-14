@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.20 2015/04/25 14:25:21 tnn Exp $
+# $NetBSD: Makefile,v 1.22 2016/02/26 11:27:17 jperkin Exp $
 
 DISTNAME=	xf86-input-keyboard-1.8.1
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=driver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -14,11 +14,7 @@ USE_LIBTOOL=	YES
 GNU_CONFIGURE=	YES
 USE_TOOLS+=	gmake pkg-config
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	DRIVER_MAN_SUFFIX=4
-.endif
+CONFIGURE_ENV.SunOS+=	DRIVER_MAN_SUFFIX=4
 
 .include "../../x11/inputproto/buildlink3.mk"
 .include "../../x11/libxkbfile/buildlink3.mk"

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2015/06/12 10:52:13 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2016/07/09 06:31:40 wen Exp $
 
-DISTNAME=	URI-Escape-XS-0.12
+DISTNAME=	URI-Escape-XS-0.14
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	www net perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=URI/}
 

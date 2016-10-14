@@ -1,4 +1,4 @@
-# $NetBSD: Linux.mk,v 1.63 2015/07/18 15:08:43 wiedi Exp $
+# $NetBSD: Linux.mk,v 1.68 2016/09/17 05:41:37 richard Exp $
 #
 # Variable definitions for the Linux operating system.
 
@@ -67,6 +67,11 @@ _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}:/lib/arm-linux-
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX} /lib/arm-linux-gnueabi /usr/lib/arm-linux-gnueabi
 .endif
 .endif
+.if !empty(MACHINE_ARCH:Maarch64)
+LIBABISUFFIX?=		/aarch64-linux-gnu
+_OPSYS_SYSTEM_RPATH=	/lib:/usr/lib:/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
+_OPSYS_LIB_DIRS?=	/lib /usr/lib /lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
+.endif
 .else
 _OPSYS_SYSTEM_RPATH=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
@@ -96,11 +101,6 @@ _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?= 	-b -V simple -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
 
-# flags passed to the linker to extract all symbols from static archives.
-# this is GNU ld.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
-
 _STRIPFLAG_CC?=		${_INSTALL_UNSTRIPPED:D:U-s}	# cc(1) option to strip
 _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
 
@@ -125,8 +125,9 @@ LIBABISUFFIX?=	64
 # When building 32-bit packages on x86_64 GNU ld isn't smart enough to
 # figure out the target architecture based on the objects so we need to
 # explicitly set it.
-.if ${NATIVE_MACHINE_ARCH} == "x86_64" && ${MACHINE_ARCH} == "i386"
+.if ${HOST_MACHINE_ARCH} == "x86_64" && ${MACHINE_ARCH} == "i386"
 _WRAP_EXTRA_ARGS.LD+=	-m elf_i386
+CWRAPPERS_APPEND.ld+=	-m elf_i386
 .endif
 
 ## Use _CMD so the command only gets run when needed!

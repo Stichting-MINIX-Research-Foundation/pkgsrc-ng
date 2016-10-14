@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2016/08/12 09:34:59 fhajny Exp $
+
+SHA1 (fast_xml-1.1.15.tar.gz) = 09d3f3b84a4ee1a0ca5fb827fd043149fdef680c
+RMD160 (fast_xml-1.1.15.tar.gz) = 39793e211d091f396c7adf8a6013db14df0d4bfe
+SHA512 (fast_xml-1.1.15.tar.gz) = 3792ec8aca5ee8c40f53a356badcc9685ed071903500b0405a4d8b3620605eba1b8d1351efb5115497e022811dfca3382522318decc6207df1e4d81db3d0c94a
+Size (fast_xml-1.1.15.tar.gz) = 86948 bytes
+SHA1 (patch-rebar.config) = f8c646d8e8a5a755f401445bccac3ac3f42fc1fe

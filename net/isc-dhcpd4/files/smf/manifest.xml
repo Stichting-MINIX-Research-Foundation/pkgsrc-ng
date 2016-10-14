@@ -1,6 +1,6 @@
 <?xml version='1.0'?>
 <!DOCTYPE service_bundle SYSTEM '/usr/share/lib/xml/dtd/service_bundle.dtd.1'>
-<service_bundle type='manifest' name='@SMF_NAME@'>
+<service_bundle type='manifest' name='export'>
   <service name='@SMF_PREFIX@/@SMF_NAME@' type='service' version='1'>
     <create_default_instance enabled='false' />
     <single_instance />
@@ -9,6 +9,9 @@
     </dependency>
     <dependency name='filesystem-local' grouping='require_all' restart_on='none' type='service'>
       <service_fmri value='svc:/system/filesystem/local:default' />
+    </dependency>
+    <dependency name='config-file' grouping='require_all' restart_on='refresh' type='path'>
+      <service_fmri value='file://@PKG_SYSCONFDIR@/dhcpd.conf'/>
     </dependency>
     <method_context>
       <method_credential user='root' group='root' />

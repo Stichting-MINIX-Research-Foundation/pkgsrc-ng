@@ -1,6 +1,5 @@
-# $NetBSD: Makefile,v 1.227 2015/06/12 10:48:49 wiz Exp $
+# $NetBSD: Makefile,v 1.231 2016/08/21 21:47:29 prlw1 Exp $
 
-PKGREVISION= 1
 .include "Makefile.common"
 
 CATEGORIES=		devel gnome
@@ -44,7 +43,7 @@ CPPFLAGS.SunOS+=	-DBSD_COMP
 
 .if ${OBJECT_FMT} == "ELF"
 .  if ${OPSYS} == "SunOS"
-.    if ${ABI} == 32
+.    if empty(ABI:U:M64)
 # Solaris libelf in 32-bit mode does not support largefile.  We patch files
 # individually to force _FILE_OFFSET_BITS=32 but need to turn back on -lelf
 # after configure disabled it.

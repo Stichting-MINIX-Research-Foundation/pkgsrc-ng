@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.6 2015/08/15 12:37:00 mef Exp $
+$NetBSD: distinfo,v 1.9 2016/09/08 15:09:26 mef Exp $
 
-SHA1 (CPAN-Uploader-0.103010.tar.gz) = 08b4dc5410bad9f23cbf63194c45f8816be8b6de
-RMD160 (CPAN-Uploader-0.103010.tar.gz) = 7c334390cc397ae5c0d400b11ad001d6b6df0b01
-Size (CPAN-Uploader-0.103010.tar.gz) = 20477 bytes
+SHA1 (CPAN-Uploader-0.103013.tar.gz) = 9e93300d8bea0a805951f72f9bf9c329e220e179
+RMD160 (CPAN-Uploader-0.103013.tar.gz) = 199c219ea915050b37b6d4bd8e84885650f914c3
+SHA512 (CPAN-Uploader-0.103013.tar.gz) = 28133d7e5a9b12abf9f089402108314ca9fd68981d52006136b82a754b56581c7c5b38ad69b6080d247b46d0c68d258674c49218c1c5d61811bf89bcd9d773fd
+Size (CPAN-Uploader-0.103013.tar.gz) = 20961 bytes

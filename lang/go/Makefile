@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.34 2015/09/13 19:11:55 fhajny Exp $
+# $NetBSD: Makefile,v 1.47 2016/09/17 15:56:58 bsiegert Exp $
 
 .include "version.mk"
 
 DISTNAME=	go${GO_VERSION}.src
 PKGNAME=	go-${GO_VERSION}
+PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	https://storage.googleapis.com/golang/
 
@@ -16,15 +17,11 @@ WRKSRC=		${WRKDIR}/go
 USE_TOOLS+=	bash:run perl:run pax
 
 # uses ulimit -T
-BUILD_DEPENDS+=	bash>=4.2nb3:../../shells/bash
+# BUILD_DEPENDS+=	bash>=4.2nb3:../../shells/bash
 
 # cgo compiles under TMPDIR
 TMPDIR?=	/tmp
 BUILDLINK_PASSTHRU_DIRS+= ${TMPDIR}
-
-# bash script may use unportable bash constructs
-CHECK_PORTABILITY_SKIP=	lib/time/update.bash
-CHECK_PORTABILITY_SKIP=	misc/ios/clangwrap.sh
 
 GOROOT_FINAL=	${PREFIX}/go
 INSTALLATION_DIRS= bin
@@ -35,9 +32,10 @@ REPLACE_BASH+=	lib/time/update.bash
 REPLACE_BASH+=	misc/arm/a
 REPLACE_BASH+=	misc/benchcmp
 REPLACE_BASH+=	misc/cgo/errors/test.bash
-REPLACE_BASH+=	misc/cgo/testcarchive/test.bash
+REPLACE_BASH+=	misc/cgo/fortran/test.bash
 REPLACE_BASH+=	misc/cgo/testcshared/test.bash
 REPLACE_BASH+=	misc/cgo/testgodefs/test.bash
+REPLACE_BASH+=	misc/cgo/testsanitizers/test.bash
 REPLACE_BASH+=	misc/nacl/go_nacl_386_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_amd64p32_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_arm_exec
@@ -47,9 +45,11 @@ REPLACE_BASH+=	src/bootstrap.bash
 REPLACE_BASH+=	src/buildall.bash
 REPLACE_BASH+=	src/clean.bash
 REPLACE_BASH+=	src/cmd/compile/internal/big/vendor.bash
+REPLACE_BASH+=	src/cmd/dist/mkdeps.bash
 REPLACE_BASH+=	src/cmd/go/mkalldocs.sh
 REPLACE_BASH+=	src/iostest.bash
 REPLACE_BASH+=	src/make.bash
+REPLACE_BASH+=	src/naclmake.bash
 REPLACE_BASH+=	src/nacltest.bash
 REPLACE_BASH+=	src/race.bash
 REPLACE_BASH+=	src/run.bash
@@ -57,7 +57,6 @@ REPLACE_BASH+=	src/runtime/mknacl.sh
 REPLACE_BASH+=	src/syscall/mkall.sh
 REPLACE_BASH+=	src/syscall/mkerrors.sh
 REPLACE_BASH+=	src/syscall/mksysnum_plan9.sh
-REPLACE_BASH+=	test/bench/shootout/timing.sh
 
 REPLACE_PERL+=	src/net/http/cgi/testdata/test.cgi
 REPLACE_PERL+=	src/regexp/syntax/make_perl_groups.pl
@@ -74,8 +73,18 @@ CHECK_INTERPRETER_SKIP+=	go/src/run.rc
 BUILD_DEPENDS+=		go14-1.4*:../../lang/go14
 GOROOT_BOOTSTRAP=	${PREFIX}/go14
 
+.include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=	route
+
+.if ${OPSYS} != "Linux" && ${OPSYS} != "SunOS"
+PLIST.route=	yes
+.endif
+
 pre-build:
-	cd ${WRKSRC}/src/syscall && ${PERL5} mksyscall_solaris.pl \
+	cd ${WRKSRC}/src/syscall && \
+		env GOOS=${LOWER_OPSYS:Q} GOARCH=${GOARCH:Q} \
+		${PERL5} mksyscall_solaris.pl \
 		syscall_solaris.go syscall_solaris_amd64.go > zsyscall_solaris_amd64.go
 
 do-build:

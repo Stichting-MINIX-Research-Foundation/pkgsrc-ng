@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.1 2015/04/19 22:03:29 rodent Exp $
+# $NetBSD: Makefile,v 1.4 2016/08/28 15:48:35 wiz Exp $
 
 DISTNAME=	rdflib-4.2.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	python textproc
-MASTER_SITES=	https://pypi.python.org/packages/source/r/rdflib/
+MASTER_SITES=	${MASTER_SITE_PYPI:=r/rdflib/}
 
 MAINTAINER=	kamelderouiche@yahoo.com
-HOMEPAGE=	${MASTER_SITE_GITHUB:=RDFLib/rdflib/}
+HOMEPAGE=	https://github.com/RDFLib/rdflib/
 COMMENT=	Python library for working with RDF
 LICENSE=	2-clause-bsd
 
@@ -22,8 +22,6 @@ REPLACE_PYTHON+=	rdflib/plugins/parsers/ntriples.py
 REPLACE_PYTHON+=	rdflib/plugins/parsers/pyRdfa/extras/httpheader.py
 REPLACE_PYTHON+=	rdflib/plugins/parsers/structureddata.py
 REPLACE_PYTHON+=	rdflib/tools/rdfpipe.py
-
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/csv2rdf \

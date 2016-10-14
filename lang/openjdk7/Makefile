@@ -1,7 +1,9 @@
-# $NetBSD: Makefile,v 1.102 2015/06/17 20:54:42 rodent Exp $
+# $NetBSD: Makefile,v 1.111 2016/09/20 11:12:22 wiz Exp $
 
-DISTNAME=	openjdk-1.7.80-20150609
-PKGNAME=	openjdk7-1.7.80
+JDK_MICRO=	80
+DISTNAME=	openjdk-1.7.${JDK_MICRO}-20150609
+PKGNAME=	openjdk7-1.7.${JDK_MICRO}
+PKGREVISION=	4
 CATEGORIES=	lang
 MASTER_SITES=	${MASTER_SITE_LOCAL:=openjdk7/}
 EXTRACT_SUFX=	.tar.xz
@@ -18,7 +20,7 @@ DIST_SUBDIR=	openjdk7
 
 JAVA_NAME=	openjdk7
 JAVA_HOME=	${PREFIX}/java/${JAVA_NAME}
-JAVA_WRAPPERS=	jar java javac javadoc javah javap jps keytool orbd \
+JAVA_WRAPPERS=	jar java javac javadoc javah javap jcmd jps keytool orbd \
 		policytool rmid rmiregistry servertool tnameserv
 
 MAKE_ENV+=		PKGSRC_ZIPEXE=${TOOLS_PATH.zip}
@@ -33,6 +35,9 @@ USE_TOOLS+=		gmake pax unzip:run zip:run # patch
 UNLIMIT_RESOURCES=	datasize stacksize
 WRKSRC=			${WRKDIR}/openjdk
 PLIST_SRC+=		${PLIST_SRC_DFLT}
+CHECK_SHLIBS_SKIP=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libfontmanager.so
+CHECK_SHLIBS_SKIP+=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libjawt.so
+CHECK_SHLIBS_SKIP+=	java/openjdk7/jre/lib/${LIBDIR_ARCH}/libsunec.so
 
 BUILDLINK_PASSTHRU_DIRS+=	${ALT_BOOTDIR}
 PREPEND_PATH+=			${ALT_BOOTDIR}/bin
@@ -54,6 +59,7 @@ MAKE_ENV+=	HOTSPOT_BUILD_JOBS=${MAKE_JOBS}
 MAKE_ENV+=	USE_PRECOMPILED_HEADER=0
 
 MAKE_ENV+=	HOTSPOT_BUILD_USER=pkgsrc
+MAKE_ENV+=	JDK_MICRO_VERSION="0_${JDK_MICRO}"
 MAKE_ENV+=	NO_DOCS=true
 MAKE_ENV+=	SKIP_COMPARE_IMAGES=true
 
@@ -94,8 +100,7 @@ SUBST_SED.ccspath=	-e 's/UNIXCCS_PATH/UNIXCOMMAND_PATH/g'
 SUBST_SED.ccspath+=	-e 's,/usr/ccs/bin,/usr/bin,g'
 .endif
 
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		mapfix
+SUBST_CLASSES.SunOS+=	mapfix
 SUBST_STAGE.mapfix=	pre-build
 SUBST_FILES.mapfix=	jdk/make/com/sun/java/pack/mapfile-vers
 SUBST_FILES.mapfix+=	jdk/make/java/main/java/mapfile-amd64
@@ -104,11 +109,10 @@ SUBST_SED.mapfix=	-e '/__fsr_init_value/d'
 SUBST_SED.mapfix+=	-e '/__progname/d'
 
 # environ should only be removed from this file (added by patches)
-SUBST_CLASSES+=		mapfix2
+SUBST_CLASSES.SunOS+=	mapfix2
 SUBST_STAGE.mapfix2=	pre-build
 SUBST_FILES.mapfix2=	jdk/make/com/sun/java/pack/mapfile-vers
 SUBST_SED.mapfix2=	-e '/environ/d'
-.endif
 
 CFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS
 CXXFLAGS+=	-D__STDC_CONSTANT_MACROS -D__STDC_FORMAT_MACROS -D__STDC_LIMIT_MACROS

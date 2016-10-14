@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.12 2012/10/31 11:17:22 asau Exp $
+# $NetBSD: Makefile,v 1.11 2012/10/31 11:17:22 asau Exp $
 #
 
 DISTNAME=		libtai-0.60

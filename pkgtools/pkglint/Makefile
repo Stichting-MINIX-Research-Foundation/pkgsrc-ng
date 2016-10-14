@@ -1,62 +1,40 @@
-# $NetBSD: Makefile,v 1.464 2015/07/03 09:52:04 abs Exp $
+# $NetBSD: Makefile,v 1.496 2016/09/17 23:58:04 rillig Exp $
 
-PKGNAME=	pkglint-4.156
+PKGNAME=	pkglint-5.4.9
+DISTFILES=	# none
 CATEGORIES=	pkgtools
 
-OWNER=		wiz@NetBSD.org
+OWNER=		rillig@NetBSD.org
 HOMEPAGE=	http://www.NetBSD.org/docs/pkgsrc/
 COMMENT=	Verifier for NetBSD packages
 LICENSE=	2-clause-bsd
+CONFLICTS+=	pkglint4-[0-9]*
 
-DEPENDS+=	p5-Digest-SHA1-[0-9]*:../../security/p5-Digest-SHA1
-DEPENDS+=	p5-enum>=1.016:../../devel/p5-enum
-DEPENDS+=	p5-pkgsrc-Dewey>=1.0:../../pkgtools/p5-pkgsrc-Dewey
-
-#BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
-#BUILD_DEPENDS+=	p5-Test-Trap-[0-9]*:../../devel/p5-Test-Trap
-
-WRKSRC=		${WRKDIR}
+WRKSRC=		${WRKDIR}/netbsd.org/pkglint
 NO_CHECKSUM=	yes
 USE_LANGUAGES=	# none
-USE_TOOLS+=	perl:run
+USE_TOOLS+=	pax
 AUTO_MKDIRS=	yes
-
-.include "../../mk/bsd.prefs.mk"
+GO_SRCPATH=	netbsd.org/pkglint
 
 SUBST_CLASSES+=		pkglint
 SUBST_STAGE.pkglint=	post-configure
-SUBST_FILES.pkglint+=	build.pl pkglint.pl pkglint.t plist-clash.pl
-.if defined(BATCH)
-SUBST_SED.pkglint+=	-e s\|@PKGSRCDIR@\|/usr/pkgsrc\|g
-.else
-SUBST_SED.pkglint+=	-e s\|@PKGSRCDIR@\|${PKGSRCDIR}\|g
-.endif
-SUBST_SED.pkglint+=	-e s\|@PREFIX@\|${PREFIX}\|g
-SUBST_SED.pkglint+=	-e s\|@DISTVER@\|${PKGNAME:S/pkglint-//}\|g
-SUBST_SED.pkglint+=	-e s\|@MAKE@\|${MAKE:Q}\|g
-SUBST_SED.pkglint+=	-e s\|@PERL@\|${PERL5:Q}\|g
-SUBST_SED.pkglint+=	-e s\|@DATADIR@\|${FILESDIR}\|g
-
-SUBST_CLASSES+=		mappaths
-SUBST_STAGE.mappaths=	pre-install
-SUBST_FILES.mappaths+=	pkglint.pl
-SUBST_SED.mappaths+=	-e s\|${FILESDIR}\|${PREFIX}/share/pkglint\|g
+SUBST_FILES.pkglint+=	main.go package_test.go
+SUBST_SED.pkglint+=	-e s\|@VERSION@\|${PKGNAME:S/pkglint-//}\|g
+SUBST_SED.pkglint+=	-e s\|@BMAKE@\|${MAKE:Q}\|g
 
 do-extract:
-	cd ${FILESDIR} && ${CP} build.pl pkglint.0 pkglint.1 pkglint.pl pkglint.t plist-clash.pl ${WRKSRC}
-	mkdir ${WRKSRC}/PkgLint
-	cd ${FILESDIR} && ${CP} PkgLint/*.pm ${WRKSRC}/PkgLint
+	${RUN} mkdir -p ${WRKDIR}/pkglint/plist-clash
+	${RUN} cd ${FILESDIR} && ${PAX} -rw *.go *.y */*.go pkglint.[01] ${WRKDIR}/pkglint
 
-do-build:
-	cd ${WRKSRC} && ${PERL5} build.pl < pkglint.pl > pkglint.pl.inlined \
-		&& mv pkglint.pl.inlined pkglint.pl
+pre-build:
+	${RUN} env GOPATH=${WRKDIR}:${BUILDLINK_DIR}/gopkg go generate ${GO_BUILD_PATTERN}
 
-do-test:
-	cd ${WRKSRC} && prove pkglint.t
+do-install: do-install-man
 
-do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/pkglint.pl ${DESTDIR}${PREFIX}/bin/pkglint
-	${INSTALL_SCRIPT} ${WRKSRC}/plist-clash.pl ${DESTDIR}${PREFIX}/bin/plist-clash
+.include "../../mk/bsd.prefs.mk"
+
+do-install-man: .PHONY
 .if !empty(MANINSTALL:Mcatinstall)
 .  if defined(CATMAN_SECTION_SUFFIX) && !empty(CATMAN_SECTION_SUFFIX:M[Yy][Ee][Ss])
 	${INSTALL_MAN} ${WRKSRC}/pkglint.0 ${DESTDIR}${PREFIX}/${PKGMANDIR}/cat1/pkglint.1
@@ -67,10 +45,9 @@ do-install:
 .if !empty(MANINSTALL:Mmaninstall)
 	${INSTALL_MAN} ${WRKSRC}/pkglint.1 ${DESTDIR}${PREFIX}/${PKGMANDIR}/man1
 .endif
-	${INSTALL_DATA} ${FILESDIR}/makevars.map ${DESTDIR}${PREFIX}/share/pkglint/
-	${INSTALL_DATA} ${FILESDIR}/deprecated.map ${DESTDIR}${PREFIX}/share/pkglint/
 
-selftest: .PHONY
-	${PREFIX}/bin/pkglint
-
+.include "../../lang/go/go-package.mk"
+.if !empty(PKGSRC_RUN_TEST:M[yY][eE][sS])
+.include "../../devel/go-check/buildlink3.mk"
+.endif
 .include "../../mk/bsd.pkg.mk"

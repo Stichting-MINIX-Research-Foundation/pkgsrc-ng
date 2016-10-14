@@ -1,8 +1,11 @@
-$NetBSD: patch-configure,v 1.1 2015/06/14 16:23:03 wiz Exp $
+$NetBSD: patch-configure,v 1.6 2016/08/19 15:56:48 wiz Exp $
 
---- configure.orig	2015-04-30 10:13:13.000000000 +0000
+Shell portability.
+Disable flock.
+
+--- configure.orig	2016-08-11 09:29:39.053534157 +0000
 +++ configure
-@@ -20035,7 +20035,7 @@ else
+@@ -21297,7 +21297,7 @@ else
  fi
  
  
@@ -11,3 +14,30 @@ $NetBSD: patch-configure,v 1.1 2015/06/14 16:23:03 wiz Exp $
  
  
  $as_echo "#define USE_LIBMOUNT_FORCE_MOUNTINFO 1" >>confdefs.h
+@@ -22193,7 +22193,7 @@ $as_echo "$as_me: WARNING: sys/signalfd.
+     esac
+   fi
+ 
+-if test "x$build_uuidd" = xyes || test "x$enable_libuuid_force_uuidd" == xyes ; then :
++if test "x$build_uuidd" = xyes || test "x$enable_libuuid_force_uuidd" = xyes ; then :
+ 
+ 
+ $as_echo "#define HAVE_UUIDD 1" >>confdefs.h
+@@ -25133,7 +25133,7 @@ fi
+ 
+   if test "x$ul_default_estate" != x; then
+   enable_flock=$ul_default_estate
+-  build_flock=yes
++  build_flock=no
+   if test "x$ul_default_estate" = xno; then
+     build_flock=no
+   fi
+@@ -29181,7 +29181,7 @@ else
+ fi
+ 
+ 
+-if test "x$enable_usrdir_path" == xyes; then :
++if test "x$enable_usrdir_path" = xyes; then :
+ 
+ 
+ $as_echo "#define USE_USRDIR_PATHS_ONLY 1" >>confdefs.h

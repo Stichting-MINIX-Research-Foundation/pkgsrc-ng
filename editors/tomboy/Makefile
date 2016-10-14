@@ -1,19 +1,18 @@
-# $NetBSD: Makefile,v 1.66 2015/05/23 06:58:50 kefren Exp $
-#
+# $NetBSD: Makefile,v 1.73 2016/08/03 10:22:42 adam Exp $
 
 DISTNAME=		tomboy-1.2.1
-PKGREVISION=		42
+PKGREVISION=		47
 CATEGORIES=		editors misc
 MASTER_SITES=		${MASTER_SITE_GNOME:=sources/tomboy/1.2/}
 
-MAINTAINER=		rhaen@NetBSD.org
+MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.gnome.org/projects/tomboy
 COMMENT=		Gnome desktop note application
 LICENSE=		gnu-lgpl-v2.1
 
-GNU_CONFIGURE=  yes
-USE_LIBTOOL=    yes
-USE_TOOLS+=     gmake intltool pkg-config bash:run msgfmt
+GNU_CONFIGURE=	yes
+USE_LIBTOOL=	yes
+USE_TOOLS+=	gmake intltool pkg-config bash:run msgfmt
 
 GCONF_SCHEMAS=	tomboy.schemas
 

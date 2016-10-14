@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.45 2015/06/12 10:50:54 wiz Exp $
+# $NetBSD: Makefile,v 1.48 2016/07/09 06:38:47 wiz Exp $
 
 DISTNAME=		nntpcache-3.0.2
-PKGREVISION=		9
+PKGREVISION=		12
 CATEGORIES=		news
 MASTER_SITES=		http://www.xs4all.nl/~suelette/
 
@@ -67,7 +67,7 @@ CONF_FILES_PERMS+=	share/examples/nntpcache/pubring.pgp		\
 CONF_FILES_PERMS+=	share/examples/nntpcache/spam.filter		\
 			${PKG_SYSCONFDIR}/spam.filter			\
 			${NNTPCACHE_USER} ${NNTPCACHE_GROUP} 600
-SPECIAL_PERMS+=		libexec/unixauth ${ROOT_USER} ${NNTPCACHE_GROUP} 4554
+SPECIAL_PERMS+=		libexec/unixauth ${REAL_ROOT_USER} ${NNTPCACHE_GROUP} 4554
 
 REPLACE_PERL+=	innreport/innreport.pl innreport/innreport.pm
 REPLACE_PERL+=	contrib/perlnewshound/newshound.pl

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2014/02/12 23:17:34 tron Exp $
+# $NetBSD: Makefile,v 1.11 2016/04/20 12:10:31 nros Exp $
 #
 
 DISTNAME=	rtunes-snap-20071122
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	audio
 MASTER_SITES=	${MASTER_SITE_LOCAL}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,6 +10,7 @@ EXTRACT_SUFX=	.tar.bz2
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.nazgul.ch/dev.html
 COMMENT=	Streams audio to an Apple AirPort Express device
+LICENSE=	mit
 
 WRKSRC=		${WRKDIR}/rtunes
 

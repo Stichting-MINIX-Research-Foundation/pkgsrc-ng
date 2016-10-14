@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.44 2015/09/22 19:03:35 leot Exp $
-#
+# $NetBSD: Makefile,v 1.54 2016/08/03 10:23:32 adam Exp $
 
-DISTNAME=	netsurf-all-3.3
+DISTNAME=	netsurf-all-3.5
 PKGNAME=	${DISTNAME:S/-all//}
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	http://download.netsurf-browser.org/netsurf/releases/source-full/
 
@@ -13,13 +13,27 @@ LICENSE=	gnu-gpl-v2 AND mit
 
 BUILD_DEPENDS+=	lemon>=1.0:../../devel/lemon
 BUILD_DEPENDS+=	re2c>=0.12:../../devel/re2c
+BUILD_DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 
 BUILD_TARGET=	build
 USE_TOOLS+=	bison flex gmake perl:build pax pkg-config
 
+SUBST_CLASSES+=			ssl-certs
+SUBST_STAGE.ssl-certs=		pre-configure
+SUBST_MESSAGE.ssl-certs=	Fixing hardcoded paths for SSL certs
+SUBST_FILES.ssl-certs=		netsurf/beos/gui.cpp netsurf/gtk/gui.c
+SUBST_FILES.ssl-certs+=		netsurf/test/data/Choices
+SUBST_FILES.ssl-certs+=		netsurf/test/nsoption.c
+SUBST_SED.ssl-certs=		-e 's,/etc/ssl/certs,${SSLCERTS},'
+
+# Avoid possible problems with already often defined HOST
+MAKE_ENV+=	BUILD="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
+MAKE_ENV+=	HOST="${MACHINE_GNU_ARCH}--${LOWER_OPSYS}"
+
 INSTALLATION_DIRS+=	share/netsurf bin
 
 BUILDLINK_TRANSFORM+=	rm:-Werror
+CFLAGS.NetBSD+=		-D_NETBSD_SOURCE	# needed for strcasestr(3) and strndup(3)
 
 .include "../../x11/gtk2/buildlink3.mk"
 .include "../../devel/gperf/buildlink3.mk"

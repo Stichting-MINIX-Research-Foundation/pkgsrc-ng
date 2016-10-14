@@ -1,10 +1,10 @@
-$NetBSD: patch-al,v 1.4 2015/02/13 04:44:40 rodent Exp $
+$NetBSD: patch-al,v 1.6 2016/06/20 16:04:44 ryoon Exp $
 
 Make extra calls to remove utmp entries when utmpx is used.
 For non-login entries we only update utmpx, as it stores
 more information, and utilities are reading both.
 
---- utmp.c.orig	2014-04-26 16:22:09.000000000 +0000
+--- utmp.c.orig	2016-06-19 19:41:03.000000000 +0000
 +++ utmp.c
 @@ -48,6 +48,12 @@ extern char *LoginName;
  extern int real_uid, eff_uid;

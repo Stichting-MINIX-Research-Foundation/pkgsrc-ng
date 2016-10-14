@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.18 2012/11/07 16:55:23 joerg Exp $
+# $NetBSD: Makefile,v 1.20 2015/10/07 19:08:06 hubertf Exp $
 #
 
 DISTNAME=	netbsd-doc-1.3

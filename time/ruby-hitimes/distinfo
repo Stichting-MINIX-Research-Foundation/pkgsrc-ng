@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.1 2015/03/13 13:27:33 taca Exp $
+$NetBSD: distinfo,v 1.4 2016/09/18 23:47:13 mef Exp $
 
-SHA1 (hitimes-1.2.2.gem) = 6210fa9ab035a02210ce7b4228e08fde9a08600f
-RMD160 (hitimes-1.2.2.gem) = f73934c95ac70617182770a29ab96f3bcf51b8cb
-Size (hitimes-1.2.2.gem) = 32256 bytes
+SHA1 (hitimes-1.2.4.gem) = 4ed388ebe02c238bbd495e645996c0bfb20bb7e6
+RMD160 (hitimes-1.2.4.gem) = 6a3f2ac11f6e6fa05e068cd77bd2377427188824
+SHA512 (hitimes-1.2.4.gem) = a4da8590297f4472ec6e98db0083e5fb5923284fea15e9c2da62476c1200f9cb6d12b77f369c374706457b5ce260dd1d9bfc93bf4c256cb1fbc63a4c463185c3
+Size (hitimes-1.2.4.gem) = 32256 bytes

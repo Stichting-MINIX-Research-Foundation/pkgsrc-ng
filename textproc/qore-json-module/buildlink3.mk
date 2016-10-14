@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.1 2014/12/30 15:50:28 wiz Exp $
+# $NetBSD: buildlink3.mk,v 1.3 2016/07/20 13:05:12 nros Exp $
 
 BUILDLINK_TREE+=	qore-json-module
 
@@ -6,6 +6,7 @@ BUILDLINK_TREE+=	qore-json-module
 QORE_JSON_MODULE_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.qore-json-module+=	qore-json-module>=1.4
+BUILDLINK_ABI_DEPENDS.qore-json-module?=	qore-json-module>=1.5
 BUILDLINK_PKGSRCDIR.qore-json-module?=	../../textproc/qore-json-module
 
 .include "../../lang/qore/buildlink3.mk"

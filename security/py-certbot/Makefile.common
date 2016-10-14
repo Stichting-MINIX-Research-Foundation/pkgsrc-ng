@@ -1,0 +1,17 @@
+# $NetBSD: Makefile.common,v 1.3 2016/06/15 19:59:43 fhajny Exp $
+# used by security/py-acme/Makefile
+# used by security/py-certbot/Makefile
+
+DISTNAME=	certbot-0.8.1
+MASTER_SITES=	${MASTER_SITE_GITHUB:=certbot/}
+
+HOMEPAGE=	https://letsencrypt.org/
+
+GITHUB_PROJECT=	certbot
+GITHUB_TAG=	v${PKGVERSION_NOREV}
+
+EXTRACT_USING=	bsdtar
+USE_TOOLS+=	bsdtar
+
+DISTINFO_FILE=	${PKGDIR}/../../security/py-certbot/distinfo
+#PATCHDIR=	${PKGDIR}/../../security/py-certbot/patches

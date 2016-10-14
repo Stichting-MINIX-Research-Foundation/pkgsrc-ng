@@ -1,11 +1,11 @@
-$NetBSD: patch-configure,v 1.1 2014/12/30 17:23:46 adam Exp $
+$NetBSD: patch-configure,v 1.4 2016/03/14 06:12:17 dbj Exp $
 
 * Don't use SDKs on OS X
 * Add NetBSD/sparc{,64} support
 
---- configure.orig	2014-02-01 20:37:23.000000000 +0000
+--- configure.orig	2015-10-13 04:35:07.000000000 +0000
 +++ configure
-@@ -319,7 +319,6 @@ getQMakeConf()
+@@ -337,7 +337,6 @@ getQMakeConf()
  {
      if [ -z "$specvals" ]; then
          specvals=`expandQMakeConf "$QMAKESPEC/qmake.conf" | extractQMakeVariables "host_build"`
@@ -13,7 +13,7 @@ $NetBSD: patch-configure,v 1.1 2014/12/30 17:23:46 adam Exp $
      fi
      getSingleQMakeVariable "$1" "$specvals"
  }
-@@ -328,7 +327,6 @@ getXQMakeConf()
+@@ -346,7 +345,6 @@ getXQMakeConf()
  {
      if [ -z "$xspecvals" ]; then
          xspecvals=`expandQMakeConf "$XQMAKESPEC/qmake.conf" | extractQMakeVariables "!host_build"`
@@ -21,7 +21,16 @@ $NetBSD: patch-configure,v 1.1 2014/12/30 17:23:46 adam Exp $
      fi
      getSingleQMakeVariable "$1" "$xspecvals"
  }
-@@ -2679,6 +2677,19 @@ if [ -z "$PLATFORM" ]; then
+@@ -527,7 +525,7 @@ if [ "$BUILD_ON_MAC" = "yes" ]; then
+         exit 2
+     fi
+ 
+-    if ! /usr/bin/xcrun -find xcrun >/dev/null 2>&1; then
++    if ! /usr/bin/xcrun -find cc >/dev/null 2>&1; then
+         echo >&2
+         echo "   Xcode not set up properly. You may need to confirm the license" >&2
+         echo "   agreement by running /usr/bin/xcodebuild without arguments." >&2
+@@ -2897,6 +2895,19 @@ if [ -z "$PLATFORM" ]; then
       UNIX_SV:*)
          PLATFORM=unixware-g++
          ;;
@@ -41,12 +50,32 @@ $NetBSD: patch-configure,v 1.1 2014/12/30 17:23:46 adam Exp $
       QNX:*)
          PLATFORM=unsupported/qnx-g++
          ;;
-@@ -6263,7 +6274,7 @@ QMakeVar set sql-plugins "$SQL_PLUGINS"
- [ "$CFG_PNG" != "yes" ]      && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_IMAGEFORMAT_PNG"
- [ "$CFG_JPEG" != "yes" ]     && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_IMAGEFORMAT_JPEG"
- [ "$CFG_ZLIB" != "yes" ]     && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_ZLIB"
--[ "$CFG_DBUS" = "no" ]      && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_DBUS"
-+#[ "$CFG_DBUS" = "no" ]      && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_DBUS"
+@@ -3471,11 +3482,11 @@ if [ "$CFG_USE_GOLD_LINKER" != "no" ]; t
+ fi
  
- # X11/Unix/Mac only configs
- [ "$CFG_CUPS" = "no" ]       && QCONFIG_FLAGS="$QCONFIG_FLAGS QT_NO_CUPS"
+ # auto-detect --enable-new-dtags support
+-if linkerSupportsFlag $TEST_COMPILER --enable-new-dtags; then
+-    CFG_ENABLE_NEW_DTAGS=yes
+-else
++#if linkerSupportsFlag $TEST_COMPILER --enable-new-dtags; then
++#    CFG_ENABLE_NEW_DTAGS=yes
++#else
+     CFG_ENABLE_NEW_DTAGS=no
+-fi
++#fi
+ 
+ # auto-detect -fstack-protector-strong support (for QNX only currently)
+ if [ "$XPLATFORM_QNX" = "yes" ]; then
+@@ -4014,10 +4025,12 @@ if true; then ###[ '!' -f "$outpath/bin/
+             EXTRA_CXXFLAGS="$EXTRA_CXXFLAGS \$(CARBON_CFLAGS)"
+             EXTRA_OBJS="$EXTRA_OBJS \
+                         qsettings_mac.o \
++                        qstring_mac.o \
+                         qcore_mac.o \
+                         qcore_mac_objc.o"
+             EXTRA_SRCS="$EXTRA_SRCS \
+                         \"\$(SOURCE_PATH)/src/corelib/io/qsettings_mac.cpp\" \
++                        \"\$(SOURCE_PATH)/src/corelib/tools/qstring_mac.mm\" \
+                         \"\$(SOURCE_PATH)/src/corelib/kernel/qcore_mac.cpp\" \
+                         \"\$(SOURCE_PATH)/src/corelib/kernel/qcore_mac_objc.mm\""
+         fi

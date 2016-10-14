@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2015/08/15 17:51:43 leot Exp $
+# $NetBSD: Makefile,v 1.56 2016/06/08 14:44:54 asau Exp $
 
-DISTNAME=	chicken-4.10.0
-PKGREVISION=	1
+DISTNAME=	chicken-4.11.0
 CATEGORIES=	lang
 MASTER_SITES=	http://code.call-cc.org/releases/$(PKGVERSION_NOREV)/ \
 		http://code.call-cc.org/releases/$(PKGVERSION_NOREV:R)/
@@ -18,7 +17,7 @@ USE_TOOLS+=		gmake
 UNLIMIT_RESOURCES=	datasize
 
 INSTALLATION_DIRS=	share/chicken
-OWN_DIRS=		${PREFIX}/lib/chicken ${PREFIX}/lib/chicken/7
+OWN_DIRS=		${PREFIX}/lib/chicken ${PREFIX}/lib/chicken/8
 
 BUILD_TARGET=		all
 
@@ -38,7 +37,7 @@ PLATFORM=	haiku
 .else
 #PLATFORM+=	${OPSYS} == "Interix"
 # possible choices left: mingw-msys mingw cygwin cross-linux-mingw
-PKG_SKIP_REASON=	"${OPSYS} is not supported"
+PKG_SKIP_REASON+=	"${OPSYS} is not supported"
 .endif
 
 MAKE_FILE=	GNUmakefile

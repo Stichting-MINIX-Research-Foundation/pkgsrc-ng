@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.14 2015/08/18 07:31:07 wiz Exp $
+# $NetBSD: Makefile,v 1.18 2016/07/09 13:03:47 wiz Exp $
 
 DISTNAME=		qemu-0.15.1
-PKGREVISION=		15
+PKGREVISION=		17
 CATEGORIES=		emulators
 MASTER_SITES=		http://wiki.qemu.org/download/
 
@@ -35,7 +35,7 @@ EGDIR=			${PREFIX}/share/examples/qemu
 INSTALL_MAKE_FLAGS=	egdir=${EGDIR}
 PKG_SYSCONFSUBDIR=	qemu
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.15.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.15.1
 
 # Avoid clash with system include file:
 pre-patch:

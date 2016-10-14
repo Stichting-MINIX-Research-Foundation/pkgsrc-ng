@@ -1,10 +1,11 @@
-# $NetBSD: Makefile,v 1.49 2015/08/05 15:29:00 richard Exp $
+# $NetBSD: Makefile,v 1.54 2016/08/03 10:22:36 adam Exp $
 
-DISTNAME=	pgadmin3-1.20.0
+DISTNAME=	pgadmin3-1.22.0
+PKGREVISION=	1
 CATEGORIES=	databases
 MASTER_SITES=	${MASTER_SITE_PGSQL:=pgadmin3/release/v${PKGVERSION_NOREV}/src/}
 
-MAINTAINER=	joerg@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.pgadmin.org/
 COMMENT=	Graphical PostgreSQL client and administration tool
 LICENSE=	postgresql-license
@@ -17,10 +18,14 @@ REPLACE_SH=		pgadmin/ver_svn.sh
 
 .include "options.mk"
 
-CONFIGURE_ARGS+=	--with-wx=${BUILDLINK_PREFIX.wxGTK30}
-CONFIGURE_ARGS+=	--with-wx-version=3.0
 CONFIGURE_ARGS+=	--with-libxml2=${BUILDLINK_PREFIX.libxml2}
 CONFIGURE_ARGS+=	--with-libxslt=${BUILDLINK_PREFIX.libxslt}
+
+.include "../../mk/bsd.prefs.mk"
+
+.if ${OPSYS} == "Darwin"
+CONFIGURE_ARGS+=	--with-arch-${MACHINE_ARCH}
+.endif
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

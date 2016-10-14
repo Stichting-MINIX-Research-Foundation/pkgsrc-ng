@@ -1,14 +1,14 @@
-$NetBSD: patch-build_config_SunOS-GCC,v 1.3 2012/07/29 11:26:54 fhajny Exp $
+$NetBSD: patch-build_config_SunOS-GCC,v 1.5 2016/01/18 20:46:52 joerg Exp $
 
 Resolve a conflict on SunOS, where GCC>=4.6 will force C99 with C++
 and require _XOPEN_SOURCE=600, whereas GCC<4.6 will reject C99 with C++.
---- build/config/SunOS-GCC.orig	2011-09-24 08:06:59.000000000 +0000
+--- build/config/SunOS-GCC.orig	2015-08-04 05:20:55.000000000 +0000
 +++ build/config/SunOS-GCC
 @@ -21,6 +21,8 @@ LINK    = $(CXX)
  LIB     = ar -cr
  RANLIB  = ranlib
  SHLIB   = $(CXX) -shared -Wl,-soname,$(notdir $@) -o $@
-+SHLIBFLAGS = $(LDFLAGS) -Wl,-R$(POCO_PREFIX)/lib \
++SHLIBFLAGS = $(LDFLAGS) -Wl,-rpath,$(POCO_PREFIX)/lib -L$(POCO_PREFIX)/lib \
 +                $(foreach p,$(sort $(POCO_ADD_LIBRARY)),-L$(p) -Wl,-R$(p))
  SHLIBLN = $(POCO_BASE)/build/script/shlibln
  STRIP   = strip
@@ -31,7 +31,7 @@ and require _XOPEN_SOURCE=600, whereas GCC<4.6 will reject C99 with C++.
  SHAREDOPT_CC    = -fPIC
  SHAREDOPT_CXX   = -fPIC
 -SHAREDOPT_LINK  = -Wl,-rpath,$(LIBPATH)
-+SHAREDOPT_LINK  = -Wl,-R$(POCO_PREFIX)/lib -L$(LIBPATH)
++SHAREDOPT_LINK  = -Wl,-rpath,$(POCO_PREFIX)/lib -L$(POCO_PREFIX)/lib -L$(LIBPATH)
  DEBUGOPT_CC     = -g -D_DEBUG
  DEBUGOPT_CXX    = -g -D_DEBUG
  DEBUGOPT_LINK   = -g
@@ -45,5 +45,5 @@ and require _XOPEN_SOURCE=600, whereas GCC<4.6 will reject C99 with C++.
  #
  # System Specific Libraries
  #
--SYSLIBS  = -lpthread -ldl -lrt
+-SYSLIBS  = -lpthread -lrt -lxnet -lsocket -lnsl -lresolv -ldl
 +SYSLIBS  = -lpthread -ldl -lrt -lxnet -lsocket -lnsl -lresolv -ldl

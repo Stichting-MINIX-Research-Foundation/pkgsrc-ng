@@ -1,9 +1,12 @@
-# $NetBSD: Makefile,v 1.204 2015/06/12 10:50:11 wiz Exp $
+# $NetBSD: Makefile,v 1.210 2016/08/11 22:48:00 is Exp $
+
+TEST_TARGETS=	test
 
 DISTNAME=	netpbm-10.68.02
 CATEGORIES=	graphics
 MASTER_SITES=	#
-PKGREVISION=	2
+PKGREVISION=	5
+
 # manually created from svn checkout of
 # svn checkout http://svn.code.sf.net/p/netpbm/code/advanced netpbm
 # tar --exclude netpbm/.svn/\* -cvzf /archive/distfiles/netpbm-$VERSION.tar.gz netpbm
@@ -19,13 +22,15 @@ HOMEPAGE=	http://netpbm.sourceforge.net/
 COMMENT=	Toolkit for conversion of images between different formats
 LICENSE=	gnu-gpl-v2
 
-USE_TOOLS+=	gmake lex pax perl
+USE_TOOLS+=	gmake flex pax perl
 USE_FEATURES=	snprintf
 
 INSTALL_TARGET=	install-dev install-run
 MAKE_ENV+=	INSTALL=${INSTALL:Q} STRIPFLAG=${_STRIPFLAG_INSTALL:Q} \
 		pkgdir=${STAGEDIR:Q} MACHINE=${MACHINE:Q}
 MAKE_FLAGS+=	PKGMANDIR=${PKGMANDIR:Q}
+MAKE_FLAGS+=	CFLAGS_FOR_BUILD=${CFLAGS:Q}
+MAKE_FLAGS+=	LDFLAGS_FOR_BUILD=${LDFLAGS:Q}
 MAKE_FILE=	GNUmakefile
 REPLACE_PERL+=	converter/pbm/pbmtox10bm
 REPLACE_PERL+=	editor/pnmflip
@@ -51,16 +56,14 @@ SUBST_SED.rgb_txt+=	-e 's,/usr/share/netpbm/rgb.txt,${PREFIX}/share/netpbm/rgb.t
 # only used if NEED_RUNTIME_PATH is set, so set it unconditionally
 MAKE_FLAGS+=	NETPBMLIB_RUNTIME_PATH=${PREFIX}
 
-.if ${OPSYS} == "NetBSD"
-MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
-.elif ${OPSYS} == "Darwin"
-MAKE_FLAGS+=	NETPBMLIBTYPE=dylib
-MAKE_FLAGS+=	NETPBMLIBSUFFIX=dylib
-.elif ${OPSYS} == "SunOS"
-MAKE_FLAGS+=	LDSHLIB=-shared
-MAKE_FLAGS+=	NEED_RUNTIME_PATH=Y
-MAKE_FLAGS+=	NETWORKLD="-lsocket -lnsl"
-.elif ${OS_VARIANT} == "SCOOSR5"
+MAKE_FLAGS.NetBSD+=	NEED_RUNTIME_PATH=Y
+MAKE_FLAGS.Darwin+=	NETPBMLIBTYPE=dylib
+MAKE_FLAGS.Darwin+=	NETPBMLIBSUFFIX=dylib
+MAKE_FLAGS.SunOS+=	LDSHLIB=-shared
+MAKE_FLAGS.SunOS+=	NEED_RUNTIME_PATH=Y
+MAKE_FLAGS.SunOS+=	NETWORKLD="-lsocket -lnsl"
+
+.if ${OS_VARIANT} == "SCOOSR5"
 MAKE_FLAGS+=	NETWORKLD="-lsocket -lresolv"
 .endif
 

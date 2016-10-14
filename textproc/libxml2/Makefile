@@ -1,13 +1,7 @@
-# $NetBSD: Makefile,v 1.138 2015/07/03 18:55:46 he Exp $
+# $NetBSD: Makefile,v 1.142 2016/05/27 23:51:10 pgoyette Exp $
 
-DISTNAME=	libxml2-2.9.2
-PKGREVISION=	3
-CATEGORIES=	textproc
-MASTER_SITES=	ftp://xmlsoft.org/libxml2/ \
-		http://xmlsoft.org/sources/
+.include "../../textproc/libxml2/Makefile.common"
 
-MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://xmlsoft.org/
 COMMENT=	XML parser library from the GNOME project
 LICENSE=	modified-bsd
 
@@ -31,8 +25,6 @@ PKGCONFIG_OVERRIDE=	libxml-2.0.pc.in
 
 MAKE_ENV+=	PAX=${PAX:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
 TEST_TARGET=	check
 
 SUBST_CLASSES+=		cat
@@ -41,9 +33,7 @@ SUBST_FILES.cat=	catalog.c xmlcatalog.c
 SUBST_SED.cat=	-e "s,@@SGML_DEFAULT_CATALOG@@,${SGML_DEFAULT_CATALOG},g"
 SUBST_SED.cat+=	-e "s,@@XML_DEFAULT_CATALOG@@,${XML_DEFAULT_CATALOG},g"
 
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-Werror=format=2
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	rm:-Werror=format=2
 
 LDFLAGS.SCO_SV+=	-lm
 

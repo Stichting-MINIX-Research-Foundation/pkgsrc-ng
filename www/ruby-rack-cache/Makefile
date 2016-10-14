@@ -1,7 +1,6 @@
-# $NetBSD: Makefile,v 1.4 2013/03/10 09:16:06 taca Exp $
+# $NetBSD: Makefile,v 1.6 2016/03/15 16:18:11 taca Exp $
 
-DISTNAME=	rack-cache-1.2
-PKGREVISION=	1
+DISTNAME=	rack-cache-1.6.1
 CATEGORIES=	www
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

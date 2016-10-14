@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.17 2015/06/30 09:57:39 ryoon Exp $
+# $NetBSD: Makefile,v 1.27 2016/09/12 09:00:10 wiz Exp $
 
-DISTNAME=	gst-libav-1.4.5
-PKGREVISION=	2
+DISTNAME=	gst-libav-1.8.3
+PKGNAME=	${DISTNAME:S/gst/gst-plugins1/}
 CATEGORIES=	multimedia
 MASTER_SITES=	http://gstreamer.freedesktop.org/src/gst-libav/
 EXTRACT_SUFX=	.tar.xz
@@ -18,13 +18,13 @@ PKGSRC_MAKE_ENV+=	PERL=${PERL5}
 
 #BUILD_DEPENDS+=		yasm>=0.7.2:../../devel/yasm
 
-BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.2.0
+BUILDLINK_API_DEPENDS.gstreamer1+=	gstreamer1>=1.8.0
 .include "../../multimedia/gstreamer1/buildlink3.mk"
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
 # the upstream developers only want to support building against
 # the included ffmpeg version, since the ffmpeg API/ABI is unstable
 # and there are no releases
-.include "../../multimedia/ffmpeg2/buildlink3.mk"
+.include "../../multimedia/ffmpeg3/buildlink3.mk"
 CONFIGURE_ARGS+=	--with-system-libav
 .include "../../devel/orc/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

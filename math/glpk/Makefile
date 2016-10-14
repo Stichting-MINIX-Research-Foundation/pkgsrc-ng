@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.41 2014/08/30 11:19:52 adam Exp $
+# $NetBSD: Makefile,v 1.43 2016/04/12 21:40:47 adam Exp $
 
-DISTNAME=	glpk-4.55
+DISTNAME=	glpk-4.60
 CATEGORIES=	math
 MASTER_SITES=	${MASTER_SITE_GNU:=glpk/}
 

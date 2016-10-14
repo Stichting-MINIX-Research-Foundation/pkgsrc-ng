@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.14 2015/08/01 08:17:43 adam Exp $
+# $NetBSD: Makefile,v 1.16 2016/09/12 17:44:14 adam Exp $
 
-DISTNAME=	CherryPy-3.8.0
+DISTNAME=	CherryPy-8.1.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	www python
-MASTER_SITES=	http://pypi.python.org/packages/source/C/CherryPy/
+MASTER_SITES=	${MASTER_SITE_PYPI:=C/CherryPy/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.cherrypy.org/
@@ -14,6 +14,8 @@ USE_LANGUAGES=		# none
 
 REPLACE_PYTHON=		cherrypy/cherryd
 REPLACE_PYTHON+=	cherrypy/test/sessiondemo.py
+
+DEPENDS+=	${PYPKGPREFIX}-setuptools_scm-[0-9]*:../../devel/py-setuptools_scm
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

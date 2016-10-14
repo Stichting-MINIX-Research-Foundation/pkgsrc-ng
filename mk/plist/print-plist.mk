@@ -1,4 +1,4 @@
-# $NetBSD: print-plist.mk,v 1.27 2015/06/07 03:39:08 joerg Exp $
+# $NetBSD: print-plist.mk,v 1.32 2016/07/25 21:57:23 wiz Exp $
 
 ###
 ### Automatic PLIST generation
@@ -13,15 +13,6 @@
 ###
 
 _PRINT_PLIST_AWK_SUBST={
-.if !defined(EMUL_PLATFORMS)
-_PRINT_PLIST_AWK_SUBST+=						\
-	gsub(/${OS_VERSION:S/./\./g}/, "$${OS_VERSION}");		\
-	gsub(/${MACHINE_GNU_PLATFORM}/, "$${MACHINE_GNU_PLATFORM}");	\
-	gsub(/${MACHINE_ARCH}/, "$${MACHINE_ARCH}");			\
-	gsub(/${MACHINE_GNU_ARCH}/, "$${MACHINE_GNU_ARCH}");
-_PRINT_PLIST_AWK_SUBST+=						\
-	gsub(/${LOWER_OS_VERSION:S/./\./g}/, "$${LOWER_OS_VERSION}");
-.endif
 _PRINT_PLIST_AWK_SUBST+=						\
 	gsub(/${PKGNAME_NOREV}/, "$${PKGNAME}");			\
 	gsub(/${PKGVERSION:S/./\./g:C/nb[0-9]*$$//}/, "$${PKGVERSION}");\
@@ -53,22 +44,12 @@ _PRINT_PLIST_AWK_IGNORE+=	|| ($$0 ~ /^.*\/fonts\.scale/)
 _PRINT_PLIST_AWK_IGNORE+=	|| ($$0 ~ /^.*\/fonts\.cache-1/)
 .endif
 
-# scan $PREFIX for any files/dirs modified since the package was extracted
-# will emit "@exec mkdir"-statements for empty directories
-# XXX will fail for data files that were copied using tar (e.g. emacs)!
-# XXX should check $LOCALBASE and $X11BASE, and add @cwd statements
-
-.if ${_USE_DESTDIR} == "no"
-_PRINT_PLIST_FILES_CMD=	\
-	${FIND} ${DESTDIR}${PREFIX}/. -xdev -newer ${_COOKIE.extract} \! -type d -print
-_PRINT_PLIST_DIRS_CMD=	\
-	${FIND} ${DESTDIR}${PREFIX}/. -xdev -newer ${_COOKIE.extract} -type d -print
-.else
+# List the content of $PREFIX and emit "@pkgdir " statements for
+# empty directories.
 _PRINT_PLIST_FILES_CMD=	\
 	${FIND} ${DESTDIR}${PREFIX}/. \! -type d -print
 _PRINT_PLIST_DIRS_CMD=	\
 	${FIND} ${DESTDIR}${PREFIX}/. -type d -print
-.endif
 
 .if !empty(LIBTOOLIZE_PLIST:M[yY][eE][sS])
 _PRINT_PLIST_LIBTOOLIZE_FILTER?=					\
@@ -103,7 +84,7 @@ _PRINT_PLIST_LIBTOOLIZE_FILTER?=	${CAT}
 .if !target(print-PLIST)
 print-PLIST:
 	${RUN} ${ECHO} '@comment $$'NetBSD'$$'
-	${RUN}\
+	${RUN} ${ALL_ENV};					\
 	shlib_type=${SHLIB_TYPE:Q};					\
 	case $$shlib_type in 						\
 	"a.out")	genlinks=1 ;;					\
@@ -136,6 +117,7 @@ print-PLIST:
 			if ('$$genlinks') print $$0;			\
 			next;						\
 		}							\
+		/^man\// { sub("\\.gz$$", ""); }			\
 		{ print $$0; }'
 	${RUN}\
 	for i in `${_PRINT_PLIST_DIRS_CMD}				\
@@ -148,7 +130,8 @@ print-PLIST:
 				{ sub("^${PKGINFODIR}/", "info/"); }	\
 				{ sub("^${PKGMANDIR}/", "man/"); }	\
 				/^${PKG_DBDIR:S|^${PREFIX}/||:S|/|\\/|g}(\/|$$)/ { next; } \
-				/^${PKGINFODIR:S|/|\\/|g}$$/ { next; }'` ;	\
+				/^${PKGINFODIR:S|/|\\/|g}$$/ { next; }	\
+				{ print $$0; }'` ;			\
 	do								\
 		if [ `${LS} -la ${DESTDIR}${PREFIX}/$$i | ${WC} -l` = 3 ]; then	\
 			${ECHO} @pkgdir $$i | ${AWK} '			\

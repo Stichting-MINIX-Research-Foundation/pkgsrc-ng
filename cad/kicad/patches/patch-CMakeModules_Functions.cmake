@@ -1,11 +1,11 @@
-$NetBSD: patch-CMakeModules_Functions.cmake,v 1.1.1.1 2014/02/17 20:38:59 bouyer Exp $
+$NetBSD: patch-CMakeModules_Functions.cmake,v 1.3 2016/09/08 09:32:28 bouyer Exp $
 
 Don't use ${CMAKE_MODULE_PATH} directly as it will be changed
 and containt multiple directories
 
---- CMakeModules/Functions.cmake.orig	2014-02-14 20:02:52.000000000 +0100
-+++ CMakeModules/Functions.cmake	2014-02-14 20:03:21.000000000 +0100
-@@ -33,9 +33,9 @@
+--- CMakeModules/Functions.cmake.orig	2016-09-03 22:47:43.000000000 +0200
++++ CMakeModules/Functions.cmake	2016-09-07 18:48:08.000000000 +0200
+@@ -36,9 +36,9 @@
              -DinputFile=${inputFile}
              -DoutHeaderFile=${outHeaderFile}
              -DoutCppFile=${outCppFile}

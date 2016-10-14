@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.19 2015/07/12 18:56:36 wiz Exp $
+# $NetBSD: Makefile,v 1.21 2016/06/08 19:25:15 wiz Exp $
 
-DISTNAME=	Starman-0.4011
+DISTNAME=	Starman-0.4014
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	www perl5

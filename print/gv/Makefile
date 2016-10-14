@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.81 2015/06/12 10:50:58 wiz Exp $
+# $NetBSD: Makefile,v 1.85 2016/07/09 06:38:50 wiz Exp $
 
 DISTNAME=	gv-3.7.4
-PKGREVISION=	3
+PKGREVISION=	7
 CATEGORIES=	print
 MASTER_SITES=	${MASTER_SITE_GNU:=gv/}
 
@@ -11,7 +11,7 @@ COMMENT=	PostScript and PDF previewer
 LICENSE=	gnu-gpl-v3
 
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		gmake gs:run makeinfo perl:run
+USE_TOOLS+=		gmake gs:run makeinfo perl:run pkg-config
 
 TEXINFO_REQD=		4.2
 INFO_FILES=		yes

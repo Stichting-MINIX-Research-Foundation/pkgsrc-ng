@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.3 2016/05/29 18:49:54 wiz Exp $
+
+SHA1 (libarchive-c-2.4.tar.gz) = 702412011a2ecca1b6d01922266f44617481deb1
+RMD160 (libarchive-c-2.4.tar.gz) = 1ac2f329e6118477dcaba6d9247573c513c6b214
+SHA512 (libarchive-c-2.4.tar.gz) = 7e7b1d422bb3d26c9ad5abe09b574a7a0909c29d66680b347504ed339573470cbc2f4bccbc7b77321f71cf3782b7836c80d3e2c52426e141bf5984b63ade0002
+Size (libarchive-c-2.4.tar.gz) = 41277 bytes

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.12 2015/06/12 10:49:09 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/08 19:22:51 wiz Exp $
 
-DISTNAME=	Devel-TraceUse-2.093
+DISTNAME=	Devel-TraceUse-2.094
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5
@@ -11,7 +11,6 @@ HOMEPAGE=	http://search.cpan.org/dist/Devel-TraceUse/
 COMMENT=	Show the modules your Perl program loads, recursively
 LICENSE=	${PERL5_LICENSE}
 
-PERL5_MODULE_TYPE=	Module::Build
 PERL5_PACKLIST=		auto/Devel/TraceUse/.packlist
 
 .include "../../lang/perl5/module.mk"

@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.10 2015/08/23 20:34:07 wiz Exp $
+# $NetBSD: Makefile,v 1.19 2016/07/09 06:38:01 wiz Exp $
 
-DISTNAME=	postgis-2.1.8
+DISTNAME=	postgis-2.2.2
 PKGNAME=	postgresql${PGSQL_VERSION}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	databases geography
 MASTER_SITES=	http://download.osgeo.org/postgis/source/
 
@@ -27,7 +28,7 @@ CONFLICTS=		postgis-[0-9]*
 # gmake complains about adding + to parent rule
 MAKE_JOBS_SAFE=		no
 
-PGSQL_VERSIONS_ACCEPTED=	90 91 92 93 94
+PGSQL_VERSIONS_ACCEPTED=	95 94 93 92 91
 
 USE_GCC_RUNTIME=	yes
 USE_LANGUAGES=		c c++ c99
@@ -36,6 +37,12 @@ USE_TOOLS+=		gmake lex pax perl
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-rpath
 CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/postgresql/contrib
+
+# The address standardizer needs more modules; see
+# share/doc/postgresql/extension/README.address_standardizer
+# for details.  Until they are required, disable it to ensure
+# repeatable builds.
+CONFIGURE_ARGS+=	--without-address-standardizer
 
 BUILD_TARGET=		all docs
 INSTALL_TARGET=		install docs-install
@@ -53,6 +60,7 @@ SUBST_STAGE.paths=	pre-configure
 INSTALLATION_DIRS=	${DOCDIR} ${DOCDIR}/images ${PKGMANDIR}/man1
 
 REPLACE_PERL+=		utils/postgis_restore.pl.in
+REPLACE_PERL+=		utils/create_spatial_ref_sys_config_dump.pl
 #MAKE_ENV+=		PERL5=${PERL5:Q}
 
 INSTALL_ENV+=		mkinstalldirs=${INSTALL_DATA_DIR:Q}

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.1.1.1 2010/03/15 18:34:36 asau Exp $
-#
+# $NetBSD: Makefile,v 1.3 2016/06/19 16:23:59 wiz Exp $
 
 DISTNAME=		mingw-3.3.1
+PKGREVISION=		1
 CATEGORIES=		cross
 MASTER_SITES=		# empty
 DISTFILES=		# empty

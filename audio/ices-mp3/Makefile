@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.27 2015/06/12 10:48:22 wiz Exp $
+# $NetBSD: Makefile,v 1.29 2016/06/08 19:22:14 wiz Exp $
 #
 
 DISTNAME=		ices-${ICES_VERSION}
 PKGNAME=		ices-mp3-${ICES_VERSION}
-PKGREVISION=		12
+PKGREVISION=		13
 ICES_VERSION=		0.4
 CATEGORIES=		audio
 MASTER_SITES=		http://svn.xiph.org/releases/ices/
@@ -11,6 +11,7 @@ MASTER_SITES=		http://svn.xiph.org/releases/ices/
 MAINTAINER=		kim@tac.nyc.ny.us
 HOMEPAGE=		http://www.icecast.org/ices.php
 COMMENT=		Source client for a streaming server
+LICENSE=		gnu-gpl-v2
 
 USE_TOOLS+=		automake pkg-config
 USE_LIBTOOL=		yes

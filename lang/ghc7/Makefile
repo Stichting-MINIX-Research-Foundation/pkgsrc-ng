@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.22 2015/08/18 07:31:01 wiz Exp $
+# $NetBSD: Makefile,v 1.27 2016/09/10 23:23:20 szptvlfn Exp $
 # -----------------------------------------------------------------------------
 # Package metadata
 #
 DISTNAME=	ghc-7.6.3-src
 PKGNAME=	${DISTNAME:S/-src$//}
-PKGREVISION=	8
+PKGREVISION=	11
 CATEGORIES=	lang
 MASTER_SITES=	http://www.haskell.org/ghc/dist/${PKGVERSION_NOREV}/
 EXTRACT_SUFX=	.tar.bz2
@@ -77,6 +77,8 @@ CONFIGURE_ENV+= \
 # the buildlink.
 .endfor
 
+NOT_PAX_MPROTECT_SAFE+=	lib/${PKGNAME_NOREV}/ghc
+NOT_PAX_MPROTECT_SAFE+=	lib/${PKGNAME_NOREV}/ghc-pkg
 
 # -----------------------------------------------------------------------------
 # Build hooks
@@ -150,16 +152,9 @@ PRINT_PLIST_AWK+=	/lib\/${PKGNAME_NOREV}\/package\.conf\.d/ { next; }
 # If we were lucky we could just use "PLIST_TYPE = dynamic", but the
 # feature has seemingly bitrotted.
 .include "../../mk/bsd.prefs.mk"
-.if empty(USE_DESTDIR:M[Yy][Ee][Ss])
 GENERATE_PLIST+= \
-	cd ${PREFIX:Q} && \
+	cd ${DESTDIR}${PREFIX} && \
 		${FIND} lib/${PKGNAME_NOREV}/package.conf.d -xdev -newer ${_COOKIE.extract} \! -type d -print | ${SORT} -d;
-.else
-GENERATE_PLIST+= \
-	cd ${DESTDIR:Q}${PREFIX:Q} && \
-		${FIND} lib/${PKGNAME_NOREV}/package.conf.d -xdev \! -type d -print | ${SORT} -d;
-.endif
-
 
 # -----------------------------------------------------------------------------
 # Sanity checks

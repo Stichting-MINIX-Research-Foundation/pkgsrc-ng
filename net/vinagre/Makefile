@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.61 2015/08/23 14:30:40 wiz Exp $
+# $NetBSD: Makefile,v 1.68 2016/09/19 13:04:26 wiz Exp $
 #
 
 DISTNAME=	vinagre-3.6.2
-PKGREVISION=	23
+PKGREVISION=	29
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/vinagre/3.6/}
 EXTRACT_SUFX=	.tar.xz
@@ -46,10 +46,8 @@ PLIST.telepathy= yes
 CONFIGURE_ARGS+= --without-telepathy
 .endif
 
-.if ${OPSYS} == "NetBSD"
 # Interface conflicts with glibc's version
-CONFIGURE_ARGS+=	ac_cv_func_ptsname_r=no
-.endif
+CONFIGURE_ARGS.NetBSD+=	ac_cv_func_ptsname_r=no
 
 .include "../../databases/shared-mime-info/mimedb.mk"
 BUILDLINK_API_DEPENDS.glib2+=	glib2>=2.28.0

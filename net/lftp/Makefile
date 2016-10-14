@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.114 2015/09/07 12:02:06 jperkin Exp $
+# $NetBSD: Makefile,v 1.118 2016/09/19 13:04:25 wiz Exp $
 
-DISTNAME=	lftp-4.6.3a
-PKGREVISION=	1
+DISTNAME=	lftp-4.7.2
+PKGREVISION=	2
 CATEGORIES=	net
 MASTER_SITES=	http://lftp.yar.ru/ftp/ \
 		ftp://ftp.tuwien.ac.at/infosys/browsers/ftp/lftp/ \
@@ -22,6 +22,13 @@ USE_TOOLS+=		autoconf bison
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-modules
+CONFIGURE_ENV+=		readline_prefix=${BUILDLINK_DIR}
+
+SUBST_CLASSES+=			readline
+SUBST_STAGE.readline=		pre-configure
+SUBST_MESSAGE.readline=		Detect pkgsrc readline
+SUBST_FILES.readline+=		configure
+SUBST_SED.readline+=		-e 's,/usr/local,${BUILDLINK_DIR},g'
 
 REPLACE_SH=		src/xdg-move
 SHLIBTOOL_OVERRIDE=	# empty
@@ -36,15 +43,12 @@ CONF_FILES=		${EGDIR}/lftp.conf.default ${PKG_SYSCONFDIR}/lftp.conf
 INSTALLATION_DIRS=	bin lib/lftp ${PKGMANDIR}/man1
 INSTALLATION_DIRS+=	share/examples/lftp share/lftp
 
-pre-configure:
-	cd ${WRKSRC} && autoconf
-
 post-install: post-install-perl
 	${INSTALL_DATA} ${WRKSRC}/lftp.conf ${DESTDIR}${EGDIR}/lftp.conf.default
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
-# uses _rl_mark_modified_lines
+# uses _rl_mark_modified_lines and GNU history(3) functions
 .include "../../devel/readline/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../textproc/expat/buildlink3.mk"

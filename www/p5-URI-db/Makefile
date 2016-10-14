@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.6 2015/06/12 10:52:13 wiz Exp $
+# $NetBSD: Makefile,v 1.9 2016/06/08 19:25:17 wiz Exp $
 
-DISTNAME=	URI-db-0.15
+DISTNAME=	URI-db-0.17
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

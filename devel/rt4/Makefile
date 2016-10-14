@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.21 2015/07/12 18:56:21 wiz Exp $
+# $NetBSD: Makefile,v 1.23 2016/07/09 06:38:12 wiz Exp $
 
-DISTNAME=	rt-4.2.11
+DISTNAME=	rt-4.2.12
 PKGNAME=	${DISTNAME:S/rt/rt4/}
 PKGREVISION=	1
 CATEGORIES=	devel

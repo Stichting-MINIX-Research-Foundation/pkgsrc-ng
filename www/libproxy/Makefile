@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.23 2015/04/27 11:03:42 jperkin Exp $
+# $NetBSD: Makefile,v 1.28 2016/06/26 12:03:53 kamil Exp $
 
-DISTNAME=	libproxy-0.4.11
+DISTNAME=	libproxy-0.4.13
 CATEGORIES=	www gnome
-MASTER_SITES=	http://libproxy.googlecode.com/files/
+MASTER_SITES=	${MASTER_SITE_GITHUB:=libproxy/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/libproxy/
+HOMEPAGE=	http://libproxy.github.io/libproxy/
 COMMENT=	Library that provides automatic proxy configuration management
 LICENSE=	gnu-lgpl-v2.1
 
@@ -14,8 +14,7 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config gmake
 USE_LANGUAGES=	c99 c++
 CMAKE_ARGS+=	-DWITH_PYTHON:BOOL=OFF
-
-OPSYSVARS+=	CMAKE_ARGS
+CMAKE_ARGS+=	-DWITH_KDE:BOOL=OFF
 
 # Need socket libraries on SunOS for both the shared library and test programs.
 CMAKE_ARGS.SunOS+=	-DCMAKE_EXE_LINKER_FLAGS:STRING="-lnsl -lsocket -L${PREFIX}/lib ${COMPILER_RPATH_FLAG}${PREFIX}/lib"

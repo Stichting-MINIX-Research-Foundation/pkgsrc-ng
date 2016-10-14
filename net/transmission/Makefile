@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2014/04/01 09:48:04 adam Exp $
+# $NetBSD: Makefile,v 1.7 2016/04/15 09:28:39 wiz Exp $
 
 CONFLICTS+=	Transmission-[0-9]*
 

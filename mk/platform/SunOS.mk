@@ -1,4 +1,4 @@
-# $NetBSD: SunOS.mk,v 1.65 2015/04/17 08:22:30 jperkin Exp $
+# $NetBSD: SunOS.mk,v 1.72 2016/08/25 12:08:29 jperkin Exp $
 #
 # Variable definitions for the SunOS/Solaris operating system.
 
@@ -24,6 +24,7 @@ ROOT_USER?=		root
 SERIAL_DEVICES?=	/dev/null
 ULIMIT_CMD_datasize?=	ulimit -d `${SETENV} LC_MESSAGES=C ulimit -H -d`
 ULIMIT_CMD_stacksize?=	ulimit -s `${SETENV} LC_MESSAGES=C ulimit -H -s`
+ULIMIT_CMD_cputime?=	ulimit -t `${SETENV} LC_MESSAGES=C ulimit -H -t`
 ULIMIT_CMD_memorysize?=	ulimit -v `${SETENV} LC_MESSAGES=C ulimit -H -v`
 USERADD?=		/usr/sbin/useradd
 
@@ -75,14 +76,10 @@ _PATCH_CAN_BACKUP=	yes		# native patch(1) can make backups
 _PATCH_BACKUP_ARG?= 	-b -V simple -z	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes		# add rpath to LDFLAGS
 
-# flags passed to the linker to extract all symbols from static archives.
-# this is the standard Solaris linker, /usr/ccs/bin/ld. The use of GNU
-# ld is not currently supported.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-z allextract
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-z defaultextract
-
 # Remove flags specific to GNU ld.
 BUILDLINK_TRANSFORM+=	rm:-Wl,--as-needed
+BUILDLINK_TRANSFORM+=	rm:-Wl,--disable-new-dtags
+BUILDLINK_TRANSFORM+=	rm:-Wl,--enable-new-dtags
 BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
 BUILDLINK_TRANSFORM+=	rm:-Wl,--gc-sections
 BUILDLINK_TRANSFORM+=	rm:-Wl,--no-as-needed
@@ -93,6 +90,11 @@ BUILDLINK_TRANSFORM+=	rm:-export-dynamic
 
 # Convert GNU ld flags to native SunOS ld flags where possible.
 BUILDLINK_TRANSFORM+=	opt:-Wl,--rpath:-Wl,-R
+
+# Remove GCC-specific flags if using clang
+.if ${PKGSRC_COMPILER} == "clang"
+BUILDLINK_TRANSFORM+=	rm:-mimpure-text
+.endif
 
 # Solaris has /usr/include/iconv.h, but it's not GNU iconv, so mark it
 # incompatible.
@@ -110,11 +112,13 @@ _OPSYS_SYSTEM_RPATH?=	/lib${LIBABISUFFIX}:/usr/lib${LIBABISUFFIX}
 _OPSYS_LIB_DIRS?=	/lib${LIBABISUFFIX} /usr/lib${LIBABISUFFIX}
 _OPSYS_INCLUDE_DIRS?=	/usr/include
 
-# Enable shlibs checks if readelf is set, not available by default.
-_OPSYS_CAN_CHECK_SHLIBS=	no
-.if !empty(TOOLS_PATH.readelf)
-_OPSYS_CAN_CHECK_SHLIBS=	yes
-.endif
+# support FORTIFY (with GCC)
+_OPSYS_SUPPORTS_FORTIFY=yes
+
+# support stack protection (with GCC)
+_OPSYS_SUPPORTS_SSP=	yes
+
+_OPSYS_CAN_CHECK_SHLIBS=	yes # requires readelf
 
 # check for maximum command line length and set it in configure's environment,
 # to avoid a test required by the libtool script that takes forever.

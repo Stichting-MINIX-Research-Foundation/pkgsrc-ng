@@ -1,7 +1,13 @@
-# $NetBSD: Makefile,v 1.38 2015/09/01 08:26:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.48 2016/07/29 11:11:24 wiz Exp $
+#
+# When updating this package, make sure that no strings like
+# "PR 12345" are in the commit message. Upstream likes
+# to reference their own PRs this way, but this ends up
+# in NetBSD GNATS.
 
-DISTNAME=	httpd-2.4.16
+DISTNAME=	httpd-2.4.23
 PKGNAME=	${DISTNAME:S/httpd/apache/}
+PKGREVISION=	2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_APACHE:=httpd/} \
 		http://archive.apache.org/dist/httpd/ \
@@ -15,7 +21,6 @@ LICENSE=	apache-2.0
 
 BUILD_DEFS+=	IPV6_READY
 BUILD_DEFS+=	VARBASE
-BUILD_DEFS+=	APACHE_CUSTOM_CFLAGS
 
 USE_LIBTOOL=		yes
 USE_TOOLS+=		pax perl pkg-config
@@ -28,7 +33,6 @@ CONFIGURE_ARGS+=	--with-apr-util=${BUILDLINK_PREFIX.apr-util}
 CONFIGURE_ARGS+=	--with-port=80
 CONFIGURE_ENV+=		perlbin=${PERL5:Q}
 CONFIGURE_ENV+=		ac_cv_path_RSYNC=/nonexistent
-CONFIGURE_ENV+=		CFLAGS=${APACHE_CUSTOM_CFLAGS:M*:Q}
 
 CFLAGS.SunOS+=	-D_XOPEN_SOURCE -D_XOPEN_SOURCE_EXTENDED=1 -D__EXTENSIONS__
 
@@ -45,18 +49,16 @@ BUILDLINK_API_DEPENDS.apr-util+=	apr-util>=1.5.3
 
 CONFIGURE_ARGS+=	--disable-xml2enc
 CONFIGURE_ARGS+=	--disable-proxy-html
+CONFIGURE_ARGS+=	--enable-proxy-fdpass
 
 DFLT_APACHE_MODULES+=	all
 APACHE_MODULES?=	${DFLT_APACHE_MODULES}
 
 .include "options.mk"
 
-FIND_PREFIX:=	APRDIR=apr
-.include "../../mk/find-prefix.mk"
-
 # LDAP support
 PLIST_VARS+=		ldap
-.if exists(${APRDIR}/lib/apr-util-1/apr_ldap.la)
+.if exists(${LOCALBASE}/lib/apr-util-1/apr_ldap.la)
 DFLT_APACHE_MODULES+=	ldap authnz_ldap
 PLIST.ldap=		yes
 .endif
@@ -166,7 +168,7 @@ INSTALL_TARGET=		install-conf install
 INSTALL_MAKE_FLAGS+=	sysconfdir="${EGDIR}"
 
 post-install:
-	${LN} -sf ${APRDIR}/libexec/apr/libtool ${DESTDIR}${PREFIX}/share/httpd/build
+	${LN} -sf ${LOCALBASE}/libexec/apr/libtool ${DESTDIR}${PREFIX}/share/httpd/build
 	${LN} -sf ${SBINDIR}/envvars-std ${DESTDIR}${SBINDIR}/envvars
 
 	${INSTALL_SCRIPT} ${WRKDIR}/mkcert ${DESTDIR}${PREFIX}/bin

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/06/30 09:57:38 ryoon Exp $
+# $NetBSD: Makefile,v 1.9 2016/08/17 00:06:39 ryoon Exp $
 
 PKGNAME=	${DISTNAME:S/ffmpeg/ffmpeg1/}
-PKGREVISION=	1
+PKGREVISION=	4
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ffmpeg.mplayerhq.hu/
 COMMENT=	Decoding, encoding and streaming software (v1.x)
@@ -9,6 +9,8 @@ COMMENT=	Decoding, encoding and streaming software (v1.x)
 CONFIGURE_ARGS+=	--enable-avfilter
 #CONFIGURE_ARGS+=	--enable-avfilter-lavf
 CONFIGURE_ARGS+=	--enable-postproc
+CONFIGURE_ARGS+=	--host-cflags=${CFLAGS:Q}
+CONFIGURE_ARGS+=	--host-ldflags=${LDFLAGS:Q}
 
 INSTALLATION_DIRS=	lib share/examples/ffmpeg1 share/doc/ffmpeg1
 
@@ -48,7 +50,7 @@ post-install:
    || !empty(CC_VERSION:Mgcc-4.[01].*) \
    ||  empty(CC_VERSION:Mgcc*)
 CONFIGURE_ARGS+=	--disable-asm
-.  elif !empty(CC_VERSION:Mgcc-4.*)
+.  elif !empty(CC_VERSION:Mgcc-[456].*)
 CFLAGS+=		-mstackrealign -mpreferred-stack-boundary=4
 .  endif
 .endif

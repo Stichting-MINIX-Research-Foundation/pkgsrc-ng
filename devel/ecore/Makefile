@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.11 2015/04/23 09:18:57 jperkin Exp $
+# $NetBSD: Makefile,v 1.13 2016/03/05 11:27:44 jperkin Exp $
 #
 
 DISTNAME=	ecore-1.7.7
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://download.enlightenment.org/releases/
 EXTRACT_SUFX=	.tar.bz2
@@ -15,8 +15,6 @@ LICENSE=	2-clause-bsd
 GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
-
-OPSYSVARS+=	CONFIGURE_ARGS
 
 CONFIGURE_ARGS+=	--disable-ecore-directfb \
 			--enable-ecore-desktop \

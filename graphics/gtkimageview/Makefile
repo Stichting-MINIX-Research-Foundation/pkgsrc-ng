@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.34 2015/09/07 23:38:18 gdt Exp $
+# $NetBSD: Makefile,v 1.36 2016/08/03 10:22:53 adam Exp $
 
 DISTNAME=	gtkimageview-1.6.4
-PKGREVISION=	21
+PKGREVISION=	22
 CATEGORIES=	graphics
 MASTER_SITES= 	http://trac.bjourne.webfactional.com/chrome/common/releases/
 
@@ -24,6 +24,8 @@ USE_LIBTOOL=	yes
 USE_TOOLS+=	gmake pkg-config
 
 PKGCONFIG_OVERRIDE+=	gtkimageview-1.0.pc.in
+
+BUILDLINK_TRANSFORM+=	rm:-Werror
 
 TEST_TARGET=	check
 

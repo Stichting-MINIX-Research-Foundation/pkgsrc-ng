@@ -1,13 +1,13 @@
-# $NetBSD: Makefile,v 1.37 2015/09/12 23:00:08 joerg Exp $
+# $NetBSD: Makefile,v 1.39 2016/07/09 06:38:44 wiz Exp $
 
 DISTNAME=		netdisco-${PKGVERSION}_with_mibs
 PKGNAME=		netdisco-${PKGVERSION}
 PKGVERSION=		1.3.3
-#PKGREVISION=		1
+PKGREVISION=		1
 CATEGORIES=		net
-DISTFILES=		${DEFAULT_DISTFILES} oui.txt
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=netdisco/}
 SITES.oui.txt=		http://standards.ieee.org/regauth/oui/
+DISTFILES=		${DEFAULT_DISTFILES} oui.txt
 
 MAINTAINER=		bouyer@NetBSD.org
 HOMEPAGE=		http://www.netdisco.org/
@@ -30,6 +30,8 @@ DEPENDS+=		p5-libapreq2-[0-9]*:../../www/p5-libapreq2
 DEPENDS+=		p5-Parallel-ForkManager-[0-9]*:../../devel/p5-Parallel-ForkManager
 
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
+
+INSTALLATION_DIRS=	${EGDIR} ${PKGBASE}
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -146,8 +148,6 @@ do-build:
 do-install:
 	${RM} -f ${WRKSRC:Q}/bin/netdisco_daemon
 	cd ${WRKSRC:Q} && pax -rw -pp . ${DESTDIR}${PREFIX:Q}/netdisco
-	${MKDIR} ${DESTDIR}${EGDIR}
-
 	set -e; \
 	for i in netdisco.conf netdisco-topology.txt netdisco.crontab \
 	    netdisco_apache.conf netdisco_apache_dir.conf; do \

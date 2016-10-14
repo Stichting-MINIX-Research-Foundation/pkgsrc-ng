@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.26 2015/06/07 14:05:57 youri Exp $
+# $NetBSD: Makefile,v 1.31 2016/08/03 10:22:31 adam Exp $
 
 DISTNAME=	rhythmbox-3.0.1
-PKGREVISION=	6
+PKGREVISION=	10
 CATEGORIES=	audio gnome
 MASTER_SITES=	${MASTER_SITE_GNOME:=sources/rhythmbox/${PKGVERSION_NOREV:R}/}
 EXTRACT_SUFX=	.tar.xz
@@ -37,11 +37,11 @@ PYTHON_VERSIONS_INCOMPATIBLE=	27
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 # needs introspection support
-BUILDLINK_API_DEPENDS.gstreamer1+=  gstreamer1>=1.0.6
-BUILDLINK_API_DEPENDS.gst-plugins1-base+= gst-plugins1-base>=1.0.6
+BUILDLINK_API_DEPENDS.gstreamer1+=		gstreamer1>=1.0.6
+BUILDLINK_API_DEPENDS.gst-plugins1-base+=	gst-plugins1-base>=1.0.6
 .include "../../multimedia/gstreamer1/buildlink3.mk"
 .include "../../multimedia/gst-plugins1-base/buildlink3.mk"
-BUILDLINK_API_DEPENDS.totem-pl-parser+= totem-pl-parser>=3.2.0
+BUILDLINK_API_DEPENDS.totem-pl-parser+=		totem-pl-parser>=3.2.0
 .include "../../multimedia/totem-pl-parser/buildlink3.mk"
 .include "../../net/libsoup/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"

@@ -1,10 +1,13 @@
-# $NetBSD: Makefile,v 1.51 2015/04/25 14:23:18 tnn Exp $
+# $NetBSD: Makefile,v 1.56 2016/08/03 23:41:48 kamil Exp $
 
-DISTNAME=		matplotlib-1.3.1
-PKGNAME=		${PYPKGPREFIX}-matplotlib-gtk-1.3.1
-PKGREVISION=		2
+
+VERSION=		1.5.2
+DISTNAME=		matplotlib-${VERSION}
+PKGNAME=		${PYPKGPREFIX}-matplotlib-gtk-${VERSION}
 CATEGORIES=		graphics python
-MASTER_SITES=		https://github.com/downloads/matplotlib/matplotlib/
+MASTER_SITES=		${MASTER_SITE_GITHUB:=matplotlib/}
+GITHUB_PROJECT=		matplotlib
+GITHUB_TAG=		v${PKGVERSION_NOREV}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://matplotlib.sourceforge.net/
@@ -13,7 +16,7 @@ COMMENT=		GTK frontend for matplotlib
 USE_TOOLS+=		pkg-config
 PY_PATCHPLIST=		yes
 PYDISTUTILSPKG=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-gtk2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-gtk2
 USE_LANGUAGES=		c c++
 
 post-patch:
@@ -31,6 +34,17 @@ post-patch:
 
 post-install:
 	${RM} -r ${DESTDIR}/${PREFIX}/${PYSITELIB}/${EGG_INFODIR}
+
+# It needs:
+# devel/py-cycler
+# devel/py-nose
+# devel/py-mock
+do-test:
+	${ECHO} "backend      : GTKAgg" > ${WRKSRC}/matplotlibrc
+	${RUN} cd ${WRKSRC} && MPLCONFIGDIR=$PWD \
+	MATPLOTLIBDATA=${WRKSRC}/lib/matplotlib/mpl-data \
+	PYTHONPATH=${DESTDIR}${PREFIX}/${PYSITELIB} \
+	${PYTHONBIN} -c "import matplotlib; matplotlib.test()"
 
 .include "../../lang/python/egg.mk"
 .include "../../graphics/py-matplotlib/buildlink3.mk"

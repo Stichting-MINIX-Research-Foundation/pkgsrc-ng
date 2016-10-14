@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2015/06/30 11:52:57 jaapb Exp $
+# $NetBSD: Makefile,v 1.5 2016/05/05 11:45:39 jaapb Exp $
 
-PKGNAME= ${DISTNAME} # defined to avoid prefixing with ocaml-
 DISTNAME=	ocamlify-0.0.2
-PKGREVISION=	2
+PKGREVISION=	3
 CATEGORIES=	devel
 MASTER_SITES=	http://forge.ocamlcore.org/frs/download.php/1209/
 
@@ -12,6 +11,7 @@ COMMENT=	Allows embedding external resources as OCaml code
 LICENSE=	gnu-lgpl-v2.1
 
 OCAML_USE_OASIS=	yes
+OCAML_FINDLIB_REGISTER=	no
 
 .include "../../mk/ocaml.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.53 2014/11/04 08:36:17 tron Exp $
+# $NetBSD: Makefile,v 1.56 2016/06/27 19:16:02 maya Exp $
 
-DISTNAME=	libtorrent-0.13.4
+DISTNAME=	libtorrent-0.13.6
 PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	http://libtorrent.rakshasa.no/downloads/
+MASTER_SITES=	http://rtorrent.net/downloads/
 
-OWNER=		tron@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://rakshasa.github.io/rtorrent/
 COMMENT=	BitTorrent library written in C++ for *nix
 LICENSE=	gnu-gpl-v2
@@ -39,7 +39,7 @@ CONFIGURE_ARGS+=	--with-kqueue
 .include "../../mk/compiler.mk"
 
 # See http://libtorrent.rakshasa.no/ticket/96
-.if !empty(CC_VERSION:Mgcc-4.*)
+.if !empty(CC_VERSION:Mgcc-[45].*)
 CXXFLAGS+=	-fpermissive -fno-strength-reduce -fno-thread-jumps \
 		-fno-inline -fforce-addr
 .endif

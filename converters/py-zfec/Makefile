@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.13 2015/09/13 20:29:59 gdt Exp $
+# $NetBSD: Makefile,v 1.16 2016/07/09 13:03:34 wiz Exp $
 
 DISTNAME=	zfec-1.4.24
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	converters
-MASTER_SITES=	http://pypi.python.org/packages/source/z/zfec/
+MASTER_SITES=	${MASTER_SITE_PYPI:=z/zfec/}
 
 MAINTAINER=	gdt@ir.bbn.com
 HOMEPAGE=	http://pypi.python.org/pypi/zfec/
@@ -24,7 +24,7 @@ REPLACE.python.old=    /usr/bin/env python
 REPLACE.python.new=    ${PYTHONBIN}
 REPLACE_FILES.python=  zfec/cmdline_zfec.py zfec/cmdline_zunfec.py zfec/test/test_zfec.py
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-twisted via py-setuptools_trial
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-twisted via py-setuptools_trial
 
 .include "../../lang/python/egg.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,16 +1,25 @@
-$NetBSD: patch-mozilla_config_system-headers,v 1.2 2015/09/07 15:19:10 ryoon Exp $
+$NetBSD: patch-mozilla_config_system-headers,v 1.5 2016/01/31 23:43:48 joerg Exp $
 
 --- mozilla/config/system-headers.orig	2015-05-07 18:53:47.000000000 +0000
 +++ mozilla/config/system-headers
-@@ -415,6 +415,7 @@ freetype/ftbitmap.h
+@@ -415,6 +415,8 @@ freetype/ftbitmap.h
  freetype/ftxf86.h
  freetype.h
  ftcache.h
++freetype/ftfntfmt.h
 +ftfntfmt.h
  ftglyph.h
  ftsynth.h
  ftoutln.h
-@@ -1048,8 +1049,6 @@ X11/Xlocale.h
+@@ -645,6 +647,7 @@ mapiutil.h
+ mapix.h
+ Math64.h
+ math.h
++complex
+ mbstring.h
+ mem.h
+ memory
+@@ -1048,8 +1051,6 @@ X11/Xlocale.h
  X11/Xos.h
  X11/Xutil.h
  zmouse.h
@@ -19,7 +28,7 @@ $NetBSD: patch-mozilla_config_system-headers,v 1.2 2015/09/07 15:19:10 ryoon Exp
  #if MOZ_NATIVE_PNG==1
  png.h
  #endif
-@@ -1117,6 +1116,8 @@ ogg/ogg.h
+@@ -1117,6 +1118,8 @@ ogg/ogg.h
  ogg/os_types.h
  nestegg/nestegg.h
  cubeb/cubeb.h
@@ -28,13 +37,15 @@ $NetBSD: patch-mozilla_config_system-headers,v 1.2 2015/09/07 15:19:10 ryoon Exp
  #endif
  gst/gst.h
  gst/app/gstappsink.h
-@@ -1145,3 +1146,37 @@ unicode/utypes.h
+@@ -1145,3 +1148,39 @@ unicode/utypes.h
  #endif
  libutil.h
  unwind.h
 +#if MOZ_NATIVE_GRAPHITE2==1
 +graphite2/Font.h
++graphite2/Log.h
 +graphite2/Segment.h
++graphite2/Types.h
 +#endif
 +#if MOZ_NATIVE_HARFBUZZ==1
 +harfbuzz/hb-ot.h

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.82 2015/08/25 02:03:53 mef Exp $
+# $NetBSD: Makefile,v 1.87 2016/09/16 10:31:59 wiz Exp $
 #
 
 COMMENT=	CAD tools
@@ -32,10 +32,12 @@ SUBDIR+=	gsmc
 SUBDIR+=	gtk1-wcalc
 SUBDIR+=	gtk2-wcalc
 SUBDIR+=	gtkwave
-SUBDIR+=	gwave
 SUBDIR+=	kicad
 SUBDIR+=	kicad-doc
+SUBDIR+=	kicad-footprints
+SUBDIR+=	kicad-i18n
 SUBDIR+=	kicad-lib
+SUBDIR+=	klayout
 SUBDIR+=	librecad
 SUBDIR+=	libwcalc
 SUBDIR+=	magic
@@ -49,12 +51,9 @@ SUBDIR+=	openscad
 SUBDIR+=	p5-gds2
 SUBDIR+=	pcb
 SUBDIR+=	py-MyHDL
+SUBDIR+=	py-gds
 SUBDIR+=	py-simpy
 SUBDIR+=	qcad
-SUBDIR+=	qcad-manual-cs
-SUBDIR+=	qcad-manual-de
-SUBDIR+=	qcad-manual-en
-SUBDIR+=	qcad-manual-hu
 SUBDIR+=	qcad-partlibrary
 SUBDIR+=	sci-wcalc
 SUBDIR+=	spice

@@ -1,4 +1,4 @@
-# $NetBSD: AIX.mk,v 1.40 2013/04/28 12:53:56 obache Exp $
+# $NetBSD: AIX.mk,v 1.42 2016/03/10 16:58:19 jperkin Exp $
 #
 # Variable definitions for the AIX operating system.
 
@@ -48,11 +48,6 @@ _PATCH_CAN_BACKUP=	yes	# native patch(1) can make backups
 _PATCH_BACKUP_ARG?=	-b -V simple -z 	# switch to patch(1) for backup suffix
 _USE_RPATH=		yes	# add rpath to LDFLAGS
 
-# flags passed to the linker to extract all symbols from static archives.
-# this is GNU ld.
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
-
 _STRIPFLAG_CC?=		${_INSTALL_UNSTRIPPED:D:U-s}	# cc(1) option to strip
 _STRIPFLAG_INSTALL?=	${_INSTALL_UNSTRIPPED:D:U-s}	# install(1) option to strip
 
@@ -66,3 +61,11 @@ _OPSYS_CAN_CHECK_SHLIBS=	no # can't use readelf in check/bsd.check-vars.mk
 # to avoid a test required by the libtool script that takes forever.
 # FIXME: Adjust to work on this system and enable the lines below.
 #_OPSYS_MAX_CMDLEN_CMD=	/sbin/sysctl -n kern.argmax
+
+# On AIX, there are a handful of utilies (i.e., ar(1), ld(1), strip(1), etc)
+# that care about the type of object files they should examine via the various'
+# flags.  Alternatively, it is easier to export OBJECT_MODE with the
+# appropriate $ABI versus piping through flags for all related utilities.
+.if defined(ABI)
+ALL_ENV+=	OBJECT_MODE=${ABI}
+.endif

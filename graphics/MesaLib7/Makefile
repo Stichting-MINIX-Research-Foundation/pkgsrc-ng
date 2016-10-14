@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.1 2015/04/05 17:01:37 tnn Exp $
+# $NetBSD: Makefile,v 1.8 2016/08/29 03:59:49 mef Exp $
 
 DISTNAME?=	${MESA_DISTNAME}
 PKGNAME=	MesaLib7-${MESA_PKGVERSION}
+PKGREVISION=	2
 CATEGORIES=	graphics
 MASTER_SITES=	${MESA_SITES}
 EXTRACT_SUFX=	.tar.bz2
@@ -10,11 +11,11 @@ MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.mesa3d.org/
 COMMENT=	Graphics library similar to SGI's OpenGL
 
-INSTALLATION_PREFIX=	${LOCALBASE}/MesaLib7
+GNU_CONFIGURE_PREFIX=	${LOCALBASE}/MesaLib7
 
 DISTFILES+=		MesaLib-${MESA_VERSION}${EXTRACT_SUFX}
 MESA_DISTNAME= 		MesaLib-${MESA_VERSION}
-MESA_SITES=		ftp://freedesktop.org/pub/mesa/${MESA_VERSION}/
+MESA_SITES=		ftp://freedesktop.org/pub/mesa/older-versions/7.x/${MESA_VERSION}/
 MESA_VERSION=		7.11.2
 MESA_PKGVERSION=	${MESA_VERSION}
 
@@ -27,6 +28,8 @@ DIST_SUBDIR=		Mesa-${MESA_PKGVERSION}
 CONFLICTS+=	xf86driproto<2.0.4
 
 PLIST_VARS=		dri nodri
+
+BUILDLINK_PASSTHRU_RPATHDIRS+=	${PREFIX}/MesaLib7/lib
 
 PKGCONFIG_OVERRIDE+=	src/mesa/drivers/dri/dri.pc.in
 PKGCONFIG_OVERRIDE+=	src/mesa/gl.pc.in
@@ -43,7 +46,7 @@ CONFIGURE_ARGS+=	--disable-egl
 .include "glx-config.mk"
 
 PYTHON_FOR_BUILD_ONLY=		tool
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 7.11.2
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 7.11.2
 
 MAKE_ENV+=		MAKE=${GMAKE:Q}
 
@@ -53,10 +56,11 @@ MAKE_ENV+=		MAKE=${GMAKE:Q}
 CFLAGS+=	-D__FUNCTION__=__FILE__
 .endif
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-fvisibility=hidden
+.if !empty(PKGSRC_COMPILER:Mclang)
+CFLAGS+=	-no-integrated-as -fvisibility=hidden
 .endif
+
+BUILDLINK_TRANSFORM.MirBSD+=	rm:-fvisibility=hidden
 
 .if !empty(USE_CROSS_COMPILE:M[yY][eE][sS])
 # XXX This is not quite enough: we will need to patch the makefile
@@ -121,16 +125,6 @@ post-extract:
 #
 pre-install:
 	${RM} -f ${WRKSRC}/include/GL/glu*.h
-
-.include "../../mk/compiler.mk"
-
-.if !empty(PKGSRC_COMPILER:Mclang)
-CFLAGS+=	-no-integrated-as -fvisibility=hidden
-.endif
-
-.if ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-fvisibility=hidden
-.endif
 
 .include "../../lang/python/tool.mk"
 BUILDLINK_DEPMETHOD.libxml2?=	build

@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.3 2015/06/12 10:50:48 wiz Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/26 06:16:13 wen Exp $
 
-DISTNAME=	Net-OpenID-Common-1.19
+DISTNAME=	Net-OpenID-Common-1.20
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
 CATEGORIES=	net
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Net/}
 

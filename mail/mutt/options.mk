@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.16 2015/09/12 15:25:53 joerg Exp $
+# $NetBSD: options.mk,v 1.24 2016/09/28 08:04:05 wiz Exp $
 
 # Global and legacy options
 
@@ -8,12 +8,9 @@ PKG_OPTIONS_GROUP.display=	slang ncurses ncursesw curses
 PKG_SUPPORTED_OPTIONS=	debug gpgme idn ssl smime sasl
 PKG_SUPPORTED_OPTIONS+=	mutt-hcache tokyocabinet mutt-smtp
 PKG_SUPPORTED_OPTIONS+=	mutt-compressed-mbox
-PKG_SUPPORTED_OPTIONS+=	mutt-sidebar
-PKG_SUGGESTED_OPTIONS=	ssl smime curses
-# un-comment out the following lines whenever updating distinfo
-# and patches are up-to-date
+PKG_SUGGESTED_OPTIONS=	curses gpgme mutt-hcache mutt-smtp smime ssl
+# patch does not apply
 #PKG_SUGGESTED_OPTIONS+=	mutt-compressed-mbox
-#PKG_SUGGESTED_OPTIONS+=	mutt-sidebar
 
 .include "../../mk/bsd.options.mk"
 
@@ -21,8 +18,8 @@ PKG_SUGGESTED_OPTIONS=	ssl smime curses
 ### Slang
 ###
 .if !empty(PKG_OPTIONS:Mslang)
-.  include "../../devel/libslang/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-slang=${BUILDLINK_PREFIX.libslang}
+.  include "../../devel/libslang2/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-slang=${BUILDLINK_PREFIX.libslang2}
 .endif
 
 ###
@@ -46,12 +43,11 @@ CONFIGURE_ARGS+=	--with-sasl=${BUILDLINK_PREFIX.cyrus-sasl}
 ###
 .if !empty(PKG_OPTIONS:Mcurses)
 .  include "../../mk/curses.buildlink3.mk"
-.  if ${OPSYS} == "SunOS"
-BUILDLINK_PASSTHRU_DIRS+=	/usr/xpg4
-CONFIGURE_ARGS+=	--with-curses=/usr/xpg4
-LDFLAGS+=		-L/usr/xpg4/lib${LIBABISUFFIX}
-LDFLAGS+=		${COMPILER_RPATH_FLAG}/usr/xpg4/lib${LIBABISUFFIX}
-.  endif
+OPSYSVARS+=			BUILDLINK_PASSTHRU_DIRS
+BUILDLINK_PASSTHRU_DIRS.SunOS+=	/usr/xpg4
+CONFIGURE_ARGS.SunOS+=		--with-curses=/usr/xpg4
+LDFLAGS.SunOS+=			-L/usr/xpg4/lib${LIBABISUFFIX}
+LDFLAGS.SunOS+=			${COMPILER_RPATH_FLAG}/usr/xpg4/lib${LIBABISUFFIX}
 .endif
 
 ###
@@ -121,10 +117,14 @@ CONFIGURE_ARGS+=	--disable-hcache
 ### Compressed mail boxes
 ###
 PLIST_VARS+=		compressed_mbox
-.if !empty(PKG_OPTIONS:Mmutt-compressed-mbox)
+.if !empty(PKG_OPTIONS:Mmutt-compressed-mbox)	\
+	|| make(distinfo) || make(mps) || make(makepatchsum)
 PLIST.compressed_mbox=	yes
-PATCH_SITES+=		http://mutt.org.ua/download/${PKGNAME_NOREV}/
-PATCHFILES+=		patch-${PKGVERSION_NOREV}.rr.compressed.gz
+#PATCH_SITES+=		http://mutt.org.ua/download/${PKGNAME_NOREV}/
+#PATCHFILES+=		patch-${PKGVERSION_NOREV}.rr.compressed.gz
+# use the 1.6.0 patch, as suggested by Andreas Kusalananda Kahari
+PATCH_SITES+=		http://mutt.org.ua/download/mutt-1.6.0/
+PATCHFILES+=		patch-1.6.0.rr.compressed.gz
 PATCH_DIST_STRIP=	-p1
 CONFIGURE_ARGS+=	--enable-compressed
 SUBST_CLASSES+=		compress
@@ -136,6 +136,7 @@ SUBST_SED.compress+=	-e 's,^EXTRA_DIST = ,EXTRA_DIST = compress.h ,'
 SUBST_SED.compress+=	-e 's,^mutt_OBJECTS = ,mutt_OBJECTS = compress.o ,'
 # add xsltproc to be able to regenerate the documentation
 BUILD_DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
+BUILD_DEPENDS+=		docbook-xsl-[0-9]*:../../textproc/docbook-xsl
 .endif
 
 ###
@@ -145,17 +146,6 @@ BUILD_DEPENDS+=		libxslt-[0-9]*:../../textproc/libxslt
 CONFIGURE_ARGS+=	--enable-smtp
 .else
 CONFIGURE_ARGS+=	--disable-smtp
-.endif
-
-###
-### Sidebar support
-###
-.if !empty(PKG_OPTIONS:Mmutt-sidebar)
-# http://www.lunar-linux.org/mutt-sidebar/
-PATCH_SITES+=		http://lunar-linux.org/~tchan/mutt/
-PATCHFILES+=		patch-1.5.23.sidebar.20140412.txt
-PATCH_DIST_STRIP=	-p1
-PATCH_FUZZ_FACTOR=	-F1
 .endif
 
 ###

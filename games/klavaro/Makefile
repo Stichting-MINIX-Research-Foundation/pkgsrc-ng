@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.4 2015/04/25 14:22:58 tnn Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/03 10:22:47 adam Exp $
 
 DISTNAME=	klavaro-2.01
-PKGREVISION=	3
+PKGREVISION=	5
 CATEGORIES=	games
 MASTER_SITES=	http://downloads.sourceforge.net/project/klavaro/
 EXTRACT_SUFX=	.tar.bz2
@@ -13,7 +13,7 @@ LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
-USE_TOOLS+=		gmake intltool pkg-config
+USE_TOOLS+=		gettext gmake intltool pkg-config
 
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 .include "../../www/curl/buildlink3.mk"

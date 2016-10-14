@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.23 2015/06/12 10:49:45 wiz Exp $
+# $NetBSD: Makefile,v 1.25 2016/08/05 22:49:57 mef Exp $
 
-DISTNAME=	Sub-Uplevel-0.25
-PKGNAME=	p5-${DISTNAME}00
-PKGREVISION=	1
+DISTNAME=	Sub-Uplevel-0.2600
+PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Sub/}
 

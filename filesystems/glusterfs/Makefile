@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.54 2015/09/01 16:02:54 manu Exp $
+# $NetBSD: Makefile,v 1.71 2016/08/22 14:07:31 manu Exp $
 
-DISTNAME=	glusterfs-3.7.4
+DISTNAME=	glusterfs-3.8.3
 #PKGREVISION=	1
 CATEGORIES=	filesystems
 MASTER_SITES=	http://bits.gluster.org/pub/gluster/glusterfs/src/
@@ -21,9 +21,11 @@ CONFIGURE_ARGS+=	--localstatedir=${VARBASE}
 # Only libfl.a is available, and libtool wants libfl.so
 MAKE_FLAGS+=		LEXLIB=""
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # only 2.x supported as of 3.6.0
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # only 2.x supported as of 3.6.0
 
 REPLACE_PYTHON+=	contrib/ipaddr-py/ipaddr.py
+REPLACE_PYTHON+=	extras/ganesha/scripts/generate-epoch.py
+REPLACE_PYTHON+=	extras/geo-rep/schedule_georep.py.in
 REPLACE_PYTHON+=	extras/snap_scheduler/gcron.py
 REPLACE_PYTHON+=	extras/snap_scheduler/snap_scheduler.py
 REPLACE_PYTHON+=	geo-replication/src/peer_mountbroker.in
@@ -46,6 +48,9 @@ REPLACE_PYTHON+=	tools/glusterfind/src/utils.py
 REPLACE_BASH+=		extras/ganesha/ocf/ganesha_grace
 REPLACE_BASH+=		extras/ganesha/ocf/ganesha_mon
 REPLACE_BASH+=		extras/ganesha/ocf/ganesha_nfsd
+REPLACE_BASH+=		extras/ganesha/scripts/copy-export-ganesha.sh
+REPLACE_BASH+=		extras/ganesha/scripts/create-export-ganesha.sh
+REPLACE_BASH+=		extras/ganesha/scripts/dbus-send.sh
 REPLACE_BASH+=		extras/ganesha/scripts/ganesha-ha.sh
 REPLACE_BASH+=		extras/geo-rep/generate-gfid-file.sh
 REPLACE_BASH+=		extras/geo-rep/get-gfid.sh
@@ -55,6 +60,7 @@ REPLACE_BASH+=		extras/peer_add_secret_pub.in
 REPLACE_BASH+=		extras/peer_add_secret_pub.in
 REPLACE_BASH+=		extras/post-upgrade-script-for-quota.sh
 REPLACE_BASH+=		extras/pre-upgrade-script-for-quota.sh
+REPLACE_BASH+=		extras/stop-all-gluster-processes.sh
 REPLACE_BASH+=		geo-replication/src/gverify.sh
 REPLACE_BASH+=		geo-replication/src/peer_gsec_create.in
 REPLACE_BASH+=		geo-replication/src/set_geo_rep_pem_keys.sh
@@ -77,7 +83,7 @@ SUBST_SED.etc=		-e "s,/etc/gluster,${PREFIX}/etc/gluster,g"
 SUBST_CLASSES+=		vol
 SUBST_STAGE.vol=	post-build
 SUBST_FILES.vol=	extras/Makefile
-SUBST_SED.vol=		-e "/^vol_DATA/s/glusterd.vol/glusterd.vol.sample/g"
+SUBST_SED.vol=		-e "/vol_DATA/s/glusterd.vol/glusterd.vol.sample/g"
 
 EGDIR=			${PREFIX}/etc/glusterfs
 CONF_FILES+=		${EGDIR}/glusterd.vol.sample ${EGDIR}/glusterd.vol
@@ -90,6 +96,7 @@ PLIST_SRC=		${PLIST_SRC_DFLT}
 PLIST_SUBST+=		VARBASE=${VARBASE}
 PLIST_SUBST+=		PKG_SYSCONFDIR=${PKG_SYSCONFDIR}
 PLIST_SUBST+=		PYSITELIB=${PYSITELIB:Q}
+PLIST_SUBST+=		GLUSTERFS_VERSION=${DISTNAME:S/glusterfs-//}
 MESSAGE_SRC=		${PKGDIR}/MESSAGE.${OPSYS}
 
 pre-build:

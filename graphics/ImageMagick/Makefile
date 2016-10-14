@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.219 2015/07/01 12:41:20 wiz Exp $
+# $NetBSD: Makefile,v 1.227 2016/07/18 08:09:39 leot Exp $
 
 .include "Makefile.common"
 
@@ -22,12 +22,10 @@ CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFBASEDIR}
 # This one used to be optional, but it depends on ghostscript even if it's
 # disabled so having a way to disable it seems pointless.
 CONFIGURE_ARGS+=	--with-gslib
-PKGCONFIG_OVERRIDE=	Magick++/lib/ImageMagick++.pc.in
+PKGCONFIG_OVERRIDE+=	MagickWand/MagickWand.pc.in
+PKGCONFIG_OVERRIDE+=	MagickCore/MagickCore.pc.in
+PKGCONFIG_OVERRIDE+=	MagickCore/ImageMagick.pc.in
 PKGCONFIG_OVERRIDE+=	Magick++/lib/Magick++.pc.in
-PKGCONFIG_OVERRIDE+=	magick/ImageMagick.pc.in
-PKGCONFIG_OVERRIDE+=	magick/MagickCore.pc.in
-PKGCONFIG_OVERRIDE+=	wand/MagickWand.pc.in
-PKGCONFIG_OVERRIDE+=	wand/Wand.pc.in
 
 GCC_REQD+=		2.95.3
 
@@ -70,6 +68,12 @@ SUBST_STAGE.fix-etc=	pre-configure
 SUBST_MESSAGE.fix-etc=	Handle configuration files.
 SUBST_FILES.fix-etc=	Makefile.in
 SUBST_SED.fix-etc=	-e 's,^configlibdir =.*,configlibdir = $$(DATA_DIR)/examples/ImageMagick,'
+
+SUBST_CLASSES+=		fix-tools
+SUBST_STAGE.fix-tools=	pre-install
+SUBST_MESSAGE.fix-tools=Unwrapping tools path in delegate paths.
+SUBST_FILES.fix-tools=	config/delegates.xml
+SUBST_SED.fix-tools=	-e 's,${TOOLS_DIR},,g'
 
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/xz/buildlink3.mk"

@@ -1,20 +1,23 @@
-# $NetBSD: Makefile,v 1.40 2015/06/12 10:48:25 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2016/08/04 17:03:34 ryoon Exp $
 #
 
 DISTNAME=	pavumeter-0.9.3
-PKGREVISION=	36
+PKGREVISION=	39
 CATEGORIES=	audio
 MASTER_SITES=	http://0pointer.de/lennart/projects/pavumeter/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://0pointer.de/lennart/projects/pavumeter/
 COMMENT=	Volume meter for the PulseAudio sound server
+LICENSE=	gnu-gpl-v2
 
 GNU_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	pkg-config gmake intltool perl
 
 CONFIGURE_ARGS+=	--disable-lynx
+
+CXXFLAGS+=		-std=c++11
 
 .include "../../audio/libcanberra/buildlink3.mk"
 .include "../../audio/pulseaudio/buildlink3.mk"

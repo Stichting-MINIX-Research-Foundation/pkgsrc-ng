@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.9 2015/06/07 08:25:33 wiz Exp $
+$NetBSD: distinfo,v 1.13 2016/07/31 18:30:21 schmonz Exp $
 
-SHA1 (geany-1.24.1.tar.gz) = 2707b6bbcc4710e3dca990d26f66d679d82a2cc0
-RMD160 (geany-1.24.1.tar.gz) = 7bc28763be77e2976f41a168c62ec2244b68b780
-Size (geany-1.24.1.tar.gz) = 5356304 bytes
+SHA1 (geany-1.28.tar.gz) = 211fb5be9f83a2c7446c05b9b3b58613c825f642
+RMD160 (geany-1.28.tar.gz) = 155aa899193037241cb0c0815e9ea78c328d82bb
+SHA512 (geany-1.28.tar.gz) = 3f784143da56c842b66b9bec7796e5675e97da76126c60c12644ca69a9a32bd8a494c1e09af2850801076b12a799676d5fc49b96af4d0f805efa28cddfb79e0a
+Size (geany-1.28.tar.gz) = 5907522 bytes

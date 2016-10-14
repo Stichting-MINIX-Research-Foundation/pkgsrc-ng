@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.11 2015/08/23 14:30:41 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/09/19 13:04:27 wiz Exp $
 
 PKGNAME=		libprelude-ruby-${VERSION}
-PKGREVISION=		7
+PKGREVISION=		9
 COMMENT=                Ruby bindings to LibPrelude
 
 .include "../../security/libprelude/Makefile.common"
 
-RUBY_VERSION_SUPPORTED=	18
+RUBY_VERSIONS_ACCEPTED=	18
 BUILD_DIRS=		bindings/ruby
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libprelude

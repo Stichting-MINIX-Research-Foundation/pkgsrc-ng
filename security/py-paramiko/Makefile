@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.23 2015/01/05 13:18:28 drochner Exp $
+# $NetBSD: Makefile,v 1.27 2016/06/08 17:43:38 wiz Exp $
 
-DISTNAME=		paramiko-1.15.2
+DISTNAME=		paramiko-1.15.3
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=		security
-MASTER_SITES=		http://pypi.python.org/packages/source/p/paramiko/
+MASTER_SITES=		${MASTER_SITE_PYPI:=p/paramiko/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		https://github.com/paramiko/paramiko/
@@ -15,8 +15,6 @@ DEPENDS+=		${PYPKGPREFIX}-ecdsa>=0.11:../../security/py-ecdsa
 
 PYDISTUTILSPKG=	yes
 REPLACE_PYTHON=	paramiko/rng*.py
-
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
 
 do-test:
 	(cd ${WRKSRC} && ${PYTHONBIN} test.py)

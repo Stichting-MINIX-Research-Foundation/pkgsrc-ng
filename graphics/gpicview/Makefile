@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.19 2015/04/25 14:23:12 tnn Exp $
+# $NetBSD: Makefile,v 1.21 2016/08/03 10:22:53 adam Exp $
 
-DISTNAME=	gpicview-0.2.4
+DISTNAME=	gpicview-0.2.5
 PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=lxde/}
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://lxde.sourceforge.net/gpicview/

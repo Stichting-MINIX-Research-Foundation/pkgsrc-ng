@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.8 2015/08/16 16:18:24 kleink Exp $
+# $NetBSD: Makefile,v 1.11 2016/01/06 17:28:31 kleink Exp $
 
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.3 2015/08/26 03:59:03 fhajny Exp $
+@comment $NetBSD: PLIST,v 1.5 2016/08/19 10:13:41 fhajny Exp $
 ${PYSITELIB}/${EGG_INFODIR}/PKG-INFO
 ${PYSITELIB}/${EGG_INFODIR}/SOURCES.txt
 ${PYSITELIB}/${EGG_INFODIR}/dependency_links.txt
@@ -25,6 +25,9 @@ ${PYSITELIB}/elasticsearch/client/nodes.pyo
 ${PYSITELIB}/elasticsearch/client/snapshot.py
 ${PYSITELIB}/elasticsearch/client/snapshot.pyc
 ${PYSITELIB}/elasticsearch/client/snapshot.pyo
+${PYSITELIB}/elasticsearch/client/tasks.py
+${PYSITELIB}/elasticsearch/client/tasks.pyc
+${PYSITELIB}/elasticsearch/client/tasks.pyo
 ${PYSITELIB}/elasticsearch/client/utils.py
 ${PYSITELIB}/elasticsearch/client/utils.pyc
 ${PYSITELIB}/elasticsearch/client/utils.pyo
@@ -37,33 +40,15 @@ ${PYSITELIB}/elasticsearch/connection/__init__.pyo
 ${PYSITELIB}/elasticsearch/connection/base.py
 ${PYSITELIB}/elasticsearch/connection/base.pyc
 ${PYSITELIB}/elasticsearch/connection/base.pyo
-${PYSITELIB}/elasticsearch/connection/esthrift/Rest.py
-${PYSITELIB}/elasticsearch/connection/esthrift/Rest.pyc
-${PYSITELIB}/elasticsearch/connection/esthrift/Rest.pyo
-${PYSITELIB}/elasticsearch/connection/esthrift/__init__.py
-${PYSITELIB}/elasticsearch/connection/esthrift/__init__.pyc
-${PYSITELIB}/elasticsearch/connection/esthrift/__init__.pyo
-${PYSITELIB}/elasticsearch/connection/esthrift/constants.py
-${PYSITELIB}/elasticsearch/connection/esthrift/constants.pyc
-${PYSITELIB}/elasticsearch/connection/esthrift/constants.pyo
-${PYSITELIB}/elasticsearch/connection/esthrift/ttypes.py
-${PYSITELIB}/elasticsearch/connection/esthrift/ttypes.pyc
-${PYSITELIB}/elasticsearch/connection/esthrift/ttypes.pyo
 ${PYSITELIB}/elasticsearch/connection/http_requests.py
 ${PYSITELIB}/elasticsearch/connection/http_requests.pyc
 ${PYSITELIB}/elasticsearch/connection/http_requests.pyo
 ${PYSITELIB}/elasticsearch/connection/http_urllib3.py
 ${PYSITELIB}/elasticsearch/connection/http_urllib3.pyc
 ${PYSITELIB}/elasticsearch/connection/http_urllib3.pyo
-${PYSITELIB}/elasticsearch/connection/memcached.py
-${PYSITELIB}/elasticsearch/connection/memcached.pyc
-${PYSITELIB}/elasticsearch/connection/memcached.pyo
 ${PYSITELIB}/elasticsearch/connection/pooling.py
 ${PYSITELIB}/elasticsearch/connection/pooling.pyc
 ${PYSITELIB}/elasticsearch/connection/pooling.pyo
-${PYSITELIB}/elasticsearch/connection/thrift.py
-${PYSITELIB}/elasticsearch/connection/thrift.pyc
-${PYSITELIB}/elasticsearch/connection/thrift.pyo
 ${PYSITELIB}/elasticsearch/connection_pool.py
 ${PYSITELIB}/elasticsearch/connection_pool.pyc
 ${PYSITELIB}/elasticsearch/connection_pool.pyo

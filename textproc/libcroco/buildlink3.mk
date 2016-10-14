@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.27 2012/09/15 10:06:37 obache Exp $
+# $NetBSD: buildlink3.mk,v 1.29 2015/11/23 12:54:53 szptvlfn Exp $
 
 BUILDLINK_TREE+=	libcroco
 

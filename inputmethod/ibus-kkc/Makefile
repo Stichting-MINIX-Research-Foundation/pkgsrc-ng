@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/04/25 14:23:22 tnn Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/03 10:22:59 adam Exp $
 
 DISTNAME=	ibus-kkc-1.5.21
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	inputmethod japanese
 MASTER_SITES=	https://bitbucket.org/libkkc/ibus-kkc/downloads/
 
@@ -19,9 +19,7 @@ USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 
-FIND_PREFIX:=	SKK_JISYO_DIR=skk-jisyo
-.include "../../mk/find-prefix.mk"
-CONFIGURE_ARGS+=	--with-skkdic=${SKK_JISYO_DIR}/share/skk
+CONFIGURE_ARGS+=	--with-skkdic=${LOCALBASE}/share/skk
 
 .include "../../converters/libkkc/buildlink3.mk"
 .include "../../inputmethod/ibus/buildlink3.mk"

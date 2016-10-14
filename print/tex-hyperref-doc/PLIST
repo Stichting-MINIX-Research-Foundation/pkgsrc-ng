@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1.1.1 2009/05/01 01:25:29 minskim Exp $
+@comment $NetBSD: PLIST,v 1.3 2016/08/07 09:09:38 markd Exp $
 share/texmf-dist/doc/latex/hyperref/ChangeLog
 share/texmf-dist/doc/latex/hyperref/ChangeLog.pdf
 share/texmf-dist/doc/latex/hyperref/README

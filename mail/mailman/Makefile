@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.75 2015/09/02 21:04:18 fhajny Exp $
+# $NetBSD: Makefile,v 1.78 2016/07/09 13:03:54 wiz Exp $
 
 DISTNAME=	mailman-2.1.20
 PKGNAME=	mailman-2.1.20
@@ -68,7 +68,7 @@ RCD_SCRIPTS=		mailman
 INSTALL_TEMPLATES+=	${FILESDIR}/INSTALL
 DEINSTALL_TEMPLATES+=	${FILESDIR}/DEINSTALL
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.1.14.1
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 2.1.14.1
 REPLACE_PYTHON+=	Mailman/Archiver/pipermail.py
 REPLACE_PYTHON+=	Mailman/Post.py
 REPLACE_PYTHON+=	bin/msgfmt.py
@@ -97,6 +97,10 @@ SUBST_SED.paths+=	-e 's,@EXECDIR@,${EXECDIR},g'
 SUBST_SED.paths+=	-e 's,@MAILMAN_DATADIR@,${MAILMAN_DATADIR},g'
 SUBST_STAGE.paths=	post-patch
 
+DOCFILELIST=	ACKNOWLEDGMENTS BUGS FAQ INSTALL NEWS README \
+		README-I18N.en README.CONTRIB README.NETSCAPE \
+		README.USERAGENT STYLEGUIDE.txt TODO UPGRADING
+
 # mailman depends a lot on it and will bitch if changed.
 CHECK_PERMS=	no
 
@@ -114,7 +118,7 @@ pre-install:
 	${INSTALL_DATA_DIR} ${DESTDIR}${EXECDIR}/support
 
 post-install:
-	cd ${WRKSRC} && for i in [A-IN-U]*; do \
+	cd ${WRKSRC} && for i in ${DOCFILELIST}; do \
 		${INSTALL_DATA} $$i ${DESTDIR}${DOCDIR}/; \
 	done
 	cd ${WRKSRC}/doc && for i in \

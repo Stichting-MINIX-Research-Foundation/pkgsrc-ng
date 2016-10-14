@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.33 2015/06/12 10:50:09 wiz Exp $
+# $NetBSD: Makefile,v 1.38 2016/07/09 06:38:20 wiz Exp $
 
-DISTNAME=	enblend-enfuse-4.1.3
-PKGREVISION=	7
+DISTNAME=	enblend-enfuse-4.2
+PKGREVISION=	1
 CATEGORIES=	graphics
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=enblend/}
 
@@ -14,23 +14,19 @@ USE_LANGUAGES=		c c++
 USE_LIBTOOL=		yes
 USE_TOOLS+=		gmake perl:build pkg-config
 GNU_CONFIGURE=		yes
-CONFIGURE_ARGS+=	--with-boost-filesystem
+CONFIGURE_ENV+=		GNUPLOT=false
+
+BUILD_DEPENDS+=		help2man-[0-9]*:../../converters/help2man
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "Darwin"
-CONFIGURE_ARGS+=	--enable-openmp
-CONFIGURE_ARGS+=	--with-apple-opengl-framework
-.else
+.if ${OPSYS} != "Darwin"
 CONFIGURE_ARGS+=	--with-x
 .include "../../graphics/glut/buildlink3.mk"
 .endif
 
-LIBS+=			-lboost_system
-
 .include "../../devel/boost-headers/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"
-.include "../../mk/jpeg.buildlink3.mk"
 .include "../../graphics/glew/buildlink3.mk"
 .include "../../graphics/lcms2/buildlink3.mk"
 .include "../../graphics/openexr/buildlink3.mk"
@@ -38,4 +34,5 @@ LIBS+=			-lboost_system
 .include "../../graphics/tiff/buildlink3.mk"
 .include "../../graphics/vigra/buildlink3.mk"
 .include "../../math/gsl/buildlink3.mk"
+.include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

@@ -1,4 +1,4 @@
-# $NetBSD: options.mk,v 1.2 2011/03/07 21:32:47 gls Exp $
+# $NetBSD: options.mk,v 1.4 2016/09/11 17:03:28 taca Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.moodle
 
@@ -13,6 +13,7 @@ PKG_SUGGESTED_OPTIONS=		mysql
 ###
 .if !empty(PKG_OPTIONS:Mmysql)
 DEPENDS+=	${PHP_PKG_PREFIX}-mysqli>=5.2.14:../../databases/php-mysqli
+PHP_VERSIONS_ACCEPTED=	56
 .elif !empty(PKG_OPTIONS:Mpgsql)
 DEPENDS+=	${PHP_PKG_PREFIX}-pgsql>=5:../../databases/php-pgsql
 .endif

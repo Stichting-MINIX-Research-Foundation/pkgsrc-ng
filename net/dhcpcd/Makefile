@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.51 2015/09/04 12:30:04 roy Exp $
+# $NetBSD: Makefile,v 1.59 2016/08/16 16:15:47 roy Exp $
 #
 
-DISTNAME=		dhcpcd-6.9.3
+DISTNAME=		dhcpcd-6.11.3
 CATEGORIES=		net
 MASTER_SITES=		ftp://roy.marples.name/pub/dhcpcd/
 MASTER_SITES+=		http://roy.aydogan.net/dhcpcd/
@@ -18,8 +18,9 @@ HAS_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
 CONFIGURE_ARGS+=	--sysconfdir=${PKG_SYSCONFDIR}
 CONFIGURE_ARGS+=	--with-hooks=ntp
+CONFIGURE_ARGS+=	--datadir=${PREFIX}/share/examples
 
-EGDIR=			${PREFIX}/share/examples
+EGDIR=			${PREFIX}/share/examples/dhcpcd
 INSTALL_MAKE_FLAGS+=	SYSCONFDIR=${EGDIR}
 CONF_FILES+=		${EGDIR}/dhcpcd.conf ${PKG_SYSCONFDIR}/dhcpcd.conf
 

@@ -1,4 +1,6 @@
-$NetBSD: patch-bridges_source_cpp__uno_gcc3__linux__x86-64_share.hxx,v 1.1 2015/09/23 20:48:44 joerg Exp $
+$NetBSD: patch-bridges_source_cpp__uno_gcc3__linux__x86-64_share.hxx,v 1.3 2016/02/12 19:34:29 tnn Exp $
+
+Deal with more non-standard introspection requirements from cxxabi.h. (fixes build w/ clang)
 
 --- bridges/source/cpp_uno/gcc3_linux_x86-64/share.hxx.orig	2015-08-13 17:21:26.000000000 +0000
 +++ bridges/source/cpp_uno/gcc3_linux_x86-64/share.hxx

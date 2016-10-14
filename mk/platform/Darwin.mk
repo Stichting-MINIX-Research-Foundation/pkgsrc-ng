@@ -1,4 +1,4 @@
-# $NetBSD: Darwin.mk,v 1.71 2015/09/07 11:48:35 jperkin Exp $
+# $NetBSD: Darwin.mk,v 1.83 2016/09/06 09:50:20 jperkin Exp $
 #
 # Variable definitions for the Darwin operating system.
 
@@ -67,8 +67,9 @@ ROOT_GROUP?=		wheel
 ROOT_USER?=		root
 SERIAL_DEVICES?=	/dev/null
 ULIMIT_CMD_datasize?=	ulimit -d `ulimit -H -d`
-ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
 ULIMIT_CMD_memorysize?=	ulimit -m `ulimit -H -m`
+ULIMIT_CMD_stacksize?=	ulimit -s `ulimit -H -s`
+ULIMIT_CMD_cputime?=	ulimit -t `ulimit -H -t`
 
 GROUPADD?=		${LOCALBASE}/sbin/groupadd
 USERADD?=		${LOCALBASE}/sbin/useradd
@@ -77,25 +78,32 @@ _USER_DEPENDS=		user-darwin>=20130712:../../sysutils/user_darwin
 
 _OPSYS_EMULDIR.darwin=	# empty
 
+_OPSYS_SYSTEM_RPATH?=	/usr/lib
+_OPSYS_LIB_DIRS?=	/usr/lib
+
+OSX_VERSION!=		sw_vers -productVersion
+.  if ${OSX_VERSION:R:R} != ${OSX_VERSION:R}
+OSX_VERSION:=		${OSX_VERSION:R}
+.  endif
+MAKEFLAGS+=		OSX_VERSION=${OSX_VERSION:Q}
+
 #
 # From Xcode 5 onwards system headers are no longer installed by default
-# into /usr/include, so we need to query their location.
+# into /usr/include, so we need to query their location if /usr/include is
+# not available.
+#
 # Use current system version SDK (avoid newer SDKs).
 #
-.if exists(/usr/bin/xcrun)
-OSX_VERS!=	sw_vers -productVersion
-.  if ${OSX_VERS:R:R} != ${OSX_VERS:R}
-OSX_VERS:=${OSX_VERS:R}
-.  endif
-OSX_SDK_PATH!=	/usr/bin/xcrun --sdk macosx${OSX_VERS} --show-sdk-path 2>/dev/null || echo /nonexistent
-.endif
-
-_OPSYS_SYSTEM_RPATH?=		/usr/lib
-_OPSYS_LIB_DIRS?=		/usr/lib
 .if exists(/usr/include/stdio.h)
-_OPSYS_INCLUDE_DIRS?=		/usr/include
-.elif exists(${OSX_SDK_PATH}/usr/include/stdio.h)
-_OPSYS_INCLUDE_DIRS?=		${OSX_SDK_PATH}/usr/include
+_OPSYS_INCLUDE_DIRS?=	/usr/include
+.elif exists(/usr/bin/xcrun)
+OSX_SDK_PATH!=	/usr/bin/xcrun --sdk macosx${OSX_VERSION} --show-sdk-path 2>/dev/null || echo /nonexistent
+.  if exists(${OSX_SDK_PATH}/usr/include/stdio.h)
+_OPSYS_INCLUDE_DIRS?=	${OSX_SDK_PATH}/usr/include
+MAKEFLAGS+=		OSX_SDK_PATH=${OSX_SDK_PATH:Q}
+.  else
+PKG_FAIL_REASON+=	"No suitable Xcode SDK or Command Line Tools installed."
+.  endif
 .endif
 
 .if ${OS_VERSION:R} >= 6
@@ -126,21 +134,24 @@ USE_BUILTIN.dl=		no	# Darwin-[56].* uses devel/dlcompat
 .endif
 
 # Builtin defaults which make sense for this platform.
+_OPSYS_PREFER.libuuid?=		native	# system headers assume uuid_string_t
 _OPSYS_PREFER.linux-pam?=	native
 _OPSYS_PREFER.mit-krb5?=	native
-.if ${OS_VERSION:R} >= 11
 _OPSYS_PREFER.openssl?=		pkgsrc	# builtin deprecated from 10.7 onwards
-.endif
 
-# flags passed to the linker to extract all symbols from static archives.
-# this is GNU ld.
-.if empty(MACHINE_PLATFORM:MDarwin-[0-8].*-*)
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,-force-load
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	
-.else
-_OPSYS_WHOLE_ARCHIVE_FLAG=	-Wl,--whole-archive
-_OPSYS_NO_WHOLE_ARCHIVE_FLAG=	-Wl,--no-whole-archive
-.endif
+# Remove common GNU ld arguments incompatible with the Darwin linker.
+BUILDLINK_TRANSFORM+=	rm:-Wl,-O1
+BUILDLINK_TRANSFORM+=	rm:-Wl,-Bdynamic
+BUILDLINK_TRANSFORM+=	rm:-Wl,-Bsymbolic
+BUILDLINK_TRANSFORM+=	rm:-Wl,-export-dynamic
+BUILDLINK_TRANSFORM+=	rm:-Wl,-warn-common
+BUILDLINK_TRANSFORM+=	rm:-Wl,--as-needed
+BUILDLINK_TRANSFORM+=	rm:-Wl,--no-as-needed
+BUILDLINK_TRANSFORM+=	rm:-Wl,--disable-new-dtags
+BUILDLINK_TRANSFORM+=	rm:-Wl,--enable-new-dtags
+BUILDLINK_TRANSFORM+=	rm:-Wl,--export-dynamic
+BUILDLINK_TRANSFORM+=	rm:-Wl,--gc-sections
+BUILDLINK_TRANSFORM+=	rm:-Wl,--no-undefined
 
 _OPSYS_CAN_CHECK_SHLIBS=	yes # check shared libraries using otool(1)
 
@@ -162,6 +173,20 @@ _OPSYS_MAX_CMDLEN_CMD=	/usr/sbin/sysctl -n kern.argmax
 .  if !exists(/usr/include/poll.h) && !exists(/usr/include/sys/poll.h)
 CONFIGURE_ENV+=		ac_cv_func_poll=no
 .  endif
+.endif
+
+# If the deployment target is not set explicitly, the linker in Tiger and prior
+# versions running on PowerPC hosts defaults to a target of 10.1.
+# Set the target for Tiger systems to be 10.4.
+.if !empty(MACHINE_PLATFORM:MDarwin-8.*-powerpc)
+MAKE_ENV+=	MACOSX_DEPLOYMENT_TARGET="10.4"
+.endif
+
+# El Capitan GM has a file system bug where a deep directory hierarchy can be
+# created but not removed.  Avoid running a test which does exactly this.
+# See https://openradar.appspot.com/radar?id=6160634819379200
+.if defined(GNU_CONFIGURE) && !empty(OS_VERSION:M15.[01].0)
+CONFIGURE_ENV+=		gl_cv_func_getcwd_abort_bug=no
 .endif
 
 # Use "/bin/ksh" for buildlink3 wrapper script to improve build performance.

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.93 2015/04/25 14:25:15 tnn Exp $
+# $NetBSD: Makefile,v 1.95 2016/04/11 04:22:35 dbj Exp $
 
 PKGNAME=	qt3-libs-${QTVERSION}
-PKGREVISION=	29
+PKGREVISION=	30
 MAINTAINER=	adam@NetBSD.org
 COMMENT=	C++ X GUI toolkit
 
@@ -17,7 +17,7 @@ GCC_REQD+=		3.4
 
 .include "../../mk/compiler.mk"
 .if ${OPSYS} == "Darwin" && !empty(CC_VERSION:Mgcc-4.0.0)
-PKG_FAIL_REASON=	"Apple's gcc 4.0.0 yields an internal compiler error."
+PKG_FAIL_REASON+=	"Apple's gcc 4.0.0 yields an internal compiler error."
 PKG_FAIL_REASON+=	"Please update gcc to a later version."
 .endif
 

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.41 2015/09/20 13:11:38 wen Exp $
+# $NetBSD: Makefile,v 1.50 2016/09/12 12:24:06 wen Exp $
 
-DISTNAME=	moodle-2.9.2
+DISTNAME=	moodle-3.1.2
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=moodle/}
 EXTRACT_SUFX=	.tgz
@@ -21,6 +21,7 @@ DEPENDS+=	${PHP_PKG_PREFIX}-json>=5.4.4:../../textproc/php-json
 DEPENDS+=	${PHP_PKG_PREFIX}-intl>=5.4.4:../../textproc/php-intl
 DEPENDS+=	${PHP_PKG_PREFIX}-zip>=5.4.4:../../archivers/php-zip
 DEPENDS+=	${PHP_PKG_PREFIX}-zlib>=5.4.4:../../archivers/php-zlib
+DEPENDS+=	${PHP_PKG_PREFIX}-opcache>=5.4.4:../../devel/php-opcache
 
 EGDIR=			share/examples/moodle
 MOODLEDIR=		${PREFIX}/share/moodle
@@ -69,7 +70,7 @@ SUBST_FILES.php=	admin/cli/mysql_engine.php admin/cli/maintenance.php admin/cli/
 SUBST_FILES.php+=	admin/cli/reset_password.php admin/cli/automated_backups.php
 SUBST_FILES.php+=	admin/cli/install.php admin/cli/install_database.php admin/cli/upgrade.php
 SUBST_FILES.php+=	admin/mailout-debugger.php admin/process_email.php
-SUBST_FILES.php+=	auth/ldap/cli/sync_users.php auth/cas/cli/sync_users.php auth/db/cli/sync_users.php
+SUBST_FILES.php+=	auth/db/cli/sync_users.php
 SUBST_FILES.php+=	enrol/ldap/cli/sync.php enrol/database/cli/sync.php enrol/category/cli/sync.php
 SUBST_SED.php=		-e "s,/usr/bin/php,${PREFIX}/bin/php,g"
 
@@ -84,9 +85,11 @@ WRKSRC=			${WRKDIR}/moodle
 post-extract:
 	${CP} ${FILESDIR}/moodle.conf ${WRKDIR}/moodle.conf
 
-do-install:
+post-patch:
 	cd ${WRKDIR} && ${FIND} moodle -type f -print \
 		| ${SED} -e 's,^,share/,' > ${WRKDIR}/PLIST.AUTO
+
+do-install:
 	cd ${WRKSRC} && ${PAX} -rw . ${DESTDIR}${MOODLEDIR}/
 	${INSTALL_DATA} ${WRKDIR}/moodle.conf \
 		${DESTDIR}${PREFIX}/${EGDIR}/moodle.conf

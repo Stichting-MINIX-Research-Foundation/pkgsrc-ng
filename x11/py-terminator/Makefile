@@ -1,22 +1,32 @@
-# $NetBSD: Makefile,v 1.2 2015/07/11 23:19:54 kamil Exp $
+# $NetBSD: Makefile,v 1.8 2016/08/03 10:23:37 adam Exp $
 
-DISTNAME=	terminator-0.97
+DISTNAME=	terminator-0.98
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
+PKGREVISION=	1
 CATEGORIES=	x11
-MASTER_SITES=	https://launchpad.net/terminator/trunk/0.97/+download/
+MASTER_SITES=	https://launchpad.net/terminator/trunk/${PKGVERSION_NOREV}/+download/
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://launchpad.net/terminator
 COMMENT=	Terminator, multiple terminals in one window
 LICENSE=	gnu-gpl-v2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-notify-python, py-keybinder, py-vte
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.98
 
 REPLACE_PYTHON+= *.py
 REPLACE_PYTHON+= terminatorlib/*.py
 REPLACE_PYTHON+= terminatorlib/plugins/*.py
 
-USE_TOOLS+=	intltool
+USE_TOOLS+=	intltool bash
+
+REPLACE_SH+=	terminator.wrapper
+REPLACE_BASH+=	terminatorlib/pylint.sh
+REPLACE_BASH+=	run_tests
+
+SUBST_CLASSES+=		manpath
+SUBST_STAGE.manpath=	pre-configure
+SUBST_FILES.manpath=	setup.py
+SUBST_VARS.manpath=	PKGMANDIR
 
 .include "../../devel/glib2/buildlink3.mk"
 .include "../../devel/pango/buildlink3.mk"

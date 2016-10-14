@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.10 2015/08/28 07:47:08 wiz Exp $
+@comment $NetBSD: PLIST,v 1.12 2016/04/13 18:34:27 wiz Exp $
 bin/mc
 bin/mcdiff
 bin/mcedit
@@ -84,7 +84,6 @@ share/examples/mc/mc.emacs.keymap
 share/examples/mc/mc.ext
 share/examples/mc/mc.keymap
 share/examples/mc/mc.menu
-share/examples/mc/mc.menu.sr
 share/examples/mc/mcedit.menu
 share/examples/mc/sfs.ini
 share/locale/az/LC_MESSAGES/mc.mo
@@ -103,8 +102,8 @@ share/locale/et/LC_MESSAGES/mc.mo
 share/locale/eu/LC_MESSAGES/mc.mo
 share/locale/fa/LC_MESSAGES/mc.mo
 share/locale/fi/LC_MESSAGES/mc.mo
-share/locale/fi_FI/LC_MESSAGES/mc.mo
 share/locale/fr/LC_MESSAGES/mc.mo
+share/locale/fr_CA/LC_MESSAGES/mc.mo
 share/locale/gl/LC_MESSAGES/mc.mo
 share/locale/hr/LC_MESSAGES/mc.mo
 share/locale/hu/LC_MESSAGES/mc.mo
@@ -129,9 +128,9 @@ share/locale/sk/LC_MESSAGES/mc.mo
 share/locale/sl/LC_MESSAGES/mc.mo
 share/locale/sr/LC_MESSAGES/mc.mo
 share/locale/sv/LC_MESSAGES/mc.mo
-share/locale/sv_SE/LC_MESSAGES/mc.mo
 share/locale/szl/LC_MESSAGES/mc.mo
 share/locale/ta/LC_MESSAGES/mc.mo
+share/locale/te/LC_MESSAGES/mc.mo
 share/locale/tr/LC_MESSAGES/mc.mo
 share/locale/uk/LC_MESSAGES/mc.mo
 share/locale/vi/LC_MESSAGES/mc.mo
@@ -153,6 +152,7 @@ share/mc/help/mc.hlp.pl
 share/mc/help/mc.hlp.ru
 share/mc/help/mc.hlp.sr
 share/mc/hints/mc.hint
+share/mc/hints/mc.hint.ar
 share/mc/hints/mc.hint.az
 share/mc/hints/mc.hint.be
 share/mc/hints/mc.hint.bg
@@ -200,6 +200,7 @@ share/mc/hints/mc.hint.tr
 share/mc/hints/mc.hint.uk
 share/mc/hints/mc.hint.zh
 share/mc/hints/mc.hint.zh_CN
+share/mc/mc.charsets
 share/mc/mc.lib
 share/mc/skins/dark.ini
 share/mc/skins/darkfar.ini
@@ -250,6 +251,7 @@ share/mc/syntax/erlang.syntax
 share/mc/syntax/f90.syntax
 share/mc/syntax/filehighlight.syntax
 share/mc/syntax/fortran.syntax
+share/mc/syntax/go.syntax
 share/mc/syntax/haskell.syntax
 share/mc/syntax/html.syntax
 share/mc/syntax/idl.syntax

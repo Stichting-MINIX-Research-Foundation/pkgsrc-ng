@@ -1,16 +1,11 @@
-# $NetBSD: Makefile,v 1.223 2015/09/03 21:15:41 wiz Exp $
-#
-# The CUPS author is very good about taking back changes into the main
-# CUPS distribution.  The correct place to send patches or bug-fixes is:
-# cups-bugs@cups.org.
+# $NetBSD: Makefile,v 1.232 2016/09/20 11:07:35 wiz Exp $
 
-DISTNAME=	cups-${DIST_VERS}-source
-PKGNAME=	cups-${DIST_VERS:S/-/./g}
-BASE_VERS=	2.1.0
-DIST_VERS=	${BASE_VERS}
+DISTNAME=	cups-2.1.4-source
+PKGNAME=	${DISTNAME:S/-source//}
+PKGREVISION=	2
 CATEGORIES=	print
-MASTER_SITES=	http://www.cups.org/software/${BASE_VERS}/
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	${MASTER_SITE_GITHUB:=apple/}
+GITHUB_RELEASE=	release-${PKGVERSION_NOREV}
 
 MAINTAINER=	sbd@NetBSD.org
 HOMEPAGE=	http://www.cups.org/
@@ -19,7 +14,7 @@ LICENSE=	gnu-gpl-v2 AND gnu-lgpl-v2
 
 CONFLICTS+=	LPRng-[0-9]* LPRng-core-[0-9]*
 
-WRKSRC=			${WRKDIR}/cups-${BASE_VERS}
+WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 UNLIMIT_RESOURCES=	datasize memorysize
 USE_LANGUAGES=		c c++	# pdftops is a C++ application
 USE_PKGLOCALEDIR=	yes
@@ -47,7 +42,6 @@ CONFIGURE_ARGS+=	--without-php
 CONFIGURE_ARGS+=	--without-python
 CONFIGURE_ARGS+=	--without-java
 CONFIGURE_ARGS+=	--disable-gssapi
-CONFIGURE_ARGS+=	--disable-gnutls
 
 CONFIGURE_ENV+=		DSOFLAGS=${LDFLAGS:M*:Q}
 
@@ -70,9 +64,7 @@ PLIST.notmac=		yes
 # Avoid the following error when compiling with clang.
 # /usr/local/bin/ld: /usr/lib/crt1.o: relocation R_X86_64_32 against `_DYNAMIC'
 # can not be used when making a shared object; recompile with -fPIC
-.if ${OPSYS} == "FreeBSD"
-BUILDLINK_TRANSFORM+=	rm:-Wl,-pie
-.endif
+BUILDLINK_TRANSFORM.FreeBSD+=	rm:-Wl,-pie
 
 # CUPS_USER		user to run filter and CGI programs as
 # CUPS_GROUP		group to run filter and CGI programs as
@@ -142,6 +134,10 @@ SUBST_SED.piefix=	-e 's|@PIEFLAGS@||g'
 SUBST_STAGE.piefix=	post-patch
 .endif
 
+.if ${OPSYS} == "Darwin"
+PLIST_SRC=		PLIST.Darwin
+.endif
+
 INSTALLATION_DIRS=	${DOCDIR} ${EGDIR} ${MIMEDIR} ${CUPS_CONFDIR}
 INSTALL_ENV+=		DSTROOT=${DESTDIR}
 
@@ -169,15 +165,16 @@ post-install:
 	${INSTALL_DATA} ${WRKDIR}/cups.pam ${DESTDIR}${EGDIR}
 .endif
 .if !empty(PKG_OPTIONS:Mdnssd)
-	${LN} -s ${DESTDIR}${PREFIX}/libexec/cups/backend/dnssd ${DESTDIR}${PREFIX}/libexec/cups/backend/mdns
+	${LN} -sf ${DESTDIR}${PREFIX}/libexec/cups/backend/dnssd ${DESTDIR}${PREFIX}/libexec/cups/backend/mdns
 .endif
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../graphics/tiff/buildlink3.mk"
+.include "../../mk/curses.buildlink3.mk"
 .include "../../mk/jpeg.buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../print/libpaper/buildlink3.mk"
-.include "../../security/openssl/buildlink3.mk"
+.include "../../security/gnutls/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

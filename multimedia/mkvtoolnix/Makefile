@@ -1,24 +1,27 @@
-# $NetBSD: Makefile,v 1.75 2015/04/25 14:23:40 tnn Exp $
+# $NetBSD: Makefile,v 1.81 2016/09/08 16:18:01 joerg Exp $
 
-DISTNAME=	mkvtoolnix-5.0.1
-PKGREVISION=	26
+DISTNAME=	mkvtoolnix-9.4.0
 CATEGORIES=	multimedia
-MASTER_SITES=	http://www.bunkus.org/videotools/mkvtoolnix/sources/
-EXTRACT_SUFX=	.tar.bz2
+MASTER_SITES=	https://mkvtoolnix.download/sources/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
-HOMEPAGE=	http://www.bunkus.org/videotools/mkvtoolnix/
+HOMEPAGE=	http://mkvtoolnix.download/
 COMMENT=	Set of tools to create, alter and inspect Matroska files
 LICENSE=	gnu-gpl-v2
+
+BUILD_DEPENDS+=	${RUBY_BASE}>=${RUBY_VERSION}:${RUBY_SRCDIR}
 
 USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake msgfmt
 GNU_CONFIGURE=		yes
+CONFIGURE_ARGS+=	--without-curl --disable-precompiled-headers
 CONFIGURE_ARGS+=	--with-boost-libdir=${BUILDLINK_PREFIX.boost-libs}
 CONFIGURE_ARGS+=	--with-boost_regex=boost_regex
 CONFIGURE_ARGS+=	--with-boost-system=boost_system
 CONFIGURE_ARGS+=	--with-boost-filesystem=boost_filesystem
+CONFIGURE_ARGS+=	--disable-optimization
 
 REPLACE_LOCALEDIR_PATTERNS=	build-config.in
 
@@ -27,10 +30,6 @@ LDFLAGS.SunOS+=		-lintl
 
 INSTALL_ENV+=	SHELL=${SH:Q}
 
-.include "../../mk/bsd.prefs.mk"
-
-CXXFLAGS+=	${CLANG_NO_VALUE_PROPAGATION_PASS}
-
 .if !empty(MAKE_JOBS)
 DRAKE_ARGS=	-j${MAKE_JOBS}
 .else
@@ -38,18 +37,14 @@ DRAKE_ARGS=	# empty
 .endif
 
 do-build:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ruby drake ${DRAKE_ARGS}
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${LOCALBASE}/bin/${RAKE_NAME} ${DRAKE_ARGS}
 
 do-install:
-	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${INSTALL_ENV} ruby drake install
+	cd ${WRKSRC} && ${SETENV} ${MAKE_ENV} ${INSTALL_ENV} ${LOCALBASE}/bin/${RAKE_NAME} install
 
 .include "options.mk"
 
-.if ${OPSYS} != "Darwin"
-.include "../../lang/ruby/buildlink3.mk"
-BUILDLINK_DEPMETHOD.${RUBY_BASE}=	build
-.endif
-
+.include "../../lang/ruby/rubyversion.mk"
 .include "../../archivers/bzip2/buildlink3.mk"
 .include "../../archivers/lzo/buildlink3.mk"
 .include "../../audio/flac/buildlink3.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.14 2015/06/12 10:49:57 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2016/06/08 19:23:46 wiz Exp $
 
-DISTNAME=	enum-1.10
+DISTNAME=	enum-1.11
 PKGNAME=	p5-${DISTNAME}0
 PKGREVISION=	1
 CATEGORIES=	devel

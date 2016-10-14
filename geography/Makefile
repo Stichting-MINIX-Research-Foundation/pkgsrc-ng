@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.57 2015/09/11 18:45:01 bouyer Exp $
+# $NetBSD: Makefile,v 1.61 2016/07/24 02:07:49 agc Exp $
 #
 
 COMMENT=	Software for geographical-related uses
@@ -14,6 +14,8 @@ SUBDIR+=	garmin-utils
 SUBDIR+=	garmintools
 SUBDIR+=	gdal-lib
 SUBDIR+=	geoclue
+SUBDIR+=	geolite2-city
+SUBDIR+=	geolite2-country
 SUBDIR+=	geos
 SUBDIR+=	gipfel
 SUBDIR+=	gpsbabel
@@ -30,10 +32,13 @@ SUBDIR+=	libdrg
 SUBDIR+=	libgeotiff
 SUBDIR+=	libmemphis02
 SUBDIR+=	libnova
+SUBDIR+=	libspatialite
 SUBDIR+=	mapserver
 SUBDIR+=	merkaartor
 SUBDIR+=	opencpn
+SUBDIR+=	opencpn-plugin-draw
 SUBDIR+=	opencpn-plugin-gshhs
+SUBDIR+=	opencpn-plugin-watchdog
 SUBDIR+=	opencpn-plugin-weather_routing
 SUBDIR+=	osm-gps-map
 SUBDIR+=	osm2pgsql
@@ -59,6 +64,7 @@ SUBDIR+=	qlandkartegt
 SUBDIR+=	qlandkartegt-garmindev
 SUBDIR+=	qlandkartem
 SUBDIR+=	shapelib
+SUBDIR+=	spatialindex
 SUBDIR+=	tex-pst-geo
 SUBDIR+=	tex-pst-geo-doc
 SUBDIR+=	viking

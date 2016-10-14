@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.3 2015/06/14 12:50:06 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/09 06:38:53 wiz Exp $
 
-DISTNAME=	texlive-20150521-source
-PKGNAME=	tex4ht-0.0.20120725.1936
+DISTNAME=	texlive-20160523-source
+PKGNAME=	tex4ht-0.0.20160522
 PKGREVISION=	1
 CATEGORIES=	print
-MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2015/
+MASTER_SITES=	ftp://tug.org/historic/systems/texlive/2016/
 EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	pkgsrc-users@NetBSD.org

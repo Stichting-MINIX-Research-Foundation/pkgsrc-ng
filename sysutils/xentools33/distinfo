@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.30 2013/07/19 12:57:51 joerg Exp $
+$NetBSD: distinfo,v 1.32 2016/05/18 21:24:44 joerg Exp $
 
 SHA1 (xen-3.3.2.tar.gz) = 7f438e73ac81b25cf5e1570709e87001066bafe4
 RMD160 (xen-3.3.2.tar.gz) = 28faa56286f2a418e35dcba6079570ea871d6c7b
+SHA512 (xen-3.3.2.tar.gz) = e080dd9599a6bdd91be924c87316ac1ed825040d258c07ebf6035d84f909b5f81b7b0e4383b358b561a5aba6bff6940d2e8013f6e2ca503f428bdf377820911c
 Size (xen-3.3.2.tar.gz) = 11357576 bytes
 SHA1 (patch-.._xen_patch-common_libelf_libelf-private.h) = b115b0118f932b15c653c131c0c9c9885e2480ff
 SHA1 (patch-CVE-2011-1583) = c9f59d9fbb20f0cb76733a4c2d136a67253cae0a
@@ -57,6 +58,7 @@ SHA1 (patch-fd) = 619b865b2f17814e6e62ebab21de9183474dd075
 SHA1 (patch-fe) = 85d42672766fe8ce2dc7f745938722710c6ee5a3
 SHA1 (patch-ff) = 6ff97fa4f34f29c276e4aaab4b4db9ccf7b09957
 SHA1 (patch-fg) = 913295d341c1dd5bf4d1ef78f27520920f138d4c
+SHA1 (patch-fs-back_Makefile) = ef6908d5f9fa33817f1b029a75badb6fe49ad653
 SHA1 (patch-io_ring_h) = 83b01462d5d2b48b4f97b3d9a7980aa3300ad0b3
 SHA1 (patch-ioemu_block-vvfat.c) = 4e6d998fe2c006bb68caaf8e1d11e641319ff5c2
 SHA1 (patch-libfsimage_ufs_ufs.h) = dc59f33cf3abd08a8cdee5977ca4168613327513

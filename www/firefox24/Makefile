@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.31 2015/06/30 09:57:42 ryoon Exp $
+# $NetBSD: Makefile,v 1.40 2016/08/17 00:06:46 ryoon Exp $
 
 FIREFOX_VER=	${MOZ_BRANCH}${MOZ_BRANCH_MINOR}
 # Also update MOZ_BRANCH= in devel/xulrunner24/Makefile
@@ -7,7 +7,7 @@ MOZ_BRANCH_MINOR=	esr
 
 DISTNAME=	firefox-${FIREFOX_VER}.source
 PKGNAME=	firefox24-${MOZ_BRANCH}${MOZ_BRANCH_MINOR:S/b/beta/:S/esr//}
-PKGREVISION=	4
+PKGREVISION=	12
 CATEGORIES=	www
 MASTER_SITES=	${MASTER_SITE_MOZILLA:=firefox/releases/${FIREFOX_VER}/source/}
 #MASTER_SITES+=	${MASTER_SITE_MOZILLA_ALL:=firefox/releases/${FIREFOX_VER}/source/}
@@ -35,13 +35,9 @@ LDFLAGS.NetBSD+=	-pthread
 
 ALL_ENV+=		MOZILLA_PKG_NAME=firefox24
 
-.include "../../mk/bsd.prefs.mk"
-
 # Avoid ld "invalid section index" errors.
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-fdata-sections
-BUILDLINK_TRANSFORM+=	rm:-ffunction-sections
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	rm:-fdata-sections
+BUILDLINK_TRANSFORM.SunOS+=	rm:-ffunction-sections
 
 LDFLAGS.DragonFly=	-lplc4 -lnspr4
 LDFLAGS.FreeBSD=	-lplc4 -lnspr4

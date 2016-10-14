@@ -1,4 +1,4 @@
-$NetBSD: patch-installer_dcheck.py,v 1.1 2015/08/27 23:53:24 khorben Exp $
+$NetBSD: patch-installer_dcheck.py,v 1.3 2015/12/07 11:02:26 adam Exp $
 
 Locate libraries on systems without ldconfig(8)
 

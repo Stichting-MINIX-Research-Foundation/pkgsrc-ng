@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.3 2015/08/02 12:31:04 markd Exp $
+# $NetBSD: Makefile,v 1.5 2016/08/07 09:09:37 markd Exp $
 
 DISTNAME=	datatool
-PKGNAME=	tex-${DISTNAME}-2.23
-TEXLIVE_REV=	37837
+PKGNAME=	tex-${DISTNAME}-2.27
+TEXLIVE_REV=	41772
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://ctan.org/pkg/datatool

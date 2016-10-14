@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2015/06/12 10:51:53 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2016/06/08 19:24:55 wiz Exp $
 
-DISTNAME=	CGI-Compile-0.19
+DISTNAME=	CGI-Compile-0.21
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	www perl5
@@ -20,6 +20,8 @@ BUILD_DEPENDS+=	p5-Test-Requires-[0-9]*:../../devel/p5-Test-Requires
 DEPENDS+=	p5-File-pushd-[0-9]*:../../devel/p5-File-pushd
 # for make test
 BUILD_DEPENDS+=	p5-CGI-Emulate-PSGI-[0-9]*:../../www/p5-CGI-Emulate-PSGI
+BUILD_DEPENDS+=	p5-Plack-[0-9]*:../../www/p5-Plack
+BUILD_DEPENDS+=	p5-Switch-[0-9]*:../../lang/p5-Switch
 
 .include "../../lang/perl5/module.mk"
 .include "../../mk/bsd.pkg.mk"

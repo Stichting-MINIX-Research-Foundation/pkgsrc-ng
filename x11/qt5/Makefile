@@ -1,6 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2014/12/30 17:23:45 adam Exp $
+# $NetBSD: Makefile,v 1.8 2016/03/02 23:03:59 ryoon Exp $
 
 DISTNAME=	qt5-${QTVERSION}
+PKGREVISION=	1
 CATEGORIES=	x11
 MASTER_SITES=	# none
 
@@ -10,7 +11,6 @@ META_PACKAGE=	yes
 
 .include "Makefile.common"
 
-DEPENDS+=	qt5-dbus-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-dbus
 DEPENDS+=	qt5-mysql-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-mysql
 DEPENDS+=	qt5-odbc-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-odbc
 DEPENDS+=	qt5-psql-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-psql
@@ -29,11 +29,11 @@ DEPENDS+=	qt5-qtserialport-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtserialport
 DEPENDS+=	qt5-qtsvg-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtsvg
 DEPENDS+=	qt5-qttools-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qttools
 DEPENDS+=	qt5-qttranslations-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qttranslations
+DEPENDS+=	qt5-qtwebchannel-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtwebchannel
 DEPENDS+=	qt5-qtwebkit-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtwebkit
+DEPENDS+=	qt5-websockets-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtwebsockets
 DEPENDS+=	qt5-qtxmlpatterns-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtxmlpatterns
 DEPENDS+=	qt5-sqlite3-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-sqlite3
-#DEPENDS+=	qt5-ibus-${QTVERSION}{,nb[0-9]*}:../../inputmethod/qt5-ibus
-#DEPENDS+=	qt5-uim-[0-9]*:../../inputmethod/qt5-uim
 .if ${OPSYS} == "Darwin"
 DEPENDS+=	qt5-qtmacextras-${QTVERSION}{,nb[0-9]*}:../../x11/qt5-qtmacextras
 .else

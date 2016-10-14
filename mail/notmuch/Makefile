@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/08/26 13:33:36 wiz Exp $
+# $NetBSD: Makefile,v 1.16 2016/09/12 07:42:41 wiz Exp $
 
-DISTNAME=	notmuch-0.20.2
+DISTNAME=	notmuch-0.22.2
 CATEGORIES=	mail
 MASTER_SITES=	http://notmuchmail.org/releases/
 
@@ -14,19 +14,19 @@ BUILD_DEPENDS+=	${PYPKGPREFIX}-sphinx-[0-9]*:../../textproc/py-sphinx
 HAS_CONFIGURE=	yes
 USE_LANGUAGES=	c c++
 USE_TOOLS+=	gmake pkg-config
-MAKE_FLAGS+=	PYTHONBIN=${PYTHONBIN}
+MAKE_FLAGS+=	PYTHON=${PYTHONBIN}
+#TEST_TARGET=	check
 
 .include "options.mk"
 
 CONFIGURE_ARGS+=	--prefix=${PREFIX}
 CONFIGURE_ARGS+=	--mandir=${PREFIX}/${PKGMANDIR}
+CONFIGURE_ARGS+=	--without-ruby
 
-.if ${OPSYS} == "SunOS"
-SUBST_CLASSES+=		gnuld
+SUBST_CLASSES.SunOS+=	gnuld
 SUBST_STAGE.gnuld=	pre-configure
 SUBST_FILES.gnuld=	lib/Makefile.local
 SUBST_SED.gnuld=	-e 's/-Wl,--[^ ]*//g'
-.endif
 
 SUBST_CLASSES+=		sphinx
 SUBST_SED.sphinx+=	-e "s,sphinx-build,sphinx-build${PYVERSSUFFIX},"
@@ -36,9 +36,8 @@ SUBST_MESSAGE.sphinx=	Fix sphinx command names.
 
 LDFLAGS.SunOS+=	-lnsl
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # as of 0.19
 .include "../../lang/python/application.mk"
-.include "../../mail/gmime24/buildlink3.mk"
+.include "../../mail/gmime/buildlink3.mk"
 .include "../../textproc/xapian/buildlink3.mk"
 .include "../../devel/talloc/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"

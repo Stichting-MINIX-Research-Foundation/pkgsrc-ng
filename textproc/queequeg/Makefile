@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.5 2014/05/09 07:37:22 wiz Exp $
+# $NetBSD: Makefile,v 1.8 2016/07/09 13:04:11 wiz Exp $
 
 DISTNAME=	queequeg-0.91
 PKGREVISION=	1
@@ -15,7 +15,7 @@ BUILD_DEPENDS+=	WordNet-[0-9]*:../../textproc/WordNet
 
 USE_LANGUAGES=	# none
 PY_PATCHPLIST=	yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-cdb
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-cdb
 
 SUBST_CLASSES+=			fix-python
 SUBST_STAGE.fix-python=		pre-configure
@@ -26,11 +26,8 @@ SUBST_FILES.fix-python+=	Makefile
 SUBST_SED.fix-python+=		-e 's,/usr/bin/env python,${PYTHONBIN},'
 SUBST_SED.fix-python+=		-e 's,python ,${PYTHONBIN} ,'
 
-FIND_PREFIX:=		WORDNETDIR=WordNet
-.include "../../mk/find-prefix.mk"
-
 BUILD_TARGET=		dict
-BUILD_MAKE_FLAGS=	WORDNETDICT=${WORDNETDIR}/dict
+BUILD_MAKE_FLAGS=	WORDNETDICT=${LOCALBASE}/dict
 
 INSTALLATION_DIRS=	bin ${PYSITELIB} dict
 

@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.11 2014/05/09 07:37:03 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/07/09 13:03:44 wiz Exp $
 
 DISTNAME=		ZConfig-2.6.1
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=		devel python
-MASTER_SITES=		http://pypi.python.org/packages/source/Z/ZConfig/
+MASTER_SITES=		${MASTER_SITE_PYPI:=Z/ZConfig/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.zope.org/Members/fdrake/zconfig/
@@ -14,7 +14,7 @@ USE_LANGUAGES=		# empty
 
 INSTALLATION_DIRS+=	share/doc/py-zconfig
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/zconfig.pdf \

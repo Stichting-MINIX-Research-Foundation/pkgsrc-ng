@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.139 2015/05/23 02:13:28 mef Exp $
+# $NetBSD: Makefile,v 1.148 2016/09/19 08:02:23 wiz Exp $
 #
 
 COMMENT=	Archivers
@@ -11,12 +11,14 @@ SUBDIR+=	archangel
 SUBDIR+=	arj
 SUBDIR+=	ark
 SUBDIR+=	bicom
+SUBDIR+=	bmap-tools
 SUBDIR+=	bsdtar
 SUBDIR+=	bunzip
 SUBDIR+=	bzip2
 SUBDIR+=	cabextract
 SUBDIR+=	dact
 SUBDIR+=	dar
+SUBDIR+=	engrampa
 SUBDIR+=	fastjar
 SUBDIR+=	fcrackzip
 SUBDIR+=	file-roller
@@ -34,6 +36,7 @@ SUBDIR+=	hpack
 SUBDIR+=	hs-zlib
 SUBDIR+=	innoextract
 SUBDIR+=	jamjar
+SUBDIR+=	karchive
 SUBDIR+=	lbrate
 SUBDIR+=	lcab
 SUBDIR+=	lha
@@ -45,6 +48,7 @@ SUBDIR+=	libunrar
 SUBDIR+=	libzip
 SUBDIR+=	lrzip
 SUBDIR+=	lz4
+SUBDIR+=	lz4json
 SUBDIR+=	lzip
 SUBDIR+=	lziprecover
 SUBDIR+=	lzma
@@ -79,6 +83,9 @@ SUBDIR+=	php-zlib
 SUBDIR+=	pigz
 SUBDIR+=	ppmd
 SUBDIR+=	ppunpack
+SUBDIR+=	py-czipfile
+SUBDIR+=	py-lhafile
+SUBDIR+=	py-libarchive-c
 SUBDIR+=	py-yuicompressor
 SUBDIR+=	rar
 SUBDIR+=	rox-archive
@@ -111,6 +118,8 @@ SUBDIR+=	xpk
 SUBDIR+=	xz
 SUBDIR+=	zip
 SUBDIR+=	zoo
+SUBDIR+=	zopfli
+SUBDIR+=	zstd
 SUBDIR+=	zutils
 SUBDIR+=	zziplib
 

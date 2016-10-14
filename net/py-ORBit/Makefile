@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.48 2014/05/09 07:37:14 wiz Exp $
+# $NetBSD: Makefile,v 1.51 2016/07/09 13:03:59 wiz Exp $
 
 DISTNAME=	pyorbit-2.24.0
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/pyorbit/ORBit/}
@@ -23,12 +23,9 @@ PYTHON_SELF_CONFLICT=	YES
 
 BUILDLINK_API_DEPENDS.python26+= python26>=2.6.2nb4
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # dead upstream, no plans to port
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # dead upstream, no plans to port
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-BUILDLINK_TRANSFORM+=	rm:-std=c9x
-.endif
+BUILDLINK_TRANSFORM.SunOS+=	rm:-std=c9x
 
 do-test:
 	(cd ${WRKSRC}/tests/c-inproc && ${PYTHONBIN} test-c-inproc.py)

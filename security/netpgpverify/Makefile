@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.16 2015/09/12 02:19:06 agc Exp $
+# $NetBSD: Makefile,v 1.20 2016/02/19 22:41:50 agc Exp $
 
-DISTNAME=		netpgpverify-20150911
+DISTNAME=		netpgpverify-${VERSION}
 CATEGORIES=		security
 MASTER_SITES=		# empty
 DISTFILES=		# empty
@@ -14,6 +14,10 @@ AUTO_MKDIRS=		yes
 GNU_CONFIGURE=		yes
 
 TEST_TARGET=		tst
+
+.include "../../mk/bsd.prefs.mk"
+
+VERSION!=	${AWK} '/\#define.*NETPGP_VERIFY_H_/ {print $$3}' ${FILESDIR}/verify.h
 
 do-extract:
 	@${CP} -R ${FILESDIR} ${WRKSRC}

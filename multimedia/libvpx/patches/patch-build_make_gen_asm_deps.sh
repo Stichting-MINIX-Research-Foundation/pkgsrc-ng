@@ -1,11 +1,11 @@
-$NetBSD: patch-build_make_gen_asm_deps.sh,v 1.2 2013/09/11 15:50:32 ryoon Exp $
+$NetBSD: patch-build_make_gen_asm_deps.sh,v 1.4 2016/08/16 23:53:25 ryoon Exp $
 
 Fix build problems under Mac OS X with Xcode 4.4 and newer. Patch
 taken from here:
 
 https://github.com/mxcl/homebrew/issues/12567#issuecomment-6434000
 
---- build/make/gen_asm_deps.sh.orig	2013-09-04 18:49:22.000000000 +0000
+--- build/make/gen_asm_deps.sh.orig	2016-07-21 01:15:41.000000000 +0000
 +++ build/make/gen_asm_deps.sh
 @@ -42,7 +42,7 @@ done
  

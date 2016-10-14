@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.64 2015/08/01 02:38:50 mef Exp $
+# $NetBSD: Makefile,v 1.72 2016/09/01 14:19:35 mef Exp $
 #
 
-DISTNAME=		gtkwave-3.3.66
+DISTNAME=		gtkwave-3.3.76
 CATEGORIES=		cad
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=gtkwave/}
 #MASTER_SITES=		http://home.nc.rr.com/gtkwave/
@@ -46,5 +46,6 @@ CONFIGURE_ARGS+=	--with-gconf
 .include "../../databases/shared-mime-info/mimedb.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../graphics/gnome-icon-theme/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
 
 .include "../../mk/bsd.pkg.mk"

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:14 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:23:09 wiz Exp $
 
-DISTNAME=	Method-Signatures-20141021
+DISTNAME=	Method-Signatures-20160315
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

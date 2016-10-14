@@ -1,14 +1,17 @@
-# $NetBSD: Makefile,v 1.50 2015/09/07 12:02:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.67 2016/07/26 16:45:33 kamil Exp $
 
 .include "dist.mk"
 
 PKGNAME=	python27-${PY_DISTVERSION}
+PKGREVISION=	4
 CATEGORIES=	lang python
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.python.org/
 COMMENT=	Interpreted, interactive, object-oriented programming language
 LICENSE=	python-software-foundation
+
+DEPENDS=	mozilla-rootcerts>=1.0.20150804nb1:../../security/mozilla-rootcerts
 
 CONFLICTS+=	python-[0-9]*
 
@@ -57,9 +60,6 @@ PLIST_SRC+=	${.CURDIR}/../../lang/python27/PLIST.${OPSYS}
 PLIST_SRC+=	${.CURDIR}/../../lang/python27/PLIST.common_end
 
 .if ${OPSYS} == "NetBSD"
-.  if !defined(USE_DESTDIR) || empty(USE_DESTDIR:M[Yy][Ee][Ss])
-PRIVILEGED_STAGES+=	clean
-.  endif
 # XXX work around a botched autoconf check which ignores libintl
 CONFIGURE_ENV+=		ac_cv_func_bind_textdomain_codeset=yes
 .endif
@@ -82,9 +82,8 @@ PY_PLATNAME=	${LOWER_OPSYS}${OS_VERSION:C/\..*//}
 .endif
 PLIST_SUBST+=	PY_PLATNAME=${PY_PLATNAME:Q}
 
-.if (${MACHINE_ARCH} == "alpha") || (${MACHINE_ARCH} == "amd64") || \
-    (${MACHINE_ARCH} == "sparc64") || (${MACHINE_ARCH} == "x86_64") || \
-    (${MACHINE_ARCH} == "powerpc64") || (defined(ABI) && ${ABI} == "64")
+.if !empty(LP64PLATFORMS:@.PLAT.@${MACHINE_PLATFORM:M${.PLAT.}}@) || \
+    (defined(ABI) && ${ABI} == "64")
 IS_64BIT_PLATFORM?=	yes
 .else
 IS_64BIT_PLATFORM?=	no
@@ -133,10 +132,8 @@ BUILDLINK_TRANSFORM+=	rm:-ldb
 .endif
 CFLAGS+=	-DHAVE_DB_185_H
 
-.if ${OPSYS} == "OSF1"
 # configure complains about buggy getaddrinfo()
-CONFIGURE_ARGS+=	--disable-ipv6
-.endif
+CONFIGURE_ARGS.OSF1+=	--disable-ipv6
 
 .if defined(BUILDLINK_TRANSFORM)
 MAKE_ENV+=	PY_BDB_TRANSFORM=${BUILDLINK_TRANSFORM:Q}
@@ -153,17 +150,49 @@ REPLACE.py27.new=	${PREFIX}/bin/python${PY_VER_SUFFIX}
 REPLACE_FILES.py27=	Lib/*.py Lib/*/*.py Lib/*/*/*.py
 REPLACE_FILES.py27+=	Lib/*/*/*/*.py
 
+SUBST_CLASSES+=		libffi
+SUBST_MESSAGE.libffi=	Fixing libffi include path on Darwin.
+SUBST_STAGE.libffi=	pre-configure
+SUBST_FILES.libffi=	setup.py
+SUBST_SED.libffi=	-e 's,/usr/include/ffi,${BUILDLINK_PREFIX.libffi}/include,'
+
 SUBST_CLASSES+=		findlib
 SUBST_MESSAGE.findlib=	Fixing find_library_file on Darwin.
 SUBST_STAGE.findlib=	pre-configure
 SUBST_FILES.findlib=	Lib/distutils/unixccompiler.py
 SUBST_SED.findlib=	-e 's,/usr/local,${PREFIX},'
 
+# XXX: It might be needed to add manually more paths like ${PREFIX}/qt5/lib
+# Testing:
+# >>> from ctypes.util import find_library
+# >>> find_library("m")
+# 'libm.so.0'
+# >>> find_library("crypto")
+# 'libcrypto.so.11'
+# >>> find_library("GL")
+# 'libGL.so.2'
+# >>> find_library("curl")
+# 'libcurl.so.4'
+
+SUBST_CLASSES+=		pfindlib
+SUBST_MESSAGE.pfindlib=	Fixing find_library() on POSIX-like (excluding Darwin) systems.
+SUBST_STAGE.pfindlib=	pre-configure
+SUBST_FILES.pfindlib=	Lib/ctypes/util.py
+SUBST_SED.pfindlib=	-e 's!\(-Wl,-t -o\)!${COMPILER_RPATH_FLAG}${PREFIX}/lib -L${PREFIX}/lib \1!'
+
+.include "options.mk"
+
 SUBST_CLASSES+=		sslbase
 SUBST_MESSAGE.sslbase=	Fixing find-file for openssl with SSLBASE.
 SUBST_STAGE.sslbase=	pre-configure
 SUBST_FILES.sslbase=	setup.py
 SUBST_VARS.sslbase=	SSLBASE
+
+SUBST_CLASSES+=		cacert
+SUBST_MESSAGE.cacert=	Configuring location of default CA certificate file.
+SUBST_STAGE.cacert=	pre-configure
+SUBST_FILES.cacert=	Modules/_ssl.c
+SUBST_SED.cacert=	-e 's,@PREFIX@,${PREFIX},'
 
 post-extract:
 	${LN} -s ${WRKSRC}/Lib/smtpd.py ${WRKSRC}/Tools/scripts/smtpd${PY_VER_SUFFIX}.py

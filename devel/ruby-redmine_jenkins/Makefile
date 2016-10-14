@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.1 2015/07/06 04:12:49 rodent Exp $
+# $NetBSD: Makefile,v 1.3 2016/06/09 06:23:39 wiz Exp $
 
 GITHUB_PROJECT=	redmine_jenkins
 DISTNAME=	1.0.1
@@ -7,7 +7,7 @@ MASTER_SITES=	${MASTER_SITE_GITHUB:=jbox-web/}
 DIST_SUBDIR=	ruby-${GITHUB_PROJECT}
 
 MAINTAINER=	rodent@NetBSD.org
-HOMEPAGE=	${MASTER_SITES}${GITHUB_PROJECT}
+HOMEPAGE=	https://github.com/jbox-web/redmine_jenkins
 COMMENT=	Plugin allows management of Jenkins projects within Redmine
 LICENSE=	mit
 
@@ -74,13 +74,13 @@ do-build:
 	${FAIL_MSG} "Build of ${_gem_}.gem failed."
 .endfor
 
-RUBYGEM_INSTALL_ROOT=   ${WRKDIR}/.inst
-RUBYGEM_INSTALL_ROOT_OPTION=    --install-root ${RUBYGEM_INSTALL_ROOT}
-_RUBYGEM_OPTIONS=       --no-update-sources     # don't cache the gem index
-_RUBYGEM_OPTIONS+=      --install-dir ${PREFIX}/${GEM_HOME}
-_RUBYGEM_OPTIONS+=      ${RUBYGEM_INSTALL_ROOT_OPTION}
-_RUBYGEM_OPTIONS+=      --ignore-dependencies
-_RUBYGEM_OPTIONS+=      --no-ri --no-rdoc
+RUBYGEM_INSTALL_ROOT=	${WRKDIR}/.inst
+RUBYGEM_INSTALL_ROOT_OPTION=	--install-root ${RUBYGEM_INSTALL_ROOT}
+_RUBYGEM_OPTIONS=	--no-update-sources	# don't cache the gem index
+_RUBYGEM_OPTIONS+=	--install-dir ${PREFIX}/${GEM_HOME}
+_RUBYGEM_OPTIONS+=	${RUBYGEM_INSTALL_ROOT_OPTION}
+_RUBYGEM_OPTIONS+=	--ignore-dependencies
+_RUBYGEM_OPTIONS+=	--no-ri --no-rdoc
 
 .include "../../lang/ruby/rubyversion.mk"
 

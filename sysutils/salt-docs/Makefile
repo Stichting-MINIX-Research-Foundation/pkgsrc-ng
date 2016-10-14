@@ -1,14 +1,18 @@
-# $NetBSD: Makefile,v 1.6 2015/09/12 20:03:01 tnn Exp $
+# $NetBSD: Makefile,v 1.10 2016/07/09 13:04:07 wiz Exp $
 
-DISTNAME=	salt-0.10.5
+DISTNAME=	salt-2015.8.5
 PKGNAME=	${DISTNAME:S/-/-docs-/}
 CATEGORIES=	sysutils
-MASTER_SITES=	https://cloud.github.com/downloads/saltstack/salt/
+MASTER_SITES=	${MASTER_SITE_PYPI:=s/salt/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://saltstack.org/
 COMMENT=	Documentation for salt
 LICENSE=	apache-2.0
+
+USE_TOOLS+=	gmake
+
+BUILD_DEPENDS+=	gnupg-[0-9]*:../../security/gnupg
 
 NO_CONFIGURE=	yes
 BUILD_DIRS=	doc
@@ -28,7 +32,7 @@ do-install:
 	  && ${FIND} ${HTMLDIR} -type f -print ) >>${PLIST_SRC}
 
 # problem in sphinx config file?
-PYTHON_VERSIONS_INCOMPATIBLE=  33 34 # not yet ported as of 0.10.5
+PYTHON_VERSIONS_INCOMPATIBLE=  34 35 # not yet ported as of 0.10.5
 
 # The upstream salt project does not say what version of sphinx is required.
 .include "../../lang/python/pyversion.mk"

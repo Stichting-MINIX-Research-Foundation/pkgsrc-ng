@@ -1,32 +1,43 @@
-# $NetBSD: Makefile,v 1.74 2015/07/01 11:19:01 wiz Exp $
+# $NetBSD: Makefile,v 1.83 2016/08/04 17:03:35 ryoon Exp $
 
-DISTNAME=	Sigil-0.8.7
+DISTNAME=	Sigil-0.9.5
+PKGREVISION=	2
 CATEGORIES=	editors
 MASTER_SITES=	${MASTER_SITE_GITHUB:=Sigil-Ebook/}
+GITHUB_PROJECT=	Sigil
+GITHUB_TAG=	${PKGVERSION_NOREV}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://sigil-ebook.com/
 COMMENT=	Multi-platform WYSIWYG ebook editor (for the ePub format)
 LICENSE=	gnu-gpl-v3
 
-MAKE_JOBS_SAFE=	NO
+#MAKE_JOBS_SAFE=	NO
+
+DEPENDS+=	${PYPKGPREFIX}-Tk-[0-9]*:../../x11/py-Tk
+DEPENDS+=	${PYPKGPREFIX}-lxml-[0-9]*:../../textproc/py-lxml
+DEPENDS+=	${PYPKGPREFIX}-six-[0-9]*:../../lang/py-six
 
 Qt5_DIR=	${BUILDLINK_PREFIX.qt5-qtbase}/qt5
 ALL_ENV+=	Qt5_DIR=${Qt5_DIR}
 
 BUILDLINK_TRANSFORM+=	opt:-O2:-O0
-MAKE_ENV+=	CXX_FLAGS="-g"
+#MAKE_ENV+=	CXX_FLAGS="-g"
 
 USE_LANGUAGES=	c c++
 USE_CMAKE=	yes
 USE_TOOLS+=	pkg-config
 
-CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
+#CMAKE_ARGS+=	-DCMAKE_BUILD_TYPE=Debug
 
 BUILDLINK_TRANSFORM+=	l:BoostParts:boost_date_time:boost_filesystem:boost_regex:boost_system:boost_thread:boost_program_options
 BUILDLINK_TRANSFORM+=	l:Xerces:xerces-c
 BUILDLINK_TRANSFORM+=	l:zlib:z
 
+#LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib/sigil
+#LDFLAGS+=	${COMPILER_RPATH_FLAG}${PREFIX}/lib
+
+PYTHON_VERSIONS_INCOMPATIBLE=	27
 REPLACE_PYTHON+=	src/Sigil/Resource_Files/plugin_launchers/python/*.py
 
 .include "../../mk/compiler.mk"

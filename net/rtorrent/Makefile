@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.60 2015/08/18 07:31:15 wiz Exp $
+# $NetBSD: Makefile,v 1.62 2016/03/05 11:29:11 jperkin Exp $
 
-DISTNAME=	rtorrent-0.9.4
-PKGREVISION=	2
+DISTNAME=	rtorrent-0.9.6
+PKGREVISION=	1
 CATEGORIES=	net
-MASTER_SITES=	http://libtorrent.rakshasa.no/downloads/
+MASTER_SITES=	http://rtorrent.net/downloads/
 
-OWNER=		tron@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://rakshasa.github.io/rtorrent/
 COMMENT=	Ncurses based torrent client with support for sessions
 LICENSE=	gnu-gpl-v2

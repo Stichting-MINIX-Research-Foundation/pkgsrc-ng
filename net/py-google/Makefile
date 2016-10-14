@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.33 2014/05/09 07:37:15 wiz Exp $
+# $NetBSD: Makefile,v 1.35 2016/07/09 13:04:00 wiz Exp $
 
 DISTNAME=	pygoogle-0.6
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/py//}
@@ -14,7 +14,7 @@ DEPENDS+=	${PYPKGPREFIX}-SOAPpy-[0-9]*:../../net/py-soappy
 
 EGG_NAME=	pygoogle-0.5
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-xml via py-soappy
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-xml via py-soappy
 
 .include "../../lang/python/distutils.mk"
 .include "../../mk/bsd.pkg.mk"

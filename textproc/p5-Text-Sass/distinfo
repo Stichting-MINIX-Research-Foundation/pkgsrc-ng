@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2013/07/11 04:52:07 wen Exp $
+$NetBSD: distinfo,v 1.6 2016/08/12 11:57:55 wen Exp $
 
-SHA1 (Text-Sass-0.97.tar.gz) = ef9fc8793abc4e916fe340a9bfbf3b9365fc08dd
-RMD160 (Text-Sass-0.97.tar.gz) = 4abecc3dc9ee722e3d419344d7c6c816b392ca43
-Size (Text-Sass-0.97.tar.gz) = 20312 bytes
+SHA1 (Text-Sass-v1.0.4.tar.gz) = ca381a3f61da4aa8649358d95212748c3ff683b2
+RMD160 (Text-Sass-v1.0.4.tar.gz) = 4fe56c500e8f82922f5112e4d540b0403acc6479
+SHA512 (Text-Sass-v1.0.4.tar.gz) = b34ad3d616292571c6b5eef2ad252110a35fc667da027799cc7f95f97a8f4fa2b02b4a0db7b846f0dcbe6514b47f7a2604e179ae721421a655b012ded215f858
+Size (Text-Sass-v1.0.4.tar.gz) = 26985 bytes

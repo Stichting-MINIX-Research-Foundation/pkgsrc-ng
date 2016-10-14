@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.51 2015/01/01 09:54:25 dholland Exp $
+# $NetBSD: Makefile,v 1.53 2016/07/09 06:38:14 wiz Exp $
 
 DISTNAME=	emacs-20.7
 PKGNAME=	${DISTNAME:S/emacs/emacs20/}
-PKGREVISION=	17
+PKGREVISION=	19
 CATEGORIES=	editors
 MASTER_SITES=	http://ftp.gnu.org/pub/old-gnu/emacs/	\
 		ftp://ftp.gnu.org/pub/old-gnu/emacs

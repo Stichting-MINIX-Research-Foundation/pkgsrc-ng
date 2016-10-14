@@ -1,5 +1,4 @@
-# $NetBSD: Makefile,v 1.4 2015/08/20 15:30:47 taca Exp $
-#
+# $NetBSD: Makefile,v 1.15 2016/09/08 15:19:18 joerg Exp $
 
 DISTNAME=	${RUBY_DISTNAME}
 PKGNAME=	${RUBY_PKGPREFIX}-base-${RUBY_VERSION_FULL}
@@ -9,12 +8,11 @@ MASTER_SITES=	${MASTER_SITE_RUBY}
 MAINTAINER=	taca@NetBSD.org
 HOMEPAGE=	${RUBY_HOMEPAGE}
 COMMENT=	Ruby ${RUBY_VERSION} release minimum base package
-LICENSE=	${RUBY_LICENSE}
 
-RUBY_VERSION_SUPPORTED=	22
+RUBY_VERSIONS_ACCEPTED=	22
 
-USE_LANGUAGES=		c
-USE_TOOLS+=		pax yacc
+USE_LANGUAGES=		c c99
+USE_TOOLS+=		pax yacc pkg-config
 GNU_CONFIGURE=		yes
 TEST_TARGET=		test
 CONFIGURE_ARGS+=	--enable-shared
@@ -26,11 +24,13 @@ MAKE_DIRS=		${RUBY_SITEARCHLIB} ${RUBY_VENDORARCHLIB}
 CHECK_INTERPRETER_SKIP+= ${GEM_HOME}/gems/test-unit-3.0.8/test/run-test.rb
 
 #
-# Don't refrect pkgsrc's INSTALL macro since Ruby expect it could
+# Don't reference pkgsrc's INSTALL macro since Ruby expect it could
 # execute by unprivileged user.
 #
 CONFIGURE_ENV+=		INSTALL="${INSTALL} ${COPY}" \
 			INSTALL_DATA= INSTALL_PROGRAM= INSTALL_SCRIPT=
+
+CONFIGURE_ENV+= 	ac_cv_prog_PKG_CONFIG=""
 
 .include "../../mk/compiler.mk"
 
@@ -42,15 +42,10 @@ CONFIGURE_ENV+=	LDSHARED="${CC} -G"
 LIBS.SunOS+=	-lm
 .endif
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=	OBJCOPY=:
-CONFIGURE_ENV+=	ac_cv_prog_PKG_CONFIG=""
-.endif
+CONFIGURE_ENV.SunOS+=	OBJCOPY=:
 
-.if ${OPSYS} == "MirBSD"
 # if present, an unsupported sysconf call is used
-CONFIGURE_ENV+=	ac_cv_func_getgrnam_r=no
-.endif
+CONFIGURE_ENV.MirBSD+=	ac_cv_func_getgrnam_r=no
 
 # bmake doesn't like the codesign/POSTLINK constructs for Darwin.
 .if ${OPSYS} == "Cygwin" || ${OPSYS} == "Darwin"

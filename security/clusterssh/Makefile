@@ -1,7 +1,8 @@
-# $NetBSD: Makefile,v 1.9 2015/08/12 18:16:12 gls Exp $
+# $NetBSD: Makefile,v 1.11 2016/07/09 06:38:54 wiz Exp $
 
 DISTNAME=	App-ClusterSSH-4.03_06
 PKGNAME=	p5-${DISTNAME:S/_/./}
+PKGREVISION=	2
 CATEGORIES=	security
 MASTER_SITES=	http://search.cpan.org/CPAN/authors/id/D/DU/DUNCS/
 
@@ -24,6 +25,7 @@ BUILD_DEPENDS+=	p5-Test-Pod-Coverage>=1.08:../../devel/p5-Test-Pod-Coverage
 BUILD_DEPENDS+=	p5-Test-Trap>=0.2.1:../../devel/p5-Test-Trap
 BUILD_DEPENDS+=	p5-Test-Pod>=1.45:../../devel/p5-Test-Pod
 BUILD_DEPENDS+=	p5-Test-DistManifest>=1.012:../../devel/p5-Test-DistManifest
+BUILD_DEPENDS+=	xterm>=322:../../x11/xterm
 
 PERL5_MODULE_TYPE=	Module::Build
 PERL5_PACKLIST=		auto/App/ClusterSSH/.packlist

@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.37 2015/07/12 18:56:30 wiz Exp $
+# $NetBSD: Makefile,v 1.40 2016/06/08 19:24:32 wiz Exp $
 
-DISTNAME=	Pod-Simple-3.30
+DISTNAME=	Pod-Simple-3.32
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

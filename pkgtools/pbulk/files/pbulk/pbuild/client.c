@@ -1,4 +1,4 @@
-/* $NetBSD: client.c,v 1.4 2012/01/19 18:53:32 joerg Exp $ */
+/* $NetBSD: client.c,v 1.6 2015/12/07 16:52:39 joerg Exp $ */
 
 /*-
  * Copyright (c) 2007 Joerg Sonnenberger <joerg@NetBSD.org>.
@@ -52,20 +52,13 @@
 void
 client_mode(const char *client_port)
 {
-	struct sockaddr_in dst;
 	uint32_t build_info_len;
 	ssize_t recv_bytes, sent_bytes;
 	char *build_info;
 	int fd;
 
-	if (parse_sockaddr_in(client_port, &dst))
-		errx(1, "Could not parse addr/port");
-
-	fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
-	if (fd == -1)
-		err(1, "Could not create socket");	
-	if (connect(fd, (struct sockaddr *)&dst, sizeof(dst)) == -1)
-		err(1, "Could not connect socket");
+	if ((fd = connect_sockaddr(client_port)) == -1)
+		err(1, "Could not creation connection to %s", client_port);
 
 loop:
 	sent_bytes = atomic_write(fd, "G", 1);
@@ -84,6 +77,8 @@ loop:
 	if (recv_bytes != 4)
 		errx(1, "Premature end while reading build info from socket");
 	build_info_len = ntohl(build_info_len);
+	if (build_info_len == 0)
+		exit(0);
 	if (build_info_len < 10 || build_info_len > 0xffffff)
 		errx(1, "Invalid build info length from master");
 

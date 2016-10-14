@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.2 2015/06/23 17:45:33 bouyer Exp $
+@comment $NetBSD: PLIST,v 1.5 2016/04/04 14:45:12 bad Exp $
 bin/pygrub
 bin/qemu-img-xen
 bin/xen-detect
@@ -227,6 +227,9 @@ libexec/xen/bin/xenpaging
 libexec/xen/bin/xenpvnetboot
 libexec/xen/boot/hvmloader
 libexec/xen/etc/qemu/target-x86_64.conf
+man/man1/xenstore-chmod.1
+man/man1/xenstore-ls.1
+man/man1/xenstore.1
 man/man1/xentop.1
 man/man1/xentrace_format.1
 man/man1/xl.1
@@ -247,7 +250,6 @@ sbin/xen-lowmemd
 sbin/xen-mfndump
 sbin/xen-ringwatch
 sbin/xen-tmem-list-parse
-sbin/xenbackendd
 sbin/xenbaked
 sbin/xenconsoled
 sbin/xencov
@@ -262,12 +264,16 @@ sbin/xentrace_setmask
 sbin/xenwatchdogd
 sbin/xl
 share/doc/xen/README.xenmon
+share/doc/xen/xen-command-line.markdown
+share/doc/xen/xl-disk-configuration.txt
+share/doc/xen/xl-network-configuration.markdown
 share/examples/xen/README
 share/examples/xen/README.incompatibilities
 share/examples/xen/cpupool
 share/examples/xen/oxenstored.conf
 share/examples/xen/scripts/block
 share/examples/xen/scripts/hotplugpath.sh
+share/examples/xen/scripts/locking.sh
 share/examples/xen/scripts/qemu-ifup
 share/examples/xen/scripts/vif-bridge
 share/examples/xen/scripts/vif-ip

@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.1 2015/07/04 05:26:21 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.6 2016/07/16 08:32:05 wiz Exp $
 bin/dirmngr
 bin/dirmngr-client
 bin/g13
@@ -6,16 +6,15 @@ bin/gpg-agent
 bin/gpg-connect-agent
 bin/gpg2
 bin/gpgconf
-bin/gpgkey2ssh
 bin/gpgparsemail
+bin/gpgscm
 bin/gpgsm
-bin/gpgsm-gencert.sh
 bin/gpgtar
 bin/gpgv2
 bin/kbxutil
 bin/watchgnupg
 info/gnupg.info
-libexec/dirmngr_ldap
+${PLIST.ldap}libexec/dirmngr_ldap
 libexec/gpg-check-pattern
 libexec/gpg-preset-passphrase
 libexec/gpg-protect-tool
@@ -27,7 +26,6 @@ man/man1/gpg-preset-passphrase.1
 man/man1/gpg2.1
 man/man1/gpgconf.1
 man/man1/gpgparsemail.1
-man/man1/gpgsm-gencert.sh.1
 man/man1/gpgsm.1
 man/man1/gpgv2.1
 man/man1/scdaemon.1
@@ -39,6 +37,7 @@ man/man8/applygnupgdefaults.8
 man/man8/dirmngr.8
 sbin/addgnupghome
 sbin/applygnupgdefaults
+sbin/g13-syshelp
 share/doc/gnupg/DCO
 share/doc/gnupg/DETAILS
 share/doc/gnupg/FAQ
@@ -52,7 +51,7 @@ share/doc/gnupg/examples/gpgconf.conf
 share/doc/gnupg/examples/pwpattern.list
 share/doc/gnupg/examples/scd-event
 share/doc/gnupg/examples/trustlist.txt
-share/gnupg/com-certs.pem
+share/gnupg/dirmngr-conf.skel
 share/gnupg/distsigkey.gpg
 share/gnupg/gpg-conf.skel
 share/gnupg/help.be.txt
@@ -83,7 +82,7 @@ share/gnupg/help.tr.txt
 share/gnupg/help.txt
 share/gnupg/help.zh_CN.txt
 share/gnupg/help.zh_TW.txt
-share/gnupg/qualified.txt
+share/gnupg/sks-keyservers.netCA.pem
 share/locale/ca/LC_MESSAGES/gnupg2.mo
 share/locale/cs/LC_MESSAGES/gnupg2.mo
 share/locale/da/LC_MESSAGES/gnupg2.mo

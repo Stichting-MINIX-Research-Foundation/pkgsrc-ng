@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.89 2014/10/09 14:06:08 wiz Exp $
+# $NetBSD: Makefile,v 1.92 2016/04/24 10:48:06 wiz Exp $
 
 DISTNAME=		glib-1.2.10
-PKGREVISION=		10
+PKGREVISION=		11
 CATEGORIES=		devel
-MASTER_SITES=		ftp://ftp.gtk.org/pub/gtk/v1.2/ \
-			${MASTER_SITE_GNOME:=sources/glib/1.2/}
+MASTER_SITES=		${MASTER_SITE_GNOME:=sources/glib/1.2/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://developer.gnome.org/glib/
 COMMENT=		Some useful routines for C programming (glib1)
+LICENSE=		gnu-lgpl-v2.1
 
 CONFLICTS=		gtk+-1.0.*
 
@@ -29,8 +29,13 @@ PTHREAD_OPTS+=		require
 
 # Force the result of this configure test, because the testing technique
 # breaks with NetBSD's native libpthread.so.
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ENV+=		glib_cv_rtldglobal_broken=no
+CONFIGURE_ENV.NetBSD+=	glib_cv_rtldglobal_broken=no
+
+# Tests are insufficient, override with correct values.
+.if ${OPSYS} == "Darwin" && ${PKGSRC_COMPILER} == "clang"
+CONFIGURE_ENV+=		glib_cv_has__inline=yes
+CONFIGURE_ENV+=		glib_cv_has__inline__=yes
+CONFIGURE_ENV+=		glib_cv_hasinline=yes
 .endif
 
 .if ${MACHINE_ARCH} == "arm" || ${MACHINE_ARCH} == "arm32"

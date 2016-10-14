@@ -1,4 +1,4 @@
-@comment $NetBSD: PLIST,v 1.18 2015/06/30 11:00:32 ryoon Exp $
+@comment $NetBSD: PLIST,v 1.21 2016/03/17 05:35:47 richard Exp $
 bin/info
 bin/install-info
 bin/makeinfo
@@ -9,8 +9,8 @@ bin/texi2dvi
 bin/texi2pdf
 bin/texindex
 info/info-stnd.info
-info/info.info
 info/texinfo.info
+lib/texinfo/XSParagraph.la
 man/man1/info.1
 man/man1/install-info.1
 man/man1/makeinfo.1
@@ -35,6 +35,7 @@ share/texinfo/Texinfo/Convert/Info.pm
 share/texinfo/Texinfo/Convert/Line.pm
 share/texinfo/Texinfo/Convert/NodeNameNormalization.pm
 share/texinfo/Texinfo/Convert/Paragraph.pm
+share/texinfo/Texinfo/Convert/ParagraphNonXS.pm
 share/texinfo/Texinfo/Convert/PlainTexinfo.pm
 share/texinfo/Texinfo/Convert/Plaintext.pm
 share/texinfo/Texinfo/Convert/Texinfo.pm
@@ -44,8 +45,10 @@ share/texinfo/Texinfo/Convert/Text.pm
 share/texinfo/Texinfo/Convert/TextContent.pm
 share/texinfo/Texinfo/Convert/UnFilled.pm
 share/texinfo/Texinfo/Convert/Unicode.pm
+share/texinfo/Texinfo/Convert/XSParagraph/TestXS.pm
 share/texinfo/Texinfo/Documentlanguages.pm
 share/texinfo/Texinfo/Encoding.pm
+share/texinfo/Texinfo/ModulePath.pm
 share/texinfo/Texinfo/Parser.pm
 share/texinfo/Texinfo/Report.pm
 share/texinfo/Texinfo/Structuring.pm

@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.63 2015/08/31 00:16:38 gdt Exp $
+# $NetBSD: Makefile,v 1.68 2016/08/03 10:22:49 adam Exp $
 #
 
 VERSION=		1.6
 DISTNAME=		viking-${VERSION}
+PKGREVISION=		4
 CATEGORIES=		geography
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=viking/}${VERSION}/
 EXTRACT_SUFX=		.tar.bz2
@@ -32,6 +33,7 @@ USE_TOOLS+=		gmake intltool msgfmt pkg-config
 
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 
+.include "../../databases/sqlite3/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
 .include "../../graphics/gexiv2/buildlink3.mk"

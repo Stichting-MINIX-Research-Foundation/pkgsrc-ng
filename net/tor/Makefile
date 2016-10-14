@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.105 2015/07/19 12:04:47 wiz Exp $
+# $NetBSD: Makefile,v 1.111 2016/08/25 07:57:24 wiz Exp $
 
-DISTNAME=		tor-0.2.6.10
+DISTNAME=		tor-0.2.8.7
 CATEGORIES=		net security
 MASTER_SITES=		http://www.torproject.org/dist/
 
@@ -13,6 +13,8 @@ LICENSE=		modified-bsd
 
 USE_LANGUAGES=		c99
 USE_PKGLOCALEDIR=	yes
+# https://trac.torproject.org/projects/tor/ticket/17818
+USE_TOOLS+=		gmake
 GNU_CONFIGURE=		yes
 
 CONFIGURE_ENV+=		CPP=${CPP:Q}
@@ -54,9 +56,10 @@ CHECK_PORTABILITY_SKIP+=contrib/*
 CFLAGS+=		-c99
 .endif
 
-BUILDLINK_API_DEPENDS.libevent+= libevent>=1.2
+BUILDLINK_API_DEPENDS.libevent+= libevent>=2.0
 .include "../../devel/libevent/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
+BUILDLINK_API_DEPENDS.openssl+=	openssl>=1.0
 .include "../../security/openssl/buildlink3.mk"
 .include "../../mk/pthread.buildlink3.mk"
 

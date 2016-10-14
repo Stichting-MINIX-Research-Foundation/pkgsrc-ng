@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.26 2015/09/16 12:28:53 tnn Exp $
+# $NetBSD: Makefile,v 1.37 2016/08/03 10:23:37 adam Exp $
 
 DISTNAME=	qtbase-opensource-src-${QTVERSION}
 PKGNAME=	qt5-qtbase-${QTVERSION}
-PKGREVISION=	5
+PKGREVISION=	8
 COMMENT=	C++ X GUI toolkit
 
 .include "../../x11/qt5-qtbase/Makefile.common"
@@ -19,16 +19,23 @@ CONFIGURE_ARGS+=	${CFLAGS:M-I*} ${LDFLAGS:M-L*} ${LDFLAGS:M-l*}
 CONFIGURE_ARGS+=	-opensource -confirm-license
 CONFIGURE_ARGS+=	-sysconfdir "${PKG_SYSCONFDIR}/xdg"
 CONFIGURE_ARGS+=	-accessibility
+CONFIGURE_ARGS+=	-dbus-linked
 CONFIGURE_ARGS+=	-fontconfig
+CONFIGURE_ARGS+=	-force-pkg-config
 CONFIGURE_ARGS+=	-icu
 CONFIGURE_ARGS+=	-openssl-linked
 CONFIGURE_ARGS+=	-nomake examples
 CONFIGURE_ARGS+=	-nomake tests
-CONFIGURE_ARGS+=	-no-dbus
 CONFIGURE_ARGS+=	-no-pch
+CONFIGURE_ARGS+=        -no-sql-db2
+CONFIGURE_ARGS+=        -no-sql-ibase
 CONFIGURE_ARGS+=	-no-sql-mysql
+CONFIGURE_ARGS+=        -no-sql-oci
+CONFIGURE_ARGS+=        -no-sql-odbc
 CONFIGURE_ARGS+=	-no-sql-psql
 CONFIGURE_ARGS+=	-no-sql-sqlite
+CONFIGURE_ARGS+=        -no-sql-sqlite2
+CONFIGURE_ARGS+=	-no-sql-tds
 CONFIGURE_ARGS+=	-no-strip
 CONFIGURE_ARGS+=	-system-harfbuzz
 CONFIGURE_ARGS+=	-system-libjpeg
@@ -36,7 +43,6 @@ CONFIGURE_ARGS+=	-system-libpng
 CONFIGURE_ARGS+=	-system-pcre
 CONFIGURE_ARGS+=	-system-sqlite
 CONFIGURE_ARGS+=	-system-zlib
-OPSYSVARS+=		CONFIGURE_ARGS
 
 .include "../../mk/bsd.prefs.mk"
 
@@ -91,6 +97,9 @@ LDFLAGS+=		-ldl
 LDFLAGS+=		-lexecinfo
 .  endif
 .endif
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "OpenBSD"
+LDFLAGS+=		-lkvm	# see patch-src_corelib_io_qlockfile__unix.cpp
+.endif
 
 REPLACE_PERL+=		bin/syncqt.pl
 
@@ -111,12 +120,17 @@ CHECK_INTERPRETER_SKIP+=qt5/examples/widgets/tools/plugandpaintplugins/extrafilt
 CHECK_INTERPRETER_SKIP+=qt5/examples/widgets/tools/styleplugin/plugin/plugin.pro
 CHECK_INTERPRETER_SKIP+=qt5/mkspecs/macx-ios-clang/rename_main.sh
 
-SUBST_CLASSES+=		opt
+SUBST_CLASSES+=		opt path
 SUBST_STAGE.opt=	pre-configure
 SUBST_MESSAGE.opt=	Removing some Qt5 default compiler flags.
 SUBST_FILES.opt=	mkspecs/common/gcc-base.conf
 SUBST_SED.opt=		-e 's,-O[23],,'
 SUBST_SED.opt+=		-e 's,-fvisibility=hidden,,'
+
+SUBST_STAGE.path=	pre-configure
+SUBST_MESSAGE.path=	Add to default XDG path.
+SUBST_FILES.path=	src/corelib/io/qstandardpaths_unix.cpp
+SUBST_VARS.path=	LOCALBASE
 
 BROKEN_FILES=		qt5/mkspecs/modules/qt_lib_bootstrap_private.pri
 
@@ -180,12 +194,15 @@ post-install:
 .include "../../graphics/freetype2/buildlink3.mk"
 .include "../../graphics/png/buildlink3.mk"
 .include "../../security/openssl/buildlink3.mk"
+# Use lib/dbus-1.0/include/dbus/dbus-arch-deps.h from sysutils/dbus
+USE_DBUS-ARCH-DEPS_H=	yes
+.include "../../sysutils/dbus/buildlink3.mk"
 .include "../../textproc/icu/buildlink3.mk"
 .if ${OPSYS} != "Darwin"
 .include "../../graphics/glu/buildlink3.mk"
-.if !empty(MESALIB_SUPPORTS_EGL:Myes)
+.  if !empty(MESALIB_SUPPORTS_EGL:Myes)
 PLIST.egl=	yes
-.endif
+.  endif
 .include "../../x11/libxcb/buildlink3.mk"
 .include "../../x11/xcb-util/buildlink3.mk"
 .include "../../x11/xcb-util-image/buildlink3.mk"

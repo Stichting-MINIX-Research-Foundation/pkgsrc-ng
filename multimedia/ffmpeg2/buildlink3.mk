@@ -1,4 +1,4 @@
-# $NetBSD: buildlink3.mk,v 1.5 2015/06/30 10:02:22 ryoon Exp $
+# $NetBSD: buildlink3.mk,v 1.9 2016/08/17 00:06:40 ryoon Exp $
 
 BUILDLINK_TREE+=	ffmpeg2
 
@@ -6,13 +6,21 @@ BUILDLINK_TREE+=	ffmpeg2
 FFMPEG2_BUILDLINK3_MK:=
 
 BUILDLINK_API_DEPENDS.ffmpeg2+=	ffmpeg2>=2.0
-BUILDLINK_ABI_DEPENDS.ffmpeg2+=	ffmpeg2>=2.7.1nb1
+BUILDLINK_ABI_DEPENDS.ffmpeg2+=	ffmpeg2>=2.8.7nb4
 BUILDLINK_PKGSRCDIR.ffmpeg2?=	../../multimedia/ffmpeg2
 
 pkgbase := ffmpeg2
 .  include "../../mk/pkg-build-options.mk"
 
 .include "../../mk/bsd.fast.prefs.mk"
+
+.if !empty(PKG_BUILD_OPTIONS.ffmpeg2:Mfreetype)
+.  include "../../graphics/freetype2/buildlink3.mk"
+.endif
+
+.if !empty(PKG_BUILD_OPTIONS.ffmpeg2:Mfontconfig)
+.  include "../../fonts/fontconfig/buildlink3.mk"
+.endif
 
 .if !empty(PKG_BUILD_OPTIONS.ffmpeg2:Mtheora)
 .  include "../../multimedia/libtheora/buildlink3.mk"
@@ -39,6 +47,7 @@ BUILDLINK_LIBDIRS.ffmpeg2+=		lib/ffmpeg2
 BUILDLINK_FNAME_TRANSFORM.ffmpeg2+=	-e 's|lib/ffmpeg2/pkgconfig/|lib/pkgconfig/|'
 
 .include "../../archivers/bzip2/buildlink3.mk"
+.include "../../archivers/xz/buildlink3.mk"
 .include "../../devel/libgetopt/buildlink3.mk"
 .include "../../devel/zlib/buildlink3.mk"
 .endif # FFMPEG2_BUILDLINK3_MK

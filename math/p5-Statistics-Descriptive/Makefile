@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.13 2015/06/12 10:50:31 wiz Exp $
+# $NetBSD: Makefile,v 1.15 2016/06/08 19:24:04 wiz Exp $
 
-DISTNAME=	Statistics-Descriptive-3.0607
+DISTNAME=	Statistics-Descriptive-3.0612
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	math perl5

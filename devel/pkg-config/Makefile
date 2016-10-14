@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.31 2014/10/09 14:06:30 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2016/04/17 10:04:01 wiz Exp $
 
-DISTNAME=	pkg-config-0.28
+DISTNAME=	pkg-config-0.29.1
 CATEGORIES=	devel
 MASTER_SITES=	http://pkgconfig.freedesktop.org/releases/
 
@@ -20,12 +20,14 @@ CONFLICTS=		pkgconfig-[0-9]*
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "IRIX"
 # configure bails out in subdir after re-parsing the cache
-CONFIGURE_ARGS+=	--cache-file=/dev/null
-.endif
+CONFIGURE_ARGS.IRIX+=	--cache-file=/dev/null
 
 .if ${OPSYS} == "NetBSD"
+.if ${MACHINE_ARCH} == "i386" && !empty(OS_VERSION:M[12345].*)
+# Built-in GLib wants __sync_bool_compare_and_swap_4
+CFLAGS+=		-march=i486
+.endif
 post-configure:
 	cd ${WRKSRC}/glib; \
 	${GREP} -v HAVE_DTRACE config.h >config.h.new; \
@@ -37,9 +39,8 @@ post-configure:
 CONFIGURE_ENV+=		glib_cv_value_AF_INET6=yes
 .endif
 
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ARGS+=	--disable-dtrace
-.endif
+CONFIGURE_ARGS.SunOS+=	--disable-dtrace
+CFLAGS.SunOS+=		-DENABLE_NLS # required due to __EXTENSIONS__
 
 CONFIGURE_ARGS+=	${CONFIGURE_ARGS.${ICONV_TYPE}-iconv}
 CONFIGURE_ARGS.gnu-iconv=	--with-libiconv=gnu

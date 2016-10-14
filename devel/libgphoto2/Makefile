@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.63 2015/09/10 00:54:47 dsainty Exp $
+# $NetBSD: Makefile,v 1.66 2016/02/25 12:12:48 jperkin Exp $
 
 DISTNAME=	libgphoto2-2.5.8
 PKGREVISION=	1
@@ -21,7 +21,18 @@ CONFIGURE_ENV+=		ac_cv_path_DOXYGEN=false
 CONFIGURE_ARGS+=	--with-gdlib=no
 PKGCONFIG_OVERRIDE+=	libgphoto2.pc.in libgphoto2_port/libgphoto2_port.pc.in
 
+REPLACE_SH=		packaging/generic/check-ptp-camera
+
 .include "../../mk/bsd.prefs.mk"
+
+PLIST_VARS+=	libusb
+
+BUILDLINK_TRANSFORM.SunOS+=	opt:-Wl,--version-script=./libgphoto2_port.ver:-Wl,-M./libgphoto2_port.ver
+
+SUBST_CLASSES.SunOS+=	mapfile
+SUBST_STAGE.mapfile=	post-patch
+SUBST_FILES.mapfile=	libgphoto2_port/libgphoto2_port/libgphoto2_port.ver
+SUBST_SED.mapfile=	-e '/gpi_gphoto_port_type_map/d'
 
 # remove symbolic link
 post-install:
@@ -30,7 +41,10 @@ post-install:
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gettext-lib/buildlink3.mk"
 .include "../../devel/libltdl/buildlink3.mk"
+.if ${OPSYS} != "SunOS"
+PLIST.libusb=	yes
 .include "../../devel/libusb/buildlink3.mk"
+.endif
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../graphics/libexif/buildlink3.mk"
 .include "../../textproc/libxml2/buildlink3.mk"

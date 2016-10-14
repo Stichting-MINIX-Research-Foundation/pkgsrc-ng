@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.5 2015/06/30 22:46:58 rodent Exp $
+# $NetBSD: Makefile,v 1.7 2016/08/28 15:48:30 wiz Exp $
 
 DISTNAME=	modulegraph-0.12.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=	devel python
-MASTER_SITES=	https://pypi.python.org/packages/source/m/modulegraph/
+MASTER_SITES=	${MASTER_SITE_PYPI:=m/modulegraph/}
 
 MAINTAINER=	rodent@NetBSD.org
 HOMEPAGE=	http://bitbucket.org/ronaldoussoren/modulegraph
@@ -13,8 +13,6 @@ LICENSE=	mit
 DEPENDS+=	${PYPKGPREFIX}-altgraph>=0.11:../../graphics/py-altgraph
 
 USE_LANGUAGES=	# none
-
-PLIST_SUBST+=	PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${MV} ${DESTDIR}${PREFIX}/bin/modulegraph \

@@ -1,4 +1,4 @@
-# $NetBSD: tools.SunOS.mk,v 1.48 2015/06/19 15:22:44 jperkin Exp $
+# $NetBSD: tools.SunOS.mk,v 1.50 2016/05/10 08:54:49 jperkin Exp $
 #
 # System-supplied tools for the Solaris operating system.
 #
@@ -134,6 +134,11 @@ TOOLS_PLATFORM.install?=	/usr/bin/ginstall
 TOOLS_PLATFORM.install?=	/usr/ucb/install
 .endif
 TOOLS_PLATFORM.ksh?=		/bin/ksh
+.if exists(/usr/bin/ld)
+TOOLS_PLATFORM.ld?=		/usr/bin/ld
+.elif exists(/usr/ccs/bin/ld)
+TOOLS_PLATFORM.ld?=		/usr/ccs/bin/ld
+.endif
 TOOLS_PLATFORM.ln?=		/usr/bin/ln
 TOOLS_PLATFORM.ls?=		/usr/bin/ls
 TOOLS_PLATFORM.m4?=		/usr/ccs/bin/m4
@@ -198,11 +203,6 @@ TOOLS_PLATFORM.tbl?=		/usr/bin/tbl
 .endif
 TOOLS_PLATFORM.tee?=		/usr/bin/tee
 TOOLS_PLATFORM.test?=		test			# shell builtin
-.if exists(/usr/bin/texi2html)
-TOOLS_PLATFORM.texi2html?=	/usr/bin/texi2html
-.elif exists(/usr/sfw/bin/texi2html)
-TOOLS_PLATFORM.texi2html?=	/usr/sfw/bin/texi2html
-.endif
 TOOLS_PLATFORM.touch?=		/usr/bin/touch
 TOOLS_PLATFORM.tr?=		/usr/xpg4/bin/tr
 TOOLS_PLATFORM.true?=		true			# shell builtin

@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.2 2014/09/10 18:59:22 joerg Exp $
-#
+# $NetBSD: Makefile,v 1.6 2016/08/28 15:48:29 wiz Exp $
 
 DISTNAME=	CouchDB-0.9
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	databases python
-MASTER_SITES=	http://pypi.python.org/packages/source/C/CouchDB/
+MASTER_SITES=	${MASTER_SITE_PYPI:=C/CouchDB/}
 
 MAINTAINER=	kamelderouiche@yahoo.com
 HOMEPAGE=	http://code.google.com/p/couchdb-python/
@@ -14,7 +13,7 @@ LICENSE=	modified-bsd
 DEPENDS+=	${PYPKGPREFIX}-simplejson>=2.0.9:../../converters/py-simplejson
 DEPENDS+=	${PYPKGPREFIX}-httplib2>=0.5.0:../../www/py-httplib2
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 USE_LANGUAGES=	# none
 
@@ -27,7 +26,6 @@ REPLACE_PYTHON+=	couchdb/tools/replication_helper.py
 REPLACE_PYTHON+=	couchdb/tools/replication_helper_test.py
 REPLACE_PYTHON+=	couchdb/view.py
 PY_PATCHPLIST=		yes
-PLIST_SUBST+=		PYVERSSUFFIX=${PYVERSSUFFIX}
 
 post-install:
 	${INSTALL_DATA} ${WRKSRC}/doc/*.rst \

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.50 2015/04/25 14:24:53 tnn Exp $
+# $NetBSD: Makefile,v 1.52 2016/03/05 11:29:30 jperkin Exp $
 
-DISTNAME=	kdf-${_KDE_VERSION}
-PKGREVISION=	2
+DISTNAME=	kdf-15.12.0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 COMMENT=	Show mount points and disk usage under KDE desktop
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

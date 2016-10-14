@@ -1,11 +1,11 @@
-# $NetBSD: Makefile,v 1.8 2015/06/12 10:48:35 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/07/09 06:37:58 wiz Exp $
 
 GCC_DIST_VERSION=4.9.2
 GCC_PKGNAME=	gcc-mips-${GCC_DIST_VERSION}
 
 DISTNAME=	gcc-${GCC_DIST_VERSION}
 PKGNAME=	${GCC_PKGNAME}
-PKGREVISION=	1
+PKGREVISION=	2
 #PKGREVISION=	1
 CATEGORIES=	cross lang
 MASTER_SITES=	${MASTER_SITE_GNU:=gcc/gcc-${GCC_DIST_VERSION}/}
@@ -77,12 +77,8 @@ CONFIGURE_ARGS+=	--enable-long-long
 CONFIGURE_ARGS+=	--with-local-prefix=${PREFIX:Q}
 CONFIGURE_ARGS+=	--enable-threads=posix
 CONFIGURE_ARGS+=	--with-boot-ldflags=${BOOT_LDFLAGS:Q}
-.if ${OPSYS} == "NetBSD"
-MAKE_ENV+=		ac_cv_func_clock_gettime=yes
-.endif
-.if ${OPSYS} == "DragonFly"
-CONFIGURE_ARGS+=	--disable-bootstrap
-.endif
+MAKE_ENV.NetBSD+=	ac_cv_func_clock_gettime=yes
+CONFIGURE_ARGS.DragonFly+=	--disable-bootstrap
 
 TARGET=			mipsel--netbsd
 CONFIGURE_ARGS+=	--target=${TARGET}

@@ -1,19 +1,20 @@
-# $NetBSD: Makefile,v 1.43 2015/06/12 10:50:07 wiz Exp $
+# $NetBSD: Makefile,v 1.47 2016/08/03 10:22:48 adam Exp $
 
-DISTNAME=	xboard-4.6.2
-PKGREVISION=	3
+DISTNAME=	xboard-4.8.0
+PKGREVISION=	2
 CATEGORIES=	games
 MASTER_SITES=	${MASTER_SITE_GNU:=xboard/}
 
 MAINTAINER=	simonb@NetBSD.org
 HOMEPAGE=	http://www.gnu.org/software/xboard/
 COMMENT=	Graphical frontend for chess engines and servers
+LICENSE=	gnu-gpl-v3
 
 CONFIGURE_ARGS+=	--enable-xpm
 CONFIGURE_ARGS+=	--enable-zippy	# interface to ICS
 CONFIGURE_ARGS+=	PERLPATH=${PERL5}
 GNU_CONFIGURE=		yes
-USE_TOOLS+=		perl:run makeinfo
+USE_TOOLS+=		perl:run makeinfo pkg-config
 INFO_FILES=		yes
 REPLACE_PERL=		texi2man
 
@@ -28,9 +29,9 @@ CONFIGURE_ARGS+=	--with-Xaw3d
 .endif
 
 SUBST_CLASSES+=		engine
-SUBST_MESSAGE.engine=	Setting default chess engine.
+SUBST_MESSAGE.engine=	Setting gnuchess as default chess engine.
 SUBST_STAGE.engine=	pre-configure
-SUBST_FILES.engine=	xboard.conf.in
+SUBST_FILES.engine=	xboard.conf
 SUBST_SED.engine=	-e '/ChessProgram / s,fairymax,gnuchess,'
 DEPENDS+=		gnuchess-[0-9]*:../../games/gnuchess
 
@@ -39,20 +40,20 @@ WAVPLAYER=      /usr/bin/audioplay
 .elif ${OPSYS} == "OpenBSD"
 WAVPLAYER=      /usr/bin/aucat -i
 .elif ${OPSYS} == "Darwin"
-WAVPLAYER=      ${LOCALBASE}/bin/qtplay
+WAVPLAYER=      ${PREFIX}/bin/qtplay
 DEPENDS+=       qtplay-[0-9]*:../../audio/qtplay
 .elif ${OPSYS} == "Linux"
-WAVPLAYER=      ${LOCALBASE}/bin/aplay -q
+WAVPLAYER=      ${PREFIX}/bin/aplay -q
 DEPENDS+=       alsa-utils-[0-9]*:../../audio/alsa-utils
 .else
 CHECK_BUILTIN.oss:=     yes
 .  include "../../mk/oss.builtin.mk"
 CHECK_BUILTIN.oss:=     no
 .  if defined(IS_BUILTIN.oss) && !empty(IS_BUILTIN.oss:M[yY][eE][sS])
-WAVPLAYER=      ${LOCALBASE}/bin/sndfile-play
+WAVPLAYER=      ${PREFIX}/bin/sndfile-play
 DEPENDS+=       libsndfile-[0-9]*:../../audio/libsndfile
 #.  else # most crossplatform, but a bit too many dependencies
-#WAVPLAYER=     ${LOCALBASE}/bin/playsound
+#WAVPLAYER=     ${PREFIX}/bin/playsound
 #DEPENDS+=      SDL_sound-[0-9]*:../../audio/SDL_sound
 .  endif
 .endif
@@ -64,11 +65,15 @@ SUBST_FILES.wavplayer=          xboard.conf
 SUBST_SED.wavplayer=            -e 's,aplay -q,${WAVPLAYER},g'
 
 post-install:
-	$(INSTALL_SCRIPT) ${WRKSRC}/cmail ${DESTDIR}${PREFIX}/bin
-	$(INSTALL_DATA) ${WRKSRC}/xboard.conf ${DESTDIR}${PREFIX}/share/examples/xboard
+	${INSTALL_SCRIPT} ${WRKSRC}/cmail ${DESTDIR}${PREFIX}/bin
+	${INSTALL_DATA} ${WRKSRC}/xboard.conf ${DESTDIR}${PREFIX}/share/examples/xboard
 
 .include "../../devel/gettext-lib/buildlink3.mk"
-.include "../../x11/libXpm/buildlink3.mk"
+.include "../../graphics/cairo/buildlink3.mk"
+.include "../../graphics/hicolor-icon-theme/buildlink3.mk"
+.include "../../graphics/librsvg/buildlink3.mk"
 .include "../../mk/xaw.buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
+.include "../../x11/libXpm/buildlink3.mk"
+
 .include "../../mk/bsd.pkg.mk"

@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2015/06/12 10:49:22 wiz Exp $
+# $NetBSD: Makefile,v 1.14 2016/06/08 19:23:06 wiz Exp $
 #
 
-DISTNAME=	Lexical-SealRequireHints-0.009
+DISTNAME=	Lexical-SealRequireHints-0.010
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

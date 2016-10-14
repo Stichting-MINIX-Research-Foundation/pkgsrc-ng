@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.11 2015/07/12 18:56:30 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/06/08 19:24:33 wiz Exp $
 
-DISTNAME=	Pod-Weaver-4.012
+DISTNAME=	Pod-Weaver-4.013
 PKGNAME=	p5-${DISTNAME}
 PKGREVISION=	1
 CATEGORIES=	devel perl5

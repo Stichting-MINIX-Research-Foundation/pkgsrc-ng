@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.54 2015/04/25 14:22:53 tnn Exp $
+# $NetBSD: Makefile,v 1.56 2016/08/03 10:22:45 adam Exp $
 
 DISTNAME=	ccgo-0.3.6.3
-PKGREVISION=	23
+PKGREVISION=	24
 CATEGORIES=	games
 MASTER_SITES=	http://ccdw.org/~cjj/prog/ccgo/src/
 
@@ -20,10 +20,7 @@ SUBST_CLASSES+=		ccgo
 SUBST_STAGE.ccgo=	pre-configure
 SUBST_FILES.ccgo=	game_setup.cc settings.cc
 SUBST_MESSAGE.ccgo=	Fixing paths to gnugo.
-SUBST_SED.ccgo=		-e 's|/usr/games/gnugo|${PREFIX.gnugo}/bin/gnugo|g'
-
-EVAL_PREFIX+=		PREFIX.gnugo
-PREFIX.gnugo_DEFAULT=	${LOCALBASE}
+SUBST_SED.ccgo=		-e 's|/usr/games/gnugo|${LOCALBASE}/bin/gnugo|g'
 
 .include "../../converters/libiconv/buildlink3.mk"
 .include "../../devel/gconfmm/buildlink3.mk"

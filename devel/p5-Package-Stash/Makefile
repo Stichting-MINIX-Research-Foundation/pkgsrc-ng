@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.18 2015/07/12 18:56:17 wiz Exp $
+# $NetBSD: Makefile,v 1.20 2016/06/08 19:23:22 wiz Exp $
 
 DISTNAME=	Package-Stash-0.37
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	1
+PKGREVISION=	3
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_PERL_CPAN:=Package/}
 
@@ -15,7 +15,6 @@ CONFLICTS+=	p5-MooseX-Method-Signatures<=0.36
 
 DEPENDS+=	p5-Dist-CheckConflicts>=0.02:../../devel/p5-Dist-CheckConflicts
 DEPENDS+=	p5-Module-Implementation>=0.06:../../devel/p5-Module-Implementation
-DEPENDS+=	p5-Package-DeprecationManager-[0-9]*:../../devel/p5-Package-DeprecationManager
 DEPENDS+=	p5-Package-Stash-XS>=0.26:../../devel/p5-Package-Stash-XS
 
 BUILD_DEPENDS+=	p5-Test-Fatal-[0-9]*:../../devel/p5-Test-Fatal

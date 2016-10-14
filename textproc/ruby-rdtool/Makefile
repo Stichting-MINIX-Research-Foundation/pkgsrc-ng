@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.39 2015/06/08 16:47:54 taca Exp $
+# $NetBSD: Makefile,v 1.43 2016/09/08 15:19:19 joerg Exp $
 
 DISTNAME=	rdtool-0.6.38
 PKGREVISION=	2
@@ -18,7 +18,7 @@ SUBST_SED.path=		-e "s|@PKG_SYSCONFDIR@|${PKG_SYSCONFDIR}|"
 SUBST_MESSAGE.path=	Fixing PKG_SYSCONFDIR paths.
 
 RUBYGEM_OPTIONS+=	--format-executable
-RUBY_VERSION_SUPPORTED= 18 193 200 21 22
+RUBY_VERSIONS_ACCEPTED= 18 21 22 23
 
 .include "../../lang/ruby/gem.mk"
 .include "../../lang/ruby/modules.mk"

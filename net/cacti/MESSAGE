@@ -1,5 +1,5 @@
 ===========================================================================
-$NetBSD: MESSAGE,v 1.2 2014/01/16 21:10:00 tron Exp $
+$NetBSD: MESSAGE,v 1.5 2016/06/02 14:18:23 hauke Exp $
 
 cacti is now installed.
 
@@ -35,7 +35,14 @@ To get cacti up and running asap, you have to complete these steps:
 # Invoke poller.php to collect SNMP statistics.
 */5 * * * *	${PREFIX}/bin/cacti-poller
 
+  and make sure ${PREFIX}/bin is in PATH.
+
 Please read the included README (${CACTIDIR}/docs/README) file,
 for more information about configuring and starting cacti.
+
+If you have updated from a version older than 0.8.8h, note that the
+rrd and log directories are now under ${VARBASE}. Old logs and
+database files need to be moved manually, and you have to update the
+log path in "Console:Settings:Paths:Logging".
 
 ===========================================================================

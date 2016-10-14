@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.1 2014/10/13 13:46:23 mef Exp $
+# $NetBSD: Makefile,v 1.3 2015/12/19 22:38:32 mef Exp $
 
-DISTNAME=		hackrf-2014.08.1
+DISTNAME=		hackrf-2015.07.2
 CATEGORIES=		ham
-MASTER_SITES=		http://sourceforge.net/projects/hackrf/files/
+MASTER_SITES=           ${MASTER_SITE_GITHUB:=mossmann/}
+GITHUB_RELEASE=		v${PKGVERSION_NOREV}
 EXTRACT_SUFX=		.tar.xz
 
 MAINTAINER=		pkgsrc-users@NetBSD.org

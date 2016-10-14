@@ -1,14 +1,14 @@
-# $NetBSD: Makefile,v 1.32 2015/07/15 15:09:39 wiz Exp $
+# $NetBSD: Makefile,v 1.43 2016/08/01 14:23:57 wiz Exp $
 #
 
-DISTNAME=	pdf2djvu_0.7.14
-PKGNAME=	${DISTNAME:S/_/-/}
-PKGREVISION=	16
+DISTNAME=	pdf2djvu-0.9.4
+PKGREVISION=	3
 CATEGORIES=	print
-MASTER_SITES=	http://pdf2djvu.googlecode.com/files/
+MASTER_SITES=	https://bitbucket.org/jwilk/pdf2djvu/downloads/
+EXTRACT_SUFX=	.tar.xz
 
 MAINTAINER=	ryoon@NetBSD.org
-HOMEPAGE=	http://code.google.com/p/pdf2djvu/
+HOMEPAGE=	http://jwilk.net/software/pdf2djvu
 COMMENT=	Creates DjVu files from PDF files
 LICENSE=	gnu-gpl-v2
 
@@ -17,20 +17,12 @@ DEPENDS+=	djvulibre-tools-[0-9]*:../../graphics/djvulibre-tools
 WRKSRC=			${WRKDIR}/${PKGNAME_NOREV}
 GNU_CONFIGURE=		yes
 USE_PKGLOCALEDIR=	yes
-USE_LANGUAGES=		c++ c
-USE_TOOLS+=		pkg-config gmake intltool msgfmt xgettext gsed:run
-TOOLS_DEPENDS.gsed=	gsed>=4.2:../../textproc/gsed
+USE_LANGUAGES=		c++
+USE_TOOLS+=		pkg-config gmake intltool msgfmt xgettext
 CONFIGURE_ARGS+=	--localedir=${PREFIX}/${PKGLOCALEDIR}/locale
-
-.include "../../mk/bsd.prefs.mk"
-.if !empty(MACHINE_PLATFORM:MNetBSD-5*) || ${OPSYS} == "MirBSD"
-BUILDLINK_TRANSFORM+=	rm:-Werror=overloaded-virtual
-.endif
 
 .include "../../graphics/djvulibre-lib/buildlink3.mk"
 .include "../../print/poppler/buildlink3.mk"
 .include "../../print/poppler-includes/buildlink3.mk"
-.include "../../textproc/libxslt/buildlink3.mk"
 .include "../../graphics/GraphicsMagick/buildlink3.mk"
-.include "../../devel/pstreams/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

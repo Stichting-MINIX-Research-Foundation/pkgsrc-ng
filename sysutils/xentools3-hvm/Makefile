@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.27 2015/08/18 07:31:18 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2016/07/09 13:04:08 wiz Exp $
 
 VERSION=		3.1.4
 DISTNAME=		xen-${VERSION}
 PKGNAME=		xentools3-hvm-${VERSION}
-PKGREVISION=		13
+PKGREVISION=		15
 CATEGORIES=		sysutils
 MASTER_SITES=	http://bits.xensource.com/oss-xen/release/${VERSION}/
 
@@ -21,7 +21,7 @@ ONLY_FOR_PLATFORM+=	NetBSD-*-i386 NetBSD-*-x86_64
 CONFLICTS=		xentools30-* xentools33-*
 CONFLICTS+=		xenstoretools-*
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 3.1.4
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 3.1.4
 
 WRKSRC=			${WRKDIR}/xen-${VERSION}/tools
 CHECK_PORTABILITY_SKIP+=	examples/* xm-test/ramdisk/make-release.sh
@@ -64,16 +64,12 @@ SUBST_FILES.prefix=	python/xen/util/auxbin.py
 SUBST_FILES.prefix=	ioemu/vl.c
 SUBST_SED.prefix=	-e "s,@PREFIX@,${PREFIX},g"
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-PROCPATH=		/kern
-.else
-PROCPATH=		/proc
-.endif
+OPSYSVARS+=		PROCPATH
+PROCPATH.NetBSD=	/kern
+PROCPATH.*=		/proc
 
 CONF_FILES_PERMS+=	${EGDIR}/qemu-ifup ${PKG_SYSCONFDIR}/scripts/qemu-ifup \
-			${ROOT_USER} ${ROOT_GROUP} 0755
+			${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 0755
 
 OWN_DIRS=		${PKG_SYSCONFDIR}/scripts
 

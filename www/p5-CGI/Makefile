@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.78 2015/06/29 11:13:09 wiz Exp $
+# $NetBSD: Makefile,v 1.89 2016/09/17 02:59:19 mef Exp $
 
-DISTNAME=	CGI-4.21
+DISTNAME=	CGI-4.33
 PKGNAME=	p5-${DISTNAME}
 CATEGORIES=	www perl5
 MASTER_SITES+=	${MASTER_SITE_PERL_CPAN:=CGI/}
@@ -13,6 +13,7 @@ LICENSE=	gnu-gpl-v2 OR artistic-2.0
 DEPENDS+=	p5-HTML-Parser-[0-9]*:../../www/p5-HTML-Parser
 BUILD_DEPENDS+=	p5-Test-Deep-[0-9]*:../../devel/p5-Test-Deep
 BUILD_DEPENDS+=	p5-Test-Warn-[0-9]*:../../devel/p5-Test-Warn
+BUILD_DEPENDS+=	p5-Test-NoWarnings-[0-9]*:../../devel/p5-Test-NoWarnings
 
 USE_LANGUAGES=		# empty
 USE_TOOLS+=		perl

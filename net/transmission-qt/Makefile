@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.12 2015/04/25 14:23:47 tnn Exp $
+# $NetBSD: Makefile,v 1.18 2016/06/17 15:48:24 youri Exp $
 
 PKGNAME=	transmission-qt-${VERSION}
-PKGREVISION=	2
+PKGREVISION=	1
 
 USE_LANGUAGES=		c c++
 MAKE_ENV+=		QTDIR=${QTDIR}
@@ -30,6 +30,10 @@ post-build:
 do-install:
 	cd ${WRKSRC}/qt && ${SETENV} ${INSTALL_ENV} make install
 
-.include "../../x11/qt5-dbus/buildlink3.mk"
+post-install:
+	${MKDIR} ${DESTDIR}${PREFIX}/share/applications &&		\
+	${INSTALL_DATA} ${FILESDIR}/transmission-qt.desktop		\
+	${DESTDIR}${PREFIX}/share/applications/transmission-qt.desktop
+
 .include "../../x11/qt5-qtbase/buildlink3.mk"
 .include "../../mk/bsd.pkg.mk"

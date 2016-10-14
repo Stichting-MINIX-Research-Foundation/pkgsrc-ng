@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.3 2010/11/08 16:22:39 minskim Exp $
+$NetBSD: distinfo,v 1.5 2016/06/16 04:06:05 markd Exp $
 
-SHA1 (tex-hyphen-danish-20144/hyphen-danish.tar.xz) = 5dee2f88a39676f668053b6e175dcb101580ca12
-RMD160 (tex-hyphen-danish-20144/hyphen-danish.tar.xz) = b25edc0e75109afcf16c99af55fbbe856ba7ee1f
-Size (tex-hyphen-danish-20144/hyphen-danish.tar.xz) = 432 bytes
+SHA1 (tex-hyphen-danish-41113/hyphen-danish.tar.xz) = 9da17731e02863a65a323d8cd3ba58d3328fbd4a
+RMD160 (tex-hyphen-danish-41113/hyphen-danish.tar.xz) = c22c1a2653b71dd2c65369ab11c1586dc8608c30
+SHA512 (tex-hyphen-danish-41113/hyphen-danish.tar.xz) = 4ce4f9ca2461556726ab7a6e939a359d42dfa0e33dfddf286a5cfeba57449f32efda4e472fb4f0db11226fd0cd0e9b785c0c9f29eec92eabed4589302c82037b
+Size (tex-hyphen-danish-41113/hyphen-danish.tar.xz) = 5812 bytes

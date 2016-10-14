@@ -1,25 +1,28 @@
-# $NetBSD: Makefile,v 1.3 2015/07/21 19:18:25 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/08/28 15:48:33 wiz Exp $
 
-DISTNAME=		khard-0.4.1
+DISTNAME=		khard-0.11.1
 CATEGORIES=		misc net
-MASTER_SITES=		https://pypi.python.org/packages/source/k/khard/
+MASTER_SITES=		${MASTER_SITE_PYPI:=k/khard/}
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		https://github.com/scheibler/khard
 COMMENT=		CLI contacts application built around CardDAV
 LICENSE=		gnu-gpl-v3
 
+DEPENDS+=		${PYPKGPREFIX}-atomicwrites-[0-9]*:../../devel/py-atomicwrites
 DEPENDS+=		${PYPKGPREFIX}-configobj-[0-9]*:../../devel/py-configobj
 DEPENDS+=		${PYPKGPREFIX}-vobject-[0-9]*:../../textproc/py-vobject
 DEPENDS+=		${PYPKGPREFIX}-argparse-[0-9]*:../../devel/py-argparse
+DEPENDS+=		${PYPKGPREFIX}-yaml-[0-9]*:../../textproc/py-yaml
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.4.1
+PYTHON_VERSIONS_INCOMPATIBLE=	27 # does not support python-2.x any longer
 
 INSTALLATION_DIRS=	share/examples/khard
 REPLACE_PYTHON+=	*/*.py
 
 post-install:
-	${INSTALL_DATA} ${WRKSRC}/khard.conf.example ${DESTDIR}${PREFIX}/share/examples/khard
+	${INSTALL_DATA} ${WRKSRC}/misc/khard/khard.conf.example ${DESTDIR}${PREFIX}/share/examples/khard
+	cd ${DESTDIR}${PREFIX}/bin && ${MV} khard khard-${PYVERSSUFFIX}
 
 .include "../../lang/python/application.mk"
 .include "../../lang/python/egg.mk"

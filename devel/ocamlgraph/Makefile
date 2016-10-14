@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.5 2015/06/30 11:52:57 jaapb Exp $
+# $NetBSD: Makefile,v 1.14 2016/08/03 10:22:39 adam Exp $
 
-DISTNAME=	ocamlgraph-1.8.5
-PKGNAME=	${DISTNAME} # avoid prefixing with ocaml-
-PKGREVISION=	4
+DISTNAME=	ocamlgraph-1.8.7
+PKGREVISION=	2
 CATEGORIES=	devel
 MASTER_SITES=	http://ocamlgraph.lri.fr/download/
 

@@ -1,0 +1,7 @@
+$NetBSD: distinfo,v 1.2 2016/08/12 09:22:34 fhajny Exp $
+
+SHA1 (cache_tab-1.0.4.tar.gz) = 1b89333e765286632d4bec337b1e6768437e86ca
+RMD160 (cache_tab-1.0.4.tar.gz) = 8705533032d569a118b40968d11ff934baccdf55
+SHA512 (cache_tab-1.0.4.tar.gz) = c0f7167631eb11de59303a7cc96592c172c109019004f52759c6d5c02d581ca515a81568f2dca0bc1a38ea8303d48b5e415cf12629d27730318433843a1ff3eb
+Size (cache_tab-1.0.4.tar.gz) = 12611 bytes
+SHA1 (patch-rebar.config) = 6d0a2f787b55d5214922231bcae2ad9eede42797

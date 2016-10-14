@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.101 2015/09/14 09:06:39 jnemeth Exp $
+# $NetBSD: Makefile,v 1.103 2016/02/14 07:55:55 ryoon Exp $
 #
 
 COMMENT=	Communication utilities
@@ -6,6 +6,7 @@ COMMENT=	Communication utilities
 SUBDIR+=	asterisk
 SUBDIR+=	asterisk-sounds-de-x9media
 SUBDIR+=	asterisk-sounds-native
+SUBDIR+=	asterisk13
 SUBDIR+=	asterisk18
 SUBDIR+=	binkd
 SUBDIR+=	birda
@@ -60,6 +61,7 @@ SUBDIR+=	p5-Device-SerialPort
 SUBDIR+=	p5-Device-XBee-API
 SUBDIR+=	p5-SMS-Send
 SUBDIR+=	p5-pilot-link
+SUBDIR+=	picocom
 SUBDIR+=	pilot-link
 SUBDIR+=	pilot-link-libs
 SUBDIR+=	pilotmgr

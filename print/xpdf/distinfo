@@ -1,7 +1,8 @@
-$NetBSD: distinfo,v 1.43 2015/03/07 15:30:58 mef Exp $
+$NetBSD: distinfo,v 1.45 2015/12/29 04:04:31 dholland Exp $
 
 SHA1 (xpdf-3.04.tar.gz) = b9b1dbb0335742a09d0442c60fd02f4f934618bd
 RMD160 (xpdf-3.04.tar.gz) = fb29aad21054d5d3b349aec4806262feeca1bd8e
+SHA512 (xpdf-3.04.tar.gz) = 3fb3c380fdbd13d937449ae3f7d7a163815cc85296d30be7b9907687884385d6171bb48ee5d5c13368d6bba87740b678f491bdcf61b38d130809e9afa260f6cf
 Size (xpdf-3.04.tar.gz) = 825519 bytes
 SHA1 (patch-aa) = ab41e35600d1e625b902076d947ec48a9c1bc59e
 SHA1 (patch-ac) = 6fa74df05e01510c792eb2b20f670e6903f30aa2
@@ -16,5 +17,5 @@ SHA1 (patch-ak) = dab4cf5d892c00ab81e685c52977fa743f4d970a
 SHA1 (patch-al) = df18fb971275f99a7e1757f65455a181bb9eb8eb
 SHA1 (patch-am) = e88ff60e7941cb7bdfdc4bf59727ca401f1a5758
 SHA1 (patch-ap) = 5961dfe22ac087a7df0311235b4fab27d7554c58
-SHA1 (patch-bc) = e3f8092c30325a3f7abf230daeadd4478a9db768
+SHA1 (patch-bc) = 8ec863da42941b1b3f0ef0eb880690844ebdff62
 SHA1 (patch-xpdf_XPDFViewer.cc) = 38b1f79365149b37736ecfc73fa0e920fb758d93

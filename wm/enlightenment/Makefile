@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.64 2015/06/12 10:51:47 wiz Exp $
+# $NetBSD: Makefile,v 1.66 2016/07/09 06:39:09 wiz Exp $
 
 DISTNAME=	e16-0.16.8.8
 PKGNAME=	${DISTNAME:S/e16/enlightenment/}
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	x11 gnome wm
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=enlightenment/}
 
@@ -40,7 +40,7 @@ PLIST_VARS+=	libhack
 
 .include "../../mk/bsd.prefs.mk"
 
-.if ${OPSYS} == "DragonFly" || ${OPSYS} == "SunOS"
+.if ${OPSYS} == "DragonFly" || ${OPSYS} == "SunOS" || ${OPSYS} == "Linux"
 PLIST.libhack=	yes
 .endif
 

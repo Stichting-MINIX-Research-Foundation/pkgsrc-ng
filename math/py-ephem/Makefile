@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.10 2014/05/09 07:37:10 wiz Exp $
+# $NetBSD: Makefile,v 1.13 2016/07/09 13:03:55 wiz Exp $
 
 DISTNAME=	pyephem-3.7.5.1
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:S/pyephem/ephem/}
 CATEGORIES=	geography math
-MASTER_SITES=	http://pypi.python.org/packages/source/p/pyephem/
+MASTER_SITES=	${MASTER_SITE_PYPI:=p/pyephem/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://www.rhodesmill.org/brandon/projects/pyephem.html
@@ -14,7 +14,7 @@ do-test:
 	(cd ${WRKSRC}/${PYSETUPSUBDIR} && ${SETENV} ${TEST_ENV} ${MAKE_ENV} \
 	 ${PYTHONBIN} ${PYSETUP} ${PYSETUPARGS} "test")
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35
 
 REPLACE_PYTHON+=	src/ephem/tests/test_angles.py
 REPLACE_PYTHON+=	src/ephem/tests/test_bodies.py

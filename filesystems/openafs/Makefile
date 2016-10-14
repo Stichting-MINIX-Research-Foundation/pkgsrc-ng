@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.8 2014/06/12 23:44:04 gendalia Exp $
+# $NetBSD: Makefile,v 1.13 2016/05/17 10:32:07 fhajny Exp $
 
-DISTNAME=	openafs-1.6.9-src
+DISTNAME=	openafs-1.6.17-src
 PKGNAME=	${DISTNAME:C/-src//}
+PKGREVISION=	2
 CATEGORIES=	filesystems net sysutils
-MASTER_SITES=	http://www.openafs.org/dl/openafs/1.6.9/
+MASTER_SITES=	http://www.openafs.org/dl/openafs/1.6.17/
 EXTRACT_SUFX=	.tar.bz2
 
 MAINTAINER=	gendalia@NetBSD.org
@@ -35,21 +36,26 @@ WRKSRC=		${WRKDIR}/${PKGNAME_NOREV}
 
 PLIST_SRC+=		${.CURDIR}/PLIST
 OWN_DIRS+=		${PKG_SYSCONFDIR}/openafs
-OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/openafs/server ${ROOT_USER} ${ROOT_GROUP} 775
-OWN_DIRS_PERMS+=	${VARBASE}/openafs ${ROOT_USER} ${ROOT_GROUP} 770
+OWN_DIRS_PERMS+=	${PKG_SYSCONFDIR}/openafs/server ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 775
+OWN_DIRS_PERMS+=	${VARBASE}/openafs ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 770
 OWN_DIRS+=		${VARBASE}/openafs/logs
-OWN_DIRS_PERMS+=	${VARBASE}/openafs/db ${ROOT_USER} ${ROOT_GROUP} 700
+OWN_DIRS_PERMS+=	${VARBASE}/openafs/db ${REAL_ROOT_USER} ${REAL_ROOT_GROUP} 700
 
 FILES_SUBST+=		HOSTNAME_CMD=${HOSTNAME_CMD:Q}
 
 BUILD_DEFS+= VARBASE
 
 # attempt to future-proof configuration
-pre-build:
+pre-patch:
 	cd ${WRKSRC}/src/config && for i in 70 80 90; do \
 		${SED} -e 's|nbsd60|nbsd'$$i'|g' param.i386_nbsd60.h > param.i386_nbsd$$i.h; \
 		${SED} -e 's|nbsd60|nbsd'$$i'|g' param.amd64_nbsd60.h > param.amd64_nbsd$$i.h; \
 		${CP} param.nbsd60.h param.nbsd$$i.h; \
+	done
+
+post-patch:
+	cd ${WRKSRC}/src/config && for i in 80 90; do \
+		${CP} param.nbsd70.h param.nbsd$$i.h; \
 	done
 
 MAKE_ENV+=	LD_RUN_PATH=${PREFIX}/lib

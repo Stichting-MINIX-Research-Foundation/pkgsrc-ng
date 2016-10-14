@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.43 2015/04/26 19:19:42 spz Exp $
+# $NetBSD: Makefile,v 1.45 2016/04/24 06:52:44 prlw1 Exp $
 
 PKGNAME=	${DISTNAME:S/-/-server-/}
 COMMENT=	Freeciv game server

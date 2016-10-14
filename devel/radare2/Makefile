@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.5 2015/07/19 16:02:51 kamil Exp $
+# $NetBSD: Makefile,v 1.8 2016/09/16 14:46:25 jperkin Exp $
 
 .include "Makefile.common"
 
 DISTNAME=	radare2-${RADARE2_VERSION}
-PKGREVISION=	1
 CATEGORIES=	devel
 EXTRACT_SUFX=	.tar.xz
 
@@ -17,7 +16,10 @@ CONFIGURE_ARGS+=	--with-sysmagic
 CONFIGURE_ARGS+=	--with-syscapstone
 CONFIGURE_ARGS+=	--with-syszip
 PKGCONFIG_OVERRIDE+=	pkgcfg/*.pc*
-USE_TOOLS+=	gmake pkg-config
+USE_TOOLS+=	gmake patch pkg-config
+
+# node
+CHECK_INTERPRETER_SKIP+=	share/radare2/${RADARE2_VERSION}/www/m/fonts/iconjar-map.js
 
 .include "options.mk"
 

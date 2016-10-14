@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.14 2015/04/25 14:24:53 tnn Exp $
+# $NetBSD: Makefile,v 1.16 2016/03/05 11:29:31 jperkin Exp $
 
-DISTNAME=	kuser-${_KDE_VERSION}
-PKGREVISION=	2
+DISTNAME=	kuser-15.12.0
+PKGREVISION=	1
 CATEGORIES=	sysutils
 COMMENT=	KDE user manager
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 .include "../../meta-pkgs/kde4/Makefile.kde4"
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.3 2015/09/01 04:14:54 mef Exp $
+# $NetBSD: Makefile,v 1.5 2016/07/12 11:36:47 mef Exp $
 
 PKGNAME=	gnuradio-fec-${VERSION}
 COMMENT=	Forward Error Correction blocks, utilities, & examples of GNU Radio
@@ -9,4 +9,5 @@ COMMENT=	Forward Error Correction blocks, utilities, & examples of GNU Radio
 CMAKE_ARGS+=	-DENABLE_DEFAULT=OFF
 CMAKE_ARGS+=	-DENABLE_GR_FEC=ON
 
+.include	"../../math/gsl/buildlink3.mk"
 .include	"../../mk/bsd.pkg.mk"

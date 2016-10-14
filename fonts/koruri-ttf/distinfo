@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.6 2015/07/01 05:22:03 nonaka Exp $
+$NetBSD: distinfo,v 1.10 2016/05/06 12:10:03 nonaka Exp $
 
-SHA1 (Koruri-20150701.tar.xz) = 0e9e5811587194d008f04823681cff9db6f1dbe3
-RMD160 (Koruri-20150701.tar.xz) = 3ab419facf1aaaf7e22462a59f4a44213bb9231e
-Size (Koruri-20150701.tar.xz) = 14556432 bytes
+SHA1 (Koruri-20160506.tar.xz) = 82cbf6c344f63bf08837164b89e5d5bcee17ed6d
+RMD160 (Koruri-20160506.tar.xz) = b34b9ee32186a517d7b37fb7fbf9c5a2c19f7e81
+SHA512 (Koruri-20160506.tar.xz) = 4f4fa9a4f32c4d1f684cc1bc93cffe6d1998ff7340c6790e8964b9577d3945e54c6512bce749c47fa58b5cddfd8a65162b1375c5eee8adc3e6f175f2d643c6f8
+Size (Koruri-20160506.tar.xz) = 4200076 bytes

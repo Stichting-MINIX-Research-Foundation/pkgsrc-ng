@@ -1,6 +1,6 @@
-# $NetBSD: Makefile,v 1.10 2015/09/13 02:31:22 joerg Exp $
+# $NetBSD: Makefile,v 1.14 2016/05/19 21:58:43 joerg Exp $
 
-DISTNAME=	Botan-1.11.16
+DISTNAME=	Botan-1.11.29
 PKGNAME=	${DISTNAME:tl}
 CATEGORIES=	security
 MASTER_SITES=	http://botan.randombit.net/releases/
@@ -38,13 +38,12 @@ PLIST_VARS+=	x86 x86_64
 .if ${MACHINE_ARCH} == "x86_64"
 PLIST.x86_64=	yes
 PLIST.x86=	yes
+CONFIGURE_ARGS+=	--cpu=x86_64
 .elif ${MACHINE_ARCH} == "i386"
 PLIST.x86=	yes
 .endif
 
-.if ${OPSYS} == "SunOS"
-MAKE_FLAGS+=	USER_APP_LINKS_TO=-lnsl
-.endif
+MAKE_FLAGS.SunOS+=	USER_APP_LINKS_TO=-lnsl
 
 .include "../../devel/zlib/buildlink3.mk"
 .include "../../devel/boost-libs/buildlink3.mk"

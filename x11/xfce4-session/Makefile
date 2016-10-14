@@ -1,8 +1,9 @@
-# $NetBSD: Makefile,v 1.52 2015/07/07 19:55:28 youri Exp $
+# $NetBSD: Makefile,v 1.55 2016/08/03 10:23:39 adam Exp $
 
 .include "../../meta-pkgs/xfce4/Makefile.common"
 
 DISTNAME=		xfce4-session-4.12.1
+PKGREVISION=		2
 CATEGORIES=		x11
 MASTER_SITES+=		http://archive.xfce.org/src/xfce/xfce4-session/4.12/
 
@@ -46,7 +47,7 @@ CONF_FILES+=	${EGDIR}/xinitrc \
 
 .include "../../devel/libglade/buildlink3.mk"
 .include "../../devel/libwnck/buildlink3.mk"
-.include "../../security/policykit/buildlink3.mk"
+.include "../../security/polkit/buildlink3.mk"
 .include "../../sysutils/desktop-file-utils/desktopdb.mk"
 .include "../../x11/libxfce4ui/buildlink3.mk"
 .include "../../graphics/hicolor-icon-theme/buildlink3.mk"

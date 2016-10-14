@@ -1,5 +1,6 @@
-$NetBSD: distinfo,v 1.8 2014/01/21 08:38:04 wiz Exp $
+$NetBSD: distinfo,v 1.10 2016/08/16 04:08:31 maya Exp $
 
-SHA1 (sympy-0.7.4.1.tar.gz) = 073b2ddf7ee8bc2b9e3687660d59e8848d6fce6c
-RMD160 (sympy-0.7.4.1.tar.gz) = 087661c59a8f75bee74241ff952dc3ca5f9a84e1
-Size (sympy-0.7.4.1.tar.gz) = 6824862 bytes
+SHA1 (sympy-1.0.tar.gz) = 370707a29cda59b696433107d44048dfa3ebafcd
+RMD160 (sympy-1.0.tar.gz) = f94b86a9de7c4262ed0016b51409d4c2695c157b
+SHA512 (sympy-1.0.tar.gz) = 977db6e9bc6a5918cceb255981a57e85e7060c0922aefd2968b004d25d704e25a5cb5bbe09eb387e8695581e23e2825d9c40310068fe25ece7e9c23037a21f39
+Size (sympy-1.0.tar.gz) = 4281528 bytes

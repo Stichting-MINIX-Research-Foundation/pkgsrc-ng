@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2015/06/12 10:48:23 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/07/09 06:37:48 wiz Exp $
 #
 
 DISTNAME=		mkcdtoc-1.0
-PKGREVISION=		4
+PKGREVISION=		5
 CATEGORIES=		audio
 MASTER_SITES=		${MASTER_SITE_SOURCEFORGE:=mkcdtoc/}
 EXTRACT_SUFX=		.tar.bz2
@@ -10,6 +10,7 @@ EXTRACT_SUFX=		.tar.bz2
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://sourceforge.net/projects/mkcdtoc/
 COMMENT=		Script to create .toc files for cdrdao
+LICENSE=		gnu-gpl-v2
 
 USE_TOOLS+=		gmake perl pod2man
 MAKE_ENV+=		PERL=${PERL5}

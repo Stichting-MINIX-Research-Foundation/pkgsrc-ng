@@ -1,9 +1,8 @@
-# $NetBSD: Makefile,v 1.83 2015/09/07 12:02:05 jperkin Exp $
+# $NetBSD: Makefile,v 1.91 2016/08/03 10:23:03 adam Exp $
 #
 
-DISTNAME=	coq-8.4pl6
-PKGNAME=	${DISTNAME} # to avoid prefixing with ocaml-
-PKGREVISION=	2
+DISTNAME=	coq-8.5pl1
+PKGREVISION=	1
 CATEGORIES=	lang math
 MASTER_SITES=	http://coq.inria.fr/distrib/V${PKGVERSION_NOREV}/files/
 
@@ -51,7 +50,13 @@ PLIST_VARS+=		coqide natdynlink doc
 .include "options.mk"
 
 EGDIR=		${PREFIX}/share/coq/examples
-CONF_FILES=	${EGDIR}/coqide-gtk2rc ${PKG_SYSCONFDIR}/xdg/coq/coqide-gtk2rc
+#CONF_FILES=	{EGDIR}/coqide-gtk2rc ${PKG_SYSCONFDIR}/xdg/coq/coqide-gtk2rc
+
+SUBST_CLASSES+=	fix-paths
+SUBST_STAGE.fix-paths=	post-configure
+SUBST_MESSAGE.fix-paths=	Remove buildlink references from Coq_config module
+SUBST_FILES.fix-paths=	config/coq_config.ml
+SUBST_SED.fix-paths=	-e "s,${BUILDLINK_DIR},${PREFIX},g"
 
 .include "../../mk/pthread.buildlink3.mk"
 .include "../../lang/camlp5/buildlink3.mk"

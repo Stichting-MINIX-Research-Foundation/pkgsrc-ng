@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.15 2015/07/02 12:49:46 rodent Exp $
+# $NetBSD: Makefile,v 1.17 2015/12/11 15:59:56 wiz Exp $
 
 DISTNAME=	# empty
-PKGNAME=	modular-xorg-libs-1.3
+PKGNAME=	modular-xorg-libs-1.4
 CATEGORIES=	meta-pkgs x11
 MASTER_SITES=	${MASTER_SITE_XORG:=lib/}
 DISTFILES=	# empty
@@ -13,7 +13,7 @@ LICENSE=	2-clause-bsd
 
 META_PACKAGE=	yes
 
-.include "../../mk/bsd.fast.prefs.mk"
+.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "Darwin"
 .include "../../wm/libAppleWM/buildlink3.mk"
@@ -36,6 +36,7 @@ META_PACKAGE=	yes
 .include "../../x11/libXext/buildlink3.mk"
 .include "../../x11/libXfixes/buildlink3.mk"
 .include "../../x11/libXfont/buildlink3.mk"
+.include "../../x11/libXfont2/buildlink3.mk"
 .include "../../x11/libXft/buildlink3.mk"
 .include "../../x11/libXi/buildlink3.mk"
 .include "../../x11/libXinerama/buildlink3.mk"
@@ -55,7 +56,10 @@ META_PACKAGE=	yes
 .include "../../x11/libXxf86dga/buildlink3.mk"
 .include "../../x11/libXxf86misc/buildlink3.mk"
 .include "../../x11/libXxf86vm/buildlink3.mk"
+.if ${OPSYS} == "NetBSD" || ${OPSYS} == "DragonFly" || ${OPSYS} == "FreeBSD" \
+    || ${OPSYS} == "OpenBSD" || ${OPSYS} == "Linux" || ${OPSYS} == "SunOS"
 .include "../../x11/libdrm/buildlink3.mk"
+.endif
 .include "../../x11/liblbxutil/buildlink3.mk"
 .include "../../x11/libxkbfile/buildlink3.mk"
 .include "../../x11/libxkbui/buildlink3.mk"

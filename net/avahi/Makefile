@@ -1,9 +1,9 @@
-# $NetBSD: Makefile,v 1.58 2015/04/25 14:23:43 tnn Exp $
+# $NetBSD: Makefile,v 1.65 2016/08/03 10:22:17 adam Exp $
 
-DISTNAME=		avahi-0.6.31
-PKGREVISION=		23
+DISTNAME=		avahi-0.6.32
+PKGREVISION=		2
 CATEGORIES=		net
-MASTER_SITES=		http://avahi.org/download/
+MASTER_SITES=		https://github.com/lathiat/avahi/releases/download/v${PKGVERSION_NOREV}/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://avahi.org/
@@ -46,10 +46,7 @@ PKG_GECOS.${AVAHI_USER}=	Avahi user
 
 .include "options.mk"
 
-.if ${OPSYS} == "NetBSD"
-CFLAGS+=		-D_NETBSD_SOURCE
-.endif
-
+CFLAGS.NetBSD+=		-D_NETBSD_SOURCE
 CPPFLAGS.SunOS+=	--std=c99 -D_XOPEN_SOURCE=600
 # Not yet reported upstream.
 CPPFLAGS.Darwin+=	-D__APPLE_USE_RFC_3542

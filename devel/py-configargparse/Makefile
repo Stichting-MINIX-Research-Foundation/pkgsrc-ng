@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.3 2015/04/13 23:12:41 rodent Exp $
+# $NetBSD: Makefile,v 1.5 2016/06/01 12:32:58 wiz Exp $
 
-VERSION=	0.9.3
-DISTNAME=	ConfigArgParse-${VERSION}
-PKGNAME=	${PYPKGPREFIX}-configargparse-${VERSION}
+DISTNAME=	ConfigArgParse-0.10.0
+PKGNAME=	${PYPKGPREFIX}-${DISTNAME:tl}
 CATEGORIES=	devel
-MASTER_SITES=	https://pypi.python.org/packages/source/C/ConfigArgParse/
+MASTER_SITES=	${MASTER_SITE_PYPI:=C/ConfigArgParse/}
 
 MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	https://github.com/bw2/ConfigArgParse

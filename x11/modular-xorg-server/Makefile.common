@@ -1,8 +1,8 @@
-# $NetBSD: Makefile.common,v 1.1 2015/07/07 21:51:22 khorben Exp $
+# $NetBSD: Makefile.common,v 1.11 2016/07/19 20:04:04 wiz Exp $
 # used by x11/modular-xorg-server/Makefile
 # used by x11/modular-xorg-xephyr/Makefile
 
-XORG_VERSION=	1.17.2
+XORG_VERSION=	1.18.4
 CATEGORIES=	x11
 MASTER_SITES=	${MASTER_SITE_XORG:=xserver/}
 EXTRACT_SUFX=	.tar.bz2
@@ -38,6 +38,7 @@ DEPENDS+=	xkeyboard-config-[0-9]*:../../x11/xkeyboard-config
 .include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "NetBSD"
+CPPFLAGS+=		-D_OPENBSD_SOURCE	# for reallocarray(3)
 CONFIGURE_ARGS+=	--with-builder-addr="tech-x11@NetBSD.org"
 CONFIGURE_ARGS+=	--with-os-vendor="The NetBSD Foundation"
 # TLS is not supported by NetBSD<6
@@ -68,6 +69,7 @@ CONFIGURE_ARGS+=	--disable-kdrive
 #CONFIGURE_ARGS+=	--disable-kdrive-vesa
 CONFIGURE_ARGS+=	--disable-xfake
 CONFIGURE_ARGS+=	--disable-xfbdev
+CONFIGURE_ARGS+=	--enable-xtrans-send-fds
 
 CONFIGURE_ARGS+=	--with-int10=x86emu
 
@@ -81,7 +83,7 @@ PLIST_SUBST+=		SUNOS_ARCH=${SUNOS_ARCH}
 PLIST.sunos=		yes
 .  if ${MACHINE_ARCH} == "i386"
 SUNOS_ARCH=		ia32
-.  elif ${MACHINE_ARCH} == "amd64" || ${MACHINE_ARCH} == "x86_64"
+.  elif ${MACHINE_ARCH} == "x86_64"
 SUNOS_ARCH=		amd64
 .  elif ${MACHINE_ARCH} == "sparc" || ${MACHINE_ARCH} == "sparc64"
 SUNOS_ARCH=		sparcv8plus
@@ -95,9 +97,7 @@ PLIST.sparc=		yes
 
 # Workaround for PR#41556.
 # Avoid to use bsd_kqueue_apm, force to use bsd_apm instead.
-.if ${OPSYS} == "NetBSD"
-CONFIGURE_ENV+=		ac_cv_header_sys_event_h=no
-.endif
+CONFIGURE_ENV.NetBSD+=	ac_cv_header_sys_event_h=no
 
 INSTALLATION_DIRS+=	lib/xorg/modules/drivers lib/xorg/modules/input
 
@@ -108,7 +108,7 @@ BUILDLINK_API_DEPENDS.damageproto+=	damageproto>=1.1
 BUILDLINK_API_DEPENDS.xcmiscproto+=	xcmiscproto>=1.2.0
 BUILDLINK_API_DEPENDS.xtrans+=		xtrans>=1.2.2
 BUILDLINK_API_DEPENDS.bigreqsproto+=	bigreqsproto>=1.1.0
-BUILDLINK_API_DEPENDS.xproto+=		xproto>=7.0.22
+BUILDLINK_API_DEPENDS.xproto+=		xproto>=7.0.28
 BUILDLINK_API_DEPENDS.xextproto+=	xextproto>=7.1.99
 BUILDLINK_API_DEPENDS.recordproto+=	recordproto>=1.13.99.1
 BUILDLINK_API_DEPENDS.scrnsaverproto+=	scrnsaverproto>=1.1
@@ -119,7 +119,7 @@ BUILDLINK_API_DEPENDS.glproto+=		glproto>=1.4.16
 BUILDLINK_API_DEPENDS.inputproto+=	inputproto>=2.1.99.6
 BUILDLINK_API_DEPENDS.kbproto+=		kbproto>=1.0.3
 BUILDLINK_API_DEPENDS.pixman+=		pixman>=0.21.8
-BUILDLINK_API_DEPENDS.randrproto+=	randrproto>=1.4.0
+BUILDLINK_API_DEPENDS.randrproto+=	randrproto>=1.5.0
 BUILDLINK_API_DEPENDS.renderproto+=	renderproto>=0.11
 BUILDLINK_API_DEPENDS.xf86dgaproto+=	xf86dgaproto>=2.0.3
 BUILDLINK_API_DEPENDS.xf86driproto+=	xf86driproto>=2.1.0
@@ -161,7 +161,6 @@ BUILDLINK_API_DEPENDS.libXext+=	libXext>=1.1.1
 .include "../../x11/libxkbfile/buildlink3.mk"
 .include "../../x11/libxkbui/buildlink3.mk"
 .include "../../x11/pixman/buildlink3.mk"
-.include "../../x11/presentproto/buildlink3.mk"
 .include "../../x11/randrproto/buildlink3.mk"
 .include "../../x11/recordproto/buildlink3.mk"
 .include "../../x11/renderproto/buildlink3.mk"

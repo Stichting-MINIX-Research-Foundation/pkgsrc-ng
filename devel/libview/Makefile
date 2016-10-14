@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.22 2015/04/25 14:20:37 tnn Exp $
+# $NetBSD: Makefile,v 1.24 2016/08/03 10:22:11 adam Exp $
 #
 
 DISTNAME=	libview-0.6.4
-PKGREVISION=	20
+PKGREVISION=	21
 CATEGORIES=	devel
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=view/}
 
@@ -15,6 +15,7 @@ GNU_CONFIGURE=	yes
 USE_LIBTOOL=	yes
 USE_TOOLS+=	pkg-config
 USE_LANGUAGES=	c c++
+CXXFLAGS+=	-std=c++11
 
 PKGCONFIG_OVERRIDE+=	libview.pc.in
 

@@ -1,9 +1,10 @@
-# $NetBSD: Makefile,v 1.19 2015/04/25 14:23:45 tnn Exp $
+# $NetBSD: Makefile,v 1.23 2016/04/11 19:02:00 ryoon Exp $
 
-DISTNAME=	kopete-${_KDE_VERSION}
-PKGREVISION=	4
+DISTNAME=	kopete-15.12.0
+PKGREVISION=	2
 CATEGORIES=	net
 COMMENT=	Multi-protocol instant messenger client
+MASTER_SITES=	${MASTER_SITE_KDE:=applications/15.12.0/src/}
 
 # Race on translatorplugin.h
 MAKE_JOBS_SAFE=	no

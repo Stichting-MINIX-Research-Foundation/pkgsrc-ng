@@ -1,12 +1,12 @@
-# $NetBSD: Makefile,v 1.6 2015/03/15 18:59:08 tnn Exp $
+# $NetBSD: Makefile,v 1.8 2015/10/08 14:05:55 taca Exp $
 
 DISTNAME=	drizztbsd-stompserver-1c7a275
 PKGNAME=	${RUBY_PKGPREFIX}-stompserver-1.0.0
-PKGREVISION=	1
+PKGREVISION=	2
 CATEGORIES=	net
 
 MAINTAINER=	imil@NetBSD.org
-HOMEPAGE=	http://stompserver.rubyforge.org/
+HOMEPAGE=	https://github.com/drizzt/stompserver
 COMMENT=	Stomp messaging server
 LICENSE=	mit
 MASTER_SITES=	https://nodeload.github.com/drizztbsd/stompserver/tarball/

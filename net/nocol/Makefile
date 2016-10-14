@@ -1,10 +1,10 @@
-# $NetBSD: Makefile,v 1.42 2015/06/12 10:50:43 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2016/07/09 06:38:44 wiz Exp $
 #
 
 DISTNAME=		nocol-4.3.1
-PKGREVISION=		11
+PKGREVISION=		13
 CATEGORIES=		net
-MASTER_SITES=	http://www.netplex-tech.com/software/nocol/downloads/
+MASTER_SITES=		http://www.netplex-tech.com/software/nocol/downloads/
 
 MAINTAINER=		pkgsrc-users@NetBSD.org
 HOMEPAGE=		http://www.netplex-tech.com/software/nocol/
@@ -37,35 +37,33 @@ INSTALL_MAKE_FLAGS+=	ROOTDIR=${DESTDIR}${PREFIX} \
 			DATADIR=${DESTDIR}/var/run/data \
 			MSGSDIR=${DESTDIR}/var/run/msgs
 
-post-patch:
-	@(hostname=`/bin/hostname`;					\
-	dir="";								\
-	for d in /usr/bin /usr/sbin `${ECHO} $$PATH | ${TR} ':' ' '`; do \
-		if [ -x $$d/host ]; then				\
-			dir=$$d;					\
-			break;						\
-		fi							\
-	done;								\
-	if [ "X$$dir" = "X" ]; then					\
-		${ECHO} "host program not found";			\
-		exit 1;							\
-	fi;								\
-	fqdn=`$$dir/host $$hostname | ${AWK} '{ print $$1; exit }'`;	\
-	${SED} -e 's|@prefix@|${PREFIX}|g' -e "s|@FQDN@|$$fqdn|g" 	\
-			${FILESDIR}/answers > ${WRKSRC}/answers)
+post-extract:
+	${CP} ${FILESDIR}/answers ${WRKSRC}/answers
+
+# XXX This is compiled in as the logging host. Compiling in "localhost"
+# lacks a certain something; however, for years it was compiling in the
+# name of the build host, or, not infrequently, something entirely
+# invalid.
+FQDN=			localhost
+
+SUBST_CLASSES+=		answers
+SUBST_STAGE.answers=	pre-configure
+SUBST_FILES.answers=	answers
+SUBST_VARS.answers=	PREFIX PKGMANDIR FQDN
 
 pre-configure:
-	@${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/cmu-snmp/snmp
-	@${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/cmu-snmp/snmpapps
-	@${CP} ${PKGSRCDIR}/mk/gnu-config/config.sub ${WRKSRC}/cmu-snmp/snmp
-	@${CP} ${PKGSRCDIR}/mk/gnu-config/config.sub ${WRKSRC}/cmu-snmp/snmpapps
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/cmu-snmp/snmp
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.guess ${WRKSRC}/cmu-snmp/snmpapps
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.sub ${WRKSRC}/cmu-snmp/snmp
+	${CP} ${PKGSRCDIR}/mk/gnu-config/config.sub ${WRKSRC}/cmu-snmp/snmpapps
 
 post-install:
-	for f in critical.wav error.wav warning.wav ; do		\
-	    ${INSTALL_DATA} ${WRKSRC}/webnocol/$$f ${DESTDIR}${PREFIX}/share/nocol; \
+	set -e; for f in critical.wav error.wav warning.wav ; do	\
+	    ${INSTALL_DATA} ${WRKSRC}/webnocol/$$f			\
+			    ${DESTDIR}${PREFIX}/share/nocol;		\
 	done
 
-	for f in bluesq.gif critical.jpg empty.gif error.jpg		\
+	set -e; for f in bluesq.gif critical.jpg empty.gif error.jpg	\
 		greensq.gif help.jpg info.jpg redsq.gif warning.jpg	\
 		yellowsq.gif ; do					\
 	    ${INSTALL_DATA} ${WRKSRC}/webnocol/gifs/$$f			\

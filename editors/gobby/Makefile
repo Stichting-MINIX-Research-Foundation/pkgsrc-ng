@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.40 2015/08/23 14:30:38 wiz Exp $
+# $NetBSD: Makefile,v 1.45 2016/09/19 13:04:21 wiz Exp $
 
 DISTNAME=	gobby-0.4.12
-PKGREVISION=	23
+PKGREVISION=	27
 CATEGORIES=	editors
 MASTER_SITES=	http://releases.0x539.de/gobby/
 
@@ -14,6 +14,8 @@ USE_LANGUAGES=		c c++
 USE_PKGLOCALEDIR=	yes
 USE_TOOLS+=		gmake intltool msgfmt pkg-config
 GNU_CONFIGURE=		yes
+
+CXXFLAGS+=		-std=c++11
 
 .include "options.mk"
 

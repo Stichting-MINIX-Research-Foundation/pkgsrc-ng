@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.28 2015/08/14 20:37:43 wiz Exp $
+# $NetBSD: Makefile,v 1.32 2016/07/09 13:03:47 wiz Exp $
 
 VERSION=	1.10.2
 DISTNAME=	allmydata-tahoe-${VERSION}
@@ -9,7 +9,7 @@ MASTER_SITES=	https://tahoe-lafs.org/source/tahoe-lafs/releases/
 #MASTER_SITES+=		http://tahoe-lafs.org/source/tahoe-lafs/tarballs/
 EXTRACT_SUFX=	.tar.bz2
 
-MAINTAINER=	gdt@NetBSD.org
+MAINTAINER=	pkgsrc-users@NetBSD.org
 HOMEPAGE=	http://tahoe-lafs.org/
 COMMENT=	Distributed fault-tolerant least-authority filesystem
 LICENSE=	gnu-gpl-v2
@@ -45,7 +45,7 @@ DEPENDS+=	${PYPKGPREFIX}-OpenSSL>=0.13:../../security/py-OpenSSL
 DEPENDS+=	${PYPKGPREFIX}-nevow>=0.11.1:../../www/py-nevow
 DEPENDS+=	${PYPKGPREFIX}-service_identity-[0-9]*:../../security/py-service_identity
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # py-twisted, py-xml via py-nevow, py-zbase32, py-cryptopp
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # py-twisted, py-xml via py-nevow, py-zbase32, py-cryptopp
 
 # Note that there is an upstream (inherited from setuptools) bug
 #   https://tahoe-lafs.org/trac/tahoe-lafs/ticket/1258#comment:29 that

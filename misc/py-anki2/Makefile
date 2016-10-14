@@ -1,8 +1,7 @@
-# $NetBSD: Makefile,v 1.28 2015/09/17 05:18:55 wiz Exp $
+# $NetBSD: Makefile,v 1.33 2016/07/09 13:03:57 wiz Exp $
 
-DISTNAME=	anki-2.0.32
+DISTNAME=	anki-2.0.36
 PKGNAME=	${PYPKGPREFIX}-${DISTNAME:C/anki/anki2/}
-PKGREVISION=	1
 CATEGORIES=	misc x11
 MASTER_SITES=	http://ankisrs.net/download/mirror/
 EXTRACT_SUFX=	.tgz
@@ -17,12 +16,11 @@ DEPENDS+=	${PYPKGPREFIX}-sqlite3-[0-9]*:../../databases/py-sqlite3
 # Actually, these hurt more than they help.
 # anki comes with its own version of the two, and if the pkgsrc versions
 # are newer, it might break
-#PYTHON_VERSIONS_INCOMPATIBLE=33 34 # py-beautifulsoup
 #DEPENDS+=	${PYPKGPREFIX}-beautifulsoup>=3.2:../../www/py-beautifulsoup
 #DEPENDS+=	${PYPKGPREFIX}-httplib2-[0-9]*:../../www/py-httplib2
 # XXX: python portaudio
 
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 2.0.21
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 2.0.21
 
 .include "options.mk"
 

@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.33 2014/05/09 07:37:13 wiz Exp $
+# $NetBSD: Makefile,v 1.36 2016/07/09 13:03:57 wiz Exp $
 
 DISTNAME=		gst-python-0.10.22
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME:S/gst-python/gstreamer0.10/}
@@ -20,14 +20,11 @@ USE_TOOLS+=		pkg-config gmake
 GNU_CONFIGURE=		yes
 CONFIGURE_ENV+=		PYTHON=${PYTHONBIN}
 PY_PATCHPLIST=		yes
-PYTHON_VERSIONS_INCOMPATIBLE=	33 34 # not yet ported as of 0.10.22; use py-gobjects
+PYTHON_VERSIONS_INCOMPATIBLE=	34 35 # not yet ported as of 0.10.22; use py-gobjects
 
 PKGCONFIG_OVERRIDE+=	pkgconfig/gst-python.pc.in
 
-.include "../../mk/bsd.prefs.mk"
-.if ${OPSYS} == "SunOS"
-CONFIGURE_ENV+=		ac_cv_prog_cc_c99=no
-.endif
+CONFIGURE_ENV.SunOS+=	ac_cv_prog_cc_c99=no
 
 .include "../../multimedia/gstreamer0.10/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gst-plugins0.10-base+=	gst-plugins0.10-base>=0.10.26

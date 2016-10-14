@@ -1,7 +1,7 @@
-# $NetBSD: Makefile,v 1.29 2014/02/12 23:18:07 tron Exp $
+# $NetBSD: Makefile,v 1.31 2016/03/05 11:27:50 jperkin Exp $
 
 DISTNAME=	dkim-milter-2.8.3
-PKGREVISION=	4
+PKGREVISION=	5
 CATEGORIES=	mail
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=dkim-milter/}
 
@@ -54,11 +54,7 @@ INSTALLATION_DIRS=	libexec ${PKGMANDIR}/man5 ${PKGMANDIR}/man8 \
 			share/doc/dkim-milter ${EGDIR} \
 			share/doc/dkim-milter/libdkim
 
-.include "../../mk/bsd.prefs.mk"
-
-.if ${OPSYS} == "NetBSD"
-CPPFLAGS+=	-DSM_CONF_STDBOOL_H=1
-.endif
+CPPFLAGS.NetBSD+=	-DSM_CONF_STDBOOL_H=1
 
 post-extract:
 	${CP} ${WRKSRC}/site.config.m4.dist \

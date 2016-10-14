@@ -1,0 +1,6 @@
+$NetBSD: distinfo,v 1.2 2016/09/01 16:40:14 wiz Exp $
+
+SHA1 (zope.event-4.2.0.tar.gz) = 0ee288bac481d736ad3d4a68ef23092a981cb55f
+RMD160 (zope.event-4.2.0.tar.gz) = 230e4888c5bfd3e9da0936372a9257d86018322a
+SHA512 (zope.event-4.2.0.tar.gz) = e39cbbccf679328db190f0641e3cb0d267fc606afc9cdbd4fb4100bde482f12f594319d885db101dfd98741225604bb49ef77094011bbe7edaa16877038f9989
+Size (zope.event-4.2.0.tar.gz) = 488532 bytes

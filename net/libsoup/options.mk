@@ -1,17 +1,15 @@
-# $NetBSD: options.mk,v 1.1 2015/06/07 14:03:20 youri Exp $
+# $NetBSD: options.mk,v 1.4 2016/05/03 11:37:39 prlw1 Exp $
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.libsoup
-PKG_SUPPORTED_OPTIONS=	gnome
-PKG_SUGGESTED_OPTIONS=	gnome
+PKG_SUPPORTED_OPTIONS=	gssapi
+PKG_SUGGESTED_OPTIONS=
 
 .include "../../mk/bsd.options.mk"
 
-PLIST_VARS+= gnome
-
-.if !empty(PKG_OPTIONS:Mgnome)
-.include "../../security/libgnome-keyring/buildlink3.mk"
-PKGCONFIG_OVERRIDE+=	libsoup-gnome-2.4.pc.in
-PLIST.gnome=	yes
+.if !empty(PKG_OPTIONS:Mgssapi)
+.  include "../../mk/krb5.buildlink3.mk"
+CONFIGURE_ARGS+=	--with-gssapi
+CONFIGURE_ARGS+=	--with-krb5-config=${KRB5_CONFIG}
 .else
-CONFIGURE_ARGS+= --without-gnome
+CONFIGURE_ARGS+=	--without-gssapi
 .endif

@@ -1,8 +1,8 @@
-# $NetBSD: Makefile,v 1.8 2015/06/12 10:49:17 wiz Exp $
+# $NetBSD: Makefile,v 1.10 2016/06/08 19:23:00 wiz Exp $
 
-DISTNAME=	Glib-Object-Introspection-0.027
+DISTNAME=	Glib-Object-Introspection-0.040
 PKGNAME=	p5-${DISTNAME}
-PKGREVISION=	2
+PKGREVISION=	1
 CATEGORIES=	devel perl5
 MASTER_SITES=	${MASTER_SITE_SOURCEFORGE:=gtk2-perl/} \
 		${MASTER_SITE_PERL_CPAN:=Glib/}
@@ -26,7 +26,8 @@ BUILDLINK_DEPMETHOD.cairo-gobject=	build
 .include "../../graphics/cairo-gobject/buildlink3.mk"
 .endif
 
-BUILDLINK_API_DEPENDS.p5-glib2+=	p5-glib2>=1.280
+
+BUILDLINK_API_DEPENDS.p5-glib2+=	p5-glib2>=1.320
 .include "../../devel/p5-glib2/buildlink3.mk"
 BUILDLINK_API_DEPENDS.gobject-introspection+=	gobject-introspection>=0.10.0
 .include "../../devel/gobject-introspection/buildlink3.mk"

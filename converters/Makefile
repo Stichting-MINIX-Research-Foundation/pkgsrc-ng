@@ -1,4 +1,4 @@
-# $NetBSD: Makefile,v 1.139 2015/09/08 19:42:57 wiz Exp $
+# $NetBSD: Makefile,v 1.144 2016/09/19 14:11:15 wiz Exp $
 #
 
 COMMENT=	Document format and character code converters
@@ -21,6 +21,7 @@ SUBDIR+=	docx2txt
 SUBDIR+=	dos2unix
 SUBDIR+=	dvi2tty
 SUBDIR+=	enriched2html
+SUBDIR+=	erlang-iconv
 SUBDIR+=	fondu
 SUBDIR+=	fribidi
 SUBDIR+=	gbase
@@ -55,6 +56,7 @@ SUBDIR+=	nkf
 SUBDIR+=	odt2txt
 SUBDIR+=	opencc
 SUBDIR+=	orcus
+SUBDIR+=	orcus0.12
 SUBDIR+=	orcus0.8
 SUBDIR+=	p5-Convert-BinHex
 SUBDIR+=	p5-Convert-Color
@@ -97,6 +99,7 @@ SUBDIR+=	py-cairosvg
 SUBDIR+=	py-chardet
 SUBDIR+=	py-jpCodecs
 SUBDIR+=	py-simplejson
+SUBDIR+=	py-yenc
 SUBDIR+=	py-zbase32
 SUBDIR+=	py-zfec
 SUBDIR+=	py-zhCodecs
@@ -116,7 +119,6 @@ SUBDIR+=	ruby-unf_ext
 SUBDIR+=	skf
 SUBDIR+=	smbchartool
 SUBDIR+=	sratom
-SUBDIR+=	tex2rtf
 SUBDIR+=	txt2html
 SUBDIR+=	txt2man
 SUBDIR+=	txt2pdbdoc
