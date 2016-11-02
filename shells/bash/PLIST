@@ -1,92 +1,92 @@
 @comment $NetBSD: PLIST,v 1.8 2016/09/19 09:06:03 wiz Exp $
 bin/bash
 bin/bashbug
-include/bash/alias.h
-include/bash/array.h
-include/bash/arrayfunc.h
-include/bash/assoc.h
-include/bash/bashansi.h
-include/bash/bashintl.h
-include/bash/bashjmp.h
-include/bash/bashtypes.h
-include/bash/builtins.h
-include/bash/builtins/bashgetopt.h
-include/bash/builtins/builtext.h
-include/bash/builtins/common.h
-include/bash/builtins/getopt.h
-include/bash/command.h
-include/bash/config-bot.h
-include/bash/config-top.h
-include/bash/config.h
-include/bash/conftypes.h
-include/bash/dispose_cmd.h
-include/bash/error.h
-include/bash/externs.h
-include/bash/general.h
-include/bash/hashlib.h
-include/bash/include/ansi_stdlib.h
-include/bash/include/chartypes.h
-include/bash/include/filecntl.h
-include/bash/include/gettext.h
-include/bash/include/maxpath.h
-include/bash/include/memalloc.h
-include/bash/include/ocache.h
-include/bash/include/posixdir.h
-include/bash/include/posixjmp.h
-include/bash/include/posixstat.h
-include/bash/include/posixtime.h
-include/bash/include/posixwait.h
-include/bash/include/shmbchar.h
-include/bash/include/shmbutil.h
-include/bash/include/shtty.h
-include/bash/include/stat-time.h
-include/bash/include/stdc.h
-include/bash/include/systimes.h
-include/bash/include/typemax.h
-include/bash/include/unionwait.h
-include/bash/jobs.h
-include/bash/make_cmd.h
-include/bash/pathnames.h
-include/bash/quit.h
-include/bash/shell.h
-include/bash/sig.h
-include/bash/siglist.h
-include/bash/signames.h
-include/bash/subst.h
-include/bash/syntax.h
-include/bash/unwind_prot.h
-include/bash/variables.h
-include/bash/version.h
-include/bash/xmalloc.h
-include/bash/y.tab.h
+@comment MINIX: include/bash/alias.h
+@comment MINIX: include/bash/array.h
+@comment MINIX: include/bash/arrayfunc.h
+@comment MINIX: include/bash/assoc.h
+@comment MINIX: include/bash/bashansi.h
+@comment MINIX: include/bash/bashintl.h
+@comment MINIX: include/bash/bashjmp.h
+@comment MINIX: include/bash/bashtypes.h
+@comment MINIX: include/bash/builtins.h
+@comment MINIX: include/bash/builtins/bashgetopt.h
+@comment MINIX: include/bash/builtins/builtext.h
+@comment MINIX: include/bash/builtins/common.h
+@comment MINIX: include/bash/builtins/getopt.h
+@comment MINIX: include/bash/command.h
+@comment MINIX: include/bash/config-bot.h
+@comment MINIX: include/bash/config-top.h
+@comment MINIX: include/bash/config.h
+@comment MINIX: include/bash/conftypes.h
+@comment MINIX: include/bash/dispose_cmd.h
+@comment MINIX: include/bash/error.h
+@comment MINIX: include/bash/externs.h
+@comment MINIX: include/bash/general.h
+@comment MINIX: include/bash/hashlib.h
+@comment MINIX: include/bash/include/ansi_stdlib.h
+@comment MINIX: include/bash/include/chartypes.h
+@comment MINIX: include/bash/include/filecntl.h
+@comment MINIX: include/bash/include/gettext.h
+@comment MINIX: include/bash/include/maxpath.h
+@comment MINIX: include/bash/include/memalloc.h
+@comment MINIX: include/bash/include/ocache.h
+@comment MINIX: include/bash/include/posixdir.h
+@comment MINIX: include/bash/include/posixjmp.h
+@comment MINIX: include/bash/include/posixstat.h
+@comment MINIX: include/bash/include/posixtime.h
+@comment MINIX: include/bash/include/posixwait.h
+@comment MINIX: include/bash/include/shmbchar.h
+@comment MINIX: include/bash/include/shmbutil.h
+@comment MINIX: include/bash/include/shtty.h
+@comment MINIX: include/bash/include/stat-time.h
+@comment MINIX: include/bash/include/stdc.h
+@comment MINIX: include/bash/include/systimes.h
+@comment MINIX: include/bash/include/typemax.h
+@comment MINIX: include/bash/include/unionwait.h
+@comment MINIX: include/bash/jobs.h
+@comment MINIX: include/bash/make_cmd.h
+@comment MINIX: include/bash/pathnames.h
+@comment MINIX: include/bash/quit.h
+@comment MINIX: include/bash/shell.h
+@comment MINIX: include/bash/sig.h
+@comment MINIX: include/bash/siglist.h
+@comment MINIX: include/bash/signames.h
+@comment MINIX: include/bash/subst.h
+@comment MINIX: include/bash/syntax.h
+@comment MINIX: include/bash/unwind_prot.h
+@comment MINIX: include/bash/variables.h
+@comment MINIX: include/bash/version.h
+@comment MINIX: include/bash/xmalloc.h
+@comment MINIX: include/bash/y.tab.h
 info/bash.info
-lib/bash/Makefile.inc
-lib/bash/basename
-lib/bash/dirname
-lib/bash/finfo
-lib/bash/head
-lib/bash/id
-lib/bash/ln
-lib/bash/logname
-lib/bash/mkdir
-lib/bash/mypid
-lib/bash/pathchk
-lib/bash/print
-lib/bash/printenv
-lib/bash/push
-lib/bash/realpath
-lib/bash/rmdir
-lib/bash/setpgid
-lib/bash/sleep
-lib/bash/strftime
-lib/bash/sync
-lib/bash/tee
-lib/bash/truefalse
-lib/bash/tty
-lib/bash/uname
-lib/bash/unlink
-lib/bash/whoami
-lib/pkgconfig/bash.pc
+@comment MINIX: lib/bash/Makefile.inc
+@comment MINIX: lib/bash/basename
+@comment MINIX: lib/bash/dirname
+@comment MINIX: lib/bash/finfo
+@comment MINIX: lib/bash/head
+@comment MINIX: lib/bash/id
+@comment MINIX: lib/bash/ln
+@comment MINIX: lib/bash/logname
+@comment MINIX: lib/bash/mkdir
+@comment MINIX: lib/bash/mypid
+@comment MINIX: lib/bash/pathchk
+@comment MINIX: lib/bash/print
+@comment MINIX: lib/bash/printenv
+@comment MINIX: lib/bash/push
+@comment MINIX: lib/bash/realpath
+@comment MINIX: lib/bash/rmdir
+@comment MINIX: lib/bash/setpgid
+@comment MINIX: lib/bash/sleep
+@comment MINIX: lib/bash/strftime
+@comment MINIX: lib/bash/sync
+@comment MINIX: lib/bash/tee
+@comment MINIX: lib/bash/truefalse
+@comment MINIX: lib/bash/tty
+@comment MINIX: lib/bash/uname
+@comment MINIX: lib/bash/unlink
+@comment MINIX: lib/bash/whoami
+@comment MINIX: lib/pkgconfig/bash.pc
 man/man1/bash.1
 man/man1/bashbug.1
 share/doc/bash/CHANGES
