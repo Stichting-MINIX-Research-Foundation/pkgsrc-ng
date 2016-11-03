@@ -1,0 +1,66 @@
+--- configure.orig	Thu Nov  3 00:12:22 2016
++++ configure	Thu Nov  3 00:15:29 2016
+@@ -5035,7 +5035,7 @@
+     lt_cv_sys_max_cmd_len=8192;
+     ;;
+ 
+-  netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
++  minix* | netbsd* | freebsd* | openbsd* | darwin* | dragonfly*)
+     # This has been around since 386BSD, at least.  Likely further.
+     if test -x /sbin/sysctl; then
+       lt_cv_sys_max_cmd_len=`/sbin/sysctl -n kern.argmax`
+@@ -5532,7 +5532,7 @@
+   lt_cv_deplibs_check_method=pass_all
+   ;;
+ 
+-netbsd*)
++minix* | netbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+   else
+@@ -8928,7 +8928,7 @@
+       fi
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+ 	wlarc=
+@@ -9558,7 +9558,7 @@
+       link_all_deplibs=yes
+       ;;
+ 
+-    netbsd*)
++    minix* | netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+       else
+@@ -10586,6 +10586,18 @@
+   dynamic_linker='GNU/Linux ld.so'
+   ;;
+ 
++minix*)
++  version_type=sunos
++  need_lib_prefix=no
++  need_version=no
++    library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++    soname_spec='${libname}${release}${shared_ext}$major'
++    dynamic_linker='Minix ld.elf_so'
++  shlibpath_var=LD_LIBRARY_PATH
++  shlibpath_overrides_runpath=yes
++  hardcode_into_libs=yes
++  ;;
++
+ netbsd*)
+   version_type=sunos
+   need_lib_prefix=no
+@@ -13796,7 +13808,7 @@
+ 		;;
+ 	esac
+ 	;;
+-*-*-netbsd*)
++*-*-minix-* | *-*-netbsd*)
+ 	check_for_libcrypt_before=1
+ 	if test "x$withval" != "xno" ; then
+ 		need_dash_r=1
