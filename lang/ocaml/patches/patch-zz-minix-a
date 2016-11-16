@@ -1,0 +1,11 @@
+--- asmcomp/arm/arch.ml.orig	Tue Nov 15 23:56:47 2016
++++ asmcomp/arm/arch.ml	Tue Nov 15 23:57:53 2016
+@@ -25,7 +25,7 @@
+ let abi =
+   match Config.system with
+     "linux_eabi" | "freebsd" -> EABI
+-  | "linux_eabihf" | "netbsd" -> EABI_HF
++  | "linux_eabihf" | "minix" | "netbsd" -> EABI_HF
+   | _ -> assert false
+ 
+ let string_of_arch = function

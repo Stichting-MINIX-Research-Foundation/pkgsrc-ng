@@ -1,0 +1,28 @@
+--- otherlibs/bigarray/mmap_unix.c.orig	Wed Nov 16 00:25:40 2016
++++ otherlibs/bigarray/mmap_unix.c	Wed Nov 16 00:29:14 2016
+@@ -104,6 +104,12 @@
+   uintnat array_size, page, delta;
+   void * addr;
+ 
++#if defined(__minix)
++//#warning "Shared mmap is not yet implemented in Minix3! To be removed when it's done..."
++  if (Bool_val(vshared)) {
++    caml_invalid_argument("Bigarray.map_file: shared mmap not yet implemented in Minix3");
++  }
++#endif
+   fd = Int_val(vfd);
+   flags = Caml_ba_kind_val(vkind) | Caml_ba_layout_val(vlayout);
+   startpos = File_offset_val(vstart);
+@@ -199,7 +205,12 @@
+   addr = (void *)((uintnat)addr - delta);
+   len  = len + delta;
+ #if defined(_POSIX_SYNCHRONIZED_IO)
++#if defined(__minix)
++//#warning "msync() is not yet implemented in Minix3! To be removed when it's done..."
++  caml_failwith("Bigarray.unmap_file: msync() is not yet implemented in Minix3! To be removed when it's done...");
++#else
+   msync(addr, len, MS_ASYNC);   /* PR#3571 */
++#endif /* defined(__minix) */
+ #endif
+   munmap(addr, len);
+ #endif

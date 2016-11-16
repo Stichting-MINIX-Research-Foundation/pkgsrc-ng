@@ -1,0 +1,11 @@
+--- config/auto-aux/gethostbyname.c.orig	Wed Nov 16 00:17:47 2016
++++ config/auto-aux/gethostbyname.c	Wed Nov 16 00:18:21 2016
+@@ -21,7 +21,7 @@
+ #include <sys/types.h>
+ #include <netdb.h>
+ 
+-#ifdef SYS_netbsd
++#if defined(SYS_netbsd) || defined(SYS_minix)
+ #error "this OS doesn't have gethostbyname_r"
+ #endif
+ 

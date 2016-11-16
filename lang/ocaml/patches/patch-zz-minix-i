@@ -1,0 +1,59 @@
+--- configure.orig	Wed Nov 16 00:19:15 2016
++++ configure	Wed Nov 16 00:24:27 2016
+@@ -671,7 +671,7 @@
+       mkmaindll="$flexlink -maindll"
+       shared_libraries_supported=true;;
+     *-*-linux-gnu|*-*-linux|*-*-freebsd[3-9]*|*-*-freebsd[1-9][0-9]*\
+-    |*-*-openbsd*|*-*-netbsd*|*-*-dragonfly|*-*-gnu*|*-*-haiku*)
++    |*-*-openbsd*|*-*-minix*|*-*-netbsd*|*-*-dragonfly|*-*-gnu*|*-*-haiku*)
+       sharedcccompopts="-fPIC"
+       mksharedlib="$bytecc -shared"
+       bytecclinkopts="$bytecclinkopts -Wl,-E"
+@@ -782,6 +782,7 @@
+     x86_64-*-freebsd*)            natdynlink=true;;
+     i[3456]86-*-openbsd*)         natdynlink=true;;
+     x86_64-*-openbsd*)            natdynlink=true;;
++    i[3456]86-*-minix*)           natdynlink=true;;
+     i[3456]86-*-netbsd*)          natdynlink=true;;
+     x86_64-*-netbsd*)             natdynlink=true;;
+     i[3456]86-*-dragonfly*)       natdynlink=true;;
+@@ -791,6 +792,7 @@
+     i[3456]86-*-haiku*)           natdynlink=true;;
+     arm*-*-linux*)                natdynlink=true;;
+     arm*-*-freebsd*)              natdynlink=true;;
++    earm*-*-minix*)               natdynlink=true;;
+     earm*-*-netbsd*)              natdynlink=true;;
+     aarch64-*-linux*)             natdynlink=true;;
+   esac
+@@ -834,6 +836,7 @@
+                                 fi;;
+   i[3456]86-*-gnu*)             arch=i386; system=gnu;;
+   i[3456]86-*-mingw*)           arch=i386; system=mingw;;
++  i[3456]86-*-minix*)           arch=i386; system=minix;;
+   powerpc64le*-*-linux*)        arch=power; model=ppc64le; system=elf;;
+   powerpc*-*-linux*)            arch=power;
+                                 if $arch64; then model=ppc64; else model=ppc; fi
+@@ -853,6 +856,7 @@
+   armv5*-*-linux-gnueabi)       arch=arm; model=armv5; system=linux_eabi;;
+   arm*-*-linux-gnueabi)         arch=arm; system=linux_eabi;;
+   arm*-*-netbsd*)               arch=arm; system=netbsd;;
++  arm*-*-minix*)                arch=arm; system=minix;;
+   arm*-*-openbsd*)              arch=arm; system=bsd;;
+   zaurus*-*-openbsd*)           arch=arm; system=bsd;;
+   x86_64-*-linux*)              arch=amd64; system=linux;;
+@@ -951,6 +955,7 @@
+   i386,linux_elf) profiling='prof';;
+   i386,gnu) profiling='prof';;
+   i386,bsd_elf) profiling='prof';;
++  i386,minix) profiling='prof';;
+   amd64,macosx) profiling='prof';;
+   i386,macosx) profiling='prof';;
+   sparc,bsd) profiling='prof';;
+@@ -961,6 +966,7 @@
+   amd64,openbsd) profiling='prof';;
+   amd64,freebsd) profiling='prof';;
+   amd64,netbsd) profiling='prof';;
++  arm,minix) profiling='prof';;
+   arm,netbsd) profiling='prof';;
+   amd64,gnu) profiling='prof';;
+   arm,linux*) profiling='prof';;

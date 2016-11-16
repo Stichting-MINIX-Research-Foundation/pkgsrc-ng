@@ -1,0 +1,36 @@
+--- asmcomp/i386/emit.mlp.orig	Wed Nov 16 00:01:00 2016
++++ asmcomp/i386/emit.mlp	Wed Nov 16 00:02:50 2016
+@@ -91,6 +91,7 @@
+   match system with
+   | S_linux_elf -> ""
+   | S_bsd_elf -> ""
++  | S_minix -> ""
+   | S_solaris -> ""
+   | S_beos -> ""
+   | S_gnu -> ""
+@@ -108,6 +109,7 @@
+   match system with
+   | S_linux_elf -> ".L"
+   | S_bsd_elf -> ".L"
++  | S_minix -> ".L"
+   | S_solaris -> ".L"
+   | S_beos -> ".L"
+   | S_gnu -> ".L"
+@@ -935,7 +937,7 @@
+ let emit_profile () =
+   match system with
+   | S_linux_elf | S_gnu -> call_mcount "mcount"
+-  | S_bsd_elf -> call_mcount ".mcount"
++  | S_bsd_elf | S_minix -> call_mcount ".mcount"
+   | S_macosx -> call_mcount "Lmcount$stub"
+   | _ -> () (*unsupported yet*)
+ 
+@@ -974,7 +976,7 @@
+   emit_call_bound_errors ();
+   cfi_endproc ();
+   begin match system with
+-  | S_linux_elf | S_bsd_elf | S_gnu ->
++  | S_linux_elf | S_bsd_elf | S_minix | S_gnu ->
+       D.type_ (emit_symbol fundecl.fun_name) "@function";
+       D.size (emit_symbol fundecl.fun_name)
+         (ConstSub (

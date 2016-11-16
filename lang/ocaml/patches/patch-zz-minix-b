@@ -1,0 +1,20 @@
+--- asmcomp/arm/emit.mlp.orig	Tue Nov 15 23:59:05 2016
++++ asmcomp/arm/emit.mlp	Tue Nov 15 23:59:35 2016
+@@ -824,7 +824,7 @@
+ 
+ let emit_profile() =
+   match Config.system with
+-    "linux_eabi" | "linux_eabihf" | "netbsd" ->
++    "linux_eabi" | "linux_eabihf" | "minix" | "netbsd" ->
+       `	push	\{lr}\n`;
+       `	{emit_call "__gnu_mcount_nc"}\n`
+   | _ -> ()
+@@ -952,7 +952,7 @@
+   `	.type	{emit_symbol lbl}, %object\n`;
+   `	.size	{emit_symbol lbl}, .-{emit_symbol lbl}\n`;
+   begin match Config.system with
+-    "linux_eabihf" | "linux_eabi" | "netbsd" ->
++    "linux_eabihf" | "linux_eabi" | "minix" | "netbsd" ->
+       (* Mark stack as non-executable *)
+       `	.section	.note.GNU-stack,\"\",%progbits\n`
+   | _ -> ()

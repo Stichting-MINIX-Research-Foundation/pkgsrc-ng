@@ -1,0 +1,11 @@
+--- config/auto-aux/gethostbyaddr.c.orig	Wed Nov 16 00:16:17 2016
++++ config/auto-aux/gethostbyaddr.c	Wed Nov 16 00:16:58 2016
+@@ -21,7 +21,7 @@
+ #include <sys/types.h>
+ #include <netdb.h>
+ 
+-#ifdef SYS_netbsd
++#if defined(SYS_netbsd) || defined(SYS_minix)
+ #error "this OS doesn't have gethostbyaddr_r"
+ #endif
+ 

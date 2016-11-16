@@ -1,0 +1,18 @@
+--- asmcomp/x86_proc.ml.orig	Wed Nov 16 00:04:07 2016
++++ asmcomp/x86_proc.ml	Wed Nov 16 00:08:14 2016
+@@ -26,6 +26,7 @@
+   | S_win32
+   | S_linux_elf
+   | S_bsd_elf
++  | S_minix
+   | S_beos
+   | S_mingw
+ 
+@@ -43,6 +44,7 @@
+   | "win32" -> S_win32
+   | "linux_elf" -> S_linux_elf
+   | "bsd_elf" -> S_bsd_elf
++  | "minix" -> S_minix
+   | "beos" -> S_beos
+   | "gnu" -> S_gnu
+   | "cygwin" -> S_cygwin
