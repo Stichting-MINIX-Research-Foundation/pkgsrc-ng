@@ -47,7 +47,13 @@ PLIST_VARS+=	nls
 .if ${OPSYS} == "DragonFly" && ${MACHINE} == "i386"
 CONFIGURE_ARGS+=	--disable-nls
 .else
+.  if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+CONFIGURE_ARGS+=	--disable-tests
+CONFIGURE_ARGS+=	--disable-nls
+.  else # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 PLIST.nls=	yes
+.  endif # ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
 .endif
 
 TEST_TARGET=		check
