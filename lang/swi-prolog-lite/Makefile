@@ -18,6 +18,11 @@ REPLACE_BASH+=		dotfiles/edit
 
 .include "../../mk/bsd.prefs.mk"
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+BROKEN_ON_PLATFORM=	NetBSD-*-*
+PKG_FAIL_REASON=	"Autoconf hangs forever on MINIX3"
+.endif ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 .if ${MACHINE_ARCH} == alpha || ${MACHINE_ARCH} == sparc64 || \
 	${MACHINE_ARCH} == x86_64
 PLIST_SUBST+=		BITS=64
