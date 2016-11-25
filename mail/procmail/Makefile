@@ -22,6 +22,11 @@ SPECIAL_PERMS+=	bin/procmail ${SETUID_ROOT_PERMS}
 
 BUILD_DEFS+=	PROCMAIL_MAILSPOOLHOME PROCMAIL_TRUSTED_IDS
 
+.if ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+BROKEN_ON_PLATFORM=	NetBSD-*-*
+PKG_FAIL_REASON=	"Autoconf hangs forever on MINIX3"
+.endif ${OPSYS} == "NetBSD" && ${OS_VARIANT} == "Minix"
+
 PROCMAIL_TRUSTED_IDS?=\
 "root","daemon","uucp","mail","x400","network","list","slist","lists","news",0
 
