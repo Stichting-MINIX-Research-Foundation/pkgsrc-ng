@@ -16,3 +16,5 @@ SHA1 (patch-unix_tclUnixCompat.c) = 7ffa40a1a56345f5b86cd896e8e3b0d5748d8c5e
 SHA1 (patch-unix_tclUnixFCmd.c) = a56a12b8a0068e914d10336076347ca2b0ba9ac7
 SHA1 (patch-unix_tclUnixInit.c) = 61e3419cad9f3a00825218f9d92b1d8088f4bd30
 SHA1 (patch-unix_tclUnixPort.h) = fde3e497b9c94958aaac1b14a4f97916f17cf951
+SHA1 (patch-zz-minix-h) = 8fd57d7ce538ac9fb6b9fbfea34733c6bac5556f
+SHA1 (patch-zz-minix-j) = 413bb8e5ef2cf8adad287c879031b6bdc2704be6
