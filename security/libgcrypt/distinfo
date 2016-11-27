@@ -7,3 +7,5 @@ Size (libgcrypt-1.7.3.tar.bz2) = 2861294 bytes
 SHA1 (patch-aa) = 60b3f4453b217ed8879a2ffd8d485c0195ffb5f8
 SHA1 (patch-cipher_rijndael-arm.S) = ef3cb7f481022440780eb48ae31cbfad0a3ec115
 SHA1 (patch-src_visibility.h) = 8cbbf6803ab34b4b7dda832aa8ee18247aa89518
+SHA1 (patch-zz-minix-a) = 44be30e78e171887eff3dbfe18a585bfd3294d95
+SHA1 (patch-zz-minix-b) = 2f2a0a28e441b6741d94c81dce6e30e40a97141d

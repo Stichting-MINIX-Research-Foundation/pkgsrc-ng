@@ -1,0 +1,11 @@
+--- configure.orig	Sun Nov 27 15:05:21 2016
++++ configure	Sun Nov 27 15:06:47 2016
+@@ -18682,7 +18682,7 @@
+ 
+ 
+ # And create the files.
+-ac_config_files="$ac_config_files Makefile m4/Makefile compat/Makefile mpi/Makefile cipher/Makefile random/Makefile doc/Makefile src/Makefile src/gcrypt.h src/libgcrypt-config src/versioninfo.rc tests/Makefile"
++ac_config_files="$ac_config_files Makefile m4/Makefile compat/Makefile mpi/Makefile cipher/Makefile random/Makefile doc/Makefile src/Makefile src/gcrypt.h src/libgcrypt-config src/versioninfo.rc"
+ 
+ ac_config_files="$ac_config_files tests/hashtest-256g"
+ 
