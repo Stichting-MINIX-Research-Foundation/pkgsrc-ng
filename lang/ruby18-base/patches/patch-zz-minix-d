@@ -1,0 +1,17 @@
+--- process.c.orig	Tue Nov 29 16:11:43 2016
++++ process.c	Tue Nov 29 16:13:03 2016
+@@ -86,12 +86,12 @@
+ #define __MacOS_X__ 1
+ #endif
+ 
+-#if defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__)
++#if defined(__FreeBSD__) || defined(__minix) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__)
+ #define HAVE_44BSD_SETUID 1
+ #define HAVE_44BSD_SETGID 1
+ #endif
+ 
+-#ifdef __NetBSD__
++#if defined(__minix) || defined(__NetBSD__)
+ #undef HAVE_SETRUID
+ #undef HAVE_SETRGID
+ #endif

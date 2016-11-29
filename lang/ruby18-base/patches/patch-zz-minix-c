@@ -1,0 +1,20 @@
+--- io.c.orig	Tue Nov 29 16:08:20 2016
++++ io.c	Tue Nov 29 16:09:40 2016
+@@ -38,7 +38,7 @@
+ #endif
+ 
+ #ifndef BSD_STDIO
+-# if defined(__MACH__) || defined(__DARWIN__) || defined(__FreeBSD__) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__)
++# if defined(__MACH__) || defined(__DARWIN__) || defined(__FreeBSD__) || defined(__minix) || defined(__NetBSD__) || defined(__OpenBSD__) || defined(__bsdi__)
+ #   define BSD_STDIO 1
+ # else
+ #   define BSD_STDIO 0
+@@ -1308,7 +1308,7 @@
+         }
+         if (fptr->f) { /* update pos in FILE structure [ruby-core:21561] */
+             fflush(fptr->f);
+-#if defined(__SOFF) && defined(__NetBSD__)
++#if defined(__SOFF) && (defined(__minix) || defined(__NetBSD__))
+ 	    fptr->f->_flags &= ~__SOFF;
+ 	    (void)io_tell(fptr);
+ #endif

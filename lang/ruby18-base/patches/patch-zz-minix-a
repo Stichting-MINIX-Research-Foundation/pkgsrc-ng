@@ -1,0 +1,29 @@
+--- configure.orig	Tue Nov 29 16:02:10 2016
++++ configure	Tue Nov 29 16:03:18 2016
+@@ -10415,7 +10415,7 @@
+ 			*shlicc*)	: ${LDSHARED="$CC -r"}
+ 					rb_cv_dlopen=yes ;;
+ 			esac ;;
+-	linux* | gnu* | k*bsd*-gnu | netbsd* | bsdi*)
++	linux* | gnu* | k*bsd*-gnu | minix* | netbsd* | bsdi*)
+ 			: ${LDSHARED='${CC} -shared'}
+ 			if test "$rb_cv_binary_elf" = yes; then
+ 			    LDFLAGS="$LDFLAGS -Wl,-export-dynamic"
+@@ -10910,7 +10910,7 @@
+ 	    LIBRUBY_ALIASES=''
+ 	fi
+ 	;;
+-    netbsd*)
++    minix* | netbsd*)
+ 	SOLIBS='$(LIBS)'
+ 	LIBRUBY_SO='lib$(RUBY_SO_NAME).so.$(MAJOR)$(MINOR).$(TEENY)'
+ 	LIBRUBY_DLDFLAGS='-Wl,-soname,lib$(RUBY_SO_NAME).so.$(MAJOR)$(MINOR)'
+@@ -10996,7 +10996,7 @@
+     linux*)
+ 	XCFLAGS="$XCFLAGS -D_GNU_SOURCE=1"
+ 	;;
+-    netbsd*)
++    minix* | netbsd*)
+     	CFLAGS="$CFLAGS -pipe"
+ 	;;
+     nextstep*|openstep*)

@@ -1,0 +1,29 @@
+--- ext/curses/curses.c.orig	Tue Nov 29 16:04:38 2016
++++ ext/curses/curses.c	Tue Nov 29 16:06:16 2016
+@@ -29,7 +29,7 @@
+ # include <curses_colr/curses.h>
+ #else
+ # include <curses.h>
+-# if defined(__bsdi__) || defined(__NetBSD__) || defined(__APPLE__)
++# if defined(__bsdi__) || defined(__minix) || defined(__NetBSD__) || defined(__APPLE__)
+ #  if !defined(_maxx)
+ #  define _maxx maxx
+ #  endif
+@@ -1424,7 +1424,7 @@
+ 
+   GetWINDOW(obj,winp);
+   /* keypad() of NetBSD's libcurses returns no value */
+-#if defined(__NetBSD__) && !defined(NCURSES_VERSION)
++#if (defined(__minix) || defined(__NetBSD__)) && !defined(NCURSES_VERSION)
+   keypad(winp->window,(RTEST(val) ? TRUE : FALSE));
+   return Qnil;
+ #else
+@@ -1445,7 +1445,7 @@
+   GetWINDOW(obj,winp);
+ 
+   /* nodelay() of NetBSD's libcurses returns no value */
+-#if defined(__NetBSD__) && !defined(NCURSES_VERSION)
++#if (defined(__minix) || defined(__NetBSD__)) && !defined(NCURSES_VERSION)
+   nodelay(winp->window, RTEST(val) ? TRUE : FALSE);
+   return Qnil;
+ #else

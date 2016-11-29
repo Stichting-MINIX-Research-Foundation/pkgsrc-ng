@@ -54,3 +54,7 @@ SHA1 (patch-lex.c) = 3bdbd6ccaebe3999fedfc16309657ae5da26fd2a
 SHA1 (patch-lib_rdoc_options.rb) = 0f14417733ad6fc6fbc93af1c8463ecd59abce7c
 SHA1 (patch-lib_rdoc_rdoc.rb) = bef895245cc06ca84fd1e5d506c3c65932921b3a
 SHA1 (patch-lib_rexml_entity.rb) = 5038826abfa6a56406fe369dfc74c9fe096665f6
+SHA1 (patch-zz-minix-a) = 60dbf6854e473ded578ef63386c010ec73a771c3
+SHA1 (patch-zz-minix-b) = 3a2fa48b30ee5b0bd09867820cc4c8adad5f3ba1
+SHA1 (patch-zz-minix-c) = d81dfd4586e4c314d913e54204d74a50af40222a
+SHA1 (patch-zz-minix-d) = d6ab3d093f2f172efff4aa1a15fca92ed710a5bd
