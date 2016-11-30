@@ -1,0 +1,13 @@
+--- src/os_unix.c.orig	Wed Nov 30 08:12:38 2016
++++ src/os_unix.c	Wed Nov 30 08:17:39 2016
+@@ -5392,8 +5392,10 @@
+ 
+     /* TODO: have an option to only kill the process, not the group? */
+     job_pid = job->jv_pid;
++#if !defined(__minix)
+     if (job_pid == getpgid(job_pid))
+ 	job_pid = -job_pid;
++#endif /* !defined(__minix) */
+ 
+     kill(job_pid, sig);
+ 
