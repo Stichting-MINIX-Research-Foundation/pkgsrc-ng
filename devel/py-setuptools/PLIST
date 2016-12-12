@@ -16,9 +16,9 @@ ${PYSITELIB}/pkg_resources/__init__.pyo
 ${PYSITELIB}/pkg_resources/_vendor/__init__.py
 ${PYSITELIB}/pkg_resources/_vendor/__init__.pyc
 ${PYSITELIB}/pkg_resources/_vendor/__init__.pyo
-${PYSITELIB}/pkg_resources/_vendor/appdirs.py
-${PYSITELIB}/pkg_resources/_vendor/appdirs.pyc
-${PYSITELIB}/pkg_resources/_vendor/appdirs.pyo
+@comment MINIX: ${PYSITELIB}/pkg_resources/_vendor/appdirs.py
+@comment MINIX: ${PYSITELIB}/pkg_resources/_vendor/appdirs.pyc
+@comment MINIX: ${PYSITELIB}/pkg_resources/_vendor/appdirs.pyo
 ${PYSITELIB}/pkg_resources/_vendor/packaging/__about__.py
 ${PYSITELIB}/pkg_resources/_vendor/packaging/__about__.pyc
 ${PYSITELIB}/pkg_resources/_vendor/packaging/__about__.pyo
@@ -145,9 +145,9 @@ ${PYSITELIB}/setuptools/launch.pyo
 ${PYSITELIB}/setuptools/lib2to3_ex.py
 ${PYSITELIB}/setuptools/lib2to3_ex.pyc
 ${PYSITELIB}/setuptools/lib2to3_ex.pyo
-${PYSITELIB}/setuptools/monkey.py
-${PYSITELIB}/setuptools/monkey.pyc
-${PYSITELIB}/setuptools/monkey.pyo
+@comment MINIX: ${PYSITELIB}/setuptools/monkey.py
+@comment MINIX: ${PYSITELIB}/setuptools/monkey.pyc
+@comment MINIX: ${PYSITELIB}/setuptools/monkey.pyo
 ${PYSITELIB}/setuptools/msvc.py
 ${PYSITELIB}/setuptools/msvc.pyc
 ${PYSITELIB}/setuptools/msvc.pyo

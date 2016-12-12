@@ -1,6 +1,7 @@
 # $NetBSD: Makefile,v 1.110 2016/09/18 22:10:44 wiz Exp $
 
-DISTNAME=		setuptools-27.2.0
+# MINIX: Further version are broken on MINIX
+DISTNAME=		setuptools-25.2.0
 PKGNAME=		${PYPKGPREFIX}-${DISTNAME}
 CATEGORIES=		devel python
 MASTER_SITES=		${MASTER_SITE_PYPI:=s/setuptools/}
